@@ -1,3 +1,4 @@
 # NAIS documentation
-cake-driven documentation based on [docsify](https://docsify.js.org/)
-> 
+<!-- background image -->
+![logo](/_media/nais-logo.png)
+
