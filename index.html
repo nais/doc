@@ -10,15 +10,17 @@
 <body>
   <div id="app"></div>
 </body>
+<script src="//unpkg.com/docsify-edit-on-github@1.0.1/index.js"></script>
 <script>
   window.$docsify = {
     name: '',
-    repo: ''
-  }
-</script>
-<script>
-  window.$docsify = {
-    loadSidebar: true
+    repo: '',
+    loadSidebar: true,
+      plugins: [
+          EditOnGithubPlugin.create(
+              'https://github.com/nais/doc/blob/master/'
+          )
+      ]
   }
 </script>
 <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>

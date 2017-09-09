@@ -4,7 +4,7 @@ NAIS is an application platform built to increase development speed by providing
 
 There are many excellent Open Source tools available today; in fact, the possibilities are so many that just wrapping your head around the available options is quite a daunting task. 
 
-It didn't make sense that all of our developers should spend their time figuring out the best combination of tools individually; this is why we created NAIS.
+It didn't make sense that all of our developers should spend their time figuring out the best combination of tools individually, which is why we created NAIS.
 
 NAIS is a collection of the Open Source tools we have found best suited to deploy, run, monitor and analyze NAVs applications, as well as the tools we have created to build and maintain the platform itself.
 
