@@ -15,7 +15,7 @@ Basic outline
 on push:
 
 - run tests
-- produce binary
+- produce binary 
 - bump version
 - make and publish alpine docker image with binary to dockerhub
 - make and publish corresponding helm chart to quay.io 

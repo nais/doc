@@ -1,10 +1,13 @@
-- [Home](/)
-- [About](about.md)
-- [Getting started](gettingstarted.md)
-- [Naisible](naisible.md)
-- [Naiscaper](naiscaper.md)
-- [Naisd](naisd.md)
-- [Contracts](contracts.md)
-- [Nais-logd](naislogd.md)
-- [Nais registry](registry.md)
-- [Docker](docker.md)
+- Getting Started
+  - [About](about.md)
+  - [Quick start](quickstart.md)
+- User Documentation
+  - [Overview](overview.md)
+  - [Deployment](deployment.md)
+  - [Logging](logging.md)
+  - [Monitoring](monitoring.md)
+  - [Metrics](metrics.md)
+  - [Contracts](contracts.md)
+- Cluster Admin Documentation
+  - [Kubernetes](kubernetes.md)
+  - [Platform](platform.md)

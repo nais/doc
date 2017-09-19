@@ -1,6 +1,6 @@
 # Getting started
 
-## Quick start
+## Steps
 
 ##### We recommend joining the build steps below in a build pipeline
 1. Make sure your application behave according to the NAIS [contracts](/contracts)

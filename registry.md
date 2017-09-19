@@ -1,1 +1,0 @@
-# NAIS registry
