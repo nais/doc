@@ -11,7 +11,7 @@
 ```
 curl -s -F r=m2internal -F hasPom=false -F e=yaml -F g=nais -F a=${application} -F v=${releaseVersion} -F p=yaml -F file=@${appConfig} -u ${nexusUser}:${nexusPassword} http://maven.adeo.no/nexus/service/local/artifact/maven/content"
 ```
-1. [deploy](/naisd#deploy) your application to the clusters of your chosing
+1. [deploy](/naisd#deploy) your application to the [clusters](/overview#clusters) of your chosing
 ```
 curl -k -d '{"application": "appName", "version": "1"}' https://daemon.nais.devillo.no/deploy
 ```
