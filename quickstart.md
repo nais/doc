@@ -13,7 +13,7 @@ curl -s -F r=m2internal -F hasPom=false -F e=yaml -F g=nais -F a=${application} 
 ```
 1. [deploy](/naisd#deploy) your application to the [clusters](/overview#clusters) of your chosing
 ```
-curl -k -d '{"application": "kodeverksmapper", "version": "1", "environment": "t0", "zone": "fss", "namespace": "default", "username": "brukernavn", "password": "passord"}' https://daemon.nais.devillo.no/deploy
+curl -k -d '{"application": "appname", "version": "1", "environment": "t0", "zone": "fss", "namespace": "default", "username": "brukernavn", "password": "passord"}' https://daemon.nais.devillo.no/deploy
 ```
 
 1. Profit
