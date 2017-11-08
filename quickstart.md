@@ -26,3 +26,6 @@ curl -k -d '{"application": "appname", "version": "1", "environment": "t0", "zon
 ## Background material
 * Kubernetes introduction: https://kubernetes.io/docs/tutorials/kubernetes-basics/
 * Docker introduction:  https://docs.docker.com/engine/docker-overview/
+
+## NAV internal experiences
+* https://confluence.adeo.no/display/AURA/NAIS+erfaringer+-+migrering+av+varseloppgave
