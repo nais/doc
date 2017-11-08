@@ -4,10 +4,12 @@
 - User Documentation
   - [Overview](overview.md)
   - [Deployment](deployment.md)
+- Contracts
   - [Logging](logging.md)
   - [Monitoring](monitoring.md)
   - [Metrics](metrics.md)
-  - [Contracts](contracts.md)
+  - [Nais.yaml]
+  - [Application configuration]
 - Cluster Admin Documentation
   - [Kubernetes](kubernetes.md)
   - [Platform](platform.md)
