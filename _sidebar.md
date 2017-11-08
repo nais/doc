@@ -8,7 +8,7 @@
   - [Logging](logging.md)
   - [Monitoring](monitoring.md)
   - [Metrics](metrics.md)
-  - [Nais.yaml]
+  - [nais.yaml]
   - [Application configuration]
 - Cluster Admin Documentation
   - [Kubernetes](kubernetes.md)
