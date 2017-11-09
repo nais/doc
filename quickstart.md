@@ -4,7 +4,7 @@
 ## Install the necessary tools
 
 1. Kubectl https://kubernetes.io/docs/tasks/tools/install-kubectl/
-1.1 Set up Kubectl. https://confluence.adeo.no/pages/viewpage.action?pageId=210440645#NavsApplikasjons-ogInfrastruktur-service(NAIS)-Utviklingsverkøty
+1. Set up Kubectl. https://confluence.adeo.no/pages/viewpage.action?pageId=210440645#NavsApplikasjons-ogInfrastruktur-service(NAIS)-Utviklingsverkøty
 1. Docker https://docs.docker.com/engine/installation/
 
 
