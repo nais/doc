@@ -23,8 +23,6 @@ curl -s -F r=m2internal -F hasPom=false -F e=yaml -F g=nais -F a=${application} 
 curl -k -d '{"application": "appname", "version": "1", "environment": "t0", "zone": "fss", "namespace": "default", "username": "brukernavn", "password": "passord"}' https://daemon.nais.devillo.no/deploy
 ```
 
- Profit
----
 ## If I have questions:
 1. Read this document
 1. Ask a question on [Slack](https://nav-it.slack.com/messages/C5KUST8N6/)
