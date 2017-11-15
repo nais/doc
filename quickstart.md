@@ -14,11 +14,11 @@
 1. Create [Docker image](https://docs.docker.com/engine/reference/builder/) containing your application
 1. Push your image to the [NAIS registry](/registry) (Or any registry of your chosing if you're running NAIS outside NAV)
 1. If your applications has demands outside of the [defaults](/naisd#defaults), specify them in a [nais.yaml](nais.yaml.md) 
-1. Push your [nais.yaml](/naisd) to Nexus (Or any other location if you're running outside NAV)
+1. Push your [nais.yaml](nais.yaml.md) to Nexus (Or any other location if you're running outside NAV)
 ```
 curl -s -F r=m2internal -F hasPom=false -F e=yaml -F g=nais -F a=${application} -F v=${releaseVersion} -F p=yaml -F file=@${appConfig} -u ${nexusUser}:${nexusPassword} http://maven.adeo.no/nexus/service/local/artifact/maven/content"
 ```
- [deploy](/naisd#deploy) your application to the [clusters](/overview#clusters) of your chosing
+deploy your application to the [clusters](/overview#clusters) of your chosing
 ```
 curl -k -d '{"application": "appname", "version": "1", "environment": "t0", "zone": "fss", "namespace": "default", "username": "brukernavn", "password": "passord"}' https://daemon.nais.devillo.no/deploy
 ```
