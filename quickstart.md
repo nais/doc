@@ -8,8 +8,8 @@
 1. Docker https://docs.docker.com/engine/installation/
 
 
-##  Migrate you apps
-##### We recommend joining the build steps below in a build pipeline
+##  Migrate your apps
+##### We recommend using the build steps below in a build pipeline
 1. Make sure your application behave according to the NAIS [contracts](/contracts)
 1. Create [Docker image](https://docs.docker.com/engine/reference/builder/) containing your application
 1. Push your image to the [NAIS registry](/registry) (Or any registry of your chosing if you're running NAIS outside NAV)

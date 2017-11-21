@@ -10,8 +10,6 @@ prometheus: #Optional
   path: /metrics # Path to prometheus-metrics
 ```
 
-
-
 JVM Applications should use https://github.com/prometheus/client_java. And make sure do export defaultmetrics.
 ```
 DefaultExports.initialize();
@@ -21,3 +19,5 @@ Push metrics can be sent to sensu on
 ```
 sensu.nais:3030
 ```
+
+![overview](/_media/metrics.png)

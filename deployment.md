@@ -1,41 +1,46 @@
-# naisd 
+# Deployment
 
-k8s in-cluster daemon with API for performing NAIS-operations
+In each cluster, we expose a deployment endpoint to simplify the creation of the kubernetes resources.
+The endpoint is on the format https://daemon.nais.<cluster-postfix>/deploy
 
-Basic outline
-
-1. HTTP POST to API with name of application, version and environment
-2. Fetches app-config from internal artifact repository
-3. Extract info from yaml
-4. Get and inject environment specific variables from Fasit
-5. Creates appropriate k8s resources
-
-## CI
-
-on push:
-
-- run tests
-- produce binary 
-- bump version
-- make and publish alpine docker image with binary to dockerhub
-- make and publish corresponding helm chart to quay.io 
-
-## dev notes
-
-For local development, use minikube. You can run naisd.go with -kubeconfig=<path to kube config> for testing without deploying to cluster. 
-
-```glide install --strip-vendor```
-
-...to fetch dependecies
-
-To reduce build time, do
-
-```go build -i .```
-
-initially. 
-
-## Defaults
+![overview](/_media/naisd.png)
 
 
-## Deploy
+## How
 
+The endpoint accepts HTTP POST payloads on the following format
+
+```deployment.json
+{
+  "application": "appname",     // application name
+  "version": "1",               // version of your application
+  "zone": "fss",                // what zone your application runs in
+  "namespace": "mynamespace",   // optional: defaults to 'default'
+  "environment": "t0",          // fasit environment 
+  "username": "brukernavn",     // fasit username
+  "password": "passord",        // fasit password
+  "appconfigurl": "https://..." // optional: defaults to using internal nexus with groupid=nais, artifactid=<appname>, version=<version>, type=yaml
+}
+``` 
+
+We recommend performing deployments to one or more environments in your applications build/release pipeline. This can be done by using cURL like this:
+
+```
+curl -k -d '{"application": "appname", "version": "1", "environment": "t0", "zone": "fss", "namespace": "default", "username": "brukernavn", "password": "passord"}' https://daemon.nais.devillo.no/deploy
+```
+
+## Deployment status
+To supplement the /deploy endpoint, there is another endpoint for checking the status of the deployment. 
+The endpoint accepts HTTP GET on the path /deploystatus/<namespace>/<appname>
+
+The response will be the the deployment status payload from kubernetes with the following HTTP status code mappings:
+
+* Done -> 200
+* InProgress -> 202 
+* Failed -> 500
+ 
+## naisd
+
+The application that performs these operations is called [naisd](https://github.com/nais/naisd) and is part of the NAIS platform applications.
+
+![overview](/_media/gopher.png)
