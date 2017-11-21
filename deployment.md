@@ -1,7 +1,7 @@
 # Deployment
 
 In each cluster, we expose a deployment endpoint to simplify the creation of the kubernetes resources.
-The endpoint is on the format https://daemon.nais.<cluster-postfix>/deploy
+The endpoint is on the format https://daemon.nais.domain.tld/deploy
 
 ![overview](/_media/naisd.png)
 
@@ -31,7 +31,7 @@ curl -k -d '{"application": "appname", "version": "1", "environment": "t0", "zon
 
 ## Deployment status
 To supplement the /deploy endpoint, there is another endpoint for checking the status of the deployment. 
-The endpoint accepts HTTP GET on the path /deploystatus/<namespace>/<appname>
+The endpoint accepts HTTP GET on the path /deploystatus/yournamespace/yourappname
 
 The response will be the the deployment status payload from kubernetes with the following HTTP status code mappings:
 
