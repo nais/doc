@@ -19,7 +19,7 @@ The endpoint accepts HTTP POST payloads on the following format
   "environment": "t0",          // fasit environment 
   "username": "brukernavn",     // fasit username
   "password": "passord",        // fasit password
-  "appconfigurl": "https://..." // optional: defaults to using internal nexus with groupid=nais, artifactid=<appname>, version=<version>, type=yaml
+  "manifesturl": "https://..." // optional: defaults to using internal nexus with groupid=nais, artifactid=<appname>, version=<version>, type=yaml
 }
 ``` 
 
