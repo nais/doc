@@ -19,6 +19,21 @@ Enabling leader election in your pod is done by adding the line `leaderElection:
 When you have the `elector` container running in your pod, you can run a HTTP GET on the URL set in environment variable `$ELECTOR_PATH` to see which pod is the leader. This will return a json with the name of the leader, which you can now compare with your hostname.
 
 
+#### Code example
+
+```java
+// Implementation of getJSONFromUrl is left as an exercise for the reader
+public boolean isLeader() {
+    String electorPath = System.getenv("ELECTOR_PATH");
+    JSONObject leaderJson = getJSONFromUrl(electorPath);
+    String leader = leaderJson.getString("name");
+    String hostname = InetAddress.getLocalHost().getHostname();
+
+    return leader == hostname;
+}
+```
+
+
 #### cURL example
 
 ```bash
