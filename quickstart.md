@@ -29,7 +29,7 @@ curl -k -d '{"application": "appname", "version": "1", "environment": "t0", "zon
 ## If I have questions:
 1. Read this document
 1. Ask a question on [Slack](https://nav-it.slack.com/messages/C5KUST8N6/)
-1. Visit AURA in Sannergata, 2nd floor, room 2040.
+1. Visit AURA in Sannergata, 2nd floor, room 2201.
 
 ## Background material
 * Kubernetes introduction: https://kubernetes.io/docs/tutorials/kubernetes-basics/
