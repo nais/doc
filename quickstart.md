@@ -16,7 +16,7 @@
 1. If your applications has demands outside of the [defaults](https://github.com/nais/naisd/blob/master/nais_example.yaml), specify them in a [nais.yaml](/nais.yaml) 
 1. Push your [nais.yaml](/nais.yaml) to Nexus (Or any other location if you're running outside NAV)
 ```
-# url format: repo.adeo.no/repository/raw/<org>/<appname>/<version>/nais.yaml
+# url format: repo.adeo.no/repository/raw/nais/<appname>/<version>/nais.yaml
 curl --user uploader:upl04d3r --upload-file path/to/nais.yaml https://repo.adeo.no/repository/raw/nais/nais-testapp/1/nais.yaml
 ```
 
