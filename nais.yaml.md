@@ -59,8 +59,6 @@ port: 26379
 master-name: mymaster
 ```
 
-To keep each Redis cluster private from other pods, they are secured with a password that is injected into your pod as a environment variable called `REDIS_PASSWORD`.
-
 
 ### Code example
 
@@ -69,11 +67,9 @@ Example below is using [Jedis](https://github.com/xetorthio/jedis).
 ```java
 public class JedisTestSentinelEndpoint {
     private static final String MASTER_NAME = "mymaster";
-    private static final String PASSWORD;
     private static final Set sentinels;
 
-    public JedisTestSentinelEndpoint(String password, String appname) {
-        this.PASSWORD = password
+    public JedisTestSentinelEndpoint(String appname) {
         this.sentinels = new HashSet();
 	this.sentinels.add("rfs-" + appname + ":26379");
     }
@@ -84,9 +80,6 @@ public class JedisTestSentinelEndpoint {
         try {
             printer("Fetching connection from pool");
             jedis = pool.getResource();
-            printer("Authenticating...");
-            jedis.auth(PASSWORD);
-            printer("auth complete...");
             Socket socket = jedis.getClient().getSocket();
             printer("Connected to " + socket.getRemoteSocketAddress());
             printer("Writing...");
