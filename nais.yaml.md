@@ -43,6 +43,65 @@ root@elector-sidecar-755b7c5795-7k2qn:/# curl $ELECTOR_PATH
 ```
 
 
-## Issues
+### Issues
 * Kubernetes' `leader-election`-image does not support fencing, which means it does not guarantee there is only one leader. As long as the date and time in the pods are syncronized, this should not be an issue.
 * Redeploy of the deployment/pods will sometime make the non-leaders believe that the old leader still exists and is the leader. The current leader is not affected, and will be aware that the pod itself is the leader. This is not really an issue as long as you do not need to know exactly which pod is the leader. This can be resolved by deleting pods with erroneous leader election configuration.
+
+
+## Redis
+
+By setting this value to `true`, naisd will start a small cluster of pods with Redis masters and sentinels. Read more about Redis sentinels over at [redis.io](https://redis.io/topics/sentinel). Since we are using Redis sentinels, your Redis framework needs to be [sentinel-ready](https://redis.io/topics/sentinel-clients).
+
+Your specific sentinel can be reach with the following values:
+```
+url: rfs-<NAME>
+port: 26379
+master-name: mymaster
+```
+
+To keep each Redis cluster private from other pods, they are secured with a password that is injected into your pod as a environment variable called `REDIS_PASSWORD`.
+
+
+### Code example
+
+Example below is using [Jedis](https://github.com/xetorthio/jedis).
+
+```java
+public class JedisTestSentinelEndpoint {
+    private static final String MASTER_NAME = "mymaster";
+    private static final String PASSWORD;
+    private static final Set sentinels;
+
+    public JedisTestSentinelEndpoint(String password, String appname) {
+        this.PASSWORD = password
+        this.sentinels = new HashSet();
+	this.sentinels.add("rfs-" + appname + ":26379");
+    }
+
+    private void runTest() throws InterruptedException {
+        JedisSentinelPool pool = new JedisSentinelPool(MASTER_NAME, sentinels);
+        Jedis jedis = null;
+        try {
+            printer("Fetching connection from pool");
+            jedis = pool.getResource();
+            printer("Authenticating...");
+            jedis.auth(PASSWORD);
+            printer("auth complete...");
+            Socket socket = jedis.getClient().getSocket();
+            printer("Connected to " + socket.getRemoteSocketAddress());
+            printer("Writing...");
+            jedis.set("java-key-999", "java-value-999");
+            printer("Reading...");
+            jedis.get("java-key-999");
+        } catch (JedisException e) {
+            printer("Connection error of some sort!");
+            printer(e.getMessage());
+            Thread.sleep(2 * 1000);
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+    }
+}
+```
