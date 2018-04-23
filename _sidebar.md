@@ -8,6 +8,7 @@
   - [Logging](logging.md)
   - [Monitoring](monitoring.md)
   - [Metrics](metrics.md)
+  - [Alerts](alerts.md)
   - [Nais.yaml](nais.yaml.md)
   - [Application configuration](appconf.md)
 - Cluster Admin Documentation
