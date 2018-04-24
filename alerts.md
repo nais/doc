@@ -19,7 +19,7 @@ alerts:
 ## Required fields
 | Field  | Explanation                                                                            |
 | ------ | -------------------------------------------------------------------------------------- |
-| alert  | Name of the alert (shows up in Slack), automatically prefixed with `teamname_appname-` |
+| alert  | Name of the alert (shows up in Slack), automatically prefixed with `namespace-appname_` |
 | expr   | Prometheus expression that must evaluate to true for alert to fire                     |
 | for    | Duration the alert has to be "firing" in order to alert                                |
 | action | Text describing what should be done abount the alert. Will show in Slack               |
