@@ -42,4 +42,4 @@ It can be located at `https://alertmanager.{cluster.domain}` (i.e. https://alert
 The actual mapping is located [here](https://github.com/navikt/nais-yaml/blob/master/vars/cm-nais-prometheus-prometheus-alertmanager.yaml)
 
 ## Flow
-![Prometheus Server \<-- Prometheus Alertmanager](./_media/Prometheus_Alertmanager.svg)
+![Prometheus Server \<-- Prometheus Alertmanager](./_media/Prometheus_Alertmanager.png)
