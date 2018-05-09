@@ -29,7 +29,7 @@ public boolean isLeader() {
     String leader = leaderJson.getString("name");
     String hostname = InetAddress.getLocalHost().getHostname();
 
-    return leader == hostname;
+    return hostname.equals(leader);
 }
 ```
 
