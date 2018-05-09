@@ -50,9 +50,11 @@ root@elector-sidecar-755b7c5795-7k2qn:/# curl $ELECTOR_PATH
 
 ## Redis
 
-By setting this value to `true`, naisd will start a small cluster of pods with Redis masters and sentinels. Read more about Redis sentinels over at [redis.io](https://redis.io/topics/sentinel). Since we are using Redis sentinels, your Redis framework needs to be [sentinel-ready](https://redis.io/topics/sentinel-clients).
+By setting this value to `true`, naisd will start a small cluster of pods with Redis masters and sentinels. For now we are running Redis without disk, so a restart of the Redis cluster will terminate your data. So don't store data that you can't afford to lose. Good use cases for this cluster is to store SQL queries that are asked a lot, bad use case is to store user config, or drafts of user inputs. The Redis cluster is also available for all the other applicaiton running in the same K8s cluster as your application.
 
-Your specific sentinel can be reach with the following values:
+Read more about Redis sentinels over at [redis.io](https://redis.io/topics/sentinel). Remember that your Redis framework needs to be [sentinel-ready](https://redis.io/topics/sentinel-clients).
+
+Your specific sentinels can be reach with the following values:
 ```
 url: rfs-<NAME>
 port: 26379
