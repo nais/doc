@@ -1,2 +1,0 @@
-# Naiscaper 
-gå på slack

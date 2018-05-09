@@ -1,4 +1,0 @@
-# Naisible
-
-
-gå på slack
