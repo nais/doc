@@ -83,17 +83,7 @@ public class LettuceSentinelTestApplication {
                         new RedisSentinelConfiguration()
                         .master(MASTER_NAME).sentinel(new RedisNode("rfs-" + appName, 26379)))
                 );
-
-        //Set up ClientOptions to prevent long delays on reconnection
-        redisClient.setOptions(ClientOptions.builder()
-                .autoReconnect(true)
-                .cancelCommandsOnReconnectFailure(true)
-                .pingBeforeActivateConnection(true)
-                .suspendReconnectOnProtocolFailure(false)
-                .disconnectedBehavior(ClientOptions.DisconnectedBehavior.REJECT_COMMANDS) 
-                .socketOptions(SocketOptions.builder().connectTimeout(200, TimeUnit.MILLISECONDS).build()) 
-                .build());
-
+        
         System.out.println("Opening Redis Standalone connection.");
         StatefulRedisConnection<String, String> connection = redisClient.connect();
         
@@ -150,12 +140,12 @@ public class CacheConfig {
 }
 ```
 
-With the configuration above, the Spring @Cacheable annotation can be used to enable caching behaviour on methods. Spring will then automatically store the cache values on Redis.<br/>
+With the configuration above, the Spring @Cacheable annotation can be used to enable caching behaviour on methods. Spring will then use the configuration above to store the cache values to Redis. <br/>
 Example below shows how to use @Cacheable annotation on a method.
 ```java
-@Cacheable("RESULT_CACHE_NAME")
-public String getResult(String id){
-    return repository.getResult(id);
+@Cacheable("FOO_CACHE_NAME")
+public String getFooFromRepository(String id){
+    return repository.getFoo(id);
 }
 ```
 
