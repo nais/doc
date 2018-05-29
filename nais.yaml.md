@@ -75,7 +75,6 @@ public class LettuceSentinelTestApplication {
     private static final String MASTER_NAME = "mymaster";
     private static final String EXPECTED_VALUE = "foovalue";
     
-    
     public static void main(String[] args) {
         
     	System.out.println("Creating RedisClient instance with sentinel connection");
@@ -115,7 +114,6 @@ public class CacheConfig {
     
     @Value("${app.name}")
     private String appName;
-    
     
     @Bean
     public CacheManager cacheManager(RedisTemplate redisTemplate) {
