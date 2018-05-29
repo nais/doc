@@ -64,39 +64,99 @@ master-name: mymaster
 
 ### Code example
 
-Example below is using [Jedis](https://github.com/xetorthio/jedis).
+Example below is using [Lettuce](https://github.com/lettuce-io/lettuce-core).
 
 ```java
-public class JedisTestSentinelEndpoint {
+import static org.springframework.data.redis.connection.lettuce.LettuceConverters.sentinelConfigurationToRedisURI;
+import com.lambdaworks.redis.RedisClient;
+
+public class LettuceSentinelTestApplication {
+	
     private static final String MASTER_NAME = "mymaster";
-    private static final Set sentinels;
+    private static final String EXPECTED_VALUE = "foovalue";
+    
+    
+    public static void main(String[] args) {
+        
+    	System.out.println("Creating RedisClient instance with sentinel connection");
+        RedisClient redisClient = RedisClient.create(sentinelConfigurationToRedisURI(new RedisSentinelConfiguration()
+                .master(MASTER_NAME).sentinel(new RedisNode("rfs-" + appName, 26379))));
 
-    public JedisTestSentinelEndpoint(String appname) {
-        this.sentinels = new HashSet();
-	this.sentinels.add("rfs-" + appname + ":26379");
-    }
+        redisClient.setOptions(ClientOptions.builder()
+                .autoReconnect(true)
+                .cancelCommandsOnReconnectFailure(true)
+                .pingBeforeActivateConnection(true)
+                .suspendReconnectOnProtocolFailure(false) //Suspends reconnect if ping fails. Prevents executing reconnection policy if server is not available.
+                .disconnectedBehavior(ClientOptions.DisconnectedBehavior.REJECT_COMMANDS) //Reject commands when disconnected. Prevents queuing up commands which will be later executed after reconnection.
+                .socketOptions(SocketOptions.builder().connectTimeout(200, TimeUnit.MILLISECONDS).build()) //Default value is 10 seconds which can be too long time in some cases.
+                .build());
 
-    private void runTest() throws InterruptedException {
-        JedisSentinelPool pool = new JedisSentinelPool(MASTER_NAME, sentinels);
-        Jedis jedis = null;
-        try {
-            printer("Fetching connection from pool");
-            jedis = pool.getResource();
-            Socket socket = jedis.getClient().getSocket();
-            printer("Connected to " + socket.getRemoteSocketAddress());
-            printer("Writing...");
-            jedis.set("java-key-999", "java-value-999");
-            printer("Reading...");
-            jedis.get("java-key-999");
-        } catch (JedisException e) {
-            printer("Connection error of some sort!");
-            printer(e.getMessage());
-            Thread.sleep(2 * 1000);
-        } finally {
-            if (jedis != null) {
-                jedis.close();
-            }
-        }
+        System.out.println("Opening Redis Standalone connection.");
+        StatefulRedisConnection<String, String> connection = redisClient.connect();
+        
+        System.out.println("Obtain the command API for synchronous execution");
+        RedisCommands<String, String> commands = connection.sync();
+        
+        System.out.println("Writing...");
+        commands.set("foo", EXPECTED_VALUE);
+        
+        System.out.println("Reading...");
+        String actualValue = commands.get("foo");
+        System.out.println("The expected value is: "+EXPECTED_VALUE + ". Actual value is: "+actualValue);
+
+        System.out.println("Closing connection");
+        connection.close();
+        redisClient.shutdown();
     }
 }
 ```
+
+Example below is for setting up Redis Cache in Spring using [Spring-Data-Redis](https://projects.spring.io/spring-data-redis/) Lettuce driver
+
+```java
+@Configuration
+@EnableCaching
+public class CacheConfig {
+	
+    private static final String MASTER_NAME = "mymaster";
+    
+    @Value("${app.name}")
+    private String appName;
+    
+    
+    @Bean
+    public CacheManager cacheManager(RedisTemplate redisTemplate) {
+        RedisCacheManager redisCacheManager = new RedisCacheManager(redisTemplate);
+        redisCacheManager.setExpires(TimeUnit.DAYS.toSeconds(2));
+        return redisCacheManager;
+    }
+    
+    @Bean
+    public RedisTemplate<?, ?> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory) {
+        RedisTemplate<?, ?> redisTemplate = new RedisTemplate();
+        redisTemplate.setConnectionFactory(lettuceConnectionFactory);
+        return redisTemplate;
+    }
+    
+    @Bean
+    public LettuceConnectionFactory lettuceConnectionFactory() {
+        return new LettuceConnectionFactory(new RedisSentinelConfiguration()
+                                                            .master(MASTER_NAME)
+                                                            .sentinel(new RedisNode("rfs-" + appName, 26379)));
+    }
+}
+```
+
+With the configuration above, the Spring @Cacheable annotation can be used to enable caching behaviour on methods. Spring will then automatically store the cache values on Redis.<br/>
+Example below shows how to use @Cacheable annotation on a method.
+```java
+@Cacheable("RESULT_CACHE_NAME")
+public String getResult(String id){
+    return repository.getResult(id);
+}
+```
+
+Using the Redis Cache configuration in the example might cause problems when the Redis Server is not responding. When the connection to the Redis Server is lost, the LettuceDriver will try to reconnect to the Redis server with a reconnection policy that can cause long responsetime on the cache requests. This will therefore lead to long responsetime on your application if the cache is heavily used. More advanced example of Cache configuration which solves this problem can be found 
+[here](http://stash.devillo.no/projects/BOAF/repos/regoppslag/browse/app/src/main/java/no/nav/regoppslag/config/cache/CacheConfig.java).
+
+
