@@ -79,16 +79,19 @@ public class LettuceSentinelTestApplication {
     public static void main(String[] args) {
         
     	System.out.println("Creating RedisClient instance with sentinel connection");
-        RedisClient redisClient = RedisClient.create(sentinelConfigurationToRedisURI(new RedisSentinelConfiguration()
-                .master(MASTER_NAME).sentinel(new RedisNode("rfs-" + appName, 26379))));
+        RedisClient redisClient = RedisClient.create(sentinelConfigurationToRedisURI(
+                        new RedisSentinelConfiguration()
+                        .master(MASTER_NAME).sentinel(new RedisNode("rfs-" + appName, 26379)))
+                );
 
+        //Set up ClientOptions to prevent long delays on reconnection
         redisClient.setOptions(ClientOptions.builder()
                 .autoReconnect(true)
                 .cancelCommandsOnReconnectFailure(true)
                 .pingBeforeActivateConnection(true)
-                .suspendReconnectOnProtocolFailure(false) //Suspends reconnect if ping fails. Prevents executing reconnection policy if server is not available.
-                .disconnectedBehavior(ClientOptions.DisconnectedBehavior.REJECT_COMMANDS) //Reject commands when disconnected. Prevents queuing up commands which will be later executed after reconnection.
-                .socketOptions(SocketOptions.builder().connectTimeout(200, TimeUnit.MILLISECONDS).build()) //Default value is 10 seconds which can be too long time in some cases.
+                .suspendReconnectOnProtocolFailure(false)
+                .disconnectedBehavior(ClientOptions.DisconnectedBehavior.REJECT_COMMANDS) 
+                .socketOptions(SocketOptions.builder().connectTimeout(200, TimeUnit.MILLISECONDS).build()) 
                 .build());
 
         System.out.println("Opening Redis Standalone connection.");
@@ -102,7 +105,7 @@ public class LettuceSentinelTestApplication {
         
         System.out.println("Reading...");
         String actualValue = commands.get("foo");
-        System.out.println("The expected value is: "+EXPECTED_VALUE + ". Actual value is: "+actualValue);
+        System.out.println("The expected value is: " + EXPECTED_VALUE + ". Actual value is: " + actualValue);
 
         System.out.println("Closing connection");
         connection.close();
