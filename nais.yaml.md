@@ -148,6 +148,6 @@ public String getFooFromRepository(String id){
 ```
 
 Using the Redis Cache configuration in the example might cause problems when the Redis Server is not responding. When the connection to the Redis Server is lost, the LettuceDriver will try to reconnect to the Redis server with a reconnection policy that can cause long responsetime on the cache requests. This will therefore lead to long responsetime on your application if the cache is heavily used. More advanced example of Cache configuration which solves this problem can be found 
-[here](http://stash.devillo.no/projects/BOAF/repos/regoppslag/browse/app/src/main/java/no/nav/regoppslag/config/cache/CacheConfig.java).
+[here](https://gist.github.com/ugur93/4e047c03c0d152d245e391d70788829a).
 
 
