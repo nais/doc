@@ -23,7 +23,7 @@ curl --user uploader:upl04d3r --upload-file path/to/nais.yaml https://repo.adeo.
 
 deploy your application to the [clusters](/overview#clusters) of your chosing
 ```
-curl -k -d '{"application": "appname", "version": "1", "environment": "t0", "zone": "fss", "namespace": "default", "username": "brukernavn", "password": "passord"}' https://daemon.nais.devillo.no/deploy
+curl -k -d '{"application": "appname", "version": "1", "fasitEnvironment": "t0", "zone": "fss", "fasitUsername": "brukernavn", "fasitPassword": "passord"}' https://daemon.nais.devillo.no/deploy
 ```
 
 ## If I have questions:
