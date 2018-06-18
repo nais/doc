@@ -10,3 +10,4 @@
   - [Alerts](alerts.md)
   - [Nais.yaml](nais.yaml.md)
   - [Application configuration](appconf.md)
+  - [Service Discovery](servicediscovery.md)
