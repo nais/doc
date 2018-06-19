@@ -20,11 +20,11 @@ like this:
 }
 </code></pre>
 
-To communicate with this instance you'd have to use `http://api-t1/`
+To communicate with this application instance you'd have to use `http://api-t1/`
 ![HttpOtherEnvironmentExample](./_media/HttpOtherEnvironmentExample.png)
 
 ## Crossing the team boundary
-In order to communicate with applications owned by other teams, you have to postfix the url with `.teamName` for service discovery to work
+In order to communicate with applications owned by other teams, you have to postfix the hostname with `.teamName` for service discovery to work.
 (i.e. `http://api.teamName/` or `http://api-t1.teamName`)
 ![HttpOtherTeamExample](./_media/HttpOtherTeamExample.png)
 
