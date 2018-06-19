@@ -31,7 +31,7 @@ like this:
 }
 </code></pre>
 
-To communicate with this instance you'd have to use `http://t1.applicationName/`
+To communicate with this application instance you'd have to use `http://t1.applicationName/`
 
 ## Making the same code work in multiple environments
 As urls now contain environment we suggest you include som logic in your code to avoid making code changes for every environment your
