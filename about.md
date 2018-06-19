@@ -16,8 +16,8 @@ We can describe four distinct "layers" of NAIS: [infrastructure](/about#infrastr
 We are currently running all our clusters on Virtual Machines with RedHat 7 in our own data centers, but migrating to either physical hardware or cloud based infrastructure on any minimalistic Operating System is a fairly trivial task; and something we will most likely do in the near future.
 
 ### Kubernetes
-When we started building NAIS, we used best practices and ideas from both the Kubernetes [kubeadm](https://github.com/kubernetes/kubeadm) project and from Keysey Hightower's [Kubernetes the hard way](https://github.com/kelseyhightower/kubernetes-the-hard-way)
-We then transcribed what we learned into yaml format, which enabled us to rebuild, expand and tear down clusters with the use of [ansible playbooks](http://docs.ansible.com/ansible/latest/playbooks.html). We call these playbooks [naisible](/naisible)
+When we started building NAIS, we used best practices and ideas from both the Kubernetes [kubeadm](https://github.com/kubernetes/kubeadm) project and from Kelsey Hightower's [Kubernetes the hard way](https://github.com/kelseyhightower/kubernetes-the-hard-way)
+We then transcribed what we learned into yaml format, which enabled us to rebuild, expand and tear down clusters with the use of [ansible playbooks](http://docs.ansible.com/ansible/latest/playbooks.html). We call these playbooks [naisible](https://github.com/nais/naisible).
 
 Once we have run ansible on a set of nodes, we have a fully functioning [kubernetes](https://kubernetes.io/) cluster.
 The primary cluster components are:
