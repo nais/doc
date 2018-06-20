@@ -16,8 +16,8 @@ Example: foreldepengesoknad-api
 
 
 ## Multiple environments
-If you need multiple different versions of your application running at the same time, you can specify `environment` in deployment request
-like this:
+If you need multiple different application instances running at the same time,
+you can specify `environment` in deployment request like this:
 
 <pre><code>
 {
