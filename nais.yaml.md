@@ -56,7 +56,7 @@ Read more about Redis sentinels over at [redis.io](https://redis.io/topics/senti
 
 Your specific sentinels can be reach with the following values:
 ```
-url: rfs-<NAME>
+url: $REDIS_HOST
 port: 26379
 master-name: mymaster
 ```
