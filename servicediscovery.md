@@ -1,4 +1,4 @@
-# Service Discovery [future, not current state]
+# Service Discovery
 
 ## TLDR
 There is one namespace per application, and one deployment per environment.<br />
