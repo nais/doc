@@ -44,7 +44,7 @@ application runs in. The current environment an application is running in is inj
   env = os.environ['APP_ENVIRONMENT']
   deploy = env if env != "default" else "app"
 
-  return "{}.{}".format(env, applicationName)
+  return "{}.{}".format(deploy, applicationName)
 
 # Running in <b>t1</b> would yield:
 >>> assemble_url('applicationName')
