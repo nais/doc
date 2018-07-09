@@ -74,13 +74,14 @@ public class LettuceSentinelTestApplication {
 	
     private static final String MASTER_NAME = "mymaster";
     private static final String EXPECTED_VALUE = "foovalue";
+    private static final String REDIS_HOST = System.getenv("REDIS_HOST");
     
     public static void main(String[] args) {
         
     	System.out.println("Creating RedisClient instance with sentinel connection");
         RedisClient redisClient = RedisClient.create(sentinelConfigurationToRedisURI(
                         new RedisSentinelConfiguration()
-                        .master(MASTER_NAME).sentinel(new RedisNode("rfs-" + appName, 26379)))
+                        .master(MASTER_NAME).sentinel(new RedisNode(REDIS_HOST, 26379)))
                 );
         
         System.out.println("Opening Redis Standalone connection.");
@@ -111,6 +112,7 @@ Example below is for setting up Redis Cache in Spring using [Spring-Data-Redis](
 public class CacheConfig {
 	
     private static final String MASTER_NAME = "mymaster";
+    private static final String REDIS_HOST = System.getenv("REDIS_HOST");
     
     @Value("${app.name}")
     private String appName;
@@ -133,7 +135,7 @@ public class CacheConfig {
     public LettuceConnectionFactory lettuceConnectionFactory() {
         return new LettuceConnectionFactory(new RedisSentinelConfiguration()
                                                             .master(MASTER_NAME)
-                                                            .sentinel(new RedisNode("rfs-" + appName, 26379)));
+                                                            .sentinel(new RedisNode(REDIS_HOST, 26379)));
     }
 }
 ```
