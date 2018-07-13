@@ -1,4 +1,4 @@
-# Service Discovery
+# Service Discovery (app-namespaces)
 
 ## TLDR
 There is one namespace per application, and one deployment per environment.<br />
@@ -6,10 +6,10 @@ The default deployment for every application is named: `app`
 
 Example: foreldepengesoknad-api
 
-| env     | url                                 |
-| ------- | ----------------------------------- |
-| default | `http://app.foreldepengesoknad-api` |
-| t1      | `http://t1.foreldepengesoknad-api`  |
+| env | url                                 |
+| ----| ----------------------------------- |
+| app | `http://app.foreldepengesoknad-api` |
+| t1  | `http://t1.foreldepengesoknad-api`  |
 
 ## Overview
 ![HttpOtherEnvironmentExample](./_media/HttpServiceDiscoveryExample.png)
@@ -24,7 +24,7 @@ you can specify `environment` in deployment request like this:
   "application": "applicationName", // application name
   "version": "2",                   // version of your application
   "zone": "sbs",                    // what zone your application runs in
-  <b>"environment": "t1"</b>,              // optional: defaults to 'default'
+  <b>"environment": "t1"</b>,             // optional: defaults to 'app'
   "fasitEnvironment": "t1",         // fasit environment
   "fasitUsername": "brukernavn",    // fasit username
   "fasitPassword": "passord",       // fasit password
@@ -42,14 +42,13 @@ application runs in. The current environment an application is running in is inj
 ### Python example:
 <pre><code class="lang-python">def assemble_url(applicationName):
   env = os.environ['APP_ENVIRONMENT']
-  deploy = env if env != "default" else "app"
 
-  return "{}.{}".format(deploy, applicationName)
+  return "{}.{}".format(env, applicationName)
 
 # Running in <b>t1</b> would yield:
 >>> assemble_url('applicationName')
 't1.applicationName'
 
-# Running in <b>default</b> would yield:
+# Running in <b>app</b> would yield:
 >>> assemble_url('applicationName')
 'app.applicationName'</code></pre>
