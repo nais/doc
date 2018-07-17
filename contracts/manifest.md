@@ -14,8 +14,8 @@ Below you will find documentation on some of the values you can set in the manif
 
 * [Fasit resources](/contracts/fasit_resources) - Resources retrieved from Fasit
 
-* [Leader Election](/contracts/leader_election) - Leader election between pods in a replicat set
+* [Leader Election](/services/leader_election) - Leader election between pods in a replicat set
 
 * [Prometheus](/contracts/metrics) - Metrics scraping from end point
 
-* [Redis](/contracts/redis) - Non-persistant in-memory data structure store
+* [Redis](/services/redis) - Non-persistant in-memory data structure store

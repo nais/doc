@@ -22,7 +22,6 @@ New users and developers should head over to the [quick-start guide](/dev-guide/
 * [Naisd](/dev-guide/naisd)
 * [Quick-start](/dev-guide/quickstart)
 * [Service discovery](/dev-guide/service_discovery)
-* [Kubernetes dashboard](/dev-guide/kubernetes_dashboard)
 
 ## Contracts
 
@@ -32,6 +31,12 @@ Contracts are a set of rules that you need to adhere to.
 * [Logging](/contracts/logging)
 * [Metrics](/contracts/metrics)
 * [NAIS manifest](/contracts/manifest)
+
+## Services
+
+* [Kubernetes dashboard](/dev-guide/kubernetes_dashboard)
+* [Leader election](/services/leader_election)
+* [Redis](/services/redis)
 
 
 ## Clusters
