@@ -14,7 +14,7 @@ NAIS is a collection of the Open Source tools we have found best suited to deplo
 
 ## Getting started
 
-New users and developers should head over to the [quick-start guide](/dev-guide/quickstart), which cover both how to set up the environment, and how to start using the platform. After that you can start read more about the [platform](/about), and the NAIS [contracts](/#contracts).
+New users and developers should head over to the [quick-start guide](/dev-guide/quickstart), which cover both how to set up the environment, and how to start using the platform. After that you can start read more about the [platform](/platform), and the NAIS [contracts](/#contracts).
 
 
 ## Developer guide

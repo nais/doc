@@ -1,7 +1,5 @@
-About
-=====
-
-## Platform layers
+Platform
+========
 
 We can describe four distinct "layers" of NAIS: [infrastructure](/about#infrastructure), [kubernetes](/about#kubernetes), [platform](/about#platform), and [application](/about#application)
 
