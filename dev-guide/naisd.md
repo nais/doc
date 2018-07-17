@@ -38,7 +38,7 @@ curl -k -d '{"application": "appname", "version": "1", "fasitEnvironment": "t0",
 
 If you need multiple different [application instances](/dev-guide/service_discovery) running at the same time, you can specify the environment with the `environment` key in the JSON payload. Default value is `app`.
 
-To communicate with an application deployed in a non-default environment use `http://{app-environment}.applicationName/` as the target address.
+This also changes the address you can reach your app on, the default address is `http://app.{applicationName}/`, while communication with an application deployed in a non-default environment uses the app-environment` instead of `app` at the start of the address. Like so `http://{app-environment}.{applicationName}/`.
 
 
 #### Skip Fasit
