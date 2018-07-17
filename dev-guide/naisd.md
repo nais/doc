@@ -15,7 +15,6 @@ The endpoint accepts HTTP POST payloads in JSON, with the following values:
   "application": "appname",
   "version": "1",
   "zone": "fss",
-  "environment": "default",
   "fasitEnvironment": "t0",
   "fasitUsername": "brukernavn",
   "fasitPassword": "passord",
@@ -28,16 +27,30 @@ We recommend performing deployments to one or more environments in your applicat
 curl -k -d '{"application": "appname", "version": "1", "fasitEnvironment": "t0", "zone": "fss", "environment": "default", "fasitUsername": "brukernavn", "fasitPassword": "passord"}' https://daemon.nais.devillo.no/deploy
 ```
 
-### Skip Fasit
+
+### Values
+
+#### environment
 
 ```json
-"skipFasit": true # defaults to false
+"environment": "app-environment"
 ```
 
-If your app is running without getting resources or other configurations from Fasit, you can skip the whole Fasit connection with `skipFasit: true`.
+If you need multiple different [application instances](/dev-guide/service_discovery) running at the same time, you can specify the environment with the `environment` key in the JSON payload. Default value is `app`.
+
+To communicate with an application deployed in a non-default environment use `http://{app-environment}.applicationName/` as the target address.
 
 
-### External or non-default manifest address
+#### Skip Fasit
+
+```json
+"skipFasit": true
+```
+
+Use `skipFasit` if your app is running without getting resources or other configurations from Fasit. Default value is `false`.
+
+
+#### External or non-default manifest address
 
 ```json
 "manifesturl": "https://path.to.manifest"

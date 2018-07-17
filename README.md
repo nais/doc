@@ -21,6 +21,7 @@ New users and developers should head over to the [quick-start guide](/dev-guide/
 
 * [Naisd](/dev-guide/naisd)
 * [Quick-start](/dev-guide/quickstart)
+* [Service discovery](/dev-guide/service_discovery)
 * [Kubernetes dashboard](/dev-guide/kubernetes_dashboard)
 
 ## Contracts
