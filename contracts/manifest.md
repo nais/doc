@@ -5,6 +5,7 @@ This file contains the configuration of your NAIS application. It must reside wi
 
 The main documentation for the content of this file is found here: https://github.com/nais/naisd/blob/master/nais_example.yaml
 
+
 ## Documented manifest values
 
 Below you will find documentation on some of the values you can set in the manifest.

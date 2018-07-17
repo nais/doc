@@ -1,11 +1,14 @@
 Redis
 =====
 
-By setting this value to `true`, naisd will start a small cluster of pods with Redis masters and sentinels. For now we are running Redis without disk, so a restart of the Redis cluster will terminate your data. So don't store data that you can't afford to lose. Good use cases for this cluster is to store SQL queries that are asked a lot, bad use case is to store user config, or drafts of user inputs. The Redis cluster is also available for all the other applicaiton running in the same K8s cluster as your application.
+> Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker.
+
+If your application needs a Redis database available, you can enable it by adding `redis: true` in your [NAIS manifest](/contracts/manifest). By setting this the value `redis` to `true`, [Naisd](/dev-guide/naisd) will start a small cluster of pods with Redis masters and sentinels. For now, we are running Redis without disk, so a restart of the Redis cluster will terminate your data. So don't store data that you can't afford to lose. Good use cases for this cluster is to store results of SQL queries that are asked a lot, bad use case is to store user config, or drafts of user inputs that should be persistent. The Redis cluster is also available for all the other applicaiton running in the same Kubernetess cluster as your application.
 
 Read more about Redis sentinels over at [redis.io](https://redis.io/topics/sentinel). Remember that your Redis framework needs to be [sentinel-ready](https://redis.io/topics/sentinel-clients).
 
 Your specific sentinels can be reach with the following values:
+
 ```
 url: $REDIS_HOST
 port: 26379
@@ -13,9 +16,12 @@ master-name: mymaster
 ```
 
 
-### Code example
+## Code example
 
-Example below is using [Lettuce](https://github.com/lettuce-io/lettuce-core).
+
+### Lettuce
+
+Example below is using the Java framework [Lettuce](https://github.com/lettuce-io/lettuce-core).
 
 ```java
 import static org.springframework.data.redis.connection.lettuce.LettuceConverters.sentinelConfigurationToRedisURI;
@@ -55,6 +61,9 @@ public class LettuceSentinelTestApplication {
 }
 ```
 
+
+### Redis cache in Spring
+
 Example below is for setting up Redis Cache in Spring using [Spring-Data-Redis](https://projects.spring.io/spring-data-redis/) Lettuce driver
 
 ```java
@@ -91,7 +100,10 @@ public class CacheConfig {
 }
 ```
 
-With the configuration above, the Spring @Cacheable annotation can be used to enable caching behaviour on methods. Spring will then use the configuration above to store the cache values to Redis. <br/>
+With the configuration above, the Spring `@Cacheable` annotation can be used to enable caching behaviour on methods. Spring will then use the configuration above to store the cache values to Redis.
+
+#### Spring annotation
+
 Example below shows how to use @Cacheable annotation on a method.
 ```java
 @Cacheable("FOO_CACHE_NAME")
@@ -100,5 +112,7 @@ public String getFooFromRepository(String id){
 }
 ```
 
-Using the Redis Cache configuration in the example might cause problems when the Redis Server is not responding. When the connection to the Redis Server is lost, the LettuceDriver will try to reconnect to the Redis server with a reconnection policy that can cause long responsetime on the cache requests. This will therefore lead to long responsetime on your application if the cache is heavily used. More advanced example of Cache configuration which solves this problem can be found 
-[here](https://gist.github.com/ugur93/4e047c03c0d152d245e391d70788829a).
+
+### Losing Redis server connection
+
+Using the Redis Cache configuration in the example might cause problems when the Redis Server is not responding. When the connection to the Redis Server is lost, the LettuceDriver will try to reconnect to the Redis server with a reconnection policy that can cause long responsetime on the cache requests. This will therefore lead to long responsetime on your application if the cache is heavily used. More advanced example of Cache configuration which solves this problem can be found at [gist.github.com/ugur93](https://gist.github.com/ugur93/4e047c03c0d152d245e391d70788829a).
