@@ -65,4 +65,4 @@ We are also working on setting up several clusters in [Google Kubernetes Engine]
 
 ## Contact us
 
-Team Aura can be found either on [#nais@Slack](https://nav-it.slack.com/messages/C5KUST8N6/) or in Sannergata 2, 2nd floow, room 2201.
+Team Aura can be found either on [#nais@Slack](https://nav-it.slack.com/messages/C5KUST8N6/) or in Sannergata 2, 2nd floor, room 2201.
