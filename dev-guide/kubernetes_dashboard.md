@@ -8,10 +8,3 @@ In [Kubectl](https://kubernetes.io/docs/reference/kubectl/kubectl/) 1.10 and lat
 ```
 kubectl port-forward deployment/kubernetes-dashboard 9090:9090 --namespace kubernetes-dashboard
 ```
-
-In earlier Kubectl versions, you need to specify the pod that you are targeting with the `port-forward`:
-
-```
-DASHBOARD_POD=$(kubectl get pod --namespace kubernetes-dashboard --selector k8s-app=kubernetes-dashboard --output jsonpath='{.items[0].metadata.name}')
-kubectl port-forward --namespace kubernetes-dashboard $DASHBOARD_POD 9090:9090
-```
