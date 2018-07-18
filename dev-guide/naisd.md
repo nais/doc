@@ -81,6 +81,7 @@ The response will be the deployment status payload from Kubernetes with the foll
 | 202         | in progress |
 | 500         | failed      |
 
+
 ### Example payload
 
 ```json
@@ -95,6 +96,17 @@ The response will be the deployment status payload from Kubernetes with the foll
   "Status": "Success",
   "Reason": "deployment \"appname\" successfully rolled out."
 }
+```
+
+
+## Deploy annotations
+
+For each deploy, Naisd post the application, version, cluster, and namespace, to Influxdb, through [Sensu](/contracts/metrics#push-metrics).
+
+You can use the SQL below to show annotations i a Grafana-dashboard:
+
+```sql
+SELECT "version" FROM "naisd.deployment" WHERE "clusterName" = '$datasource$' AND "application" =~ /^$app$/ AND "namespace" =~ /^$namespace$/ AND $timeFilter
 ```
 
 
