@@ -39,4 +39,7 @@ sensu.nais:3030
 
 Remember to format the data as [Influxdb syntax](https://docs.influxdata.com/influxdb/v1.5/write_protocols/line_protocol_tutorial/#syntax).
 
+
+## Overview
+
 ![overview](/_media/metrics.png)
