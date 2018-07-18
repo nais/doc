@@ -29,6 +29,7 @@ New users and developers should head over to the [getting started guide](/dev-gu
 ## Contracts
 
 * [Alerts](/contracts/alerts)
+* [AM](contracts/am) (Norwegian)
 * [Logging](/contracts/logging)
 * [Metrics](/contracts/metrics)
 * [NAIS manifest](/contracts/manifest)
