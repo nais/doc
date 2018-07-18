@@ -14,23 +14,25 @@ NAIS is a collection of the Open Source tools we have found best suited to deplo
 
 ## Getting started
 
-New users and developers should head over to the [quick-start guide](/dev-guide/quickstart), which cover both how to set up the environment, and how to start using the platform. After that you can start read more about the [platform](/platform), and the NAIS [contracts](/#contracts).
+New users and developers should head over to the [getting started guide](/dev-guide/getting_started), which cover both how to set up the environment, and how to start using the platform. After that you can read more about the [platform](/platform), and the NAIS [contracts](/#contracts).
 
 
 ## Developer guide
 
 * [Naisd](/dev-guide/naisd)
+* [Migration](/dev-guide/migration)
+* [NAV proxy](/dev-guide/nav_proxy)
 * [Quick-start](/dev-guide/quickstart)
 * [Service discovery](/dev-guide/service_discovery)
 
-## Contracts
 
-Contracts are a set of rules that you need to adhere to.
+## Contracts
 
 * [Alerts](/contracts/alerts)
 * [Logging](/contracts/logging)
 * [Metrics](/contracts/metrics)
 * [NAIS manifest](/contracts/manifest)
+
 
 ## Services
 
@@ -59,7 +61,7 @@ Contracts are a set of rules that you need to adhere to.
 We are also working on setting up several clusters in [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/).
 
 
-## Services
+## Web services
 
 | Service                       | Address                   |
 | ----------------------------- | ------------------------- |
