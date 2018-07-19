@@ -1,7 +1,7 @@
 NAIS documentation
 ==================
 
-![NAIS logo](/_media/nais.pnga)
+![NAIS logo](/_media/nais.png)
 
 NAIS is an application platform built to increase development speed by providing our developers with the best possible tools to develop, test and run their applications.
 
@@ -22,7 +22,7 @@ New users and developers should head over to the [getting started guide](/dev-gu
 * [Naisd](/dev-guide/naisd)
 * [Migration](/dev-guide/migration)
 * [NAV proxy](/dev-guide/nav_proxy)
-* [Quick-start](/dev-guide/quickstart)
+* [Quick-start](/dev-guide/getting_started)
 * [Service discovery](/dev-guide/service_discovery)
 
 
@@ -37,7 +37,7 @@ New users and developers should head over to the [getting started guide](/dev-gu
 
 ## Services
 
-* [Kubernetes dashboard](/dev-guide/kubernetes_dashboard)
+* [Kubernetes dashboard](/services/kubernetes_dashboard)
 * [Leader election](/services/leader_election)
 * [Redis](/services/redis)
 
@@ -57,9 +57,14 @@ New users and developers should head over to the [getting started guide](/dev-gu
 | **nais-dev**    | *.nais.devillo.no    | For cluster development                  |
 
 
-### Google Kubernetes Engine
+### Google Kubernetes Engine (GKE)
 
 We are also working on setting up several clusters in [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/).
+
+
+### Azure Kubernetes Service (AKS)
+
+Similar to GKE, we are also working with Microsoft and [Azure Kubernetes Service](https://azure.microsoft.com/en-us/services/kubernetes-service/).
 
 
 ## Web services
@@ -67,7 +72,7 @@ We are also working on setting up several clusters in [Google Kubernetes Engine]
 | Service                       | Address                   |
 | ----------------------------- | ------------------------- |
 | [Deploy](/dev-guide/naisd)    | `https://deploy.{domain}` |
-| [Logs](/contracs/logs)        | https://logs.adeo.no      |
+| [Logs](/contracts/logging)    | https://logs.adeo.no      |
 | [Metrics](/contracts/metrics) | https://grafana.adeo.no   |
 
 
