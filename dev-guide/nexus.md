@@ -18,7 +18,7 @@ docker push docker.adeo.no:5000/{application}:{releaseVersion}
 
 ## Maven repo
 
-We use basic auth when Uploading [NAIS manifest](/contracts/manifest.md) to our Maven repo at [repo.adeo.no](https://repo.adeo.no/).
+We use basic auth when Uploading [NAIS manifest](/contracts) to our Maven repo at [repo.adeo.no](https://repo.adeo.no/).
 
 ```
 curl --user username:password --upload-file path/to/nais.yaml https://repo.adeo.no/repository/raw/nais/{appname}/{version}/nais.yaml

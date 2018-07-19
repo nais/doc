@@ -1,12 +1,12 @@
 Alerts
 ======
 
-We use [Prometheus](https://prometheus.io/) to collect metrics, and can trigger alerts based on these metrics. Custom alerts can be specified in the [NAIS manifest](/contracts/manifest.md).
+We use [Prometheus](https://prometheus.io/) to collect metrics, and can trigger alerts based on these metrics. Custom alerts can be specified in the [NAIS manifest](/contracts).
 
 
 ## Custom alerts
 
-Below you can find an example for a custom alert defined in the [NAIS manifest](/contracts/manifest.md):
+Below you can find an example for a custom alert defined in the [NAIS manifest](/contracts):
 
 ```yaml
 alerts:
@@ -47,7 +47,7 @@ In order to minimize the feedback loop we suggest experimenting with Prometheus-
 
 ## Receiving alerts
 
-Every app running on NAIS must have a team associated with it. The team needs to be set in the [NAIS manifest](/contracts/manifest.md).
+Every app running on NAIS must have a team associated with it. The team needs to be set in the [NAIS manifest](/contracts).
 
 ```
 team: teamName
