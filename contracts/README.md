@@ -1,7 +1,7 @@
 NAIS manifest
 =============
 
-This file contains the configuration of your NAIS application. It must reside within the git repository together with your source code.
+The NAIS manifest contains the configuration of your NAIS application. It can either be uploaded to our [Nexus](/dev-guide/nexus.md), or specify an [external manifest](dev-guide/naisd.md#external-or-non-default-manifest-address) with `manifesturl` in the [deploy](/dev-guide/naisd.md#deploy)-payload, or `manifest-url` has an argument to the [Naisd CLI](https://github.com/nais/naisd#nais-cli).
 
 The main documentation for the content of this file is found here: https://github.com/nais/naisd/blob/master/nais_example.yaml
 
