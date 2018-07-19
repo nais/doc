@@ -14,7 +14,7 @@ NAIS is a collection of the Open Source tools we have found best suited to deplo
 
 ## Getting started
 
-New users and developers should head over to the [getting started guide](/dev-guide), which cover both how to set up the environment, and how to start using the platform. After that you can read more about the [platform](/platform.md), and the NAIS [contracts](/#contracts).
+New users and developers should head over to the [getting started guide](/dev-guide#getting-started), which cover both how to set up the environment, and how to start using the platform. After that you can read more about the [platform](/platform.md), and the NAIS [contracts](/#contracts).
 
 
 ## Developer guide
@@ -22,7 +22,7 @@ New users and developers should head over to the [getting started guide](/dev-gu
 * [Naisd](/dev-guide/naisd.md)
 * [Migration](/dev-guide/migration.md)
 * [NAV proxy](/dev-guide/nav_proxy.md)
-* [Getting started](/dev-guide)
+* [Getting started](/dev-guide#getting-started)
 * [Service discovery](/dev-guide/service_discovery.md)
 
 
@@ -32,7 +32,7 @@ New users and developers should head over to the [getting started guide](/dev-gu
 * [AM](contracts/am.md) (Norwegian)
 * [Logging](/contracts/logging.md)
 * [Metrics](/contracts/metrics.md)
-* [NAIS manifest](/contracts)
+* [NAIS manifest](/contracts#nais-manifest)
 
 
 ## Services

@@ -1,7 +1,7 @@
 Metrics
 =======
 
-Prometheus is used to scrape metrics from the pod. You have to add Prometheus in your [NAIS manifest](/contracts) to enable scrape.
+Prometheus is used to scrape metrics from the pod. You have to add Prometheus in your [NAIS manifest](/contracts#nais-manifest) to enable scrape.
 
 Each app that have scraping enabled can use the default Grafana dashboard [nais-app-dashboard](https://grafana.adeo.no/dashboard/db/nais-app-dashboard), or create theire own.
 
