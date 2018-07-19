@@ -5,12 +5,6 @@ NAIS documentation
 
 NAIS is an application platform built to increase development speed by providing our developers with the best possible tools to develop, test and run their applications.
 
-There are many excellent Open Source tools available today; in fact, the possibilities are so many that just wrapping your head around the available options is quite a daunting task. 
-
-It didn't make sense that all of our developers should spend their time figuring out the best combination of tools individually, which is why we created NAIS.
-
-NAIS is a collection of the Open Source tools we have found best suited to deploy, run, monitor and analyze NAVs applications, as well as the tools we have created to build and maintain the platform itself.
-
 
 ## Getting started
 
@@ -46,15 +40,12 @@ New users and developers should head over to the [getting started guide](/dev-gu
 
 ### On-premises
 
-| Name            | Domain               | Purpose                                  |
-| --------------- | -------------------- | ---------------------------------------- |
-| **prod-fss**    | *.nais.adeo.no       | Production in FSS                        |
-| **prod-iapp**   | *.nais-iapp.adeo.no  | Production in iApp                       |
-| **prod-sbs**    | *.nais.oera.no       | Production in SBS                        |
-| **preprod-fss** | *.nais.preprod.local | Non production in FSS                    |
-| **preprod-sbs** | *.nais.oera-q.local  | Non production in SBS                    |
-| **nais-ci**     | *.nais-ci.devillo.no | Continuous Integration for test purposes |
-| **nais-dev**    | *.nais.devillo.no    | For cluster development                  |
+| Name            | Domain               | Purpose               |
+| --------------- | -------------------- | --------------------- |
+| **prod-fss**    | *.nais.adeo.no       | Production in FSS     |
+| **prod-sbs**    | *.nais.oera.no       | Production in SBS     |
+| **preprod-fss** | *.nais.preprod.local | Non production in FSS |
+| **preprod-sbs** | *.nais.oera-q.local  | Non production in SBS |
 
 
 ### Google Kubernetes Engine (GKE)
