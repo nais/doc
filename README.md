@@ -14,32 +14,32 @@ NAIS is a collection of the Open Source tools we have found best suited to deplo
 
 ## Getting started
 
-New users and developers should head over to the [getting started guide](/dev-guide/getting_started), which cover both how to set up the environment, and how to start using the platform. After that you can read more about the [platform](/platform), and the NAIS [contracts](/#contracts).
+New users and developers should head over to the [getting started guide](/dev-guide/getting_started.md), which cover both how to set up the environment, and how to start using the platform. After that you can read more about the [platform](/platform.md), and the NAIS [contracts](/#contracts).
 
 
 ## Developer guide
 
-* [Naisd](/dev-guide/naisd)
-* [Migration](/dev-guide/migration)
-* [NAV proxy](/dev-guide/nav_proxy)
-* [Quick-start](/dev-guide/getting_started)
-* [Service discovery](/dev-guide/service_discovery)
+* [Naisd](/dev-guide/naisd.md)
+* [Migration](/dev-guide/migration.md)
+* [NAV proxy](/dev-guide/nav_proxy.md)
+* [Quick-start](/dev-guide/getting_started.md)
+* [Service discovery](/dev-guide/service_discovery.md)
 
 
 ## Contracts
 
-* [Alerts](/contracts/alerts)
-* [AM](contracts/am) (Norwegian)
-* [Logging](/contracts/logging)
-* [Metrics](/contracts/metrics)
-* [NAIS manifest](/contracts/manifest)
+* [Alerts](/contracts/alerts.md)
+* [AM](contracts/am.md) (Norwegian)
+* [Logging](/contracts/logging.md)
+* [Metrics](/contracts/metrics.md)
+* [NAIS manifest](/contracts/manifest.md)
 
 
 ## Services
 
-* [Kubernetes dashboard](/services/kubernetes_dashboard)
-* [Leader election](/services/leader_election)
-* [Redis](/services/redis)
+* [Kubernetes dashboard](/services/kubernetes_dashboard.md)
+* [Leader election](/services/leader_election.md)
+* [Redis](/services/redis.md)
 
 
 ## Clusters
@@ -71,9 +71,9 @@ Similar to GKE, we are also working with Microsoft and [Azure Kubernetes Service
 
 | Service                       | Address                   |
 | ----------------------------- | ------------------------- |
-| [Deploy](/dev-guide/naisd)    | `https://deploy.{domain}` |
-| [Logs](/contracts/logging)    | https://logs.adeo.no      |
-| [Metrics](/contracts/metrics) | https://grafana.adeo.no   |
+| [Deploy](/dev-guide/naisd.md)    | `https://deploy.{domain}` |
+| [Logs](/contracts/logging.md)    | https://logs.adeo.no      |
+| [Metrics](/contracts/metrics.md) | https://grafana.adeo.no   |
 
 
 ## Contact us

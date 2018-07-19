@@ -10,12 +10,12 @@ The main documentation for the content of this file is found here: https://githu
 
 Below you will find documentation on some of the values you can set in the manifest.
 
-* [Alerts](/contracts/alert) - Alerts sent to Slack based on Prometheus scraping
+* [Alerts](/contracts/alert.md) - Alerts sent to Slack based on Prometheus scraping
 
-* [Fasit resources](/contracts/fasit_resources) - Resources retrieved from Fasit
+* [Fasit resources](/contracts/fasit_resources.md) - Resources retrieved from Fasit
 
-* [Leader Election](/services/leader_election) - Leader election between pods in a replicat set
+* [Leader Election](/services/leader_election.md) - Leader election between pods in a replicat set
 
-* [Prometheus](/contracts/metrics) - Metrics scraping from end point
+* [Prometheus](/contracts/metrics.md) - Metrics scraping from end point
 
-* [Redis](/services/redis) - Non-persistant in-memory data structure store
+* [Redis](/services/redis.md) - Non-persistant in-memory data structure store

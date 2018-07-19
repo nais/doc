@@ -12,7 +12,7 @@ We recommend Linux-VDI users to use [utvikler-ansible](https://github.com/navikt
 
 Linux and Mac users can use the install guide over at [Kubernetes.io](https://kubernetes.io/docs/tasks/tools/install-kubectl/) to install Kubectl. Windows users can follow the guide below. All three types of users need to [configure Kubectl](dev-guide/getting_started#configure-kubectl) after installation.
 
-You may need to set up [NAV-proxy](/dev-guide/nav_proxy) to get this to work.
+You may need to set up [NAV-proxy](/dev-guide/nav_proxy.md) to get this to work.
 
 
 #### Install Kubectl on Windows
@@ -74,4 +74,4 @@ Since we are running our Windows VDI with virtualisation off, we need to have th
 ## If you have any questions:
 
 1. Read the documentation
-2. [Contact us](/#contact-us)
+2. [Contact us](/#contact-us
