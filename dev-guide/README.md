@@ -12,7 +12,7 @@ We recommend Linux-VDI users to use [utvikler-ansible](https://github.com/navikt
 
 Linux and Mac users can use the install guide over at [Kubernetes.io](https://kubernetes.io/docs/tasks/tools/install-kubectl/) to install Kubectl. Windows users can follow the guide below. All three types of users need to [configure Kubectl](dev-guide/getting_started#configure-kubectl) after installation.
 
-You may need to set up [NAV-proxy](/dev-guide/nav_proxy.md) to get this to work.
+You may need to set up [NAV-proxy](/dev-guide#system-environment-variables) to get this to work.
 
 
 #### Install Kubectl on Windows
@@ -69,6 +69,17 @@ Since we are running our Windows VDI with virtualisation off, we need to have th
    * You need to reboot you machine
 2. Set system environment variable `DOCKER_HOST` to point to a Linux server running a Docker daemon
    * `DOCKER_HOST=tcp://enlinuxserversomhardockerinstallert:port`
+
+
+## System environment variables
+
+You need the following variables set in your VDI:
+
+```text
+http_proxy=http://webproxy-utvikler.nav.no:8088
+https_proxy=http://webproxy-utvikler.nav.no:8088
+no_proxy=localhost,127.0.0.1,*.adeo.no,.local,.adeo.no,.nav.no,.aetat.no,.devillo.no,.oera.no,devel
+```
 
 
 ## If you have any questions:

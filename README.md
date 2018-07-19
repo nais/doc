@@ -15,7 +15,6 @@ New users and developers should head over to the [getting started guide](/dev-gu
 
 * [Naisd](/dev-guide/naisd.md)
 * [Migration](/dev-guide/migration.md)
-* [NAV proxy](/dev-guide/nav_proxy.md)
 * [Getting started](/dev-guide#getting-started)
 * [Service discovery](/dev-guide/service_discovery.md)
 
