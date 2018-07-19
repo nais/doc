@@ -8,14 +8,14 @@ NAIS is an application platform built to increase development speed by providing
 
 ## Getting started
 
-New users and developers should head over to the [getting started guide](/dev-guide#getting-started), which cover both how to set up the environment, and how to start using the platform. After that you can read more about the [platform](/platform.md), and the NAIS [contracts](/#contracts).
+New users and developers should head over to the [getting started guide](/dev-guide/README.md#getting-started), which cover both how to set up the environment, and how to start using the platform. After that you can read more about the [platform](/platform.md), and the NAIS [contracts](/README.md#contracts).
 
 
 ## Developer guide
 
 * [Naisd](/dev-guide/naisd.md)
 * [Migration](/dev-guide/migration.md)
-* [Getting started](/dev-guide#getting-started)
+* [Getting started](/dev-guide/README.md#getting-started)
 * [Service discovery](/dev-guide/service_discovery.md)
 
 
@@ -23,9 +23,10 @@ New users and developers should head over to the [getting started guide](/dev-gu
 
 * [Alerts](/contracts/alerts.md)
 * [AM](contracts/am.md) (Norwegian)
+* [Fasit resources](/contracts/fasit_resources.md)
 * [Logging](/contracts/logging.md)
 * [Metrics](/contracts/metrics.md)
-* [NAIS manifest](/contracts#nais-manifest)
+* [NAIS manifest](/contracts/README.md#nais-manifest)
 
 
 ## Services
