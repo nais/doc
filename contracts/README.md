@@ -10,7 +10,7 @@ The main documentation for the content of this file is found here: https://githu
 
 Below you will find documentation on some of the values you can set in the manifest.
 
-* [Alerts](/contracts/alert.md) - Alerts sent to Slack based on Prometheus scraping
+* [Alerts](/contracts/alerts.md) - Alerts sent to Slack based on Prometheus scraping
 
 * [Fasit resources](/contracts/fasit_resources.md) - Resources retrieved from Fasit
 

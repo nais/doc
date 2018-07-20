@@ -35,4 +35,5 @@ def assemble_url(applicationName):
 
 
 ## Overview
-![HttpOtherEnvironmentExample](/_media/HttpServiceDiscoveryExample.png)
+
+![HttpOtherEnvironmentExample](/_media/service_discovery_overview.png)

@@ -3,7 +3,7 @@ Platform
 
 We can describe four distinct "layers" of NAIS: [infrastructure](/about.md#infrastructure), [kubernetes](/about.md#kubernetes), [platform](/about.md#platform), and [application](/about.md#application)
 
-![overview](/_media/overview.png)
+![overview](/_media/platform_overview.png)
 
 
 ## Infrastructure

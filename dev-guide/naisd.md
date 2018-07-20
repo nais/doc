@@ -56,7 +56,7 @@ Use `skipFasit` if your app is running without getting resources or other config
 "manifesturl": "https://path.to.manifest"
 ```
 
-The default [NAIS manifest](/contracts#nais-manifest) URL is [repo.adeo.no](https://repo.adeo.no/), which is our internal Nexus.
+The default [NAIS manifest](/contracts/README.md#nais-manifest) URL is [repo.adeo.no](https://repo.adeo.no/), which is our internal [Nexus](/dev-guide/nexus.md).
 
 Values are set as following:
 ```text
@@ -69,7 +69,7 @@ type=yaml
 
 ## /deploystatus
 
-To supplement the [/deploy](/deployment#deploy) endpoint, there is another endpoint for checking the status of the deployment.
+To supplement the [/deploy](/dev-guide/naisd.md#deploy) endpoint, there is another endpoint for checking the status of the deployment.
 
 The endpoint accepts HTTP GET on the path `/deploystatus/{environment}/{application}/`.
 
@@ -117,4 +117,4 @@ If you have some issues or suggestions for Naisd you can make an [issue on Githu
 
 ## Flow
 
-![overview](/_media/naisd.png)
+![overview](/_media/naisd_overview.png)

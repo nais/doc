@@ -1,12 +1,12 @@
 Alerts
 ======
 
-We use [Prometheus](https://prometheus.io/) to collect metrics, and can trigger alerts based on these metrics. Custom alerts can be specified in the [NAIS manifest](/contracts#nais-manifest).
+We use [Prometheus](https://prometheus.io/) to collect metrics, and can trigger alerts based on these metrics. Custom alerts can be specified in the [NAIS manifest](/contracts/README.md#nais-manifest).
 
 
 ## Custom alerts
 
-Below you can find an example for a custom alert defined in the [NAIS manifest](/contracts#nais-manifest):
+Below you can find an example for a custom alert defined in the [NAIS manifest](/contracts/README.md#nais-manifest):
 
 ```yaml
 alerts:
@@ -42,12 +42,12 @@ alerts:
 
 ### Writing the `expr`
 
-In order to minimize the feedback loop we suggest experimenting with Prometheus-server to find the right metric for your alert, and the tresholds. The Prometheus server can be found in each [cluster](/infrastructure/clusters), at `https://prometheus.{cluster.domain}` (i.e. https://prometheus.nais.preprod.local).
+In order to minimize the feedback loop we suggest experimenting with Prometheus-server to find the right metric for your alert, and the tresholds. The Prometheus server can be found in each [cluster](/README.md#clusters), at `https://prometheus.{cluster.domain}` (i.e. https://prometheus.nais.preprod.local).
 
 
 ## Receiving alerts
 
-Every app running on NAIS must have a team associated with it. The team needs to be set in the [NAIS manifest](/contracts#nais-manifest).
+Every app running on NAIS must have a team associated with it. The team needs to be set in the [NAIS manifest](/contracts/README.md#nais-manifest).
 
 ```
 team: teamName
@@ -71,4 +71,4 @@ You can also visit the alert manager at `https://alertmanager.{cluster.domain}` 
 
 ## Flow
 
-![Prometheus Server \<-- Prometheus Alertmanager](/_media/Prometheus_Alertmanager.png)
+![Prometheus Server \<-- Prometheus Alertmanager](/_media/prometheus_alertmanager_overview.png)
