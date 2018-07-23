@@ -7,11 +7,14 @@ We recommend Linux-VDI users to use [utvikler-ansible](https://github.com/navikt
 
 For Linux- and Windows-VDI, you need to set up [NAV-proxy](/dev-guide/README.md#system-environment-variables) before installing the tools.
 
+
 ### Install Kubectl
 
 > Use the Kubernetes command-line tool, kubectl, to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; and look at your new cluster and bring up example apps.
 
 Linux and Mac users can use the install guide over at [Kubernetes.io](https://kubernetes.io/docs/tasks/tools/install-kubectl/) to install Kubectl. Windows users can follow the guide below. All three types of users need to [configure Kubectl](dev-guide/README.md#configure-kubectl) after installation.
+
+What you can and can't do in the clusters are governed by RBAC-rules that are defined in the [Naisible-repo](https://github.com/nais/naisible/blob/master/templates/roles/clusterroles.yaml.j2). This is a bit technical, and it's better to read up on [Kubectl operations](https://kubernetes.io/docs/reference/kubectl/overview/#operations) over at Kubernetes.io. We also have made a small set of [Kubectl operation examples](/dev-guide/kubectl_examples.md).
 
 
 #### Install Kubectl on Windows
