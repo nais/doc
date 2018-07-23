@@ -98,6 +98,16 @@ The response will be the deployment status payload from Kubernetes with the foll
 }
 ```
 
+## /delete
+
+We are also working on a delete-endpoint, for delete complete apps. For now it is a bit buggy, and so we also recommend running the Kubectl-operations.
+
+### Kubectl operation
+
+```operations
+$ kubectl delete deployment,ingress,service,secrets,serviceaccount,horizontalpodautoscaler <appname>
+```
+
 
 ## Deploy annotations
 
