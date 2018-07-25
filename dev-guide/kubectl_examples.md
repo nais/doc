@@ -105,3 +105,62 @@ Events:
   Normal  ScalingReplicaSet   <invalid> (x2 over 9d)  deployment-controller  Scaled up replica set nais-testapp-66b86cd59c to 1
   Normal  DeploymentRollback  <invalid>               deployment-controller  Rolled back deployment "nais-testapp" to revision 1
 ```
+
+
+## Namespaces
+
+By default, your application will exist in its own namespace. Therefore you must specify this namespace for your kubectl operations.
+
+
+### Namespace flag
+
+You can use the namespace flag on all kubectl operations:
+
+```operation
+kubectl get pods --namespace <namespace>
+```
+
+You can also use `-n`. This command will describe the deployment `app` in the namespace `nais-testapp`:
+
+```operation
+kubectl describe deployment app -n nais-testapp 
+```
+
+### List namespaces
+
+To list all namespaces in the cluster:
+
+```operation
+kubectl get namespaces
+```
+
+### Switch namespace
+
+If you haven't specified anything, kubectl will operate in the namespace `default`. As described in [Service discovery](/dev-guide/service_discovery.md), your app is deployed in its own namespace.
+
+You can tell kubectl to use another namespace if you don't want to append the namespace flag to all operations every time:
+
+```operation
+kubectl config set-context $(kubectl config current-context) --namespace=<insert-namespace-name-here>
+```
+
+Validate that the namespace is set:
+
+```operation
+kubectl config view | grep namespace: -B 1
+```
+
+If you have more than one cluster (e.g. preprod and prod), this will output both clusters:
+
+```output
+$ kubectl config view | grep namespace: -B 1
+    cluster: prod-sbs
+    namespace: nais-testapp
+--
+    cluster: preprod-sbs
+    namespace: t1
+```
+
+You can now run kubectl operations without specifiying namespace.
+
+
