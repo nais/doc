@@ -1,13 +1,13 @@
 Service Discovery
 =================
 
-There is one namespace per application, and one deployment per environment. The default deployment for every application is named: `app`
+There is one namespace per application, and one deployment per environment.
 
 Example with the application `foreldepengesoknad-api`:
 
 | env | url                                 |
 | ----| ----------------------------------- |
-| app | `http://app.foreldepengesoknad-api` |
+| p   | `http://p.foreldepengesoknad-api`   |
 | t1  | `http://t1.foreldepengesoknad-api`  |
 
 
@@ -28,9 +28,9 @@ def assemble_url(applicationName):
 >>> assemble_url('applicationName')
 't1.applicationName'
 
-# Running in app would yield:
+# Running in p would yield:
 >>> assemble_url('applicationName')
-'app.applicationName'
+'p.applicationName'
 ```
 
 
