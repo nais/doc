@@ -15,13 +15,13 @@ Oppsett av policy og not enforced urls gjøres som tidligere på AM-serverne, dv
 
 * Innsendte parametere som må settes (se eksempel nedenfor):
 
-  | Parameter name | Description                                  |
-  | -------------- | -------------------------------------------- |
-  | application    | applikasjonsnavn i Fasit                     |
-  | version	       | applikasjonens versjon som skal konfigureres |
-  | environment	   | miljønavn i Fasit                            |
-  | username       | brukernavn i Fasit                           |
-  | password       | passord i Fasit                              |
+| Parameter name | Description                                  |
+| -------------- | -------------------------------------------- |
+| application    | applikasjonsnavn i Fasit                     |
+| version        | applikasjonens versjon som skal konfigureres |
+| environment    | miljønavn i Fasit                            |
+| username       | brukernavn i Fasit                           |
+| password       | passord i Fasit                              |
 
 * Det sjekkes for gyldighet av `application`, `environment`, `username` og `password` mot Fasit, og `application`, og `version` mot Nexus
 * Filene `app-policies.xml` og `not-enforced-urls.txt` må legges inn på Nexus på følgende sti:
@@ -38,7 +38,7 @@ curl -k -d '{"application": "<appnavn>", "version": "<versjon>", "environment": 
 NB! Ved oppsett av AM i SBS skal man bruke Named-tjenesten som ligger i SBS (named.nais.oera-q.local eller named.nais.oera.no)
 
 
-## ISSO agent oppsett i FSS 
+## ISSO agent oppsett i FSS
 
 Oppsett av ISSO agentene gjøres ved hjelp av REST api'et til AM. Konfigurasjonen vil opprette agent med navn <applikasjon>-<fasit miljø> i AM. For å benytte denne agenten må man autentisere mot AM med bruker agentadmin og dennes passord.
 
@@ -47,14 +47,14 @@ Oppsett av ISSO agentene gjøres ved hjelp av REST api'et til AM. Konfigurasjone
 
 * Innsendte parametere som må settes (se eksempel nedenfor):
 
-  | Parameter name | Description                                    |
-  | -------------- | ---------------------------------------------- |
-  | application    | applikasjonsnavn i Fasit                       |
-  | version	       | applikasjonens versjon som skal konfigureres   |
-  | environment	   | miljønavn i Fasit                              |
-  | username       | brukernavn i Fasit                             |
-  | password       | passord i Fasit                                |
-  | contextroots   | applikasjonens context som agenten skal støtte |
+| Parameter name | Description                                    |
+| -------------- | ---------------------------------------------- |
+| application    | applikasjonsnavn i Fasit                       |
+| version        | applikasjonens versjon som skal konfigureres   |
+| environment    | miljønavn i Fasit                              |
+| username       | brukernavn i Fasit                             |
+| password       | passord i Fasit                                |
+| contextroots   | applikasjonens context som agenten skal støtte |
 
 * Det sjekkes for gyldighet av `application`, `environment`, `username`, og `password` mot Fasit, og `application`, og `version` mot Nexus
 * I motsetning til AM i SBS trengs det ingen eksterne konfigurasjonsfiler
