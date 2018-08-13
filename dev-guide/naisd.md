@@ -134,7 +134,7 @@ The response payload will be the deletion status of all application components:
 ### Example payload
 
 ```
-result: 
+result:
 service: OK
 deployment: OK
 redis: N/A

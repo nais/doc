@@ -66,14 +66,14 @@ Name:                   dagpenger-soknadvelger
 Namespace:              default
 CreationTimestamp:      Mon, 04 Jun 2018 22:40:19 +0200
 Labels:                 app=dagpenger-soknadvelger
-                        team=dagpenger
+						team=dagpenger
 # and a lot more...
 ```
 
 
 ### Deleting a resource
 
-Some resource get recreated when deleted, if you want to remove an app, use the [/delete](/dev-guide/naisd.md#delete) endpoint instead.
+Some resource get recreated when deleted, if you want to remove an app, use the [/delete](/dev-guide/naisd.md#delete-endpoint) endpoint instead.
 
 ```operation
 kubectl delete resource <resource-name>
@@ -93,7 +93,7 @@ kubectl rollout undo deployment <deployment-name>`
 
 ```output
 $ kubectl rollout undo deployment nais-testapp
-deployment.apps "nais-testapp" 
+deployment.apps "nais-testapp"
 $ kubectl describe deployment nais-testapp
 Name:                   nais-testapp
 Namespace:              default
@@ -123,7 +123,7 @@ kubectl get pods --namespace <namespace>
 You can also use `-n`. This command will describe the deployment `app` in the namespace `nais-testapp`:
 
 ```operation
-kubectl describe deployment app -n nais-testapp 
+kubectl describe deployment app -n nais-testapp
 ```
 
 ### List namespaces
@@ -154,13 +154,11 @@ If you have more than one cluster (e.g. preprod and prod), this will output both
 
 ```output
 $ kubectl config view | grep namespace: -B 1
-    cluster: prod-sbs
-    namespace: nais-testapp
+	cluster: prod-sbs
+	namespace: nais-testapp
 --
-    cluster: preprod-sbs
-    namespace: t1
+	cluster: preprod-sbs
+	namespace: t1
 ```
 
 You can now run kubectl operations without specifiying namespace.
-
-
