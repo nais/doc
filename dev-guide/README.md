@@ -21,14 +21,14 @@ What you can and can't do in the clusters are governed by RBAC-rules that are de
 
 1. Download Kubectl from `F:\programvare\kubectl\kubectl.exe`. Put the file where you usually install files
 2. Add `kubectl.exe` to the system environment variable `$PATH`
-3. Check if evreything is working by restarting your shell and running `kubectl`
+3. Check if everything is working by restarting your shell and running `kubectl`
 
 
 #### Configure Kubectl
 
 1. Clone [kubeconfigs](https://github.com/navikt/kubeconfigs) from Github
 2. Point the `KUBECONFIG` environment-variable to the `configs` file in the cloned repo
-3. Before you can begin using `Kubectl, you need to authorise with Azure
+3. Before you can begin using `Kubectl, you need to authorise with Azure`
  a. Switch to a cluster `kubectl config use-context preprod-fss`
  b. Run `kubectl get pods` and you will then be asked to authorise with Azure. Go to the address, use the code, and log in with your NAV e-post and NAV-ident password. When your user has been authorised, the shell-command will finish and return a list of pods running in the cluster.
 
