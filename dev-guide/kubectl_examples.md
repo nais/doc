@@ -120,10 +120,10 @@ You can use the namespace flag on all kubectl operations:
 kubectl get pods --namespace <namespace>
 ```
 
-You can also use `-n`. This command will describe the deployment `app` in the namespace `nais-testapp`:
+You can also use `-n`. This command will describe the deployment `nais-testapp` in the namespace `t1`:
 
 ```operation
-kubectl describe deployment app -n nais-testapp
+kubectl describe deployment nais-testapp -n t1
 ```
 
 ### List namespaces
@@ -136,7 +136,7 @@ kubectl get namespaces
 
 ### Switch namespace
 
-If you haven't specified anything, kubectl will operate in the namespace `default`. As described in [Service discovery](/dev-guide/service_discovery.md), your app is deployed in its own namespace.
+If you haven't specified anything, kubectl will operate in the namespace `default`.
 
 You can tell kubectl to use another namespace if you don't want to append the namespace flag to all operations every time:
 

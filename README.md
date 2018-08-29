@@ -16,7 +16,6 @@ New users and developers should head over to the [getting started guide](/dev-gu
 * [Naisd](/dev-guide/naisd.md)
 * [Migration](/dev-guide/migration.md)
 * [Getting started](/dev-guide/README.md#getting-started)
-* [Service discovery](/dev-guide/service_discovery.md)
 
 
 ## Contracts

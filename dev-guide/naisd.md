@@ -21,24 +21,25 @@ The endpoint accepts HTTP POST payloads in JSON, with the following values:
 }
 ```
 
-We recommend performing deployments to one or more environments in your applications build/release pipeline. This can be done by using cURL like this:
+We recommend performing deployments to one or more namespaces in your applications build/release pipeline. This can be done by using cURL like this:
 
 ```
-curl -k -d '{"application": "appname", "version": "1", "fasitEnvironment": "t0", "zone": "fss", "environment": "default", "fasitUsername": "brukernavn", "fasitPassword": "passord"}' https://daemon.nais.devillo.no/deploy
+curl -k -d '{"application": "appname", "version": "1", "fasitEnvironment": "t0", "zone": "fss", "namespace": "default", "fasitUsername": "brukernavn", "fasitPassword": "passord"}' https://daemon.nais.devillo.no/deploy
 ```
 
 
 ### Values
 
-#### environment
+#### namespace
 
 ```json
-"environment": "app-environment"
+"namespace": "app-namespace"
 ```
 
-If you need multiple different [application instances](/dev-guide/service_discovery) running at the same time, you can specify the environment with the `environment` key in the JSON payload. Default value is `app`.
+If you need to run your application in multiple namespaces you can specify `namespace` key in the JSON payload. Default value is `default`.
 
-To communicate with other applications in the cluster, use `http://{app-environment}.{applicationName}/`.
+To communicate with other applications in the cluster, use `http://{applicationName}/`. If you want to communicate with an application in another namesace you can postfix the url with the namespace: `http://{applicationName}.{namespace}/`
+For more information on how service discovery works in kubernetes, check out the [official focumentation](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/).
 
 
 #### Skip Fasit
@@ -71,7 +72,7 @@ type=yaml
 
 To supplement the [/deploy](/dev-guide/naisd.md#deploy) endpoint, there is another endpoint for checking the status of the deployment.
 
-The endpoint accepts HTTP GET on the path `/deploystatus/{environment}/{application}/`.
+The endpoint accepts HTTP GET on the path `/deploystatus/{namespace}/{application}/`.
 
 The response will be the deployment status payload from Kubernetes with the following HTTP status code mappings:
 
@@ -113,7 +114,7 @@ $ kubectl delete deployment,ingress,service,secrets,serviceaccount,horizontalpod
 
 ### Delete endpoint
 
-The endpoint accepts HTTP DELETE on the path `/app/{environment}/{application}`.
+The endpoint accepts HTTP DELETE on the path `/app/{namespace}/{application}`.
 
 Possible HTTP status codes:
 

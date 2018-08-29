@@ -3,7 +3,6 @@
   * [Naisd](/dev-guide/naisd.md)
   * [Migration](/dev-guide/migration.md)
   * [Nexus](/dev-guide/nexus.md)
-  * [Service discovery](/dev-guide/service_discovery.md)
   * [Kubectl examples](/dev-guide/kubectl_examples.md)
 
 * Contracts
