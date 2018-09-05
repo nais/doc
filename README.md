@@ -5,6 +5,8 @@ NAIS documentation
 
 NAIS is an application platform built to increase development speed by providing our developers with the best possible tools to develop, test and run their applications.
 
+Also, follow our [changelog](/changelog.md) to easily stay up to date on new milestones and services.
+
 
 ## Getting started
 
