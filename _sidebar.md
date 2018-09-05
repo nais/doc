@@ -17,3 +17,6 @@
   * [Kubernetes dashboard](/services/kubernetes_dashboard.md)
   * [Leader election](/services/leader_election.md)
   * [Redis](/services/redis.md)
+ 
+* Operational 
+  * [Rook](/operational/rook.md)
