@@ -6,6 +6,7 @@ This is a simple changelog over notable milestones for the [NAIS-platform](/plat
 
 ## [Unreleased]
 - We are rewitting Naisd to be a third-party app for Kubernetes, using the Kubernetes Operator toolset
+- Working on adding Kubernetes Vault for secrets
 
 
 ## [Released]
