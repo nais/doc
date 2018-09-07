@@ -6,13 +6,13 @@ We are running Nexus at NAV.
 
 ## Docker registry
 
-You can push and pull from our registry at `docker.adeo.no:5000`, and visit it at [repo.adeo.no](https://repo.adeo.no/#browse/browse/components:docker).
+You can push and pull from our registry at `repo.adeo.no:5443`, and visit it at [repo.adeo.no](https://repo.adeo.no/#browse/browse/components:docker).
 
 You need to log into our Docker registry before pushing or pulling images:
 
 ```text
-docker login docker.adeo.no:5000
-docker push docker.adeo.no:5000/{application}:{releaseVersion}
+docker login repo.adeo.no:5443
+docker push repo.adeo.no:5443/{application}:{releaseVersion}
 ```
 
 
