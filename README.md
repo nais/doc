@@ -1,13 +1,10 @@
 
 NAIS documentation
 ==================
-<img align="left" width="100" height="100" src="https://raw.githubusercontent.com/nais/doc/master/doc/media/nais.png">
+<img align="left" width="80" height="80" src="https://raw.githubusercontent.com/nais/doc/master/doc/media/nais.png">
 NAIS is an application platform built to increase development speed by providing our developers with the best possible tools to develop, test and run their applications.
 
 Also, follow our [changelog](/doc/changelog.md) to easily stay up to date on new milestones and services.
-
-
-
 
 
 ## Getting started
