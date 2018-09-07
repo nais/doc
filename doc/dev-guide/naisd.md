@@ -39,7 +39,7 @@ curl -k -d '{"application": "appname", "version": "1", "fasitEnvironment": "t0",
 If you need to run your application in multiple namespaces you can specify `namespace` key in the JSON payload. Default value is `default`.
 
 To communicate with other applications in the cluster, use `http://{applicationName}/`. If you want to communicate with an application in another namesace you can postfix the url with the namespace: `http://{applicationName}.{namespace}/`
-For more information on how service discovery works in kubernetes, check out the [official focumentation](https://kubernetes.ios/concepts/services-networking/dns-pod-service/).
+For more information on how service discovery works in kubernetes, check out the [official focumentation](https://kubernetes.ios/concepts/doc/services-networking/dns-pod-service/).
 
 
 #### Skip Fasit
@@ -57,7 +57,7 @@ Use `skipFasit` if your app is running without getting resources or other config
 "manifesturl": "https://path.to.manifest"
 ```
 
-The default [NAIS manifest](/contracts/README.md#nais-manifest) URL is [repo.adeo.no](https://repo.adeo.no/), which is our internal [Nexus](/dev-guide/nexus.md).
+The default [NAIS manifest](/doc/contracts/README.md#nais-manifest) URL is [repo.adeo.no](https://repo.adeo.no/), which is our internal [Nexus](/doc/dev-guide/nexus.md).
 
 Values are set as following:
 ```text
@@ -70,7 +70,7 @@ type=yaml
 
 ## /deploystatus
 
-To supplement the [/deploy](/dev-guide/naisd.md#deploy) endpoint, there is another endpoint for checking the status of the deployment.
+To supplement the [/deploy](/doc/dev-guide/naisd.md#deploy) endpoint, there is another endpoint for checking the status of the deployment.
 
 The endpoint accepts HTTP GET on the path `/deploystatus/{namespace}/{application}/`.
 
@@ -149,7 +149,7 @@ service account: OK
 
 ## Deploy annotations
 
-For each deploy, Naisd post the application, version, cluster, and namespace, to Influxdb, through [Sensu](/contracts/metrics#push-metrics).
+For each deploy, Naisd post the application, version, cluster, and namespace, to Influxdb, through [Sensu](/doc/contracts/metrics#push-metrics).
 
 You can use the SQL below to show annotations i a Grafana-dashboard:
 

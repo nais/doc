@@ -28,14 +28,14 @@ The primary cluster components are:
 
 ## Platform
 
-We want our developers to have full control of their application and how it behaves, so we have built an ecosystem around a set of [tools](/platform.md#platform-tools) aimed to give full insight. The interface between the application and the platform is regulated through a set of minimal [contracts](/#contracts).
+We want our developers to have full control of their application and how it behaves, so we have built an ecosystem around a set of [tools](/doc/platform.md#platform-tools) aimed to give full insight. The interface between the application and the platform is regulated through a set of minimal [contracts](/#contracts).
 
 We use [Landscaper](https://github.com/Eneco/landscaper) to install and maintain the state of the tools in each of our clusters.
 
 
 ### Platform tools
 
-Once an application is [deployed](/dev-guide/naisd.md#deploy):
+Once an application is [deployed](/doc/dev-guide/naisd.md#deploy):
 * Metrics will be gathered by [Prometheus](https://prometheus.io/), stored in [Influxdb](https://www.influxdata.com/time-series-platform/influxdb/), then made available via [Grafana](https://grafana.com/) at [grafana.adeo.no](https://grafana.adeo.no/)
 * Logs will be gathered by [Fluentd](https://www.fluentd.org/), forwarded to and indexed by [Elastic](https://www.elastic.co/), before becoming available to the users via [Kibana](https://www.elastic.co/products/kibana) at [logs.adeo.no](https://logs.adeo.no/)
 * Infrastructure related metrics is collected by [Sensu](https://sensuapp.org/), stored in [influxDB](https://www.influxdata.com/time-series-platform/influxdb/), then made available via [Grafana](https://grafana.com/)
@@ -47,4 +47,4 @@ In order for the application developers to remain in control of the application 
 
 This is how the developers can be sure that their application have the exact same runtime conditions at all times.
 
-There are [deployment](/dev-guide/naisd.md) mechanisms in the NAIS cluster that takes care of creating the neccessary Kubernetes resources required to ensure the application's configuration, stability, scalability and exposure based on a simple HTTP POST.
+There are [deployment](/doc/dev-guide/naisd.md) mechanisms in the NAIS cluster that takes care of creating the neccessary Kubernetes resources required to ensure the application's configuration, stability, scalability and exposure based on a simple HTTP POST.
