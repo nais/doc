@@ -37,9 +37,9 @@ This is easily done by writing to the Sensu socket.
 sensu.nais:3030
 ```
 
-Remember to format the data as [Influxdb syntax](https://docs.influxdata.com/influxdb/v1.5/write_protocols/line_protocol_tutorial/#syntax).
+Remember to format the data as [Influxdb syntax](https:/s.influxdata.com/influxdb/v1.5/write_protocols/line_protocol_tutorial/#syntax).
 
 
 ## Overview
 
-![overview](/_media/metrics_overview.png)
+![overview](/media/metrics_overview.png)

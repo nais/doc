@@ -12,9 +12,9 @@ For Linux- and Windows-VDI, you need to set up [NAV-proxy](/dev-guide/README.md#
 
 > Use the Kubernetes command-line tool, kubectl, to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; and look at your new cluster and bring up example apps.
 
-Linux and Mac users can use the install guide over at [Kubernetes.io](https://kubernetes.io/docs/tasks/tools/install-kubectl/) to install Kubectl. Windows users can follow the guide below. All three types of users need to [configure Kubectl](dev-guide/README.md#configure-kubectl) after installation.
+Linux and Mac users can use the install guide over at [Kubernetes.io](https://kubernetes.ios/tasks/tools/install-kubectl/) to install Kubectl. Windows users can follow the guide below. All three types of users need to [configure Kubectl](dev-guide/README.md#configure-kubectl) after installation.
 
-What you can and can't do in the clusters are governed by RBAC-rules that are defined in the [Naisible-repo](https://github.com/nais/naisible/blob/master/templates/roles/clusterroles.yaml.j2). This is a bit technical, and it's better to read up on [Kubectl operations](https://kubernetes.io/docs/reference/kubectl/overview/#operations) over at Kubernetes.io. We also have made a small set of [Kubectl operation examples](/dev-guide/kubectl_examples.md).
+What you can and can't do in the clusters are governed by RBAC-rules that are defined in the [Naisible-repo](https://github.com/nais/naisible/blob/master/templates/roles/clusterroles.yaml.j2). This is a bit technical, and it's better to read up on [Kubectl operations](https://kubernetes.ios/reference/kubectl/overview/#operations) over at Kubernetes.io. We also have made a small set of [Kubectl operation examples](/dev-guide/kubectl_examples.md).
 
 
 #### Install Kubectl on Windows
@@ -59,14 +59,14 @@ After that, follow the instruction to [configure kubectl](/dev-guide/README.md#c
 
 > Docker is an open platform for developers and sysadmins to build, ship, and run distributed applications, whether on laptops, data center VMs, or the cloud.
 
-Follow the [install Docker](https://docs.docker.com/install/)-guide for local testing and development.
+Follow the [install Docker](https:/s.docker.com/install/)-guide for local testing and development.
 
 
 #### Install Docker on Windows VDI
 
 Since we are running our Windows VDI with virtualisation off, we need to have the Docker daemon running on an external Linux-server or VDI.
 
-1. Install Docker CE by following the guide at [docker.com](https://www.docker.com/docker-windows)
+1. Install Docker CE by following the guide at [docker.com](https://www.docker.comker-windows)
    * You need to disable `hyper-v`
    * You need to reboot you machine
 2. Set system environment variable `DOCKER_HOST` to point to a Linux server running a Docker daemon

@@ -129,4 +129,4 @@ The max log message size in Docker is 16KB, so if it will be split into parts if
 
 ## Overview
 
-![overview](/_media/logging_overview.png)
+![overview](/media/logging_overview.png)

@@ -3,7 +3,7 @@ Platform
 
 We can describe four distinct "layers" of NAIS: [infrastructure](/about.md#infrastructure), [kubernetes](/about.md#kubernetes), [platform](/about.md#platform), and [application](/about.md#application)
 
-![overview](/_media/platform_overview.png)
+![overview](/media/platform_overview.png)
 
 
 ## Infrastructure
@@ -15,7 +15,7 @@ We are currently running all our clusters on Virtual Machines with both RedHat 7
 
 When we started building NAIS, we used best practices and ideas from both the Kubernetes [kubeadm](https://github.com/kubernetes/kubeadm) project and from Kelsey Hightower's [Kubernetes the hard way](https://github.com/kelseyhightower/kubernetes-the-hard-way).
 
-We then transcribed what we learned into yaml format, which enabled us to rebuild, expand and tear down clusters with the use of [Ansible playbooks](http://docs.ansible.com/ansible/latest/playbooks.html). We call these playbooks [Naisible](https://github.com/nais/naisible).
+We then transcribed what we learned into yaml format, which enabled us to rebuild, expand and tear down clusters with the use of [Ansible playbooks](http:/docs.ansible.com/ansible/latest/playbooks.html). We call these playbooks [Naisible](https://github.com/nais/naisible).
 
 Once we have run ansible on a set of nodes, we have a fully functioning [Kubernetes](https://kubernetes.io/) cluster.
 
@@ -43,7 +43,7 @@ Once an application is [deployed](/dev-guide/naisd.md#deploy):
 
 ## Application
 
-In order for the application developers to remain in control of the application and its runtime, the developers will produce a [Docker image](https://docs.docker.com/engine/reference/commandline/images/) containing their application and its dependencies.
+In order for the application developers to remain in control of the application and its runtime, the developers will produce a [Docker image](https:/docs.docker.com/engine/reference/commandline/images/) containing their application and its dependencies.
 
 This is how the developers can be sure that their application have the exact same runtime conditions at all times.
 

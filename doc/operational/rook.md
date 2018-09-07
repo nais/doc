@@ -8,8 +8,8 @@ Rook orchestrates our storage technology based on
 The rook operator is installed in the clusters through a Helm chart. The operator watches 
 the cluster for CRDs to create storage clusters currently based on [Ceph](https://ceph.com/).
 
-The CRDs we use are currently [block](https://github.com/rook/rook.github.io/blob/master/docs/rook/v0.7/block.md) and  
-[object](https://github.com/rook/rook.github.io/blob/master/docs/rook/v0.7/object.md)
+The CRDs we use are currently [block](https://github.com/rook/rook.github.io/blob/masters/rook/v0.7/block.md) and  
+[object](https://github.com/rook/rook.github.io/blob/masters/rook/v0.7/object.md)
 
 
 

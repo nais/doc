@@ -39,7 +39,7 @@ curl -k -d '{"application": "appname", "version": "1", "fasitEnvironment": "t0",
 If you need to run your application in multiple namespaces you can specify `namespace` key in the JSON payload. Default value is `default`.
 
 To communicate with other applications in the cluster, use `http://{applicationName}/`. If you want to communicate with an application in another namesace you can postfix the url with the namespace: `http://{applicationName}.{namespace}/`
-For more information on how service discovery works in kubernetes, check out the [official focumentation](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/).
+For more information on how service discovery works in kubernetes, check out the [official focumentation](https://kubernetes.ios/concepts/services-networking/dns-pod-service/).
 
 
 #### Skip Fasit
@@ -165,4 +165,4 @@ If you have some issues or suggestions for Naisd you can make an [issue on Githu
 
 ## Flow
 
-![overview](/_media/naisd_overview.png)
+![overview](/media/naisd_overview.png)

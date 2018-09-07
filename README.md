@@ -1,40 +1,40 @@
 NAIS documentation
 ==================
 
-![NAIS logo](/_media/nais.png)
+![NAIS logo](/doc/media/nais.png)
 
 NAIS is an application platform built to increase development speed by providing our developers with the best possible tools to develop, test and run their applications.
 
-Also, follow our [changelog](/changelog.md) to easily stay up to date on new milestones and services.
+Also, follow our [changelog](/doc/changelog.md) to easily stay up to date on new milestones and services.
 
 
 ## Getting started
 
-New users and developers should head over to the [getting started guide](/dev-guide/README.md#getting-started), which cover both how to set up the environment, and how to start using the platform. After that you can read more about the [platform](/platform.md), and the NAIS [contracts](/README.md#contracts).
+New users and developers should head over to the [getting started guide](/doc/dev-guide/README.md#getting-started), which cover both how to set up the environment, and how to start using the platform. After that you can read more about the [platform](/doc/platform.md), and the NAIS [contracts](/README.md#contracts).
 
 
 ## Developer guide
 
-* [Naisd](/dev-guide/naisd.md)
-* [Migration](/dev-guide/migration.md)
-* [Getting started](/dev-guide/README.md#getting-started)
+* [Naisd](/doc/dev-guide/naisd.md)
+* [Migration](/doc/dev-guide/migration.md)
+* [Getting started](/doc/dev-guide/README.md#getting-started)
 
 
 ## Contracts
 
-* [Alerts](/contracts/alerts.md)
+* [Alerts](/doc/contracts/alerts.md)
 * [AM](contracts/am.md) (Norwegian)
-* [Fasit resources](/contracts/fasit_resources.md)
-* [Logging](/contracts/logging.md)
-* [Metrics](/contracts/metrics.md)
-* [NAIS manifest](/contracts/README.md#nais-manifest)
+* [Fasit resources](/doc/contracts/fasit_resources.md)
+* [Logging](/doc/contracts/logging.md)
+* [Metrics](/doc/contracts/metrics.md)
+* [NAIS manifest](/doc/contracts/README.md#nais-manifest)
 
 
 ## Services
 
-* [Kubernetes dashboard](/services/kubernetes_dashboard.md)
-* [Leader election](/services/leader_election.md)
-* [Redis](/services/redis.md)
+* [Kubernetes dashboard](/doc/services/kubernetes_dashboard.md)
+* [Leader election](/doc/services/leader_election.md)
+* [Redis](/doc/services/redis.md)
 
 
 ## Clusters
@@ -56,16 +56,16 @@ We are also working on setting up several clusters in [Google Kubernetes Engine]
 
 ### Azure Kubernetes Service (AKS)
 
-Similar to GKE, we are also working with Microsoft and [Azure Kubernetes Service](https://azure.microsoft.com/en-us/services/kubernetes-service/).
+Similar to GKE, we are also working with Microsoft and [Azure Kubernetes Service](https://azure.microsoft.com/en-us/doc/services/kubernetes-service/).
 
 
 ## Web services
 
 | Service                       | Address                   |
 | ----------------------------- | ------------------------- |
-| [Deploy](/dev-guide/naisd.md)    | `https://deploy.{domain}` |
-| [Logs](/contracts/logging.md)    | https://logs.adeo.no      |
-| [Metrics](/contracts/metrics.md) | https://grafana.adeo.no   |
+| [Deploy](/doc/dev-guide/naisd.md)    | `https://deploy.{domain}` |
+| [Logs](/doc/contracts/logging.md)    | https://logs.adeo.no      |
+| [Metrics](/doc/contracts/metrics.md) | https://grafana.adeo.no   |
 
 
 ## Contact us

@@ -71,4 +71,4 @@ You can also visit the alert manager at `https://alertmanager.{cluster.domain}` 
 
 ## Flow
 
-![Prometheus Server \<-- Prometheus Alertmanager](/_media/prometheus_alertmanager_overview.png)
+![Prometheus Server \<-- Prometheus Alertmanager](/media/prometheus_alertmanager_overview.png)
