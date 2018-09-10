@@ -9,4 +9,4 @@ In [Kubectl](https://kubernetes.ios/reference/kubectl/kubectl/) 1.10 and later y
 kubectl port-forward deployment/kubernetes-dashboard 9090:9090 --namespace kubernetes-dashboard
 ```
 
-Check out [this guide](/documentation/dev-guide/README?id=install-kubectl) to install and configure `kubectl`.
+Check out [this guide](/documentation/dev-guide/README.md#install-kubectl) to install and configure `kubectl`.
