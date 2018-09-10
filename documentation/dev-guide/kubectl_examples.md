@@ -3,7 +3,7 @@ Kubectl examples
 
 This document cover simple Kubectl operations, and how to solve some problems that you may experience.
 
-Head over to [getting started](/doc/dev-guide/README.md) if you need help setting up Kubectl.
+Head over to [getting started](/documentation/dev-guide/README.md) if you need help setting up Kubectl.
 
 Kubectl runs operations on specific `resources` (just like an REST-api endpoint). So a lot of these commandoes works with different types of resources. To avoid redundant examples we have tried to make the operation-examples open, and the output-examples specific for one resource.
 
@@ -73,7 +73,7 @@ Labels:                 app=dagpenger-soknadvelger
 
 ### Deleting a resource
 
-Some resource get recreated when deleted, if you want to remove an app, use the [/delete](/doc/dev-guide/naisd.md#delete-endpoint) endpoint instead.
+Some resource get recreated when deleted, if you want to remove an app, use the [/delete](/documentation/dev-guide/naisd.md#delete-endpoint) endpoint instead.
 
 ```operation
 kubectl delete resource <resource-name>

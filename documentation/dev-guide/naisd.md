@@ -57,7 +57,7 @@ Use `skipFasit` if your app is running without getting resources or other config
 "manifesturl": "https://path.to.manifest"
 ```
 
-The default [NAIS manifest](/doc/contracts/README.md#nais-manifest) URL is [repo.adeo.no](https://repo.adeo.no/), which is our internal [Nexus](/doc/dev-guide/nexus.md).
+The default [NAIS manifest](/documentation/contracts/README.md#nais-manifest) URL is [repo.adeo.no](https://repo.adeo.no/), which is our internal [Nexus](/documentation/dev-guide/nexus.md).
 
 Values are set as following:
 ```text
@@ -70,7 +70,7 @@ type=yaml
 
 ## /deploystatus
 
-To supplement the [/deploy](/doc/dev-guide/naisd.md#deploy) endpoint, there is another endpoint for checking the status of the deployment.
+To supplement the [/deploy](/documentation/dev-guide/naisd.md#deploy) endpoint, there is another endpoint for checking the status of the deployment.
 
 The endpoint accepts HTTP GET on the path `/deploystatus/{namespace}/{application}/`.
 
@@ -149,7 +149,7 @@ service account: OK
 
 ## Deploy annotations
 
-For each deploy, Naisd post the application, version, cluster, and namespace, to Influxdb, through [Sensu](/doc/contracts/metrics#push-metrics).
+For each deploy, Naisd post the application, version, cluster, and namespace, to Influxdb, through [Sensu](/documentation/contracts/metrics#push-metrics).
 
 You can use the SQL below to show annotations i a Grafana-dashboard:
 
