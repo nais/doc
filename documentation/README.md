@@ -72,4 +72,4 @@ Similar to GKE, we are also working with Microsoft and [Azure Kubernetes Service
 
 ## Contact us
 
-The platform team can be found either on [Slack](https://nav-it.slack.com/messages/C5KUST8N6/) or in Sannergata 2, 2nd floor, room 2201.
+The platform team can be found either on [Slack](https://nav-it.slack.com/messages/C5KUST8N6/) or in Sannergata 2, 2nd floor, room 2201 (Oslo, Norway). Also, follow us on Twitter [@nais_io](https://twitter.com/nais_io).
