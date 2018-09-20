@@ -5,7 +5,7 @@ Getting started
 
 ## Install the necessary tools
 
-We recommend Linux-VDI users to use [utvikler-ansible](https://github.com/navikt/utvikler-ansible) *(this is a private repo only available to developers at NAV)* to set up their images.
+We recommend Linux-VDI users to use [utvikler-ansible](https://github.com/navikt/utvikler-ansible) to set up their images.
 
 For Linux- and Windows-VDI, you need to set up [NAV-proxy](/documentation/dev-guide/README.md#system-environment-variables) before installing the tools.
 
@@ -21,14 +21,14 @@ What you can and can't do in the clusters are governed by RBAC-rules that are de
 
 #### Install Kubectl on Windows
 
-1. Download Kubectl from `F:\programvare\kubectl\kubectl.exe` *(this is only available to developers at NAV)*. Put the file where you usually install files
+1. Download Kubectl from `F:\programvare\kubectl\kubectl.exe`. Put the file where you usually install files
 2. Add `kubectl.exe` to the system environment variable `$PATH`
 3. Check if everything is working by restarting your shell and running `kubectl`
 
 
 #### Configure Kubectl
 
-1. Clone [kubeconfigs](https://github.com/navikt/kubeconfigs) *(this is a private repo only available to developers at NAV)* a from Github
+1. Clone [kubeconfigs](https://github.com/navikt/kubeconfigs) from Github
 2. Point the `KUBECONFIG` environment-variable to the `configs` file in the cloned repo*
 3. Before you can begin using `Kubectl`, you need to authorise with Azure.
  a. Switch to a cluster `kubectl config use-context preprod-fss`
@@ -89,4 +89,4 @@ no_proxy=localhost,127.0.0.1,*.adeo.no,.local,.adeo.no,.nav.no,.aetat.no,.devill
 ## If you have any questions
 
 1. Read the documentation
-2. [Contact us](/README.md#contact-us)
+2. [Contact us](/documentation/README.md#contact-us)
