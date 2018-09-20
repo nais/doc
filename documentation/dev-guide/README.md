@@ -5,7 +5,7 @@ Getting started
 
 ## Install the necessary tools
 
-We recommend Linux-VDI users to use [utvikler-ansible](https://github.com/navikt/utvikler-ansible) (*this is a private repo only available to developers at NAV*) to set up their images.
+We recommend Linux-VDI users to use [utvikler-ansible](https://github.com/navikt/utvikler-ansible) *(this is a private repo only available to developers at NAV)* to set up their images.
 
 For Linux- and Windows-VDI, you need to set up [NAV-proxy](/documentation/dev-guide/README.md#system-environment-variables) before installing the tools.
 
@@ -21,15 +21,15 @@ What you can and can't do in the clusters are governed by RBAC-rules that are de
 
 #### Install Kubectl on Windows
 
-1. Download Kubectl from `F:\programvare\kubectl\kubectl.exe`. Put the file where you usually install files
+1. Download Kubectl from `F:\programvare\kubectl\kubectl.exe` *(this is only available to developers at NAV)*. Put the file where you usually install files
 2. Add `kubectl.exe` to the system environment variable `$PATH`
 3. Check if everything is working by restarting your shell and running `kubectl`
 
 
 #### Configure Kubectl
 
-1. Clone [kubeconfigs](https://github.com/navikt/kubeconfigs)(*this is a private repo only available to developers at NAV*)a from Github
-2. Point the `KUBECONFIG` environment-variable to the `configs` file in the cloned repo
+1. Clone [kubeconfigs](https://github.com/navikt/kubeconfigs) *(this is a private repo only available to developers at NAV)* a from Github
+2. Point the `KUBECONFIG` environment-variable to the `configs` file in the cloned repo*
 3. Before you can begin using `Kubectl`, you need to authorise with Azure.
  a. Switch to a cluster `kubectl config use-context preprod-fss`
  b. Run `kubectl get pods` and you will then be asked to authorise with Azure. Go to the address, use the code, and log in with your NAV e-post and NAV-ident password. When your user has been authorised, the shell-command will finish and return a list of pods running in the cluster.
@@ -68,7 +68,7 @@ Follow the [install Docker](https:/s.docker.com/install/)-guide for local testin
 
 Since we are running our Windows VDI with virtualisation off, we need to have the Docker daemon running on an external Linux-server or VDI.
 
-1. Install Docker CE by following the guide at [docker.com](https://www.docker.comker-windows)
+1. Install Docker CE by following the guide at [docker.com](https://www.docker.com/docker-windows)
    * You need to disable `hyper-v`
    * You need to reboot you machine
 2. Set system environment variable `DOCKER_HOST` to point to a Linux server running a Docker daemon
