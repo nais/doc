@@ -161,4 +161,4 @@ $ kubectl config view | grep namespace: -B 1
 	namespace: t1
 ```
 
-You can now run kubectl operations without specifiying namespace.
+You can now run kubectl operations without specifying namespace.
