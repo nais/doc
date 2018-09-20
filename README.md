@@ -1,3 +1,3 @@
 NAIS documentation
 ==================
-Documentation can be [read here](/doc).
+Documentation can be [read here](/documentation).
