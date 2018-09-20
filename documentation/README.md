@@ -9,7 +9,9 @@ Also, follow our [changelog](/documentation/changelog.md) to easily stay up to d
 
 ## Getting started
 
-New users and developers should head over to the [getting started guide](/documentation/dev-guide/README.md#getting-started), which cover both how to set up the environment, and how to start using the platform. After that you can read more about the [platform](/documentation/platform.md), and the NAIS [contracts](/README.md#contracts).
+New users and developers should head over to the [getting started guide](/documentation/dev-guide/README.md#getting-started), which cover both how to set up the environment, and how to start using the platform. 
+Note that this guide is specific to [NAV](https://nav.no) and links to private repositories and config files.
+After that you can read more about the [platform](/documentation/platform.md), and the NAIS [contracts](/README.md#contracts).
 
 
 ## Developer guide

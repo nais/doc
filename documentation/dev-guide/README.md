@@ -1,9 +1,11 @@
 Getting started
 ===============
 
+> This guide contains several steps and links specific to developers at NAV. Some of them link to internal information in private repositories. 
+
 ## Install the necessary tools
 
-We recommend Linux-VDI users to use [utvikler-ansible](https://github.com/navikt/utvikler-ansible) to set up their images.
+We recommend Linux-VDI users to use [utvikler-ansible](https://github.com/navikt/utvikler-ansible) (*this is a private repo only available to developers at NAV*) to set up their images.
 
 For Linux- and Windows-VDI, you need to set up [NAV-proxy](/documentation/dev-guide/README.md#system-environment-variables) before installing the tools.
 
@@ -26,7 +28,7 @@ What you can and can't do in the clusters are governed by RBAC-rules that are de
 
 #### Configure Kubectl
 
-1. Clone [kubeconfigs](https://github.com/navikt/kubeconfigs) from Github
+1. Clone [kubeconfigs](https://github.com/navikt/kubeconfigs)(*this is a private repo only available to developers at NAV*)a from Github
 2. Point the `KUBECONFIG` environment-variable to the `configs` file in the cloned repo
 3. Before you can begin using `Kubectl`, you need to authorise with Azure.
  a. Switch to a cluster `kubectl config use-context preprod-fss`
