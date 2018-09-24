@@ -20,4 +20,4 @@ Below you will find documentation on some of the values you can set in the manif
 
 * [Redis](/documentation/services/redis.md) - Non-persistant in-memory data structure store
 
-* [Vault](documentation/contracts/vault.md) - Secrets from Vault
+* [Vault](/documentation/contracts/vault.md) - Secrets from Vault

@@ -28,6 +28,7 @@ After that you can read more about the [platform](/documentation/platform.md), a
 * [Fasit resources](/documentation/contracts/fasit_resources.md)
 * [Logging](/documentation/contracts/logging.md)
 * [Metrics](/documentation/contracts/metrics.md)
+* [Vault](/documentation/contracts/vault.md)
 * [NAIS manifest](/documentation/contracts/README.md#nais-manifest)
 
 
