@@ -19,3 +19,5 @@ Below you will find documentation on some of the values you can set in the manif
 * [Prometheus](/documentation/contracts/metrics.md) - Metrics scraping from end point
 
 * [Redis](/documentation/services/redis.md) - Non-persistant in-memory data structure store
+
+* [Vault](documentation/contracts/vault.md) - Secrets from Vault
