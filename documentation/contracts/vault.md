@@ -10,7 +10,6 @@ To make use of Vault as a secret backend you need to:
 4. Enable Vault integration in your NAIS manifest config. 
 
 The first three requirements are covered by a pull request to the following repo: [vault-iac](https://github.com/navikt/vault-iac/tree/master/terraform)
-
 Enabling Vault integration in a NAIS application is covered below.
 
 ## NAIS manifest config
@@ -25,7 +24,7 @@ Given the following secrets in Vault:
 
 ![example](_media/vault.jpg)
 
-The application ***nais-testapp*** deployed to namespace ***default*** will get the secrets
+The application ***nais-testapp*** deployed to the ***preprod-fss cluster*** and namespace ***default*** will get the secrets
 injected as files with ***key*** as filename and ***value*** as file content:
 
 ```
