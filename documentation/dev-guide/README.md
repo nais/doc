@@ -52,7 +52,7 @@ git reset
 git pull
 ```
 
-Alternatively you can just remove the values under `user.auth-provider.config` for the following keys, in the `kubeconfigs/config`-yaml file: ´access-token`, `refresh-token`, `expires-in`, `expires-on`.
+Alternatively you can just remove the values under `user.auth-provider.config` for the following keys, in the `kubeconfigs/config`-yaml file: `access-token`, `refresh-token`, `expires-in`, `expires-on`.
 
 After that, follow the instruction to [configure kubectl](/documentation/dev-guide/README.md#configure-kubectl).
 
