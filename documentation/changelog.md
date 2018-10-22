@@ -5,11 +5,13 @@ This is a simple changelog over notable milestones for the [NAIS-platform](/docu
 
 
 ## [Unreleased]
-- We are rewitting Naisd to be a third-party app for Kubernetes, using the Kubernetes Operator toolset
-- Working on adding Kubernetes Vault for secrets
+- We are rewitting Naisd to be a third-party app for Kubernetes, using the Kubernetes Operator toolset. Check out the [naiserator](https://github.com/nais/naiserator) repo for more info
+- Vault is missing in SBS-zone
 
 
 ## [Released]
+### [2018-09-24]
+- Added Vault by Hashicorp, which is a tool to manage secrets, see [documentation](/documentation/contracts/vault.md) for more
 ### [2018 - June]
 - Created a new service/bot for Slack, to help team arrange stand-up. Check out [standup.nais.io](https://standup.nais.io/)
 
