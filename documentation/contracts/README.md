@@ -14,6 +14,8 @@ Below you will find documentation on some of the values you can set in the manif
 
 * [Fasit resources](/documentation/contracts/fasit_resources.md) - Resources retrieved from Fasit
 
+* [Ingress](/documentation/contracts/ingress.md) - Ingress for your app
+
 * [Leader Election](/documentation/services/leader_election.md) - Leader election between pods in a replicat set
 
 * [Prometheus](/documentation/contracts/metrics.md) - Metrics scraping from end point
