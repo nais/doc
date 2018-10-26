@@ -165,4 +165,4 @@ If you have some issues or suggestions for Naisd you can make an [issue on Githu
 
 ## Flow
 
-![overview](/media/naisd_overview.png)
+![overview](/documentation/dev-guide/_media/naisd_overview.png)
