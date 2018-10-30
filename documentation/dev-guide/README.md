@@ -56,6 +56,8 @@ Alternatively you can just remove the values under `user.auth-provider.config` f
 
 After that, follow the instruction to [configure kubectl](/documentation/dev-guide/README.md#configure-kubectl).
 
+PS: Some users have had to change Kubernetes context/cluster for the change to take effect.
+
 
 ### Install Docker
 
