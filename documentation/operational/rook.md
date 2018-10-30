@@ -38,6 +38,16 @@ ceph df
 rados df
 ```
 
+##### Adding  a storage node
+
+* Provision node(s) in Basta addink "disk til lagringsnode".
+
+* Specs are 2 CPU, 16GB and 400GB disk.
+
+* Add to nais-inventory as worker and storage nodes.
+
+* Profit
+
 ##### Removing a storage node
 
 This is currently a manual process where we need to ensure that data is rebalanced to the other storage nodes.
