@@ -48,6 +48,16 @@ rados df
 
 * Profit
 
+##### Speeding up ceph recovery
+
+* Exec into CEPH toolbox pod. Run:
+
+```
+ceph tell 'osd.*' injectargs '--osd-max-backfills 16'
+ceph tell 'osd.*' injectargs '--osd-recovery-max-active 4'
+```
+
+
 ##### Removing a storage node
 
 This is currently a manual process where we need to ensure that data is rebalanced to the other storage nodes.
