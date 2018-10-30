@@ -48,15 +48,7 @@ rados df
 
 * Profit
 
-##### Speeding up ceph recovery
-
-* Exec into CEPH toolbox pod. Run:
-
-```
-ceph tell 'osd.*' injectargs '--osd-max-backfills 16'
-ceph tell 'osd.*' injectargs '--osd-recovery-max-active 4'
-```
-
+**Note that adding a node will cause CEPH to rebalance the cluster. See section on speeding up cluster recovery.**
 
 ##### Removing a storage node
 
@@ -111,5 +103,13 @@ ceph osd crush rm a30apvl00016-oera-no
 ```text
 ceph health details
 ```
+**Note that adding a node will cause CEPH to rebalance the cluster. See section on speeding up cluster recovery.**
 
+##### Speeding up ceph recovery
 
+* Exec into CEPH toolbox pod. Run:
+
+```
+ceph tell 'osd.*' injectargs '--osd-max-backfills 16'
+ceph tell 'osd.*' injectargs '--osd-recovery-max-active 4'
+```
