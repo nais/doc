@@ -91,7 +91,7 @@ spec:
     name: "sr-d"
 ```
 
-Prerequisites:
+### Prerequisites:
 
 - Istio mTLS is enabled for the namespace used
 - Istio RBAC is enabled for the namespace used
