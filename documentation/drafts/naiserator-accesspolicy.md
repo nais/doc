@@ -29,7 +29,7 @@ spec:
 
 When this configuration is applied, we will create the following resources:
 
-## NetworkPolicy
+### NetworkPolicy
 
 ```
 apiVersion: networking.k8s.io/v1
@@ -63,7 +63,7 @@ spec:
           app: c
 ```
 
-## Istio RBAC
+### Istio RBAC
 
 ```
 apiVersion: "rbac.istio.io/v1alpha1"
