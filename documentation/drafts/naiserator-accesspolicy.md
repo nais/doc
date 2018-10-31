@@ -96,6 +96,7 @@ spec:
 - Istio mTLS is enabled for the namespace used
 - Istio RBAC is enabled for the namespace used
 - Network policies is available
+- Namespace needs to have label name: <namespace-name>
 - Default deny rule is applied to the cluster 
 - ServiceAccount is created and mounted for each deployment (same name as the deployment)
 - The `Service` object needs to have ports[].name set
