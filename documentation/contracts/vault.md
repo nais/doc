@@ -24,8 +24,7 @@ Given the following secrets in Vault:
 
 ![example](_media/vault.jpg)
 
-The application ***nais-testapp*** deployed to the ***preprod-fss cluster*** and namespace ***default*** will get the secrets
-injected as files with ***key*** as filename and ***value*** as file content:
+The application ***nais-testapp*** deployed to the ***preprod-fss cluster*** and namespace ***default*** will get the secrets injected as files with ***key*** as filename and ***value*** as file content.  Please note that file content is a free format defined as per your applications need, e.g. its content can be `json`, `yaml`, or even plain text `properties`.  
 
 ```
 /var/run/secrets/nais.io/vault
@@ -43,6 +42,12 @@ value: value2
 database:
   user: user
   password: password
+
+~ # cat   /var/run/secrets/nais.io/vault/config.json 
+  {
+  "url": "blabla"
+  "param": "etcetc"
+  }
 
 ```
 
