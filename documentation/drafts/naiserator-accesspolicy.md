@@ -77,6 +77,7 @@ spec:
     methods: ["GET"]
 apiVersion: "rbac.istio.io/v1alpha1"
 ---
+apiVersion: "rbac.istio.io/v1alpha1"
 kind: ServiceRoleBinding
 metadata:
   name: srb-d
