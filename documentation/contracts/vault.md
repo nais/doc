@@ -33,6 +33,7 @@ The application ***nais-testapp*** deployed to the ***preprod-fss cluster*** and
 total 8
 -rw-r--r--    1 root     root            27 Sep 19 12:19 application.properties
 -rw-r--r--    1 root     root            43 Sep 19 12:19 secret.yaml
+-rw-r--r--    1 root     root            43 Sep 19 12:19 config.json
 
 ~ # cat   /var/run/secrets/nais.io/vault/application.properties 
 value: value1
