@@ -78,7 +78,7 @@ metadata:
 spec:
   rules:
   - services: ["b.default.svc.cluster.local"]
-    methods: ["GET"]
+    methods: ["*"]
 ---
 apiVersion: "rbac.istio.io/v1alpha1"
 kind: ServiceRoleBinding

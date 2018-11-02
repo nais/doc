@@ -35,7 +35,7 @@ When this configuration is applied, we will create the following resources:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: np-d
+  name: d
   namespace: default
 spec:
   podSelector:
@@ -69,18 +69,18 @@ spec:
 apiVersion: "rbac.istio.io/v1alpha1"
 kind: ServiceRole
 metadata:
-  name: sr-d
+  name: d
   namespace: default
 spec:
   rules:
   - services: ["d.default.svc.cluster.local"]
-    methods: ["GET"]
+    methods: ["*"]
 apiVersion: "rbac.istio.io/v1alpha1"
 ---
 apiVersion: "rbac.istio.io/v1alpha1"
 kind: ServiceRoleBinding
 metadata:
-  name: srb-d
+  name: d
   namespace: default
 spec:
   subjects:
@@ -89,7 +89,7 @@ spec:
   - user: "cluster.local/ns/othernamespace/sa/c"
   roleRef:
     kind: ServiceRole
-    name: "sr-d"
+    name: "d"
 ```
 
 ### Prerequisites:
