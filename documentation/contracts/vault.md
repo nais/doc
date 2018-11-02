@@ -1,4 +1,4 @@
-Vault
+ Vault
 =======
 
 Vault by Hashicorp is a tool for managing secrets. 
@@ -24,26 +24,27 @@ Given the following secrets in Vault:
 
 ![example](_media/vault.jpg)
 
-The application ***nais-testapp*** deployed to the ***preprod-fss cluster*** and namespace ***default*** will get the secrets injected as files with ***key*** as filename and ***value*** as file content.  Please note that file content is a free format defined as per your applications need, e.g. its content can be `json`, `yaml`, or even plain text `properties`.  
+The application ***nais-testapp2*** when deployed to the ***preprod-fss cluster*** and namespace ***default*** will get the secrets injected as files with ***key*** as filename and ***value*** as file content.  Please note that file content is a free format defined as per your applications need, e.g. its content can be `json`, `yaml`, or even plain text `properties`.  
 
 ```
 /var/run/secrets/nais.io/vault
 
- # ls  -lt /var/run/secrets/nais.io/vault/
+ # ls -lt /var/run/secrets/nais.io/vault/
 total 8
 -rw-r--r--    1 root     root            27 Sep 19 12:19 application.properties
 -rw-r--r--    1 root     root            43 Sep 19 12:19 secret.yaml
+-rw-r--r--    1 root     root            43 Sep 19 12:19 config.json
 
-~ # cat   /var/run/secrets/nais.io/vault/application.properties 
-value: value1
-value: value2
+~ # cat /var/run/secrets/nais.io/vault/application.properties 
+key1: value1
+key2: value2
 
-~ # cat   /var/run/secrets/nais.io/vault/secret.yaml 
+~ # cat /var/run/secrets/nais.io/vault/secret.yaml 
 database:
   user: user
   password: password
 
-~ # cat   /var/run/secrets/nais.io/vault/config.json 
+~ # cat /var/run/secrets/nais.io/vault/config.json 
   {
   "url": "blabla"
   "param": "etcetc"
