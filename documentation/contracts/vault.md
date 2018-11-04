@@ -1,5 +1,5 @@
- Vault
-=======
+Vault
+=====
 
 Vault by Hashicorp is a tool for managing secrets. 
 To make use of Vault as a secret backend you need to:
