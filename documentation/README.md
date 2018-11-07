@@ -17,6 +17,7 @@ After that you can read more about the [platform](/documentation/platform.md), a
 ## Developer guide
 
 * [Naisd](/documentation/dev-guide/naisd.md)
+* [Naiserator](/documentation/dev-guide/naiserator.md)
 * [Migration](/documentation/dev-guide/migration.md)
 * [Getting started](/documentation/dev-guide/README.md#getting-started)
 
