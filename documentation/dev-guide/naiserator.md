@@ -18,5 +18,5 @@ self-contained application platform. The most important ones are:
   [kubectl](README.md#install-kubectl) command instead of an HTTP endpoint.
 
 Please read the [migration
-guide](https://github.com/nais/naiserator/doc/migrating.md) if you are already
+guide](https://github.com/nais/naiserator/blob/master/doc/migrating.md) if you are already
 familiar with deployments using naisd.
