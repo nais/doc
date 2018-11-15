@@ -6,12 +6,12 @@ This is a simple changelog over notable milestones for the [NAIS-platform](/docu
 
 ## [Unreleased]
 - We are rewitting Naisd to be a third-party app for Kubernetes, using the Kubernetes Operator toolset. Check out the [naiserator](https://github.com/nais/naiserator) repo for more info. It is possible to start using this now
-- Vault is missing in SBS-zone
 
 
 ## [Released]
 ### [2018-10-26]
 - Changed security model from everyone has read/write to read everyting and write only on team-specific resources. See [slack-message](https://nav-it.slack.com/archives/C5KUST8N6/p1540292509000100) for what to do
+- SBS-zone was added to Vault
 
 ### [2018-09-24]
 - Added Vault by Hashicorp, which is a tool to manage secrets, see [documentation](/documentation/contracts/vault.md) for more
