@@ -22,7 +22,7 @@ This is best illustrated using an example
 
 Given the following secrets in Vault:
 
-![example](_media/vault.jpg)
+![example](../_media/vault.jpg)
 
 The application ***nais-testapp*** deployed to the ***preprod-fss cluster*** and namespace ***default*** will get the secrets
 injected as files with ***key*** as filename and ***value*** as file content:
