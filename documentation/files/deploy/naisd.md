@@ -104,6 +104,14 @@ The response will be the deployment status payload from Kubernetes with the foll
 
 We are also working on a delete-endpoint, for deletion of all components and resources for your application. For now it is a bit buggy, and so we also recommend running the Kubectl-operations.
 
+
+### Kubectl operation
+
+```operations
+$ kubectl delete deployment,ingress,service,secrets,serviceaccount,horizontalpodautoscaler <appname> --namespace <your-namespace>
+```
+
+
 ### Delete endpoint
 
 The endpoint accepts HTTP DELETE on the path `/app/{namespace}/{application}`.
@@ -124,7 +132,7 @@ The response payload will be the deletion status of all application components:
 | FAIL   | Some unexpected error occured  |
 
 
-### Example output
+### Example payload
 
 ```
 result:
