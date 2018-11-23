@@ -1,6 +1,17 @@
 Getting started
 ===============
 
+TODO:
+
+tools (kubectl, gcloud..)
+access (team, utvikling-på-laptop(?), kubeconfig)
+egen underside for VDI
+
+how to prepare your application 
+push to docker repo
+
+
+
 > This guide contains several steps and links specific to developers at NAV. Some of them link to internal information in private repositories. 
 
 ## Install the necessary tools
