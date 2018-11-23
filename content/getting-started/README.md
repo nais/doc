@@ -7,16 +7,16 @@ Getting started
 
 We recommend Linux-VDI users to use [utvikler-ansible](https://github.com/navikt/utvikler-ansible) to set up their images.
 
-For Linux- and Windows-VDI, you need to set up [NAV-proxy](/documentation/files/getting-started/README.md#system-environment-variables) before installing the tools.
+For Linux- and Windows-VDI, you need to set up [NAV-proxy](/content/getting-started/README.md#system-environment-variables) before installing the tools.
 
 
 ### Install Kubectl
 
 > Use the Kubernetes command-line tool, kubectl, to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; and look at your new cluster and bring up example apps.
 
-Linux and Mac users can use the install guide over at [Kubernetes.io](https://kubernetes.io/docs/tasks/tools/install-kubectl/) to install Kubectl. Windows users can follow the guide below. All three types of users need to [configure Kubectl](/documentation/files/getting-started/README.md#configure-kubectl) after installation.
+Linux and Mac users can use the install guide over at [Kubernetes.io](https://kubernetes.io/docs/tasks/tools/install-kubectl/) to install Kubectl. Windows users can follow the guide below. All three types of users need to [configure Kubectl](/content/getting-started/README.md#configure-kubectl) after installation.
 
-What you can and can't do in the clusters are governed by RBAC-rules that are defined in the [Naisible-repo](https://github.com/nais/naisible/blob/master/files/roles/clusterroles.yaml). This is a bit technical, and it's better to read up on [Kubectl operations](https://kubernetes.io/docs/reference/kubectl/overview/#operations) over at Kubernetes.io. We also have made a small set of [Kubectl operation examples](/documentation/files/getting-started/kubectl_examples.md).
+What you can and can't do in the clusters are governed by RBAC-rules that are defined in the [Naisible-repo](https://github.com/nais/naisible/blob/master/files/roles/clusterroles.yaml). This is a bit technical, and it's better to read up on [Kubectl operations](https://kubernetes.io/docs/reference/kubectl/overview/#operations) over at Kubernetes.io. We also have made a small set of [Kubectl operation examples](/content/getting-started/kubectl_examples.md).
 
 
 #### Install Kubectl on Windows
@@ -54,7 +54,7 @@ git pull
 
 Alternatively you can just remove the values under `user.auth-provider.config` for the following keys, in the `kubeconfigs/config`-yaml file: `access-token`, `refresh-token`, `expires-in`, `expires-on`.
 
-After that, follow the instruction to [configure kubectl](/documentation/files/getting-started/README.md#configure-kubectl).
+After that, follow the instruction to [configure kubectl](/content/getting-started/README.md#configure-kubectl).
 
 PS: Some users have had to change Kubernetes context/cluster for the change to take effect.
 
