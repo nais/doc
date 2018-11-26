@@ -16,7 +16,7 @@ Verify that your application is running properly
 
 ## Migrating from naisd
 
-[link](migrating_from_naisd)
+[link](migrating_from_naisd.md)
 
 ## Still using naisd
 
