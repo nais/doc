@@ -1,4 +1,4 @@
-NAIS documentation
+#NAIS documentation
 <img align="left" width="60" height="80" src="https://raw.githubusercontent.com/nais/doc/master/content/_media/nais_logo_gray.png">
 
 ---
