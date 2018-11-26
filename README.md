@@ -1,14 +1,19 @@
 NAIS documentation
-==================
+---
 <img align="left" width="60" height="80" src="https://raw.githubusercontent.com/nais/doc/master/content/_media/nais_logo_gray.png">
 NAIS is an application platform built to increase development speed by providing our developers with the best possible tools to develop and run their applications.
 
-For developers getting started with NAIS, the [getting started guide](/content/getting-started) covers both setting up the environment, getting access and how to start using [the platform](/content/about).
+---
 
+# About
+For developers getting started with NAIS, the [getting started guide](/content/getting-started) covers both setting up the environment, getting access and how to start using [the platform](/content/about).
 The [about page](/content/about/README.md) gives you a high-level overview to the platform and it's components
 
-Services
-========
+* [About]()/content/about/README.md)
+* [Getting started](/content/getting-started) 
+* [Kubernetes clusters](/content/clusters)
+
+# Services
 
 * [Kubernetes clusters](/content/clusters)
 * [Deploy](/content/deploy/naisd.md)
