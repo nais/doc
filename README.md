@@ -24,7 +24,9 @@ The [about page](/content/about/README.md) gives you a high-level overview to th
 * [Alerts](/content/alerts)
 * [Logging](/content/logging)
 * [Secrets](/content/secrets)
-* [Auth{n,z}](/content/authnz)
+* [Application Auth{n,z}](/content/authnz)
+* [Platform security](/content/security)
+* [Operational access](/content/operations)
 
 * [Redis/Caching](/content/redis.md)
 * [Leader election](/content/leader_election.md)
