@@ -8,7 +8,7 @@ NAIS is an application platform built to increase development speed by providing
 ---   
 
 # About
-For developers getting started with NAIS, the [getting started guide](/content/getting-started) covers both setting up the environment, getting access and how to start using [the platform](/content/about).
+For developers getting started with NAIS, the [getting started guide](/content/getting-started) covers both setting up the environment, [getting access](/content/security/operational_access.md) and how to start using [the platform](/content/about).
 The [about page](/content/about/README.md) gives you a high-level overview to the platform and it's components
 
 * [About](/content/about/README.md)
