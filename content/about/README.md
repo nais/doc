@@ -15,7 +15,7 @@ With this newfound freedom, we can make use of a container orchestrator system s
 ## Configuration
 As the operation of the application is handed over to the platform, we need to give the platform some insructions on how to operate.
 In order to fully automate the applications operations, NAIS make use of many of the different mechanisms [Kubernetes](https://kubernetes.io/) has to offer; all of which require individual configuration.
-Since the configuration of these mechanisms are the same for all applications, the applications can express all its demands in a simple (configuration format)[https://github.com/nais/naiserator/blob/master/pkg/apis/naiserator/v1alpha1/application.yaml], and NAIS will take care of [building the instructions](https://github.com/nais/naiserator) for [Kubernetes](https://kubernetes.io/)
+Since the configuration of these mechanisms are the same for all applications, the applications can express all its demands in a simple [configuration format](https://github.com/nais/naiserator/blob/master/pkg/apis/naiserator/v1alpha1/application.yaml), and NAIS will take care of [building the instructions](https://github.com/nais/naiserator) for [Kubernetes](https://kubernetes.io/)
 
 What's NAIS about this platform, is:
 - nais.yaml
