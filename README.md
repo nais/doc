@@ -2,7 +2,7 @@
 
 ---
 
-*NAIS documentation*
+**NAIS documentation**
 
 ---   
 
