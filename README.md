@@ -14,9 +14,9 @@ The [about page](/content/about/README.md) gives you a high-level overview to th
 * [About](/content/about/README.md)
 * [Getting started](/content/getting-started) 
 * [Kubernetes clusters](/content/clusters)
+* [Operational access](/content/operations)
 
 # Services
-
 * [Kubernetes clusters](/content/clusters)
 * [Deploy](/content/deploy/naisd.md)
 * [Storage](/content/storage)
@@ -24,13 +24,14 @@ The [about page](/content/about/README.md) gives you a high-level overview to th
 * [Alerts](/content/alerts)
 * [Logging](/content/logging)
 * [Secrets](/content/secrets)
-* [Application Auth{n,z}](/content/authnz)
-* [Platform security](/content/security)
-* [Operational access](/content/operations)
-
 * [Redis/Caching](/content/redis.md)
 * [Leader election](/content/leader_election.md)
 * [Kubernetes dashboard](/content/kubernetes_dashboard.md)
+
+# Security
+* [Application Auth{n,z}](/content/authnz)
+* [Platform security](/content/security)
+
 
 Follow our [changelog](/content/changelog.md) to easily stay up to date on new milestones and services.
 
