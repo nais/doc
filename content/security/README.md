@@ -32,7 +32,7 @@ The platform takes care of implementing and maintaining these policies dynamical
 
 ## Istio RBAC
 Even though we've got control over which pods are allowed to communicate on the network layer, we still need to ensure that the communication between the pods is safe.
-Using Istio RBAC, every pod can prove their identity cryptographically and data can be transported with [mTLS](https://istio.io/docs/tasks/security/mutual-tls/)
+Using Istio RBAC, every pod can prove their identity cryptographically and data can be transported with [mTLS](https://istio.io/docs/tasks/security/mutual-tls/)   
 ![firewall](../_media/platformsecurity.png)
 
 ## Pod Security Policy
