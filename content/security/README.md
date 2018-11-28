@@ -1,5 +1,23 @@
 # Platform security
 
+## TL;DR
+Adding the configuration parameters below will enable NetworkPolicies and Istio RBAC for your application
+```
+...
+metadata:
+  name: d
+  namespace: default
+spec: 
+  ...
+  accessPolicy:
+    inbound:
+      - application: a
+        namespace: default # optional, defaults to 'metadata.namespace'
+      - application: b
+      - application: c
+        namespace: othernamespace 
+```
+----
 Securing applications by placing them in a defined perimiter behind a firewall is a common approach.
 However, relying on an external perimiter implies trusting everything behind the perimiter, and this is an unsafe assumption.
 If one application behind the firewall has been compromised, the other applications are left vulnerable as their security relies on firewalls stopping attackers from entering the perimiter.
