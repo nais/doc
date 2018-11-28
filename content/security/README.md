@@ -1,7 +1,7 @@
 # Platform security
 
 ## TL;DR
-Adding the configuration parameters below will enable NetworkPolicies and Istio RBAC for your application
+Adding the configuration parameters below to your `Application` will enable NetworkPolicies and Istio RBAC for your application
 ```
 ...
 metadata:
@@ -17,6 +17,7 @@ spec:
       - application: c
         namespace: othernamespace 
 ```
+_(note: Only available in GKE so far)_
 ----
 Securing applications by placing them in a defined perimiter behind a firewall is a common approach.
 However, relying on an external perimiter implies trusting everything behind the perimiter, and this is an unsafe assumption.
