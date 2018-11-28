@@ -12,8 +12,6 @@ The underlying services validates and grants access based on the access token.
 A detailed explanation and an example implementation is accessible [here](https://github.com/navikt/navs-aad-authorization-flow)
 [Self service repostitory](https://github.com/navikt/IaC/tree/master/Azure/registerApplication) for registering an Azure AD application (private repository)
 
-## todo
-- esso
-- isso
-- loginservice
 
+## Legacy
+Legacy systems that haven't yet embraced using tokens for auth{n,z}, will find documentation for configuring [AM](am.md) here. (in norwegian)
