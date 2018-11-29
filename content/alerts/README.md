@@ -10,12 +10,11 @@ Below you can find an example for a custom alert defined in the [NAIS manifest](
 
 ```yaml
 alerts:
-- alert: appNotDeployed
+- alert: appNotAvailable
   expr: kube_deployment_status_replicas_unavailable{deployment="app-name"} > 0
   for: 5m
   annotations:
-    action: Application is not deployed
-  labels:
+    action: Read app logs(kubectl logs appname). Read Application events (kubectl descibe deployment appname) 
     severity: Warning
 ```
 
