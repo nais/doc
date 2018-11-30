@@ -9,4 +9,4 @@ See some Java examples [here](examples.md)
 
 ## Overview
 
-![overview](/media/logging_overview.png)
+![overview](../_media/logging_overview.png)
