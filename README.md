@@ -26,6 +26,7 @@ The [about page](/content/about/README.md) gives you a high-level overview to th
 * [Redis/Caching](/content/redis.md)
 * [Leader election](/content/leader_election.md)
 * [Kubernetes dashboard](/content/kubernetes_dashboard.md)
+* [Traffic routing](/content/trafficrouting.md)
 
 # Security
 * [Application Auth{n,z}](/content/authnz)
