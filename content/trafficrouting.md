@@ -17,7 +17,7 @@ Internal URI's can be defined in the `Application` definition and is enforced by
 If an application running in a public cloud environment needs to communicate with an on-premise application, a configuration parameter needs to be added to the `Application` definition.
 This will create an Istio [destination rule](https://istio.io/docs/reference/config/istio.networking.v1alpha3/#DestinationRule) that allows egress traffic from the cluster.
 Once traffic has been allowed out of the cluster, it will traverse a VPN connection terminated on-premise.
-The only services available directly on the VPN are those who have implemented the [Azure AD token authorization](../authnz/) flow.
+The only services available directly on the VPN are those who have implemented the [Azure AD token authorization](/content/authnz/) flow.
 
 
 On-prem applications that haven't yet implemented token authentication will only be available through the use of either API-gateway or service-gateway.
@@ -28,6 +28,6 @@ On-prem applications that haven't yet implemented token authentication will only
 When routing end-user traffic to on-prem cluster, applications will be presented on _default-sub-domain_.nav.no/_appname_, and the default policy is to forward traffic to the AM policy enforcement point.
 If the path match `not-enforced-urls` or has a valid token, the traffic will be forwarded to the internal loadbalancer, which in turn directs the traffic to the cluster's ingress controller.
 
-All default routing is automatically configured for the application, but AM configuration is required: [AM configuration](../authnz/am.md)
+All default routing is automatically configured for the application, but AM configuration is required: [AM configuration](/content/authnz/am.md)
 ![toonprem](_media/onprem.png)
 
