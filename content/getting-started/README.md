@@ -28,10 +28,7 @@ Go to the address, use the code, and log in with your NAV e-post and NAV-ident p
 
 ## Aquire the `nais:developer` role
 
-This role is granted automatically by being member of the AD-group called "0000-GA-UTVIKLING-FRA-LAPTOP". This is granted by your identity manager (identansvarlig).
-
-This role grants you the base access to the cluster.
-
+This role is granted automatically by being member of the AD-group called "0000-GA-UTVIKLING-FRA-LAPTOP". This is granted by your identity manager (identansvarlig) and will give you the base access to the cluster.
 
 ## Get access to operate your team's applications
 
