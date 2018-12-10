@@ -7,8 +7,10 @@
 ---   
 
 # About
-For developers getting started with NAIS, the [getting started guide](/content/getting-started) covers both setting up the environment, [getting access](/content/security/operational_access.md) and how to start using [the platform](/content/about).
-The [about page](/content/about/README.md) gives you a high-level overview to the platform and it's components
+The [about page](/content/about/README.md) gives you a high-level overview to the platform and it's components.   
+For developers getting started with NAIS, the [getting started guide](/content/getting-started) covers setting up your environment and getting access to the clusters.
+
+and how to publish your first application.   
 
 * [About](/content/about/README.md)
 * [Getting started](/content/getting-started) 
