@@ -19,7 +19,6 @@ For applications with sensitive information that need access to legacy systems i
 | *.prod-fss.nais.io         | Internal ingress   |
 | *.nais.adeo.no             | Legacy internal    |
 | *.prod-fss-pub.nais.io     | Public ingress     |
-| *.nais.oera.no             | Legacy internal    |
 
 ### Prod SBS
 Production environment in SBS   
@@ -47,6 +46,7 @@ Non-Production environment in FSS
 | :------------------------- | :----------------- |
 | *.dev-fss.nais.io          | Internal ingress   |
 | *.nais.preprod.local       | Legacy internal    |
+| *.dev-fss-pub.nais.io      | Public ingress     |
 
 ### Dev SBS
 Non-Production environment in SBS   
