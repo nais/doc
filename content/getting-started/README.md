@@ -47,7 +47,8 @@ service user
 ## Recommended tools
 
 [kubectx](https://github.com/ahmetb/kubectx) - Simplifies changing cluster and namespace context.   
-[kubeaware](https://github.com/jhrv/kubeaware) - visualize which cluster and namespace is currently active.
+[kubeaware](https://github.com/jhrv/kubeaware) - Visualize which cluster and namespace is currently active.
+[kail](https://github.com/boz/kail) - Kubernetes tail, log multiplexer.
 
 ## Setting up on VDI
 If you need to use your VDI to access the clusters, there's a guide to configure [vdi](/content/getting-started/vdi.md)
