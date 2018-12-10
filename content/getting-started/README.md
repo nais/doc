@@ -13,7 +13,7 @@ Check out the [official documentation](https://kubernetes.io/docs/tasks/tools/in
 
 The `kubectl` tool uses a `kubeconfig` file to get the information it needs in order to connect to a cluster. We provide a [pre-made `kubeconfig`](https://github.com/navikt/kubeconfigs.git) file with NAV's [clusters](../clusters). 
 
-`kubectl` will by default look for a file named `config` in the `$HOME/.kube/` folder. The location of this file can be overridden by the environment variable called `KUBECONFIG`. 
+`kubectl` will by default look for a file named `config` in the `$HOME/.kube/` folder. You can also override this by having the absolute path of the file in the environment variable `KUBECONFIG`. 
 
 The first time you're attempting to communicate with a cluster, you are required to authenticate with Azure AD.
 ```
