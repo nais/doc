@@ -1,0 +1,9 @@
+## Managing teams using Azure AD.
+
+#### Creating a new team
+To create a new team, use this [order form](https://navno.sharepoint.com/sites/Bestillinger/).  
+The group's owner(s) can manage the group using either [outlook](https://outlook.office365.com/owa) or [AAD](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups)   
+Notice that once the group is created, you will get a mailnick/tag, where the team title is converted into lowercased version, with whitepaces and special characters are removed.   
+This is what you will use as your team's `label` in all NAIS-contexts.
+
+#### 
