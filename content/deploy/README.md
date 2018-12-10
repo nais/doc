@@ -1,27 +1,21 @@
 # Deployment
 
+> Performing deployments requires that you have [access to the cluster](../security/operational_access.md)
 
-<aside class="notice">
-You must replace `meowmeowmeow` with your personal API key.
-</aside>
-
-
-
-- [Access to the cluster](../security/operational_access.md)
-
-The easiest way to get your application running on NAIS is to create a [Application-resource/nais.yaml](https://github.com/nais/naiserator/blob/master/examples/app.yaml).
-
-This is a [custom resource](https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/) defined by the platform team, and contains the necessary information for setting up your application on NAIS. Read more about the technical details [here](https://github.com/nais/naiserator)
+The easiest way to get your application running on NAIS is to create a [nais.yaml](https://github.com/nais/naiserator/blob/master/examples/app.yaml).  
+This is a [custom resource](https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/) defined by the platform team, and contains the necessary information for setting up your application on NAIS. Read more about the technical details [here](https://github.com/nais/naiserator).
  
-
 ```
-kubectl apply -f nais.yaml
+$ kubectl apply -f nais.yaml
+application.nais.io/<app name> created 
 ```
 
-Verify that your application is running properly
-
+Verify that your application is running
 ```
-kubectl describe app <app name>
+$ kubectl get po -l app=<myapp>
+NAME                       READY   STATUS    RESTARTS   AGE
+<myapp>-59cbd7c89c-8h6wp   1/1     Running   0          4s
+<myapp>-59cbd7c89c-xpshz   1/1     Running   0          5s
 ```
 
 ## Environment variables
@@ -31,11 +25,9 @@ kubectl describe app <app name>
 ## Files
 
 
-## Migrating from naisd
+### [Migrating from naisd](migrating_from_naisd.md)
 
-[link](migrating_from_naisd.md)
-
-## Still using naisd
+### Still using naisd?
 
 See doc [here](naisd.md)
 
