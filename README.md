@@ -4,21 +4,14 @@
 
 **NAIS documentation**
 
----   
+---
 
-# About
-The [about page](/content/about/README.md) gives you a high-level overview to the platform and it's components.   
-For developers getting started with NAIS, the [getting started guide](/content/getting-started) covers setting up your environment and getting access to the clusters.
-
-and how to publish your first application.   
 
 * [About](/content/about/README.md)
-* [Getting started](/content/getting-started) 
-* [Kubernetes clusters](/content/clusters)
-* [Operational access](/content/operations)
+* [Getting started](/content/getting-started)
+* [Our Kubernetes clusters](/content/clusters)
 
 # Services
-* [Kubernetes clusters](/content/clusters)
 * [Deploy](/content/deploy/naisd.md)
 * [Storage](/content/storage)
 * [Metrics](/content/metrics)
@@ -33,7 +26,6 @@ and how to publish your first application.
 # Security
 * [Application Auth{n,z}](/content/authnz)
 * [Platform security](/content/security)
-
 
 Follow our [changelog](/content/changelog.md) to easily stay up to date on new milestones and services.
 
