@@ -9,7 +9,6 @@ Token enabled applications in FSS are available from this cluster
 | :------------------------- | :----------------- |
 | *.prod-gke-int.nais.io     | Internal ingress   |
 | *.prod-gke.nais.io         | Public ingress     |
-| apiserver.prod-fss.nais.io | Cluster API server |
 
 ### Prod FSS
 Production environment in FSS   
