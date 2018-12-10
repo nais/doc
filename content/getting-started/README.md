@@ -3,7 +3,7 @@ Getting started
 
 This guide will take you through the required tools and permissions that need to be in place for you to be able to operate your own NAIS application(s). 
 
-## Install `kubectl`
+## Install [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl)
 
 `kubectl` is a command-line tool used to manage your Kubernetes resources.
 
