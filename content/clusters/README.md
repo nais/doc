@@ -21,7 +21,6 @@ For applications with sensitive information that need access to legacy systems i
 | *.nais.adeo.no             | Legacy internal    |
 | *.prod-fss-pub.nais.io     | Public ingress     |
 | *.nais.oera.no             | Legacy internal    |
-| apiserver.prod-fss.nais.io | Cluster API server |
 
 ### Prod SBS
 Production environment in SBS   
@@ -31,7 +30,6 @@ For applications on nav.no
 | :------------------------- | :----------------- |
 | *.prod-sbs.nais.io         | Internal ingress   |
 | *.nais.oera.no             | Legacy internal    |
-| apiserver.prod-sbs.nais.io | Cluster API server |
 
 ### Dev GKE
 Non-Production environment in GKE   
@@ -42,7 +40,6 @@ Token enabled applications in FSS are available from this cluster
 | :------------------------- | :----------------- |
 | *.dev-gke-int.nais.io      | Internal ingress   |
 | *.dev-gke.nais.io          | Public ingress     |
-| apiserver.prod-fss.nais.io | Cluster API server |
 
 ### Dev FSS
 Non-Production environment in FSS   
@@ -51,7 +48,6 @@ Non-Production environment in FSS
 | :------------------------- | :----------------- |
 | *.dev-fss.nais.io          | Internal ingress   |
 | *.nais.preprod.local       | Legacy internal    |
-| apiserver.dev-fss.nais.io  | Cluster API server |
 
 ### Dev SBS
 Non-Production environment in SBS   
@@ -60,4 +56,3 @@ Non-Production environment in SBS
 | :------------------------- | :----------------- |
 | *.dev-sbs.nais.io          | Internal ingress   |
 | *.nais.oera-q.local        | Legacy internal    |
-| apiserver.dev-fss.nais.io  | Cluster API server |
