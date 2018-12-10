@@ -1,0 +1,32 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: testapp
+  namespace: default
+  labels:
+    team: aura
+spec:
+  image: jhrv/testapp:latest
+  port: 8080 
+  liveness: 
+    path: isalive
+  readiness: 
+    path: isalive
+  replicas: 
+    min: 2 
+    max: 4 
+    cpuThresholdPercentage: 50 
+  prometheus: 
+    path: /metrics
+  resources: 
+    limits:
+      cpu: 500m 
+      memory: 512Mi  
+    requests: 
+      cpu: 200m
+      memory: 256Mi
+  ingresses: 
+    - "https://testapp.dev-sbs.nais.io"
+  env:
+    - name: MY_CUSTOM_VAR
+      value: some_value
