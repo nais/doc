@@ -33,7 +33,7 @@ All default routing is automatically configured for the application, but AM conf
 
 ## Internal traffic cluster flow
 For our internal cluster we have four separate loadbalancers in front.
-Two of them are only exposed on our internal network, and all applications with an ingress on the cluster will be exposed on both _appname.env_._internal.domain and _appname.env_.nais.io.
+Two of them are only exposed on our internal network, and all applications with an ingress on the cluster will be exposed on both _appname.clustername_._internal.domain and _appname.clustername_.nais.io.
 The two remaining loadbalancers are exposed to external networks.   
 One of them is a dedicated virtual server in front of the API-server, the other is for applications that are secured using [Azure AD token authorization](/content/authnz/) 
 
