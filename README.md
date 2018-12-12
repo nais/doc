@@ -12,7 +12,7 @@
 * [Our Kubernetes clusters](/content/clusters)
 
 # Services
-* [Deploy](/content/deploy/naisd.md)
+* [Deploy](/content/deploy)
 * [Storage](/content/storage)
 * [Metrics](/content/metrics)
 * [Alerts](/content/alerts)
