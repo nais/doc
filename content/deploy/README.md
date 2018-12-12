@@ -1,6 +1,6 @@
 # Deployment
 
-> Performing deployments requires that you have [access to the cluster](../getting-started)
+> Performing deployments requires that you have [access to the cluster](../getting-started) and `kubectl` configured
 
 This guide will take you through a deployment of a NAIS application
 
