@@ -36,8 +36,6 @@ Events:
 ```
 
 
-### [Migrating from naisd](migrating_from_naisd.md)
-
-### Still using naisd?
-
-See doc [here](naisd.md)
+### Using naisd?
+See migration guide [here](migrating_from_naisd.md)
+Or user documentation [here](naisd.md)
