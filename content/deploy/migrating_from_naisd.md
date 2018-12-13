@@ -26,7 +26,6 @@ metadata:
     team: teamName
 spec:
   image: navikt/nais-testapp:1.2.3
-  team: teamName
   port: 8080
 (...)
 ```
