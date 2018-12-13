@@ -35,6 +35,7 @@ Follow the checklist to complete the migration:
 
 * [ ] Use the `apiVersion`, `kind`, `metadata` and `spec` fields.
 * [ ] Include the version of your Docker container in the `.spec.image` field.
+* [ ] `healthcheck` is removed, and `liveness` and `readiness` has been moved to the top-level.
 * [ ] The `redis` field has been removed ([#6][i6])
 * [ ] The `alerts` field has been removed ([#7][i7])
 * [ ] The `ingress` field has been replaced by `ingresses` and need to specified explicitly ([#14][i14])
