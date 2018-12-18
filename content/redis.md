@@ -3,17 +3,73 @@ Redis
 
 > Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker.
 
-If your application needs a Redis database available, you can enable it by adding `redis: true` in your [NAIS manifest](/documentation/contracts/README.md#nais-manifest). By setting this the value `redis` to `true`, [Naisd](/documentation/dev-guide/naisd.md) will start a small cluster of pods with Redis masters and sentinels. For now, we are running Redis without disk, so a restart of the Redis cluster will terminate your data. So don't store data that you can't afford to lose. Good use cases for this cluster is to store results of SQL queries that are asked a lot, bad use case is to store user config, or drafts of user inputs that should be persistent. The Redis cluster is also available for all the other applicaiton running in the same Kubernetes cluster as your application.
+On NAIS we are running Redis without disk/storage, so a restart of the Redis cluster will terminate your data. So don't store data that you can't afford to lose. Good use cases for this cluster is to store results of SQL queries that are asked a lot, bad use case is to store user config, or drafts of user inputs that should be persistent. The Redis cluster is also available for all the other applicaiton running in the same Kubernetes cluster as your application.
 
 Read more about Redis sentinels over at [redis.io](https://redis.io/topics/sentinel). Remember that your Redis framework needs to be [sentinel-ready](https://redis.io/topics/sentinel-clients).
 
-Your specific sentinels can be reach with the following values:
+
+## How to
+
+There is two ways to get running with Redis, one for Naisd, and one for Naiserator.
+
+
+### Naisd
+
+In the [NAIS manifest](/documentation/contracts/README.md#nais-manifest) you can add the following configuration to enable Redis:
+
+```yaml
+redis:
+  enabled: true
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+```
+
+Your specific sentinels can be then reach with the following values:
 
 ```
 url: $REDIS_HOST
 port: 26379
 master-name: mymaster
 ```
+
+
+### Naiserator
+
+In Naiserator you are required to start your Redis-cluster manually. The simplest is to continue using our Redis-operator. Using `kubectl` you can `apply` the following configuration (substitute variables as needed):
+
+```yaml
+apiVersion: storage.spotahome.com/v1alpha2
+kind: RedisFailover
+metadata:
+  labels:
+    app: <appnavn>
+    environment: <namespace>
+    team: <teamnavn>
+  name: <appnavn>
+  namespace: <namespace>
+spec:
+  redis:
+    exporter: true
+    replicas: 3
+    resources:
+      limits:
+        memory: 100Mi
+      requests:
+        cpu: 100m
+  sentinel:
+    replicas: 3
+    resources:
+      limits:
+        memory: 100Mi
+      requests:
+        cpu: 100m
+```
+
+You also have to add the `REDIS_HOST` yourself. The URL looks like this: `rfs-<appname>`.
 
 
 ## Code example
@@ -102,6 +158,7 @@ public class CacheConfig {
 
 With the configuration above, the Spring `@Cacheable` annotation can be used to enable caching behaviour on methods. Spring will then use the configuration above to store the cache values to Redis.
 
+
 #### Spring annotation
 
 Example below shows how to use @Cacheable annotation on a method.
@@ -113,6 +170,6 @@ public String getFooFromRepository(String id){
 ```
 
 
-### Losing Redis server connection
+#### Losing Redis server connection
 
 Using the Redis Cache configuration in the example might cause problems when the Redis Server is not responding. When the connection to the Redis Server is lost, the LettuceDriver will try to reconnect to the Redis server with a reconnection policy that can cause long response time on the cache requests. This will therefore lead to long responsetime on your application if the cache is heavily used. More advanced example of cache configuration which solves this problem can be found at [gist.github.com/ugur93](https://gist.github.com/ugur93/4e047c03c0d152d245e391d70788829a).
