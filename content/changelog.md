@@ -12,6 +12,9 @@ This is a simple changelog over notable milestones for the [NAIS-platform](/docu
 ### [2018-12-18]
 - Our Kubernetes clusters are now open through the NAV-network or VPN! Just download the lateste [kubeconfigs](https://github.com/navikt/kubeconfigs) and get started.
 
+### [2018-12-16]
+- Upgraded Kubernetes to [1.12.3](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.12.md)
+
 ### [2018-12-04]
 - Upgraded Kubernetes to [1.11.5](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md)
 
