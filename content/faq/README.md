@@ -1,4 +1,4 @@
-# Frequently asked questions
+# Frequently asked questions and issues
 
 ### I've changed my password, and now get the error `Failed to acquire a token: refreshing the expired token: refreshing token...`
 
