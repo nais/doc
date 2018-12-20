@@ -10,6 +10,7 @@
 * [About](/content/about/README.md)
 * [Getting started](/content/getting-started)
 * [Our Kubernetes clusters](/content/clusters)
+* [Frequently asked questions and issues](/content/faq)
 
 # Services
 * [Deploy](/content/deploy)
