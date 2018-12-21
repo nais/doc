@@ -1,6 +1,6 @@
-# Frequently asked questions and issues
+# Frequently asked questions
 
-### I've changed my password, and now get the error `Failed to acquire a token: refreshing the expired token: refreshing token...`
+### How do I fix the `Failed to acquire a token: refreshing the expired token: refreshing token...` error after changing my password?
 
 Every time you change your NAV-ident password, you need to reset your Kubeconfigs credentials.
 
