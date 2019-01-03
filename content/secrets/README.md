@@ -15,7 +15,8 @@ Enabling Vault integration in a NAIS application is covered below.
 ## NAIS manifest config
 
 ```
-secrets: false #Optional. If set to true fetch secrets from Vault and inject the secrets into the pods
+vault:
+  enabled: true
 ```
 
 This is best illustrated using an example
@@ -24,7 +25,7 @@ Given the following secrets in Vault:
 
 ![example](../_media/vault.jpg)
 
-The application ***nais-testapp*** deployed to the ***preprod-fss cluster*** and namespace ***default*** will get the secrets
+The application ***nais-testapp*** deployed to the ***preprod-fss*** cluster in ***default*** namespace will get the secrets
 injected as files with ***key*** as filename and ***value*** as file content:
 
 ```
@@ -46,6 +47,20 @@ database:
 
 ```
 
+## Multiple KV stores
 
+If you need to inject secrets from an additional KV store, you can do so by specifying the `paths` field.
 
+Note that when you modify this field, the default behavior of mounting
+`/kv/environment/zone/application/namespace` to `/var/run/secrets/nais.io/vault`
+is no longer active, and if you need these secrets you need to specify them yourself.
 
+```
+vault:
+  enabled: true
+  paths:
+    - kvPath: /secret/with/custom/path
+      mountPath: /path/on/filesystem
+    - kvPath: /kv/preprod/fss/nais-testapp/default  # default behavior
+      mountPath: /var/run/secrets/nais.io/vault     # default behavior
+```
