@@ -1,5 +1,5 @@
 Vault
-=======
+=====
 
 Vault by Hashicorp is a tool for managing secrets. 
 To make use of Vault as a secret backend you need to:
@@ -29,22 +29,19 @@ The application ***nais-testapp*** deployed to the ***preprod-fss*** cluster in 
 injected as files with ***key*** as filename and ***value*** as file content:
 
 ```
-/var/run/secrets/nais.io/vault
-
- # ls  -lt /var/run/secrets/nais.io/vault/
+~ # ls -lt /var/run/secrets/nais.io/vault/
 total 8
 -rw-r--r--    1 root     root            27 Sep 19 12:19 application.properties
 -rw-r--r--    1 root     root            43 Sep 19 12:19 secret.yaml
 
-~ # cat   /var/run/secrets/nais.io/vault/application.properties 
+~ # cat /var/run/secrets/nais.io/vault/application.properties 
 value: value1
 value: value2
 
-~ # cat   /var/run/secrets/nais.io/vault/secret.yaml 
+~ # cat /var/run/secrets/nais.io/vault/secret.yaml 
 database:
   user: user
   password: password
-
 ```
 
 ## Multiple KV stores
