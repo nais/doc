@@ -19,4 +19,6 @@ To best be able to handle this in your application, it helps to be aware of the 
 
 The platform will automatically add a `preStop`-hook that pauses the termination sufficiently that e.g. the ingress controller has time to update it's list of endpoints (thus avoid sending traffic to a application while terminating).
 
-## [Exposes relevant application metrics](../metrics)
+## Exposes relevant application metrics
+
+The application should be instrumented using [Prometheus](https://prometheus.io/docs/instrumenting/clientlibs/), exposing the metrics relevant for the application. See the [metrics documentation](../metrics) for more info.
