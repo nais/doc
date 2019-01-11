@@ -10,7 +10,8 @@
 * [About](/content/about/README.md)
 * [Getting started](/content/getting-started)
 * [Our Kubernetes clusters](/content/clusters)
-* [Frequently asked questions](/content/faq)
+* [FAQ](/content/faq)
+* [A NAIS application](/content/naisapp)
 
 # Services
 * [Deploy](/content/deploy)
