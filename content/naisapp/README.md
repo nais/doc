@@ -1,6 +1,6 @@
 # A NAIS application
 
-This document describes the different properties a application running on NAIS typically should have, or at least be conscious of why it's omitted.
+This document describes the different properties a typical NAIS application should have.
 
 ## Handles termination gracefully
 
