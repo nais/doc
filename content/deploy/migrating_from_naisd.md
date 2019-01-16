@@ -14,7 +14,7 @@ port: 8080
 ```
 
 The new format looks like this. We also provide a complete example of a
-[nais application spec](../examples/nais_example.yaml).
+[nais application spec](https://github.com/nais/naiserator/blob/master/examples/nais.yaml).
 
 ```
 apiVersion: "nais.io/v1alpha1"
