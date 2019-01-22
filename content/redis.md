@@ -37,7 +37,7 @@ master-name: mymaster
 ```
 
 
-### Naiserator 1
+### Naiserator RedisFailover
 
 In Naiserator you are required to start your Redis-cluster manually. The simplest is to continue using our Redis-operator. Using `kubectl` you can `apply` the following configuration (substitute variables as needed):
 
@@ -72,7 +72,7 @@ spec:
 You also have to add the `REDIS_HOST` yourself. The URL looks like this: `rfs-<appname>`.
 
 
-### Naiserator 2
+### Naiserator Application
 
 Deploy a simple redis application. Using `kubectl` you can `apply` the following configuration (substitute variables as needed):
 
