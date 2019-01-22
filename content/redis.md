@@ -37,9 +37,14 @@ master-name: mymaster
 ```
 
 
-### Naiserator RedisFailover
+### Naiserator
 
-In Naiserator you are required to start your Redis-cluster manually. The simplest is to continue using our Redis-operator. Using `kubectl` you can `apply` the following configuration (substitute variables as needed):
+In Naiserator you are required to manually start your Redis-storage. This can either be done using the Redis-operator Naisd uses, which creates a Redis-cluster based on sentinels, or you can do it the easier way by just starting a single Redis-app.
+
+
+#### RedisFailover
+
+Using `kubectl` you can `apply` the following Redisfailover-configuration (substitute variables as needed):
 
 ```yaml
 apiVersion: storage.spotahome.com/v1alpha2
@@ -72,9 +77,9 @@ spec:
 You also have to add the `REDIS_HOST` yourself. The URL looks like this: `rfs-<appname>`.
 
 
-### Naiserator Application
+#### Single Redis-application
 
-Deploy a simple redis application. Using `kubectl` you can `apply` the following configuration (substitute variables as needed):
+Run Redis as a single application, using the same configuration you would use for your own app. See example below:
 
 ```yaml
 apiVersion: "nais.io/v1alpha1"
@@ -85,34 +90,29 @@ metadata:
   name: <appnavn>
   namespace: default
 spec:
-  image: redis:4.0-alpine # Required. Docker image.
-  port: 6379 # Required. The port number which is exposed by the container and should receive TCP traffic.
-  team: <teamnavn> # Required. Set to the team that owns this application.
-  replicas: # Optional. Set min = max to disable autoscaling.
-    min: 1 # minimum number of replicas.
-    max: 1 # maximum number of replicas.
-    cpuThresholdPercentage: 50 # total cpu percentage threshold on deployment, at which point it will increase number of pods if current < max
-  leaderElection: false # Optional. If true, a http endpoint will be available at $ELECTOR_PATH that return the current leader
-  preStopHookPath: "" # Optional. A HTTP GET will be issued to this endpoint at least once before the pod is terminated.
-  istio: # Optional.
-    enabled: false # Optional. When true, envoy-proxy sidecar will be injected into pod and https urls envvars will be rewritten
-  resources: # Optional. See: http://kubernetes.io/docs/user-guide/compute-resources/
-    limits:
-      cpu: 200m # app will have its cpu usage throttled if exceeding this limit
-      memory: 512Mi  # app will be killed if exceeding these limits
-    requests: # App is guaranteed the requested resources and  will be scheduled on nodes with at least this amount of resources available
-      cpu: 100m
-      memory: 256Mi
-  webproxy: false # Optional. Expose web proxy configuration to the application using the HTTP_PROXY, HTTPS_PROXY and NO_PROXY environment variables.
-  secrets: false # Optional. If set to true fetch secrets from Secret Service and inject into the pods. todo link to doc.
+  image: redis:4.0-alpine # or a custom Redis-image
+  port: 6379
+  team: <teamnavn>
+  replicas: # A single Redis-app doesn't scale
+    min: 1
+    max: 1
 ```
-You also have to add the `REDIS_HOST` yourself. The URL looks like this: `<appnavn>.default.svc.nais.local`.
-Due to limitations in naiserator you also have to set `REDIS_PORT` to 80.
+
+In your apps `nais.yaml` you should to add the following two environments variables (or hard-code them in your app, they are not going to change):
+
+```yaml
+ env:
+   - name: REDIS_HOST
+     value: <appnavn>.default.svc.nais.local
+   - name: REDIS_PORT
+     value: 80
+```
+
 
 ## Code example
 
 
-### Lettuce
+### Lettuce [Java] - for Redis sentinels
 
 Example below is using the Java framework [Lettuce](https://github.com/lettuce-io/lettuce-core).
 
@@ -155,7 +155,7 @@ public class LettuceSentinelTestApplication {
 ```
 
 
-### Redis cache in Spring
+### Redis cache in Spring - for Redis sentinels
 
 Example below is for setting up Redis Cache in Spring using [Spring-Data-Redis](https://projects.spring.io/spring-data-redis/) Lettuce driver
 
