@@ -10,7 +10,7 @@ Read more about Redis sentinels over at [redis.io](https://redis.io/topics/senti
 
 ## How to
 
-There is two ways to get running with Redis, one for Naisd, and one for Naiserator.
+There is three ways to get running with Redis, one for Naisd, and two for Naiserator.
 
 
 ### Naisd
@@ -37,7 +37,7 @@ master-name: mymaster
 ```
 
 
-### Naiserator
+### Naiserator RedisFailover
 
 In Naiserator you are required to start your Redis-cluster manually. The simplest is to continue using our Redis-operator. Using `kubectl` you can `apply` the following configuration (substitute variables as needed):
 
@@ -72,6 +72,43 @@ spec:
 You also have to add the `REDIS_HOST` yourself. The URL looks like this: `rfs-<appname>`.
 
 
+### Naiserator Application
+
+Deploy a simple redis application. Using `kubectl` you can `apply` the following configuration (substitute variables as needed):
+
+```yaml
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  labels:
+    team: <teamnavn>
+  name: <appnavn>
+  namespace: default
+spec:
+  image: redis:4.0-alpine # Required. Docker image.
+  port: 6379 # Required. The port number which is exposed by the container and should receive TCP traffic.
+  team: <teamnavn> # Required. Set to the team that owns this application.
+  replicas: # Optional. Set min = max to disable autoscaling.
+    min: 1 # minimum number of replicas.
+    max: 1 # maximum number of replicas.
+    cpuThresholdPercentage: 50 # total cpu percentage threshold on deployment, at which point it will increase number of pods if current < max
+  leaderElection: false # Optional. If true, a http endpoint will be available at $ELECTOR_PATH that return the current leader
+  preStopHookPath: "" # Optional. A HTTP GET will be issued to this endpoint at least once before the pod is terminated.
+  istio: # Optional.
+    enabled: false # Optional. When true, envoy-proxy sidecar will be injected into pod and https urls envvars will be rewritten
+  resources: # Optional. See: http://kubernetes.io/docs/user-guide/compute-resources/
+    limits:
+      cpu: 200m # app will have its cpu usage throttled if exceeding this limit
+      memory: 512Mi  # app will be killed if exceeding these limits
+    requests: # App is guaranteed the requested resources and  will be scheduled on nodes with at least this amount of resources available
+      cpu: 100m
+      memory: 256Mi
+  webproxy: false # Optional. Expose web proxy configuration to the application using the HTTP_PROXY, HTTPS_PROXY and NO_PROXY environment variables.
+  secrets: false # Optional. If set to true fetch secrets from Secret Service and inject into the pods. todo link to doc.
+```
+You also have to add the `REDIS_HOST` yourself. The URL looks like this: `<appnavn>.default.svc.nais.local`.
+Due to limitations in naiserator you also have to set `REDIS_PORT` to 80.
+
 ## Code example
 
 
@@ -84,28 +121,28 @@ import static org.springframework.data.redis.connection.lettuce.LettuceConverter
 import com.lambdaworks.redis.RedisClient;
 
 public class LettuceSentinelTestApplication {
-	
+
     private static final String MASTER_NAME = "mymaster";
     private static final String EXPECTED_VALUE = "foovalue";
     private static final String REDIS_HOST = System.getenv("REDIS_HOST");
-    
+
     public static void main(String[] args) {
-        
+
     	System.out.println("Creating RedisClient instance with sentinel connection");
         RedisClient redisClient = RedisClient.create(sentinelConfigurationToRedisURI(
                         new RedisSentinelConfiguration()
                         .master(MASTER_NAME).sentinel(new RedisNode(REDIS_HOST, 26379)))
                 );
-        
+
         System.out.println("Opening Redis Standalone connection.");
         StatefulRedisConnection<String, String> connection = redisClient.connect();
-        
+
         System.out.println("Obtain the command API for synchronous execution");
         RedisCommands<String, String> commands = connection.sync();
-        
+
         System.out.println("Writing...");
         commands.set("foo", EXPECTED_VALUE);
-        
+
         System.out.println("Reading...");
         String actualValue = commands.get("foo");
         System.out.println("The expected value is: " + EXPECTED_VALUE + ". Actual value is: " + actualValue);
@@ -126,27 +163,27 @@ Example below is for setting up Redis Cache in Spring using [Spring-Data-Redis](
 @Configuration
 @EnableCaching
 public class CacheConfig {
-	
+
     private static final String MASTER_NAME = "mymaster";
     private static final String REDIS_HOST = System.getenv("REDIS_HOST");
-    
+
     @Value("${app.name}")
     private String appName;
-    
+
     @Bean
     public CacheManager cacheManager(RedisTemplate redisTemplate) {
         RedisCacheManager redisCacheManager = new RedisCacheManager(redisTemplate);
         redisCacheManager.setExpires(TimeUnit.DAYS.toSeconds(2));
         return redisCacheManager;
     }
-    
+
     @Bean
     public RedisTemplate<?, ?> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory) {
         RedisTemplate<?, ?> redisTemplate = new RedisTemplate();
         redisTemplate.setConnectionFactory(lettuceConnectionFactory);
         return redisTemplate;
     }
-    
+
     @Bean
     public LettuceConnectionFactory lettuceConnectionFactory() {
         return new LettuceConnectionFactory(new RedisSentinelConfiguration()
