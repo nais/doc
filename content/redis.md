@@ -10,7 +10,7 @@ Read more about Redis sentinels over at [redis.io](https://redis.io/topics/senti
 
 ## How to
 
-There is three ways to get running with Redis, one for Naisd, and two for Naiserator.
+There is two ways to get running with Redis, one for Naisd, and one for Naiserator.
 
 
 ### Naisd
@@ -28,7 +28,7 @@ redis:
     memory: 128Mi
 ```
 
-Your specific sentinels can be then reach with the following values:
+Your specific sentinels can then be reached with the following values:
 
 ```
 url: $REDIS_HOST
@@ -39,47 +39,7 @@ master-name: mymaster
 
 ### Naiserator
 
-In Naiserator you are required to manually start your Redis-storage. This can either be done using the Redis-operator Naisd uses, which creates a Redis-cluster based on sentinels, or you can do it the easier way by just starting a single Redis-app.
-
-
-#### RedisFailover
-
-Using `kubectl` you can `apply` the following Redisfailover-configuration (substitute variables as needed):
-
-```yaml
-apiVersion: storage.spotahome.com/v1alpha2
-kind: RedisFailover
-metadata:
-  labels:
-    app: <appnavn>
-    environment: <namespace>
-    team: <teamnavn>
-  name: <appnavn>
-  namespace: <namespace>
-spec:
-  redis:
-    exporter: true
-    replicas: 3
-    resources:
-      limits:
-        memory: 100Mi
-      requests:
-        cpu: 100m
-  sentinel:
-    replicas: 3
-    resources:
-      limits:
-        memory: 100Mi
-      requests:
-        cpu: 100m
-```
-
-You also have to add the `REDIS_HOST` yourself. The URL looks like this: `rfs-<appname>`.
-
-
-#### Single Redis-application
-
-Run Redis as a single application, using the same configuration you would use for your own app. See example below:
+In Naiserator you are required to manually start your Redis-storage. Luckily this is easily done with `kubectl apply -f redis-config.yaml` sing the config below.
 
 ```yaml
 apiVersion: "nais.io/v1alpha1"
