@@ -56,6 +56,14 @@ spec:
   replicas: # A single Redis-app doesn't scale
     min: 1
     max: 1
+  resources: # you need to monitor need your self
+    limits:
+      cpu: 250m 
+      memory: 256mi
+    requests:
+      cpu: 250m
+      memory: 256mi
+
 ```
 
 In your apps `nais.yaml` you should to add the following two environments variables (or hard-code them in your app, they are not going to change):
