@@ -48,11 +48,10 @@ metadata:
   labels:
     team: <teamnavn>
   name: <appnavn>
-  namespace: default
+  namespace: <namespace>
 spec:
   image: redis:4.0-alpine # or a custom Redis-image
   port: 6379
-  team: <teamnavn>
   replicas: # A single Redis-app doesn't scale
     min: 1
     max: 1
@@ -63,17 +62,16 @@ spec:
     requests:
       cpu: 250m
       memory: 256mi
-
+  service:
+    port: 6379
 ```
 
-In your apps `nais.yaml` you should to add the following two environments variables (or hard-code them in your app, they are not going to change):
+In your apps `nais.yaml` you should to add the following environment variable (or hard-code it in your app, they are not going to change):
 
 ```yaml
  env:
    - name: REDIS_HOST
-     value: <appnavn>.default.svc.nais.local
-   - name: REDIS_PORT
-     value: 80
+     value: <appnavn>.<namespace>.svc.nais.local
 ```
 
 
