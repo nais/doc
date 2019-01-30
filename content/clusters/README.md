@@ -9,7 +9,7 @@ We currently provide these Kubernetes clusters:
 - dev-sbs (previously preprod-sbs)
 - prod-sbs
 
-The name of each cluster is on the format `<environment class>.<zone>`
+The name of each cluster is on the format `<environment class>-<zone>`
 
 ### Ingress
 
