@@ -15,9 +15,9 @@ The endpoint accepts HTTP POST payloads in JSON, with the following values:
   "application": "appname",
   "version": "1",
   "zone": "fss",
-  "fasitEnvironment": "t0",
-  "fasitUsername": "brukernavn",
-  "fasitPassword": "passord",
+  "fasitEnvironment": "t1",
+  "fasitUsername": "username",
+  "fasitPassword": "password",
 }
 ```
 
