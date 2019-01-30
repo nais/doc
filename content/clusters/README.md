@@ -2,8 +2,6 @@
 
 We currently provide these Kubernetes clusters:
 
-- dev-gke
-- prod-gke
 - dev-fss (previously preprod-fss)
 - prod-fss
 - dev-sbs (previously preprod-sbs)
