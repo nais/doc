@@ -1,7 +1,7 @@
 Changelog
 =========
 
-This is a simple changelog over notable milestones for the [NAIS-platform](/documentation/platform.md).
+This is a simple changelog over notable milestones for the [NAIS-platform](/content/about/README.md).
 
 
 ## [Unreleased]

@@ -47,7 +47,7 @@ Your converted manifest is a Kubernetes
 and as such, it needs to be deployed directly to a Kubernetes cluster.
 This means you need to have `kubectl` access, which in turn requires:
 
-* [ ] [Install and configure kubectl](https://github.com/nais/doc/blob/master/documentation/dev-guide/README.md#install-kubectl)
+* [ ] [Install and configure kubectl](/content/getting-started#install-kubectl)
 * [ ] [Create an Azure AD group](https://github.com/navikt/IaC/tree/master/AAD%20Team) for your team, for human access to the cluster
 * [ ] Request a machine (deploy) user for your CI pipeline in the #nais Slack channel.
 

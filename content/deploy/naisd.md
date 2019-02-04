@@ -70,7 +70,7 @@ type=yaml
 
 ## /deploystatus
 
-To supplement the [/deploy](/documentation/dev-guide/naisd.md#deploy) endpoint, there is another endpoint for checking the status of the deployment.
+To supplement the [/deploy](/content/deploy/naisd.md#deploy) endpoint, there is another endpoint for checking the status of the deployment.
 
 The endpoint accepts HTTP GET on the path `/deploystatus/{namespace}/{application}/`.
 
