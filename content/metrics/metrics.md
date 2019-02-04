@@ -42,4 +42,4 @@ Remember to format the data as [Influxdb syntax](https:/s.influxdata.com/influxd
 
 ## Overview
 
-![overview](/documentation/contracts/_media/metrics_overview.png)
+![overview](../_media/metrics_overview.png)
