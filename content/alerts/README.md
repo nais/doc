@@ -15,7 +15,7 @@ Underneath we have an example for a complete Alert-resource, ready to be `kubect
 apiVersion: "nais.io/v1alpha1"
 kind: "Alert"
 metadata:
-  name: nais-testapp
+  name: AuraAppAlerts
   namespace: default
   labels:
     team: aura
