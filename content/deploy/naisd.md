@@ -102,7 +102,7 @@ The response will be the deployment status payload from Kubernetes with the foll
 
 ## Delete application
 
-We are also working on a delete-endpoint, for deletion of all components and resources for your application. For now it is a bit buggy, and so we also recommend running the Kubectl-operations.
+When using Naisd, the only way to remove your application is to use the delete-endpoint. This will remove all the Kubernetes resources made for your application.
 
 ### Delete endpoint
 
