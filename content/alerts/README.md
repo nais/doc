@@ -24,14 +24,14 @@ spec:
     slack:
       channel: '#teambeam-alerts-dev'
       prependText: '<!here> | ' # this text will be prepended to the Slack alert title
-alerts:
-  - description: nais-testapp unavailable
-    expr: 'kube_deployment_status_replicas_unavailable{deployment="app-name"} > 0'
-    for: 2m
-    action: Read app logs(kubectl logs appname). Read Application events (kubectl descibe deployment appname) 
-    documentation: https://github.com/navikt/aura-doc/naisvakt/alerts.md#app_unavailable
-    sla: respond within 1h, during office hours
-    severity: critical
+  alerts:
+    - description: nais-testapp unavailable
+      expr: 'kube_deployment_status_replicas_unavailable{deployment="app-name"} > 0'
+      for: 2m
+      action: Read app logs(kubectl logs appname). Read Application events (kubectl descibe deployment appname)
+      documentation: https://github.com/navikt/aura-doc/naisvakt/alerts.md#app_unavailable
+      sla: respond within 1h, during office hours
+      severity: critical
 ```
 
 We also support e-mail as a receiver, check out a bigger example in the [alerterator-repo](https://github.com/nais/alerterator/blob/master/example/max_alerts.yaml). In the same folder we also have a set of [recommended-alerts](https://github.com/nais/alerterator/blob/master/example/recommended_alerts.yaml) for you to get started with.
