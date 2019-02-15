@@ -1,12 +1,14 @@
 Alerts
 ======
 
-We use [Prometheus](https://prometheus.io/) to collect metrics, and can trigger alerts based on these metrics. Custom alerts are specified in theire own Kubernetes-resource called `alerts`. We have made our own operator called [Alerterator](https://github.com/nais/alerterator), meaning that you can manage your alerts with `kubectl`, and that alerts are not tied to a specific app or namespace. This gives you more freedom to set up the necessary alerts for one or several apps. You can even make your own personal alert-profile.
+We use [Prometheus](https://prometheus.io/) to collect metrics, and can trigger alerts based on these metrics. Alerts are specified in their own Kubernetes-resource called `alerts` as we have made our own operator called [Alerterator](https://github.com/nais/alerterator).
+
+This means that you can manage your alerts with `kubectl`, and that alerts are not tied to a specific app or namespace. Giving you more freedom to set up the necessary alerts for one or several apps. You can even make your own personal alert-profile.
 
 
 ## Custom alerts
 
-Below you can find an example for a custom alert, check out a complete example in [alerterator-repo](https://github.com/nais/alerterator/blob/master/example/max_alerts.yaml):
+Underneath we have an example for a complete Alert-resource, ready to be `kubectl apply -f alerts.yaml`.
 
 ```yaml
 ---
@@ -32,6 +34,8 @@ alerts:
     severity: critical
 ```
 
+We also support e-mail as a receiver, check out a bigger example in the [alerterator-repo](https://github.com/nais/alerterator/blob/master/example/max_alerts.yaml). In the same folder we also have a set of [recommended-alerts](https://github.com/nais/alerterator/blob/master/example/recommended_alerts.yaml) for you to get started with.
+
 
 ### Fields/spec
 
@@ -45,7 +49,8 @@ alerts:
 | spec.receivers.slack.preprend_text | Text to prepend every Slack-message (for ex. <!here> which represent @here) | | |
 | spec.receivers.email.to | The email address to send notifications to| | |
 | spec.receivers.email.send_resolved | Whether or not to notify about resolved alerts | | false |
-| spec.alerts[].description | Simple description of the triggered alert | | x |
+| spec.alerts[].alert | The title of the alerts | | x |
+| spec.alerts[].description | Simple description of the triggered alert | | |
 | spec.alerts[].expr | Prometheus expression that triggers an alert | | x |
 | spec.alerts[].for | Duration before the alert should trigger | | x |
 | spec.alerts[].action | How to resolve this alert | | x |
@@ -54,32 +59,65 @@ alerts:
 | spec.alerts[].severity | Alert level for Slack-messages| | Error |
 
 
+#### Kubectl
+
+You use `kubectl` to add, update, and remove the alert-resource. Adding and updating is done with the `kubectl apply -f alerts.yaml`, while delete is done either with `kubectl delete alert <alert-name>` og `kubectl delete -f alerts.yaml`.
+
+You kan list alerts in the cluster with `kubectl get alerts` (singluar: `alert`, shorten: `al`), and describe a specific alert-resource with `kubectl describe alert <alert-name>`.
+
 
 #### Writing the `expr`
 
-In order to minimize the feedback loop we suggest experimenting with Prometheus-server to find the right metric for your alert, and the tresholds. The Prometheus server can be found in each [cluster](/README.md#clusters), at `https://prometheus.{cluster.domain}` (i.e. https://prometheus.nais.preprod.local).
+In order to minimize the feedback loop we suggest experimenting on the Prometheus server to find the right metric for your alert, and the tresholds. The Prometheus server can be found in each [cluster](/README.md#clusters), at `https://prometheus.{cluster.domain}` (i.e. https://prometheus.nais.preprod.local).
 
-You can also visit the Alertmanager at `https://alertmanager.{cluster.domain}` (i.e. https://alertmanager.nais.preprod.local).
+You can also visit the Alertmanager at `https://alertmanager.{cluster.domain}` (i.e. https://alertmanager.nais.preprod.local) to see which alerts are triggered now (you can also silence already triggered alerts).
 
 
-### Tips
+#### Expressive descriptions or actions
 
-You can also use `annotations` and `labels` from the Prometheus-`expr` result.
+You can also use `annotations` and `labels` from the Prometheus-`expr` result!
 
 For example:
 ```
 {{ $labels.node }} is marked as unschedulable
-```
+  ```
 
 turns into the following when posted to Slack/email:
 ```
 b27apvl00178.preprod.local is marked as unschedulable
 ```
 
+**PS:** You can see which `labels` are available by trying your query on the Prometheus server.
+
+
+#### Target several apps or namespaces in a query
+
+Using regular expression, you can target multiple apps or namespaces with one query. This saves on repeating the same alert for each your apps.
+
+```
+absent(up{app=~"myapp|otherapp|thirdapp",kubernetes_namespace=~"default|q2|t2"})
+```
+
+Here we use `=~` to select labels that regex-match the provided string (or substring). Use `!~` to negate the regular expression.
+
+**PS:** If you don't care for a specific namespace, you can just omit `kubernetes_namespace`, and instead add `{{ $labels.kubernetes_namespace }}` in your `action` or `description`. This way, you don't have to remember to update when adding/removing a namespace, and you still get to know which namespace your alert triggered.
+
+
+#### Slack @here and @team
+
+Slack has their own syntax for notifying `@channel` or `@here`, respectively `<!channel>` and `<!here>`.
+
+Notifying a user group on the other hand is a bit more complicated. The user group `@nais-vakt` is written `<!subteam^SB8KS4WAV|nais-vakt> in a Slack alert-message`, where `SB8KS4WAV` is the id for the specific user group, and `nais-vakt` is the name of the user group.
+
+You can find the id by right-clicking on the name in the user group list. The last part is the id. The URL will look something like the one below:
+```
+https://nav-it.slack.com/usergroups/SB8KS4WAV
+```
+
 
 ## Migrating from Naisd
 
-It's pretty straight forward to move alerts from Naisd to Alerterator, and the most notable difference is the removal of name/alert and that annotation-fields has been move to the top-level.
+It's pretty straight forward to move alerts from Naisd to Alerterator, as the only difference is that the annotation-fields has been move to the top-level.
 
 ```
 alerts:
@@ -95,14 +133,14 @@ should be transformed to
 
 ```
 alerts:
-- expr: kube_deployment_status_replicas_unavailable{deployment="app-name"} > 0
+- alert: appNotAvailable
+  expr: kube_deployment_status_replicas_unavailable{deployment="app-name"} > 0
   for: 5m
-  description: It looks like the app is down
   action: Read app logs(kubectl logs appname). Read Application events (kubectl descibe deployment appname)
   severity: Warning
 ```
 
-Check out the complete [spec](/#spec) for more information about the different keys.
+Check out the complete [spec](/#fieldsspec) for more information about the different keys.
 
 
 ## Flow
