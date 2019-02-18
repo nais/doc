@@ -9,6 +9,8 @@ This is a simple changelog over notable milestones for the [NAIS-platform](/cont
 
 
 ## [Released]
+### [2019-02-18]
+- Alerterator is released. A simple way to manage alerts/metrics. See [documentation](https://github.com/nais/doc/blob/master/content/alerts/README.md) for more
 ### [2018-12-18]
 - Our Kubernetes clusters are now open through the NAV-network or VPN! Just download the lateste [kubeconfigs](https://github.com/navikt/kubeconfigs) and get started.
 
