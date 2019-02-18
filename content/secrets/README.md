@@ -61,3 +61,9 @@ vault:
     - kvPath: /kv/preprod/fss/nais-testapp/default  # default behavior
       mountPath: /var/run/secrets/nais.io/vault     # default behavior
 ```
+
+## Java apps
+
+Base your Docker image on `navikt/java` and the secrets from Vault will by default be made available for you as environment variables.
+
+When migrating from `naisd` you can name the Vault keys as they were in named in Fasit so that your application do not need to be rewritten in order to use the Vault secrets.
