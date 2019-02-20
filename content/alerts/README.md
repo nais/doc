@@ -56,7 +56,7 @@ We also support e-mail as a receiver, check out a bigger example in the [alerter
 | spec.alerts[].action | How to resolve this alert | | x |
 | spec.alerts[].documentation | URL for docmentation for this alert| | |
 | spec.alerts[].sla | Time before the alert should be resolved| | |
-| spec.alerts[].severity | Alert level for Slack-messages| | Error |
+| spec.alerts[].severity | Alert level for Slack-messages| | danger |
 
 
 #### Kubectl
@@ -111,6 +111,10 @@ You can find the id by right-clicking on the name in the user group list. Where 
 ```
 https://nav-it.slack.com/usergroups/SB8KS4WAV
 ```
+
+#### Example of the different Slack/severity colors
+
+![Slack message colors](/content/_media/attachment_color.png)
 
 
 ## Migrating from Naisd
