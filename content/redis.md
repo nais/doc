@@ -50,7 +50,7 @@ metadata:
   name: <appnavn>
   namespace: <namespace>
 spec:
-  image: redis:4.0-alpine # or a custom Redis-image
+  image: redis:5-alpine # or a custom Redis-image
   port: 6379
   replicas: # A single Redis-app doesn't scale
     min: 1
@@ -58,10 +58,10 @@ spec:
   resources: # you need to monitor need your self
     limits:
       cpu: 250m 
-      memory: 256mi
+      memory: 256Mi
     requests:
       cpu: 250m
-      memory: 256mi
+      memory: 256Mi
   service:
     port: 6379
 ```
