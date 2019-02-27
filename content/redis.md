@@ -75,6 +75,10 @@ In your apps `nais.yaml` you should to add the following environment variable (o
 ```
 
 
+#### Secure Redis
+
+We have made our own image that uses password from Vault, if this is needed for your projet. See [baseimages](https://github.com/navikt/baseimages/tree/master/secure-redis) for more information.
+
 ## Code example
 
 
