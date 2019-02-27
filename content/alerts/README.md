@@ -25,10 +25,11 @@ spec:
       channel: '#teambeam-alerts-dev'
       prependText: '<!here> | ' # this text will be prepended to the Slack alert title
   alerts:
-    - description: nais-testapp unavailable
+    - alert: nais-testapp unavailable
       expr: 'kube_deployment_status_replicas_unavailable{deployment="app-name"} > 0'
       for: 2m
       action: Read app logs(kubectl logs appname). Read Application events (kubectl descibe deployment appname)
+      description: Av og til går appen ned, ofte pga. feil i kode ved oppstart
       documentation: https://github.com/navikt/aura-doc/naisvakt/alerts.md#app_unavailable
       sla: respond within 1h, during office hours
       severity: critical
