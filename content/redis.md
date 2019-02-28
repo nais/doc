@@ -37,6 +37,11 @@ master-name: mymaster
 ```
 
 
+#### Redis metrics (Grafana)
+
+We have a semi-working dashboard for the Redis-sentinel setup for Naisd, visit [Redis Prometheus](https://grafana.adeo.no/d/MhjMYpmik/prometheus-redis) dashboard on Grafana.
+
+
 ### Naiserator
 
 In Naiserator you are required to manually start your Redis-storage. Luckily this is easily done with `kubectl apply -f redis-config.yaml` sing the config below.
@@ -78,6 +83,40 @@ In your apps `nais.yaml` you should to add the following environment variable (o
 #### Secure Redis
 
 We have made our own image that uses password from Vault, if this is needed for your projet. See [baseimages](https://github.com/navikt/baseimages/tree/master/secure-redis) for more information.
+
+
+#### Redis metrics
+
+If you want metrics scraped from you Redis-instance, you need to run your own exporer. You can find the nais.yaml for the simplest version below, and we've also made a dashboard that everyone can use. The only cavete is that the exporter-application needs to end its name with `redisexporter`. The dashboard is called [Redis exporters](https://grafana.adeo.no/d/L-Ktprrmz/redis-exporters).
+
+```
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  labels:
+    team: <team>
+  name: <appname>-redisexporter
+  namespace: <namespace>
+spec:
+  image: oliver006/redis_exporter:v0.29.0-alpine
+  port: 9121
+  prometheus:
+    enabled: true
+  replicas:
+    min: 1
+    max: 1
+  resources:
+    limits:
+      cpu: 100m
+      memory: 100Mi
+    requests:
+      cpu: 100m
+      memory: 100Mi
+  env:
+    - name: REDIS_ADDR
+      value: <redis-instance>.default.svc.nais.local:6379
+```
+
 
 ## Code example
 
