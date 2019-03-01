@@ -87,7 +87,7 @@ We have made our own image that uses password from Vault, if this is needed for 
 
 #### Redis metrics
 
-If you want metrics scraped from you Redis-instance, you need to run your own exporer. You can find the nais.yaml for the simplest version below, and we've also made a dashboard that everyone can use. The only cavete is that the exporter-application needs to end its name with `redisexporter`. The dashboard is called [Redis exporters](https://grafana.adeo.no/d/L-Ktprrmz/redis-exporters).
+If you want metrics scraped from you Redis-instance, you need to run your own exporer. You can find the nais.yaml for the simplest version below, and we've also made a dashboard that everyone can use. The only cavete is that the exporter-application needs to end its name with `redisexporter`. The dashboard is called [Redis exporters](https://grafana.adeo.no/d/L-Ktprrmz/redis-exporters). The dashboard sorts by `addr`, letting us use one exporter to scrape several Redis-instances.
 
 ```
 apiVersion: "nais.io/v1alpha1"
