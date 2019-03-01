@@ -64,16 +64,13 @@ PS: Some users have had to change Kubernetes context/cluster for the change to t
 Follow the [install Docker](https://docs.docker.com/install/)-guide for local testing and development.
 
 
-#### Install Docker on Windows VDI
+#### Docker on Windows VDI requires virtualization
 
-Since we are running our Windows VDI with virtualisation off, we need to have the Docker daemon running on an external Linux-server or VDI.
+To be able to run the Docker daemon that comes with Docker Desktop (formerly known as Docker For Windows) in Nav's Windows virtual machine images we need to enable virtualization (Hyper-V) in the image.
 
-1. Install Docker CE by following the guide at [docker.com](https://www.docker.com/docker-windows)
-   * You need to disable `hyper-v`
-   * You need to reboot you machine
-2. Set system environment variable `DOCKER_HOST` to point to a Linux server running a Docker daemon
-   * `DOCKER_HOST=tcp://enlinuxserversomhardockerinstallert:port`
+You can ask to have virtualization enabled in the Slack channel #tech_virtualisering. You need to provide the name of the virtual machine, which you will find from within the image > Windows > Kontrollpanel > System og sikkerhet > System. Enabling virtualization requires reboot of the image.
 
+Verify by opening Windows > Aktiver eller deaktiver Windows-funksjoner, find "Hyper-V" and see that all it's checkboxes are enabled.
 
 ## System environment variables
 
