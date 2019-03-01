@@ -117,6 +117,7 @@ spec:
       value: <redis-instance>.default.svc.nais.local:6379
 ```
 
+If your Redis-instance is password protected you need to use our own [secure-redisexporter](https://github.com/navikt/baseimages/tree/master/redis/secure-redisexporter)-image.
 
 ## Code example
 
