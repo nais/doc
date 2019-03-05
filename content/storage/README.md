@@ -119,3 +119,11 @@ ceph tell 'osd.*' injectargs '--osd-recovery-max-active 4'
 ```
 
 **Note that speeding up may put strain on the cluster in general**
+
+### Resharding stuck
+
+If a resharding operation is stuck and blocking S3 puts, cancel resharding of the bucket:
+
+```
+radosgw-admin reshard cancel --bucket=<bucket>
+```
