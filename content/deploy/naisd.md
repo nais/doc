@@ -3,7 +3,7 @@ Naisd
 
 > Naisd is the golden path to continous delivery on the nais platform. It provides developers with a simple API to deploy their applications based on a minimalistic deployment yaml.
 
-We expose Naisd in each cluster for deploments of application to that specific cluster. The end point is formatted like  https://daemon.{cluster.domain}/deploy (e.g. https://daemon.nais.preprod.local/deploy).
+We expose Naisd in each cluster for deployments of application to that specific cluster. The end point is formatted like  https://daemon.{cluster.domain}/deploy (e.g. https://daemon.nais.preprod.local/deploy).
 
 
 ## /deploy
@@ -106,7 +106,7 @@ When using Naisd, the only way to remove your application is to use the delete-e
 
 ### Delete endpoint
 
-The endpoint accepts HTTP DELETE on the path `/app/{namespace}/{application}`.
+The endpoint accepts HTTP DELETE on the path `/app/{namespace}/{application}`  (e.g. https://daemon.nais.preprod.local/app/default/example-app).
 
 Possible HTTP status codes:
 
