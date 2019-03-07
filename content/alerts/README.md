@@ -16,7 +16,6 @@ apiVersion: "nais.io/v1alpha1"
 kind: "Alert"
 metadata:
   name: AuraAppAlerts
-  namespace: default
   labels:
     team: aura
 spec:
