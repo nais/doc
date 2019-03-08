@@ -79,5 +79,5 @@ You need the following variables set in your VDI:
 ```text
 http_proxy=http://webproxy-utvikler.nav.no:8088
 https_proxy=http://webproxy-utvikler.nav.no:8088
-no_proxy=localhost,127.0.0.1,*.adeo.no,.local,.adeo.no,.nav.no,.aetat.no,.devillo.no,.oera.no,devel
+no_proxy=localhost,127.0.0.1,*.adeo.no,.local,.adeo.no,.nav.no,.aetat.no,.devillo.no,.oera.no,devel,.nais.io
 ```
