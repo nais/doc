@@ -20,6 +20,7 @@ In the [NAIS manifest](/documentation/contracts/README.md#nais-manifest) you can
 ```yaml
 redis:
   enabled: true
+  hardAnitAffinity: false
   limits:
     cpu: 100m
     memory: 128Mi
