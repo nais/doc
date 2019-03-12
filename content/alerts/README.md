@@ -46,7 +46,7 @@ We also support e-mail as a receiver, check out a bigger example in the [alerter
 | metadata.labels.team | [mailnick/tag](https://github.com/nais/doc/blob/master/content/getting-started/teamadministration.md) | | x |
 | spec.receivers | You need at least one receiver | | x |
 | spec.receivers.slack.channel | Slack channel to send notifications to | | |
-| spec.receivers.slack.preprend_text | Text to prepend every Slack-message (for ex. <!here> which represent @here) | | |
+| spec.receivers.slack.preprend_text | Text to prepend every Slack-message with severity `danger` | | |
 | spec.receivers.email.to | The email address to send notifications to| | |
 | spec.receivers.email.send_resolved | Whether or not to notify about resolved alerts | | false |
 | spec.alerts[].alert | The title of the alerts | | x |
