@@ -19,4 +19,4 @@ git pull
 
 Alternatively you can just remove the values under `user.auth-provider.config` for the following keys, in the `kubeconfigs/config.yaml`-file: `access-token`, `refresh-token`, `expires-in`, `expires-on`.
 
-When this is done, perform `kubectl config use-context prod-fss` and `kubectl get pods` then follow the instructions for autenticating with Azure.
+When this is done, set the kubectl context and then perfom the command `kubectl get pods` and follow the instructions for autenticating with Azure.
