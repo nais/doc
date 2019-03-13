@@ -3,17 +3,17 @@ Redis
 
 > Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker.
 
-On NAIS we are running Redis without disk/storage, so a restart of the Redis cluster will terminate your data. So don't store data that you can't afford to lose. Good use cases for this cluster is to store results of SQL queries that are asked a lot, bad use case is to store user config, or drafts of user inputs that should be persistent. The Redis cluster is also available for all the other applicaiton running in the same Kubernetes cluster as your application.
+On NAIS we are running Redis without disk/storage, so a restart of the Redis cluster or instance will terminate your data. So don't store data that you can't afford to lose. Good use cases for this setup is to store results of SQL queries that are asked a lot, bad use case is to store user config, or drafts of user inputs that should be persistent. The Redis HA-cluster is also available for all the other applicaiton running in the same Kubernetes cluster as your application. Using the single instance Redis setup you can password protect the database via Vault.
 
 Read more about Redis sentinels over at [redis.io](https://redis.io/topics/sentinel). Remember that your Redis framework needs to be [sentinel-ready](https://redis.io/topics/sentinel-clients).
 
 
 ## How to
 
-There is two ways to get running with Redis, one for Naisd, and one for Naiserator.
+There is two ways to get running with Redis, one for Naisd (cluster/HA), and one for Naiserator (single instance).
 
 
-### Naisd
+### Naisd (High-availabilty cluster)
 
 In the [NAIS manifest](/documentation/contracts/README.md#nais-manifest) you can add the following configuration to enable Redis:
 
@@ -43,9 +43,11 @@ master-name: mymaster
 We have a semi-working dashboard for the Redis-sentinel setup for Naisd, visit [Redis Prometheus](https://grafana.adeo.no/d/MhjMYpmik/prometheus-redis) dashboard on Grafana.
 
 
-### Naiserator
+### Naiserator (single instance)
 
-In Naiserator you are required to manually start your Redis-storage. Luckily this is easily done with `kubectl apply -f redis-config.yaml` sing the config below.
+In Naiserator you are required to manually start your Redis-storage. This means that you can only run single instances that are not scalable. Aka increasing replicas will only start new databases that are not synced. Contact [@Kyrre.Havik.Eriksen](https://nav-it.slack.com/messages/D8QQ9ELK1) if you need HA-Redis with Naiserator.
+
+This is done with `kubectl apply -f redis-config.yaml` using the config below.
 
 ```yaml
 apiVersion: "nais.io/v1alpha1"
@@ -119,6 +121,7 @@ spec:
 ```
 
 If your Redis-instance is password protected you need to use our own [secure-redisexporter](https://github.com/navikt/baseimages/tree/master/redis/secure-redisexporter)-image.
+
 
 ## Code example
 
