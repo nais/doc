@@ -48,6 +48,7 @@ Vi tillater kun cronjobs/jobs i egne namespaces. Hvis `jobs.yaml` ikke finnes i 
 ```
 naisjobs:
 - name: ${team_name}
+  ldap_group: ${ldap_group}
 ```
 
 Finnes filen fra før av, legger du bare til `- name: ${team_name}` på siste linje.
