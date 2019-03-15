@@ -13,7 +13,7 @@ Dette er for å kunne legge til secrets. Du kan fint hoppe over dette steget hvi
 ### Legg til i github.com/navikt/vault-iac/terraform/${cluster}.tf
 
 ```
-module "${team_name}-${cluster}" { # Giao: dette navnet kan være vilkårlig?
+module "${team_name}-${cluster}" { # Giao: dette navnet kan være vilkårlig? Ja, men det må være unikt
   application_name = "${team_name}" # `VKS_VAULT_ROLE`
   namespaces = [ "${team_name}" ]
   source = "./modules/naisapp"
@@ -26,10 +26,10 @@ module "${team_name}-${cluster}" { # Giao: dette navnet kan være vilkårlig?
 ### Legg til i github.com/navikt/vault-iac/terraform/ldap.tf
 
 ```
-module "${team_name}" { # Giao: dette navnet kan være vilkårlig?
+module "${team_name}" { # Giao: dette navnet kan være vilkårlig? Ja, men det mvå være unikt
   ldap_group = "${ldap_group}" 
   policies = [
-    # Giao: Hvor viktig er understrek i clusternavn her? prod-fss vs prod_fss
+    # Giao: Hvor viktig er understrek i clusternavn her? prod-fss vs prod_fss Det er viktig fordi modulen naisapp lager policies på et bestemt format 
     "${cluster}_${team_name}_sudo", # må matche `application_name` fra ovenfor, aka `VKS_VAULT_ROLE`
   ]
   source = "./modules/ldap"
