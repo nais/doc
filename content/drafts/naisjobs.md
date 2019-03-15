@@ -8,13 +8,14 @@ Kom i gang med å følge stegene nedenfor:
 
 ## 1. Oppsett av Vault
 
-Dette er for å kunne legge til secrets. Du kan fint hoppe over dette steget hvis du ikke trenger det.
+Dette er for å kunne legge til secrets. Du kan fint hoppe over dette steget hvis du ikke trenger det. Mer dokumentasjon om Vault finner du i [vault-iac](https://github.com/navikt/vault-iac/blob/master/doc/endusers.md)-repoet.
+
 
 ### Legg til i github.com/navikt/vault-iac/terraform/${cluster}.tf
 
 ```
-module "${team_name}-${cluster}" { # Giao: dette navnet kan være vilkårlig?
-  application_name = "${team_name}" # `VKS_VAULT_ROLE`
+module "${team_name}-${cluster}" {
+  application_name = "${team_name}"
   namespaces = [ "${team_name}" ]
   source = "./modules/naisapp"
   zone = "fss"
@@ -25,20 +26,22 @@ module "${team_name}-${cluster}" { # Giao: dette navnet kan være vilkårlig?
 
 ### Legg til i github.com/navikt/vault-iac/terraform/ldap.tf
 
+Det er viktig at `${cluster}` i denne sammenhengen skrives med `_`/understrek og ikke `-`/bindestrek.
 ```
-module "${team_name}" { # Giao: dette navnet kan være vilkårlig?
+module "${team_name}" {
   ldap_group = "${ldap_group}" 
   policies = [
-    # Giao: Hvor viktig er understrek i clusternavn her? prod-fss vs prod_fss
-    "${cluster}_${team_name}_sudo", # må matche `application_name` fra ovenfor, aka `VKS_VAULT_ROLE`
+    "${cluster}_${team_name}_sudo",
   ]
   source = "./modules/ldap"
 }
 ```
 
+
 ## 2. Eget namespace
 
 Vi tillater kun cronjobs/jobs i egne namespaces. Hvis `jobs.yaml` ikke finnes i cluster-katalogen må du opprette den.
+
 
 ### Legg til github.com/navikt/nais-yaml/vars/${cluster}/jobs.yaml
 
@@ -52,9 +55,10 @@ Finnes filen fra før av, legger du bare til `- name: ${team_name}` på siste li
 
 ## 3. Maskinbruker for å kunne opprette cronjobs/jobs
 
-Man vil ikke kunne lage cronjobs/jobs med sin egen bruker, men kun via en maskinbruker man får fra oss/NAIS. Spør i [#nais](https://nav-it.slack.com/messages/C5KUST8N6) eller ta direkte kontakt med [@kyrre.havik.eriksen](https://nav-it.slack.com/messages/D8QQ9ELK1).
+Man vil kunne lage cronjobs/jobs med sin egen bruker, men trenger man en maskinbruker kan man få det fra oss/NAIS. Spør i [#nais](https://nav-it.slack.com/messages/C5KUST8N6) eller ta direkte kontakt med [@kyrre.havik.eriksen](https://nav-it.slack.com/messages/D8QQ9ELK1).
 
 Det vi trenger å vite er `cluster` og `team`.
+
 
 ## 4. kubectl apply -f job.yml
 
