@@ -25,11 +25,11 @@ evicted and restarted.** Use log rotation on file size to avoid this.
 ## Log configuration
 
 Log files should be in JSON format as the normal application
-logs. Here is an example configuration of json logging with a size
+logs. Here is an example configuration of JSON logging with a size
 based rolling file appender in Logback:
 
 ```xml
-  <appender name="secureLogs" class="ch.qos.logback.core.rolling.RollingFileAppender">
+  <appender name="secureLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <file>/secure-logs/secure.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
       <fileNamePattern>/secure-logs/secure.log.%i</fileNamePattern>
@@ -42,3 +42,5 @@ based rolling file appender in Logback:
     <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
   </appender>
 ```
+
+See [logging examples](../logging/examples.md) for more information on log configuration.
