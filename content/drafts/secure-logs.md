@@ -44,3 +44,13 @@ based rolling file appender in Logback:
 ```
 
 See [logging examples](../logging/examples.md) for more information on log configuration.
+
+## Non-JSON logs
+
+If the logging framework used doesn't support JSON logging, it is also possible to use logs in this format:
+
+```
+<iso8601 timestamp> <log level> <message>
+```
+
+Files on this format must be named `*.mlog`.
