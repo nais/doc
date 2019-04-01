@@ -17,7 +17,7 @@ With secure logs enabled a directory `/secure-logs/` will be mounted
 in the application container. Every `*.log` file in this directory will be
 monitored and the content transferred to Elasticsearch.
 
-The `/secure-logs/` directory has a size limit of 256Mb, and it's the
+The `/secure-logs/` directory has a size limit of 128Mb, and it's the
 application responsibility to ensure that this limit is not
 exceeded. **If the limit is exceeded the application pod will be
 evicted and restarted.** Use log rotation on file size to avoid this.
@@ -37,7 +37,7 @@ based rolling file appender in Logback:
       <maxIndex>1</maxIndex>
     </rollingPolicy>
     <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-      <maxFileSize>100MB</maxFileSize>
+      <maxFileSize>50MB</maxFileSize>
     </triggeringPolicy>
     <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
   </appender>
