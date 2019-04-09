@@ -7,7 +7,7 @@ written here will be transferred to separate indices in Elasticsearch.
 
 ## Enabling secure logs
 
-Secure logs can be enabled by setting the `secure_logs.enabled` flag
+Secure logs can be enabled by setting the `secureLogs.enabled` flag
 in the application resource. See
 [Naiserator](https://github.com/nais/naiserator/).
 
@@ -47,10 +47,12 @@ See [logging examples](../logging/examples.md) for more information on log confi
 
 ## Non-JSON logs
 
-If the logging framework used doesn't support JSON logging, it is also possible to use logs in this format:
+If the logging framework used doesn't support JSON logging, it is also possible to use multiline logs in this format:
 
 ```
 <iso8601 timestamp> <log level> <message>
+<message cont.>
+<message cont.>
 ```
 
 Files on this format must be named `*.mlog`.
