@@ -43,7 +43,7 @@ based rolling file appender in Logback:
   </appender>
 ```
 
-See [logging examples](../logging/examples.md) for more information on log configuration.
+See [logging examples](examples.md) for more information on log configuration.
 
 ## Non-JSON logs
 
