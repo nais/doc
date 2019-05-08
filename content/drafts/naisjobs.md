@@ -16,7 +16,7 @@ Dette er for å kunne legge til secrets. Du kan fint hoppe over dette steget hvi
 ```
 module "${team_name}-${cluster}" {
   application_name = "${team_name}"
-  namespaces = [ "${team_name}" ]
+  namespaces = [ "${namespace}" ]
   source = "./modules/naisapp"
   zone = "fss"
   environment = "prod"
@@ -40,18 +40,19 @@ module "${team_name}" {
 
 ## 2. Eget namespace
 
-Vi tillater kun cronjobs/jobs i egne namespaces. Hvis `jobs.yaml` ikke finnes i cluster-katalogen må du opprette den.
+Vi tillater kun cronjobs/jobs i egne namespaces. Hvis `vars/<cluster>/naisjobs.yaml` ikke finnes i cluster-katalogen må du opprette den. Da må du samtidig kopiere `naisjobs.yaml` til tilsvarende `templates/<cluster>`-katalog.
 
 
 ### Legg til github.com/navikt/nais-yaml/vars/${cluster}/jobs.yaml
 
 ```
 naisjobs:
-- name: ${team_name}
-  ldap_group: ${ldap_group}
+- name: ${namespace}
+  group_name: ${teamname}
+  group_id: ${ldap_group_id}
 ```
 
-Finnes filen fra før av, legger du bare til `- name: ${team_name}` på siste linje.
+Finnes filen fra før av, legger du bare til informasjon på siste linje.
 
 
 ## 3. Maskinbruker for å kunne opprette cronjobs/jobs
@@ -63,7 +64,7 @@ Det vi trenger å vite er `cluster` og `team`.
 
 ## 4. kubectl apply -f job.yml
 
-Når alle de andre stegene er gjort, så har dere muligheten til å bruke `kubeconfig`en dere fikk i steg 3 til å `apply`e en yaml-fil i clusteret!
+Når alle de andre stegene er gjort, så kan dere bruke deres egen bruker, eller maskinbrukeren dere fikk i steg 3 til å `apply`e en yaml-fil i clusteret!
 
 Nedenfor har dere et godt utgangspunkt for hvordan en slik yaml-fil kan se ut.
 cronjob.yml/job.yml
@@ -72,7 +73,9 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: ${jobname}
-  namespace: ${team_name}
+  namespace: ${namespace}
+  labels:
+    team: ${teamname}
 spec:
   schedule: ${schedule}
   jobTemplate:
@@ -128,8 +131,8 @@ spec:
             volumeMounts:
             - mountPath: /var/run/secrets/nais.io/vault
               name: vault-secrets
-          serviceAccount: ${team_name}
-          serviceAccountName: ${team_name}
+          serviceAccount: podcreator
+          serviceAccountName: podcreator
           volumes:
           - configMap:
               defaultMode: 420
@@ -140,4 +143,4 @@ spec:
             name: vault-secrets
 ```
 
-Man kan fjerne `initContainers`-innslaget hvis man ikke trenger Vault/hemmeligheter.
+Man kan fjerne `spec.jobTemplate.spec.template.spec.initContainers`-innslaget hvis man ikke trenger Vault/hemmeligheter.
