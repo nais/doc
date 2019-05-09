@@ -4,7 +4,7 @@ namespace: default
 # Labels to add to all resources and selectors.
 commonLabels:
   app: testapp
-
+  team: aura
 # Each entry in this list must resolve to an existing
 # resource definition in YAML.  These are the resource
 # files that kustomize reads, modifies and emits as a
