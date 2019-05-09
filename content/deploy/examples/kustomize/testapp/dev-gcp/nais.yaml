@@ -1,0 +1,20 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: testapp
+spec:
+  replicas:
+    min: 1
+    max: 2
+  ingresses: 
+    - https://testapp.dev-gcp.nais.io
+  env:
+    - name: MY_ENVIRONMENT
+      value: dev
+  resources:
+    limits:
+      cpu: 250m 
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
