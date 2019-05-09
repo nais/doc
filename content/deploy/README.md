@@ -52,40 +52,23 @@ withCredentials([file(credentialsId: 'CREDENTIALS_ID', variable: 'KUBECONFIG_FIL
 
 If you are using Travis or CircleCI, make sure that the config file is not displayed in the build log.
 
-### Manifest nais.yaml
+### Handling `nais.yaml` for multiple environments
 
-If your team has several apps running on NAIS, you might consider creating a dedicated repository for all the manifest files.
-If your team is only running one application or don't see the need for such a repository, you can keep the manifest in the same repository as the application code.
+It is common for a application to run both the `dev` and `prod` cluster. The `nais.yaml` files for these two instances will typically very similar, and it's natural to avoid duplicating too much config by using some sort of tool (templating or other). Here it's up to each team how they wish to solve this. See example [here](./examples/kustomize), where [kustomize](https://github.com/kubernetes-sigs/kustomize) is used. Kustomize is natively supported in `kubectl` from version 1.14.
 
-#### Dedicated manifest repository
-
-This is a recommendation on how to organize your manifest files in a dedicated repository.
-
-Split up the nais.yaml manifest in template and variables:
-
+With this example, one would generate and apply the configuration like this
 ```
-templates/app.yaml
-vars/preprod-cluster/app.yaml
-vars/prod-cluster/app.yaml
+$ kustomize build testapp/dev-gcp | kubectl apply -f -
 ```
 
-And in your deploy pipeline use [naisplater](https://hub.docker.com/r/navikt/naisplater) in order to merge the template and vars and generate the manifest:
+or 
 
 ```
-docker run -v `pwd`/YOUR_INFRA_REPO:/infra-repo -v `pwd`/out:/data/yaml/ navikt/naisplater:${naisplaterVersion} /bin/bash -c "naisplater CLUSTER_NAME /infra-repo/templates /infra-repo/vars /data/yaml/"
+$ kubectl apply -k testapp/dev-gcp # kubectl version >= 1.14
 ```
 
-Where `CLUSTER_NAME` must match the name of the subfolder in templates and vars. The generated nais.yaml manifest will be available on the path mounted, in the example above <code>\`pwd\`/out</code>.
+Since your `nais.yaml` files often will contain actual endpoints and other concrete values, we consider it the best practice to have a separate private repository for your nais configuration files if your application is open source. Each team typically has a single repository containing config for the applications they are maintaining.
 
-Check out the [naisplater](https://github.com/nais/naisplater) documentation and implementation for more information on how to use.
-
-### Kubectl apply
-
-To run `kubectl` from the pipeline, we recommend using the Docker image `lachlanevenson/k8s-kubectl`:
-
-```
-docker run -v ${WORKSPACE}/files/out:/data -v ${WORKSPACE}/files/.kube/config:/root/.kube/config lachlanevenson/k8s-kubectl:${kubectlVersion} apply -f /data/yaml/clustername/app.yaml
-```
 
 ### Using naisd?
 See migration guide [here](migrating_from_naisd.md)
