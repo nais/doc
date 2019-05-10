@@ -54,7 +54,10 @@ If you are using Travis or CircleCI, make sure that the config file is not displ
 
 ### Handling `nais.yaml` for multiple environments
 
-It is common for a application to run both the `dev` and `prod` cluster. The `nais.yaml` files for these two instances will typically very similar, and it's natural to avoid duplicating too much config by using some sort of tool (templating or other). Here it's up to each team how they wish to solve this. See example [here](./examples/kustomize), where [kustomize](https://github.com/kubernetes-sigs/kustomize) is used. Kustomize is natively supported in `kubectl` from version 1.14.
+It is common for applications to run multiple instances in the `dev` and `prod` clusters. 
+The `nais.yaml` and other configuration files used to create these instances will typically be very similar, but will have differences in environment variables, resource requirements and ingresses.
+
+To avoid duplicating configuration and ease the maintenance of it, it's natural to apply some sort of tooling (templating or other). See example [here](./examples/kustomize), using [kustomize](https://github.com/kubernetes-sigs/kustomize). Kustomize is natively supported in `kubectl` from version 1.14.
 
 With this example, one would generate and apply the configuration like this
 ```
@@ -68,7 +71,6 @@ $ kubectl apply -k testapp/dev-gcp # kubectl version >= 1.14
 ```
 
 Since your `nais.yaml` files often will contain actual endpoints and other concrete values, we consider it the best practice to have a separate private repository for your nais configuration files if your application is open source. Each team typically has a single repository containing config for the applications they are maintaining.
-
 
 ### Using naisd?
 See migration guide [here](migrating_from_naisd.md)
