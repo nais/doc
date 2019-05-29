@@ -28,6 +28,7 @@
 # Security
 * [Application Auth{n,z}](/content/authnz)
 * [Platform security](/content/security)
+* [Platform IAM](/content/iam)
 
 Follow our [changelog](/content/changelog.md) to easily stay up to date on new milestones and services.
 
