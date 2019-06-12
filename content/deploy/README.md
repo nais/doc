@@ -90,7 +90,7 @@ Example syntax:
 
 ```
 deployment-cli create \
-  --environment=dev-fss \
+  --cluster=dev-fss \
   --repository=navikt/deployment \
   --team=<TEAM> \
   --version=<VERSION> \
@@ -111,8 +111,8 @@ If for any reason you are unable to use _deployment-cli_, please read the sectio
 | payload.team | Github team name, used as credentials for deploying into the Kubernetes cluster. | 1.0.0 |
 | payload.kubernetes.resources | List of Kubernetes resources that should be applied into the cluster. Your `nais.yaml` file goes here, in JSON format instead of YAML. | 1.0.0 |
 
-### Environment
-Please use one of the following environments. The usage of `preprod-***` is *not* supported.
+### Supported clusters
+Please use one of the following clusters. The usage of `preprod-***` is *not* supported.
   * `dev-fss`
   * `dev-sbs`
   * `prod-fss`
@@ -120,7 +120,7 @@ Please use one of the following environments. The usage of `preprod-***` is *not
 
 ### NAIS deploy with cURL
 A deployment into the Kubernetes clusters starts with a POST request to the [GitHub Deployment API](https://developer.github.com/v3/repos/deployments/#create-a-deployment).
-The request contains information about which environment to deploy to, which team to deploy as, and what resources should be applied.
+The request contains information about which cluster to deploy to, which team to deploy as, and what resources should be applied.
 
 Example request:
 ```
