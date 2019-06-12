@@ -50,7 +50,7 @@ preferred way to perform deployments on the NAIS platform.
 
 ## How it works
 1. When performing a deployment in your CI pipeline, create a [deployment request](https://developer.github.com/v3/repos/deployments/#create-a-deployment) is created using GitHub's API. This will trigger a webhook we have set up at Github.
-2. NAIS deploy receives the webhook, verifies its integrity and authenticity, assumes the identity of the deploying team, and applies your _Kubernetes resources_ into the specified [environment](#environment) (a.k.a. _cluster_).
+2. NAIS deploy receives the webhook, verifies its integrity and authenticity, assumes the identity of the deploying team, and applies your _Kubernetes resources_ into the specified [cluster](#supported-clusters).
 3. If you deployed any _Application_ or _Deployment_ resources, NAIS deploy will wait until these are rolled out successfully, or a timeout occurs.
 4. The deployment status is continually posted back to Github and is available through their API, enabling integration with your pipeline or monitoring setup.
 
