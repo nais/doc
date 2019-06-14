@@ -7,6 +7,17 @@ We currently provide these Kubernetes clusters:
 - dev-sbs (previously preprod-sbs)
 - prod-sbs
 
+
+| cluster name | on-prem | access policies enabled |
+| ------------ | ------- | ----------------------- |
+| dev-fss (previously preprod-fss) | yes | no |
+| prod-fss | yes | no |
+| dev-sbs (previously preprod-sbs) | yes | no |
+| prod-sbs | yes | no |
+| dev-gcp | no | yes |
+| prod-gcp | no | yes |
+
+
 The name of each cluster is on the format `<environment class>-<zone>`
 
 ### Ingress
