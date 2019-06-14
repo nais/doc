@@ -82,6 +82,7 @@ deployment-cli create \
 If for any reason you are unable to use _deployment-cli_, please read the section on [NAIS deploy with cURL](#nais-deploy-with-curl).
 
 ### Handling multiple deployments using deployment-cli built in templating
+
 deployment-cli has built in templating using [Handlebars](https://handlebarsjs.com/), this makes it possible to create
 multiple deployments using the same nais.yaml as a template and different configuration files for placeholders. By
 default deployment-cli will also inject a few of the flags passed to it:
@@ -100,7 +101,7 @@ metadata:
   labels:
     team: {{team}}
 spec:
-  image: "docker.pkg.github.com/navikt/{{version}}"
+  image: "docker.pkg.github.com/navikt/{{application_name}}/{{application_name}}:{{version}}"
   port: 8080
   replicas:
     min: 1
@@ -131,6 +132,8 @@ from the configuration file. For each pair in the env tag it will inject the key
   }
 }
 ```
+
+Since your `nais.yaml` files often will contain actual endpoints and other concrete values, we consider it the best practice to have a separate private repository for your nais configuration files if your application is open source. Each team typically has a single repository containing config for the applications they are maintaining.
 
 ### Deployment request spec
 
@@ -189,7 +192,6 @@ keep things stable and roll out new features gracefully.
 
 Changes will be rolled out using [semantic versioning](https://semver.org).
 
-
 ## Legacy automated deploy
 
 To automate the deployment, the `nais.yaml` manifest and `kubectl` must be available in your CI/CD pipeline.
@@ -206,27 +208,6 @@ withCredentials([file(credentialsId: 'CREDENTIALS_ID', variable: 'KUBECONFIG_FIL
 ```
 
 If you are using Travis or CircleCI, make sure that the config file is not displayed in the build log.
-
-### Handling `nais.yaml` for multiple environments
-
-It is common for applications to run multiple instances in the `dev` and `prod` clusters. 
-The `nais.yaml` and other configuration files used to create these instances will typically be very similar, but will have differences in environment variables, resource requirements and ingresses.
-
-To avoid duplicating configuration and ease the maintenance of it, it's natural to apply some sort of tooling (templating or other). See example [here](./examples/kustomize), using [kustomize](https://github.com/kubernetes-sigs/kustomize). Kustomize is natively supported in `kubectl` from version 1.14.
-
-With this example, one would generate and apply the configuration like this
-```
-$ kustomize build testapp/dev-gcp | kubectl apply -f -
-```
-
-or 
-
-```
-$ kubectl apply -k testapp/dev-gcp # kubectl version >= 1.14
-```
-
-Since your `nais.yaml` files often will contain actual endpoints and other concrete values, we consider it the best practice to have a separate private repository for your nais configuration files if your application is open source. Each team typically has a single repository containing config for the applications they are maintaining.
-
 
 ## Manual deploy
 
