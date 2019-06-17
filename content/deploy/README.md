@@ -1,67 +1,76 @@
 # Deployment
 
-This guide will take you through the deployment of a NAIS application.
-Performing deployments manually requires that you have
-[access to the cluster](../getting-started)
-and `kubectl` configured.
+This section will take you through the deployment of your application, using
+the _NAIS deploy_ tool.
 
-Using _naisd_ or JIRA Autodeploy? These mechanisms are deprecated and are going to be shut down.
+NAIS deploy enables you to deploy your application into
+[any cluster](#supported-clusters) from any continuous integration platform,
+including CircleCI, Travis CI, and Jenkins.
+
+Note: Using _naisd_ or _JIRA Autodeploy_ to deploy your application?
+These mechanisms are deprecated and are going to be shut down.
 See [migration guide from naisd to Naiserator](migrating_from_naisd.md).
 All information on the current page relates to Naiserator compatible `nais.yaml` files.
 You can also read the [naisd user documentation](naisd.md).
 
-## Create a `nais.yaml`
-To get your application running on NAIS, you create a [nais.yaml](https://github.com/nais/naiserator/#naisioapplication-spec) file.
-This is a [custom resource](https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/) defined by the platform team,
-and provides the [Naiserator deployment operator](https://github.com/nais/naiserator) with the necessary information to set up your application on NAIS. 
-
-If this is your first `nais.yaml`, it might be helpful to look at [this example `nais.yaml` file](https://github.com/nais/naiserator/tree/master/examples/nais.yaml) and replace with your own information. 
-
-To test your `nais.yaml` file manually from your workstation, please see the section on [manual deploy](#manual-deploy).
-
-## NAIS deploy
-This section describes how to use _NAIS deploy_ in order to deploy directly
-from cloud services such as CircleCI or TravisCI. You can use NAIS deploy also
-from Jenkins running in any internal zone. NAIS deploy is the canonical and
-preferred way to perform deployments on the NAIS platform.
-
-NAIS deploy is built on top of the Github Deployment API.
-
 ### How it works
-1. When performing a deployment in your CI pipeline, create a [deployment request](https://developer.github.com/v3/repos/deployments/#create-a-deployment) is created using GitHub's API. This will trigger a webhook we have set up at Github.
-2. NAIS deploy receives the webhook, verifies its integrity and authenticity, assumes the identity of the deploying team, and applies your _Kubernetes resources_ into the specified [cluster](#supported-clusters).
+1. In your CircleCI/Jenkins build pipeline, create a deployment request using [deployment-cli](https://github.com/navikt/deployment-cli).
+   This request is sent to Github's [deployment API](https://developer.github.com/v3/repos/deployments/) and is forwarded to NAIS deploy.
+2. NAIS deploy verifies the integrity and authenticity of the deployment, assumes the identity of the deploying team, and applies your _Kubernetes resources_ into the specified [cluster](#supported-clusters).
 3. If you deployed any _Application_ or _Deployment_ resources, NAIS deploy will wait until these are rolled out successfully, or a timeout occurs.
 4. The deployment status is continually posted back to Github and is available through their API, enabling integration with your pipeline or monitoring setup.
 
+### Getting started
+1. Make sure the [prerequisites](#prerequisites) are met before attempting to use NAIS deploy.
+2. Enable deployments for your repository
+3. Obtain Github deployment credentials
+4. Implement NAIS deploy in your pipeline
+
 ### Prerequisites
-* Secure your repository by restricting write access to team members.
+* Create a [nais.yaml](https://github.com/nais/naiserator/#naisioapplication-spec) file
+  for any application you want to deploy. A `nais.yaml` file contains an _Application resource_.
+  The application resource provides NAIS with the necessary information to run your application.
+  If starting out for the first time, try the
+  [nais.yaml minimal example](https://github.com/nais/naiserator/tree/master/examples/nais.yaml).
+
+* The repository containing `nais.yaml` must be on Github.
+
+* Secure your Github repository by restricting write access to team members.
   Activating NAIS deploy for your repository will enable anyone with write
-  access to your repository to deploy on behalf of your team.
+  access to your repository to deploy on behalf of your team. This is a *major security
+  concern* and should not be overlooked.
 
 * Be a maintainer of a [Github team](https://help.github.com/en/articles/about-teams).
   The team name must be the same as your Kubernetes _team label_, and additionally
   must have write access to your repository.
 
-### Enabling deployments for your repository
-Ideally, using the [GitOps](https://www.weave.works/technologies/gitops/)
-methodology, you only need to register _one_ repository with deployment access
-for your team. This repository contains all of your team's infrastructure as
-code, including your application deployments. That said, it is also possible to
-add each of your application repositories.
+### Enable deployments for your repository
+NAIS deploy must authorize your Github repository before you can perform deployments.
+This must be done once per repository.
+When authorizing, you can pick one or more teams to deploy as.
+Any permissions these teams have in the NAIS cluster will be granted to the deployment pipeline.
+In order to do this, you need to have _maintainer_ access rights to your Github team, and _admin_ access to the repository.
 
-Visit the [registration portal](https://deployment.prod-sbs.nais.io/auth/login)
-and follow the instructions to enable deployments from your repository.
-In order to do this, you need to have _maintainer_ access rights to your Github
-team, and _admin_ access to the repository.
+When you're ready, go to the [registration portal](https://deployment.prod-sbs.nais.io/auth/login) and follow the instructions.
 
-### Authenticating to the Github API
-There are two ways to authenticate API requests: using a Github App, or with a personal access token.
+Best practice: use a single repository for all your team's infrastructure code and `nais.yaml` files.
 
-The first option is unfortunately currently only available to Github organization admins. You can still self-service by
-[creating a personal access token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line)
+### Obtain Github deployment credentials
+The self-service way of obtaining credentials is to
+[create a personal access token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line)
 that your CI pipeline can use to trigger the deployment. The token needs only the scope `repo_deployment`.
 
+It is possible to authenticate as a Github App as well. The drawback is that you need to be a Github admin.
+Usage and implementation of this method is left as an exercise to the reader.
+
 ### Performing the deployment
+At this point, you have:
+* met the prerequisites
+* enabled deployments
+* obtained credentials
+
+You are ready to perform a deployment.
+
 In your pipeline, use our internal tool [deployment-cli](https://github.com/navikt/deployment-cli)
 to make deployment requests. Variables you need include _environment_, _repository_, _team_, _application version_, _Kubernetes resources_, and your Github credentials.
 
@@ -72,68 +81,18 @@ deployment-cli create \
   --cluster=dev-fss \
   --repository=navikt/deployment \
   --team=<TEAM> \
-  --version=<VERSION> \
+  --version=<APP VERSION> \
   --appid=1234 \
   --key=/path/to/private-key.pem \
   --resources=nais.yaml \
   --vars=placeholders.json
 ```
 
+## Advanced usage
+
+Once you are ready to advance from development to production, please read the [deployment-cli templating guide](deployment-cli-templating.md).
+
 If for any reason you are unable to use _deployment-cli_, please read the section on [NAIS deploy with cURL](#nais-deploy-with-curl).
-
-### Handling multiple deployments using deployment-cli built in templating
-
-deployment-cli has built in templating using [Handlebars](https://handlebarsjs.com/), this makes it possible to create
-multiple deployments using the same nais.yaml as a template and different configuration files for placeholders. By
-default deployment-cli will also inject a few of the flags passed to it:
-
- * ref: git reference. Specified by the --ref flag. Default: master
- * cluster: which cluster the deploy is for. Specified by the --cluster/-c flag. Default: dev-fss
- * team: the team this deployment is for. Specified by the --team/t flag.
- * version: the version, this is strictly for templating and should be used to specify which version of the Docker file should be pulled. Specified using the --version flag
-
-```yaml
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
-metadata:
-  name: {{application_name}}
-  namespace: default
-  labels:
-    team: {{team}}
-spec:
-  image: "docker.pkg.github.com/navikt/{{application_name}}/{{application_name}}:{{version}}"
-  port: 8080
-  replicas:
-    min: 1
-    max: 4
-    cpuThresholdPercentage: 70
-  liveness:
-    path: /is_alive
-  readiness:
-    path: /is_alive
-  prometheus:
-    enabled: true
-    path: /prometheus
-  env:
-  {{#each env}}
-    name: '{{@key}}'
-    value: '{{this}}'
-  {{/each}}
-```
-
-Here the version number and team name will be injected by the flags passed to deployment-cli, application_name will come
-from the configuration file. For each pair in the env tag it will inject the key as the env var name and value as is.
-```javascript
-{
-  "application_name": "example_app",
-  "env": {
-    "MY_ENV_VAR": "cluster specific value",
-    "SECOND_ENV_VAR": "another one"
-  }
-}
-```
-
-Since your `nais.yaml` files often will contain actual endpoints and other concrete values, we consider it the best practice to have a separate private repository for your nais configuration files if your application is open source. Each team typically has a single repository containing config for the applications they are maintaining.
 
 ### Deployment request spec
 
@@ -192,24 +151,11 @@ keep things stable and roll out new features gracefully.
 
 Changes will be rolled out using [semantic versioning](https://semver.org).
 
-## Legacy automated deploy
+### Manual deploy with a human involved
 
-To automate the deployment, the `nais.yaml` manifest and `kubectl` must be available in your CI/CD pipeline.
-
-### Machine user config file
-
-You will need a config file for your machine user (ask for one in #nais Slack if you don't have any).
-On Jenkins you can upload the file as a credential secret file and copy it into your workspace when building:
-
-```
-withCredentials([file(credentialsId: 'CREDENTIALS_ID', variable: 'KUBECONFIG_FILE')]) {
-    sh "cp $KUBECONFIG_FILE files/.kube/config" 
-}
-```
-
-If you are using Travis or CircleCI, make sure that the config file is not displayed in the build log.
-
-## Manual deploy
+Performing deployments manually requires that you have
+[access to the cluster](../getting-started)
+and `kubectl` configured.
 
 ```
 $ kubectl apply -f nais.yaml
@@ -233,4 +179,3 @@ Events:
   ----    ------       ----       ----        -------
   Normal  synchronize  3s         naiserator  successfully synchronized application resources (hash = 13485216922060251669)
 ```
-
