@@ -25,7 +25,7 @@ You can also read the [naisd user documentation](naisd.md).
 2. [Enable deployments for your repository](#enable-deployments-for-your-repository).
 3. [Obtain Github deployment credentials](#obtain-github-deployment-credentials).
 4. [Implement NAIS deploy in your pipeline](#performing-the-deployment).
-5. When things break, check the section on [#troubleshooting](troubleshooting).
+5. When things break, check the section on [troubleshooting](#troubleshooting).
 
 ### Prerequisites
 * Create a [nais.yaml](https://github.com/nais/naiserator/#naisioapplication-spec) file
