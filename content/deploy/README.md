@@ -22,9 +22,10 @@ You can also read the [naisd user documentation](naisd.md).
 
 ### Getting started
 1. Make sure the [prerequisites](#prerequisites) are met before attempting to use NAIS deploy.
-2. Enable deployments for your repository
-3. Obtain Github deployment credentials
-4. Implement NAIS deploy in your pipeline
+2. [Enable deployments for your repository](#enable-deployments-for-your-repository).
+3. [Obtain Github deployment credentials](#obtain-github-deployment-credentials).
+4. [Implement NAIS deploy in your pipeline](#performing-the-deployment).
+5. When things break, check the section on [#troubleshooting](troubleshooting).
 
 ### Prerequisites
 * Create a [nais.yaml](https://github.com/nais/naiserator/#naisioapplication-spec) file
@@ -88,20 +89,29 @@ deployment-cli create \
   --vars=placeholders.json
 ```
 
-## Advanced usage
-
 Once you are ready to advance from development to production, please read the [deployment-cli templating guide](deployment-cli-templating.md).
+
+### Troubleshooting
+Your deployment status page can be found on Github, under the repository you are deploying from.
+The status page will live at the URL `https://github.com/navikt/<YOUR_REPOSITORY>/deployments`.
+Links to deployment logs are available from this page.
+
+Generally speaking, if the deployment status is anything else than `success`, `queued`, or `pending`, it means that your deployment failed.
+*Check the logs* and *compare messages to the table below* before asking for support.
+
+If everything fails, and you checked your logs, you can ask for help in the [#nais-deployment](https://nav-it.slack.com/messages/CHEQ22Q94) channel on Slack.
+
+| Message | Action |
+|---------|--------|
+| Repository _foo/bar_ is not registered | Please read the [registering your repository](#registering-your-repository) section. |
+| Deployment status `error` | There is an error with your request. The reason should be specified in the error message. |
+| Deployment status `failure` | Your application didn't pass its health checks during the 5 minute startup window. It is probably stuck in a crash loop due to mis-configuration. Check your application logs using `kubectl logs <POD>` and event logs using `kubectl describe app <APP>` |
+| Deployment is stuck at `queued` | The deployment hasn't been picked up by the worker process. Did you specify a [supported cluster](#supported-clusters) with `--cluster=<CLUSTER>`? |
+
 
 If for any reason you are unable to use _deployment-cli_, please read the section on [NAIS deploy with cURL](#nais-deploy-with-curl).
 
-### Deployment request spec
-
-| Key | Description | Version added |
-|-----|-------------|---------------|
-| environment | Which environment to deploy to. | N/A |
-| payload.version | This is the *payload API version*, as described below. Array of three digits, denoting major, minor, and patch level version. | 1.0.0 |
-| payload.team | Github team name, used as credentials for deploying into the Kubernetes cluster. | 1.0.0 |
-| payload.kubernetes.resources | List of Kubernetes resources that should be applied into the cluster. Your `nais.yaml` file goes here, in JSON format instead of YAML. | 1.0.0 |
+## Advanced usage
 
 ### Supported clusters
 Please use one of the following clusters. The usage of `preprod-***` is *not* supported.
@@ -150,6 +160,15 @@ This version field have nothing to do with your application version. It is used 
 keep things stable and roll out new features gracefully.
 
 Changes will be rolled out using [semantic versioning](https://semver.org).
+
+### Deployment request spec
+
+| Key | Description | Version added |
+|-----|-------------|---------------|
+| environment | Which environment to deploy to. | N/A |
+| payload.version | This is the *payload API version*, as described below. Array of three digits, denoting major, minor, and patch level version. | 1.0.0 |
+| payload.team | Github team name, used as credentials for deploying into the Kubernetes cluster. | 1.0.0 |
+| payload.kubernetes.resources | List of Kubernetes resources that should be applied into the cluster. Your `nais.yaml` file goes here, in JSON format instead of YAML. | 1.0.0 |
 
 ### Manual deploy with a human involved
 
