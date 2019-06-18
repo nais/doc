@@ -72,6 +72,32 @@ At this point, you have:
 
 You are ready to perform a deployment.
 
+#### Using CircleCI
+
+If using CircleCI (recommended) then you can use the `nais-deployment` _Orb_ to
+set up your deployment with close to zero configuration. See
+[nais-deployment Orb documentation](https://circleci.com/orbs/registry/orb/navikt/nais-deployment)
+for instructions on how to set it up.
+
+In a nutshell:
+
+```
+version: 2.1
+orbs:
+  nais: 'navikt/nais-deployment@1.1.0'
+workflow:
+  deploy-docker-and-nais:
+    jobs:
+      - nais/deploy:
+          repo: navikt/example-repo
+          image: navikt/example-image
+          github-app-id: 1337
+          nais-template: nais.yaml
+          environment: dev-fss
+          team: awesome-team
+```
+
+#### Travis CI, Jenkins, or manually using CircleCI
 In your pipeline, use our internal tool [deployment-cli](https://github.com/navikt/deployment-cli)
 to make deployment requests. Variables you need include _environment_, _repository_, _team_, _application version_, _Kubernetes resources_, and your Github credentials.
 
