@@ -79,7 +79,8 @@ set up your deployment with close to zero configuration. See
 [nais-deployment Orb documentation](https://circleci.com/orbs/registry/orb/navikt/nais-deployment)
 for instructions on how to set it up.
 
-In a nutshell:
+In a nutshell, you set it up like below. Sensitive data such as keys or
+passwords *must* go into environment variables, configured in the CircleCI user interface.
 
 ```
 version: 2.1
@@ -89,12 +90,13 @@ workflow:
   deploy-docker-and-nais:
     jobs:
       - nais/deploy:
+          context: NAIS deployment     # gives you $DOCKER_USERNAME and $DOCKER_PASSWORD
           repo: navikt/example-repo
           image: navikt/example-image
-          github-app-id: 1337
+          github-app-id: 1337          # when authenticating as a Github application
           nais-template: nais.yaml
           environment: dev-fss
-          team: awesome-team
+          team: awesome-team           # needs to be identical in Kubernetes and Github
 ```
 
 #### Travis CI, Jenkins, or manually using CircleCI
