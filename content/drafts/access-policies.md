@@ -5,9 +5,6 @@
 If you are running your app in a cluster with access policies enabled you can define the access rules for your application.
 If you define none, the policy will **default to deny all incoming and outgoing traffic**.
 
-If you set `allow-all` to `true`, all traffic in the same namespace as the application will be allowed.
-
-
 ```
     inbound:
       rules:
