@@ -74,13 +74,13 @@ You are ready to perform a deployment.
 
 #### Using CircleCI
 
-If using CircleCI (recommended) then you can use the `nais-deployment` _Orb_ to
-set up your deployment with close to zero configuration. See
-[nais-deployment Orb documentation](https://circleci.com/orbs/registry/orb/navikt/nais-deployment)
-for instructions on how to set it up.
+If using CircleCI (recommended) then you can use the
+[nais-deployment Orb](https://circleci.com/orbs/registry/orb/navikt/nais-deployment)
+to set up your deployment with close to zero configuration.
 
-In a nutshell, you set it up like below. Sensitive data such as keys or
-passwords *must* go into environment variables, configured in the CircleCI user interface.
+In a nutshell, you create a `.circleci/config.yml` file in your repository with
+the contents below.  Sensitive data such as keys or passwords *must* go into
+environment variables, configured in the CircleCI user interface.
 
 ```
 version: 2.1
