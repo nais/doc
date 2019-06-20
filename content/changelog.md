@@ -9,6 +9,12 @@ This is a simple changelog over notable milestones for the [NAIS-platform](/cont
 - Deployment from Github directly to the Cluster, read more at [navikt/deployment](https://github.com/navikt/deployment)
 
 ## [Released]
+### [2019-06-14]
+- Hard deprecate of `spec.secrets: true`, use `spec.vault.enabled: true` instead
+
+### [2019-06-09]
+- Added support for cabundle opt-out
+
 ### [2019-04-09]
 - Added support for secure logs. See [documentation](/content/logging/secure-logs.md) for more
 
