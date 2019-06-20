@@ -7,6 +7,7 @@ This is a simple changelog over notable milestones for the [NAIS-platform](/cont
 ## [Unreleased]
 - We are rewitting Naisd to be a third-party app for Kubernetes, using the Kubernetes Operator toolset. Check out the [naiserator](https://github.com/nais/naiserator) repo for more info. It is possible to start using this now
 - Deployment from Github directly to the Cluster, read more at [navikt/deployment](https://github.com/navikt/deployment)
+- Implementing access policies in Naiserator, adding Istio RBAC resources and Kubernetes network policies
 
 ## [Released]
 ### [2019-06-14]
