@@ -6,10 +6,12 @@ This is a simple changelog over notable milestones for the [NAIS-platform](/cont
 
 ## [Unreleased]
 - We are rewitting Naisd to be a third-party app for Kubernetes, using the Kubernetes Operator toolset. Check out the [naiserator](https://github.com/nais/naiserator) repo for more info. It is possible to start using this now
-- Deployment from Github directly to the Cluster, read more at [navikt/deployment](https://github.com/navikt/deployment)
 - Implementing access policies in Naiserator, adding Istio RBAC resources and Kubernetes network policies
 
 ## [Released]
+### [2019-06-20]
+- Added NAIS deploy, enabling deployment from Github directly to our clusters. See [deployment documentation](/content/deploy/README.md) on how to use it.
+
 ### [2019-06-14]
 - Hard deprecate of `spec.secrets: true`, use `spec.vault.enabled: true` instead
 
