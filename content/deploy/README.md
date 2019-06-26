@@ -131,6 +131,7 @@ If everything fails, and you checked your logs, you can ask for help in the [#na
 
 | Message | Action |
 |---------|--------|
+| the repository 'foo/bar' does not have access to deploy as team 'Baz' | Is your team name in _lowercase_ everywhere? |
 | Repository _foo/bar_ is not registered | Please read the [registering your repository](#registering-your-repository) section. |
 | Deployment status `error` | There is an error with your request. The reason should be specified in the error message. |
 | Deployment status `failure` | Your application didn't pass its health checks during the 5 minute startup window. It is probably stuck in a crash loop due to mis-configuration. Check your application logs using `kubectl logs <POD>` and event logs using `kubectl describe app <APP>` |
