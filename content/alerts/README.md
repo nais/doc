@@ -12,10 +12,10 @@ Underneath we have an example for a complete Alert-resource, ready to be `kubect
 
 ```yaml
 ---
-apiVersion: "nais.io/v1alpha1"
-kind: "Alert"
+apiVersion: nais.io/v1alpha1
+kind: Alert
 metadata:
-  name: AuraAppAlerts
+  name: aura-app-alerts
   labels:
     team: aura
 spec:
@@ -28,7 +28,7 @@ spec:
       expr: 'kube_deployment_status_replicas_unavailable{deployment="app-name"} > 0'
       for: 2m
       action: Read app logs(kubectl logs appname). Read Application events (kubectl descibe deployment appname)
-      description: Av og til går appen ned, ofte pga. feil i kode ved oppstart
+      description: The app might crash sometimes due to startup errors
       documentation: https://github.com/navikt/aura-doc/naisvakt/alerts.md#app_unavailable
       sla: respond within 1h, during office hours
       severity: critical
