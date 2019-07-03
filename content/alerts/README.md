@@ -1,14 +1,14 @@
 Alerts
 ======
 
-We use [Prometheus](https://prometheus.io/) to collect metrics, and can trigger alerts based on these metrics. Alerts are specified in their own Kubernetes-resource called `alerts` as we have made our own operator called [Alerterator](https://github.com/nais/alerterator).
+We use [Prometheus](https://prometheus.io/) to collect metrics, and can trigger alerts based on these metrics. Alerts are specified in their own Kubernetes resource called `alerts` as we have made our own operator called [Alerterator](https://github.com/nais/alerterator).
 
-This means that you can manage your alerts with `kubectl`, and that alerts are not tied to a specific app or namespace. Giving you more freedom to set up the necessary alerts for one or several apps. You can even make your own personal alert-profile.
+This means that you can manage your alerts with `kubectl`, and that alerts are not tied to a specific app or namespace. Giving you more freedom to set up the necessary alerts for one or several apps. You can even make your own personal alert profile.
 
 
 ## Custom alerts
 
-Underneath we have an example for a complete Alert-resource, ready to be `kubectl apply -f alerts.yaml`.
+Underneath we have an example for a complete Alert resource, ready to be `kubectl apply -f alerts.yaml`.
 
 ```yaml
 ---
@@ -34,7 +34,7 @@ spec:
       severity: critical
 ```
 
-We also support e-mail as a receiver, check out a bigger example in the [alerterator-repo](https://github.com/nais/alerterator/blob/master/example/max_alerts.yaml). In the same folder we also have a set of [recommended-alerts](https://github.com/nais/alerterator/blob/master/example/recommended_alerts.yaml) for you to get started with.
+We also support e-mail as a receiver, check out a bigger example in the [alerterator repository](https://github.com/nais/alerterator/blob/master/example/max_alerts.yaml). In the same folder we also have a set of [recommended alerts](https://github.com/nais/alerterator/blob/master/example/recommended_alerts.yaml) for you to get started with.
 
 
 ### Fields/spec
@@ -46,7 +46,7 @@ We also support e-mail as a receiver, check out a bigger example in the [alerter
 | metadata.labels.team | [mailnick/tag](https://github.com/nais/doc/blob/master/content/getting-started/teamadministration.md) | | x |
 | spec.receivers | You need at least one receiver | | x |
 | spec.receivers.slack.channel | Slack channel to send notifications to | | |
-| spec.receivers.slack.preprend_text | Text to prepend every Slack-message with severity `danger` | | |
+| spec.receivers.slack.preprend_text | Text to prepend every Slack message with severity `danger` | | |
 | spec.receivers.email.to | The email address to send notifications to| | |
 | spec.receivers.email.send_resolved | Whether or not to notify about resolved alerts | | false |
 | spec.alerts[].alert | The title of the alerts | | x |
@@ -56,14 +56,14 @@ We also support e-mail as a receiver, check out a bigger example in the [alerter
 | spec.alerts[].action | How to resolve this alert | | x |
 | spec.alerts[].documentation | URL for docmentation for this alert| | |
 | spec.alerts[].sla | Time before the alert should be resolved| | |
-| spec.alerts[].severity | Alert level for Slack-messages| | danger |
+| spec.alerts[].severity | Alert level for Slack messages| | danger |
 
 
 #### Kubectl
 
-Use `kubectl` to add, update, and remove the alert-resource. Adding and updating is done with the `kubectl apply -f alerts.yaml`, while delete is done either with `kubectl delete alert <alert-name>` og `kubectl delete -f alerts.yaml`.
+Use `kubectl` to add, update, and remove the alert resource. Adding and updating is done with the `kubectl apply -f alerts.yaml`, while delete is done either with `kubectl delete alert <alert-name>` og `kubectl delete -f alerts.yaml`.
 
-You can list alerts in the cluster with `kubectl get alerts` (singluar: `alert`, shorten: `al`), and describe a specific alert-resource with `kubectl describe alert <alert-name>`.
+You can list alerts in the cluster with `kubectl get alerts` (singluar: `alert`, shorten: `al`), and describe a specific alert resource with `kubectl describe alert <alert-name>`.
 
 
 #### Writing the `expr`
@@ -80,7 +80,7 @@ You can also use `labels` in your Slack/e-mail notification by referencing them 
 For example:
 ```
 {{ $labels.node }} is marked as unschedulable
-  ```
+```
 
 turns into the following when posted to Slack/email:
 ```
@@ -100,16 +100,16 @@ Using regular expression, you can target multiple apps or namespaces with one qu
 absent(up{app=~"myapp|otherapp|thirdapp"})
 ```
 
-Here we use `=~` to select labels that regex-match the provided string (or substring). Use `!~` to negate the regular expression.
+Here we use `=~` to select labels that match the provided string (or substring) using a regular expression. Use `!~` to negate the regular expression.
 
 
 #### Slack @here and @team
 
 Slack has their own syntax for notifying `@channel` or `@here`, respectively `<!channel>` and `<!here>`.
 
-Notifying a user group on the other hand is a bit more complicated. The user group `@nais-vakt` is written `<!subteam^SB8KS4WAV|nais-vakt> in a Slack alert-message`, where `SB8KS4WAV` is the id for the specific user group, and `nais-vakt` is the name of the user group.
+Notifying a user group on the other hand is a bit more complicated. The user group `@nais-vakt` is written `<!subteam^SB8KS4WAV|nais-vakt>` in a Slack alert message, where `SB8KS4WAV` is the id for the specific user group, and `nais-vakt` is the name of the user group.
 
-You can find the id by right-clicking on the name in the user group list. Where last part in the URL is the id. The URL will look something like the one below:
+You can find the id by right clicking on the name in the user group list. Where last part in the URL is the id. The URL will look something like the one below:
 ```
 https://nav-it.slack.com/usergroups/SB8KS4WAV
 ```
@@ -121,7 +121,7 @@ https://nav-it.slack.com/usergroups/SB8KS4WAV
 
 ## Migrating from Naisd
 
-It's pretty straight forward to move alerts from Naisd to Alerterator, as the only difference is that the annotation-fields has been move to the top-level.
+It's pretty straight forward to move alerts from Naisd to Alerterator, as the only difference is that the annotation fields has been move to the top level.
 
 ```
 alerts:
