@@ -111,7 +111,7 @@ spec:
               value: ${team_name}
             - name: VKS_SECRET_DEST_PATH
               value: /var/run/secrets/nais.io/vault
-            image: navikt/vks:38
+            image: navikt/vks:44
             name: vks
             volumeMounts:
             - mountPath: /var/run/secrets/nais.io/vault
