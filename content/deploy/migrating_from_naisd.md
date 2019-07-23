@@ -13,12 +13,13 @@ port: 8080
 (...)
 ```
 
-The new format looks like this. We also provide a complete example of a
-[nais application spec](https://github.com/nais/naiserator/blob/master/examples/nais.yaml).
+The new format looks like this. We also provide
+a [minimal example](https://github.com/nais/naiserator/blob/master/examples/nais.yaml) and
+a [full example](https://github.com/nais/naiserator/blob/master/examples/nais-max.yaml) with all supported fields.
 
 ```
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
+apiVersion: nais.io/v1alpha1
+kind: Application
 metadata:
   name: nais-testapp
   namespace: default
@@ -34,11 +35,11 @@ Follow the checklist to complete the migration:
 
 * [ ] Use the `apiVersion`, `kind`, `metadata` and `spec` fields.
 * [ ] Include the version of your Docker container in the `.spec.image` field.
-* [ ] `healthcheck` is removed, and `liveness` and `readiness` has been moved to the top-level.
-* [ ] The `redis` field has been removed ([#6][i6])
-* [ ] The `alerts` field has been removed ([#7][i7])
-* [ ] The `ingress` field has been replaced by `ingresses` and need to specified explicitly ([#14][i14])
-* [ ] The `fasitResources` field has been removed ([#15][i15])
+* [ ] `healthcheck` has been replaced by top-level `liveness` and `readiness` fields.
+* [ ] The `redis` field has been removed.
+* [ ] The `alerts` field has been replaced with the [Alert resource](https://github.com/nais/doc/tree/master/content/alerts).
+* [ ] The `ingress` field has been replaced by `ingresses` and need to specified explicitly.
+* [ ] Fasit is no longer supported.
 
 ## Cluster access
 
@@ -49,18 +50,7 @@ This means you need to have `kubectl` access, which in turn requires:
 
 * [ ] [Install and configure kubectl](/content/getting-started#install-kubectl)
 * [ ] [Create an Azure AD group](https://github.com/navikt/IaC/tree/master/AAD%20Team) for your team, for human access to the cluster
-* [ ] Request a machine (deploy) user for your CI pipeline in the #nais Slack channel.
 
 ## Deploying applications
 
-Once everything is set up:
-
-```
-kubectl apply -f nais.yaml
-```
-
-
-[i6]: https://github.com/nais/naiserator/issues/6
-[i7]: https://github.com/nais/naiserator/issues/7
-[i14]: https://github.com/nais/naiserator/issues/14
-[i15]: https://github.com/nais/naiserator/issues/15
+See the [Deployment](https://github.com/nais/doc/tree/master/content/deploy) section.
