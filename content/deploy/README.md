@@ -85,18 +85,20 @@ environment variables, configured in the CircleCI user interface.
 ```
 version: 2.1
 orbs:
-  nais: 'navikt/nais-deployment@1.1.0'
+  nais: 'navikt/nais-deployment@1.4.0'
 workflow:
   deploy-docker-and-nais:
     jobs:
       - nais/deploy:
-          context: NAIS deployment     # gives you $DOCKER_USERNAME and $DOCKER_PASSWORD
+          context: NAIS deployment     # gives you $DOCKER_LOGIN and $DOCKER_PASSWORD
           repo: navikt/example-repo
           image: navikt/example-image
           github-app-id: 1337          # when authenticating as a Github application
           nais-template: nais.yaml
           environment: dev-fss
           team: awesome-team           # needs to be identical in Kubernetes and Github
+          enable-vars: true            # set to true to enable templating support
+          template-vars: dev-fss.json  # file with template variables
 ```
 
 #### Travis CI, Jenkins, or manually using CircleCI
