@@ -9,6 +9,10 @@ This is a simple changelog over notable milestones for the [NAIS-platform](/cont
 - Implementing access policies in Naiserator, adding Istio RBAC resources and Kubernetes network policies
 
 ## [Released]
+
+### [2019-07-30]
+- Upgraded Kubernetes to [1.13.8](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md)
+
 ### [2019-06-20]
 - Added NAIS deploy, enabling deployment from Github directly to our clusters. See [deployment documentation](/content/deploy/README.md) on how to use it.
 
