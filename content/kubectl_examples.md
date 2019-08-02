@@ -1,7 +1,7 @@
 Kubectl examples
 ================
 
-This document cover simple Kubectl operations, and how to solve some problems that you may experience.
+This document cover simple Kubectl operations, and how to solve some problems that you may experience. If you want to check out the complete documentation for Kubectl, head over to [kubectl.docs.kubernetes.io](https://kubectl.docs.kubernetes.io/).
 
 Head over to [getting started](/documentation/dev-guide/README.md) if you need help setting up Kubectl.
 
