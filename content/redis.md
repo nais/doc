@@ -1,15 +1,14 @@
 Redis
 =====
 
-> Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker.
+> Redis is an open source (BSD licensed) in-memory data structure store used as a database, cache and message broker.
 
-On NAIS we are running Redis without disk/storage, so a restart of your Redis instance will terminate you data. So don't store data that you can't afford to lose. Good use cases for this type of setup is caching, for example store results of SQL quereies that are asked a lot. Bad use cases is to store user configuration, or drafts of user inputs that should be persistent (for the user). It's also possible to password protect the Redis instace, using our sligthly modified image.
-
+On NAIS we are running Redis without disk/storage. This means that if your Redis instance is restarted due to e.g. maintenance, your data will be lost. This means that you shouldn't store data here that you can't afford to lose. 
+It's also possible to password protect the Redis instace, using our sligthly modified image.
 
 ## Deprecation of Redis sentinel cluster/HA-cluster
 
-As we move to the cloud, and over to [Naiserator](https://github.com/nais/doc/tree/master/content/deploy), we have decided to depricate Naisd's Redis sentinel cluster, mainly because the huge amount of resources it use. It's estimated to use about 1/3 of our cluster.
-
+As we move to the cloud, and over to [Naiserator](https://github.com/nais/doc/tree/master/content/deploy), we have decided to deprecate Naisd's Redis sentinel cluster, as this has been a major overkill for most applications and has consumed a huge amount of resources in the clusters. It's estimated to use about 1/3 of our clusters resources.
 
 ## How to
 
@@ -41,11 +40,9 @@ redis:
 
 The Redis instance can be reached via `REDIS_HOST` environment variable, or through the `<appname>-redis` service.
 
-
 #### Redis metrics
 
 To enable metrics we have injected an exporter as a sidecar to the Redis pod instance for you. You can see the metrics over at [Grafana](https://grafana.adeo.no/d/L-Ktprrmz/redis-exporters).
-
 
 ### Naiserator (single instance)
 
@@ -124,8 +121,7 @@ If your Redis-instance is password protected you need to use our own [secure-red
 
 ## Secure Redis (both Naisd and Naiserator)
 
-We have made our own image that uses password from Vault, if this is needed for your projet. See [baseimages](https://github.com/navikt/baseimages/tree/master/redis) for more information.
-
+We have made our own image that uses password from Vault, if this is needed for your project. See [baseimages](https://github.com/navikt/baseimages/tree/master/redis) for more information.
 
 ## Code example
 
