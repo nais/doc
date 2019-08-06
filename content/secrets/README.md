@@ -74,19 +74,17 @@ Native Kubernetes Secrets (only available in GCP)
 
 When running in GCP, you also have the option of using [Kubernetes `Secrets`](https://kubernetes.io/docs/concepts/configuration/secret) directly instead of (or in combination with) Vault.
 
-To get started using this, you simply [create your secret(s)](https://kubernetes.io/docs/concepts/configuration/secret/#creating-your-own-secrets), this can be either key-value pairs or files and these will be exposed to the application either as environment variables or files. 
+To get started using this, you simply [create your secret(s)](https://kubernetes.io/docs/concepts/configuration/secret/#creating-your-own-secrets). This can be either key-value pairs or files and can be exposed to the application as environment variables or files. 
 
 ## Example
 
 Create your secret
-
 ```
 $ kubectl create secret generic my-secret --from-literal=key1=supersecret
 secret/my-secret created
 ```
 
 Refer to `my-secret` in `nais.yaml`
-
 ```nais.yaml
 spec:
   secrets:
@@ -96,4 +94,4 @@ spec:
 
 And you're done. When your application is running, the environment variable `key1` will have the value `supersecret`.
 
-See the official [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/secret) or by running `kubectl create secret generic --help` for different ways of creating and managing your secrets and more detailed information.
+See the official [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/secret) or by running `kubectl create secret generic --help` for more details on creating and managing your secrets.
