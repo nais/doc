@@ -67,3 +67,33 @@ vault:
 Base your Docker image on `navikt/java` and the secrets from Vault will by default be made available for you as environment variables.
 
 When migrating from `naisd` you can name the Vault keys as they were in named in Fasit so that your application do not need to be rewritten in order to use the Vault secrets.
+
+
+Native Kubernetes Secrets (only available in GCP)
+=================================================
+
+When running in GCP, you also have the option of using [Kubernetes `Secrets`](https://kubernetes.io/docs/concepts/configuration/secret) directly instead of (or in combination with) Vault.
+
+To get started using this, you simply [create your secret(s)](https://kubernetes.io/docs/concepts/configuration/secret/#creating-your-own-secrets), this can be either key-value pairs or files and these will be exposed to the application either as environment variables or files. 
+
+## Example
+
+Create your secret
+
+```
+$ kubectl create secret generic my-secret --from-literal=key1=supersecret
+secret/my-secret created
+```
+
+Refer to `my-secret` in `nais.yaml`
+
+```nais.yaml
+spec:
+  secrets:
+    - name: my-secret
+  ...
+```
+
+And you're done. When your application is running, the environment variable `key1` will have the value `supersecret`.
+
+See the official [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/secret) or by running `kubectl create secret generic --help` for different ways of creating and managing your secrets and more detailed information.
