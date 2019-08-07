@@ -1,27 +1,36 @@
 Redis
 =====
 
-> Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker.
+> Redis is an open source (BSD licensed) in-memory data structure store used as a database, cache and message broker.
 
-On NAIS we are running Redis without disk/storage, so a restart of the Redis cluster or instance will terminate your data. So don't store data that you can't afford to lose. Good use cases for this setup is to store results of SQL queries that are asked a lot, bad use case is to store user config, or drafts of user inputs that should be persistent. The Redis HA-cluster is also available for all the other applicaiton running in the same Kubernetes cluster as your application. Using the single instance Redis setup you can password protect the database via Vault.
+On NAIS we are running Redis without disk/storage. This means that if your Redis instance is restarted due to e.g. maintenance, your data will be lost. This means that you shouldn't store data here that you can't afford to lose. 
+It's also possible to password protect the Redis instace, using our sligthly modified image.
 
-Read more about Redis sentinels over at [redis.io](https://redis.io/topics/sentinel). Remember that your Redis framework needs to be [sentinel-ready](https://redis.io/topics/sentinel-clients).
+## Deprecation of Redis sentinel cluster/HA-cluster
 
+As we move to the cloud, and over to [Naiserator](https://github.com/nais/doc/tree/master/content/deploy), we have decided to deprecate Naisd's Redis sentinel cluster, as this has been a major overkill for most applications and has consumed a huge amount of resources in the clusters. It's estimated to use about 1/3 of our clusters resources.
 
 ## How to
 
-There is two ways to get running with Redis, one for Naisd (cluster/HA), and one for Naiserator (single instance).
+There is two ways to get running with Redis, one for Naisd, and one for Naiserator. They both create a single Redis-instance for you to use.
 
 
-### Naisd (High-availabilty cluster)
+### Naisd
 
 In the [NAIS manifest](/documentation/contracts/README.md#nais-manifest) you can add the following configuration to enable Redis:
 
+Minimal version:
 ```yaml
 redis:
   enabled: true
-  hardAnitAffinity: false
-  limits:
+```
+
+All configurations:
+```yaml
+redis:
+  enabled: true
+  image: redis:5-alpine # optional
+  limits: # optional
     cpu: 100m
     memory: 128Mi
   requests:
@@ -29,19 +38,11 @@ redis:
     memory: 128Mi
 ```
 
-Your specific sentinels can then be reached with the following values:
+The Redis instance can be reached via `REDIS_HOST` environment variable, or through the `<appname>-redis` service.
 
-```
-url: $REDIS_HOST
-port: 26379
-master-name: mymaster
-```
+#### Redis metrics
 
-
-#### Redis metrics (Grafana)
-
-We have a semi-working dashboard for the Redis-sentinel setup for Naisd, visit [Redis Prometheus](https://grafana.adeo.no/d/MhjMYpmik/prometheus-redis) dashboard on Grafana.
-
+To enable metrics we have injected an exporter as a sidecar to the Redis pod instance for you. You can see the metrics over at [Grafana](https://grafana.adeo.no/d/L-Ktprrmz/redis-exporters).
 
 ### Naiserator (single instance)
 
@@ -54,8 +55,8 @@ apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
   labels:
-    team: <teamnavn>
-  name: <appnavn>
+    team: <teamname>
+  name: <appname>
   namespace: <namespace>
 spec:
   image: redis:5-alpine # or a custom Redis-image
@@ -63,29 +64,24 @@ spec:
   replicas: # A single Redis-app doesn't scale
     min: 1
     max: 1
-  resources: # you need to monitor need your self
+  resources: # you need to monitor the resource usage
     limits:
-      cpu: 250m 
-      memory: 256Mi
+      cpu: 100m 
+      memory: 128Mi
     requests:
-      cpu: 250m
-      memory: 256Mi
+      cpu: 100m
+      memory: 128Mi
   service:
     port: 6379
 ```
 
-In your apps `nais.yaml` you should to add the following environment variable (or hard-code it in your app, they are not going to change):
+In your `nais.yaml` you should to add the following environment variable (or hard-code it in your app, they are not going to change):
 
 ```yaml
  env:
    - name: REDIS_HOST
-     value: <appnavn>.<namespace>.svc.nais.local
+     value: <appname>.<namespace>.svc.nais.local
 ```
-
-
-#### Secure Redis
-
-We have made our own image that uses password from Vault, if this is needed for your projet. See [baseimages](https://github.com/navikt/baseimages/tree/master/secure-redis) for more information.
 
 
 #### Redis metrics
@@ -123,104 +119,23 @@ spec:
 If your Redis-instance is password protected you need to use our own [secure-redisexporter](https://github.com/navikt/baseimages/tree/master/redis/secure-redisexporter)-image.
 
 
+## Secure Redis (both Naisd and Naiserator)
+
+We have made our own image that uses password from Vault, if this is needed for your project. See [baseimages](https://github.com/navikt/baseimages/tree/master/redis) for more information.
+
 ## Code example
 
+We are not app-developers, so please help us out by expanding with examples!
 
-### Lettuce [Java] - for Redis sentinels
 
-Example below is using the Java framework [Lettuce](https://github.com/lettuce-io/lettuce-core).
+### Redis cache in Spring Boot
 
-```java
-import static org.springframework.data.redis.connection.lettuce.LettuceConverters.sentinelConfigurationToRedisURI;
-import com.lambdaworks.redis.RedisClient;
+Add the following to your `application.yaml` to enable Spring to use Redis as cache.
 
-public class LettuceSentinelTestApplication {
-
-    private static final String MASTER_NAME = "mymaster";
-    private static final String EXPECTED_VALUE = "foovalue";
-    private static final String REDIS_HOST = System.getenv("REDIS_HOST");
-
-    public static void main(String[] args) {
-
-    	System.out.println("Creating RedisClient instance with sentinel connection");
-        RedisClient redisClient = RedisClient.create(sentinelConfigurationToRedisURI(
-                        new RedisSentinelConfiguration()
-                        .master(MASTER_NAME).sentinel(new RedisNode(REDIS_HOST, 26379)))
-                );
-
-        System.out.println("Opening Redis Standalone connection.");
-        StatefulRedisConnection<String, String> connection = redisClient.connect();
-
-        System.out.println("Obtain the command API for synchronous execution");
-        RedisCommands<String, String> commands = connection.sync();
-
-        System.out.println("Writing...");
-        commands.set("foo", EXPECTED_VALUE);
-
-        System.out.println("Reading...");
-        String actualValue = commands.get("foo");
-        System.out.println("The expected value is: " + EXPECTED_VALUE + ". Actual value is: " + actualValue);
-
-        System.out.println("Closing connection");
-        connection.close();
-        redisClient.shutdown();
-    }
-}
 ```
-
-
-### Redis cache in Spring - for Redis sentinels
-
-Example below is for setting up Redis Cache in Spring using [Spring-Data-Redis](https://projects.spring.io/spring-data-redis/) Lettuce driver
-
-```java
-@Configuration
-@EnableCaching
-public class CacheConfig {
-
-    private static final String MASTER_NAME = "mymaster";
-    private static final String REDIS_HOST = System.getenv("REDIS_HOST");
-
-    @Value("${app.name}")
-    private String appName;
-
-    @Bean
-    public CacheManager cacheManager(RedisTemplate redisTemplate) {
-        RedisCacheManager redisCacheManager = new RedisCacheManager(redisTemplate);
-        redisCacheManager.setExpires(TimeUnit.DAYS.toSeconds(2));
-        return redisCacheManager;
-    }
-
-    @Bean
-    public RedisTemplate<?, ?> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory) {
-        RedisTemplate<?, ?> redisTemplate = new RedisTemplate();
-        redisTemplate.setConnectionFactory(lettuceConnectionFactory);
-        return redisTemplate;
-    }
-
-    @Bean
-    public LettuceConnectionFactory lettuceConnectionFactory() {
-        return new LettuceConnectionFactory(new RedisSentinelConfiguration()
-                                                            .master(MASTER_NAME)
-                                                            .sentinel(new RedisNode(REDIS_HOST, 26379)));
-    }
-}
+session:
+  store-type: redis
+redis:
+  host: ${REDIS_HOST}
+  port: 6379
 ```
-
-With the configuration above, the Spring `@Cacheable` annotation can be used to enable caching behaviour on methods. Spring will then use the configuration above to store the cache values to Redis.
-
-
-#### Spring annotation
-
-Example below shows how to use @Cacheable annotation on a method.
-```java
-@Cacheable("FOO_CACHE_NAME")
-public String getFooFromRepository(String id){
-    return repository.getFoo(id);
-}
-```
-
-
-#### Losing Redis server connection
-
-Using the Redis Cache configuration in the example might cause problems when the Redis Server is not responding. When the connection to the Redis Server is lost, the LettuceDriver will try to reconnect to the Redis server with a reconnection policy that can cause long response time on the cache requests. This will therefore lead to long responsetime on your application if the cache is heavily used. More advanced example of cache configuration which solves this problem can be found at [gist.github.com/ugur93](https://gist.github.com/ugur93/4e047c03c0d152d245e391d70788829a).
