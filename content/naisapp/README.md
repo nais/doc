@@ -29,18 +29,14 @@ The application should emit `json`-formatted logs by writing directly to standar
 
 ## Implements `readiness` and `liveness` endpoints
 
-Readiness is used by Kubernetes to determine if the application should receive traffic, while liveness lets Kubernetes know if your application is alive. If it's dead, Kubernetes will remove the pod and bring up a new one.
-
-`readiness` and `liveness` should be implemented as separate services and they usually have different characteristics. 
-
-`liveness`: Simply return `HTTP 200 OK` if main loop is running, and `HTTP 5xx` if not.
-
-`readiness`: If the application is depends on a database in order to serve requests, it's a good idea check this in the readiness and return `HTTP 5xx` if it's unavailable. 
+The `readiness`-probe is used by Kubernetes to determine if the application should receive traffic, while the `liveness`-probe lets Kubernetes know if your application is alive. If it's dead, Kubernetes will remove the pod and bring up a new one.
 
 Useful resources on the topic:
-https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
-https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-setting-up-health-checks-with-readiness-and-liveness-probes
-https://medium.com/metrosystemsro/kubernetes-readiness-liveliness-probes-best-practices-86c3cd9f0b4a
+- https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
+- https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-setting-up-health-checks-with-readiness-and-liveness-probes
+- https://medium.com/metrosystemsro/kubernetes-readiness-liveliness-probes-best-practices-86c3cd9f0b4a
 
-
-
+TLDR;
+- `readiness` and `liveness` should be implemented as separate services and they usually have different characteristics
+- `liveness`-probe should simply return `HTTP 200 OK` if main loop is running, and `HTTP 5xx` if not
+- `readiness`-probe returns `HTTP 200 OK` is able to process requests, and `HTTP 5xx` if not. If the application has dependencies to e.g. a database to serve traffic, it's a good idea to check if the database is available in the `readiness`-probe
