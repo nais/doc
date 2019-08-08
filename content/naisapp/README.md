@@ -33,7 +33,8 @@ Readiness is used by Kubernetes to determine if the application should receive t
 
 `readiness` and `liveness` should be implemented as separate services and they usually have different characteristics. 
 
-`liveness`: Simply return `HTTP 200 OK` if main loop is running, and `HTTP 5xx` if not
+`liveness`: Simply return `HTTP 200 OK` if main loop is running, and `HTTP 5xx` if not.
+
 `readiness`: If the application is depends on a database in order to serve requests, it's a good idea check this in the readiness and return `HTTP 5xx` if it's unavailable. 
 
 Useful resources on the topic:
