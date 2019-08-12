@@ -1,7 +1,7 @@
 Getting started
 ===============
 
-This guide will take you through the required tools and permissions that need to be in place for you to be able to operate your own NAIS application(s). 
+This guide will take you through the required tools and permissions that need to be in place for you to be able to operate your own NAIS application(s) directly from your laptop
 
 ## Install [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl)
 
@@ -15,6 +15,11 @@ The `kubectl` tool uses a `kubeconfig` file to get the information it needs in o
 
 `kubectl` will by default look for a file named `config` in the `$HOME/.kube/` folder. You can also override this by having the absolute path of the file in the environment variable `KUBECONFIG`. 
 
+## ScaleFT
+<todo>
+
+### On-premise
+
 The first time you're attempting to communicate with a cluster, you are required to authenticate with Azure AD.
 ```
 $ kubectl config use-context prod-fss
@@ -24,7 +29,11 @@ $ kubectl get pods
 To sign in, use a web browser to open the page https://microsoft.com/devicelogin and enter the code CR69DPQQZ to authenticate.
 
 ```
+
 Go to the address, use the code, and log in with your NAV e-post and NAV-ident password. When done, `kubectl` will update your `kubeconfig`-file with the tokens needed to gain access to the cluster. 
+
+### Google Cloud Platform (GCP)
+<todo>
 
 ## Aquire the `nais:developer` role
 
