@@ -42,8 +42,6 @@ When done, `kubectl` will update your `kubeconfig`-file with the tokens needed t
 
 ### Google Cloud Platform (GCP)
 
-To access the clusters running in GCP, you need to have [gcloud installed](https://cloud.google.com/sdk/docs/#install_the_latest_cloud_tools_version_cloudsdk_current_version) and authenticated, as well as being connected to the right ScaleFT host.
-
 First you need to install `gcloud` following the [instructions](https://cloud.google.com/sdk/docs/#install_the_latest_cloud_tools_version_cloudsdk_current_version) for your platform.
 
 Once installed, you need to authenticate with Google using your NAV e-mail.
