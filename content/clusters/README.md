@@ -6,6 +6,8 @@ We currently provide these Kubernetes clusters:
 - prod-fss
 - dev-sbs (previously preprod-sbs)
 - prod-sbs
+- dev-gcp
+- prod-gcp
 
 The name of each cluster is on the format `<environment class>-<zone>`
 
