@@ -38,7 +38,9 @@ redis:
     memory: 128Mi
 ```
 
-The Redis instance can be reached via `REDIS_HOST` environment variable, or through the `<appname>-redis` service.
+The Redis instance can be reached via the `<appname>-redis` service.
+
+PS: `REDIS_HOST` will continue to point to the sentinel-setup. When everyone have merged over to standalone it will be removed.
 
 #### Redis metrics
 
