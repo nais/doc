@@ -10,6 +10,15 @@ This is a simple changelog over notable milestones for the [NAIS-platform](/cont
 
 ## [Released]
 
+### [2019-08-19]
+- Deprecated the Redis-operator, and the usage of Redis-sentinels. See [doc commit](https://github.com/nais/doc/commit/0c50a0db8a0eb7b98b77b60142e2741afba5f121#diff-4b5a6e49ad24d2fd8a9052f65eb5fc69c7fc7ecd) for more.
+
+### [2019-08-09]
+- Upgraded Kubernetes to [1.15.2](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md)
+
+### [2019-08-05]
+- Upgraded Kubernetes to [1.14.4](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md)
+
 ### [2019-07-30]
 - Upgraded Kubernetes to [1.13.8](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.13.md)
 
