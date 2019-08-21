@@ -1,6 +1,6 @@
 # The NAIS manifest
 
-The NAIS manifest `nais.yaml` describes your application. You can see a minimal example manifest and a full one in the [examples-folder](examples/nais-yaml/).
+The NAIS manifest `nais.yaml` describes your application. You can see a minimal example manifest and a full one in the [examples-folder](examples/nais-manifest/).
 
 Here you can find all the supported fields for the manifest.
 
