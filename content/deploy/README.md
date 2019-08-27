@@ -5,7 +5,7 @@ the _NAIS deploy_ tool.
 
 NAIS deploy enables you to deploy your application into
 [any cluster](#supported-clusters) from any continuous integration platform,
-including CircleCI, Travis CI, and Jenkins.
+including GitHub Actions, CircleCI, Travis CI and Jenkins.
 
 Note: Using _naisd_ or _JIRA Autodeploy_ to deploy your application?
 These mechanisms are deprecated and are going to be shut down.
@@ -14,7 +14,7 @@ All information on the current page relates to Naiserator compatible `nais.yaml`
 You can also read the [naisd user documentation](naisd.md).
 
 ### How it works
-1. In your CircleCI/Jenkins build pipeline, create a deployment request using [deployment-cli](https://github.com/navikt/deployment-cli).
+1. In your GitHub/CircleCI/Jenkins build pipeline, create a deployment request using [deployment-cli](https://github.com/navikt/deployment-cli).
    This request is sent to Github's [deployment API](https://developer.github.com/v3/repos/deployments/) and is forwarded to NAIS deploy.
 2. NAIS deploy verifies the integrity and authenticity of the deployment, assumes the identity of the deploying team, and applies your _Kubernetes resources_ into the specified [cluster](#supported-clusters).
 3. If you deployed any _Application_ or _Deployment_ resources, NAIS deploy will wait until these are rolled out successfully, or a timeout occurs.
