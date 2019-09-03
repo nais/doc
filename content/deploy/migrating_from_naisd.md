@@ -14,8 +14,8 @@ port: 8080
 ```
 
 The new format looks like this. We also provide
-a [minimal example](https://github.com/nais/naiserator/blob/master/examples/nais.yaml) and
-a [full example](https://github.com/nais/naiserator/blob/master/examples/nais-max.yaml) with all supported fields.
+a [minimal example](examples/nais-manifest/nais.yaml) and
+a [full example](examples/nais-manifest/nais-max.yaml) with all supported fields.
 
 ```
 apiVersion: nais.io/v1alpha1

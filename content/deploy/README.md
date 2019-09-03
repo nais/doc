@@ -30,11 +30,11 @@ When things break, check the section on [troubleshooting](#troubleshooting).
 ## Getting started
 
 ### Prerequisites
-* Create a [nais.yaml](https://github.com/nais/naiserator/#naisioapplication-spec) file
+* Create a [nais.yaml](nais-manifest.md) file
   for any application you want to deploy. A `nais.yaml` file contains an _Application resource_.
   The application resource provides NAIS with the necessary information to run your application.
   If starting out for the first time, try the
-  [nais.yaml minimal example](https://github.com/nais/naiserator/tree/master/examples/nais.yaml).
+  [nais.yaml minimal example](examples/nais-manifest/nais.yaml).
 
 * The repository containing `nais.yaml` must be on Github.
 
