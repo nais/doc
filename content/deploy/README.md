@@ -58,6 +58,8 @@ When you're ready, go to the [registration portal](https://deployment.prod-sbs.n
 ### Obtain Github deployment credentials (for CircleCI/manual only)
 The self-service way of obtaining credentials is to [create a personal access token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) that your CI pipeline can use to trigger the deployment. The token needs only the `repo_deployment` scope.
 
+If you want to use Github App as credentials you can head on over to [utvikling/Oppsett av Github App](https://github.com/navikt/utvikling/blob/master/Oppsett%20av%20Github%20App.md) for documentation.
+
 ### Performing the deployment
 At this point, you have:
 * met the prerequisites
