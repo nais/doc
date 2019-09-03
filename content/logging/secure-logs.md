@@ -9,7 +9,7 @@ written here will be transferred to separate indices in Elasticsearch.
 
 Secure logs can be enabled by setting the `secureLogs.enabled` flag
 in the application resource. See
-[Naiserator](https://github.com/nais/naiserator/).
+[the nais manifest specification](/content/deploy/nais-manifest.md).
 
 ## Log files
 
