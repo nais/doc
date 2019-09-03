@@ -48,7 +48,7 @@ Your converted manifest is a Kubernetes
 and as such, it needs to be deployed directly to a Kubernetes cluster.
 This means you need to have `kubectl` access, which in turn requires:
 
-* [ ] [Install and configure kubectl](/content/getting-started#install-kubectl)
+* [ ] [Install and configure kubectl](/content/getting-started/install-tools.md#install-kubectl)
 * [ ] [Create an Azure AD group](https://github.com/navikt/IaC/tree/master/AAD%20Team) for your team, for human access to the cluster
 
 ## Deploying applications

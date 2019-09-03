@@ -205,7 +205,7 @@ Changes will be rolled out using [semantic versioning](https://semver.org).
 ### Manual deploy with a human involved
 
 Performing deployments manually requires that you have
-[access to the cluster](../getting-started)
+[access to the cluster](../getting-started/install-tools.md)
 and `kubectl` configured.
 
 ```
