@@ -5,7 +5,7 @@ We currently provide these Kubernetes clusters:
 
 ## On-prem
 
-The name of each cluster is on the format of `<environment class>-<zone>`.
+The name of each cluster is in the format of `<environment class>-<zone>`.
 
 | cluster | ingresses |
 | ------- | --------- |
@@ -14,7 +14,7 @@ The name of each cluster is on the format of `<environment class>-<zone>`.
 | dev-sbs | nais.oera-q.no |
 | prod-sbs | nais.oera.no, tjenester.nav.no |
 
-PS: Remember `https://` when calling on-prem URL's!
+PS: Remember `https://` when calling on-prem URLs!
 
 ### Deprecation of preprod-
 
@@ -23,7 +23,7 @@ We are working on moving away from the `preprod-` prefix, so use `dev-` where po
 
 ## Cloud/GCP
 
-For the cloud there are no zones, but instead we rely on a zero-trust model with a service-mesh.
+For the cloud there are no zones. Instead, we rely on a zero-trust model with a service-mesh.
 
 | cluster | ingresses |
 | ------- | --------- |
