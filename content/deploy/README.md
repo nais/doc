@@ -68,6 +68,22 @@ At this point, you have:
 
 You are ready to perform a deployment.
 
+#### Using GitHub Actions 
+
+The easiest way of deploying your application to NAIS is using a GitHub Actions workflow with the [nais/deploy action](https://github.com)
+
+Start by creating a folder for your workflows in the root of your applications repository
+```
+$ mkdir -p .github/workflows
+```
+
+Inside that folder, create a workflow yaml-file. You can use our example as a starting point and adjust the values
+```
+$ curl https://raw.githubusercontent.com/nais/doc/master/content/deploy/examples/workflow.yml > .github/workflows/master.yml
+```
+
+When these files and folders are commited and pushed, you can see the workflow running under the `Actions` tab of your repository.
+
 #### Using CircleCI
 We have created an CircleCI-orb called [nais-deployment Orb](https://circleci.com/orbs/registry/orb/navikt/nais-deployment)
 to set up your deployment with close to zero configuration.
@@ -95,22 +111,6 @@ workflow:
 This will build and push your Docker image to hub.docker.com, and then deploy your app to the `dev-fss`-cluster. See the examples in [nais-deployment Orb](https://circleci.com/orbs/registry/orb/navikt/nais-deployment) for more ways to build your CircleCI-config.
 
 After adding the configuration to your repo you need to activate you repo as a project over at [CircleCI.com](https://circleci.com/add-projects/gh/navikt). Search for your repo, repss `Set Up Project`, and go right to `Start building`.
-
-#### Configuring your pipeline
-
-The easiest way of deploying your application to NAIS is using a GitHub Action workflow with the [nais/deploy action](https://github.com)
-
-Start by creating a folder for your workflows in the root of your applications repository
-```
-$ mkdir -p .github/workflows
-```
-
-Inside that folder, create a workflow yaml-file. You can use our example as a starting point and adjust the values
-```
-$ curl https://raw.githubusercontent.com/nais/doc/master/content/deploy/examples/workflow.yml > .github/workflows/master.yml
-```
-
-When these files and folders are commited and pushed, you can see the workflow running under the `Actions` tab of your repository.
 
 #### Manual deploy
 In your pipeline, use our internal tool [deployment-cli](https://github.com/navikt/deployment-cli)
