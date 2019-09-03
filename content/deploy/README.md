@@ -14,7 +14,7 @@ All information on the current page relates to Naiserator compatible `nais.yaml`
 You can also read the [naisd user documentation](naisd.md).
 
 ### How it works
-1. Ccreate a deployment request using [deployment-cli](https://github.com/navikt/deployment-cli) in your build pipeline. This request is sent to Github's [deployment API](https://developer.github.com/v3/repos/deployments/) and is then forwarded to NAIS deploy.
+1. Create a deployment request using [deployment-cli](https://github.com/navikt/deployment-cli) in your build pipeline. This request is sent to Github's [deployment API](https://developer.github.com/v3/repos/deployments/) and is then forwarded to NAIS deploy.
 2. NAIS deploy verifies the integrity and authenticity of the deployment, assumes the identity of the deploying team, and applies your _Kubernetes resources_ into the specified [cluster](#supported-clusters).
 3. If you deployed any _Application_ or _Deployment_ resources, NAIS deploy will wait until these are rolled out successfully, or a timeout occurs.
 4. The deployment status is continually posted back to Github and is available through their API, enabling integration with your pipeline or monitoring setup.
