@@ -22,10 +22,9 @@ You can also read the [naisd user documentation](naisd.md).
 ### Summary
 1. Make sure the [prerequisites](#prerequisites) are met before attempting to use NAIS deploy.
 2. [Enable deployments for your repository](#enable-deployments-for-your-repository).
-3. [Obtain Github deployment credentials](#obtain-github-deployment-credentials).
-4. [Implement NAIS deploy in your pipeline](#performing-the-deployment).
+3. [Implement NAIS deploy in your pipeline](#performing-the-deployment).
 
-When things break, check the section on [troubleshooting](#troubleshooting).
+When things break, check the section on [troubleshooting](#troubleshooting). For CircleCI/manual you also need to [obtain Github deployment credentials](#obtain-github-deployment-credentials).
 
 ## Getting started
 
@@ -56,31 +55,24 @@ In order to do this, you need to have _maintainer_ access rights to your Github 
 
 When you're ready, go to the [registration portal](https://deployment.prod-sbs.nais.io/auth/login) and follow the instructions.
 
-### Obtain Github deployment credentials
-The self-service way of obtaining credentials is to
-[create a personal access token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line)
-that your CI pipeline can use to trigger the deployment. The token needs only the `repo_deployment` scope.
-
-TODO: It is possible to authenticate as a Github App as well. The drawback is that you need to be a Github admin.
-Usage and implementation of this method is left as an exercise to the reader.
+### Obtain Github deployment credentials (for CircleCI/manual only)
+The self-service way of obtaining credentials is to [create a personal access token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) that your CI pipeline can use to trigger the deployment. The token needs only the `repo_deployment` scope.
 
 ### Performing the deployment
 At this point, you have:
 * met the prerequisites
 * enabled deployments
-* obtained credentials
+* obtained credentials (for CircleCI/manual only)
 
 You are ready to perform a deployment.
 
 #### Using CircleCI
-
 We have created an CircleCI-orb called [nais-deployment Orb](https://circleci.com/orbs/registry/orb/navikt/nais-deployment)
 to set up your deployment with close to zero configuration.
 
 In a nutshell, you create a `.circleci/config.yml` file in your repository with
 the contents below. Add you personal access token as an environment variable named
 `GITHUB_ACCESS_TOKEN`.
-
 
 ```
 version: 2.1
@@ -89,7 +81,7 @@ orbs:
 workflow:
   deploy-personal-access:
     jobs:
-      - nais/deploy:
+      - nais/deploy-personal-token:
           context: NAIS deployment     # gives you $DOCKER_LOGIN and $DOCKER_PASSWORD
           repo: navikt/example-repo
           image: navikt/example-image
@@ -100,12 +92,12 @@ workflow:
 
 This will build and push your Docker image to hub.docker.com, and then deploy your app to the `dev-fss`-cluster. See the examples in [nais-deployment Orb](https://circleci.com/orbs/registry/orb/navikt/nais-deployment) for more ways to build your CircleCI-config.
 
-PS: Other sensitive data such as keys or passwords *must* go into environment variables, configured in the CircleCI user interface.
+After adding the configuration to your repo you need to activate you repo as a project over at [CircleCI.com](https://circleci.com/add-projects/gh/navikt). Search for your repo, repss `Set Up Project`, and go right to `Start building`.
 
 #### Github action
 TODO: Documentation for deployment with Github Action is being worked on
 
-#### Travis CI, Jenkins, or manually using CircleCI
+#### Manual deploy
 In your pipeline, use our internal tool [deployment-cli](https://github.com/navikt/deployment-cli)
 to make deployment requests. Variables you need include _environment_, _repository_, _team_, _application version_, _Kubernetes resources_, and your Github credentials.
 
@@ -119,20 +111,6 @@ deployment-cli create \
   --version=<APP VERSION> \
   --username=x-access-token \
   --password=<GITHUB_ACCESS_TOKEN> \
-  --resources=nais.yaml \
-  --vars=placeholders.json
-```
-
-Example syntax for deploying with a Github app:
-
-```
-deployment-cli create \
-  --cluster=dev-fss \
-  --repository=navikt/deployment \
-  --team=<TEAM> \
-  --version=<APP VERSION> \
-  --appid=<GITHUB_APP_ID> \
-  --key=/path/to/private-key.pem \
   --resources=nais.yaml \
   --vars=placeholders.json
 ```
