@@ -62,3 +62,16 @@ Here you can find all the supported fields for the manifest.
 | spec.accessPolicy.outbound.rules[].application | Name of the other service to allow traffic to |  | x |
 | spec.accessPolicy.outbound.external | List of services outside cluster to allow traffic to |  |
 | spec.accessPolicy.outbound.external[].host | URL to service outside cluster |  |  x |
+
+
+## Default environment variables
+
+These environment variables will be injected into your application container
+
+| variable          | example         | source                            |
+| ----------------- | --------------- | --------------------------------- |
+| NAIS_APP_NAME     | myapp           | metadata.name from nais.yaml      |
+| NAIS_NAMESPACE    | default         | metadata.namespace from nais.yaml |
+| NAIS_APP_IMAGE    | navikt/myapp:69 | spec.image from nais.yaml         |
+| NAIS_CLUSTER_NAME | prod-fss        | naiserator runtime context        |
+
