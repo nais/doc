@@ -5,7 +5,7 @@
 
 We recommend Linux-VDI users to use [utvikler-ansible](https://github.com/navikt/utvikler-ansible) to set up their images.
 
-For Linux- and Windows-VDI, you need to set up [NAV-proxy](/content/getting-started/README.md#system-environment-variables) before installing the tools.
+For Linux- and Windows-VDI, you need to set up [NAV-proxy](/content/getting-started/vdi.md#system-environment-variables) before installing the tools.
 
 
 ### Install Kubectl
@@ -52,7 +52,7 @@ git pull
 
 Alternatively you can just remove the values under `user.auth-provider.config` for the following keys, in the `kubeconfigs/config`-yaml file: `access-token`, `refresh-token`, `expires-in`, `expires-on`.
 
-After that, follow the instruction to [configure kubectl](/content/getting-started/README.md#configure-kubectl).
+After that, follow the instruction to [configure kubectl](/content/getting-started/install-tools.md#configure-kubectl).
 
 PS: Some users have had to change Kubernetes context/cluster for the change to take effect.
 
