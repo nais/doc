@@ -14,6 +14,8 @@ The name of each cluster is on the format of `<environment class>-<zone>`.
 | dev-sbs | nais.oera-q.no |
 | prod-sbs | nais.oera.no, tjenester.nav.no |
 
+PS: Remember `https://` when calling on-prem URL's!
+
 ### Deprecation of preprod-
 
 We are working on moving away from the `preprod-` prefix, so use `dev-` where possible. Read more about the decision over at [pig-kubernetes-ops](https://github.com/navikt/pig/blob/master/PIG-Kubernetes-OPS/adr/000-preprod-rename.md).
