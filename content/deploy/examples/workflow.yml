@@ -1,0 +1,24 @@
+name: stuff and deploy
+on: [push]
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1 
+    #- name: build and test application
+    #  run: |
+    #    make build
+    #    ...
+    #- name: publish artifacts
+    #  ...
+    - name: deploy to dev
+      uses: nais/deploy@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        cluster: dev
+        repository: my/repo
+        team: a
+        resource: nais.yaml 
+        vars: config/dev.json

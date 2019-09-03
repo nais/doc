@@ -96,8 +96,21 @@ This will build and push your Docker image to hub.docker.com, and then deploy yo
 
 After adding the configuration to your repo you need to activate you repo as a project over at [CircleCI.com](https://circleci.com/add-projects/gh/navikt). Search for your repo, repss `Set Up Project`, and go right to `Start building`.
 
-#### Github action
-TODO: Documentation for deployment with Github Action is being worked on
+#### Configuring your pipeline
+
+The easiest way of deploying your application to NAIS is using a GitHub Action workflow with the [nais/deploy action](https://github.com)
+
+Start by creating a folder for your workflows in the root of your applications repository
+```
+$ mkdir -p .github/workflows
+```
+
+Inside that folder, create a workflow yaml-file. You can use our example as a starting point and adjust the values
+```
+$ curl https://raw.githubusercontent.com/nais/doc/master/content/deploy/examples/workflow.yml > .github/workflows/master.yml
+```
+
+When these files and folders are commited and pushed, you can see the workflow running under the `Actions` tab of your repository.
 
 #### Manual deploy
 In your pipeline, use our internal tool [deployment-cli](https://github.com/navikt/deployment-cli)
