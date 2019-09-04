@@ -14,6 +14,8 @@ The name of each cluster is in the format of `<environment class>-<zone>`.
 | dev-sbs | nais.oera-q.no |
 | prod-sbs | nais.oera.no, tjenester.nav.no |
 
+Example: If your app is named `myapp`, then the URL for `dev-fss` would be `https://my-app.nais.preprod.local/`.
+
 PS: Remember `https://` when calling on-prem URLs!
 
 ### Deprecation of preprod-
