@@ -79,7 +79,7 @@ $ mkdir -p .github/workflows
 
 Inside that folder, create a workflow yaml-file. You can use our example as a starting point and adjust the values
 ```
-$ curl https://raw.githubusercontent.com/nais/doc/master/content/deploy/examples/workflow.yml > .github/workflows/master.yml
+$ curl https://raw.githubusercontent.com/nais/doc/master/content/deploy/examples/github-actions.yml > .github/workflows/master.yml
 ```
 
 When these files and folders are commited and pushed, you can see the workflow running under the `Actions` tab of your repository.
