@@ -77,10 +77,52 @@ Start by creating a folder for your workflows in the root of your applications r
 $ mkdir -p .github/workflows
 ```
 
-Inside that folder, create a workflow yaml-file. You can use our example as a starting point and adjust the values
+Inside that folder, create a workflow yaml-file. You can use our example as a starting point and adjust the values as needed.
+
+The following example will build and push your Docker image to Github Package Registry, and then deploy that image to `dev-fss`.
+
+This example also expects that your `spec.image` in your `nais.yaml` is set to `{{ image }}:{{ tag }}`. See [example nais.yaml](#template-example-naisyaml-for-github-actionsl) below if you're insure.
+
 ```
-$ curl https://raw.githubusercontent.com/nais/doc/master/content/deploy/examples/github-actions.yml > .github/workflows/master.yml
+name: Deploy to NAIS
+on: push
+jobs:
+  deploy-to-dev:
+    name: Build, push and deploy to dev-fss
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Build code
+        run: <put in your build-script here> # or remove if it's done in your Dockerfile
+      - name: Create Docker tag
+        env:
+          NAME: <app-name>
+        run: |
+          echo "docker.pkg.github.com"/"$GITHUB_REPOSITORY"/"$NAME" > .docker_image
+          echo "$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)" > .docker_tag
+      - name: Build Docker image
+        run: |
+          docker build -t $(cat .docker_image):$(cat .docker_tag) .
+      - name: Login to Github Package Registry
+        env:
+          DOCKER_USERNAME: x-access-token
+          DOCKER_PASSWORD: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+        run: |
+          echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin docker.pkg.github.com
+      - name: Push Docker image
+        run: "docker push $(cat .docker_image):$(cat .docker_tag)"
+      - name: deploy to dev-fss
+        uses: navikt/deployment-cli/action@b60ef91
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          cluster: dev-fss
+          team: <team-name>
+          resource: nais/dev-fss.yaml
 ```
+
+Remember to specify `app-name` and `team-name`!
 
 When these files and folders are commited and pushed, you can see the workflow running under the `Actions` tab of your repository.
 
@@ -235,6 +277,21 @@ Events:
 ```
 
 ## Other
+
+
+### Template example nais.yaml for Github Actions
+
+```
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: <app-name>
+  namespace: default
+  labels:
+    team: <team-name>
+spec:
+  image: {{ image }}:{{ tag }}
+```
 
 ### Supported clusters
 Please use one of the following clusters. The usage of `preprod-***` is *not* supported.
