@@ -127,29 +127,8 @@ Remember to specify `app-name` and `team-name`!
 When these files and folders are commited and pushed, you can see the workflow running under the `Actions` tab of your repository.
 
 #### Using CircleCI
-We have created an CircleCI-orb called [nais-deployment Orb](https://circleci.com/orbs/registry/orb/navikt/nais-deployment) to set up your deployment with close to zero configuration.
 
-In a nutshell, you create a `.circleci/config.yml` file in your repository with the contents below. Add you personal access token as an environment variable named `GITHUB_ACCESS_TOKEN`. It also expects that your `spec.image` in your `nais.yaml` is set to `{{ version }}`. See [example nais.yaml](#template-example-naisyaml-for-circleci) below if you're unsure.
-
-```
-version: 2.1
-orbs:
-  nais: 'navikt/nais-deployment@3.1.1'
-workflow:
-  deploy-personal-access:
-    jobs:
-      - nais/deploy-personal-token:
-          context: NAIS deployment     # gives you $DOCKER_LOGIN and $DOCKER_PASSWORD
-          repo: navikt/example-repo
-          image: navikt/example-image
-          nais-template: nais.yaml
-          environment: dev-fss
-          team: awesome-team           # needs to be identical in Kubernetes and Github
-```
-
-This will build and push your Docker image to hub.docker.com, and then deploy your app to the `dev-fss`-cluster. See the examples in [nais-deployment Orb](https://circleci.com/orbs/registry/orb/navikt/nais-deployment) for more ways to build your CircleCI-config.
-
-After adding the configuration to your repo you need to activate you repo as a project over at [CircleCI.com](https://circleci.com/add-projects/gh/navikt). Search for your repo, press `Set Up Project`, and go right to `Start building`.
+See seperate [circleci](circleci.md)-documentation for this.
 
 #### Manual deploy
 In your pipeline, use our internal tool [deployment-cli](https://github.com/navikt/deployment-cli)
@@ -287,20 +266,6 @@ metadata:
     team: <team-name>
 spec:
   image: {{ image }}:{{ tag }}
-```
-
-### Template example nais.yaml for CircleCI
-
-```
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
-metadata:
-  name: <app-name>
-  namespace: default
-  labels:
-    team: <team-name>
-spec:
-  image: {{ version }}
 ```
 
 ### Supported clusters
