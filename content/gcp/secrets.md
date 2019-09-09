@@ -10,15 +10,17 @@ To get started using this, you simply [create your secret(s)](https://kubernetes
 Create your secret
 ```
 $ kubectl create secret generic my-secret --from-literal=key1=supersecret
+```
+
+```
 secret/my-secret created
 ```
 
 Refer to `my-secret` in `nais.yaml`
-```nais.yaml
+```yaml
 spec:
   secrets:
     - name: my-secret
-  ...
 ```
 
 And you're done. When your application is running, the environment variable `key1` will have the value `supersecret`.
