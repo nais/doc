@@ -7,11 +7,6 @@
 * [Deploy your application](content/getting-started/deploy.md)
 
 
-## Storage/Caching
-
-* [Redis](content/)
-
-
 ## GCP only
 
 * [Secrets](content/gcp/secrets.md)
