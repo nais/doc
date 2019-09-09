@@ -11,7 +11,6 @@
 * [Getting started](/content/getting-started)
 * [Our Kubernetes clusters](/content/clusters)
 * [A NAIS application](/content/naisapp)
-* [FAQ](/content/faq)
 
 # Services
 * [Deploy](/content/deploy)
