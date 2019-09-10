@@ -9,7 +9,7 @@ To get started using this, you simply [create your secret\(s\)](https://kubernet
 Create your secret
 
 ```text
-$ kubectl create secret generic my-secret --from-literal=key1=supersecret
+kubectl create secret generic my-secret --from-literal=key1=supersecret
 ```
 
 ```text
