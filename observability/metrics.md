@@ -1,14 +1,12 @@
-Metrics
-=======
+# Metrics
 
-Prometheus is used to scrape metrics from the pod. You have to add Prometheus in your [NAIS manifest](/documentation/contracts/README.md#nais-manifest) to enable scrape.
+Prometheus is used to scrape metrics from the pod. You have to add Prometheus in your [NAIS manifest](https://github.com/nais/doc/tree/0125de8eb7ee8aa3488fa243b8ba9ea53b98f455/documentation/contracts/README.md#nais-manifest) to enable scrape.
 
 Each app that have scraping enabled can use the default Grafana dashboard [nais-app-dashboard](https://grafana.adeo.no/dashboard/db/nais-app-dashboard), or create theire own.
 
-
 ## NAIS manifest config
 
-```
+```text
 prometheus:
   enabled: false # if true the pod will be scraped for metrics by prometheus
   path: /metrics # Path to prometheus-metrics
@@ -22,10 +20,9 @@ If you are building an app on the JVM you can use Prometheus' own [Java client l
 
 We also recommend to export the default metrics.
 
-```
+```text
 DefaultExports.initialize();
 ```
-
 
 ## Push metrics
 
@@ -33,13 +30,13 @@ If you don't want to just relie on pull metrics, you can push data directly to I
 
 This is easily done by writing to the Sensu socket.
 
-```
+```text
 sensu.nais:3030
 ```
 
 Remember to format the data as [Influxdb syntax](https:/s.influxdata.com/influxdb/v1.5/write_protocols/line_protocol_tutorial/#syntax).
 
-
 ## Overview
 
-![overview](../_media/metrics_overview.png)
+![overview](https://github.com/nais/doc/tree/0125de8eb7ee8aa3488fa243b8ba9ea53b98f455/_media/metrics_overview.png)
+

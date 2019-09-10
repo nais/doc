@@ -1,17 +1,18 @@
-Logging
-=======
+# Logs
 
-Configure your application to log to console (stdout/stderr), it will be scraped by [FluentD](https://www.fluentd.org/) running inside the cluster and sent to [Elasticsearch](https://www.elastic.co/products/elasticsearch) and made available via [Kibana](https://www.elastic.co/products/kibana). Visit our Kibana at [logs.adeo.no](https://logs.adeo.no/).
+## Logging
 
-If you want more information than just the log message (loglevel, MDC, etc), you should log in JSON format; the fields you provide will then be indexed.
+Configure your application to log to console \(stdout/stderr\), it will be scraped by [FluentD](https://www.fluentd.org/) running inside the cluster and sent to [Elasticsearch](https://www.elastic.co/products/elasticsearch) and made available via [Kibana](https://www.elastic.co/products/kibana). Visit our Kibana at [logs.adeo.no](https://logs.adeo.no/).
 
-## Examples
+If you want more information than just the log message \(loglevel, MDC, etc\), you should log in JSON format; the fields you provide will then be indexed.
 
-### SLF4J
+### Examples
 
-#### pom.xml
+#### SLF4J
 
-```xml
+**pom.xml**
+
+```markup
 <dependencies>
   <dependency>
     <groupId>ch.qos.logback</groupId>
@@ -31,9 +32,9 @@ If you want more information than just the log message (loglevel, MDC, etc), you
 </dependencies>
 ```
 
-#### logback.xml
+**logback.xml**
 
-```xml
+```markup
 <configuration>
   <appender name="stdout_json" class="ch.qos.logback.core.ConsoleAppender">
     <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
@@ -44,12 +45,11 @@ If you want more information than just the log message (loglevel, MDC, etc), you
 </configuration>
 ```
 
-
-#### Issues with long log messages
+**Issues with long log messages**
 
 The max log message size in Docker is 16KB, so if it will be split into parts if it's bigger. Fluentd dosen't support this, so we recommend making stack traces shorter. Read more about this on [github.com/logstash](https://github.com/logstash/logstash-logback-encoder#customizing-stack-traces).
 
-```xml
+```markup
 <configuration>
    <appender name="stdout_json" class="ch.qos.logback.core.ConsoleAppender">
       <encoder class="net.logstash.logback.encoder.LogstashEncoder">
@@ -69,11 +69,11 @@ The max log message size in Docker is 16KB, so if it will be split into parts if
 </configuration>
 ```
 
-### Log4j2
+#### Log4j2
 
-### pom.xml
+#### pom.xml
 
-```xml
+```markup
 <dependencies>
   <dependency>
     <groupId>org.apache.logging.log4j</groupId>
@@ -103,9 +103,9 @@ The max log message size in Docker is 16KB, so if it will be split into parts if
 </dependencies>
 ```
 
-#### log4j2.xml
+**log4j2.xml**
 
-```xml
+```markup
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="INFO" packages="com.vlkan.log4j2.logstash.layout">
     <Appenders>
@@ -124,35 +124,29 @@ The max log message size in Docker is 16KB, so if it will be split into parts if
 </Configuration>
 ```
 
-## Overview
+### Overview
 
-![overview](../_media/logging_overview.png)
+![overview](https://github.com/nais/doc/tree/0125de8eb7ee8aa3488fa243b8ba9ea53b98f455/_media/logging_overview.png)
 
-
-# Secure logs
+## Secure logs
 
 Some applications have logs with information that should not be stored with the normal application logs. To support this a directory for these logs can be mounted in the application, and the content of logs written here will be transferred to separate indices in Elasticsearch.
 
-## Enabling secure logs
+### Enabling secure logs
 
-Secure logs can be enabled by setting the `secureLogs.enabled` flag in the application resource. See [the nais manifest specification](/content/deploy/nais-manifest.md).
+Secure logs can be enabled by setting the `secureLogs.enabled` flag in the application resource. See [the nais manifest specification](https://github.com/nais/doc/tree/0125de8eb7ee8aa3488fa243b8ba9ea53b98f455/content/deploy/nais-manifest.md).
 
-## Log files
+### Log files
 
 With secure logs enabled a directory `/secure-logs/` will be mounted in the application container. Every `*.log` file in this directory will be monitored and the content transferred to Elasticsearch.
 
-The `/secure-logs/` directory has a size limit of 128Mb, and it's the
-application responsibility to ensure that this limit is not
-exceeded. **If the limit is exceeded the application pod will be
-evicted and restarted.** Use log rotation on file size to avoid this.
+The `/secure-logs/` directory has a size limit of 128Mb, and it's the application responsibility to ensure that this limit is not exceeded. **If the limit is exceeded the application pod will be evicted and restarted.** Use log rotation on file size to avoid this.
 
-## Log configuration
+### Log configuration
 
-Log files should be in JSON format as the normal application
-logs. Here is an example configuration of JSON logging with a size
-based rolling file appender in Logback:
+Log files should be in JSON format as the normal application logs. Here is an example configuration of JSON logging with a size based rolling file appender in Logback:
 
-```xml
+```markup
   <appender name="secureLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <file>/secure-logs/secure.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
@@ -167,16 +161,17 @@ based rolling file appender in Logback:
   </appender>
 ```
 
-See [logging examples](examples.md) for more information on log configuration.
+See [logging examples](https://github.com/nais/doc/tree/0125de8eb7ee8aa3488fa243b8ba9ea53b98f455/observability/examples.md) for more information on log configuration.
 
-## Non-JSON logs
+### Non-JSON logs
 
 If the logging framework used doesn't support JSON logging, it is also possible to use multiline logs in this format:
 
-```
+```text
 <iso8601 timestamp> <log level> <message>
 <message cont.>
 <message cont.>
 ```
 
 Files on this format must be named `*.mlog`.
+

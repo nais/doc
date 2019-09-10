@@ -1,4 +1,4 @@
-# Introduction
+# NAIS
 
 ## What is NAIS?
 
@@ -14,14 +14,14 @@ Within each of these aspects, we leverage open source projects best suited for o
 
 ## NAIS clusters
 
-We currently provide these Kubernetes clusters:
+NAIS is a platform spread over two different suppliers. One set of clusters on-premise, and another set running in the cloud \(namely Google Cloud Platform.
 
-### On-prem
+### On-premise
 
-The name of each cluster is in the format of `<environment class>-<zone>`.
+The on-premise clusters are split into two zones, _selvbetjeningsonen_ \(SBS\), \_fagsystemsonen\_ \(FSS\).
 
-| cluster | ingresses |
-| ------- | --------- |
+| ingresses |  |
+| :--- | :--- |
 | dev-fss | nais.preprod.local |
 | prod-fss | nais.adeo.no |
 | dev-sbs | nais.oera-q.no |
@@ -29,23 +29,26 @@ The name of each cluster is in the format of `<environment class>-<zone>`.
 
 Example: If your app is named `myapp`, then the URL for `dev-fss` would be `https://my-app.nais.preprod.local/`.
 
-PS: Remember `https://` when calling on-prem URLs!
+{% hint style="info" %}
+Remember `https://` when calling on-premise URLs!
+{% endhint %}
 
-{% panel style="warning", title="Deprecation of _preprod_ prefix" %}
-We are working on moving away from the `preprod-` prefix, so use `dev-` where possible. Read more about the decision over at [pig-kubernetes-ops](https://github.com/navikt/pig/blob/master/PIG-Kubernetes-OPS/adr/000-preprod-rename.md).
-{% endpanel %}
+{% hint style="warning" %}
+We are working on moving away from the `preprod` prefix, so use `dev` where possible. Read more about the decision over at [pig-kubernetes-ops](https://github.com/navikt/pig/blob/master/PIG-Kubernetes-OPS/adr/000-preprod-rename.md).
+{% endhint %}
 
 ### Cloud/GCP
 
 For the cloud there are no zones. Instead, we rely on a zero-trust model with a service-mesh.
 
 | cluster | ingresses |
-| ------- | --------- |
+| :--- | :--- |
 | dev-gcp | dev-adeo.no, dev-nais.no |
 | prod-gcp | adeo.no |
 
+## Contact the NAIS team
 
-## Contact us
-The platform team can be found either on [Slack](https://nav-it.slack.com/messages/C5KUST8N6/) or in Sannergata 2, 3nd floor west wing.
+The team can be found either on [Slack](https://nav-it.slack.com/messages/C5KUST8N6/) or in Sannergata 2, 3nd floor west wing.
 
-Also, follow us on Twitter [@nais_io](https://twitter.com/nais_io).
+Also, follow us on Twitter [@nais\_io](https://twitter.com/nais_io)!
+
