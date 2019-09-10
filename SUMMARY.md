@@ -1,6 +1,7 @@
 # Table of contents
 
 * [NAIS](README.md)
+* [Changelog](changelog.md)
 
 ## Basics
 
