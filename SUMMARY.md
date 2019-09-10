@@ -2,18 +2,26 @@
 
 * [Introduction](README.md)
 
-## Getting started
+## Basics
 
-* [Access from laptop](getting-started/access.md)
-* [Your first NAIS application](getting-started/application.md)
-* [Deploy your application](getting-started/deploy.md)
+* [Access from laptop](basics/access.md)
+* [Your first NAIS application](basics/application.md)
+* [Deploy your application](basics/deploy.md)
+
+## Observability
+
+* [Alerts](observability/alerts.md)
+* [Logs](observability/logs.md)
+* [Metrics](observability/metrics.md)
 
 ## GCP only
 
 * [Secrets](gcp-only/secrets.md)
 
-## Storage/Caching
+## Addons
 
-* [Redis](storage-caching/redis.md)
-* [S3](storage-caching/s3.md)
+* [Oauth flow](addons/oauth-flow.md)
+* [Leader Election](addons/leader-election.md)
+* [Kubernetes Dashboard](addons/kubernetes-dashboard.md)
+* [Redis](addons/redis.md)
 
