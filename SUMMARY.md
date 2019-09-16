@@ -2,6 +2,9 @@
 
 * [NAIS](README.md)
 * [Changelog](changelog.md)
+* [Legacy](legacy/README.md)
+  * [Something else](legacy/something-else.md)
+  * [Naisd](legacy/naisd.md)
 
 ## Basics
 
