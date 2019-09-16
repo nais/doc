@@ -8,6 +8,7 @@
 * [Access from laptop](basics/access.md)
 * [Your first NAIS application](basics/application.md)
 * [Deploy your application](basics/deploy.md)
+* [Teams](basics/teams.md)
 
 ## Observability
 
