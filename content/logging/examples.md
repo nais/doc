@@ -1,10 +1,10 @@
-## Examples
+# Examples
 
-### SLF4J
+## SLF4J
 
-#### pom.xml
+### pom.xml
 
-```xml
+```markup
 <dependencies>
   <dependency>
     <groupId>ch.qos.logback</groupId>
@@ -24,9 +24,9 @@
 </dependencies>
 ```
 
-#### logback.xml
+### logback.xml
 
-```xml
+```markup
 <configuration>
   <appender name="stdout_json" class="ch.qos.logback.core.ConsoleAppender">
     <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
@@ -37,12 +37,11 @@
 </configuration>
 ```
 
-
-#### Issues with long log messages
+### Issues with long log messages
 
 The max log message size in Docker is 16KB, so if it will be split into parts if it's bigger. Fluentd dosen't support this, so we recommend making stack traces shorter. Read more about this on [github.com/logstash](https://github.com/logstash/logstash-logback-encoder#customizing-stack-traces).
 
-```xml
+```markup
 <configuration>
    <appender name="stdout_json" class="ch.qos.logback.core.ConsoleAppender">
       <encoder class="net.logstash.logback.encoder.LogstashEncoder">
@@ -62,11 +61,11 @@ The max log message size in Docker is 16KB, so if it will be split into parts if
 </configuration>
 ```
 
-### Log4j2
+## Log4j2
 
-### pom.xml
+## pom.xml
 
-```xml
+```markup
 <dependencies>
   <dependency>
     <groupId>org.apache.logging.log4j</groupId>
@@ -96,9 +95,9 @@ The max log message size in Docker is 16KB, so if it will be split into parts if
 </dependencies>
 ```
 
-#### log4j2.xml
+### log4j2.xml
 
-```xml
+```markup
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="INFO" packages="com.vlkan.log4j2.logstash.layout">
     <Appenders>
@@ -116,3 +115,4 @@ The max log message size in Docker is 16KB, so if it will be split into parts if
     </Loggers>
 </Configuration>
 ```
+

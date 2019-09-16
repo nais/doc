@@ -6,18 +6,16 @@ Your nais manifest, commonly known as `nais.yaml`, needs to be converted from it
 
 The old format looks like this:
 
-```
+```text
 image: navikt/nais-testapp
 team: teamName
 port: 8080
 (...)
 ```
 
-The new format looks like this. We also provide
-a [minimal example](examples/nais-manifest/nais.yaml) and
-a [full example](examples/nais-manifest/nais-max.yaml) with all supported fields.
+The new format looks like this. We also provide a [minimal example](https://github.com/nais/doc/tree/8c67c55b42d6da64d90f83effa058ac58e70d79c/content/deploy/examples/nais-manifest/nais.yaml) and a [full example](https://github.com/nais/doc/tree/8c67c55b42d6da64d90f83effa058ac58e70d79c/content/deploy/examples/nais-manifest/nais-max.yaml) with all supported fields.
 
-```
+```text
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
@@ -43,14 +41,12 @@ Follow the checklist to complete the migration:
 
 ## Cluster access
 
-Your converted manifest is a Kubernetes
-[custom resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/),
-and as such, it needs to be deployed directly to a Kubernetes cluster.
-This means you need to have `kubectl` access, which in turn requires:
+Your converted manifest is a Kubernetes [custom resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/), and as such, it needs to be deployed directly to a Kubernetes cluster. This means you need to have `kubectl` access, which in turn requires:
 
-* [ ] [Install and configure kubectl](/content/getting-started/install-tools.md#install-kubectl)
+* [ ] [Install and configure kubectl](../getting-started/install-tools.md#install-kubectl)
 * [ ] [Create an Azure AD group](https://github.com/navikt/IaC/tree/master/AAD%20Team) for your team, for human access to the cluster
 
 ## Deploying applications
 
 See the [Deployment](https://github.com/nais/doc/tree/master/content/deploy) section.
+
