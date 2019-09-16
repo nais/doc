@@ -134,7 +134,7 @@ Some applications have logs with information that should not be stored with the 
 
 ### Enabling secure logs
 
-Secure logs can be enabled by setting the `secureLogs.enabled` flag in the application resource. See [the nais manifest specification](in-depth/nais-manifest.md).
+Secure logs can be enabled by setting the `secureLogs.enabled` flag in the application resource. See [the nais manifest specification](in-depth/nais-manifest).
 
 ### Log files
 
