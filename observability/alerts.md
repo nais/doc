@@ -1,4 +1,5 @@
-# Alerts
+Alerts
+======
 
 We use [Prometheus](https://prometheus.io/) to collect metrics, and can trigger alerts based on these metrics. Alerts are specified in their own Kubernetes resource called `alerts` as we have made our own operator called [Alerterator](https://github.com/nais/alerterator).
 
@@ -37,9 +38,9 @@ We also support e-mail as a receiver, check out a bigger example in the [alerter
 ### Fields/spec
 
 | Parameter | Description | Default | Required |
-| :--- | :--- | :--- | :---: |
+| :-------- | :---------- | :------ | :------: |
 | metadata.name | Name for the group of alerts |  | x |
-| metadata.labels.team | [mailnick/tag](https://github.com/nais/doc/blob/master/content/getting-started/teamadministration.md) |  | x |
+| metadata.labels.team | [mailnick/tag](basics/teams) |  | x |
 | spec.receivers | You need at least one receiver |  | x |
 | spec.receivers.slack.channel | Slack channel to send notifications to |  |  |
 | spec.receivers.slack.preprend\_text | Text to prepend every Slack message with severity `danger` |  |  |
@@ -52,7 +53,7 @@ We also support e-mail as a receiver, check out a bigger example in the [alerter
 | spec.alerts\[\].action | How to resolve this alert |  | x |
 | spec.alerts\[\].documentation | URL for docmentation for this alert |  |  |
 | spec.alerts\[\].sla | Time before the alert should be resolved |  |  |
-| spec.alerts\[\].severity | Alert level for Slack messages |  | danger |
+| spec.alerts\[\].severity | Alert level for Slack messages | danger | |
 
 #### Kubectl
 
@@ -62,7 +63,7 @@ You can list alerts in the cluster with `kubectl get alerts` \(singluar: `alert`
 
 #### Writing the `expr`
 
-In order to minimize the feedback loop we suggest experimenting on the Prometheus server to find the right metric for your alert and the notification threshold. The Prometheus server can be found in each [cluster](https://github.com/nais/doc/tree/0125de8eb7ee8aa3488fa243b8ba9ea53b98f455/content/clusters/README.md#clusters), at `https://prometheus.{cluster.domain}` \(i.e. [https://prometheus.nais.preprod.local](https://prometheus.nais.preprod.local)\).
+In order to minimize the feedback loop we suggest experimenting on the Prometheus server to find the right metric for your alert and the notification threshold. The Prometheus server can be found in each [....cluster#cluster, at `https://prometheus.{cluster.domain}` \(i.e. [https://prometheus.nais.preprod.local](https://prometheus.nais.preprod.local)\).
 
 You can also visit the Alertmanager at `https://alertmanager.{cluster.domain}` \(i.e. [https://alertmanager.nais.preprod.local](https://alertmanager.nais.preprod.local)\) to see which alerts are triggered now \(you can also silence already triggered alerts\).
 
