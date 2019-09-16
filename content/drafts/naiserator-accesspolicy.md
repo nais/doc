@@ -1,14 +1,15 @@
-# Design draft for nais.io/Application access policies
+# Design draft for `nais.io/Application` access policies
 
 We want to provide the applications with a coarse grained access control mechanism as a platform capability.
 
-This can be implemented using a combination of Kubernetes `NetworkPolicies` and Istio's RBAC policy \(`ServiceRole` and `ServiceRolebinding`\)
+This can be implemented using a combination of Kubernetes `NetworkPolicies` and Istio's RBAC policy (`ServiceRole` and `ServiceRolebinding`)
 
-To begin with, we want each application to specify which other applications should be able to communicate with them.
+To begin with, we want each application to specify which other applications should be able to communicate with them. 
 
-For instance, if we have four applications `a`, `b`, `c` and `d`, and `d` wants to allow `a`, `b` and `c` to communicate with it and `c` runs in a different namespace. `d`'s `nais.io/Application` would look like this:
+For instance, if we have four applications `a`, `b`, `c` and `d`, and `d` wants to allow `a`, `b` and `c` to communicate with it and `c` runs in a different namespace.
+`d`'s `nais.io/Application` would look like this: 
 
-```text
+```
 ...
 metadata:
   name: d
@@ -25,11 +26,12 @@ spec:
 ...
 ```
 
+
 When this configuration is applied, we will create the following resources:
 
-## NetworkPolicy
+### NetworkPolicy
 
-```text
+```
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -61,9 +63,9 @@ spec:
           app: c
 ```
 
-## Istio RBAC
+### Istio RBAC
 
-```text
+```
 apiVersion: "rbac.istio.io/v1alpha1"
 kind: ServiceRole
 metadata:
@@ -90,16 +92,15 @@ spec:
     name: "d"
 ```
 
-## Prerequisites:
+### Prerequisites:
 
-* Istio mTLS is enabled for the namespace used
-* Istio RBAC is enabled for the namespace used
-* Network policies is available
-* Namespace needs to have label name: 
-* Default deny rule is applied to the cluster 
-* ServiceAccount is created and mounted for each deployment \(same name as the deployment\)
-* The `Service` object needs to have ports\[\].name set
-* Kubernetes &gt;= v1.11
+- Istio mTLS is enabled for the namespace used
+- Istio RBAC is enabled for the namespace used
+- Network policies is available
+- Namespace needs to have label name: <namespace-name>
+- Default deny rule is applied to the cluster 
+- ServiceAccount is created and mounted for each deployment (same name as the deployment)
+- The `Service` object needs to have ports[].name set
+- Kubernetes >= v1.11
 
 Note: has not been tested with this exact `NetworkPolicy`. With current latest version in GKE, we are limited to granting access to a specific application in the same namespace. If the application runs in a different namespace, we can only grant access to the entire namespace due to limitations in 1.10. This is fixed in 1.11.
-

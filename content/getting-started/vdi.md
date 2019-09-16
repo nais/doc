@@ -1,20 +1,21 @@
-# vdi
 
-> This guide contains several steps and links specific to developers at NAV. Some of them link to internal information in private repositories.
+> This guide contains several steps and links specific to developers at NAV. Some of them link to internal information in private repositories. 
 
 ## Install the necessary tools
 
 We recommend Linux-VDI users to use [utvikler-ansible](https://github.com/navikt/utvikler-ansible) to set up their images.
 
-For Linux- and Windows-VDI, you need to set up [NAV-proxy](vdi.md#system-environment-variables) before installing the tools.
+For Linux- and Windows-VDI, you need to set up [NAV-proxy](/content/getting-started/vdi.md#system-environment-variables) before installing the tools.
+
 
 ### Install Kubectl
 
 > Use the Kubernetes command-line tool, kubectl, to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; and look at your new cluster and bring up example apps.
 
-Linux and Mac users can use the install guide over at [Kubernetes.io](https://kubernetes.io/docs/tasks/tools/install-kubectl/) to install Kubectl. Windows users can follow the guide below. All three types of users need to [configure Kubectl](./#configure-kubectl) after installation.
+Linux and Mac users can use the install guide over at [Kubernetes.io](https://kubernetes.io/docs/tasks/tools/install-kubectl/) to install Kubectl. Windows users can follow the guide below. All three types of users need to [configure Kubectl](/content/getting-started/README.md#configure-kubectl) after installation.
 
-What you can and can't do in the clusters are governed by RBAC-rules that are defined in the [Naisible-repo](https://github.com/nais/naisible/blob/master/files/roles/clusterroles.yaml). This is a bit technical, and it's better to read up on [Kubectl operations](https://kubernetes.io/docs/reference/kubectl/overview/#operations) over at Kubernetes.io. We also have made a small set of [Kubectl operation examples](kubectl_examples.md).
+What you can and can't do in the clusters are governed by RBAC-rules that are defined in the [Naisible-repo](https://github.com/nais/naisible/blob/master/files/roles/clusterroles.yaml). This is a bit technical, and it's better to read up on [Kubectl operations](https://kubernetes.io/docs/reference/kubectl/overview/#operations) over at Kubernetes.io. We also have made a small set of [Kubectl operation examples](/content/getting-started/kubectl_examples.md).
+
 
 #### Install Kubectl on Windows
 
@@ -22,17 +23,17 @@ What you can and can't do in the clusters are governed by RBAC-rules that are de
 2. Add `kubectl.exe` to the system environment variable `$PATH`
 3. Check if everything is working by restarting your shell and running `kubectl`
 
+
 #### Configure Kubectl
 
 1. Clone [kubeconfigs](https://github.com/navikt/kubeconfigs) from Github
-2. Point the `KUBECONFIG` environment-variable to the `config` file in the cloned repo\*
+2. Point the `KUBECONFIG` environment-variable to the `config` file in the cloned repo*
 3. Before you can begin using `Kubectl`, you need to authorise with Azure.
+ a. Switch to a cluster `kubectl config use-context preprod-fss`
+ b. Run `kubectl get pods` and you will then be asked to authorise with Azure. Go to the address, use the code, and log in with your NAV e-post and NAV-ident password. When your user has been authorised, the shell-command will finish and return a list of pods running in the cluster.
 
-   a. Switch to a cluster `kubectl config use-context preprod-fss`
 
-   b. Run `kubectl get pods` and you will then be asked to authorise with Azure. Go to the address, use the code, and log in with your NAV e-post and NAV-ident password. When your user has been authorised, the shell-command will finish and return a list of pods running in the cluster.
-
-**Changing passwords**
+##### Changing passwords
 
 Every time you change your NAV-ident password, you need to reset your Kubeconfigs credentials.
 
@@ -43,7 +44,6 @@ Failed to acquire a token: refreshing the expired token: refreshing token: adal:
 ```
 
 The easiest way to fix this is to run the following commands in the `kubeconfigs`-repo:
-
 ```bash
 git checkout -- .
 git reset
@@ -52,9 +52,10 @@ git pull
 
 Alternatively you can just remove the values under `user.auth-provider.config` for the following keys, in the `kubeconfigs/config`-yaml file: `access-token`, `refresh-token`, `expires-in`, `expires-on`.
 
-After that, follow the instruction to [configure kubectl](install-tools.md#configure-kubectl).
+After that, follow the instruction to [configure kubectl](/content/getting-started/install-tools.md#configure-kubectl).
 
 PS: Some users have had to change Kubernetes context/cluster for the change to take effect.
+
 
 ### Install Docker
 
@@ -62,13 +63,14 @@ PS: Some users have had to change Kubernetes context/cluster for the change to t
 
 Follow the [install Docker](https://docs.docker.com/install/)-guide for local testing and development.
 
+
 #### Docker on Windows VDI requires virtualization
 
-To be able to run the Docker daemon that comes with Docker Desktop \(formerly known as Docker For Windows\) in Nav's Windows virtual machine images we need to enable virtualization \(Hyper-V\) in the image.
+To be able to run the Docker daemon that comes with Docker Desktop (formerly known as Docker For Windows) in Nav's Windows virtual machine images we need to enable virtualization (Hyper-V) in the image.
 
-You can ask to have virtualization enabled in the Slack channel \#tech\_virtualisering. You need to provide the name of the virtual machine, which you will find from within the image &gt; Windows &gt; Kontrollpanel &gt; System og sikkerhet &gt; System. Enabling virtualization requires reboot of the image.
+You can ask to have virtualization enabled in the Slack channel #tech_virtualisering. You need to provide the name of the virtual machine, which you will find from within the image > Windows > Kontrollpanel > System og sikkerhet > System. Enabling virtualization requires reboot of the image.
 
-Verify by opening Windows &gt; Aktiver eller deaktiver Windows-funksjoner, find "Hyper-V" and see that all it's checkboxes are enabled.
+Verify by opening Windows > Aktiver eller deaktiver Windows-funksjoner, find "Hyper-V" and see that all it's checkboxes are enabled.
 
 ## System environment variables
 
@@ -79,4 +81,3 @@ http_proxy=http://webproxy-utvikler.nav.no:8088
 https_proxy=http://webproxy-utvikler.nav.no:8088
 no_proxy=localhost,127.0.0.1,*.adeo.no,.local,.adeo.no,.nav.no,.aetat.no,.devillo.no,.oera.no,devel,.nais.io
 ```
-
