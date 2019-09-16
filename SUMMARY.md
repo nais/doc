@@ -10,6 +10,10 @@
 * [Deploy your application](basics/deploy.md)
 * [Teams](basics/teams.md)
 
+## In depth
+
+* [The NAIS manifest](in-depth/nais-manifest.md)
+
 ## Observability
 
 * [Alerts](observability/alerts.md)
