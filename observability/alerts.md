@@ -62,7 +62,7 @@ You can list alerts in the cluster with `kubectl get alerts` \(singluar: `alert`
 
 #### Writing the `expr`
 
-In order to minimize the feedback loop we suggest experimenting on the Prometheus server to find the right metric for your alert and the notification threshold. The Prometheus server can be found in each [cluster](../README.md#nais-clusters), at `https://prometheus.{cluster.ingress}` \(i.e. [https://prometheus.nais.preprod.local](https://prometheus.nais.preprod.local)\).
+In order to minimize the feedback loop we suggest experimenting on the Prometheus server to find the right metric for your alert and the notification threshold. The Prometheus server can be found in each [cluster](../#nais-clusters), at `https://prometheus.{cluster.ingress}` \(i.e. [https://prometheus.nais.preprod.local](https://prometheus.nais.preprod.local)\).
 
 You can also visit the Alertmanager at `https://alertmanager.{cluster.ingress}` \(i.e. [https://alertmanager.nais.preprod.local](https://alertmanager.nais.preprod.local)\) to see which alerts are triggered now \(you can also silence already triggered alerts\).
 
@@ -139,4 +139,5 @@ Check out the complete [spec](alerts.md#fieldsspec) for more information about t
 
 ## Flow
 
-![Prometheus Server --> Prometheus Alertmanager](../.gitbooks/assets/prometheus_alertmanager_overview.png)
+![Prometheus Server --&amp;gt; Prometheus Alertmanager](https://github.com/nais/doc/tree/bbc1c8a89bbf7409c71c4289f528c4273bac588e/.gitbooks/assets/prometheus_alertmanager_overview.png)
+

@@ -20,7 +20,7 @@ In order to reach our clusters, you have to be connected to the right ScaleFT ho
 
 Start `navTunnel` app, click the icon. If you are not authenticated, it will open your browser and prompt you for your credentials. When done, click the icon again and select your cluster \(see below\).
 
-![Select a cluster to connect to](../.gitbook/assets/scale_connect.png)
+![Select a cluster to connect to](../.gitbook/assets/scale_connect%20%281%29.png)
 
 ## Authenticate `kubectl`
 
