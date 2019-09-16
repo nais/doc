@@ -18,7 +18,9 @@ The `kubectl` tool uses a `kubeconfig` file to get the information it needs in o
 
 In order to reach our clusters, you have to be connected to the right ScaleFT host. For GCP, it's one host per cluster \(`dev-gcp` and `prod-gcp`\), for on-premise you select `devWeb02`.
 
-Start `navTunnel` app, click the icon. If you are not authenticated, it will open your browser and prompt you for your credentials. When done, click the icon again and select your cluster \(see below\)
+Start `navTunnel` app, click the icon. If you are not authenticated, it will open your browser and prompt you for your credentials. When done, click the icon again and select your cluster \(see below\).
+
+![Select a cluster to connect to](../.gitbook/assets/scale_connect.png)
 
 ## Authenticate `kubectl`
 
