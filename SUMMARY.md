@@ -31,3 +31,4 @@
 * [Kubernetes Dashboard](addons/kubernetes-dashboard.md)
 * [Redis](addons/redis.md)
 
+* [Addons](addons)
