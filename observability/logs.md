@@ -126,13 +126,15 @@ The max log message size in Docker is 16KB, so if it will be split into parts if
 
 ### Overview
 
+![From app to Kibana](../.gitbook/assets/logging_overview.png)
+
 ## Secure logs
 
 Some applications have logs with information that should not be stored with the normal application logs. To support this a directory for these logs can be mounted in the application, and the content of logs written here will be transferred to separate indices in Elasticsearch.
 
 ### Enabling secure logs
 
-Secure logs can be enabled by setting the `secureLogs.enabled` flag in the application resource. See [the nais manifest specification](https://github.com/nais/doc/tree/94736c6976c9122f84483fd3132788096d305c6b/observability/in-depth/nais-manifest/README.md).
+Secure logs can be enabled by setting the `secureLogs.enabled` flag in the application resource. See [the nais manifest specification](../in-depth/nais-manifest.md).
 
 ### Log files
 
@@ -172,4 +174,3 @@ If the logging framework used doesn't support JSON logging, it is also possible 
 ```
 
 Files on this format must be named `*.mlog`.
-

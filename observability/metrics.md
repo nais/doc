@@ -38,3 +38,4 @@ Remember to format the data as [Influxdb syntax](https:/s.influxdata.com/influxd
 
 ## Overview
 
+![From app to Grafana](../.gitbook/assets/metrics_overview.png)
