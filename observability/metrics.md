@@ -38,5 +38,5 @@ Remember to format the data as [Influxdb syntax](https:/s.influxdata.com/influxd
 
 ## Overview
 
-![overview](https://github.com/nais/doc/tree/0125de8eb7ee8aa3488fa243b8ba9ea53b98f455/_media/metrics_overview.png)
+![Simple overview of metric flow](../.gitbook/assets/metrics_overview%20%281%29.png)
 

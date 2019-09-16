@@ -126,7 +126,7 @@ The max log message size in Docker is 16KB, so if it will be split into parts if
 
 ### Overview
 
-![overview](https://github.com/nais/doc/tree/0125de8eb7ee8aa3488fa243b8ba9ea53b98f455/_media/logging_overview.png)
+![Overview of log flow](../.gitbook/assets/logging_overview.png)
 
 ## Secure logs
 
