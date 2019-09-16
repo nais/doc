@@ -1,7 +1,8 @@
 # Experimenting with istio rbac policies
 
 ## We have globally configured istio to enforce `MUTUAL_TLS` in our istio config:
-```
+
+```text
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
@@ -16,7 +17,7 @@ spec:
       mode: ISTIO_MUTUAL
 ```
 
-```
+```text
 apiVersion: v1
 kind: Service
 metadata:
@@ -36,7 +37,8 @@ spec:
 ```
 
 ## We need to enable istio sidecar injection in our designated namespace:
-```
+
+```text
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -49,7 +51,8 @@ spec:
 ```
 
 ## Then we need to enable istio rbac policies for each individual namespace:
-```
+
+```text
 apiVersion: "rbac.istio.io/v1alpha1"
 kind: RbacConfig
 metadata:
@@ -59,17 +62,16 @@ spec:
   inclusion:
     namespaces: ["irbac"]
 ```
-Note that the name of the policy must be default.
-The  RbacConfig is global and determines which namespaces has istio enforcement enabeled.
 
-By default all traffic should be denied from all pods, even though they have istio enabled, due to the globally configured trafficPolicy set to `ISTIO_MUTUAL`
-<span style="background-color: #FFFF00"> This does not work if the service hasn't got the `-name:` field set on the port specification array.</span>
+Note that the name of the policy must be default. The RbacConfig is global and determines which namespaces has istio enforcement enabeled.
+
+By default all traffic should be denied from all pods, even though they have istio enabled, due to the globally configured trafficPolicy set to `ISTIO_MUTUAL`  This does not work if the service hasn't got the `-name:` field set on the port specification array.
 
 ## We want to allow certain services to communicate with eachother:
 
 We do this by defining a ServiceRole and ServiceRoleBinding
 
-```
+```text
 apiVersion: "rbac.istio.io/v1alpha1"
 kind: ServiceRole
 metadata:
@@ -93,12 +95,11 @@ spec:
     name: "b-viewer"
 ```
 
-Here we allow access to a specific service from any sources
-Make sure the ServiceRole and ServiceRoleBinding is created in the same namespace as the destination service. We tested creating the same `ServiceRole` and `ServiceRolebinding` in the default namespace, still pointing at the service in irbac, and this did not work.
+Here we allow access to a specific service from any sources Make sure the ServiceRole and ServiceRoleBinding is created in the same namespace as the destination service. We tested creating the same `ServiceRole` and `ServiceRolebinding` in the default namespace, still pointing at the service in irbac, and this did not work.
 
 In order to make a more spesific policy where we say that only app a is allowed to talk to app b, we have to create the following policy:
 
-```
+```text
 apiVersion: "rbac.istio.io/v1alpha1"
 kind: ServiceRole
 metadata:
@@ -124,18 +125,16 @@ spec:
 
 For this to work, a service account named `a` must exist in the namespace, and it must be bound to `a`'s PodSpec.
 
-```
+```text
 kubectl create serviceaccount a
 ```
 
 add the following to app `a`'s PodSpec
 
-```
+```text
 serviceAccount: a
 serviceAccountName: a
 ```
 
-To verify that the Pod has got the correct service account token, exec into the pod and check `/var/run/secrets/kubernetes.io/token` (decode at jwt.io)
-The service account is in the sub field:
-  "sub": "system:serviceaccount:irbac:a"
+To verify that the Pod has got the correct service account token, exec into the pod and check `/var/run/secrets/kubernetes.io/token` \(decode at jwt.io\) The service account is in the sub field: "sub": "system:serviceaccount:irbac:a"
 
