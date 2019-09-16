@@ -134,7 +134,7 @@ Some applications have logs with information that should not be stored with the 
 
 ### Enabling secure logs
 
-Secure logs can be enabled by setting the `secureLogs.enabled` flag in the application resource. See [the nais manifest specification](in-depth/nais-manifest).
+Secure logs can be enabled by setting the `secureLogs.enabled` flag in the application resource. See [the nais manifest specification](https://github.com/nais/doc/tree/94736c6976c9122f84483fd3132788096d305c6b/observability/in-depth/nais-manifest/README.md).
 
 ### Log files
 
@@ -161,7 +161,7 @@ Log files should be in JSON format as the normal application logs. Here is an ex
   </appender>
 ```
 
-See [logging examples](#examples) for more information on log configuration.
+See [logging examples](logs.md#examples) for more information on log configuration.
 
 ### Non-JSON logs
 
