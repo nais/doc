@@ -156,7 +156,7 @@ We have created an example app to easy test and get known of the authorization f
 
 Any questions about this article, solution or example app can be directed to:
 
-* Frode Sundby \(frode.sundby@nav.no\)
+* [PIG-sikkerhet](https://github.com/navikt/pig/tree/master/PIG-Sikkerhet) (@pig-sikkerhet on Slack)
 
 For NAV-employees questions can be asked on Slack in the channel \#aura
 
