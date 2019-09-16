@@ -38,5 +38,3 @@ Remember to format the data as [Influxdb syntax](https:/s.influxdata.com/influxd
 
 ## Overview
 
-![Simple overview of metric flow](../.gitbook/assets/metrics_overview.png)
-

@@ -110,8 +110,6 @@ https://nav-it.slack.com/usergroups/SB8KS4WAV
 
 #### Example of the different Slack/severity colors
 
-![Slack attachment colors](../.gitbook/assets/attachment_color%20%281%29.png)
-
 ## Migrating from Naisd
 
 It's pretty straight forward to move alerts from Naisd to Alerterator, as the only difference is that the annotation fields has been move to the top level.

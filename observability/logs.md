@@ -126,8 +126,6 @@ The max log message size in Docker is 16KB, so if it will be split into parts if
 
 ### Overview
 
-![Overview of log flow](../.gitbook/assets/logging_overview.png)
-
 ## Secure logs
 
 Some applications have logs with information that should not be stored with the normal application logs. To support this a directory for these logs can be mounted in the application, and the content of logs written here will be transferred to separate indices in Elasticsearch.

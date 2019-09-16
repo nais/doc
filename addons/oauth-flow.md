@@ -18,8 +18,6 @@ _A broad outline of this flow_
 
 ### General description of Azure AD Authentication for NAV applications
 
-![General flow](../.gitbook/assets/oauth-flow.png)
-
 1. Login request for the application. The application redirects the user to Azure AD with relevant configuration parameters
 2. Azure AD provides an  and redirects the client back to the application
 3. The client presents its _**&lt;authorization\_code**_  to the application, which in turn exchange the code for an  and a . The application also validates the token and authenticate the user based on the content of the 
@@ -110,8 +108,6 @@ The cookie should anyway:
 ### Application implementation details
 
 > An example application flow based on express using passport.js
-
-![Example application flow](../.gitbook/assets/application-implementation-details.png)
 
 1. When the user first attempts to access the application, the request will go through a [`ensureAuthenticated()`](https://github.com/navikt/basta-frontend/blob/master/api/src/controllers/authenticate.js#L46-L64) method, where we see if the user already `isAuthenticated()` If the user is authenticated, we [`validateRefreshAndGetToken()`](https://github.com/navikt/basta-frontend/blob/master/api/src/controllers/token.js#L51-L95) to ensure the token's validity and expiry date. As this is the first time the user access the application, we find no valid user session, and the user i redirected to /login
 2. /login triggers the [`authenticateAzure()`](https://github.com/navikt/basta-frontend/blob/master/api/src/controllers/authenticate.js#L7-L28) method, where an [authorization URL](https://github.com/navikt/basta-frontend/blob/master/api/src/controllers/authenticate.js#L16) will be built based on the [passport configuration](https://github.com/navikt/basta-frontend/blob/master/api/src/config/passport.js). The user is then redirected to the generated user specific authorization URL on Azure AD
