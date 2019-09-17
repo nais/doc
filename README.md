@@ -1,4 +1,5 @@
-# NAIS
+NAIS
+====
 
 ## What is NAIS?
 

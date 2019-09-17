@@ -1,6 +1,6 @@
 # Changelog
 
-This is a simple changelog over notable milestones for the [NAIS-platform](https://github.com/nais/doc/tree/63a0c78fd5b337093f80033f0e308557e2e00407/content/about/README.md).
+This is a simple changelog over notable milestones for the NAIS-platform.
 
 ## \[Unreleased\]
 
@@ -31,7 +31,7 @@ This is a simple changelog over notable milestones for the [NAIS-platform](https
 
 #### \[2019-06-20\]
 
-* Added NAIS deploy, enabling deployment from Github directly to our clusters. See [deployment documentation](https://github.com/nais/doc/tree/63a0c78fd5b337093f80033f0e308557e2e00407/content/deploy/README.md) on how to use it
+* Added NAIS deploy, enabling deployment from Github directly to our clusters. See [deployment documentation](basics/deploy.md) on how to use it
 
 #### \[2019-06-14\]
 
@@ -47,7 +47,7 @@ This is a simple changelog over notable milestones for the [NAIS-platform](https
 
 #### \[2019-04-09\]
 
-* Added support for secure logs. See [documentation](https://github.com/nais/doc/tree/63a0c78fd5b337093f80033f0e308557e2e00407/content/logging/secure-logs.md) for more
+* Added support for secure logs. See [documentation](observability/logs.md#secure-logs) for more
 
 #### \[2019-03-14\]
 
@@ -55,11 +55,11 @@ This is a simple changelog over notable milestones for the [NAIS-platform](https
 
 #### \[2019 - February\]
 
-* More support for Redis as an individual instance, no more sentinels. Also support Redis-instances with passwords, see [documentation](https://github.com/nais/doc/tree/63a0c78fd5b337093f80033f0e308557e2e00407/content/redis.md) for more
+* More support for Redis as an individual instance, no more sentinels. Also support Redis-instances with passwords, see [documentation](addons/redis.md) for more
 
 #### \[2019-02-18\]
 
-* Alerterator is released. A simple way to manage alerts/metrics. See [documentation](https://github.com/nais/doc/tree/63a0c78fd5b337093f80033f0e308557e2e00407/content/alerts/README.md) for more
+* Alerterator is released. A simple way to manage alerts/metrics. See [documentation](observability/alerts.md) for more
 
 ### 2018
 
@@ -85,7 +85,7 @@ This is a simple changelog over notable milestones for the [NAIS-platform](https
 
 #### \[2018-09-24\]
 
-* Added Vault by Hashicorp, which is a tool to manage secrets, see [documentation](https://github.com/nais/doc/tree/63a0c78fd5b337093f80033f0e308557e2e00407/content/secrets/README.md) for more
+* Added Vault by Hashicorp, which is a tool to manage secrets, see [documentation](https://github.com/navikt/vault-iac/blob/master/doc/endusers.md) for more
 
 #### \[2018 - June\]
 
@@ -93,13 +93,13 @@ This is a simple changelog over notable milestones for the [NAIS-platform](https
 
 #### \[2018 - March\]
 
-* Added Redis operator to the platform, see [documentation](https://github.com/nais/doc/tree/63a0c78fd5b337093f80033f0e308557e2e00407/content/redis.md) for more
+* Added Redis operator to the platform, see [documentation](addons/redis.md) for more
 
 #### \[2018 - February\]
 
-* Added option for leader election, see [documentation](https://github.com/nais/doc/tree/63a0c78fd5b337093f80033f0e308557e2e00407/content/leader_election.md) for more
+* Added option for leader election, see [documentation](addons/leader-election.md) for more
 
 #### \[2018 - January\]
 
-* New service for creating ForgeRock [AM config](https://github.com/nais/doc/tree/63a0c78fd5b337093f80033f0e308557e2e00407/content/authnz/am.md) \(Norwegian\) in SBS or FSS, it's called Named \(NAIS Access Management Extension\)
+* New service for creating ForgeRock [AM config](legacy/am.md) \(Norwegian\) in SBS or FSS, it's called Named \(NAIS Access Management Extension\)
 
