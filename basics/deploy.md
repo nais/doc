@@ -4,28 +4,28 @@ This section will take you through the deployment of your application, using the
 
 NAIS deploy enables you to deploy your application into [any cluster](deploy.md#supported-clusters) from any continuous integration platform, including GitHub Actions, CircleCI, Travis CI and Jenkins.
 
-Note: Using _naisd_ or _JIRA Autodeploy_ to deploy your application? These mechanisms are deprecated and are going to be shut down. See [migration guide from naisd to Naiserator](https://github.com/nais/doc/tree/ed810945684e0f22aaeec0662a28da7a397f6b67/content/getting-started/migrating_from_naisd.md). All information on the current page relates to Naiserator compatible `nais.yaml` files. You can also read the [naisd user documentation](https://github.com/nais/doc/tree/ed810945684e0f22aaeec0662a28da7a397f6b67/content/getting-started/naisd.md).
+Note: Using _naisd_ or _JIRA Autodeploy_ to deploy your application? These mechanisms are deprecated and are going to be shut down. See [migration guide from naisd to Naiserator](legacy/migrating-from-naisd). All information on the current page relates to Naiserator compatible `nais.yaml` files. You can also read the [naisd user documentation](legacy/naisd).
 
 ### How it works
 
 1. Create a deployment request using [deployment-cli](https://github.com/navikt/deployment-cli) in your build pipeline. This request is sent to Github's [deployment API](https://developer.github.com/v3/repos/deployments/) and is then forwarded to NAIS deploy.
-2. NAIS deploy verifies the integrity and authenticity of the deployment, assumes the identity of the deploying team, and applies your _Kubernetes resources_ into the specified [cluster](deploy.md#supported-clusters).
+2. NAIS deploy verifies the integrity and authenticity of the deployment, assumes the identity of the deploying team, and applies your _Kubernetes resources_ into the specified [cluster](basics/deploy#supported-clusters).
 3. If you deployed any _Application_ or _Deployment_ resources, NAIS deploy will wait until these are rolled out successfully, or a timeout occurs.
 4. The deployment status is continually posted back to Github and is available through their API, enabling integration with your pipeline or monitoring setup.
 
 ### Summary
 
-1. Make sure the [prerequisites](deploy.md#prerequisites) are met before attempting to use NAIS deploy.
-2. [Enable deployments for your repository](deploy.md#enable-deployments-for-your-repository).
-3. [Implement NAIS deploy in your pipeline](deploy.md#performing-the-deployment).
+1. Make sure the [prerequisites](basics/deploy#prerequisites) are met before attempting to use NAIS deploy.
+2. [Enable deployments for your repository](basics/deploy#enable-deployments-for-your-repository).
+3. [Implement NAIS deploy in your pipeline](basics/deploy#performing-the-deployment).
 
-When things break, check the section on [troubleshooting](deploy.md#troubleshooting). For CircleCI/manual you also need to [obtain Github deployment credentials](deploy.md#obtain-github-deployment-credentials).
+When things break, check the section on [troubleshooting](basics/deploy#troubleshooting). For CircleCI/manual you also need to [obtain Github deployment credentials](basics/deploy#obtain-github-deployment-credentials).
 
 ## Getting started
 
 ### Prerequisites
 
-* Create a [nais.yaml](https://github.com/nais/doc/tree/ed810945684e0f22aaeec0662a28da7a397f6b67/content/getting-started/nais-manifest.md) file for any application you want to deploy. A `nais.yaml` file contains an _Application resource_. The application resource provides NAIS with the necessary information to run your application. If starting out for the first time, try the [nais.yaml minimal example](https://github.com/nais/doc/tree/ed810945684e0f22aaeec0662a28da7a397f6b67/content/getting-started/examples/nais-manifest/nais.yaml).
+* Create a [nais.yaml](in-depth/nais-manifest) file for any application you want to deploy. A `nais.yaml` file contains an _Application resource_. The application resource provides NAIS with the necessary information to run your application. If starting out for the first time, try the [nais.yaml minimal example](in-depth/nais-manifest#minimal-nais-yaml-example).
 * The repository containing `nais.yaml` must be on Github.
 * Be a maintainer of a [Github team](https://help.github.com/en/articles/about-teams). The team name must be the same as your Kubernetes _team label_, and additionally must have write access to your repository.
 * Secure your Github repository by restricting write access to team members. Activating NAIS deploy for your repository will enable anyone with write access to your repository to deploy on behalf of your team. This is a _major security concern_ and should not be overlooked.
@@ -66,7 +66,7 @@ Inside that folder, create a workflow yaml-file. You can use our example as a st
 
 The following example will build and push your Docker image to Github Package Registry, and then deploy that image to `dev-fss`.
 
-This example also expects that your `spec.image` in your `nais.yaml` is set to `{{ image }}:{{ tag }}`. See [example nais.yaml](deploy.md#template-example-naisyaml-for-github-actionsl) below if you're unsure.
+This example also expects that your `spec.image` in your `nais.yaml` is set to `{{ image }}:{{ tag }}`. See [example nais.yaml](basics/deploy#template-example-naisyaml-for-github-actions) below if you're unsure.
 
 ```text
 name: Deploy to NAIS
@@ -113,7 +113,7 @@ When these files and folders are commited and pushed, you can see the workflow r
 
 #### Using CircleCI
 
-See seperate [circleci](https://github.com/nais/doc/tree/ed810945684e0f22aaeec0662a28da7a397f6b67/content/getting-started/circleci.md)-documentation for this.
+See seperate [circleci](in-depth/deployment/circleci)-documentation for this.
 
 #### Manual deploy
 
@@ -133,7 +133,7 @@ deployment-cli create \
   --vars=placeholders.json
 ```
 
-Instead of having seperated files per cluster, you can use deployment-cli built-in templating. See [deployment-cli templating guide](https://github.com/nais/doc/tree/ed810945684e0f22aaeec0662a28da7a397f6b67/content/getting-started/deployment-cli-templating.md) for how.
+Instead of having seperated files per cluster, you can use deployment-cli built-in templating. See [deployment-cli templating guide](in-depth/deployment/deployment-cli) for how.
 
 ### Troubleshooting
 
@@ -146,13 +146,13 @@ If everything fails, and you checked your logs, you can ask for help in the [\#n
 | Message | Action |
 | :--- | :--- |
 | the repository 'foo/bar' does not have access to deploy as team 'Baz' | Is your team name in _lowercase_ everywhere? |
-| Repository _foo/bar_ is not registered | Please read the [registering your repository](deploy.md#registering-your-repository) section. |
+| Repository _foo/bar_ is not registered | Please read the [registering your repository](basics/deploy#registering-your-repository) section. |
 | Deployment status `error` | There is an error with your request. The reason should be specified in the error message. |
 | Deployment status `failure` | Your application didn't pass its health checks during the 5 minute startup window. It is probably stuck in a crash loop due to mis-configuration. Check your application logs using `kubectl logs <POD>` and event logs using `kubectl describe app <APP>` |
-| Deployment is stuck at `queued` | The deployment hasn't been picked up by the worker process. Did you specify a [supported cluster](deploy.md#supported-clusters) with `--cluster=<CLUSTER>`? |
+| Deployment is stuck at `queued` | The deployment hasn't been picked up by the worker process. Did you specify a [supported cluster](basics/deploy#supported-clusters) with `--cluster=<CLUSTER>`? |
 | team `foo` does not exist in Azure AD | Your team is not [registered in the team portal](https://github.com/navikt/IaC/tree/master/AAD%20Team). |
 
-If for any reason you are unable to use _deployment-cli_, please read the section on [NAIS deploy with cURL](deploy.md#nais-deploy-with-curl).
+If for any reason you are unable to use _deployment-cli_, please read the section on [NAIS deploy with cURL](basics/deploy#nais-deploy-with-curl).
 
 ## Advanced usage
 
@@ -208,7 +208,7 @@ Changes will be rolled out using [semantic versioning](https://semver.org).
 
 ### Manual deploy with Kubectl
 
-Performing deployments manually requires that you have [access to the cluster](https://github.com/nais/doc/tree/ed810945684e0f22aaeec0662a28da7a397f6b67/content/getting-started/install-tools.md) and `kubectl` configured.
+Performing deployments manually requires that you have [access to the cluster](basics/access) and `kubectl` configured.
 
 ```text
 $ kubectl apply -f nais.yaml

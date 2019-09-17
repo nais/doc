@@ -39,7 +39,7 @@ We also support e-mail as a receiver, check out a bigger example in the [alerter
 | Parameter | Description | Default | Required |
 | :--- | :--- | :--- | :---: |
 | metadata.name | Name for the group of alerts |  | x |
-| metadata.labels.team | [mailnick/tag](https://github.com/nais/doc/tree/657446aef0b69d0bc4b187c110a528648f4187a9/observability/basics/teams/README.md) |  | x |
+| metadata.labels.team | [mailnick/tag](basics/teams) |  | x |
 | spec.receivers | You need at least one receiver |  | x |
 | spec.receivers.slack.channel | Slack channel to send notifications to |  |  |
 | spec.receivers.slack.preprend\_text | Text to prepend every Slack message with severity `danger` |  |  |
@@ -62,7 +62,7 @@ You can list alerts in the cluster with `kubectl get alerts` \(singluar: `alert`
 
 #### Writing the `expr`
 
-In order to minimize the feedback loop we suggest experimenting on the Prometheus server to find the right metric for your alert and the notification threshold. The Prometheus server can be found in each [cluster](../#nais-clusters), at `https://prometheus.{cluster.ingress}` \(i.e. [https://prometheus.nais.preprod.local](https://prometheus.nais.preprod.local)\).
+In order to minimize the feedback loop we suggest experimenting on the Prometheus server to find the right metric for your alert and the notification threshold. The Prometheus server can be found in each [cluster](/#nais-clusters), at `https://prometheus.{cluster.ingress}` \(i.e. [https://prometheus.nais.preprod.local](https://prometheus.nais.preprod.local)\).
 
 You can also visit the Alertmanager at `https://alertmanager.{cluster.ingress}` \(i.e. [https://alertmanager.nais.preprod.local](https://alertmanager.nais.preprod.local)\) to see which alerts are triggered now \(you can also silence already triggered alerts\).
 
@@ -135,7 +135,7 @@ alerts:
   severity: Warning
 ```
 
-Check out the complete [spec](alerts.md#fieldsspec) for more information about the different keys.
+Check out the complete [spec](#fieldsspec) for more information about the different keys.
 
 ## Flow
 

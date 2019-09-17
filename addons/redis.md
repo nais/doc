@@ -6,7 +6,7 @@ On NAIS we are running Redis without disk/storage. This means that if your Redis
 
 ## Deprecation of Redis sentinel cluster/HA-cluster
 
-As we move to the cloud, and over to [Naiserator](https://github.com/nais/doc/tree/master/content/deploy), we have decided to deprecate Naisd's Redis sentinel cluster, as this has been a major overkill for most applications and has consumed a huge amount of resources in the clusters. It's estimated to use about 1/3 of our clusters resources.
+As we move to the cloud, and over to Naiserator, we have decided to deprecate Naisd's Redis sentinel cluster, as this has been a major overkill for most applications and has consumed a huge amount of resources in the clusters. It's estimated to use about 1/3 of our clusters resources.
 
 ## How to
 
@@ -14,7 +14,7 @@ There is two ways to get running with Redis, one for Naisd, and one for Naiserat
 
 ### Naisd
 
-In the [NAIS manifest](https://github.com/nais/doc/tree/fbc8385a30a38b9350ab8c9e936d8d6e834d7b39/documentation/contracts/README.md#nais-manifest) you can add the following configuration to enable Redis:
+In the [NAIS manifest](in-depth/nais-manifest) you can add the following configuration to enable Redis:
 
 Minimal version:
 

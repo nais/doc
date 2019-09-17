@@ -1,6 +1,6 @@
 # The NAIS manifest
 
-The NAIS manifest `nais.yaml` describes your application. You can see a minimal example manifest and a full one in the [examples-folder](https://github.com/nais/doc/tree/8e274b1ad330b8f3d61595ed9b586b3dbc6c0341/in-depth/examples/nais-manifest/README.md).
+The NAIS manifest `nais.yaml` describes your application. You can see a minimal example manifest at the bottom.
 
 Here you can find all the supported fields for the manifest.
 
@@ -8,7 +8,7 @@ Here you can find all the supported fields for the manifest.
 | :--- | :--- | :--- | :---: |
 | metadata.name | Name of the application |  | x |
 | metadata.namespace | Which namespace the application will be deployed to |  | x |
-| metadata.labels.team | [mailnick/tag](https://github.com/nais/doc/blob/master/content/getting-started/teamadministration.md) |  | x |
+| metadata.labels.team | [mailnick/tag](basics/teams) |  | x |
 | spec.image | Docker image location, including version |  | x |
 | spec.port | The HTTP port exposed by the container | 8080 |  |
 | spec.strategy.type | Specifies the strategy used to replace old Pods by new ones | RollingUpdate |  |

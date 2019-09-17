@@ -10,7 +10,7 @@ Check out the [official documentation](https://kubernetes.io/docs/tasks/tools/in
 
 ## Setup your [`kubeconfig`](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 
-The `kubectl` tool uses a `kubeconfig` file to get the information it needs in order to connect to a cluster. We provide a [pre-made `kubeconfig`](https://github.com/navikt/kubeconfigs.git) file with NAV's [clusters](https://github.com/nais/doc/tree/ed810945684e0f22aaeec0662a28da7a397f6b67/content/clusters/README.md).
+The `kubectl` tool uses a `kubeconfig` file to get the information it needs in order to connect to a cluster. We provide a [pre-made `kubeconfig`](https://github.com/navikt/kubeconfigs.git) file with NAV's [clusters](/#nais-clusters).
 
 `kubectl` will by default look for a file named `config` in the `$HOME/.kube/` folder. You can also override this by having the absolute path of the file in the environment variable `KUBECONFIG`.
 
