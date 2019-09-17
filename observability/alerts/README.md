@@ -141,4 +141,4 @@ Check out the complete [spec](#fields-spec) for more information about the diffe
 
 ## Flow
 
-![Prometheus Server --> Prometheus Alertmanager](../../.gitbooks/assets/prometheus_alertmanager_overview.png)
+![Prometheus Server --> Prometheus Alertmanager](../../.gitbook/assets/prometheus_alertmanager_overview.png)
