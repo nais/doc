@@ -2,9 +2,6 @@
 
 * [NAIS](README.md)
 * [Changelog](changelog.md)
-* [Legacy](legacy/README.md)
-  * [Something else](legacy/something-else.md)
-  * [Naisd](legacy/naisd.md)
 
 ## Basics
 
@@ -27,11 +24,11 @@
 
 * [Secrets](gcp-only/secrets.md)
 
-## Addons
+* [Addons](addons/README.md)
+  * [Oauth flow](addons/oauth-flow.md)
+  * [Leader Election](addons/leader-election.md)
+  * [Kubernetes Dashboard](addons/kubernetes-dashboard.md)
+  * [Redis](addons/redis.md)
 
-* [Oauth flow](addons/oauth-flow.md)
-* [Leader Election](addons/leader-election.md)
-* [Kubernetes Dashboard](addons/kubernetes-dashboard.md)
-* [Redis](addons/redis.md)
-
-* [Addons](addons)
+* [Legacy](legacy/README.md)
+  * [Naisd](legacy/naisd.md)
