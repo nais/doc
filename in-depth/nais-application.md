@@ -7,7 +7,7 @@ This document describes the different properties a typical NAIS application shou
 
 {% hint style="info" %}
 TLDR; The application should make sure it listens to the `SIGTERM` signal, and prepare for shutdown (closing connections etc.) upon receival.
-{% endinfo %}
+{% endhint %}
 
 When running on NAIS (or Kubernetes, actually) your application must be able to handle being shut down at any given time. This is because the platform might have to reboot the node your application is running on (e.g. because of a OS patch requiring restart), and in that case will reschedule your application on a different node.
 
