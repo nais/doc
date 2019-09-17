@@ -11,6 +11,7 @@
 
 * [In depth](in-depth/README.md)
   * [The NAIS manifest](in-depth/nais-manifest.md)
+  * [NAIS application](in-depth/nais-application.md)
 
 * [Observability](observability/README.md)
   * [Alerts](observability/alerts.md)
@@ -24,7 +25,10 @@
   * [Oauth flow](addons/oauth-flow.md)
   * [Leader Election](addons/leader-election.md)
   * [Kubernetes Dashboard](addons/kubernetes-dashboard.md)
+  * [NAISjobs](addons/naisjobs.md)
   * [Redis](addons/redis.md)
 
 * [Legacy](legacy/README.md)
   * [Naisd](legacy/naisd.md)
+  * [AM/OpenAM](legacy/am.md)
+  * [Migrating from Naisd](legacy/migrating-from-naisd.md)
