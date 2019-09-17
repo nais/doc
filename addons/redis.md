@@ -39,7 +39,9 @@ redis:
 
 The Redis instance can be reached via the `<appname>-redis` service.
 
-PS: `REDIS_HOST` will continue to point to the sentinel-setup. When everyone have merged over to standalone it will be removed.
+{% hint style="warning" %}
+`REDIS_HOST` will continue to point to the sentinel-setup. When everyone have merged over to standalone it will be removed.
+{% endhint %}
 
 #### Redis metrics
 

@@ -12,7 +12,9 @@ prometheus:
   path: /metrics # Path to prometheus-metrics
 ```
 
-PS: Prometheus is optional
+{% hint style="info" %}
+Prometheus is optional
+{% endhint %}
 
 ### JVM Application
 
