@@ -74,3 +74,16 @@ These environment variables will be injected into your application container
 | NAIS\_APP\_IMAGE | navikt/myapp:69 | spec.image from nais.yaml |
 | NAIS\_CLUSTER\_NAME | prod-fss | naiserator runtime context |
 
+## Minimal nais.yaml example
+
+```yaml
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: nais-testapp
+  namespace: default
+  labels:
+    team: aura
+spec:
+  image: navikt/nais-testapp:1
+```
