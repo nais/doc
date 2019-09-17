@@ -126,7 +126,7 @@ The max log message size in Docker is 16KB, so if it will be split into parts if
 
 ### Overview
 
-![From app to Kibana](../.gitbook/assets/logging_overview%20%281%29.png)
+![From app to Kibana](../.gitbook/assets/logging_overview.png)
 
 ## Secure logs
 

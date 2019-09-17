@@ -139,5 +139,5 @@ Check out the complete [spec](alerts.md#fieldsspec) for more information about t
 
 ## Flow
 
-![Prometheus Server --&amp;gt; Prometheus Alertmanager](https://github.com/nais/doc/tree/bbc1c8a89bbf7409c71c4289f528c4273bac588e/.gitbooks/assets/prometheus_alertmanager_overview.png)
+![Prometheus Server --> Prometheus Alertmanager](../.gitbooks/assets/prometheus_alertmanager_overview.png)
 
