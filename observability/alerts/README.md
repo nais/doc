@@ -32,14 +32,14 @@ spec:
       severity: critical
 ```
 
-We also support e-mail as a receiver. See [example alerts](observability/alerts/example_alerts.md) and [recommended alerts](observability/alerts/recommended_alerts.md).
+We also support e-mail as a receiver. See [example alerts](example_alerts.md) and [recommended alerts](recommended_alerts.md).
 
 ### Fields/spec
 
 | Parameter | Description | Default | Required |
 | :--- | :--- | :--- | :---: |
 | metadata.name | Name for the group of alerts |  | x |
-| metadata.labels.team | [mailnick/tag](basics/teams.md) |  | x |
+| metadata.labels.team | [mailnick/tag](/basics/teams.md) |  | x |
 | spec.receivers | You need at least one receiver |  | x |
 | spec.receivers.slack.channel | Slack channel to send notifications to |  |  |
 | spec.receivers.slack.preprend\_text | Text to prepend every Slack message with severity `danger` |  |  |
