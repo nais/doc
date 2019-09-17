@@ -32,7 +32,7 @@ spec:
       severity: critical
 ```
 
-We also support e-mail as a receiver, check out a bigger example in the [alerterator repository](https://github.com/nais/alerterator/blob/master/example/max_alerts.yaml). In the same folder we also have a set of [recommended alerts](https://github.com/nais/alerterator/blob/master/example/recommended_alerts.yaml) for you to get started with.
+We also support e-mail as a receiver. See [example alerts](observability/alerts/example_alerts) and [recommended alerts](observability/alerts/recommended_alerts).
 
 ### Fields/spec
 
