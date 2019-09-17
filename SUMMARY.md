@@ -12,6 +12,9 @@
 * [In depth](in-depth/README.md)
   * [The NAIS manifest](in-depth/nais-manifest.md)
   * [NAIS application](in-depth/nais-application.md)
+  * [Deployment](in-depth/deployment/README.md)
+    * [CircleCI](in-depth/deployment/circleci.md)
+    * [Deployment-cli](in-depth/deployment/deployment-cli.md)
 
 * [Observability](observability/README.md)
   * [Alerts](observability/alerts.md)
