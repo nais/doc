@@ -10,7 +10,7 @@ Check out the [official documentation](https://kubernetes.io/docs/tasks/tools/in
 
 ## Setup your [`kubeconfig`](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 
-The `kubectl` tool uses a `kubeconfig` file to get the information it needs in order to connect to a cluster. We provide a [pre-made `kubeconfig`](https://github.com/navikt/kubeconfigs.git) file with NAV's [clusters](/#nais-clusters).
+The `kubectl` tool uses a `kubeconfig` file to get the information it needs in order to connect to a cluster. We provide a [pre-made kubeconfig](https://github.com/navikt/kubeconfigs) file with NAV's [clusters](/#nais-clusters).
 
 `kubectl` will by default look for a file named `config` in the `$HOME/.kube/` folder. You can also override this by having the absolute path of the file in the environment variable `KUBECONFIG`.
 
@@ -63,4 +63,3 @@ Kubernetes master is running at https://127.0.0.1:14131
 
 [kubectx](https://github.com/ahmetb/kubectx) - Simplifies changing cluster and namespace context.  
 [kubeaware](https://github.com/jhrv/kubeaware) - Visualize which cluster and namespace is currently active.
-

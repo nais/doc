@@ -133,7 +133,7 @@ deployment-cli create \
   --vars=placeholders.json
 ```
 
-Instead of having seperated files per cluster, you can use deployment-cli built-in templating. See [deployment-cli templating guide](in-depth/deployment/deployment-cli) for how.
+Instead of having seperated files per cluster, you can use deployment-cli built-in templating. See [deployment-cli templating guide](in-depth/deployment/deployment-cli.md) for how.
 
 ### Troubleshooting
 
@@ -146,13 +146,13 @@ If everything fails, and you checked your logs, you can ask for help in the [\#n
 | Message | Action |
 | :--- | :--- |
 | the repository 'foo/bar' does not have access to deploy as team 'Baz' | Is your team name in _lowercase_ everywhere? |
-| Repository _foo/bar_ is not registered | Please read the [registering your repository](basics/deploy#registering-your-repository) section. |
+| Repository _foo/bar_ is not registered | Please read the [registering your repository](basics/deploy.md#registering-your-repository) section. |
 | Deployment status `error` | There is an error with your request. The reason should be specified in the error message. |
 | Deployment status `failure` | Your application didn't pass its health checks during the 5 minute startup window. It is probably stuck in a crash loop due to mis-configuration. Check your application logs using `kubectl logs <POD>` and event logs using `kubectl describe app <APP>` |
-| Deployment is stuck at `queued` | The deployment hasn't been picked up by the worker process. Did you specify a [supported cluster](basics/deploy#supported-clusters) with `--cluster=<CLUSTER>`? |
+| Deployment is stuck at `queued` | The deployment hasn't been picked up by the worker process. Did you specify a [supported cluster](basics/deploy.md#supported-clusters) with `--cluster=<CLUSTER>`? |
 | team `foo` does not exist in Azure AD | Your team is not [registered in the team portal](https://github.com/navikt/IaC/tree/master/AAD%20Team). |
 
-If for any reason you are unable to use _deployment-cli_, please read the section on [NAIS deploy with cURL](basics/deploy#nais-deploy-with-curl).
+If for any reason you are unable to use _deployment-cli_, please read the section on [NAIS deploy with cURL](basics/deploy.md#nais-deploy-with-curl).
 
 ## Advanced usage
 
@@ -208,7 +208,7 @@ Changes will be rolled out using [semantic versioning](https://semver.org).
 
 ### Manual deploy with Kubectl
 
-Performing deployments manually requires that you have [access to the cluster](basics/access) and `kubectl` configured.
+Performing deployments manually requires that you have [access to the cluster](basics/access.md) and `kubectl` configured.
 
 ```text
 $ kubectl apply -f nais.yaml
@@ -259,4 +259,3 @@ Please use one of the following clusters. The usage of `preprod-***` is _not_ su
 * `dev-sbs`
 * `prod-fss`
 * `prod-sbs`
-

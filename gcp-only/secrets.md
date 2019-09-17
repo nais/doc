@@ -27,4 +27,3 @@ spec:
 And you're done. When your application is running, the environment variable `key1` will have the value `supersecret`.
 
 See the official [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/secret) or by running `kubectl create secret generic --help` for more details on creating and managing your secrets.
-

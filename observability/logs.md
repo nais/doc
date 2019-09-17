@@ -161,7 +161,7 @@ Log files should be in JSON format as the normal application logs. Here is an ex
   </appender>
 ```
 
-See [logging examples](logs.md#examples) for more information on log configuration.
+See [logging examples](#examples) for more information on log configuration.
 
 ### Non-JSON logs
 

@@ -32,14 +32,14 @@ spec:
       severity: critical
 ```
 
-We also support e-mail as a receiver. See [example alerts](observability/alerts/example_alerts) and [recommended alerts](observability/alerts/recommended_alerts).
+We also support e-mail as a receiver. See [example alerts](observability/alerts/example_alerts.md) and [recommended alerts](observability/alerts/recommended_alerts.md).
 
 ### Fields/spec
 
 | Parameter | Description | Default | Required |
 | :--- | :--- | :--- | :---: |
 | metadata.name | Name for the group of alerts |  | x |
-| metadata.labels.team | [mailnick/tag](basics/teams) |  | x |
+| metadata.labels.team | [mailnick/tag](basics/teams.md) |  | x |
 | spec.receivers | You need at least one receiver |  | x |
 | spec.receivers.slack.channel | Slack channel to send notifications to |  |  |
 | spec.receivers.slack.preprend\_text | Text to prepend every Slack message with severity `danger` |  |  |
@@ -110,6 +110,8 @@ https://nav-it.slack.com/usergroups/SB8KS4WAV
 
 #### Example of the different Slack/severity colors
 
+![Slack colors](../../.gitbook/assets/attachment_color.png)
+
 ## Migrating from Naisd
 
 It's pretty straight forward to move alerts from Naisd to Alerterator, as the only difference is that the annotation fields has been move to the top level.
@@ -135,9 +137,8 @@ alerts:
   severity: Warning
 ```
 
-Check out the complete [spec](#fieldsspec) for more information about the different keys.
+Check out the complete [spec](#fields-spec) for more information about the different keys.
 
 ## Flow
 
-![Prometheus Server --> Prometheus Alertmanager](../.gitbooks/assets/prometheus_alertmanager_overview.png)
-
+![Prometheus Server --> Prometheus Alertmanager](../../.gitbooks/assets/prometheus_alertmanager_overview.png)

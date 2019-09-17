@@ -8,7 +8,7 @@ Here you can find all the supported fields for the manifest.
 | :--- | :--- | :--- | :---: |
 | metadata.name | Name of the application |  | x |
 | metadata.namespace | Which namespace the application will be deployed to |  | x |
-| metadata.labels.team | [mailnick/tag](basics/teams) |  | x |
+| metadata.labels.team | [mailnick/tag](basics/teams.md) |  | x |
 | spec.image | Docker image location, including version |  | x |
 | spec.port | The HTTP port exposed by the container | 8080 |  |
 | spec.strategy.type | Specifies the strategy used to replace old Pods by new ones | RollingUpdate |  |
