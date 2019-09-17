@@ -17,7 +17,9 @@
     * [Deployment-cli](in-depth/deployment/deployment-cli.md)
 
 * [Observability](observability/README.md)
-  * [Alerts](observability/alerts.md)
+  * [Alerts](observability/alerts/README.md)
+    * [Example](observability/alerts/example_alerts.md)
+    * [Recommended](observability/alerts/recommended_alerts.md)
   * [Logs](observability/logs.md)
   * [Metrics](observability/metrics.md)
 
