@@ -5,8 +5,8 @@ This document describes the different properties a typical NAIS application shou
 
 ## Handles termination gracefully
 
-{% hint style="info" %}
-TLDR; The application should make sure it listens to the `SIGTERM` signal, and prepare for shutdown (closing connections etc.) upon receival.
+{% hint style="info" title="TL;DR" %}
+The application should make sure it listens to the `SIGTERM` signal, and prepare for shutdown (closing connections etc.) upon receival.
 {% endhint %}
 
 When running on NAIS (or Kubernetes, actually) your application must be able to handle being shut down at any given time. This is because the platform might have to reboot the node your application is running on (e.g. because of a OS patch requiring restart), and in that case will reschedule your application on a different node.
@@ -39,7 +39,8 @@ Useful resources on the topic:
 - https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-setting-up-health-checks-with-readiness-and-liveness-probes
 - https://medium.com/metrosystemsro/kubernetes-readiness-liveliness-probes-best-practices-86c3cd9f0b4a
 
-TLDR;
+{% hint style="info" title="TL;DR" %}
 - `readiness` and `liveness` should be implemented as separate services and they usually have different characteristics
 - `liveness`-probe should simply return `HTTP 200 OK` if main loop is running, and `HTTP 5xx` if not
 - `readiness`-probe returns `HTTP 200 OK` is able to process requests, and `HTTP 5xx` if not. If the application has dependencies to e.g. a database to serve traffic, it's a good idea to check if the database is available in the `readiness`-probe
+{% endhint %}
