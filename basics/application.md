@@ -16,6 +16,6 @@ spec:
   image: navikt/nais-testapp:1
 ```
 
-The entire specification for the NAIS manifest you can find [here](in-depth/nais-manifest.md).
+The entire specification for the NAIS manifest you can find [here](/in-depth/nais-manifest.md).
 
 Build Docker image and push to Docker repository.
