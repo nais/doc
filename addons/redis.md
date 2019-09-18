@@ -1,6 +1,8 @@
-# Redis
+---
+description: Redis is an open source \(BSD licensed\) in-memory data structure store used as a database, cache and message broker.
+---
 
-> Redis is an open source \(BSD licensed\) in-memory data structure store used as a database, cache and message broker.
+# Redis
 
 On NAIS we are running Redis without disk/storage. This means that if your Redis instance is restarted due to e.g. maintenance, your data will be lost. This means that you shouldn't store data here that you can't afford to lose. It's also possible to password protect the Redis instace, using our sligthly modified image.
 
@@ -14,7 +16,7 @@ There is two ways to get running with Redis, one for Naisd, and one for Naiserat
 
 ### Naisd
 
-In the [NAIS manifest](in-depth/nais-manifest.md) you can add the following configuration to enable Redis:
+In the [NAIS manifest](/in-depth/nais-manifest.md) you can add the following configuration to enable Redis:
 
 Minimal version:
 

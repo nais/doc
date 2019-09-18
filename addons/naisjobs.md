@@ -21,7 +21,7 @@ Vi tillater kun cronjobs/jobs i egne namespaces. Derfor får ditt team et eget n
 #### Finnes jobs.yaml?
 
 Legg dette til i bunn av filen
-```
+```yaml
 - name: ${namespace}
   group_name: ${teamname}
   group_id: ${ldap_group_id}
@@ -31,7 +31,7 @@ Legg dette til i bunn av filen
 #### Ingen jobs.yaml?
 
 Lag `jobs.yaml` i cluster-katalogen, og bruk dette som innhold:
-```
+```yaml
 naisjobs:
 - name: ${namespace}
   group_name: ${teamname}
@@ -53,7 +53,7 @@ Når alle de andre stegene er gjort, så kan dere bruke deres egen bruker, eller
 Nedenfor har dere et godt utgangspunkt for hvordan en slik yaml-fil kan se ut. 
 
 cronjob.yml/job.yml
-```
+```yaml
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
