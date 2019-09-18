@@ -1,38 +1,55 @@
-<img align="left" width="80" height="110" src="https://raw.githubusercontent.com/nais/doc/master/content/_media/nais_logo_gray.png">
+NAIS
+====
 
----
+## What is NAIS?
 
-**NAIS documentation**
+NAIS is an open source application platform that aims to provide our developers with the best possible tools needed to develop and run their applications.
 
----
+## Why NAIS exists
 
+When you have a large development organisation, providing the developers with turnkey solutions for their most common needs can be a good investment.
 
-* [About](/content/about/README.md)
-* [Getting started](/content/getting-started)
-* [Our Kubernetes clusters](/content/clusters)
-* [A NAIS application](/content/naisapp)
+This includes \(but not limited to\) [logging](observability/logs.md), [metrics](observability/metrics.md), [alerts](observability/alerts.md), [deployment](basics/deploy.md) and a [runtime environment](./#nais-clusters).
 
-# Services
-* [Deploy](/content/deploy)
-* [Storage](/content/storage)
-* [Metrics](/content/metrics)
-* [Alerts](/content/alerts)
-* [Logging](/content/logging)
-* [Secrets](/content/secrets)
-* [Redis/Caching](/content/redis.md)
-* [Leader election](/content/leader_election.md)
-* [Kubernetes dashboard](/content/kubernetes_dashboard.md)
-* [Traffic routing](/content/trafficrouting.md)
+Within each of these aspects, we leverage open source projects best suited for our needs and provide them with usable abstractions, sane defaults and the required security hardening.
 
-# Security
-* [Application Auth{n,z}](/content/authnz)
-* [Platform security](/content/security)
-* [Platform IAM](/content/iam)
+## NAIS clusters
 
-Follow our [changelog](/content/changelog.md) to easily stay up to date on new milestones and services.
+NAIS is a platform spread over two different suppliers. One set of clusters on-premise, and another set running in the cloud \(namely Google Cloud Platform\).
 
-## Contact us
+### On-premise
 
-The platform team can be found either on [Slack](https://nav-it.slack.com/messages/C5KUST8N6/) or in Sannergata 2, 2nd floor, room 2201.
+The on-premise clusters are split into two zones, _selvbetjeningsonen_ \(SBS\), _fagsystemsonen_ \(FSS\).
 
-Also, follow us on Twitter [@nais_io](https://twitter.com/nais_io).
+| cluster | ingresses |
+| :--- | :--- |
+| dev-fss | nais.preprod.local |
+| prod-fss | nais.adeo.no |
+| dev-sbs | nais.oera-q.no |
+| prod-sbs | nais.oera.no, tjenester.nav.no |
+
+Example: If your app is named `myapp`, then the URL for `dev-fss` would be `https://my-app.nais.preprod.local/`.
+
+{% hint style="info" %}
+Remember `https://` when calling on-premise URLs!
+{% endhint %}
+
+{% hint style="warning" %}
+We are working on moving away from the `preprod` prefix, so use `dev` where possible. Read more about the decision over at [pig-kubernetes-ops](https://github.com/navikt/pig/blob/master/PIG-Kubernetes-OPS/adr/000-preprod-rename.md).
+{% endhint %}
+
+### Cloud - Google Cloud Platform \(GCP\)
+
+For the cloud there are no zones. Instead, we rely on a zero-trust model with a service-mesh.
+
+| cluster | ingresses |
+| :--- | :--- |
+| dev-gcp | dev-adeo.no, dev-nais.no |
+| prod-gcp | adeo.no |
+
+## Contact the NAIS team
+
+The team can be found either on [Slack](https://nav-it.slack.com/messages/C5KUST8N6/) or in Sannergata 2, 3rd floor, west wing.
+
+Also, follow us on Twitter [@nais\_io](https://twitter.com/nais_io)!
+
