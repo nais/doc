@@ -8,7 +8,7 @@ Here you can find all the supported fields for the manifest.
 | :--- | :--- | :--- | :---: |
 | metadata.name | Name of the application |  | x |
 | metadata.namespace | Which namespace the application will be deployed to |  | x |
-| metadata.labels.team | [mailnick/tag](basics/teams.md) |  | x |
+| metadata.labels.team | [mailnick/tag](/basics/teams.md) |  | x |
 | spec.image | Docker image location, including version |  | x |
 | spec.port | The HTTP port exposed by the container | 8080 |  |
 | spec.strategy.type | Specifies the strategy used to replace old Pods by new ones | RollingUpdate |  |
@@ -35,10 +35,11 @@ Here you can find all the supported fields for the manifest.
 | spec.resources.requests.cpu | Guaranteed amount of CPU | 200m |  |
 | spec.resources.requests.memory | Guaranteed amount of memory | 256Mi |  |
 | spec.ingresses | List of ingress URLs that will route HTTP traffic to the application |  |  |
-| spec.secrets\[\].name | \(GCP only, not available on-prem\) Name of secret \(must exist in namespace\) |  | x |
-| spec.secrets\[\].type | \(GCP only, not available on-prem\) How the secrets is exposed to the pod. Valid options is `env` and `files`. Selecting `env` will expose all variables in secret as environment variables and `files` will expose the secrets as files under `spec.secrets[].mountPath` | `env` |  |
-| spec.secrets\[\].mountPath | \(GCP only, not available on-prem\) Path to where secret files will be mounted \(only valid for secret type `files`\) | /var/run/secrets |  |
-| spec.vault.enabled | If set to true, fetch secrets from [Vault](https://github.com/nais/doc/tree/master/content/secrets) and inject into the pods | false |  |
+| spec.secrets | See [GCP only features/secrets](/gcp-only/secrets) |  |  |
+| spec.secrets\[\].name | (GCP only) Name of secret \(must exist in namespace\) |  | x |
+| spec.secrets\[\].type | (GCP only) How the secrets is exposed to the pod. Valid options is `env` and `files`. Selecting `env` will expose all variables in secret as environment variables and `files` will expose the secrets as files under `spec.secrets[].mountPath` | `env` |  |
+| spec.secrets\[\].mountPath | (GCP only) Path to where secret files will be mounted \(only valid for secret type `files`\) | /var/run/secrets |  |
+| spec.vault.enabled | If set to true, fetch secrets from [Vault](https://github.com/navikt/vault-iac/blob/master/doc/endusers.md) and inject into the pods | false |  |
 | spec.vault.sidecar | If set to true, will extend tokens time to live | false |  |
 | spec.vault.paths | Overriding the `paths` array is optional, and will give you fine-grained control over which vault paths that will be mounted on the file system. |  |  |
 | spec.vault.paths.\[\].kvPath | Path to Vault key/value store that should be mounted into the file system | /kv/environment/zone/application/namespace |  |
@@ -54,14 +55,14 @@ Here you can find all the supported fields for the manifest.
 | spec.secureLogs.enabled | If true, mount a volume for secure logs in the pod | false |  |
 | spec.service.port | Port for the default service | 80 |  |
 | spec.skipCaBundle | If true, no certificate authority bundle will be injected | false |  |
-| spec.accessPolicy | Default will not allow any traffic to or from application. Access policy is currently supported in GKE clusters, only. Read more in our [documentation](https://github.com/nais/doc/tree/master/content/drafts/access-policies.md) |  |  |
-| spec.accessPolicy.inbound.rules | List of services to allow traffic from |  |  |
-| spec.accessPolicy.inbound.rules\[\].application | Name of the application to allow traffic from |  | x |
-| spec.accessPolicy.inbound.rules | Namespace to application to allow traffic from | metadata.namespace |  |
-| spec.accessPolicy.outbound.rules | List of services to allow traffic to |  |  |
-| spec.accessPolicy.outbound.rules\[\].application | Name of the other service to allow traffic to |  | x |
-| spec.accessPolicy.outbound.external | List of services outside cluster to allow traffic to |  |  |
-| spec.accessPolicy.outbound.external\[\].host | URL to service outside cluster |  | x |
+| spec.accessPolicy | (GCP only) Default will not allow any traffic to or from application. Access policy is currently supported in GKE clusters, only. Read more in our [documentation](https://github.com/nais/doc/tree/master/content/drafts/access-policies.md) |  |  |
+| spec.accessPolicy.inbound.rules | (GCP only) List of services to allow traffic from |  |  |
+| spec.accessPolicy.inbound.rules\[\].application | (GCP only) Name of the application to allow traffic from |  | x |
+| spec.accessPolicy.inbound.rules | (GCP only) Namespace to application to allow traffic from | metadata.namespace |  |
+| spec.accessPolicy.outbound.rules | (GCP only) List of services to allow traffic to |  |  |
+| spec.accessPolicy.outbound.rules\[\].application | (GCP only) Name of the other service to allow traffic to |  | x |
+| spec.accessPolicy.outbound.external | (GCP only) List of services outside cluster to allow traffic to |  |  |
+| spec.accessPolicy.outbound.external\[\].host | (GCP only) URL to service outside cluster |  | x |
 
 ## Default environment variables
 
