@@ -3,7 +3,7 @@
 {% hint style="success", title="Feedback and Contributing" %}
 **Provide feedback on the NAIS docs at the [survey](https://forms.office.com/Pages/ResponsePage.aspx?id=NGU2YsMeYkmIaZtVNSedC8kDM0IU6F5PulhQRnbQAtdUM0tONFhQQ0tVMkdMTjNOQUJHR1Y4NUEzUC4u)**
 
-See [CONTRIBUTING](https://github.com/nais/doc/CONTRIBUTING.md) for instructions on filing/fixing issues and adding new content.
+See [CONTRIBUTING](https://github.com/nais/doc/blob/master/CONTRIBUTING.md) for instructions on filing/fixing issues and adding new content.
 
 Also, don't be afraid to use the **WAS THIS PAGE HELPFUL?** at the bottom of each page!
 {% endhint %}
