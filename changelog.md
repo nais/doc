@@ -59,7 +59,7 @@ This is a simple changelog over notable milestones for the NAIS-platform.
 
 #### \[2019-02-18\]
 
-* Alerterator is released. A simple way to manage alerts/metrics. See [documentation](observability/alerts.md) for more
+* Alerterator is released. A simple way to manage alerts/metrics. See [documentation](observability/alerts) for more
 
 ### 2018
 
