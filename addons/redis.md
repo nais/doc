@@ -99,7 +99,7 @@ metadata:
   name: <appname>-redisexporter
   namespace: <namespace>
 spec:
-  image: oliver006/redis_exporter:v0.29.0-alpine
+  image: oliver006/redis_exporter:v1.1.1-alpine
   port: 9121
   prometheus:
     enabled: true
