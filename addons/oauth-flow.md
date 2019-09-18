@@ -22,8 +22,8 @@ _A broad outline of this flow_
 
 1. Login request for the application. The application redirects the user to Azure AD with relevant configuration parameters.
 1. Azure AD provides an *authorization_code* and redirects the client back to the application
-1. The client presents its *authorization_code**_  to the application, which in turn exchange the code for an *id_token* and a *refresh_token*. The application also validates the token and authenticate the user based on the content of the *id_token*.
-1. For every service accessed by the application, it will request an *access_token**_ for each specific backend using the user's *refresh_token*
+1. The client presents its *authorization_code* to the application, which in turn exchange the code for an *id_token* and a *refresh_token*. The application also validates the token and authenticate the user based on the content of the *id_token*.
+1. For every service accessed by the application, it will request an *access_token* for each specific backend using the user's *refresh_token*
 1. Azure AD returns an *access_token* based on the content of the request.
 1. The application adds the *access_token* as an authorization header in the request to the backend.
 1. The backend service validates the *access_token* using the signing certificate referenced in the *access_token*
