@@ -111,6 +111,14 @@ Remember to specify `app-name` and `team-name`!
 
 When these files and folders are commited and pushed, you can see the workflow running under the `Actions` tab of your repository.
 
+##### Badge in markdown
+
+Use the following URL to create a small badge for your workflow/action.
+
+```text
+https://github.com/{github_id}/{repository}/workflows/{workflow_name}/badge.svg
+```
+
 #### Using CircleCI
 
 See seperate [circleci](/in-depth/deployment/circleci)-documentation for this.
