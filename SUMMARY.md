@@ -2,17 +2,19 @@
 
 * [NAIS](README.md)
 * [Changelog](changelog.md)
-* [Basics](basics/README.md)
-  * [Access from laptop](basics/access.md)
-  * [Your first NAIS application](basics/application.md)
-  * [Deploy your application](basics/deploy.md)
-  * [Teams](basics/teams.md)
+
+## Basics
+* [Access from laptop](basics/access.md)
+* [Your first NAIS application](basics/application.md)
+* [Deploy your application](basics/deploy.md)
+* [Teams](basics/teams.md)
+
 * [In depth](in-depth/README.md)
   * [The NAIS manifest](in-depth/nais-manifest.md)
   * [NAIS application](in-depth/nais-application.md)
-  * [Deployment](in-depth/deployment/README.md)
-    * [CircleCI](in-depth/deployment/circleci.md)
-    * [Deployment-cli](in-depth/deployment/deployment-cli.md)
+* [Deployment](deployment/README.md)
+  * [CircleCI](deployment/circleci.md)
+  * [Deployment-cli](deployment/deployment-cli.md)
 * [Observability](observability/README.md)
   * [Alerts](observability/alerts/README.md)
     * [Example](observability/alerts/example_alerts.md)

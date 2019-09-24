@@ -121,7 +121,7 @@ https://github.com/{github_id}/{repository}/workflows/{workflow_name}/badge.svg
 
 #### Using CircleCI
 
-See seperate [circleci](/in-depth/deployment/circleci)-documentation for this.
+See seperate [circleci](/deployment/circleci)-documentation for this.
 
 #### Manual deploy
 
@@ -141,7 +141,7 @@ deployment-cli create \
   --vars=placeholders.json
 ```
 
-Instead of having seperated files per cluster, you can use deployment-cli built-in templating. See [deployment-cli templating guide](/in-depth/deployment/deployment-cli.md) for how.
+Instead of having seperated files per cluster, you can use deployment-cli built-in templating. See [deployment-cli templating guide](/deployment/deployment-cli.md) for how.
 
 ### Troubleshooting
 
