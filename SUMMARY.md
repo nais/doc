@@ -2,13 +2,10 @@
 
 * [NAIS](README.md)
 * [Changelog](changelog.md)
-
-## Basics
 * [Access from laptop](basics/access.md)
 * [Your first NAIS application](basics/application.md)
 * [Deploy your application](basics/deploy.md)
 * [Teams](basics/teams.md)
-
 * [In depth](in-depth/README.md)
   * [The NAIS manifest](in-depth/nais-manifest.md)
   * [NAIS application](in-depth/nais-application.md)
