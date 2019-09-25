@@ -55,7 +55,7 @@ Here you can find all the supported fields for the manifest.
 | spec.secureLogs.enabled | If true, mount a volume for secure logs in the pod | false |  |
 | spec.service.port | Port for the default service | 80 |  |
 | spec.skipCaBundle | If true, no certificate authority bundle will be injected | false |  |
-| spec.accessPolicy | (GCP only) Default will not allow any traffic to or from application. Access policy is currently supported in GKE clusters, only. Read more in our [documentation](https://github.com/nais/doc/tree/master/content/drafts/access-policies.md) |  |  |
+| spec.accessPolicy | (GCP only) Default will not allow any traffic to or from application. Access policy is currently supported in GKE clusters, only. Read more in our [documentation](../gcp-only/access-policy.md) |  |  |
 | spec.accessPolicy.inbound.rules | (GCP only) List of services to allow traffic from |  |  |
 | spec.accessPolicy.inbound.rules\[\].application | (GCP only) Name of the application to allow traffic from |  | x |
 | spec.accessPolicy.inbound.rules | (GCP only) Namespace to application to allow traffic from | metadata.namespace |  |
