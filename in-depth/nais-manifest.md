@@ -35,7 +35,7 @@ Here you can find all the supported fields for the manifest.
 | spec.resources.requests.cpu | Guaranteed amount of CPU | 200m |  |
 | spec.resources.requests.memory | Guaranteed amount of memory | 256Mi |  |
 | spec.ingresses | List of ingress URLs that will route HTTP traffic to the application |  |  |
-| spec.secrets | See [GCP only features/secrets](../gcp-only/secrets) |  |  |
+| spec.secrets | See [GCP only features/secrets](../gcp-only/secrets.md) |  |  |
 | spec.secrets\[\].name | (GCP only) Name of secret \(must exist in namespace\) |  | x |
 | spec.secrets\[\].type | (GCP only) How the secrets is exposed to the pod. Valid options is `env` and `files`. Selecting `env` will expose all variables in secret as environment variables and `files` will expose the secrets as files under `spec.secrets[].mountPath` | `env` |  |
 | spec.secrets\[\].mountPath | (GCP only) Path to where secret files will be mounted \(only valid for secret type `files`\) | /var/run/secrets |  |
