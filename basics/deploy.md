@@ -54,7 +54,7 @@ You are ready to perform a deployment.
 
 #### Using GitHub Actions
 
-The easiest way of deploying your application to NAIS is using a GitHub Actions workflow with the [nais/deploy action](https://github.com). This example workflow uses Github Package Registry that (for now) requires a personal access token set in repo>Settings>Secrets with the name `GITHUB_ACCESS_TOKEN`. See [create a personal access token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line). Also remember to set SSO enabled and access to `write:packages`.
+The easiest way of deploying your application to NAIS is using GitHub Action, and we have created a workflow that uses the deployment-cli, see [navikt/deployment-cli](https://github.com/navikt/deployment-cli/tree/master/action). This example workflow uses Github Package Registry that (for now) requires a personal access token set in repo>Settings>Secrets with the name `GITHUB_ACCESS_TOKEN`. See [create a personal access token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line). Also remember to set SSO enabled and access to `write:packages`.
 
 Start by creating a folder for your workflows in the root of your applications repository
 
