@@ -35,7 +35,7 @@ The on-premise clusters are split into two zones, _selvbetjeningsonen_ \(SBS\), 
 | dev-sbs | nais.oera-q.local |
 | prod-sbs | nais.oera.no, tjenester.nav.no |
 
-Example: If your app is named `myapp`, then the URL for `dev-fss` would be `https://my-app.nais.preprod.local/`.
+Example: If your app is named `myapp`, then the URL for `dev-fss` would be `https://myapp.nais.preprod.local/`.
 
 {% hint style="info" %}
 Remember `https://` when calling on-premise URLs!
