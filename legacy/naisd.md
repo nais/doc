@@ -70,7 +70,7 @@ type=yaml
 
 ## /deploystatus
 
-To supplement the [/deploy](/content/deploy/naisd.md#deploy) endpoint, there is another endpoint for checking the status of the deployment.
+To supplement the [/deploy](#deploy) endpoint, there is another endpoint for checking the status of the deployment.
 
 The endpoint accepts HTTP GET on the path `/deploystatus/{namespace}/{application}/`.
 
@@ -152,7 +152,7 @@ SELECT "version" FROM "naisd.deployment" WHERE "clusterName" = '$datasource$' AN
 
 ## Issues and suggestions
 
-If you have some issues or suggestions for Naisd you can make an [issue on Github](https://github.com/nais/naisd/issues) or [contacts us](/#contact-us) directly.
+If you have some issues or suggestions for Naisd you can make an [issue on Github](https://github.com/nais/naisd/issues) or [contacts us](../README.md#contact-us) directly.
 
 
 ## Flow
