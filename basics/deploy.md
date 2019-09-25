@@ -158,7 +158,7 @@ If everything fails, and you checked your logs, you can ask for help in the [\#n
 | Deployment status `error` | There is an error with your request. The reason should be specified in the error message. |
 | Deployment status `failure` | Your application didn't pass its health checks during the 5 minute startup window. It is probably stuck in a crash loop due to mis-configuration. Check your application logs using `kubectl logs <POD>` and event logs using `kubectl describe app <APP>` |
 | Deployment is stuck at `queued` | The deployment hasn't been picked up by the worker process. Did you specify a [supported cluster](#supported-clusters) with `--cluster=<CLUSTER>`? |
-| team `foo` does not exist in Azure AD | Your team is not [registered in the team portal](https://github.com/navikt/IaC/tree/master/AAD%20Team). |
+| team `foo` does not exist in Azure AD | Your team is not [registered in the team portal](teams.md). |
 
 If for any reason you are unable to use _deployment-cli_, please read the section on [NAIS deploy with cURL](#nais-deploy-with-curl).
 
