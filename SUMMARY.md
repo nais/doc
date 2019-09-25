@@ -19,6 +19,7 @@
   * [Logs](observability/logs.md)
   * [Metrics](observability/metrics.md)
 * [GCP only features](gcp-only/README.md)
+  * [Access Policy](gcp-only/access-policy.md)
   * [Secrets](gcp-only/secrets.md)
 * [Addons](addons/README.md)
   * [Oauth flow](addons/oauth-flow.md)
