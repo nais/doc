@@ -44,8 +44,8 @@ Follow the checklist to complete the migration:
 
 Your converted manifest is a Kubernetes [custom resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/), and as such, it needs to be deployed directly to a Kubernetes cluster. This means you need to have `kubectl` access, which in turn requires:
 
-* [ ] [Install and configure kubectl](basics/access.md)
-* [ ] [Create an Azure AD group](basics/teams.md) for your team, for human access to the cluster
+* [ ] Install and configure kubectl
+* [ ] Create an Azure AD group for your team, for human access to the cluster
 
 ## 3. Deploying applications
 
