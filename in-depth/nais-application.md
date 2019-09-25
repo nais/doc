@@ -24,11 +24,11 @@ The platform will automatically add a `preStop`-hook that pauses the termination
 
 ## Exposes relevant application metrics
 
-The application should be instrumented using [Prometheus](https://prometheus.io/docs/instrumenting/clientlibs/), exposing the relevant application metrics. See the [metrics documentation](observability/metrics.md) for more info.
+The application should be instrumented using [Prometheus](https://prometheus.io/docs/instrumenting/clientlibs/), exposing the relevant application metrics. See the [metrics documentation](../observability/metrics.md) for more info.
 
 ## Writes structured logs to `stdout`
 
-The application should emit `json`-formatted logs by writing directly to standard output.  This will make it easier to index, view and search the logs later. See more details in the [logs documentation](observability/logs.md).
+The application should emit `json`-formatted logs by writing directly to standard output.  This will make it easier to index, view and search the logs later. See more details in the [logs documentation](../observability/logs.md).
 
 ## Implements `readiness` and `liveness` endpoints
 

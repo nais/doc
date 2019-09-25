@@ -46,7 +46,7 @@ Before beginning you need to [create a personal access token](https://help.githu
 
 Then you need to add your personal access token as an [project environment variables](https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-project) named `GITHUB_ACCESS_TOKEN`.
 
-After this you van create a `.circleci/config.yml` file in your repository with the contents below. It also expects that your `spec.image` in your `nais.yaml` is set to `{{ version }}`. See [nais.yaml templating](#naisyaml-templating) if you're unsure.
+After this you van create a `.circleci/config.yml` file in your repository with the contents below. It also expects that your `spec.image` in your `nais.yaml` is set to `{{ version }}`. See [nais.yaml templating](#nais-yaml-templating) if you're unsure.
 
 ```
 version: 2.1

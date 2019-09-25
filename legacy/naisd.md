@@ -57,7 +57,7 @@ Use `skipFasit` if your app is running without getting resources or other config
 "manifesturl": "https://path.to.manifest"
 ```
 
-The default [NAIS manifest](/documentation/contracts/README.md#nais-manifest) URL is [repo.adeo.no](https://repo.adeo.no/), which is our internal [Nexus](/../nexus.md).
+The default [NAIS manifest](../in-depth/nais-manifest.md) URL is [repo.adeo.no](https://repo.adeo.no/), which is our internal Nexus.
 
 Values are set as following:
 ```text
@@ -70,7 +70,7 @@ type=yaml
 
 ## /deploystatus
 
-To supplement the [/deploy](/content/deploy/naisd.md#deploy) endpoint, there is another endpoint for checking the status of the deployment.
+To supplement the [/deploy](#deploy) endpoint, there is another endpoint for checking the status of the deployment.
 
 The endpoint accepts HTTP GET on the path `/deploystatus/{namespace}/{application}/`.
 
@@ -141,7 +141,7 @@ service account: OK
 
 ## Deploy annotations
 
-For each deploy, Naisd post the application, version, cluster, and namespace, to Influxdb, through [Sensu](/../metrics/metrics.md#push-metrics).
+For each deploy, Naisd post the application, version, cluster, and namespace, to Influxdb, through [Sensu](/../observability/metrics.md#push-metrics).
 
 You can use the SQL below to show annotations i a Grafana-dashboard:
 
@@ -152,7 +152,7 @@ SELECT "version" FROM "naisd.deployment" WHERE "clusterName" = '$datasource$' AN
 
 ## Issues and suggestions
 
-If you have some issues or suggestions for Naisd you can make an [issue on Github](https://github.com/nais/naisd/issues) or [contacts us](/#contact-us) directly.
+If you have some issues or suggestions for Naisd you can make an [issue on Github](https://github.com/nais/naisd/issues) or [contact us](../README.md#contact-us) directly.
 
 
 ## Flow

@@ -8,7 +8,7 @@ Here you can find all the supported fields for the manifest.
 | :--- | :--- | :--- | :---: |
 | metadata.name | Name of the application |  | x |
 | metadata.namespace | Which namespace the application will be deployed to |  | x |
-| metadata.labels.team | [mailnick/tag](/basics/teams.md) |  | x |
+| metadata.labels.team | [mailnick/tag](../basics/teams.md) |  | x |
 | spec.image | Docker image location, including version |  | x |
 | spec.port | The HTTP port exposed by the container | 8080 |  |
 | spec.strategy.type | Specifies the strategy used to replace old Pods by new ones | RollingUpdate |  |
@@ -35,7 +35,7 @@ Here you can find all the supported fields for the manifest.
 | spec.resources.requests.cpu | Guaranteed amount of CPU | 200m |  |
 | spec.resources.requests.memory | Guaranteed amount of memory | 256Mi |  |
 | spec.ingresses | List of ingress URLs that will route HTTP traffic to the application |  |  |
-| spec.secrets | See [GCP only features/secrets](/gcp-only/secrets) |  |  |
+| spec.secrets | See [GCP only features/secrets](../gcp-only/secrets.md) |  |  |
 | spec.secrets\[\].name | (GCP only) Name of secret \(must exist in namespace\) |  | x |
 | spec.secrets\[\].type | (GCP only) How the secrets is exposed to the pod. Valid options is `env` and `files`. Selecting `env` will expose all variables in secret as environment variables and `files` will expose the secrets as files under `spec.secrets[].mountPath` | `env` |  |
 | spec.secrets\[\].mountPath | (GCP only) Path to where secret files will be mounted \(only valid for secret type `files`\) | /var/run/secrets |  |
@@ -55,7 +55,7 @@ Here you can find all the supported fields for the manifest.
 | spec.secureLogs.enabled | If true, mount a volume for secure logs in the pod | false |  |
 | spec.service.port | Port for the default service | 80 |  |
 | spec.skipCaBundle | If true, no certificate authority bundle will be injected | false |  |
-| spec.accessPolicy | (GCP only) Default will not allow any traffic to or from application. Access policy is currently supported in GKE clusters, only. Read more in our [documentation](https://github.com/nais/doc/tree/master/content/drafts/access-policies.md) |  |  |
+| spec.accessPolicy | (GCP only) Default will not allow any traffic to or from application. Access policy is currently supported in GKE clusters, only. Read more in our [documentation](../gcp-only/access-policy.md) |  |  |
 | spec.accessPolicy.inbound.rules | (GCP only) List of services to allow traffic from |  |  |
 | spec.accessPolicy.inbound.rules\[\].application | (GCP only) Name of the application to allow traffic from |  | x |
 | spec.accessPolicy.inbound.rules | (GCP only) Namespace to application to allow traffic from | metadata.namespace |  |
