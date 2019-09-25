@@ -25,7 +25,7 @@ When things break, check the section on [troubleshooting](basics/deploy#troubles
 
 ### Prerequisites
 
-* Create a [nais.yaml](in-depth/nais-manifest.md) file for any application you want to deploy. A `nais.yaml` file contains an _Application resource_. The application resource provides NAIS with the necessary information to run your application. If starting out for the first time, try the [nais.yaml minimal example](in-depth/nais-manifest.md#minimal-nais-yaml-example).
+* Create a [nais.yaml](../in-depth/nais-manifest.md) file for any application you want to deploy. A `nais.yaml` file contains an _Application resource_. The application resource provides NAIS with the necessary information to run your application. If starting out for the first time, try the [nais.yaml minimal example](../in-depth/nais-manifest.md#minimal-nais-yaml-example).
 * The repository containing `nais.yaml` must be on Github.
 * Be a maintainer of a [Github team](https://help.github.com/en/articles/about-teams). The team name must be the same as your Kubernetes _team label_, and additionally must have write access to your repository.
 * Secure your Github repository by restricting write access to team members. Activating NAIS deploy for your repository will enable anyone with write access to your repository to deploy on behalf of your team. This is a _major security concern_ and should not be overlooked.
