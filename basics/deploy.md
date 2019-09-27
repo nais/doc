@@ -2,14 +2,14 @@
 
 This section will take you through the deployment of your application, using the _NAIS deploy_ tool.
 
-NAIS deploy enables you to deploy your application into [any cluster](#supported-clusters) from any continuous integration platform, including GitHub Actions, CircleCI, Travis CI and Jenkins.
+NAIS deploy enables you to deploy your application into [any cluster](README.md#nais-clusters) from any continuous integration platform, including GitHub Actions, CircleCI, Travis CI and Jenkins.
 
 Note: Using _naisd_ or _JIRA Autodeploy_ to deploy your application? These mechanisms are deprecated and are going to be shut down. See [migration guide from naisd to Naiserator](../legacy/migrating-from-naisd.md). All information on the current page relates to Naiserator compatible `nais.yaml` files. You can also read the [naisd user documentation](../legacy/naisd.md).
 
 ### How it works
 
 1. Create a deployment request using [deployment-cli](https://github.com/navikt/deployment-cli) in your build pipeline. This request is sent to Github's [deployment API](https://developer.github.com/v3/repos/deployments/) and is then forwarded to NAIS deploy.
-2. NAIS deploy verifies the integrity and authenticity of the deployment, assumes the identity of the deploying team, and applies your _Kubernetes resources_ into the specified [cluster](#supported-clusters).
+2. NAIS deploy verifies the integrity and authenticity of the deployment, assumes the identity of the deploying team, and applies your _Kubernetes resources_ into the specified [cluster](README.md#nais-clusters).
 3. If you deployed any _Application_ or _Deployment_ resources, NAIS deploy will wait until these are rolled out successfully, or a timeout occurs.
 4. The deployment status is continually posted back to Github and is available through their API, enabling integration with your pipeline or monitoring setup.
 
@@ -111,6 +111,20 @@ Remember to specify `app-name` and `team-name`!
 
 When these files and folders are commited and pushed, you can see the workflow running under the `Actions` tab of your repository.
 
+##### Template example nais.yaml for Github Actions
+
+```text
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: <app-name>
+  namespace: default
+  labels:
+    team: <team-name>
+spec:
+  image: {{ image }}:{{ tag }}
+```
+
 ##### Badge in markdown
 
 Use the following URL to create a small badge for your workflow/action.
@@ -118,30 +132,6 @@ Use the following URL to create a small badge for your workflow/action.
 ```text
 https://github.com/{github_id}/{repository}/workflows/{workflow_name}/badge.svg
 ```
-
-#### Using CircleCI
-
-See seperate [circleci](../deployment/circleci.md)-documentation for this.
-
-#### Manual deploy
-
-In your pipeline, use our internal tool [deployment-cli](https://github.com/navikt/deployment-cli) to make deployment requests. Variables you need include _environment_, _repository_, _team_, _application version_, _Kubernetes resources_, and your Github credentials.
-
-Example syntax for deploying with a personal access token:
-
-```text
-deployment-cli create \
-  --cluster=dev-fss \
-  --repository=navikt/deployment \
-  --team=<TEAM> \
-  --version=<APP VERSION> \
-  --username=x-access-token \
-  --password=<GITHUB_ACCESS_TOKEN> \
-  --resources=nais.yaml \
-  --vars=placeholders.json
-```
-
-Instead of having seperated files per cluster, you can use deployment-cli built-in templating. See [deployment-cli templating guide](../deployment/deployment-cli.md) for how.
 
 ### Troubleshooting
 
@@ -157,113 +147,7 @@ If everything fails, and you checked your logs, you can ask for help in the [\#n
 | Repository _foo/bar_ is not registered | Please read the [registering your repository](#registering-your-repository) section. |
 | Deployment status `error` | There is an error with your request. The reason should be specified in the error message. |
 | Deployment status `failure` | Your application didn't pass its health checks during the 5 minute startup window. It is probably stuck in a crash loop due to mis-configuration. Check your application logs using `kubectl logs <POD>` and event logs using `kubectl describe app <APP>` |
-| Deployment is stuck at `queued` | The deployment hasn't been picked up by the worker process. Did you specify a [supported cluster](#supported-clusters) with `--cluster=<CLUSTER>`? |
+| Deployment is stuck at `queued` | The deployment hasn't been picked up by the worker process. Did you specify a [supported cluster](README.md#nais-clusters) with `--cluster=<CLUSTER>`? |
 | team `foo` does not exist in Azure AD | Your team is not [registered in the team portal](teams.md). |
 
-If for any reason you are unable to use _deployment-cli_, please read the section on [NAIS deploy with cURL](#nais-deploy-with-curl).
-
-## Advanced usage
-
-### NAIS deploy with cURL
-
-A deployment into the Kubernetes clusters starts with a POST request to the [GitHub Deployment API](https://developer.github.com/v3/repos/deployments/#create-a-deployment). The request contains information about which cluster to deploy to, which team to deploy as, and what resources should be applied.
-
-Example request:
-
-```text
-{
-    "ref": "master",
-    "description": "Automated deployment request from our pretty pipeline",
-    "environment": "prod-sbs",
-    "payload": {
-        "version": [1, 0, 0],
-        "team": "github-team-name",
-        "kubernetes": {
-            "resources": [
-                { kind: "Application", apiVersion: "nais.io/v1alpha", metadata: {...}, spec: {...} },
-                { kind: "ConfigMap", apiVersion: "v1", metadata: {...}, spec: {...} },
-            ]
-        }
-    }
-}
-```
-
-The data can be posted from standard input through curl using a command similar to:
-
-```text
-curl \
-    -X POST \
-    -d@- \
-    -H "Accept: application/vnd.github.ant-man-preview+json" \
-    -u <USERNAME>:<TOKEN> \
-    https://api.github.com/repos/navikt/<REPOSITORY_NAME>/deployments
-```
-
-The version in the payload should be set to `[1, 0, 0]`.
-
-This version field have nothing to do with your application version. It is used internally by the deployment orchestrator to keep things stable and roll out new features gracefully.
-
-Changes will be rolled out using [semantic versioning](https://semver.org).
-
-#### Deployment request spec
-
-| Key | Description | Version added |
-| :--- | :--- | :--- |
-| environment | Which environment to deploy to. | N/A |
-| payload.version | This is the _payload API version_, as described below. Array of three digits, denoting major, minor, and patch level version. | 1.0.0 |
-| payload.team | Github team name, used as credentials for deploying into the Kubernetes cluster. | 1.0.0 |
-| payload.kubernetes.resources | List of Kubernetes resources that should be applied into the cluster. Your `nais.yaml` file goes here, in JSON format instead of YAML. | 1.0.0 |
-
-### Manual deploy with Kubectl
-
-Performing deployments manually requires that you have [access to the cluster](access.md) and `kubectl` configured.
-
-```text
-$ kubectl apply -f nais.yaml
-application.nais.io/<app name> created
-```
-
-Verify that your application is running
-
-```text
-$ kubectl get pod -l app=<myapp>
-NAME                          READY   STATUS    RESTARTS   AGE
-<app name>-59cbd7c89c-8h6wp   1/1     Running   0          4s
-<app name>-59cbd7c89c-xpshz   1/1     Running   0          5s
-```
-
-You can also check that the `Application` resource was successfully created
-
-```text
-$ kubectl describe app <my app>
-...
-Events:
-  Type    Reason       Age        From        Message
-  ----    ------       ----       ----        -------
-  Normal  synchronize  3s         naiserator  successfully synchronized application resources (hash = 13485216922060251669)
-```
-
-## Other
-
-### Template example nais.yaml for Github Actions
-
-```text
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
-metadata:
-  name: <app-name>
-  namespace: default
-  labels:
-    team: <team-name>
-spec:
-  image: {{ image }}:{{ tag }}
-```
-
-### Supported clusters
-
-Please use one of the following clusters. The usage of `preprod-***` is _not_ supported.
-
-* `dev-fss`
-* `dev-sbs`
-* `prod-fss`
-* `prod-sbs`
+If for any reason you are unable to use _deployment-cli_, please read the section on [NAIS deploy with cURL](deployment/advanced-usage.md#nais-deploy-with-curl).
