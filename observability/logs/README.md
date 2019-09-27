@@ -12,7 +12,7 @@ Some applications have logs with information that should not be stored with the 
 
 #### Enabling secure logs
 
-Secure logs can be enabled by setting the `secureLogs.enabled` flag in the application resource. See [the nais manifest specification](../in-depth/nais-manifest.md).
+Secure logs can be enabled by setting the `secureLogs.enabled` flag in the application resource. See [the nais manifest specification](../../in-depth/nais-manifest.md).
 
 #### Log files
 
@@ -53,6 +53,6 @@ If the logging framework used doesn't support JSON logging, it is also possible 
 
 Files on this format must be named `*.mlog`.
 
-### Overview
+## Overview
 
 ![From app to Kibana](../../.gitbook/assets/logging_overview.png)
