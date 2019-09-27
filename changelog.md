@@ -47,7 +47,7 @@ This is a simple changelog over notable milestones for the NAIS-platform.
 
 #### \[2019-04-09\]
 
-* Added support for secure logs. See [documentation](observability/logs.md#secure-logs) for more
+* Added support for secure logs. See [documentation](observability/logs/README.md#secure-logs) for more
 
 #### \[2019-03-14\]
 
