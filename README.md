@@ -42,7 +42,7 @@ Remember `https://` when calling on-premise URLs!
 {% endhint %}
 
 {% hint style="warning" %}
-We are working on moving away from the `preprod` prefix, so use `dev` where possible. Read more about the decision over at [pig-kubernetes-ops](https://github.com/navikt/pig/blob/master/PIG-Kubernetes-OPS/adr/000-preprod-rename.md).
+We are working on moving away from the `preprod` prefix, so use `dev` where possible. Read more about the decision over at [pig-kubernetes-ops](https://github.com/navikt/pig/blob/master/kubeops/adr/000-preprod-rename.md).
 {% endhint %}
 
 ### Cloud - Google Cloud Platform \(GCP\)
