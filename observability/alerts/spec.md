@@ -1,7 +1,7 @@
 ---
 description: something something about Alerts spec
 ---
-# Alert-resource
+# Alert spec
 
 ## `metadata`
 Required: `true`
