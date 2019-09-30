@@ -16,6 +16,7 @@
   * [Alerts](observability/alerts/README.md)
     * [Example](observability/alerts/example_alerts.md)
     * [Recommended](observability/alerts/recommended_alerts.md)
+	* [Spec](observability/alerts/spec.md)
   * [Logs](observability/logs/README.md)
 	* [Examples](observability/logs/examples.md)
   * [Metrics](observability/metrics.md)
