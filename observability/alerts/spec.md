@@ -30,7 +30,7 @@ Description: You need at least one receiver
 Required: `true`  
 Description: Slack channel to send notifications to
 
-##### `spec.receivers.slack.preprend\_text`
+##### `spec.receivers.slack.preprend_text`
 Description: Text to prepend every Slack message with severity `danger`
 
 #### `spec.receivers.email`
@@ -39,39 +39,39 @@ Description: Text to prepend every Slack message with severity `danger`
 Required: `true`  
 Description: The email address to send notifications to
 
-##### `spec.receivers.email.send\_resolved`
+##### `spec.receivers.email.send_resolved`
 Default: `false`  
 Description: Whether or not to notify about resolved alerts
 
-### `spec.alerts\[\]`
+### `spec.alerts[]`
 Required: `true`  
 Description: A list of alerts
 
-#### `spec.alerts\[\].alert`
+#### `spec.alerts[].alert`
 Required: `true`  
 Description: The title of the alerts
 
-#### `spec.alerts\[\].description`
+#### `spec.alerts[].description`
 Description: Simple description of the triggered alert
 
-#### `spec.alerts\[\].expr`
+#### `spec.alerts[].expr`
 Required: `true`  
 Description: Prometheus expression that triggers an alert
  
-#### `spec.alerts\[\].for`
+#### `spec.alerts[].for`
 Required: `true`  
 Description: Duration before the alert should trigger
 
-#### `spec.alerts\[\].action`
+#### `spec.alerts[].action`
 Required: `true`  
 Description: How to resolve this alert
 
-#### `spec.alerts\[\].documentation`
+#### `spec.alerts[].documentation`
 Description: URL for docmentation for this alert
 
-#### `spec.alerts\[\].sla`
+#### `spec.alerts[].sla`
 Description: Time before the alert should be resolved
 
-#### `spec.alerts\[\].severity`
+#### `spec.alerts[].severity`
 Default: `danger`  
 Description: Alert level for Slack messages
