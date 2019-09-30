@@ -1,21 +1,21 @@
 # Spec
 
 ## metadata
-Key: `metadata`
+Key: `metadata`  
 Required: `true`
 
 ### name
-Key: `metadata.name`
-Required: `true`
+Key: `metadata.name`  
+Required: `true`  
 Description: Name for the group of alerts, can be the same as the name of your app
 
 ### labels
-Key: `metadata.labels`
+Key: `metadata.labels`  
 Required: `true`
 
 #### team
-Key: `metadata.labels.team`
-Required: `true`
+Key: `metadata.labels.team`  
+Required: `true`  
 Description: [mailnick/tag](../../basics/teams.md)
 
 ---
