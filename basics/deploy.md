@@ -98,13 +98,13 @@ jobs:
       - name: Push Docker image
         run: "docker push $(cat .docker_image):$(cat .docker_tag)"
       - name: deploy to dev-fss
-        uses: navikt/deployment-cli/action@b60ef91
+        uses: navikt/deployment-cli/action@0.4.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           cluster: dev-fss
           team: <team-name>
-          resource: nais/dev-fss.yaml
+          resources: nais/dev-fss.yaml
 ```
 
 Remember to specify `app-name` and `team-name`!
