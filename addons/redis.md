@@ -45,7 +45,7 @@ redis:
     memory: 128Mi
 ```
 
-The Redis instance can be reached via the `<appname>-redis` service.
+The Redis instance can be reached via the `${appname}-redis` service.
 
 {% hint style="warning" %}
 `REDIS_HOST` will continue to point to the sentinel-setup. When everyone have moved over to standalone it will be
@@ -57,7 +57,7 @@ removed.
 To enable metrics, NAIS has injects an exporter as a sidecar to the Redis pod instance for you.
 You can see the metrics over at [Grafana](https://grafana.adeo.no/d/Jmg7MydWz).
 
-### Naiserator \(single instance\)
+### Naiserator (single instance)
 
 In Naiserator, it is required to manually start your Redis instance.
 This means that you can only run single instances that are not scalable; increasing replicas will only start new
@@ -100,7 +100,7 @@ It is recommended to add the following environment variable to your application'
 ```yaml
  env:
    - name: REDIS_HOST
-     value: <appname>.<namespace>.svc.nais.local
+     value: ${appname}.${namespace}.svc.nais.local
 ```
 
 #### Redis metrics
@@ -112,14 +112,14 @@ its name with `redisexporter` in the configuration. The dashboard is called
 [Redis exporters](https://grafana.adeo.no/d/L-Ktprrmz). The dashboard sorts by `addr`, enabling a single exporter
 to scrape several Redis instances.
 
-```text
+```yaml
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
   labels:
-    team: <team>
-  name: <appname>-redisexporter
-  namespace: <namespace>
+    team: ${team}
+  name: ${appname}-redisexporter
+  namespace: ${namespace}
 spec:
   image: oliver006/redis_exporter:v1.2.0-alpine
   port: 9121
@@ -137,7 +137,7 @@ spec:
       memory: 100Mi
   env:
     - name: REDIS_ADDR
-      value: <Redis instance>.default.svc.nais.local:6379
+      value: <redis-instance>.default.svc.nais.local:6379
 ```
 
 If the Redis instance is password protected, the

@@ -19,9 +19,9 @@ it is important to note that cronjobs run in a *separate* namespace!
 NAIS only allows cronjobs in separate namespaces. Teams get their own namespace in which their jobs can run in,
 this is configured in [navikt/nais-yaml](https://github.com/navikt/nais-yaml/). If `jobs.yaml` does not exist in the
 cluster directory, it must be created. Additionally, `naisjobs.yaml` must be copied from a cluster directory to an
-equivalent `templates/<cluster>` directory.
+equivalent `templates/${cluster}` directory.
 
-#### Adding a team to github.com/navikt/nais-yaml/vars/<cluster>/jobs.yaml
+#### Adding a team to github.com/navikt/nais-yaml/vars/${cluster}/jobs.yaml
 
 The variables in the examples of this section are as follows
 * `${namespace}` is the name of the namespace the team wants for their cronjobs
@@ -97,7 +97,7 @@ spec:
           restartPolicy: Never
           containers:
           - name: ${jobname}
-            image: repo.adeo.no:5443/<app-name>:<version>
+            image: repo.adeo.no:5443/${app-name}:${version}
             volumeMounts:
             - mountPath: /etc/ssl/certs/ca-certificates.crt
               name: ca-bundle
