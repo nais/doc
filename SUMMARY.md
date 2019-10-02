@@ -23,7 +23,7 @@
   * [Access Policy](gcp-only/access-policy.md)
   * [Secrets](gcp-only/secrets.md)
 * [Addons](addons/README.md)
-  * [Oauth flow](addons/oauth-flow.md)
+  * [OAuth flow](addons/oauth-flow.md)
   * [Leader Election](addons/leader-election.md)
   * [Kubernetes Dashboard](addons/kubernetes-dashboard.md)
   * [NAISjobs](addons/naisjobs.md)
