@@ -23,7 +23,7 @@ Description: Docker image location plus including docker tag (e.g. docker.pkg.gi
 
 ## `spec.port`
 Default: 8080  
-Description: The HTTP port exposed by the container
+Description: The port number which is exposed by the container and should receive HTTP traffic.
 
 ## `spec.strategy.type`
 Default: RollingUpdate  
@@ -35,7 +35,7 @@ Documentation: https://kubernetes.io/docs/tasks/configure-pod-container/configur
 
 ### `spec.liveness.path`
 Required: `true`  
-Description: Path for the liveness probe
+Description: HTTP endpoint path that signals 200 OK if the application is running
 
 ### `spec.liveness.port`
 Default: `.spec.port`  
@@ -63,7 +63,7 @@ Documentation: https://kubernetes.io/docs/tasks/configure-pod-container/configur
 
 ### `spec.readiness.path`
 Required: `true`  
-Description: Path for the readiness probe
+Description: HTTP endpoint path that signals 200 OK when it is okay to start routing traffic to the application.
 
 ### `spec.readiness.port`
 Default: `.spec.port`  
@@ -197,6 +197,7 @@ Description: A HTTP GET will be issued to this endpoint at least once before the
 ## `spec.leaderElection`
 Default: `false`  
 Description: If true, a HTTP endpoint will be available at `$ELECTOR_PATH` that returns the current leader
+Documentation: [addons/leader election](../addons/leader-election.md)
 
 ## `spec.webproxy`
 Default: `false`  
@@ -204,7 +205,7 @@ Desctiption: Expose web proxy configuration to the application using the `$HTTP_
 
 ## `spec.logformat`
 Default: `accesslog`  
-Description: Format of the logs from the container, if not in plain text or JSON
+Description: Format of the logs from the container. Use this if the container doesn't support json logging and the log should be parsed. Supported formats: accesslog, accesslog_with_processing_time, accesslog_with_referer_useragent, capnslog, logrus, gokit, redis, glog, simple, influxdb, log15.
 
 ## `spec.logtransform`
 Default: `dns_loglevel`  
