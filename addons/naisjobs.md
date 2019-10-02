@@ -26,8 +26,7 @@ equivalent `templates/${cluster}` directory.
 The variables in the examples of this section are as follows
 * `${namespace}` is the name of the namespace the team wants for their cronjobs
 * `${teamname}` is the name of the team
-* `${ldap_group_id}` is the object ID of the team's
-[Azure AD group](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups)
+* `${ldap_group_id}` is the object ID of the team's [Azure AD group](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups)
 
 ##### Does jobs.yaml exist?
 
@@ -74,8 +73,7 @@ The variables in this example are as follows
 * `${jobname}` is the name of the cronjob
 * `${namespace}` is the name of the namespace decided prior in [Separate namespace](#separate-namespace)
 * `${teamname}` is the name of the team
-* `${schedule}` is the job's schedule in
-[cron time string format](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07)
+* `${schedule}` is the job's schedule in [cron time string format](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07)
 * `${vks_auth_path}` is the cronjob's authentication path in Vault
 * `${vks_kv_path}` is the path to the cronjob's secret in the Vault `kv` engine
 

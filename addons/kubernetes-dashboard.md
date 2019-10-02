@@ -8,5 +8,6 @@ to interact with it.
 With [kubectl](https://kubernetes.io/docs/reference/kubectl/kubectl/) 1.10 and later, the following command can be run:
 
 ```bash
-$ kubectl port-forward deployment/kubernetes-dashboard 9090:9090 --namespace kubernetes-dashboard
+$ kubectl port-forward deployment/kubernetes-dashboard 9090:9090 \
+  --namespace kubernetes-dashboard
 ```
