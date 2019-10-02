@@ -4,89 +4,106 @@ description: The NAIS manifest `nais.yaml` describes your application
 # The NAIS manifest
 
 ## `metadata.name`
-Required: `true`  
-Description: Name of the application
+Name of the application.
+
+Required: `true`
 
 ## `metadata.namespace`
-Default: default  
-Description: Which namespace the application will be deployed to
+Which namespace the application will be deployed to.
+
+Default: default
 
 ## `metadata.labels.team`
-Required: `true`  
-Description: The name of the team that owns this application (lowercase only!)  
-Documentation: [teams](../basics/teams.md)
+The name of the [teams](../basics/teams.md) that owns this application (lowercase only!).
+
+Required: `true`
 
 
 ## `spec.image`
-Required: `true`  
-Description: Docker image location plus including docker tag (e.g. docker.pkg.github.com/appname/appname:v1.0.0)
+Docker image location plus including docker tag (e.g. docker.pkg.github.com/appname/appname:v1.0.0)
+
+**Required**: `true`
 
 ## `spec.port`
-Default: 8080  
-Description: The port number which is exposed by the container and should receive HTTP traffic.
+The port number which is exposed by the container and should receive HTTP traffic.
+
+**Default**: 8080
 
 ## `spec.strategy.type`
-Default: RollingUpdate  
-Description: Specifies the strategy used to replace old Pods by new ones
+Specifies the strategy used to replace old Pods by new ones.
+
+**Default**: RollingUpdate
 
 ## `spec.liveness`
-Description: The kubelet uses liveness probes to know when to restart a Container. For example, liveness probes could catch a deadlock, where an application is running, but unable to make progress. Restarting a Container in such a state can help to make the application more available despite bugs.  
-Documentation: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+The kubelet uses liveness probes to know when to restart a Container. For example, liveness probes could catch a deadlock, where an application is running, but unable to make progress. Restarting a Container in such a state can help to make the application more available despite bugs. Read more about this over at the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 ### `spec.liveness.path`
-Required: `true`  
-Description: HTTP endpoint path that signals 200 OK if the application is running
+HTTP endpoint path that signals 200 OK if the application is running.
+
+* Required: `true`
+
 
 ### `spec.liveness.port`
-Default: `.spec.port`  
-Description: Port for the liveness probe
+Port for the liveness probe.
+
+* Default: `.spec.port`
 
 ### `spec.liveness.initialDelay`
-Default: 20  
-Description: Number of seconds after the container has started before liveness probes are initiated
+Number of seconds after the container has started before liveness probes are initiated.
+
+* Default: 20
 
 ### `spec.liveness.timeout`
-Default: 1  
-Description: Number of seconds after which the probe times out
+Number of seconds after which the probe times out.
+
+* Default: 1
 
 ### `spec.liveness.periodSeconds`
-Default: 10  
-Description: How often (in seconds) to perform the probe
+How often (in seconds) to perform the probe.
+
+* Default: 10
 
 ### `spec.liveness.failureThreshold`
-Default: 3  
-Description: When a Pod starts and the probe fails, Kubernetes will try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the Pod. In case of readiness probe the Pod will be marked Unready
+When a Pod starts and the probe fails, Kubernetes will try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the Pod. In case of readiness probe the Pod will be marked Unready.
+
+* Default: 3
 
 ## `spec.readiness`
-Description: The kubelet uses readiness probes to know when a Container is ready to start accepting traffic. A Pod is considered ready when all of its Containers are ready. One use of this signal is to control which Pods are used as backends for Services. When a Pod is not ready, it is removed from Service load balancers.  
-Documentation: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+The kubelet uses readiness probes to know when a Container is ready to start accepting traffic. A Pod is considered ready when all of its Containers are ready. One use of this signal is to control which Pods are used as backends for Services. When a Pod is not ready, it is removed from Service load balancers. Read more about this over at the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 ### `spec.readiness.path`
-Required: `true`  
-Description: HTTP endpoint path that signals 200 OK when it is okay to start routing traffic to the application.
+HTTP endpoint path that signals 200 OK when it is okay to start routing traffic to the application.
+
+* **Required**: `true`
 
 ### `spec.readiness.port`
-Default: `.spec.port`  
-Description: Port for the readiness probe
+Port for the readiness probe.
+
+* **Default**: `.spec.port`
 
 ### `spec.readiness.initialDelay`
-Default: 20  
-Description: Number of seconds after the container has started before readiness probes are initiated
+Number of seconds after the container has started before readiness probes are initiated.
+
+* **Default**: 20
 
 ### `spec.readiness.timeout`
-Default: 1  
-Description: Number of seconds after which the probe times out
+Number of seconds after which the probe times out.
+
+* **Default**: 1
 
 ## `spec.replicas`
-Description: The numbers of pods to run in parallel
+The numbers of pods to run in parallel.
 
 ### `spec.replicas.min`
-Default: 2  
-Description: Minimum number of replicas
+Minimum number of replicas.
+
+| Default | 2 |
+
 
 ### `spec.replicas.max`
-Default: 4  
-Description: Maximum number of replicas
+Maximum number of replicas.
+
+| Default | 4 |
 
 ## `spec.cpuThresholdPercentage`
 Description: Total CPU percentage threshold on deployment, at which point it will increase number of pods if `current < max`.  
