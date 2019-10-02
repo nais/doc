@@ -13,7 +13,7 @@ Description: Which namespace the application will be deployed to
 
 ## `metadata.labels.team`
 Required: `true`  
-Description: The name of the team that owns this application (lowercase only!)
+Description: The name of the team that owns this application (lowercase only!)  
 Documentation: [teams](../basics/teams.md)
 
 
