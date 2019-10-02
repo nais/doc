@@ -13,7 +13,8 @@ Description: Which namespace the application will be deployed to
 
 ## `metadata.labels.team`
 Required: `true`  
-Description: [mailnick/tag](../basics/teams.md)
+Description: The name of the team that owns this application (lowercase only!)
+Documentation: [teams](../basics/teams.md)
 
 
 ## `spec.image`
