@@ -16,7 +16,7 @@ There is two ways to get running with Redis, one for Naisd, and one for Naiserat
 
 ### Naisd
 
-In the [NAIS manifest](../in-depth/nais-manifest.md) you can add the following configuration to enable Redis:
+In the [NAIS manifest](../nais-application/manifest.md) you can add the following configuration to enable Redis:
 
 Minimal version:
 

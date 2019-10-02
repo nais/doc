@@ -57,7 +57,7 @@ Use `skipFasit` if your app is running without getting resources or other config
 "manifesturl": "https://path.to.manifest"
 ```
 
-The default [NAIS manifest](../in-depth/nais-manifest.md) URL is [repo.adeo.no](https://repo.adeo.no/), which is our internal Nexus.
+The default [NAIS manifest](../nais-application/manifest.md) URL is [repo.adeo.no](https://repo.adeo.no/), which is our internal Nexus.
 
 Values are set as following:
 ```text

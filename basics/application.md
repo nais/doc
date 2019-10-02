@@ -13,9 +13,9 @@ metadata:
   labels:
     team: teamname
 spec:
-  image: navikt/nais-testapp:1
+  image: navikt/docker-image:docker-tag
 ```
 
-The entire specification for the NAIS manifest you can find [here](../in-depth/nais-manifest.md).
+The entire specification for the NAIS manifest you can find [here](../nais-application/manifest.md).
 
 Build Docker image and push to Docker repository.

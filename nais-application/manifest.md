@@ -251,29 +251,3 @@ Description: List of services outside cluster to allow traffic to
 #### `spec.accessPolicy.outbound.external[].host`
 Required: `true`  
 Description: URL to service outside cluster
-
-
-## Default environment variables
-
-These environment variables will be injected into your application container
-
-| variable | example | source |
-| :--- | :--- | :--- |
-| NAIS\_APP\_NAME | myapp | metadata.name from nais.yaml |
-| NAIS\_NAMESPACE | default | metadata.namespace from nais.yaml |
-| NAIS\_APP\_IMAGE | navikt/myapp:69 | spec.image from nais.yaml |
-| NAIS\_CLUSTER\_NAME | prod-fss | naiserator runtime context |
-
-## Minimal nais.yaml example
-
-```yaml
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
-metadata:
-  name: nais-testapp
-  namespace: default
-  labels:
-    team: aura
-spec:
-  image: navikt/nais-testapp:1
-```

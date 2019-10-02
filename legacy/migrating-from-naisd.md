@@ -14,7 +14,7 @@ port: 8080
 (...)
 ```
 
-The new format looks like this. Check out [in depth](../in-depth/nais-manifest.md) for a more complete list.
+The new format looks like this. Check out [in depth](../nais-application/manifest.md) for a more complete list.
 
 ```
 apiVersion: nais.io/v1alpha1
