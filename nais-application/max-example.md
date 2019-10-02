@@ -23,7 +23,7 @@ spec:
     timeout: 1
     periodSeconds: 5
     failureThreshold: 10
-  readiness: # 
+  readiness:
     path: isready
     port: http
     initialDelay: 20
