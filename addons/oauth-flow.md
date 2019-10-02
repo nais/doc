@@ -55,14 +55,14 @@ or `access_token`. Using `responseType = Code`, `authorization_code` will be the
 Azure AD. The `authorization_code` will be returned as a parameter in the URL redirecting the client back to the
 application's callback endpoint. In the application's callback endpoint, the application will in turn exchange the
 `authorization_code` for `access_token` and `refresh_token` as needed. This ensures the only compromisable entity is
-the `authorization_code`
+the `authorization_code`.
 
 ## [ID Token](https://docs.microsoft.com/en-us/azure/active-directory/develop/id-tokens)
 
 An `id_token` is only meant to be used for authenticating the user in a frontend application. In practice, this means
 fetching information about the user, like username, name, email, etc. The `id_token` has a default lifetime of 1 hour
 and cannot be renewed after expiry unless the user makes a new login to Azure AD. `id_token` is normally not used in an
-[Authorization Code flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow)
+[Authorization Code flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow).
 
 ## [Access Token](https://docs.microsoft.com/en-us/azure/active-directory/develop/access-tokens)
 
@@ -205,4 +205,4 @@ Any questions about this article, solution or example app can be directed to:
 
 * [PIG-sikkerhet](https://github.com/navikt/pig/tree/master/PIG-Sikkerhet) (@pig-sikkerhet on Slack)
 
-For NAV-employees questions can be asked on Slack in the channel #aura
+For NAV-employees questions can be asked on Slack in the channel #aura.
