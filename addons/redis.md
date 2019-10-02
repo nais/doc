@@ -137,7 +137,7 @@ spec:
       memory: 100Mi
   env:
     - name: REDIS_ADDR
-      value: <redis-instance>.default.svc.nais.local:6379
+      value: ${redis-instance}.default.svc.nais.local:6379
 ```
 
 If the Redis instance is password protected, the
