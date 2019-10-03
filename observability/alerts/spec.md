@@ -3,75 +3,80 @@ description: something something about Alerts spec
 ---
 # Alert spec
 
-## `metadata`
-Required: `true`
+## `metadata.name`
+Name for the group of alerts, can be the same as the name of your app.
 
-### `metadata.name`
-Required: `true`  
-Description: Name for the group of alerts, can be the same as the name of your app
+**Required**: `true`
 
-### `metadata.labels`
-Required: `true`
+## `metadata.labels.team`
+The name of the [team](../../basics/teams.md) that owns this application (lowercase only!).
 
-#### `metadata.labels.team`
-Required: `true`  
-Description: [mailnick/tag](../../basics/teams.md)
+**Required**: `true`
 
+## `spec.receivers`
+A list of notification recievers. You can use one or more of: e-mail, or slack. There needs to be at least one receiver.
 
-## `spec`
+**Required**: `true`
 
-### `spec.receivers`
-Required: `true`  
-Description: You need at least one receiver
+### `spec.receivers.slack`
+Slack notifications are sent via Slack webhooks.
 
-#### `spec.receivers.slack`
+#### `spec.receivers.slack.channel`
+The channel or user to send notifications to.
 
-##### `spec.receivers.slack.channel`
-Required: `true`  
-Description: Slack channel to send notifications to
+**Required**: `true`
 
-##### `spec.receivers.slack.preprend_text`
-Description: Text to prepend every Slack message with severity `danger`
+#### `spec.receivers.slack.preprend_text`
+Text to prepend every Slack message with severity `danger`
 
-#### `spec.receivers.email`
+### `spec.receivers.email`
+Be alerted via email.
 
-##### `spec.receivers.to`
-Required: `true`  
-Description: The email address to send notifications to
+#### `spec.receivers.to`
+The email address to send notifications to.
 
-##### `spec.receivers.email.send_resolved`
-Default: `false`  
-Description: Whether or not to notify about resolved alerts
+**Required**: `true`
 
-### `spec.alerts[]`
-Required: `true`  
-Description: A list of alerts
+#### `spec.receivers.email.send_resolved`
+Whether or not to notify about resolved alerts.
 
-#### `spec.alerts[].alert`
-Required: `true`  
-Description: The title of the alerts
+**Default**: `false`
 
-#### `spec.alerts[].description`
-Description: Simple description of the triggered alert
+## `spec.alerts[]`
+A list of alerts.
 
-#### `spec.alerts[].expr`
-Required: `true`  
-Description: Prometheus expression that triggers an alert
+**Required**: `true`
+
+### `spec.alerts[].alert`
+The name of the alert.
+
+**Required**: `true`
+
+### `spec.alerts[].description`
+Simple description of the triggered alert.
+
+### `spec.alerts[].expr`
+Prometheus expression that triggers an alert.
+
+**Required**: `true`
  
-#### `spec.alerts[].for`
-Required: `true`  
-Description: Duration before the alert should trigger
+### `spec.alerts[].for`
+Duration before the alert should trigger.
 
-#### `spec.alerts[].action`
-Required: `true`  
-Description: How to resolve this alert
+**Required**: `true`
 
-#### `spec.alerts[].documentation`
-Description: URL for docmentation for this alert
+### `spec.alerts[].action`
+What human actions are needed to resolve, or investigate this alert.
 
-#### `spec.alerts[].sla`
-Description: Time before the alert should be resolved
+**Required**: `true`
 
-#### `spec.alerts[].severity`
-Default: `danger`  
-Description: Alert level for Slack messages
+### `spec.alerts[].documentation`
+URL for docmentation for this alert.
+
+### `spec.alerts[].sla`
+Time before the alert should be resolved.
+
+### `spec.alerts[].severity`
+Alert level for Slack messages.
+
+**Default**: `danger`
