@@ -1,36 +1,47 @@
-Cronjobs/jobs på NAIS
-=====================
+# NAISjobs
 
-Vi har en litt mer hands-on tilnærming når det gjelder jobs og cronjobs på Kubernetes.
+In terms of scheduled jobs/cronjobs on Kubernetes, NAISjobs is a slightly more hands-on approach compared
+to other parts of NAIS.
 
-Kom i gang med å følge stegene nedenfor:
+## Team setup
 
+This section describes various parts which may be required for your team to create NAISjobs.
+Some of these steps may already have been done for your team.
 
-## 1. Oppsett av Vault
+### Vault setup
 
-Se på dokumentasjon om [Vault](https://github.com/navikt/vault-iac/blob/master/doc/endusers.md) hvis du har behov for secrets. Husk at det er et *eget* namespace som cronjobs/jobs kjører i!
+Have a look at the [Vault documentation for end users](https://github.com/navikt/vault-iac/blob/master/doc/endusers.md)
+if the team has jobs which requires secrets. Regarding "Give a NAIS application read access to Vault secret",
+it is important to note that cronjobs run in a *separate* namespace!
 
+### Separate namespace
 
-## 2. Eget namespace
+NAIS only allows cronjobs in separate namespaces. Teams get their own namespace in which their jobs can run in,
+this is configured in [navikt/nais-yaml](https://github.com/navikt/nais-yaml/). If `jobs.yaml` does not exist in the
+cluster directory, it must be created. Additionally, `naisjobs.yaml` must be copied from a cluster directory to an
+equivalent `templates/${cluster}` directory.
 
-Vi tillater kun cronjobs/jobs i egne namespaces. Derfor får ditt team et eget namespace som dere kan operere i. Hvis `jobs.yaml` ikke finnes i cluster-katalogen så må du selv opprette den. Da må du samtidig kopiere `naisjobs.yaml` fra en cluster-katalog til tilsvarende `templates/<cluster>`-katalog.
+#### Adding a team to github.com/navikt/nais-yaml/vars/${cluster}/jobs.yaml
 
+The variables in the examples of this section are as follows
+* `${namespace}` is the name of the namespace the team wants for their cronjobs
+* `${teamname}` is the name of the team
+* `${ldap_group_id}` is the object ID of the team's [Azure AD group](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups)
 
-### Legg til ditt team i github.com/navikt/nais-yaml/vars/${cluster}/jobs.yaml
+##### Does jobs.yaml exist?
 
-#### Finnes jobs.yaml?
+Add your team metadata to the bottom of the file
 
-Legg dette til i bunn av filen
 ```yaml
 - name: ${namespace}
   group_name: ${teamname}
   group_id: ${ldap_group_id}
 ```
 
+##### Is there no jobs.yaml file?
 
-#### Ingen jobs.yaml?
+Create a file named `jobs.yaml` in the directory with the following content.
 
-Lag `jobs.yaml` i cluster-katalogen, og bruk dette som innhold:
 ```yaml
 naisjobs:
 - name: ${namespace}
@@ -38,21 +49,35 @@ naisjobs:
   group_id: ${ldap_group_id}
 ```
 
+### Machine user
 
-## 3. Maskinbruker for å kunne opprette cronjobs/jobs?
+While it is possible to create cronjobs as a regular user, it is also possible to get a machine user created if the team
+requires to communicate with NAIS outside of Azure Active Directory. Ask in
+[#nais](https://nav-it.slack.com/messages/C5KUST8N6) to create a machine user. Please provide `cluster` and `team`.
 
-Man vil kunne lage cronjobs/jobs med sin egen bruker, men trenger man en maskinbruker kan man få det fra oss/NAIS. Spør i [#nais](https://nav-it.slack.com/messages/C5KUST8N6).
+## Applying a job to Kubernetes
 
-Det vi trenger å vite er `cluster` og `team`!
+When all the aforementioned steps have been completed, one can finally `apply` a yaml file to the cluster, either
+through the use of a machine user or as a regular user!
 
+```bash
+$ kubectl apply -f job.yml
+```
 
-## 4. kubectl apply -f job.yml
+Below is an example of how such a yaml file may look.
 
-Når alle de andre stegene er gjort, så kan dere bruke deres egen bruker, eller maskinbrukeren dere fikk i steg 3 til å `apply`e en yaml-fil i clusteret!
+* Note that `spec.jobTemplate.spec.template.spec.initContainers` and its children can be removed if there is no need
+for Vault/secrets.
 
-Nedenfor har dere et godt utgangspunkt for hvordan en slik yaml-fil kan se ut. 
+The variables in this example are as follows
+* `${jobname}` is the name of the cronjob
+* `${namespace}` is the name of the namespace decided prior in [Separate namespace](#separate-namespace)
+* `${teamname}` is the name of the team
+* `${schedule}` is the job's schedule in [cron time string format](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07)
+* `${vks_auth_path}` is the cronjob's authentication path in Vault
+* `${vks_kv_path}` is the path to the cronjob's secret in the Vault `kv` engine
 
-cronjob.yml/job.yml
+job.yml
 ```yaml
 apiVersion: batch/v1beta1
 kind: CronJob
@@ -70,7 +95,7 @@ spec:
           restartPolicy: Never
           containers:
           - name: ${jobname}
-            image: repo.adeo.no:5443/<app-name>:<version>
+            image: repo.adeo.no:5443/${app-name}:${version}
             volumeMounts:
             - mountPath: /etc/ssl/certs/ca-certificates.crt
               name: ca-bundle
@@ -127,5 +152,3 @@ spec:
               medium: Memory
             name: vault-secrets
 ```
-
-Man kan fjerne `spec.jobTemplate.spec.template.spec.initContainers`-innslaget hvis man ikke trenger Vault/hemmeligheter.
