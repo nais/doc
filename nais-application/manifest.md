@@ -14,7 +14,7 @@ Which namespace the application will be deployed to.
 **Default**: default
 
 ## `metadata.labels.team`
-The name of the [teams](../basics/teams.md) that owns this application (lowercase only!).
+The name of the [team](../basics/teams.md) that owns this application (lowercase only!).
 
 **Required**: `true`
 
