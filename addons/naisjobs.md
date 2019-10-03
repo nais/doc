@@ -51,14 +51,14 @@ naisjobs:
 
 ### Machine user
 
-While it is possible to create cronjobs as a regular user, it is also possible to get a machine user created if the team
+While it is possible to create cronjobs as a regular user, it is also possible to get a [machine user](../basics/teams.md#machine-user) created if the team
 requires to communicate with NAIS outside of Azure Active Directory. Ask in
-[#nais](https://nav-it.slack.com/messages/C5KUST8N6) to create a machine user. Please provide `cluster` and `team`.
+[#nais](https://nav-it.slack.com/messages/C5KUST8N6) to create a [machine user](../basics/teams.md#machine-user). Please provide `cluster` and `team`.
 
 ## Applying a job to Kubernetes
 
 When all the aforementioned steps have been completed, one can finally `apply` a yaml file to the cluster, either
-through the use of a machine user or as a regular user!
+through the use of a [machine user](../basics/teams.md#machine-user) or as a regular user!
 
 ```bash
 $ kubectl apply -f job.yml
@@ -133,7 +133,7 @@ spec:
             - name: VKS_KV_PATH
               value: ${vks_kv_path}
             - name: VKS_VAULT_ROLE
-              value: ${team_name}
+              value: ${teamname}
             - name: VKS_SECRET_DEST_PATH
               value: /var/run/secrets/nais.io/vault
             image: navikt/vks:44
