@@ -34,26 +34,6 @@ spec:
 
 We also support e-mail as a receiver. See [example alerts](example_alerts.md) and [recommended alerts](recommended_alerts.md).
 
-### Fields/spec
-
-| Parameter | Description | Default | Required |
-| :--- | :--- | :--- | :---: |
-| metadata.name | Name for the group of alerts |  | x |
-| metadata.labels.team | [mailnick/tag](../../basics/teams.md) |  | x |
-| spec.receivers | You need at least one receiver |  | x |
-| spec.receivers.slack.channel | Slack channel to send notifications to |  |  |
-| spec.receivers.slack.preprend\_text | Text to prepend every Slack message with severity `danger` |  |  |
-| spec.receivers.email.to | The email address to send notifications to |  |  |
-| spec.receivers.email.send\_resolved | Whether or not to notify about resolved alerts |  | false |
-| spec.alerts\[\].alert | The title of the alerts |  | x |
-| spec.alerts\[\].description | Simple description of the triggered alert |  |  |
-| spec.alerts\[\].expr | Prometheus expression that triggers an alert |  | x |
-| spec.alerts\[\].for | Duration before the alert should trigger |  | x |
-| spec.alerts\[\].action | How to resolve this alert |  | x |
-| spec.alerts\[\].documentation | URL for docmentation for this alert |  |  |
-| spec.alerts\[\].sla | Time before the alert should be resolved |  |  |
-| spec.alerts\[\].severity | Alert level for Slack messages | danger |  |
-
 #### Kubectl
 
 Use `kubectl` to add, update, and remove the alert resource. Adding and updating is done with the `kubectl apply -f alerts.yaml`, while delete is done either with `kubectl delete alert <alert-name>` og `kubectl delete -f alerts.yaml`.
@@ -137,7 +117,7 @@ alerts:
   severity: Warning
 ```
 
-Check out the complete [spec](#fields-spec) for more information about the different keys.
+Check out the complete [spec](spec.md) for more information about the different keys.
 
 ## Flow
 
