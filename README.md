@@ -20,6 +20,16 @@ This includes \(but not limited to\) [logging](observability/logs/README.md), [m
 
 Within each of these aspects, we leverage open source projects best suited for our needs and provide them with usable abstractions, sane defaults and the required security hardening.
 
+### GitOps
+
+GitOps is a way of implementing Continuous Deployment for cloud native applications. It focuses on a developer-centric experience when operating infrastructure, by using tools developers are already familiar with, including Git and Continuous Deployment tools.
+
+Read more over at [gitops.tech](https://www.gitops.tech).
+
+> GitOps: versioned CI/CD on top of declarative infrastructure. Stop scripting and start shipping.
+>
+> — [Kelsey Hightower](https://twitter.com/kelseyhightower/status/953638870888849408)
+
 ## NAIS clusters
 
 NAIS is a platform spread over two different suppliers. One set of clusters on-premise, and another set running in the cloud \(namely Google Cloud Platform\).
