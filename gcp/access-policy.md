@@ -36,16 +36,18 @@ spec:
 ![b accepts connections from a][access-2]
 
 {% hint style="info" %}
-Although the point of explicit expression has been previously stated, in this example application `a` cannot receive
-data from application `b` (and application `b` cannot send data to application `a`). In order to achieve two-way
-communication between the two applications, the [access policy][accessPolicy] for each application would need to allow
-both inbound and outbound traffic to the opposite application.
+Although the point of explicit expression has been previously stated, in this example only application `a` can initiate
+communication with application `b` (application `b` can answer application `a` if communication is initiated; regular
+TCP operation will work as expected, for instance). In order to achieve two-way communication between the two
+applications, the [access policy][accessPolicy] for each application would need to allow both inbound and outbound
+traffic to the opposite application.
 {% endhint %}
 
 ## Communication to the outside world
 
 If your application needs to communicate with something outside the cluster, you will have to specify an external rule
-to allow this traffic. Here is an example with an application that intends to send data to `somewhere.else.com`.
+to allow this traffic. Here is an example with an application that intends to initiate communication with
+`somewhere.else.com`.
 
 ```
 spec:

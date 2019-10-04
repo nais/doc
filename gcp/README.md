@@ -1,7 +1,3 @@
----
-description: Some features are only supported in the cloud
----
-
 # Google Cloud Platform
 
 {% hint style="danger" %}
