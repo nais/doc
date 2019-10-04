@@ -61,8 +61,8 @@ For the cloud there are no zones. Instead, we rely on a zero-trust model with a 
 
 | cluster | ingresses |
 | :--- | :--- |
-| dev-gcp | dev-adeo.no, dev-nais.no |
-| prod-gcp | adeo.no |
+| dev-gcp | dev-adeo.no, dev-nais.io, dev-nav.no |
+| prod-gcp | adeo.no, nais.io, nav.no|
 
 ## Contact the NAIS team
 
