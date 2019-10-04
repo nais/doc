@@ -17,11 +17,8 @@ namespace. The team will have unrestricted access to all Kubernetes assets in th
 
 See [Teams] for instructions to create a new team on Azure AD. To use GCP, a few additional measures have to be taken.
 
-* Once the group has been created, a willing and able soul will have to patch it to make it `securityEnabled`.
-  (Christer)
-* A `securityEnabled` group can be manually added to the Azure Enterprise Application `Google Suite Provisioning`,
-  which in turn will synchronize the group and its members to Google, creating the necessary Google *Identity & Access
-  Management* (IAM) objects. (Frode)
+* Once the group has been created, a willing and able soul will have to patch it to make it `securityEnabled`. (Christer)
+* A `securityEnabled` group can be manually added to the Azure Enterprise Application `Google Suite Provisioning`, which in turn will synchronize the group and its members to Google, creating the necessary Google *Identity & Access Management* (IAM) objects. (Frode)
 * The team's owner can maintain the group's members using Office 365.
 
 ### Creating a team namespace

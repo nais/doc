@@ -41,10 +41,5 @@ root@elector-sidecar-755b7c5795-7k2qn:/# curl $ELECTOR_PATH
 
 ## Issues
 
-* This is not really an issue with NAIS but _Kubernetes' `leader-election`-image does not support fencing, which means
-it does not guarantee that there is only one leader_. Since NAIS keeps the date and time in the pods syncronized this
-is not an issue; there will always be only one leader.
-* Redeployment of the deployment/pods will in some cases make the non-leaders believe that the old leader still exists
-and is the leader. The current leader is not affected, and will be aware that the pod itself is the leader. This is not
-really an issue as long as you do not need to know exactly which pod is the leader. This can be resolved by deleting
-pods with erroneous leader election configurations.
+* This is not really an issue with NAIS but _Kubernetes' `leader-election`-image does not support fencing, which means it does not guarantee that there is only one leader_. Since NAIS keeps the date and time in the pods syncronized this is not an issue; there will always be only one leader.
+* Redeployment of the deployment/pods will in some cases make the non-leaders believe that the old leader still exists and is the leader. The current leader is not affected, and will be aware that the pod itself is the leader. This is not really an issue as long as you do not need to know exactly which pod is the leader. This can be resolved by deleting pods with erroneous leader election configurations.

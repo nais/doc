@@ -25,19 +25,14 @@ for the repository can be found below.
 
 ![Example authorization flow][2]
 
-1. Login request for the application. The application redirects the user to Azure AD with relevant configuration
-   parameters
+1. Login request for the application. The application redirects the user to Azure AD with relevant configuration parameters
 2. Azure AD provides an `authorization_code` and redirects the client back to the application
-3. The client presents its `authorization_code` to the application, which in turn exchanges the code for an `id_token`
-   and a `refresh_token`. The application also validates the token and authenticates the user based on the content of the
-   `id_token`
-4. For every service accessed by the application, an `access_token` will be requested for each specific backend using
-   the user's `refresh_token`
+3. The client presents its `authorization_code` to the application, which in turn exchanges the code for an `id_token` and a `refresh_token`. The application also validates the token and authenticates the user based on the content of the `id_token`
+4. For every service accessed by the application, an `access_token` will be requested for each specific backend using the user's `refresh_token`
 5. Azure AD returns an `access_token` based on the content of the request
 6. The application adds the `access_token` as an authorization header in the request to the backend
 7. The backend service validates the `access_token` using the signing certificate referenced in the `access_token`
-8. The signing certificate is returned to the backend application, which verifies that the `access_token`'s signature
-is valid
+8. The signing certificate is returned to the backend application, which verifies that the `access_token`'s signature is valid
 
 ## Choice of Authorization flow
 
@@ -167,24 +162,15 @@ The cookie should anyway
 
 ![Application implementation details][10]
 
-1. When the user first attempts to access the application, the request will go through a [`ensureAuthenticated()`][11]
-method, where it can be seen if the user already `isAuthenticated()`.
- * If the user is authenticated,  [`validateRefreshAndGetToken()`][12] is called to  ensure the token's validity and
-   expiry date.
- * As this is the first time the user accesses the application, there is no  valid user session and the user is
-   redirected to `/login`
-2. /login triggers the [`authenticateAzure()`][13] method, where an [authorization URL][14] will be built based on the
-   [passport configuration][15]. The user is then redirected to the generated user specific authorization URL on
-   Azure AD.
-3. When the user has successfully logged in, Azure AD will redirect the user to the application's `/callback` endpoint
-   with `authorization_code` as a url parameter.
+1. When the user first attempts to access the application, the request will go through a [`ensureAuthenticated()`][11] method, where it can be seen if the user already `isAuthenticated()`.
+ * If the user is authenticated,  [`validateRefreshAndGetToken()`][12] is called to  ensure the token's validity and expiry date.
+ * As this is the first time the user accesses the application, there is no  valid user session and the user is redirected to `/login`
+2. /login triggers the [`authenticateAzure()`][13] method, where an [authorization URL][14] will be built based on the [passport configuration][15]. The user is then redirected to the generated user specific authorization URL on Azure AD.
+3. When the user has successfully logged in, Azure AD will redirect the user to the application's `/callback` endpoint with `authorization_code` as a url parameter.
 4. The application's /callback endpoint will [`authenticateAzureCallback()`][16]
 5. passport will fetch the user's `id_token` and `refresh_token` using the provided `authorization_code` from Azure AD.
-6. The user's details, along with the `refresh_token`, will be saved in the local user storage. Additionally, the
-   `refresh_token` will be stored in a session cookie.
-7. Once passport has finished [`authenticateAzureCallback()`][14], the user will be redirected back to `/` (or to the
-   URI the user was on before login was triggered), and [`ensureAuthenticated()`][11] will recognize that the user
-   `isAuthenticated()` and serve the frontend application.
+6. The user's details, along with the `refresh_token`, will be saved in the local user storage. Additionally, the `refresh_token` will be stored in a session cookie.
+7. Once passport has finished [`authenticateAzureCallback()`][14], the user will be redirected back to `/` (or to the URI the user was on before login was triggered), and [`ensureAuthenticated()`][11] will recognize that the user `isAuthenticated()` and serve the frontend application.
 
 ### NAVs AAD Example App
 
