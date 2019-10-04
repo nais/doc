@@ -22,6 +22,8 @@
 	* [Examples](observability/logs/examples.md)
   * [Metrics](observability/metrics.md)
 * [GCP only features](gcp-only/README.md)
+  * [Getting started](gcp-only/gettingstarted.md)
+  * [Zero-trust](gcp-only/zero-trust.md)
   * [Access Policy](gcp-only/access-policy.md)
   * [Secrets](gcp-only/secrets.md)
 * [Addons](addons/README.md)
