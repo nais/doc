@@ -1,8 +1,10 @@
 # Getting started on GCP
 
+{% hint style="danger" %}
 Although our GCP clusters are built and ready for action - there are still quite a few rough edges and quite a few strikk and binders based solutions to contend with.
 As we're ironing out these querks, GCP is not considered GA.
 We ask that anyone experimenting with GCP at this stage exhibit extraordinary amounts of patience and goodwill.
+{% endhint %}
 
 ## Access
 In GCP the primary unit of access is a team, whose origin is a group in Azure AD.
