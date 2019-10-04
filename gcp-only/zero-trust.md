@@ -25,6 +25,7 @@ The next level of security using this methodology is microsegmentation and a zon
 ![](./_media/zero-trust-5.png)
 Continuing this methodology, the inevitable conclusion will be a perimiter around each individual application.
 
+![](./_media/zero-trust-6.png)
 Once each application has its own perimiter, the next thing to address is: 
 - What if the network itself is compromized?
 - Are there attackers on the inside that can listen to or spoof traffic?
@@ -32,6 +33,6 @@ Once each application has its own perimiter, the next thing to address is:
 We know this is the case on unsafe networks, like the internet, but here we've been using other safety mechanisms ensuring that we can safely send sensitive information like bank and health data.
 It is no longer a safe assumption that there are no attackers in our own datacenters, our private cloud or in the public cloud, so we have to implement mehanisms to secure the communication between our applications even here.
 
-![](./_media/zero-trust-6.png)
+![](./_media/zero-trust-7.png)
 We need to base our transportation security on authentication and authorization between all services, so that we can be cryptographically certain that both the sender and the receiver are who they claim they are.
 Each endpoint is given a cryptographic identity in form of a certificate proving their identiy. This gives us the ability to make policies and control service to service communication based on identity.
