@@ -162,7 +162,7 @@ redis:
   port: 6379
 ```
 
-[1]: /nais-application/manifest
+[1]: ../nais-application/manifest.md
 [2]: https://grafana.adeo.no/d/Jmg7MydWz
 [3]: https://nav-it.slack.com/messages/D8QQ9ELK1
 [4]: https://grafana.adeo.no/d/L-Ktprrmz

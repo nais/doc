@@ -47,4 +47,4 @@ is not an issue; there will always be only one leader.
 * Redeployment of the deployment/pods will in some cases make the non-leaders believe that the old leader still exists
 and is the leader. The current leader is not affected, and will be aware that the pod itself is the leader. This is not
 really an issue as long as you do not need to know exactly which pod is the leader. This can be resolved by deleting
-pods with erroneous leader election configuration.
+pods with erroneous leader election configurations.

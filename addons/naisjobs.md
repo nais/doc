@@ -156,7 +156,7 @@ spec:
 [1]: https://github.com/navikt/vault-iac/blob/master/doc/endusers.md
 [2]: https://github.com/navikt/nais-yaml/
 [3]: https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups
-[4]: /teams#machine-user
+[4]: ../basics/teams.md#machine-user
 [5]: https://nav-it.slack.com/messages/C5KUST8N6
 [5]: #separate-namespace
 [6]: https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07
