@@ -15,7 +15,7 @@ spec:
 ```
 
 Since application `b` does not currently have an accessPolicy allowing incoming traffic from application `a` the connection will be refused by application `b`
-![](./_media/accesspolicy-1.png)
+![](./_media/accesspolicy-1.png =300x)
 
 Once application `b` has added an inbound policy allowing application `a`, the communication is allowed
 ```
@@ -26,7 +26,7 @@ spec:
         - application: a
     outbound: {}
 ```
-![](./_media/accesspolicy-2.png)
+![](./_media/accesspolicy-2.png =300x)
 
 If your application needs to communicate with something outside the cluster, you will have to specify an outbound external rule to allow this traffic:
 
