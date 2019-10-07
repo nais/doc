@@ -1,32 +1,32 @@
 # NAISjobs
 
-In terms of scheduled jobs/cronjobs on Kubernetes, NAISjobs is a slightly more hands-on approach compared
-to other parts of NAIS.
+In terms of scheduled jobs/cronjobs on Kubernetes, NAISjobs is a slightly more hands-on approach compared to other
+parts of NAIS.
 
 ## Team setup
 
-This section describes various parts which may be required for your team to create NAISjobs.
-Some of these steps may already have been done for your team.
+This section describes various parts which may be required for your team to create NAISjobs. Some of these steps may
+already have been done for your team.
 
 ### Vault setup
 
-Have a look at the [Vault documentation for end users](https://github.com/navikt/vault-iac/blob/master/doc/endusers.md)
-if the team has jobs which requires secrets. Regarding "Give a NAIS application read access to Vault secret",
-it is important to note that cronjobs run in a *separate* namespace!
+Have a look at the [Vault documentation for end users][1] if the team has jobs which requires secrets. Regarding
+*"Give a NAIS application read access to Vault secret"*, it is important to note that cronjobs run in a *separate*
+namespace!
 
 ### Separate namespace
 
-NAIS only allows cronjobs in separate namespaces. Teams get their own namespace in which their jobs can run in,
-this is configured in [navikt/nais-yaml](https://github.com/navikt/nais-yaml/). If `jobs.yaml` does not exist in the
-cluster directory, it must be created. Additionally, `naisjobs.yaml` must be copied from a cluster directory to an
-equivalent `templates/${cluster}` directory.
+NAIS only allows cronjobs in separate namespaces. Teams get their own namespace in which their jobs can run in, this is
+configured in [navikt/nais-yaml][2]. If `jobs.yaml` does not exist in the cluster directory, it must be created.
+Additionally, `naisjobs.yaml` must be copied from a cluster directory to an equivalent `templates/${cluster}`
+directory.
 
 #### Adding a team to github.com/navikt/nais-yaml/vars/${cluster}/jobs.yaml
 
 The variables in the examples of this section are as follows
 * `${namespace}` is the name of the namespace the team wants for their cronjobs
 * `${teamname}` is the name of the team
-* `${ldap_group_id}` is the object ID of the team's [Azure AD group](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups)
+* `${ldap_group_id}` is the object ID of the team's [Azure AD group][3]
 
 ##### Does jobs.yaml exist?
 
@@ -51,14 +51,14 @@ naisjobs:
 
 ### Machine user
 
-While it is possible to create cronjobs as a regular user, it is also possible to get a [machine user](../basics/teams.md#machine-user) created if the team
-requires to communicate with NAIS outside of Azure Active Directory. Ask in
-[#nais](https://nav-it.slack.com/messages/C5KUST8N6) to create a [machine user](../basics/teams.md#machine-user). Please provide `cluster` and `team`.
+While it is possible to create cronjobs as a regular user, it is also possible to get a [machine user][4] created if
+the team requires to communicate with NAIS outside of Azure Active Directory. Ask in [#nais][5] on Slack to create a
+machine user. Please provide `cluster` and `team`.
 
 ## Applying a job to Kubernetes
 
 When all the aforementioned steps have been completed, one can finally `apply` a yaml file to the cluster, either
-through the use of a [machine user](../basics/teams.md#machine-user) or as a regular user!
+through the use of a [machine user] or as a regular user!
 
 ```bash
 $ kubectl apply -f job.yml
@@ -70,12 +70,12 @@ Below is an example of how such a yaml file may look.
 for Vault/secrets.
 
 The variables in this example are as follows
-* `${jobname}` is the name of the cronjob
-* `${namespace}` is the name of the namespace decided prior in [Separate namespace](#separate-namespace)
-* `${teamname}` is the name of the team
-* `${schedule}` is the job's schedule in [cron time string format](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07)
-* `${vks_auth_path}` is the cronjob's authentication path in Vault
-* `${vks_kv_path}` is the path to the cronjob's secret in the Vault `kv` engine
+* `${jobname}`: the name of the cronjob
+* `${namespace}`: the name of the namespace, see [Separate namespace][5]
+* `${teamname}`: the name of the team
+* `${schedule}`: the job's schedule in a [cron time string format][6]
+* `${vks_auth_path}`: is the cronjob's authentication path in Vault
+* `${vks_kv_path}`: is the path to the cronjob's secret in the Vault `kv` engine
 
 job.yml
 ```yaml
@@ -152,3 +152,11 @@ spec:
               medium: Memory
             name: vault-secrets
 ```
+
+[1]: https://github.com/navikt/vault-iac/blob/master/doc/endusers.md
+[2]: https://github.com/navikt/nais-yaml/
+[3]: https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups
+[4]: ../basics/teams.md#machine-user
+[5]: https://nav-it.slack.com/messages/C5KUST8N6
+[5]: #separate-namespace
+[6]: https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07
