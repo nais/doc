@@ -33,13 +33,14 @@ following the instructions specific to GCP in [Access].
 
 ## Administrative hurdles
 
-Moving to GCP is a great time to update your "Risikovurdering" (ROS) analyze and it is required that you update your
-entry in the "Behandlingsoversikt" when changing platform. If both of these words are unfamiliar to your team, it's time
-to sit down and take a look at both of them. Every application needs to do a ROS analyze, and applications handling
-personal information needs to do a "Personvernkonsekvens" (PVK) analyze, and create an entry in the
-"Behandlingsoversikt". More information about [ROS][], [PVK][], and [Behandlingsoversikt][] can be found on our
-intranet. Questions about ROS can be directed to [Leif Tore Løvmo][], while [Line Langlo Spongsveen][] can answer
-questions about the other two.
+When moving an application to GCP, it is a great time to update its [Risikovurdering (ROS)][ROS] analysis. 
+It is required to update the application's entry in the [Behandlingsoversikt] when changing platforms. 
+If both of these words are unfamiliar to your team, it's time to sit down and take a look at both of them. 
+
+Every application needs to have an [ROS] analysis, and applications handling personal information needs a 
+[Personvernkonsekvens (PVK)][PVK] analysis, and then create an entry in the [Behandlingsoversikt]. More information 
+about [ROS], [PVK], and [Behandlingsoversikt] can be found on our intranet. Questions about ROS can be directed 
+to [Leif Tore Løvmo], while [Line Langlo Spongsveen] can answer questions about the other two.
 
 [Teams]: ../basics/teams.md
 [nais-yaml]: https://github.com/navikt/nais-yaml
