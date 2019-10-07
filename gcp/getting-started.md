@@ -1,14 +1,16 @@
 # Getting started on GCP
 
 {% hint style="danger" %}
-Although our GCP clusters are built and ready for action - there are still quite a few rough edges and quite a few
-"strikk and binders" based solutions to contend with. As we're ironing out these querks, GCP is not considered GA. We ask
-that anyone experimenting with GCP at this stage to exhibit extraordinary amounts of patience and goodwill.
+Although our Google Cloud Platform (GCP) clusters are built and ready for action, there are still quite a few rough
+edges and quite a few makeshift solutions to contend with. As we're ironing out these quirks, GCP is not considered
+generally available for use.
+
+We ask that anyone experimenting with GCP at this stage exhibit extraordinary amounts of patience and goodwill.
 {% endhint %}
 
 ## Access
-In GCP the primary unit of access is a team, whose origin is a group in Azure AD. Each team is given its own namespace
-where they will have unrestricted access to all kubernetes assets.
+On GCP the primary unit of access is a *team*, whose origin is a group in Azure AD. Each team is given its own
+namespace. The team will have unrestricted access to all Kubernetes assets in that namespace.
 
 ### Creating a new team
 
