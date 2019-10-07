@@ -36,7 +36,7 @@ following the instructions specific to GCP in [Access].
 Moving to GCP is a great time to update your "Risikovurdering" (ROS) analyze and it is required that you update your
 entry in the "Behandlingsoversikt" when changing platform. If both of these words are unfamiliar to your team, it's time
 to sit down and take a look at both of them. Every application needs to do a ROS analyze, and applications handling
-personal information needs to do a "Personvernkonsekvenser" (PVK), and create an entry in the
+personal information needs to do a "Personvernkonsekvens" (PVK) analyze, and create an entry in the
 "Behandlingsoversikt". More information about [ROS][], [PVK][], and [Behandlingsoversikt][] can be found on our
 intranet. Questions about the ROS can be directed to [Leif Tore Løvmo][], while [Line Langlo Spongsveen][] is
 responsible for the two others.
