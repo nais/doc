@@ -11,13 +11,6 @@ In GCP the primary unit of access is a team, whose origin is a group in Azure AD
 where they will have unrestricted access to all kubernetes assets.
 
 ### Creating a new team
-The current method for creating an Azure AD group is using a [sharepoint form][]. Once the group has been created, you
-need to contact [Christer Edvartsen][] on slack and ask to make it `securityEnabled`. A securityEnabled group can then be
-manually added to the Azure Enterprise Application `Google Suite Provisioning`, which in turn will synchronize the group
-and its members to Google, creating the neccessary Google IAM objects. Contact [Frode Sundby][] for that. The team's
-owner can maintain the group's members using office 365.
-
-### Creating a new team
 
 See [Teams] for instructions to create a new team on Azure AD. To use GCP, a few additional measures have to be taken.
 
