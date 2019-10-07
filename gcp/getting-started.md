@@ -33,9 +33,13 @@ following the instructions specific to GCP in [Access].
 
 ## Administrative hurdles
 
-All applications are required to have a PVK (Personvernskonsekvensutredning) whether they run on GCP or not. This is an
-absolute demand for running your application in GCP. If your application does not have one already, get in touch with
-[Leif Tore Løvmo].
+Moving to GCP is a great time to update your "Risikovurdering" (ROS) analyze and it is required that you update your
+entry in the "Behandlingsoversikt" when changing platform. If both of these words are unfamiliar to your team, it's time
+to sit down and take a look at both of them. Every application needs to do a ROS analyze, and applications handling
+personal information needs to do a "Personvernkonsekvenser" (PVK), and create an entry in the
+"Behandlingsoversikt". More information about [ROS][], [PVK][], and [Behandlingsoversikt][] can be found on our
+intranet. Questions about the ROS can be directed to [Leif Tore Løvmo][], while [Line Langlo Spongsveen][] is
+responsible for the two others.
 
 [Teams]: ../basics/teams.md
 [nais-yaml]: https://github.com/navikt/nais-yaml
@@ -44,3 +48,7 @@ absolute demand for running your application in GCP. If your application does no
 [Christer Edvartsen]: https://nav-it.slack.com/messages/DDE0P7EA3
 [Frode Sundby]: https://nav-it.slack.com/messages/D8QRAFZPT
 [Leif Tore Løvmo]: https://nav-it.slack.com/messages/DB4DDCACF
+[Line Langlo Spongsveen]: https://nav-it.slack.com/messages/DNXJ7PMH7
+[ROS]: https://navno.sharepoint.com/sites/intranett-it/SitePages/Risikovurderinger.aspx
+[PVK]: https://navno.sharepoint.com/sites/intranett-personvern/SitePages/PVK.aspx
+[Behandlingsoversikt]: https://navno.sharepoint.com/sites/intranett-personvern/SitePages/Behandlingsoversikt.aspx
