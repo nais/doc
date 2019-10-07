@@ -38,8 +38,8 @@ entry in the "Behandlingsoversikt" when changing platform. If both of these word
 to sit down and take a look at both of them. Every application needs to do a ROS analyze, and applications handling
 personal information needs to do a "Personvernkonsekvens" (PVK) analyze, and create an entry in the
 "Behandlingsoversikt". More information about [ROS][], [PVK][], and [Behandlingsoversikt][] can be found on our
-intranet. Questions about the ROS can be directed to [Leif Tore Løvmo][], while [Line Langlo Spongsveen][] is
-responsible for the two others.
+intranet. Questions about ROS can be directed to [Leif Tore Løvmo][], while [Line Langlo Spongsveen][] can answer
+questions about the other two.
 
 [Teams]: ../basics/teams.md
 [nais-yaml]: https://github.com/navikt/nais-yaml
