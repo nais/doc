@@ -1,10 +1,9 @@
 ---
 description: A complete example of all features in nais.yaml
 ---
-
 # Max example
 
-```text
+```
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
@@ -91,5 +90,4 @@ spec:
           namespace: t1
       external:
         - host: www.external-application.com
-```
-
+ ```

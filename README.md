@@ -1,7 +1,7 @@
 # NAIS
 
-{% hint style="info" %}
-**Provide feedback on the NAIS docs at the** [**survey**](https://forms.office.com/Pages/ResponsePage.aspx?id=NGU2YsMeYkmIaZtVNSedC8kDM0IU6F5PulhQRnbQAtdUM0tONFhQQ0tVMkdMTjNOQUJHR1Y4NUEzUC4u)
+{% hint style="success", title="Feedback and Contributing" %}
+**Provide feedback on the NAIS docs at the [survey](https://forms.office.com/Pages/ResponsePage.aspx?id=NGU2YsMeYkmIaZtVNSedC8kDM0IU6F5PulhQRnbQAtdUM0tONFhQQ0tVMkdMTjNOQUJHR1Y4NUEzUC4u)**
 
 See [CONTRIBUTING](https://github.com/nais/doc/blob/master/CONTRIBUTING.md) for instructions on filing/fixing issues and adding new content.
 
@@ -16,7 +16,7 @@ NAIS is an open source application platform that aims to provide our developers 
 
 When you have a large development organisation, providing the developers with turnkey solutions for their most common needs can be a good investment.
 
-This includes \(but not limited to\) [logging](observability/logs/), [metrics](observability/metrics.md), [alerts](observability/alerts/), [deployment](deploy.md) and a [runtime environment](./#nais-clusters).
+This includes \(but not limited to\) [logging](observability/logs/README.md), [metrics](observability/metrics.md), [alerts](observability/alerts/README.md), [deployment](basics/deploy.md) and a [runtime environment](./#nais-clusters).
 
 Within each of these aspects, we leverage open source projects best suited for our needs and provide them with usable abstractions, sane defaults and the required security hardening.
 
@@ -62,7 +62,7 @@ For the cloud there are no zones. Instead, we rely on a zero-trust model with a 
 | cluster | ingresses |
 | :--- | :--- |
 | dev-gcp | dev-adeo.no, dev-nais.io, dev-nav.no |
-| prod-gcp | adeo.no, nais.io, nav.no |
+| prod-gcp | adeo.no, nais.io, nav.no|
 
 ## Contact the NAIS team
 

@@ -1,6 +1,4 @@
-# Example
-
-```text
+```
 apiVersion: "nais.io/v1alpha1"
 kind: "Alert"
 metadata:
@@ -34,4 +32,3 @@ spec:
       sla: respond within 1h, solve within 4h, around the clock
       severity: critical
 ```
-
