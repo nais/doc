@@ -1,8 +1,11 @@
 # Your first NAIS application
 
-Create a manifest file for any application you want to deploy. Store it as `nais.yaml` in a repository on Github.
+To run an application on NAIS, a manifest file must be created for it. This file is typically named `nais.yaml` and in
+this documentation it is referred to as such. Technically the manifest file can be named anything, but it is recommended
+to name it `nais.yaml`.
 
-A nais.yaml file contains an Application resource. The application resource provides NAIS with the necessary information to run your application. If starting out for the first time, try the minimal nais.yaml example:
+Such a `nais.yaml` file provides NAIS with the necessary information to run your application. If you are starting out
+for the first time, the minimal nais.yaml example below is a good starting point.
 
 ```yaml
 apiVersion: "nais.io/v1alpha1"
@@ -16,6 +19,9 @@ spec:
   image: navikt/docker-image:docker-tag
 ```
 
-The entire specification for the NAIS manifest you can find [here](../nais-application/manifest.md).
+In the example, `spec.image` points to a Docker image on [Docker Hub](https://hub.docker.com/) named `docker-image`.
+If the image is pushed to some other repository, the URL must be explicitly defined. For instance, if the image exists
+in GitHub's repositories, the manifest file's `spec.image` value would be
+`docker.pkg.github.com/navikt/docker-image:docker-tag`, then NAIS will fetch it from there.
 
-Build Docker image and push to Docker repository.
+For more information about the `nais.yaml` specification, see [Manifest](../nais-application/manifest.md).

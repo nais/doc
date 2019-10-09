@@ -2,18 +2,26 @@
 
 This section will take you through the deployment of your application, using the _NAIS deploy_ tool.
 
-NAIS deploy enables you to deploy your application into [any cluster](../README.md#nais-clusters) from any continuous integration platform, including GitHub Actions, CircleCI, Travis CI and Jenkins.
+NAIS deploy enables you to deploy your application into [any cluster](../README.md#nais-clusters) from any continuous
+integration platform, including GitHub Actions, CircleCI, Travis CI and Jenkins.
 
-Note: Using _naisd_ or _JIRA Autodeploy_ to deploy your application? These mechanisms are deprecated and are going to be shut down. See [migration guide from naisd to Naiserator](../legacy/migrating-from-naisd.md). All information on the current page relates to Naiserator compatible `nais.yaml` files. You can also read the [naisd user documentation](../legacy/naisd.md).
+{% hint style="info" %}
+Note: Using _naisd_ or _JIRA Autodeploy_ to deploy your application? These mechanisms are deprecated and are going to
+be shut down.
 
-### How it works
+See [migration guide from naisd to Naiserator](../legacy/migrating-from-naisd.md). All information on this page
+relates to Naiserator compatible `nais.yaml` files.
+For information about _naisd_, see [naisd user documentation](../legacy/naisd.md).
+{% endhint %}
+
+## How it works
 
 1. Create a deployment request using [deployment-cli](https://github.com/navikt/deployment-cli) in your build pipeline. This request is sent to Github's [deployment API](https://developer.github.com/v3/repos/deployments/) and is then forwarded to NAIS deploy.
 2. NAIS deploy verifies the integrity and authenticity of the deployment, assumes the identity of the deploying team, and applies your _Kubernetes resources_ into the specified [cluster](../README.md#nais-clusters).
 3. If you deployed any _Application_ or _Deployment_ resources, NAIS deploy will wait until these are rolled out successfully, or a timeout occurs.
 4. The deployment status is continually posted back to Github and is available through their API, enabling integration with your pipeline or monitoring setup.
 
-### Summary
+## Summary
 
 1. Make sure the [prerequisites](#prerequisites) are met before attempting to use NAIS deploy.
 2. [Enable deployments for your repository](#enable-deployments-for-your-repository).
