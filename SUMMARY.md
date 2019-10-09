@@ -1,10 +1,11 @@
 # Table of contents
 
 * [NAIS](README.md)
-* [Access from laptop](basics/access.md)
-* [Your first NAIS application](basics/application.md)
-* [Deploy your application](basics/deploy.md)
-* [Teams](basics/teams.md)
+* [Getting started](basics/README.md)
+  * [Access from laptop](basics/access.md)
+  * [Teams](basics/teams.md)
+  * [Your first NAIS application](basics/application.md)
+  * [Deploy your application](basics/deploy.md)
 * [NAIS application](nais-application/README.md)
   * [nais.yaml](nais-application/manifest.md)
   * [Max example](nais-application/max-example.md)

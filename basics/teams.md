@@ -5,11 +5,11 @@ In NAIS access to a resource are based on a label set on the resource called `te
 ## Creating a new team
 
 * To create a new team, use this [Sharepoint form][]
-* The group's owner\(s\) can manage the group using either [outlook][] or
+* The group's owners can manage the group using either [outlook][] or
   [AAD][]
 
 Notice that once the group is created, you will get a mailnick/tag, where the team title is converted into lowercased
-version, with whitepaces and special characters are removed. We also recoomend to avoid the prefix `team` in your team
+version, with whitepaces and special characters are removed. We also recommend avoiding the prefix `team` in your team
 name.
 
 This is what you will use as your team's `label` in all NAIS-contexts.
