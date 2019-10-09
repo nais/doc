@@ -47,7 +47,7 @@ This is a simple changelog over notable milestones for the NAIS-platform.
 
 #### \[2019-04-09\]
 
-* Added support for secure logs. See [documentation](observability/logs/README.md#secure-logs) for more
+* Added support for secure logs. See [documentation](observability/logs/#secure-logs) for more
 
 #### \[2019-03-14\]
 
@@ -59,7 +59,7 @@ This is a simple changelog over notable milestones for the NAIS-platform.
 
 #### \[2019-02-18\]
 
-* Alerterator is released. A simple way to manage alerts/metrics. See [documentation](observability/alerts/README.md) for more
+* Alerterator is released. A simple way to manage alerts/metrics. See [documentation](observability/alerts/) for more
 
 ### 2018
 
