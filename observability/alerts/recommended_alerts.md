@@ -1,4 +1,6 @@
-```
+# Recommended
+
+```text
 # Dette er en liste over anbefalte Alerts, har du forbedringer, eller forslag
 # til Alerts vi bør ha med? Lag en pull request, så merger vi inn!
 ---
@@ -33,3 +35,4 @@ spec:
       for: 3m
       action: "Sjekk loggene til {{ $labels.app }} i {{ $labels.kubernetes_namespace }} for å se hvorfor mange http-requests feiler"
 ```
+

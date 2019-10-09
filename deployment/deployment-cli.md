@@ -16,7 +16,7 @@ deployment-cli create \
   --resources=nais.yaml
 ```
 
-Instead of having seperated files per cluster, you can use deployment-cli built-in templating. See [deployment-cli templating guide](#handling-multiple-deployments-using-deployment-cli-built-in-templating) for how.
+Instead of having seperated files per cluster, you can use deployment-cli built-in templating. See [deployment-cli templating guide](deployment-cli.md#handling-multiple-deployments-using-deployment-cli-built-in-templating) for how.
 
 ## Handling multiple deployments using deployment-cli built-in templating
 
@@ -31,7 +31,8 @@ By default deployment-cli will also inject a few of the flags passed to it:
 ### Example
 
 Our json with our variables, let's call it `dev.json`:
-```json
+
+```javascript
 {
   "application_name": "testapp",
   "env": {
@@ -42,6 +43,7 @@ Our json with our variables, let's call it `dev.json`:
 ```
 
 The following is the `nais.yaml` that act as the template for the deployment.
+
 ```yaml
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
@@ -72,6 +74,7 @@ spec:
 ```
 
 Finally it is all merged together with the following `deployment-cli` commando:
+
 ```bash
 deployment-cli create \
   --cluster=dev-fss \
@@ -87,3 +90,4 @@ deployment-cli create \
 Here `docker_tag` and `team` will be injected by the flags passed to deployment-cli, `application_name will` come from the configuration file. For each pair in the `env` tag it will inject the key as the env var name and value as is.
 
 Since your `nais.yaml` files often will contain actual endpoints and other concrete values, we consider it the best practice to have a separate private repository for your nais configuration files if your application is open source. Each team typically has a single repository containing config for the applications they are maintaining.
+

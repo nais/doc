@@ -34,19 +34,19 @@ spec:
 
 We also support e-mail as a receiver. See [example alerts](example_alerts.md) and [recommended alerts](recommended_alerts.md).
 
-#### Kubectl
+### Kubectl
 
 Use `kubectl` to add, update, and remove the alert resource. Adding and updating is done with the `kubectl apply -f alerts.yaml`, while delete is done either with `kubectl delete alert <alert-name>` og `kubectl delete -f alerts.yaml`.
 
 You can list alerts in the cluster with `kubectl get alerts` \(singluar: `alert`, shorten: `al`\), and describe a specific alert resource with `kubectl describe alert <alert-name>`.
 
-#### Writing the `expr`
+### Writing the `expr`
 
-In order to minimize the feedback loop we suggest experimenting on the Prometheus server to find the right metric for your alert and the notification threshold. The Prometheus server can be found in each [cluster](../../README.md#nais-clusters), at `https://prometheus.{cluster.ingress}` \(i.e. [https://prometheus.nais.preprod.local](https://prometheus.nais.preprod.local)\).
+In order to minimize the feedback loop we suggest experimenting on the Prometheus server to find the right metric for your alert and the notification threshold. The Prometheus server can be found in each [cluster](../../#nais-clusters), at `https://prometheus.{cluster.ingress}` \(i.e. [https://prometheus.nais.preprod.local](https://prometheus.nais.preprod.local)\).
 
 You can also visit the Alertmanager at `https://alertmanager.{cluster.ingress}` \(i.e. [https://alertmanager.nais.preprod.local](https://alertmanager.nais.preprod.local)\) to see which alerts are triggered now \(you can also silence already triggered alerts\).
 
-#### Expressive descriptions or actions
+### Expressive descriptions or actions
 
 You can also use `labels` in your Slack/e-mail notification by referencing them with `{{ $labels.<field> }}`. Run your query on the Prometheus server to see which `labels` are available for your alert.
 
@@ -66,7 +66,7 @@ Another example is how you can avoid specifying all the namespaces your app is r
 
 You can read more about this over at the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/#templating).
 
-#### Target several apps or namespaces in a query
+### Target several apps or namespaces in a query
 
 Using regular expression, you can target multiple apps or namespaces with one query. This saves on repeating the same alert for each your apps.
 
@@ -76,7 +76,7 @@ absent(up{app=~"myapp|otherapp|thirdapp"})
 
 Here we use `=~` to select labels that match the provided string \(or substring\) using a regular expression. Use `!~` to negate the regular expression.
 
-#### Slack @here and @team
+### Slack @here and @team
 
 Slack has their own syntax for notifying `@channel` or `@here`, respectively `<!channel>` and `<!here>`.
 
@@ -88,7 +88,7 @@ You can find the id by right clicking on the name in the user group list. Where 
 https://nav-it.slack.com/usergroups/SB8KS4WAV
 ```
 
-#### Example of the different Slack/severity colors
+### Example of the different Slack/severity colors
 
 ![Slack colors](../../.gitbook/assets/attachment_color.png)
 
@@ -121,4 +121,5 @@ Check out the complete [spec](spec.md) for more information about the different 
 
 ## Flow
 
-![Prometheus Server --> Prometheus Alertmanager](../../.gitbook/assets/prometheus_alertmanager_overview.png)
+![Prometheus Server --&amp;gt; Prometheus Alertmanager](../../.gitbook/assets/prometheus_alertmanager_overview.png)
+

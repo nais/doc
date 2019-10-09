@@ -1,5 +1,4 @@
-Migration from Naisd to Naiserator
-==================================
+# Migrating from Naisd
 
 ## 1. Converting the manifest
 
@@ -7,7 +6,7 @@ Your nais manifest, commonly known as `nais.yaml`, needs to be converted from it
 
 The old format looks like this:
 
-```
+```text
 image: navikt/nais-testapp
 team: teamName
 port: 8080
@@ -16,7 +15,7 @@ port: 8080
 
 The new format looks like this. Check out [in depth](../nais-application/manifest.md) for a more complete list.
 
-```
+```text
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
@@ -36,7 +35,7 @@ Follow the checklist to complete the migration:
 * [ ] Include the version of your Docker container in the `.spec.image` field.
 * [ ] `healthcheck` has been replaced by top-level `liveness` and `readiness` fields.
 * [ ] The `redis` field has been removed.
-* [ ] The `alerts` field has been replaced with the [Alert resource](../observability/alerts/README.md).
+* [ ] The `alerts` field has been replaced with the [Alert resource](../observability/alerts/).
 * [ ] The `ingress` field has been replaced by `ingresses` and need to specified explicitly.
 * [ ] Fasit is no longer supported.
 
@@ -49,4 +48,5 @@ Your converted manifest is a Kubernetes [custom resource](https://kubernetes.io/
 
 ## 3. Deploying applications
 
-See the [Deploy your application](../basics/deploy.md) section.
+See the [Deploy your application](../deploy.md) section.
+
