@@ -2,7 +2,7 @@
 
 This section will take you through the deployment of your application using the _NAIS deploy_ tool.
 
-NAIS deploy enables you to deploy your application into [any cluster](../README.md#nais-clusters) from any continuous
+NAIS deploy enables you to deploy your application into [any cluster](clusters.md) from any continuous
 integration platform, including GitHub Actions, CircleCI, Travis CI and Jenkins.
 
 {% hint style="info" %}
@@ -17,7 +17,7 @@ For information about _naisd_, see [naisd user documentation](../legacy/naisd.md
 ## How it works
 
 1. Create a deployment request using [deployment-cli](https://github.com/navikt/deployment-cli) in your build pipeline. This request is sent to Github's [deployment API](https://developer.github.com/v3/repos/deployments/) and is then forwarded to NAIS deploy.
-2. NAIS deploy verifies the integrity and authenticity of the deployment, assumes the identity of the deploying team, and applies your _Kubernetes resources_ into the specified [cluster](../README.md#nais-clusters).
+2. NAIS deploy verifies the integrity and authenticity of the deployment, assumes the identity of the deploying team, and applies your _Kubernetes resources_ into the specified [cluster](clusters.md).
 3. If you deployed any _Application_ or _Deployment_ resources, NAIS deploy will wait until these are rolled out successfully, or a timeout occurs.
 4. The deployment status is continually posted back to Github and is available through their API, enabling integration with your pipeline or monitoring setup.
 
@@ -173,7 +173,7 @@ If everything fails, and you checked your logs, you can ask for help in the
 | Repository _foo/bar_ is not registered | Please read the [registering your repository](#registering-your-repository) section. |
 | Deployment status `error` | There is an error with your request. The reason should be specified in the error message. |
 | Deployment status `failure` | Your application didn't pass its health checks during the 5 minute startup window. It is probably stuck in a crash loop due to mis-configuration. Check your application logs using `kubectl logs <POD>` and event logs using `kubectl describe app <APP>` |
-| Deployment is stuck at `queued` | The deployment hasn't been picked up by the worker process. Did you specify a [supported cluster](../README.md#nais-clusters) with `--cluster=<CLUSTER>`? |
+| Deployment is stuck at `queued` | The deployment hasn't been picked up by the worker process. Did you specify a [supported cluster](clusters.md) with `--cluster=<CLUSTER>`? |
 | team `foo` does not exist in Azure AD | Your team is not [registered in the team portal](teams.md). |
 
 If for any reason you are unable to use _deployment-cli_, please read the section on

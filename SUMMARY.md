@@ -1,6 +1,7 @@
 # Table of contents
 
 * [NAIS](README.md)
+* [NAIS clusters](basics/clusters.md)
 * [Getting started](basics/README.md)
   * [Access from laptop](basics/access.md)
   * [Teams](basics/teams.md)
@@ -37,4 +38,3 @@
   * [AM/OpenAM](legacy/am.md)
   * [Migrating from Naisd](legacy/migrating-from-naisd.md)
 * [Changelog](changelog.md)
-

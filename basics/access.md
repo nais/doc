@@ -12,7 +12,7 @@ Check out the [official documentation][kubectl] for instructions on how to insta
 ## Setup your [`kubeconfig`][kubeconfig]
 
 The `kubectl` tool uses a `kubeconfig` file to get the information it needs in order to connect to a cluster. We
-provide a [pre-made kubeconfig] file with NAV's [clusters](../README.md#nais-clusters).
+provide a [pre-made kubeconfig] file with NAV's [clusters](clusters.md).
 
 `kubectl` will by default look for a file named `config` in the `$HOME/.kube/` folder. This can be overriden by
 having the absolute path of the file in the environment variable `KUBECONFIG`.
