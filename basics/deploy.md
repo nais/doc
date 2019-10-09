@@ -2,24 +2,24 @@
 
 This section will take you through the deployment of your application, using the _NAIS deploy_ tool.
 
-NAIS deploy enables you to deploy your application into [any cluster](../#nais-clusters) from any continuous integration platform, including GitHub Actions, CircleCI, Travis CI and Jenkins.
+NAIS deploy enables you to deploy your application into [any cluster](../README.md#nais-clusters) from any continuous integration platform, including GitHub Actions, CircleCI, Travis CI and Jenkins.
 
 Note: Using _naisd_ or _JIRA Autodeploy_ to deploy your application? These mechanisms are deprecated and are going to be shut down. See [migration guide from naisd to Naiserator](../legacy/migrating-from-naisd.md). All information on the current page relates to Naiserator compatible `nais.yaml` files. You can also read the [naisd user documentation](../legacy/naisd.md).
 
 ### How it works
 
 1. Create a deployment request using [deployment-cli](https://github.com/navikt/deployment-cli) in your build pipeline. This request is sent to Github's [deployment API](https://developer.github.com/v3/repos/deployments/) and is then forwarded to NAIS deploy.
-2. NAIS deploy verifies the integrity and authenticity of the deployment, assumes the identity of the deploying team, and applies your _Kubernetes resources_ into the specified [cluster](../#nais-clusters).
+2. NAIS deploy verifies the integrity and authenticity of the deployment, assumes the identity of the deploying team, and applies your _Kubernetes resources_ into the specified [cluster](../README.md#nais-clusters).
 3. If you deployed any _Application_ or _Deployment_ resources, NAIS deploy will wait until these are rolled out successfully, or a timeout occurs.
 4. The deployment status is continually posted back to Github and is available through their API, enabling integration with your pipeline or monitoring setup.
 
 ### Summary
 
-1. Make sure the [prerequisites](deploy.md#prerequisites) are met before attempting to use NAIS deploy.
-2. [Enable deployments for your repository](deploy.md#enable-deployments-for-your-repository).
-3. [Implement NAIS deploy in your pipeline](deploy.md#performing-the-deployment).
+1. Make sure the [prerequisites](#prerequisites) are met before attempting to use NAIS deploy.
+2. [Enable deployments for your repository](#enable-deployments-for-your-repository).
+3. [Implement NAIS deploy in your pipeline](#performing-the-deployment).
 
-When things break, check the section on [troubleshooting](deploy.md#troubleshooting). For CircleCI/manual you also need to [obtain Github deployment credentials](deploy.md#obtain-github-deployment-credentials).
+When things break, check the section on [troubleshooting](#troubleshooting). For CircleCI/manual you also need to [obtain Github deployment credentials](#obtain-github-deployment-credentials).
 
 ## Getting started
 
@@ -54,7 +54,7 @@ You are ready to perform a deployment.
 
 #### Using GitHub Actions
 
-The easiest way of deploying your application to NAIS is using GitHub Action, and we have created a workflow that uses the deployment-cli, see [navikt/deployment-cli](https://github.com/navikt/deployment-cli/tree/master/action). This example workflow uses Github Package Registry that \(for now\) requires a personal access token set in repo&gt;Settings&gt;Secrets with the name `GITHUB_ACCESS_TOKEN`. See [create a personal access token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line). Also remember to set SSO enabled and access to `write:packages`.
+The easiest way of deploying your application to NAIS is using GitHub Action, and we have created a workflow that uses the deployment-cli, see [navikt/deployment-cli](https://github.com/navikt/deployment-cli/tree/master/action). This example workflow uses Github Package Registry that (for now) requires a personal access token set in repo>Settings>Secrets with the name `GITHUB_ACCESS_TOKEN`. See [create a personal access token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line). Also remember to set SSO enabled and access to `write:packages`.
 
 Start by creating a folder for your workflows in the root of your applications repository
 
@@ -66,7 +66,7 @@ Inside that folder, create a workflow yaml-file. You can use our example as a st
 
 The following example will build and push your Docker image to Github Package Registry, and then deploy that image to `dev-fss`.
 
-This example also expects that your `spec.image` in your `nais.yaml` is set to `{{ image }}:{{ tag }}`. See [example nais.yaml](deploy.md#template-example-naisyaml-for-github-actions) below if you're unsure.
+This example also expects that your `spec.image` in your `nais.yaml` is set to `{{ image }}:{{ tag }}`. See [example nais.yaml](#template-example-naisyaml-for-github-actions) below if you're unsure.
 
 ```text
 name: Deploy to NAIS
@@ -111,7 +111,7 @@ Remember to specify `app-name` and `team-name`!
 
 When these files and folders are commited and pushed, you can see the workflow running under the `Actions` tab of your repository.
 
-**Template example nais.yaml for Github Actions**
+##### Template example nais.yaml for Github Actions
 
 ```text
 apiVersion: "nais.io/v1alpha1"
@@ -125,7 +125,7 @@ spec:
   image: {{ image }}:{{ tag }}
 ```
 
-**Badge in markdown**
+##### Badge in markdown
 
 Use the following URL to create a small badge for your workflow/action.
 
@@ -144,11 +144,10 @@ If everything fails, and you checked your logs, you can ask for help in the [\#n
 | Message | Action |
 | :--- | :--- |
 | the repository 'foo/bar' does not have access to deploy as team 'Baz' | Is your team name in _lowercase_ everywhere? |
-| Repository _foo/bar_ is not registered | Please read the [registering your repository](deploy.md#registering-your-repository) section. |
+| Repository _foo/bar_ is not registered | Please read the [registering your repository](#registering-your-repository) section. |
 | Deployment status `error` | There is an error with your request. The reason should be specified in the error message. |
 | Deployment status `failure` | Your application didn't pass its health checks during the 5 minute startup window. It is probably stuck in a crash loop due to mis-configuration. Check your application logs using `kubectl logs <POD>` and event logs using `kubectl describe app <APP>` |
-| Deployment is stuck at `queued` | The deployment hasn't been picked up by the worker process. Did you specify a [supported cluster](../#nais-clusters) with `--cluster=<CLUSTER>`? |
+| Deployment is stuck at `queued` | The deployment hasn't been picked up by the worker process. Did you specify a [supported cluster](../README.md#nais-clusters) with `--cluster=<CLUSTER>`? |
 | team `foo` does not exist in Azure AD | Your team is not [registered in the team portal](teams.md). |
 
-If for any reason you are unable to use _deployment-cli_, please read the section on [NAIS deploy with cURL](https://github.com/nais/doc/tree/5d1a8d8f05ea1da04ac269bc0dd64441908248ad/deployment/advanced-usage.md#nais-deploy-with-curl).
-
+If for any reason you are unable to use _deployment-cli_, please read the section on [NAIS deploy with cURL](../deployment/advanced-usage.md#nais-deploy-with-curl).

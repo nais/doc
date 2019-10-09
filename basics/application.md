@@ -19,4 +19,3 @@ spec:
 The entire specification for the NAIS manifest you can find [here](../nais-application/manifest.md).
 
 Build Docker image and push to Docker repository.
-
