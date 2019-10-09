@@ -1,7 +1,6 @@
 # Table of contents
 
 * [NAIS](README.md)
-* [Changelog](changelog.md)
 * [Access from laptop](basics/access.md)
 * [Your first NAIS application](basics/application.md)
 * [Deploy your application](basics/deploy.md)
@@ -36,3 +35,5 @@
   * [Naisd](legacy/naisd.md)
   * [AM/OpenAM](legacy/am.md)
   * [Migrating from Naisd](legacy/migrating-from-naisd.md)
+ * [Changelog](changelog.md)
+
