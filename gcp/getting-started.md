@@ -14,10 +14,13 @@ namespace. The team will have unrestricted access to all Kubernetes assets in th
 
 ### Creating a new team
 
-See [Teams] for instructions to create a new team on Azure AD. To use GCP, a few additional measures have to be taken.
+See [Teams][] for instructions to create a new team on Azure AD. To use GCP, a few additional measures have to be taken.
 
-* Once the group has been created, a willing and able soul will have to patch it to make it `securityEnabled`. ([Christer Edvartsen])
-* A `securityEnabled` group can be manually added to the Azure Enterprise Application `Google Suite Provisioning`, which in turn will synchronize the group and its members to Google, creating the necessary Google *Identity & Access Management* (IAM) objects. ([Frode Sundby])
+* Once the group has been created, a willing and able soul will have to patch it to make it
+  `securityEnabled`. ([Christer Edvartsen])
+* A `securityEnabled` group can be manually added to the Azure Enterprise Application `Google Suite Provisioning`, which
+  in turn will synchronize the group and its members to Google, creating the necessary Google *Identity & Access
+  Management* (IAM) objects. ([Frode Sundby])
 * The team's owner can maintain the group's members using Office 365.
 
 ### Creating a team namespace
@@ -29,7 +32,7 @@ default network polices, add ca-bundle and annotate the namespace for [rbac-sync
 ### Accessing the clusters
 
 Once the group has been synchronized to Google IAM, group members should be able to authenticate with `gcloud` by
-following the instructions specific to GCP in [Access].
+following the instructions specific to GCP in [Access][].
 
 ## Administrative hurdles
 
