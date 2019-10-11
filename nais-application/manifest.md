@@ -259,7 +259,7 @@ If true, no certificate authority bundle will be injected.
 **Default**: `false`
 
 ## `spec.accessPolicy` (GCP only)
-Default will not allow any traffic to or from application. [Access policy](../gcp-only/access-policy.md) is currently supported in GKE clusters, only.
+Default will not allow any traffic to or from application. [Access policy](../gcp/access-policy.md) is currently supported in GKE clusters, only.
 
 ### `spec.accessPolicy.inbound.rules[]`
 List of services to allow traffic from.

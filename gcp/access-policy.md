@@ -1,66 +1,197 @@
+---
+description: Access policies is only enabled in our in-cloud clusters. See which in our [cluster overview](../README.md#nais-clusters).
+--- 
+
 # Access Policy
 
-On GCP, NAIS operates in a [zero-trust] environment. This means that all traffic to your application, both incoming and
-outgoing, is denied by default. The only communication allowed is that which has explicitly expressed in your
-application's [`accessPolicy`][accessPolicy].
 
-## A minimal example
+If you are running your app in a cluster with access policies enabled you can define the access rules for your application.
+If you define none, the default policy will **deny all incoming and outgoing traffic** for your application.
 
-If application `a` intends to communicate with application `b`, application `a` needs an access policy allowing the
-outbound traffic:
+This means that you have to know what other services your app is consuming and consumed by.
+
+## Inbound rules
+
+Inbound rules specifies what other applications *in the same cluster* your application receives traffic from.
+
+### Receive requests from other app in the same namespace
+For app `app-a` to be able to receive incoming requests from `app-b` in the same cluster and the same namespace, this specification is needed for `app-a`:
 
 ```
+metadata:
+  name: app-a
+...
 spec:
-  accessPolicy:
-    inbound: {}
-    outbound:
-      rules:
-        - application: b
-```
-
-Since application `b` does not currently have an [access policy][accessPolicy] allowing incoming traffic from
-application `a` the connection will be refused by application `b`.
-
-![b refuses connections from a][access-1]
-
-Once application `b` has added an inbound policy allowing application `a`, the communication is allowed.
-
-```
-spec:
+  ...
   accessPolicy:
     inbound:
       rules:
-        - application: a
-    outbound: {}
+        application: app-b
 ```
-![b accepts connections from a][access-2]
 
-{% hint style="info" %}
-Although the point of explicit expression has been previously stated, in this example only application `a` can initiate
-communication with application `b` (application `b` can answer application `a` if communication is initiated; regular
-TCP operation will work as expected, for instance). In order to achieve two-way communication between the two
-applications, the [access policy][accessPolicy] for each application would need to allow both inbound and outbound
-traffic to the opposite application.
-{% endhint %}
 
-## Communication to the outside world
-
-If your application needs to communicate with something outside the cluster, you will have to specify an external rule
-to allow this traffic. Here is an example with an application that intends to initiate communication with
-`somewhere.else.com`.
+### Receive requests from other app in the another namespace
+For app `app-a` to be able to receive incoming requests from `app-b` in the same cluster but another namespace (`othernamespace`), this specification is needed for `app-a`:
 
 ```
+metadata:
+  name: app-a
+...
 spec:
+  ...
   accessPolicy:
-    inbound: {}
+    inbound:
+      rules:
+        application: app-b
+        namespace: othernamespace
+```
+
+## Outbound rules
+### Send requests to other app in the same namespace
+For app `app-a` to be able to send requests to `app-b` in the same cluster and the same namespace, this specification is needed for `app-a`:
+
+```
+metadata:
+  name: app-a
+...
+spec:
+  ...
+  accessPolicy:
     outbound:
       rules:
-        - application: b
-      external:
-        - host: somewhere.else.com
+        application: app-b
 ```
 
-[zero-trust]: zero-trust.md
-[accessPolicy]: ../nais-application/manifest.md#spec-accesspolicy-gcp-only
-[access-1]: ./_media/accesspolicy-1.png
-[access-2]: ./_media/accesspolicy-2.png
+
+### Send requests to other app in the another namespace
+For app `app-a` to be able to send requests requests to `app-b` in the same cluster but in another namespace (`othernamespace`), this specification is needed for `app-a`:
+
+```
+metadata:
+  name: app-a
+...
+spec:
+  ...
+  accessPolicy:
+    outbound:
+      rules:
+        application: app-b
+        namespace: othernamespace
+```
+
+### External
+In order to send requests to services outside of the cluster, `external.host` is needed:
+
+```
+metadata:
+  name: app-a
+...
+spec:
+  ...
+  accessPolicy:
+    outbound:
+      external: 
+        - host: www.external-application.com
+```
+
+
+
+## Ingresses
+
+...
+
+## Advanced: Resources created by Naiserator
+
+The example above will create both Kubernetes native resouces and Istio resources.
+
+
+### Default policy
+Every app created will have this default network policy that allows traffic from Istio pilot and mixer, as well as kube-dns.
+
+```
+apiVersion: extensions/v1beta1
+kind: NetworkPolicy
+metadata:
+  labels:
+    app: appname
+    team: teamname
+  name: appname
+  namespace: teamname
+spec:
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: istio-system
+      podSelector:
+        matchLabels:
+          istio: pilot
+    - namespaceSelector:
+        matchLabels:
+          name: istio-system
+      podSelector:
+        matchLabels:
+          istio: mixer
+    - namespaceSelector: {}
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    - ipBlock:
+        cidr: 0.0.0.0/0
+        except:
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+  podSelector:
+    matchLabels:
+      app: appname
+  policyTypes:
+  - Egress
+```
+
+### Kubernetes network policies
+The applications specified in `spec.accessPolicy.inbound.rules` and `spec.accessPolicy.outbound.rules` will append these fields to the default Network Policy:
+
+```
+apiVersion: extensions/v1beta1
+kind: NetworkPolicy
+...
+spec:
+  egress:
+  - to:
+    ...
+    - namespaceSelector:
+        matchLabels:
+          name: othernamespace
+      podSelector:
+        matchLabels:
+          app: app-b
+    - podSelector:
+        matchLabels:
+          app:app-b  
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: othernamespace
+      podSelector:
+        matchLabels:
+          app: app-b
+    - podSelector:
+        matchLabels:
+          app:app-b    
+  podSelector:
+    matchLabels:
+      app: appname
+  policyTypes:
+  - Egress
+  - Ingress
+```
+
+  
+
+
+### Istio Policies
+
+### Virtual
+
+...

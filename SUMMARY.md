@@ -25,7 +25,7 @@
 * [Google Cloud Platform](gcp/README.md)
   * [Getting started](gcp/getting-started.md)
   * [Zero-trust](gcp/zero-trust.md)
-  * [Access Policy](gcp/access-policy.md)
+  * [Access Policy](gcp/access-policy-old.md)
   * [Secrets](gcp/secrets.md)
 * [Addons](addons/README.md)
   * [OAuth flow](addons/oauth-flow.md)
