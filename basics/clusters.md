@@ -7,12 +7,12 @@ cloud \(namely [Google Cloud Platform](../gcp/README.md)\).
 
 The on-premise clusters are split into two zones, _selvbetjeningsonen_ \(SBS\), _fagsystemsonen_ \(FSS\).
 
-| cluster | ingresses |
-| :--- | :--- |
-| dev-fss | nais.preprod.local |
-| prod-fss | nais.adeo.no |
-| dev-sbs | nais.oera-q.local |
-| prod-sbs | nais.oera.no, tjenester.nav.no |
+| cluster | ingresses | access policies enabled |
+| :--- | :--- | :--- |
+| dev-fss | nais.preprod.local | no |
+| prod-fss | nais.adeo.no | no |
+| dev-sbs | nais.oera-q.local | no |
+| prod-sbs | nais.oera.no, tjenester.nav.no | no |
 
 Example: If your app is named `myapp`, then the URL for `dev-fss` would be `https://myapp.nais.preprod.local/`.
 
@@ -29,7 +29,7 @@ at [pig-kubernetes-ops](https://github.com/navikt/pig/blob/master/kubeops/adr/00
 
 For the cloud there are no zones. Instead, we rely on a [zero-trust](../gcp/zero-trust.md) model with a service-mesh.
 
-| cluster | ingresses |
-| :--- | :--- |
-| dev-gcp | dev-adeo.no, dev-nais.io, dev-nav.no |
-| prod-gcp | adeo.no, nais.io, nav.no|
+| cluster | ingresses | access policies enabled |
+| :--- | :--- | :--- |
+| dev-gcp | dev-adeo.no, dev-nais.io, dev-nav.no | yes |
+| prod-gcp | adeo.no, nais.io, nav.no| yes |
