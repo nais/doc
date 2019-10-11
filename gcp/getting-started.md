@@ -8,6 +8,20 @@ generally available for use.
 We ask that anyone experimenting with GCP at this stage exhibit extraordinary amounts of patience and goodwill.
 {% endhint %}
 
+## Limitations
+
+We are working on expanding the set of features that we support in our GCP clusters. 
+
+If you have a application that you wish to migrate/deploy to our GCP clusters, please check if you require any of the items in the list below. If you do, please get in touch (#nais) as we might be able to help you anyway.
+
+Currently known limitations includes (but not limited to):
+- postgres
+- object storage (known as s3 on-prem, will use Google Cloud Storage in GCP)
+- vault
+- access to FSS-zone unless:
+  - going through API-GW
+  - FSS application properly implements use of tokens 
+
 ## Access
 On GCP the primary unit of access is a *team*, whose origin is a group in Azure AD. Each team is given its own
 namespace. The team will have unrestricted access to all Kubernetes assets in that namespace.
