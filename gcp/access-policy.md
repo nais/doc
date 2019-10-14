@@ -47,6 +47,8 @@ spec:
 ```
 
 ## Outbound rules
+Inbound rules specifies what other applications your application receives traffic from. `spec.accessPolicy.outbound.rules` specifies which applications in the same cluster to open for. To open for external applications, use the field `spec.accessPolicy.outbound.external`. 
+
 ### Send requests to other app in the same namespace
 For app `app-a` to be able to send requests to `app-b` in the same cluster and the same namespace, this specification is needed for `app-a`:
 
@@ -75,11 +77,11 @@ spec:
   accessPolicy:
     outbound:
       rules:
-        application: app-b
+        application: app-b  
         namespace: othernamespace
 ```
 
-### External
+### External services
 In order to send requests to services outside of the cluster, `external.host` is needed:
 
 ```
@@ -96,14 +98,12 @@ spec:
 
 
 
-## Ingresses
-
-...
-
 ## Advanced: Resources created by Naiserator
 
-The example above will create both Kubernetes native resouces and Istio resources.
+The example above will create both Kubernetes Network Policies and Istio resources.
 
+
+### Kubernetes Network Policy
 
 ### Default policy
 Every app created will have this default network policy that allows traffic from Istio pilot and mixer, as well as kube-dns.
@@ -168,7 +168,7 @@ spec:
           app: app-b
     - podSelector:
         matchLabels:
-          app:app-b  
+          app: app-b  
   - from:
     - namespaceSelector:
         matchLabels:
@@ -178,7 +178,7 @@ spec:
           app: app-b
     - podSelector:
         matchLabels:
-          app:app-b    
+          app: app-b    
   podSelector:
     matchLabels:
       app: appname
@@ -190,8 +190,12 @@ spec:
   
 
 
-### Istio Policies
+## Istio Resources
 
-### Virtual
+The policies from `spec.accessPolicy` will in addition create these Istio-resources:
+- ServiceRole and ServiceRoleBinding
+- ServiceEntry
 
-...
+In the cloud `spec.ingresses` will, instead of Kubernetes Ingress objects, create the Istio-resource:
+- VirtualService
+
