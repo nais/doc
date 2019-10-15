@@ -9,6 +9,10 @@ This is a simple changelog over notable milestones for the NAIS-platform.
 
 ## \[Released\]
 
+#### \[2019-10-15\]
+
+* Upgraded Kubernetes to [1.15.4](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.15.md)
+
 #### \[2019-09-03\]
 
 * First application in public cloud! We are now running on Google Cloud Platform, working towards making it available for the rest
