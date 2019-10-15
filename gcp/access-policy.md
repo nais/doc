@@ -1,3 +1,6 @@
+---
+description: Access policies is only enabled in our in-cloud clusters.
+---
 # Access Policy
 
 
