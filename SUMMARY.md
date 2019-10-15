@@ -24,7 +24,6 @@
   * [Metrics](observability/metrics.md)
 * [Google Cloud Platform](gcp/README.md)
   * [Getting started](gcp/getting-started.md)
-  * [Zero-trust](gcp/zero-trust.md)
   * [Access Policy](gcp/access-policy.md)
   * [Secrets](gcp/secrets.md)
 * [Addons](addons/README.md)
