@@ -1,5 +1,5 @@
 ---
-description: Access policies is only enabled in our in-cloud clusters. See which in our [cluster overview](../basics/clusters.md).
+description: Access policies is only enabled in our in-cloud clusters.
 ---
 
 # Access Policy
