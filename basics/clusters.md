@@ -7,12 +7,12 @@ cloud (namely [Google Cloud Platform](../gcp/README.md)).
 
 The on-premise clusters are split into two zones, _selvbetjeningsonen_ (SBS), _fagsystemsonen_ (FSS).
 
-| cluster | ingresses | access policies enabled |
-| :--- | :--- | :--- |
-| dev-fss | nais.preprod.local | no |
-| prod-fss | nais.adeo.no | no |
-| dev-sbs | nais.oera-q.local | no |
-| prod-sbs | nais.oera.no, tjenester.nav.no | no |
+| cluster | ingresses | 
+| :--- | :--- |
+| dev-fss | nais.preprod.local |
+| prod-fss | nais.adeo.no |
+| dev-sbs | nais.oera-q.local |
+| prod-sbs | nais.oera.no, tjenester.nav.no |
 
 Example: If your app is named `myapp`, then the URL for `dev-fss` would be `https://myapp.nais.preprod.local/`.
 
@@ -27,17 +27,18 @@ at [pig-kubernetes-ops](https://github.com/navikt/pig/blob/master/kubeops/adr/00
 
 ## Cloud - Google Cloud Platform \(GCP\)
 
-For the cloud there are no zones. Instead, we rely on a [zero-trust](../gcp/zero-trust.md) model with a service-mesh.
+In the cloud there are no zones. Instead, we rely on a [zero-trust](https://github.com/navikt/pig/blob/master/kubeops/doc/zero-trust.md) model with a service-mesh.
+The applications running in GCP needs [access policy rules defined](../gcp/access-policy.md) for every other service they receive requests from or sends requests to.
 
-| cluster | ingresses | access policies enabled |
-| :--- | :--- | :--- |
-| dev-gcp | dev-adeo.no, dev-nais.io, dev-nav.no | yes |
-| prod-gcp | adeo.no, nais.io, nav.no| yes |
+| cluster | ingresses |
+| :--- | :--- |
+| dev-gcp | dev-adeo.no, dev-nais.io, dev-nav.no |
+| prod-gcp | adeo.no, nais.io, nav.no|
 
 ### The different domains
 
-In GCP we support three different domaine names, dependent on what your need is.
+In GCP we support three different domain names, dependent on what your need is.
 
-* Use **(dev-)adeo.no** if you only need acces from "utviklerimage"/VDI, typical use-cases is "saksbehandlere"
+* Use **(dev-)adeo.no** if you only need access from "utviklerimage"/VDI, typical use-cases is "saksbehandlere"
 * Use **(dev-)nais.io** or **dev-nav.no** if you need access from laptop (via ScaleFT/NAVTunnel)
 * Use **nav.no** if it should be accessible for the world wide web
