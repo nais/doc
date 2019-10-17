@@ -1,11 +1,11 @@
 # NAIS clusters
 
 NAIS is a platform spread over two different suppliers. One set of clusters on-premise, and another set running in the
-cloud \(namely [Google Cloud Platform](../gcp/README.md)\).
+cloud (namely [Google Cloud Platform](../gcp/README.md)).
 
 ## On-premise
 
-The on-premise clusters are split into two zones, _selvbetjeningsonen_ \(SBS\), _fagsystemsonen_ \(FSS\).
+The on-premise clusters are split into two zones, _selvbetjeningsonen_ (SBS), _fagsystemsonen_ (FSS).
 
 | cluster | ingresses | access policies enabled |
 | :--- | :--- | :--- |
@@ -33,3 +33,11 @@ For the cloud there are no zones. Instead, we rely on a [zero-trust](../gcp/zero
 | :--- | :--- | :--- |
 | dev-gcp | dev-adeo.no, dev-nais.io, dev-nav.no | yes |
 | prod-gcp | adeo.no, nais.io, nav.no| yes |
+
+### The different domains
+
+In GCP we support three different domaine names, dependent on what your need is.
+
+* Use **(dev-)adeo.no** if you only need acces from "utviklerimage"/VDI, typical use-cases is "saksbehandlere"
+* Use **(dev-)nais.io** or **dev-nav.no** if you need access from laptop (via ScaleFT/NAVTunnel)
+* Use **nav.no** if it should be accessible for the world wide web
