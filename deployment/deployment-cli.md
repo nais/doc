@@ -7,13 +7,13 @@ In your pipeline, use our internal tool [deployment-cli](https://github.com/navi
 Example syntax for deploying with a personal access token:
 
 ```bash
-deployment-cli create \
+deployment-cli deploy create \
   --cluster=dev-fss \
   --repository=navikt/deployment \
   --team=<TEAM> \
   --username=x-access-token \
   --password=<GITHUB_ACCESS_TOKEN> \
-  --resources=nais.yaml
+  --resource=nais.yaml
 ```
 
 Instead of having seperated files per cluster, you can use deployment-cli built-in templating. See [deployment-cli templating guide](#handling-multiple-deployments-using-deployment-cli-built-in-templating) for how.
