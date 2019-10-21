@@ -73,13 +73,13 @@ spec:
 
 Finally it is all merged together with the following `deployment-cli` commando:
 ```bash
-deployment-cli create \
+deployment-cli deploy create \
   --cluster=dev-fss \
   --repository=navikt/deployment \
   --team=testers \
   --username=x-access-token \
   --password=<GITHUB_ACCESS_TOKEN> \
-  --resources=nais.yaml \
+  --resource=nais.yaml \
   --vars=dev.json \
   --var docker_tag=v1.0.0
 ```
