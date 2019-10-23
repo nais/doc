@@ -98,7 +98,14 @@ spec:
 
 ## Advanced: Resources created by Naiserator
 
-The example above will create both Kubernetes Network Policies and Istio resources.
+The previous application manifest examples will create both Kubernetes Network Policies and Istio resources.
+
+### Prerequisites
+
+These requirements must be met for access policies to be working as expected:
+- The cluster must have Istio installed
+- The cluster must have network policies enabled
+- Naiserator must run with the flag `--access-policies=true`
 
 ### Kubernetes Network Policy
 
