@@ -96,12 +96,9 @@ spec:
         - host: www.external-application.com
 ```
 
-
-
 ## Advanced: Resources created by Naiserator
 
 The example above will create both Kubernetes Network Policies and Istio resources.
-
 
 ### Kubernetes Network Policy
 
@@ -187,15 +184,104 @@ spec:
   - Ingress
 ```
 
-  
+{% hint style="info" %}
+Note that for namespace match labels to work, the namespaces must be labeled with `name: namespacename`.
 
+`kube-system` should be labeled accordingly for the default rule that allows traffic to `kube-dns`, but in GCP, the label is removed by some job in regular intervals...
+{% endhint %}
 
 ## Istio Resources
 
 The policies from `spec.accessPolicy` will in addition create these Istio-resources:
-- ServiceRole and ServiceRoleBinding
-- ServiceEntry
 
-In the cloud `spec.ingresses` will, instead of Kubernetes Ingress objects, create the Istio-resource:
-- VirtualService
+### ServiceRole and ServiceRoleBinding
+For Istio to allow request from `app-b` in the same namespace and in `othernamespace`, these resources will be created:
 
+```
+apiVersion: rbac.istio.io/v1alpha1
+kind: ServiceRole
+metadata:
+  labels:
+    app: app-a
+    team: my-team 
+  name: app-a
+  namespace: my-team
+spec:
+  rules:
+  - methods:
+    - '*'
+    paths:
+    - '*'
+    services:
+    - app-a.my-team.svc.cluster.local
+```
+
+
+```
+apiVersion: rbac.istio.io/v1alpha1
+kind: ServiceRoleBinding
+metadata:
+  labels:
+    app: app-a
+    team: my-team
+  name: app-a
+  namespace: my-team
+spec:
+  roleRef:
+    kind: ServiceRole
+    name: app-a
+  subjects:
+  - user: cluster.local/ns/my-team/sa/app-b
+  - user: cluster.local/ns/othernamespace/sa/app-b
+```
+
+### ServiceEntry
+`spec.accessRules.outbound.external` will create ServiceEntry:
+
+```
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  labels:
+    app: app-a
+    team: my-team
+  name: app-a
+  namespace: my-team
+spec:
+  hosts:
+  - www.external-application.com
+  location: MESH_EXTERNAL
+  ports:
+  - name: https
+    number: 443
+    protocol: HTTPS
+  resolution: DNS
+```
+
+### VirtualService
+
+In the cloud `spec.ingresses` will create VirtualService instead of Ingress objects:
+
+```
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  labels:
+    app: app-a
+    team: my-team
+  name: app-a-app-a-dev-gcp-nais-io
+  namespace: my-team
+spec:
+  gateways:
+  - istio-system/ingress-gateway-nais-io
+  hosts:
+  - my-app.dev-gcp.nais.io
+  http:
+  - route:
+    - destination:
+        host: app-a
+        port:
+          number: 80
+        subset: ""
+      weight: 100
+```
