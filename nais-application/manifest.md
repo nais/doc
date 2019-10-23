@@ -109,7 +109,7 @@ Maximum number of replicas.
 Total CPU percentage threshold on deployment, at which point it will increase number of pods if `current < max`. We recommend to read more about [container lifecycle hooks](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/).
 
 ## `spec.prometheus`
-Prometheus is used to scrape [metrics](](../observability/metrics) from the pod.
+Prometheus is used to scrape [metrics](](../observability/metrics.md) from the pod.
 
 ### `spec.prometheus.enabled`
 If true, the pod will be scraped for metrics by Prometheus.
@@ -159,7 +159,7 @@ Guaranteed amount of memory.
 List of ingress URLs that will route HTTP traffic to the application.
 
 ## `spec.secrets` (GCP only)
-Putting this information in a secret is safer and more flexible than putting it verbatim in a Pod definition or in a container image. See [GCP only features/secrets](../gcp-only/secrets.md) for more information.
+Putting this information in a secret is safer and more flexible than putting it verbatim in a Pod definition or in a container image. See [GCP only features/secrets](../gcp/secrets.md) for more information.
 
 ### `spec.secrets[].name`
 Name of secret (must exist in namespace).

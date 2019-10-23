@@ -49,7 +49,7 @@ The `version` in the payload should be set to `[1, 0, 0]`. This version field ha
 
 ## Manual deploy with Kubectl
 
-Performing deployments manually requires that you have [access to the cluster](access.md) and `kubectl` configured.
+Performing deployments manually requires that you have [access to the cluster](../basics/access.md) and `kubectl` configured.
 
 ```text
 $ kubectl apply -f nais.yaml
