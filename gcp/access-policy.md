@@ -109,7 +109,7 @@ These requirements must be met for access policies to be working as expected:
 
 ### Kubernetes Network Policy
 
-### Default policy
+#### Default policy
 Every app created will have this default network policy that allows traffic from Istio pilot and mixer, as well as kube-dns.
 
 ```
@@ -153,7 +153,7 @@ spec:
   - Egress
 ```
 
-### Kubernetes network policies
+#### Kubernetes network policies
 The applications specified in `spec.accessPolicy.inbound.rules` and `spec.accessPolicy.outbound.rules` will append these fields to the default Network Policy:
 
 ```
@@ -197,11 +197,11 @@ Note that for namespace match labels to work, the namespaces must be labeled wit
 `kube-system` should be labeled accordingly for the default rule that allows traffic to `kube-dns`, but in GCP, the label is removed by some job in regular intervals...
 {% endhint %}
 
-## Istio Resources
+### Istio Resources
 
 The policies from `spec.accessPolicy` will in addition create these Istio-resources:
 
-### ServiceRole and ServiceRoleBinding
+#### ServiceRole and ServiceRoleBinding
 For Istio to allow request from `app-b` in the same namespace and in `othernamespace`, these resources will be created:
 
 ```
@@ -242,7 +242,7 @@ spec:
   - user: cluster.local/ns/othernamespace/sa/app-b
 ```
 
-### ServiceEntry
+#### ServiceEntry
 `spec.accessRules.outbound.external` will create ServiceEntry:
 
 ```
@@ -265,7 +265,7 @@ spec:
   resolution: DNS
 ```
 
-### VirtualService
+#### VirtualService
 
 In the cloud `spec.ingresses` will create VirtualService instead of Ingress objects:
 
