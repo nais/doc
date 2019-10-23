@@ -17,7 +17,9 @@ Inbound rules specifies what other applications *in the same cluster* your appli
 ### Receive requests from other app in the same namespace
 For app `app-a` to be able to receive incoming requests from `app-b` in the same cluster and the same namespace, this specification is needed for `app-a`:
 
-```
+``` yaml
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
 metadata:
   name: app-a
 ...
@@ -33,7 +35,9 @@ spec:
 ### Receive requests from other app in the another namespace
 For app `app-a` to be able to receive incoming requests from `app-b` in the same cluster but another namespace (`othernamespace`), this specification is needed for `app-a`:
 
-```
+``` yaml
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
 metadata:
   name: app-a
 ...
@@ -52,7 +56,9 @@ Inbound rules specifies what other applications your application receives traffi
 ### Send requests to other app in the same namespace
 For app `app-a` to be able to send requests to `app-b` in the same cluster and the same namespace, this specification is needed for `app-a`:
 
-```
+``` yaml
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
 metadata:
   name: app-a
 ...
@@ -68,7 +74,9 @@ spec:
 ### Send requests to other app in the another namespace
 For app `app-a` to be able to send requests requests to `app-b` in the same cluster but in another namespace (`othernamespace`), this specification is needed for `app-a`:
 
-```
+``` yaml
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
 metadata:
   name: app-a
 ...
@@ -84,7 +92,9 @@ spec:
 ### External services
 In order to send requests to services outside of the cluster, `external.host` is needed:
 
-```
+``` yaml
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
 metadata:
   name: app-a
 ...
@@ -110,9 +120,9 @@ These requirements must be met for access policies to be working as expected:
 ### Kubernetes Network Policy
 
 #### Default policy
-Every app created will have this default network policy that allows traffic from Istio pilot and mixer, as well as kube-dns.
+Every app created will have this default network policy that allows traffic from Istio pilot and mixer, as well as kube-dns. This policy will be created for every app, also those who don't have any access policies specified.
 
-```
+``` yaml
 apiVersion: extensions/v1beta1
 kind: NetworkPolicy
 metadata:
@@ -156,7 +166,7 @@ spec:
 #### Kubernetes network policies
 The applications specified in `spec.accessPolicy.inbound.rules` and `spec.accessPolicy.outbound.rules` will append these fields to the default Network Policy:
 
-```
+``` yaml
 apiVersion: extensions/v1beta1
 kind: NetworkPolicy
 ...
@@ -204,7 +214,7 @@ The policies from `spec.accessPolicy` will in addition create these Istio-resour
 #### ServiceRole and ServiceRoleBinding
 For Istio to allow request from `app-b` in the same namespace and in `othernamespace`, these resources will be created:
 
-```
+``` yaml
 apiVersion: rbac.istio.io/v1alpha1
 kind: ServiceRole
 metadata:
@@ -224,7 +234,7 @@ spec:
 ```
 
 
-```
+``` yaml
 apiVersion: rbac.istio.io/v1alpha1
 kind: ServiceRoleBinding
 metadata:
@@ -245,7 +255,7 @@ spec:
 #### ServiceEntry
 `spec.accessRules.outbound.external` will create ServiceEntry:
 
-```
+``` yaml
 apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
@@ -269,7 +279,7 @@ spec:
 
 In the cloud `spec.ingresses` will create VirtualService instead of Ingress objects:
 
-```
+``` yaml
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
