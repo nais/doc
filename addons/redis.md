@@ -23,7 +23,7 @@ instance.
 
 ### Naisd
 
-In the [NAIS manifest][1], the following configuration can be added to enable Redis:
+In the [NAIS manifest], the following configuration can be added to enable Redis:
 
 Minimal version:
 
@@ -56,13 +56,13 @@ removed.
 #### Redis metrics
 
 To enable metrics, NAIS injects an exporter as a sidecar to the Redis pod instance for you. You can see the metrics
-over at [Grafana][2].
+over at [Grafana].
 
 ### Naiserator (single instance)
 
 In Naiserator, it is required to manually start your Redis instance. This means that you can only run single instances
 that are not scalable; increasing replicas will only start new databases that are not synced. Contact
-[@Kyrre.Havik.Eriksen][3] if you need High Availability-Redis with Naiserator.
+[@Kyrre.Havik.Eriksen] if you need High Availability-Redis with Naiserator.
 
 An example Redis setup with Naiserator looks like this:
 
@@ -108,7 +108,7 @@ app, the value is not going to change):
 If it is metrics are wanted from a Redis instance running on Naiserator, a separate exporter must be run. An example
 `nais.yaml` for the simplest version of such an exporter is found below. NAIS has also made a dashboard that everyone
 can use. The only caveat is that the exporter application needs to end its name with `redisexporter` in the
-configuration. The dashboard is called [Redis exporters][4]. The dashboard sorts by `addr`, enabling a single exporter
+configuration. The dashboard is called [Redis exporters]. The dashboard sorts by `addr`, enabling a single exporter
 to scrape several Redis instances.
 
 ```yaml
@@ -139,11 +139,11 @@ spec:
       value: ${redis-instance}.default.svc.nais.local:6379
 ```
 
-If the Redis instance is password protected, the [secure-redisexporter][5]-image must be used.
+If the Redis instance is password protected, the [secure-redisexporter]-image must be used.
 
 ## Secure Redis (both Naisd and Naiserator)
 
-This custom image fetches passwords from Vault. If this is needed for your project, see [baseimages][6] for more
+This custom image fetches passwords from Vault. If this is needed for your project, see [baseimages] for more
 information.
 
 ## Code examples
@@ -162,9 +162,9 @@ redis:
   port: 6379
 ```
 
-[1]: ../nais-application/manifest.md
-[2]: https://grafana.adeo.no/d/Jmg7MydWz
-[3]: https://nav-it.slack.com/messages/D8QQ9ELK1
-[4]: https://grafana.adeo.no/d/L-Ktprrmz
-[5]: https://github.com/navikt/baseimages/tree/master/redis/secure-redisexporter
-[6]: https://github.com/navikt/baseimages/tree/master/redis
+[NAIS manifest]: ../nais-application/manifest.md
+[Grafana]: https://grafana.adeo.no/d/Jmg7MydWz
+[@Kyrre.Havik.Eriksen]: https://nav-it.slack.com/messages/D8QQ9ELK1
+[Redis exporters]: https://grafana.adeo.no/d/L-Ktprrmz
+[secure-redisexporter]: https://github.com/navikt/baseimages/tree/master/redis/secure-redisexporter
+[baseimages]: https://github.com/navikt/baseimages/tree/master/redis
