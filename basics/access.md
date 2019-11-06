@@ -54,8 +54,8 @@ When done, `kubectl` will update your `kubeconfig`-file with the tokens needed t
 
 ### Google Cloud Platform (GCP)
 
-Before following these steps, make sure your team is enabled for Google Cloud Platofrm, check 
-out [team access][] for more information.
+Before following these steps, make sure your team is enabled for Google Cloud Platform, check 
+out [team access] for more information.
 
 First you need to install `gcloud` following the [instructions] for your platform.
 
