@@ -55,7 +55,7 @@ When done, `kubectl` will update your `kubeconfig`-file with the tokens needed t
 ### Google Cloud Platform (GCP)
 
 Before following these steps, make sure your team is enabled for Google Cloud Platform, check 
-out [team access] for more information.
+out [team access](../gcp/getting-started#access) for more information.
 
 First you need to install `gcloud` following the [instructions] for your platform.
 
@@ -84,5 +84,4 @@ Kubernetes master is running at https://127.0.0.1:14131
 [kubectl]: https://kubernetes.io/docs/tasks/tools/install-kubectl
 [kubeconfig]: https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/
 [pre-made kubeconfig]: https://github.com/navikt/kubeconfigs
-[team access]: ../gcp/getting-started#access
 [instructions]: https://cloud.google.com/sdk/docs/#install_the_latest_cloud_tools_version_cloudsdk_current_version
