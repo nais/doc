@@ -29,7 +29,7 @@ spec:
       description: The app might crash sometimes due to startup errors
       documentation: https://github.com/navikt/aura-doc/naisvakt/alerts.md#app_unavailable
       sla: respond within 1h, during office hours
-      severity: critical
+      severity: danger
 ```
 
 We also support e-mail as a receiver. See [example alerts](example_alerts.md) and [recommended alerts](recommended_alerts.md).
