@@ -3,49 +3,21 @@ Migration from Naisd to Naiserator
 
 ## 1. Converting the manifest
 
-Your nais manifest, commonly known as `nais.yaml`, needs to be converted from its current format into the new format.
+Your NAIS manifest, commonly known as `nais.yaml`, needs to be converted from its current format into the new format.
+Use the [Migrator](https://github.com/nais/migrator) tool to automatically convert manifests. The tool will also pull
+required variables from _Fasit_ and inject them into the end result.
 
-The old format looks like this:
+Note that the `alerts` field has been replaced with the [Alert resource](../observability/alerts/README.md). If you
+use alerting, you need to manually convert them into the new format. They are quite similar so it will be an easy job.
 
-```
-image: navikt/nais-testapp
-team: teamName
-port: 8080
-(...)
-```
-
-The new format looks like this. Check out [in depth](../nais-application/manifest.md) for a more complete list.
-
-```
-apiVersion: nais.io/v1alpha1
-kind: Application
-metadata:
-  name: nais-testapp
-  namespace: default
-  labels:
-    team: teamName
-spec:
-  image: navikt/nais-testapp:1.2.3
-  port: 8080
-(...)
-```
-
-Follow the checklist to complete the migration:
-
-* [ ] Use the `apiVersion`, `kind`, `metadata` and `spec` fields.
-* [ ] Include the version of your Docker container in the `.spec.image` field.
-* [ ] `healthcheck` has been replaced by top-level `liveness` and `readiness` fields.
-* [ ] The `redis` field has been removed.
-* [ ] The `alerts` field has been replaced with the [Alert resource](../observability/alerts/README.md).
-* [ ] The `ingress` field has been replaced by `ingresses` and need to specified explicitly.
-* [ ] Fasit is no longer supported.
+For more information about the new format, see the [NAIS manifest specification](../nais-application/manifest.md).
 
 ## 2. Cluster access
 
-Your converted manifest is a Kubernetes [custom resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/), and as such, it needs to be deployed directly to a Kubernetes cluster. This means you need to have `kubectl` access, which in turn requires:
+The new NAIS manifest is a [Kubernetes custom resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
+In order to manage your application, use the `kubectl` tool. Using this tool, you have the ability to inspect or restart the Docker container, among other things.
 
-* [ ] Install and configure kubectl
-* [ ] Create an Azure AD group for your team, for human access to the cluster
+Check out our [guide on cluster access](../basics/access.md) for information on how to set this up.
 
 ## 3. Deploying applications
 
