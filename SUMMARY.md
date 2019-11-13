@@ -12,6 +12,7 @@
   * [Max example](nais-application/max-example.md)
   * [Min example](nais-application/min-example.md)
 * [Deployment](deployment/README.md)
+  * [NAIS deploy (BETA)](deployment/deploy.md)
   * [Advanced usage](deployment/advanced-usage.md)
   * [CircleCI](deployment/circleci.md)
   * [Deployment-cli](deployment/deployment-cli.md)
