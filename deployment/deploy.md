@@ -79,6 +79,9 @@ name: Build, push, and deploy
 
 on: [push]
 
+env:
+  IMAGE: docker.pkg.github.com/{{ github.repository }}/myapplication:{{ github.sha }}
+
 jobs:
 
   build:
@@ -90,11 +93,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        version=$(./version.sh)
-        image=docker.pkg.github.com/navikt/myrepository/myapplication
-        docker build --tag ${image}:${version} .
+        docker build --tag ${IMAGE} .
         docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
-        docker push ${image}:${version}
+        docker push ${IMAGE}
 
   deploy:
     name: Deploy to NAIS
@@ -103,44 +104,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Set template variables
-      run: |
-        version=$(./version.sh)
-        cat > /github/workspace/vars.yaml <<EOF
-        ---
-        image: docker.pkg.github.com/navikt/myrepository/myapplication
-        tag: ${version}
-        EOF
     - uses: navikt/deployment/actions/deploy@master
       env:
         APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
         CLUSTER: dev-fss
         RESOURCE: nais.yaml
-        VARS: /github/workspace/vars.yaml
-```
-{% endcode-tabs-item %}
-
-{% code-tabs-item title="version.sh" %}
-
-The `version.sh` script generates a version tag based on the current date and Git ref.
-You can use whatever version scheme you want. This example is based on the following script
-and creates a version tag similar to `2019-11-13-abcdef`.
-
-```bash
-#!/bin/sh
-dirty=""
-test -z "$(git ls-files --exclude-standard --others)"
-if [ $? -ne 0 ]; then
-  dirty="-dirty"
-fi
-echo $(date "+%Y-%m-%d")-$(git --no-pager log -1 --pretty=%h)${dirty}
 ```
 {% endcode-tabs-item %}
 
 {% code-tabs-item title="nais.yaml" %}
 
-The provided `nais.yaml` file serves as a minimal example, to illustrate the use of the template variables `image` and `tag`.
-The contents of these variables are injected from the ad-hoc `vars.yaml` file, created by the workflow.
+The provided `nais.yaml` file serves as a minimal example, to illustrate the use of the template variables `image`.
+The contents of these variables are injected from a variables file. If the `$IMAGE` environment variable is set,
+its contents will be injected into the `image` template variable.
 
 ```yaml
 apiVersion: nais.io/v1alpha1
@@ -151,20 +127,13 @@ metadata:
   labels:
     team: myteam
 spec:
-  image: {{ image }}:{{ tag }}
+  image: {{ image }}
 ```
 
-This template will be combined with the `vars.yaml` file, which looks like:
-
-```
-image: docker.pkg.github.com/navikt/myrepository/myapplication
-tag: 2019-11-13-abcdef
-```
-
-The resulting file's last line will look like:
+This template will be combined with the `vars.yaml` file to provide the final result:
 
 ```yaml
-image: docker.pkg.github.com/navikt/myrepository/myapplication:2019-11-13-abcdef
+image: docker.pkg.github.com/navikt/myrepository/myapplication:417dcaa2c839b9da72e0189e2cfdd4e90e9cc6fd
 ```
 
 {% endcode-tabs-item %}
