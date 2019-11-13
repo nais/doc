@@ -1,6 +1,6 @@
 # Deploy your application
 
-{% hint style="warn" %}
+{% hint style="warning" %}
 This article is about a new beta version of NAIS deploy.
 It is not yet available to all users, marked by the absence of a team API key.
 Get beta access at #pig_deployment on Slack.
@@ -23,35 +23,36 @@ For information about _naisd_, see [naisd user documentation](../legacy/naisd.md
 ## How it works
 
 1. Create a deployment request using the [NAIS deploy tool](https://github.com/navikt/deployment) in your build pipeline.
-2. NAIS deploy try deploying your application, and will wait until your deployment is rolled out, gets an error, or a timeout occurs.
+2. NAIS deploy deploys your application to Kubernetes, and will wait until your deployment is rolled out, gets an error, or a timeout occurs.
 3. Deployment statuses are continually posted back to [GitHub Deployment API](https://developer.github.com/v3/repos/deployments/).
 
 ## How to set it up
 
 1. Your application must have a repository on GitHub.
-2. That GitHub repository must be owned by your team and have `admin` access.
-3. Your GitHub team's _slug_ must match the _Kubernetes team label_ in your `nais.yaml` (see [Your first NAIS application](application.md) if you don't have this file!).
+2. Your GitHub team must have _admin_ access on that repository.
+3. Your GitHub team's _slug_ must match the _Kubernetes team label_ in your `nais.yaml` (see [Your first NAIS application](../basics/application.md) if you don't have this file!).
 4. Obtain a _team API key_ from [Vault](https://vault.adeo.no) under the path `/apikey/nais-deploy/<YOUR_TEAM>`.
 5. Follow the guide below titled [performing the deployment](#performing-the-deployment).
-
-When things break, see [troubleshooting](#troubleshooting).
+6. When things break, see [troubleshooting](#troubleshooting).
 
 ## Performing the deployment
 
-At this point, you have met the prerequisites and obtained your team API key.
-There are two guides on how to deploy: using [GitHub Actions](#using-github-actions),
-and all other CI tools using the NAIS deploy command line tool.
+At this point, you have set up the repository with correct team permissions, and obtained your team API key.
+There are two ways to deploy: using [GitHub Actions](#using-github-actions),
+and using another CI tool together with the _NAIS deploy command line tool_.
 
 ### Using GitHub Actions
 
 The easiest way of deploying your application to NAIS is using GitHub Actions.
-NAIS has made a workflow for GitHub Actions which uses the NAIS deploy command line tool.
-
 This example workflow will build a Docker container, push it to Github Package Registry,
 and deploy the application to the `dev-fss` NAIS cluster.
 
-Start by creating a folder for your workflows in the root of your applications repository,
-and create a workflow YAML file. You can use our example as a starting point and adjust the
+Recommended reading: [Automating your workflow with GitHub Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions)
+is GitHub's official documentation on GitHub Actions. If the code below doesn't make sense,
+refer to this documentation for a better understanding.
+
+Start by creating a folder for your workflows in the root of your application repository.
+Create a workflow YAML file. You can use our example as a starting point and adjust the
 code as needed.
 
 ```bash
@@ -59,7 +60,7 @@ mkdir -p .github/workflows
 touch .github/workflows/deploy.yaml
 ```
 
-Then, put the following code into `deploy.yaml`.
+Put the following code into `deploy.yaml`.
 
 ```yaml
 # deploy.yaml
