@@ -31,7 +31,7 @@ For information about _naisd_, see [naisd user documentation](../legacy/naisd.md
 1. Your application must have a repository on GitHub.
 2. Your GitHub team must have _admin_ access on that repository.
 3. Your GitHub team's _slug_ must match the _Kubernetes team label_ in your `nais.yaml` (see [Your first NAIS application](../basics/application.md) if you don't have this file!).
-4. Obtain a _team API key_ from [Vault](https://vault.adeo.no) under the path `/apikey/nais-deploy/<YOUR_TEAM>`.
+4. Obtain a _team API key_ from [Vault](https://vault.adeo.no) under the path `/apikey/nais-deploy/<YOUR_TEAM>`. Save the key as a secret named `NAIS_DEPLOY_APIKEY` in your GitHub repository.
 5. Follow the guide below titled [performing the deployment](#performing-the-deployment).
 6. When things break, see [troubleshooting](#troubleshooting).
 
@@ -80,7 +80,7 @@ name: Build, push, and deploy
 on: [push]
 
 env:
-  IMAGE: docker.pkg.github.com/{{ github.repository }}/myapplication:{{ github.sha }}
+  IMAGE: docker.pkg.github.com/${{ github.repository }}/myapplication:${{ github.sha }}
 
 jobs:
 
@@ -100,7 +100,7 @@ jobs:
   deploy:
     name: Deploy to NAIS
     needs: build
-    if: {{ github.ref == "refs/heads/master" }}
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
