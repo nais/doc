@@ -62,6 +62,10 @@ touch .github/workflows/deploy.yaml
 
 Put the following code into their respective files.
 
+{% code-tabs %}
+
+{% code-tabs-item title=".github/workflows/deploy.yaml" %}
+
 The example `deploy.yaml` sets up one _workflow_ which triggers every time code is pushed to the repository.
 First, the `build` job is triggered. This job will check out the source code, and build a Docker container.
 That container is then pushed to _GitHub Package Registry_.
@@ -70,15 +74,6 @@ Next, the `deploy` job is triggered, but only if the code was pushed to the `mas
 The deploy job checks out the source code, creates a template variable file with the Docker image name and tag,
 and uses the _NAIS deploy GitHub action_ to create a deployment in the `dev-fss` cluster.
 
-Note the `version.sh` script, which creates a version based on the current date and Git ref.
-You can use whatever version scheme you want. The example here is based on the following script
-and creates a version tag similar to `2019-11-13-abcdef`.
-
-The provided `nais.yaml` file serves as a minimal example, to illustrate the use of the template variables `image` and `tag`.
-The contents of these variables are injected from the ad-hoc `vars.yaml` file, created by the workflow.
-
-{% code-tabs %}
-{% code-tabs-item title=".github/workflows/deploy.yaml" %}
 ```yaml
 name: Build, push, and deploy
 
@@ -126,6 +121,11 @@ jobs:
 {% endcode-tabs-item %}
 
 {% code-tabs-item title="version.sh" %}
+
+The `version.sh` script generates a version tag based on the current date and Git ref.
+You can use whatever version scheme you want. This example is based on the following script
+and creates a version tag similar to `2019-11-13-abcdef`.
+
 ```bash
 #!/bin/sh
 dirty=""
@@ -138,9 +138,11 @@ echo $(date "+%Y-%m-%d")-$(git --no-pager log -1 --pretty=%h)${dirty}
 {% endcode-tabs-item %}
 
 {% code-tabs-item title="nais.yaml" %}
-```yaml
-# nais.yaml
 
+The provided `nais.yaml` file serves as a minimal example, to illustrate the use of the template variables `image` and `tag`.
+The contents of these variables are injected from the ad-hoc `vars.yaml` file, created by the workflow.
+
+```yaml
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
@@ -152,11 +154,19 @@ spec:
   image: {{ image }}:{{ tag }}
 ```
 
-When combined with the `vars.yaml` file, the last line will read:
+This template will be combined with the `vars.yaml` file, which looks like:
+
+```
+image: docker.pkg.github.com/navikt/myrepository/myapplication
+tag: 2019-11-13-abcdef
+```
+
+The resulting file's last line will look like:
 
 ```yaml
-  image: docker.pkg.github.com/navikt/myrepository/myapplication:2019-11-13-abcdef
+image: docker.pkg.github.com/navikt/myrepository/myapplication:2019-11-13-abcdef
 ```
+
 {% endcode-tabs-item %}
 
 {% endcode-tabs %}
