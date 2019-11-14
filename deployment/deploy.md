@@ -31,10 +31,10 @@ Deployment logs can be viewed on _Kibana_. The link to the logs will be provided
 
 1. Your application must have a repository on GitHub.
 2. Your GitHub team must have _admin_ access on that repository.
-3. Your GitHub team's identifier must match the _Kubernetes team label_ in your `nais.yaml` (see below for an example file.)
+3. Your GitHub team's identifier must match the _Kubernetes team label_ in your `nais.yaml`. There is an example file below.
 4. Obtain a _team API key_ from [Vault](https://vault.adeo.no) under the path `/apikey/nais-deploy/<YOUR_TEAM>`. Save the key as a secret named `NAIS_DEPLOY_APIKEY` in your GitHub repository.
 5. Follow the guide below titled [performing the deployment](#performing-the-deployment).
-6. When things break, see [troubleshooting](#troubleshooting).
+6. When things break, see [HELP!](#help).
 
 ## Performing the deployment
 
@@ -48,10 +48,6 @@ The easiest way of deploying your application to NAIS is using GitHub Actions.
 This example workflow will build a Docker container, push it to Github Package Registry,
 and deploy the application to the `dev-fss` NAIS cluster.
 
-Recommended reading: [Automating your workflow with GitHub Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions)
-is GitHub's official documentation on GitHub Actions. If the code below doesn't make sense,
-refer to this documentation for a better understanding.
-
 Start by creating a folder for your workflows in the root of your application repository.
 Create a workflow YAML file. You can use our example as a starting point and adjust the
 code as needed.
@@ -62,6 +58,8 @@ touch .github/workflows/deploy.yaml
 ```
 
 Put the following code into their respective files.
+Then, commit your new files and push. This will trigger the workflow, and you can follow its progress
+under the _Actions_ tab on your GitHub repository page. You're done!
 
 {% code-tabs %}
 
@@ -74,6 +72,10 @@ That container is then pushed to _GitHub Package Registry_.
 Next, the `deploy` job is triggered, but only if the code was pushed to the `master` branch AND the `build` job succeeded.
 The deploy job checks out the source code, creates a template variable file with the Docker image name and tag,
 and uses the _NAIS deploy GitHub action_ to create a deployment in the `dev-fss` cluster.
+
+Recommended reading: [Automating your workflow with GitHub Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions)
+is GitHub's official documentation on GitHub Actions. If the code below doesn't make sense,
+refer to this documentation for a better understanding.
 
 ```yaml
 name: Build, push, and deploy
@@ -115,7 +117,7 @@ jobs:
 
 {% code-tabs-item title="nais.yaml" %}
 
-This `nais.yaml` file serves as a minimal example. Here, `{{ image }}` will be replaced by the `$IMAGE` environment variable.
+In this `nais.yaml` file, `{{ image }}` will be replaced by the `$IMAGE` environment variable set in the workflow.
 Other environment variables will not be injected, but must be put into a template variables file.
 
 See [deploy action implementation](https://github.com/navikt/deployment/blob/master/actions/deploy/entrypoint.sh)
@@ -133,7 +135,7 @@ spec:
   image: {{ image }}
 ```
 
-This template will end up looking like:
+After `{{ image }}` has been replaced, it will look like:
 
 ```yaml
 image: docker.pkg.github.com/navikt/myrepository/myapplication:417dcaa2c839b9da72e0189e2cfdd4e90e9cc6fd
@@ -141,10 +143,18 @@ image: docker.pkg.github.com/navikt/myrepository/myapplication:417dcaa2c839b9da7
 
 {% endcode-tabs-item %}
 
-{% endcode-tabs %}
+{% code-tabs-item title="Dockerfile" %}
 
-Finally, commit your new files and push. This will trigger the workflow, and you can follow its progress
-under the _Actions_ tab on your GitHub repository page.
+You have to write your own Dockerfile, but if you're just trying this out,
+you can use the following example file.
+
+```dockerfile
+FROM nginx
+```
+
+{% endcode-tabs-item %}
+
+{% endcode-tabs %}
 
 #### NAIS deploy configuration
 
@@ -226,7 +236,9 @@ Use the following URL to create a small badge for your workflow/action.
 https://github.com/{github_id}/{repository}/workflows/{workflow_name}/badge.svg
 ```
 
-## Troubleshooting
+## HELP!
+
+Don't panic!
 
 Your deployment status page can be found on Github, under the repository you are deploying from. The status page will
 live at the URL `https://github.com/navikt/<YOUR_REPOSITORY>/deployments`. Links to deployment logs are available from
@@ -240,6 +252,7 @@ If everything fails, and you checked your logs, you can ask for help in the
 
 | Message | Action |
 | :--- | :--- |
+| You don't have access to apikey/. | Send a pull request to the _vault-iac_ repository, adding your team to the `terraform/teams` directory. |
 | the repository 'foo/bar' does not have access to deploy as team 'Baz' | Is your team name in _lowercase_ everywhere? |
 | Repository _foo/bar_ is not registered | Please read the [registering your repository](#registering-your-repository) section. |
 | Deployment status `error` | There is an error with your request. The reason should be specified in the error message. |
