@@ -24,7 +24,8 @@ For information about _naisd_, see [naisd user documentation](../legacy/naisd.md
 
 In your build pipeline, you create a deployment request using the _NAIS deploy tool_.
 Your application will be deployed to Kubernetes, and the deploy tool will wait until your deployment is rolled out, gets an error, or a timeout occurs.
-Underway, deployment statuses are continually posted back to [GitHub Deployment API](https://developer.github.com/v3/repos/deployments/).
+Underway, deployment statuses are continually posted back to _GitHub Deployment API_.
+Deployment logs can be viewed on _Kibana_. The link to the logs will be provided by the deploy tool.
 
 ## How to set it up
 
