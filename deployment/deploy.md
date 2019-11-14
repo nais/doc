@@ -111,11 +111,11 @@ jobs:
       env:
         APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
         CLUSTER: dev-fss
-        RESOURCE: nais.yaml
+        RESOURCE: nais.yml
 ```
 {% endcode-tabs-item %}
 
-{% code-tabs-item title="nais.yaml" %}
+{% code-tabs-item title="nais.yml" %}
 
 In this `nais.yaml` file, `{{ image }}` will be replaced by the `$IMAGE` environment variable set in the workflow.
 Other environment variables will not be injected, but must be put into a template variables file.
@@ -151,7 +151,6 @@ you can use the following example file.
 ```dockerfile
 FROM nginx
 ```
-
 {% endcode-tabs-item %}
 
 {% endcode-tabs %}
@@ -202,7 +201,7 @@ docker run -it --rm navikt/deployment:latest \
     --cluster="$CLUSTER" \
     --owner="$OWNER" \
     --repository="$REPOSITORY" \
-    --resource="/path/to/nais.yaml" \
+    --resource="/path/to/nais.yml" \
     --vars="/path/to/resources" \
     --wait=true \
     ;
