@@ -27,11 +27,11 @@ Your application will be deployed to Kubernetes, and the deploy tool will wait u
 Underway, deployment statuses are continually posted back to _GitHub Deployment API_.
 Deployment logs can be viewed on _Kibana_. The link to the logs will be provided by the deploy tool.
 
-## How to set it up
+## Set it up
 
 1. Your application must have a repository on GitHub.
 2. Your GitHub team must have _admin_ access on that repository.
-3. Your GitHub team's _slug_ must match the _Kubernetes team label_ in your `nais.yaml` (see [Your first NAIS application](../basics/application.md) if you don't have this file!).
+3. Your GitHub team's identifier must match the _Kubernetes team label_ in your `nais.yaml` (see below for an example file.)
 4. Obtain a _team API key_ from [Vault](https://vault.adeo.no) under the path `/apikey/nais-deploy/<YOUR_TEAM>`. Save the key as a secret named `NAIS_DEPLOY_APIKEY` in your GitHub repository.
 5. Follow the guide below titled [performing the deployment](#performing-the-deployment).
 6. When things break, see [troubleshooting](#troubleshooting).
@@ -142,10 +142,6 @@ image: docker.pkg.github.com/navikt/myrepository/myapplication:417dcaa2c839b9da7
 {% endcode-tabs-item %}
 
 {% endcode-tabs %}
-
-Continue with creating a GitHub secret with your _team API key_.
-You can find secrets under the _settings_ page of your GitHub repository.
-Name the secret `NAIS_DEPLOY_APIKEY`.
 
 Finally, commit your new files and push. This will trigger the workflow, and you can follow its progress
 under the _Actions_ tab on your GitHub repository page.
