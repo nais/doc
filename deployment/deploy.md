@@ -114,9 +114,11 @@ jobs:
 
 {% code-tabs-item title="nais.yaml" %}
 
-The provided `nais.yaml` file serves as a minimal example, to illustrate the use of the template variables `image`.
-The contents of these variables are injected from a variables file. If the `$IMAGE` environment variable is set,
-its contents will be injected into the `image` template variable.
+This `nais.yaml` file serves as a minimal example. Here, `{{ image }}` will be replaced by the `$IMAGE` environment variable.
+Other environment variables will not be injected, but must be put into a template variables file.
+
+See [deploy action implementation](https://github.com/navikt/deployment/blob/master/actions/deploy/entrypoint.sh)
+to understand how this is implemented.
 
 ```yaml
 apiVersion: nais.io/v1alpha1
@@ -130,7 +132,7 @@ spec:
   image: {{ image }}
 ```
 
-This template will be combined with the `vars.yaml` file to provide the final result:
+This template will end up looking like:
 
 ```yaml
 image: docker.pkg.github.com/navikt/myrepository/myapplication:417dcaa2c839b9da72e0189e2cfdd4e90e9cc6fd
