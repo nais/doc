@@ -107,7 +107,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: navikt/deployment/actions/deploy@master
+    - uses: nais/deploy/actions/deploy@master
       env:
         APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
         CLUSTER: dev-fss
@@ -120,7 +120,7 @@ jobs:
 In this `nais.yaml` file, `{{ image }}` will be replaced by the `$IMAGE` environment variable set in the workflow.
 Other environment variables will not be injected, but must be put into a template variables file.
 
-See [deploy action implementation](https://github.com/navikt/deployment/blob/master/actions/deploy/entrypoint.sh)
+See [deploy action implementation](https://github.com/nais/deploy/blob/master/actions/deploy/entrypoint.sh)
 to understand how this is implemented.
 
 ```yaml
@@ -173,7 +173,7 @@ FROM nginx
 ### Manual usage of deployment tool
 
 You can still use NAIS deploy even if not using GitHub actions.
-Run the deployment command line tool `/app/deploy` in the Docker image `navikt/deployment:latest` to make deployments.
+Run the deployment command line tool `/app/deploy` in the Docker image `nais/deploy:latest` to make deployments.
 
 Usage of /app/deploy:
 ```
@@ -195,7 +195,7 @@ Usage of /app/deploy:
 Example usage:
 
 ```
-docker run -it --rm navikt/deployment:latest \
+docker run -it --rm nais/deploy:latest \
   /app/deploy \
     --apikey="$NAIS_DEPLOY_APIKEY" \
     --cluster="$CLUSTER" \
