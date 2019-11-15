@@ -173,9 +173,26 @@ FROM nginx
 ### Manual usage of deployment tool
 
 You can still use NAIS deploy even if not using GitHub actions.
-Run the deployment command line tool `/app/deploy` in the Docker image `nais/deploy:latest` to make deployments.
+Run the deployment command line tool from our Docker image to make deployments.
 
-Usage of /app/deploy:
+Example usage:
+
+```
+docker login docker.pkg.github.com -u $GITHUB_REPOSITORY -p $GITHUB_TOKEN
+docker run -it --rm docker.pkg.github.com/nais/deploy/deploy:latest \
+  /app/deploy \
+    --apikey="$NAIS_DEPLOY_APIKEY" \
+    --cluster="$CLUSTER" \
+    --owner="$OWNER" \
+    --repository="$REPOSITORY" \
+    --resource="/path/to/nais.yml" \
+    --vars="/path/to/resources" \
+    --wait=true \
+    ;
+```
+
+Syntax:
+
 ```
 --apikey string          NAIS Deploy API key.
 --cluster string         NAIS cluster to deploy into.
@@ -190,21 +207,6 @@ Usage of /app/deploy:
 --team string            Team making the deployment. Auto-detected if possible.
 --vars string            File containing template variables.
 --wait                   Block until deployment reaches final state (success, failure, error).
-```
-
-Example usage:
-
-```
-docker run -it --rm nais/deploy:latest \
-  /app/deploy \
-    --apikey="$NAIS_DEPLOY_APIKEY" \
-    --cluster="$CLUSTER" \
-    --owner="$OWNER" \
-    --repository="$REPOSITORY" \
-    --resource="/path/to/nais.yml" \
-    --vars="/path/to/resources" \
-    --wait=true \
-    ;
 ```
 
 ## Templating
