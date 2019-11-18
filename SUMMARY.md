@@ -11,6 +11,7 @@
   * [Max example](nais-application/max-example.md)
   * [Min example](nais-application/min-example.md)
 * [Deployment](deployment/deploy.md)
+  * [NAIS deploy](deployment/deploy.md)
   * [Manually](deployment/manual.md)
   * [Changing teams](deployment/change-team.md)
 * [Observability](observability/README.md)
