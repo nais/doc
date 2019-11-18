@@ -25,3 +25,5 @@ in GitHub's repositories, the manifest file's `spec.image` value would be
 `docker.pkg.github.com/navikt/repo/docker-image:docker-tag`, and then NAIS will fetch it from there.
 
 For more information about the `nais.yaml` specification, see [Manifest](../nais-application/manifest.md).
+
+Now that you've created your application, it's time to [deploy to Kubernetes](../deployment/deploy.md).
