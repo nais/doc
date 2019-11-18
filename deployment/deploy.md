@@ -11,15 +11,6 @@ This section will take you through the deployment of your application using _NAI
 NAIS deploy enables you to deploy your application from any continuous integration platform.
 Our primary supported platform is GitHub Actions, but you can also deploy from CircleCI, Travis CI, Jenkins, or other tools.
 
-{% hint style="info" %}
-Note: Using _naisd_ or _JIRA Autodeploy_ to deploy your application? These mechanisms are _deprecated_ and are going to
-be shut down on February 2nd, 2020.
-
-See [migration guide from naisd to Naiserator](../legacy/migrating-from-naisd.md). All information on this page
-relates to Naiserator compatible `nais.yaml` files.
-For information about _naisd_, see [naisd user documentation](../legacy/naisd.md).
-{% endhint %}
-
 ## How it works
 
 In your build pipeline, you create a deployment request using the _NAIS deploy tool_.
@@ -36,13 +27,7 @@ Deployment logs can be viewed on _Kibana_. The link to the logs will be provided
 5. Follow the guide below titled [performing the deployment](#performing-the-deployment).
 6. When things break, see [HELP!](#help).
 
-## Performing the deployment
-
-At this point, you have set up the repository with correct team permissions, and obtained your team API key.
-There are two ways to deploy: using [GitHub Actions](#using-github-actions),
-and using another CI tool together with the _NAIS deploy command line tool_.
-
-### Using GitHub Actions
+## Deploy with GitHub Actions
 
 The easiest way of deploying your application to NAIS is using GitHub Actions.
 This example workflow will build a Docker container, push it to Github Package Registry,
@@ -107,7 +92,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: nais/deploy/actions/deploy@master
+    - uses: nais/deploy/actions/deploy@v1
       env:
         APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
         CLUSTER: dev-fss
@@ -155,7 +140,7 @@ FROM nginx
 
 {% endcode-tabs %}
 
-#### NAIS deploy configuration
+### Advanced configuration
 
 | Environment variable | Default | Description |
 | :--- | :--- | :--- |
@@ -170,16 +155,17 @@ FROM nginx
 | TEAM | (auto-detect) | Team making the deployment. |
 | VARS | `/dev/null` | File containing template variables. Will be interpolated with the `$RESOURCE` file. Must be JSON or YAML format. |
 
-### Manual usage of deployment tool
+## Deploy with other CI
 
-You can still use NAIS deploy even if not using GitHub actions.
-Run the deployment command line tool from our Docker image to make deployments.
+You can still use NAIS deploy even if not using GitHub Actions.
+Our deployment command line tool supports all CI tools such as Jenkins, Travis or Circle.
+Use our Docker image to make deployments.
 
 Example usage:
 
 ```
 docker login docker.pkg.github.com -u $GITHUB_REPOSITORY -p $GITHUB_TOKEN
-docker run -it --rm docker.pkg.github.com/nais/deploy/deploy:latest \
+docker run -it --rm docker.pkg.github.com/nais/deploy/deploy:v1 \
   /app/deploy \
     --apikey="$NAIS_DEPLOY_APIKEY" \
     --cluster="$CLUSTER" \
