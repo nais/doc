@@ -228,11 +228,8 @@ If everything fails, and you checked your logs, you can ask for help in the
 
 | Message | Action |
 | :--- | :--- |
-| You don't have access to apikey/. | Send a pull request to the _vault-iac_ repository, adding your team to the `terraform/teams` directory. |
-| the repository 'foo/bar' does not have access to deploy as team 'Baz' | Is your team name in _lowercase_ everywhere? |
-| Repository _foo/bar_ is not registered | Please read the [registering your repository](#registering-your-repository) section. |
+| You don't have access to apikey/. | See _Access to Vault_ in the [Teams documentation](../basics/teams.md) |
 | Deployment status `error` | There is an error with your request. The reason should be specified in the error message. |
 | Deployment status `failure` | Your application didn't pass its health checks during the 5 minute startup window. It is probably stuck in a crash loop due to mis-configuration. Check your application logs using `kubectl logs <POD>` and event logs using `kubectl describe app <APP>` |
-| Deployment is stuck at `queued` | The deployment hasn't been picked up by the worker process. Did you specify a [supported cluster](clusters.md) with `--cluster=<CLUSTER>`? |
-| team `foo` does not exist in Azure AD | Your team is not [registered in the team portal](teams.md). |
-| "tobac.nais.io" denied the request: user 'system:serviceaccount:default:serviceuser-FOO' has no access to team 'BAR' | The resource you are deploying already exists in the cluster, and the `team` label differs. You must manually change the existing team label (_BAR_) using `kubectl` so that it matches the resource you are deploying (_FOO_). |
+| 403 authentication failed | Either you're using the wrong _team API key_, or your team is not [registered in the team portal](../basics/teams.md). |
+| "tobac.nais.io" denied the request: user 'system:serviceaccount:default:serviceuser-FOO' has no access to team 'BAR' | See [changing teams](../deployment/change-team.md) |

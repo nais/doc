@@ -13,13 +13,22 @@ a group, the mailnick is the value before the `@` in the email field.
 
 Note that when the group is created, the mailnick/tag will be generated from the team name. It is converted into
 a lowercased version with whitepaces and special characters removed. Although technically perfectly fine, it is
-recommended to avoid the prefix `team` in the team name; it seems a bit superfluous in configurations: `team: teamred`
+recommended to avoid the prefix `team` in the team name; it is superfluous in configurations: `team: teamred`
 
-## Machine user
+## Access to Vault
 
-Teams that are still using internal Jenkins can ask for a machine user to connect to Kubernetes and access their
-resources. Notify @nais-team in [#nais] and ask for one. We need to know the `team` name, and for which Kubernetes
-clusters access is required.
+In order to access _team API keys_, your team needs to be added to Vault.
+
+Go to the [vault-iac] repository and add your team into a new file with the following contents.
+You can find `name` and `group_id` on the [All teams] page. The name is the same as the _mailnick/tag_ field.
+
+Submit your changes as a pull request and watch the [#vault-pr] Slack channel.
+
+```
+name: myteam
+group_id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+```
+
 
 [AAD]: https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups
 
@@ -27,4 +36,10 @@ clusters access is required.
 
 [Sharepoint form]: https://navno.sharepoint.com/sites/Bestillinger/
 
+[All teams]: https://navno.sharepoint.com/sites/Bestillinger/Lists/Nytt%20Team/AllItems.aspx
+
 [#nais]: https://nav-it.slack.com/messages/C5KUST8N6
+
+[#vault-pr]: https://nav-it.slack.com/archives/CQFTZBUFN
+
+[vault-iac]: https://github.com/navikt/vault-iac/tree/master/terraform/teams
