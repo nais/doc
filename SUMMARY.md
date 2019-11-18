@@ -10,7 +10,7 @@
   * [nais.yaml](nais-application/manifest.md)
   * [Max example](nais-application/max-example.md)
   * [Min example](nais-application/min-example.md)
-* [Deployment](deployment/deploy.md)
+* Deployment
   * [NAIS deploy](deployment/deploy.md)
   * [Manually](deployment/manual.md)
   * [Changing teams](deployment/change-team.md)
