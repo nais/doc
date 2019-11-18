@@ -20,7 +20,7 @@ Deployment logs can be viewed on _Kibana_. The link to the logs will be provided
 
 ## Set it up
 
-1. Your application must have a repository on GitHub.
+1. Your application must have a repository on GitHub containing a `nais.yml` and `Dockerfile`.
 2. Your GitHub team must have _admin_ access on that repository.
 3. Your GitHub team's identifier must match the _Kubernetes team label_ in your `nais.yaml`. There is an example file below.
 4. Obtain a _team API key_ from [Vault](https://vault.adeo.no) under the path `/apikey/nais-deploy/<YOUR_TEAM>`. Save the key as a secret named `NAIS_DEPLOY_APIKEY` in your GitHub repository.
@@ -29,38 +29,30 @@ Deployment logs can be viewed on _Kibana_. The link to the logs will be provided
 
 ## Deploy with GitHub Actions
 
-The easiest way of deploying your application to NAIS is using GitHub Actions.
-This example workflow will build a Docker container, push it to Github Package Registry,
-and deploy the application to the `dev-fss` NAIS cluster.
+A GitHub Actions pipeline is called a _Workflow_. You can set up workflows by adding a YAML file to your application's Git repository.
 
-Start by creating a folder for your workflows in the root of your application repository.
-Create a workflow YAML file. You can use our example as a starting point and adjust the
-code as needed.
+In this example, the workflow is set up in the file `deploy.yml`. The workflow will build a Docker container and push it to GitHub Package Registry.
+Next, if the code was pushed to the `master` branch AND the `build` job succeeded, the application will be deployed to NAIS.
 
-```bash
-mkdir -p .github/workflows
-touch .github/workflows/deploy.yaml
+Official GitHub documentation: [Automating your workflow with GitHub Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions).
+
+Get started by creating the following structure in your application repository:
+
+```
+myapplication/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+├── Dockerfile
+└── nais.yml
 ```
 
-Put the following code into their respective files.
-Then, commit your new files and push. This will trigger the workflow, and you can follow its progress
-under the _Actions_ tab on your GitHub repository page. You're done!
+Add the example files below, then commit and push. This will trigger the workflow, and you can follow its progress
+under the _Actions_ tab on your GitHub repository page.
 
 {% code-tabs %}
 
-{% code-tabs-item title=".github/workflows/deploy.yaml" %}
-
-The example `deploy.yaml` sets up one _workflow_ which triggers every time code is pushed to the repository.
-First, the `build` job is triggered. This job will check out the source code, and build a Docker container.
-That container is then pushed to _GitHub Package Registry_.
-
-Next, the `deploy` job is triggered, but only if the code was pushed to the `master` branch AND the `build` job succeeded.
-The deploy job checks out the source code, creates a template variable file with the Docker image name and tag,
-and uses the _NAIS deploy GitHub action_ to create a deployment in the `dev-fss` cluster.
-
-Recommended reading: [Automating your workflow with GitHub Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions)
-is GitHub's official documentation on GitHub Actions. If the code below doesn't make sense,
-refer to this documentation for a better understanding.
+{% code-tabs-item title=".github/workflows/deploy.yml" %}
 
 ```yaml
 name: Build, push, and deploy
@@ -102,12 +94,6 @@ jobs:
 
 {% code-tabs-item title="nais.yml" %}
 
-In this `nais.yaml` file, `{{ image }}` will be replaced by the `$IMAGE` environment variable set in the workflow.
-Other environment variables will not be injected, but must be put into a template variables file.
-
-See [deploy action implementation](https://github.com/nais/deploy/blob/master/actions/deploy/entrypoint.sh)
-to understand how this is implemented.
-
 ```yaml
 apiVersion: nais.io/v1alpha1
 kind: Application
@@ -118,24 +104,27 @@ metadata:
     team: myteam
 spec:
   image: {{ image }}
+  #image: docker.pkg.github.com/navikt/myrepository/myapplication:417dcaa2c839b9da72e0189e2cfdd4e90e9cc6fd
+  #       ^--- interpolated from the $IMAGE environment variable in the workflow
 ```
 
-After `{{ image }}` has been replaced, it will look like:
+In this `nais.yaml` file, `{{ image }}` will be replaced by the `$IMAGE` environment variable set in the workflow.
+Other environment variables will not be injected, but must be put into a template variables file.
 
-```yaml
-image: docker.pkg.github.com/navikt/myrepository/myapplication:417dcaa2c839b9da72e0189e2cfdd4e90e9cc6fd
-```
+See [deploy action implementation](https://github.com/nais/deploy/blob/master/actions/deploy/entrypoint.sh)
+to understand how this is implemented.
 
 {% endcode-tabs-item %}
 
 {% code-tabs-item title="Dockerfile" %}
 
-You have to write your own Dockerfile, but if you're just trying this out,
-you can use the following example file.
-
 ```dockerfile
 FROM nginx
 ```
+
+You have to write your own Dockerfile, but if you're just trying this out,
+you can use the following example file.
+
 {% endcode-tabs-item %}
 
 {% endcode-tabs %}
