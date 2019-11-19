@@ -1,8 +1,8 @@
 # Deploy your application
 
 {% hint style="warning" %}
-This article is about a new beta version of NAIS deploy.
-It is not yet available to all users, marked by the absence of a team API key.
+Team API keys are not provisioned to all users yet.
+
 Get beta access at #pig_deployment on Slack.
 {% endhint %}
 
@@ -129,7 +129,7 @@ you can use the following example file.
 
 {% endcode-tabs %}
 
-### Advanced configuration
+### Action configuration
 
 | Environment variable | Default | Description |
 | :--- | :--- | :--- |
