@@ -108,7 +108,7 @@ spec:
   #       ^--- interpolated from the $IMAGE environment variable in the workflow
 ```
 
-In this `nais.yaml` file, `{{ image }}` will be replaced by the `$IMAGE` environment variable set in the workflow.
+In this `nais.yml` file, `{{ image }}` will be replaced by the `$IMAGE` environment variable set in the workflow.
 Other environment variables will not be injected, but must be put into a template variables file.
 
 See [deploy action implementation](https://github.com/nais/deploy/blob/master/actions/deploy/entrypoint.sh)
@@ -140,7 +140,7 @@ you can use the following example file.
 | PRINT_PAYLOAD | `false` | If `true`, print templated resources to standard output. |
 | QUIET | `false` | If `true`, suppress all informational messages. |
 | REPOSITORY | (auto-detect) | Name of the repository making the request. |
-| RESOURCE | (required) | File containing a Kubernetes resource. Must be JSON or YAML format. |
+| RESOURCE | (required) | Comma-separated list of files containing Kubernetes resources. Must be JSON or YAML format. |
 | TEAM | (auto-detect) | Team making the deployment. |
 | VARS | `/dev/null` | File containing template variables. Will be interpolated with the `$RESOURCE` file. Must be JSON or YAML format. |
 
