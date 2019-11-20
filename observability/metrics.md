@@ -28,7 +28,7 @@ DefaultExports.initialize();
 
 ## Push metrics
 
-If you don't want to just relie on pull metrics, you can push data directly to InfluxDB via [Sensu](https://sensu.io/).
+If you don't want to just rely on pull metrics, you can push data directly to InfluxDB via [Sensu](https://sensu.io/).
 
 This is easily done by writing to the Sensu socket.
 
