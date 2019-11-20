@@ -153,8 +153,7 @@ Use our Docker image to make deployments.
 Example usage:
 
 ```
-docker login docker.pkg.github.com -u $GITHUB_REPOSITORY -p $GITHUB_TOKEN
-docker run -it --rm docker.pkg.github.com/nais/deploy/deploy:v1 \
+docker run -it --rm nais/deploy:v1 \
   /app/deploy \
     --apikey="$NAIS_DEPLOY_APIKEY" \
     --cluster="$CLUSTER" \
