@@ -153,7 +153,7 @@ Use our Docker image to make deployments.
 Example usage:
 
 ```
-docker run -it --rm nais/deploy:v1 \
+docker run -it --rm navikt/deployment:v1 \
   /app/deploy \
     --apikey="$NAIS_DEPLOY_APIKEY" \
     --cluster="$CLUSTER" \
@@ -182,6 +182,8 @@ Syntax:
 --vars string            File containing template variables.
 --wait                   Block until deployment reaches final state (success, failure, error).
 ```
+
+All of these options can be set using environment variables, such as `$APIKEY` and `$PRINT_PAYLOAD`.
 
 ## Templating
 
