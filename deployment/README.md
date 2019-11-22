@@ -193,19 +193,124 @@ All of these options can be set using environment variables, such as `$APIKEY` a
 Templates use [Handlebars](https://handlebarsjs.com/) 3.0 syntax.
 Both the template and variable file supports either YAML or JSON syntax.
 
-Handlebars content may be escaped in one of two ways, inline escapes or raw block helpers.
-Inline escapes created by prefixing a mustache block with \\. Raw blocks are created using {{{{ mustache braces.
+A practical example follows. Create a `nais.yml` file:
 
-Either:
+```yaml
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: {{app}}
+  namespace: {{namespace}}
+  labels:
+    team: {{team}}
+spec:
+  image: {{image}}
+  ingresses:
+  {{#each ingresses as |url|}}
+    - {{url}}
+  {{/each}}
+```
+
+Now, create a `vars.yml` file containing variables for your deployment:
+
+```yaml
+app: myapplication
+namespace: default
+team: myteam
+image: docker.pkg.github.com/navikt/myapplication/myapplication:latest
+ingresses:
+  - https://myapplication.nav.no
+  - https://tjenester.nav.no/myapplication
+```
+
+Run the `deploy` tool to see the final results:
+
+```json
+$ deploy --dry-run --print-payload --resource nais.yml --vars vars.yml | jq .resources
+[
+  {
+    "apiVersion": "nais.io/v1alpha1",
+    "kind": "Application",
+    "metadata": {
+      "labels": {
+        "team": "myteam"
+      },
+      "name": "myapplication",
+      "namespace": "default"
+    },
+    "spec": {
+      "image": "docker.pkg.github.com/navikt/myapplication/myapplication:latest",
+      "ingresses": [
+        "https://myapplication.nav.no",
+        "https://tjenester.nav.no/myapplication"
+      ]
+    }
+  }
+]
+```
+
+### Escaping and raw resources
+
+Handlebars content may be escaped by prefixing a mustache block with \\, such as:
 ```
 \{{escaped}}
 ```
 
-Or:
+Real-world example:
 ```
-{{{{raw}}}}
-  {{escaped}}
-{{{{/raw}}}}
+apiVersion: nais.io/v1alpha1
+kind: Alert
+metadata:
+  name: {{app}}
+  labels:
+    team: {{team}}
+spec:
+  alerts:
+  - action: Se `kubectl describe pod \{{ $labels.kubernetes_pod_name }}` for events, og `kubectl logs \{{ $labels.kubernetes_pod_name }}` for logger
+    alert: {{app}}-fails
+    description: '\{{ $labels.app }} er nede i \{{ $labels.kubernetes_namespace }}'
+    expr: up{app=~"{{app}}",job="kubernetes-pods"} == 0
+    for: 2m
+    severity: danger
+    sla: respond within 1h, during office hours
+  receivers:
+    slack:
+      channel: '#{{team}}'
+```
+
+Will result in:
+```
+deploy --dry-run --print-payload --resource alert.yml --vars vars.yml | jq .resources
+[
+  {
+    "apiVersion": "nais.io/v1alpha1",
+    "kind": "Alert",
+    "metadata": {
+      "labels": {
+        "team": "myteam"
+      },
+      "name": "myapplication"
+    },
+    "spec": {
+      "alerts": [
+        {
+          "action": "Se `kubectl describe pod {{ $labels.kubernetes_pod_name }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }}` for logger",
+          "alert": "myapplication-fails",
+          "description": "{{ $labels.app }} er nede i {{ $labels.kubernetes_namespace }}",
+          "expr": "up{app=~\"myapplication\",job=\"kubernetes-pods\"} == 0",
+          "for": "2m",
+          "severity": "danger",
+          "sla": "respond within 1h, during office hours"
+        }
+      ],
+      "receivers": {
+        "slack": {
+          "channel": "#myteam"
+        }
+      }
+    }
+  }
+]
 ```
 
 ## Build status badge
