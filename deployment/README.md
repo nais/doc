@@ -144,6 +144,9 @@ you can use the following example file.
 | TEAM | (auto-detect) | Team making the deployment. |
 | VARS | `/dev/null` | File containing template variables. Will be interpolated with the `$RESOURCE` file. Must be JSON or YAML format. |
 
+Note that `OWNER` and `REPOSITORY` corresponds to the two parts of a full repository identifier.
+If that name is `navikt/myapplication`, those two variables should be set to `navikt` and `myapplication`, respectively.
+
 ## Deploy with other CI
 
 You can still use NAIS deploy even if not using GitHub Actions.
