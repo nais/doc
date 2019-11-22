@@ -257,7 +257,7 @@ Handlebars content may be escaped by prefixing a mustache block with \\, such as
 ```
 
 Real-world example:
-```
+```yaml
 apiVersion: nais.io/v1alpha1
 kind: Alert
 metadata:
@@ -279,7 +279,7 @@ spec:
 ```
 
 Will result in:
-```
+```json
 deploy --dry-run --print-payload --resource alert.yml --vars vars.yml | jq .resources
 [
   {
