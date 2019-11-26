@@ -45,6 +45,6 @@ Read more over at [gitops.tech](https://www.gitops.tech).
 ## Contact the NAIS team
 
 The team can be found either on [Slack](https://nav-it.slack.com/messages/C5KUST8N6/) or in Sannergata 2, 3rd floor,
-west wing.
+west wing, Oslo, Norway.
 
 Also, follow us on Twitter [@nais\_io](https://twitter.com/nais_io)!

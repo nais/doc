@@ -9,21 +9,11 @@ operate your own NAIS application directly from your laptop.
 
 Check out the [official documentation][kubectl] for instructions on how to install the binaries.
 
-## Setup your [`kubeconfig`][kubeconfig]
-
-The `kubectl` tool uses a `kubeconfig` file to get the information it needs in order to connect to a cluster. We
-provide a [pre-made kubeconfig] file with NAV's [clusters](clusters.md).
-
-`kubectl` will by default look for a file named `config` in the `$HOME/.kube/` folder. This can be overriden by
-having the absolute path of the file in the environment variable `KUBECONFIG`.
-
-```bash
-export KUBECONFIG="/home/$(whoami)/kubeconfigs/config"
-```
-
-The above example can also be added to something like `~/.bash_profile`, or the equivalent in your preferred shell.
-
 ## Connect to ScaleFT
+
+{% hint style="info" %}
+If you are already connected to the NAV-tunnel using Big-IP, you can skip this step.
+{% endhint %}
 
 In order to reach our clusters, you have to be connected to the right ScaleFT host. For GCP, it's one host per cluster
 (`dev-gcp` and `prod-gcp`), for on-premise it is `devWeb02`.
@@ -34,6 +24,35 @@ process will lead you to a ScaleFT credential request which you must approve in 
 a connection.
 
 ![navTunnel context menu](../.gitbook/assets/navTunnel.png)
+
+## Setup your [`kubeconfig`][kubeconfig]
+
+The `kubectl` tool uses a `kubeconfig` file to get the information it needs in order to connect to a cluster. We
+provide a [pre-made kubeconfig] file with NAV's [clusters](clusters.md).
+
+{% hint style="info" %}
+If you are on the inside of the NAV-tunnel (i.e. if you use the "utviklerimage" or connect using Big-IP rather than
+Scale-FT), you need to use the kubeconfig tagged with `utviklerimage`. Go to the directory where you cloned
+kubeconfig and run
+```bash
+git fetch --all --tags --prune
+git checkout tags/utviklerimage
+```
+{% endhint %}
+
+`kubectl` will by default look for a file named `config` in the `$HOME/.kube/` folder. This can be overriden by
+having the absolute path of the file in the environment variable `KUBECONFIG`.
+
+```bash
+export KUBECONFIG="/home/$(whoami)/kubeconfigs/config"
+```
+
+The above example can also be added to something like `~/.bash_profile`, or the equivalent in your preferred shell.
+
+{% hint style="warning" %}
+If you use cygwin, you need the `KUBECONFIG` to be in Windows style paths rather than unix style paths (e.g.
+`C:\dev\kubeconfigs\config` instead of `/cygdrive/c/dev/kubeconfigs/config`)
+{% endhint %}
 
 ## Authenticate `kubectl`
 
