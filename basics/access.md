@@ -12,7 +12,7 @@ Check out the [official documentation][kubectl] for instructions on how to insta
 ## Connect to ScaleFT
 
 {% hint style="info" %}
-If you are already connected to the NAV-tunnel using Big-IP, you can skip this step.
+You can skip this step if your running Windows and connect to NAV through BigIP VPN.
 {% endhint %}
 
 In order to reach our clusters, you have to be connected to the right ScaleFT host. For GCP, it's one host per cluster
@@ -31,9 +31,8 @@ The `kubectl` tool uses a `kubeconfig` file to get the information it needs in o
 provide a [pre-made kubeconfig] file with NAV's [clusters](clusters.md).
 
 {% hint style="info" %}
-If you are on the inside of the NAV-tunnel (i.e. if you use the "utviklerimage" or connect using Big-IP rather than
-Scale-FT), you need to use the kubeconfig tagged with `utviklerimage`. Go to the directory where you cloned
-kubeconfig and run
+If you use `utviklerimage` or connect to NAV through BigIP VPN you need to use the kubeconfig under the
+Git tag `utviklerimage`. Go to the directory where you cloned kubeconfig and run
 ```bash
 git fetch --all --tags --prune
 git checkout tags/utviklerimage
