@@ -142,6 +142,7 @@ you can use the following example file.
 | REPOSITORY | (auto-detect) | Name of the repository making the request. |
 | RESOURCE | (required) | Comma-separated list of files containing Kubernetes resources. Must be JSON or YAML format. |
 | TEAM | (auto-detect) | Team making the deployment. |
+| VAR | | Comma-separated list of template variables in the form `key=value`. Will overwrite any identical template variable in the `VARS` file. |
 | VARS | `/dev/null` | File containing template variables. Will be interpolated with the `$RESOURCE` file. Must be JSON or YAML format. |
 
 Note that `OWNER` and `REPOSITORY` corresponds to the two parts of a full repository identifier.
@@ -182,6 +183,7 @@ Syntax:
 --repository string      Name of GitHub repository.
 --resource strings       File with Kubernetes resource. Can be specified multiple times.
 --team string            Team making the deployment. Auto-detected if possible.
+--var strings            Template variable in the form KEY=VALUE. Can be specified multiple times.
 --vars string            File containing template variables.
 --wait                   Block until deployment reaches final state (success, failure, error).
 ```
