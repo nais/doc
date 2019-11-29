@@ -22,7 +22,7 @@ spec:
       action: kubectl describe pod -l app=nais-testapp
       documentation: https://github.com/navikt/aura-doc/naisvakt/alerts.md#app_unavailable
       sla: respond within 1h, during office hours
-      severity: critical
+      severity: danger
     - alert: CoreDNS unavailable
       description: CoreDNS unavailable, there are zero replicas
       expr: 'kube_deployment_status_replicas_available{namespace="kube-system", deployment="coredns"} == 0'
@@ -30,5 +30,5 @@ spec:
       action: kubectl describe pod -l app=nais-testapp
       documentation: https://github.com/navikt/aura-doc/naisvakt/alerts.md#coredns
       sla: respond within 1h, solve within 4h, around the clock
-      severity: critical
+      severity: danger
 ```
