@@ -120,7 +120,7 @@ metadata:
   name: ${appname}-redisexporter
   namespace: ${namespace}
 spec:
-  image: oliver006/redis_exporter:v1.2.0-alpine
+  image: oliver006/redis_exporter:v1.3.4-alpine
   port: 9121
   prometheus:
     enabled: true
@@ -134,6 +134,8 @@ spec:
     requests:
       cpu: 100m
       memory: 100Mi
+  liveness:
+    path: /health
   env:
     - name: REDIS_ADDR
       value: ${redis-instance}.default.svc.nais.local:6379
