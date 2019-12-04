@@ -41,8 +41,8 @@ Get started by creating the following structure in your application repository:
 ```
 myapplication/
 ├── .github/
-│   └── workflows/
-│       └── deploy.yml
+│   └── workflows/
+│       └── deploy.yml
 ├── Dockerfile
 └── nais.yml
 ```
@@ -152,22 +152,45 @@ If that name is `navikt/myapplication`, those two variables should be set to `na
 
 You can still use NAIS deploy even if not using GitHub Actions.
 Our deployment command line tool supports all CI tools such as Jenkins, Travis or Circle.
-Use our Docker image to make deployments.
+Use can either use a Docker image or one the [binaries] to make deployments.
 
-Example usage:
+{% code-tabs %}
 
+{% code-tabs-item title="Docker usage" %}
 ```
 docker run -it --rm navikt/deployment:v1 \
+  -v $(pwd):/nais /
   /app/deploy \
     --apikey="$NAIS_DEPLOY_APIKEY" \
     --cluster="$CLUSTER" \
     --owner="$OWNER" \
     --repository="$REPOSITORY" \
-    --resource="/path/to/nais.yml" \
-    --vars="/path/to/resources" \
+    --resource="/nais/path/to/nais.yml" \
+    --vars="/nais/path/to/resources" \
     --wait=true \
     ;
 ```
+
+Here we use the current directory as a volume for the CLI, and we have to append `/nais` to the path to our manifest.
+
+So if our original manifest is under `/home/cooluser/workspace/bestapp/nais.yaml`, we then need to 
+`--resource="/nais/nais.yaml"`, and not only `--resource="nais.yaml"`.
+{% endcode-tabs-item %}
+
+{% code-tabs-item title="CLI usage" %}
+```
+deploy \
+--apikey="$NAIS_DEPLOY_APIKEY" \
+--cluster="$CLUSTER" \
+--owner="$OWNER" \
+--repository="$REPOSITORY" \
+--resource="/path/to/nais.yml" \
+--vars="/path/to/resources" \
+--wait=true
+```
+{% endcode-tabs-item %}
+
+{% endcode-tabs %}
 
 Syntax:
 
@@ -344,3 +367,5 @@ If everything fails, and you checked your logs, you can ask for help in the
 | Deployment status `failure` | Your application didn't pass its health checks during the 5 minute startup window. It is probably stuck in a crash loop due to mis-configuration. Check your application logs using `kubectl logs <POD>` and event logs using `kubectl describe app <APP>` |
 | 403 authentication failed | Either you're using the wrong _team API key_, or your team is not [registered in the team portal](../basics/teams.md). |
 | "tobac.nais.io" denied the request: user 'system:serviceaccount:default:serviceuser-FOO' has no access to team 'BAR' | The application is already deployed, and team names differ. See [changing teams](../deployment/change-team.md). |
+
+[binaries]: https://github.com/nais/deploy/releases
