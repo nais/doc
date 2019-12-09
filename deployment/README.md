@@ -251,30 +251,31 @@ ingresses:
 Run the `deploy` tool to see the final results:
 
 ```json
-$ deploy --dry-run --print-payload --resource nais.yml --vars vars.yml | jq .resources
-[
-  {
-    "apiVersion": "nais.io/v1alpha1",
-    "kind": "Application",
-    "metadata": {
-      "labels": {
-        "team": "myteam"
-      },
-      "name": "myapplication",
-      "namespace": "default"
+$ deploy --dry-run --print-payload --resource nais.yml --vars vars.yml | jq ".resources[0]"
+{
+  "apiVersion": "nais.io/v1alpha1",
+  "kind": "Application",
+  "metadata": {
+    "labels": {
+      "team": "myteam"
     },
-    "spec": {
-      "image": "docker.pkg.github.com/navikt/myapplication/myapplication:latest",
-      "ingresses": [
-        "https://myapplication.nav.no",
-        "https://tjenester.nav.no/myapplication"
-      ]
-    }
+    "name": "myapplication",
+    "namespace": "default"
+  },
+  "spec": {
+    "image": "docker.pkg.github.com/navikt/myapplication/myapplication:latest",
+    "ingresses": [
+      "https://myapplication.nav.no",
+      "https://tjenester.nav.no/myapplication"
+    ]
   }
-]
+}
 ```
 
 ### Escaping and raw resources
+
+If you do not specify the `--vars` or `--var` command-line flags, your resource will not be
+run through the templating engine, so these resources will not need templating.
 
 Handlebars content may be escaped by prefixing a mustache block with \\, such as:
 ```
