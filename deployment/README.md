@@ -1,9 +1,7 @@
 # Deploy your application
 
 {% hint style="warning" %}
-Team API keys are not provisioned to all users yet.
-
-Get beta access at #pig_deployment on Slack.
+Team API keys are not provisioned to all users yet. Get access at #nais on Slack.
 {% endhint %}
 
 This section will take you through the deployment of your application using _NAIS deploy_.
