@@ -25,7 +25,7 @@ Deployment logs can be viewed on _Kibana_. The link to the logs will be provided
 3. Your GitHub team's identifier must match the _Kubernetes team label_ in your `nais.yaml`. There is an example file below.
 4. Obtain a _team API key_ from [Vault](https://vault.adeo.no) under the path `/apikey/nais-deploy/<YOUR_TEAM>`. Save the key as a secret named `NAIS_DEPLOY_APIKEY` in your GitHub repository.
 5. Follow the guide below.
-6. When things break, see [HELP!](#help).
+6. When things break, see the [help page](troubleshooting.md).
 
 ## Deploy with GitHub Actions
 
