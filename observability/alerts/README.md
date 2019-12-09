@@ -90,6 +90,8 @@ https://nav-it.slack.com/usergroups/SB8KS4WAV
 
 #### Example of the different Slack/severity colors
 
+Slack alerts supports colors. The severity field defines the color (`good` is results in a green message, `warning` in a yellow and `danger` in a red). If you want to define another color, specify the wanted hex code as severity instead of the pre-defined words.
+
 ![Slack colors](../../.gitbook/assets/attachment_color.png)
 
 ## Migrating from Naisd
