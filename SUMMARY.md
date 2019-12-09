@@ -13,6 +13,7 @@
 * [Deployment](deployment/README.md)
   * [Manually](deployment/manual.md)
   * [Changing teams](deployment/change-team.md)
+  * [Troubleshooting](deployment/troubleshooting.md)
 * [Observability](observability/README.md)
   * [Alerts](observability/alerts/README.md)
     * [Example](observability/alerts/example_alerts.md)

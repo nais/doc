@@ -11,6 +11,8 @@ This section will take you through the deployment of your application using _NAI
 NAIS deploy enables you to deploy your application from any continuous integration platform.
 Our primary supported platform is GitHub Actions, but you can also deploy from CircleCI, Travis CI, Jenkins, or other tools.
 
+If you need help, please take a look at the [help page](troubleshooting.md).
+
 ## How it works
 
 In your build pipeline, you create a deployment request using the _NAIS deploy tool_.
@@ -345,27 +347,5 @@ Use the following URL to create a small badge for your workflow/action.
 ```text
 https://github.com/{github_id}/{repository}/workflows/{workflow_name}/badge.svg
 ```
-
-## HELP!
-
-Don't panic!
-
-Your deployment status page can be found on Github, under the repository you are deploying from. The status page will
-live at the URL `https://github.com/navikt/<YOUR_REPOSITORY>/deployments`. Links to deployment logs are available from
-this page.
-
-Generally speaking, if the deployment status is anything else than `success`, `queued`, or `pending`, it means that your
-deployment failed. _Check the logs_ and _compare messages to the table below_ before asking for support.
-
-If everything fails, and you checked your logs, you can ask for help in the
-[\#nais-deployment](https://nav-it.slack.com/messages/CHEQ22Q94) channel on Slack.
-
-| Message | Action |
-| :--- | :--- |
-| You don't have access to apikey/. | See _Access to Vault_ in the [Teams documentation](../basics/teams.md) |
-| Deployment status `error` | There is an error with your request. The reason should be specified in the error message. |
-| Deployment status `failure` | Your application didn't pass its health checks during the 5 minute startup window. It is probably stuck in a crash loop due to mis-configuration. Check your application logs using `kubectl logs <POD>` and event logs using `kubectl describe app <APP>` |
-| 403 authentication failed | Either you're using the wrong _team API key_, or your team is not [registered in the team portal](../basics/teams.md). |
-| "tobac.nais.io" denied the request: user 'system:serviceaccount:default:serviceuser-FOO' has no access to team 'BAR' | The application is already deployed, and team names differ. See [changing teams](../deployment/change-team.md). |
 
 [binaries]: https://github.com/nais/deploy/releases
