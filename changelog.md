@@ -4,10 +4,14 @@ This is a simple changelog over notable milestones for the NAIS-platform.
 
 ## [Unreleased]
 
-* Looking to find a date for end of life for Naisd
-* Openening up Cloud/GCP for everyone
+* End of life for *Naisd* is 2020.02.02!
+* Cloud/GCP is open for everyone, but not everything is working, see [documentation](https://doc.nais.io/gcp/getting-started)
 
 ## [Released]
+
+#### [2019-12-03]
+
+* New deployment pipeline called nais/deploy is made GA, see [deployment doc](https://doc.nais.io/deployment)
 
 #### [2019-10-15]
 
