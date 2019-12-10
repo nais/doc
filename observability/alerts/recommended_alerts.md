@@ -27,9 +27,14 @@ spec:
       expr: selftests_aggregate_result_status{app="<appname>"} > 0
       for: 1m
       action: "Sjekk app {{ $labels.app }} i namespace {{ $labels.kubernetes_namespace }} sine selftest for å se hva som er galt"
-# Java-spesifikk
-    - alert: høy feilrate for http-requester
-      expr: (100 * sum by (app, kubernetes_namespace) (rate(jetty_responses_total{app="<appname>",code=~"1xx|2xx|3xx"}[3m])) / sum by (app, kubernetes_namespace) (rate(jetty_requests_total{app="<appname>"}[3m]))) < 90
+    - alert: Høy andel HTTP serverfeil (5xx responser)
+      severity: danger
+      expr: (100 * (sum by (backend) (rate(traefik_backend_requests_total{code=~"^5\\d\\d", backend=~"mydomain.nais.*/mycontextpath/*"}[3m])) / sum by (backend) (rate(traefik_backend_requests_total{backend=~"mydomain.nais.*/mycontextpath/*"}[3m])))) > 1
       for: 3m
-      action: "Sjekk loggene til app {{ $labels.app }} i namespace {{ $labels.kubernetes_namespace }} for å se hvorfor mange http-requests feiler"
+      action: "Sjekk loggene for å se hvorfor {{ $labels.backend }} returnerer HTTP feilresponser"
+    - alert: Høy andel HTTP klientfeil (4xx responser)
+      severity: warning
+      expr: (100 * (sum by (backend) (rate(traefik_backend_requests_total{code=~"^4\\d\\d", backend=~"mydomain.nais.*/mycontextpath/*"}[3m])) / sum by (backend) (rate(traefik_backend_requests_total{backend=~"mydomain.nais.*/mycontextpath/*"}[3m])))) > 10
+      for: 3m
+      action: "Sjekk loggene for å se hvorfor {{ $labels.backend }} returnerer HTTP feilresponser"
 ```
