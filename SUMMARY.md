@@ -26,6 +26,7 @@
   * [Getting started](gcp/getting-started.md)
   * [Access Policy](gcp/access-policy.md)
   * [Secrets](gcp/secrets.md)
+  * [Buckets](gcp/buckets.md)
 * [Addons](addons/README.md)
   * [OAuth flow](addons/oauth-flow.md)
   * [Leader Election](addons/leader-election.md)
