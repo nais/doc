@@ -66,13 +66,21 @@ spec:
     enabled: false
   service:
     port: 80
+  skipCaBundle: false
+
+  #
+  # the following spec is only available when running in GCP.
+  #
+
   secrets:
     - name: my-secret
       type: env
     - name: my-secret-file
       type: file
       mountPath: /var/run/secrets
-  skipCaBundle: false
+  gcp:
+    buckets:
+      - name: my-cloud-storage-bucket
   accessPolicy:
     inbound:
       rules:
