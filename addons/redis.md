@@ -139,6 +139,8 @@ spec:
   env:
     - name: REDIS_ADDR
       value: ${redis-instance}.default.svc.nais.local:6379
+    - name: REDIS_EXPORTER_LOG_FORMAT
+      value: json
 ```
 
 If the Redis instance is password protected, the [secure-redisexporter]-image must be used.
