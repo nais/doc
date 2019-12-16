@@ -7,6 +7,9 @@ Your NAIS manifest, commonly known as `nais.yaml`, needs to be converted from it
 Use the [Migrator](https://github.com/nais/migrator) tool to automatically convert manifests. The tool will also pull
 required variables from _Fasit_ and inject them into the end result.
 
+Migrator needs to be run from _utviklerimage_ to work correctly. You can download binaries for Windows or Linux
+directly from the [releases page](https://github.com/nais/migrator/releases/tag/1.0.0).
+
 Note that the `alerts` field has been replaced with the [Alert resource](../observability/alerts/README.md). If you
 use alerting, you need to manually convert them into the new format. They are quite similar so it will be an easy job.
 
