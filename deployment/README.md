@@ -139,6 +139,7 @@ you can use the following example file.
 | TEAM | (auto-detect) | Team making the deployment. |
 | VAR | | Comma-separated list of template variables in the form `key=value`. Will overwrite any identical template variable in the `VARS` file. |
 | VARS | `/dev/null` | File containing template variables. Will be interpolated with the `$RESOURCE` file. Must be JSON or YAML format. |
+| WAIT | `true` | Block until deployment has completed with either `success`, `failure` or `error` state. |
 
 Note that `OWNER` and `REPOSITORY` corresponds to the two parts of a full repository identifier.
 If that name is `navikt/myapplication`, those two variables should be set to `navikt` and `myapplication`, respectively.
