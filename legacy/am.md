@@ -62,7 +62,7 @@ Oppsett av ISSO agentene gjøres ved hjelp av REST api'et til AM. Konfigurasjone
 
 Request sendes til tjenesten (eksemplet gjelder for AM konfigurasjon i `t` og `q`):
 ```
-curl -k -d '{"application": "<appnavn>", "version": "<versjon>", "environment": "<fasitmiljø>", "zone": "fss", "username": "<fasit brukernavn>", "password": "<fasit passord>", "contextroots": ["/context1", "/context2"]}' https://named.nais.preprod.local/configure
+curl -k -d '{"application": "<appnavn>", "version": "<versjon>", "environment": "<fasitmiljø>", "username": "<fasit brukernavn>", "password": "<fasit passord>", "contextroots": ["/context1", "/context2"]}' https://named.nais.preprod.local/configure
 ```
 
 Retur fra denne requesten vil inneholde agentnavn i AM og hvilke URL'er som er satt opp for verifikasjon. På alle pod'er i NAIS blir det satt opp to environment variables som kan benyttes for å konstruere agentnavnet i applikasjonen, nemlig `APP_NAME` og `FASIT_ENVIRONMENT_NAME`. Resten av informasjonen som er nødvendig for å sette opp OpenID og hente tokens kan hentes fra Fasit.
