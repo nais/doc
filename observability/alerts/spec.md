@@ -64,6 +64,11 @@ Prometheus expression that triggers an alert.
 Duration before the alert should trigger.
 
 **Required**: `true`
+**Allowed values**: `^\d+[smhdwy]$`
+
+#### Examples
+`for: 1s` 1 second duration before alert triggers
+`for: 10y` 10 years duration before alert triggers
 
 ### `spec.alerts[].action`
 What human actions are needed to resolve, or investigate this alert.
@@ -80,3 +85,8 @@ Time before the alert should be resolved.
 Alert level for Slack messages.
 
 **Default**: `danger`
+**Allowed values**: `good|warning|danger|#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})` where the latter is the hex code for wanted color on Slack message
+
+#### Examples
+`severity: good` will result in green message.
+`severity: #808000` will result in an olive colored message.
