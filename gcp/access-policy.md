@@ -28,7 +28,7 @@ spec:
   accessPolicy:
     inbound:
       rules:
-        application: app-b
+        - application: app-b
 ```
 
 
@@ -46,8 +46,8 @@ spec:
   accessPolicy:
     inbound:
       rules:
-        application: app-b
-        namespace: othernamespace
+        - application: app-b
+          namespace: othernamespace
 ```
 
 ## Outbound rules
