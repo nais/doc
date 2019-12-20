@@ -7,13 +7,9 @@ Our primary supported platform is GitHub Actions, but you can also deploy from C
 If you need help, please take a look at the [help page](troubleshooting.md).
 
 ## How it works
+Your application in the form of the build artifact from your build tool  - e.g. the result of running Maven or Gradle on your source code - is assumed to be present when using the _NAIS deploy tool_. The _NAIS deploy tool_ is used to create a deployment request. It can also be used to build the Docker image containing the application if the image is not already present. The Docker image will be deployed to Kubernetes, and the deploy tool will wait until your deployment is rolled out, gets an error, or a timeout occurs. Underway, deployment statuses are continually posted back to _GitHub Deployment API_. Deployment logs can be viewed on _Kibana_. The link to the logs will be provided by the deploy tool.
 
-In your build pipeline, you create a deployment request using the _NAIS deploy tool_.
-Your application will be deployed to Kubernetes, and the deploy tool will wait until your deployment is rolled out, gets an error, or a timeout occurs.
-Underway, deployment statuses are continually posted back to _GitHub Deployment API_.
-Deployment logs can be viewed on _Kibana_. The link to the logs will be provided by the deploy tool.
-
-## Set it up
+## Set it up 
 
 1. Your application must have a repository on GitHub containing a `nais.yml` and `Dockerfile`.
 2. Your GitHub team must have _admin_ access on that repository.
@@ -26,7 +22,7 @@ Deployment logs can be viewed on _Kibana_. The link to the logs will be provided
 
 A GitHub Actions pipeline is called a _Workflow_. You can set up workflows by adding a YAML file to your application's Git repository.
 
-In this example, the workflow is set up in the file `deploy.yml`. The workflow will build a Docker image and push it to GitHub Package Registry.
+In this example, the workflow is set up in the file `deploy.yml`. The workflow will build a Docker container and push it to GitHub Package Registry.
 Next, if the code was pushed to the `master` branch AND the `build` job succeeded, the application will be deployed to NAIS.
 
 Official GitHub documentation: [Automating your workflow with GitHub Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions).
