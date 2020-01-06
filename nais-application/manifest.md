@@ -158,24 +158,6 @@ Guaranteed amount of memory.
 ## `spec.ingresses`
 List of ingress URLs that will route HTTP traffic to the application.
 
-## `spec.secrets` (GCP only)
-Putting this information in a secret is safer and more flexible than putting it verbatim in a Pod definition or in a container image. See [GCP only features/secrets](../gcp/secrets.md) for more information.
-
-### `spec.secrets[].name`
-Name of secret (must exist in namespace).
-
-**Required**: `true`
-
-### `spec.secrets[].type`
-How the secrets is exposed to the pod. Valid options is `env` and `files`. Selecting `env` will expose all variables in secret as environment variables and `files` will expose the secrets as files under `spec.secrets[].mountPath`.
-
-**Default**: env
-
-### `spec.secrets[].mountPath`
-Path to where secret files will be mounted \(only valid for secret type `files`\).
-
-**Default**: `/var/run/secrets`
-
 ## `spec.vault`
 Provides secrets management, identity-based access, and encrypting application data for auditing of secrets for applications, systems, and users. Vault documentation can be found in [navikt/vault-iac](https://github.com/navikt/vault-iac/blob/master/doc/endusers.md).
 
@@ -202,8 +184,33 @@ File system path that the secrets will be mounted into.
 
 **Default**: `/var/run/secrets/nais.io/vault`
 
-## `spec.configMaps.files`
-List of ConfigMap resources that will have their contents mounted into the container as files. Files appear as `/var/run/configmaps/<name>/<key>`.
+## `spec.filesFrom[]`
+List of ConfigMap or Secret resources that will have their contents mounted into the containers as files. Either
+`configmap` or `secret` is required. The resource must exisits in the same namespace as the application.
+
+### `spec.filesFrom[].configmap`
+Will expose the configmap as files under `spec.filesFrom[].mountPath`.
+
+### `spec.filesFrom[].secret`
+Will expose the secret as files under `spec.filesFrom[].mountPath`. Putting this information in a secret is safer and
+more flexible than putting it verbatim in a Pod definition or in a container image. See
+[GCP only features/secrets](../gcp/secrets.md) for more information.
+
+### `spec.filesFrom[].mountPath`
+Path to where files will be mounted.
+
+**Default (configmap)**: `/var/run/configmaps/<configmap-name>`
+**Default (secret)**: `/var/run/secrets`
+
+## `spec.envFrom[]`
+Will expose all variables in configmap or secret resource as environment variables. One of `configmap` or `secret` is
+required.
+
+### `spec.envFrom[].configmap`
+
+### `spec.envFrom[].secret`
+Putting this information in a secret is safer and more flexible than putting it verbatim in a Pod definition or in a
+container image. See [GCP only features/secrets](../gcp/secrets.md) for more information.
 
 ## `spec.env[]`
 Custom environment variables injected into your container.
