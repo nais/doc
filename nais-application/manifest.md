@@ -140,9 +140,7 @@ App will have its CPU usage throttled if exceeding this limit.
 
 **Allowed values**: `^\d+m?$`
 
-#### Example
-
-`cpu: 600m`
+**Example**: `cpu: 600m`
 
 #### `spec.resources.limits.memory`
 App will be killed if exceeding this limit.
@@ -151,9 +149,7 @@ App will be killed if exceeding this limit.
 
 **Allowed values**: `^\d+[KMG]i$`
 
-#### Example
-
-`memory: 512Mi`
+**Example**: `memory: 512Mi`
 
 ### `spec.resources.requests`
 App is guaranteed the requested resources and will be scheduled on nodes with at least this amount of resources available.
@@ -165,9 +161,7 @@ Guaranteed amount of CPU.
 
 **Allowed values**: `^\d+m?$`
 
-#### Example
-
-`cpu: 300m`
+**Example**: `cpu: 300m`
 
 #### `spec.resources.requests.memory`
 Guaranteed amount of memory.
@@ -176,9 +170,7 @@ Guaranteed amount of memory.
 
 **Allowed values**: `^\d+[KMG]i$`
 
-#### Example
-
-`memory: 512Mi`
+**Example**: `memory: 512Mi`
 
 ## `spec.ingresses`
 List of ingress URLs that will route HTTP traffic to the application.

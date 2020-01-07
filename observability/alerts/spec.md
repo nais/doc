@@ -73,7 +73,8 @@ Duration before the alert should trigger.
 
 **Allowed values**: `^\d+[smhdwy]$`
 
-#### Examples
+**Examples**
+
 `for: 1s` 1 second duration before alert triggers
 
 `for: 10m` 10 minutes duration before alert triggers
@@ -96,7 +97,8 @@ Alert level for Slack messages.
 
 **Allowed values**: `good|warning|danger|#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})` where the latter is the hex code for wanted color on Slack message
 
-#### Examples
+**Examples**
+
 `severity: good` will result in green message.
 
 `severity: #808000` will result in an olive colored message.
