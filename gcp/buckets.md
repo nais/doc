@@ -34,4 +34,4 @@ If having problems getting your bucket up and running, the name might be taken a
 kubectl describe storagebucket my-very-stable-and-fast-bucket
 ```
 
-An example application using workflow identity to access a bucket: [https://github.com/nais/testapp/blob/master/pkg/bucket/bucket.go](testapp)
+An example application using workflow identity to access a bucket: [testapp](https://github.com/nais/testapp/blob/master/pkg/bucket/bucket.go)
