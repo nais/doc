@@ -51,9 +51,9 @@ spec:
     paths:
       - mountPath: /var/run/secrets/nais.io/vault
         kvPath: /kv/preprod/fss/application/namespace
-  configMaps:
-    files:
-      - example_files_configmap
+  filesFrom:
+    - configmap: example_files_configmap
+      mountPath: /var/run/configmaps
   env:
     - name: MY_CUSTOM_VAR
       value: some_value
@@ -72,11 +72,10 @@ spec:
   # the following spec is only available when running in GCP.
   #
 
-  secrets:
-    - name: my-secret
-      type: env
-    - name: my-secret-file
-      type: file
+  envFrom:
+    - secret: my-secret
+  filesFrom:
+    - secret: my-secret-file
       mountPath: /var/run/secrets
   gcp:
     buckets:
