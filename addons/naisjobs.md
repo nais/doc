@@ -21,6 +21,10 @@ configured in [navikt/nais-yaml]. If `jobs.yaml` does not exist in the cluster d
 Additionally, `naisjobs.yaml` must be copied from a cluster directory to an equivalent `templates/${cluster}`
 directory.
 
+Also remember to add your namespace to the namespace list in each cluster, see 
+https://github.com/navikt/nais-yaml/blob/master/vars/${cluster}/namespaces.yaml. This way you will have the GPR
+credentials, and our NAB CaBundle available.
+
 #### Adding a team to github.com/navikt/nais-yaml/vars/${cluster}/jobs.yaml
 
 The variables in the examples of this section are as follows
