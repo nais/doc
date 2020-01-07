@@ -18,9 +18,10 @@ The name of the [team](../basics/teams.md) that owns this application (lowercase
 
 **Required**: `true`
 
+**Allowed values**: `([a-z0-9\-])+` team name starting with a letter and only lowercase letters, numbers and dashes is allowed
 
 ## `spec.image`
-Docker image location plus including docker tag (e.g. docker.pkg.github.com/appname/appname:v1.0.0)
+Docker image location plus including docker tag (e.g. `docker.pkg.github.com/appname/appname:v1.0.0`)
 
 **Required**: `true`
 
@@ -137,10 +138,18 @@ App will have its CPU usage throttled if exceeding this limit.
 
 **Default**: 500m
 
+**Allowed values**: `^\d+m?$`
+
+**Example**: `cpu: 600m`
+
 #### `spec.resources.limits.memory`
 App will be killed if exceeding this limit.
 
 **Default**: 512Mi
+
+**Allowed values**: `^\d+[KMG]i$`
+
+**Example**: `memory: 512Mi`
 
 ### `spec.resources.requests`
 App is guaranteed the requested resources and will be scheduled on nodes with at least this amount of resources available.
@@ -150,10 +159,18 @@ Guaranteed amount of CPU.
 
 **Default**: 200m
 
+**Allowed values**: `^\d+m?$`
+
+**Example**: `cpu: 300m`
+
 #### `spec.resources.requests.memory`
 Guaranteed amount of memory.
 
 **Default**: 256Mi
+
+**Allowed values**: `^\d+[KMG]i$`
+
+**Example**: `memory: 512Mi`
 
 ## `spec.ingresses`
 List of ingress URLs that will route HTTP traffic to the application.
