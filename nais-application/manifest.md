@@ -186,7 +186,7 @@ File system path that the secrets will be mounted into.
 
 ## `spec.filesFrom[]`
 List of ConfigMap or Secret resources that will have their contents mounted into the containers as files. Either
-`configmap` or `secret` is required. The resource must exisits in the same namespace as the application.
+`configmap` or `secret` is required. The resource must exist in the same namespace as the application.
 
 ### `spec.filesFrom[].configmap`
 Will expose the configmap as files under `spec.filesFrom[].mountPath`.
