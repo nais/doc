@@ -6,7 +6,9 @@ Cloud Storage buckets is in ALPHA and MUST NOT be used in production environment
 
 You can request a Google Cloud Storage bucket through the NAIS manifest. This feature is only available in GCP clusters.
 
-Bucket names must be globally unique across the entire Google infrastructure.
+{% hint style="info" %}
+Bucket names must be *globally unique* across the entire Google infrastructure.
+{% endhint %}
 
 ``` yaml
 apiVersion: "nais.io/v1alpha1"
@@ -21,12 +23,8 @@ spec:
       - name: my-very-stable-and-fast-bucket
 ```
 
-Once a bucket is provisioned, it *will not* be automatically deleted. This means that any cleanup must be done manually:
+Once a bucket is provisioned, it *will not* be automatically deleted. This means that any cleanup must be done manually.
 
-```bash
-kubectl delete storagebucket my-very-stable-and-fast-bucket
-kubectl delete storagebucketaccesscontrol my-very-stable-and-fast-bucket
-```
 
 If having problems getting your bucket up and running, the name might be taken already. Check errors in the event log:
 
