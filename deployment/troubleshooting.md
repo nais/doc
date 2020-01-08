@@ -25,6 +25,7 @@ It looks like `https://deployment.prod-sbs.nais.io/logs?delivery_id=<UUID>&ts=<T
 | :--- | :--- |
 | You don't have access to apikey/. | See _Access to Vault_ in the [Teams documentation](../basics/teams.md) |
 | 403 authentication failed | Either you're using the wrong _team API key_, or if using the old version of NAIS deploy, your team is not [registered in the team portal](../basics/teams.md). |
+| 502 bad gateway | There is some transient error with GitHub or Vault. Please try again later. If the problem persists, ask _@nais-team_ for help. |
 | deployment failed: failed authentication | Wrong _team API key_, please check Vault for the correct key under `/apikey/nais-deploy/<TEAM>`. |
 | failed authentication: HMAC signature error | See above. |
 | "tobac.nais.io" denied the request: user 'system:serviceaccount:default:serviceuser-FOO' has no access to team 'BAR' | The application is already deployed, and team names differ. See [changing teams](../deployment/change-team.md). |
