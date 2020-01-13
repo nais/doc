@@ -28,7 +28,7 @@
   * [Secrets](gcp/secrets.md)
   * [Buckets](gcp/buckets.md)
 * [Addons](addons/README.md)
-  * [OAuth flow](addons/oauth-flow.md)
+  * [OAuth 2.0 / OpenID Connect](addons/oauth2-openidconnect.md)
   * [Leader Election](addons/leader-election.md)
   * [Kubernetes Dashboard](addons/kubernetes-dashboard.md)
   * [NAISjobs](addons/naisjobs.md)
