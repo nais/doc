@@ -72,6 +72,7 @@ Below is an example of how such a yaml file may look.
 
 * Note that `spec.jobTemplate.spec.template.spec.initContainers` and its children can be removed if there is no need
 for Vault/secrets.
+* Note that `spec.jobTemplate.spec.template.spec.imagePullSecrets` can be removed if your **not** using Github Package Registry
 
 The variables in this example are as follows
 * `${jobname}`: the name of the cronjob
@@ -97,6 +98,8 @@ spec:
       template:
         spec:
           restartPolicy: Never
+          imagePullSecrets:
+            - name: gpr-credentials
           containers:
           - name: ${jobname}
             image: repo.adeo.no:5443/${app-name}:${version}
@@ -121,13 +124,13 @@ spec:
               subPath: ca-bundle.jks
             - mountPath: /var/run/secrets/nais.io/vault
               name: vault-secrets
-            resources:
-              requests:
-                memory: "128Mi"
-                cpu: "250m"
-              limits:
-                memory: "256Mi"
-                cpu: "500m"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
           initContainers:
           - env:
             - name: VKS_VAULT_ADDR
