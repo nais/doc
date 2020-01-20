@@ -319,53 +319,53 @@ List of sql instances to provision in GCP
 
 See [sql instances](../gcp/sql-instances.md) for details
 
-### `spec.gcp.sqlInstances.*.name`
+### `spec.gcp.sqlInstances[].name`
 Name of the sql instance
 
 **Default**: `metadata.name`
 
-### `spec.gcp.sqlInstances.*.tier`
+### `spec.gcp.sqlInstances[].tier`
 Tier of the instance.
 Format: db-custom-<cpus>-<memoryMb> | db-f1-micro | db-g1-small
 [examples](https://cloud.google.com/sql/docs/postgres/create-instance#machine-types)
 
 **Default**: `db-f1-micro`
 
-### `spec.gcp.sqlInstances.*.diskType`
+### `spec.gcp.sqlInstances[].diskType`
 disk type, can be ssd or hdd
 
 **Default**: `ssd`
 
-### `spec.gcp.sqlInstances.*.highAvailability`
+### `spec.gcp.sqlInstances[].highAvailability`
 Whether the instance should be set up with replication to another zone
 https://cloud.google.com/sql/docs/postgres/high-availability
 
 **Default**: `false`
 
-### `spec.gcp.sqlInstances.*.diskSize`
+### `spec.gcp.sqlInstances[].diskSize`
 How much storage the instance should be provisioned with in GiB.
 
 **Default**: `10`
 
-### `spec.gcp.sqlInstances.*.diskAutoresize`
+### `spec.gcp.sqlInstances[].diskAutoresize`
 Whether the disk should automatically grow
 
 **Default**: `false`
 
-### `spec.gcp.sqlInstances.*.autoBackupTime`
+### `spec.gcp.sqlInstances[].autoBackupTime`
 When the instance should create backups.
 
 **Default**: `02:00`
 
-### `spec.gcp.sqlInstances.*.cascadingDelete`
+### `spec.gcp.sqlInstances[].cascadingDelete`
 Whether the instance should be deleted if the application is deleted
 
 **Default**: `false`
 
-### `spec.gcp.sqlInstances.*.databases`
+### `spec.gcp.sqlInstances[].databases`
 List of databases on this instance
 
-#### `spec.gcp.sqlInstances.*.databases.*.name`
+#### `spec.gcp.sqlInstances[].databases[].name`
 Name of the database
 
 **Required**: `true`
@@ -374,12 +374,12 @@ Name of the database
 List of buckets to provision in gcp
 
 
-### `spec.gcp.buckets.*.namePrefix`
+### `spec.gcp.buckets[].namePrefix`
 Name prefix of the bucket, will be postfixed with a random string and exposed to the container. See [buckets](../gcp/buckets.md) for more details
 
 **Required**: `true`
 
-### `spec.gcp.buckets.*.cascadingDelete`
+### `spec.gcp.buckets[].cascadingDelete`
 Whether the instance should be deleted if the application is deleted
 
 **Default**: `false`
