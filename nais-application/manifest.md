@@ -368,3 +368,12 @@ Name of the database
 
 **Required**: `true`
 
+#### `spec.gcp.buckets.*.name`
+Name of the database
+
+**Required**: `true`
+
+#### `spec.gcp.buckets.*.cascadingDelete`
+Whether the instance should be deleted if the application is deleted
+
+**Default**: `false`
