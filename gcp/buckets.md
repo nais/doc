@@ -6,9 +6,6 @@ Cloud Storage buckets is in ALPHA and MUST NOT be used in production environment
 
 You can request a Google Cloud Storage bucket through the NAIS manifest. This feature is only available in GCP clusters.
 
-{% hint style="info" %}
-Bucket names must be *globally unique* across the entire Google infrastructure.
-{% endhint %}
 
 ``` yaml
 apiVersion: "nais.io/v1alpha1"
@@ -20,16 +17,19 @@ spec:
   ...
   gcp:
     buckets:
-      - name: my-very-stable-and-fast-bucket
+      - namePrefix: mybucket
 ```
 
-Once a bucket is provisioned, it *will not* be automatically deleted. This means that any cleanup must be done manually.
+{% hint style="tip" %}
+Once a bucket is provisioned, it will not be automatically deleted unless one explicitly sets `spec.gcp.buckets[].cascadingDelete` to `true`. This means that any cleanup must be done manually.
+{% endhint %}
 
+Since bucket names must be globally unique across the entire Google infrastructure, NAIS will postfix the bucket name with a random string, and expose the generated name as an environment variable on the format `GCP_BUCKET_<NAME_PREFIX>_NAME`. Name prefix will be uppercased and `-` will be swapped with `_`. 
 
 If having problems getting your bucket up and running, the name might be taken already. Check errors in the event log:
 
 ```bash
-kubectl describe storagebucket my-very-stable-and-fast-bucket
+kubectl describe storagebucket mybucket
 ```
 
 An example application using workflow identity to access a bucket: [testapp](https://github.com/nais/testapp/blob/master/pkg/bucket/bucket.go)
