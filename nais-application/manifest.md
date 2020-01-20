@@ -315,7 +315,9 @@ URL to service outside cluster.
 **Required**: `true`
 
 ## `spec.gcp.sqlInstances`
-List of sql instances
+List of sql instances to provision in GCP
+
+See [sql instances](../gcp/sql-instances.md) for details
 
 ### `spec.gcp.sqlInstances.*.name`
 Name of the sql instance
@@ -368,12 +370,16 @@ Name of the database
 
 **Required**: `true`
 
-#### `spec.gcp.buckets.*.name`
-Name of the database
+## `spec.gcp.buckets`
+List of buckets to provision in gcp
+
+
+### `spec.gcp.buckets.*.namePrefix`
+Name prefix of the bucket, will be postfixed with a random string and exposed to the container. See [buckets](../gcp/buckets.md) for more details
 
 **Required**: `true`
 
-#### `spec.gcp.buckets.*.cascadingDelete`
+### `spec.gcp.buckets.*.cascadingDelete`
 Whether the instance should be deleted if the application is deleted
 
 **Default**: `false`
