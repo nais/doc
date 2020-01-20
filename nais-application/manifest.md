@@ -313,3 +313,58 @@ List of services outside cluster to allow traffic to.
 URL to service outside cluster.
 
 **Required**: `true`
+
+## `spec.gcp.sqlInstances`
+List of sql instances
+
+### `spec.gcp.sqlInstances.*.name`
+Name of the sql instance
+
+**Default**: `metadata.name`
+
+### `spec.gcp.sqlInstances.*.tier`
+Tier of the instance.
+Format: db-custom-<cpus>-<memoryMb> | db-f1-micro | db-g1-small
+[examples](https://cloud.google.com/sql/docs/postgres/create-instance#machine-types)
+
+**Default**: `db-f1-micro`
+
+### `spec.gcp.sqlInstances.*.diskType`
+disk type, can be ssd or hdd
+
+**Default**: `ssd`
+
+### `spec.gcp.sqlInstances.*.highAvailability`
+Whether the instance should be set up with replication to another zone
+https://cloud.google.com/sql/docs/postgres/high-availability
+
+**Default**: `false`
+
+### `spec.gcp.sqlInstances.*.diskSize`
+How much storage the instance should be provisioned with in GiB.
+
+**Default**: `10`
+
+### `spec.gcp.sqlInstances.*.diskAutoresize`
+Whether the disk should automatically grow
+
+**Default**: `false`
+
+### `spec.gcp.sqlInstances.*.autoBackupTime`
+When the instance should create backups.
+
+**Default**: `02:00`
+
+### `spec.gcp.sqlInstances.*.cascadingDelete`
+Whether the instance should be deleted if the application is deleted
+
+**Default**: `false`
+
+### `spec.gcp.sqlInstances.*.databases`
+List of databases on this instance
+
+#### `spec.gcp.sqlInstances.*.databases.*.name`
+Name of the database
+
+**Required**: `true`
+

@@ -79,7 +79,20 @@ spec:
       mountPath: /var/run/secrets
   gcp:
     buckets:
-      - name: my-cloud-storage-bucket
+      - namePrefix: my-cloud-storage-bucket
+        cascadingDelete: false
+    sqlInstances:
+      - name: myinstance
+        type: POSTGRES_11
+        tier: db-f1-micro
+        diskType: ssd
+        highAvailability: true
+        diskSize: 10
+        diskAutoresize: true
+        autoBackupTime: "03:00"
+        databases:
+        - mydb
+        cascadingDelete: false
   accessPolicy:
     inbound:
       rules:
