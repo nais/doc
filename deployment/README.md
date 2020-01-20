@@ -127,6 +127,7 @@ you can use the following example file.
 | APIKEY | (required) | NAIS deploy API key. Obtained from Vault. |
 | CLUSTER | (required) | Which [NAIS cluster](../basics/clusters.md) to deploy into. |
 | DRY_RUN | `false` | If `true`, run templating and validate input, but do not actually make any requests. |
+| ENVIRONMENT | (auto-detect) | The environment to be shown in GitHub Deployments. Defaults to `CLUSTER:NAMESPACE` for the resource to be deployed if not specified, otherwise falls back to `CLUSTER` if multiple namespaces exist in the given resources. |
 | OWNER | (auto-detect) | Owner of the repository making the request. |
 | PRINT_PAYLOAD | `false` | If `true`, print templated resources to standard output. |
 | QUIET | `false` | If `true`, suppress all informational messages. |
@@ -191,6 +192,7 @@ Syntax:
 --cluster string         NAIS cluster to deploy into.
 --deploy-server string   URL to API server. (default "https://deployment.prod-sbs.nais.io")
 --dry-run                Run templating, but don't actually make any requests.
+--environment string     Environment for GitHub deployment. Auto-detected from nais.yaml if not specified.
 --owner string           Owner of GitHub repository. (default "navikt")
 --print-payload          Print templated resources to standard output.
 --quiet                  Suppress printing of informational messages except errors.
