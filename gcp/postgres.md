@@ -85,3 +85,6 @@ Check the logs of the Cloud SQL Proxy
 $ kubectl logs <pod> -c cloudsql-proxy
 ```
 
+### Example with all configuration options
+
+TODO
