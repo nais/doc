@@ -42,7 +42,7 @@ When you deploy your application with database config, NAIS will ensure the data
 
 The application will connect to the database using [Cloud SQL Proxy](https://cloud.google.com/sql/docs/postgres/sql-proxy), ensuring that the database communication happens in secure tunnel, authenticated with automatically rotated credentials.
 
-NAIS will automatically add and configure the proxy client container as a sidecar in the pod, making it available on `localhost` for the application. The application will then connect to the proxy using standard database protocol, as depicted below: 
+NAIS will add and configure the proxy client container as a sidecar in the pod, making it available on `localhost` for the application. The application will then connect to the proxy using standard database protocol, as depicted below: 
 
 ![sqlproxy](_media/sqlproxy.svg)
 
