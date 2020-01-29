@@ -317,7 +317,7 @@ URL to service outside cluster.
 ## `spec.gcp.sqlInstances`
 List of sql instances to provision in GCP
 
-See [sql instances](../gcp/sqlinstances.md) for more details
+See [postgres](../gcp/postgres.md)-doc for more details
 
 ### `spec.gcp.sqlInstances[].name`
 Name of the sql instance
