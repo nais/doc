@@ -27,7 +27,7 @@
   * [Access Policy](gcp/access-policy.md)
   * [Secrets](gcp/secrets.md)
   * [Buckets](gcp/buckets.md)
-  * [Sql Instances](gcp/sqlinstances.md)
+  * [Postgres](gcp/postgres.md)
 * [Addons](addons/README.md)
   * [OAuth 2.0 / OpenID Connect](addons/oauth2-openidconnect.md)
   * [Leader Election](addons/leader-election.md)
