@@ -65,7 +65,7 @@ The database is not automatically removed when deleting your NAIS application. R
 ### Maintenance window
 
 Google will automatically perform upgrades, fix bugs and apply security patches to prevent exploits. Your application should be able to handle occational downtime as this maintenance is performed. Read more on maintenance windows [here](https://cloud.google.com/sql/docs/postgres/maintenance). 
-NAIS will automatically configure the maintenance window to 4 AM (GMT+1), but can be overridden in [nais.yaml](../nais-application/manifest.md#spec-gcp-sqlinstances). 
+NAIS will automatically configure the maintenance window to 4 AM (GMT+1), but can be overridden in [nais.yaml](../nais-application/manifest.md#spec-gcp-sqlinstances).
 
 If you wish to be notified about upcoming maintenance, you can opt-in for this on the [Communications page](https://console.cloud.google.com/user-preferences/communication) in the GCP console.
 
