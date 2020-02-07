@@ -189,7 +189,9 @@ If set to true, will extend tokens time to live.
 **Default**: `false`
 
 ### `spec.vault.paths[]`
-Overriding the `paths` array is optional, and will give you fine-grained control over which vault paths that will be mounted on the file system.
+Overriding the `paths` array is optional, and will give you fine-grained control over which vault paths that will be
+mounted on the file system. Just remember that the default vaules will be overridden, and that you need to add them
+yourself if you have other secrets.
 
 #### `spec.vault.paths[].kvPath`
 Path to Vault key/value store that should be mounted into the file system.
