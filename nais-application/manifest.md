@@ -176,7 +176,7 @@ Guaranteed amount of memory.
 List of ingress URLs that will route HTTP traffic to the application.
 
 ## `spec.vault`
-Provides secrets management, identity-based access, and encrypting application data for auditing of secrets for applications, systems, and users. Vault documentation can be found in [navikt/vault-iac](https://github.com/navikt/vault-iac/blob/master/doc/endusers.md).
+Provides secrets management, identity-based access, and encrypting application data for auditing of secrets for applications, systems, and users. Vault documentation can be found in [navikt/vault-iac](https://github.com/navikt/vault-iac/tree/master/doc).
 
 ### `spec.vault.enabled`
 If set to true, fetch secrets from Vault and inject into the pods.
