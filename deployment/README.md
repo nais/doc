@@ -131,6 +131,7 @@ you can use the following example file.
 | OWNER | (auto-detect) | Owner of the repository making the request. |
 | PRINT_PAYLOAD | `false` | If `true`, print templated resources to standard output. |
 | QUIET | `false` | If `true`, suppress all informational messages. |
+| REF | `master` (auto-detect) | Commit reference of the deployment. Shown in GitHub's interface. |
 | REPOSITORY | (auto-detect) | Name of the repository making the request. |
 | RESOURCE | (required) | Comma-separated list of files containing Kubernetes resources. Must be JSON or YAML format. |
 | TEAM | (auto-detect) | Team making the deployment. |
