@@ -10,6 +10,24 @@ Don't panic!
 | failure | Your application failed to start. Check state with `kubectl describe app <APP>`. |
 | error | Either an error in your request, or the deployment system has issues. Check the logs. |
 
+
+## First debugging steps
+
+When something is wrong with your application, these kubectl tools should be the first things you check out:
+
+Describe the pod to find statuses and messages:
+
+```
+kubectl describe pod <podname>
+```
+
+And view the logs for your pods with this command:
+
+```
+kubectl logs <podname>
+```
+
+
 ## Logs
 
 All deployments are logged to Kibana. You can get a direct link to your deployment logs
