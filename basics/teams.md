@@ -8,19 +8,15 @@ a group, the mailnick is the value before the `@` in the email field.
 
 ## Creating a new team
 
-* To create a new team, use this [Sharepoint form]
+* To create a new team, make a pull request to the [teams repository] on Github
 * The group's owners can manage the group using either [outlook] or [AAD]
-
-Note that when the group is created, the mailnick/tag will be generated from the team name. It is converted into
-a lowercased version with whitepaces and special characters removed. Although technically perfectly fine, it is
-recommended to avoid the prefix `team` in the team name; it is superfluous in configurations: `team: teamred`
 
 ## Access to Vault
 
 In order to access _team API keys_, your team needs to be added to Vault.
 
 Go to the [vault-iac] repository and add your team into a new file with the following contents.
-You can find `name` and `group_id` on the [All teams] page. The name is the same as the _mailnick/tag_ field.
+You can find `name` and `group_id` on the [AAD] page. The name is the same as the _mailnick/tag_ field.
 
 Submit your changes as a pull request and watch the [#vault-pr] Slack channel.
 
@@ -34,7 +30,7 @@ group_id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
 [outlook]: https://outlook.office365.com/owa
 
-[Sharepoint form]: https://navno.sharepoint.com/sites/Bestillinger/
+[teams repository]: https://github.com/navikt/teams
 
 [All teams]: https://navno.sharepoint.com/sites/Bestillinger/Lists/Nytt%20Team/AllItems.aspx
 
