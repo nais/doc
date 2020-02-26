@@ -105,22 +105,22 @@ spec:
             image: repo.adeo.no:5443/${app-name}:${version}
             volumeMounts:
             - mountPath: /etc/ssl/certs/ca-certificates.crt
-              name: ca-bundle
+              name: ca-bundle-pem
               subPath: ca-bundle.pem
             - mountPath: /etc/pki/tls/certs/ca-bundle.crt
-              name: ca-bundle
+              name: ca-bundle-pem
               subPath: ca-bundle.pem
             - mountPath: /etc/ssl/ca-bundle.pem
-              name: ca-bundle
+              name: ca-bundle-pem
               subPath: ca-bundle.pem
             - mountPath: /etc/pki/tls/cacert.pem
-              name: ca-bundle
+              name: ca-bundle-pem
               subPath: ca-bundle.pem
             - mountPath: /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
-              name: ca-bundle
+              name: ca-bundle-pem
               subPath: ca-bundle.pem
             - mountPath: /etc/ssl/certs/java/cacerts
-              name: ca-bundle
+              name: ca-bundle-pem
               subPath: ca-bundle.jks
             - mountPath: /var/run/secrets/nais.io/vault
               name: vault-secrets
@@ -153,8 +153,8 @@ spec:
           volumes:
           - configMap:
               defaultMode: 420
-              name: ca-bundle
-            name: ca-bundle
+              name: ca-bundle-pem
+            name: ca-bundle-pem
           - emptyDir:
               medium: Memory
             name: vault-secrets
