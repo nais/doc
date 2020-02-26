@@ -12,7 +12,14 @@ already have been done for your team.
 
 Have a look at the [Vault documentation for end users] if the team has jobs which requires secrets. Regarding
 *"Give a NAIS application read access to Vault secret"*, it is important to note that cronjobs run in a *separate*
-namespace!
+namespace and are using a different *service account*! So you need to add the following to your app-defenition in
+Vault-IAC:
+```
+namespaces:
+  - ${namespace}
+serviceaccounts:
+  - podcreator
+```
 
 ### Separate namespace
 
@@ -160,7 +167,7 @@ spec:
             name: vault-secrets
 ```
 
-[Vault documentation for end users]: https://github.com/navikt/vault-iac/blob/master/doc/endusers.md
+[Vault documentation for end users]: https://github.com/navikt/vault-iac/tree/master/doc#vault-end-user-documentation
 [navikt/nais-yaml]: https://github.com/navikt/nais-yaml/
 [Azure AD group]: https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups
 [machine user]: ../basics/teams.md#machine-user
