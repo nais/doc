@@ -113,21 +113,27 @@ spec:
             volumeMounts:
             - mountPath: /etc/ssl/certs/ca-certificates.crt
               name: ca-bundle-pem
+              readOnly: true
               subPath: ca-bundle.pem
             - mountPath: /etc/pki/tls/certs/ca-bundle.crt
               name: ca-bundle-pem
+              readOnly: true
               subPath: ca-bundle.pem
             - mountPath: /etc/ssl/ca-bundle.pem
               name: ca-bundle-pem
+              readOnly: true
               subPath: ca-bundle.pem
             - mountPath: /etc/pki/tls/cacert.pem
               name: ca-bundle-pem
+              readOnly: true
               subPath: ca-bundle.pem
             - mountPath: /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
               name: ca-bundle-pem
+              readOnly: true
               subPath: ca-bundle.pem
             - mountPath: /etc/ssl/certs/java/cacerts
-              name: ca-bundle-pem
+              name: ca-bundle-jks
+              readOnly: true
               subPath: ca-bundle.jks
             - mountPath: /var/run/secrets/nais.io/vault
               name: vault-secrets
