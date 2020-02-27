@@ -166,6 +166,10 @@ spec:
           volumes:
           - configMap:
               defaultMode: 420
+              name: ca-bundle-jks
+            name: ca-bundle-jks
+          - configMap:
+              defaultMode: 420
               name: ca-bundle-pem
             name: ca-bundle-pem
           - emptyDir:
