@@ -35,7 +35,5 @@
   * [NAISjobs](addons/naisjobs.md)
   * [Redis](addons/redis.md)
 * [Legacy](legacy/README.md)
-  * [Naisd](legacy/naisd.md)
   * [AM/OpenAM](legacy/am.md)
-  * [Migrating from Naisd](legacy/migrating-from-naisd.md)
 * [Changelog](changelog.md)

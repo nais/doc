@@ -10,61 +10,15 @@ maintenance, the data will be lost. In other words, *do not* store data here tha
 
 It's also possible to password protect the Redis instace using our slightly modified image.
 
-## Deprecation of Redis sentinel cluster/HA-cluster
-
-As the move to the cloud and over to Naiserator, it has been decided to deprecate Naisd's Redis sentinel cluster as
-this has been a major overkill for most applications, and has consumed a huge amount of resources in the clusters.
-It's estimated that this uses about 1/3 of the clusters' resources.
-
 ## How to
 
-There are two ways to get started with Redis, one for Naisd, and one for Naiserator. They both create a single Redis
-instance.
+### Naiserator
 
-### Naisd
-
-In the [NAIS manifest], the following configuration can be added to enable Redis:
-
-Minimal version:
-
-```yaml
-redis:
-  enabled: true
-```
-
-All configurations:
-
-```yaml
-redis:
-  enabled: true
-  image: redis:5-alpine # optional
-  limits: # optional
-    cpu: 100m
-    memory: 128Mi
-  requests:
-    cpu: 100m
-    memory: 128Mi
-```
-
-The Redis instance can be reached via the `${appname}-redis` service.
-
-{% hint style="warning" %}
-`REDIS_HOST` will continue to point to the sentinel-setup. When everyone have moved over to standalone it will be
-removed.
-{% endhint %}
-
-#### Redis metrics
-
-To enable metrics, NAIS injects an exporter as a sidecar to the Redis pod instance for you. You can see the metrics
-over at [Grafana].
-
-### Naiserator (single instance)
-
-In Naiserator, it is required to manually start your Redis instance. This means that you can only run single instances
+On NAIS you're required to manually start your Redis instance. This means that you can only run single instances
 that are not scalable; increasing replicas will only start new databases that are not synced. Contact
-[@Kyrre.Havik.Eriksen] if you need High Availability-Redis with Naiserator.
+[@Kyrre.Havik.Eriksen] if you need High Availability-Redis.
 
-An example Redis setup with Naiserator looks like this:
+An example Redis setup looks like this:
 
 redis-config.yaml
 ```yaml
@@ -105,7 +59,7 @@ app, the value is not going to change):
 
 #### Redis metrics
 
-If it is metrics are wanted from a Redis instance running on Naiserator, a separate exporter must be run. An example
+If metrics are wanted from a Redis instance running on NAIS, a separate exporter must be run. An example
 `nais.yaml` for the simplest version of such an exporter is found below. NAIS has also made a dashboard that everyone
 can use. The only caveat is that the exporter application needs to end its name with `redisexporter` in the
 configuration. The dashboard is called [Redis exporters]. The dashboard sorts by `addr`, enabling a single exporter
@@ -145,7 +99,7 @@ spec:
 
 If the Redis instance is password protected, the [secure-redisexporter]-image must be used.
 
-## Secure Redis (both Naisd and Naiserator)
+## Secure Redis
 
 This custom image fetches passwords from Vault. If this is needed for your project, see [baseimages] for more
 information.

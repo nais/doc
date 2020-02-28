@@ -94,33 +94,6 @@ Slack alerts supports colors. The severity field defines the color (`good` is re
 
 ![Slack colors](../../.gitbook/assets/attachment_color.png)
 
-## Migrating from Naisd
-
-It's pretty straight forward to move alerts from Naisd to Alerterator, as the only difference is that the annotation fields has been move to the top level.
-
-```text
-alerts:
-- alert: appNotAvailable
-  expr: kube_deployment_status_replicas_unavailable{deployment="app-name"} > 0
-  for: 5m
-  annotations:
-    action: Read app logs(kubectl logs appname). Read Application events (kubectl descibe deployment appname)
-    severity: Warning
-```
-
-should be transformed to
-
-```text
-alerts:
-- alert: appNotAvailable
-  expr: kube_deployment_status_replicas_unavailable{deployment="app-name"} > 0
-  for: 5m
-  action: Read app logs(kubectl logs appname). Read Application events (kubectl descibe deployment appname)
-  severity: Warning
-```
-
-Check out the complete [spec](spec.md) for more information about the different keys.
-
 ## Flow
 
 ![Prometheus Server --> Prometheus Alertmanager](../../.gitbook/assets/prometheus_alertmanager_overview.png)
