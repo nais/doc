@@ -32,8 +32,8 @@ The applications running in GCP needs [access policy rules defined](../gcp/acces
 
 | cluster | ingresses |
 | :--- | :--- |
-| dev-gcp | dev-adeo.no, dev-nais.io, dev-nav.no |
-| prod-gcp | adeo.no, nais.io, nav.no|
+| dev-gcp | dev-adeo.no, dev-gcp.nais.io, dev-nav.no, dev-gcp.navlabs.no |
+| prod-gcp | adeo.no, prod-gcp.nais.io, nav.no, navlabs.no|
 | labs-gcp | labs.nais.io |
 
 ### The different domains
@@ -41,6 +41,6 @@ The applications running in GCP needs [access policy rules defined](../gcp/acces
 In GCP we support three different domain names, dependent on what your need is.
 
 * Use **(dev-)adeo.no** if you only need access from "utviklerimage"/VDI, typical use-cases is "saksbehandlere"
-* Use **(dev-)nais.io** or **dev-nav.no** if you need access from laptop (via ScaleFT/NAVTunnel)
+* Use **(dev|prod)-gcp.nais.io** or **dev-nav.no** if you need access from laptop (via ScaleFT/NAVTunnel)
 * Use **nav.no** if it should be accessible for the world wide web
-* Use **labs.nais.io** for demo purposes (only available in dedicated cluster: `labs-gcp`)
+* Use **(dev-gcp.)navlabs.no** for external demo/testing purposes (only available in dedicated cluster: `labs-gcp`)
