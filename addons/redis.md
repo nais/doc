@@ -30,7 +30,7 @@ metadata:
   name: ${appname}
   namespace: ${namespace}
 spec:
-  image: redis:5-alpine # or a custom Redis-image
+  image: redis:<latest-docker-tag> # or a custom Redis-image
   port: 6379
   replicas: # A single Redis-app doesn't scale
     min: 1
@@ -47,6 +47,8 @@ spec:
 ```
 
 Then, running `kubectl apply -f redis-config.yaml` will start up a Redis instance.
+
+{% hint style="success" %}Check out [hub.docker.com] for latest version{% endhint %}
 
 It is recommended to add the following environment variable to your application's `nais.yaml` (or hard-code it in your
 app, the value is not going to change):
@@ -74,7 +76,7 @@ metadata:
   name: ${appname}-redisexporter
   namespace: ${namespace}
 spec:
-  image: oliver006/redis_exporter:v1.3.4-alpine
+  image: oliver006/redis_exporter:<latest-docker
   port: 9121
   prometheus:
     enabled: true
@@ -96,6 +98,8 @@ spec:
     - name: REDIS_EXPORTER_LOG_FORMAT
       value: json
 ```
+
+{% hint style="success" %}Check out [github.com/oliver006] for latest version{% endhint %}
 
 If the Redis instance is password protected, the [secure-redisexporter]-image must be used.
 
@@ -126,3 +130,5 @@ redis:
 [Redis exporters]: https://grafana.adeo.no/d/L-Ktprrmz
 [secure-redisexporter]: https://github.com/navikt/baseimages/tree/master/redis/secure-redisexporter
 [baseimages]: https://github.com/navikt/baseimages/tree/master/redis
+[hub.docker.com]: https://hub.docker.com/_/redis
+[github.com/oliver006]: https://github.com/oliver006/redis_exporter/releases
