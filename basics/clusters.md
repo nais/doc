@@ -34,7 +34,7 @@ The applications running in GCP needs [access policy rules defined](../gcp/acces
 | :--- | :--- |
 | dev-gcp | dev-adeo.no, dev-gcp.nais.io, dev-nav.no, dev-gcp.navlabs.no |
 | prod-gcp | adeo.no, prod-gcp.nais.io, nav.no, navlabs.no|
-| labs-gcp | labs.nais.io |
+| labs-gcp | navlabs.io |
 
 ### The different domains
 
