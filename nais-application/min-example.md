@@ -8,6 +8,7 @@ apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
   name: nais-testapp
+  namespace: default
   labels:
     team: aura
 spec:
