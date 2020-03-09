@@ -10,6 +10,9 @@ a group, the mailnick is the value before the `@` in the email field.
 
 * To create a new team, make a pull request to the [teams repository] on Github
 * The group's owners can manage the group using either [outlook] or [AAD]
+* The following resources will be generated for the new team:
+
+![nais-teams](_media/nais-teams.png)
 
 ## Access to Vault
 
