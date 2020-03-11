@@ -85,13 +85,13 @@ spec:
       - name: myinstance
         type: POSTGRES_11
         tier: db-f1-micro
-        diskType: ssd
+        diskType: SSD
         highAvailability: true
         diskSize: 10
         diskAutoresize: true
         autoBackupTime: "03:00"
         databases:
-        - mydb
+          - name: mydb
         cascadingDelete: false
   accessPolicy:
     inbound:
