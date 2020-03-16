@@ -110,4 +110,8 @@ spec:
           namespace: t1
       external:
         - host: www.external-application.com
- ```
+        - host: another-external.com
+          ports:
+            - port: 9200
+              protocol: TCP
+```

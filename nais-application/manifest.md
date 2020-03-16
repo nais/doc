@@ -303,7 +303,7 @@ Namespace to application to allow traffic from.
 ### `spec.accessPolicy.outbound.rules[]`
 List of services to allow traffic to.
 
-#### `spec.accessPolicy.outbound.rules\[\].application`
+#### `spec.accessPolicy.outbound.rules[].application`
 Name of the other service to allow traffic to.
 
 **Required**: `true`
@@ -315,6 +315,15 @@ List of services outside cluster to allow traffic to.
 URL to service outside cluster.
 
 **Required**: `true`
+
+#### `spec.accessPolicy.outbound.external[].ports[]`
+List of outgoing ports allowed for service outside cluster.
+
+##### `spec.accessPolicy.outbound.external[].ports[].port`
+Port number of outgoing port.
+
+##### `spec.accessPolicy.outbound.external[].ports[].protocol`
+The protocol exposed on the port. MUST BE one of `HTTP|HTTPS|GRPC|HTTP2|MONGO|TCP|TLS`. TLS implies the connection will be routed based on the SNI header to the destination without terminating the TLS connection.
 
 ## `spec.gcp.sqlInstances`
 List of sql instances to provision in GCP
