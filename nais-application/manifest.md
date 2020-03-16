@@ -109,6 +109,8 @@ Maximum number of replicas.
 ## `spec.cpuThresholdPercentage`
 Total CPU percentage threshold on deployment, at which point it will increase number of pods if `current < max`. We recommend to read more about [container lifecycle hooks](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/).
 
+**Default**: `50`
+
 ## `spec.prometheus`
 Prometheus is used to scrape [metrics](../observability/metrics.md) from the pod.
 
