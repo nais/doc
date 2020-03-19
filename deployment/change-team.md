@@ -9,6 +9,16 @@ Deploying with the new team will not work if there exists an Application with th
 
 The easiest way to do this is with this one-liner. The user running the command must be a member of both the old and new team.
 
+{% hint style="warning" %}
+Windows users: this one-liner will not work. Try the alternate method below.
+{% endhint %}
+
 ```
 kubectl patch app MYAPPLICATION --type merge --patch '{"metadata":{"labels":{"team":"MYTEAM"}}}'
+```
+
+Alternate version: run the following command, and change the `.metadata.labels.team` field to the new team.
+
+```
+kubectl edit app MYAPPLICATION
 ```
