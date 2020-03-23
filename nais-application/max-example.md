@@ -92,6 +92,7 @@ spec:
         autoBackupTime: "03:00"
         databases:
           - name: mydb
+            envVarPrefix: NAIS_DATABASE
         cascadingDelete: false
   accessPolicy:
     inbound:

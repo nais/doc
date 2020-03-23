@@ -10,7 +10,7 @@ Below is an example of the minimal configuration needed:
 
 ``` yaml
 ...
-kind: "Application"
+kind: Application
 metadata:
   name: myapp
 spec:
@@ -24,17 +24,20 @@ spec:
 
 See all configuration options in the [nais.yaml reference](../nais-application/manifest#spec-gcp-sqlinstances).
 
-When you deploy your application with database config, NAIS will ensure the database exists [Google Cloud SQL instance](https://cloud.google.com/sql) with the specified [Postgres](https://cloud.google.com/sql/docs/postgres/) version, and configure the application with means to connect to it.
+When you deploy your application with database config, NAIS will ensure the database exists in a [Google Cloud SQL instance](https://cloud.google.com/sql) with the specified [Postgres](https://cloud.google.com/sql/docs/postgres/) version, and configure the application with means to connect to it.
 
-To connect your application to the database, use this info:
+To connect your application to the database, use information from the environment variables below.
 
-| key               | value                                                                                                           |
-|-------------------|-----------------------------------------------------------------------------------------------------------------|
-| hostname          | localhost                                                                                                       |
-| port              | 5432                                                                                                            |
-| database name     | `spec.gcp.sqlInstances[].databases[].name` (`nais.yaml`, would resolve to `mydb` in example above)              |
-| database user     | `metadata.name` (`nais.yaml`, would resolve to `myapp` in example above)                                        |
-| database password | `GCP_SQLINSTANCE_<metadata.name>_PASSWORD` (environment variable, resolves to `GCP_SQLINSTANCE_MYAPP_PASSWORD`) |
+The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instance name `myapp` (defaults to application name) and `mydb` (from database spec). You can customize these environment variable names by setting `.spec.gcp.sqlInstances[].databases[].envVarPrefix`. For instance, setting this to `DB` will give you `DB_HOST`, `DB_PORT`, etc.
+
+| key               | environment variable | default |
+|-------------------|---------------------------------|----|
+| hostname          | `NAIS_DATABASE_MYAPP_MYDB_HOST` | 127.0.0.1 |
+| port              | `NAIS_DATABASE_MYAPP_MYDB_PORT` | 5432 |
+| database name     | `NAIS_DATABASE_MYAPP_MYDB_DATABASE` | `.spec.gcp.sqlInstances[].databases[].name` |
+| database user     | `NAIS_DATABASE_MYAPP_MYDB_USER` | `.spec.metadata.name` |
+| database password | `NAIS_DATABASE_MYAPP_MYDB_PASSWORD` | (randomly generated) |
+| database url with credentials | `NAIS_DATABASE_MYAPP_MYDB_URL` | `postgres://username:password@127.0.0.1:5432/mydb` |
 
 ### Cloud SQL Proxy
 
