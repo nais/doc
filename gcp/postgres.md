@@ -35,7 +35,7 @@ The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instan
 | hostname          | `NAIS_DATABASE_MYAPP_MYDB_HOST` | 127.0.0.1 |
 | port              | `NAIS_DATABASE_MYAPP_MYDB_PORT` | 5432 |
 | database name     | `NAIS_DATABASE_MYAPP_MYDB_DATABASE` | `.spec.gcp.sqlInstances[].databases[].name` |
-| database user     | `NAIS_DATABASE_MYAPP_MYDB_USERNAME` | `.spec.metadata.name` |
+| database user     | `NAIS_DATABASE_MYAPP_MYDB_USERNAME` | `.spec.gcp.sqlInstances[].name` |
 | database password | `NAIS_DATABASE_MYAPP_MYDB_PASSWORD` | (randomly generated) |
 | database url with credentials | `NAIS_DATABASE_MYAPP_MYDB_URL` | `postgres://username:password@127.0.0.1:5432/mydb` |
 
