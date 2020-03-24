@@ -5,8 +5,7 @@ description: >
 
 # Objectstore / S3
 
-objectstore on NAIS stores files in buckets. On-prem uses rook ceph storage nodes as the storage solution. 
-This is persistent storage and is available in all clusters. The cluster is currently running rook 1.2.x and ceph 14.2.x.
+objectstore on NAIS stores files in buckets. On-prem uses rook ceph storage nodes as the storage solution. This is persistent storage and available in all clusters. The preferred solution is to use GCP for both applications and buckets, but it is supported on-prem as well.
 
 The objectstore / S3 bucket access is secured with access keys and secret keys stored in kubernetes.
 
@@ -15,7 +14,7 @@ The objectstore / S3 bucket access is secured with access keys and secret keys s
 ### Ceph object storage user
 
 On NAIS on-prem you're required to add a ceph object storage user. This is done through nais-yaml. After applying changes to the ceph-users.yaml and applying this to the cluster the rook operator will create the necessary secrets used to access the S3 bucket.
-Contact [@Sten.Ivar.Røkke] for access or create a pull-request in [nais-yaml].
+Contact [@Sten.Ivar.Røkke] for access or create a pull-request in [navikt/nais-yaml].
 
 Example yaml for ceph user:
 
@@ -32,7 +31,7 @@ spec:
 ```
 
 After a few minutes the rook operator in the cluster will create the secret. 
-This can be fetched and stored in vault for mounting and usage in runtime.
+The keys necessary can then be fetched and stored in vault for mounting and usage runtime for the application. Contact [@Sten.Ivar.Røkke] or other nais team members for keys. 
 
 The objectstore service endpoint is http://objectstore.rook-ceph.svc.nais.local.
 The objectstore can also be reached from other clusters using https://objectstore.nais.{domain name}.
@@ -116,6 +115,6 @@ object S3Client {
 Feel free to help us out by adding more examples!
 
 [@Sten.Ivar.Røkke]: https://nav-it.slack.com/archives/D5KP2068Z
-[nais-yaml]: https://github.com/navikt/nais-yaml.git
+[navikt/nais-yaml]: https://github.com/navikt/nais-yaml.git
 [Grafana Ceph Cluster]: https://grafana.adeo.no/d/vwcB0Bzml/ceph-cluster?orgId=1&refresh=10s
 [Grafana Ceph OSD]: https://grafana.adeo.no/d/Fj5fAfzik/ceph-osd?orgId=1&refresh=15m

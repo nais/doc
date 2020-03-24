@@ -5,11 +5,9 @@ description: >
 
 # Volume storage
 
-The volume storage in NAIS is supported using the storage class rook-ceph. Rook handles the ceph cluster which in turn provides persistent voluments and persistent volume claims. This is most commonly used for elasticsearch installations and other solutions that require persistent volumes for databases.
+The volume storage in NAIS is supported using the storage class rook-ceph. Rook handles the ceph cluster which in turn provides persistent voluments and persistent volume claims. This is most commonly used for elasticsearch installations and other solutions that require persistent volumes for databases. This is persistent storage and available in all clusters. The preferred solution is to use GCP for both applications and persistent volumes, but it is supported on-prem as well.
 
-This is persistent storage and is available in all clusters. The cluster is currently running rook 1.2.x and ceph 14.2.x.
-
-The installation is done through [nais-tpa] with [helm]. This also supports dynamic resizing of the persistent volumes.
+The installation is done through [navikt/nais-tpa] with [helm]. This also supports dynamic resizing of the persistent volumes.
 
 ## How to
 
@@ -115,7 +113,7 @@ General ceph metrics are available from several dashboards in grafana:
 
 Feel free to help us out by adding examples!
 
-[nais-tpal]: https://github.com/navikt/nais-tpa.git
+[navikt/nais-tpal]: https://github.com/navikt/nais-tpa.git
 [helm]: https://helm.sh/
 [#nais-tpa]: https://nav-it.slack.com/archives/CP8TKNK55
 [Grafana Ceph Cluster]: https://grafana.adeo.no/d/vwcB0Bzml/ceph-cluster?orgId=1&refresh=10s
