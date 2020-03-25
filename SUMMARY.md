@@ -35,7 +35,7 @@
   * [NAISjobs](addons/naisjobs.md)
   * [Redis](addons/redis.md)
   * [Objectstore / S3](addons/objectstore.md)
-  * [Persistent volumes](addons/volume-storage.md)
+  * [Volume storage](addons/volume-storage.md)
 * [Legacy](legacy/README.md)
   * [AM/OpenAM](legacy/am.md)
 * [Changelog](changelog.md)
