@@ -67,7 +67,7 @@ spec:
   accessPolicy:
     outbound:
       rules:
-        application: app-b
+        - application: app-b
 ```
 
 
@@ -85,8 +85,8 @@ spec:
   accessPolicy:
     outbound:
       rules:
-        application: app-b  
-        namespace: othernamespace
+        - application: app-b
+          namespace: othernamespace
 ```
 
 ### External services
