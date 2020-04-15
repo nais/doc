@@ -14,20 +14,16 @@ a group, the mailnick is the value before the `@` in the email field.
 
 ![nais-teams](_media/nais-teams.png)
 
-## Access to Vault
+## Access to API keys
 
-In order to access _team API keys_, your team needs to be added to Vault.
+In order to access _team API keys_, go to [deploy.nais.io].
+Here you will find API keys for all teams you are a member of. 
 
-Go to the [vault-iac] repository and add your team into a new file with the following contents.
-You can find `name` and `group_id` on the [AAD] page. The name is the same as the _mailnick/tag_ field.
+## Rotate API key for a team
 
-Submit your changes as a pull request and watch the [#vault-pr] Slack channel.
+Go to [deploy.nais.io] and click on "Create new key" button for 
 
-```
-name: myteam
-group_id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-```
-
+[deploy.nais.io]: https://deploy.nais.io/
 
 [AAD]: https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups
 
