@@ -23,7 +23,7 @@ Here you will find API keys for all teams you are a member of.
 
 Go to [deploy.nais.io] and click on "Create new key" button for 
 
-[deploy]: https://deploy.nais.io/
+[deploy.nais.io]: https://deploy.nais.io/
 
 [AAD]: https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups
 
