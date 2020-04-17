@@ -14,7 +14,7 @@ Your application is assumed to be present in the form of a Docker image when usi
 1. Your application must have a repository on GitHub containing a `nais.yml` and `Dockerfile`.
 2. Your GitHub team must have _admin_ access on that repository.
 3. Your GitHub team's identifier must match the _Kubernetes team label_ in your `nais.yaml`. There is an example file below.
-4. Obtain a _team API key_ from [Vault](https://vault.adeo.no) under the path `/apikey/nais-deploy/<YOUR_TEAM>`. Save the key as a secret named `NAIS_DEPLOY_APIKEY` in your GitHub repository.
+4. Retrieve your [team API key](https://deploy.nais.io). Save the key as a secret named `NAIS_DEPLOY_APIKEY` in your GitHub repository.
 5. Follow the guide below.
 6. When things break, see the [help page](troubleshooting.md).
 
@@ -124,7 +124,7 @@ you can use the following example file.
 
 | Environment variable | Default | Description |
 | :--- | :--- | :--- |
-| APIKEY | (required) | NAIS deploy API key. Obtained from Vault. |
+| APIKEY | (required) | NAIS deploy API key. Obtained from https://deploy.nais.io. |
 | CLUSTER | (required) | Which [NAIS cluster](../basics/clusters.md) to deploy into. |
 | DRY_RUN | `false` | If `true`, run templating and validate input, but do not actually make any requests. |
 | ENVIRONMENT | (auto-detect) | The environment to be shown in GitHub Deployments. Defaults to `CLUSTER:NAMESPACE` for the resource to be deployed if not specified, otherwise falls back to `CLUSTER` if multiple namespaces exist in the given resources. |
