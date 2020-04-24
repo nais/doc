@@ -43,7 +43,6 @@ HTTP endpoint path that signals 200 OK if the application is running.
 
 **Required**: `true`
 
-
 ### `spec.liveness.port`
 Port for the liveness probe.
 
@@ -106,8 +105,8 @@ Maximum number of replicas.
 
 **Default**: 4
 
-## `spec.cpuThresholdPercentage`
-The total CPU percentage threshold for the [Horizontal Pod Autoscaler (HPA)](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/). In short, if the current number of replicas for a deployment is below the maximum number of replicas set in `spec.replicas.max`, the HPA will automatically increase the number of replicas whenever the average CPU utilization across all replicas reach this threshold.
+## `spec.replicas.cpuThresholdPercentage`
+The total CPU percentage threshold for the [Horizontal Pod Autoscaler (HPA)](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/). In short, if the current number of replicas for a deployment is below the maximum number of replicas set in `spec.replicas.max`, the HPA will automatically increase the number of replicas whenever the average CPU utilization across all replicas reach this threshold percentage of the [requested](#spec-resources-requests) CPU resources.
 
 We recommend to read more about [container lifecycle hooks](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/).
 
@@ -223,6 +222,7 @@ more flexible than putting it verbatim in a Pod definition or in a container ima
 Path to where files will be mounted.
 
 **Default (configmap)**: `/var/run/configmaps/<configmap-name>`
+
 **Default (secret)**: `/var/run/secrets`
 
 ## `spec.envFrom[]`
