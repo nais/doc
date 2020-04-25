@@ -22,7 +22,7 @@ spec:
           - name: mydb
 ```
 
-See all configuration options in the [nais.yaml reference](../nais-application/manifest#spec-gcp-sqlinstances).
+See all configuration options in the [nais.yaml reference](../nais-application/manifest.md).
 
 When you deploy your application with database config, NAIS will ensure the database exists in a [Google Cloud SQL instance](https://cloud.google.com/sql) with the specified [Postgres](https://cloud.google.com/sql/docs/postgres/) version, and configure the application with means to connect to it.
 

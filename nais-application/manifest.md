@@ -334,6 +334,10 @@ List of sql instances to provision in GCP
 
 See [postgres](../gcp/postgres.md)-doc for more details
 
+### `spec.gcp.sqlInstances[].type`
+Database type. Only POSTGRES_11 available atm.
+[List of database types GCP supports](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
+
 ### `spec.gcp.sqlInstances[].name`
 Name of the sql instance
 
