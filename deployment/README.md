@@ -225,7 +225,7 @@ stage('Deploy') {
 When using NAIS deploy docker image, pass the environment variable to Docker run. 
 
 ```
-sh "docker run --env --env HTTPS_PROXY='http://webproxy-utvikler.nav.no:8088'  ..." ;            	
+sh "docker run --env HTTPS_PROXY='http://webproxy-utvikler.nav.no:8088'  ..." ;            	
 ```
 
 ## Templating
