@@ -208,6 +208,26 @@ Syntax:
 
 All of these options can be set using environment variables, such as `$APIKEY` and `$PRINT_PAYLOAD`.
 
+### Proxy server 
+
+If you are running NAIS deploy from an internal Jenkins server you need to set up an HTTP proxy as deploy.nais.io is a public address. 
+
+When using the CLI binary you can wrap steps in your pipeline with injected environment variables. 
+
+```
+stage('Deploy') {
+  withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
+    ...
+  }
+}
+```
+
+When using NAIS deploy docker image, pass the environment variable to Docker run. 
+
+```
+sh "docker run --env --env HTTPS_PROXY='http://webproxy-utvikler.nav.no:8088'  ..." ;            	
+```
+
 ## Templating
 
 Templates use [Handlebars](https://handlebarsjs.com/) 3.0 syntax.
