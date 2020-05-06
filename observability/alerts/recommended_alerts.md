@@ -2,10 +2,11 @@
 # Dette er en liste over anbefalte Alerts, har du forbedringer, eller forslag
 # til Alerts vi bør ha med? Lag en pull request, så merger vi inn!
 ---
-apiVersion: "nais.io/v1alpha1"
+apiVersion: "nais.io/v1"
 kind: "Alert"
 metadata:
   name: <alert-name>
+  namespace: <namespace>
   labels:
     team: <teamname>
 spec:

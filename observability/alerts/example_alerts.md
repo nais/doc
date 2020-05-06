@@ -1,5 +1,5 @@
 ```
-apiVersion: "nais.io/v1alpha1"
+apiVersion: "nais.io/v1"
 kind: "Alert"
 metadata:
   name: nais-testapp

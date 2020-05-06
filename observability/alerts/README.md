@@ -10,10 +10,11 @@ Underneath we have an example for a complete Alert resource, ready to be `kubect
 
 ```yaml
 ---
-apiVersion: nais.io/v1alpha1
+apiVersion: nais.io/v1
 kind: Alert
 metadata:
   name: aura-app-alerts
+  namespace: default
   labels:
     team: aura
 spec:
