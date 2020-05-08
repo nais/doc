@@ -1,7 +1,7 @@
 # Cloud Storage Buckets
 
 {% hint style="danger" %}
-Cloud Storage buckets is in ALPHA and MUST NOT be used in production environments.
+Cloud Storage buckets is in BETA. It has not been tested extensively.
 {% endhint %}
 
 You can request a Google Cloud Storage bucket through the NAIS manifest. This feature is only available in GCP clusters.
@@ -17,7 +17,7 @@ spec:
   ...
   gcp:
     buckets:
-      - namePrefix: mybucket
+      - name: mybucket
 ```
 
 {% hint style="tip" %}
