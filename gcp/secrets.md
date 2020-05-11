@@ -1,7 +1,6 @@
 # Secrets
 
-When running an application on GCP, [Kubernetes `Secrets`][Kubernetes Secrets] can be used directly instead of (or in
-combination with) Vault.
+When running an application on GCP, [Kubernetes `Secrets`][Kubernetes Secrets] can be used directly instead of Vault.
 
 To get started using this, simply [create the secrets]. A secret can be either key-value pairs or files, and can be
 exposed to the application as environment variables or files.
