@@ -24,9 +24,9 @@ spec:
 Once a bucket is provisioned, it will not be automatically deleted unless one explicitly sets `spec.gcp.buckets[].cascadingDelete` to `true`. This means that any cleanup must be done manually.
 {% endhint %}
 
-Since bucket names must be globally unique across the entire Google infrastructure, NAIS will postfix the bucket name with a random string, and expose the generated name as an environment variable on the format `GCP_BUCKET_<NAME_PREFIX>_NAME`. Name prefix will be uppercased and `-` will be swapped with `_`. 
-
-If having problems getting your bucket up and running, the name might be taken already. Check errors in the event log:
+Bucket names must be globally unique across the entire Google infrastructure.
+This can cause provisioning problems if your bucket name is used by someone else. If
+you have problems getting your bucket up and running, check errors in the event log:
 
 ```bash
 kubectl describe storagebucket mybucket
