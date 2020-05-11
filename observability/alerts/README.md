@@ -65,7 +65,7 @@ b27apvl00178.preprod.local is marked as unschedulable
 
 Another example is how you can avoid specifying all the namespaces your app is running in, by using the `kubernetes_namespace` label in your `action` og `description`. Just add `{{ $labels.kubernetes_namespace }}`, and it will write the namespace for the app that is having problems.
 
-You can read more about this over at the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/#templating).
+You can read more about this over at the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/#templating) and at the [Kubernetes documentation of exposed metrics](https://github.com/kubernetes/kube-state-metrics/tree/master/docs).  
 
 #### Target several apps or namespaces in a query
 
