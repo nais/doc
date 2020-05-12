@@ -30,7 +30,7 @@ directory.
 
 Also remember to add your namespace to the namespace list in each cluster, see 
 https://github.com/navikt/nais-yaml/blob/master/vars/${cluster}/namespaces.yaml. This way you will have the GPR
-credentials, and our NAB CaBundle available.
+credentials, and our NAV CaBundle available.
 
 #### Adding a team to github.com/navikt/nais-yaml/vars/${cluster}/jobs.yaml
 
