@@ -7,14 +7,11 @@ Each app that have scraping enabled can use the default Grafana dashboard [nais-
 ## NAIS manifest config
 
 ```text
-prometheus:
-  enabled: false # if true the pod will be scraped for metrics by prometheus
-  path: /metrics # Path to prometheus-metrics
+spec:
+  prometheus:
+    enabled: true  # default: false. Pod will now be scraped for metrics by Prometheus.
+    path: /metrics # Path where prometheus metrics are served.
 ```
-
-{% hint style="info" %}
-Prometheus is optional
-{% endhint %}
 
 ### JVM Application
 
