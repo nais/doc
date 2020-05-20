@@ -43,4 +43,4 @@ In GCP we support three different domain names, dependent on what your need is.
 * Use **(dev-)adeo.no** if you only need access from "utviklerimage"/VDI, typical use-cases is "saksbehandlere"
 * Use **(dev|prod)-gcp.nais.io** or **dev-nav.no** if you need access from laptop (via ScaleFT/NAVTunnel)
 * Use **nav.no** if it should be accessible for the world wide web
-* Use **(dev-gcp.)navlabs.no** for external demo/testing purposes (only available in dedicated cluster: `labs-gcp`)
+* Use **labs.nais.io** for external demo/testing purposes (only available in dedicated cluster: `labs-gcp`)
