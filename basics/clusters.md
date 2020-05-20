@@ -36,6 +36,8 @@ The applications running in GCP needs [access policy rules defined](../gcp/acces
 | prod-gcp | adeo.no, prod-gcp.nais.io, nav.no|
 | labs-gcp | labs.nais.io |
 
+Example: If your app is named `myapp`, then the URL for `labs-gcp` would be `https://myapp.labs.nais.io/`.
+
 ### The different domains
 
 In GCP we support three different domain names, dependent on what your need is.
