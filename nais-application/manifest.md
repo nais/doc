@@ -264,14 +264,10 @@ Expose web proxy configuration to the application using the `$HTTP_PROXY`, `$HTT
 **Default**: `false`
 
 ## `spec.logformat`
-Format of the logs from the container. Use this if the container doesn't support json logging and the log should be parsed. Supported formats: accesslog, accesslog_with_processing_time, accesslog_with_referer_useragent, capnslog, logrus, gokit, redis, glog, simple, influxdb, log15.
-
-**Default**: `accesslog`
+Format of the logs from the container. Use this if the container doesn't support json logging and the log is in a special format that need to be parsed. Supported formats: accesslog, accesslog_with_processing_time, accesslog_with_referer_useragent, capnslog, logrus, gokit, redis, glog, simple, influxdb, log15.
 
 ## `spec.logtransform`
-The transformation of the logs, if they should be handled differently than plain text or JSON.
-
-**Default**: `dns_loglevel`
+Extra filters for modifying log content. This can e.g. be used for setting loglevel based on http status code. Supported filters: http_loglevel, dns_loglevel
 
 ## `spec.secureLogs.enabled`
 If true, mount a volume for secure logs in the pod.
