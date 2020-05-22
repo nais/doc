@@ -125,8 +125,15 @@ A list of inhibit rules. Read more about it at
 ## `spec.inhibitRules[].targets`
 Matchers that have to be fulfilled in the alerts to be muted. These are key/value pairs.
 
+## `spec.inhibitRules[].targetsRegex`
+Matchers that have to be fulfilled in the alerts to be muted. These are key/value pairs, where the value can be a regex.
+
 ## `spec.inhibitRules[].sources`
 Matchers for which one or more alerts have to exist for the inhibition to take effect. These are key/value pairs.
+
+## `spec.inhibitRules[].sourcesRegex`
+Matchers for which one or more alerts have to exist for the inhibition to take effect. These are key/value pairs, where
+the value can be a regex.
 
 ## `spec.inhibitRules[].labels[]`
 Labels that must have an equal value in the source and target alert for the inhibition to take effect. These are string
