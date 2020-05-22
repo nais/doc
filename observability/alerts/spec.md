@@ -117,3 +117,17 @@ Alert level for Slack messages.
 `severity: good` will result in green message.
 
 `severity: #808000` will result in an olive colored message.
+
+## `spec.inhibitRules[]`
+A list of inhibit rules. Read more about it at
+[prometheus.io/docs](https://prometheus.io/docs/alerting/configuration/#inhibit_rule).
+
+## `spec.inhibitRules[].targets`
+Matchers that have to be fulfilled in the alerts to be muted. These are key/value pairs.
+
+## `spec.inhibitRules[].sources`
+Matchers for which one or more alerts have to exist for the inhibition to take effect. These are key/value pairs.
+
+## `spec.inhibitRules[].labels[]`
+Labels that must have an equal value in the source and target alert for the inhibition to take effect. These are string
+arrays.
