@@ -26,4 +26,4 @@ in GitHub's repositories, the manifest file's `spec.image` value would be
 
 For more information about the `nais.yaml` specification, see [Manifest](../nais-application/manifest.md).
 
-Now that you've created your application, it's time to [deploy to Kubernetes](../deployment/deploy.md).
+Now that you've created your application, it's time to [deploy to Kubernetes](../deployment/README.md).
