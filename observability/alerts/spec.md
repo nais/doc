@@ -48,6 +48,21 @@ Whether or not to notify about resolved alerts.
 
 **Allowed values**: `true|false`
 
+### `spec.receivers.sms`
+Be alerted via SMS.
+
+#### `spec.receivers.sms.recipients`
+The recipients that should recieve SMS about alerts
+
+**Required**: `true`
+
+#### `spec.receivers.sms.send_resolved`
+Whether or not to notify about resolved alerts.
+
+**Default**: `false`
+
+**Allowed values**: `true|false`
+
 ## `spec.alerts[]`
 A list of alerts.
 
