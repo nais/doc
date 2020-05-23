@@ -30,7 +30,7 @@ The application should be instrumented using [Prometheus](https://prometheus.io/
 
 ## Writes structured logs to `stdout`
 
-The application should emit `json`-formatted logs by writing directly to standard output.  This will make it easier to index, view and search the logs later. See more details in the [logs documentation](observability/logs/README.md).
+The application should emit `json`-formatted logs by writing directly to standard output.  This will make it easier to index, view and search the logs later. See more details in the [logs documentation](../observability/logs/README.md).
 
 ## Implements `readiness` and `liveness` endpoints
 
