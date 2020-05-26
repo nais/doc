@@ -15,9 +15,7 @@ The on-premise clusters are split into two zones, _selvbetjeningsonen_ (SBS), _f
 | prod-sbs | prod-sbs.nais.io, nais.oera.no, tjenester.nav.no |
 
 Prefer using `.nais.io` ingresses as these present a valid certificate issued from a trusted CA.
-
-## Where can I access these ingresses from?
-
+`.nais.io` ingresses are currently only available from VDI. See this [related issue](https://github.com/navikt/pig/issues/13).
 
 Example: If your app is named `myapp`, then the URL for `dev-fss` would be `https://myapp.dev-fss.nais.io`.
 
