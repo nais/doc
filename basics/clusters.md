@@ -9,12 +9,17 @@ The on-premise clusters are split into two zones, _selvbetjeningsonen_ (SBS), _f
 
 | cluster | ingresses | 
 | :--- | :--- |
-| dev-fss | nais.preprod.local |
-| prod-fss | nais.adeo.no |
-| dev-sbs | nais.oera-q.local |
-| prod-sbs | nais.oera.no, tjenester.nav.no |
+| dev-fss | dev-fss.nais.io, nais.preprod.local |
+| prod-fss | prod-fss.nais.io, nais.adeo.no |
+| dev-sbs | dev-sbs.nais.io, nais.oera-q.local |
+| prod-sbs | prod-sbs.nais.io, nais.oera.no, tjenester.nav.no |
 
-Example: If your app is named `myapp`, then the URL for `dev-fss` would be `https://myapp.nais.preprod.local/`.
+Prefer using `.nais.io` ingresses as these present a valid certificate issued from a trusted CA.
+
+## Where can I access these ingresses from?
+
+
+Example: If your app is named `myapp`, then the URL for `dev-fss` would be `https://myapp.dev-fss.nais.io`.
 
 {% hint style="info" %}
 Remember `https://` when calling on-premise URLs!
