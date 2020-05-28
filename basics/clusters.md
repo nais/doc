@@ -1,51 +1,50 @@
-# NAIS clusters
+# NAIS Kubernetes clusters
 
-NAIS is a platform spread over two different suppliers. One set of clusters on-premise, and another set running in the
-cloud (namely [Google Cloud Platform](../gcp/README.md)).
+NAIS currently provides the following Kubernetes clusters for developers to run their applications.
 
 ## On-premise
 
 The on-premise clusters are split into two zones, _selvbetjeningsonen_ (SBS), _fagsystemsonen_ (FSS).
 
-| cluster | ingresses | 
-| :--- | :--- |
-| dev-fss | dev-fss.nais.io, nais.preprod.local |
-| prod-fss | prod-fss.nais.io, nais.adeo.no |
-| dev-sbs | dev-sbs.nais.io, nais.oera-q.local |
-| prod-sbs | prod-sbs.nais.io, nais.oera.no, tjenester.nav.no |
+### Clusters
 
-Prefer using `.nais.io` ingresses as these present a valid certificate issued from a trusted CA.
-`.nais.io` ingresses are currently only available from VDI. See this [related issue](https://github.com/navikt/pig/issues/13).
+* prod-sbs
+* prod-fss
+* dev-sbs
+* dev-fss
 
-Example: If your app is named `myapp`, then the URL for `dev-fss` would be `https://myapp.dev-fss.nais.io`.
+## [GCP](../gcp/README.md)
 
-{% hint style="info" %}
-Remember `https://` when calling on-premise URLs!
-{% endhint %}
-
-{% hint style="warning" %}
-We are working on moving away from the `preprod` prefix, so use `dev` where possible. Read more about the decision over
-at [pig-kubernetes-ops](https://github.com/navikt/pig/blob/master/kubeops/adr/000-preprod-rename.md).
-{% endhint %}
-
-## Cloud - Google Cloud Platform \(GCP\)
-
-In the cloud there are no zones. Instead, we rely on a [zero-trust](https://github.com/navikt/pig/blob/master/kubeops/doc/zero-trust.md) model with a service-mesh.
+In the GCP we do not operate with a zone model like on-prem. Here we rely on a [zero-trust](https://github.com/navikt/pig/blob/master/kubeops/doc/zero-trust.md) model with a service-mesh.
 The applications running in GCP needs [access policy rules defined](../gcp/access-policy.md) for every other service they receive requests from or sends requests to.
 
-| cluster | ingresses |
-| :--- | :--- |
-| dev-gcp | dev-adeo.no, dev-gcp.nais.io, dev-nav.no|
-| prod-gcp | adeo.no, prod-gcp.nais.io, nav.no|
-| labs-gcp | labs.nais.io |
+### Clusters
 
-Example: If your app is named `myapp`, then the URL for `labs-gcp` would be `https://myapp.labs.nais.io/`.
+* dev-gcp 
+* prod-gcp 
+* labs-gcp
 
-### The different domains
+## Ingresses / Who can access my application
 
-In GCP we support three different domain names, dependent on what your need is.
+You can control from where you application is reachable by selecting the appropriate ingress domain. 
 
-* Use **(dev-)adeo.no** if you only need access from "utviklerimage"/VDI, typical use-cases is "saksbehandlere"
-* Use **(dev|prod)-gcp.nais.io** or **dev-nav.no** if you need access from laptop (via ScaleFT/NAVTunnel)
-* Use **nav.no** if it should be accessible for the world wide web
-* Use **labs.nais.io** for external demo/testing purposes (only available in dedicated cluster: `labs-gcp`)
+| domain | accessibility | cluster availability | certificate | description |
+| ------ | ------------- | -------------------- | ----------- | ----------- |
+| nais.io | naisdevice, scaleft, vdi, internal network | dev | signed by public CA. | wildcard DNS on format `*.<cluster name>.nais.io`. |
+| nais.preprod.local | internal network | dev-fss | signed by NAV internal CA | wildcard DNS on format `*.nais.preprod.local`. |
+| nais.oera-q.local | internal network | dev-sbs | signed by NAV internal CA | wildcard DNS on format `*.nais.oera-q.local`. |
+| nais.adeo.no | internal network | prod-fss | signed by NAV internal CA | wildcard DNS on format `*.nais.adeo.no`. |
+| nais.oera.no | internal network | prod-sbs | signed by NAV internal CA | wildcard DNS on format `*.nais.oera.no`. |
+| tjenester.nav.no | internet | prod-sbs | signed by public CA | context root based routing on format `tjenester.nav.no/<appname>`. |
+| nav.no | internet | prod-sbs, prod-gcp | signed by public CA | manually configured, contact at #nais | 
+| adeo.no | internal network, caseworkers | prod-sbs, prod-gcp | signed by public CA | manually configured, contact at #nais | 
+| dev-nav.no | internal network | dev-gcp | signed by public CA | wildcard DNS on format `*.dev-nav.no` | 
+| dev-adeo.no | internal network | dev-gcp | signed by public CA | wildcard DNS on format `*.dev-adeo.no` | 
+
+Example: If your app is named `myapp`, and you want to make it accessible for developers, then the URL for `dev-fss` would be `https://myapp.dev-fss.nais.io`.
+
+{% hint style="warning" %}
+Make sure you understand where you expose your application. Depending on the state of your application, what kind of data it exposes and how it is secured this will impact this decision.
+If in doubt of what is right for your application, ask in #nais or someone on the nais team.
+{% endhint %}
+
