@@ -178,6 +178,8 @@ Guaranteed amount of memory.
 ## `spec.ingresses`
 List of ingress URLs that will route HTTP traffic to the application.
 
+See [ingress documentation](../basics/clusters.md) for more info on which ingresses to use.
+
 ## `spec.vault`
 Provides secrets management, identity-based access, and encrypting application data for auditing of secrets for applications, systems, and users. Vault documentation can be found in [navikt/vault-iac](https://github.com/navikt/vault-iac/tree/master/doc).
 
