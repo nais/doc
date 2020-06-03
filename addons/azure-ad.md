@@ -141,7 +141,7 @@ registered for the Azure AD application.
 ### Pre-Authorized Applications
 
 If your application should accept access tokens from other applications using the [on-behalf-of] flow, 
-a [`spec.accessPolicy.inbound.rules[]`](../nais-application/manifest.md#spec-accessPolicy) must be present:
+a [`spec.accessPolicy.inbound.rules[]`](../nais-application/manifest.md#spec-accesspolicy-gcp-only) must be present:
 
 ```yaml
 spec:
