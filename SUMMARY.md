@@ -40,4 +40,3 @@
   * [Antivirus scanning](addons/antivirus.md)
 * [Legacy](legacy/README.md)
   * [AM/OpenAM](legacy/am.md)
-* [Changelog](changelog.md)
