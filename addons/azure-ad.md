@@ -285,7 +285,7 @@ Example value:
 ]
 ```
 
-#### `AZURE_APP_WELL_KNOWN_URL`
+##### `AZURE_APP_WELL_KNOWN_URL`
 
 The well-known URL with the tenant for which the Azure AD application resides in.
 
