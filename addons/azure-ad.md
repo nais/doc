@@ -7,7 +7,8 @@ description: >
 
 An accompanying Azure AD application can be automatically provisioned to your NAIS application. 
 
-The Azure AD application will be configured with sane defaults. 
+The Azure AD application will be configured with sane defaults to enable usage in both authentication and/or authorization 
+for web applications.
 
 We generate a Kubernetes Secret containing the values needed for your application to integrate with Azure AD, 
 e.g. credentials and URLs. The secret will automatically be mounted to the pods of your application during deploy.
@@ -184,15 +185,17 @@ mounted to the pods of your application.
 
 #### Path
 
-The secret should be available at
+The secret should be available as files at
 
 ```
 /var/run/secrets/nais.io/azure
 ```
 
+as well as environment variables.
+
 #### Contents
 
-The following describes the contents of that secret.
+The following describes the contents of the aforementioned secret.
 
 ##### `AZURE_APP_CLIENT_ID`
 
