@@ -200,7 +200,9 @@ Azure AD client ID. Unique ID for the application in Azure AD.
 
 Example value:
 
-```e89006c5-7193-4ca3-8e26-d0990d9d981f```
+```
+e89006c5-7193-4ca3-8e26-d0990d9d981f
+```
 
 ##### `AZURE_APP_CLIENT_SECRET`
 
@@ -208,7 +210,9 @@ Azure AD client secret, i.e. password for [authenticating the application to Azu
 
 Example value:
 
-```b5S0Bgg1OF17Ptpy4_uvUg-m.I~KU_.5RR```
+```
+b5S0Bgg1OF17Ptpy4_uvUg-m.I~KU_.5RR
+```
 
 ##### `AZURE_APP_JWKS_PRIVATE`
 
