@@ -12,23 +12,14 @@ The Azure AD application will be configured with sane defaults.
 We generate a Kubernetes Secret containing the values needed for your application to integrate with Azure AD, 
 e.g. credentials and URLs. The secret will automatically be mounted to the pods of your application during deploy.
 
-Every deploy will trigger rotation of credentials, invalidating any passwords and keys that are not in use.
+Every deploy will trigger rotation of credentials, invalidating any passwords and keys that are not in use. 
+_In use_ in this context refers to all credentials that are currently mounted to an existing pod - 
+regardless of their status (Running, CrashLoopBackOff, etc.). In other words, credential rotation should happen
+with zero downtime.
 
 ## Spec
 
-### `spec.azure.application`
-Configures an Azure AD application for this application.
-
-#### `spec.azure.application.enabled`
-If enabled, will provision an Azure AD application for the application.
-
-**Default**: `false`
-
-#### `spec.azure.application.replyURLs[]`
-List of [reply URLs] that should be registered for the Azure AD application, 
-e.g. `[ "https://my.application/oauth2/callback" ]`
-
-**Default**: `[]`
+See the [NAIS manifest](../nais-application/manifest.md#spec-azure-application`).
 
 ## Getting Started
 
@@ -95,6 +86,8 @@ spec:
 > A redirect URI, or reply URL, is the location that the authorization server will send the user to once the app has been 
 >successfully authorized, and granted an authorization code or access token. The code or token is contained in the 
 >redirect URI or reply token so it's important that you register the correct location as part of the app registration process.
+>
+> -- <cite>Microsoft's documentation on [reply URLs]</cite>
 
 {% hint style="info" %}
 Note that `spec.azure.application.replyURLs[]` can be omitted if `spec.ingresses` are specified.
@@ -147,7 +140,7 @@ registered for the Azure AD application.
 ### Pre-Authorized Applications
 
 If your application should accept access tokens from other applications using the [on-behalf-of] flow, 
-a [`spec.accessPolicy.inbound.rules[]`](../nais-application/manifest.md#spec-accesspolicy`) must be present:
+a [`spec.accessPolicy.inbound.rules[]`](../nais-application/manifest.md#spec-accesspolicy) must be present:
 
 ```yaml
 spec:

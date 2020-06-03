@@ -414,3 +414,9 @@ List of [reply URLs](https://docs.microsoft.com/en-us/azure/active-directory/dev
 e.g. `[ "https://my.application/oauth2/callback" ]`
 
 **Default**: `[]`
+
+{% hint style="info" %}
+Note that `spec.azure.application.replyURLs[]` can be omitted if `spec.ingresses` are specified.
+
+See [Reply URLs](../addons/azure-ad.md#reply-urls) for details.
+{% endhint %}
