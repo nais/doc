@@ -217,7 +217,7 @@ Example value:
 b5S0Bgg1OF17Ptpy4_uvUg-m.I~KU_.5RR
 ```
 
-##### `AZURE_APP_JWKS_PRIVATE`
+##### `AZURE_APP_JWKS`
 
 Private JWKS, i.e. containing a JWK with the private RSA key for creating signed JWTs when [authenticating to Azure AD with a certificate].
 
@@ -238,31 +238,6 @@ Example value:
       "dp": "7YcKcCtJ...",
       "dq": "sXxLHp9A...",
       "qi": "QCW5VQjO...",
-      "x5c": [
-        "MIID8jCC..."
-      ],
-      "x5t": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
-      "x5t#S256": "AH2gbUvjZYmSQXZ6-YIRxM2YYrLiZYW8NywowyGcxp0"
-    }
-  ]
-}
-```
-
-##### `AZURE_APP_JWKS_PUBLIC`
-
-Public part of the aforementioned JWKS.
-
-Example value:
-
-```json
-{
-  "keys": [
-    {
-      "use": "sig",
-      "kty": "RSA",
-      "kid": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
-      "n": "xQ3chFsz...",
-      "e": "AQAB",
       "x5c": [
         "MIID8jCC..."
       ],
