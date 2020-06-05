@@ -400,3 +400,23 @@ Name prefix of the bucket, will be postfixed with a random string and exposed to
 Whether the instance should be deleted if the application is deleted
 
 **Default**: `false`
+
+## `spec.azure.application`
+Configures an Azure AD application for this application. See [Azure AD](../addons/azure-ad.md) for more details.
+
+### `spec.azure.application.enabled`
+If enabled, will provision an Azure AD application for the application.
+
+**Default**: `false`
+
+### `spec.azure.application.replyURLs[]`
+List of [reply URLs](https://docs.microsoft.com/en-us/azure/active-directory/develop/reply-url) that should be registered for the Azure AD application, 
+e.g. `[ "https://my.application/oauth2/callback" ]`
+
+**Default**: `[]`
+
+{% hint style="info" %}
+Note that `spec.azure.application.replyURLs[]` can be omitted if `spec.ingresses` are specified.
+
+See [Reply URLs](../addons/azure-ad.md#reply-urls) for details.
+{% endhint %}
