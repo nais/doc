@@ -5,6 +5,12 @@ description: >
 
 # Azure AD Application
 
+{% hint style="danger" %}
+Status: currently in open beta. 
+
+Only available in _dev-gcp_
+{% endhint %}
+
 An accompanying Azure AD application can be automatically provisioned to your NAIS application. 
 
 The Azure AD application will be configured with sane defaults to enable usage in both authentication and/or authorization 
