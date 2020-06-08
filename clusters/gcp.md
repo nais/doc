@@ -6,7 +6,7 @@
 | `prod-gcp` | production | publicly accessible |
 | `labs-gcp` | development | publicly accessible |
 
-In the GCP we do not operate with a zone model like with the on-premise clusters.
+In GCP, we do not operate with a zone model like with the on-premise clusters.
 Instead, we rely on a [zero trust](https://github.com/navikt/pig/blob/master/kubeops/doc/zero-trust.md)
 model with a service mesh. The only thing we differentiate on a cluster level is development and production.
 

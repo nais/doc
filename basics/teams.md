@@ -14,6 +14,13 @@ a group, the mailnick is the value before the `@` in the email field.
 
 ![nais-teams](_media/nais-teams.png)
 
+* An Azure AD group is created, and can be viewed in the [Azure portal](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ManagedAppMenuBlade/Users/appId/5cbaf0ba-4d99-48a1-acf5-cca701361fd2/objectId/4c5e3226-106e-404d-81be-d02f31104b5a)
+* A [GitHub team](https://github.com/orgs/navikt/teams) is created.
+* Deploy keys are created, and can be obtained in the [NAIS deploy frontend](https://deploy.nais.io/).
+* GCP users are provisioned, and users can log in to the [Google Cloud Console](https://console.cloud.google.com/) using their NAV e-mail address.
+* Two GCP projects are provisioned, one for development and one for production. See `https://console.cloud.google.com/home/dashboard?project=<(dev|prod)-yourteamname>`.
+* Namespaces are provisioned in all Kubernetes clusters.
+
 ## Access to API keys
 
 In order to access _team API keys_, go to [deploy.nais.io].

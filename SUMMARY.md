@@ -4,6 +4,7 @@
 * [Clusters](clusters/README.md)
   * [Google Cloud Platform](clusters/gcp.md)
   * [On-premises](clusters/on-premises.md)
+  * [Migrating to GCP](clusters/migrating-to-gcp.md)
 * [Getting started](basics/README.md)
   * [Access from laptop](basics/access.md)
   * [Teams](basics/teams.md)
