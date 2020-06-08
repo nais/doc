@@ -1,5 +1,5 @@
 ---
-description: The NAIS manifest `nais.yaml` describes your application
+description: The NAIS manifest nais.yaml describes your application
 ---
 # The NAIS manifest
 

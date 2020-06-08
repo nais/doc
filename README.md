@@ -1,18 +1,10 @@
 # NAIS
 
-{% hint style="success", title="Feedback and Contributing" %}
-**Provide feedback on the NAIS docs at the [survey](https://forms.office.com/Pages/ResponsePage.aspx?id=NGU2YsMeYkmIaZtVNSedC8kDM0IU6F5PulhQRnbQAtdUM0tONFhQQ0tVMkdMTjNOQUJHR1Y4NUEzUC4u)**
-
-See [CONTRIBUTING](https://github.com/nais/doc/blob/master/CONTRIBUTING.md) for instructions on filing/fixing issues and
-adding new content.
-
-Also, don't be afraid to use the **WAS THIS PAGE HELPFUL?** at the bottom of each page!
-{% endhint %}
-
 ## What is NAIS?
 
-NAIS is an open source application platform that aims to provide our developers with the best possible tools needed to
-develop and run their applications.
+NAIS is _NAV's Application Infrastructure Service_, an open source application
+platform that aims to provide our developers with the best possible tools
+needed to develop and run their applications.
 
 ## Getting started with NAIS
 
@@ -54,7 +46,6 @@ When a team wants to process personal data in a whole new way,  the existing PVK
 
 ## Contact the NAIS team
 
-The team can be found either on [Slack](https://nav-it.slack.com/messages/C5KUST8N6/) or in Sannergata 2, 3rd floor,
-west wing, Oslo, Norway.
+The team can be found on [Slack](https://nav-it.slack.com/messages/C5KUST8N6/).
 
 Also, follow us on Twitter [@nais\_io](https://twitter.com/nais_io)!

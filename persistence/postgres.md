@@ -2,11 +2,14 @@
 
 You can provision and configure [Postgres](https://www.postgresql.org/) through [`nais.yaml`](../nais-application/manifest.md).
 
+When you deploy your application with database config, NAIS will ensure the database exists in a [Google Cloud SQL instance](https://cloud.google.com/sql) with the specified [Postgres](https://cloud.google.com/sql/docs/postgres/) version, and configure the application with means to connect to it.
+
 {% hint style="tip" %}
 This feature is only available in GCP clusters.
 {% endhint %}
 
-Below is an example of the minimal configuration needed:
+Below is an example of the minimal configuration needed.
+See all configuration options in the [nais.yaml reference](../nais-application/manifest.md).
 
 ``` yaml
 ...
@@ -21,9 +24,7 @@ spec:
           - name: mydb
 ```
 
-See all configuration options in the [nais.yaml reference](../nais-application/manifest.md).
-
-When you deploy your application with database config, NAIS will ensure the database exists in a [Google Cloud SQL instance](https://cloud.google.com/sql) with the specified [Postgres](https://cloud.google.com/sql/docs/postgres/) version, and configure the application with means to connect to it.
+## Configuration
 
 To connect your application to the database, use information from the environment variables below.
 
