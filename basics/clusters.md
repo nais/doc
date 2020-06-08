@@ -2,6 +2,17 @@
 
 NAIS currently provides the following Kubernetes clusters for developers to run their applications.
 
+## [Google Cloud Platform](../gcp/README.md)
+
+In the GCP we do not operate with a zone model like on-prem. Here we rely on a [zero-trust](https://github.com/navikt/pig/blob/master/kubeops/doc/zero-trust.md) model with a service-mesh.
+The applications running in GCP needs [access policy rules defined](../gcp/access-policy.md) for every other service they receive requests from or sends requests to.
+
+### Clusters
+
+* dev-gcp 
+* prod-gcp 
+* labs-gcp
+
 ## On-premise
 
 The on-premise clusters are split into two zones, _selvbetjeningsonen_ (SBS), _fagsystemsonen_ (FSS).
@@ -12,17 +23,6 @@ The on-premise clusters are split into two zones, _selvbetjeningsonen_ (SBS), _f
 * prod-fss
 * dev-sbs
 * dev-fss
-
-## [GCP](../gcp/README.md)
-
-In the GCP we do not operate with a zone model like on-prem. Here we rely on a [zero-trust](https://github.com/navikt/pig/blob/master/kubeops/doc/zero-trust.md) model with a service-mesh.
-The applications running in GCP needs [access policy rules defined](../gcp/access-policy.md) for every other service they receive requests from or sends requests to.
-
-### Clusters
-
-* dev-gcp 
-* prod-gcp 
-* labs-gcp
 
 ## Ingresses / Who can access my application
 
@@ -37,7 +37,7 @@ You can control from where you application is reachable by selecting the appropr
 | nais.oera.no | internal network | prod-sbs | signed by NAV internal CA | wildcard DNS on format `*.nais.oera.no`. |
 | tjenester.nav.no | internet | prod-sbs | signed by public CA | context root based routing on format `tjenester.nav.no/<appname>`. |
 | nav.no | internet | prod-sbs, prod-gcp | signed by public CA | manually configured, contact at #nais | 
-| adeo.no | internal network, caseworkers | prod-sbs, prod-gcp | signed by public CA | manually configured, contact at #nais | 
+| adeo.no | internal network, case workers | prod-sbs, prod-gcp | signed by public CA | manually configured, contact at #nais | 
 | dev-nav.no | internal network | dev-gcp | signed by public CA | wildcard DNS on format `*.dev-nav.no` | 
 | dev-adeo.no | internal network | dev-gcp | signed by public CA | wildcard DNS on format `*.dev-adeo.no` | 
 

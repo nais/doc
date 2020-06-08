@@ -9,6 +9,10 @@ objectstore on NAIS stores files in buckets. On-prem uses rook ceph storage node
 
 The objectstore / S3 bucket access is secured with access keys and secret keys stored in kubernetes.
 
+{% hint style="tip" %}
+This feature is only available in on-premises clusters.
+{% endhint %}
+
 ## How to
 
 ### Ceph object storage user

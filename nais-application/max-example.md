@@ -79,7 +79,7 @@ spec:
       mountPath: /var/run/secrets
   gcp:
     buckets:
-      - namePrefix: my-cloud-storage-bucket
+      - name: my-cloud-storage-bucket
         cascadingDelete: false
     sqlInstances:
       - name: myinstance
@@ -100,6 +100,9 @@ spec:
         - application: app1
         - application: app2
           namespace: q1
+        - application: app3
+          namespace: q2
+          cluster: dev-gcp
         - application: *
           namespace: t1
     outbound:
@@ -107,6 +110,9 @@ spec:
         - application: app4
         - application: app1
           namespace: q1
+        - application: app5
+          namespace: q2
+          cluster: dev-gcp
         - application: *
           namespace: t1
       external:

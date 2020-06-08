@@ -1,10 +1,10 @@
 # Postgres
 
-{% hint style="danger" %}
-feature still under development
-{% endhint %}
-
 You can provision and configure [Postgres](https://www.postgresql.org/) through [`nais.yaml`](../nais-application/manifest.md).
+
+{% hint style="tip" %}
+This feature is only available in GCP clusters.
+{% endhint %}
 
 Below is an example of the minimal configuration needed:
 
@@ -14,7 +14,6 @@ kind: Application
 metadata:
   name: myapp
 spec:
-  ...
   gcp:
     sqlInstances:
       - type: POSTGRES_11
@@ -90,4 +89,4 @@ $ kubectl logs <pod> -c cloudsql-proxy
 
 ### Example with all configuration options
 
-TODO
+See [max example](../nais-application/max-example.md).

@@ -9,6 +9,10 @@ The volume storage in NAIS is supported using the storage class rook-ceph. Rook 
 
 The installation is done through [navikt/nais-tpa] with [helm]. This also supports dynamic resizing of the persistent volumes.
 
+{% hint style="tip" %}
+This feature is only available in on-premises clusters.
+{% endhint %}
+
 ## How to
 
 ### Installation of helm chart

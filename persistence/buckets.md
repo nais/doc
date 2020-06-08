@@ -1,11 +1,10 @@
 # Cloud Storage Buckets
 
-{% hint style="danger" %}
-Cloud Storage buckets is in BETA. It has not been tested extensively.
+{% hint style="tip" %}
+This feature is only available in GCP clusters.
 {% endhint %}
 
-You can request a Google Cloud Storage bucket through the NAIS manifest. This feature is only available in GCP clusters.
-
+You can request a Google Cloud Storage bucket through the NAIS manifest.
 
 ``` yaml
 apiVersion: "nais.io/v1alpha1"
