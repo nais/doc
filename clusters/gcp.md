@@ -1,0 +1,58 @@
+# Google Cloud Platform clusters
+
+| cluster | environment | comment |
+| ------- | ----------- | ------- |
+| `dev-gcp` | development | |
+| `prod-gcp` | production | publicly accessible |
+| `labs-gcp` | development | publicly accessible |
+
+In the GCP we do not operate with a zone model like with the on-premise clusters.
+Instead, we rely on a [zero trust](https://github.com/navikt/pig/blob/master/kubeops/doc/zero-trust.md)
+model with a service mesh. The only thing we differentiate on a cluster level is development and production.
+
+The applications running in GCP need [access policy rules defined](../gcp/access-policy.md) for every other service they receive requests from or sends requests to.
+
+To access the GCP clusters, see [Access].
+
+## Accessing the application
+
+Access is controlled in part by ingresses, which define where your application will be exposed as a HTTP endpoint.
+You can control where your application is reachable from by selecting the appropriate ingress domain. 
+
+{% hint style="warning" %}
+Make sure you understand where you expose your application, taking into account
+the state of your application, what kind of data it exposes and how it is
+secured. If in doubt, ask in #nais or someone on the NAIS team.
+{% endhint %}
+
+You can control from where you application is reachable by selecting the appropriate ingress domain. 
+
+| domain | accessibility | cluster availability | certificate | description |
+| ------ | ------------- | -------------------- | ----------- | ----------- |
+| nais.io | naisdevice, navtunnel, vdi, internal network | dev | signed by public CA. | wildcard DNS on format `*.<cluster name>.nais.io`. |
+| nav.no | internet | prod-sbs, prod-gcp | signed by public CA | manually configured, contact at #nais | 
+| adeo.no | internal network, case workers | prod-sbs, prod-gcp | signed by public CA | manually configured, contact at #nais | 
+| dev-nav.no | internal network | dev-gcp | signed by public CA | wildcard DNS on format `*.dev-nav.no` | 
+| dev-adeo.no | internal network | dev-gcp | signed by public CA | wildcard DNS on format `*.dev-adeo.no` | 
+
+Example: If your app is named `myapp`, and you want to make it accessible for developers, then the URL for `dev-gcp` would be `https://myapp.dev-gcp.nais.io`.
+
+## ROS and PVK
+
+When establishing an application on GCP, it is a great time to update its [Risikovurdering (ROS)][ROS] analysis. 
+It is required to update the application's entry in the [Behandlingsoversikt] when changing platforms. 
+If both of these words are unfamiliar to your team, it's time to sit down and take a look at both of them. 
+
+Every application needs to have a [ROS] analysis, and applications handling personal information needs a 
+[Personvernkonsekvens (PVK)][PVK] analysis, and furthermore an entry in the [Behandlingsoversikt]. More information 
+about [ROS], [PVK], and [Behandlingsoversikt] can be found on our intranet. Questions about ROS can be directed 
+to [Leif Tore Løvmo], while [Line Langlo Spongsveen] can answer questions about the other two.
+
+[Teams]: ../basics/teams.md
+[Access]: ../basics/access.md#google-cloud-platform-gcp
+[Leif Tore Løvmo]: https://nav-it.slack.com/messages/DB4DDCACF
+[Line Langlo Spongsveen]: https://nav-it.slack.com/messages/DNXJ7PMH7
+[ROS]: https://navno.sharepoint.com/sites/intranett-it/SitePages/Risikovurderinger.aspx
+[PVK]: https://navno.sharepoint.com/sites/intranett-personvern/SitePages/PVK.aspx
+[Behandlingsoversikt]: https://navno.sharepoint.com/sites/intranett-personvern/SitePages/Behandlingsoversikt.aspx
+

@@ -1,6 +1,7 @@
 # Secrets
 
-When running an application on GCP, [Kubernetes `Secrets`][Kubernetes Secrets] can be used directly instead of Vault.
+When running an application in a team namespace,
+[Kubernetes Secrets] can be used directly instead of Vault.
 
 To get started using this, simply [create the secrets]. A secret can be either key-value pairs or files, and can be
 exposed to the application as environment variables or files.
@@ -20,24 +21,20 @@ Exposing `my-secret` as environment variables to the application by referring to
 spec:
   envFrom:
     - secret: my-secret
-   
 ```
 
 That's it! When the application is running, the environment variable `key1` will have the value `supersecret`.
 
-
-Alternatively, if the secret should have their contents mounted into the containers as files
+Alternatively, if the secret should have their contents mounted into the containers as files:
 
 ```yaml
 spec:
   filesFrom:
     - secret: my-secret
-   
 ```
 
 The secret is then exposed under the path specified by `spec.filesFrom[].mountPath` (default `/var/run/secrets`). 
 For this example it is available at `/var/run/secrets/key1`.
-
 
 See the official [Kubernetes documentation][Kubernetes secrets] or by running `kubectl create secret generic --help`
 for more details on creating and managing your secrets.

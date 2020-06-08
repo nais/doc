@@ -1,7 +1,17 @@
-# Getting access from laptop
+# Accessing the clusters
 
-This guide will take you through the required tools and permissions that need to be in place for you to be able to
-operate your own NAIS application directly from your laptop.
+This guide will take you through the required tools and permissions that need
+to be in place for you to be able to operate your own NAIS application directly
+from your laptop.
+
+## Set up a team
+
+The primary unit of access is a *team*, whose origin is a group in Azure
+AD. Each team is given its own namespace with the same name as the team. The
+team will have unrestricted access to all Kubernetes assets in that namespace.
+
+See [creating a new team](../basics/teams.md) to get started with teams.  
+After creating a new team, you should have access to all clusters.
 
 ## Install [`kubectl`][kubectl]
 
@@ -55,21 +65,6 @@ If you use cygwin, you need the `KUBECONFIG` to be in Windows style paths rather
 
 ## Authenticate `kubectl`
 
-### On-premise
-
-When connecting to on-premise clusters, you need to authenticate with Azure AD.
-
-```bash
-$ kubectl config use-context prod-fss
-Switched to context "prod-fss".
-
-$ kubectl get pods
-To sign in, use a web browser to open the page https://microsoft.com/devicelogin and enter the code CR69DPQQZ to authenticate.
-```
-
-When prompted like above, go to the address and enter the code. You then log in with your NAV e-mail and password.
-When done, `kubectl` will update your `kubeconfig`-file with the tokens needed to gain access to the cluster.
-
 ### Google Cloud Platform (GCP)
 
 Before following these steps, make sure your team is enabled for Google Cloud Platform, check 
@@ -93,6 +88,21 @@ gcp-terraform $ k cluster-info
 Kubernetes master is running at https://127.0.0.1:14131
 ...
 ```
+
+### On-premise
+
+When connecting to on-premise clusters, you need to authenticate with Azure AD.
+
+```bash
+$ kubectl config use-context prod-fss
+Switched to context "prod-fss".
+
+$ kubectl get pods
+To sign in, use a web browser to open the page https://microsoft.com/devicelogin and enter the code CR69DPQQZ to authenticate.
+```
+
+When prompted like above, go to the address and enter the code. You then log in with your NAV e-mail and password.
+When done, `kubectl` will update your `kubeconfig`-file with the tokens needed to gain access to the cluster.
 
 ## Recommended tools
 
