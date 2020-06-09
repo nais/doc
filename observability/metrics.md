@@ -33,7 +33,23 @@ This is easily done by writing to the Sensu socket.
 sensu.nais:3030
 ```
 
-Remember to format the data as [Influxdb syntax](https://docs.influxdata.com/influxdb/v1.5/write_protocols/line_protocol_tutorial/#syntax).
+Example message:
+
+```json
+{
+  "name": "myapp_metrics",
+  "type": "metric",
+  "handlers": ["events_nano"],
+  "output": "myapp.event1,tag1=x,tag2=y value=1,value2=2 1571402276000000000\nmyapp.event2,tag1=xx,tag2=yy value=42,value2=69 1571402276000000000"
+}
+```
+
+The format of the data (The `output` field in the message) should be formatted as [Influxdb Line Protocol](https://docs.influxdata.com/influxdb/v1.5/write_protocols/line_protocol_tutorial/#syntax).
+
+{% hint style="warning" %}
+Note that each variation of tag values will create a new time series, so avoid using tags for data that varies a lot. Read more about best practices here: [InfluxDB schema design and data layout](https://docs.influxdata.com/influxdb/v1.8/concepts/schema_and_data_layout/)
+{% endhint %}
+
 
 ## Overview
 
