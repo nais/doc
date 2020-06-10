@@ -16,7 +16,15 @@ Using team namespaces instead of shared namespaces has several advantages:
 
 ## On-prem migration to team namespaces
 
-Migrating an application to a team namespace is done by simply changing the namespace field in the naiserator yaml file and redeploying the app. 
+Migrating an application to a team namespace is done by changing the namespace field in the naiserator yaml file and redeploying the app. 
+
+```yaml
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: myApp
+  namespace: aTeam
+  ```
 
 ---
 
@@ -29,17 +37,8 @@ kubectl delete app <appName> -n <oldNamespace>
 
 ---
 
-
-
-Also, remember to remove the app from the old namespace. 
-
-```yaml
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
-metadata:
-  name: myApp
-  namespace: aTeam
-  ```
+Next, make sure applications in the team namespace have access to Vault secrets. 
+Refer to [Vault iac documentation](https://github.com/navikt/vault-iac/blob/master/doc/getting-started.md#a-more-advanced-example-1) for details.
 
 There are a few more steps to consider if you are integrating with other rest- or webservices. 
 
