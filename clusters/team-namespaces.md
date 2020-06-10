@@ -45,7 +45,7 @@ However there are a few more steps to consider if you are integrating with other
 ### Integration via ingress or BigIp 
 If you are calling other services through a Kubernetes ingress or BigIP such as myapp.nais.adeo.no, myapp.adeo.no app.adeo.no/myapp or modapp.adeo.no/myapp no changes are required. 
 
-Service calls via api-gateway or service-gateway will also just work without doing any changes. 
+Service calls via api-gateway or service-gateway will also work without any changes
 
 ### Integration via Kubernetes service discovery
 
