@@ -6,7 +6,7 @@ Namespaces are created based on the contents of [teams.yaml](https://github.com/
 The namespace has the same name as the `name` field i teams.yaml
 
 Using team namespaces instead of shared namespaces has several advantages: 
-- Team members have full admin access in that namespace. This includes `scale`, `port-forward`, `exec` etc. 
+- Team members have full admin access in that namespace. This includes `kubectl`commands like `scale`, `port-forward`, `exec` etc. 
 - Support for [Kubernetes native secrets](https://kubernetes.io/docs/concepts/configuration/secret/) as an alternative to Vault. 
 - People from other teams cannot read native secrets in your team's namespace
 - People from other teams does not have access to your teams namespace. This prevents accidental changes or removal of Kubernetes resources used by your team. 
