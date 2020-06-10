@@ -1,7 +1,7 @@
 # Table of contents
 
-* [Introduction to NAIS](README.md)
-  * [What is a NAIS application?](clusters/nais-application.md)
+* [Introduction to NAIS](intro/README.md)
+  * [What is a NAIS application?](intro/nais-application.md)
 * [Clusters](clusters/README.md)
   * [Google Cloud Platform](clusters/gcp.md)
   * [On-premises](clusters/on-premises.md)
@@ -44,14 +44,3 @@
   * [Velero backup and restore](addons/velero-backup-and-restore.md)
 * [Legacy](legacy/README.md)
   * [AM/OpenAM](legacy/am.md)
-
-## pagegroup-test
-
-* [Legacy](legacy/README.md)
-  * [AM/OpenAM](legacy/am.md)
-* [Persistence](persistence/README.md)
-  * [Buckets](persistence/buckets.md)
-  * [Postgres](persistence/postgres.md)
-  * [S3 object store](persistence/objectstore.md)
-  * [Redis](persistence/redis.md)
-  * [On-premises disk](persistence/volume-storage.md)
