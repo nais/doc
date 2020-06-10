@@ -43,3 +43,14 @@
   * [Velero backup and restore](addons/velero-backup-and-restore.md)
 * [Legacy](legacy/README.md)
   * [AM/OpenAM](legacy/am.md)
+
+## pagegroup-test
+
+* [Legacy](legacy/README.md)
+  * [AM/OpenAM](legacy/am.md)
+* [Persistence](persistence/README.md)
+  * [Buckets](persistence/buckets.md)
+  * [Postgres](persistence/postgres.md)
+  * [S3 object store](persistence/objectstore.md)
+  * [Redis](persistence/redis.md)
+  * [On-premises disk](persistence/volume-storage.md)
