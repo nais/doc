@@ -1,6 +1,6 @@
 # Team namespaces
 
-A namespace pr team is automatically created in every nais cluster both on-prem and in GCP. 
+A namespace per team is automatically created in every nais cluster both on-prem and in GCP. 
 Namespaces are created based on the contents of [teams.yaml](https://github.com/navikt/teams/blob/master/teams.yml) in [navikt/teams repo](https://github.com/navikt/teams/). 
 
 The namespace has the same name as the `name` field i teams.yaml
