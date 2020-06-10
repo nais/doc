@@ -45,3 +45,7 @@ Go to [deploy.nais.io] and click on "Create new key" button for
 [#vault-pr]: https://nav-it.slack.com/archives/CQFTZBUFN
 
 [vault-iac]: https://github.com/navikt/vault-iac/tree/master/terraform/teams
+
+## Team namespaces
+
+Team namespaces are supported in both on-prem and in GCP. Refer to the [team namespaces documentation](clusters/team-namespaces.md) for details.
