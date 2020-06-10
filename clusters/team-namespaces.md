@@ -51,7 +51,7 @@ Service calls via api-gateway or service-gateway will also work without any chan
 
 Applications deployed to Kubernetes exposes a service. This is an adress that allows for direct communication within a Kubernetes cluster without having to go through an external ingress or load balancer. 
 
-Services available can be viewed with `kubectl get service`. The service name is the same in both dev and prod clusters. This allows for simpler configuration. 
+Services available can be viewed with `kubectl get service` or shorthand `kubectl get svc`. The service name is the same in both dev and prod clusters. This allows for simpler configuration. 
 
 Ingtegrating with an other application in the same namespace via servicediscovery is acheived by simply using `http://servicename` in your config. For example `http://myapp``
 
