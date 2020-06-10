@@ -11,6 +11,7 @@ Using team namespaces instead of shared namespaces has several advantages:
 - People from other teams cannot read native secrets in your team's namespace
 - People from other teams does not have access to your teams namespace. This prevents accidental changes or removal of Kubernetes resources used by your team. 
 - Team namespaces is the only thing supported in Google Cloud Platform (GCP). Migrating to team namespaces now makes it easier to move from on-prem to GCP later. 
+- No longer forces use of the nais.io/Application abstraction. If nais.io/Application doesn't support your requirements, or you simply prefer handling these resources yourself, you are free to do so.
 
 
 ## On-prem migration to team namespaces
@@ -42,7 +43,7 @@ metadata:
 
 However there are a few more steps to consider if you are integrating with other rest- or webservices. 
 
-### Integration via ingress or BigIp 
+### Integration via ingress or BigIP 
 If you are calling other services through a Kubernetes ingress or BigIP such as myapp.nais.adeo.no, myapp.adeo.no app.adeo.no/myapp or modapp.adeo.no/myapp no changes are required. 
 
 Service calls via api-gateway or service-gateway will also work without any changes
