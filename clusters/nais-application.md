@@ -1,9 +1,7 @@
 ---
-description: More detailed information about some of the features of the NAIS manifest, also called NAIS spec, or nais.yaml
+description: This document describes the different properties a typical NAIS application should have.
 ---
 # NAIS application
-
-This document describes the different properties a typical NAIS application should have.
 
 ## Handles termination gracefully
 
@@ -46,14 +44,3 @@ Useful resources on the topic:
 - `liveness`-probe should simply return `HTTP 200 OK` if main loop is running, and `HTTP 5xx` if not
 - `readiness`-probe returns `HTTP 200 OK` is able to process requests, and `HTTP 5xx` if not. If the application has dependencies to e.g. a database to serve traffic, it's a good idea to check if the database is available in the `readiness`-probe
 {% endhint %}
-
-## Default environment variables
-
-These environment variables will be injected into your application container
-
-| variable | example | source |
-| :--- | :--- | :--- |
-| NAIS\_APP\_NAME | myapp | metadata.name from nais.yaml |
-| NAIS\_NAMESPACE | default | metadata.namespace from nais.yaml |
-| NAIS\_APP\_IMAGE | navikt/myapp:69 | spec.image from nais.yaml |
-| NAIS\_CLUSTER\_NAME | prod-fss | naiserator runtime context |

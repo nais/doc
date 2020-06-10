@@ -354,6 +354,18 @@ deploy --dry-run --print-payload --resource alert.yml --vars vars.yml | jq .reso
 ]
 ```
 
+## Default environment variables
+
+These environment variables will be injected into your application container
+
+| variable | example | source |
+| :--- | :--- | :--- |
+| NAIS\_APP\_NAME | myapp | metadata.name from nais.yaml |
+| NAIS\_NAMESPACE | default | metadata.namespace from nais.yaml |
+| NAIS\_APP\_IMAGE | navikt/myapp:69 | spec.image from nais.yaml |
+| NAIS\_CLUSTER\_NAME | prod-fss | naiserator runtime context |
+
+
 ## Build status badge
 
 Use the following URL to create a small badge for your workflow/action.
