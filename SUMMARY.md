@@ -1,6 +1,7 @@
 # Table of contents
 
-* [Introduction to NAIS](README.md)
+* [Introduction to NAIS](intro/README.md)
+  * [What is a NAIS application?](intro/nais-application.md)
 * [Clusters](clusters/README.md)
   * [Google Cloud Platform](clusters/gcp.md)
   * [On-premises](clusters/on-premises.md)

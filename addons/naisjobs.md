@@ -3,76 +3,28 @@
 In terms of scheduled jobs/cronjobs on Kubernetes, NAISjobs is a slightly more hands-on approach compared to other
 parts of NAIS.
 
-## Team setup
+## Team namespace
 
-This section describes various parts which may be required for your team to create NAISjobs. Some of these steps may
-already have been done for your team.
+NAIS only allows jobs/cronjobs in the teams own namespace.
 
-### Vault setup
+## Vault configuration
 
-Have a look at the [Vault documentation for end users] if the team has jobs which requires secrets. Regarding
-*"Give a NAIS application read access to Vault secret"*, it is important to note that cronjobs run in a *separate*
-namespace and are using a different *service account*! So you need to add the following to your app-defenition in
-Vault-IAC:
+To be able to retrieve secrets from Vault, you need to add the following changes to your
+`terraform/apps/${cluster}/${jobname}.yml` file:
 ```
+name: ${jobname}
 namespaces:
-  - ${namespace}
+- ${teamname}
 serviceaccounts:
-  - podcreator
+  - default
 ```
-
-### Separate namespace
-
-NAIS only allows cronjobs in separate namespaces. Teams get their own namespace in which their jobs can run in, this is
-configured in [navikt/nais-yaml]. If `jobs.yaml` does not exist in the cluster directory, it must be created.
-Additionally, `naisjobs.yaml` must be copied from a cluster directory to an equivalent `templates/${cluster}`
-directory.
-
-Also remember to add your namespace to the namespace list in each cluster, see 
-https://github.com/navikt/nais-yaml/blob/master/vars/${cluster}/namespaces.yaml. This way you will have the GPR
-credentials, and our NAV CaBundle available.
-
-#### Adding a team to github.com/navikt/nais-yaml/vars/${cluster}/jobs.yaml
-
-The variables in the examples of this section are as follows
-* `${namespace}` is the name of the namespace the team wants for their cronjobs
-* `${teamname}` is the name of the team
-* `${ldap_group_id}` is the object ID of the team's [Azure AD group]
-
-##### Does jobs.yaml exist?
-
-Add your team metadata to the bottom of the file
-
-```yaml
-- name: ${namespace}
-  group_name: ${teamname}
-  group_id: ${ldap_group_id}
-```
-
-##### Is there no jobs.yaml file?
-
-Create a file named `jobs.yaml` in the directory with the following content.
-
-```yaml
-naisjobs:
-- name: ${namespace}
-  group_name: ${teamname}
-  group_id: ${ldap_group_id}
-```
-
-### Machine user
-
-While it is possible to create cronjobs as a regular user, it is also possible to get a [machine user] created if
-the team requires to communicate with NAIS outside of Azure Active Directory. Ask in [#nais][nais slack channel] on Slack to create a
-machine user. Please provide `cluster` and `team`.
 
 ## Applying a job to Kubernetes
 
-When all the aforementioned steps have been completed, one can finally `apply` a yaml file to the cluster, either
-through the use of a [machine user] or as a regular user!
+When all the aforementioned steps have been completed, one can finally `apply` a yaml file to the cluster.
 
 ```bash
-$ kubectl apply -f job.yml
+$ kubectl apply -f cronjob.yml
 ```
 
 Below is an example of how such a yaml file may look.
@@ -81,7 +33,7 @@ Below is an example of how such a yaml file may look.
 for Vault/secrets.
 * Note that `spec.jobTemplate.spec.template.spec.imagePullSecrets` can be removed if your **not** using Github Package Registry
 
-The variables in this example are as follows
+The variables in this cronjob example are as follows
 * `${jobname}`: the name of the cronjob
 * `${namespace}`: the name of the namespace, see [Separate namespace]
 * `${teamname}`: the name of the team
@@ -89,13 +41,13 @@ The variables in this example are as follows
 * `${vks_auth_path}`: is the cronjob's authentication path in Vault
 * `${vks_kv_path}`: is the path to the cronjob's secret in the Vault `kv` engine
 
-job.yml
+cronjob.yml
 ```yaml
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: ${jobname}
-  namespace: ${namespace}
+  namespace: ${teamname}
   labels:
     team: ${teamname}
 spec:
@@ -161,8 +113,8 @@ spec:
             volumeMounts:
             - mountPath: /var/run/secrets/nais.io/vault
               name: vault-secrets
-          serviceAccount: podcreator
-          serviceAccountName: podcreator
+          serviceAccount: default
+          serviceAccountName: default
           volumes:
           - configMap:
               defaultMode: 420
@@ -177,10 +129,4 @@ spec:
             name: vault-secrets
 ```
 
-[Vault documentation for end users]: https://github.com/navikt/vault-iac/tree/master/doc#vault-end-user-documentation
-[navikt/nais-yaml]: https://github.com/navikt/nais-yaml/
-[Azure AD group]: https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups
-[machine user]: ../basics/teams.md#machine-user
-[nais slack channel]: https://nav-it.slack.com/messages/C5KUST8N6
-[Separate namespace]: #separate-namespace
 [cron time string format]: https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07
