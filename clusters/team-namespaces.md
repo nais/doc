@@ -55,15 +55,15 @@ Services available can be viewed with `kubectl get service` or shorthand `kubect
 
 Integrating with other applications in the same namespace via servicediscovery is achieved by simply using `http://servicename` in your config. For example `http://myapp`
 
-Say you migrate myapp from default namespace to a team namespace called "aTeam". Calls to other apps that are still in the default namespace will not work without modifying the url. For example `http://anotherAppStillInDefaultNamespace` will fail. 
+If you're migrating myapp from the default namespace to a namespace called "aTeam", calls to other apps that are still in the default namespace will not work without modifying the url. For example `http://anotherAppStillInDefaultNamespace` will fail. 
 
-URLs have to be updated to this format:`http://<servicename>.<namespace>.cluster.local` for example `http://anotherAppStillInDefaultNamespace.default.cluster.local`
+URLs have to be updated to this format:`http://<servicename>.<namespace>.cluster.local`. For example `http://anotherAppStillInDefaultNamespace.default.cluster.local`
 
 ---
 **NOTE**
 
-When migrating an app to a team namespace, be sure to let your consumers know. 
-All consuming apps that are using service discovert also needs to update their config. 
+When migrating an application to a team namespace, be sure to let your consumers know. 
+All consuming applications that are using service discovery also needs to update their config. 
 
 For example is myApp moves to the aTeam namespace, all consumer has to change their service discovery url to `http://myapp.ateam.svc.cluster.local
 
