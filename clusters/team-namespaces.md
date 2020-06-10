@@ -53,7 +53,7 @@ Applications deployed to Kubernetes exposes a service. This is an adress that al
 
 Services available can be viewed with `kubectl get service` or shorthand `kubectl get svc`. The service name is the same in both dev and prod clusters. This allows for simpler configuration. 
 
-Ingtegrating with an other application in the same namespace via servicediscovery is acheived by simply using `http://servicename` in your config. For example `http://myapp``
+Integrating with other applications in the same namespace via servicediscovery is achieved by simply using `http://servicename` in your config. For example `http://myapp`
 
 Say you migrate myapp from default namespace to a team namespace called "aTeam". Calls to other apps that are still in the default namespace will not work without modifying the url. For example `http://anotherAppStillInDefaultNamespace` will fail. 
 
