@@ -15,7 +15,22 @@ Using team namespaces instead of shared namespaces has several advantages:
 
 ## On-prem migration to team namespaces
 
-Migrating an application to a team namespace is done by simply changing the namespace field in the naiserator yaml file. 
+Migrating an application to a team namespace is done by simply changing the namespace field in the naiserator yaml file and redeploying the app. 
+
+---
+
+**Note**
+
+Remember to remove the app from the old namespace. 
+``` bash
+kubectl delete app <appName> -n <oldNamespace>
+```
+
+---
+
+
+
+Also, remember to remove the app from the old namespace. 
 
 ```yaml
 apiVersion: "nais.io/v1alpha1"
