@@ -13,56 +13,6 @@ Using team namespaces instead of shared namespaces has several advantages:
 - Google Cloud Platform (GCP) only supports team namespaces. Migrating your application to a team namespace now makes it easier to move from on-prem to GCP later.
 - No longer forces use of the `nais.io/Application` abstraction. If `nais.io/Application` doesn't support your requirements, or you simply prefer handling these resources yourself, you are free to do so.
 
-## Service Discovery in Kubernetes
-
-Applications deployed to Kubernetes are exposed through a service. This is an address that allows for direct communication 
-within a Kubernetes cluster without having to go through an external ingress or load balancer. 
-
-Services available can be viewed with `kubectl get service` or shorthand `kubectl get svc`. The service name 
-is the same in both dev and prod clusters. This allows for simpler configuration. 
-
-### Google Cloud Platform
-
-The full hostname of a service on GCP follows this format:
-
-```
-http://<service-name>.<namespace>.svc.cluster.local
-```
-
-### On-prem
-
-The full hostname of a service on-prem follows this format:
-
-```
-http://<service-name>.<namespace>.svc.nais.local
-```
-
-### Short names
-
-You often won't need to use the full hostname to contact another service.
-
-If you’re addressing a service in the same namespace, you can use just the service name to contact it:
-
-```
-http://<another-service>
-```
-
-If the service exists in a different namespace, you must add the appropriate namespace:
-
-```
-http://<another-service>.<another-namespace>
-```
-
-{% hint style="info" %}
-**Note for on-prem**
-
-If your application has [webproxy](../nais-application/manifest.md#specwebproxy) enabled, 
-you should use the full hostname for all service discovery calls.
-
-This is to ensure that your application does not attempt to perform these in-cluster calls through the proxy,
-as the environment variable `NO_PROXY` includes `*.local`.
-{% endhint %}
-
 ## On-prem migration to team namespaces
 
 Migrating an application to a team namespace is done by changing the [namespace](../nais-application/manifest.md#metadatanamespace)
@@ -119,8 +69,9 @@ Service calls via api-gateway or service-gateway will also work without any chan
 
 ### Integration via Kubernetes service discovery
 
-If you're migrating `my-app` from the `default` namespace to a namespace called `my-team`, calls to other apps that 
-are still in the `default` namespace will not work without modifying the url. 
+If you're migrating `my-app` from the `default` namespace to a namespace called `my-team`, 
+[service discovery](#service-discovery-in-kubernetes) calls to other apps that are still in the `default` 
+namespace will not work without modifying the url. 
 
 For example, calls to `http://<another-app-in-default-namespace>` will fail to resolve.
 
@@ -142,3 +93,53 @@ If the application is moved to the `my-team` namespace, the service discovery UR
 ```
 http://my-app.my-team.svc.nais.local
 ```
+
+## Service Discovery in Kubernetes
+
+Applications deployed to Kubernetes are exposed through a service. This is an address that allows for direct communication 
+within a Kubernetes cluster without having to go through an external ingress or load balancer. 
+
+Services available can be viewed with `kubectl get service` or shorthand `kubectl get svc`. The service name 
+is the same in both dev and prod clusters. This allows for simpler configuration. 
+
+### Google Cloud Platform
+
+The full hostname of a service on GCP follows this format:
+
+```
+http://<service-name>.<namespace>.svc.cluster.local
+```
+
+### On-prem
+
+The full hostname of a service on-prem follows this format:
+
+```
+http://<service-name>.<namespace>.svc.nais.local
+```
+
+### Short names
+
+You often won't need to use the full hostname to contact another service.
+
+If you’re addressing a service in the same namespace, you can use just the service name to contact it:
+
+```
+http://<another-service>
+```
+
+If the service exists in a different namespace, you must add the appropriate namespace:
+
+```
+http://<another-service>.<another-namespace>
+```
+
+{% hint style="info" %}
+**Note for on-prem**
+
+If your application has [webproxy](../nais-application/manifest.md#specwebproxy) enabled, 
+you should use the full hostname for all service discovery calls.
+
+This is to ensure that your application does not attempt to perform these in-cluster calls through the proxy,
+as the environment variable `NO_PROXY` includes `*.local`.
+{% endhint %}
