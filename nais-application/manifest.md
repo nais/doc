@@ -14,7 +14,7 @@ Which namespace the application will be deployed to.
 **Default**: default
 
 {% hint style="info" title="Note" %}
-It is recommended to use [team namespaces](../clusters/team-namespaces.md) instead of default.
+It is recommended to use [team namespaces](../clusters/team-namespaces.md) instead of using the default namespace.
 {% endhint %}
 
 ## `metadata.labels.team`

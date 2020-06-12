@@ -12,7 +12,7 @@ apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
   name: appname
-  namespace: default
+  namespace: teamname
   labels:
     team: teamname
 spec:
