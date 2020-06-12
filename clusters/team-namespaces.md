@@ -57,7 +57,13 @@ Integrating with other applications in the same namespace via service discovery 
 
 If you're migrating myapp from the default namespace to a namespace called "aTeam", calls to other apps that are still in the default namespace will not work without modifying the url. For example `http://anotherAppStillInDefaultNamespace` will fail. 
 
-URLs have to be updated to this format:`http://<servicename>.<namespace>.cluster.local`. For example `http://anotherAppStillInDefaultNamespace.default.cluster.local`
+#### For GCP
+
+URLs have to be updated to this format:`http://<servicename>.<namespace>.svc.cluster.local`. For example `http://anotherAppStillInDefaultNamespace.default.svc.cluster.local`
+
+#### For on-prem
+
+URLs have to be updated to this format:`http://<servicename>.<namespace>.svc.nais.local`. For example `http://anotherAppStillInDefaultNamespace.default.svc.nais.local.
 
 ---
 **NOTE**
