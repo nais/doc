@@ -90,7 +90,7 @@ apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
   name: myapplication
-  namespace: default
+  namespace: myteam
   labels:
     team: myteam
 spec:
@@ -255,7 +255,7 @@ Now, create a `vars.yml` file containing variables for your deployment:
 
 ```yaml
 app: myapplication
-namespace: default
+namespace: myteam
 team: myteam
 image: docker.pkg.github.com/navikt/myapplication/myapplication:latest
 ingresses:
