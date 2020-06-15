@@ -137,7 +137,7 @@ http://<another-service>.<another-namespace>
 {% hint style="info" %}
 **Note for on-prem**
 
-If your application has [webproxy](../nais-application/manifest.md#specwebproxy) enabled, 
+If your application has [webproxy](../nais-application/manifest.md#spec-webproxy) enabled, 
 you should use the full hostname for all service discovery calls.
 
 This is to ensure that your application does not attempt to perform these in-cluster calls through the proxy,
