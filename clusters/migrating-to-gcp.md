@@ -55,7 +55,7 @@ See [GCP clusters](gcp.md).
 
 ## Laws and regulation
 
-### DPA
+### DPA with Google Cloue Platform
 /to be filled in
 
 ### ROS and PVK
