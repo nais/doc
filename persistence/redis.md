@@ -124,7 +124,7 @@ redis:
   port: 6379
 ```
 
-[NAIS manifest]: ../nais-application/manifest.md
+[NAIS manifest]: ../nais-application/reference.md
 [Grafana]: https://grafana.adeo.no/d/Jmg7MydWz
 [@Kyrre.Havik.Eriksen]: https://nav-it.slack.com/messages/D8QQ9ELK1
 [Redis exporters]: https://grafana.adeo.no/d/L-Ktprrmz
