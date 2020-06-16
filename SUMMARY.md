@@ -44,3 +44,6 @@
   * [Velero backup and restore](addons/velero-backup-and-restore.md)
 * [Legacy](legacy/README.md)
   * [AM/OpenAM](legacy/am.md)
+* [Test](legacy/README.md)
+  * [Level1](legacy/am.md)
+  	* [Level2](legacy/am.md)
