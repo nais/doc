@@ -46,7 +46,7 @@ subject_token=eY...............&
 audience=<TARGET APP ID>
 ```
 
-
+TODO: more doc on parameters
 
 #### Without enduser
 
