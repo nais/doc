@@ -1,5 +1,5 @@
 ---
-description: This document describes the different properties a typical NAIS application should have.
+description: This document describes the properties a NAIS application should have.
 ---
 # NAIS application
 
