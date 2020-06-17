@@ -3,27 +3,27 @@
 # GCP compared to on-premises
 |Feature|on-prem|gcp|Comment|
 |-------|-------|---|-------|
-|Deploy |- [v]      |- [v]  |different clustername when deploying|
-|Logging|- [v]      |- [v]  |different clustername in logs.adeo.no|
-|Metrics|- [v]      |- [v]  |same mechanism, different datasource|
-|Nais app dashboard|- [v]      |- [v]  |new and improved in GCP|
-|Alerts|- [v]      |- [v]  |identical|
-|Secure logs|- [v]      |- [v]  |different clustername in logs.adeo.no|
-|Kafka|- [v]      |- [v]  |identical|
+|Deploy |<ul><li>[x]</li></ul>      |<ul><li>[x]</li></ul>  |different clustername when deploying|
+|Logging|<ul><li>[x]</li></ul>      |<ul><li>[x]</li></ul>  |different clustername in logs.adeo.no|
+|Metrics|<ul><li>[x]</li></ul>      |<ul><li>[x]</li></ul>  |same mechanism, different datasource|
+|Nais app dashboard|<ul><li>[x]</li></ul>      |<ul><li>[x]</li></ul>  |new and improved in GCP|
+|Alerts|<ul><li>[x]</li></ul>      |<ul><li>[x]</li></ul>  |identical|
+|Secure logs|<ul><li>[x]</li></ul>      |<ul><li>[x]</li></ul>  |different clustername in logs.adeo.no|
+|Kafka|<ul><li>[x]</li></ul>      |<ul><li>[x]</li></ul>  |identical|
 |Secrets|vault      |Secret manager  ||
-|Team namespaces|- [v]      |- [v]  ||
-|Shared namespaces|- [v]      |- [ ]  |Default namespace not available for teams in GCP|
-|Health checks|- [v]      |- [v]  |identical|
-|Ingress|- [v]      |- [v]  |see [GCP] and [on-premises] for available domains | 
+|Team namespaces|<ul><li>[x]</li></ul>      |<ul><li>[x]</li></ul>  ||
+|Shared namespaces|<ul><li>[x]</li></ul>      |<ul><li>[ ]</li></ul> ]  |Default namespace not available for teams in GCP|
+|Health checks|<ul><li>[x]</li></ul>      |<ul><li>[x]</li></ul>  |identical|
+|Ingress|<ul><li>[x]</li></ul>      |<ul><li>[x]</li></ul>  |see [GCP] and [on-premises] for available domains | 
 |Storage|Ceph      |Buckets  || 
-|Postgres|- [v] (IAC)      |- [v] (self-service)  || 
-|Laptop access|- [v]       |- [v]   || 
-|domain: dev.nav.no|- [v] (IAC)       |- [v] (Automatic)  |Wildcard DNS points to GCP load balancer| 
-|domain: dev.adeo.no|- [v] (IAC)       |- [v] (Automatic)  |Wildcard DNS points to GCP load balancer| 
-|Access to FSS services|- [v]       |- [v]   |Identical (either API-gw or [tokendings][Tokendings]| 
-|OpenAM|- [v]       |- [ ]   |OpenAM is EOL, use [tokendings][Tokendings]| 
-|NAV truststore|- [v]       |- [v]   || 
-|PVK required|- [v]       |- [v]   |amend to cover storage in cloud| 
+|Postgres|<ul><li>[x]</li></ul> (IAC)      |<ul><li>[x]</li></ul> (self-service)  || 
+|Laptop access|<ul><li>[x]</li></ul>       |<ul><li>[x]</li></ul>   || 
+|domain: dev.nav.no|<ul><li>[x]</li></ul> (IAC)       |<ul><li>[x]</li></ul> (Automatic)  |Wildcard DNS points to GCP load balancer| 
+|domain: dev.adeo.no|<ul><li>[x]</li></ul> (IAC)       |<ul><li>[x]</li></ul> (Automatic)  |Wildcard DNS points to GCP load balancer| 
+|Access to FSS services|<ul><li>[x]</li></ul>       |<ul><li>[x]</li></ul>   |Identical (either API-gw or [tokendings][Tokendings]| 
+|OpenAM|<ul><li>[x]</li></ul>       |<ul><li>[ ]</li></ul>   |OpenAM is EOL, use [tokendings][Tokendings]| 
+|NAV truststore|<ul><li>[x]</li></ul>       |<ul><li>[x]</li></ul>   || 
+|PVK required|<ul><li>[x]</li></ul>       |<ul><li>[x]</li></ul>   |amend to cover storage in cloud| 
 |Security|Zone Model       |[zero-trust][Zero-trust] || 
 
 
