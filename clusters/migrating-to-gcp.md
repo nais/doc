@@ -12,7 +12,7 @@
 |Kafka|:heavy_check_mark:      |:heavy_check_mark:  |identical|
 |Secrets|vault      |Secret manager  ||
 |Team namespaces|:heavy_check_mark:      |:heavy_check_mark:  ||
-|Shared namespaces|:heavy_check_mark:      |:white_check_mark: ]  |Default namespace not available for teams in GCP|
+|Shared namespaces|:heavy_check_mark:      |:heavy_multiplication_x: ]  |Default namespace not available for teams in GCP|
 |Health checks|:heavy_check_mark:      |:heavy_check_mark:  |identical|
 |Ingress|:heavy_check_mark:      |:heavy_check_mark:  |see [GCP] and [on-premises] for available domains | 
 |Storage|Ceph      |Buckets  || 
@@ -21,7 +21,7 @@
 |domain: dev.nav.no|:heavy_check_mark: (IAC)       |:heavy_check_mark: (Automatic)  |Wildcard DNS points to GCP load balancer| 
 |domain: dev.adeo.no|:heavy_check_mark: (IAC)       |:heavy_check_mark: (Automatic)  |Wildcard DNS points to GCP load balancer| 
 |Access to FSS services|:heavy_check_mark:       |:heavy_check_mark:   |Identical (either API-gw or [tokendings][Tokendings]| 
-|OpenAM|:heavy_check_mark:       |:white_check_mark:   |OpenAM is EOL, use [tokendings][Tokendings]| 
+|OpenAM|:heavy_check_mark:       |:heavy_multiplication_x:   |OpenAM is EOL, use [tokendings][Tokendings]| 
 |NAV truststore|:heavy_check_mark:       |:heavy_check_mark:   || 
 |PVK required|:heavy_check_mark:       |:heavy_check_mark:   |amend to cover storage in cloud| 
 |Security|Zone Model       |[zero-trust][Zero-trust] || 
