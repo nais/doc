@@ -12,7 +12,7 @@
 |Kafka|:heavy_check_mark:      |:heavy_check_mark:  |identical|
 |Secrets|vault      |Secret manager  ||
 |Team namespaces|:heavy_check_mark:      |:heavy_check_mark:  ||
-|Shared namespaces|:heavy_check_mark:      |:heavy_multiplication_x: ]  |Default namespace not available for teams in GCP|
+|Shared namespaces|:heavy_check_mark:      |:heavy_multiplication_x:  |Default namespace not available for teams in GCP|
 |Health checks|:heavy_check_mark:      |:heavy_check_mark:  |identical|
 |Ingress|:heavy_check_mark:      |:heavy_check_mark:  |see [GCP] and [on-premises] for available domains | 
 |Storage|Ceph      |Buckets  || 
