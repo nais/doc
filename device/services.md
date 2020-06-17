@@ -10,6 +10,6 @@ This document describes the different services you will get access to through na
 - MinWinTid
 - NAV Applikasjoner (Citrix)
 - Office365
-    Sharepoint
-      Navet
+- Sharepoint
+- Navet
         
