@@ -18,6 +18,14 @@ The following subsystems are compliant and do not need to be analysed by teams, 
 
 ### Archiving
 
+#### TLDR
+
+Evaluate whether your applications information storage needs are affected by the paragraphs in The Archival Act, and whether you might need to operatoe with a separate database on-premise. If it has archival value, the documents must be stored in systems in Norway for now.
+
+As long as the documents in and out of your applications end up in archives that are stored in JOARK on-premise, a migration to GCP should not pose any problems. There is also an ongoing issue as to whether an in-built archive will be sufficient for our purpose. I.e. the obligatory archive can be sustained in the domain applications, since much of the information there is necessary to archive as well. 
+
+There is a new proposal regarding public cloud infrastructure which hopefully will be ready this autumn as well. This proposal will allow storage on public cloud systems, to a degree. See [New public archive proposal].
+
 #### Background
 
 When moving to GCP or other public cloud providers not based in Norway, an evaluation of the documentation requirements for the application must be done. There are several important regulations that apply to this documentation, as stated by The Archival Act For Public Archives of 2018 (referred to as The Archival Act from now on).
@@ -48,3 +56,23 @@ Obligatory archiving is defined as storage for documenting the handling.
 
 #### General regulations when migrating to public cloud providers
 
+Without a motion or expressed consent from the National Archivist the records cannot:
+- Be moved out of country
+- Be deleted
+- Be redacted or edited (if it applies to the obligatory documentation)
+
+Documents that requires archival storage must be stored on a media and in a format that fulfills the necessary requirements for durability and accessability (§6). I.e. these documents must be stored 
+in a way that ensures authenticity, reliability, integrity and usability.
+
+Rules must be made for deletion of all documentation (§16).
+
+Public bodies are to deliver older and finished archives to an archival depot (§18).
+
+Sourced in large part from  documentation for SalesForce migration to cloud:
+https://confluence.adeo.no/display/PTC/Arkivering+og+dokumentasjon+i+Salesforce
+
+All paragraphs of law are from The Archival Act:
+[The Archival Act For Public Archives](https://lovdata.no/dokument/SF/forskrift/2017-12-15-2105?q=arkiv)
+
+Archival proposal for public cloud solutions:
+[New public archive proposal](https://www.regjeringen.no/no/dokumenter/hoyring--ny-forskrift-om-offentlege-arkiv/id2515364/)
