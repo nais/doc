@@ -42,5 +42,8 @@
   * [OAuth 2.0 / OpenID Connect](addons/oauth2-openidconnect.md)
   * [Secrets](addons/secrets.md)
   * [Velero backup and restore](addons/velero-backup-and-restore.md)
+* [naisdevice](device/README.md)
+  * [Installation](device/install.md)
+  * [Available services](device/services.md)
 * [Legacy](legacy/README.md)
   * [AM/OpenAM](legacy/am.md)
