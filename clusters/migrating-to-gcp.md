@@ -3,27 +3,27 @@
 # GCP compared to on-premises
 |Feature|on-prem|gcp|Comment|
 |-------|-------|---|-------|
-|Deploy |<ul><li>[x]</li></ul>      |<ul><li>[x]</li></ul>  |different clustername when deploying|
-|Logging|<ul><li>[x]</li></ul>      |<ul><li>[x]</li></ul>  |different clustername in logs.adeo.no|
-|Metrics|<ul><li>[x]</li></ul>      |<ul><li>[x]</li></ul>  |same mechanism, different datasource|
-|Nais app dashboard|<ul><li>[x]</li></ul>      |<ul><li>[x]</li></ul>  |new and improved in GCP|
-|Alerts|<ul><li>[x]</li></ul>      |<ul><li>[x]</li></ul>  |identical|
-|Secure logs|<ul><li>[x]</li></ul>      |<ul><li>[x]</li></ul>  |different clustername in logs.adeo.no|
-|Kafka|<ul><li>[x]</li></ul>      |<ul><li>[x]</li></ul>  |identical|
+|Deploy |:heavy_check_mark:      |:heavy_check_mark:  |different clustername when deploying|
+|Logging|:heavy_check_mark:      |:heavy_check_mark:  |different clustername in logs.adeo.no|
+|Metrics|:heavy_check_mark:      |:heavy_check_mark:  |same mechanism, different datasource|
+|Nais app dashboard|:heavy_check_mark:      |:heavy_check_mark:  |new and improved in GCP|
+|Alerts|:heavy_check_mark:      |:heavy_check_mark:  |identical|
+|Secure logs|:heavy_check_mark:      |:heavy_check_mark:  |different clustername in logs.adeo.no|
+|Kafka|:heavy_check_mark:      |:heavy_check_mark:  |identical|
 |Secrets|vault      |Secret manager  ||
-|Team namespaces|<ul><li>[x]</li></ul>      |<ul><li>[x]</li></ul>  ||
-|Shared namespaces|<ul><li>[x]</li></ul>      |<ul><li>[ ]</li></ul> ]  |Default namespace not available for teams in GCP|
-|Health checks|<ul><li>[x]</li></ul>      |<ul><li>[x]</li></ul>  |identical|
-|Ingress|<ul><li>[x]</li></ul>      |<ul><li>[x]</li></ul>  |see [GCP] and [on-premises] for available domains | 
+|Team namespaces|:heavy_check_mark:      |:heavy_check_mark:  ||
+|Shared namespaces|:heavy_check_mark:      |:white_check_mark: ]  |Default namespace not available for teams in GCP|
+|Health checks|:heavy_check_mark:      |:heavy_check_mark:  |identical|
+|Ingress|:heavy_check_mark:      |:heavy_check_mark:  |see [GCP] and [on-premises] for available domains | 
 |Storage|Ceph      |Buckets  || 
-|Postgres|<ul><li>[x]</li></ul> (IAC)      |<ul><li>[x]</li></ul> (self-service)  || 
-|Laptop access|<ul><li>[x]</li></ul>       |<ul><li>[x]</li></ul>   || 
-|domain: dev.nav.no|<ul><li>[x]</li></ul> (IAC)       |<ul><li>[x]</li></ul> (Automatic)  |Wildcard DNS points to GCP load balancer| 
-|domain: dev.adeo.no|<ul><li>[x]</li></ul> (IAC)       |<ul><li>[x]</li></ul> (Automatic)  |Wildcard DNS points to GCP load balancer| 
-|Access to FSS services|<ul><li>[x]</li></ul>       |<ul><li>[x]</li></ul>   |Identical (either API-gw or [tokendings][Tokendings]| 
-|OpenAM|<ul><li>[x]</li></ul>       |<ul><li>[ ]</li></ul>   |OpenAM is EOL, use [tokendings][Tokendings]| 
-|NAV truststore|<ul><li>[x]</li></ul>       |<ul><li>[x]</li></ul>   || 
-|PVK required|<ul><li>[x]</li></ul>       |<ul><li>[x]</li></ul>   |amend to cover storage in cloud| 
+|Postgres|:heavy_check_mark: (IAC)      |:heavy_check_mark: (self-service)  || 
+|Laptop access|:heavy_check_mark:       |:heavy_check_mark:   || 
+|domain: dev.nav.no|:heavy_check_mark: (IAC)       |:heavy_check_mark: (Automatic)  |Wildcard DNS points to GCP load balancer| 
+|domain: dev.adeo.no|:heavy_check_mark: (IAC)       |:heavy_check_mark: (Automatic)  |Wildcard DNS points to GCP load balancer| 
+|Access to FSS services|:heavy_check_mark:       |:heavy_check_mark:   |Identical (either API-gw or [tokendings][Tokendings]| 
+|OpenAM|:heavy_check_mark:       |:white_check_mark:   |OpenAM is EOL, use [tokendings][Tokendings]| 
+|NAV truststore|:heavy_check_mark:       |:heavy_check_mark:   || 
+|PVK required|:heavy_check_mark:       |:heavy_check_mark:   |amend to cover storage in cloud| 
 |Security|Zone Model       |[zero-trust][Zero-trust] || 
 
 
