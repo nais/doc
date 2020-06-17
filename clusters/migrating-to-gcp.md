@@ -100,6 +100,7 @@ Logging, secure logging, metrics and alerts work the same way
 
 ### What can we do now to ease migration to GCP later?
 Make sure your PVK is up to date.
+Deploy your application to your team's namespace instead of `default`
 
 ### What about PVK?
 A PVK is not a unique requirement for GCP, so all applications should already have one.
