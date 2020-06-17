@@ -26,13 +26,13 @@ with zero downtime.
 
 ## Spec
 
-See the [NAIS manifest](../nais-application/manifest.md#spec-azure-application).
+See the [NAIS manifest](../nais-application/reference.md#spec-azure-application).
 
 ## Getting Started
 
 ### Minimal Example
 
-The very minimal example configuration required in [`nais.yaml`](../nais-application/manifest.md#spec-azure-application)
+The very minimal example configuration required in [`nais.yaml`](../nais-application/reference.md#spec-azure-application)
 to enable auto-provisioning of an Azure AD application for your application.
 
 ```yaml
@@ -147,7 +147,7 @@ registered for the Azure AD application.
 ### Pre-Authorized Applications
 
 If your application should accept access tokens from other applications using the [on-behalf-of] flow, 
-a [`spec.accessPolicy.inbound.rules[]`](../nais-application/manifest.md#spec-accesspolicy-gcp-only) must be present:
+a [`spec.accessPolicy.inbound.rules[]`](../nais-application/reference.md#spec-accesspolicy-gcp-only) must be present:
 
 ```yaml
 spec:
@@ -257,7 +257,7 @@ Example value:
 ##### `AZURE_APP_PRE_AUTHORIZED_APPS`
 
 A JSON string. List of names and client IDs for the valid (i.e. those that exist in Azure AD) applications defined in 
-[`spec.accessPolicy.inbound.rules[]`](../nais-application/manifest.md#spec-accesspolicy-gcp-only).
+[`spec.accessPolicy.inbound.rules[]`](../nais-application/reference.md#spec-accesspolicy).
 
 Example value:
 

@@ -1,7 +1,6 @@
 # Table of contents
 
 * [Introduction to NAIS](intro/README.md)
-  * [What is a NAIS application?](intro/nais-application.md)
 * [Clusters](clusters/README.md)
   * [Google Cloud Platform](clusters/gcp.md)
   * [On-premises](clusters/on-premises.md)
@@ -11,10 +10,11 @@
   * [Access from laptop](basics/access.md)
   * [Teams](basics/teams.md)
   * [Your first NAIS application](basics/application.md)
-* [Application spec](nais-application/README.md)
-  * [Spec API](nais-application/manifest.md)
-  * [Max example](nais-application/max-example.md)
-  * [Min example](nais-application/min-example.md)
+* [NAIS Application](nais-application/README.md)
+  * [nais.yaml]()
+    * [Reference](nais-application/reference.md)
+    * [Full example](nais-application/full-example.md)
+    * [Minimal example](nais-application/min-example.md)
   * [Access Policy](nais-application/access-policy.md)
 * [Deployment](deployment/README.md)
   * [Manually](deployment/manual.md)
