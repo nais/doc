@@ -40,7 +40,7 @@ apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
   name: nais-testapp
-  namespace: default
+  namespace: aura
   labels:
     team: aura
 spec:
@@ -69,7 +69,7 @@ apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
   name: nais-testapp
-  namespace: default
+  namespace: aura
   labels:
     team: aura
 spec:
