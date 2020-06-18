@@ -106,9 +106,9 @@ The following example shows all the required claims of a client_assertion JWT:
 
 ### Validate a token issued from TokenDings
 
-If your app receives a token from another application it is your responsibility to ensure this token is valid and intended for your application.
+If your app receives a token from another application, it is your responsibility to ensure this token is valid and intended for your application.
 
-Configure your app with the [OAuth 2.0 Authorization Server Metadata](https://www.rfc-editor.org/rfc/rfc8414.html) from TokenDings *well-known* endpoint (TODO - describe configmap / env variables) to retrieve issuer name and `jwks_uri` to retrieve public keys for signature verification.
+Configure your app with the [OAuth 2.0 Authorization Server Metadata](https://www.rfc-editor.org/rfc/rfc8414.html) from the TokenDings *well-known* endpoint (TODO - describe configmap / env variables) in order to retrieve issuer name and `jwks_uri` for public keys retrieval.
 
 #### Signature verification
 
