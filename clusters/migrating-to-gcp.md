@@ -53,24 +53,6 @@ See [GCP clusters](gcp.md).
 * Logs
 ** Secure logs
 
-## Laws and regulation
-
-### DPA with Google Cloue Platform
-/to be filled in
-
-### ROS and PVK
-
-The team needs to update their ROS and PVK analysis to migrate to GCP.
-Refer to the ROS and PVK section under [Google Cloud Platform clusters](gcp.md).
-
-The following subsystems are compliant and do not need to be analysed by teams, below is the ROS analysis for thoes:
-
-* [GCP Lagring av data (Buckets og Postgres)](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=219)
-* [GCP Tilgangskontrolloppsett](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=218)
-* [Tilgang til Kafka fra GCP](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=229)
-* [Google Compute Platform - GCP, og Google Kubenetes Engine - GKE](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=95)
-* [Bruk av GCP](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=222)
-
 ## Plans for cloud migration in NAV
 ### Cloud Strategy
 ### Roadmap for NAIS
