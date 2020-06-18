@@ -1,14 +1,14 @@
 ## Laws and regulation
 
-### DPA with Google Cloue Platform
+### DPA with Google Cloud Platform
 /to be filled in
 
 ### ROS and PVK
 
-The team needs to update their ROS and PVK analysis to migrate to GCP.
+The team needs to update their risk assessment (ROS) and data protection impact assessment (PVK analysis) to migrate to GCP.
 Refer to the ROS and PVK section under [Google Cloud Platform clusters](gcp.md).
 
-The following subsystems are compliant and do not need to be analysed by teams, below is the ROS analysis for thoes:
+The following subsystems are compliant and do not need to be analysed by teams, below are the links to their ROS analyses:
 
 * [GCP Lagring av data (Buckets og Postgres)](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=219)
 * [GCP Tilgangskontrolloppsett](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=218)
@@ -20,7 +20,7 @@ The following subsystems are compliant and do not need to be analysed by teams, 
 
 #### TLDR
 
-Evaluate whether your applications information storage needs are affected by the paragraphs in The Archival Act, and whether you might need to operatoe with a separate database on-premise. If it has archival value, the documents must be stored in systems in Norway for now.
+Evaluate whether your application´s information storage needs are affected by the paragraphs in The Archival Act, and whether you might need to operate with a separate database physically placed on Norwegian soil (for example NAV´s on-prem data center). If it has archival value, the documents must be stored in systems in Norway for now.
 
 As long as the documents in and out of your applications end up in archives that are stored in JOARK on-premise, a migration to GCP should not pose any problems. There is also an ongoing issue as to whether an in-built archive will be sufficient for our purpose. I.e. the obligatory archive can be sustained in the domain applications, since much of the information there is necessary to archive as well. 
 
@@ -28,7 +28,7 @@ There is a new proposal regarding public cloud infrastructure which hopefully wi
 
 #### Background
 
-When moving to GCP or other public cloud providers not based in Norway, an evaluation of the documentation requirements for the application must be done. There are several important regulations that apply to this documentation, as stated by The Archival Act For Public Archives of 2018 (referred to as The Archival Act from now on).
+When moving to GCP or other public cloud providers not offering data centers in Norway, an evaluation of the documentation requirements for the application must be done. There are several important regulations that apply to this documentation, as stated by The Archival Act For Public Archives of 2018 (referred to as The Archival Act in the following).
 
 The requirements are set to ensure documents that contain judicial or important administrative information are stored and made available for future inspection (§1)
 NAV is, as a public body and central government agency, obligated to keep archival records to make sure the documents are stored safely as information sources for present and future (§2).
