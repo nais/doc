@@ -1,6 +1,6 @@
 ---
 description: >
-  *Zero trust* communication for the application layer: within a cluster or across network boundaries and geographical locations
+  Zero trust communication with tokens on the application layer
 ---
 
 # TokenDings
