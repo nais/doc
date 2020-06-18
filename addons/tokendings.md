@@ -25,12 +25,17 @@ When creating your application [manifest](../basics/application.md) you must spe
 
 The information provided in the access policy will be used to provision TokenDings with your app as an authorized OAuth 2.0 Client through the k8s operator [Jwker](https://github.com/nais/jwker/), which in turn will generate the keys/secrets you need to communicate with TokenDings; i.e. to get a token in order to communicate with another application.
 
+### Secrets / Environment
+
+TODO
+
 ### Get a token from TokenDings
 
 TokenDings will issue an `access_token` in *JWT* format based on the information provided in the token request. This token can be used as a *bearer token* when calling your target API. The two most common scenarios when requiring a token are:
 
 * Calling an API on behalf of an enduser
 * Calling an API with the identity of your application
+  * For now we recommend using the `OAuth 2.0 Client Credentials` flow with Azure AD as described here [NAV specific documentation](https://security.labs.nais.io/pages/guide/maskin_til_maskin_uten_bruker.html) / [Azure AD generic documentation](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow#get-a-token)
 
 #### On behalf of an enduser
 
@@ -60,9 +65,49 @@ audience=prod-fss:namespace1:app1
 | `subject_token`         | A serialized JWT, the token that should be exchanged     | The actual token (JWT) containing the signed-in user         |
 | `audience`              | The identifier of the app you wish to use the token for  | Identifies the intended audience for the resulting token, i.e. the target app you request a token for. |
 
-#### Without enduser
+##### Creating a client_assertion
 
-For now we recommend using the `OAuth 2.0 Client Credentials` flow with Azure AD as described here [NAV specific documentation](https://security.labs.nais.io/pages/guide/maskin_til_maskin_uten_bruker.html) / [Azure AD generic documentation](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow#get-a-token)
+The `client_assertion` is a JWT signed by the application making the token request. The public key of the keypair used for signing the JWT and the `client_id` of the application must be preregistered in TokenDings. Apps in nais clusters will be registered automatically when applying the application spec (handled by the k8s operator [Jwker](https://github.com/nais/jwker/)), and the respective key pairs will be made available as a k8s secret.
+
+The `client_assertion` must contain the following claims:
+
+* the claims `sub` and `iss` should both be equal and identify the calling client/app to TokenDings, i.e. your apps `client_id` using the following naming scheme:
+
+  ```<cluster>:<namespace>:<appname>```
+
+* the `aud` claim should contain the intended "audience" for the token, i.e. it should be equal to the token endpoint you are calling to get a token, for example:`https://tokendings.prod-gcp.nais.io/token`
+
+* a unique JWT id should be provided in the claim `jti`
+
+* Expiration claims such as `nbf`, `iat` and `exp` must be present and the **maximum lifetime** of the token cannot be more than **120** seconds
+
+The following example shows all the required claims of a client_assertion JWT:
+
+*Header*
+
+```json
+{
+  "kid": "93ad09a5-70bc-4858-bd26-5ff4a0c5f73f",
+  "typ": "JWT",
+  "alg": "RS256"
+}
+```
+
+*Payload*
+
+```json
+{
+  "sub": "prod-gcp:namespace-gcp:gcp-app",
+  "aud": "https://tokendings.prod-gcp.nais.io/token",
+  "nbf": 1592508050,
+  "iss": "prod-gcp:namespace-gcp:gcp-app",
+  "exp": 1592508171,
+  "iat": 1592508050,
+  "jti": "fd9717d3-6889-4b22-89b8-2626332abf14"
+}
+```
+
+
 
 ### Validate a token from TokenDings
 
