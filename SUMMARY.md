@@ -22,7 +22,6 @@
   * [Troubleshooting](deployment/troubleshooting.md)
 * [Observability](observability/README.md)
   * [Alerts](observability/alerts/README.md)
-    * [Example](observability/alerts/example_alerts.md)
     * [Recommended](observability/alerts/recommended_alerts.md)
     * [Spec](observability/alerts/spec.md)
   * [Logs](observability/logs/README.md)
