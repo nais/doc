@@ -43,3 +43,6 @@
   * [Velero backup and restore](addons/velero-backup-and-restore.md)
 * [Legacy](legacy/README.md)
   * [AM/OpenAM](legacy/am.md)
+* [naisdevice](device/README.md)
+  * [Installation](device/install.md)
+  * [Available services](device/services.md)
