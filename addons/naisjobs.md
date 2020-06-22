@@ -38,7 +38,8 @@ The variables in this cronjob example are as follows
 * `${namespace}`: the name of the namespace, see [Separate namespace]
 * `${teamname}`: the name of the team
 * `${schedule}`: the job's schedule in a [cron time string format]
-* `${vks_auth_path}`: is the cronjob's authentication path in Vault
+* `${image}`: the image used for the pods running the job
+* `${vault_image}`: the [latest release] of the Vault sidecar
 * `${vks_kv_path}`: is the path to the cronjob's secret in the Vault `kv` engine
 
 cronjob.yml
@@ -61,7 +62,7 @@ spec:
             - name: gpr-credentials
           containers:
           - name: ${jobname}
-            image: repo.adeo.no:5443/${app-name}:${version}
+            image: ${image}
             volumeMounts:
             - mountPath: /etc/ssl/certs/ca-certificates.crt
               name: ca-bundle-pem
@@ -96,23 +97,29 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "500m"
-          initContainers:
-          - env:
-            - name: VKS_VAULT_ADDR
-              value: https://vault.adeo.no
-            - name: VKS_AUTH_PATH
-              value: ${vks_auth_path}
-            - name: VKS_KV_PATH
-              value: ${vks_kv_path}
-            - name: VKS_VAULT_ROLE
-              value: ${teamname}
-            - name: VKS_SECRET_DEST_PATH
-              value: /var/run/secrets/nais.io/vault
-            image: navikt/vks:44
-            name: vks
-            volumeMounts:
-            - mountPath: /var/run/secrets/nais.io/vault
-              name: vault-secrets
+		   initContainers:
+           - name: vks-init
+             args:
+             - -v=10
+             - -logtostderr
+             - -one-shot
+             - -vault=https://vault.adeo.no
+             - -save-token=/var/run/secrets/nais.io/vault/vault_token
+             - -cn=secret:${vks_kv_path}:dir=/var/run/secrets/nais.io/vault,fmt=flatten,retries=1
+             env:
+             - name: VAULT_AUTH_METHOD
+               value: kubernetes
+             - name: VAULT_SIDEKICK_ROLE
+               value: ${teamname}
+             - name: VAULT_K8S_LOGIN_PATH
+               value: auth/kubernetes/prod/fss/login
+             image: ${vault_image}
+             imagePullPolicy: IfNotPresent
+             volumeMounts:
+             - mountPath: /var/run/secrets/nais.io/vault
+               name: vault-volume
+               subPath: vault/var/run/secrets/nais.io/vault
+               readOnly: true
           serviceAccount: default
           serviceAccountName: default
           volumes:
@@ -129,4 +136,17 @@ spec:
             name: vault-secrets
 ```
 
+If you need to read secrets from a `service user`, add the following under `spec.initContainers.volumeMounts`
+```
+- mountPath: /var/run/secrets/nais.io/${srvUser}
+  name: vault-volume
+  subPath: vault/var/run/secrets/nais.io/${srvUser}
+```
+
+and the following under `spec.initContainers.args`
+```
+- -cn=secret:/serviceuser/data/prod/${srvUser}:dir=/var/run/secrets/nais.io/${srvUser},fmt=flatten,retries=1
+```
+
 [cron time string format]: https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07
+[latest release]: https://github.com/navikt/vault-sidekick/releases
