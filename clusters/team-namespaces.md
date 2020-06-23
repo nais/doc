@@ -49,8 +49,8 @@ kubectl delete app <app-name> -n <old-namespace>
 ```
 {% endhint %}
 
-If your application uses Vault, ensure that access to Vault secrets for the team namespace is set up.
-Refer to [Vault iac documentation](https://github.com/navikt/vault-iac/blob/master/doc/getting-started.md#a-more-advanced-example-1) for details.
+If your application uses Vault, make sure the application is registered under the correct team 
+in [Vault IAC](https://github.com/navikt/vault-iac/).
 
 There are a few more steps to consider if you are integrating with other rest- or webservices. 
 
