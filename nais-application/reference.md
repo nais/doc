@@ -97,14 +97,6 @@ Number of seconds after which the probe times out.
 
 **Default**: 1
 
-## `spec.replicas`
-The numbers of pods to run in parallel.
-
-### `spec.replicas.min`
-Minimum number of replicas.
-
-**Default**: 2
-
 ## `spec.startup`
 Sometimes, you have to deal with legacy applications that might require an additional startup time on their first initialization. In such cases, it can be tricky to set up liveness probe parameters without compromising the fast response to deadlocks that motivated such a probe. The trick is to set up a startup probe with the same command, HTTP or TCP check, with a failureThreshold * periodSeconds long enough to cover the worse case startup time.
 Read more about this over at the [Kubernetes startup probe documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-startup-probes).
@@ -137,6 +129,13 @@ How often (in seconds) to perform the probe.
 ### `spec.startup.failureThreshold`
 When a Pod starts and the probe fails, Kubernetes will try `failureThreshold` times before giving up. Giving up in case of a startup probe means restarting the Pod.
 
+## `spec.replicas`
+The numbers of pods to run in parallel.
+
+### `spec.replicas.min`
+Minimum number of replicas.
+
+**Default**: 2
 
 ### `spec.replicas.max`
 Maximum number of replicas.
