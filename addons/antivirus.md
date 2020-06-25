@@ -5,9 +5,15 @@ description: >
 
 # clamAV
 
-This feature is installed on dev-sbs and prod-sbs on-prem and the GCP clusters. clamAV runs in its own pod with a separate pod running the REST api applications use. There is a service set up so all applications (in clusters where clamav is installed) should be able to talk to the REST api using http://clamav.nais.svc.nais.local/scan. The REST api supports PUT or POST and can be tested using curl as well.
+This feature is installed on all nais clusters. clamAV runs in its own pod with a separate pod running the REST api applications use. There is a service set up so all applications will be able to talk to the REST api using http://clamav.nais.svc.nais.local/scan on-prem and http://clamav.clamav.svc.cluster.local on GCP. The REST api supports PUT or POST and can be tested using curl as well:
+```
+# Examples using the on-prem url
+curl -v -X POST -H "Content-Type: multipart/form-data" -F "file1=@/tmp/file_to_test"  http://clamav.nais.svc.nais.local/scan
+curl -v -X PUT --data-binary @/tmp/file_to_test  http://clamav.nais.svc.nais.local/scan
+curl -v http://clamav.nais.svc.nais.local/scan?url=url_to_file
+```
 
-See [REST api docuentation] and [clamAV documentation]
+See [REST api documentation] and [clamAV documentation]
 
 If you have any questions about clamAV please contact the nais team on the [nais slack channel] or contact [@Sten.Ivar.Røkke].
 
