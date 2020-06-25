@@ -40,7 +40,8 @@ Specifies the strategy used to replace old Pods by new ones.
 **Default**: RollingUpdate
 
 ## `spec.liveness`
-The kubelet uses liveness probes to know when to restart a Container. For example, liveness probes could catch a deadlock, where an application is running, but unable to make progress. Restarting a Container in such a state can help to make the application more available despite bugs. Read more about this over at the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
+Many applications running for long periods of time eventually transition to broken states, and cannot recover except by being restarted. Kubernetes provides liveness probes to detect and remedy such situations.
+Read more about this over at the [Kubernetes probes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 ### `spec.liveness.path`
 HTTP endpoint path that signals 200 OK if the application is running.
@@ -68,12 +69,13 @@ How often (in seconds) to perform the probe.
 **Default**: 10
 
 ### `spec.liveness.failureThreshold`
-When a Pod starts and the probe fails, Kubernetes will try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the Pod. In case of readiness probe the Pod will be marked Unready.
+When a Pod starts and the probe fails, Kubernetes will try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the Pod.
 
 **Default**: 3
 
 ## `spec.readiness`
-The kubelet uses readiness probes to know when a Container is ready to start accepting traffic. A Pod is considered ready when all of its Containers are ready. One use of this signal is to control which Pods are used as backends for Services. When a Pod is not ready, it is removed from Service load balancers. Read more about this over at the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
+Sometimes, applications are temporarily unable to serve traffic. For example, an application might need to load large data or configuration files during startup, or depend on external services after startup. In such cases, you don't want to kill the application, but you don’t want to send it requests either. Kubernetes provides readiness probes to detect and mitigate these situations. A pod with containers reporting that they are not ready does not receive traffic through Kubernetes Services.
+Read more about this over at the [Kubernetes readiness documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 ### `spec.readiness.path`
 HTTP endpoint path that signals 200 OK when it is okay to start routing traffic to the application.
@@ -102,6 +104,38 @@ The numbers of pods to run in parallel.
 Minimum number of replicas.
 
 **Default**: 2
+
+## `spec.startup`
+Sometimes, you have to deal with legacy applications that might require an additional startup time on their first initialization. In such cases, it can be tricky to set up liveness probe parameters without compromising the fast response to deadlocks that motivated such a probe. The trick is to set up a startup probe with the same command, HTTP or TCP check, with a failureThreshold * periodSeconds long enough to cover the worse case startup time.
+Read more about this over at the [Kubernetes startup probe documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-startup-probes).
+
+### `spec.startup.path`
+HTTP endpoint path that signals 200 OK if the application has started successfully.
+
+**Required**: `true`
+
+### `spec.startup.port`
+Port for the startup probe.
+
+**Default**: `.spec.port`
+
+### `spec.startup.initialDelay`
+Number of seconds after the container has started before startup probes are initiated.
+
+**Default**: 20
+
+### `spec.startup.timeout`
+Number of seconds after which the probe times out.
+
+**Default**: 1
+
+### `spec.startup.periodSeconds`
+How often (in seconds) to perform the probe.
+
+**Default**: 10
+
+### `spec.startup.failureThreshold`
+When a Pod starts and the probe fails, Kubernetes will try `failureThreshold` times before giving up. Giving up in case of a startup probe means restarting the Pod.
 
 
 ### `spec.replicas.max`

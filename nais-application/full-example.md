@@ -28,6 +28,13 @@ spec:
     port: http
     initialDelay: 20
     timeout: 1
+  startup:
+    path: isstarted
+    port: http
+    initialDelay: 20
+    timeout: 1
+    periodSeconds: 5
+    failureThreshold: 10
   replicas:
     min: 2
     max: 4
