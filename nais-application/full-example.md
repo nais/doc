@@ -61,6 +61,10 @@ spec:
   filesFrom:
     - configmap: example_files_configmap
       mountPath: /var/run/configmaps
+    - secret: my-secret-file
+      mountPath: /var/run/secrets
+  envFrom:
+    - secret: my-secret
   env:
     - name: MY_CUSTOM_VAR
       value: some_value
@@ -79,11 +83,6 @@ spec:
   # the following spec is only available when running in GCP.
   #
 
-  envFrom:
-    - secret: my-secret
-  filesFrom:
-    - secret: my-secret-file
-      mountPath: /var/run/secrets
   gcp:
     buckets:
       - name: my-cloud-storage-bucket
