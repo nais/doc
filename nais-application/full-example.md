@@ -28,13 +28,6 @@ spec:
     port: http
     initialDelay: 20
     timeout: 1
-  startup:
-    path: isstarted
-    port: http
-    initialDelay: 20
-    timeout: 1
-    periodSeconds: 5
-    failureThreshold: 10
   replicas:
     min: 2
     max: 4
@@ -78,6 +71,17 @@ spec:
   service:
     port: 80
   skipCaBundle: false
+
+  #
+  # startup probes will be available with Kubernetes 1.17.
+  #
+  startup:
+    path: isstarted
+    port: http
+    initialDelay: 20
+    timeout: 1
+    periodSeconds: 5
+    failureThreshold: 10
 
   #
   # the following spec is only available when running in GCP.
