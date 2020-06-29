@@ -5,10 +5,8 @@ description: >
 
 # Azure AD Application
 
-{% hint style="danger" %}
-Status: currently in open beta. 
-
-Only available in _dev-gcp_
+{% hint style="warning" %}
+This feature is available in all clusters, however only in [team namespaces](../clusters/team-namespaces.md) for on-premise clusters.
 {% endhint %}
 
 An accompanying Azure AD application can be automatically provisioned to your NAIS application. 
