@@ -3,7 +3,7 @@ description: A complete example of all features in nais.yaml
 ---
 # Max example
 
-```
+```yaml
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
@@ -71,7 +71,11 @@ spec:
   service:
     port: 80
   skipCaBundle: false
-
+  azure:
+    application:
+      enabled: false
+      replyUrls:
+        - "https://nais-testapp.nais.adeo.no/oauth2/callback"
   #
   # startup probes will be available with Kubernetes 1.17.
   #
