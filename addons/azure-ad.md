@@ -282,6 +282,14 @@ Example value:
 https://login.microsoftonline.com/77678b69-1daf-47b6-9072-771d270ac800/v2.0/.well-known/openid-configuration
 ```
 
+### Finding your application's Azure AD client ID
+
+Your application's Azure AD client ID is available at multiple locations:
+
+1. The environment variable `AZURE_APP_CLIENT_ID`, available inside your application at runtime.
+2. The [Azure Portal].
+3. In the Kubernetes resource - `kubectl get azureapp <app-name> -o json | jq '.status.clientId'`
+
 ## On-premises
 
 {% hint style="warning" %}
@@ -345,7 +353,7 @@ naming scheme as defined in [getting started](#getting-started).
 Migrating an existing stack of applications should therefore be done in the following order:
 
 1. Enable provisioning for all applications in all relevant clusters, but do not use the new credentials.
-2. Find the relevant client IDs in the [Azure Portal] and prepare your applications to reference these instead of the previous ones.
+2. [Find the relevant client IDs](#finding-your-applications-azure-ad-client-id) and prepare your applications to reference these instead of the previous ones.
 3. Prepare your application to use the new credentials instead of the previous ones.
 4. Deploy to development; ensure that everything works as expected.
 5. Repeat step 4 for production.
