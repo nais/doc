@@ -10,7 +10,7 @@ The primary unit of access is a *team*, whose origin is a group in Azure
 AD. Each team is given its own namespace with the same name as the team. The
 team will have unrestricted access to all Kubernetes assets in that namespace.
 
-See [creating a new team](../basics/teams.md) to get started with teams.  
+See [creating a new team](../basics/teams.md) to get started with teams.
 After creating a new team, you should have access to all clusters.
 
 ## Install [`kubectl`][kubectl]
@@ -67,8 +67,18 @@ If you use cygwin, you need the `KUBECONFIG` to be in Windows style paths rather
 
 ### Google Cloud Platform (GCP)
 
-Before following these steps, make sure your team is enabled for Google Cloud Platform, check 
+Before following these steps, make sure your team is enabled for Google Cloud Platform, check
 out [team access] for more information.
+
+You will also need to perform a self service step to synchronize your user from Azure AD to Google
+Cloud Platform. This can be done by following these steps:
+
+1. Login to https://myapps.microsoft.com using your NAV user
+2. Click on "Add app" at the top of the page
+3. Locate "Google Cloud Platform", and click on the icon
+
+After you have done this the user will be synced to Google Cloud Platform. The sync is not instantaneous, but
+usually does not take more than a few minutes.
 
 First you need to install `gcloud` following the [instructions] for your platform.
 
@@ -106,8 +116,8 @@ When done, `kubectl` will update your `kubeconfig`-file with the tokens needed t
 
 ## Recommended tools
 
-[kubectx](https://github.com/ahmetb/kubectx) - Simplifies changing cluster and namespace context.  
-[kubeaware](https://github.com/jhrv/kubeaware) - Visualize which cluster and namespace is currently active.  
+[kubectx](https://github.com/ahmetb/kubectx) - Simplifies changing cluster and namespace context.
+[kubeaware](https://github.com/jhrv/kubeaware) - Visualize which cluster and namespace is currently active.
 [emacs-kubectx-mode](https://github.com/terjesannum/emacs-kubectx-mode) - Switch kubectl context and namespace in Emacs and display current setting in mode line.
 
 [kubectl]: https://kubernetes.io/docs/tasks/tools/install-kubectl
