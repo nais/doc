@@ -77,7 +77,7 @@ Cloud Platform. This can be done by following these steps:
 2. Click on "Add app" at the top of the page
 3. Locate "Google Cloud Platform", and click on the icon
 
-After you have done this the user will be synced to Google Cloud Platform. The sync is not instantaneous, but
+After you have done this your user will be synced to Google Cloud Platform. The sync is not instantaneous, but
 usually does not take more than a few minutes.
 
 First you need to install `gcloud` following the [instructions] for your platform.
