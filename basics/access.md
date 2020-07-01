@@ -70,7 +70,7 @@ If you use cygwin, you need the `KUBECONFIG` to be in Windows style paths rather
 Before following these steps, make sure your team is enabled for Google Cloud Platform, check
 out [team access] for more information.
 
-You will also need to perform a self service step to synchronize your user from Azure AD to Google
+You will also need to perform a self-service step to synchronize your user from Azure AD to Google
 Cloud Platform. This can be done by following these steps:
 
 1. Login to https://myapps.microsoft.com using your NAV user
