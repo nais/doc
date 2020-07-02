@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Introduction to NAIS](intro/README.md)
+* [Introduction to NAIS](README.md)
 * [Clusters](clusters/README.md)
   * [Google Cloud Platform](clusters/gcp.md)
   * [On-premises](clusters/on-premises.md)
