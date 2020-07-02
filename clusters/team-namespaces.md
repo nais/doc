@@ -15,7 +15,7 @@ Using team namespaces instead of shared namespaces has several advantages:
 
 ## On-prem migration to team namespaces
 
-Migrating an application to a team namespace is done by changing the [namespace](../nais-application/reference.md#metadatanamespace)
+Migrating an application to a team namespace is done by changing the [namespace](../nais-application/reference.md#metadata-namespace)
 field in the naiserator yaml file and redeploying the app.
 
 For example, if you're migrating `my-app` from the `default` namespace to a namespace called `my-team`, 
