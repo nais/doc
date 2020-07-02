@@ -149,4 +149,4 @@ and the following under `spec.initContainers.args`
 ```
 
 [cron time string format]: https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07
-[latest release]: https://github.com/navikt/vault-sidekick/releases
+[latest release]: https://hub.docker.com/r/navikt/vault-sidekick/tags
