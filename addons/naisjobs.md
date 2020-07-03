@@ -475,7 +475,8 @@ spec:
             medium: Memory
 ```
 
-Sets up an empty volume mount for the pod.
+Sets up an empty in-memory volume mount for the pod.
+This is where the secrets will be stored in your pod. They will not be written to disk.
 
 #### 2.2 Vault Init Container
 
