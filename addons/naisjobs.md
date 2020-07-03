@@ -408,7 +408,7 @@ spec:
               subPath: ca-bundle.jks
 ```
  
-The files from step 1 found in `subPath` are mounted to the path specified in `path` for the container of your application.
+The files from step 1 found in `subPath` are mounted to the path specified in `mountPath` for the container of your application.
 
 The example covers the common locations for these bundles for most systems. 
 
@@ -569,7 +569,7 @@ The files from step 2.3 found in `subPath` are mounted to the path specified in 
 
 #### 2.4 (optional) Vault token path as environment variable
 
-`.spec.template.spec.env[]`
+`.spec.template.spec.containers[0].env[]`
 
 ```yaml
 spec:
@@ -592,7 +592,10 @@ Repeat the steps below for each secret you want from Vault.
 
 #### 3.1 Specify the paths where your secret should be mounted to
  
-Add a new entry to the list in `.spec.initContainers[0].volumeMounts[]` and `.spec.containers[0].volumeMounts[]`:
+Add a new `volumeMount` entry to the list in:
+
+- `.spec.template.initContainers[0].volumeMounts[]` 
+- `.spec.template.containers[0].volumeMounts[]`
 
 ```yaml
 spec:
@@ -649,7 +652,7 @@ spec:
 Now that you've specified the mount path for the secret, you'll need to specify where the secret is found in Vault,
 and 
 
-Add a new entry to the list of `.spec.initContainers[0].args`
+Add a new entry to the list of `.spec.template.initContainers[0].args`
 
 ```yaml
 spec:
