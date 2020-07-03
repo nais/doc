@@ -502,7 +502,7 @@ spec:
 `.spec.template.spec.containers[0].envFrom[]` exports all the Secrets referenced 
 (in `envFrom[].secretRef.name`) as environment variables for the container.
 
-Each key from each `Secret` becomes the environment variable name in the `Pod`.
+Each key from each `Secret` becomes the environment variable name in the container.
 
 ## Vault
 
