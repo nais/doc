@@ -94,7 +94,7 @@ spec:
               cpu: 1000m
           envFrom:
             - secretRef:
-              name: ${secretname}
+                name: ${secretname}
 ```
 {% endcode-tabs-item %}
 
@@ -496,11 +496,13 @@ spec:
           ...
           envFrom:
             - secretRef:
-              name: ${secretname}
+                name: ${secretname}
 ```
 
-`envFrom` exports all the Secret’s data as environment variables for the container.
-The key from the Secret becomes the environment variable name in the Pod.
+`.spec.template.spec.containers[0].envFrom[]` exports all the Secrets referenced 
+(in `envFrom[].secretRef.name`) as environment variables for the container.
+
+Each key from each `Secret` becomes the environment variable name in the `Pod`.
 
 ## Vault
 
