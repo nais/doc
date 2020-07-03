@@ -6,7 +6,7 @@ description: >
 # Azure AD Application
 
 {% hint style="warning" %}
-This feature is available in all clusters, however only in [team namespaces](../clusters/team-namespaces.md) for on-premise clusters.
+This feature is only available in [team namespaces](../clusters/team-namespaces.md)
 {% endhint %}
 
 An accompanying Azure AD application can be automatically provisioned to your NAIS application. 
