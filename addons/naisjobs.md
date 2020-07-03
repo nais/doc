@@ -20,6 +20,7 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
 | `${namespace}` | name of the namespace, should match the team name | my-team |
 | `${image}` | image used for the pods running the job | docker.pkg.github.com/navikt/my-app/my-app:1.0.0 |
 | `${schedule}` | the job's schedule in a [cron time string format] | `"*/15 * * * *"` |
+| `${secretname}` | name of the [Kubernetes Secret] | my-secret |
 | `${vault_image}` | the [latest release] of the Vault sidecar | navikt/vault-sidekick:v0.3.10-d122b16 |
 | `${envclass}` | one of `prod` or `preprod` | prod |
 | `${zone}` | one of `fss` or `sbs` | fss |
@@ -30,7 +31,7 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
 
 {% code-tabs %}
 
-{% code-tabs-item title="Basic Example", type="yaml" %}
+{% code-tabs-item title="Basic", type="yaml" %}
 ```yaml
 apiVersion: batch/v1
 kind: Job
@@ -62,7 +63,42 @@ spec:
 ```
 {% endcode-tabs-item %}
 
-{% code-tabs-item title="Example With CA Bundles", type="yaml" %}
+{% code-tabs-item title="w/Kubernetes Secret", type="yaml" %}
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ${jobname}
+  namespace: ${teamname}
+  labels:
+    team: ${teamname}
+spec:
+  ttlSecondsAfterFinished: 300
+  backoffLimit: 1
+  template:
+    spec:
+      imagePullSecrets:
+        - name: gpr-credentials
+      serviceAccount: default
+      serviceAccountName: default
+      restartPolicy: Never
+      containers:
+        - name: ${jobname}
+          image: ${image}
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 100m
+            limits:
+              memory: 1024Mi
+              cpu: 1000m
+          envFrom:
+            - secretRef:
+              name: ${secretname}
+```
+{% endcode-tabs-item %}
+
+{% code-tabs-item title="w/CA Bundles", type="yaml" %}
 ```yaml
 apiVersion: batch/v1
 kind: Job
@@ -133,7 +169,7 @@ spec:
 ```
 {% endcode-tabs-item %}
 
-{% code-tabs-item title="Example With Vault integration", type="yaml" %}
+{% code-tabs-item title="w/Vault integration", type="yaml" %}
 ```yaml
 apiVersion: batch/v1
 kind: Job
@@ -204,7 +240,7 @@ spec:
 ```
 {% endcode-tabs-item %}
 
-{% code-tabs-item title="Example With both CA Bundles and Vault", type="yaml" %}
+{% code-tabs-item title="w/CA Bundles and Vault", type="yaml" %}
 ```yaml
 apiVersion: batch/v1
 kind: Job
@@ -344,7 +380,7 @@ spec:
 Reaching internal services such as Kafka requires the presence of a truststore that includes the certificates for these
 services.
 
-Looking at the differences between the `Basic Example` and the `Example With CA Bundles` in [Examples](#examples), 
+Looking at the differences between the `Basic` and the `w/CA Bundles` [examples](#examples), 
 we spot the following:
 
 ### 1. Fetch CA Bundles
@@ -433,6 +469,39 @@ spec:
 Java applications using the [NAV baseimages] may specify environment variables to automatically inject the
 bundles/truststore into the JVM.
 
+## Kubernetes Secrets
+
+If your job needs secrets that are not found in Vault, using the native [Kubernetes Secrets] functionality is much
+simpler than utilizing Vault.
+
+### Configuration
+
+This assumes that you have already [created a Secret](https://kubernetes.io/docs/concepts/configuration/secret/#creating-your-own-secrets).
+
+Looking at the differences between the `Basic` and the `w/Kubernetes Secret` [examples](#examples), 
+we spot the following:
+
+#### 1. Secret data as container environment variables
+
+`.spec.template.spec.containers[0].envFrom`
+
+```yaml
+spec:
+  template:
+    spec:
+      ...
+      containers:
+        - name: ${jobname}
+          image: ${image}
+          ...
+          envFrom:
+            - secretRef:
+              name: ${secretname}
+```
+
+`envFrom` exports all the Secret’s data as environment variables for the container.
+The key from the Secret becomes the environment variable name in the Pod.
+
 ## Vault
 
 If your job needs to access Vault for fetching secrets or uses PostgreSQL on-premises, you'll also have to
@@ -455,7 +524,7 @@ cluster:
 
 ### 2. Configuration
 
-Looking at the differences between the `Basic Example` and the `Example With Vault integration` in [Examples](#examples), 
+Looking at the differences between the `Basic` and the `w/Vault integration` [examples](#examples), 
 we spot the following:
 
 #### 2.1 Volume mount setup for Pod
@@ -565,7 +634,7 @@ spec:
               subPath: vault/var/run/secrets/nais.io/vault
 ```
 
-The files from step 2.3 found in `subPath` are mounted to the path specified in `path` for the container of your application.
+The files from step 2.3 found in `subPath` are mounted to the path specified in `mountPath` for the container of your application.
 
 #### 2.4 (optional) Vault token path as environment variable
 
@@ -708,3 +777,4 @@ $ kubectl apply -f job.yml
 [latest release]: https://hub.docker.com/r/navikt/vault-sidekick/tags
 [NAV baseimages]: https://github.com/navikt/baseimages
 [Vault IaC]: https://github.com/navikt/vault-iac
+[Kubernetes Secrets]: https://kubernetes.io/docs/concepts/configuration/secret/
