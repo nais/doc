@@ -2,7 +2,7 @@
 
 Performing deployments manually requires that you have [access to the cluster](../basics/access.md) and `kubectl` configured.
 
-For automated deployments, use [NAIS deploy](../deployment/deploy.md).
+For automated deployments, use [NAIS deploy](../deployment/README.md).
 
 ```text
 $ kubectl apply -f nais.yaml
