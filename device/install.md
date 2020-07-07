@@ -25,5 +25,5 @@
 4. Run agent: `./bin/device-agent`
 
 # Connecting to NAIS clusters
-  1. open /etc/hosts as admin and comment out or remove the lines containing `apiserver.*.nais.io`
+  1. (if NAVTunnel was previously installed) open /etc/hosts as admin and comment out or remove the lines containing `apiserver.*.nais.io`
   2. in kubeconfigs repo: `git pull && git checkout naisdevice`
