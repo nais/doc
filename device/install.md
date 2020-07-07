@@ -9,7 +9,7 @@
 
 ## Install naisdevice agent
 #### MacOS 
-1. `$ curl https://device.nais.io/install.sh | bash` (you might be prompted for password)
+1. `curl https://device.nais.io/install.sh | bash` (you might be prompted for password)
 2. Command+Space -> `naisdevice` -> systray icon -> connect ([allow ~20 seconds before filing issues](https://github.com/nais/device/issues/38))
 
 #### Windows
