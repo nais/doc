@@ -94,7 +94,7 @@ spec:
     path: /health
   env:
     - name: REDIS_ADDR
-      value: ${redis-instance}.default.svc.nais.local:6379
+      value: ${redis-instance}:6379
     - name: REDIS_EXPORTER_LOG_FORMAT
       value: json
 ```
