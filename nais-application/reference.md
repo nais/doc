@@ -257,7 +257,7 @@ Will expose the configmap as files under `spec.filesFrom[].mountPath`.
 ### `spec.filesFrom[].secret`
 Will expose the secret as files under `spec.filesFrom[].mountPath`. Putting this information in a secret is safer and
 more flexible than putting it verbatim in a Pod definition or in a container image. See
-[GCP only features/secrets](../gcp/secrets.md) for more information.
+[addons/secrets](../addons/secrets.md) for more information.
 
 ### `spec.filesFrom[].mountPath`
 Path to where files will be mounted.
@@ -274,7 +274,7 @@ required.
 
 ### `spec.envFrom[].secret`
 Putting this information in a secret is safer and more flexible than putting it verbatim in a Pod definition or in a
-container image. See [GCP only features/secrets](../gcp/secrets.md) for more information.
+container image. See [addons/secrets](../addons/secrets.md) for more information.
 
 ## `spec.env[]`
 Custom environment variables injected into your container.
