@@ -12,11 +12,9 @@ It's also possible to password protect the Redis instace using our slightly modi
 
 ## How to
 
-### Naiserator
-
-On NAIS you're required to manually start your Redis instance. This means that you can only run single instances
-that are not scalable; increasing replicas will only start new databases that are not synced. Contact
-[@Kyrre.Havik.Eriksen] if you need High Availability-Redis.
+Redis can be run as a normal NAIS application. This means that you can only run single instances that are not scalable;
+increasing replicas will only start new databases that are not synced. Contact [@Kyrre.Havik.Eriksen] if you need High
+Availability-Redis.
 
 An example Redis setup looks like this:
 
@@ -34,8 +32,8 @@ spec:
   port: 6379
   replicas: # A single Redis-app doesn't scale
     min: 1
-    max: 1
-  resources: # you need to monitor the resource usage
+    max: 1 # More replicas doesn't sync
+  resources: # you need to monitor the resource usage yourself
     limits:
       cpu: 100m
       memory: 128Mi
@@ -46,7 +44,8 @@ spec:
     port: 6379
 ```
 
-Then, running `kubectl apply -f redis-config.yaml` will start up a Redis instance.
+Then, running `kubectl apply -f redis-config.yaml` will start up a Redis instance. Or deploy it with
+[nais/deploy].
 
 {% hint style="success" %}Check out [hub.docker.com] for latest version{% endhint %}
 
@@ -54,14 +53,14 @@ It is recommended to add the following environment variable to your application'
 app, the value is not going to change):
 
 ```yaml
- env:
-   - name: REDIS_HOST
-     value: ${appname}.${namespace}.svc.nais.local
+env:
+  - name: REDIS_HOST
+    value: ${appname}.${namespace}.svc.nais.local
 ```
 
 #### Redis metrics
 
-If metrics are wanted from a Redis instance running on NAIS, a separate exporter must be run. An example
+If you want metrics from a Redis instance running on NAIS, a separate exporter must also be run. An example
 `nais.yaml` for the simplest version of such an exporter is found below. NAIS has also made a dashboard that everyone
 can use. The only caveat is that the exporter application needs to end its name with `redisexporter` in the
 configuration. The dashboard is called [Redis exporters]. The dashboard sorts by `addr`, enabling a single exporter
@@ -76,7 +75,7 @@ metadata:
   name: ${appname}-redisexporter
   namespace: ${namespace}
 spec:
-  image: oliver006/redis_exporter:<latest-docker
+  image: oliver006/redis_exporter:<latest-docker>
   port: 9121
   prometheus:
     enabled: true
@@ -101,12 +100,25 @@ spec:
 
 {% hint style="success" %}Check out [github.com/oliver006] for latest version{% endhint %}
 
-If the Redis instance is password protected, the [secure-redisexporter]-image must be used.
+!!!! If the Redis instance is password protected, the [secure-redisexporter]-image must be used.
 
 ## Secure Redis
 
-This custom image fetches passwords from Vault. If this is needed for your project, see [baseimages] for more
-information.
+If you need to password protect your Redis instance, the easiest way to do this is to use [Kubernetes secrets] and mount
+them to your container.
+
+Start by creating a Kubernetes secret
+```shell
+kubectl create secret generic redis-password --from-literal=REDIS_PASSWORD=$(date +%s | sha256sum | base64 | head -c 32)
+```
+
+Now that you have a secret in Kubernetes (use `kubectl describe secret redis-password` to look at it), all you have to
+do left is to mount it. This is done by adding the following to your `nais.yaml`.
+```yaml
+spec:
+  envFrom:
+    - secret: redis-password
+```
 
 ## Code examples
 
@@ -130,5 +142,7 @@ redis:
 [Redis exporters]: https://grafana.adeo.no/d/L-Ktprrmz
 [secure-redisexporter]: https://github.com/navikt/baseimages/tree/master/redis/secure-redisexporter
 [baseimages]: https://github.com/navikt/baseimages/tree/master/redis
+[nais/deploy]: ../deployment
 [hub.docker.com]: https://hub.docker.com/_/redis
 [github.com/oliver006]: https://github.com/oliver006/redis_exporter/releases
+[Kubernetes secrets]: https://kubernetes.io/docs/concepts/configuration/secret/
