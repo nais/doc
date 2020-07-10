@@ -26,16 +26,25 @@ secured. If in doubt, ask in #nais or someone on the NAIS team.
 {% endhint %}
 
 You can control from where you application is reachable by selecting the appropriate ingress domain. 
+If no ingress is selected, the application will not be reachable from outside the cluster. 
 
-| domain | accessibility | cluster availability | certificate | description |
-| ------ | ------------- | -------------------- | ----------- | ----------- |
-| nais.io | naisdevice, navtunnel, vdi, internal network | dev | signed by public CA. | wildcard DNS on format `*.<cluster name>.nais.io`. |
-| nav.no | internet | prod-sbs, prod-gcp | signed by public CA | manually configured, contact at #nais | 
-| adeo.no | internal network, case workers | prod-sbs, prod-gcp | signed by public CA | manually configured, contact at #nais | 
-| dev-nav.no | internal network | dev-gcp | signed by public CA | wildcard DNS on format `*.dev-nav.no` | 
-| dev-adeo.no | internal network | dev-gcp | signed by public CA | wildcard DNS on format `*.dev-adeo.no` | 
+### dev-gcp
 
-Example: If your app is named `myapp`, and you want to make it accessible for developers, then the URL for `dev-gcp` would be `https://myapp.dev-gcp.nais.io`.
+| domain | accessible from | description |
+| ------ | --------------- | ----------- |
+| dev.nav.no | [naisdevice](../device/README.md) | development ingress for nav.no applications | 
+| dev.adeo.no | [naisdevice](../device/README.md) | development ingress for adeo.no applications | 
+| dev-nav.no | navtunnel | [**deprecated**](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), replaced by dev.nav.no | 
+| dev-adeo.no | navtunnel | [**deprecated**](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), replaced by dev.adeo.no | 
+| dev-gcp.nais.io | [naisdevice](../device/README.md) | [**nais cluster services only**](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), applications should use dev.{nav,adeo}.no | 
+
+### prod-gcp
+
+| domain | accessible from | description |
+| ------ | --------------- | ----------- |
+| nav.no | internet | manually configured, contact at #tech-sikkerhet | 
+| adeo.no | case workers, [naisdevice](../device/README.md) | manually configured, contact at #tech-sikkerhet | 
+| prod-gcp.nais.io | [naisdevice](../device/README.md) | [**nais cluster services only**](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), applications should use .{nav,adeo}.no | 
 
 ## ROS and PVK
 
@@ -55,4 +64,3 @@ to [Leif Tore Løvmo], while [Line Langlo Spongsveen] can answer questions about
 [ROS]: https://navno.sharepoint.com/sites/intranett-it/SitePages/Risikovurderinger.aspx
 [PVK]: https://navno.sharepoint.com/sites/intranett-personvern/SitePages/PVK.aspx
 [Behandlingsoversikt]: https://navno.sharepoint.com/sites/intranett-personvern/SitePages/Behandlingsoversikt.aspx
-

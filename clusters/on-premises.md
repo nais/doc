@@ -22,15 +22,37 @@ secured. If in doubt, ask in #nais or someone on the NAIS team.
 
 You can control from where you application is reachable by selecting the appropriate ingress domain. 
 
-| domain | accessibility | cluster availability | certificate | description |
-| ------ | ------------- | -------------------- | ----------- | ----------- |
-| nais.io | naisdevice, navtunnel, vdi, internal network | dev | signed by public CA. | wildcard DNS on format `*.<cluster name>.nais.io`. |
-| nais.preprod.local | internal network | dev-fss | signed by NAV internal CA | wildcard DNS on format `*.nais.preprod.local`. |
-| nais.oera-q.local | internal network | dev-sbs | signed by NAV internal CA | wildcard DNS on format `*.nais.oera-q.local`. |
-| nais.adeo.no | internal network | prod-fss | signed by NAV internal CA | wildcard DNS on format `*.nais.adeo.no`. |
-| nais.oera.no | internal network | prod-sbs | signed by NAV internal CA | wildcard DNS on format `*.nais.oera.no`. |
-| tjenester.nav.no | internet | prod-sbs | signed by public CA | context root based routing on format `tjenester.nav.no/<appname>`. |
-| nav.no | internet | prod-sbs, prod-gcp | signed by public CA | manually configured, contact at #nais | 
-| adeo.no | internal network, case workers | prod-sbs, prod-gcp | signed by public CA | manually configured, contact at #nais | 
+### dev-fss
 
-Example: If your app is named `myapp`, and you want to make it accessible for developers, then the URL for `dev-fss` would be `https://myapp.dev-fss.nais.io`.
+| domain | accessible from | description |
+| ------ | --------------- | ----------- |
+| dev.adeo.no | [naisdevice](../device/README.md) | development ingress for adeo.no applications | 
+| intern.dev.adeo.no | internal network only | development ingress for adeo.no applications | 
+| dev-fss.nais.io | [naisdevice](../device/README.md) | [**nais cluster services only**](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), use {intern,}.dev.adeo.no instead | 
+| nais.preprod.local | vdi | **deprecated**, use {intern,}.dev.adeo.no instead |
+
+### dev-sbs
+
+| domain | accessible from | description |
+| ------ | --------------- | ----------- |
+| dev.nav.no | [naisdevice](../device/README.md) | development ingress for nav.no applications | 
+| intern.dev.nav.no | internal network only | development ingress for adeo.no applications | 
+| dev-sbs.nais.io | [naisdevice](../device/README.md) | [**nais cluster services only**](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), use {intern,}.dev.nav.no instead | 
+| nais.oera-q.local | vdi | **deprecated**, use {intern,}.nav.adeo.no instead |
+
+### prod-fss
+
+| domain | accessible from | description |
+| ------ | --------------- | ----------- |
+| adeo.no | case workers, [naisdevice](../device/README.md) by allowlist | manually configured, contact at #tech-sikkerhet | 
+| prod-fss.nais.io | [naisdevice](../device/README.md) | [**nais cluster services only**](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), use .adeo.no instead | 
+| nais.adeo.no | vdi | **deprecated**, use .adeo.no instead |
+
+### prod-sbs
+
+| domain | accessible from | description |
+| ------ | --------------- | ----------- |
+| nav.no | internet | manually configured, contact at #tech-sikkerhet | 
+| tjenester.nav.no | internet | context root based routing on format `tjenester.nav.no/<appname>`. |
+| prod-sbs.nais.io | [naisdevice](../device/README.md) | [**nais cluster services only**](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), use .adeo.no instead | 
+| nais.oera.no | vdi | **deprecated**, use .nav.no instead |
