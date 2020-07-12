@@ -9,4 +9,6 @@ This document describes the different services you will get access to through na
 - [vera](https://vera.adeo.no)
 - [repo.adeo.no](https://repo.adeo.no)
 - [bitbucket/stash](https://stash.adeo.no)
+- [minwintid](https://minwintidmobil.adeo.no/minwintid)
+
         
