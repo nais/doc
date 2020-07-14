@@ -14,7 +14,11 @@
 
 #### Windows
 1. Download and install [WireGuard](https://www.wireguard.com/install/)
-2. ...
+2. Download `device-agent.exe` and `device-agent-helper.exe` [latest naisdevice release](https://github.com/nais/device/releases/latest)
+3. Optional: place files in a directory for easier access
+4. Launch `cmd.exe`
+5. go to dir with exe files and run `device-agent-helper.exe --config-dir "%appdata%\naisdevice" --install`
+6. run `device-agent.exe`
 
 #### Linux
 1. Install wireguard
