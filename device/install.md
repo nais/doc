@@ -9,7 +9,7 @@
 
 ## Install naisdevice agent
 #### MacOS 
-1. [if you had navtunnel] [uninstall navtunnel](#uninstall navtunnel)
+1. [if you had navtunnel] [uninstall navtunnel](#uninstall-navtunnel)
 2. `curl https://device.nais.io/install.sh | bash` (you might be prompted for password)
 3. Command+Space -> `naisdevice` -> systray icon -> connect ([allow ~20 seconds before filing issues](https://github.com/nais/device/issues/38))
 
