@@ -9,7 +9,7 @@
 
 ## Install naisdevice agent
 #### MacOS 
-1. [if you had navtunnel] disable navtunnel proxy `networksetup -setautoproxystate "Wi-Fi" off`
+1. [if you had navtunnel] [uninstall navtunnel](#uninstall navtunnel)
 2. `curl https://device.nais.io/install.sh | bash` (you might be prompted for password)
 3. Command+Space -> `naisdevice` -> systray icon -> connect ([allow ~20 seconds before filing issues](https://github.com/nais/device/issues/38))
 
@@ -30,5 +30,9 @@
 4. Run agent: `./bin/device-agent`
 
 # Connecting to NAIS clusters
-  1. (if NAVTunnel was previously installed) open /etc/hosts as admin and comment out or remove the lines containing `apiserver.*.nais.io`
-  2. in kubeconfigs repo: `git pull && git checkout naisdevice`
+1. in kubeconfigs repo: `git pull && git checkout naisdevice`
+
+# Uninstall navtunnel
+1. `sudo sed -i -e '/\# NAV MANAGED/,/\# END NAV MANAGED/d' /private/etc/hosts`
+2. `rm -rf "/Applications/navtunnel.app"`
+3. `networksetup -setautoproxystate "Wi-Fi" off`
