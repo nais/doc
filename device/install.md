@@ -9,8 +9,9 @@
 
 ## Install naisdevice agent
 #### MacOS 
-1. `curl https://device.nais.io/install.sh | bash` (you might be prompted for password)
-2. Command+Space -> `naisdevice` -> systray icon -> connect ([allow ~20 seconds before filing issues](https://github.com/nais/device/issues/38))
+1. [if you had navtunnel] disable navtunnel proxy `networksetup -setautoproxystate "Wi-Fi" off`
+2. `curl https://device.nais.io/install.sh | bash` (you might be prompted for password)
+3. Command+Space -> `naisdevice` -> systray icon -> connect ([allow ~20 seconds before filing issues](https://github.com/nais/device/issues/38))
 
 #### Windows
 1. Download and install [WireGuard](https://www.wireguard.com/install/)
