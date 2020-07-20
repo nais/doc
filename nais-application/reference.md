@@ -217,8 +217,8 @@ Guaranteed amount of memory.
 ## `spec.ingresses`
 List of ingress URLs that will route HTTP traffic to the application.
 
-See [onprem](../clusters/on-premises.md#accessing-the-application) or
-[gcp](../clusters/gcp.md#accessing-the-application) for more info on which ingresses to use.
+Depending on where your application is running, check out [On-premises/Accessing the application](../clusters/on-premises.md#accessing-the-application) or
+[Google Cloud Platform/Accessing the application](../clusters/gcp.md#accessing-the-application) for more info on which ingresses to use.
 
 ## `spec.vault`
 Provides secrets management, identity-based access, and encrypting application data for auditing of secrets for applications, systems, and users. Vault documentation can be found in [navikt/vault-iac](https://github.com/navikt/vault-iac/tree/master/doc).
