@@ -34,5 +34,5 @@
 
 # Uninstall navtunnel
 1. `sudo sed -i -e '/\# NAV MANAGED/,/\# END NAV MANAGED/d' /private/etc/hosts`
-2. `rm -rf "/Applications/navtunnel.app"`
+2. `sudo rm -rf "/Applications/navtunnel.app"`
 3. `networksetup -setautoproxystate "Wi-Fi" off`
