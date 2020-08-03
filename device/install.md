@@ -5,7 +5,7 @@
 2. Select platform and wait for Kolide to create your installer
 3. Install package (xkxp-\*-kolide-launcher.{pkg,msi,deb,rpm})
 4. Wait a couple of minutes to let Kolide initialize device state
-5. Check your devices status: `/msg @Kolide status` and fix errors if there are any
+5. Check your devices status: `/msg @Kolide status` on Slack and fix errors if there are any
 
 ## Install naisdevice agent
 #### MacOS 
