@@ -3,7 +3,7 @@
 ## Install Kolide agent
 1. Slack: `/msg @Kolide installers`
 2. Select platform and wait for Kolide to create your installer
-3. Install package (xkxp-\*-kolide-launcher.{pkg,msi,deb,rpm})
+3. Install package (xkxp-\*-kolide-launcher.{pkg,msi,deb,rpm}). There are no success feedback from the installer. No error message means that the installation was successful.
 4. Wait a couple of minutes to let Kolide initialize device state
 5. Check your devices status: `/msg @Kolide status` on Slack and fix errors if there are any
 
@@ -17,11 +17,10 @@
 #### Windows
 1. [install Kolide agent](#install-kolide-agent)
 2. Download and install [WireGuard](https://www.wireguard.com/install/)
-3. Download `device-agent.exe` and `device-agent-helper.exe` [latest naisdevice release](https://github.com/nais/device/releases/latest)
-4. Optional: place files in a directory for easier access
-5. Launch `cmd.exe`
-6. go to dir with exe files and run `device-agent-helper.exe --config-dir "%appdata%\naisdevice" --install`
-7. run `device-agent.exe`
+3. Download `device-agent.exe` and `device-agent-helper.exe` and place these in `c:\naisdevice`. [latest naisdevice release](https://github.com/nais/device/releases/latest)
+4. Launch `cmd.exe` (as your regular user)
+5. go to dir with exe files and run `device-agent-helper.exe --config-dir "%appdata%\naisdevice" --install`
+6. run `device-agent.exe`
 
 #### Linux
 1. [install Kolide agent](#install-kolide-agent)
