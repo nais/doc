@@ -268,7 +268,7 @@ Example value:
 ##### `AZURE_APP_PRE_AUTHORIZED_APPS`
 
 A JSON string. List of names and client IDs for the valid (i.e. those that exist in Azure AD) applications defined in 
-[`spec.accessPolicy.inbound.rules[]`](../nais-application/reference.md#spec-accesspolicy).
+[`spec.accessPolicy.inbound.rules[]`](../nais-application/reference.md#spec-accesspolicy-gcp-only).
 
 Example value:
 
