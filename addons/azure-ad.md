@@ -374,6 +374,7 @@ the custom resource manually through `kubectl` or as part of your deploy pipelin
 ### Example
 
 ```azure-app.yaml```
+
 ```yaml
 apiVersion: nais.io/v1
 kind: AzureAdApplication
