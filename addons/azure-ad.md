@@ -365,6 +365,52 @@ Migrating an existing stack of applications should therefore be done in the foll
 4. Deploy to development; ensure that everything works as expected.
 5. Repeat step 4 for production.
 
+## Provisioning separately from NAIS Application
+
+The Azure AD integration is implemented as a [custom resource] in our Kubernetes clusters. 
+If you need an Azure AD application outside or separately from the NAIS Application abstraction, you may apply 
+the custom resource manually through `kubectl` or as part of your deploy pipeline.
+
+### Example
+
+```azure-app.yaml```
+```yaml
+apiVersion: nais.io/v1
+kind: AzureAdApplication
+metadata:
+  name: my-app
+  namespace: my-team
+spec:
+  preAuthorizedApplications:
+    - application: my-other-app
+      cluster: dev-gcp
+      namespace: my-team
+    - application: some-other-app
+      cluster: dev-gcp
+      namespace: my-team
+  logoutUrl: "https://my-app.dev.nav.no/oauth2/logout"
+  replyUrls:
+    - url: "https://my-app.dev.nav.no/oauth2/callback"
+  secretName: azuread-my-app
+```
+
+Apply the resource to the cluster:
+
+```
+kubectl apply -f azure-app.yaml
+```
+
+## Deletion
+
+The Azure AD application is automatically deleted whenever the associated Application resource is deleted. 
+In other words, if you delete your NAIS application the Azure AD application is also deleted.
+
+If you've provisioned the Azure AD application separately, you must manually delete the `azuread` resource:
+
+```
+kubectl delete azureapp <name>
+```
+
 [NAV Security Guide]: https://security.labs.nais.io/
 [Microsoft identity platform documentation]: https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-protocols
 [authenticating to Azure AD with a certificate]: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow#second-case-access-token-request-with-a-certificate
@@ -373,3 +419,4 @@ Migrating an existing stack of applications should therefore be done in the foll
 [reply URLs]: https://docs.microsoft.com/en-us/azure/active-directory/develop/reply-url
 [on-behalf-of]: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow
 [IaC]: https://github.com/navikt/aad-iac
+[custom resource]: https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/
