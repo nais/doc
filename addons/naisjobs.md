@@ -20,7 +20,7 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
 | `${namespace}` | name of the namespace, should match the team name | my-team |
 | `${image}` | image used for the pods running the job | docker.pkg.github.com/navikt/my-app/my-app:1.0.0 |
 | `${schedule}` | the job's schedule in a [cron time string format] | `"*/15 * * * *"` |
-| `${secretname}` | name of the [Kubernetes Secret] | my-secret |
+| `${secretname}` | name of the [Kubernetes Secrets] object | my-secret |
 | `${vault_image}` | the [latest release] of the Vault sidecar | navikt/vault-sidekick:v0.3.10-d122b16 |
 | `${envclass}` | one of `prod` or `preprod` | prod |
 | `${zone}` | one of `fss` or `sbs` | fss |
