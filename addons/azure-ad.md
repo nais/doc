@@ -55,7 +55,7 @@ This will register an Azure AD application using the following naming scheme:
 
 For the example above, the result would be:
 ```
-dev-gcp:default:nais-testapp
+dev-gcp:aura:nais-testapp
 ```
 
 You may find the application in the [Azure Portal].
