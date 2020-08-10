@@ -1,6 +1,6 @@
 ---
 description: >
-  Provisioning and configuration of accompanying Azure AD application.
+  Provisioning and configuration of accompanying Azure AD application for authentication and authorization in web applications.
 ---
 
 # Azure AD Application
@@ -303,15 +303,9 @@ Your application's Azure AD client ID is available at multiple locations:
 2. The [Azure Portal].
 3. In the Kubernetes resource - `kubectl get azureapp <app-name> -o json | jq '.status.clientId'`
 
-## On-premises
+## Migrating from existing infrastructure-as-code ([IaC]) solution
 
-{% hint style="warning" %}
-This feature is only available for applications in [team namespaces](../clusters/team-namespaces.md).
-{% endhint %}
-
-### Migrating from existing infrastructure-as-code ([IaC]) solution
-
-#### Why migrate?
+### Why migrate?
 
 - Declarative provisioning, straight from your application's [`nais.yaml`](../nais-application/reference.md#spec-azure-application)
 - No longer dependent on manual user approvals in multiple IaC repositories
@@ -321,12 +315,12 @@ This ensures that credentials are fresh and lessens the impact in the case of ex
 - The exact same feature is present in the [GCP](../clusters/gcp.md) clusters, 
 which simplifies [migration](../clusters/migrating-to-gcp.md).
 
-#### Any differences?
+### Differences
 
 In general, the Azure AD application provisioned through NAIS are entirely new, unique instances with new client IDs 
 and should be treated as such.
 
-##### Tenants
+#### Tenants
 
 We've initially opted to use a single tenant (`nav.no`) to reduce confusion for users in terms of user accounts and logins.
 However, this is not final. 
@@ -335,7 +329,7 @@ We may add support for using the development tenant as used in the existing IaC 
 Do note that the same application in different clusters will be different, unique Azure AD applications, 
 with each having their own client IDs and access policies.
 
-##### Owner Access
+#### Owner Access
 
 The Azure AD application is automatically configured with sane defaults, with most other common options 
 available to be configured through [`nais.yaml`](../nais-application/reference.md#spec-azure-application). 
@@ -344,7 +338,7 @@ Thus, we've opted to not grant owner access to any of the team's members.
 
 Any other use cases not covered is manually handled as of now, but this may change as needs arise.
 
-##### Pre-Authorized Applications
+#### Pre-Authorized Applications
 
 There are a couple of pitfalls and gotchas you ought to avoid if your existing application has defined a 
 list of [pre-authorized applications](#pre-authorized-applications):
