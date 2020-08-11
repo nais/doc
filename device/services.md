@@ -14,5 +14,5 @@ This document describes the different services you will get access to through na
 
 # Currently unavailable
 
-Microsoft Teams (Use Zoom instead)
-Microsoft Sharepoint (Works on mobile)
+- Microsoft Teams (Use Zoom instead)
+- Microsoft Sharepoint (Works on mobile)
