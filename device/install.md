@@ -16,7 +16,7 @@
 
 #### Windows
 1. [install Kolide agent](#install-kolide-agent)
-2. Download and install [WireGuard](https://www.wireguard.com/install/)
+2. Download and install [WireGuard](https://www.wireguard.com/install/) (Note: Ignore error message regarding UI only being accessible by the Builtin Administrators group)
 3. Download `device-agent.exe` and `device-agent-helper.exe` and place these in `c:\naisdevice`. [latest naisdevice release](https://github.com/nais/device/releases/latest)
 4. Launch `cmd.exe` (as your regular user)
 5. go to `c:\naisdevice` and run `device-agent-helper.exe --config-dir "%appdata%\naisdevice" --install`
