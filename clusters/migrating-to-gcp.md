@@ -28,8 +28,7 @@
 
 
 ## Why migrate?
-* Access to self-service [buckets]
-  and [Postgres databases][postgres]. 
+* Access to self-service [buckets] and [Postgres databases][postgres]. 
 * Dedicated team namespace with full access, and privilege separation from the rest of NAV.
 * Access to Google Cloud features.
 * [Zero Trust security model][Zero-trust] instead of FSS/SBS zone model.
@@ -89,12 +88,11 @@ We're currently investigating the possibility of using on-prem databases during 
 See the table at the top of this page for differences between GCP and on-premises and what applies to your application
 
 ### What should we change?
-Although not specifically applicable for migration to GCP, you will have an easier time using [tokendings] instead of fighting your way through API-GW
-Tokendings is still a concept in early stages, but please do contact us if you're interested, as we're looking for beta testers.
+Use [tokendings] instead of API-GW
+If using automatically configured [buckets] or [postgres], use [Google APIs](https://cloud.google.com/storage/docs/reference/libraries)
 
 ### What do we not need to change?
-We've tried our best to make things as familiar as possible, so most things will work as it does today.
-You do not have to make any changes to your application code, except when using [buckets] or [postgres], where you need to change how you wire up the data source connections.
+You do not have to make any changes to your application code.
 Ingresses work the same way, although some domains overlap and others are exclusive.
 Logging, secure logging, metrics and alerts work the same way
 
@@ -115,17 +113,24 @@ That being said, we're looking in to the possibility of using the on-prem databa
 There is native functionality in GCP that overlap with many of the use cases that Vault have covered on-prem.
 Using these mechanisms removes the need to deal with these secrets at all.
 Introducing team namespaces allows the teams to manage their own secrets in their own namespaces without the need for IAC and manual routines.
-For other secrets that are not used by the application during runtime, you can use the secrets manager in each team's GCP project.
+For other secrets that are not used by the application during runtime, you can use the [Secret Manager](https://cloud.google.com/secret-manager) in each team's GCP project.
 
 ### How do we migrate from vault to secrets manager
 Retrieve the secret from vault and store it in a file. `kubectl apply -f <secret-file>`. See the [secrets documentation][secrets] for an example.
 
 ### How do we migrate from filestorage to buckets
+Add a bucket to your application spec
+Copy the data from the filestore using [s3cmd](https://s3tools.org/s3cmd) to the bucket using [gsutil](https://cloud.google.com/storage/docs/gsutil)
 
 ### What are the plans for cloud migration in NAV?
+We aim to shut down both sbs clusters by summer 2021
+NAVs strategic goal is to shut off all on-prem datacenters by the end of 2023
+
 ### What can we do in our GCP project?
---  [](Cloud Strategy)
--- Roadmap for NAIS
+The teams GCP projects are primarily used for automatically generated resources (buckets and postgres).
+We're working on extending the service offering.
+However, additional access may be granted if required by the team
+
 ### How long does it take to migrate?
 A minimal application without any external requirements only have to change a single configuration parameter when deploying and have migrated their application in 5 minutes.
 See the table at the top of this page for differences between GCP and on-premises and what applies to your application
@@ -133,6 +138,7 @@ See the table at the top of this page for differences between GCP and on-premise
 ## Legal
 * Are we allowed to use GCP?
 -- DPA signed
+
 ## Laws and regulation 
 
 [GCP]: ./gcp.md
