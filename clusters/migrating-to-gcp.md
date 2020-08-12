@@ -9,7 +9,7 @@
 
 ## Prerequisites
 The team needs to update their ROS and PVK analysis to migrate to GCP.
-Refer to the ROS and PVK section under [Google Cloud Platform clusters][gcp]).
+Refer to the ROS and PVK section under [Google Cloud Platform clusters][GCP].
 
 ### Basic setup
 Follow the [getting started instructions][gettingstarted], pay close attention to the section on GCP.
@@ -22,7 +22,7 @@ spec][accesspolicy].
 
 The access policy also enables zone traversal and cross-cluster communication. This
 must be implemented in both applications, by using and accepting tokens from
-[tokendings]).
+[tokendings].
 
 {% hint style="warning" %}
 Tokendings is finding its way into production, but not yet ready for prime time.
@@ -30,10 +30,10 @@ The documentation will be updated when Tokendings is publicly available.
 {% endhint %}
 
 ### Deploy
-Same mechanism as for on-premise clusters. See [GCP clusters][gcp]).
+Same mechanism as for on-premise clusters. See [GCP clusters][GCP].
 
 ### Ingress
-See [GCP clusters][gcp]).
+See [GCP clusters][GCP].
 
 ### ROS and PVK
 The following subsystems are compliant and do not need to be analysed by teams:
@@ -113,27 +113,27 @@ See [laws and regulations](./laws-and-regulations.md) for details
 # GCP compared to on-premises
 |Feature|on-prem|gcp|Comment|
 |-------|-------|---|-------|
-|Deploy |:heavy_check_mark:      |:heavy_check_mark:  |different clustername when deploying|
-|Logging|:heavy_check_mark:      |:heavy_check_mark:  |different clustername in logs.adeo.no|
-|Metrics|:heavy_check_mark:      |:heavy_check_mark:  |same mechanism, different datasource|
-|Nais app dashboard|:heavy_check_mark:      |:heavy_check_mark:  |new and improved in GCP|
-|Alerts|:heavy_check_mark:      |:heavy_check_mark:  |identical|
-|Secure logs|:heavy_check_mark:      |:heavy_check_mark:  |different clustername in logs.adeo.no|
-|Kafka|:heavy_check_mark:      |:heavy_check_mark:  |identical|
+|Deploy |✔️      |✔️  |different clustername when deploying|
+|Logging|✔️      |✔️  |different clustername in logs.adeo.no|
+|Metrics|✔️      |✔️  |same mechanism, different datasource|
+|Nais app dashboard|✔️      |✔️  |new and improved in GCP|
+|Alerts|✔️      |✔️  |identical|
+|Secure logs|✔️      |✔️  |different clustername in logs.adeo.no|
+|Kafka|✔️      |✔️  |identical|
 |Secrets|vault      |Secret manager  ||
-|Team namespaces|:heavy_check_mark:      |:heavy_check_mark:  ||
-|Shared namespaces|:heavy_check_mark:      |:heavy_multiplication_x:  |Default namespace not available for teams in GCP|
-|Health checks|:heavy_check_mark:      |:heavy_check_mark:  |identical|
-|Ingress|:heavy_check_mark:      |:heavy_check_mark:  |see [GCP] and [on-premises] for available domains | 
+|Team namespaces|✔️      |✔️  ||
+|Shared namespaces|✔️      |✖️  |Default namespace not available for teams in GCP|
+|Health checks|✔️      |✔️  |identical|
+|Ingress|✔️      |✔️  |see [GCP] and [on-premises] for available domains | 
 |Storage|Ceph      |Buckets  || 
-|Postgres|:heavy_check_mark: (IAC)      |:heavy_check_mark: (self-service)  || 
-|Laptop access|:heavy_check_mark:       |:heavy_check_mark:   || 
-|domain: dev.nav.no|:heavy_check_mark: (IAC)       |:heavy_check_mark: (Automatic)  |Wildcard DNS points to GCP load balancer| 
-|domain: dev.adeo.no|:heavy_check_mark: (IAC)       |:heavy_check_mark: (Automatic)  |Wildcard DNS points to GCP load balancer| 
-|Access to FSS services|:heavy_check_mark:       |:heavy_check_mark:   |Identical (either API-gw or [tokendings][Tokendings]| 
-|OpenAM|:heavy_check_mark:       |:heavy_multiplication_x:   |OpenAM is EOL, use [tokendings][Tokendings]| 
-|NAV truststore|:heavy_check_mark:       |:heavy_check_mark:   || 
-|PVK required|:heavy_check_mark:       |:heavy_check_mark:   |amend to cover storage in cloud| 
+|Postgres|✔️ (IAC)      |✔️ (self-service)  || 
+|Laptop access|✔️       |✔️   || 
+|domain: dev.nav.no|✔️ (IAC)       |✔️ (Automatic)  |Wildcard DNS points to GCP load balancer| 
+|domain: dev.adeo.no|✔️ (IAC)       |✔️ (Automatic)  |Wildcard DNS points to GCP load balancer| 
+|Access to FSS services|✔️       |✔️   |Identical (either API-gw or [tokendings][Tokendings]| 
+|OpenAM|✔️       |✖️   |OpenAM is EOL, use [tokendings][Tokendings]| 
+|NAV truststore|✔️       |✔️   || 
+|PVK required|✔️       |✔️   |amend to cover storage in cloud| 
 |Security|Zone Model       |[zero-trust] || 
 
 [GCP]: ./gcp.md
