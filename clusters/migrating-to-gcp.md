@@ -1,5 +1,3 @@
-# Migrating to GCP
-
 ## Why migrate?
 * Access to self-service [buckets] and [Postgres databases][postgres]. 
 * Access to Google Cloud features.
