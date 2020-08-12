@@ -1,41 +1,15 @@
 # Migrating to GCP
 
-# GCP compared to on-premises
-|Feature|on-prem|gcp|Comment|
-|-------|-------|---|-------|
-|Deploy |:heavy_check_mark:      |:heavy_check_mark:  |different clustername when deploying|
-|Logging|:heavy_check_mark:      |:heavy_check_mark:  |different clustername in logs.adeo.no|
-|Metrics|:heavy_check_mark:      |:heavy_check_mark:  |same mechanism, different datasource|
-|Nais app dashboard|:heavy_check_mark:      |:heavy_check_mark:  |new and improved in GCP|
-|Alerts|:heavy_check_mark:      |:heavy_check_mark:  |identical|
-|Secure logs|:heavy_check_mark:      |:heavy_check_mark:  |different clustername in logs.adeo.no|
-|Kafka|:heavy_check_mark:      |:heavy_check_mark:  |identical|
-|Secrets|vault      |Secret manager  ||
-|Team namespaces|:heavy_check_mark:      |:heavy_check_mark:  ||
-|Shared namespaces|:heavy_check_mark:      |:heavy_multiplication_x:  |Default namespace not available for teams in GCP|
-|Health checks|:heavy_check_mark:      |:heavy_check_mark:  |identical|
-|Ingress|:heavy_check_mark:      |:heavy_check_mark:  |see [GCP] and [on-premises] for available domains | 
-|Storage|Ceph      |Buckets  || 
-|Postgres|:heavy_check_mark: (IAC)      |:heavy_check_mark: (self-service)  || 
-|Laptop access|:heavy_check_mark:       |:heavy_check_mark:   || 
-|domain: dev.nav.no|:heavy_check_mark: (IAC)       |:heavy_check_mark: (Automatic)  |Wildcard DNS points to GCP load balancer| 
-|domain: dev.adeo.no|:heavy_check_mark: (IAC)       |:heavy_check_mark: (Automatic)  |Wildcard DNS points to GCP load balancer| 
-|Access to FSS services|:heavy_check_mark:       |:heavy_check_mark:   |Identical (either API-gw or [tokendings][Tokendings]| 
-|OpenAM|:heavy_check_mark:       |:heavy_multiplication_x:   |OpenAM is EOL, use [tokendings][Tokendings]| 
-|NAV truststore|:heavy_check_mark:       |:heavy_check_mark:   || 
-|PVK required|:heavy_check_mark:       |:heavy_check_mark:   |amend to cover storage in cloud| 
-|Security|Zone Model       |[zero-trust][Zero-trust] || 
-
-
 ## Why migrate?
 * Access to self-service [buckets] and [Postgres databases][postgres]. 
-* Dedicated team namespace with full access, and privilege separation from the rest of NAV.
 * Access to Google Cloud features.
-* [Zero Trust security model][Zero-trust] instead of FSS/SBS zone model.
+* [Zero Trust security model][zero-trust] instead of FSS/SBS zone model.
 * [Built-in call tracing](https://istio.io/docs/tasks/observability/distributed-tracing/) similar to AppDynamics.
 * Cost efficient and future proof.
 
 ## Prerequisites
+The team needs to update their ROS and PVK analysis to migrate to GCP.
+Refer to the ROS and PVK section under [Google Cloud Platform clusters][gcp]).
 
 ### Basic setup
 Follow the [getting started instructions][gettingstarted], pay close attention to the section on GCP.
@@ -59,14 +33,10 @@ The documentation will be updated when Tokendings is publicly available.
 Same mechanism as for on-premise clusters. See [GCP clusters][gcp]).
 
 ### Ingress
-See [GCP clusters][gcp].md).
+See [GCP clusters][gcp]).
 
 ### ROS and PVK
-
-The team needs to update their ROS and PVK analysis to migrate to GCP.
-Refer to the ROS and PVK section under [Google Cloud Platform clusters][gcp]).
-
-The following subsystems are compliant and do not need to be analysed by teams, below is the ROS analysis for thoes:
+The following subsystems are compliant and do not need to be analysed by teams:
 
 * [GCP Lagring av data (Buckets og Postgres)](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=219)
 * [GCP Tilgangskontrolloppsett](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=218)
@@ -137,9 +107,34 @@ See the table at the top of this page for differences between GCP and on-premise
 
 ## Legal
 * Are we allowed to use GCP?
--- DPA signed
+yes
+See [laws and regulations](./laws-and-regulations.md) for details
 
-## Laws and regulation 
+# GCP compared to on-premises
+|Feature|on-prem|gcp|Comment|
+|-------|-------|---|-------|
+|Deploy |:heavy_check_mark:      |:heavy_check_mark:  |different clustername when deploying|
+|Logging|:heavy_check_mark:      |:heavy_check_mark:  |different clustername in logs.adeo.no|
+|Metrics|:heavy_check_mark:      |:heavy_check_mark:  |same mechanism, different datasource|
+|Nais app dashboard|:heavy_check_mark:      |:heavy_check_mark:  |new and improved in GCP|
+|Alerts|:heavy_check_mark:      |:heavy_check_mark:  |identical|
+|Secure logs|:heavy_check_mark:      |:heavy_check_mark:  |different clustername in logs.adeo.no|
+|Kafka|:heavy_check_mark:      |:heavy_check_mark:  |identical|
+|Secrets|vault      |Secret manager  ||
+|Team namespaces|:heavy_check_mark:      |:heavy_check_mark:  ||
+|Shared namespaces|:heavy_check_mark:      |:heavy_multiplication_x:  |Default namespace not available for teams in GCP|
+|Health checks|:heavy_check_mark:      |:heavy_check_mark:  |identical|
+|Ingress|:heavy_check_mark:      |:heavy_check_mark:  |see [GCP] and [on-premises] for available domains | 
+|Storage|Ceph      |Buckets  || 
+|Postgres|:heavy_check_mark: (IAC)      |:heavy_check_mark: (self-service)  || 
+|Laptop access|:heavy_check_mark:       |:heavy_check_mark:   || 
+|domain: dev.nav.no|:heavy_check_mark: (IAC)       |:heavy_check_mark: (Automatic)  |Wildcard DNS points to GCP load balancer| 
+|domain: dev.adeo.no|:heavy_check_mark: (IAC)       |:heavy_check_mark: (Automatic)  |Wildcard DNS points to GCP load balancer| 
+|Access to FSS services|:heavy_check_mark:       |:heavy_check_mark:   |Identical (either API-gw or [tokendings][Tokendings]| 
+|OpenAM|:heavy_check_mark:       |:heavy_multiplication_x:   |OpenAM is EOL, use [tokendings][Tokendings]| 
+|NAV truststore|:heavy_check_mark:       |:heavy_check_mark:   || 
+|PVK required|:heavy_check_mark:       |:heavy_check_mark:   |amend to cover storage in cloud| 
+|Security|Zone Model       |[zero-trust] || 
 
 [GCP]: ./gcp.md
 [on-premises]: ./on-premises.md
