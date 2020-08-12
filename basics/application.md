@@ -24,6 +24,6 @@ If the image is pushed to some other repository, the URL must be explicitly defi
 in GitHub's repositories, the manifest file's `spec.image` value would be
 `docker.pkg.github.com/navikt/repo/docker-image:docker-tag`, and then NAIS will fetch it from there.
 
-For more information about the `nais.yaml` specification, see [Manifest](../nais-application/manifest.md).
+For more information about the `nais.yaml` specification, see [Manifest](../nais-application/reference.md).
 
 Now that you've created your application, it's time to [deploy to Kubernetes](../deployment/README.md).

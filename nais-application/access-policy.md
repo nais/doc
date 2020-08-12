@@ -1,14 +1,11 @@
----
-description: Access policies is only enabled in our in-cloud clusters.
----
+{% hint style="info" title="feature differences" %}
+network policies and istio authorization is only applied in GCP clusters. 
+{% endhint %}
 
 # Access Policy
 
-
-If you are running your app in a cluster with access policies enabled you can define the access rules for your application.
-If you define none, the default policy will **deny all incoming and outgoing traffic** for your application.
-
-This means that you have to know what other services your app is consuming and consumed by.
+Access policies express which applications and services you are able to communicate with, both inbound and outbound. 
+The default policy is to **deny all incoming and outgoing traffic** for your application, meaning you must be conscious of which services/application you consume, and who your consumers are.
 
 ## Inbound rules
 

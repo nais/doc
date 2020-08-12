@@ -3,7 +3,7 @@ description: A complete example of all features in nais.yaml
 ---
 # Max example
 
-```
+```yaml
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
@@ -54,6 +54,10 @@ spec:
   filesFrom:
     - configmap: example_files_configmap
       mountPath: /var/run/configmaps
+    - secret: my-secret-file
+      mountPath: /var/run/secrets
+  envFrom:
+    - secret: my-secret
   env:
     - name: MY_CUSTOM_VAR
       value: some_value
@@ -67,16 +71,26 @@ spec:
   service:
     port: 80
   skipCaBundle: false
+  azure:
+    application:
+      enabled: false
+      replyUrls:
+        - "https://nais-testapp.nais.adeo.no/oauth2/callback"
+  #
+  # startup probes will be available with Kubernetes 1.17.
+  #
+  startup:
+    path: isstarted
+    port: http
+    initialDelay: 20
+    timeout: 1
+    periodSeconds: 5
+    failureThreshold: 10
 
   #
   # the following spec is only available when running in GCP.
   #
 
-  envFrom:
-    - secret: my-secret
-  filesFrom:
-    - secret: my-secret-file
-      mountPath: /var/run/secrets
   gcp:
     buckets:
       - name: my-cloud-storage-bucket

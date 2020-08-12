@@ -17,7 +17,7 @@ To access the GCP clusters, see [Access].
 ## Accessing the application
 
 Access is controlled in part by ingresses, which define where your application will be exposed as a HTTP endpoint.
-You can control where your application is reachable from by selecting the appropriate ingress domain. 
+You can control where your application is reachable from by selecting the appropriate ingress domain.
 
 {% hint style="warning" %}
 Make sure you understand where you expose your application, taking into account
@@ -25,27 +25,36 @@ the state of your application, what kind of data it exposes and how it is
 secured. If in doubt, ask in #nais or someone on the NAIS team.
 {% endhint %}
 
-You can control from where you application is reachable by selecting the appropriate ingress domain. 
+You can control from where you application is reachable by selecting the appropriate ingress domain.
+If no ingress is selected, the application will not be reachable from outside the cluster.
 
-| domain | accessibility | cluster availability | certificate | description |
-| ------ | ------------- | -------------------- | ----------- | ----------- |
-| nais.io | naisdevice, navtunnel, vdi, internal network | dev | signed by public CA. | wildcard DNS on format `*.<cluster name>.nais.io`. |
-| nav.no | internet | prod-sbs, prod-gcp | signed by public CA | manually configured, contact at #nais | 
-| adeo.no | internal network, case workers | prod-sbs, prod-gcp | signed by public CA | manually configured, contact at #nais | 
-| dev-nav.no | internal network | dev-gcp | signed by public CA | wildcard DNS on format `*.dev-nav.no` | 
-| dev-adeo.no | internal network | dev-gcp | signed by public CA | wildcard DNS on format `*.dev-adeo.no` | 
+### dev-gcp
 
-Example: If your app is named `myapp`, and you want to make it accessible for developers, then the URL for `dev-gcp` would be `https://myapp.dev-gcp.nais.io`.
+| domain | accessible from | description |
+| ------ | --------------- | ----------- |
+| dev.nav.no | [naisdevice](../device/README.md) | development ingress for nav.no applications |
+| dev.adeo.no | [naisdevice](../device/README.md) | development ingress for adeo.no applications |
+| dev-nav.no | navtunnel | [deprecated](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), replaced by dev.nav.no |
+| dev-adeo.no | navtunnel | [deprecated](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), replaced by dev.adeo.no |
+| dev-gcp.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), applications should use dev.{nav,adeo}.no |
+
+### prod-gcp
+
+| domain | accessible from | description |
+| ------ | --------------- | ----------- |
+| nav.no | internet | manually configured, contact at #tech-sikkerhet |
+| adeo.no | case workers, [naisdevice](../device/README.md) | manually configured, contact at #tech-sikkerhet |
+| prod-gcp.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), applications should use .{nav,adeo}.no |
 
 ## ROS and PVK
 
-When establishing an application on GCP, it is a great time to update its [Risikovurdering (ROS)][ROS] analysis. 
-It is required to update the application's entry in the [Behandlingsoversikt] when changing platforms. 
-If both of these words are unfamiliar to your team, it's time to sit down and take a look at both of them. 
+When establishing an application on GCP, it is a great time to update its [Risikovurdering (ROS)][ROS] analysis.
+It is required to update the application's entry in the [Behandlingsoversikt] when changing platforms.
+If both of these words are unfamiliar to your team, it's time to sit down and take a look at both of them.
 
-Every application needs to have a [ROS] analysis, and applications handling personal information needs a 
-[Personvernkonsekvens (PVK)][PVK] analysis, and furthermore an entry in the [Behandlingsoversikt]. More information 
-about [ROS], [PVK], and [Behandlingsoversikt] can be found on our intranet. Questions about ROS can be directed 
+Every application needs to have a [ROS] analysis, and applications handling personal information needs a
+[Personvernkonsekvens (PVK)][PVK] analysis, and furthermore an entry in the [Behandlingsoversikt]. More information
+about [ROS], [PVK], and [Behandlingsoversikt] can be found on our intranet. Questions about ROS can be directed
 to [Leif Tore Løvmo], while [Line Langlo Spongsveen] can answer questions about the other two.
 
 [Teams]: ../basics/teams.md
@@ -55,4 +64,3 @@ to [Leif Tore Løvmo], while [Line Langlo Spongsveen] can answer questions about
 [ROS]: https://navno.sharepoint.com/sites/intranett-it/SitePages/Risikovurderinger.aspx
 [PVK]: https://navno.sharepoint.com/sites/intranett-personvern/SitePages/PVK.aspx
 [Behandlingsoversikt]: https://navno.sharepoint.com/sites/intranett-personvern/SitePages/Behandlingsoversikt.aspx
-

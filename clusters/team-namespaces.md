@@ -15,7 +15,7 @@ Using team namespaces instead of shared namespaces has several advantages:
 
 ## On-prem migration to team namespaces
 
-Migrating an application to a team namespace is done by changing the [namespace](../nais-application/manifest.md#metadatanamespace)
+Migrating an application to a team namespace is done by changing the [namespace](../nais-application/reference.md#metadata-namespace)
 field in the naiserator yaml file and redeploying the app.
 
 For example, if you're migrating `my-app` from the `default` namespace to a namespace called `my-team`, 
@@ -49,8 +49,8 @@ kubectl delete app <app-name> -n <old-namespace>
 ```
 {% endhint %}
 
-If your application uses Vault, ensure that access to Vault secrets for the team namespace is set up.
-Refer to [Vault iac documentation](https://github.com/navikt/vault-iac/blob/master/doc/getting-started.md#a-more-advanced-example-1) for details.
+If your application uses Vault, make sure the application is registered under the correct team 
+in [Vault IAC](https://github.com/navikt/vault-iac/).
 
 There are a few more steps to consider if you are integrating with other rest- or webservices. 
 
@@ -137,7 +137,7 @@ http://<another-service>.<another-namespace>
 {% hint style="info" %}
 **Note for on-prem**
 
-If your application has [webproxy](../nais-application/manifest.md#spec-webproxy) enabled, 
+If your application has [webproxy](../nais-application/reference.md#spec-webproxy) enabled, 
 you should use the full hostname for all service discovery calls.
 
 This is to ensure that your application does not attempt to perform these in-cluster calls through the proxy,
