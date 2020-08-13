@@ -116,12 +116,12 @@ When done, `kubectl` will update your `kubeconfig`-file with the tokens needed t
 
 ## Recommended tools
 
-[kubectx](https://github.com/ahmetb/kubectx) - Simplifies changing cluster and namespace context.
-[kubeaware](https://github.com/jhrv/kubeaware) - Visualize which cluster and namespace is currently active.
-[emacs-kubectx-mode](https://github.com/terjesannum/emacs-kubectx-mode) - Switch kubectl context and namespace in Emacs and display current setting in mode line.
+- [kubectx](https://github.com/ahmetb/kubectx) - Simplifies changing cluster and namespace context.
+- [kubeaware](https://github.com/jhrv/kubeaware) - Visualize which cluster and namespace is currently active.
+- [emacs-kubectx-mode](https://github.com/terjesannum/emacs-kubectx-mode) - Switch kubectl context and namespace in Emacs and display current setting in mode line.
 
 [kubectl]: https://kubernetes.io/docs/tasks/tools/install-kubectl
 [kubeconfig]: https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/
 [pre-made kubeconfig]: https://github.com/navikt/kubeconfigs
-[team access]: ../gcp/getting-started.md#access
+[team access]: ../basics/teams.md
 [instructions]: https://cloud.google.com/sdk/docs/#install_the_latest_cloud_tools_version_cloudsdk_current_version
