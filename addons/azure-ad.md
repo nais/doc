@@ -186,6 +186,19 @@ If you do provision Azure AD applications afterwards for any pre-authorized appl
 permissions to these, then make sure to re-deploy your application to provision the correct permissions.
 {% endhint %}
 
+### Owner Access
+
+In most cases you will not need to manually change things for your application in the Azure Portal as the Azure AD 
+application is automatically configured with sane defaults, with most other common options 
+available to be configured through [`nais.yaml`](../nais-application/reference.md#spec-azure-application). 
+
+Your [team]'s owners will automatically be given owner access to the Azure AD application for most other cases that
+are not covered. Remaining special cases such as extra permissions are handled on a case-by-case basis.
+
+If you are not registered as an owner in your team, you should either have an existing owner promote you, or request the
+existing owner(s) to do whatever you may want. Access has knowingly been limited to discourage unnecessary privileges 
+being given out to users that do not require them.
+
 ## Usage
 
 ### Azure AD for Authentication & Authorization
@@ -295,7 +308,7 @@ Example value:
 https://login.microsoftonline.com/77678b69-1daf-47b6-9072-771d270ac800/v2.0/.well-known/openid-configuration
 ```
 
-### Finding your application's Azure AD client ID
+### How to find your Client ID
 
 Your application's Azure AD client ID is available at multiple locations:
 
@@ -328,15 +341,6 @@ We may add support for using the development tenant as used in the existing IaC 
 
 Do note that the same application in different clusters will be different, unique Azure AD applications, 
 with each having their own client IDs and access policies.
-
-#### Owner Access
-
-The Azure AD application is automatically configured with sane defaults, with most other common options 
-available to be configured through [`nais.yaml`](../nais-application/reference.md#spec-azure-application). 
-
-Thus, we've opted to not grant owner access to any of the team's members.
-
-Any other use cases not covered is manually handled as of now, but this may change as needs arise.
 
 #### Pre-Authorized Applications
 
@@ -423,3 +427,4 @@ kubectl delete azureapp <name>
 [on-behalf-of]: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow
 [IaC]: https://github.com/navikt/aad-iac
 [custom resource]: https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/
+[team]: https://github.com/navikt/teams
