@@ -39,7 +39,7 @@ spec:
     - alert: Nais-testapp unavailable
       expr: 'kube_deployment_status_replicas_unavailable{deployment="nais-testapp"} > 0'
       for: 2m
-	  action: Read app logs(kubectl logs appname). Read Application events (kubectl descibe deployment appname)
+      action: Read app logs(kubectl logs appname). Read Application events (kubectl descibe deployment appname)
       description: The app might crash sometimes due to startup errors
       documentation: https://github.com/navikt/aura-doc/naisvakt/alerts.md#app_unavailable
       sla: respond within 1h, during office hours
@@ -170,7 +170,11 @@ You can read more about this over at the
 [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/#templating) and at
 the [Kubernetes documentation of exposed metrics](https://github.com/kubernetes/kube-state-metrics/tree/master/docs).
 
-#### Target several apps or namespaces in a query
+#### Labels and nais/deploy
+
+If you are using labels and variables with nais/deploy, you need to remember to escape the labels used for the alerts. See [deployment#escaping-and-raw-resources](https://doc.nais.io/deployment#escaping-and-raw-resources) for how.
+
+### Target several apps or namespaces in a query
 
 Using regular expression, you can target multiple apps or namespaces with one query. This saves on repeating the same
 alert for each your apps.
