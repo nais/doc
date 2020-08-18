@@ -142,5 +142,5 @@ See [laws and regulations](./laws-and-regulations.md) for details
 [postgres]: ../persistence/postgres.md
 [gettingstarted]: ../basics/access.md
 [accesspolicy]: ../nais-application/access-policy.md
-[manifest]: ../nais-application/max-example.md
+[manifest]: ../nais-application/full-example.md
 [secrets]: ../addons/secrets.md
