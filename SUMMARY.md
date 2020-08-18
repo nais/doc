@@ -40,7 +40,7 @@
   * [Leader Election](addons/leader-election.md)
   * [NAISjobs](addons/naisjobs.md)
   * [OAuth 2.0 / OpenID Connect](addons/oauth2-openidconnect.md)
-  * [TokenDings](addons/tokendings.md)
+  * [TokenX](addons/tokenx.md)
   * [Secrets](addons/secrets.md)
   * [Velero backup and restore](addons/velero-backup-and-restore.md)
 * [Legacy](legacy/README.md)
