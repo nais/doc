@@ -322,9 +322,9 @@ https://login.microsoftonline.com/77678b69-1daf-47b6-9072-771d270ac800/v2.0/.wel
 
 Your application's Azure AD client ID is available at multiple locations:
 
-1. The environment variable `AZURE_APP_CLIENT_ID`, available inside your application at runtime.
-2. The [Azure Portal].
-3. In the Kubernetes resource - `kubectl get azureapp <app-name> -o json | jq '.status.clientId'`
+1. The environment variable `AZURE_APP_CLIENT_ID`, available inside your application at runtime
+2. In the Kubernetes resource - `kubectl get azureapp <app-name>`
+3. The [Azure Portal].
 
 ## Migrating from existing infrastructure-as-code ([IaC]) solution
 
