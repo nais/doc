@@ -26,9 +26,28 @@ with zero downtime.
 
 See the [NAIS manifest](../nais-application/reference.md#spec-azure-application).
 
-## Getting Started
+## Usage
 
-### Minimal Example
+### Azure AD for Authentication & Authorization
+
+Generally, the Azure AD application allows your application to leverage Azure AD for authentication and authorization.
+
+The most common cases include:
+
+- User (employees only) sign-in with SSO, using [OpenID Connect]
+- Request chains involving an end-user whose identity and permissions should be propagated through each service/web API, 
+using the [OAuth 2.0 On-Behalf-Of flow]
+- Daemon / server-side applications for server-to-server interactions without a user, 
+using the [OAuth 2.0 client credentials flow]
+
+See the [NAV Security Guide] for NAV-specific usage.
+
+Otherwise, depending on your application and its intended usage, 
+see the [Microsoft identity platform documentation].
+
+### Getting Started
+
+#### Minimal Example
 
 The very minimal example configuration required in [`nais.yaml`](../nais-application/reference.md#spec-azure-application)
 to enable auto-provisioning of an Azure AD application for your application.
@@ -67,7 +86,7 @@ dev-gcp:aura:nais-testapp
 
 You may find the application in the [Azure Portal].
 
-### Full Example
+#### Full Example
 
 ```yaml
 apiVersion: "nais.io/v1alpha1"
@@ -198,15 +217,6 @@ are not covered. Remaining special cases such as extra permissions are handled o
 If you are not registered as an owner in your team, you should either have an existing owner promote you, or request the
 existing owner(s) to do whatever you may want. Access has knowingly been limited to discourage unnecessary privileges 
 being given out to users that do not require them.
-
-## Usage
-
-### Azure AD for Authentication & Authorization
-
-See the [NAV Security Guide] for NAV-specific usage.
-
-Otherwise, depending on your application and its intended usage, 
-see the [Microsoft identity platform documentation].
 
 ### Credentials / Secrets
 
@@ -418,6 +428,9 @@ If you've provisioned the Azure AD application separately, you must manually del
 kubectl delete azureapp <name>
 ```
 
+[OpenID Connect]: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc
+[OAuth 2.0 On-Behalf-Of flow]: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow
+[OAuth 2.0 client credentials flow]: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow
 [NAV Security Guide]: https://security.labs.nais.io/
 [Microsoft identity platform documentation]: https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-protocols
 [authenticating to Azure AD with a certificate]: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow#second-case-access-token-request-with-a-certificate
