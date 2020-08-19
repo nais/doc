@@ -1,28 +1,22 @@
-# Installation
+# Installation of the naisdevice agent
 
-## Install Kolide agent
-1. Slack: `/msg @Kolide installers`
-2. Select platform and wait for Kolide to create your installer
-3. Install package (xkxp-\*-kolide-launcher.{pkg,msi,deb,rpm}). There are no success feedback from the installer. No error message means that the installation was successful.
-4. Wait a couple of minutes to let Kolide initialize device state
-5. Check your devices status: `/msg @Kolide status` on Slack and fix errors if there are any
-
-## Install naisdevice agent
-#### MacOS 
+## MacOS
 1. [if you had navtunnel]: [uninstall navtunnel](#uninstall-navtunnel)
 2. [install Kolide agent](#install-kolide-agent)
 3. `curl https://device.nais.io/install.sh | bash` (you might be prompted for password)
 4. Command+Space -> `naisdevice` -> systray icon -> connect ([allow ~20 seconds before filing issues](https://github.com/nais/device/issues/38))
+5. Remember to [update your kubeconfig](#connecting-to-nais-clusters)
 
-#### Windows
+## Windows
 1. [install Kolide agent](#install-kolide-agent)
 2. Download and install [WireGuard](https://www.wireguard.com/install/) (Note: Ignore error message regarding UI only being accessible by the Builtin Administrators group)
 3. Download `device-agent.exe` and `device-agent-helper.exe` and place these in `c:\naisdevice`. [latest naisdevice release](https://github.com/nais/device/releases/latest)
 4. Launch `cmd.exe` (as your regular user)
 5. go to `c:\naisdevice` and run `device-agent-helper.exe --config-dir "%appdata%\naisdevice" --install`
 6. run `device-agent.exe`
+7. Remember to [update your kubeconfig](#connecting-to-nais-clusters)
 
-#### Linux
+## Linux
 1. [install Kolide agent](#install-kolide-agent)
 2. Install wireguard
 	1. `sudo add-apt-repository ppa:wireguard/wireguard`
@@ -30,11 +24,19 @@
 3. Clone repo: `git clone https://github.com/nais/device`
 4. Make binaries: `cd device && make local`
 5. Run agent: `./bin/device-agent`
+6. Remember to [update your kubeconfig](#connecting-to-nais-clusters)
 
-# Connecting to NAIS clusters
+### Install Kolide agent
+1. Slack: `/msg @Kolide installers`
+2. Select platform and wait for Kolide to create your installer
+3. Install package (xkxp-\*-kolide-launcher.{pkg,msi,deb,rpm}). There are no success feedback from the installer. No error message means that the installation was successful.
+4. Wait a couple of minutes to let Kolide initialize device state
+5. Check your devices status: `/msg @Kolide status` on Slack and fix errors if there are any
+
+### Connecting to NAIS clusters
 1. in kubeconfigs repo: `git pull && git checkout naisdevice`
 
-# Uninstall navtunnel
+### Uninstall navtunnel
 1. `sudo sed -i -e '/\# NAV MANAGED/,/\# END NAV MANAGED/d' /private/etc/hosts`
 2. `sudo rm -rf "/Applications/navtunnel.app"`
 3. `networksetup -setautoproxystate "Wi-Fi" off`
