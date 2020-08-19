@@ -62,10 +62,10 @@ spec:
       rules:
         - application: app-2
         - application: app-3
-          namespace: anothernamespace
+          namespace: team-a
         - application: app-4
-          namespace: anothernamespace
-          cluster: anothercluster
+          namespace: team-b
+          cluster: prod-gcp
 ```
 
 The essence of this example is that the application receiving a request from another application, i.e. app-1, owns the access policy of which applications are allowed to request access_tokens from TokenDings. 
@@ -223,7 +223,7 @@ The following example shows the claims of a TokenDings token exchanged based on 
   "pid": "12345678910",
   "token_type": "Bearer",
   "client_id": "prod-gcp:team-a:app-a",
-  "aud": "prod-gcp:team-b:app-b",
+  "aud": "prod-fss:team-b:app-b",
   "acr": "Level4",
   "nbf": 1597783152,
   "idp": "https://oidc.difi.no/idporten-oidc-provider/",
