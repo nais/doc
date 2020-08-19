@@ -1,5 +1,13 @@
 # NAIS
 
+{% hint style="success", title="General Availability for GCP" %}
+GCP is now in General Availability, and we recommend everyone to deploy new apps there.
+
+We've also made a [migration guide](clusters/migrating-to-gcp.md), for moving old apps from SBS and FSS to GCP!
+
+Head over to the Slack channel [#nais-i-sky](https://nav-it.slack.com/archives/C0190SV7KSN) if you have any questions.
+{% endhint %}
+
 ## What is NAIS?
 
 NAIS is _NAV's Application Infrastructure Service_, an open source application
