@@ -61,7 +61,7 @@ Without a motion or expressed consent from the National Archivist the records ca
 - Be deleted
 - Be redacted or edited (if it applies to the obligatory documentation)
 
-NAV has obtained this consent, and can therefore store information abroad as long as they are also archived in Norway. See [letter of consent](./letter-of-consent-from-national-archivist.pdf).
+NAV has requested and received a clarification regarding this from the National Archival Services, which means we can store documentation abroad as long as they are archived in Norway. See [letter of clarification](./letter-of-clarification.pdf). 
 
 Documents that requires archival storage must be stored on a media and in a format that fulfills the necessary requirements for durability and accessability (§6). I.e. these documents must be stored 
 in a way that ensures authenticity, reliability, integrity and usability.
