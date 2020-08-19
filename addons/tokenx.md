@@ -116,7 +116,7 @@ Example value:
 }
 ```
 
-### Get a token from TokenDings
+### Get a token using OAuth 2.0 Token Exchange
 
 TokenDings will issue an `access_token` in *JWT* format based on the information provided in the token request. This token can be used as a *bearer token* when calling your target API. The two most common scenarios when requiring a token are:
 
