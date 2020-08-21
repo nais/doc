@@ -11,6 +11,7 @@ This document describes the different services you will get access to through na
 - [nexus/repo.adeo.no](https://repo.adeo.no)
 - [bitbucket/stash](https://stash.adeo.no)
 - [minwintid](https://minwintidmobil.adeo.no/minwintid)
+- VDI/Utviklerimage (Use horizon.nav.no as connection server)
 
 # Currently unavailable unless you have NAV managed mac/windows laptop (Intune)
 - Microsoft Teams (Use Zoom instead)
