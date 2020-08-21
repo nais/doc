@@ -92,7 +92,7 @@ metadata:
   namespace: aura
   labels:
     team: aura
-spec:
+data:
   KAFKA_BROKERS: broker1.aiven.io:12345,broker2.aiven.io:12345
   KAFKA_SCHEMA_REGISTRY: https://username:password@host1.aiven.io:32345,https://username:password@host2.aiven.io:32345
   KAFKA_CERTIFICATE_PATH: /var/run/secrets/kafka/kafka.crt
@@ -104,7 +104,7 @@ Credentials for producing to or consuming from the topic.  These will be
 automatically mounted in as both environment variables and files in your pod;
 see table above for reference.
 
-```
+```yaml
 ---
 apiVersion: v1
 kind: Secret
@@ -113,7 +113,7 @@ metadata:
   namespace: aura
   labels:
     team: aura
-spec:
+data:
   KAFKA_CERTIFICATE: |
     ------ BEGIN CERTIFICATE ------
     ...
