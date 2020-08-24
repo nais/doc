@@ -18,23 +18,14 @@ list (ACL). These credentials are made available to applications through a
 _Secret_ in the relevant team namespace. This secret is automatically mounted
 by Naiserator into application pods as environment variables.
 
-| Variable name | Description |
-|---|---|
-| `KAFKA_BROKERS` | Comma-separated list of HOST:PORT pairs to Kafka brokers |
-| `KAFKA_SCHEMA_REGISTRY` | Comma-separated list of URLs to schema registry |
-| `KAFKA_CERTIFICATE_PATH` | Client certificate for connecting to the Kafka brokers, as file |
-| `KAFKA_PRIVATE_KEY_PATH` | Client certificate key for connecting to the Kafka brokers, as file |
-| `KAFKA_CA_PATH` | Certificate authority used to validate the Kafka brokers, as file |
-| `KAFKA_CERTIFICATE` | Client certificate for connecting to the Kafka brokers, as string data |
-| `KAFKA_PRIVATE_KEY` | Client certificate key for connecting to the Kafka brokers, as string data |
-| `KAFKA_CA` | Certificate authority used to validate the Kafka brokers, as string data |
+For a list of variables, see _accessing topics from an application_ below.
 
 ## Creating topics and defining access
 
 Creating or modifying this resource will trigger topic creation and ACL
 management with Aiven (hosted Kafka provider).  The Topic resource must be
 specified alongside the Application object. To add access to this topic for
-your application, see the next section: _Accessing a topic from an
+your application, see the next section: _Accessing topics from an
 application_.
 
 ```yaml
@@ -59,10 +50,10 @@ spec:
       access: readonly
 ```
 
-## Accessing a topic from an application
+## Accessing topics from an application
 
-Adding `.kafka.pool` to your `Application` spec will add a reference to the
-Secret created by Kafkarator in all clusters.
+Adding `.kafka.pool` to your `Application` spec will generate credentials for the specified pool,
+inject them as a secret into your team namespace, and automatically mount them into your pod.
 
 ```yaml
 ---
@@ -78,7 +69,22 @@ spec:
     pool: nav-dev    # enum of nav-dev, nav-prod
 ```
 
-### Auto-generated resources resulting from changes in Application spec
+### Application config
+
+These variables are made available inside the pod.
+
+| Variable name | Description |
+|---|---|
+| `KAFKA_BROKERS` | Comma-separated list of HOST:PORT pairs to Kafka brokers |
+| `KAFKA_SCHEMA_REGISTRY` | Comma-separated list of URLs to schema registry |
+| `KAFKA_CERTIFICATE_PATH` | Client certificate for connecting to the Kafka brokers, as file |
+| `KAFKA_PRIVATE_KEY_PATH` | Client certificate key for connecting to the Kafka brokers, as file |
+| `KAFKA_CA_PATH` | Certificate authority used to validate the Kafka brokers, as file |
+| `KAFKA_CERTIFICATE` | Client certificate for connecting to the Kafka brokers, as string data |
+| `KAFKA_PRIVATE_KEY` | Client certificate key for connecting to the Kafka brokers, as string data |
+| `KAFKA_CA` | Certificate authority used to validate the Kafka brokers, as string data |
+
+### Auto-generated resources (for reference)
 
 Configuration for producing to or consuming from the topic.  These will be
 automatically mounted in as environment variables in your pod; see table above.
