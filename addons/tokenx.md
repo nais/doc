@@ -155,7 +155,7 @@ audience=prod-fss:namespace1:app1
 ##### Creating a client_assertion
 
 The `client_assertion` is a JWT signed by the application making the token request. The public key of the keypair used for signing the JWT and the `client_id` of the application must be preregistered in TokenDings. 
-* `client_id` is propagated as an env: `NAIS_CLIENT_ID` by naiserator in the form cluster:namespace:app
+* `client_id` is propagated as an env: `NAIS_CLIENT_ID` by naiserator in the naming scheme <cluster>:<namespace>:<appname>
 
 All applications in nais clusters containg an [access policy](../nais-application/access-policy.md) will be registered automatically when applying the application spec (handled by the k8s operator [Jwker](https://github.com/nais/jwker/)), and the respective key pairs will be made available as a k8s secrets. This secret must be used to sign the `client_assertion`.
 
