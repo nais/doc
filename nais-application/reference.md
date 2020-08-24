@@ -236,7 +236,7 @@ If set to true, will extend tokens time to live.
 ### `spec.vault.paths[]`
 Overriding the `paths` array is optional, and will give you fine-grained control over which Vault paths that will be
 mounted on the file system. Refer to the [Vault documentation](https://github.com/navikt/vault-iac/tree/master/doc) 
-for details. The default path specified below will always be attemped to mounted.
+for details. The default path specified below will always be attemped to be mounted.
 
 #### `spec.vault.paths[].kvPath`
 Path to Vault key/value store that should be mounted into the file system.
