@@ -30,7 +30,7 @@ application_.
 
 ```yaml
 ---
-apiVersion: kafka.nais.io/v1alpha1
+apiVersion: kafka.nais.io/v1
 kind: Topic
 metadata:
   name: mytopic
@@ -45,15 +45,30 @@ spec:
     cleanup.policy: never
   acl:
     - team: aura
+      application: ownerapp
       access: readwrite
-    - team: otherteam
-      access: readonly
+    - team: bigteam
+      application: consumerapp1
+      access: read
+    - team: bigteam
+      application: consumerapp2
+      access: read
+    - team: bigteam
+      application: producerapp1
+      access: write
+    - team: producerteam
+      application: producerapp
+      access: write
 ```
 
 ## Accessing topics from an application
 
 Adding `.kafka.pool` to your `Application` spec will generate credentials for the specified pool,
 inject them as a secret into your team namespace, and automatically mount them into your pod.
+
+The secret will be rotated on regular intervals. *If your application no longer
+has access to the topic, it needs to shut down and restart in order to mount in
+the new credentials.* See [handling Kafka errors](...).
 
 ```yaml
 ---
@@ -94,7 +109,7 @@ automatically mounted in as environment variables in your pod; see table above.
 apiVersion: v1
 kind: Secret
 metadata:
-  name: nav-dev-kafka-configuration  # procedurally generated from pool name
+  name: nav-dev-kafka-configuration-consumerapp  # procedurally generated from pool name and app name
   namespace: aura
   labels:
     team: aura
@@ -115,7 +130,7 @@ see table above for reference.
 apiVersion: v1
 kind: Secret
 metadata:
-  name: nav-dev-kafka-credentials  # procedurally generated from pool name
+  name: nav-dev-kafka-credentials-consumerapp  # procedurally generated from pool name and app name
   namespace: aura
   labels:
     team: aura
@@ -133,3 +148,7 @@ data:
     ...
     ------ END CERTIFICATE ------
 ```
+
+## Handling Kafka errors
+
+TBD
