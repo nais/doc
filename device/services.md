@@ -12,6 +12,7 @@ This document describes the different services you will get access to through na
 - [bitbucket/stash](https://stash.adeo.no)
 - [minwintid](https://minwintidmobil.adeo.no/minwintid)
 - [data.adeo.no](https://data.adeo.no)
+- [dolly](https://dolly.nais-dev-fss.adeo.no)
 - VDI/Utviklerimage (Use horizon.nav.no as connection server)
 
 # Currently unavailable unless you have NAV managed mac/windows laptop (Intune)
