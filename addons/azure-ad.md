@@ -34,7 +34,7 @@ Generally, the Azure AD application allows your application to leverage Azure AD
 
 The most common cases include:
 
-- User (employees only) sign-in with SSO, using [OpenID Connect]
+- User (employees only) sign-in with SSO, using [OpenID Connect with Authorization Code flow]
 - Request chains involving an end-user whose identity and permissions should be propagated through each service/web API, 
 using the [OAuth 2.0 On-Behalf-Of flow]
 - Daemon / server-side applications for server-to-server interactions without a user, 
@@ -457,7 +457,7 @@ If you've provisioned the Azure AD application separately, you must manually del
 kubectl delete azureapp <name>
 ```
 
-[OpenID Connect]: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc
+[OpenID Connect with Authorization Code flow]: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow
 [OAuth 2.0 On-Behalf-Of flow]: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow
 [OAuth 2.0 client credentials flow]: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow
 [NAV Security Guide]: https://security.labs.nais.io/
