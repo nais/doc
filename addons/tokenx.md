@@ -8,7 +8,7 @@ description: >
 {% hint style="danger" %}
 Status: currently in open beta.
 
-Only available in *GCP* and for *self-service/citizen facing applications* for now (however other use-cases have been identified)
+Only available in *GCP* and for *self-service/citizen facing applications* for now (however other use-cases have been identified). Token X can  be used as a trusted issuer on-prem in dev-fss and prod-fss clusters even though the token exchange functionality is only availabe in GCP.
 {% endhint %}
 
 **TokenX** is the short term for [OAuth 2.0 Token Exchange](https://www.rfc-editor.org/rfc/rfc8693.html) implemented in a **k8s** context. It consists of mainly 3 components:
@@ -83,40 +83,57 @@ The secret should be available as files at
 /var/run/secrets/nais.io/jwker
 ```
 
+and as env variables:
+
+* `TOKEN_X_WELL_KNOWN_URL`
+* `TOKEN_X_CLIENT_ID`
+* `TOKEN_X_PRIVATE_JWK`
+
 #### Contents
 
-##### `JWKS`
+#####`TOKEN_X_WELL_KNOWN_URL`
 
-Private JWKS, i.e. containing a JWK with the private RSA key for creating signed JWTs when [authenticating to TokenDings with a signed [`client_assertion`](#Creating a client_assertion) ].
+The well-known URL of the OAuth 2.0 Token Exchange authorization server, in this case TokenDings. This url contains metadata about the token issuer and can be used to configure your app with properties and urls such as:
+
+* issuer 
+* token_endpoint
+* jwks_uri
+
+See [OAuth 2.0 Authorization Server Metadata](https://www.rfc-editor.org/rfc/rfc8414.html) for more information about the contents of the response from the well-known url.
+
+##### `TOKEN_X_CLIENT_ID`
+
+Unique `client_id` which represents your application using the following naming scheme:
+
+```
+<cluster>:<metadata.namespace>:<metadata.name>
+```
+
+This value should be used in a [`client_assertion`](#Creating a client_assertion) when requesting a token using Token X
+
+##### `TOKEN_X_PRIVATE_JWK`
+
+Contains a JWK with the private RSA key for creating signed JWTs when [authenticating to TokenDings with a signed [`client_assertion`](#Creating a client_assertion) ].
 
 Example value:
 
 ```json
 {
-  "keys": [
-    {
-      "use": "sig",
-      "kty": "RSA",
-      "kid": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
-      "n": "xQ3chFsz...",
-      "e": "AQAB",
-      "d": "C0BVXQFQ...",
-      "p": "9TGEF_Vk...",
-      "q": "zb0yTkgqO...",
-      "dp": "7YcKcCtJ...",
-      "dq": "sXxLHp9A...",
-      "qi": "QCW5VQjO...",
-      "x5c": [
-        "MIID8jCC..."
-      ],
-      "x5t": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
-      "x5t#S256": "AH2gbUvjZYmSQXZ6-YIRxM2YYrLiZYW8NywowyGcxp0"
-    }
-  ]
+    "use": "sig",
+    "kty": "RSA",
+    "kid": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
+    "n": "xQ3chFsz...",
+    "e": "AQAB",
+    "d": "C0BVXQFQ...",
+    "p": "9TGEF_Vk...",
+    "q": "zb0yTkgqO...",
+    "dp": "7YcKcCtJ...",
+    "dq": "sXxLHp9A...",
+    "qi": "QCW5VQjO..."
 }
 ```
 
-### Get a token using OAuth 2.0 Token Exchange
+### Get a token using Token Exchange
 
 TokenDings will issue an `access_token` in *JWT* format based on the information provided in the token request. This token can be used as a *bearer token* when calling your target API. The two most common scenarios when requiring a token are:
 
@@ -150,12 +167,14 @@ audience=prod-fss:namespace1:app1
 | `client_assertion`      | A serialized JWT identifying the calling app             | A JWT signed by the calling client/application, identifying itself to TokenDings. |
 | `subject_token_type`    | `urn:ietf:params:oauth:token-type:jwt`                   | Identifies the type of token that will be exchanged with a new one, in this case a JWT |
 | `subject_token`         | A serialized JWT, the token that should be exchanged     | The actual token (JWT) containing the signed-in user         |
-| `audience`              | The identifier of the app you wish to use the token for  | Identifies the intended audience for the resulting token, i.e. the target app you request a token for. |
+| `audience`              | The identifier of the app you wish to use the token for  | Identifies the intended audience for the resulting token, i.e. the target app you request a token for. This should contain the `client_id` of the target app using the naming scheme `<cluster>:<namespace>:<appname>`, e.g. `prod-fss:namespace1:app1` |
+
+
 
 ##### Creating a client_assertion
 
 The `client_assertion` is a JWT signed by the application making the token request. The public key of the keypair used for signing the JWT and the `client_id` of the application must be preregistered in TokenDings. 
-* `client_id` is propagated as an env: `NAIS_CLIENT_ID` in the naming scheme: `<cluster>:<namespace>:<appname>`
+* `client_id` is available as an environment variable: `TOKEN_X_CLIENT_ID` using the naming scheme: `<cluster>:<namespace>:<appname>`
 
 All applications in nais clusters containg an [access policy](../nais-application/access-policy.md) will be registered automatically when applying the application spec (handled by the k8s operator [Jwker](https://github.com/nais/jwker/)), and the respective key pairs will be made available as a k8s secrets. This secret must be used to sign the `client_assertion`.
 
@@ -196,7 +215,7 @@ The following example shows all the required claims of a client_assertion JWT:
 
 If your app receives a token from another application, it is your responsibility to ensure this token is valid and intended for your application.
 
-Configure your app with the [OAuth 2.0 Authorization Server Metadata](https://www.rfc-editor.org/rfc/rfc8414.html) from the TokenDings *well-known* endpoint (TODO - describe configmap / env variables) in order to retrieve issuer name and `jwks_uri` for public keys retrieval.
+Configure your app with the [OAuth 2.0 Authorization Server Metadata](https://www.rfc-editor.org/rfc/rfc8414.html) from the Token X *well-known* endpoint - available as an environment variable [`TOKEN_X_WELL_KNOWN_URL`](#TOKEN_X_WELL_KNOWN_URL) -  in order to retrieve issuer name and `jwks_uri` for public keys retrieval.
 
 #### Signature verification
 
