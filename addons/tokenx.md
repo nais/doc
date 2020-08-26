@@ -32,7 +32,7 @@ If you need more detailed information about TokenDings and the relevant `OAuth 2
 
 ## Getting Started
 
-When creating your application [manifest](../basics/application.md) you must specify incoming and outgoing traffic from your application in an [access policy](../nais-application/access-policy.md), i.e. which applications should be allowed to access your application on the HTTP layer and which HTTP endpoints you need access to outside your own application.
+When creating your application [manifest](../basics/application.md) you must enable Token X and specify incoming/outgoing traffic from your application in an [access policy](../nais-application/access-policy.md), i.e. which applications should be allowed to access your application on the HTTP layer and which HTTP endpoints you need access to outside your own application.
 
 The information provided in the access policy will be used to provision TokenDings with your app as an authorized OAuth 2.0 Client through the k8s operator [Jwker](https://github.com/nais/jwker/), which in turn will generate the keys/secrets you need to communicate with TokenDings; i.e. to get a token in order to communicate with another application.
 
@@ -57,6 +57,8 @@ spec:
   ingresses:
     - "https://my.application"
     - "https://my.application.dev.nais.io"
+  tokenx:
+  	enabled: true
   accessPolicy:
     inbound:
       rules:
