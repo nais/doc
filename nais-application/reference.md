@@ -460,3 +460,10 @@ Note that `spec.azure.application.replyURLs[]` can be omitted if `spec.ingresses
 
 See [Reply URLs](../addons/azure-ad.md#reply-urls) for details.
 {% endhint %}
+
+### `spec.azure.application.tenant`
+Explicitly target a given [tenant](../addons/azure-ad.md#tenants) in Azure AD. 
+
+**Default**: `nav.no`
+
+**Allowed values**: enum of `{trygdeetaten.no, nav.no}`

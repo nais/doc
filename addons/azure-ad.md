@@ -218,56 +218,83 @@ If you are not registered as an owner in your team, you should either have an ex
 existing owner(s) to do whatever you may want. Access has knowingly been limited to discourage unnecessary privileges 
 being given out to users that do not require them.
 
-### Credentials / Secrets
+### Tenants
 
-Provisioning an Azure AD application will always produce a `Secret` resource that is automatically
+A tenant represents an organization in Azure Active Directory. 
+
+In layman's terms, each tenants will has their own set of applications, users and groups.
+In order to log in to a tenant, you must use an account specific to that tenant.
+
+The default Azure AD tenant for applications provisioned through NAIS in *all clusters* is `nav.no`. 
+
+If your use case requires you to use `trygdeetaten.no` in the `dev-*`-clusters, then you must 
+[explicitly configure this](#specifying-tenants).
+
+Do note that the same application in different clusters are unique Azure AD applications, 
+with each having their own client IDs and access policies.
+
+For instance, `app-a` in `dev-gcp` is a separate application in Azure AD from `app-a` in `prod-gcp`,
+even if they both exist in the Azure AD tenant `nav.no`.
+
+#### Specifying tenants
+
+To explicitly target a specific tenant, add a `spec.azure.application.tenant` to your `nais.yaml`:
+
+```yaml
+spec:
+  azure:
+    application:
+      enabled: true
+      tenant: trygdeetaten.no # enum of {trygdeetaten.no, nav.no}, defaults to nav.no if omitted
+```
+
+### Runtime Configuration and Credentials
+
+Provisioning an Azure AD application produces a `Secret` resource that is automatically
 mounted to the pods of your application. 
-
-#### Path
-
-The secret should be available as files at
-
-```
-/var/run/secrets/nais.io/azure
-```
-
-as well as environment variables.
 
 #### Contents
 
 The following describes the contents of the aforementioned secret.
 
-##### `AZURE_APP_CLIENT_ID`
+These are available as environment variables in your pod, as well as files at the path `/var/run/secrets/nais.io/azure`
 
-Azure AD client ID. Unique ID for the application in Azure AD.
+| Name | Description |
+|---|---|
+| `AZURE_APP_CLIENT_ID` | Azure AD client ID. Unique ID for the application in Azure AD |
+| `AZURE_APP_CLIENT_SECRET` | Azure AD client secret, i.e. password for [authenticating the application to Azure AD] |
+| `AZURE_APP_JWKS` | Private JWKS, i.e. containing a JWK with the private RSA key for creating signed JWTs when [authenticating to Azure AD with a certificate]. This will always contain a single key, i.e. the newest key registered |
+| `AZURE_APP_JWK` | Same as the above `AZURE_APP_JWKS`, just with the JWK unwrapped from the key set |
+| `AZURE_APP_PRE_AUTHORIZED_APPS` | A JSON string. List of names and client IDs for the valid (i.e. those that exist in Azure AD) applications defined in [`spec.accessPolicy.inbound.rules[]`](../nais-application/reference.md#spec-accesspolicy-gcp-only) |
+| `AZURE_APP_WELL_KNOWN_URL` | The well-known URL with the tenant for which the Azure AD application resides in |
 
-Example value:
+#### Example reference `Secret` resource
 
-```
-e89006c5-7193-4ca3-8e26-d0990d9d981f
-```
+This is automatically generated and mounted into your pod as environment variables and files. See the table above.
 
-##### `AZURE_APP_CLIENT_SECRET`
-
-Azure AD client secret, i.e. password for [authenticating the application to Azure AD].
-
-Example value:
-
-```
-b5S0Bgg1OF17Ptpy4_uvUg-m.I~KU_.5RR
-```
-
-##### `AZURE_APP_JWKS`
-
-Private JWKS, i.e. containing a JWK with the private RSA key for creating signed JWTs when [authenticating to Azure AD with a certificate].
-
-This will always contain a single key, i.e. the newest key registered.
-
-Example value:
-
-```json
-{
-  "keys": [
+```yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: <application-name>-<random-string>
+  namespace: aura
+  labels:
+    team: aura
+data:
+  AZURE_APP_CLIENT_ID: e89006c5-7193-4ca3-8e26-d0990d9d981f
+  AZURE_APP_CLIENT_SECRET: b5S0Bgg1OF17Ptpy4_uvUg-m.I~KU_.5RR
+  AZURE_APP_JWKS: |
+    {
+      "keys": [
+        {
+          "use": "sig",
+          ... 
+          # same as below
+        }
+      ]
+    }
+  AZURE_APP_JWK: |
     {
       "use": "sig",
       "kty": "RSA",
@@ -286,65 +313,18 @@ Example value:
       "x5t": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
       "x5t#S256": "AH2gbUvjZYmSQXZ6-YIRxM2YYrLiZYW8NywowyGcxp0"
     }
-  ]
-}
-```
-
-#### `AZURE_APP_JWK`
-
-Same as the above `AZURE_APP_JWKS`, just with the JWK unwrapped from the key set.
-
-Example value:
-
-```json
-{
-  "use": "sig",
-  "kty": "RSA",
-  "kid": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
-  "n": "xQ3chFsz...",
-  "e": "AQAB",
-  "d": "C0BVXQFQ...",
-  "p": "9TGEF_Vk...",
-  "q": "zb0yTkgqO...",
-  "dp": "7YcKcCtJ...",
-  "dq": "sXxLHp9A...",
-  "qi": "QCW5VQjO...",
-  "x5c": [
-    "MIID8jCC..."
-  ],
-  "x5t": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
-  "x5t#S256": "AH2gbUvjZYmSQXZ6-YIRxM2YYrLiZYW8NywowyGcxp0"
-}
-```
-
-##### `AZURE_APP_PRE_AUTHORIZED_APPS`
-
-A JSON string. List of names and client IDs for the valid (i.e. those that exist in Azure AD) applications defined in 
-[`spec.accessPolicy.inbound.rules[]`](../nais-application/reference.md#spec-accesspolicy-gcp-only).
-
-Example value:
-
-```
-[
-  {
-    "name": "dev-gcp:othernamespace:app-a",
-    "clientId": "381ce452-1d49-49df-9e7e-990ef0328d6c"
-  },
-  {
-    "name": "dev-gcp:aura:app-b",
-    "clientId": "048eb0e8-e18a-473a-a87d-dfede7c65d84"
-  }
-]
-```
-
-##### `AZURE_APP_WELL_KNOWN_URL`
-
-The well-known URL with the tenant for which the Azure AD application resides in.
-
-Example value:
-
-```
-https://login.microsoftonline.com/77678b69-1daf-47b6-9072-771d270ac800/v2.0/.well-known/openid-configuration
+  AZURE_APP_PRE_AUTHORIZED_APPS: |
+    [
+      {
+        "name": "dev-gcp:othernamespace:app-a",
+        "clientId": "381ce452-1d49-49df-9e7e-990ef0328d6c"
+      },
+      {
+        "name": "dev-gcp:aura:app-b",
+        "clientId": "048eb0e8-e18a-473a-a87d-dfede7c65d84"
+      }
+    ]
+  AZURE_APP_WELL_KNOWN_URL: https://login.microsoftonline.com/77678b69-1daf-47b6-9072-771d270ac800/v2.0/.well-known/openid-configuration
 ```
 
 ### How to find your Client ID
@@ -374,12 +354,11 @@ and should be treated as such.
 
 #### Tenants
 
-We've initially opted to use a single tenant (`nav.no`) to reduce confusion for users in terms of user accounts and logins.
-However, this is not final. 
-We may add support for using the development tenant as used in the existing IaC solution if this is a need that is desired.
+Where the IaC solution defaulted to `trygdeetaten.no` for non-production environments, we now default to `nav.no`
+for all environments and clusters.
 
-Do note that the same application in different clusters will be different, unique Azure AD applications, 
-with each having their own client IDs and access policies.
+If your use case requires you to use `trygdeetaten.no` in the `dev-*`-clusters, then you must 
+[explicitly configure this](#specifying-tenants).
 
 #### Pre-Authorized Applications
 
@@ -403,7 +382,7 @@ naming scheme as defined in [getting started](#getting-started).
 Migrating an existing stack of applications should therefore be done in the following order:
 
 1. Enable provisioning for all applications in all relevant clusters, but do not use the new credentials.
-2. [Find the relevant client IDs](#finding-your-applications-azure-ad-client-id) and prepare your applications to reference these instead of the previous ones.
+2. [Find the relevant client IDs](#how-to-find-your-client-id) and prepare your applications to reference these instead of the previous ones.
 3. Prepare your application to use the new credentials instead of the previous ones.
 4. Deploy to development; ensure that everything works as expected.
 5. Repeat step 4 for production.
@@ -412,7 +391,7 @@ Migrating an existing stack of applications should therefore be done in the foll
 
 The Azure AD integration is implemented as a [custom resource] in our Kubernetes clusters. 
 If you need an Azure AD application outside or separately from the NAIS Application abstraction, you may apply 
-the custom resource manually through `kubectl` or as part of your deploy pipeline.
+the custom resource manually through `kubectl` or as part of your [deploy pipeline](../deployment/README.md).
 
 ### Example
 
