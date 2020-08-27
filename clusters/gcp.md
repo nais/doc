@@ -63,4 +63,4 @@ to [Leif Tore Løvmo], while [Line Langlo Spongsveen] can answer questions about
 [Line Langlo Spongsveen]: https://nav-it.slack.com/messages/DNXJ7PMH7
 [ROS]: https://navno.sharepoint.com/sites/intranett-it/SitePages/Risikovurderinger.aspx
 [PVK]: https://navno.sharepoint.com/sites/intranett-personvern/SitePages/PVK.aspx
-[Behandlingsoversikt]: https://navno.sharepoint.com/sites/intranett-personvern/SitePages/Behandlingsoversikt.aspx
+[Behandlingsoversikt]: https://navno.sharepoint.com/sites/intranett-personvern/SitePages/Behandlingskatalog.aspx
