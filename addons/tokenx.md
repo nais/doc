@@ -58,7 +58,7 @@ spec:
     - "https://my.application"
     - "https://my.application.dev.nais.io"
   tokenx:
-  	enabled: true
+    enabled: true
   accessPolicy:
     inbound:
       rules:
