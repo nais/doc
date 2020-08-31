@@ -76,6 +76,8 @@ spec:
       enabled: false
       replyUrls:
         - "https://nais-testapp.nais.adeo.no/oauth2/callback"
+  tokenx:
+    enabled: false
   #
   # startup probes will be available with Kubernetes 1.17.
   #

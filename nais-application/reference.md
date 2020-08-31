@@ -467,3 +467,8 @@ Explicitly target a given [tenant](../addons/azure-ad.md#tenants) in Azure AD.
 **Default**: `nav.no`
 
 **Allowed values**: enum of `{trygdeetaten.no, nav.no}`
+
+## `spec.tokenx.enabled`
+Toggle for enabling [TokenX](../addons/tokenx.md) for your application.
+
+**Default**: `false`
