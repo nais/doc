@@ -104,15 +104,16 @@ These variables are made available inside the pod.
 
 ### Auto-generated resources (for reference)
 
-Configuration for producing to or consuming from the topic.  These will be
-automatically mounted in as environment variables in your pod; see table above.
+Configuration and credentials for producing to or consuming from the topic.
+These will be automatically mounted in as environment variables in your pod;
+see table above.
 
 ```yaml
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: nav-dev-kafka-configuration-consumerapp  # procedurally generated from pool name and app name
+  name: nav-dev-kafka-consumerapp  # procedurally generated from pool name and app name
   namespace: aura
   labels:
     team: aura
@@ -122,29 +123,13 @@ data:
   KAFKA_CERTIFICATE_PATH: /var/run/secrets/kafka/kafka.crt
   KAFKA_PRIVATE_KEY_PATH: /var/run/secrets/kafka/kafka.key
   KAFKA_CA_PATH: /var/run/secrets/kafka/ca.crt
-```
-
-Credentials for producing to or consuming from the topic.  These will be
-automatically mounted in as both environment variables and files in your pod;
-see table above for reference.
-
-```yaml
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: nav-dev-kafka-credentials-consumerapp  # procedurally generated from pool name and app name
-  namespace: aura
-  labels:
-    team: aura
-data:
   KAFKA_CERTIFICATE: |
     ------ BEGIN CERTIFICATE ------
-    ...
+    PEM certificate data here.
     ------ END CERTIFICATE ------
   KAFKA_PRIVATE_KEY: |
     ------ BEGIN PRIVATE KEY ------
-    ...
+    PEM certificate data here.
     ------ END CERTIFICATE ------
   KAFKA_CA: |
     ------ BEGIN CERTIFICATE ------
