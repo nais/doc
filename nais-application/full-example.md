@@ -58,6 +58,7 @@ spec:
       mountPath: /var/run/secrets
   envFrom:
     - secret: my-secret
+    - configmap: example_files_configmap
   env:
     - name: MY_CUSTOM_VAR
       value: some_value
