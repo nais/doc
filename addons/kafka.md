@@ -129,11 +129,11 @@ data:
     ------ END CERTIFICATE ------
   KAFKA_PRIVATE_KEY: |
     ------ BEGIN PRIVATE KEY ------
-    PEM certificate data here.
+    PEM private key data here.
     ------ END CERTIFICATE ------
   KAFKA_CA: |
     ------ BEGIN CERTIFICATE ------
-    ...
+    PEM certificate authority data here.
     ------ END CERTIFICATE ------
 ```
 
