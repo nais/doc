@@ -39,10 +39,13 @@ metadata:
     team: aura
 spec:
   pool: default
-  config:
-    retention.ms: 100000
-    kafka.partitions: 3
-    cleanup.policy: never
+  config:  # optional; all fields are optional too, defaults shown
+    cleanupPolicy: delete  # delete, compact
+    minimumInSyncReplicas: 1
+    partitions: 1
+    replication: 3
+    retentionBytes: -1
+    retentionHours: 72
   acl:
     - team: aura
       application: ownerapp
