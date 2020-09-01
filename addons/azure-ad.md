@@ -361,32 +361,36 @@ for all environments and clusters.
 If your use case requires you to use `trygdeetaten.no` in the `dev-*`-clusters, then you must 
 [explicitly configure this](#specifying-tenants).
 
-#### Pre-Authorized Applications
+### Migrating - step-by-step
 
-There are a couple of pitfalls and gotchas you ought to avoid if your existing application has defined a 
-list of [pre-authorized applications](#pre-authorized-applications):
+#### 1. Rename all your applications in the [IaC repository][IaC]
 
-{% hint style="danger" %}
-**1. Referencing Azure AD applications provisioned through [IaC] from an application provisioned through NAIS**
+In order for NAIS to pick up and update your Azure AD application, the **`name`** of the application registered in 
+the [IaC repository][IaC] should match the expected format:
 
-Azure AD applications provisioned through NAIS are **not** able to reference existing Azure AD applications
-provisioned through the existing IaC solution.
-{% endhint %}
+```
+<cluster>:<namespace>:<app-name>
+```
 
-{% hint style="warning" %}
-**2. Referencing this Azure AD application from an application provisioned through [IaC]**
+E.g.
 
-An existing application provisioned through IaC can reference this Azure AD application by using the 
-naming scheme as defined in [getting started](#getting-started).
-{% endhint %}
+```
+dev-gcp:aura:my-app
+```
 
-Migrating an existing stack of applications should therefore be done in the following order:
+The list of names in **`preauthorizedapplications`** should also be updated to match this format for all the applications
+that you're migrating.
 
-1. Enable provisioning for all applications in all relevant clusters, but do not use the new credentials.
-2. [Find the relevant client IDs](#how-to-find-your-client-id) and prepare your applications to reference these instead of the previous ones.
-3. Prepare your application to use the new credentials instead of the previous ones.
-4. Deploy to development; ensure that everything works as expected.
-5. Repeat step 4 for production.
+Make sure to be aware of the differences in [tenants](#tenants) in the [IaC repository][IaC]:
+
+- `nonprod` matches `trygdeetaten.no`
+- `prod` matches `nav.no`
+
+#### 2. Enable Azure AD provisioning for your NAIS app
+
+See [getting started](#getting-started).
+
+#### 3. Deploy your applications with Azure AD enabled
 
 ## Provisioning separately from NAIS Application
 
