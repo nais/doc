@@ -34,7 +34,9 @@
 5. Check your devices status: `/msg @Kolide status` on Slack and fix errors if there are any
 
 ### Connecting to NAIS clusters
-1. in kubeconfigs repo: `git pull && git checkout naisdevice`
+1. In a terminal/shell of your choice, navigate to [kubeconfigs repo](https://github.com/navikt/kubeconfigs)'.
+   1. If you haven't downloaded repo already: `git clone <clone URL> && cd kubeconfigs`
+2. `git pull && git checkout naisdevice` To ensure you've got latest & greatest.
 
 ### Uninstall navtunnel
 1. `sudo sed -i -e '/\# NAV MANAGED/,/\# END NAV MANAGED/d' /private/etc/hosts`
