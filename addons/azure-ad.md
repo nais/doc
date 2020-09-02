@@ -221,21 +221,16 @@ being given out to users that do not require them.
 
 ### Tenants
 
-A tenant represents an organization in Azure Active Directory. 
-
-In layman's terms, each tenants will has their own set of applications, users and groups.
-In order to log in to a tenant, you must use an account specific to that tenant.
+A tenant represents an organization in Azure Active Directory. In layman's terms, each tenants will have their own 
+set of applications, users and groups. In order to log in to a tenant, you must use an account specific to that tenant.
 
 The default Azure AD tenant for applications provisioned through NAIS in *all clusters* is `nav.no`. 
-
 If your use case requires you to use `trygdeetaten.no` in the `dev-*`-clusters, then you must 
 [explicitly configure this](#specifying-tenants).
 
 Do note that the same application in different clusters are unique Azure AD applications, 
-with each having their own client IDs and access policies.
-
-For instance, `app-a` in `dev-gcp` is a separate application in Azure AD from `app-a` in `prod-gcp`,
-even if they both exist in the Azure AD tenant `nav.no`.
+with each having their own client IDs and access policies. For instance, `app-a` in `dev-gcp` is a 
+separate application in Azure AD from `app-a` in `prod-gcp`, even if they both exist in the Azure AD tenant `nav.no`.
 
 #### Specifying tenants
 
@@ -392,54 +387,11 @@ See [getting started](#getting-started).
 
 #### 3. Deploy your applications with Azure AD enabled
 
-## Provisioning separately from NAIS Application
-
-The Azure AD integration is implemented as a [custom resource] in our Kubernetes clusters. 
-If you need an Azure AD application outside or separately from the NAIS Application abstraction, you may apply 
-the custom resource manually through `kubectl` or as part of your [deploy pipeline](../deployment/README.md).
-
-### Example
-
-```
-azure-app.yaml
-```
-
-```yaml
-apiVersion: nais.io/v1
-kind: AzureAdApplication
-metadata:
-  name: my-app
-  namespace: my-team
-spec:
-  preAuthorizedApplications:
-    - application: my-other-app
-      cluster: dev-gcp
-      namespace: my-team
-    - application: some-other-app
-      cluster: dev-gcp
-      namespace: my-team
-  logoutUrl: "https://my-app.dev.nav.no/oauth2/logout"
-  replyUrls:
-    - url: "https://my-app.dev.nav.no/oauth2/callback"
-  secretName: azuread-my-app
-```
-
-Apply the resource to the cluster:
-
-```
-kubectl apply -f azure-app.yaml
-```
-
 ## Deletion
 
 The Azure AD application is automatically deleted whenever the associated Application resource is deleted. 
-In other words, if you delete your NAIS application the Azure AD application is also deleted.
-
-If you've provisioned the Azure AD application separately, you must manually delete the `azuread` resource:
-
-```
-kubectl delete azureapp <name>
-```
+In other words, if you delete your NAIS application the Azure AD application is also deleted. This will result in
+a **_new and different_** client ID in Azure AD if you re-create the application after deletion.
 
 [OpenID Connect with Authorization Code flow]: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow
 [OAuth 2.0 On-Behalf-Of flow]: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow
