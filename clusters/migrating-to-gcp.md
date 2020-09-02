@@ -33,8 +33,24 @@ Same mechanism as for on-premise clusters. See [GCP clusters][GCP].
 ### Ingress
 See [GCP clusters][GCP].
 
-### ROS and PVK
-The following subsystems are compliant and do not need to be analysed by teams:
+### Privacy
+
+Google is cleared to be a data processor for personally identifiable information (PII) at NAV, and NAVs Privacy Declaration explicitly states that data shared with NAV may be stored in the cloud. However, before your team moves any applications or data to GCP the following steps should be taken:
+
+1. Review part 1 of the PVK document ("Grunnlegende personvernavklaringer"). If this document references our on-premises infrastructure or any usage of resources or capabilities that will change as a result of the migration, update the document accordingly.
+
+   Under "Behandlingens nødvendighet og livsløp", modify and add the following text, as appropriate: "..."
+
+2. Review part 2 of the PVK document ("Vurdering av personvernkonsekvenser") and consider adding new scenarios that needs to be considered when the application runs on a public cloud plattform. Examples might include:
+
+    - ...
+    - ...
+
+3. If the application stores any data in GCP, update [Behandlingskatalogen](https://behandlingskatalog.nais.adeo.no/) to reflect that Google is a data processor.
+
+### ROS
+
+The ROS analysis for the team's applications need to be updated to reflect any changes in platform components used. When updating the ROS, please be aware that the following components have already been assessed by the platform team, and as such your ROS can refer to these analyses directly:
 
 * [GCP Lagring av data (Buckets og Postgres)](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=219)
 * [GCP Tilgangskontrolloppsett](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=218)
@@ -42,6 +58,12 @@ The following subsystems are compliant and do not need to be analysed by teams:
 * [Google Compute Platform - GCP, og Google Kubenetes Engine - GKE](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=95)
 * [Bruk av GCP](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=222)
 
+
+### Roles and responsibilites
+
+As with applications in our on-premises clusters, the operation, security and integrity of any application is the responsibility of the team that owns that particular application. Conversely, it is the responsiblity of the nais platform team to handle the operation, security and integrity of the nais application platform and associated components. At GCP, Google is responsible for operating infrastructure underlying the nais platform, as well as any cloud services not consumed through the nais abstraction layer. Service exceptions reported by either Google or the nais team will be announced in the #nais slack channel.
+
+If your application stores personally identifiable information in any GCP data store, Google is effectively a data processor ("databehandler") for this data, and your documentation needs to reflect this fact. 
 
 ## FAQ
 ### What do we have to change?
@@ -122,17 +144,17 @@ See [laws and regulations](./laws-and-regulations.md) for details
 |Team namespaces|✔️      |✔️  ||
 |Shared namespaces|✔️      |✖️  |Default namespace not available for teams in GCP|
 |Health checks|✔️      |✔️  |identical|
-|Ingress|✔️      |✔️  |see [GCP] and [on-premises] for available domains | 
-|Storage|Ceph      |Buckets  || 
-|Postgres|✔️ (IAC)      |✔️ (self-service)  || 
-|Laptop access|✔️       |✔️   || 
-|domain: dev.nav.no|✔️ (IAC)       |✔️ (Automatic)  |Wildcard DNS points to GCP load balancer| 
-|domain: dev.adeo.no|✔️ (IAC)       |✔️ (Automatic)  |Wildcard DNS points to GCP load balancer| 
-|Access to FSS services|✔️       |✔️   |Identical (either API-gw or [tokendings][Tokendings]| 
-|OpenAM|✔️       |✖️   |OpenAM is EOL, use [tokendings][Tokendings]| 
-|NAV truststore|✔️       |✔️   || 
-|PVK required|✔️       |✔️   |amend to cover storage in cloud| 
-|Security|Zone Model       |[zero-trust] || 
+|Ingress|✔️      |✔️  |see [GCP] and [on-premises] for available domains |
+|Storage|Ceph      |Buckets  ||
+|Postgres|✔️ (IAC)      |✔️ (self-service)  ||
+|Laptop access|✔️       |✔️   ||
+|domain: dev.nav.no|✔️ (IAC)       |✔️ (Automatic)  |Wildcard DNS points to GCP load balancer|
+|domain: dev.adeo.no|✔️ (IAC)       |✔️ (Automatic)  |Wildcard DNS points to GCP load balancer|
+|Access to FSS services|✔️       |✔️   |Identical (either API-gw or [tokendings][Tokendings]|
+|OpenAM|✔️       |✖️   |OpenAM is EOL, use [tokendings][Tokendings]|
+|NAV truststore|✔️       |✔️   ||
+|PVK required|✔️       |✔️   |amend to cover storage in cloud|
+|Security|Zone Model       |[zero-trust] ||
 
 [GCP]: ./gcp.md
 [on-premises]: ./on-premises.md
