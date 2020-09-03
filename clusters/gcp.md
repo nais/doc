@@ -28,7 +28,7 @@ secured. If in doubt, ask in #nais or someone on the NAIS team.
 You can control from where you application is reachable by selecting the appropriate ingress domain.
 If no ingress is selected, the application will not be reachable from outside the cluster.
 
-### dev-gcp
+### dev-gcp ingresses
 
 | domain | accessible from | description |
 | ------ | --------------- | ----------- |
@@ -38,7 +38,7 @@ If no ingress is selected, the application will not be reachable from outside th
 | dev-adeo.no | navtunnel | [deprecated](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), replaced by dev.adeo.no |
 | dev-gcp.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), applications should use dev.{nav,adeo}.no |
 
-### prod-gcp
+### prod-gcp ingresses
 
 | domain | accessible from | description |
 | ------ | --------------- | ----------- |
