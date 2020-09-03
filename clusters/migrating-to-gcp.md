@@ -107,7 +107,7 @@ See [this table][gcp-comparison-table] for the differences between GCP and on-pr
 ## Legal
 * Are we allowed to use GCP?
 yes
-See [laws and regulations](./laws-and-regulations.md) for details
+See [laws and regulations][laws&regs] for details.
 
 # GCP compared to on-premises
 |Feature|on-prem|gcp|Comment|
@@ -139,6 +139,7 @@ See [laws and regulations](./laws-and-regulations.md) for details
 [ROS & PVK]: ./gcp.md#ros-and-pvk
 [on-premises]: ./on-premises.md
 [tokendings]: https://github.com/nais/tokendings
+[laws&regs]: ./laws-and-regulations.md
 [zero-trust]: https://github.com/navikt/pig/blob/master/kubeops/doc/zero-trust.md
 [buckets]: ../persistence/buckets.md
 [postgres]: ../persistence/postgres.md
