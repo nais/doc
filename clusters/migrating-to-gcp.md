@@ -7,10 +7,10 @@
 
 ## Prerequisites
 The team needs to update their ROS and PVK analysis to migrate to GCP.
-Refer to the ROS and PVK section under [Google Cloud Platform clusters][GCP].
+Refer to [Google Cloud Platform][GCP]'s [ROS and PVK section][ROS & PVK].
 
 ### Basic setup
-Follow the [getting started instructions][gettingstarted], pay close attention to the section on GCP.
+Follow the Getting started's [Access from laptop][gettingstarted] instructions, and make sure to pay attention to [GCP][gettingstarted-kubectl-gcp] section.
 
 ### Security
 Our GCP clusters use a zero trust security model, implying that the application
@@ -135,12 +135,14 @@ See [laws and regulations](./laws-and-regulations.md) for details
 |Security|Zone Model       |[zero-trust] || 
 
 [GCP]: ./gcp.md
+[ROS & PVK]: ./gcp.md#ros-and-pvk
 [on-premises]: ./on-premises.md
 [tokendings]: https://github.com/nais/tokendings
 [zero-trust]: https://github.com/navikt/pig/blob/master/kubeops/doc/zero-trust.md
 [buckets]: ../persistence/buckets.md
 [postgres]: ../persistence/postgres.md
 [gettingstarted]: ../basics/access.md
+[gettingstarted-kubectl-gcp]: ../basics/access.md#google-cloud-platform-gcp
 [accesspolicy]: ../nais-application/access-policy.md
 [manifest]: ../nais-application/full-example.md
 [secrets]: ../addons/secrets.md
