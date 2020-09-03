@@ -10,7 +10,7 @@ The team needs to update their ROS and PVK analysis to migrate to GCP.
 Refer to [Google Cloud Platform][GCP]'s [ROS and PVK section][ROS & PVK].
 
 ### Basic setup
-Follow the Getting started's [Access from laptop][gettingstarted] instructions, and make sure to pay attention to [GCP][gettingstarted-kubectl-gcp] section.
+Follow the Getting started's [Access from laptop][gettingstarted] instructions, and make sure to pay attention to the [GCP][gettingstarted-kubectl-gcp] section.
 
 ### Security
 Our GCP clusters use a zero trust security model, implying that the application
