@@ -21,7 +21,7 @@ through the [Getting started](basics/README.md) section!
 
 ## Why NAIS exists
 
-When you have a large development organisation, providing the developers with turnkey solutions for their most common
+When you have a large development organisation, providing the developers with turnkey solutions ([Wikipedia turnkey article], [turnkey solution explained]) for their most common
 needs can be a good investment.
 
 This includes \(but not limited to\) [logging](observability/logs/README.md), [metrics](observability/metrics.md),
@@ -42,6 +42,8 @@ Read more over at [gitops.tech](https://www.gitops.tech).
 >
 > — [Kelsey Hightower](https://twitter.com/kelseyhightower/status/953638870888849408)
 
+[wikipedia turnkey article]: https://en.wikipedia.org/wiki/Turnkey#Specific_usage
+[turnkey solution explained]: https://www.investopedia.com/terms/t/turnkey_solution.asp
 
 ## About security and privacy when using platform services
 
