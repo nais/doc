@@ -53,7 +53,7 @@ The following subsystems are compliant and do not need to be analysed by teams:
 * Postgres: A new database (and access to it) is automatically configured when expressing `sqlInstance` in your [application manifest][manifest] 
 We're currently investigating the possibility of using on-prem databases during a migration window.
 * PVK: Update your existing PVK to include cloud
-See the table at the top of this page for differences between GCP and on-premises and what applies to your application
+See [this table][gcp-comparison-table] for the differences between GCP and on-premises, and which that may apply to your application.
 
 ### What should we change?
 Use [tokendings] instead of API-GW
@@ -141,6 +141,7 @@ See [laws and regulations](./laws-and-regulations.md) for details
 [zero-trust]: https://github.com/navikt/pig/blob/master/kubeops/doc/zero-trust.md
 [buckets]: ../persistence/buckets.md
 [postgres]: ../persistence/postgres.md
+[gcp-comparison-table]: ./migrating-to-gcp.md#gcp-compared-to-on-premises
 [gettingstarted]: ../basics/access.md
 [gettingstarted-kubectl-gcp]: ../basics/access.md#google-cloud-platform-gcp
 [accesspolicy]: ../nais-application/access-policy.md
