@@ -1,4 +1,4 @@
-## Why migrate?
+## Why migrate our application(s)?
 * Access to self-service [buckets] and [Postgres databases][postgres]. 
 * Access to Google Cloud features.
 * [Zero Trust security model][zero-trust] instead of FSS/SBS zone model.
