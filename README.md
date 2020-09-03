@@ -48,7 +48,7 @@ Read more over at [gitops.tech](https://www.gitops.tech).
 For services from NAIS, a security assessment ("[ROS](https://doc.nais.io/clusters/gcp#ros-and-pvk)") has already been carried out.
 Teams who wish to use the service are responsible for assessing whether the security is sufficient for their use.
 Most safety assessments are documented in the PowerApps application TryggNok.
-Contact the NAIS team if you can´t find a relevant security assessment.
+[Contact the NAIS team](https://doc.nais.io/#contact-the-nais-team) if you can´t find a relevant security assessment.
 
 In NAV, we conduct Privacy Impact Assessments ("PVK") to document that we operate in accordance with GDPR. Each team must have a PVK for the processing of personal data that they do. When a team adopts new technology, it may trigger a change in the privacy impact. If so, the team should update the PVK. ROS will often include information security, and can provide support in the completion of the PVK.
 
