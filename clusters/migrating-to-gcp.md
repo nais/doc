@@ -27,9 +27,6 @@ Tokendings is finding its way into production, but not yet ready for prime time.
 The documentation will be updated when Tokendings is publicly available.
 {% endhint %}
 
-### Deploy
-Same mechanism as for on-premise clusters. See [GCP clusters][GCP].
-
 ### Ingress
 See [GCP clusters][GCP].
 
