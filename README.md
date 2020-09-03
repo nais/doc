@@ -45,9 +45,16 @@ Read more over at [gitops.tech](https://www.gitops.tech).
 
 ## About security and privacy when using platform services
 
-For services from NAIS, a security assessment ("ROS") has already been carried out. Teams who wish to use the service are responsible for assessing whether the security is sufficient for their use. Most safety assessments are documented in the PowerApps application TryggNok. Contact the NAIS team if you can´t find a relevant security assessment.
+For services from NAIS, a security assessment ("[ROS](https://doc.nais.io/clusters/gcp#ros-and-pvk)") has already been carried out.
+Teams who wish to use the service are responsible for assessing whether the security is sufficient for their use.
+Most safety assessments are documented in the PowerApps application TryggNok.
+[Contact the NAIS team](https://doc.nais.io/#contact-the-nais-team) if you can´t find a relevant security assessment.
 
-In NAV, we conduct Privacy Impact Assessments ("PVK") to document that we operate in accordance with GDPR. Each team must have a PVK for the processing of personal data that they do. When a team adopts new technology, it may trigger a change in the privacy impact. If so, the team should update the PVK. ROS will often include information security, and can provide support in the completion of the PVK.
+In NAV, we conduct Privacy Impact Assessments ("[PVK](https://doc.nais.io/clusters/gcp#ros-and-pvk)") to document that we operate in accordance with GDPR.
+Each team must have a PVK for the processing of personal data that they do.
+When a team adopts new technology, it may trigger a change in the privacy impact.
+If so, the team should update the PVK.
+ROS will often include information security, and can provide support in the completion of the PVK.
 
 When a team wants to process personal data in a whole new way,  the existing PVK might not cover this purpose. In this case, a new PVK is required in order to document the purpose and legal basis for the treatment. A legal coach from "juridisk seksjon" can assist with such an assessment.
 
