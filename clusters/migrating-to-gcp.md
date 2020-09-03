@@ -53,6 +53,7 @@ The following subsystems are compliant and do not need to be analysed by teams:
 * Postgres: A new database (and access to it) is automatically configured when expressing `sqlInstance` in your [application manifest][manifest] 
 We're currently investigating the possibility of using on-prem databases during a migration window.
 * PVK: Update your existing PVK to include cloud
+
 See [this table][gcp-comparison-table] for the differences between GCP and on-premises, and which that may apply to your application.
 
 ### What should we change?
