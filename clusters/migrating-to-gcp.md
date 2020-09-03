@@ -102,7 +102,7 @@ However, additional access may be granted if required by the team
 
 ### How long does it take to migrate?
 A minimal application without any external requirements only have to change a single configuration parameter when deploying and have migrated their application in 5 minutes.
-See the table at the top of this page for differences between GCP and on-premises and what applies to your application
+See [this table][gcp-comparison-table] for the differences between GCP and on-premises, and which that may apply to your application.
 
 ## Legal
 * Are we allowed to use GCP?
