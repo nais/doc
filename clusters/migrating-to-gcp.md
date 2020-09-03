@@ -27,6 +27,10 @@ Tokendings is finding its way into production, but not yet ready for prime time.
 The documentation will be updated when Tokendings is publicly available.
 {% endhint %}
 
+### Deploy
+The same deployment mechanism is leveraged for both on-premise K8s clusters and the others non-on-premise.
+See [Deployment][deployment] section of the documentation for how to leverage the _NAIS deploy tool_.
+
 ### Ingress
 See [GCP clusters][GCP].
 
@@ -134,6 +138,7 @@ See [laws and regulations](./laws-and-regulations.md) for details
 [GCP]: ./gcp.md
 [ROS & PVK]: ./gcp.md#ros-and-pvk
 [on-premises]: ./on-premises.md
+[deployment]: ../deployment/README.md
 [tokendings]: https://github.com/nais/tokendings
 [zero-trust]: https://github.com/navikt/pig/blob/master/kubeops/doc/zero-trust.md
 [buckets]: ../persistence/buckets.md
