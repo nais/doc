@@ -120,9 +120,6 @@ metadata:
 data:
   KAFKA_BROKERS: broker1.aiven.io:12345,broker2.aiven.io:12345
   KAFKA_SCHEMA_REGISTRY: https://username:password@host1.aiven.io:32345,https://username:password@host2.aiven.io:32345
-  KAFKA_CERTIFICATE_PATH: /var/run/secrets/nais.io/kafka/kafka.crt
-  KAFKA_PRIVATE_KEY_PATH: /var/run/secrets/nais.io/kafka/kafka.key
-  KAFKA_CA_PATH: /var/run/secrets/nais.io/kafka/ca.crt
   KAFKA_CERTIFICATE: |
     ------ BEGIN CERTIFICATE ------
     PEM certificate data here.
