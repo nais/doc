@@ -28,7 +28,7 @@ The documentation will be updated when Tokendings is publicly available.
 {% endhint %}
 
 ### Deploy
-The same deployment mechanism is leveraged for both on-premise K8s clusters and the others GCP.
+The same deployment mechanism is leveraged for both on-premise and GCP K8s clusters.
 See [deployment] section of the documentation for how to leverage the _NAIS deploy tool_.
 
 ### Ingress
