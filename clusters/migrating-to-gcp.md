@@ -28,7 +28,8 @@ The documentation will be updated when Tokendings is publicly available.
 {% endhint %}
 
 ### Deploy
-Same mechanism as for on-premise clusters. See [GCP clusters][GCP].
+The same deployment mechanism is leveraged for both on-premise and GCP K8s clusters.
+See [deployment] section of the documentation for how to leverage the _NAIS deploy tool_.
 
 ### Ingress
 See [GCP clusters][GCP].
@@ -138,6 +139,7 @@ See [laws and regulations][laws&regs] for details.
 [GCP]: ./gcp.md
 [ROS & PVK]: ./gcp.md#ros-and-pvk
 [on-premises]: ./on-premises.md
+[deployment]: ../deployment/README.md
 [tokendings]: https://github.com/nais/tokendings
 [laws&regs]: ./laws-and-regulations.md
 [zero-trust]: https://github.com/navikt/pig/blob/master/kubeops/doc/zero-trust.md
