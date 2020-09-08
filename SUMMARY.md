@@ -47,3 +47,5 @@
 * [naisdevice](device/README.md)
   * [Installation](device/install.md)
   * [Available services](device/services.md)
+* [Appendix](appendices/README.md)
+  * [Zero-Trust Network Architecture](appendices/zero-trust/README.md)
