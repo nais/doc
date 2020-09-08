@@ -142,7 +142,7 @@ See [laws and regulations][laws&regs] for details.
 [deployment]: ../deployment/README.md
 [tokendings]: https://github.com/nais/tokendings
 [laws&regs]: ./laws-and-regulations.md
-[zero-trust]: https://github.com/navikt/pig/blob/master/kubeops/doc/zero-trust.md
+[zero-trust]: ./appendices/zero-trust/README.md
 [buckets]: ../persistence/buckets.md
 [postgres]: ../persistence/postgres.md
 [gcp-comparison-table]: ./migrating-to-gcp.md#gcp-compared-to-on-premises

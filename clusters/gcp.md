@@ -64,4 +64,4 @@ to [Leif Tore Løvmo], while [Line Langlo Spongsveen] can answer questions about
 [ROS]: https://navno.sharepoint.com/sites/intranett-it/SitePages/Risikovurderinger.aspx
 [PVK]: https://navno.sharepoint.com/sites/intranett-personvern/SitePages/PVK.aspx
 [Behandlingsoversikt]: https://navno.sharepoint.com/sites/intranett-personvern/SitePages/Behandlingskatalog.aspx
-[zero trust]: ./zero-trust/README.md
+[zero trust]: ../appendices/zero-trust/README.md
