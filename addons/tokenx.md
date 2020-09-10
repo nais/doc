@@ -1,6 +1,6 @@
 ---
 description: >
-  Enabling zero trust on the application layer
+  Enabling [zero trust] on the application layer
 ---
 
 # TokenX (Token Exchange)
@@ -17,9 +17,10 @@ Only available in *GCP* and for *self-service/citizen facing applications* for n
 * [Jwker](https://github.com/nais/jwker/) - a k8s operator responsible for registering applications as OAuth 2.0 clients in TokenDings
 * [Naiserator](https://github.com/nais/naiserator/) -  a k8s operator that handles the lifecycle of applications on the [NAIS platform](https://nais.io/)
 
-TokenX is OAuth 2.0 compliant and can provide applications with security tokens in order to securely communicate with eachother in a **zero trust** architecture - to the extent that  traditional boundaries such as **security zones** and **security gateways** can be made obsolete. 
-
-It will ensure that the original caller/subject identity is propagated while still maintaining app to app security. TokenX is an add-on to the *zero trust networking* principles (with components such as **Istio**), focusing on the application layer, making your applications truly capable of maintaining the *zero trust* paradigm. 
+TokenX is OAuth 2.0 compliant and can provide applications with security tokens in order to securely communicate with each other in a [zero trust] **network architecture**.
+Thus, traditional boundaries such as **security zones** and **security gateways** are no longer required for applications that leverage TokenX (and thus [zero trust] network architecture) correctly.
+TokenX ensures that the original caller/subject identity is propagated while still maintaining app to app security.
+TokenX is an add-on to the [zero trust] *networking* principles (with components such as **[Istio]**), focusing on the application layer, making your applications truly capable of maintaining the [zero trust] *paradigm*.
 
 TokenDings issues tokens based on the very same information as Istio for enforcing secure app-to-app communication, while stile maintaining the identity of the original caller (in many cases the end-user). 
 
@@ -260,4 +261,5 @@ The following example shows the claims of a TokenDings token exchanged based on 
   }
 }
 ```
-
+[zero trust]: appendices/zero-trust/README.md
+[Istio]: https://istio.io/
