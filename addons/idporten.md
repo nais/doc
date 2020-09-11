@@ -261,7 +261,7 @@ Header, `kid` is keyId retrieved from **`Secrets`** -> `IDPORTEN_CLIENT_JWK`.
 }
 ```
 
-Body, `issuer` in JWT is retrieved from **`Secrets`** `IDPORTEN_CLIENT_ID` and `aud` is as described before `issuer` found in [ID-porten well-known]. 
+Body, `issuer` in JWT is retrieved from **`Secrets`** -> `IDPORTEN_CLIENT_ID` and `aud` is as described earlier the `issuer` found in [ID-porten well-known]. 
 ```json
 {
   "aud": "https://oidc-ver2.difi.no/idporten-oidc-provider/",
