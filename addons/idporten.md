@@ -123,10 +123,10 @@ spec:
 Note that `spec.idporten.redirectURI` can be omitted if `spec.ingresses` are specified.
 {% endhint %}
 
-Each ingress specified will generate a redirect URL using the formula:
+The ingress specified will generate a redirect URL using the formula:
 
 ```
-spec.ingresses[n] + "/oauth2/callback"
+spec.ingresses + "/oauth2/callback"
 ```
 
 In other words, this:
