@@ -33,7 +33,7 @@ The most common cases include:
 
 - User (citizens) sign-in with SSO, using [OpenID Connect with Authorization Code]
 - Request chains involving an end-user whose identity and permissions should be propagated through each service/web API, 
-using the [OAuth 2.0 Token Exchange] -> [TokenX Documentation] 
+using the [OAuth 2.0 Token Exchange].
 
 See the [TokenX Documentation] for NAV-specific usage.
 
