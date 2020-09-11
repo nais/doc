@@ -123,7 +123,7 @@ spec:
 Note that `spec.idporten.redirectURI` can be omitted if `spec.ingresses` are specified.
 {% endhint %}
 
-Each ingress specified will generate a reply URL using the formula:
+Each ingress specified will generate a redirect URL using the formula:
 
 ```
 spec.ingresses[n] + "/oauth2/callback"
@@ -150,7 +150,7 @@ spec:
     - "https://my.application.dev.nais.io"
 ```
 
-You may override the reply URL manually by specifying `spec.idporten.redirectURI`. 
+You may override the redirect URL manually by specifying `spec.idporten.redirectURI`. 
 
 If you for any reason have several ingresses
 ```yaml
