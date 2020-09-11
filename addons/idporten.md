@@ -33,7 +33,7 @@ The most common cases include:
 
 - User (citizens) sign-in with SSO, using [OpenID Connect with Authorization Code]
 - Request chains involving an end-user whose identity and permissions should be propagated through each service/web API, 
-using the [OAuth 2.0 Token Exchange] -> [TokenX] 
+using the [OAuth 2.0 Token Exchange] -> [TokenX Documentation] 
 
 See the [TokenX Documentation] for NAV-specific usage.
 
@@ -120,7 +120,7 @@ spec:
 ### Redirect URI
 
 {% hint style="info" %}
-Note that `spec.idporten.redirectURI` can be omitted if `spec.ingresses` are specified.
+Note that `spec.idporten.redirectURI` can be omitted **if** a single `spec.ingresses` are specified.
 {% endhint %}
 
 The ingress specified will generate a redirect URL using the formula:
@@ -145,7 +145,7 @@ is equivalent to this:
 spec:
   idporten:
     enabled: true
-    redirectURI: "https://my.application/oauth2/callback"
+    redirectURI: "https://my.application.dev.nais.io/oauth2/callback"
   ingresses:
     - "https://my.application.dev.nais.io"
 ```
@@ -162,7 +162,7 @@ spec:
     - "https://my.application/"
 ```
 
-Specifying `spec.idporten.redirectURI` is mandatory in your nais.yml
+Specifying `spec.idporten.redirectURI` is **mandatory** in your nais.yml
 
 ```yaml
 spec:
@@ -245,7 +245,7 @@ data:
 
 ## JWT as authentication method
 Provisioning of ID-porten client defaults to `private_key_jwt` as client authentication method [OpenID Connect Core 1.0, 9. Client Authentication].
-Application `grant_type` (or flows) are methods your application use in order to obtain Access Tokens from ID-porten: `grant_type` -> `urn:ietf:params:oauth:grant-type:jwt-bearer`.
+Application `grant_type` (or flows) are methods your application use in order to obtain Access Tokens from an provider: `grant_type` -> `urn:ietf:params:oauth:grant-type:jwt-bearer`.
 
 Make sure to set `aud` value explicit to `issuer` found in [ID-porten well-known]. 
 
@@ -253,23 +253,24 @@ For more details about ID-porten and JWT, see the [JWT grant documentation, same
 
 The final JWT created and send to ID-porten may look like this:
 
+Header, `kid` is keyId retrieved from *Secrets* -> `IDPORTEN_CLIENT_JWK`
 ```json
 {
   "kid": "225ed7ac-33eb-4ce3-bc86-6af40e56868f",
   "alg": "RS256"
 }
-.
+```
+
+Body, issuer is same as your `IDPORTEN_CLIENT_ID` and `aud` is as described `issuer` found in [ID-porten well-known]: 
+```json
 {
   "aud": "https://oidc-ver2.difi.no/idporten-oidc-provider/",
   "scope": "openid",
-  // your application client_id found in `Secret` resource
   "iss": "e89006c5-7193-4ca3-8e26-d0990d9d981f",
   "exp": 1520589928,
   "iat": 1520589808,
   "jti": "415ec7ac-33eb-4ce3-bc86-6ad40e29768f"
 }
-.
-<<signature-value>>
 ```
 
 ## Migrating from existing infrastructure-as-code ([IaC]) solution
@@ -312,13 +313,13 @@ Make sure that you are aware of and configure if necessary the value of `spec.id
 will be generated in this form: `https://my.application.ingress/oauth2/callback`
 
 Take also in consideration to set other values explicit in [`nais.yaml`](../nais-application/reference.md#spec-idporten) 
-as [Digdirator] overrides existing one:
-`spec.idporten.clientName`
-`spec.idporten.refreshTokenLifetime`
-`spec.idporten.clientURI`
-`spec.idporten.redirectURI`
-`spec.idporten.frontchannelLogoutURI[]`
-`spec.idporten.postLogoutRedirectURIs[]`
+as [Digdirator] overrides existing one:  
+`spec.idporten.clientName`  
+`spec.idporten.refreshTokenLifetime`  
+`spec.idporten.clientURI`  
+`spec.idporten.redirectURI`  
+`spec.idporten.frontchannelLogoutURI[]`  
+`spec.idporten.postLogoutRedirectURIs[]`  
 
 ## Deletion
 
