@@ -253,7 +253,7 @@ For more details about ID-porten and JWT, see the [JWT grant documentation, same
 
 The final JWT created and send to ID-porten may look like this:
 
-Header, `kid` is keyId retrieved from *Secrets* -> `IDPORTEN_CLIENT_JWK`
+Header, `kid` is keyId retrieved from **`Secrets`** -> `IDPORTEN_CLIENT_JWK`.
 ```json
 {
   "kid": "225ed7ac-33eb-4ce3-bc86-6af40e56868f",
@@ -261,7 +261,7 @@ Header, `kid` is keyId retrieved from *Secrets* -> `IDPORTEN_CLIENT_JWK`
 }
 ```
 
-Body, `issuer` in JWT is retrieved from `IDPORTEN_CLIENT_ID` and `aud` is as described before `issuer` found in [ID-porten well-known]: 
+Body, `issuer` in JWT is retrieved from **`Secrets`** `IDPORTEN_CLIENT_ID` and `aud` is as described before `issuer` found in [ID-porten well-known]. 
 ```json
 {
   "aud": "https://oidc-ver2.difi.no/idporten-oidc-provider/",
