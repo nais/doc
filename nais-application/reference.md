@@ -472,3 +472,49 @@ Explicitly target a given [tenant](../addons/azure-ad.md#tenants) in Azure AD.
 Toggle for enabling [TokenX](../addons/tokenx.md) for your application.
 
 **Default**: `false`
+
+##################
+## `spec.idporten`
+Configures an ID-porten client for this application. See [Idporten](../addons/idporten.md) for more details.
+
+### `spec.idporten.enabled`
+If enabled, will provision an ID-porten client for the application.
+
+**Default**: `false`
+
+### `spec.idporten.clientName`
+The name of the client registered at ID-porten, is also displayed at login for users.
+
+**Default**: `NAV`
+
+### `spec.idporten.refreshTokenLifetime`
+Is the lifetime in seconds for the issued refresh token from ID-porten
+
+**Default**: `43200`
+
+### `spec.idporten.clientURI`
+The URL of the client to be used at ID-porten when displaying a 'back' button or on errors.
+
+**Default**: `[]`
+
+### `spec.idporten.redirectURI`
+Valid url that ID-Porten can redirect back to after successful authorization 
+request, e.g. `"https://my.application.ingress/oauth2/callback"`
+
+**Default**: `https://my.application.ingress/oauth2/callback`
+
+### `spec.idporten.frontchannelLogoutURI[]`
+A URL that the provider sends a request to when logging out triggered by another client in the same session, 
+e.g. `[ "https://my.application.ingress/oauth2/logout" ]`
+
+**Default**: `[]`
+
+### `spec.idporten.postLogoutRedirectURIs[]`
+urls that the provider redirects to after logging out, 
+e.g. `[ "https://my.application.ingress/oauth2/logout" ]`
+
+**Default**: `[]`
+
+{% hint style="info" %}
+Note that `spec.idporten.redirectURI` can only be omitted if `spec.ingresses` are specified.
+{% endhint %}
