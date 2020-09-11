@@ -473,7 +473,6 @@ Toggle for enabling [TokenX](../addons/tokenx.md) for your application.
 
 **Default**: `false`
 
-##################
 ## `spec.idporten`
 Configures an ID-porten client for this application. See [Idporten](../addons/idporten.md) for more details.
 
