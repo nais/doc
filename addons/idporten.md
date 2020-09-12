@@ -244,7 +244,7 @@ Make sure to set `aud` value explicit to `issuer` found in [ID-porten well-known
 
 For more details about ID-porten and JWT, see the [JWT grant documentation, same as for Maskinporten].
 
-The final JWT created and send to ID-porten may look like this:
+The final JWT assertion created and sent to ID-porten may look like this:
 
 Header, `kid` is keyId retrieved from **`Secrets`** -> `IDPORTEN_CLIENT_JWK`.
 ```json
