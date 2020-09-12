@@ -256,7 +256,10 @@ The final JWT assertion created and sent to ID-porten may look like this:
   "alg": "RS256"
 }
 
-Body, `issuer` in JWT is retrieved from **`Secrets`** -> `IDPORTEN_CLIENT_ID` and `aud` is as described earlier the `issuer` found in [ID-porten well-known]. 
+### Body
+
+- `iss` is found in the [associated secret](#runtime-configuration-and-credentials) at `IDPORTEN_CLIENT_ID`
+- `aud` is as described earlier the `issuer` found in the [ID-porten metadata discovery document] at `IDPORTEN_WELL_KNOWN_URL`
 ```json
 {
   "aud": "https://oidc-ver2.difi.no/idporten-oidc-provider/",
