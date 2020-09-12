@@ -31,7 +31,7 @@ The ID-porten client allows your application to leverage ID-porten for authentic
 
 This is also a critical first step in request chains involving an end-user whose identity and permissions should be propagated through each service/web API when accessing services in NAV, the process of which involves using the [OAuth 2.0 Token Exchange] protocol. See the [TokenX Documentation] for details.
 
-For more information about integration with provider see [ID-porten Integration guide].
+Refer to the [ID-porten Integration guide] for further details.
 
 ### Getting Started
 
