@@ -61,16 +61,6 @@ spec:
         - host: oidc-ver2.difi.no
 ```
 
-This will register an ID-porten client using the following naming scheme: 
-```
-<cluster>:<metadata.namespace>:<metadata.name>
-```
-
-For the example above, the result would be:
-```
-dev-gcp:aura:nais-testapp
-```
-
 #### Full Example
 
 ```yaml
@@ -97,11 +87,6 @@ spec:
     - "https://my.application"
     - "https://my.application.dev.nais.io"
   accessPolicy:
-    inbound:
-      rules:
-        - application: app-a
-          namespace: othernamespace
-        - application: app-b
     # required for GCP only
     outbound:
       external:
@@ -169,10 +154,8 @@ spec:
 
 {% hint style="danger" %}
 Specifying `spec.idporten.redirectURI` will replace the auto-generated redirect URI.
+The redirectURI will be generated in this form: `https://my.application.ingress/oauth2/callback`
 {% endhint %}
-
-### Local Testing
-**TODO**
 
 ### ID-porten client configuration
 
@@ -270,20 +253,19 @@ The final JWT assertion created and sent to ID-porten may look like this:
   "jti": "415ec7ac-33eb-4ce3-bc86-6ad40e29768f"
 }
 ```
+{% hint style="info" %}
+The demo app [frontend-dings], demonstrates ID-porten login and calling an api with a properly scoped token.
+{% endhint %}
 
 ## Migrating from existing infrastructure-as-code ([IaC]) solution
 
 ### Why migrate?
-
-For the same reason as for Azure AD Application:
 
 - Declarative provisioning, straight from your application's [`nais.yaml`](../nais-application/reference.md#spec-idporten)
 - No longer dependent on manual user approvals in multiple IaC repositories
 - No longer dependent on Vault
 - Credentials are rotated on _every_ deploy, completely transparent to the application. 
 This ensures that credentials are fresh and lessens the impact in the case of exposure.
-- The exact same feature is present in the [GCP](../clusters/gcp.md) clusters, 
-which simplifies [migration](../clusters/migrating-to-gcp.md).
 
 ### Differences
 
@@ -307,10 +289,8 @@ E.g.
 dev-gcp:aura:my-app
 ```
 
-Make sure that you are aware of and configure if necessary the value of `spec.idporten.redirectURI`. As redirectURI
-will be generated in this form: `https://my.application.ingress/oauth2/callback`
-
-Make sure to explicitly configure any values in [`nais.yaml`](../nais-application/reference.md#spec-idporten) that you wish to keep for your existing client.
+Make sure to explicitly configure any values in [`nais.yaml`](../nais-application/reference.md#spec-idporten) 
+that you wish to keep for your existing client.
 
 ## Deletion
 
@@ -328,3 +308,4 @@ a **_new and different_** client ID in ID-porten if you re-create the applicatio
 [OpenID Connect Core 1.0, 9. Client Authentication]: http://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication
 [IaC]: https://github.com/navikt/nav-maskinporten/tree/master/clients
 [Digdirator]: https://github.com/nais/digdirator
+[frontend-dings]: https://github.com/nais/frontend-dings
