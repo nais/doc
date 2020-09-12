@@ -492,7 +492,7 @@ Is the lifetime in seconds for the issued refresh token from ID-porten
 **Default**: `43200`
 
 ### `spec.idporten.clientURI`
-The URL of the client to be used at ID-porten when displaying a 'back' button or on errors.
+The URL shown to the user at ID-porten when displaying a 'back' button or on errors.
 
 **Default**: `https://www.nav.no`
 
