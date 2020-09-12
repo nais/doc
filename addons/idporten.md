@@ -113,7 +113,7 @@ spec:
 ### Redirect URI
 
 {% hint style="info" %}
-Note that `spec.idporten.redirectURI` can be omitted **if** a single `spec.ingresses` are specified.
+Note that `spec.idporten.redirectURI` can be omitted if `spec.ingresses` contains only _one_ ingress.
 {% endhint %}
 
 The ingress specified will generate a redirect URL using the formula:
