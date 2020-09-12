@@ -246,13 +246,15 @@ For more details about ID-porten and JWT, see the [JWT grant documentation, same
 
 The final JWT assertion created and sent to ID-porten may look like this:
 
-Header, `kid` is keyId retrieved from **`Secrets`** -> `IDPORTEN_CLIENT_JWK`.
+### Header
+
+- `kid` is the key ID retrieved from the your client's JWK, found in the [associated secret](#runtime-configuration-and-credentials) at `IDPORTEN_CLIENT_JWK`.
+
 ```json
 {
   "kid": "225ed7ac-33eb-4ce3-bc86-6af40e56868f",
   "alg": "RS256"
 }
-```
 
 Body, `issuer` in JWT is retrieved from **`Secrets`** -> `IDPORTEN_CLIENT_ID` and `aud` is as described earlier the `issuer` found in [ID-porten well-known]. 
 ```json
