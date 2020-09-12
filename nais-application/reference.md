@@ -502,11 +502,12 @@ request, e.g. `"https://my.application.ingress/oauth2/callback"`
 
 **Default**: `https://my.application.ingress/oauth2/callback`
 
-### `spec.idporten.frontchannelLogoutURI[]`
-A URL that the provider sends a request to when logging out triggered by another client in the same session, 
-e.g. `[ "https://my.application.ingress/oauth2/logout" ]`
+### `spec.idporten.frontchannelLogoutURI`
+Where ID-porten sends a request to whenever the user has initiated a logout elsewhere as part of a [single logout (front channel logout)](https://difi.github.io/felleslosninger/oidc_func_sso.html#motta-informasjon-om-slo-front-channel-logout) process, e.g. `"https://my.application.ingress/oauth2/logout"`
 
-**Default**: `[]`
+**Default**: `(no value)`
+
+**Required**: `false`
 
 ### `spec.idporten.postLogoutRedirectURIs[]`
 urls that the provider redirects to after logging out, 
