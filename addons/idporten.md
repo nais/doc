@@ -6,7 +6,7 @@ description: >
 
 # ID-porten Clients
 
-An accompanying ID-porten Client can be automatically provisioned to your NAIS application. 
+ID-porten is a common log-in system used for logging into Norwegian public e-services for citizens. The NAIS platform offers a simple way of provisioning and configuring an accompanying [ID-porten client](https://difi.github.io/felleslosninger/oidc_index.html) that your application may use to integrate with ID-porten.
 
 The ID-porten Client will be configured with sane defaults to enable usage in both authentication and/or authorization 
 for public-facing web applications.
