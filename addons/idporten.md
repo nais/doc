@@ -88,8 +88,7 @@ spec:
     clientName: NAV - DEV
     clientURI: "https://nav.no"
     redirectURI: "https://my.application.dev.nais.io/callback"
-    frontchannelLogoutURI:
-      - "https://my.application.dev.nais.io/logout"
+    frontchannelLogoutURI: "https://my.application.dev.nais.io/logout"
     postLogoutRedirectURIs:
       - "https://nav.no"
     # refresh token last for 6 hours
