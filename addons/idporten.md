@@ -14,7 +14,7 @@ for public facing web applications.
 [Digdirator] generates a Kubernetes Secret containing the values needed for your application to integrate ID-porten, 
 e.g. credentials and URLs. The secret will automatically be mounted to the pods of your application during deploy.
 
-Every deploy will trigger rotation of credentials, invalidating any jwk´s that are not in use. 
+Every deploy will trigger rotation of credentials, invalidating any JWKs that are not in use. 
 _In use_ in this context refers to all jwk´s that are currently mounted to an existing pod - 
 regardless of their status (Running, CrashLoopBackOff, etc.). In other words, jwk rotation should happen
 with zero downtime.
