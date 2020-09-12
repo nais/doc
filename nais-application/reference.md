@@ -510,10 +510,11 @@ Where ID-porten sends a request to whenever the user has initiated a logout else
 **Required**: `false`
 
 ### `spec.idporten.postLogoutRedirectURIs[]`
-urls that the provider redirects to after logging out, 
-e.g. `[ "https://my.application.ingress/oauth2/logout" ]`
+Valid URIs that ID-porten will redirect the end-user to after a [single logout](https://difi.github.io/felleslosninger/oidc_func_sso.html#initiering-av-slo-session-management) has been initiated and performed by the application.
 
-**Default**: `[]`
+Example: `[ "https://my.application.ingress/" ]`
+
+**Default**: `[ "https://www.nav.no" ]`
 
 {% hint style="info" %}
 Note that `spec.idporten.redirectURI` can only be omitted if `spec.ingresses` are specified.
