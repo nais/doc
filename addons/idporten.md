@@ -1,6 +1,6 @@
 ---
 description: >
-  Provisioning and configuration of accompanying ID-porten clients for authentication and authorization in public facing 
+  Provisioning and configuration of accompanying ID-porten clients for authentication and authorization in public-facing 
   web applications.
 ---
 
