@@ -195,8 +195,8 @@ These are available as environment variables in your pod, as well as files at th
 |---|---|
 | `IDPORTEN_CLIENT_ID` | ID-porten client ID. Unique ID for the application in ID-porten |
 | `IDPORTEN_CLIENT_JWK` | Private JWK containing the private RSA key for creating signed JWTs when [authenticating to ID-porten with a JWT grant]. |
-| `IDPORTEN_REDIRECT_URI` | Configured or generated redirect URI, witch is a valid url that the provider can redirect back to |
-| `IDPORTEN_WELL_KNOWN_URL` | The well-known URL with the environment, dev: `oidc-ver2.difi.no`, prod: `oidc.difi.no`, for which the ID-porten client resides in |
+| `IDPORTEN_REDIRECT_URI` |  The redirect URI registered for the client at ID-porten. This must a valid URI for the application where the user is redirected back to after successful authentication and authorization. |
+| `IDPORTEN_WELL_KNOWN_URL` | The well-known URL for the OIDC metadata discovery document where the client is registered. |
 
 #### Example reference `Secret` resource
 
