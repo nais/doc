@@ -482,7 +482,7 @@ If enabled, will provision an ID-porten client for the application.
 **Default**: `false`
 
 ### `spec.idporten.clientName`
-The name of the client registered at ID-porten, is also displayed at login for users.
+The name of the client registered at ID-porten. This is also used as the display name in the log-in prompt shown to end-users.
 
 **Default**: `NAV`
 
