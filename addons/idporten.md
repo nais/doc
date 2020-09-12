@@ -85,7 +85,7 @@ spec:
   image: navikt/nais-testapp:66.0.0
   idporten:
     enabled: true
-    clientName: NAV - DEV
+    clientName: NAV - DEV # This is the display name shown to the end-user during sign-ins
     clientURI: "https://nav.no"
     redirectURI: "https://my.application.dev.nais.io/callback"
     frontchannelLogoutURI: "https://my.application.dev.nais.io/logout"
