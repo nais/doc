@@ -9,7 +9,7 @@ description: >
 An accompanying ID-porten Client can be automatically provisioned to your NAIS application. 
 
 The ID-porten Client will be configured with sane defaults to enable usage in both authentication and/or authorization 
-for public facing web applications.
+for public-facing web applications.
 
 [Digdirator] generates a Kubernetes Secret containing the values needed for your application to integrate ID-porten, 
 e.g. credentials and URLs. The secret will automatically be mounted to the pods of your application during deploy.
