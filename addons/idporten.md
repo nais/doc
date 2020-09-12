@@ -27,15 +27,9 @@ See the [NAIS manifest](../nais-application/reference.md#spec-idporten).
 
 ### ID-porten Client for Authentication & Authorization
 
-Generally, the ID-porten client allows your application to leverage ID-porten for authentication and authorization.
+The ID-porten client allows your application to leverage ID-porten for authentication and authorization of citizen end-users, providing sign-in capabilities with SSO. To do this, your application must thus implement [OpenID Connect with Authorization Code].
 
-The most common cases include:
-
-- User (citizens) sign-in with SSO, using [OpenID Connect with Authorization Code]
-- Request chains involving an end-user whose identity and permissions should be propagated through each service/web API, 
-using the [OAuth 2.0 Token Exchange].
-
-See the [TokenX Documentation] for NAV-specific usage.
+This is also a critical first step in request chains involving an end-user whose identity and permissions should be propagated through each service/web API when accessing services in NAV, the process of which involves using the [OAuth 2.0 Token Exchange] protocol. See the [TokenX Documentation] for details.
 
 For more information about integration with provider see [ID-porten Integration guide].
 
