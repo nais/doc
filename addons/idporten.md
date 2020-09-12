@@ -310,14 +310,7 @@ dev-gcp:aura:my-app
 Make sure that you are aware of and configure if necessary the value of `spec.idporten.redirectURI`. As redirectURI
 will be generated in this form: `https://my.application.ingress/oauth2/callback`
 
-Take also in consideration to set other values explicit in [`nais.yaml`](../nais-application/reference.md#spec-idporten) 
-as [Digdirator] overrides existing one:  
-`spec.idporten.clientName`  
-`spec.idporten.refreshTokenLifetime`  
-`spec.idporten.clientURI`  
-`spec.idporten.redirectURI`  
-`spec.idporten.frontchannelLogoutURI[]`  
-`spec.idporten.postLogoutRedirectURIs[]`  
+Make sure to explicitly configure any values in [`nais.yaml`](../nais-application/reference.md#spec-idporten) that you wish to keep for your existing client.
 
 ## Deletion
 
