@@ -219,17 +219,17 @@ you'll have to create a client assertion.
 
 The `client_assertion` is a JWT signed by the application making the token request. 
 The public key of the keypair used for signing the JWT and the `client_id` of the application is automatically 
-registered at ID-porten when using this feature.
+registered at ID-porten by NAIS when using this feature.
 
 * `client_id` is available as an environment variable `IDPORTEN_CLIENT_ID`
 * The private part of the keypair is available as a JWK in the environment variable `IDPORTEN_CLIENT_JWK`
 
 The `client_assertion` must contain the following claims:
 
-* the claim `iss` should identify the calling client/app to ID-porten, i.e. the `client_id`
+* the `iss` claim should identify the calling client/app to ID-porten, i.e. the `client_id`
 * the `aud` claim should contain the intended "audience" for the token, i.e. for ID-porten it should be equal to the 
 issuer of the authorization server, for example: `https://oidc.difi.no/idporten-oidc-provider/`
-* a unique JWT id should be provided in the claim `jti`
+* the `jti` claim should contain a unique ID for the JWT, for example a UUID
 * expiration claims such as `iat` and `exp` must be present and the **maximum lifetime** of the token cannot be more than **120** seconds
 
 The final JWT assertion created and sent to ID-porten may look like this:
