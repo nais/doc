@@ -37,6 +37,7 @@
   * [Antivirus scanning](addons/antivirus.md)
   * [Azure AD Application](addons/azure-ad.md)
   * [ID-porten](addons/idporten.md)
+  * [Kafka](addons/kafka.md)
   * [Leader Election](addons/leader-election.md)
   * [NAISjobs (Jobs / CronJobs)](addons/naisjobs.md)
   * [OAuth 2.0 / OpenID Connect](addons/oauth2-openidconnect.md)
