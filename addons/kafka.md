@@ -1,8 +1,17 @@
 # Kafka
 
 {% hint style="warning" %}
-This feature applies only to _Aiven hosted Kafka_. On-premises Kafka is deprecated as of xx.xx.xxxx,
-see [documentation for on-premises Kafka](...)
+This feature applies only to _Aiven hosted Kafka_. On-premises Kafka will soon be deprecated.
+For on-premises Kafka, see [on-premises Kafka documentation](https://confluence.adeo.no/display/AURA/Kafka).
+{% endhint %}
+
+{% hint style="danger" %}
+Aiven hosted Kafka is currently in *CLOSED BETA*. Please contact the NAIS team
+on the [#nais Slack channel](https://nav-it.slack.com/archives/C5KUST8N6) to
+gain access to these features.
+
+Serious battle testing has yet to be performed, be warned that this feature is
+*NOT PRODUCTION READY* and should only be used for test and experimentation purposes.
 {% endhint %}
 
 ## Abstract
@@ -87,6 +96,24 @@ spec:
     pool: nav-dev    # enum of nav-dev, nav-prod
 ```
 
+## Application design constraints
+
+Kafka requires TLS client certificates for authentication. Make sure your
+Kafka and/or TLS library can do client certificate authentication.
+
+The Kafka brokers present their own CA certificate. Your TLS library MUST
+validate the Kafka brokers against this CA certificate.
+
+The NAIS platform might rotate credentials at any time. This implies that your
+application must handle errors concerning invalid credentials by either:
+
+    1. Reloading credentials from disk, then retrying the connection, and/or
+    2. terminate the application and/or report an unhealthy state.
+
+As of now, there is no data migration path available. This is on our roadmap.
+Specific details will be published after we collect enough information about
+the desired scope of this feature.
+
 ### Application config
 
 These variables are made available inside the pod.
@@ -102,11 +129,11 @@ These variables are made available inside the pod.
 | `KAFKA_PRIVATE_KEY` | Client certificate key for connecting to the Kafka brokers, as string data |
 | `KAFKA_CA` | Certificate authority used to validate the Kafka brokers, as string data |
 
-### Auto-generated resources (for reference)
+## Auto-generated resources (for reference)
 
 Configuration and credentials for producing to or consuming from the topic.
 These will be automatically mounted in as environment variables in your pod;
-see table above.
+see table above in _accessing topics from an application_.
 
 ```yaml
 ---
@@ -133,7 +160,3 @@ data:
     PEM certificate authority data here.
     ------ END CERTIFICATE ------
 ```
-
-## Handling Kafka errors
-
-TBD
