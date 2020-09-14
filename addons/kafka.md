@@ -37,6 +37,17 @@ specified alongside the Application object. To add access to this topic for
 your application, see the next section: _Accessing topics from an
 application_.
 
+Topic resources can only be specified in GCP clusters. However, applications
+might access topics from any cluster, including on-premises. For details, read
+the next section.
+
+These pools are currently available:
+
+| Pool | Topic declared in | Available from |
+|---|---|---|
+| `nav-dev` | `dev-gcp` | `dev-gcp`, `dev-fss`, `dev-sbs` |
+| `nav-prod` | `prod-gcp` | `prod-gcp`, `prod-fss`, `prod-sbs` |
+
 ```yaml
 ---
 apiVersion: kafka.nais.io/v1
@@ -47,8 +58,8 @@ metadata:
   labels:
     team: aura
 spec:
-  pool: default
-  config:  # optional; all fields are optional too, defaults shown
+  pool: nav-dev
+  config:  # optional; all fields are optional too; defaults shown
     cleanupPolicy: delete  # delete, compact
     minimumInSyncReplicas: 1
     partitions: 1
@@ -75,10 +86,9 @@ spec:
 
 ## Accessing topics from an application
 
-Adding `.kafka.pool` to your `Application` spec will generate credentials for the specified pool,
-inject them as a secret into your team namespace, and automatically mount them into your pod.
+Adding `.kafka.pool` to your `Application` spec will inject Kafka credentials into your pod.
 
-The secret may be rotated any time. Make sure to read _application design constraints_ below.
+Credentials may be rotated at any time. Make sure to read _application design constraints_ below.
 
 ```yaml
 ---
@@ -93,6 +103,21 @@ spec:
   kafka:
     pool: nav-dev    # enum of nav-dev, nav-prod
 ```
+
+### Application config
+
+These variables are made available inside the pod.
+
+| Variable name | Description |
+|---|---|
+| `KAFKA_BROKERS` | Comma-separated list of HOST:PORT pairs to Kafka brokers |
+| `KAFKA_SCHEMA_REGISTRY` | Comma-separated list of URLs to schema registry |
+| `KAFKA_CERTIFICATE_PATH` | Client certificate for connecting to the Kafka brokers, as file |
+| `KAFKA_PRIVATE_KEY_PATH` | Client certificate key for connecting to the Kafka brokers, as file |
+| `KAFKA_CA_PATH` | Certificate authority used to validate the Kafka brokers, as file |
+| `KAFKA_CERTIFICATE` | Client certificate for connecting to the Kafka brokers, as string data |
+| `KAFKA_PRIVATE_KEY` | Client certificate key for connecting to the Kafka brokers, as string data |
+| `KAFKA_CA` | Certificate authority used to validate the Kafka brokers, as string data |
 
 ## Application design constraints
 
@@ -111,21 +136,6 @@ application must handle errors concerning invalid credentials by either:
 As of now, there is no data migration path available. This is on our roadmap.
 Specific details will be published after we collect enough information about
 the desired scope of this feature.
-
-### Application config
-
-These variables are made available inside the pod.
-
-| Variable name | Description |
-|---|---|
-| `KAFKA_BROKERS` | Comma-separated list of HOST:PORT pairs to Kafka brokers |
-| `KAFKA_SCHEMA_REGISTRY` | Comma-separated list of URLs to schema registry |
-| `KAFKA_CERTIFICATE_PATH` | Client certificate for connecting to the Kafka brokers, as file |
-| `KAFKA_PRIVATE_KEY_PATH` | Client certificate key for connecting to the Kafka brokers, as file |
-| `KAFKA_CA_PATH` | Certificate authority used to validate the Kafka brokers, as file |
-| `KAFKA_CERTIFICATE` | Client certificate for connecting to the Kafka brokers, as string data |
-| `KAFKA_PRIVATE_KEY` | Client certificate key for connecting to the Kafka brokers, as string data |
-| `KAFKA_CA` | Certificate authority used to validate the Kafka brokers, as string data |
 
 ## Auto-generated resources (for reference)
 
