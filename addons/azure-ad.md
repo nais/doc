@@ -213,7 +213,7 @@ available to be configured through [`nais.yaml`](../nais-application/reference.m
 
 If your Azure AD application exists in the default (`nav.no`) tenant, your [team]'s owners will automatically be given owner access. 
 Otherwise, the application will not be assigned any owners.
-Special cases that require such as extra permissions are handled manually on a case-by-case basis.
+Special cases such as extra permissions are handled manually on a case-by-case basis.
 
 If you are not registered as an owner in your team, you should either have an existing owner promote you, or request the
 existing owner(s) to do whatever you may want. Access has knowingly been limited to discourage unnecessary privileges 
