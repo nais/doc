@@ -7,12 +7,14 @@ description: >
 # ID-porten Clients
 
 {% hint style="warning" %}
-Status: open beta
+**Status: open beta**
 
 This feature is currently only available in the [GCP](../clusters/gcp.md) clusters.
 {% endhint %}
 
-ID-porten is a common log-in system used for logging into Norwegian public e-services for citizens. The NAIS platform offers a simple way of provisioning and configuring an accompanying [ID-porten client](https://difi.github.io/felleslosninger/oidc_index.html) that your application may use to integrate with ID-porten.
+ID-porten is a common log-in system used for logging into Norwegian public e-services for citizens. 
+The NAIS platform offers a simple way of provisioning and configuring an accompanying 
+[ID-porten client](https://difi.github.io/felleslosninger/oidc_index.html) that your application may use to integrate with ID-porten.
 
 The ID-porten Client will be configured with sane defaults to enable usage in both authentication and/or authorization 
 for public-facing web applications.
@@ -22,7 +24,7 @@ e.g. credentials and URLs. The secret will automatically be mounted to the pods 
 
 Every deploy will trigger rotation of credentials, invalidating any JWKs that are not in use. 
 _In use_ in this context refers to all jwk´s that are currently mounted to an existing pod - 
-regardless of their status (Running, CrashLoopBackOff, etc.). In other words, jwk rotation should happen
+regardless of their status (Running, CrashLoopBackOff, etc.). In other words, JWK rotation should happen
 with zero downtime.
 
 ## Spec
@@ -31,11 +33,15 @@ See the [NAIS manifest](../nais-application/reference.md#spec-idporten).
 
 ## Usage
 
-### ID-porten Client for Authentication & Authorization
+### Authentication & Authorization
 
-The ID-porten client allows your application to leverage ID-porten for authentication and authorization of citizen end-users, providing sign-in capabilities with SSO. To do this, your application must thus implement [OpenID Connect with Authorization Code].
+The ID-porten client allows your application to leverage ID-porten for authentication and authorization of citizen 
+end-users, providing sign-in capabilities with SSO. To do this, your application must thus implement 
+[OpenID Connect with Authorization Code] flow.
 
-This is also a critical first step in request chains involving an end-user whose identity and permissions should be propagated through each service/web API when accessing services in NAV, the process of which involves using the [OAuth 2.0 Token Exchange] protocol. See the [TokenX Documentation] for details.
+This is also a critical first step in request chains involving an end-user whose identity and permissions should be 
+propagated through each service/web API when accessing services in NAV, the process of which involves using the 
+[OAuth 2.0 Token Exchange] protocol. See the [TokenX Documentation] for details.
 
 Refer to the [ID-porten Integration guide] for further details.
 
@@ -43,7 +49,7 @@ Refer to the [ID-porten Integration guide] for further details.
 
 #### Minimal Example
 
-The very minimal example configuration required in [`nais.yaml`](../nais-application/reference.md#spec-idporten)
+Minimal example configuration required in [`nais.yaml`](../nais-application/reference.md#spec-idporten)
 to enable auto-provisioning of an ID-porten client for your application.
 
 ```yaml
@@ -69,6 +75,8 @@ spec:
 
 #### Full Example
 
+See the [NAIS manifest](../nais-application/reference.md#spec-idporten) for details of all the fields used below.
+
 ```yaml
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
@@ -81,16 +89,13 @@ spec:
   image: navikt/nais-testapp:66.0.0
   idporten:
     enabled: true
-    clientName: NAV - DEV # This is the display name shown to the end-user during sign-ins
     clientURI: "https://nav.no"
     redirectURI: "https://my.application.dev.nais.io/callback"
-    frontchannelLogoutURI: "https://my.application.dev.nais.io/logout"
+    frontchannelLogoutURI: "https://my.application.dev.nais.io/logout" 
     postLogoutRedirectURIs:
       - "https://nav.no"
-    # refresh token last for 6 hours
-    refreshTokenLifetime: 21600
+    refreshTokenLifetime: 21600 # lifetime of refresh tokens in seconds - 6 hours
   ingresses:
-    - "https://my.application"
     - "https://my.application.dev.nais.io"
   accessPolicy:
     # required for GCP only
@@ -103,14 +108,14 @@ spec:
 
 ### Redirect URI
 
-{% hint style="info" %}
-Note that `spec.idporten.redirectURI` can be omitted if `spec.ingresses` contains only _one_ ingress.
+{% hint style="danger" %}
+For security reasons you may only specify **one** ingress when this feature is enabled.
 {% endhint %}
 
-The ingress specified will generate a redirect URL using the formula:
+The ingress specified will by default generate a redirect URL using the formula:
 
 ```
-spec.ingresses + "/oauth2/callback"
+spec.ingresses[0] + "/oauth2/callback"
 ```
 
 In other words, this:
@@ -123,7 +128,7 @@ spec:
     - "https://my.application.dev.nais.io"
 ```
 
-is equivalent to this:
+will generate a spec equivalent to this:
 
 ```yaml
 spec:
@@ -134,33 +139,11 @@ spec:
     - "https://my.application.dev.nais.io"
 ```
 
-You may override the redirect URL manually by specifying `spec.idporten.redirectURI`. 
+You may override the redirect URL manually by specifying `spec.idporten.redirectURI`, however it must be a valid subpath
+of your application's specified ingress. 
 
-If you for any reason have several ingresses
-```yaml
-spec:
-  idporten:
-    enabled: true
-  ingresses:
-    - "https://my.application.dev.nais.io"
-    - "https://my.application/"
-```
-
-Specifying `spec.idporten.redirectURI` is **mandatory** in your nais.yml
-
-```yaml
-spec:
-  idporten:
-    enabled: true
-    redirectURI: "https://my.application/oauth2/callback"
-  ingresses:
-    - "https://my.application.dev.nais.io"
-    - "https://my.application/"
-```
-
-{% hint style="danger" %}
+{% hint style="warning" %}
 Specifying `spec.idporten.redirectURI` will replace the auto-generated redirect URI.
-The redirectURI will be generated in this form: `https://my.application.ingress/oauth2/callback`
 {% endhint %}
 
 ### ID-porten client configuration
@@ -244,6 +227,7 @@ The final JWT assertion created and sent to ID-porten may look like this:
   "kid": "225ed7ac-33eb-4ce3-bc86-6af40e56868f",
   "alg": "RS256"
 }
+```
 
 ### Body
 
@@ -259,6 +243,7 @@ The final JWT assertion created and sent to ID-porten may look like this:
   "jti": "415ec7ac-33eb-4ce3-bc86-6ad40e29768f"
 }
 ```
+
 {% hint style="info" %}
 The demo app [frontend-dings], demonstrates ID-porten login and calling an api with a properly scoped token.
 {% endhint %}
