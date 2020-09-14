@@ -139,10 +139,10 @@ spec:
     - "https://my.application.dev.nais.io"
 ```
 
+{% hint style="warning" %}
 You may override the redirect URL manually by specifying `spec.idporten.redirectURI`, however it must be a valid subpath
 of your application's specified ingress. 
 
-{% hint style="warning" %}
 Specifying `spec.idporten.redirectURI` will replace the auto-generated redirect URI.
 {% endhint %}
 
