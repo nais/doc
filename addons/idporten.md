@@ -208,13 +208,29 @@ data:
   IDPORTEN_WELL_KNOWN_URL: https://oidc-ver2.difi.no/idporten-oidc-provider/.well-known/openid-configuration
 ```
 
-## JWT as authentication method
-Provisioning of ID-porten client defaults to `private_key_jwt` as client authentication method [OpenID Connect Core 1.0, 9. Client Authentication].
-Application `grant_type` (or flows) are methods your application use in order to obtain Access Tokens from an provider: `grant_type` -> `urn:ietf:params:oauth:grant-type:jwt-bearer`.
+## Client Authentication to ID-porten
 
-Make sure to set `aud` value explicit to `issuer` found in [ID-porten well-known]. 
+For security reasons, clients provisioned through NAIS may only use client assertions during client authentication to
+ID-porten. That is, `private_key_jwt` is the only accepted authentication method for the client 
+(see [OpenID Connect Core 1.0, 9. Client Authentication]). To perform this authentication,
+you'll have to create a client assertion.
 
-For more details about ID-porten and JWT, see the [JWT grant documentation, same as for Maskinporten].
+### Creating a Client Assertion
+
+The `client_assertion` is a JWT signed by the application making the token request. 
+The public key of the keypair used for signing the JWT and the `client_id` of the application is automatically 
+registered at ID-porten when using this feature.
+
+* `client_id` is available as an environment variable `IDPORTEN_CLIENT_ID`
+* The private part of the keypair is available as a JWK in the environment variable `IDPORTEN_CLIENT_JWK`
+
+The `client_assertion` must contain the following claims:
+
+* the claim `iss` should identify the calling client/app to ID-porten, i.e. the `client_id`
+* the `aud` claim should contain the intended "audience" for the token, i.e. for ID-porten it should be equal to the 
+issuer of the authorization server, for example: `https://oidc.difi.no/idporten-oidc-provider/`
+* a unique JWT id should be provided in the claim `jti`
+* expiration claims such as `iat` and `exp` must be present and the **maximum lifetime** of the token cannot be more than **120** seconds
 
 The final JWT assertion created and sent to ID-porten may look like this:
 
@@ -232,7 +248,8 @@ The final JWT assertion created and sent to ID-porten may look like this:
 ### Body
 
 - `iss` is found in the [associated secret](#runtime-configuration-and-credentials) at `IDPORTEN_CLIENT_ID`
-- `aud` is as described earlier the `issuer` found in the [ID-porten metadata discovery document] at `IDPORTEN_WELL_KNOWN_URL`
+- `aud` is as described earlier the `issuer` found in the ID-porten metadata discovery document at `IDPORTEN_WELL_KNOWN_URL`
+
 ```json
 {
   "aud": "https://oidc-ver2.difi.no/idporten-oidc-provider/",
@@ -245,7 +262,10 @@ The final JWT assertion created and sent to ID-porten may look like this:
 ```
 
 {% hint style="info" %}
-The demo app [frontend-dings], demonstrates ID-porten login and calling an api with a properly scoped token.
+**Example**
+
+The demo app [frontend-dings] demonstrates login using ID-porten and calling an API with a properly scoped token using 
+[TokenX][TokenX Documentation]
 {% endhint %}
 
 ## Migrating from existing infrastructure-as-code ([IaC]) solution
@@ -293,9 +313,6 @@ a **_new and different_** client ID in ID-porten if you re-create the applicatio
 [TokenX Documentation]: ../addons/tokenx.md
 [ID-porten Integration guide]: https://difi.github.io/felleslosninger/oidc_guide_idporten.html
 [OpenID Connect with Authorization Code]: https://difi.github.io/felleslosninger/oidc_protocol_token.html
-[authenticating to ID-porten with a JWT grant]: https://difi.github.io/felleslosninger/oidc_protocol_jwtgrant.html
-[JWT grant documentation, same as for Maskinporten]: https://difi.github.io/felleslosninger/maskinporten_protocol_jwtgrant.html
-[ID-porten well-known]: https://oidc-ver2.difi.no/idporten-oidc-provider/.well-known/openid-configuration
 [OpenID Connect Core 1.0, 9. Client Authentication]: http://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication
 [IaC]: https://github.com/navikt/nav-maskinporten/tree/master/clients
 [Digdirator]: https://github.com/nais/digdirator
