@@ -107,8 +107,8 @@ validate the Kafka brokers against this CA certificate.
 The NAIS platform might rotate credentials at any time. This implies that your
 application must handle errors concerning invalid credentials by either:
 
-    1. Reloading credentials from disk, then retrying the connection, and/or
-    2. terminate the application and/or report an unhealthy state.
+1. Reloading credentials from disk, then retrying the connection, and/or
+2. terminate the application and/or report an unhealthy state.
 
 As of now, there is no data migration path available. This is on our roadmap.
 Specific details will be published after we collect enough information about
