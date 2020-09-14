@@ -234,7 +234,7 @@ issuer of the authorization server, for example: `https://oidc.difi.no/idporten-
 
 The final JWT assertion created and sent to ID-porten may look like this:
 
-### Header
+#### Header
 
 - `kid` is the key ID retrieved from the your client's JWK, found in the [associated secret](#runtime-configuration-and-credentials) at `IDPORTEN_CLIENT_JWK`.
 
@@ -245,7 +245,7 @@ The final JWT assertion created and sent to ID-porten may look like this:
 }
 ```
 
-### Body
+#### Body
 
 - `iss` is found in the [associated secret](#runtime-configuration-and-credentials) at `IDPORTEN_CLIENT_ID`
 - `aud` is as described earlier the `issuer` found in the ID-porten metadata discovery document at `IDPORTEN_WELL_KNOWN_URL`
