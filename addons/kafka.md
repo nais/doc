@@ -78,9 +78,7 @@ spec:
 Adding `.kafka.pool` to your `Application` spec will generate credentials for the specified pool,
 inject them as a secret into your team namespace, and automatically mount them into your pod.
 
-The secret will be rotated on regular intervals. *If your application no longer
-has access to the topic, it needs to shut down and restart in order to mount in
-the new credentials.* See [handling Kafka errors](...).
+The secret may be rotated any time. Make sure to read _application design constraints_ below.
 
 ```yaml
 ---
