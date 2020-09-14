@@ -39,7 +39,15 @@
 2. `git pull && git checkout naisdevice` To ensure you've got latest & greatest.
 
 ## Uninstall navtunnel
+* Remove proxy settings from MAVEN_OPTS and Maven settings.xml
+* Remove Navtunnel settings from .ssh/config and .ssh/config.d
+
+### MacOS
 1. `sudo sed -i -e '/\# NAV MANAGED/,/\# END NAV MANAGED/d' /private/etc/hosts`
 2. `sudo rm -rf "/Applications/navtunnel.app"`
 3. `sudo rm -rf "/Applications/ScaleFT.app"`
 4. `networksetup -setautoproxystate "Wi-Fi" off`
+
+### Windows
+1. Remove Navtunnel-entries from c:\windows\system32\drivers\etc\hosts
+2. Remove proxy settings from you browser
