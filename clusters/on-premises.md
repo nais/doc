@@ -36,9 +36,9 @@ You can control from where you application is reachable by selecting the appropr
 | domain | accessible from | description |
 | ------ | --------------- | ----------- |
 | dev.nav.no | [naisdevice](../device/README.md) | development ingress for nav.no applications |
-| intern.dev.nav.no | internal network only | development ingress for adeo.no applications |
+| intern.dev.nav.no | internal network only | development ingress for nav.no applications |
 | dev-sbs.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), use {intern,}.dev.nav.no instead |
-| nais.oera-q.local | vdi | **deprecated**, use {intern,}.nav.adeo.no instead |
+| nais.oera-q.local | vdi | **deprecated**, use {intern,}.dev.nav.no instead |
 
 ### prod-fss
 

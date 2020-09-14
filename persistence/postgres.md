@@ -90,4 +90,6 @@ $ kubectl logs <pod> -c cloudsql-proxy
 
 ### Example with all configuration options
 
-See [max example](../nais-application/max-example.md).
+See [full example].
+
+[full example]: ../nais-application/full-example.md

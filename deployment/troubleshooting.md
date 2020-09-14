@@ -48,6 +48,7 @@ It looks like `https://deployment.prod-sbs.nais.io/logs?delivery_id=<UUID>&ts=<T
 | failed authentication: HMAC signature error | See above. |
 | "tobac.nais.io" denied the request: user 'system:serviceaccount:default:serviceuser-FOO' has no access to team 'BAR' | The application is already deployed, and team names differ. See [changing teams](../deployment/change-team.md). |
 | “tobac.nais.io” denied the request: team 'FOO' on existing resource does not exist | The team owning the resource may have been deleted or renamed. Ask _@nais-team_ for help. |
+| the server could not find the requested resource (total of 1 errors) | The resource is not specifying its namespace. |
 
 ## Asking on Slack
 

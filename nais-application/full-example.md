@@ -12,7 +12,7 @@ metadata:
   labels:
     team: aura
 spec:
-  image: navikt/nais-testapp:65.0.0
+  image: navikt/testapp:69.0.0
   port: 8080
   strategy:
     type: RollingUpdate
@@ -43,8 +43,7 @@ spec:
       cpu: 200m
       memory: 256Mi
   ingresses:
-    - "https://nais-testapp.nais.adeo.no/"
-    - "https://tjenester.nav.no/nais-testapp"
+    - "https://testapp.adeo.no/"
   vault:
     enabled: false
     sidecar: false
@@ -58,6 +57,7 @@ spec:
       mountPath: /var/run/secrets
   envFrom:
     - secret: my-secret
+    - configmap: example_files_configmap
   env:
     - name: MY_CUSTOM_VAR
       value: some_value
@@ -76,6 +76,8 @@ spec:
       enabled: false
       replyUrls:
         - "https://nais-testapp.nais.adeo.no/oauth2/callback"
+  tokenx:
+    enabled: false
   #
   # startup probes will be available with Kubernetes 1.17.
   #

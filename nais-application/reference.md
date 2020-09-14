@@ -234,14 +234,14 @@ If set to true, will extend tokens time to live.
 **Default**: `false`
 
 ### `spec.vault.paths[]`
-Overriding the `paths` array is optional, and will give you fine-grained control over which vault paths that will be
-mounted on the file system. Just remember that the default vaules will be overridden, and that you need to add them
-yourself if you have other secrets.
+Overriding the `paths` array is optional, and will give you fine-grained control over which Vault paths that will be
+mounted on the file system. Refer to the [Vault documentation](https://github.com/navikt/vault-iac/tree/master/doc) 
+for details. The default path specified below will always be attemped to be mounted.
 
 #### `spec.vault.paths[].kvPath`
 Path to Vault key/value store that should be mounted into the file system.
 
-**Default**: `/kv/environment/zone/application/namespace`
+**Default**: `/kv/<environment>/<zone>/<application>/<namespace>`
 
 #### `spec.vault.paths[].mountPath`
 File system path that the secrets will be mounted into.
@@ -327,7 +327,7 @@ If true, no certificate authority bundle will be injected.
 **Default**: `false`
 
 ## `spec.accessPolicy` (GCP only)
-Default will not allow any traffic to or from application. [Access policy](../gcp/access-policy.md) is currently supported in GKE clusters, only.
+Default will not allow any traffic to or from application. [Access policy](access-policy.md) is currently supported in GKE clusters, only.
 
 ### `spec.accessPolicy.inbound.rules[]`
 List of services to allow traffic from.
@@ -460,3 +460,15 @@ Note that `spec.azure.application.replyURLs[]` can be omitted if `spec.ingresses
 
 See [Reply URLs](../addons/azure-ad.md#reply-urls) for details.
 {% endhint %}
+
+### `spec.azure.application.tenant`
+Explicitly target a given [tenant](../addons/azure-ad.md#tenants) in Azure AD. 
+
+**Default**: `nav.no`
+
+**Allowed values**: enum of `{trygdeetaten.no, nav.no}`
+
+## `spec.tokenx.enabled`
+Toggle for enabling [TokenX](../addons/tokenx.md) for your application.
+
+**Default**: `false`

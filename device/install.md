@@ -26,17 +26,20 @@
 5. Run agent: `./bin/device-agent`
 6. Remember to [update your kubeconfig](#connecting-to-nais-clusters)
 
-### Install Kolide agent
+## Install Kolide agent
 1. Slack: `/msg @Kolide installers`
 2. Select platform and wait for Kolide to create your installer
 3. Install package (xkxp-\*-kolide-launcher.{pkg,msi,deb,rpm}). There are no success feedback from the installer. No error message means that the installation was successful.
 4. Wait a couple of minutes to let Kolide initialize device state
 5. Check your devices status: `/msg @Kolide status` on Slack and fix errors if there are any
 
-### Connecting to NAIS clusters
-1. in kubeconfigs repo: `git pull && git checkout naisdevice`
+## Connecting to NAIS clusters
+1. In a terminal/shell of your choice, navigate to [kubeconfigs repo](https://github.com/navikt/kubeconfigs)'.
+   1. If you haven't downloaded repo already: `git clone <clone URL> && cd kubeconfigs`
+2. `git pull && git checkout naisdevice` To ensure you've got latest & greatest.
 
-### Uninstall navtunnel
+## Uninstall navtunnel
 1. `sudo sed -i -e '/\# NAV MANAGED/,/\# END NAV MANAGED/d' /private/etc/hosts`
 2. `sudo rm -rf "/Applications/navtunnel.app"`
-3. `networksetup -setautoproxystate "Wi-Fi" off`
+3. `sudo rm -rf "/Applications/ScaleFT.app"`
+4. `networksetup -setautoproxystate "Wi-Fi" off`

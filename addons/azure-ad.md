@@ -34,7 +34,7 @@ Generally, the Azure AD application allows your application to leverage Azure AD
 
 The most common cases include:
 
-- User (employees only) sign-in with SSO, using [OpenID Connect]
+- User (employees only) sign-in with SSO, using [OpenID Connect with Authorization Code flow]
 - Request chains involving an end-user whose identity and permissions should be propagated through each service/web API, 
 using the [OAuth 2.0 On-Behalf-Of flow]
 - Daemon / server-side applications for server-to-server interactions without a user, 
@@ -211,63 +211,86 @@ In most cases you will not need to manually change things for your application i
 application is automatically configured with sane defaults, with most other common options 
 available to be configured through [`nais.yaml`](../nais-application/reference.md#spec-azure-application). 
 
-Your [team]'s owners will automatically be given owner access to the Azure AD application for most other cases that
-are not covered. Remaining special cases such as extra permissions are handled on a case-by-case basis.
+If your Azure AD application exists in the default (`nav.no`) tenant, your [team]'s owners will automatically be given owner access 
+to said application for most other cases that are not automatically covered. 
+Remaining special cases such as extra permissions are handled on a case-by-case basis.
 
 If you are not registered as an owner in your team, you should either have an existing owner promote you, or request the
 existing owner(s) to do whatever you may want. Access has knowingly been limited to discourage unnecessary privileges 
 being given out to users that do not require them.
 
-### Credentials / Secrets
+### Tenants
 
-Provisioning an Azure AD application will always produce a `Secret` resource that is automatically
+A tenant represents an organization in Azure Active Directory. In layman's terms, each tenants will have their own 
+set of applications, users and groups. In order to log in to a tenant, you must use an account specific to that tenant.
+
+The default Azure AD tenant for applications provisioned through NAIS in *all clusters* is `nav.no`. 
+If your use case requires you to use `trygdeetaten.no` in the `dev-*`-clusters, then you must 
+[explicitly configure this](#specifying-tenants).
+
+Do note that the same application in different clusters are unique Azure AD applications, 
+with each having their own client IDs and access policies. For instance, `app-a` in `dev-gcp` is a 
+separate application in Azure AD from `app-a` in `prod-gcp`, even if they both exist in the Azure AD tenant `nav.no`.
+
+#### Specifying tenants
+
+To explicitly target a specific tenant, add a `spec.azure.application.tenant` to your `nais.yaml`:
+
+```yaml
+spec:
+  azure:
+    application:
+      enabled: true
+      tenant: trygdeetaten.no # enum of {trygdeetaten.no, nav.no}, defaults to nav.no if omitted
+```
+
+### Runtime Configuration and Credentials
+
+Provisioning an Azure AD application produces a `Secret` resource that is automatically
 mounted to the pods of your application. 
-
-#### Path
-
-The secret should be available as files at
-
-```
-/var/run/secrets/nais.io/azure
-```
-
-as well as environment variables.
 
 #### Contents
 
 The following describes the contents of the aforementioned secret.
 
-##### `AZURE_APP_CLIENT_ID`
+These are available as environment variables in your pod, as well as files at the path `/var/run/secrets/nais.io/azure`
 
-Azure AD client ID. Unique ID for the application in Azure AD.
+| Name | Description |
+|---|---|
+| `AZURE_APP_CLIENT_ID` | Azure AD client ID. Unique ID for the application in Azure AD |
+| `AZURE_APP_CLIENT_SECRET` | Azure AD client secret, i.e. password for [authenticating the application to Azure AD] |
+| `AZURE_APP_JWKS` | Private JWKS, i.e. containing a JWK with the private RSA key for creating signed JWTs when [authenticating to Azure AD with a certificate]. This will always contain a single key, i.e. the newest key registered |
+| `AZURE_APP_JWK` | Same as the above `AZURE_APP_JWKS`, just with the JWK unwrapped from the key set |
+| `AZURE_APP_PRE_AUTHORIZED_APPS` | A JSON string. List of names and client IDs for the valid (i.e. those that exist in Azure AD) applications defined in [`spec.accessPolicy.inbound.rules[]`](../nais-application/reference.md#spec-accesspolicy-gcp-only) |
+| `AZURE_APP_WELL_KNOWN_URL` | The well-known URL with the tenant for which the Azure AD application resides in |
 
-Example value:
+#### Example reference `Secret` resource
 
-```
-e89006c5-7193-4ca3-8e26-d0990d9d981f
-```
+This is automatically generated and mounted into your pod as environment variables and files. See the table above.
 
-##### `AZURE_APP_CLIENT_SECRET`
-
-Azure AD client secret, i.e. password for [authenticating the application to Azure AD].
-
-Example value:
-
-```
-b5S0Bgg1OF17Ptpy4_uvUg-m.I~KU_.5RR
-```
-
-##### `AZURE_APP_JWKS`
-
-Private JWKS, i.e. containing a JWK with the private RSA key for creating signed JWTs when [authenticating to Azure AD with a certificate].
-
-This will always contain a single key, i.e. the newest key registered.
-
-Example value:
-
-```json
-{
-  "keys": [
+```yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: <application-name>-<random-string>
+  namespace: aura
+  labels:
+    team: aura
+data:
+  AZURE_APP_CLIENT_ID: e89006c5-7193-4ca3-8e26-d0990d9d981f
+  AZURE_APP_CLIENT_SECRET: b5S0Bgg1OF17Ptpy4_uvUg-m.I~KU_.5RR
+  AZURE_APP_JWKS: |
+    {
+      "keys": [
+        {
+          "use": "sig",
+          ... 
+          # same as below
+        }
+      ]
+    }
+  AZURE_APP_JWK: |
     {
       "use": "sig",
       "kty": "RSA",
@@ -286,65 +309,18 @@ Example value:
       "x5t": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
       "x5t#S256": "AH2gbUvjZYmSQXZ6-YIRxM2YYrLiZYW8NywowyGcxp0"
     }
-  ]
-}
-```
-
-#### `AZURE_APP_JWK`
-
-Same as the above `AZURE_APP_JWKS`, just with the JWK unwrapped from the key set.
-
-Example value:
-
-```json
-{
-  "use": "sig",
-  "kty": "RSA",
-  "kid": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
-  "n": "xQ3chFsz...",
-  "e": "AQAB",
-  "d": "C0BVXQFQ...",
-  "p": "9TGEF_Vk...",
-  "q": "zb0yTkgqO...",
-  "dp": "7YcKcCtJ...",
-  "dq": "sXxLHp9A...",
-  "qi": "QCW5VQjO...",
-  "x5c": [
-    "MIID8jCC..."
-  ],
-  "x5t": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
-  "x5t#S256": "AH2gbUvjZYmSQXZ6-YIRxM2YYrLiZYW8NywowyGcxp0"
-}
-```
-
-##### `AZURE_APP_PRE_AUTHORIZED_APPS`
-
-A JSON string. List of names and client IDs for the valid (i.e. those that exist in Azure AD) applications defined in 
-[`spec.accessPolicy.inbound.rules[]`](../nais-application/reference.md#spec-accesspolicy-gcp-only).
-
-Example value:
-
-```
-[
-  {
-    "name": "dev-gcp:othernamespace:app-a",
-    "clientId": "381ce452-1d49-49df-9e7e-990ef0328d6c"
-  },
-  {
-    "name": "dev-gcp:aura:app-b",
-    "clientId": "048eb0e8-e18a-473a-a87d-dfede7c65d84"
-  }
-]
-```
-
-##### `AZURE_APP_WELL_KNOWN_URL`
-
-The well-known URL with the tenant for which the Azure AD application resides in.
-
-Example value:
-
-```
-https://login.microsoftonline.com/77678b69-1daf-47b6-9072-771d270ac800/v2.0/.well-known/openid-configuration
+  AZURE_APP_PRE_AUTHORIZED_APPS: |
+    [
+      {
+        "name": "dev-gcp:othernamespace:app-a",
+        "clientId": "381ce452-1d49-49df-9e7e-990ef0328d6c"
+      },
+      {
+        "name": "dev-gcp:aura:app-b",
+        "clientId": "048eb0e8-e18a-473a-a87d-dfede7c65d84"
+      }
+    ]
+  AZURE_APP_WELL_KNOWN_URL: https://login.microsoftonline.com/77678b69-1daf-47b6-9072-771d270ac800/v2.0/.well-known/openid-configuration
 ```
 
 ### How to find your Client ID
@@ -374,90 +350,50 @@ and should be treated as such.
 
 #### Tenants
 
-We've initially opted to use a single tenant (`nav.no`) to reduce confusion for users in terms of user accounts and logins.
-However, this is not final. 
-We may add support for using the development tenant as used in the existing IaC solution if this is a need that is desired.
+Where the IaC solution defaulted to `trygdeetaten.no` for non-production environments, we now default to `nav.no`
+for all environments and clusters.
 
-Do note that the same application in different clusters will be different, unique Azure AD applications, 
-with each having their own client IDs and access policies.
+If your use case requires you to use `trygdeetaten.no` in the `dev-*`-clusters, then you must 
+[explicitly configure this](#specifying-tenants).
 
-#### Pre-Authorized Applications
+### Migrating - step-by-step
 
-There are a couple of pitfalls and gotchas you ought to avoid if your existing application has defined a 
-list of [pre-authorized applications](#pre-authorized-applications):
+#### 1. Rename all your applications in the [IaC repository][IaC]
 
-{% hint style="danger" %}
-**1. Referencing Azure AD applications provisioned through [IaC] from an application provisioned through NAIS**
-
-Azure AD applications provisioned through NAIS are **not** able to reference existing Azure AD applications
-provisioned through the existing IaC solution.
-{% endhint %}
-
-{% hint style="warning" %}
-**2. Referencing this Azure AD application from an application provisioned through [IaC]**
-
-An existing application provisioned through IaC can reference this Azure AD application by using the 
-naming scheme as defined in [getting started](#getting-started).
-{% endhint %}
-
-Migrating an existing stack of applications should therefore be done in the following order:
-
-1. Enable provisioning for all applications in all relevant clusters, but do not use the new credentials.
-2. [Find the relevant client IDs](#finding-your-applications-azure-ad-client-id) and prepare your applications to reference these instead of the previous ones.
-3. Prepare your application to use the new credentials instead of the previous ones.
-4. Deploy to development; ensure that everything works as expected.
-5. Repeat step 4 for production.
-
-## Provisioning separately from NAIS Application
-
-The Azure AD integration is implemented as a [custom resource] in our Kubernetes clusters. 
-If you need an Azure AD application outside or separately from the NAIS Application abstraction, you may apply 
-the custom resource manually through `kubectl` or as part of your deploy pipeline.
-
-### Example
+In order for NAIS to pick up and update your Azure AD application, the **`name`** of the application registered in 
+the [IaC repository][IaC] should match the expected format:
 
 ```
-azure-app.yaml
+<cluster>:<namespace>:<app-name>
 ```
 
-```yaml
-apiVersion: nais.io/v1
-kind: AzureAdApplication
-metadata:
-  name: my-app
-  namespace: my-team
-spec:
-  preAuthorizedApplications:
-    - application: my-other-app
-      cluster: dev-gcp
-      namespace: my-team
-    - application: some-other-app
-      cluster: dev-gcp
-      namespace: my-team
-  logoutUrl: "https://my-app.dev.nav.no/oauth2/logout"
-  replyUrls:
-    - url: "https://my-app.dev.nav.no/oauth2/callback"
-  secretName: azuread-my-app
-```
-
-Apply the resource to the cluster:
+E.g.
 
 ```
-kubectl apply -f azure-app.yaml
+dev-gcp:aura:my-app
 ```
+
+The list of names in **`preauthorizedapplications`** should also be updated to match this format for all the applications
+that you're migrating.
+
+Make sure to be aware of the differences in [tenants](#tenants) in the [IaC repository][IaC]:
+
+- `nonprod` matches `trygdeetaten.no`
+- `prod` matches `nav.no`
+
+#### 2. Enable Azure AD provisioning for your NAIS app
+
+See [getting started](#getting-started).
+
+#### 3. Deploy your applications with Azure AD enabled
 
 ## Deletion
 
 The Azure AD application is automatically deleted whenever the associated Application resource is deleted. 
-In other words, if you delete your NAIS application the Azure AD application is also deleted.
+In other words, if you delete your NAIS application the Azure AD application is also deleted. This will result in
+a **_new and different_** client ID in Azure AD if you re-create the application after deletion.
 
-If you've provisioned the Azure AD application separately, you must manually delete the `azuread` resource:
-
-```
-kubectl delete azureapp <name>
-```
-
-[OpenID Connect]: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc
+[OpenID Connect with Authorization Code flow]: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow
 [OAuth 2.0 On-Behalf-Of flow]: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow
 [OAuth 2.0 client credentials flow]: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow
 [NAV Security Guide]: https://security.labs.nais.io/

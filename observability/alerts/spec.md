@@ -26,7 +26,7 @@ A list of notification recievers. You can use one or more of: e-mail or slack. T
 Slack notifications are sent via Slack webhooks.
 
 #### `spec.receivers.slack.channel`
-The channel or user to send notifications to.
+The channel or user to send notifications to. Can be specified with and without `#`.
 
 **Required**: `true`
 
