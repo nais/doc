@@ -7,7 +7,7 @@ description: >
 # ID-porten Clients
 
 {% hint style="warning" %}
-**Status: open beta**
+**Status: Opt-In Open Beta in dev-gcp**
 
 This feature is currently only available in the [GCP](../clusters/gcp.md) clusters.
 {% endhint %}
