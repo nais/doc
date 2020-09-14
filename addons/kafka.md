@@ -58,7 +58,7 @@ spec:
   acl:
     - team: aura
       application: ownerapp
-      access: readwrite
+      access: readwrite   # read, write, readwrite
     - team: bigteam
       application: consumerapp1
       access: read
@@ -140,7 +140,7 @@ see table above in _accessing topics from an application_.
 apiVersion: v1
 kind: Secret
 metadata:
-  name: nav-dev-kafka-consumerapp  # procedurally generated from pool name and app name
+  name: nav-dev-kafka-consumerapp-abcd1234  # procedurally generated from pool name, app name, and hash postfix
   namespace: aura
   labels:
     team: aura
