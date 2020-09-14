@@ -30,7 +30,7 @@
 1. Slack: `/msg @Kolide installers`
 2. Select platform and wait for Kolide to create your installer
 3. Install package (xkxp-\*-kolide-launcher.{pkg,msi,deb,rpm}). There are no success feedback from the installer. No error message means that the installation was successful.
-4. Wait a couple of minutes to let Kolide initialize device state
+4. Allow a couple of minutes to let Kolide initialize device state, but if you're stuck at "Waiting for your device to connect" just go to the next step.
 5. Check your devices status: `/msg @Kolide status` on Slack and fix errors if there are any
 
 ## Connecting to NAIS clusters
@@ -39,7 +39,15 @@
 2. `git pull && git checkout naisdevice` To ensure you've got latest & greatest.
 
 ## Uninstall navtunnel
+* Remove proxy settings from MAVEN_OPTS and Maven settings.xml
+* Remove Navtunnel settings from .ssh/config and .ssh/config.d
+
+### MacOS
 1. `sudo sed -i -e '/\# NAV MANAGED/,/\# END NAV MANAGED/d' /private/etc/hosts`
 2. `sudo rm -rf "/Applications/navtunnel.app"`
 3. `sudo rm -rf "/Applications/ScaleFT.app"`
 4. `networksetup -setautoproxystate "Wi-Fi" off`
+
+### Windows
+1. Remove Navtunnel-entries from c:\windows\system32\drivers\etc\hosts
+2. Remove proxy settings from you browser

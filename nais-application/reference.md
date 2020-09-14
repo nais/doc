@@ -472,3 +472,45 @@ Explicitly target a given [tenant](../addons/azure-ad.md#tenants) in Azure AD.
 Toggle for enabling [TokenX](../addons/tokenx.md) for your application.
 
 **Default**: `false`
+
+## `spec.idporten`
+Configures an ID-porten client for this application. See [Idporten](../addons/idporten.md) for more details.
+
+### `spec.idporten.enabled`
+If enabled, will provision an ID-porten client for the application.
+
+**Default**: `false`
+
+### `spec.idporten.clientURI`
+The URL shown to the user at ID-porten when displaying a 'back' button or on errors.
+
+**Default**: `https://www.nav.no`
+
+### `spec.idporten.frontchannelLogoutURI`
+Where ID-porten sends a request to whenever the user has initiated a logout elsewhere as part of a [single logout (front channel logout)](https://difi.github.io/felleslosninger/oidc_func_sso.html#motta-informasjon-om-slo-front-channel-logout) process, e.g. `"https://my.application.ingress/oauth2/logout"`
+
+**Default**: `(no value)`
+
+**Required**: `false`
+
+### `spec.idporten.postLogoutRedirectURIs[]`
+Valid URIs that ID-porten will redirect the end-user to after a [single logout](https://difi.github.io/felleslosninger/oidc_func_sso.html#initiering-av-slo-session-management) has been initiated and performed by the application.
+
+Example: `[ "https://my.application.ingress/" ]`
+
+**Default**: `[ "https://www.nav.no" ]`
+
+{% hint style="info" %}
+Note that `spec.idporten.redirectURI` can only be omitted if `spec.ingresses` are specified.
+{% endhint %}
+
+### `spec.idporten.redirectURI`
+Valid url that ID-Porten can redirect back to after successful authorization 
+request, e.g. `"https://my.application.ingress/oauth2/callback"`
+
+**Default**: `https://my.application.ingress/oauth2/callback`
+
+### `spec.idporten.refreshTokenLifetime`
+Is the lifetime in seconds for the issued refresh token from ID-porten
+
+**Default**: `43200`

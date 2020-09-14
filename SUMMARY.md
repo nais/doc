@@ -36,6 +36,7 @@
 * [Addons](addons/README.md)
   * [Antivirus scanning](addons/antivirus.md)
   * [Azure AD Application](addons/azure-ad.md)
+  * [ID-porten](addons/idporten.md)
   * [Kafka](addons/kafka.md)
   * [Leader Election](addons/leader-election.md)
   * [NAISjobs (Jobs / CronJobs)](addons/naisjobs.md)
@@ -48,3 +49,5 @@
 * [naisdevice](device/README.md)
   * [Installation](device/install.md)
   * [Available services](device/services.md)
+* [Appendix](appendices/README.md)
+  * [Zero-Trust Network Architecture](appendices/zero-trust/README.md)

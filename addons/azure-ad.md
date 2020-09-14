@@ -211,9 +211,9 @@ In most cases you will not need to manually change things for your application i
 application is automatically configured with sane defaults, with most other common options 
 available to be configured through [`nais.yaml`](../nais-application/reference.md#spec-azure-application). 
 
-If your Azure AD application exists in the default (`nav.no`) tenant, your [team]'s owners will automatically be given owner access 
-to said application for most other cases that are not automatically covered. 
-Remaining special cases such as extra permissions are handled on a case-by-case basis.
+If your Azure AD application exists in the default (`nav.no`) tenant, your [team]'s owners will automatically be given owner access. 
+Otherwise, the application will not be assigned any owners.
+Special cases such as extra permissions are handled manually on a case-by-case basis.
 
 If you are not registered as an owner in your team, you should either have an existing owner promote you, or request the
 existing owner(s) to do whatever you may want. Access has knowingly been limited to discourage unnecessary privileges 
@@ -329,7 +329,8 @@ Your application's Azure AD client ID is available at multiple locations:
 
 1. The environment variable `AZURE_APP_CLIENT_ID`, available inside your application at runtime
 2. In the Kubernetes resource - `kubectl get azureapp <app-name>`
-3. The [Azure Portal].
+3. The [Azure Portal]. You may have to click on `All applications` if it does not show up in `Owned applications`.
+Search using the naming scheme mentioned earlier: `<cluster>:<namespace>:<app>`.
 
 ## Migrating from existing infrastructure-as-code ([IaC]) solution
 
