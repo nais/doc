@@ -140,7 +140,7 @@ see table above in _accessing topics from an application_.
 apiVersion: v1
 kind: Secret
 metadata:
-  name: nav-dev-kafka-consumerapp-abcd1234  # procedurally generated from pool name, app name, and hash postfix
+  name: nav-dev-kafka-consumerapp-abcd1234  # procedurally generated from pool name, app name, and hash suffix
   namespace: aura
   labels:
     team: aura
