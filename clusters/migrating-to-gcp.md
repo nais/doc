@@ -35,16 +35,21 @@ See [GCP clusters][GCP].
 
 ### Privacy
 
-Google is cleared to be a data processor for personally identifiable information (PII) at NAV, and NAVs Privacy Declaration explicitly states that data shared with NAV may be stored in the cloud. However, before your team moves any applications or data to GCP the following steps should be taken:
+Google is cleared to be a data processor for personally identifiable information (PII) at NAV, and NAVs Privacy Policy explicitly states that data shared with NAV may be stored in the cloud. However, before your team moves any applications or data to GCP the following steps should be taken:
 
 1. Review part 1 of the PVK document ("Grunnlegende personvernavklaringer"). If this document references our on-premises infrastructure or any usage of resources or capabilities that will change as a result of the migration, update the document accordingly.
 
-   Under "Behandlingens nødvendighet og livsløp", modify and add the following text, as appropriate: "..."
+   Under "Behandlingens nødvendighet og livsløp", modify and add the following text, as appropriate: "Data blir lagret og behandlet på en infrastrukturplattform i allmenn sky i henhold til NAVs skystrategi."
 
 2. Review part 2 of the PVK document ("Vurdering av personvernkonsekvenser") and consider adding new scenarios that needs to be considered when the application runs on a public cloud plattform. Examples might include:
 
-    - ...
-    - ...
+    1. - Issue: Chapter 3 data subject rights
+        - Risk scenario: Data subjects request inadequately answered due to lacking in-depth knowledge about processing of personal data in the cloud
+        - Measures: bruk standardprodukter levert gjennom nais
+        - Kommentar: relevant der hvor man tar i bruk verktøy som potensielt kan ha tredjepartsleverandører involvert - viktig at teamet kjenner produktene de tar i bruk!
+    2. - Issue: The user does not receive information about personal data breaches likely to result in high risk 
+        - Kommentar: sannsynlighet for incident er lavere, sannsynlighet for oppdaget er høyere, meldingsgangen til team/bruker er relativt lik
+    3. - Ansattedata: plattform bør ha en PVK på dette
 
 3. If the application stores any data in GCP, update [Behandlingskatalogen](https://behandlingskatalog.nais.adeo.no/) to reflect that Google is a data processor.
 
