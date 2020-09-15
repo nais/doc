@@ -7,8 +7,8 @@
 | `labs-gcp` | development | publicly accessible |
 
 In GCP, we do not operate with a zone model like with the on-premise clusters.
-Instead, we rely on a [zero trust](https://github.com/navikt/pig/blob/master/kubeops/doc/zero-trust.md)
-model with a service mesh. The only thing we differentiate on a cluster level is development and production.
+Instead, we rely on a [zero trust] model with a service mesh.
+The only thing we differentiate on a cluster level is development and production.
 
 The applications running in GCP need [access policy rules defined](../nais-application/access-policy.md) for every other service they receive requests from or sends requests to.
 
@@ -28,7 +28,7 @@ secured. If in doubt, ask in #nais or someone on the NAIS team.
 You can control from where you application is reachable by selecting the appropriate ingress domain.
 If no ingress is selected, the application will not be reachable from outside the cluster.
 
-### dev-gcp
+### dev-gcp ingresses
 
 | domain | accessible from | description |
 | ------ | --------------- | ----------- |
@@ -38,7 +38,7 @@ If no ingress is selected, the application will not be reachable from outside th
 | dev-adeo.no | navtunnel | [deprecated](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), replaced by dev.adeo.no |
 | dev-gcp.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), applications should use dev.{nav,adeo}.no |
 
-### prod-gcp
+### prod-gcp ingresses
 
 | domain | accessible from | description |
 | ------ | --------------- | ----------- |
@@ -64,3 +64,4 @@ to [Leif Tore Løvmo], while [Line Langlo Spongsveen] can answer questions about
 [ROS]: https://navno.sharepoint.com/sites/intranett-it/SitePages/Risikovurderinger.aspx
 [PVK]: https://navno.sharepoint.com/sites/intranett-personvern/SitePages/PVK.aspx
 [Behandlingsoversikt]: https://navno.sharepoint.com/sites/intranett-personvern/SitePages/Behandlingskatalog.aspx
+[zero trust]: ../appendices/zero-trust/README.md

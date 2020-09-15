@@ -1,4 +1,4 @@
-## Why migrate?
+## Why migrate our application(s)?
 * Access to self-service [buckets] and [Postgres databases][postgres]. 
 * Access to Google Cloud features.
 * [Zero Trust security model][zero-trust] instead of FSS/SBS zone model.
@@ -7,10 +7,10 @@
 
 ## Prerequisites
 The team needs to update their ROS and PVK analysis to migrate to GCP.
-Refer to the ROS and PVK section under [Google Cloud Platform clusters][GCP].
+Refer to [Google Cloud Platform][GCP]'s [ROS and PVK section][ROS & PVK].
 
 ### Basic setup
-Follow the [getting started instructions][gettingstarted], pay close attention to the section on GCP.
+Follow the Getting started's [Access from laptop][gettingstarted] instructions, and make sure to pay attention to the [GCP][gettingstarted-kubectl-gcp] section.
 
 ### Security
 Our GCP clusters use a zero trust security model, implying that the application
@@ -28,7 +28,8 @@ The documentation will be updated when Tokendings is publicly available.
 {% endhint %}
 
 ### Deploy
-Same mechanism as for on-premise clusters. See [GCP clusters][GCP].
+The same deployment mechanism is leveraged for both on-premise and GCP K8s clusters.
+See [deployment] section of the documentation for how to leverage the _NAIS deploy tool_.
 
 ### Ingress
 See [GCP clusters][GCP].
@@ -80,7 +81,8 @@ If your application stores personally identifiable information in any GCP data s
 * Postgres: A new database (and access to it) is automatically configured when expressing `sqlInstance` in your [application manifest][manifest] 
 We're currently investigating the possibility of using on-prem databases during a migration window.
 * PVK: Update your existing PVK to include cloud
-See the table at the top of this page for differences between GCP and on-premises and what applies to your application
+
+See [this table][gcp-comparison-table] for the differences between GCP and on-premises, and which that may apply to your application.
 
 ### What should we change?
 Use [tokendings] instead of API-GW
@@ -128,12 +130,12 @@ However, additional access may be granted if required by the team
 
 ### How long does it take to migrate?
 A minimal application without any external requirements only have to change a single configuration parameter when deploying and have migrated their application in 5 minutes.
-See the table at the top of this page for differences between GCP and on-premises and what applies to your application
+See [this table][gcp-comparison-table] for the differences between GCP and on-premises, and which that may apply to your application.
 
 ## Legal
 * Are we allowed to use GCP?
 yes
-See [laws and regulations](./laws-and-regulations.md) for details
+See [laws and regulations][laws&regs] for details.
 
 # GCP compared to on-premises
 |Feature|on-prem|gcp|Comment|
@@ -162,12 +164,17 @@ See [laws and regulations](./laws-and-regulations.md) for details
 |Security|Zone Model       |[zero-trust] ||
 
 [GCP]: ./gcp.md
+[ROS & PVK]: ./gcp.md#ros-and-pvk
 [on-premises]: ./on-premises.md
+[deployment]: ../deployment/README.md
 [tokendings]: https://github.com/nais/tokendings
-[zero-trust]: https://github.com/navikt/pig/blob/master/kubeops/doc/zero-trust.md
+[laws&regs]: ./laws-and-regulations.md
+[zero-trust]: ../appendices/zero-trust/README.md
 [buckets]: ../persistence/buckets.md
 [postgres]: ../persistence/postgres.md
+[gcp-comparison-table]: ./migrating-to-gcp.md#gcp-compared-to-on-premises
 [gettingstarted]: ../basics/access.md
+[gettingstarted-kubectl-gcp]: ../basics/access.md#google-cloud-platform-gcp
 [accesspolicy]: ../nais-application/access-policy.md
 [manifest]: ../nais-application/full-example.md
 [secrets]: ../addons/secrets.md

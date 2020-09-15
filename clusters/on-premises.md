@@ -44,7 +44,7 @@ You can control from where you application is reachable by selecting the appropr
 
 | domain | accessible from | description |
 | ------ | --------------- | ----------- |
-| adeo.no | case workers, [naisdevice](../device/README.md) by allowlist | manually configured, contact at #tech-sikkerhet |
+| adeo.no | vdi | currently manually configured by #tech-sikkerhet |
 | prod-fss.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), use .adeo.no instead |
 | nais.adeo.no | vdi | **deprecated**, use .adeo.no instead |
 
@@ -52,7 +52,7 @@ You can control from where you application is reachable by selecting the appropr
 
 | domain | accessible from | description |
 | ------ | --------------- | ----------- |
-| nav.no | internet | manually configured, contact at #tech-sikkerhet |
+| nav.no | internet | currently manually configured by #tech-sikkerhet |
 | tjenester.nav.no | internet | context root based routing on format `tjenester.nav.no/<appname>`. |
 | prod-sbs.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), use .nav.no instead |
 | nais.oera.no | vdi | **deprecated**, use .nav.no instead |

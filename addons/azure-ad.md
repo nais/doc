@@ -211,9 +211,9 @@ In most cases you will not need to manually change things for your application i
 application is automatically configured with sane defaults, with most other common options 
 available to be configured through [`nais.yaml`](../nais-application/reference.md#spec-azure-application). 
 
-If your Azure AD application exists in the default (`nav.no`) tenant, your [team]'s owners will automatically be given owner access 
-to said application for most other cases that are not automatically covered. 
-Remaining special cases such as extra permissions are handled on a case-by-case basis.
+If your Azure AD application exists in the default (`nav.no`) tenant, your [team]'s owners will automatically be given owner access. 
+Otherwise, the application will not be assigned any owners.
+Special cases such as extra permissions are handled manually on a case-by-case basis.
 
 If you are not registered as an owner in your team, you should either have an existing owner promote you, or request the
 existing owner(s) to do whatever you may want. Access has knowingly been limited to discourage unnecessary privileges 
@@ -221,21 +221,16 @@ being given out to users that do not require them.
 
 ### Tenants
 
-A tenant represents an organization in Azure Active Directory. 
-
-In layman's terms, each tenants will has their own set of applications, users and groups.
-In order to log in to a tenant, you must use an account specific to that tenant.
+A tenant represents an organization in Azure Active Directory. In layman's terms, each tenants will have their own 
+set of applications, users and groups. In order to log in to a tenant, you must use an account specific to that tenant.
 
 The default Azure AD tenant for applications provisioned through NAIS in *all clusters* is `nav.no`. 
-
 If your use case requires you to use `trygdeetaten.no` in the `dev-*`-clusters, then you must 
 [explicitly configure this](#specifying-tenants).
 
 Do note that the same application in different clusters are unique Azure AD applications, 
-with each having their own client IDs and access policies.
-
-For instance, `app-a` in `dev-gcp` is a separate application in Azure AD from `app-a` in `prod-gcp`,
-even if they both exist in the Azure AD tenant `nav.no`.
+with each having their own client IDs and access policies. For instance, `app-a` in `dev-gcp` is a 
+separate application in Azure AD from `app-a` in `prod-gcp`, even if they both exist in the Azure AD tenant `nav.no`.
 
 #### Specifying tenants
 
@@ -334,7 +329,8 @@ Your application's Azure AD client ID is available at multiple locations:
 
 1. The environment variable `AZURE_APP_CLIENT_ID`, available inside your application at runtime
 2. In the Kubernetes resource - `kubectl get azureapp <app-name>`
-3. The [Azure Portal].
+3. The [Azure Portal]. You may have to click on `All applications` if it does not show up in `Owned applications`.
+Search using the naming scheme mentioned earlier: `<cluster>:<namespace>:<app>`.
 
 ## Migrating from existing infrastructure-as-code ([IaC]) solution
 
@@ -361,81 +357,42 @@ for all environments and clusters.
 If your use case requires you to use `trygdeetaten.no` in the `dev-*`-clusters, then you must 
 [explicitly configure this](#specifying-tenants).
 
-#### Pre-Authorized Applications
+### Migrating - step-by-step
 
-There are a couple of pitfalls and gotchas you ought to avoid if your existing application has defined a 
-list of [pre-authorized applications](#pre-authorized-applications):
+#### 1. Rename all your applications in the [IaC repository][IaC]
 
-{% hint style="danger" %}
-**1. Referencing Azure AD applications provisioned through [IaC] from an application provisioned through NAIS**
-
-Azure AD applications provisioned through NAIS are **not** able to reference existing Azure AD applications
-provisioned through the existing IaC solution.
-{% endhint %}
-
-{% hint style="warning" %}
-**2. Referencing this Azure AD application from an application provisioned through [IaC]**
-
-An existing application provisioned through IaC can reference this Azure AD application by using the 
-naming scheme as defined in [getting started](#getting-started).
-{% endhint %}
-
-Migrating an existing stack of applications should therefore be done in the following order:
-
-1. Enable provisioning for all applications in all relevant clusters, but do not use the new credentials.
-2. [Find the relevant client IDs](#how-to-find-your-client-id) and prepare your applications to reference these instead of the previous ones.
-3. Prepare your application to use the new credentials instead of the previous ones.
-4. Deploy to development; ensure that everything works as expected.
-5. Repeat step 4 for production.
-
-## Provisioning separately from NAIS Application
-
-The Azure AD integration is implemented as a [custom resource] in our Kubernetes clusters. 
-If you need an Azure AD application outside or separately from the NAIS Application abstraction, you may apply 
-the custom resource manually through `kubectl` or as part of your [deploy pipeline](../deployment/README.md).
-
-### Example
+In order for NAIS to pick up and update your Azure AD application, the **`name`** of the application registered in 
+the [IaC repository][IaC] should match the expected format:
 
 ```
-azure-app.yaml
+<cluster>:<namespace>:<app-name>
 ```
 
-```yaml
-apiVersion: nais.io/v1
-kind: AzureAdApplication
-metadata:
-  name: my-app
-  namespace: my-team
-spec:
-  preAuthorizedApplications:
-    - application: my-other-app
-      cluster: dev-gcp
-      namespace: my-team
-    - application: some-other-app
-      cluster: dev-gcp
-      namespace: my-team
-  logoutUrl: "https://my-app.dev.nav.no/oauth2/logout"
-  replyUrls:
-    - url: "https://my-app.dev.nav.no/oauth2/callback"
-  secretName: azuread-my-app
-```
-
-Apply the resource to the cluster:
+E.g.
 
 ```
-kubectl apply -f azure-app.yaml
+dev-gcp:aura:my-app
 ```
+
+The list of names in **`preauthorizedapplications`** should also be updated to match this format for all the applications
+that you're migrating.
+
+Make sure to be aware of the differences in [tenants](#tenants) in the [IaC repository][IaC]:
+
+- `nonprod` matches `trygdeetaten.no`
+- `prod` matches `nav.no`
+
+#### 2. Enable Azure AD provisioning for your NAIS app
+
+See [getting started](#getting-started).
+
+#### 3. Deploy your applications with Azure AD enabled
 
 ## Deletion
 
 The Azure AD application is automatically deleted whenever the associated Application resource is deleted. 
-In other words, if you delete your NAIS application the Azure AD application is also deleted.
-
-If you've provisioned the Azure AD application separately, you must manually delete the `azuread` resource:
-
-```
-kubectl delete azureapp <name>
-```
+In other words, if you delete your NAIS application the Azure AD application is also deleted. This will result in
+a **_new and different_** client ID in Azure AD if you re-create the application after deletion.
 
 [OpenID Connect with Authorization Code flow]: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow
 [OAuth 2.0 On-Behalf-Of flow]: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow
