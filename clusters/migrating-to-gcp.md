@@ -76,8 +76,7 @@ The only thing you need to do is update your existing PVK to reflect the fact th
 See [about security and privacy when using platform services](https://doc.nais.io/#about-security-and-privacy-when-using-platform-services) for details
 
 ### How do we migrate our database?
-Standard export from the old database and import in to the new one.
-That being said, we're looking in to the possibility of using the on-prem database during a migration process. 
+See [Migrating databases to GCP][dbmigration].
 
 ### Why is there no vault in GCP?
 There is native functionality in GCP that overlap with many of the use cases that Vault have covered on-prem.
@@ -151,3 +150,4 @@ See [laws and regulations][laws&regs] for details.
 [accesspolicy]: ../nais-application/access-policy.md
 [manifest]: ../nais-application/full-example.md
 [secrets]: ../addons/secrets.md
+[dbmigration]: ./migrating-databases-to-gcp.md
