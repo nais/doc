@@ -29,6 +29,18 @@ by Naiserator into application pods as environment variables.
 
 For a list of variables, see _accessing topics from an application_ below.
 
+## Status and roadmap
+
+* Release status: CLOSED BETA
+* Availability: GCP, on-premises
+
+Follow development on the [PIG-Kafka Trello board](https://trello.com/b/O0EvBshY/pig-kafka).
+
+Major features coming:
+
+* Live data migration from on-premises to Aiven
+* Custom pools for teams with large amounts of data
+
 ## Creating topics and defining access
 
 Creating or modifying this resource will trigger topic creation and ACL
@@ -41,13 +53,15 @@ Topic resources can only be specified in GCP clusters. However, applications
 might access topics from any cluster, including on-premises. For details, read
 the next section.
 
-These pools are currently available:
+Currently, use the `nav-dev` pool for development, and `nav-prod` for production.
 
 | Pool | Topic declared in | Available from |
 |---|---|---|
 | `nav-dev` | `dev-gcp` | `dev-gcp`, `dev-fss`, `dev-sbs` |
 | `nav-prod` | `prod-gcp` | `prod-gcp`, `prod-fss`, `prod-sbs` |
 
+{% code-tabs %}
+{% code-tabs-item title="topic.yaml" %}
 ```yaml
 ---
 apiVersion: kafka.nais.io/v1
@@ -83,13 +97,16 @@ spec:
       application: producerapp
       access: write
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## Accessing topics from an application
 
 Adding `.kafka.pool` to your `Application` spec will inject Kafka credentials into your pod.
+Your application needs to follow some design guidelines; see the next section on _application design guidelines_.
 
-Credentials may be rotated at any time. Make sure to read _application design constraints_ below.
-
+{% code-tabs %}
+{% code-tabs-item title="nais.yaml" %}
 ```yaml
 ---
 apiVersion: nais.io/v1alpha1
@@ -103,6 +120,8 @@ spec:
   kafka:
     pool: nav-dev    # enum of nav-dev, nav-prod
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ### Application config
 
@@ -119,52 +138,19 @@ These variables are made available inside the pod.
 | `KAFKA_PRIVATE_KEY` | Client certificate key for connecting to the Kafka brokers, as string data |
 | `KAFKA_CA` | Certificate authority used to validate the Kafka brokers, as string data |
 
-## Application design constraints
-
-Kafka requires TLS client certificates for authentication. Make sure your
-Kafka and/or TLS library can do client certificate authentication.
-
-The Kafka brokers present their own CA certificate. Your TLS library MUST
-validate the Kafka brokers against this CA certificate.
+## Application design guidelines
 
 The NAIS platform might rotate credentials at any time. This implies that your
 application must handle errors concerning invalid credentials by either:
 
-1. Reloading credentials from disk, then retrying the connection, and/or
-2. terminate the application or report an unhealthy state.
+1. reloading credentials from disk, then retrying the connection, or
+2. trigger a restart by either terminating the application or reporting an unhealthy state.
 
-As of now, there is no data migration path available. This is on our roadmap.
-Specific details will be published after we collect enough information about
-the desired scope of this feature.
+Kafka requires TLS client certificates for authentication. Make sure your
+Kafka and/or TLS library can do client certificate authentication, and that you can
+specify a custom CA certificate for server validation.
 
-## Auto-generated resources (for reference)
+## FAQ
 
-Configuration and credentials for producing to or consuming from the topic.
-These will be automatically mounted in as environment variables in your pod;
-see table above in _accessing topics from an application_.
-
-```yaml
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: nav-dev-kafka-consumerapp-abcd1234  # procedurally generated from pool name, app name, and hash suffix
-  namespace: aura
-  labels:
-    team: aura
-data:
-  KAFKA_BROKERS: broker1.aiven.io:12345,broker2.aiven.io:12345
-  KAFKA_SCHEMA_REGISTRY: https://username:password@host1.aiven.io:32345,https://username:password@host2.aiven.io:32345
-  KAFKA_CERTIFICATE: |
-    ------ BEGIN CERTIFICATE ------
-    PEM certificate data here.
-    ------ END CERTIFICATE ------
-  KAFKA_PRIVATE_KEY: |
-    ------ BEGIN PRIVATE KEY ------
-    PEM private key data here.
-    ------ END CERTIFICATE ------
-  KAFKA_CA: |
-    ------ BEGIN CERTIFICATE ------
-    PEM certificate authority data here.
-    ------ END CERTIFICATE ------
-```
+* Q: why do I have to specify a pool name if there is only `nav-dev` and `nav-prod`?
+  A: custom pools will be added in the future.
