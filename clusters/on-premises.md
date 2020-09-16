@@ -44,15 +44,14 @@ You can control from where you application is reachable by selecting the appropr
 
 | domain | accessible from | description |
 | ------ | --------------- | ----------- |
-| adeo.no | vdi | currently manually configured by #tech-sikkerhet |
-| prod-fss.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), use .adeo.no instead |
-| nais.adeo.no | vdi | **deprecated**, use .adeo.no instead |
+| nais.adeo.no | vdi | automatically configured |
+| prod-fss.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), use nais.adeo.no instead |
 
 ### prod-sbs
 
 | domain | accessible from | description |
 | ------ | --------------- | ----------- |
 | nav.no | internet | currently manually configured by #tech-sikkerhet |
+| nais.oera.no | vdi | automatically configured. Typically used by backend/admin apps not exposed to end-users |
 | tjenester.nav.no | internet | context root based routing on format `tjenester.nav.no/<appname>`. |
-| prod-sbs.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), use .nav.no instead |
-| nais.oera.no | vdi | **deprecated**, use .nav.no instead |
+| prod-sbs.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), use nav.no/nais.oera.no instead |
