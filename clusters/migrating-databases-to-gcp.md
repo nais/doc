@@ -26,7 +26,10 @@ Create the postgreSQL database in GCP and start deploy the application to GCP wi
 and let flyway (or other database versioning software) create the DDLs.
 
 Create migration app as a container in the same pod as the database application (this is to avoid permission issues using the same database). This migration application only handles the data transfer from the oracle database to postgreSQL in GCP. 
-Example: [PAM AD Migration][PAMADMIGRATION]
+
+Examples: 
+- [PAM AD Migration][PAMADMIGRATION]
+- [Rekrutteringsbistand migration][REKRUTTERINGMIGRATION] (not using JPA for easier code and less memory-intensive data handling, but as-is only suitable on-premise migration)
 
 Trigger migration from command line (or use another form of trigger) and read the data from a feed or kafka.
 
@@ -41,7 +44,7 @@ Cons:
 - Can be tricky for complex databases
 
 ** Note: This procedure is also valid for on-premise postgreSQL migration, and even simpler as no rewrite is necessary.
-         
+   
 ### From on-premise postgreSQL
 
 #### Migration using pg_dump
@@ -75,7 +78,14 @@ Import the dump into the GCP postgreSQL database:
 ```
 gcloud sql import sql <Cloud SQL instance id> gs://<bucket name>/dump.sql --database=<database instance name> --user=<database instance user name>
 ```
-Switch loadbalancer to route to the GCP application.
+
+Verify that the application is behaving as expected and that the data in the new database is correct. 
+Finally we need to switch loadbalancer to route to the GCP application instead of the on-premise equivalent. 
+
+Delete the bucket in GCP after migration is complete:
+```
+gsutil rb gs://<bucket name>
+```
 
 Pros:
 - Easy and relatively fast migration path
@@ -97,4 +107,4 @@ Not available as of now.
 [DBCREATION]: ../persistence/postgres.md
 [PAMADMIGRATION]: https://github.com/navikt/pam-ad-migration
 [GCPMIGRATION]: https://github.com/navikt/gcp-migrering
-
+[REKRUTTERINGMIGRATION]: https://github.com/navikt/rekrutteringsbistand-kandidat-api-migrering
