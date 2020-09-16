@@ -43,7 +43,7 @@ If no ingress is selected, the application will not be reachable from outside th
 | domain | accessible from | description |
 | ------ | --------------- | ----------- |
 | nav.no | internet | manually configured, contact at #tech-sikkerhet |
-| adeo.no | case workers, [naisdevice](../device/README.md) | manually configured, contact at #tech-sikkerhet |
+| adeo.no | case workers, [naisdevice](../device/README.md) | automatically configured (wildcard DNS) |
 | prod-gcp.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), applications should use .{nav,adeo}.no |
 
 ## ROS and PVK
