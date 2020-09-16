@@ -100,8 +100,6 @@ spec:
 
 {% hint style="success" %}Check out [github.com/oliver006] for latest version{% endhint %}
 
-!!!! If the Redis instance is password protected, the [secure-redisexporter]-image must be used.
-
 ## Secure Redis
 
 If you need to password protect your Redis instance, the easiest way to do this is to use [Kubernetes secrets] and mount
@@ -140,7 +138,6 @@ redis:
 [Grafana]: https://grafana.adeo.no/d/Jmg7MydWz
 [@Kyrre.Havik.Eriksen]: https://nav-it.slack.com/messages/D8QQ9ELK1
 [Redis exporters]: https://grafana.adeo.no/d/L-Ktprrmz
-[secure-redisexporter]: https://github.com/navikt/baseimages/tree/master/redis/secure-redisexporter
 [baseimages]: https://github.com/navikt/baseimages/tree/master/redis
 [nais/deploy]: ../deployment
 [hub.docker.com]: https://hub.docker.com/_/redis
