@@ -15,6 +15,10 @@ $ kubectl create secret generic my-secret --from-literal=key1=supersecret
 secret/my-secret created
 ```
 
+{% hint style="info" %}
+The kubectl plugin [kubectl-modify-secret] is recommended if you need to modify the secret contents after creation.
+{% endhint %}
+
 Exposing `my-secret` as environment variables to the application by referring to it in `nais.yaml`
 
 ```yaml
@@ -41,3 +45,4 @@ for more details on creating and managing your secrets.
 
 [Kubernetes Secrets]: https://kubernetes.io/docs/concepts/configuration/secret
 [create the secrets]: https://kubernetes.io/docs/concepts/configuration/secret/#creating-your-own-secrets
+[kubectl-modify-secret]: https://github.com/rajatjindal/kubectl-modify-secret
