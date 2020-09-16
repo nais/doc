@@ -19,21 +19,10 @@ After creating a new team, you should have access to all clusters.
 
 Check out the [official documentation][kubectl] for instructions on how to install the binaries.
 
-## Connect to ScaleFT
+## Install naisdevice
 
-{% hint style="info" %}
-You can skip this step if your running Windows and connect to NAV through BigIP VPN.
-{% endhint %}
-
-In order to reach our clusters, you have to be connected to the right ScaleFT host. For GCP, it's one host per cluster
-(`dev-gcp` and `prod-gcp`), for on-premise it is `devWeb02`.
-
-If you are using a Mac, the easiest method to connect to ScaleFT is through navTunnel which should be installed and
-running. You can see the status of your connection by clicking the navTunnel icon. When selecting connect, the login
-process will lead you to a ScaleFT credential request which you must approve in order to establish
-a connection.
-
-![navTunnel context menu](../.gitbook/assets/navTunnel.png)
+naisdevice ensures that your laptop meets NAVs requirements before allowing access to internal resources such as our NAIS clusters.
+Install by following the [naisdevice installation guide](https://doc.nais.io/device/install). 
 
 ## Setup your [`kubeconfig`][kubeconfig]
 
