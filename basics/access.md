@@ -19,7 +19,7 @@ After creating a new team, you should have access to all clusters.
 
 Check out the [official documentation][kubectl] for instructions on how to install the binaries.
 
-## Install naisdevice
+## Install [naisdevice](https://doc.nais.io/device)
 
 naisdevice ensures that your laptop meets NAVs requirements before allowing access to internal resources such as our NAIS clusters.
 Install by following the [naisdevice installation guide](https://doc.nais.io/device/install). 
