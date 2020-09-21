@@ -262,6 +262,7 @@ These are available as environment variables in your pod, as well as files at th
 | `AZURE_APP_JWKS` | Private JWKS, i.e. containing a JWK with the private RSA key for creating signed JWTs when [authenticating to Azure AD with a certificate]. This will always contain a single key, i.e. the newest key registered |
 | `AZURE_APP_JWK` | Same as the above `AZURE_APP_JWKS`, just with the JWK unwrapped from the key set |
 | `AZURE_APP_PRE_AUTHORIZED_APPS` | A JSON string. List of names and client IDs for the valid (i.e. those that exist in Azure AD) applications defined in [`spec.accessPolicy.inbound.rules[]`](../nais-application/reference.md#spec-accesspolicy-gcp-only) |
+| `AZURE_APP_TENANT_ID` | The tenant ID for which the Azure AD application resides in |
 | `AZURE_APP_WELL_KNOWN_URL` | The well-known URL with the tenant for which the Azure AD application resides in |
 
 #### Example reference `Secret` resource
@@ -320,6 +321,7 @@ data:
         "clientId": "048eb0e8-e18a-473a-a87d-dfede7c65d84"
       }
     ]
+  AZURE_APP_TENANT_ID: 77678b69-1daf-47b6-9072-771d270ac800 
   AZURE_APP_WELL_KNOWN_URL: https://login.microsoftonline.com/77678b69-1daf-47b6-9072-771d270ac800/v2.0/.well-known/openid-configuration
 ```
 
