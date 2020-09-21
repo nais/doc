@@ -22,6 +22,8 @@ An example Redis setup looks like this:
 
 {% code-tabs %}
 {% code-tabs-item title="redis.yaml" %}
+
+#### Vanilla Redis {#redis-vanilla}
 ```yaml
 ---
 apiVersion: "nais.io/v1alpha1"
@@ -50,6 +52,8 @@ spec:
 {% endcode-tabs-item %}
 
 {% code-tabs-item title="redis-with-metrics.yaml" %}
+
+#### Vanilla Redis with metrics {#redis-with-metrics}
 ```yaml
 ---
 apiVersion: "nais.io/v1alpha1"
@@ -107,6 +111,8 @@ spec:
 ```
 {% endcode-tabs-item %}
 {% code-tabs-item title="redis-secure.yaml" %}
+
+#### Secured Redis with metrics {#redis-secure}
 ```yaml
 ---
 apiVersion: "nais.io/v1alpha1"
@@ -193,7 +199,7 @@ to scrape several Redis instances.
 
 {% hint style="info" %}
 
-See the `redis-with-metrics.yaml` example in [examples above](#example-deployments) for setting up a configuration with the metrics exporter.
+See the [`redis-with-metrics.yaml`](#redis-with-metrics) example in [examples above](#example-deployments) for setting up a configuration with the metrics exporter.
 
 {% endhint %}
 
@@ -233,7 +239,7 @@ spec:
 
 {% hint style="info" %}
 
-See the `redis-secure.yaml` example in the [examples above](#example-deployments) for setting up Redis with a password from the secret you just created.
+See the [`redis-secure.yaml`](#redis-secure) example in the [examples above](#example-deployments) for setting up Redis with a password from the secret you just created.
 
 {% endhint %}
 
