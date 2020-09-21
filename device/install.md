@@ -13,7 +13,7 @@
 3. [install naisdevice](https://github.com/nais/device/releases/latest) (naisdevice.msi)
 7. Remember to [update your kubeconfig](#connecting-to-nais-clusters)
 
-## Linux
+## Ubuntu
 1. [install Kolide agent](#install-kolide-agent)
 2. Install wireguard
 	1. `sudo add-apt-repository ppa:wireguard/wireguard`
