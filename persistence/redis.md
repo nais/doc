@@ -186,7 +186,7 @@ env:
 #### Redis metrics
 
 If you want metrics from a Redis instance running on NAIS, a separate exporter must also be run. An example
-`nais.yaml` for the simplest version of such an exporter is found below. NAIS has also made a dashboard that everyone
+`nais.yaml` for the simplest version of such an exporter is found above. NAIS has also made a dashboard that everyone
 can use. The only caveat is that the exporter application needs to end its name with `redisexporter` in the
 configuration. The dashboard is called [Redis exporters]. The dashboard sorts by `addr`, enabling a single exporter
 to scrape several Redis instances.
@@ -223,12 +223,6 @@ kubectl create secret generic redis-password \
 Now that you have a secret in Kubernetes (use `kubectl describe secret redis-password` to look at it), all you have to
 do left is to mount it.
 
-{% hint style="info" %}
-
-See the `redis-secure.yaml` example in the [examples above](#example-deployments) for setting up Redis with a password from the secret you just created.
-
-{% endhint %}
-
 Then you should also mount it to any applications that connects to the Redis instance. This is done by adding the following to your `nais.yaml`.
 
 ```yaml
@@ -236,6 +230,12 @@ spec:
   envFrom:
     - secret: redis-password
 ```
+
+{% hint style="info" %}
+
+See the `redis-secure.yaml` example in the [examples above](#example-deployments) for setting up Redis with a password from the secret you just created.
+
+{% endhint %}
 
 ## Code examples
 
