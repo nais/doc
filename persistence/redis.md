@@ -267,5 +267,5 @@ redis:
 [nais/deploy]: ../deployment
 [hub.docker.com]: https://hub.docker.com/_/redis
 [github.com/oliver006]: https://github.com/oliver006/redis_exporter/releases
-[Kubernetes secrets]: ../addons/secrets.md
+[Kubernetes secrets]: ../security/secrets/kubernetes-secrets.md
 [Bitnami Redis Dockerhub]: https://hub.docker.com/r/bitnami/redis/

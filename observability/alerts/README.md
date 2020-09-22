@@ -94,8 +94,8 @@ jobs:
 
 ## Different receivers/notifications
 
-Alerterator supports three different types of notification, [Slack](spec#spec-receivers-slack),
-[E-mail](spec#spec-receivers-email], and [SMS](spec#spec-receivers-sms). In our spec we follow the naming convention of
+Alerterator supports three different types of notification, [Slack](./spec.md#spec-receivers-slack),
+[E-mail](./spec.md#spec-receivers-email), and [SMS](./spec.md#spec-receivers-sms). In our spec we follow the naming convention of
 Alertmanager and call it `receivers`.
 
 Take a look below too see exactly how each receiver is configured.
@@ -142,7 +142,7 @@ spec:
 
 In order to minimize the feedback loop we suggest experimenting on the Prometheus server to find the right metric for
 your alert and the notification threshold. The Prometheus server can be found in each
-[cluster](../../basics/clusters.md), at `https://prometheus.{cluster.ingress}`
+[cluster](../../clusters/README.md), at `https://prometheus.{cluster.ingress}`
 (i.e. [https://prometheus.nais.preprod.local](https://prometheus.nais.preprod.local)).
 
 You can also visit the Alertmanager at `https://alertmanager.{cluster.ingress}`

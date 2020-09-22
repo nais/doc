@@ -27,7 +27,7 @@ Install by following the [naisdevice installation guide](https://doc.nais.io/dev
 ## Setup your [`kubeconfig`][kubeconfig]
 
 The `kubectl` tool uses a `kubeconfig` file to get the information it needs in order to connect to a cluster. We
-provide a [pre-made kubeconfig] file with NAV's [clusters](clusters.md).
+provide a [pre-made kubeconfig] file with NAV's [clusters](../clusters/README.md).
 
 {% hint style="info" %}
 If you use `utviklerimage` or connect to NAV through BigIP VPN you need to use the kubeconfig under the

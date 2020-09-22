@@ -370,7 +370,7 @@ The protocol exposed on the port. MUST BE one of `HTTP|HTTPS|GRPC|HTTP2|MONGO|TC
 ## `spec.gcp.sqlInstances`
 List of sql instances to provision in GCP
 
-See [postgres](../gcp/postgres.md)-doc for more details
+See [postgres](../persistence/postgres.md)-doc for more details
 
 ### `spec.gcp.sqlInstances[].type`
 Database type. Only POSTGRES_11 available atm.
@@ -432,7 +432,7 @@ List of buckets to provision in gcp
 
 
 ### `spec.gcp.buckets[].namePrefix`
-Name prefix of the bucket, will be postfixed with a random string and exposed to the container. See [buckets](../gcp/buckets.md) for more details
+Name prefix of the bucket, will be postfixed with a random string and exposed to the container. See [buckets](../persistence/buckets.md) for more details
 
 **Required**: `true`
 

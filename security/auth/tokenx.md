@@ -94,7 +94,7 @@ and as env variables:
 
 #### Contents
 
-#####`TOKEN_X_WELL_KNOWN_URL`
+##### `TOKEN_X_WELL_KNOWN_URL`
 
 The well-known URL of the OAuth 2.0 Token Exchange authorization server, in this case TokenDings. This url contains metadata about the token issuer and can be used to configure your app with properties and urls such as:
 
@@ -219,7 +219,7 @@ The following example shows all the required claims of a client_assertion JWT:
 
 If your app receives a token from another application, it is your responsibility to ensure this token is valid and intended for your application.
 
-Configure your app with the [OAuth 2.0 Authorization Server Metadata](https://www.rfc-editor.org/rfc/rfc8414.html) from the Token X *well-known* endpoint - available as an environment variable [`TOKEN_X_WELL_KNOWN_URL`](#TOKEN_X_WELL_KNOWN_URL) -  in order to retrieve issuer name and `jwks_uri` for public keys retrieval.
+Configure your app with the [OAuth 2.0 Authorization Server Metadata](https://www.rfc-editor.org/rfc/rfc8414.html) from the Token X *well-known* endpoint - available as an environment variable [`TOKEN_X_WELL_KNOWN_URL`](#contents) - in order to retrieve issuer name and `jwks_uri` for public keys retrieval.
 
 #### Signature verification
 

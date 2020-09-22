@@ -25,7 +25,7 @@ When you have a large development organisation, providing the developers with tu
 needs can be a good investment.
 
 This includes \(but not limited to\) [logging](observability/logs/README.md), [metrics](observability/metrics.md),
-[alerts](observability/alerts/README.md), [deployment](basics/deploy.md) and a [runtime environment](basics/clusters.md).
+[alerts](observability/alerts/README.md), [deployment](deployment/README.md) and a [runtime environment](clusters/README.md).
 
 Within each of these aspects, we leverage open source projects best suited for our needs and provide them with usable
 abstractions, sane defaults and the required security hardening.

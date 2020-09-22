@@ -125,7 +125,7 @@ you can use the following example file.
 | Environment variable | Default | Description |
 | :--- | :--- | :--- |
 | APIKEY | (required) | NAIS deploy API key. Obtained from https://deploy.nais.io. |
-| CLUSTER | (required) | Which [NAIS cluster](../basics/clusters.md) to deploy into. |
+| CLUSTER | (required) | Which [NAIS cluster](../clusters/README.md) to deploy into. |
 | DRY_RUN | `false` | If `true`, run templating and validate input, but do not actually make any requests. |
 | ENVIRONMENT | (auto-detect) | The environment to be shown in GitHub Deployments. Defaults to `CLUSTER:NAMESPACE` for the resource to be deployed if not specified, otherwise falls back to `CLUSTER` if multiple namespaces exist in the given resources. |
 | OWNER | (auto-detect) | Owner of the repository making the request. |
