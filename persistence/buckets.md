@@ -1,7 +1,7 @@
 # Cloud Storage Buckets
 
-{% hint style="tip" %}
-This feature is only available in GCP clusters.
+{% hint style="warning" %}
+There is no automatic backup enabled for buckets.
 {% endhint %}
 
 You can request a Google Cloud Storage bucket through the NAIS manifest.
