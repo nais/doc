@@ -1,7 +1,6 @@
-# Secrets
+# Kubernetes Secrets
 
-When running an application in a team namespace,
-[Kubernetes Secrets] can be used directly instead of Vault.
+When running an application in a team namespace, [Kubernetes Secrets] can be used directly instead of Vault.
 
 To get started using this, simply [create the secrets]. A secret can be either key-value pairs or files, and can be
 exposed to the application as environment variables or files.
@@ -15,8 +14,8 @@ $ kubectl create secret generic my-secret --from-literal=key1=supersecret
 secret/my-secret created
 ```
 
-{% hint style="info" %}
-The kubectl plugin [kubectl-modify-secret] is recommended if you need to modify the secret contents after creation.
+{% hint style="info" %}	
+The kubectl plugin [kubectl-modify-secret] is recommended if you need to modify the secret contents after creation.	
 {% endhint %}
 
 Exposing `my-secret` as environment variables to the application by referring to it in `nais.yaml`

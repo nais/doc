@@ -1,9 +1,9 @@
 ---
 description: >
-  Antivirus scanning of files and urls using clamAV. 
+  Antivirus scanning of files and urls using ClamAV. 
 ---
 
-# clamAV
+# ClamAV
 
 This feature is installed on all nais clusters. clamAV runs in its own pod with a separate pod running the REST api applications use. There is a service set up so all applications will be able to talk to the REST api using http://clamav.nais.svc.nais.local/scan on-prem and http://clamav.clamav.svc.cluster.local on GCP. The REST api supports PUT or POST and can be tested using curl as well:
 ```

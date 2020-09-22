@@ -33,7 +33,7 @@ If you need more detailed information about TokenDings and the relevant `OAuth 2
 
 ## Getting Started
 
-When creating your application [manifest](../basics/application.md) you must enable Token X and specify incoming/outgoing traffic from your application in an [access policy](../nais-application/access-policy.md), i.e. which applications should be allowed to access your application on the HTTP layer and which HTTP endpoints you need access to outside your own application.
+When creating your application [manifest](../../basics/application.md) you must enable Token X and specify incoming/outgoing traffic from your application in an [access policy](../../nais-application/access-policy.md), i.e. which applications should be allowed to access your application on the HTTP layer and which HTTP endpoints you need access to outside your own application.
 
 The information provided in the access policy will be used to provision TokenDings with your app as an authorized OAuth 2.0 Client through the k8s operator [Jwker](https://github.com/nais/jwker/), which in turn will generate the keys/secrets you need to communicate with TokenDings; i.e. to get a token in order to communicate with another application.
 
@@ -75,7 +75,7 @@ The essence of this example is that the application receiving a request from ano
 
 ### Credentials / Secrets
 
-Deploying an application with an [access policy](../nais-application/access-policy.md) will always produce a `Secret` resource that is automatically
+Deploying an application with an [access policy](../../nais-application/access-policy.md) will always produce a `Secret` resource that is automatically
 mounted to the pods of your application. 
 
 #### Path
@@ -152,7 +152,6 @@ Your application must take the token received from your identity provider and ex
 POST /token HTTP/1.1
 Host: tokendings.prod-gcp.nais.io
 Content-Type: application/x-www-form-urlencoded
-
 grant_type=urn:ietf:params:oauth:grant-type:token-exchange&
 client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&
 client_assertion=eY...............&
@@ -181,7 +180,7 @@ The `client_assertion` is a JWT signed by the application making the token reque
 * `client_id` is available as an environment variable: `TOKEN_X_CLIENT_ID` using the naming scheme: `<cluster>:<namespace>:<appname>`
 * The private part of the keypair is available as a JWK in the environment variable `TOKEN_X_PRIVATE_JWK`
 
-All applications in nais clusters containg an [access policy](../nais-application/access-policy.md) will be registered automatically when applying the application spec (handled by the k8s operator [Jwker](https://github.com/nais/jwker/)), and the respective key pairs will be made available as a k8s secrets. This secret must be used to sign the `client_assertion`.
+All applications in nais clusters containg an [access policy](../../nais-application/access-policy.md) will be registered automatically when applying the application spec (handled by the k8s operator [Jwker](https://github.com/nais/jwker/)), and the respective key pairs will be made available as a k8s secrets. This secret must be used to sign the `client_assertion`.
 
 The `client_assertion` must contain the following claims:
 
@@ -263,5 +262,5 @@ The following example shows the claims of a TokenDings token exchanged based on 
   }
 }
 ```
-[zero trust]: appendices/zero-trust/README.md
+[zero trust]: ../../appendices/zero-trust/README.md
 [Istio]: https://istio.io/
