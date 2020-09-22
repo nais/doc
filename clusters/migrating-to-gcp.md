@@ -109,7 +109,7 @@ See [Migrating databases to GCP][dbmigration].
 There is native functionality in GCP that overlap with many of the use cases that Vault have covered on-prem.
 Using these mechanisms removes the need to deal with these secrets at all.
 Introducing team namespaces allows the teams to manage their own secrets in their own namespaces without the need for IAC and manual routines.
-For other secrets that are not used by the application during runtime, you can use the [Secret Manager](https://cloud.google.com/secret-manager) in each team's GCP project.
+For other secrets that are not used by the application during runtime, you can use the [Secret Manager](../security/secrets/google-secrets-manager.md) in each team's GCP project.
 
 ### How do we migrate from vault to secrets manager
 Retrieve the secret from vault and store it in a file. `kubectl apply -f <secret-file>`. See the [secrets documentation][secrets] for an example.
@@ -176,5 +176,5 @@ See [laws and regulations][laws&regs] for details.
 [gettingstarted-kubectl-gcp]: ../basics/access.md#google-cloud-platform-gcp
 [accesspolicy]: ../nais-application/access-policy.md
 [manifest]: ../nais-application/full-example.md
-[secrets]: ../addons/secrets.md
+[secrets]: ../security/secrets/kubernetes-secrets.md
 [dbmigration]: ./migrating-databases-to-gcp.md

@@ -9,7 +9,7 @@ description: >
 {% hint style="warning" %}
 **Status: Opt-In Open Beta in dev-gcp**
 
-This feature is currently only available in the [GCP](../clusters/gcp.md) clusters.
+This feature is currently only available in the [GCP](../../clusters/gcp.md) clusters.
 {% endhint %}
 
 ID-porten is a common log-in system used for logging into Norwegian public e-services for citizens. 
@@ -29,7 +29,7 @@ with zero downtime.
 
 ## Spec
 
-See the [NAIS manifest](../nais-application/reference.md#spec-idporten).
+See the [NAIS manifest](../../nais-application/reference.md#spec-idporten).
 
 ## Usage
 
@@ -49,7 +49,7 @@ Refer to the [ID-porten Integration guide] for further details.
 
 #### Minimal Example
 
-Minimal example configuration required in [`nais.yaml`](../nais-application/reference.md#spec-idporten)
+Minimal example configuration required in [`nais.yaml`](../../nais-application/reference.md#spec-idporten)
 to enable auto-provisioning of an ID-porten client for your application.
 
 ```yaml
@@ -75,7 +75,7 @@ spec:
 
 #### Full Example
 
-See the [NAIS manifest](../nais-application/reference.md#spec-idporten) for details of all the fields used below.
+See the [NAIS manifest](../../nais-application/reference.md#spec-idporten) for details of all the fields used below.
 
 ```yaml
 apiVersion: "nais.io/v1alpha1"
@@ -150,7 +150,7 @@ Specifying `spec.idporten.redirectURI` will replace the auto-generated redirect 
 
 In most cases you will not need to manually change things for your application, as the ID-porten 
 client automatically is configured with sane defaults, with most other common options 
-available to be configured through [`nais.yaml`](../nais-application/reference.md#spec-idporten). 
+available to be configured through [`nais.yaml`](../../nais-application/reference.md#spec-idporten). 
 
 ### Runtime Configuration and Credentials
 
@@ -272,7 +272,7 @@ The demo app [frontend-dings] demonstrates login using ID-porten and calling an 
 
 ### Why migrate?
 
-- Declarative provisioning, straight from your application's [`nais.yaml`](../nais-application/reference.md#spec-idporten)
+- Declarative provisioning, straight from your application's [`nais.yaml`](../../nais-application/reference.md#spec-idporten)
 - No longer dependent on manual user approvals in multiple IaC repositories
 - No longer dependent on Vault
 - Credentials are rotated on _every_ deploy, completely transparent to the application. 
@@ -300,7 +300,7 @@ E.g.
 dev-gcp:aura:my-app
 ```
 
-Make sure to explicitly configure any values in [`nais.yaml`](../nais-application/reference.md#spec-idporten) 
+Make sure to explicitly configure any values in [`nais.yaml`](../../nais-application/reference.md#spec-idporten) 
 that you wish to keep for your existing client.
 
 ## Deletion
@@ -310,7 +310,7 @@ In other words, if you delete your NAIS application the ID-porten client is also
 a **_new and different_** client ID in ID-porten if you re-create the application after deletion.
 
 [OAuth 2.0 Token Exchange]: https://www.rfc-editor.org/rfc/rfc8693.html
-[TokenX Documentation]: ../addons/tokenx.md
+[TokenX Documentation]: tokenx.md
 [ID-porten Integration guide]: https://difi.github.io/felleslosninger/oidc_guide_idporten.html
 [OpenID Connect with Authorization Code]: https://difi.github.io/felleslosninger/oidc_protocol_token.html
 [OpenID Connect Core 1.0, 9. Client Authentication]: http://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication

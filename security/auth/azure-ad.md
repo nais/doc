@@ -6,7 +6,7 @@ description: >
 # Azure AD Application
 
 {% hint style="warning" %}
-This feature is only available in [team namespaces](../clusters/team-namespaces.md)
+This feature is only available in [team namespaces](../../clusters/team-namespaces.md)
 {% endhint %}
 
 An accompanying Azure AD application can be automatically provisioned to your NAIS application. 
@@ -24,7 +24,7 @@ with zero downtime.
 
 ## Spec
 
-See the [NAIS manifest](../nais-application/reference.md#spec-azure-application).
+See the [NAIS manifest](../../nais-application/reference.md#spec-azure-application).
 
 ## Usage
 
@@ -49,7 +49,7 @@ see the [Microsoft identity platform documentation].
 
 #### Minimal Example
 
-The very minimal example configuration required in [`nais.yaml`](../nais-application/reference.md#spec-azure-application)
+The very minimal example configuration required in [`nais.yaml`](../../nais-application/reference.md#spec-azure-application)
 to enable auto-provisioning of an Azure AD application for your application.
 
 ```yaml
@@ -177,7 +177,7 @@ registered for the Azure AD application.
 ### Pre-Authorized Applications
 
 If your application should accept access tokens from other applications using the [on-behalf-of] flow, 
-a [`spec.accessPolicy.inbound.rules[]`](../nais-application/reference.md#spec-accesspolicy-gcp-only) must be present:
+a [`spec.accessPolicy.inbound.rules[]`](../../nais-application/reference.md#spec-accesspolicy-gcp-only) must be present:
 
 ```yaml
 spec:
@@ -209,7 +209,7 @@ permissions to these, then make sure to re-deploy your application to provision 
 
 In most cases you will not need to manually change things for your application in the Azure Portal as the Azure AD 
 application is automatically configured with sane defaults, with most other common options 
-available to be configured through [`nais.yaml`](../nais-application/reference.md#spec-azure-application). 
+available to be configured through [`nais.yaml`](../../nais-application/reference.md#spec-azure-application). 
 
 If your Azure AD application exists in the default (`nav.no`) tenant, your [team]'s owners will automatically be given owner access. 
 Otherwise, the application will not be assigned any owners.
@@ -261,7 +261,7 @@ These are available as environment variables in your pod, as well as files at th
 | `AZURE_APP_CLIENT_SECRET` | Azure AD client secret, i.e. password for [authenticating the application to Azure AD] |
 | `AZURE_APP_JWKS` | Private JWKS, i.e. containing a JWK with the private RSA key for creating signed JWTs when [authenticating to Azure AD with a certificate]. This will always contain a single key, i.e. the newest key registered |
 | `AZURE_APP_JWK` | Same as the above `AZURE_APP_JWKS`, just with the JWK unwrapped from the key set |
-| `AZURE_APP_PRE_AUTHORIZED_APPS` | A JSON string. List of names and client IDs for the valid (i.e. those that exist in Azure AD) applications defined in [`spec.accessPolicy.inbound.rules[]`](../nais-application/reference.md#spec-accesspolicy-gcp-only) |
+| `AZURE_APP_PRE_AUTHORIZED_APPS` | A JSON string. List of names and client IDs for the valid (i.e. those that exist in Azure AD) applications defined in [`spec.accessPolicy.inbound.rules[]`](../../nais-application/reference.md#spec-accesspolicy-gcp-only) |
 | `AZURE_APP_TENANT_ID` | The tenant ID for which the Azure AD application resides in |
 | `AZURE_APP_WELL_KNOWN_URL` | The well-known URL with the tenant for which the Azure AD application resides in |
 
@@ -338,13 +338,13 @@ Search using the naming scheme mentioned earlier: `<cluster>:<namespace>:<app>`.
 
 ### Why migrate?
 
-- Declarative provisioning, straight from your application's [`nais.yaml`](../nais-application/reference.md#spec-azure-application)
+- Declarative provisioning, straight from your application's [`nais.yaml`](../../nais-application/reference.md#spec-azure-application)
 - No longer dependent on manual user approvals in multiple IaC repositories
 - No longer dependent on Vault
 - Credentials are rotated on _every_ deploy, completely transparent to the application. 
 This ensures that credentials are fresh and lessens the impact in the case of exposure.
-- The exact same feature is present in the [GCP](../clusters/gcp.md) clusters, 
-which simplifies [migration](../clusters/migrating-to-gcp.md).
+- The exact same feature is present in the [GCP](../../clusters/gcp.md) clusters, 
+which simplifies [migration](../../clusters/migrating-to-gcp.md).
 
 ### Differences
 

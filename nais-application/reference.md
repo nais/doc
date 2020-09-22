@@ -258,7 +258,7 @@ Will expose the configmap as files under `spec.filesFrom[].mountPath`.
 ### `spec.filesFrom[].secret`
 Will expose the secret as files under `spec.filesFrom[].mountPath`. Putting this information in a secret is safer and
 more flexible than putting it verbatim in a Pod definition or in a container image. See
-[addons/secrets](../addons/secrets.md) for more information.
+[addons/secrets](../security/secrets/kubernetes-secrets.md) for more information.
 
 ### `spec.filesFrom[].mountPath`
 Path to where files will be mounted.
@@ -275,7 +275,7 @@ required.
 
 ### `spec.envFrom[].secret`
 Putting this information in a secret is safer and more flexible than putting it verbatim in a Pod definition or in a
-container image. See [addons/secrets](../addons/secrets.md) for more information.
+container image. See [addons/secrets](../security/secrets/kubernetes-secrets.md) for more information.
 
 ## `spec.env[]`
 Custom environment variables injected into your container.
@@ -442,7 +442,7 @@ Whether the instance should be deleted if the application is deleted
 **Default**: `false`
 
 ## `spec.azure.application`
-Configures an Azure AD application for this application. See [Azure AD](../addons/azure-ad.md) for more details.
+Configures an Azure AD application for this application. See [Azure AD](../security/auth/azure-ad.md) for more details.
 
 ### `spec.azure.application.enabled`
 If enabled, will provision an Azure AD application for the application.
@@ -458,23 +458,23 @@ e.g. `[ "https://my.application/oauth2/callback" ]`
 {% hint style="info" %}
 Note that `spec.azure.application.replyURLs[]` can be omitted if `spec.ingresses` are specified.
 
-See [Reply URLs](../addons/azure-ad.md#reply-urls) for details.
+See [Reply URLs](../security/auth/azure-ad.md#reply-urls) for details.
 {% endhint %}
 
 ### `spec.azure.application.tenant`
-Explicitly target a given [tenant](../addons/azure-ad.md#tenants) in Azure AD. 
+Explicitly target a given [tenant](../security/auth/azure-ad.md#tenants) in Azure AD. 
 
 **Default**: `nav.no`
 
 **Allowed values**: enum of `{trygdeetaten.no, nav.no}`
 
 ## `spec.tokenx.enabled`
-Toggle for enabling [TokenX](../addons/tokenx.md) for your application.
+Toggle for enabling [TokenX](../security/auth/tokenx.md) for your application.
 
 **Default**: `false`
 
 ## `spec.idporten`
-Configures an ID-porten client for this application. See [Idporten](../addons/idporten.md) for more details.
+Configures an ID-porten client for this application. See [Idporten](../security/auth/idporten.md) for more details.
 
 ### `spec.idporten.enabled`
 If enabled, will provision an ID-porten client for the application.
