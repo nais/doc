@@ -1,3 +1,8 @@
+---
+description: >
+  Introduction to OAuth 2.0 / OpenID Connect
+---
+
 # Introduction to OAuth 2.0 / OpenID Connect 
 
 [OpenID Connect (OIDC)](https://openid.net/connect/) and [OAuth 2.0](https://oauth.net/2/) are the preferred 
