@@ -46,6 +46,9 @@ If no ingress is selected, the application will not be reachable from outside th
 | adeo.no | case workers, [naisdevice](../device/README.md) | automatically configured (wildcard DNS) |
 | prod-gcp.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), applications should use .{nav,adeo}.no |
 
+
+More info about how DNS is configured for these domains can be found [here](../appendices/ingress-dns/README.md)
+
 ## ROS and PVK
 
 When establishing an application on GCP, it is a great time to update its [Risikovurdering (ROS)][ROS] analysis.

@@ -55,3 +55,5 @@ You can control from where you application is reachable by selecting the appropr
 | nais.oera.no | vdi | automatically configured. Typically used by backend/admin apps not exposed to end-users |
 | tjenester.nav.no | internet | context root based routing on format `tjenester.nav.no/<appname>`. |
 | prod-sbs.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), use nav.no/nais.oera.no instead |
+
+More info about how DNS is configured for these domains can be found [here](../appendices/ingress-dns/README.md)
