@@ -262,5 +262,5 @@ The following example shows the claims of a TokenDings token exchanged based on 
   }
 }
 ```
-[zero trust]: ../../appendices/zero-trust/README.md
+[zero trust]: ../../appendix/zero-trust/README.md
 [Istio]: https://istio.io/
