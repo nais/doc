@@ -57,4 +57,4 @@
   * [Available services](device/services.md)
 * [Appendix](appendices/README.md)
   * [Zero-Trust Network Architecture](appendices/zero-trust/README.md)
-  * [Ingress DNS setup](appendices/ingress-dns/README.md)
+  * [Ingress DNS setup](appendices/ingress-dns.md)

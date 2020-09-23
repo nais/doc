@@ -47,7 +47,7 @@ If no ingress is selected, the application will not be reachable from outside th
 | prod-gcp.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), applications should use .{nav,adeo}.no |
 
 
-More info about how DNS is configured for these domains can be found [here](../appendices/ingress-dns/README.md)
+More info about how DNS is configured for these domains can be found [here](../appendices/ingress-dns.md)
 
 ## ROS and PVK
 
