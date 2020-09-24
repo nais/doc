@@ -69,6 +69,9 @@ kind: Topic
 metadata:
   name: mytopic
   namespace: aura
+  annotations:
+    dcat.data.nav.no/title: "Title for Datakatalogen"
+    dcat.data.nav.no/description: "Longer description about what this topic is about"
   labels:
     team: aura
 spec:
@@ -99,6 +102,50 @@ spec:
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+### Datakatalogen metadata
+
+If your topic exposes data meant for consumption by a wider audience, you
+should define some metadata describing the topic and its contents.  This data
+will be automatically scraped and added to
+[Datakatalogen](https://data.nav.no). Use the following annotations and prefix
+them with `dakan/`.  Mandatory fields must be specified if the topic is to be
+scraped at all.
+
+Syntax:
+
+```
+apiVersion: kafka.nais.io/v1
+kind: Topic
+metadata:
+  annotations:
+    dcat.data.nav.no/<key>: "<value>"
+```
+
+| Key | Importance | Description |
+|-----|------------|-------------|
+| title | Mandatory | |
+| description | Mandatory | |
+| contactPoint | Recommended | |
+| issued | Recommended | |
+| modified | Recommended | |
+| creator | Recommended | |
+| language | Recommended | |
+| publisher | Recommended | |
+| identifier | Recommended | |
+| license | Recommended | |
+| rights | Recommended | |
+| keyword | Recommended | |
+| theme | Recommended | |
+| accessRights | Optional | |
+| conformsTo | Optional | |
+| type | Optional | |
+| relation | Optional | |
+| qualifiedRelation | Optional | |
+| landingPage | Optional | |
+| qualifiedAttribution | Optional | |
+| hasPolicy | Optional | |
+| isReferencedBy | Optional | |
 
 ## Accessing topics from an application
 
