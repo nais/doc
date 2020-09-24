@@ -36,7 +36,7 @@ See [GCP clusters][GCP].
 
 ### Privacy
 
-Google is cleared to be a data processor for personally identifiable information (PII) at NAV, and NAVs Privacy Policy explicitly states that data shared with NAV may be stored in the cloud. However, before your team moves any applications or data to GCP the following steps should be taken:
+Google is cleared to be a data processor for personally identifiable information (PII) at NAV. However, before your team moves any applications or data to GCP the following steps should be taken:
 
 1. Review part 1 of the PVK document ("Grunnlegende personvernavklaringer"). If this document references our on-premises infrastructure or any usage of resources or capabilities that will change as a result of the migration, update the document accordingly.
 
