@@ -122,25 +122,25 @@ metadata:
     dcat.data.nav.no/<key>: "<value>"
 ```
 
-| Key | Importance | Description |
-|-----|------------|-------------|
-| title | Mandatory | |
-| description | Mandatory | |
-| contactPoint | Recommended | |
-| issued | Recommended | |
-| modified | Recommended | |
-| creator | Recommended | |
-| language | Recommended | |
-| publisher | Recommended | |
-| identifier | Recommended | |
-| license | Recommended | |
-| rights | Recommended | |
-| keyword | Recommended | |
-| theme | Recommended | |
-| accessRights | Optional | |
-| conformsTo | Optional | |
-| mediaType | Optional | |
-| temporal | Optional | |
+| Key          | Importance  | Comment                                                                                                                                                     | Example                                                                                         |
+|--------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| title        | Mandatory   | String                                                                                                                                                      | Inntektskjema mottatt fra Altinn                                                                |
+| description  | Mandatory   | String                                                                                                                                                      | Inntektsmeldingen arbeidsgiveren sender fra eget lønns- og personalsystem eller fra altinn.no |
+| contactPoint | Recommended | Whom to contact regarding the   data                                                                                                                        | {"name": "Skjemateamet", "mbox": "teamX@nav.no"}                                               |
+| issued       | Recommended | Date the dataset was first   published. Formats allowed are: ‘YYYY-MM-DD’, ‘YYYY-MM’, ‘YYYY’ or   ‘YYYY-MM-DDTHH:MM:SS.mmmmmm’ (according to ISO8601)       | 2020-06-20                                                                                      |
+| modified     | Recommended | Date the dataset was most   recently updated. Formats allowed are: ‘YYYY-MM-DD’, ‘YYYY-MM’, ‘YYYY’ or   ‘YYYY-MM-DDTHH:MM:SS.mmmmmm’ (according to ISO8601) | 2020-06-20                                                                                      |
+| creator      | Recommended | The entity responsible for   producing the resource. An agent (eg. person, group, software or physical   artifact)                                          | NAV                                                                                             |
+| language     | Recommended | 2 or 3 letter code                                                                                                                                          | NO                                                                                              |
+| publisher    | Recommended | The entity responsible for   making the item available. An agent (eg. person, group, software or physical   artifact).                                      | NAV                                                                                             |
+| identifier   | Recommended | Ideally globally unique string.   URI recommended                                                                                                           | kafka.nais.io/aapen-altinn-maalekort-mottatt-value                                              |
+| license      | Recommended | Either a license URI or a title                                                                                                                             | MIT                                                                                             |
+| rights       | Recommended | A statement that concerns all   rights not addressed with dct:license or dct:accessRights,   such as copyright statements.                                  | Copyright 2020, NAV                                                                             |
+| keyword      | Recommended | A string or a list of strings                                                                                                                               | [inntekt, arbeidsgiver,altinn]                                                                  |
+| theme        | Recommended | A main category of the resource.   A resource can have multiple themes.                                                                                     | Inntekt                                                                                         |
+| accessRights | Optional    | Information about who can access   the resource or an indication of its security status.                                                                    | Internal                                                                                        |
+| conformsTo   | Optional    | URL of the machine-readable   schema that the dataset conforms to                                                                                           | (link to schema registry)                                                                       |
+| mediaType    | Optional    | Media type                                                                                                                                                  | JSON                                                                                            |
+| temporal     | Optional    | An interval of time that is   named or defined by its start and end date. Formatted as 2 ISO 8601 dates (or   datetimes) separated by a slash               | 2020/2020 or 2020-06/2020-06                                                                    |
 
 ## Accessing topics from an application
 
