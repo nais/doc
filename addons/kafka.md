@@ -122,21 +122,19 @@ metadata:
     dcat.data.nav.no/<key>: "<value>"
 ```
 
-| Key          | Importance  | Comment                                                                                                                                                     | Example Value                                                                                         |
-|--------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
-| title        | Mandatory   | String                                                                                                                                                      | Inntektskjema mottatt fra Altinn                                                                |
-| description  | Mandatory   | String                                                                                                                                                      | Inntektsmeldingen arbeidsgiveren sender fra eget lønns- og personalsystem eller fra altinn.no |
-| contactPointName | Recommended | Name to contact regarding the   data                                                                                                                        | TeamX                                               |
-| contactPointEmail | Recommended | Email to contact regarding the   data                                                                                                                        | teamX@nav.no                                               |
-| creator      | Recommended | The entity responsible for   producing the resource. An agent (eg. person, group, software or physical   artifact)                                          | NAV                                                                                             |
-| language     | Recommended | 2 or 3 letter code                                                                                                                                          | NO                                                                                              |
-| publisher    | Recommended | The entity responsible for   making the item available. An agent (eg. person, group, software or physical   artifact).                                      | NAV                                                                                             |                                             |
-| license      | Recommended | Either a license URI or a title                                                                                                                             | MIT                                                                                             |
-| rights       | Recommended | A statement that concerns all   rights not addressed with dct:license or dct:accessRights,   such as copyright statements.                                  | Copyright 2020, NAV                                                                             |
-| keyword      | Recommended | A string or a list of strings                                                                                                                               | inntekt, arbeidsgiver,altinn                                                                  |
-| theme        | Recommended | A main category of the resource.   A resource can have multiple themes.                                                                                     | Inntekt                                                                                         |
-| accessRights | Optional    | Information about who can access   the resource or an indication of its security status.                                                                    | Internal                                                                                        |
-| temporal     | Optional    | An interval of time that is   named or defined by its start and end date. Formatted as 2 ISO 8601 dates (or   datetimes) separated by a slash               | 2020/2020 or 2020-06/2020-06                                                                    |
+| Key | Importance | Comment | Example Value |
+|---|---|---|---|
+| title | mandatory | String | Inntektskjema mottatt fra Altinn |
+| description | mandatory | String | Inntektsmeldingen arbeidsgiveren sender fra eget lønns- og personalsystem eller fra altinn.no |
+| creator | recommended | The entity responsible for producing the resource. An agent (eg. person, group, software or physical artifact) | NAV |
+| language | recommended | 2 or 3 letter code | NO |
+| publisher | Recommended | The entity responsible for making the item available. An agent (eg. person, group, software or physical artifact). | NAV | |
+| license | recommended | Either a license URI or a title | MIT |
+| rights | recommended | A statement that concerns all rights not addressed with dct:license or dct:accessRights, such as copyright statements. | Copyright 2020, NAV |
+| keyword | recommended | A string or a list of strings | inntekt, arbeidsgiver,altinn |
+| theme | recommended | A main category of the resource. A resource can have multiple themes. | Inntekt |
+| accessRights | optional | Information about who can access the resource or an indication of its security status. | Internal |
+| temporal | optional | An interval of time that is named or defined by its start and end date. Formatted as 2 ISO 8601 dates (or datetimes) separated by a slash | 2020/2020 or 2020-06/2020-06 |
 
 ## Accessing topics from an application
 
