@@ -109,7 +109,7 @@ If your topic exposes data meant for consumption by a wider audience, you
 should define some metadata describing the topic and its contents.  This data
 will be automatically scraped and added to
 [Datakatalogen](https://data.nav.no). Use the following annotations and prefix
-them with `dakan/`.  Mandatory fields must be specified if the topic is to be
+them with `dcat.data.nav.no/`.  Mandatory fields must be specified if the topic is to be
 scraped at all.
 
 Syntax:
