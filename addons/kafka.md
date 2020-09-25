@@ -136,8 +136,6 @@ metadata:
 | keyword      | Recommended | A string or a list of strings                                                                                                                               | inntekt, arbeidsgiver,altinn                                                                  |
 | theme        | Recommended | A main category of the resource.   A resource can have multiple themes.                                                                                     | Inntekt                                                                                         |
 | accessRights | Optional    | Information about who can access   the resource or an indication of its security status.                                                                    | Internal                                                                                        |
-| conformsTo   | Optional    | URL of the machine-readable   schema that the dataset conforms to                                                                                           | (link to schema registry)                                                                       |
-| mediaType    | Optional    | Media type                                                                                                                                                  | JSON                                                                                            |
 | temporal     | Optional    | An interval of time that is   named or defined by its start and end date. Formatted as 2 ISO 8601 dates (or   datetimes) separated by a slash               | 2020/2020 or 2020-06/2020-06                                                                    |
 
 ## Accessing topics from an application
