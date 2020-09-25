@@ -69,9 +69,6 @@ kind: Topic
 metadata:
   name: mytopic
   namespace: aura
-  annotations:
-    dcat.data.nav.no/title: "Title for Datakatalogen"
-    dcat.data.nav.no/description: "Longer description about what this topic is about"
   labels:
     team: aura
 spec:
