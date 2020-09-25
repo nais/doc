@@ -122,7 +122,7 @@ metadata:
     dcat.data.nav.no/<key>: "<value>"
 ```
 
-| Key          | Importance  | Comment                                                                                                                                                     | Example                                                                                         |
+| Key          | Importance  | Comment                                                                                                                                                     | Example Value                                                                                         |
 |--------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
 | title        | Mandatory   | String                                                                                                                                                      | Inntektskjema mottatt fra Altinn                                                                |
 | description  | Mandatory   | String                                                                                                                                                      | Inntektsmeldingen arbeidsgiveren sender fra eget lønns- og personalsystem eller fra altinn.no |
