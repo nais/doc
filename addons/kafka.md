@@ -139,13 +139,8 @@ metadata:
 | theme | Recommended | |
 | accessRights | Optional | |
 | conformsTo | Optional | |
-| type | Optional | |
-| relation | Optional | |
-| qualifiedRelation | Optional | |
-| landingPage | Optional | |
-| qualifiedAttribution | Optional | |
-| hasPolicy | Optional | |
-| isReferencedBy | Optional | |
+| mediaType | Optional | |
+| temporal | Optional | |
 
 ## Accessing topics from an application
 
