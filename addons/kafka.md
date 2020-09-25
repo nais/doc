@@ -55,10 +55,10 @@ the next section.
 
 Currently, use the `nav-dev` pool for development, and `nav-prod` for production.
 
-| Pool | Topic declared in | Available from |
+| Pool | Min. replication | Max. replication | Topic declared in | Available from |
 |---|---|---|
-| `nav-dev` | `dev-gcp` | `dev-gcp`, `dev-fss`, `dev-sbs` |
-| `nav-prod` | `prod-gcp` | `prod-gcp`, `prod-fss`, `prod-sbs` |
+| `nav-dev` | 2 | 3 | `dev-gcp` | `dev-gcp`, `dev-fss`, `dev-sbs` |
+| `nav-prod` | 2 | 3 | `prod-gcp` | `prod-gcp`, `prod-fss`, `prod-sbs` |
 
 {% code-tabs %}
 {% code-tabs-item title="topic.yaml" %}
@@ -77,7 +77,7 @@ spec:
     cleanupPolicy: delete  # delete, compact
     minimumInSyncReplicas: 1
     partitions: 1
-    replication: 3
+    replication: 3  # see min/max requirements
     retentionBytes: -1
     retentionHours: 72
   acl:
