@@ -293,8 +293,6 @@ Environment variable value.
 ## `spec.preStopHookPath`
 A HTTP GET will be issued to this endpoint at least once before the pod is terminated. Read more under [nais-application](https://doc.nais.io/nais-application#handles-termination-gracefully).
 
-**Default**: `/stop`
-
 ## `spec.leaderElection`
 If true, a HTTP endpoint will be available at `$ELECTOR_PATH` that returns the current leader. Read more about leader election in [addons/leader election](../addons/leader-election.md).
 
