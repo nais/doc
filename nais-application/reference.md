@@ -472,7 +472,7 @@ Toggle for enabling [TokenX](../security/auth/tokenx.md) for your application.
 **Default**: `false`
 
 ## `spec.idporten`
-Configures an ID-porten client for this application. See [Idporten](../security/auth/idporten.md) for more details.
+Configures an ID-porten client for this application. See [ID-porten](../security/auth/idporten.md) for more details.
 
 ### `spec.idporten.enabled`
 If enabled, will provision an ID-porten client for the application.
@@ -503,8 +503,9 @@ Note that `spec.idporten.redirectURI` can only be omitted if `spec.ingresses` ar
 {% endhint %}
 
 ### `spec.idporten.redirectURI`
-Valid url that ID-Porten can redirect back to after successful authorization 
-request, e.g. `"https://my.application.ingress/oauth2/callback"`
+Valid URI that ID-porten redirects back to after a successful authorization request, e.g. `"https://my.application.ingress/oauth2/callback"`.
+
+Must be a valid subpath of your application's specified ingress.
 
 **Default**: `https://my.application.ingress/oauth2/callback`
 
