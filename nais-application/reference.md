@@ -291,7 +291,7 @@ Environment variable value.
 **Required**: `true`
 
 ## `spec.preStopHookPath`
-A HTTP GET will be issued to this endpoint at least once before the pod is terminated.
+A HTTP GET will be issued to this endpoint at least once before the pod is terminated. Read more under [nais-application](https://doc.nais.io/nais-application#handles-termination-gracefully).
 
 **Default**: `/stop`
 
