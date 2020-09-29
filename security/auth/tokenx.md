@@ -80,7 +80,7 @@ mounted to the pods of your application.
 
 #### Path
 
-The secret should be available as files at
+The secret will be available as files at
 
 ```
 /var/run/secrets/nais.io/jwker
@@ -180,7 +180,7 @@ The `client_assertion` is a JWT signed by the application making the token reque
 * `client_id` is available as an environment variable: `TOKEN_X_CLIENT_ID` using the naming scheme: `<cluster>:<namespace>:<appname>`
 * The private part of the keypair is available as a JWK in the environment variable `TOKEN_X_PRIVATE_JWK`
 
-All applications in nais clusters containg an [access policy](../../nais-application/access-policy.md) will be registered automatically when applying the application spec (handled by the k8s operator [Jwker](https://github.com/nais/jwker/)), and the respective key pairs will be made available as a k8s secrets. This secret must be used to sign the `client_assertion`.
+All applications in nais clusters containing an [access policy](../../nais-application/access-policy.md) will be registered automatically when applying the application spec (handled by the k8s operator [Jwker](https://github.com/nais/jwker/)), and the respective key pairs will be made available as a k8s secrets. This secret must be used to sign the `client_assertion`.
 
 The `client_assertion` must contain the following claims:
 
@@ -227,6 +227,7 @@ Configure your app with the [OAuth 2.0 Authorization Server Metadata](https://ww
 - Verify that the signature is correct - keys can be retrieved by using the `kid` attribute from the token header against the issuer `jwks_uri`.
 
 #### Claim Validation
+
 The following claims should explicitly be validated:
 - `iss` (**issuer**): The issuer of the token, the TokenDings issuer URI should match exactly
 - `aud` (**audience**): The intended audience for the token, should match your applications client_id in the naming scheme `<cluster>:<namespace>:<appname>`
