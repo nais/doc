@@ -21,6 +21,11 @@ a group, the mailnick is the value before the `@` in the email field.
 * Two GCP projects are provisioned, one for development and one for production. See `https://console.cloud.google.com/home/dashboard?project=<(dev|prod)-yourteamname>`.
 * Namespaces are provisioned in all Kubernetes clusters.
 
+## Managing your team
+* Team members are managed by managing the group in [AAD]
+
+{% hint style="warning" %} It is the responsibility of each team to keep the group member roster up to date. This includes removing former team members in a timely fashion. {% endhint %}
+
 ## Access to API keys
 
 In order to access _team API keys_, go to [deploy.nais.io].
