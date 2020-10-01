@@ -33,7 +33,8 @@
 ## Connecting to NAIS clusters
 1. In a terminal/shell of your choice, navigate to [kubeconfigs repo](https://github.com/navikt/kubeconfigs)'.
    1. If you haven't downloaded repo already: `git clone <clone URL> && cd kubeconfigs`
-2. `git pull && git checkout naisdevice` To ensure you've got latest & greatest.
+2. `git pull` To ensure you've got latest & greatest.
+3. `git checkout naisdevice` Remember to use the right branch!
 
 ## Uninstall navtunnel
 * Remove proxy settings from MAVEN_OPTS and Maven settings.xml
