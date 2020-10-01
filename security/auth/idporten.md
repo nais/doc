@@ -268,6 +268,11 @@ The demo app [frontend-dings] demonstrates login using ID-porten and calling an 
 [TokenX][TokenX Documentation]
 {% endhint %}
 
+
+## Test users for development
+
+ID-porten maintains a public list of test users found [here][idporten-testusers].
+
 ## Migrating from existing infrastructure-as-code ([IaC]) solution
 
 ### Why migrate?
@@ -317,3 +322,4 @@ a **_new and different_** client ID in ID-porten if you re-create the applicatio
 [IaC]: https://github.com/navikt/nav-maskinporten/tree/master/clients
 [Digdirator]: https://github.com/nais/digdirator
 [frontend-dings]: https://github.com/nais/frontend-dings
+[idporten-testusers]: https://difi.github.io/felleslosninger/idporten_testbrukere.html
