@@ -64,7 +64,7 @@ pg_dump -h <postgreSQL on-premise host name> -d <database instance name> -U <dat
 ```
 Create GCP bucket:
 ```
-gsutil mb gs://<bucket name> -l europe-north1
+gsutil mb -l europe-north1 gs://<bucket name>
 ```
 Set the objectAdmin role for the bucket:
 ```
