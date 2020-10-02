@@ -137,6 +137,12 @@ These variables are made available inside the pod.
 | `KAFKA_CERTIFICATE` | Client certificate for connecting to the Kafka brokers, as string data |
 | `KAFKA_PRIVATE_KEY` | Client certificate key for connecting to the Kafka brokers, as string data |
 | `KAFKA_CA` | Certificate authority used to validate the Kafka brokers, as string data |
+| `KAFKA_KEYSTORE` | PKCS#12 keystore for use with Java clients |
+| `KAFKA_TRUSTSTORE` | JKS truststore for use with Java clients |
+| `KAFKA_STORE_PASSWORD` | Password needed to use the keystore and truststore |
+| `KAFKA_KEYSTORE_PATH` | PKCS#12 keystore for use with Java clients, as file |
+| `KAFKA_TRUSTSTORE_PATH` | JKS truststore for use with Java clients, as file |
+
 
 ## Application design guidelines
 
