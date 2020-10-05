@@ -128,7 +128,7 @@ metadata:
 | publisher | Recommended | The entity responsible for making the item available. An agent (eg. person, group, software or physical artifact). | NAV | |
 | license | recommended | Either a license URI or a title | MIT |
 | rights | recommended | A statement that concerns all rights not addressed with dct:license or dct:accessRights, such as copyright statements. | Copyright 2020, NAV |
-| keyword | recommended | A string or a list of strings | inntekt, arbeidsgiver,altinn |
+| keyword | recommended | A string or a list of strings | inntekt, arbeidsgiver, altinn |
 | theme | recommended | A main category of the resource. A resource can have multiple themes. | Inntekt |
 | accessRights | optional | Information about who can access the resource or an indication of its security status. | Internal |
 | temporal | optional | An interval of time that is named or defined by its start and end date. Formatted as 2 ISO 8601 dates (or datetimes) separated by a slash | 2020/2020 or 2020-06/2020-06 |
