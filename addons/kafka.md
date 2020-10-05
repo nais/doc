@@ -126,7 +126,8 @@ metadata:
 | keyword | recommended | A string or a list of strings | inntekt, arbeidsgiver,altinn | |
 
 
-One or more of the following keys can also be supplied if the default values are not relevant
+
+One or more of the following keys can also be supplied if the default values are not sufficient
 
 | Key | Importance | Comment | Example Value | Default value |
 |---|---|---|---|---|
@@ -134,10 +135,10 @@ One or more of the following keys can also be supplied if the default values are
 | creator | optional | The entity responsible for producing the resource. An agent (eg. person, group, software or physical artifact) | NAV | *team name* |
 | language | optional | 2 or 3 letter code | NO | NO |
 | publisher | optional | The entity responsible for making the item available. An agent (eg. person, group, software or physical artifact). | NAV | NAV | 
-| accessRights | optional | Information about who can access the resource or an indication of its security status. | Internal | Internal |
+| accessRights | optional | Information about who can access the resource or an indication of its security status. | internal | internal |
 | license | optional | Either a license URI or a title | MIT |  |
 | rights | optional | A statement that concerns all rights not addressed with dct:license or dct:accessRights, such as copyright statements. | Copyright 2020, NAV |  Copyright *year*, NAV |
-| catalog | optional | The catalog(s) where the metadata will be published. The value can be either 'Internal' or 'External' | External |  Internal |
+| catalog | optional | The catalog(s) where the metadata will be published. The value can be either 'internal' (only visibible within the organisation) or 'external' (public) | external |  internal |
 
 ## Accessing topics from an application
 
