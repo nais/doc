@@ -76,7 +76,7 @@ gsutil -o GSUtil:parallel_composite_upload_threshold=150M -h "Content-Type:appli
 ```
 Import the dump into the GCP postgreSQL database:
 ```
-gcloud sql import sql <Cloud SQL instance id> gs://<bucket name>/dump.sql --database=<database instance name> --user=<database instance user name>
+gcloud sql import sql <Cloud SQL instance id> gs://<bucket name>/dump.sql.gz --database=<database instance name> --user=<database instance user name>
 ```
 
 Verify that the application is behaving as expected and that the data in the new database is correct. 
