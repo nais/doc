@@ -125,8 +125,6 @@ metadata:
 | theme | recommended | A main category of the resource. A resource can have multiple themes entered as a comma-separated list if strings. | inntekt | |
 | keyword | recommended | A string or a list of strings | inntekt, arbeidsgiver,altinn | |
 
-
-
 One or more of the following keys can also be supplied if the default values below are not sufficient:
 
 | Key | Importance | Comment | Example Value | Default value |
