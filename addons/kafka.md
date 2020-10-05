@@ -127,7 +127,7 @@ metadata:
 
 
 
-One or more of the following keys can also be supplied if the default values are not sufficient
+One or more of the following keys can also be supplied if the default values below are not sufficient:
 
 | Key | Importance | Comment | Example Value | Default value |
 |---|---|---|---|---|
