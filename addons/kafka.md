@@ -163,7 +163,7 @@ new schema registry in Aiven when migrating. How you do that depends on how you 
 
 The first step is always:
 
- 0. Create the topic using the new Topic resource, and set proper ACLs
+ 0. Create the topic using the new [Topic resource](#creating-topics-and-defining-access), and set proper ACLs
  
 The final step should always be:
 
