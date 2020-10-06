@@ -100,14 +100,13 @@ spec:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### Datakatalogen metadata
+### Data Catalog metadata
 
 If your topic exposes data meant for consumption by a wider audience, you
-should define some metadata describing the topic and its contents.  This data
-will be automatically scraped and added to
-[Datakatalogen](https://data.nav.no). Use the following annotations and prefix
-them with `dcat.data.nav.no/`.  Mandatory fields must be specified if the topic is to be
-scraped at all.
+should define some metadata describing the topic and its contents. This data
+will be automatically scraped and added to the [internal data catalog](https://data.adeo.no). 
+If the 'catalog' key is set to 'Public' then the topic metadata is also published to the [external data catalog](https://data.nav.no) and the [common data catalog](https://data.norge.no/).
+Use the following annotations and prefix them with `dcat.data.nav.no/`. Default values will be used where not supplied.
 
 Syntax:
 
@@ -119,19 +118,25 @@ metadata:
     dcat.data.nav.no/<key>: "<value>"
 ```
 
-| Key | Importance | Comment | Example Value |
-|---|---|---|---|
-| title | mandatory | String | Inntektskjema mottatt fra Altinn |
-| description | mandatory | String | Inntektsmeldingen arbeidsgiveren sender fra eget lønns- og personalsystem eller fra altinn.no |
-| creator | recommended | The entity responsible for producing the resource. An agent (eg. person, group, software or physical artifact) | NAV |
-| language | recommended | 2 or 3 letter code | NO |
-| publisher | Recommended | The entity responsible for making the item available. An agent (eg. person, group, software or physical artifact). | NAV | |
-| license | recommended | Either a license URI or a title | MIT |
-| rights | recommended | A statement that concerns all rights not addressed with dct:license or dct:accessRights, such as copyright statements. | Copyright 2020, NAV |
-| keyword | recommended | A string or a list of strings | inntekt, arbeidsgiver, altinn |
-| theme | recommended | A main category of the resource. A resource can have multiple themes. | Inntekt |
-| accessRights | optional | Information about who can access the resource or an indication of its security status. | Internal |
-| temporal | optional | An interval of time that is named or defined by its start and end date. Formatted as 2 ISO 8601 dates (or datetimes) separated by a slash | 2020/2020 or 2020-06/2020-06 |
+| Key | Importance | Comment | Example Value | Default value |
+|---|---|---|---|---|
+| title | mandatory | String | Inntektskjema mottatt fra Altinn | *topic name* |
+| description | mandatory | String | Inntektsmeldingen arbeidsgiveren sender fra eget lønns- og personalsystem eller fra altinn.no | |
+| theme | recommended | A main category of the resource. A resource can have multiple themes entered as a comma-separated list if strings. | inntekt | |
+| keyword | recommended | A string or a list of strings | inntekt, arbeidsgiver,altinn | |
+
+One or more of the following keys can also be supplied if the default values below are not sufficient:
+
+| Key | Importance | Comment | Example Value | Default value |
+|---|---|---|---|---|
+| temporal | optional | An interval of time covered by the topic that is named or defined by its start and end date. Formatted as 2 ISO 8601 dates (or datetimes) separated by a slash | 2020/2020 or 2020-06/2020-06 | *current year*/*current year* |
+| creator | optional | The entity responsible for producing the resource. An agent (eg. person, group, software or physical artifact) | NAV | *team name* |
+| language | optional | 2 or 3 letter code | NO | NO |
+| publisher | optional | The entity responsible for making the item available. An agent (eg. person, group, software or physical artifact). | NAV | NAV | 
+| accessRights | optional | Information about who can access the resource or an indication of its security status. | internal | internal |
+| license | optional | Either a license URI or a title | MIT |  |
+| rights | optional | A statement that concerns all rights not addressed with dct:license or dct:accessRights, such as copyright statements. | Copyright 2020, NAV |  Copyright *year*, NAV |
+| catalog | optional | The catalog(s) where the metadata will be published. The value can be either 'internal' (only visibible within the organisation) or 'external' (public) | external |  internal |
 
 ## Accessing topics from an application
 
