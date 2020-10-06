@@ -100,16 +100,20 @@ spec:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### Data Catalog metadata
+### Data catalog metadata
 
 If your topic exposes data meant for consumption by a wider audience, you
 should define some metadata describing the topic and its contents. This data
-will be automatically scraped and added to the [internal data catalog](https://data.adeo.no). 
-If the 'catalog' key is set to 'Public' then the topic metadata is also published to the [external data catalog](https://data.nav.no) and the [common data catalog](https://data.norge.no/).
-Use the following annotations and prefix them with `dcat.data.nav.no/`. Default values will be used where not supplied.
+will be automatically scraped and added to the
+[internal data catalog](https://data.adeo.no).
+If the `catalog` key is set to `public`, the topic metadata is also published to the
+[external data catalog](https://data.nav.no) and the
+[National Data Catalog](https://data.norge.no/).
 
 Syntax:
 
+{% code-tabs %}
+{% code-tabs-item title="topic.yaml" %}
 ```
 apiVersion: kafka.nais.io/v1
 kind: Topic
@@ -117,26 +121,30 @@ metadata:
   annotations:
     dcat.data.nav.no/<key>: "<value>"
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-| Key | Importance | Comment | Example Value | Default value |
-|---|---|---|---|---|
+Use the following annotations and prefix them with `dcat.data.nav.no/`. Default values will be used where not supplied.
+
+| Key | Importance | Comment | Example Value |
+|---|---|---|---|
 | title | mandatory | String | Inntektskjema mottatt fra Altinn | *topic name* |
-| description | mandatory | String | Inntektsmeldingen arbeidsgiveren sender fra eget lønns- og personalsystem eller fra altinn.no | |
-| theme | recommended | A main category of the resource. A resource can have multiple themes entered as a comma-separated list if strings. | inntekt | |
-| keyword | recommended | A string or a list of strings | inntekt, arbeidsgiver,altinn | |
+| description | mandatory | String | Inntektsmeldingen arbeidsgiveren sender fra eget lønns- og personalsystem eller fra altinn.no |
+| theme | recommended | A main category of the resource. A resource can have multiple themes entered as a comma-separated list of strings. | inntekt |
+| keyword | recommended | A string or a list of strings | inntekt,arbeidsgiver,altinn |
 
 One or more of the following keys can also be supplied if the default values below are not sufficient:
 
 | Key | Importance | Comment | Example Value | Default value |
 |---|---|---|---|---|
-| temporal | optional | An interval of time covered by the topic that is named or defined by its start and end date. Formatted as 2 ISO 8601 dates (or datetimes) separated by a slash | 2020/2020 or 2020-06/2020-06 | *current year*/*current year* |
-| creator | optional | The entity responsible for producing the resource. An agent (eg. person, group, software or physical artifact) | NAV | *team name* |
-| language | optional | 2 or 3 letter code | NO | NO |
-| publisher | optional | The entity responsible for making the item available. An agent (eg. person, group, software or physical artifact). | NAV | NAV | 
-| accessRights | optional | Information about who can access the resource or an indication of its security status. | internal | internal |
-| license | optional | Either a license URI or a title | MIT |  |
-| rights | optional | A statement that concerns all rights not addressed with dct:license or dct:accessRights, such as copyright statements. | Copyright 2020, NAV |  Copyright *year*, NAV |
-| catalog | optional | The catalog(s) where the metadata will be published. The value can be either 'internal' (only visibible within the organisation) or 'external' (public) | external |  internal |
+| temporal | optional | An interval of time covered by the topic, start and end date. Formatted as two ISO 8601 dates (or datetimes) separated by a slash. | 2020/2020 or 2020-06/2020-06 | *current year*/*current year* |
+| language | optional | Two or three letter code. | NO | NO |
+| creator | optional | The entity responsible for producing the topic. An agent (eg. person, group, software or physical artifact). | NAV | *team name* |
+| publisher | optional | The entity responsible for making the topic available. An agent (eg. person, group, software or physical artifact). | NAV | NAV |
+| accessRights | optional | Information about who can access the topic or an indication of its security status. | internal | internal |
+| license | optional | Either a license URI or a title. | MIT | |
+| rights | optional | A statement that concerns all rights not addressed with `license` or `accessRights`, such as copyright statements. | Copyright 2020, NAV | Copyright *year*, NAV |
+| catalog | optional | The catalog(s) where the metadata will be published. The value can be either `internal` (only visibible within the organization) or `public`. | public | internal |
 
 ## Accessing topics from an application
 
