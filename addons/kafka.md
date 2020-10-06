@@ -209,11 +209,11 @@ new schema registry in Aiven when migrating. How you do that depends on how you 
 
 The first step is always:
 
- 0. Create the topic using the new [Topic resource](#creating-topics-and-defining-access), and set proper ACLs
+ * Create the topic using the new [Topic resource](#creating-topics-and-defining-access), and set proper ACLs
  
 The final step should always be:
 
- -1. Remove the topic from the on-prem clusters, making sure to delete all data
+ * Remove the topic from the on-prem clusters, making sure to delete all data
 
 ### The simplest case
 
@@ -244,7 +244,7 @@ Follow these steps:
     processed twice (once when read from on-prem, once when read from Aiven)
  3. When all consumers are reading from Aiven, remove old code from producer
  
- ### Double consumers
+### Double consumers
 
 This approach is suitable if:
 
