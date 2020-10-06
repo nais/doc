@@ -186,8 +186,9 @@ These variables are made available inside the pod.
 
 ## Application design guidelines
 
-The NAIS platform might rotate credentials at any time. This implies that your
-application must handle errors concerning invalid credentials by either:
+The NAIS platform will rotate credentials at regular intervals, and when topic configuration changes.
+This implies that your application must handle errors concerning invalid
+credentials. When this error occurs you must either:
 
 1. reloading credentials from disk, then retrying the connection, or
 2. trigger a restart by either terminating the application or reporting an unhealthy state.
