@@ -79,7 +79,13 @@ The database is backed up nightly at 3 AM (GMT+1) by default, but can be overrid
 
 ### Deleting the database
 
-The database is not automatically removed when deleting your NAIS application. Remove unused databases to avoid incurring unnecessary costs.
+The database is not automatically removed when deleting your NAIS application. Remove unused databases to avoid
+incurring unnecessary costs. This is done by setting
+[cascadingDelete](../nais-application/reference.md#spec-gcp-sqlinstances-cascadingdelete) in your `nais.yaml`-specification.
+
+{% hint style="danger" %}
+When you delete an Cloud SQL instance, you cannot reuse the name of the deleted instance until one week from the deletion date.
+{% endhint %}
 
 ### Maintenance window
 
