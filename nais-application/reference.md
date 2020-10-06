@@ -415,6 +415,10 @@ When the instance should create backups.
 ### `spec.gcp.sqlInstances[].cascadingDelete`
 Whether the instance should be deleted if the application is deleted
 
+{% hint style="danger" %}
+When you delete an Cloud SQL instance, you cannot reuse the name of the deleted instance until one week from the deletion date.
+{% endhint %}
+
 **Default**: `false`
 
 ### `spec.gcp.sqlInstances[].databases`
