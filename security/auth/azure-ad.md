@@ -360,7 +360,7 @@ for all environments and clusters.
 If your use case requires you to use `trygdeetaten.no` in the `dev-*`-clusters, then you must 
 [explicitly configure this](#specifying-tenants).
 
-### Referencing a new Azure application provisioned through NAIS in `preauthorizedapps`
+### Pre-authorizing a new Azure application provisioned through NAIS
 
 If:
 
@@ -369,7 +369,9 @@ If:
 
 Then:
 
-- You **must** use the latter's fully qualified name as [defined here](#naming-format-in-the-azure-portal).
+- You **must** use the latter's fully qualified name as [defined here](#naming-format-in-the-azure-portal)
+
+See [this example](https://github.com/navikt/aad-iac/blob/073664fc5e455c17f1a33ec394c4f07464ae0a2f/prod/hookd.yaml#L4-L5).
 
 ### Migrating - step-by-step
 
