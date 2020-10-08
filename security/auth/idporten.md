@@ -64,13 +64,7 @@ spec:
   image: navikt/nais-testapp:66.0.0
   idporten:
     enabled: true
-  # required for on-premises only
-  webproxy: true
-  # required for GCP only
-  accessPolicy:
-    outbound:
-      external:
-        - host: oidc-ver2.difi.no
+  webproxy: true # required for on-premises only
 ```
 
 #### Full Example
@@ -97,13 +91,7 @@ spec:
     refreshTokenLifetime: 21600 # lifetime of refresh tokens in seconds - 6 hours
   ingresses:
     - "https://my.application.dev.nais.io"
-  accessPolicy:
-    # required for GCP only
-    outbound:
-      external:
-        - host: oidc-ver2.difi.no
-  # required for on-premises only
-  webproxy: true
+  webproxy: true # required for on-premises only
 ```
 
 ### Redirect URI

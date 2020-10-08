@@ -65,13 +65,7 @@ spec:
   azure:
     application:
       enabled: true
-  # required for on-premises only
-  webproxy: true
-  # required for GCP only
-  accessPolicy:
-    outbound:
-      external:
-        - host: login.microsoftonline.com
+  webproxy: true # required for on-premises only
 ```
 
 This will register an Azure AD application using the following naming scheme: 
@@ -110,12 +104,7 @@ spec:
         - application: app-a
           namespace: othernamespace
         - application: app-b
-    # required for GCP only
-    outbound:
-      external:
-        - host: login.microsoftonline.com
-  # required for on-premises only
-  webproxy: true
+  webproxy: true # required for on-premises only
 ```
 
 ### Reply URLs
