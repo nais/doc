@@ -68,10 +68,7 @@ spec:
   webproxy: true # required for on-premises only
 ```
 
-This will register an Azure AD application using the following naming scheme: 
-```
-<cluster>:<metadata.namespace>:<metadata.name>
-```
+This will register an Azure AD application using the naming scheme as [defined here](#naming-format-in-the-azure-portal)
 
 For the example above, the result would be:
 ```
@@ -105,6 +102,19 @@ spec:
           namespace: othernamespace
         - application: app-b
   webproxy: true # required for on-premises only
+```
+
+### Naming Format in the [Azure Portal]
+
+Using this feature will register an Azure AD application using the following naming scheme: 
+```
+<cluster>:<metadata.namespace>:<metadata.name>
+```
+
+E.g.
+
+```
+dev-gcp:aura:nais-testapp
 ```
 
 ### Reply URLs
@@ -325,6 +335,8 @@ Search using the naming scheme mentioned earlier: `<cluster>:<namespace>:<app>`.
 
 ## Migrating from existing infrastructure-as-code ([IaC]) solution
 
+This section only applies if you have an existing application registered in the [IaC repository][IaC].
+
 ### Why migrate?
 
 - Declarative provisioning, straight from your application's [`nais.yaml`](../../nais-application/reference.md#spec-azure-application)
@@ -348,36 +360,51 @@ for all environments and clusters.
 If your use case requires you to use `trygdeetaten.no` in the `dev-*`-clusters, then you must 
 [explicitly configure this](#specifying-tenants).
 
+### Referencing a new Azure application provisioned through NAIS in `preauthorizedapps`
+
+If:
+
+- You have an existing Azure application registered in the [IaC] repository, and
+- You would like to allow pre-authorization of an Azure application provisioned through NAIS
+
+Then:
+
+- You **must** use the latter's fully qualified name as [defined here](#naming-format-in-the-azure-portal).
+
 ### Migrating - step-by-step
 
-#### 1. Rename all your applications in the [IaC repository][IaC]
+#### 1. Rename your application in the [Azure Portal]
 
-In order for NAIS to pick up and update your Azure AD application, the **`name`** of the application registered in 
-the [IaC repository][IaC] should match the expected format:
-
-```
-<cluster>:<namespace>:<app-name>
-```
-
-E.g.
+In order for NAIS to pick up and update your Azure AD application, the **`Display name`** of the application registered 
+in the [Azure Portal] **must** match the [expected format](#naming-format-in-the-azure-portal). E.g.:
 
 ```
 dev-gcp:aura:my-app
 ```
 
-The list of names in **`preauthorizedapplications`** should also be updated to match this format for all the applications
-that you're migrating.
+Update the _name_ in the **`Branding`** tab for your application in the [Azure Portal].
 
-Make sure to be aware of the differences in [tenants](#tenants) in the [IaC repository][IaC]:
+#### 2. Update your application (and any dependants) in the [IaC repository][IaC]
+
+- Ensure the **`name`** of the application registered in the [IaC repository][IaC] is updated to match the name set in 
+[step 1](#1-rename-your-application-in-the-azure-portal).
+- Ensure that any applications that has a reference to the previous name in their **`preauthorizedapplications`** is also updated. 
+
+Make sure to be aware of the [differences in tenants](#tenants) between the [IaC repository][IaC] and NAIS:
 
 - `nonprod` matches `trygdeetaten.no`
 - `prod` matches `nav.no`
 
-#### 2. Enable Azure AD provisioning for your NAIS app
+#### 3. Enable Azure AD provisioning for your NAIS application
 
 See [getting started](#getting-started).
 
-#### 3. Deploy your applications with Azure AD enabled
+#### 4. Deploy your applications with Azure AD enabled
+
+#### 5. Delete your application from the [IaC repository][IaC]
+
+To maintain a single source of truth, the application should be deleted from the [IaC repository][IaC] when 
+you've verified that everything is up and working.
 
 ## Deletion
 
