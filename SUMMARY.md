@@ -29,6 +29,7 @@
     * [Examples](observability/logs/examples.md)
   * [Metrics](observability/metrics.md)
 * [Persistence](persistence/README.md)
+  * [Responsibilities](persistence/responsibilities.md)
   * [Buckets](persistence/buckets.md)
   * [Postgres](persistence/postgres.md)
   * [S3 object store](persistence/objectstore.md)
