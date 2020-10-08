@@ -56,7 +56,7 @@ Google is cleared to be a data processor for personally identifiable information
 
 ### ROS
 
-The ROS analysis for the team's applications need to be updated to reflect any changes in platform components used. When updating the ROS, please be aware that the following components have already been assessed by the platform team, and as such your ROS can refer to these analyses directly:
+The ROS analysis for the team's applications need to be updated to reflect any changes in platform components used. For example, if your team has any specific measures implemented to mitigate risks related to "Kode 6 / 7 users", you should consider if these measures still apply on the new infrastructure or if you want to initiate any additional measures. When updating the ROS, please be aware that the following components have already been assessed by the platform team, and as such your ROS can refer to these analyses directly:
 
 * [GCP Lagring av data (Buckets og Postgres)](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=219)
 * [GCP Tilgangskontrolloppsett](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=218)
