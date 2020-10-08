@@ -13,4 +13,4 @@ This document aims to clarify the responsibilities as relates to data storage us
 * For cloud storage, the NAIS team maintains some tooling (like provisioning for GCP buckets), while other tools/interfaces are operated by the cloud vendor
 
 ### Data contents, operations and compliance with data policies
-At the end of the day, the team is responsible for its own data. This includes compliance with data policies (e.g. GDPR or archiving), ensuring disaster recovery (aided by tooling and iterfaces supplied by the platform) and daily operations.
+At the end of the day, the team is responsible for its own data. This includes compliance with data policies (e.g. GDPR or archiving), ensuring disaster recovery (aided by tooling and interfaces supplied by the platform) and daily operations.
