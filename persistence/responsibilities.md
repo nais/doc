@@ -1,6 +1,9 @@
-# Data responsibilities in NAIS
+---
+description: >
+  This document aims to clarify the responsibilities as relates to data storage using NAIS and GCP. Depending on which infrastructure the data is stored on, the responsibilites look slightly different.
+---
 
-This document aims to clarify the responsibilities as relates to data storage using NAIS and GCP. Depending on which infrastructure the data is stored on, the responsibilites look slightly different.
+# Data responsibilities in NAIS
 
 ## Responsibilities
 ### Operating storage infrastructure
