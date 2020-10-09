@@ -20,12 +20,7 @@ spec][accesspolicy].
 
 The access policy also enables zone traversal and cross-cluster communication. This
 must be implemented in both applications, by using and accepting tokens from
-[tokendings].
-
-{% hint style="warning" %}
-Tokendings is finding its way into production, but not yet ready for prime time.
-The documentation will be updated when Tokendings is publicly available.
-{% endhint %}
+[TokenX].
 
 ### Deploy
 The same deployment mechanism is leveraged for both on-premise and GCP K8s clusters.
@@ -85,7 +80,7 @@ We're currently investigating the possibility of using on-prem databases during 
 See [this table][gcp-comparison-table] for the differences between GCP and on-premises, and which that may apply to your application.
 
 ### What should we change?
-Use [tokendings] instead of API-GW
+Use [TokenX] instead of API-GW
 If using automatically configured [buckets] or [postgres], use [Google APIs](https://cloud.google.com/storage/docs/reference/libraries)
 
 ### What do we not need to change?
@@ -156,8 +151,8 @@ See [laws and regulations][laws&regs] for details.
 |Laptop access|✔️       |✔️   ||
 |domain: dev.nav.no|✔️ (IAC)       |✔️ (Automatic)  |Wildcard DNS points to GCP load balancer|
 |domain: dev.adeo.no|✔️ (IAC)       |✔️ (Automatic)  |Wildcard DNS points to GCP load balancer|
-|Access to FSS services|✔️       |✔️   |Identical (either API-gw or [tokendings][Tokendings]|
-|OpenAM|✔️       |✖️   |OpenAM is EOL, use [tokendings][Tokendings]|
+|Access to FSS services|✔️       |✔️   |Identical (either API-gw or [TokenX][tokenx]|
+|OpenAM|✔️       |✖️   |OpenAM is EOL, use [TokenX][tokenx]|
 |NAV truststore|✔️       |✔️   ||
 |PVK required|✔️       |✔️   |amend to cover storage in cloud|
 |Security|Zone Model       |[zero-trust] ||
@@ -166,7 +161,7 @@ See [laws and regulations][laws&regs] for details.
 [ROS & PVK]: ./gcp.md#ros-and-pvk
 [on-premises]: ./on-premises.md
 [deployment]: ../deployment/README.md
-[tokendings]: https://github.com/nais/tokendings
+[tokenx]: ../security/auth/tokenx.md
 [laws&regs]: ./laws-and-regulations.md
 [zero-trust]: ../appendix/zero-trust/README.md
 [buckets]: ../persistence/buckets.md
