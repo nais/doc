@@ -3,6 +3,8 @@
 {% hint style="warning" %}
 This feature applies only to _Aiven hosted Kafka_. On-premises Kafka will soon be deprecated.
 For on-premises Kafka, see [on-premises Kafka documentation](https://confluence.adeo.no/display/AURA/Kafka).
+
+If using on-premis Kafka there is no need to add Kafka hosts as outbound external in access policy in application specification. These are applied to each team namespace as default. 
 {% endhint %}
 
 {% hint style="danger" %}
