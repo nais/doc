@@ -119,3 +119,45 @@ $ kubectl logs <pod> -c cloudsql-proxy
 See [full example].
 
 [full example]: ../nais-application/full-example.md
+
+
+## How do I connect to the database from my laptop?
+
+To connect your application to the database, you can use a local running instance of a [Cloud SQL proxy](https://cloud.google.com/sql/docs/postgres/sql-proxy).
+Install the proxy as described [here](https://cloud.google.com/sql/docs/postgres/sql-proxy#install).
+
+You will also need to have installed the gcloud SDK as described [here][ACCESS_FROM_LAPTOP].
+
+You can now start the proxy.
+
+```
+$ ./cloud_sql_proxy -instances=<instance-connection.name>=tcp:5088
+```
+
+The instance connection name is listed in the SQL dashboard in the GCP dashboard. It has this pattern teamname-dev-id:europe-north1:app-name
+
+Before you can connect from your preferred SQL tool, we need to fetch the username, db name and password.
+List all secrets in your namespace
+
+```
+$ kubectl get secret -n namespace
+```
+
+You should see a secret with name google-sql-my-app. We can retrieve the base64 encoded secrets by running
+ 
+```
+$ kubectl get secret google-sql-my-app -o yaml -n namespace
+```
+B64 Decode the database name, username and password. For instance using this command: 
+```
+$ echo `echo <THE_ENCODED_DATA> | base64 --decode`
+```
+
+You can now connect to localhost:5088 with the retrieved database name, username and password. 
+
+{% hint style="danger" %}
+Be aware that you are now connected with the app user which is an admin user. 
+You should consider creating a new personal user account in the GCP console, and grant SELECT to this user.
+{% endhint %}
+
+[ACCESS_FROM_LAPTOP]: ../basics/access.md
