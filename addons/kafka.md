@@ -131,15 +131,13 @@ These variables are made available inside the pod.
 |---|---|
 | `KAFKA_BROKERS` | Comma-separated list of HOST:PORT pairs to Kafka brokers |
 | `KAFKA_SCHEMA_REGISTRY` | Comma-separated list of URLs to schema registry |
-| `KAFKA_CERTIFICATE_PATH` | Client certificate for connecting to the Kafka brokers, as file |
-| `KAFKA_PRIVATE_KEY_PATH` | Client certificate key for connecting to the Kafka brokers, as file |
-| `KAFKA_CA_PATH` | Certificate authority used to validate the Kafka brokers, as file |
 | `KAFKA_CERTIFICATE` | Client certificate for connecting to the Kafka brokers, as string data |
+| `KAFKA_CERTIFICATE_PATH` | Client certificate for connecting to the Kafka brokers, as file |
 | `KAFKA_PRIVATE_KEY` | Client certificate key for connecting to the Kafka brokers, as string data |
+| `KAFKA_PRIVATE_KEY_PATH` | Client certificate key for connecting to the Kafka brokers, as file |
 | `KAFKA_CA` | Certificate authority used to validate the Kafka brokers, as string data |
-| `KAFKA_KEYSTORE` | PKCS#12 keystore for use with Java clients |
-| `KAFKA_TRUSTSTORE` | JKS truststore for use with Java clients |
-| `KAFKA_STORE_PASSWORD` | Password needed to use the keystore and truststore |
+| `KAFKA_CA_PATH` | Certificate authority used to validate the Kafka brokers, as file |
+| `KAFKA_CREDSTORE_PASSWORD` | Password needed to use the keystore and truststore |
 | `KAFKA_KEYSTORE_PATH` | PKCS#12 keystore for use with Java clients, as file |
 | `KAFKA_TRUSTSTORE_PATH` | JKS truststore for use with Java clients, as file |
 
