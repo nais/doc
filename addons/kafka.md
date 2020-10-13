@@ -43,10 +43,9 @@ Major features coming:
 
 ## Creating topics and defining access
 
-Creating or modifying this resource will trigger topic creation and ACL
-management with Aiven (hosted Kafka provider).  The Topic resource must be
-specified alongside the Application object. To add access to this topic for
-your application, see the next section: _Accessing topics from an
+Creating or modifying a `Topic` Kubernetes resource will trigger topic creation
+and ACL management with Aiven (hosted Kafka provider). To add access to this
+topic for your application, see the next section: _Accessing topics from an
 application_.
 
 Topic resources can only be specified in GCP clusters. However, applications
