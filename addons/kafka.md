@@ -1,19 +1,17 @@
 # Kafka
 
 {% hint style="warning" %}
-This feature applies only to _Aiven hosted Kafka_. On-premises Kafka will soon be deprecated.
+This feature applies only to _Aiven hosted Kafka_. On-premises Kafka will
+deprecated after Aiven hosted Kafka is generally available.
 For on-premises Kafka, see [on-premises Kafka documentation](https://confluence.adeo.no/display/AURA/Kafka).
-
-If using on-premis Kafka there is no need to add Kafka hosts as outbound external in access policy in application specification. These are applied to each team namespace as default. 
 {% endhint %}
 
-{% hint style="danger" %}
-Aiven hosted Kafka is currently in *CLOSED BETA*. Please contact the NAIS team
-on the [#nais Slack channel](https://nav-it.slack.com/archives/C5KUST8N6) to
-gain access to these features.
-
-Serious battle testing has yet to be performed, be warned that this feature is
-*NOT PRODUCTION READY* and should only be used for test and experimentation purposes.
+{% hint style="warning" %}
+Aiven hosted Kafka is currently in *OPEN BETA*. Serious battle testing has yet
+to be performed, but preliminary tests show that the system is stable enough
+for general use. The API is considered stable, but might have future additions.
+Kafka connectivity is monitored by the NAIS team. Apps can be deployed to
+production, but service interruptions might occur.
 {% endhint %}
 
 ## Abstract
@@ -33,8 +31,8 @@ For a list of variables, see _accessing topics from an application_ below.
 
 ## Status and roadmap
 
-* Release status: CLOSED BETA
-* Availability: GCP, on-premises
+* Release status: OPEN BETA
+* Availability: NAIS GCP, NAIS on-premises, legacy infrastructure on-premises
 
 Follow development on the [PIG-Kafka Trello board](https://trello.com/b/O0EvBshY/pig-kafka).
 
