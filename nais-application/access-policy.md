@@ -103,6 +103,10 @@ spec:
         - host: www.external-application.com
 ```
 
+#### Global Service Entries 
+There are some services that are automatically added to the mesh in [dev-gcp](https://github.com/navikt/nais-yaml/blob/master/vars/dev-gcp/global-serviceentries.yaml) and [prod-gcp](https://github.com/navikt/nais-yaml/blob/master/vars/prod-gcp/global-serviceentries.yaml)
+
+
 ## Advanced: Resources created by Naiserator
 
 The previous application manifest examples will create both Kubernetes Network Policies and Istio resources.
