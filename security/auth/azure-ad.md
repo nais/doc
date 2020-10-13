@@ -196,9 +196,10 @@ The above configuration will allow on-behalf-of access token requests from:
 {% hint style="danger" %}
 These applications **must** already exist in Azure AD in order to be assigned the access policy permissions. 
 
-The applications must also have been provisioned through NAIS.
+**Any application that does not exist in Azure AD will be skipped.**
 
-Any application that does not exist in Azure AD will be skipped.
+If you want to pre-authorize an app provisioned through [aad-iac][IaC], then you must make sure it follows the expected naming format.
+Follow **step 1 and 2** in the [migration guide below](#migrating---step-by-step).
 
 If you do provision Azure AD applications afterwards for any pre-authorized applications and want to assign access policy
 permissions to these, then make sure to re-deploy your application to provision the correct permissions.
