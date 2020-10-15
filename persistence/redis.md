@@ -181,12 +181,20 @@ Then, running `kubectl apply -f <redis-config>.yaml` will start up a Redis insta
 {% hint style="success" %}Check out [hub.docker.com] for latest Redis version{% endhint %}
 
 For any applications that wishes to communicate with the Redis instance, it is recommended to add the following 
-environment variable to the applications' `nais.yaml` files (or hard-code it, the value is not going to change):
+environment variable to the applications' `nais.yaml` files:
 
 ```yaml
 env:
   - name: REDIS_HOST
     value: ${appname}.${namespace}.svc.nais.local
+```
+
+If on [GCP], the host name is slightly different:
+
+```yaml
+env:
+  - name: REDIS_HOST
+    value: ${appname}.${namespace}.svc.cluster.local
 ```
 
 #### Redis metrics
@@ -203,7 +211,7 @@ See the [`redis-with-metrics.yaml`](#redis-with-metrics) example in [examples ab
 
 {% endhint %}
 
-{% hint style="success" %}Check out [github.com/oliver006] for latest Redis metrics exporter version{% endhint %}
+{% hint style="success" %}Check out [hub.docker.com][Dockerhub Redis Exporter] for latest Redis metrics exporter version{% endhint %}
 
 ## Secure Redis
 
@@ -266,6 +274,7 @@ redis:
 [baseimages]: https://github.com/navikt/baseimages/tree/master/redis
 [nais/deploy]: ../deployment
 [hub.docker.com]: https://hub.docker.com/_/redis
-[github.com/oliver006]: https://github.com/oliver006/redis_exporter/releases
+[Dockerhub Redis Exporter]: https://hub.docker.com/r/oliver006/redis_exporter/tags
 [Kubernetes secrets]: ../security/secrets/kubernetes-secrets.md
 [Bitnami Redis Dockerhub]: https://hub.docker.com/r/bitnami/redis/
+[GCP]: ../clusters/gcp.md
