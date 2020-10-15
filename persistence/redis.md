@@ -48,6 +48,7 @@ spec:
       memory: 128Mi
   service:
     port: 6379
+    protocol: redis
   accessPolicy: # for GCP
     inbound:
       rules:
@@ -82,6 +83,7 @@ spec:
       memory: 128Mi
   service:
     port: 6379
+    protocol: redis
   accessPolicy: # for GCP
     inbound:
       rules:
@@ -149,6 +151,7 @@ spec:
       memory: 128Mi
   service:
     port: 6379
+    protocol: redis
   accessPolicy: # for GCP
     inbound:
       rules:
