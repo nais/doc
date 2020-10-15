@@ -48,6 +48,10 @@ spec:
       memory: 128Mi
   service:
     port: 6379
+  accessPolicy: # for GCP
+    inbound:
+      rules:
+        - application: ${inbound-app}
 ```
 {% endcode-tabs-item %}
 
@@ -78,6 +82,10 @@ spec:
       memory: 128Mi
   service:
     port: 6379
+  accessPolicy: # for GCP
+    inbound:
+      rules:
+        - application: ${appname}-redisexporter
 ---
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
@@ -103,6 +111,10 @@ spec:
       memory: 100Mi
   liveness:
     path: /health
+  accessPolicy: # for GCP
+    outbound:
+      rules:
+        - application: ${appname}
   env:
     - name: REDIS_ADDR
       value: ${appname}:6379
@@ -137,6 +149,10 @@ spec:
       memory: 128Mi
   service:
     port: 6379
+  accessPolicy: # for GCP
+    inbound:
+      rules:
+        - application: ${appname}-redisexporter
   envFrom:
     - secret: ${secret-name} 
 ---
@@ -164,6 +180,10 @@ spec:
       memory: 100Mi
   liveness:
     path: /health
+  accessPolicy: # for GCP
+    outbound:
+      rules:
+        - application: ${appname}
   env:
     - name: REDIS_ADDR
       value: ${appname}:6379
@@ -189,12 +209,32 @@ env:
     value: ${appname}.${namespace}.svc.nais.local
 ```
 
+### GCP
+
 If on [GCP], the host name is slightly different:
 
 ```yaml
 env:
   - name: REDIS_HOST
     value: ${appname}.${namespace}.svc.cluster.local
+```
+
+Remember to set up [access policies][Access Policy] for your Redis instance as well:
+
+```yaml
+accessPolicy:
+  inbound:
+    rules:
+      - application: ${inbound-appname}
+```
+
+And the equivalent outbound policy for any apps that should be able to connect to the redis instance:
+
+```yaml
+accessPolicy:
+  outbound:
+    rules:
+      - application: ${redis-appname}
 ```
 
 #### Redis metrics
@@ -278,3 +318,4 @@ redis:
 [Kubernetes secrets]: ../security/secrets/kubernetes-secrets.md
 [Bitnami Redis Dockerhub]: https://hub.docker.com/r/bitnami/redis/
 [GCP]: ../clusters/gcp.md
+[Access Policy]: ../nais-application/access-policy.md
