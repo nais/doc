@@ -145,6 +145,30 @@ One or more of the following keys can also be supplied if the default values bel
 | rights | optional | A statement that concerns all rights not addressed with `license` or `accessRights`, such as copyright statements. | Copyright 2020, NAV | Copyright *year*, NAV |
 | catalog | optional | The catalog(s) where the metadata will be published. The value can be either `internal` (only visibible within the organization) or `public`. | public | internal |
 
+### Permanently deleting topic and data
+
+{% hint style="warning" %}
+Permanent deletes are irreversible. Enable this feature only as a step to completely remove your data.
+{% endhint %}
+
+When a `Topic` resource is deleted from a Kubernetes cluster, the Kafka topic is still retained, and the data kept intact.
+If you need to remove data and start from scratch, you must add the following annotation to your `Topic` resource:
+
+{% code-tabs %}
+{% code-tabs-item title="topic.yaml" %}
+```yaml
+---
+apiVersion: kafka.nais.io/v1
+kind: Topic
+metadata:
+  annotations:
+    kafka.nais.io/removeDataWhenResourceIsDeleted: "true"
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+When this annotation is in place, deleting the topic resource from Kubernetes will trigger data removal.
+
 ## Accessing topics from an application
 
 Adding `.kafka.pool` to your `Application` spec will inject Kafka credentials into your pod.
