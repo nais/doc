@@ -48,6 +48,12 @@ If no ingress is selected, the application will not be reachable from outside th
 
 More info about how DNS is configured for these domains can be found [here](../appendix/ingress-dns.md)
 
+### labs-gcp ingresses
+
+| domain | accessible from | description |
+| ------ | --------------- | ----------- |
+| labs.nais.io | internet | auto configured |
+
 ## ROS and PVK
 
 When establishing an application on GCP, it is a great time to update its [Risikovurdering (ROS)][ROS] analysis.
