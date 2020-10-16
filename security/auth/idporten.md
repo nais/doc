@@ -178,6 +178,7 @@ data:
       "use": "sig",
       "kty": "RSA",
       "kid": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
+      "alg": "RS256",
       "n": "xQ3chFsz...",
       "e": "AQAB",
       "d": "C0BVXQFQ...",
@@ -185,12 +186,7 @@ data:
       "q": "zb0yTkgqO...",
       "dp": "7YcKcCtJ...",
       "dq": "sXxLHp9A...",
-      "qi": "QCW5VQjO...",
-      "x5c": [
-        "MIID8jCC..."
-      ],
-      "x5t": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
-      "x5t#S256": "AH2gbUvjZYmSQXZ6-YIRxM2YYrLiZYW8NywowyGcxp0"
+      "qi": "QCW5VQjO..."
     }
   IDPORTEN_REDIRECT_URI: https://my.application/callback
   IDPORTEN_WELL_KNOWN_URL: https://oidc-ver2.difi.no/idporten-oidc-provider/.well-known/openid-configuration
