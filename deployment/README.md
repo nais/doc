@@ -51,7 +51,7 @@ name: Build, push, and deploy
 on: [push]
 
 env:
-  IMAGE: docker.pkg.github.com/${{ github.repository }}/myapplication:${{ github.sha }}
+  docker_image: docker.pkg.github.com/${{ github.repository }}/myapplication:${{ github.sha }}
 
 jobs:
 
@@ -64,9 +64,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        docker build --tag ${IMAGE} .
+        docker build --tag ${docker_image} .
         docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
-        docker push ${IMAGE}
+        docker push ${docker_image}
 
   deploy:
     name: Deploy to NAIS
@@ -80,7 +80,7 @@ jobs:
         APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
         CLUSTER: dev-fss
         RESOURCE: nais.yml
-        VAR: IMAGE=${{ env.IMAGE }}
+        VAR: image=${{ env.docker_image }}
 ```
 {% endcode-tabs-item %}
 
@@ -95,13 +95,13 @@ metadata:
   labels:
     team: myteam
 spec:
-  image: {{ IMAGE }}
+  image: {{ image }}
   #image: docker.pkg.github.com/navikt/myrepository/myapplication:417dcaa2c839b9da72e0189e2cfdd4e90e9cc6fd
   #       ^--- interpolated from the $IMAGE environment variable in the action
 ```
 
-In this `nais.yml` file, `{{ IMAGE }}` will be replaced by the `$IMAGE` environment variable set in the action. You can
-add more by using a comma seperated list.
+In this `nais.yml` file, `{{ image }}` will be replaced by the `$docker_image` environment variable set in the action. You can
+add more by using a comma seperated list, or even put all your variables in a file; see _action configuration_ below.
 
 {% endcode-tabs-item %}
 
