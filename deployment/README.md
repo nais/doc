@@ -97,7 +97,7 @@ metadata:
 spec:
   image: {{ image }}
   #image: docker.pkg.github.com/navikt/myrepository/myapplication:417dcaa2c839b9da72e0189e2cfdd4e90e9cc6fd
-  #       ^--- interpolated from the $IMAGE environment variable in the action
+  #       ^--- interpolated from the ${{ env.docker_image }} variable in the action
 ```
 
 In this `nais.yml` file, `{{ image }}` will be replaced by the `$docker_image` environment variable set in the action. You can
