@@ -80,6 +80,7 @@ jobs:
         APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
         CLUSTER: dev-fss
         RESOURCE: nais.yml
+		VAR: IMAGE=${{ env.IMAGE }}
 ```
 {% endcode-tabs-item %}
 
@@ -94,16 +95,13 @@ metadata:
   labels:
     team: myteam
 spec:
-  image: {{ image }}
+  image: {{ IMAGE }}
   #image: docker.pkg.github.com/navikt/myrepository/myapplication:417dcaa2c839b9da72e0189e2cfdd4e90e9cc6fd
-  #       ^--- interpolated from the $IMAGE environment variable in the workflow
+  #       ^--- interpolated from the $IMAGE environment variable in the action
 ```
 
-In this `nais.yml` file, `{{ image }}` will be replaced by the `$IMAGE` environment variable set in the workflow.
-Other environment variables will not be injected, but must be put into a template variables file.
-
-See [deploy action implementation](https://github.com/nais/deploy/blob/master/actions/deploy/entrypoint.sh)
-to understand how this is implemented.
+In this `nais.yml` file, `{{ IMAGE }}` will be replaced by the `$IMAGE` environment variable set in the action. You can
+add more by using a comma seperated list.
 
 {% endcode-tabs-item %}
 
