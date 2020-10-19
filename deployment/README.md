@@ -101,7 +101,7 @@ spec:
 ```
 
 In this `nais.yml` file, `{{ image }}` will be replaced by the `$docker_image` environment variable set in the action. You can
-add more by using a comma seperated list, or even put all your variables in a file; see _action configuration_ below.
+add more by using a comma separated list, or even put all your variables in a file; see _action configuration_ below.
 
 {% endcode-tabs-item %}
 
