@@ -80,7 +80,7 @@ jobs:
         APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
         CLUSTER: dev-fss
         RESOURCE: nais.yml
-		VAR: IMAGE=${{ env.IMAGE }}
+        VAR: IMAGE=${{ env.IMAGE }}
 ```
 {% endcode-tabs-item %}
 
