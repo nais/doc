@@ -38,6 +38,10 @@ If no ingress is selected, the application will not be reachable from outside th
 
 ##### deprecated dev-gcp ingresses
 
+{% hint style="warning" %}
+These ingresses will be turned off at some point in the future, so migrate asap. 
+{% endhint %}
+
 | domain | replaced by |
 | ------ | ----------- |
 | dev-nav.no | dev.nav.no |
