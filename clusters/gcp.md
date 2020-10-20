@@ -34,10 +34,10 @@ If no ingress is selected, the application will not be reachable from outside th
 | ------ | --------------- | ----------- |
 | dev.nav.no | [naisdevice](../device/README.md) | development ingress for nav.no applications |
 | dev.intern.nav.no | [naisdevice](../device/README.md) | development ingress for non-public/internet-facing applications |
+| dev-gcp.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), applications should use dev.{nav,adeo}.no |
 | dev-nav.no | navtunnel | *deprecated*, replaced by dev.nav.no |
 | dev.adeo.no | [naisdevice](../device/README.md) | *deprecated*, replaced by dev.intern.nav.no |
 | dev-adeo.no | navtunnel | *deprecated*, replaced by dev.intern.nav.no |
-| dev-gcp.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), applications should use dev.{nav,adeo}.no |
 
 ### prod-gcp ingresses
 
