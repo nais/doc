@@ -33,9 +33,10 @@ If no ingress is selected, the application will not be reachable from outside th
 | domain | accessible from | description |
 | ------ | --------------- | ----------- |
 | dev.nav.no | [naisdevice](../device/README.md) | development ingress for nav.no applications |
-| dev.adeo.no | [naisdevice](../device/README.md) | development ingress for adeo.no applications |
+| dev.intern.nav.no | [naisdevice](../device/README.md) | development ingress for non-public/internet-facing applications |
 | dev-nav.no | navtunnel | [deprecated](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), replaced by dev.nav.no |
-| dev-adeo.no | navtunnel | [deprecated](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), replaced by dev.adeo.no |
+| dev.adeo.no | [naisdevice](../device/README.md) | [deprecated], replaced by dev.intern.nav.no |
+| dev-adeo.no | navtunnel | [deprecated], replaced by dev.intern.nav.no |
 | dev-gcp.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), applications should use dev.{nav,adeo}.no |
 
 ### prod-gcp ingresses
@@ -43,8 +44,8 @@ If no ingress is selected, the application will not be reachable from outside th
 | domain | accessible from | description |
 | ------ | --------------- | ----------- |
 | nav.no | internet | manually configured, contact at #tech-sikkerhet |
+| intern.nav.no | [naisdevice](../device/README.md) | used by non-public/internet-facing applications (previously called adeo.no). |
 | prod-gcp.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), applications should use .{nav,adeo}.no |
-
 
 More info about how DNS is configured for these domains can be found [here](../appendix/ingress-dns.md)
 
