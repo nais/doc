@@ -28,7 +28,7 @@ You can control from where you application is reachable by selecting the appropr
 | ------ | --------------- | ----------- |
 | dev.adeo.no | [naisdevice](../device/README.md) | development ingress for adeo.no applications |
 | intern.dev.adeo.no | internal network only | development ingress for adeo.no applications |
-| dev-fss.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), use {intern,}.dev.adeo.no instead |
+| dev-fss.nais.io | [naisdevice](../device/README.md) | reserved for platform services |
 | nais.preprod.local | vdi | **deprecated**, use {intern,}.dev.adeo.no instead |
 
 ### dev-sbs
@@ -37,7 +37,7 @@ You can control from where you application is reachable by selecting the appropr
 | ------ | --------------- | ----------- |
 | dev.nav.no | [naisdevice](../device/README.md) | development ingress for nav.no applications |
 | intern.dev.nav.no | internal network only | development ingress for nav.no applications |
-| dev-sbs.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), use {intern,}.dev.nav.no instead |
+| dev-sbs.nais.io | [naisdevice](../device/README.md) | reserved for platform services |
 | nais.oera-q.local | vdi | **deprecated**, use {intern,}.dev.nav.no instead |
 
 ### prod-fss
@@ -45,7 +45,7 @@ You can control from where you application is reachable by selecting the appropr
 | domain | accessible from | description |
 | ------ | --------------- | ----------- |
 | nais.adeo.no | vdi | automatically configured |
-| prod-fss.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), use nais.adeo.no instead |
+| prod-fss.nais.io | [naisdevice](../device/README.md) | reserved for platform services |
 
 ### prod-sbs
 
@@ -54,6 +54,6 @@ You can control from where you application is reachable by selecting the appropr
 | nav.no | internet | currently manually configured by #tech-sikkerhet |
 | nais.oera.no | vdi | automatically configured. Typically used by backend/admin apps not exposed to end-users |
 | tjenester.nav.no | internet | context root based routing on format `tjenester.nav.no/<appname>`. |
-| prod-sbs.nais.io | [naisdevice](../device/README.md) | [nais cluster services only](https://github.com/navikt/pig/blob/master/kubeops/adr/004-common-ingresses.md), use nav.no/nais.oera.no instead |
+| prod-sbs.nais.io | [naisdevice](../device/README.md) | reserved for platform services |
 
 More info about how DNS is configured for these domains can be found [here](../appendix/ingress-dns.md)
