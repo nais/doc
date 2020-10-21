@@ -35,18 +35,7 @@ If no ingress is selected, the application will not be reachable from outside th
 | dev.nav.no | [naisdevice](../device/README.md) | development ingress for nav.no applications |
 | dev.intern.nav.no | [naisdevice](../device/README.md) | development ingress for non-public/internet-facing applications |
 | dev-gcp.nais.io | [naisdevice](../device/README.md) | reserved for platform services |
-
-##### deprecated dev-gcp ingresses
-
-{% hint style="warning" %}
-These ingresses will be turned off at some point in the future, so migrate asap. 
-{% endhint %}
-
-| domain | replaced by |
-| ------ | ----------- |
-| dev-nav.no | dev.nav.no |
-| dev.adeo.no | dev.intern.nav.no |
-| dev-adeo.no | dev.intern.nav.no |
+| ~~dev.adeo.no~~ |  | *deprecated* replaced by dev.intern.nav.no |
 
 ### prod-gcp ingresses
 
