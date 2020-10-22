@@ -7,9 +7,9 @@ description: >
 # ID-porten Clients
 
 {% hint style="warning" %}
-**Status: Opt-In Open Beta in dev-gcp**
+**Status: Opt-In Open Beta**
 
-This feature is currently only available in the [GCP](../../clusters/gcp.md) clusters.
+This feature is only available in the [GCP](../../clusters/gcp.md) clusters.
 {% endhint %}
 
 ID-porten is a common log-in system used for logging into Norwegian public e-services for citizens. 
