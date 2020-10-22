@@ -129,7 +129,7 @@ See [this table][gcp-comparison-table] for the differences between GCP and on-pr
 ## We have personally identifiable and/or sensitive data in our application, and we heard about the Privacy Shield invalidation. Can we still use GCP?
 **Yes.** [NAV's evaluation of our Data Processor Agreement with Google post-Schrems II](https://navno.sharepoint.com/:w:/r/sites/Skytjenesterforvaltningsregime/_layouts/15/Doc.aspx?sourcedoc=%7BA9562232-BB00-40CB-930D-4EF254A5AD7F%7D&file=2020-10-10%20GCP%20-%20behandling%20og%20avtaler.docx&action=default&mobileredirect=true) is that it still protects us and is valid for use **given that data is stored and processed in data centers located within the EU/EEA**. If your team uses resources provisioned through NAIS, this is guaranteed by the nais team. If your team uses any other GCP services the team is responsible for ensuring that only resources within EU/EES are used (as well as for evaluating the risk of using these services).
 
-See [laws and regulations][laws&regs] for details.
+See [laws and regulations](..legal/laws-and-regulations.md) for details.
 
 # GCP compared to on-premises
 |Feature|on-prem|gcp|Comment|
@@ -162,7 +162,7 @@ See [laws and regulations][laws&regs] for details.
 [on-premises]: ./on-premises.md
 [deployment]: ../deployment/README.md
 [tokenx]: ../security/auth/tokenx.md
-[laws&regs]: ./laws-and-regulations.md
+[laws&regs]: ..legal/laws-and-regulations.md
 [zero-trust]: ../appendix/zero-trust/README.md
 [buckets]: ../persistence/buckets.md
 [postgres]: ../persistence/postgres.md
