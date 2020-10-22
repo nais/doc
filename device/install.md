@@ -11,7 +11,8 @@
 1. [install Kolide agent](#install-kolide-agent)
 2. [install WireGuard](https://www.wireguard.com/install/) (Note: Ignore error message regarding UI only being accessible by the Builtin Administrators group)
 3. [install naisdevice](https://github.com/nais/device/releases/latest) (naisdevice.msi)
-7. Remember to [update your kubeconfig](#connecting-to-nais-clusters)
+4. Remember to [update your kubeconfig](#connecting-to-nais-clusters)
+5. Start _naisdevice_ from the _Start menu_ 
 
 ## Ubuntu
 1. [install Kolide agent](#install-kolide-agent)
