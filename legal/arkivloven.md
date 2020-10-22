@@ -1,22 +1,4 @@
-## Laws and regulations
-
-### DPA with Google Cloud Platform
-/to be filled in
-
-### ROS and PVK
-
-The team needs to update their risk assessment (ROS) and data protection impact assessment (PVK analysis) to migrate to GCP.
-Refer to the ROS and PVK section under [Google Cloud Platform clusters](gcp.md).
-
-The following subsystems are compliant and do not need to be analysed by teams, below are the links to their ROS analyses:
-
-* [GCP Lagring av data (Buckets og Postgres)](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=219)
-* [GCP Tilgangskontrolloppsett](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=218)
-* [Tilgang til Kafka fra GCP](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=229)
-* [Google Compute Platform - GCP, og Google Kubenetes Engine - GKE](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=95)
-* [Bruk av GCP](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=222)
-
-### Archiving
+# Arkivloven
 
 #### TLDR
 
@@ -34,17 +16,20 @@ The requirements are set to ensure documents that contain judicial or important 
 NAV is, as a public body and central government agency, obligated to keep archival records to make sure the documents are stored safely as information sources for present and future (§2).
 
 The Public Information Act states that everyone shall have access to case documents to facilitate transparency and as such strenghtens:
+
 - Freedom of expression and information
 - Democratic participation
 - Security under the law
 - Public trust and control
 
 There are three requirements that need to be in place for a document to be considered obligatory for archiving:
+
 - There must exist a case document for the public body
 - The document must have been sent from or received by the public body
 - The document must be case handled and have value as documentation
 
 Public bodies and agencys are obligated to archive all documents that are created during its handling of business: 
+
 - The documents have value as documentation or are being case handled
 - The documents must be archived whether they have been used externally or are created for internal use
 - The documents that are created electronically must be made available for The National Archives
@@ -57,6 +42,7 @@ Obligatory archiving is defined as storage for documenting the handling.
 #### General regulations when migrating to public cloud providers
 
 Without a motion or expressed consent from the National Archivist the records cannot (§9):
+
 - Be moved out of country
 - Be deleted
 - Be redacted or edited (if it applies to the obligatory documentation)
@@ -81,3 +67,4 @@ Paragraphs §16 and §18:
 
 Archival proposal for public cloud solutions:
 [New public archive proposal](https://www.regjeringen.no/no/dokumenter/hoyring--ny-forskrift-om-offentlege-arkiv/id2515364/)
+
