@@ -33,31 +33,13 @@ See [GCP clusters][GCP].
 
 Google is cleared to be a data processor for personally identifiable information (PII) at NAV. However, before your team moves any applications or data to GCP the following steps should be taken:
 
-1. Review part 1 of the PVK document ("Grunnlegende personvernavklaringer"). If this document references our on-premises infrastructure or any usage of resources or capabilities that will change as a result of the migration, update the document accordingly.
-
-   Under "Behandlingens nødvendighet og livsløp", modify and add the following text, as appropriate: "Data blir lagret og behandlet på en infrastrukturplattform i allmenn sky i henhold til NAVs skystrategi."
-
-2. Review part 2 of the PVK document ("Vurdering av personvernkonsekvenser") and consider adding new scenarios that needs to be considered when the application runs on a public cloud plattform. An example might be:
-
-    - Issue: Chapter 3 data subject rights
-
-    - Risk scenario: Data subjects request inadequately answered due to lacking in-depth knowledge about processing of personal data in the cloud.
-
-    - Possible measure: Data processing only by application components built on top of nais platform
-
-    - Possible measure: Any use of GCP services not offered through the nais platform has been evaluated and risk assessed by the team prior to usage.
+1. Verify that you have a valid and up-to-date PVK for your application. This document should be [tech stack agnostic](../legal/app-pvk.md) and as such does not need to be changed to reflect the move to GCP.
 
 3. If the application stores any data in GCP, update [Behandlingskatalogen](https://behandlingskatalog.nais.adeo.no/) to reflect that Google is a data processor.
 
 ### ROS
 
-The ROS analysis for the team's applications need to be updated to reflect any changes in platform components used. For example, if your team has any specific measures implemented to mitigate risks related to "Kode 6 / 7 users", you should consider if these measures still apply on the new infrastructure or if you want to initiate any additional measures. When updating the ROS, please be aware that the following components have already been assessed by the platform team, and as such your ROS can refer to these analyses directly:
-
-* [GCP Lagring av data (Buckets og Postgres)](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=219)
-* [GCP Tilgangskontrolloppsett](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=218)
-* [Tilgang til Kafka fra GCP](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=229)
-* [Google Compute Platform - GCP, og Google Kubenetes Engine - GKE](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=95)
-* [Bruk av GCP](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=222)
+The ROS analysis for the team's applications need to be updated to reflect any changes in platform components used. For example, if your team has any specific measures implemented to mitigate risks related to "Kode 6 / 7 users", you should consider if these measures still apply on the new infrastructure or if you want to initiate any additional measures. When updating the ROS, please be aware that the GCP components you are most likely to use [have already undergone risk assessment by the nais team](../legal/nais-ros.md) and that you can refer to these ROS documents in your own risk assessment process.
 
 
 ### Roles and responsibilites
@@ -94,7 +76,6 @@ Deploy your application to your team's namespace instead of `default`
 
 ### What about PVK?
 A PVK is not a unique requirement for GCP, so all applications should already have one.
-The only thing you need to do is update your existing PVK to reflect the fact that it is running in cloud.
 See [about security and privacy when using platform services](https://doc.nais.io/#about-security-and-privacy-when-using-platform-services) for details
 
 ### How do we migrate our database?
@@ -158,7 +139,7 @@ See [laws and regulations](..legal/README.md) for details.
 |Security|Zone Model       |[zero-trust] ||
 
 [GCP]: ./gcp.md
-[ROS & PVK]: ./gcp.md#ros-and-pvk
+[ROS & PVK]: ../legal/README.md
 [on-premises]: ./on-premises.md
 [deployment]: ../deployment/README.md
 [tokenx]: ../security/auth/tokenx.md
