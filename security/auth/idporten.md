@@ -43,6 +43,8 @@ This is also a critical first step in request chains involving an end-user whose
 propagated through each service/web API when accessing services in NAV, the process of which involves using the 
 [OAuth 2.0 Token Exchange] protocol. See the [TokenX Documentation] for details.
 
+See the [NAV Security Guide] for NAV-specific usage.
+
 Refer to the [ID-porten Integration guide] for further details.
 
 ### Getting Started
@@ -307,3 +309,4 @@ a **_new and different_** client ID in ID-porten if you re-create the applicatio
 [Digdirator]: https://github.com/nais/digdirator
 [frontend-dings]: https://github.com/nais/frontend-dings
 [idporten-testusers]: https://difi.github.io/felleslosninger/idporten_testbrukere.html
+[NAV Security Guide]: https://security.labs.nais.io/
