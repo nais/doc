@@ -30,6 +30,7 @@
 3. Install package (xkxp-\*-kolide-launcher.{pkg,msi,deb,rpm}). There are no success feedback from the installer. No error message means that the installation was successful.
 4. Allow a couple of minutes to let Kolide initialize device state, but if you're stuck at "Waiting for your device to connect" just go to the next step.
 5. Check your devices status: `/msg @Kolide status` on Slack and fix errors if there are any
+6. Sometimes naisdevice struggles with getting to the right state. If it reports that device is unhealthy, but `/msg @Kolide status` is happy then try to disconnect and connect naisdevice again.
 
 ## Connecting to NAIS clusters
 1. In a terminal/shell of your choice, navigate to [kubeconfigs repo](https://github.com/navikt/kubeconfigs)'.
