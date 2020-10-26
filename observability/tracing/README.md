@@ -20,7 +20,7 @@ Kiali offers a nice view of statistics. However, it is not possible to say that 
 
 ![Illustration of envoy-based tracing](envoy-tracing.png)
 
-This allows you to get up and running quickly with distributed tracing with relatively minimal changes needed to your code. All you need to do is copy the [appropriate headers](#trace-headers) from incoming requests to any outgoing it may cause, and istio-proxy and Jaeger does the rest for you.
+This allows you to get up and running quickly with distributed tracing with relatively minimal changes needed to your code. All you need to do is copy the [appropriate headers](#propagating-trace-headers) from incoming requests to any outgoing it may cause, and istio-proxy and Jaeger does the rest for you.
 
 Loading a React page which issues hundreds of API calls generates a trace like this:
 
@@ -29,7 +29,7 @@ Loading a React page which issues hundreds of API calls generates a trace like t
 If envoy-based tracing covers your needs, this is the recommended approach to tracing. 
 But the approach does have some limitations; if you need to attach debug context or to create spans even inside a single node process, see [Direct submission](#direct-submission).
 
-### NAIS configuration
+### Configuring NAIS
 
 To enable envoy-based tracing, add the following stanza to nais.yaml under "spec":
 
@@ -48,7 +48,7 @@ When this is enabled, the following changes occur to your deployment:
 
 This will have the effect that any incoming requests to your application will generate a trace to Jaeger. These traces can be viewed in tracing.*cluster-name*.nais.io, eg [tracing.dev-gcp.nais.io](https://tracing.dev-gcp.nais.io/).
 
-### Trace headers
+### Propagating trace headers
 
 To give Jaeger sufficient context to reconstruct a trace, the application must read a set of HTTP headers from the incoming request and forward them to any requests further down the chain.
 
