@@ -72,9 +72,11 @@ Tracing was initially deployed in NAIS in collaboration with team digisos, who u
 The examples below are therefore examples, not references.
 Readers who find more elegant solutions are encouraged to submit pull requests to this documentation.
 
+![Example trace of a sosialhjelp-modia page load](example-trace.png)
+
 #### React
 
-The following code generates a 128-byte UUID, which is split into two 64-bit identifiers.
+The following code generates a 128-byte UUID, which is split into two 64-bit identifiers. These identifiers are then passed along with API requests. This has the result that a single page render is shown inside a trace, including 
 
 **TODO: Clarify jaeger's requirements for identifier; documentation is unclear/contradictory**
 
