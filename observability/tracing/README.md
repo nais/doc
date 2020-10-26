@@ -6,12 +6,11 @@ The simplest way to get an overview is to observe the Istio service mesh using K
 
 ## Visualizing service mesh with Kiali
 
-NAIS leverages the Istio service mesh and Kiali dashboard to give developers a visualization of the service mesh and its general health, with no code modifications required.
 Kiali can be reached at kiali.*cluster-name*.nais.io, eg. [kiali.dev-gcp.nais.io](https://kiali.dev-gcp.nais.io).
 
 ![Kiali service mesh showing the relationship between sosialhjelp-modia, modia-api, and mock-alt-api](kiali-sample.gif)
 
-Kiali will also give a quick graphical overview of failing HTTP calls.
+NAIS leverages the Istio service mesh and Kiali dashboard to give developers a visualization of the service mesh and its general health. Kiali will also give a quick graphical overview of failing HTTP calls.
 
 ![Example of a service returning 400 errors](kiali-400-sample.gif)
 
@@ -66,9 +65,9 @@ The following trace headers must be forwarded as they are received:
 
 ![Illustration of the relationship between trace, span and parentspan IDs](trace-span-ids.png)
 
-**TODO: Check source code to find which headers are actually dealt with by istio-proxy**
+<!-- TODO: Check source code to find which headers are actually dealt with by istio-proxy -->
 
-**TODO: Figure out semantics of the sampled/flags headers** 
+<!-- TODO: Figure out semantics of the sampled/flags headers --> 
 
 ### Code examples
 
@@ -80,7 +79,7 @@ Readers who find more elegant solutions are encouraged to submit pull requests t
 
 The following code generates a 128-byte UUID, which is split into two 64-bit identifiers. These identifiers are then passed along with API requests. This creates a trace which spans an entire page session.
 
-**TODO: Clarify jaeger's requirements for identifier; documentation is unclear/contradictory**
+<!-- TODO: Clarify jaeger's requirements for identifier; documentation is unclear/contradictory -->
 
 ```
 // In the file top level
