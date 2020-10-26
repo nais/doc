@@ -52,8 +52,6 @@ This will have the effect that any incoming requests to your application will ge
 
 To give Jaeger sufficient context to reconstruct a trace, the application must read a set of HTTP headers from the incoming request and forward them to any requests further down the chain.
 
-*See also [Istio's documentation](https://istio.io/latest/faq/distributed-tracing/#how-to-support-tracing)*
-
 The following trace headers must be forwarded as they are received:
 
 * `x-b3-traceid`
@@ -63,7 +61,11 @@ The following trace headers must be forwarded as they are received:
 * `x-b3-flags`
 * `x-b3`
 
+The `traceid` identifies a single trace. `spanid` identifies a span. For all spans below top-level, `parentspanid` identifies the span's parent.
+
 ![Illustration of the relationship between trace, span and parentspan IDs](trace-span-ids.png)
+
+*See also [Istio's documentation](https://istio.io/latest/faq/distributed-tracing/#how-to-support-tracing) for more detailed definitions of the headers*
 
 <!-- TODO: Check source code to find which headers are actually dealt with by istio-proxy -->
 
