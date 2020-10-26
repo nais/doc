@@ -77,7 +77,7 @@ Readers who find more elegant solutions are encouraged to submit pull requests t
 
 #### React
 
-The following code generates a 128-byte UUID, which is split into two 64-bit identifiers. These identifiers are then passed along with API requests. This has the result that a single page render is shown inside a trace, including 
+The following code generates a 128-byte UUID, which is split into two 64-bit identifiers. These identifiers are then passed along with API requests. This creates a trace which spans an entire page session.
 
 **TODO: Clarify jaeger's requirements for identifier; documentation is unclear/contradictory**
 
