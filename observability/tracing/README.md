@@ -2,13 +2,15 @@
 
 When program flow is distributed across many microservices, the need arises to trace across them.
 
-Already out     of the box the developer has access to visualizing the service mesh using Kiali, which visualizes the relationship between services at a glance.
+With no code changes necessary, NAIS leverages Istio and the Kiali dashboard to give developers a visualization of the service mesh and its general health.
 
 NAIS supports two different methods of distributed tracing: Either by [direct submission of tracing data to Jaeger](#trace-headers), or [envoy-based tracing](#envoy-based-extraction).
 
 ## Visualizing service mesh with Kiali
 
 ![Kiali service mesh showing the relationship between sosialhjelp-modia, modia-api, and mock-alt-api](kiali-sample.gif)
+
+![Example of a service returning 400 errors](kiali-400-sample.gif)
 
 ## Envoy-based context extraction
 
