@@ -7,8 +7,8 @@ Additionally, NAIS supports two different methods of distributed tracing: [Envoy
 
 ## Visualizing service mesh with Kiali
 
-Out of the box with no code changes needed, NAIS leverages Istio and the Kiali dashboard to give developers a visualization of the service mesh and its general health.
-Kiali can be reached at kiali.*cluster-name*.nais.io, eg. [kiali.dev-gcp.nais.io](kiali.dev-gcp.nais.io).
+NAIS leverages the Istio service mesh and Kiali dashboard to give developers a visualization of the service mesh and its general health, with no code modifications required.
+Kiali can be reached at kiali.*cluster-name*.nais.io, eg. [kiali.dev-gcp.nais.io](https://kiali.dev-gcp.nais.io).
 
 ![Kiali service mesh showing the relationship between sosialhjelp-modia, modia-api, and mock-alt-api](kiali-sample.gif)
 
