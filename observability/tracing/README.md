@@ -3,16 +3,16 @@
 With program flow distributed across many microservices, the ability to observe the different services in context can become a valuable tool for development and operations. 
 The simplest way to accomplish this is to observe the Istio service mesh using Kiali.
 
-Additionally, NAIS supports two different methods of distributed tracing: Either by [direct submission of tracing data to Jaeger](#trace-headers), or [envoy-based tracing](#envoy-based-extraction).
+Additionally, NAIS supports two different methods of distributed tracing: [Envoy-based tracing](#envoy-based-extraction) (recommended), and [direct submission of tracing data to Jaeger](#trace-headers).
 
 ## Visualizing service mesh with Kiali
 
-With no code changes necessary, NAIS leverages Istio and the Kiali dashboard to give developers a visualization of the service mesh and its general health.
+Out of the box with no code changes needed, NAIS leverages Istio and the Kiali dashboard to give developers a visualization of the service mesh and its general health.
 Kiali can be reached at kiali.*cluster-name*.nais.io, eg. [kiali.dev-gcp.nais.io](kiali.dev-gcp.nais.io).
 
 ![Kiali service mesh showing the relationship between sosialhjelp-modia, modia-api, and mock-alt-api](kiali-sample.gif)
 
-In addition to visualizing traffic levels, it will also identify the proportion of failing HTTP calls.
+Kiali will also represent the proportion of failing HTTP calls.
 
 ![Example of a service returning 400 errors](kiali-400-sample.gif)
 
@@ -20,9 +20,7 @@ In addition to visualizing traffic levels, it will also identify the proportion 
 
 ![Illustration of envoy-based tracing](envoy-tracing.png)
 
-If envoy-based tracing covers your needs, this is the recommended approach to tracing.
-
-NAIS can be configured to have the istio-proxy envoy sidecar transparently submit tracing data to jaeger, by extracting context data from headers attached to HTTP calls.
+NAIS can be configured to have the istio-proxy envoy sidecar transparently submit tracing data to jaeger, by extracting context data from headers attached to HTTP calls. If envoy-based tracing covers your needs, this is the recommended approach to tracing.
 
 The advantage to this approach is that it allows you to get up and running quickly with distributed tracing with relatively minimal changes needed to your code base; all you need to do is copy the headers from incoming to outgoing requests. It also has limitations; to attach context or to create spans even inside a single node process, see [Direct submission](#direct-submission).
 
@@ -53,6 +51,8 @@ The following trace headers must be forwarded as they are received:
 * `x-b3-sampled`
 * `x-b3-flags`
 * `x-b3`
+
+**TODO: Illustrate relationship of traceid, spanid and parentspanid**
 
 **TODO: Check source code to find which headers are actually dealt with by istio-proxy**
 
