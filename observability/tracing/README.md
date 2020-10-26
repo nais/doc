@@ -1,9 +1,8 @@
 # Distributed tracing
 
 With program flow distributed across many microservices, the ability to observe the different services in context can become a valuable tool for development and operations. 
-The simplest way to accomplish this is to observe the Istio service mesh using Kiali.
 
-Additionally, NAIS supports two different methods of distributed tracing: [Envoy-based tracing](#envoy-based-extraction) (recommended), and [direct submission of tracing data to Jaeger](#trace-headers).
+The simplest way to get an overview is to observe the Istio service mesh using Kiali. Additionally, NAIS supports two different methods of distributed tracing: [Envoy-based tracing](#envoy-based-extraction) (recommended), and [direct submission of tracing data to Jaeger](#trace-headers).
 
 ## Visualizing service mesh with Kiali
 
@@ -22,12 +21,14 @@ Kiali offers a nice view of statistics. However, it is not possible to say that 
 
 ![Illustration of envoy-based tracing](envoy-tracing.png)
 
-If envoy-based tracing covers your needs, this is the recommended approach to tracing. All you need to do is copy the [appropriate headers](#trace-headers) from incoming requests to any outgoing it may cause, and istio-proxy and Jaeger does the rest for you.
+This allows you to get up and running quickly with distributed tracing with relatively minimal changes needed to your code. All you need to do is copy the [appropriate headers](#trace-headers) from incoming requests to any outgoing it may cause, and istio-proxy and Jaeger does the rest for you.
+
+Loading a React page which issues hundreds of API calls generates a trace like this:
 
 ![Example trace of a sosialhjelp-modia page load](example-trace.png)
 
-This allows you to get up and running quickly with distributed tracing with relatively minimal changes needed to your code.
-This approach does have some limitations; if you need to attach debug context or to create spans even inside a single node process, see [Direct submission](#direct-submission).
+If envoy-based tracing covers your needs, this is the recommended approach to tracing. 
+But the approach does have some limitations; if you need to attach debug context or to create spans even inside a single node process, see [Direct submission](#direct-submission).
 
 ### NAIS configuration
 
@@ -63,7 +64,7 @@ The following trace headers must be forwarded as they are received:
 * `x-b3-flags`
 * `x-b3`
 
-**TODO: Illustrate relationship of traceid, spanid and parentspanid**
+![Illustration of the relationship between trace, span and parentspan IDs](trace-span-ids.png)
 
 **TODO: Check source code to find which headers are actually dealt with by istio-proxy**
 
