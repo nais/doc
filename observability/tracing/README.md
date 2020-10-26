@@ -12,7 +12,7 @@ Kiali can be reached at kiali.*cluster-name*.nais.io, eg. [kiali.dev-gcp.nais.io
 
 ![Kiali service mesh showing the relationship between sosialhjelp-modia, modia-api, and mock-alt-api](kiali-sample.gif)
 
-In addition to visualizing traffic levels, it will also identify failing HTTP calls.
+In addition to visualizing traffic levels, it will also identify the proportion of failing HTTP calls.
 
 ![Example of a service returning 400 errors](kiali-400-sample.gif)
 
@@ -20,11 +20,11 @@ In addition to visualizing traffic levels, it will also identify failing HTTP ca
 
 ![Illustration of envoy-based tracing](envoy-tracing.png)
 
-Unless your projects have needs which can only be met by direct submission of tracing data (eg. the need to add additional context), this is the recommended approach to tracing.
+If envoy-based tracing covers your needs, this is the recommended approach to tracing.
 
-NAIS can be configured to have the istio-proxy sidecar transparently submit tracing data to jaeger, by extracting context data from headers attached to HTTP calls.
+NAIS can be configured to have the istio-proxy envoy sidecar transparently submit tracing data to jaeger, by extracting context data from headers attached to HTTP calls.
 
-The advantage to this approach is that it allows you to get up and running quickly with distributed tracing with relatively minimal changes needed to your code base. It also has limitations; to attach context or to create spans even inside a single node process, see [Direct submission](#direct-submission).
+The advantage to this approach is that it allows you to get up and running quickly with distributed tracing with relatively minimal changes needed to your code base; all you need to do is copy the headers from incoming to outgoing requests. It also has limitations; to attach context or to create spans even inside a single node process, see [Direct submission](#direct-submission).
 
 ### NAIS configuration
 
@@ -83,8 +83,6 @@ const sessionTraceID = uuidv4().toString().replaceAll('-','');
 The user may send tracing data to jaeger via [a plethora of supported protocols](https://www.jaegertracing.io/docs/1.20/apis/), including OpenTracing, Thrift and Zipkin.
 A [robust ecosystem of libraries](https://www.jaegertracing.io/docs/1.20/client-libraries/) exist for several languages.
 
-This mode of using Jaeger is not currently supported by NAIS, but should be easy to implement. This is largely documented here to see if there is any demand. If there is, please contact Tore Sinding Bekkedal.
+This mode of using Jaeger is not currently supported by NAIS, but if there is a need, it would be easy to implement. This is largely documented here to see if there is any demand.
 
-To enable traffic to the tracing service and disable istio-proxy-based tracing, add the following stanza to nais.yaml under "spec":
-
-**TODO: Include code example / screenshot**
+If there is, please contact Tore Sinding Bekkedal.
