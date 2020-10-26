@@ -96,7 +96,7 @@ const sessionTraceID = uuidv4().toString().replaceAll('-','');
 ## Direct submission
 
 The user may send tracing data to jaeger via [a plethora of supported protocols](https://www.jaegertracing.io/docs/1.20/apis/), including OpenTracing, Thrift and Zipkin.
-A [robust ecosystem of libraries](https://www.jaegertracing.io/docs/1.20/client-libraries/) exist for several languages.
+A [robust ecosystem of libraries](https://www.jaegertracing.io/docs/1.20/client-libraries/) exists for several languages.
 
 This mode of using Jaeger is not currently supported by NAIS, but if there is a need, it would be easy to implement.
 This is largely mentioned here to see if there is any demand.
