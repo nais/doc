@@ -1,12 +1,12 @@
 # Distributed tracing
 
-When program flow is distributed across many microservices, the need arises to trace across them.
-
-With no code changes necessary, NAIS leverages Istio and the Kiali dashboard to give developers a visualization of the service mesh and its general health.
+With program flow distributed across many microservices, the ability to observe the different services in context can become a valuable tool for development and operations.
 
 NAIS supports two different methods of distributed tracing: Either by [direct submission of tracing data to Jaeger](#trace-headers), or [envoy-based tracing](#envoy-based-extraction).
 
 ## Visualizing service mesh with Kiali
+
+With no code changes necessary, NAIS leverages Istio and the Kiali dashboard to give developers a visualization of the service mesh and its general health.
 
 ![Kiali service mesh showing the relationship between sosialhjelp-modia, modia-api, and mock-alt-api](kiali-sample.gif)
 
@@ -28,7 +28,6 @@ To enable envoy-based tracing, add the following stanza to nais.yaml under "spec
 spec:
   tracing:
     enabled: true
-    envoySampling: 100
 ```
 
 To give Jaeger sufficient context to reconstruct a trace, the application must read a set of HTTP headers from the incoming request and forward them to any requests further down the chain.
@@ -73,12 +72,13 @@ const sessionTraceID = uuidv4().toString().replaceAll('-','');
 
 The user may send tracing data to jaeger via [a plethora of supported protocols](https://www.jaegertracing.io/docs/1.20/apis/), including OpenTracing, Thrift and Zipkin. A [robust ecosystem of libraries](www.jaegertracing.io) exist for several languages.
 
-To enable traffic to the tracing service, add the following stanza to nais.yaml under "spec":
+To enable traffic to the tracing service and disable istio-proxy-based tracing, add the following stanza to nais.yaml under "spec":
 
 ```
 spec:
   tracing:
     enabled: true
+    inhibitEnvoy: true
 ```
 
 **TODO: Include code example / screenshot**
