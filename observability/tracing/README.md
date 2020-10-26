@@ -2,7 +2,7 @@
 
 With program flow distributed across many microservices, the ability to observe the different services in context can become a valuable tool for development and operations. 
 
-The simplest way to get an overview is to observe the Istio service mesh using Kiali. Additionally, NAIS supports two different methods of distributed tracing: [Envoy-based tracing](#envoy-based-extraction) (recommended), and [direct submission of tracing data to Jaeger](#trace-headers).
+The simplest way to get an overview is to observe the Istio service mesh using Kiali. If there is a need to observe the causal relationship among individual calls to services, [envoy-based tracing](#envoy-based-context-extraction) is required.
 
 ## Visualizing service mesh with Kiali
 
