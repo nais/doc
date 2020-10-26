@@ -1,6 +1,14 @@
 # Distributed tracing
 
-When program flow is distributed across many microservices, the need arises to trace across them. NAIS supports two different methods of tracing: Either by direct input of tracing data to Jaeger, or envoy-based tracing.
+When program flow is distributed across many microservices, the need arises to trace across them. NAIS supports two different methods of distributed tracing: Either by [direct submission of tracing data to Jaeger](#trace-headers), or [envoy-based tracing](#envoy-based-extraction).
+
+To enable tracing, add the following stanza to nais.yaml under "spec":
+
+```
+spec:
+  tracing:
+    enabled: true
+```
 
 ## Direct submission
 
