@@ -1,4 +1,4 @@
-# Distributed logging
+# Distributed tracing
 
 When program flow is distributed across many microservices, the need arises to trace across them. NAIS supports two different methods of tracing: Either by direct input of tracing data to Jaeger, or envoy-based tracing.
 
