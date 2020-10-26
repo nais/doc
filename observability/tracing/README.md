@@ -18,9 +18,11 @@ Kiali will also represent the proportion of failing HTTP calls.
 
 ## Envoy-based context extraction
 
+Kiali offers a nice view of statistics. However, it is not possible to say that request A is a consequence of request B without adding additional context. Therefore, Istio supports transparently reading special tracing headers from HTTP requests, and submitting trace data to jaeger.
+
 ![Illustration of envoy-based tracing](envoy-tracing.png)
 
-NAIS can be configured to have the istio-proxy envoy sidecar transparently submit tracing data to jaeger, by extracting context data from headers attached to HTTP calls. If envoy-based tracing covers your needs, this is the recommended approach to tracing.
+If envoy-based tracing covers your needs, this is the recommended approach to tracing.
 
 The advantage to this approach is that it allows you to get up and running quickly with distributed tracing with relatively minimal changes needed to your code base; all you need to do is copy the headers from incoming to outgoing requests. It also has limitations; to attach context or to create spans even inside a single node process, see [Direct submission](#direct-submission).
 
@@ -36,6 +38,12 @@ spec:
   tracing:
     enabled: true
 ```
+
+When this is enabled, the following changes occur to your deployment:
+* A network policy is enabled which allows egress to the Jaeger app services
+* The istio-proxy sidecar is configured to sample 100% of incoming requests
+
+This will have the effect that any incoming requests to your application will generate a trace to Jaeger. These traces can be viewed in tracing.*cluster-name*.nais.io, eg [tracing.dev-gcp.nais.io](https://tracing.dev-gcp.nais.io/).
 
 ### Trace headers
 
@@ -60,7 +68,9 @@ The following trace headers must be forwarded as they are received:
 
 ### Code examples
 
-Tracing was initially deployed in NAIS in collaboration with team digisos, who used envoy-based tracing to find the source of slow page loads.
+Tracing was initially deployed in NAIS in collaboration with team digisos, who used envoy-based tracing to identify an intermittent problem causing spikes in page render time. 
+The examples below are therefore examples, not references.
+Readers who find more elegant solutions are encouraged to submit pull requests to this documentation.
 
 #### React
 
@@ -83,6 +93,6 @@ const sessionTraceID = uuidv4().toString().replaceAll('-','');
 The user may send tracing data to jaeger via [a plethora of supported protocols](https://www.jaegertracing.io/docs/1.20/apis/), including OpenTracing, Thrift and Zipkin.
 A [robust ecosystem of libraries](https://www.jaegertracing.io/docs/1.20/client-libraries/) exist for several languages.
 
-This mode of using Jaeger is not currently supported by NAIS, but if there is a need, it would be easy to implement. This is largely documented here to see if there is any demand.
-
+This mode of using Jaeger is not currently supported by NAIS, but if there is a need, it would be easy to implement.
+This is largely documented here to see if there is any demand.
 If there is, please contact Tore Sinding Bekkedal.
