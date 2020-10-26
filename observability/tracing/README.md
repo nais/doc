@@ -12,19 +12,22 @@ Kiali can be reached at kiali.*cluster-name*.nais.io, eg. [kiali.dev-gcp.nais.io
 
 ![Kiali service mesh showing the relationship between sosialhjelp-modia, modia-api, and mock-alt-api](kiali-sample.gif)
 
-Kiali will also represent the proportion of failing HTTP calls.
+Kiali will also give a quick graphical overview of failing HTTP calls.
 
 ![Example of a service returning 400 errors](kiali-400-sample.gif)
 
 ## Envoy-based context extraction
 
-Kiali offers a nice view of statistics. However, it is not possible to say that request A is a consequence of request B without adding additional context. Therefore, Istio supports transparently reading special tracing headers from HTTP requests, and submitting trace data to jaeger.
+Kiali offers a nice view of statistics. However, it is not possible to say that request A is a consequence of request B without adding additional context. Istio supports transparently reading special tracing headers from HTTP requests, and submitting trace data to jaeger.
 
 ![Illustration of envoy-based tracing](envoy-tracing.png)
 
-If envoy-based tracing covers your needs, this is the recommended approach to tracing.
+If envoy-based tracing covers your needs, this is the recommended approach to tracing. All you need to do is copy the [appropriate headers](#trace-headers) from incoming requests to any outgoing it may cause, and istio-proxy and Jaeger does the rest for you.
 
-The advantage to this approach is that it allows you to get up and running quickly with distributed tracing with relatively minimal changes needed to your code base; all you need to do is copy the headers from incoming to outgoing requests. It also has limitations; to attach context or to create spans even inside a single node process, see [Direct submission](#direct-submission).
+![Example trace of a sosialhjelp-modia page load](example-trace.png)
+
+This allows you to get up and running quickly with distributed tracing with relatively minimal changes needed to your code.
+This approach does have some limitations; if you need to attach debug context or to create spans even inside a single node process, see [Direct submission](#direct-submission).
 
 ### NAIS configuration
 
@@ -72,8 +75,6 @@ Tracing was initially deployed in NAIS in collaboration with team digisos, who u
 The examples below are therefore examples, not references.
 Readers who find more elegant solutions are encouraged to submit pull requests to this documentation.
 
-![Example trace of a sosialhjelp-modia page load](example-trace.png)
-
 #### React
 
 The following code generates a 128-byte UUID, which is split into two 64-bit identifiers. These identifiers are then passed along with API requests. This has the result that a single page render is shown inside a trace, including 
@@ -96,5 +97,5 @@ The user may send tracing data to jaeger via [a plethora of supported protocols]
 A [robust ecosystem of libraries](https://www.jaegertracing.io/docs/1.20/client-libraries/) exist for several languages.
 
 This mode of using Jaeger is not currently supported by NAIS, but if there is a need, it would be easy to implement.
-This is largely documented here to see if there is any demand.
+This is largely mentioned here to see if there is any demand.
 If there is, please contact Tore Sinding Bekkedal.
