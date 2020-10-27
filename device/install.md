@@ -31,6 +31,7 @@
 4. Allow a couple of minutes to let Kolide initialize device state, but if you're stuck at "Waiting for your device to connect" just go to the next step.
 5. Check your devices status: `/msg @Kolide status` on Slack and fix errors if there are any
 
+
 ## Connecting to NAIS clusters
 1. In a terminal/shell of your choice, navigate to [kubeconfigs repo](https://github.com/navikt/kubeconfigs)'.
    1. If you haven't downloaded repo already: `git clone <clone URL> && cd kubeconfigs`
@@ -50,3 +51,7 @@
 ### Windows
 1. Remove Navtunnel-entries from c:\windows\system32\drivers\etc\hosts
 2. Remove proxy settings from you browser
+
+## FAQ
+* _naisdevice cannot connect, yet `/msg @Kolide status` is happy!_
+	* Disconnect and re-connect `naisdevice`-agent =)!
