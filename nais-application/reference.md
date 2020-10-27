@@ -214,6 +214,18 @@ Guaranteed amount of memory.
 
 **Example**: `memory: 512Mi`
 
+## `spec.tracing`
+
+Configuration of [tracing](../observability/tracing/).
+
+### `spec.tracing.enabled`
+
+Allow network egress to the Jaeger tracing app and configures istio-proxy to trace all incoming requests.
+
+Boolean value.
+
+**Default**: false
+
 ## `spec.ingresses`
 List of ingress URLs that will route HTTP traffic to the application.
 
