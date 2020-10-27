@@ -28,6 +28,7 @@
   * [Logs](observability/logs/README.md)
     * [Examples](observability/logs/examples.md)
   * [Metrics](observability/metrics.md)
+  * [Tracing](observability/tracing/README.md)
 * [Persistence](persistence/README.md)
   * [Responsibilities](persistence/responsibilities.md)
   * [Buckets](persistence/buckets.md)
