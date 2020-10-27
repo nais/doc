@@ -3,7 +3,7 @@
 ## MacOS
 1. [if you had navtunnel]: [uninstall navtunnel](#uninstall-navtunnel)
 2. [install Kolide agent](#install-kolide-agent)
-3. `curl https://device.nais.io/install.sh | bash` (you might be prompted for password)
+3. Write in the terminal: `curl https://device.nais.io/install.sh | bash` (you might be prompted for password)
 4. Command+Space -> `naisdevice` -> systray icon -> connect ([allow ~20 seconds before filing issues](https://github.com/nais/device/issues/38))
 5. Remember to [update your kubeconfig](#connecting-to-nais-clusters)
 
@@ -25,7 +25,7 @@
 6. Remember to [update your kubeconfig](#connecting-to-nais-clusters)
 
 ## Install Kolide agent
-1. Slack: `/msg @Kolide installers`
+1. Send a message to the Kolide app on Slack: `/msg @Kolide installers`
 2. Select platform and wait for Kolide to create your installer
 3. Install package (xkxp-\*-kolide-launcher.{pkg,msi,deb,rpm}). There are no success feedback from the installer. No error message means that the installation was successful.
 4. Allow a couple of minutes to let Kolide initialize device state, but if you're stuck at "Waiting for your device to connect" just go to the next step.
@@ -33,9 +33,10 @@
 
 ## Connecting to NAIS clusters
 1. In a terminal/shell of your choice, navigate to [kubeconfigs repo](https://github.com/navikt/kubeconfigs)'.
-   1. If you haven't downloaded repo already: `git clone <clone URL> && cd kubeconfigs`
+   1. If you haven't downloaded repo already: `git clone https://github.com/navikt/kubeconfigs.git && cd kubeconfigs`
 2. `git pull` To ensure you've got latest & greatest.
 3. `git checkout naisdevice` Remember to use the right branch!
+4. Pek KUBECONFIG miljøvariabelen på config-filen (fra terminal): `export KUBECONFIG="<path-to>/kubeconfigs/config" `
 
 ## Uninstall navtunnel
 * Remove proxy settings from MAVEN_OPTS and Maven settings.xml
