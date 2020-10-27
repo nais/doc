@@ -52,3 +52,7 @@
 ### Windows
 1. Remove Navtunnel-entries from c:\windows\system32\drivers\etc\hosts
 2. Remove proxy settings from your browser
+
+## FAQ
+* _naisdevice cannot connect, yet `/msg @Kolide status` is happy!_
+	* Disconnect and re-connect `naisdevice`-agent =)!
