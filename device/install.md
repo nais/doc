@@ -14,7 +14,7 @@
 4. Remember to [update your kubeconfig](#connecting-to-nais-clusters)
 5. Start _naisdevice_ from the _Start menu_ 
 
-## Ubuntu
+## Ubuntu (using default DE (Gnome) is the only supported variant atm)
 1. [install Kolide agent](#install-kolide-agent)
 2. Install wireguard
 	1. `sudo add-apt-repository ppa:wireguard/wireguard`
