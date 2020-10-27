@@ -1,6 +1,7 @@
 # Distributed tracing
 
 With program flow distributed across many microservices, the ability to observe the different services in context can become a valuable tool for development and operations. 
+For the GCP clusters, NAIS offers a rich toolkit for this.
 
 The simplest way to get an overview is to observe the Istio service mesh using Kiali. If there is a need to observe the causal relationship among individual calls to services, [envoy-based tracing](#envoy-based-context-extraction) is required.
 
@@ -16,7 +17,11 @@ NAIS leverages the Istio service mesh and Kiali dashboard to give developers a v
 
 ## Envoy-based context extraction
 
-Kiali offers a nice view of statistics. However, it is not possible to say that request A is a consequence of request B without adding additional context. Istio supports transparently reading special tracing headers from HTTP requests, and submitting trace data to jaeger.
+Kiali offers a nice view of statistics. However, it is not possible to say that request A is a consequence of request B without adding additional context.
+Istio supports transparently reading special tracing headers from HTTP requests, and submitting trace data to a tracing system.
+
+The tracing system chosen by NAIS is [Jaeger](https://www.jaegertracing.io/)
+(which supports the [Zipkin](https://zipkin.io/) API, used by Istio).
 
 ![Illustration of envoy-based tracing](envoy-tracing.png)
 
@@ -27,7 +32,8 @@ Loading a React page which issues hundreds of API calls generates a trace like t
 ![Example trace of a sosialhjelp-modia page load](example-trace.png)
 
 If envoy-based tracing covers your needs, this is the recommended approach to tracing. 
-But the approach does have some limitations; if you need to attach debug context or to create spans even inside a single node process, see [Direct submission](#direct-submission).
+
+There are some limitations to envoy-based tracing: If you need to attach debug context to spans, or create spans even inside a single node process, see [Direct submission](#direct-submission).
 
 ### Configuring NAIS
 
@@ -100,4 +106,4 @@ A [robust ecosystem of libraries](https://www.jaegertracing.io/docs/1.20/client-
 
 This mode of using Jaeger is not currently supported by NAIS, but if there is a need, it would be easy to implement.
 This is largely mentioned here to see if there is any demand.
-If there is, please contact Tore Sinding Bekkedal.
+If there is, please ping Tore Sinding Bekkedal or #nais.
