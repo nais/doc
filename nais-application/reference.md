@@ -518,22 +518,24 @@ Where ID-porten sends a request to whenever the user has initiated a logout else
 **Required**: `false`
 
 ### `spec.idporten.postLogoutRedirectURIs[]`
-Valid URIs that ID-porten will redirect the end-user to after a [single logout](https://difi.github.io/felleslosninger/oidc_func_sso.html#initiering-av-slo-session-management) has been initiated and performed by the application.
+Valid URIs that ID-porten will allow redirecting the end-user to after a [single logout](https://difi.github.io/felleslosninger/oidc_func_sso.html#initiering-av-slo-session-management) has been initiated and performed by the application.
 
 Example: `[ "https://my.application.ingress/" ]`
 
 **Default**: `[ "https://www.nav.no" ]`
 
-{% hint style="info" %}
-Note that `spec.idporten.redirectURI` can only be omitted if `spec.ingresses` are specified.
-{% endhint %}
-
 ### `spec.idporten.redirectURI`
 Valid URI that ID-porten redirects back to after a successful authorization request, e.g. `"https://my.application.ingress/oauth2/callback"`.
 
-Must be a valid subpath of your application's specified ingress.
+The value of this **must** be a subpath of your application's ingress.
 
-**Default**: `https://my.application.ingress/oauth2/callback`
+**Default**: `spec.ingresses[0]` + `/oauth2/callback`
+
+{% hint style="info" %}
+Note that `spec.idporten.redirectURI` can only be omitted if `spec.ingresses` are specified.
+
+See [Redirect URIs](../security/auth/idporten.md#redirect-uri) for details.
+{% endhint %}
 
 ### `spec.idporten.refreshTokenLifetime`
 Is the lifetime in seconds for the issued refresh token from ID-porten
