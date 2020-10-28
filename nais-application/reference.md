@@ -352,6 +352,11 @@ Namespace to application to allow traffic from.
 
 **Default**: `metadata.namespace`
 
+#### `spec.accessPolicy.inbound.rules[].cluster`
+Cluster to allow [token exchanging](../security/auth/tokenx.md#getting-started) or [pre-authorization](../security/auth/azure-ad.md#pre-authorized-applications) for inter-cluster communication with tokens.
+
+**This applies _only_ if using [TokenX](../security/auth/tokenx.md) or [Azure AD](../security/auth/azure-ad.md).**
+
 ### `spec.accessPolicy.outbound.rules[]`
 List of services to allow traffic to.
 
@@ -359,6 +364,11 @@ List of services to allow traffic to.
 Name of the other service to allow traffic to.
 
 **Required**: `true`
+
+#### `spec.accessPolicy.outbound.rules[].namespace`
+Namespace to application to allow traffic to.
+
+**Default**: `metadata.namespace`
 
 ### `spec.accessPolicy.outbound.external[]`
 List of services outside cluster to allow traffic to.
