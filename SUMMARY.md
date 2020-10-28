@@ -56,6 +56,7 @@
   * [AM/OpenAM](legacy/am.md)
 * [naisdevice](device/README.md)
   * [Installation](device/install.md)
+  * [Troubleshooting](device/troubleshooting.md)
   * [Available services](device/services.md)
 * [Laws and regulations](legal/README.md)
   * [Platform risk assessments (ROS)](legal/nais-ros.md)
