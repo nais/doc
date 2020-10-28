@@ -4,7 +4,7 @@ This section will take you through the deployment of your application using _NAI
 NAIS deploy enables you to deploy your application from any continuous integration platform.
 Our primary supported platform is GitHub Actions, but you can also deploy from CircleCI, Travis CI, Jenkins, or other tools.
 
-If you need help, please take a look at the [help page](troubleshooting.md).
+If you experience any trouble along the way, please take a look at the [troubleshooting page](troubleshooting.md).
 
 ## How it works
 Your application is assumed to be present in the form of a Docker image when using the _NAIS deploy tool_. The _NAIS deploy tool_ is used to create a deployment request. The Docker image will be deployed to Kubernetes, and the deploy tool will wait until your deployment is rolled out, gets an error, or a timeout occurs. Underway, deployment statuses are continually posted back to _GitHub Deployment API_. Deployment logs can be viewed on _Kibana_. The link to the logs will be provided by the deploy tool.
