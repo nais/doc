@@ -9,5 +9,6 @@ redirects:
   addons/azure-ad: ./security/auth/azure-ad.md
   addons/idporten: ./security/auth/idporten.md
   addons/oauth2-openidconnect: ./security/auth/oauth2-openidconnect.md
+  security/auth/oauth2-openidconnect: ./security/auth/README.md
   addons/tokenx: ./security/auth/tokenx.md
   addons/secrets: ./security/secrets/README.md
