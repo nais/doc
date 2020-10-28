@@ -1,5 +1,5 @@
 ---
-description: Services and addons to support authentication (AuthN) & authorization (AuthZ) for your NAIS application 
+description: Services and addons to support authentication (AuthN) & authorization (AuthZ)
 ---
 
 # Authentication & Authorization
@@ -17,7 +17,9 @@ while the OAuth 2.0 protocol can provide signed tokens ([JWT](https://oauth.net/
 As OAuth 2.0, OpenID Connect, and the variety of "flows" within those specifications can be complex and "large", 
 we aim to reduce the cognitive load on the common developer by providing a guide and blueprints for the most common scenarios in NAV.
 
-Please consult the [NAV Security Guide] (internal access required) for details on the usage of these specifications and protocols within NAV.
+{% hint style="info" %}
+**Please consult the [NAV Security Guide] (internal access required) for details on the usage of these specifications and protocols within NAV.**
+{% endhint %}
 
 ### Citizen-facing applications
 
