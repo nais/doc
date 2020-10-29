@@ -353,7 +353,7 @@ Namespace to application to allow traffic from.
 **Default**: `metadata.namespace`
 
 #### `spec.accessPolicy.inbound.rules[].cluster`
-Cluster to allow [token exchanging](../security/auth/tokenx.md#getting-started) or [pre-authorization](../security/auth/azure-ad.md#pre-authorized-applications) for inter-cluster communication with tokens.
+Cluster to allow [token exchanging](../security/auth/tokenx.md#getting-started) or [pre-authorization](../security/auth/azure-ad.md#pre-authorization) for inter-cluster communication with tokens.
 
 **This applies _only_ if using [TokenX](../security/auth/tokenx.md) or [Azure AD](../security/auth/azure-ad.md).**
 
@@ -466,16 +466,15 @@ Whether the instance should be deleted if the application is deleted
 **Default**: `false`
 
 ## `spec.azure.application`
-Configures an Azure AD application for this application. See [Azure AD](../security/auth/azure-ad.md) for more details.
+Configures an Azure AD client for this application. See [Azure AD](../security/auth/azure-ad.md) for more details.
 
 ### `spec.azure.application.enabled`
-If enabled, will provision an Azure AD application for the application.
+If enabled, will provision an Azure AD client for the application.
 
 **Default**: `false`
 
 ### `spec.azure.application.replyURLs[]`
-List of [reply URLs](https://docs.microsoft.com/en-us/azure/active-directory/develop/reply-url) that should be registered for the Azure AD application, 
-e.g. `[ "https://my.application/oauth2/callback" ]`
+List of [reply URLs](https://docs.microsoft.com/en-us/azure/active-directory/develop/reply-url) that should be registered for the Azure AD client, e.g. `[ "https://my.application/oauth2/callback" ]`
 
 **Default**: `[]`
 
