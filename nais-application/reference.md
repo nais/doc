@@ -537,6 +537,6 @@ See [Redirect URIs](../security/auth/idporten.md#redirect-uri) for details.
 {% endhint %}
 
 ### `spec.idporten.refreshTokenLifetime`
-Is the lifetime in seconds for the issued refresh token from ID-porten
+The lifetime in seconds for the issued refresh token from ID-porten. The refresh token may only be used once.
 
-**Default**: `43200`
+**Default**: `43200` (12 hours)

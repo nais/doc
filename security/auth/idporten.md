@@ -1,59 +1,38 @@
 ---
 description: >
-  Provisioning and configuration of accompanying ID-porten clients for authentication and authorization in public-facing 
-  web applications.
+  Enabling public-facing authentication using ID-porten.
 ---
 
-# ID-porten Clients
+# ID-porten Client
 
 {% hint style="warning" %}
 **Status: Opt-In Open Beta**
 
-This feature is only available in the [GCP](../../clusters/gcp.md) clusters.
+This feature is only available in the [Google Cloud Platform (GCP)](../../clusters/gcp.md) clusters.
 {% endhint %}
 
+## Abstract
+
 ID-porten is a common log-in system used for logging into Norwegian public e-services for citizens. 
-The NAIS platform offers a simple way of provisioning and configuring an accompanying 
-[ID-porten client](https://difi.github.io/felleslosninger/oidc_index.html) that your application may use to integrate with ID-porten.
 
-The ID-porten Client will be configured with sane defaults to enable usage in both authentication and/or authorization 
-for public-facing web applications.
+The NAIS platform provides support for simple, declarative provisioning of an [ID-porten client] with sensible defaults that your application may use to integrate with ID-porten.
 
-[Digdirator] generates a Kubernetes Secret containing the values needed for your application to integrate ID-porten, 
-e.g. credentials and URLs. The secret will automatically be mounted to the pods of your application during deploy.
+An ID-porten client allows your application to leverage ID-porten for authentication of citizen end-users, providing sign-in capabilities with single sign-on (SSO). To achieve this, your application must implement [OpenID Connect with the Authorization Code][ID-porten Integration guide] flow.
 
-Every deploy will trigger rotation of credentials, invalidating any JWKs that are not in use. 
-_In use_ in this context refers to all jwk´s that are currently mounted to an existing pod - 
-regardless of their status (Running, CrashLoopBackOff, etc.). In other words, JWK rotation should happen
-with zero downtime.
+This is also a critical first step in request chains involving an end-user whose identity and permissions should be propagated through each service/web API when accessing services in NAV using the [OAuth 2.0 Token Exchange] protocol. See the [TokenX documentation] for details.
 
-## Spec
-
-See the [NAIS manifest](../../nais-application/reference.md#spec-idporten).
-
-## Usage
-
-### Authentication & Authorization
-
-The ID-porten client allows your application to leverage ID-porten for authentication and authorization of citizen 
-end-users, providing sign-in capabilities with SSO. To do this, your application must thus implement 
-[OpenID Connect with Authorization Code] flow.
-
-This is also a critical first step in request chains involving an end-user whose identity and permissions should be 
-propagated through each service/web API when accessing services in NAV, the process of which involves using the 
-[OAuth 2.0 Token Exchange] protocol. See the [TokenX Documentation] for details.
-
-See the [NAV Security Guide] for NAV-specific usage.
+{% hint style="info" %}
+**See the [NAV Security Guide] for NAV-specific usage of this client.**
 
 Refer to the [ID-porten Integration guide] for further details.
+{% endhint %}
+
+## Configuration
 
 ### Getting Started
 
-#### Minimal Example
-
-Minimal example configuration required in [`nais.yaml`](../../nais-application/reference.md#spec-idporten)
-to enable auto-provisioning of an ID-porten client for your application.
-
+{% code-tabs %}
+{% code-tabs-item title="Minimal nais.yaml example" %}
 ```yaml
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
@@ -66,13 +45,10 @@ spec:
   image: navikt/nais-testapp:66.0.0
   idporten:
     enabled: true
-  webproxy: true # required for on-premises only
 ```
+{% endcode-tabs-item %}
 
-#### Full Example
-
-See the [NAIS manifest](../../nais-application/reference.md#spec-idporten) for details of all the fields used below.
-
+{% code-tabs-item title="Full nais.yaml example" %}
 ```yaml
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
@@ -86,17 +62,31 @@ spec:
   idporten:
     enabled: true
     clientURI: "https://nav.no"
-    redirectURI: "https://my.application.dev.nais.io/callback"
-    frontchannelLogoutURI: "https://my.application.dev.nais.io/logout" 
+    redirectURI: "https://my.application.dev.nav.no/callback"
+    frontchannelLogoutURI: "https://my.application.dev.nav.no/logout" 
     postLogoutRedirectURIs:
       - "https://nav.no"
-    refreshTokenLifetime: 21600 # lifetime of refresh tokens in seconds - 6 hours
+    refreshTokenLifetime: 21600 # in seconds - 6 hours
   ingresses:
-    - "https://my.application.dev.nais.io"
-  webproxy: true # required for on-premises only
+    - "https://my.application.dev.nav.no"
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-### Redirect URI
+### Spec
+
+See the [NAIS manifest](../../nais-application/reference.md#spec-idporten).
+
+### Access Policies
+
+The following [outbound external hosts](../../nais-application/access-policy.md#external-services) are automatically added when enabling this feature:
+
+- `oidc-ver2.difi.no` in development
+- `oidc.difi.no` in production
+
+You do not need to specify these explicitly.
+
+### Ingresses
 
 {% hint style="danger" %}
 For security reasons you may only specify **one** ingress when this feature is enabled.
@@ -115,7 +105,7 @@ spec:
   idporten:
     enabled: true
   ingresses:
-    - "https://my.application.dev.nais.io"
+    - "https://my.application.dev.nav.no"
 ```
 
 will generate a spec equivalent to this:
@@ -124,189 +114,111 @@ will generate a spec equivalent to this:
 spec:
   idporten:
     enabled: true
-    redirectURI: "https://my.application.dev.nais.io/oauth2/callback"
+    redirectURI: "https://my.application.dev.nav.no/oauth2/callback"
   ingresses:
-    - "https://my.application.dev.nais.io"
+    - "https://my.application.dev.nav.no"
 ```
 
-{% hint style="warning" %}
-You may override the redirect URL manually by specifying `spec.idporten.redirectURI`, however it must be a valid subpath
-of your application's specified ingress. 
+### Redirect URI
 
+If you wish to use a different path than the auto-generated one, you may do so by manually specifying `spec.idporten.redirectURI`.
+
+{% hint style="warning" %}
 Specifying `spec.idporten.redirectURI` will replace the auto-generated redirect URI.
 {% endhint %}
 
-### ID-porten client configuration
+The redirect URI must adhere to the following rules:
 
-In most cases you will not need to manually change things for your application, as the ID-porten 
-client automatically is configured with sane defaults, with most other common options 
-available to be configured through [`nais.yaml`](../../nais-application/reference.md#spec-idporten). 
+- It **must** start with `https://`.
+- It **must** be a path within your ingress.
 
-### Runtime Configuration and Credentials
+For example, if you have specified an ingress at `https://my.application.dev.nav.no`, then:
 
-Provisioning an ID-porten client produces a `Secret` resource that is automatically
-mounted to the pods of your application. 
+- ✅ `https://my.application.dev.nav.no/some/path` is valid
+- ❌ `http://localhost/some/path` is invalid 
 
-#### Contents
+## Usage
 
-The following describes the contents of the aforementioned secret.
+{% hint style="info" %}
+**See the [NAV Security Guide] for NAV-specific usage.**
+{% endhint %}
 
-These are available as environment variables in your pod, as well as files at the path `/var/run/secrets/nais.io/idporten`
+### Runtime Variables & Credentials
 
+The following environment variables and files (under the directory `/var/run/secrets/nais.io/idporten`) are available at runtime:
+
+{% code-tabs %}
+{% code-tabs-item title="Description" %}
 | Name | Description |
 |---|---|
 | `IDPORTEN_CLIENT_ID` | ID-porten client ID. Unique ID for the application in ID-porten |
-| `IDPORTEN_CLIENT_JWK` | Private JWK containing the private RSA key for creating signed JWTs when [authenticating to ID-porten with a JWT grant]. |
-| `IDPORTEN_REDIRECT_URI` |  The redirect URI registered for the client at ID-porten. This must a valid URI for the application where the user is redirected back to after successful authentication and authorization. |
-| `IDPORTEN_WELL_KNOWN_URL` | The well-known URL for the OIDC metadata discovery document where the client is registered. |
-
-#### Example reference `Secret` resource
-
-This is automatically generated and mounted into your pod as environment variables and files. See the table above.
-
-```yaml
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: <application-name>-<random-string>
-  namespace: aura
-  labels:
-    team: aura
-data:
-  IDPORTEN_CLIENT_ID: e89006c5-7193-4ca3-8e26-d0990d9d981f
-  IDPORTEN_CLIENT_JWK: |
-    {
-      "use": "sig",
-      "kty": "RSA",
-      "kid": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
-      "alg": "RS256",
-      "n": "xQ3chFsz...",
-      "e": "AQAB",
-      "d": "C0BVXQFQ...",
-      "p": "9TGEF_Vk...",
-      "q": "zb0yTkgqO...",
-      "dp": "7YcKcCtJ...",
-      "dq": "sXxLHp9A...",
-      "qi": "QCW5VQjO..."
-    }
-  IDPORTEN_REDIRECT_URI: https://my.application/callback
-  IDPORTEN_WELL_KNOWN_URL: https://oidc-ver2.difi.no/idporten-oidc-provider/.well-known/openid-configuration
-```
-
-## Client Authentication to ID-porten
-
-For security reasons, clients provisioned through NAIS may only use client assertions during client authentication to
-ID-porten. That is, `private_key_jwt` is the only accepted authentication method for the client 
-(see [OpenID Connect Core 1.0, 9. Client Authentication]). To perform this authentication,
-you'll have to create a client assertion.
-
-### Creating a Client Assertion
-
-The `client_assertion` is a JWT signed by the application making the token request. 
-The public key of the keypair used for signing the JWT and the `client_id` of the application is automatically 
-registered at ID-porten by NAIS when using this feature.
-
-* `client_id` is available as an environment variable `IDPORTEN_CLIENT_ID`
-* The private part of the keypair is available as a JWK in the environment variable `IDPORTEN_CLIENT_JWK`
-
-The `client_assertion` must contain the following claims:
-
-* the `iss` claim should identify the calling client/app to ID-porten, i.e. the `client_id`
-* the `aud` claim should contain the intended "audience" for the token, i.e. for ID-porten it should be equal to the 
-issuer of the authorization server, for example: `https://oidc.difi.no/idporten-oidc-provider/`
-* the `jti` claim should contain a unique ID for the JWT, for example a UUID
-* expiration claims such as `iat` and `exp` must be present and the **maximum lifetime** of the token cannot be more than **120** seconds
-
-The final JWT assertion created and sent to ID-porten may look like this:
-
-#### Header
-
-- `kid` is the key ID retrieved from the your client's JWK, found in the [associated secret](#runtime-configuration-and-credentials) at `IDPORTEN_CLIENT_JWK`.
-
+| `IDPORTEN_CLIENT_JWK` | Private JWK containing the private RSA key for creating signed JWTs when [authenticating to ID-porten with a JWT grant][idporten-client-auth-jwt]. |
+| `IDPORTEN_REDIRECT_URI` |  The redirect URI registered for the client at ID-porten. This must be a valid URI for the application where the user is redirected back to after successful authentication and authorization. |
+| `IDPORTEN_WELL_KNOWN_URL` | The well-known URL for the OIDC metadata discovery document for ID-porten. |
+{% endcode-tabs-item %}
+{% code-tabs-item title="Example values" %}
+| Name | Values |
+|---|---|
+| `IDPORTEN_CLIENT_ID` | `e89006c5-7193-4ca3-8e26-d0990d9d981f` |
+| `IDPORTEN_REDIRECT_URI` | `https://my.application.dev.nav.no/callback` |
+| `IDPORTEN_WELL_KNOWN_URL` | `https://oidc-ver2.difi.no/idporten-oidc-provider/.well-known/openid-configuration` |
+{% endcode-tabs-item %}
+{% code-tabs-item title="Example value for IDPORTEN_CLIENT_JWK" %}
 ```json
 {
-  "kid": "225ed7ac-33eb-4ce3-bc86-6af40e56868f",
-  "alg": "RS256"
+  "use": "sig",
+  "kty": "RSA",
+  "kid": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
+  "alg": "RS256",
+  "n": "xQ3chFsz...",
+  "e": "AQAB",
+  "d": "C0BVXQFQ...",
+  "p": "9TGEF_Vk...",
+  "q": "zb0yTkgqO...",
+  "dp": "7YcKcCtJ...",
+  "dq": "sXxLHp9A...",
+  "qi": "QCW5VQjO..."
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-#### Body
-
-- `iss` is found in the [associated secret](#runtime-configuration-and-credentials) at `IDPORTEN_CLIENT_ID`
-- `aud` is as described earlier the `issuer` found in the ID-porten metadata discovery document at `IDPORTEN_WELL_KNOWN_URL`
-
-```json
-{
-  "aud": "https://oidc-ver2.difi.no/idporten-oidc-provider/",
-  "scope": "openid",
-  "iss": "e89006c5-7193-4ca3-8e26-d0990d9d981f",
-  "exp": 1520589928,
-  "iat": 1520589808,
-  "jti": "415ec7ac-33eb-4ce3-bc86-6ad40e29768f"
-}
-```
-
-{% hint style="info" %}
-**Example**
-
-The demo app [frontend-dings] demonstrates login using ID-porten and calling an API with a properly scoped token using 
-[TokenX][TokenX Documentation]
-{% endhint %}
-
-
-## Test users for development
+### Test Users for Logins
 
 ID-porten maintains a public list of test users found [here][idporten-testusers].
 
-## Migrating from existing infrastructure-as-code ([IaC]) solution
+## Internals
 
-### Why migrate?
+This section is intended for readers interested in the inner workings of this feature.
 
-- Declarative provisioning, straight from your application's [`nais.yaml`](../../nais-application/reference.md#spec-idporten)
-- No longer dependent on manual user approvals in multiple IaC repositories
-- No longer dependent on Vault
-- Credentials are rotated on _every_ deploy, completely transparent to the application. 
-This ensures that credentials are fresh and lessens the impact in the case of exposure.
+Provisioning is handled by [Digdirator] - a Kubernetes operator that watches a [custom resource] (called `IDPortenClient`) that we've defined in our clusters.
 
-### Differences
+Digdirator generates a Kubernetes Secret containing the values needed for your application to integrate with ID-porten, e.g. credentials and URLs. This secret will be mounted to the pods of your application during deploy.
 
-In general, the ID-porten client provisioned through NAIS are entirely new, unique instances with new client IDs 
-and should be treated as such.
+Every deploy will trigger rotation of credentials, invalidating any credentials that are not in use. _In use_ in this context refers to all credentials that are currently mounted to an existing pod - regardless of their status (`Running`, `CrashLoopBackOff`, etc.). In other words, credential rotation should happen with zero downtime.
 
-### Migrating - step-by-step
+More details in the [Digdirator] repository.
 
-#### 1. Give your application a new description in the [IaC]
+## Administration
 
-In order for NAIS -> [Digdirator] to pick up and update your ID-porten client, the **`description`** of the client registered in 
-the [IaC] should match the expected format:
+### Deletion
 
-```
-<cluster>:<namespace>:<app-name>
-```
+The ID-porten client will be deleted whenever the associated `Application` resource is deleted.
 
-E.g.
+In other words:
 
-```
-dev-gcp:aura:my-app
-```
+1. If you delete your NAIS application using `kubectl delete app <my-app>`.
+2. The ID-porten client is also deleted.
 
-Make sure to explicitly configure any values in [`nais.yaml`](../../nais-application/reference.md#spec-idporten) 
-that you wish to keep for your existing client.
-
-## Deletion
-
-The ID-porten client is automatically deleted whenever the associated Application resource is deleted. 
-In other words, if you delete your NAIS application the ID-porten client is also deleted. This will result in
-a **_new and different_** client ID in ID-porten if you re-create the application after deletion.
+If you recreate the application and client in ID-porten, the client ID in ID-porten will have a **new and different** value.
 
 [OAuth 2.0 Token Exchange]: https://www.rfc-editor.org/rfc/rfc8693.html
-[TokenX Documentation]: tokenx.md
+[TokenX documentation]: tokenx.md
 [ID-porten Integration guide]: https://difi.github.io/felleslosninger/oidc_guide_idporten.html
-[OpenID Connect with Authorization Code]: https://difi.github.io/felleslosninger/oidc_protocol_token.html
-[OpenID Connect Core 1.0, 9. Client Authentication]: http://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication
 [IaC]: https://github.com/navikt/nav-maskinporten/tree/master/clients
 [Digdirator]: https://github.com/nais/digdirator
-[frontend-dings]: https://github.com/nais/frontend-dings
 [idporten-testusers]: https://difi.github.io/felleslosninger/idporten_testbrukere.html
 [NAV Security Guide]: https://security.labs.nais.io/
+[ID-porten client]: https://difi.github.io/felleslosninger/oidc_index.html
+[idporten-client-auth-jwt]: https://difi.github.io/felleslosninger/oidc_guide_idporten.html#klientautentisering-med-jwt-token
+[custom resource]: https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/

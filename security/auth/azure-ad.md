@@ -151,7 +151,7 @@ See the [NAIS manifest](../../nais-application/reference.md#spec-azure-applicati
 
 Azure AD is a third-party service outside of our clusters, which is not reachable by default like most third-party services.
 
-#### GCP
+#### Google Cloud Platform (GCP)
 
 The following [outbound external hosts](../../nais-application/access-policy.md#external-services) are automatically added when enabling this feature:
 
@@ -260,33 +260,6 @@ The above configuration will pre-authorize the Azure AD clients belonging to:
 - application `app-b` running in the namespace `other-namespace` in the **same cluster**
 - application `app-c` running in the namespace `other-namespace` in the cluster `other-cluster`
 
-## Administration
-
-### Owner Access
-
-Generally, configuration of the Azure AD client should be done through [`nais.yaml`](#configuration). In most cases you will not need to configure the application through the [Azure Portal] at all.
-
-Access is limited in accordance with the principle of least privilege.
-
-Rules:
-
-1. If your Azure AD client exists in the default (`nav.no`) tenant, your [team]'s owners will automatically be given owner access. 
-2. Otherwise, the application will not be assigned any owners.
-3. Special cases such as extra permissions are manually handled on a case-by-case basis.
-
-If you are not registered as an owner in your team, you should either have an existing owner promote you or have them perform whatever you need.
-
-### Deletion
-
-The Azure AD client will be deleted whenever the associated `Application` resource is deleted.
-
-In other words:
-
-1. If you delete your NAIS application using `kubectl delete app <my-app>`.
-2. The Azure AD client is also deleted.
-
-If you _recreate_ the application and client in Azure AD, the _client ID_ in Azure AD will have a **new and different** value.
-
 ## Usage
 
 {% hint style="info" %}
@@ -384,6 +357,33 @@ The following environment variables and files (under the directory `/var/run/sec
 ``` 
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+## Administration
+
+### Owner Access
+
+Generally, configuration of the Azure AD client should be done through [`nais.yaml`](#configuration). In most cases you will not need to configure the application through the [Azure Portal] at all.
+
+Access is limited in accordance with the principle of least privilege.
+
+Rules:
+
+1. If your Azure AD client exists in the default (`nav.no`) tenant, your [team]'s owners will automatically be given owner access. 
+2. Otherwise, the application will not be assigned any owners.
+3. Special cases such as extra permissions are manually handled on a case-by-case basis.
+
+If you are not registered as an owner in your team, you should either have an existing owner promote you or have them perform whatever you need.
+
+### Deletion
+
+The Azure AD client will be deleted whenever the associated `Application` resource is deleted.
+
+In other words:
+
+1. If you delete your NAIS application using `kubectl delete app <my-app>`.
+2. The Azure AD client is also deleted.
+
+If you recreate the application and client in Azure AD, the client ID in Azure AD will have a **new and different** value.
 
 ## Internals
 
