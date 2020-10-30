@@ -44,9 +44,12 @@ Major features coming:
 ## Creating topics and defining access
 
 Creating or modifying a `Topic` Kubernetes resource will trigger topic creation
-and ACL management with Aiven (hosted Kafka provider). To add access to this
-topic for your application, see the next section: _Accessing topics from an
-application_.
+and ACL management with Aiven (hosted Kafka provider). The topic name will be
+prefixed with your team namespace, thus in the example below, the fully qualified
+topic name will be `myteam.mytopic`.
+
+To add access to this topic for your application, see the next section:
+_Accessing topics from an application_.
 
 Topic resources can only be specified in GCP clusters. However, applications
 might access topics from any cluster, including on-premises. For details, read
@@ -67,9 +70,9 @@ apiVersion: kafka.nais.io/v1
 kind: Topic
 metadata:
   name: mytopic
-  namespace: aura
+  namespace: myteam
   labels:
-    team: aura
+    team: myteam
 spec:
   pool: nav-dev
   config:  # optional; all fields are optional too; defaults shown
@@ -80,7 +83,7 @@ spec:
     retentionBytes: -1
     retentionHours: 72
   acl:
-    - team: aura
+    - team: myteam
       application: ownerapp
       access: readwrite   # read, write, readwrite
     - team: bigteam
@@ -173,6 +176,7 @@ When this annotation is in place, deleting the topic resource from Kubernetes wi
 
 Adding `.kafka.pool` to your `Application` spec will inject Kafka credentials into your pod.
 Your application needs to follow some design guidelines; see the next section on _application design guidelines_.
+Make sure that the topic name is prefixed with the owner's team namespace, e.g. `myteam.mytopic`.
 
 {% code-tabs %}
 {% code-tabs-item title="nais.yaml" %}
