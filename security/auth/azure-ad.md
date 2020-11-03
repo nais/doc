@@ -376,17 +376,6 @@ Rules:
 
 If you are not registered as an owner in your team, you should either have an existing owner promote you or have them perform whatever you need.
 
-### Deletion
-
-The Azure AD client will be deleted whenever the associated `Application` resource is deleted.
-
-In other words:
-
-1. If you delete your NAIS application using `kubectl delete app <my-app>`.
-2. The Azure AD client is also deleted.
-
-If you recreate the application and client in Azure AD, the client ID in Azure AD will have a **new and different** value.
-
 ## Internals
 
 This section is intended for readers interested in the inner workings of this feature.
