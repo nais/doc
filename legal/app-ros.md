@@ -4,5 +4,5 @@ Before deploying any application to nais, the team owning the application must c
 
 When conducting the risk assessment, any assumptions about underlying component risks can be verified by checking the [Platform risk assessments](app-ros.md). These may also be referred to in the application risk assessment.
 
-For details about the ROS process, see the [ROS documentation](https://navno.sharepoint.com/sites/intranett-it/SitePages/Skal-du-bruke-TryggNok-for-f%C3%B8rste-gang-.aspx) (NAV internal link).
+For details about the ROS process, see the [ROS documentation](https://navno.sharepoint.com/sites/intranett-it/SitePages/IT-sikkerhet-og-risikovurderinger.aspx) (NAV internal link).
 
