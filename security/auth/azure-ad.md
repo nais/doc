@@ -231,7 +231,7 @@ spec:
 
 ### Pre-authorization
 
-Clients that should receive and access tokens from other clients should [pre-authorize](#pre-authorization) said clients.
+Clients that should receive and validate access tokens from other clients should [pre-authorize](#pre-authorization) said clients.
  
 These are declared by specifying [`spec.accessPolicy.inbound.rules[]`](../../nais-application/reference.md#spec-accesspolicy-gcp-only):
 
