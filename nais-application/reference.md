@@ -144,7 +144,7 @@ Maximum number of replicas.
 
 **Default**: 4
 
-## `spec.replicas.cpuThresholdPercentage`
+### `spec.replicas.cpuThresholdPercentage`
 The total CPU percentage threshold for the [Horizontal Pod Autoscaler (HPA)](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/). In short, if the current number of replicas for a deployment is below the maximum number of replicas set in `spec.replicas.max`, the HPA will automatically increase the number of replicas whenever the average CPU utilization across all replicas reach this threshold percentage of the [requested](#spec-resources-requests) CPU resources.
 
 We recommend to read more about [container lifecycle hooks](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/).
