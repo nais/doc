@@ -408,7 +408,7 @@ If your use case requires you to use `trygdeetaten.no` in the `dev-*`-clusters, 
 
 ### Pre-authorization 
 
-#### Referring to a legacy client from NAIS
+#### Referring to a NAIS client from legacy
 
 Prerequisites:
 
@@ -420,7 +420,7 @@ Steps:
 - Refer to the NAIS client using its _fully qualified name_ (see [naming format](#naming-format)).
 - See [this example](https://github.com/navikt/aad-iac/blob/073664fc5e455c17f1a33ec394c4f07464ae0a2f/prod/hookd.yaml#L4-L5).
 
-#### Referring to a NAIS client from legacy
+#### Referring to a legacy client from NAIS
 
 Prerequisites:
 
