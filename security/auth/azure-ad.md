@@ -90,6 +90,12 @@ This case is enforced by Azure AD:
 
 - You **must** pre-authorize any clients that should be able to perform the on-behalf-of flow.
 
+### Reply URLs
+
+> A redirect URI, or reply URL, is the location that the authorization server will send the user to once the app has been successfully authorized, and granted an authorization code or access token. The code or token is contained in the redirect URI or reply token so it's important that you register the correct location as part of the app registration process.
+>
+> -- <cite>Microsoft's documentation on [reply URLs]</cite>
+
 ## Configuration
 
 ### Getting started
@@ -166,9 +172,19 @@ You must enable and use [`webproxy`](../../nais-application/reference.md#spec-we
 
 ### Reply URLs
 
-> A redirect URI, or reply URL, is the location that the authorization server will send the user to once the app has been successfully authorized, and granted an authorization code or access token. The code or token is contained in the redirect URI or reply token so it's important that you register the correct location as part of the app registration process.
->
-> -- <cite>Microsoft's documentation on [reply URLs]</cite>
+{% hint style="info" %}
+Note that `spec.azure.application.replyURLs[]` can be omitted if `spec.ingresses` are specified. See [ingresses](#ingresses).
+{% endhint %}
+
+You may set reply URLs manually by specifying `spec.azure.application.replyURLs[]`. Doing so will **replace** all of the [auto-generated reply URLs](#ingresses).
+
+{% hint style="danger" %}
+If you do override the reply URLs, make sure that you specify **all** the URLs that should be registered for the Azure AD client.
+
+**Ensure that these URLs conform to the restrictions and limitations of [reply URLs] as specified by Microsoft.**
+{% endhint %}
+
+### Ingresses
 
 If you have _not_ specified any reply URLs, we will automatically generate a reply URL for each ingress specified using this formula:
 
@@ -202,20 +218,6 @@ spec:
     - "https://my.application.dev.nav.no"
     - "https://my.application.dev.nav.no/subpath"
 ```
-
-{% hint style="info" %}
-Note that `spec.azure.application.replyURLs[]` can be omitted if `spec.ingresses` are specified.
-{% endhint %}
-
-You may override the reply URLs manually by specifying `spec.azure.application.replyURLs[]`. 
-
-{% hint style="danger" %}
-By specifying `spec.azure.application.replyURLs[]`, **all** the auto-generated reply URLs are **replaced**.
-
-If you do override the reply URLs, make sure that you specify **all** the URLs that should be registered for the Azure AD client.
-
-**Ensure that these URLs conform to the restrictions and limitations of [reply URLs] as specified by Microsoft.**
-{% endhint %}
 
 ### Tenants
 
