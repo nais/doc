@@ -199,19 +199,6 @@ Every deploy will trigger rotation of credentials, invalidating any credentials 
 
 More details in the [Digdirator] repository.
 
-## Administration
-
-### Deletion
-
-The ID-porten client will be deleted whenever the associated `Application` resource is deleted.
-
-In other words:
-
-1. If you delete your NAIS application using `kubectl delete app <my-app>`.
-2. The ID-porten client is also deleted.
-
-If you recreate the application and client in ID-porten, the client ID in ID-porten will have a **new and different** value.
-
 [OAuth 2.0 Token Exchange]: https://www.rfc-editor.org/rfc/rfc8693.html
 [TokenX documentation]: tokenx.md
 [ID-porten Integration guide]: https://difi.github.io/felleslosninger/oidc_guide_idporten.html
