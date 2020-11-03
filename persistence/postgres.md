@@ -77,6 +77,8 @@ The database is backed up nightly at 3 AM (GMT+1) by default, but can be overrid
 [`nais.yaml`](../nais-application/reference.md#spec-gcp-sqlinstances-autobackuptime) by setting
 `spec.gcp.sqlInstances[].autoBackupTime`.
 
+The backups can be found in the [Google Cloud SQL instance](https://cloud.google.com/sql) dashboard.
+
 ### Deleting the database
 
 The database is not automatically removed when deleting your NAIS application. Remove unused databases to avoid
