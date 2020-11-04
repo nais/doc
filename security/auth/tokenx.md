@@ -42,6 +42,10 @@ There are primarily two distinct cases where one must use TokenX:
 1. You have a user facing app using [ID-porten](idporten.md) that should perform calls to another app on behalf of a user.
 2. You have an app receiving tokens issued from Tokendings and need to call another app while still propagating the original user context.
 
+### Overview of flow
+
+![Overview of token exchange flow](https://raw.githubusercontent.com/nais/tokendings/master/doc/downstream_example.svg)
+
 ## Configuration
 
 ### Spec
