@@ -1,6 +1,6 @@
 # Help!
 
-Don't panic!
+## Don't panic!
 
 | Deployment status | Description |
 | :--- | :--- |
