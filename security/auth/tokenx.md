@@ -272,6 +272,14 @@ subject_token=eY...............&
 audience=prod-fss:namespace1:app1
 ```
 
+{% hint style="info" %}
+See [frontend-dings] for a complete example that illustrates:
+
+- end-user authentication through [ID-porten](idporten.md)
+- token exchange with the user's `access_token`
+- calling a protected API using the exchanged token
+{% endhint %}
+
 ### Token Validation
 
 If your app receives a token from another application, it is **your responsibility** to ensure this token is valid and intended for your application.
@@ -332,3 +340,4 @@ The following example shows the claims of a token issued by Tokendings, where th
 [RFC8414]: https://tools.ietf.org/html/rfc8414
 [RFC7523]: https://tools.ietf.org/html/rfc7523
 [RFC7519]: https://tools.ietf.org/html/rfc7519
+[frontend-dings]: https://github.com/nais/frontend-dings
