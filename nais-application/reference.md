@@ -540,3 +540,22 @@ See [Redirect URIs](../security/auth/idporten.md#redirect-uri) for details.
 The lifetime in seconds for the issued refresh token from ID-porten. The refresh token may only be used once.
 
 **Default**: `43200` (12 hours)
+
+## `spec.maskinporten`
+Configures a Maskinporten client for this application. See [Maskinporten](../security/auth/maskinporten.md) for more details.
+
+### `spec.maskinporten.enabled`
+If enabled, will provision a Maskinporten client for the application.
+
+**Default**: `false`
+
+### `spec.maskinporten.scopes[]`
+Valid list of Scopes that the Maskinporten client can be used for authentication and authorization, se the [Digdir maskinporten documentation for use of the JWT grant](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html).
+
+Example: `[ "nav:some/scope" ]`
+
+{% hint style="info" %}
+Make sure the scopes in `spec.maskinporten.scopes` specified in your manifest, NAV have pre-registered with rights to **all** the scopes, or provision of client will fail.
+
+See [Maskinporten Scopes](../security/auth/maskinporten.md#Scopes) for details.
+{% endhint %}
