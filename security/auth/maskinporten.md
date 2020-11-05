@@ -51,7 +51,6 @@ See the [NAIS manifest](../../nais-application/reference.md#spec-maskinporten).
 
 ### Access Policies
 
-// TODO in naiserator
 The following [outbound external hosts](../../nais-application/access-policy.md#external-services) are automatically added when enabling this feature:
 
 - `ver2.maskinporten.no` in development
@@ -72,7 +71,6 @@ Make sure the `scopes` specified in the manifest, NAV have pre-registered with r
 
 ### Runtime Variables & Credentials
 
-// TODO nasierator
 The following environment variables and files (under the directory `/var/run/secrets/nais.io/maskinporten`) are available at runtime:
 
 {% code-tabs %}
@@ -126,3 +124,5 @@ More details in the [Digdirator] repository.
 [Google's System Accounts]: https://developers.google.com/identity/protocols/oauth2/service-account
 [Maskinporten client]: https://difi.github.io/felleslosninger/maskinporten_auth_server-to-server-oauth2.html
 [JWT grants]: https://difi.github.io/felleslosninger/maskinporten_protocol_token.html
+[Digdirator]: https://github.com/nais/digdirator
+[custom resource]: https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/
