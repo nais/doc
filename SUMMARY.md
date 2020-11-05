@@ -40,6 +40,7 @@
   * [AuthN & AuthZ](security/auth/README.md)
     * [Azure AD](security/auth/azure-ad.md)
     * [ID-porten](security/auth/idporten.md)
+    * [Maskinporten](security/auth/maskinporten.md)
     * [TokenX](security/auth/tokenx.md)
   * [Secrets](security/secrets/README.md)
     * [Kubernetes Secrets](security/secrets/kubernetes-secrets.md)
