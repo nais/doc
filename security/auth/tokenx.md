@@ -29,6 +29,10 @@ In short, TokenX is a OAuth 2.0 compliant add-on that enables and allows your ap
 
 Interested readers may find more details in the [Tokendings documentation][Tokendings].
 
+{% hint style="info" %}
+**See also the [NAV Security Guide] for NAV-specific usage.**
+{% endhint %}
+
 ### Why do I need TokenX?
 
 In a [zero trust] architecture, one cannot rely on traditional boundaries such as **security zones** and **security gateways**. Such security measures are no longer required for applications that leverage TokenX correctly as each application is self-contained within its own zone; requiring specific tokens in order to communicate with other applications.
@@ -341,3 +345,4 @@ The following example shows the claims of a token issued by Tokendings, where th
 [RFC7523]: https://tools.ietf.org/html/rfc7523
 [RFC7519]: https://tools.ietf.org/html/rfc7519
 [frontend-dings]: https://github.com/nais/frontend-dings
+[NAV Security Guide]: https://security.labs.nais.io/
