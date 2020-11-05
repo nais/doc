@@ -80,8 +80,8 @@ The following environment variables and files (under the directory `/var/run/sec
 | Name | Description |
 |---|---|
 | `MASKINPORTEN_CLIENT_ID` | Maskinporten client ID. Unique ID for the application in Maskinporten |
-| `MASKINPORTEN_CLIENT_JWK` | Private JWK containing the private RSA key for creating signed JWTs when using the [JWT grant]. |
-| `MASKINPORTEN_SCOPES` |  The scopes registered for the client at Maskinporten as a whitepace-separated string. See [JWT grant] for more information. |
+| `MASKINPORTEN_CLIENT_JWK` | Private JWK containing the private RSA key for creating signed JWTs when using the [JWT grants]. |
+| `MASKINPORTEN_SCOPES` |  The scopes registered for the client at Maskinporten as a whitepace-separated string. See [JWT grants] for more information. |
 | `MASKINPORTEN_WELL_KNOWN_URL` | The well-known URL for the OIDC metadata discovery document for Maskinporten. |
 {% endcode-tabs-item %}
 {% code-tabs-item title="Example values" %}
@@ -125,4 +125,4 @@ More details in the [Digdirator] repository.
 
 [Google's System Accounts]: https://developers.google.com/identity/protocols/oauth2/service-account
 [Maskinporten client]: https://difi.github.io/felleslosninger/maskinporten_auth_server-to-server-oauth2.html
-[JWT grant]: https://difi.github.io/felleslosninger/maskinporten_protocol_token.html
+[JWT grants]: https://difi.github.io/felleslosninger/maskinporten_protocol_token.html
