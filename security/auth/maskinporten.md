@@ -19,7 +19,7 @@ Maskinporten allows API providers to define access to their APIs, modeled as sco
 
 The Nais platform provides support for simple declarative provisioning of an [Maskinporten client] with sensible defaults that your application may use to integrate with Maskinporten.
 
-An Maskinporten client allows your application to leverage Maskinporten for authentication and authorization requesting external apis. To achieve this, your application must implement [Jwt grants].
+An Maskinporten client allows your application to leverage Maskinporten for authentication and authorization requesting external apis. To achieve this, your application must implement [JWT grants].
 
 ## Configuration
 
@@ -78,8 +78,8 @@ The following environment variables and files (under the directory `/var/run/sec
 | Name | Description |
 |---|---|
 | `MASKINPORTEN_CLIENT_ID` | Maskinporten client ID. Unique ID for the application in Maskinporten |
-| `MASKINPORTEN_CLIENT_JWK` | Private JWK containing the private RSA key for creating signed JWTs when using the [Jwt grants]. |
-| `MASKINPORTEN_SCOPES` |  The scopes registered for the client at Maskinporten as a whitepace-separated string. See [Jwt grants] for more information. |
+| `MASKINPORTEN_CLIENT_JWK` | Private JWK containing the private RSA key for creating signed JWTs when using the [JWT grants]. |
+| `MASKINPORTEN_SCOPES` |  The scopes registered for the client at Maskinporten as a whitepace-separated string. See [JWT grants] for more information. |
 | `MASKINPORTEN_WELL_KNOWN_URL` | The well-known URL for the OIDC metadata discovery document for Maskinporten. |
 {% endcode-tabs-item %}
 {% code-tabs-item title="Example values" %}
@@ -121,8 +121,8 @@ Every deploy will trigger rotation of credentials, invalidating any credentials 
 
 More details in the [Digdirator] repository.
 
+[JWT grants]: https://difi.github.io/felleslosninger/maskinporten_protocol_token.html
 [Google's System Accounts]: https://developers.google.com/identity/protocols/oauth2/service-account
 [Maskinporten client]: https://difi.github.io/felleslosninger/maskinporten_auth_server-to-server-oauth2.html
 [Digdirator]: https://github.com/nais/digdirator
 [custom resource]: https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/
-[Jwt grants]: https://difi.github.io/felleslosninger/maskinporten_protocol_token.html
