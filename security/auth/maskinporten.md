@@ -82,7 +82,7 @@ The following environment variables and files (under the directory `/var/run/sec
 | `MASKINPORTEN_CLIENT_ID` | Maskinporten client ID. Unique ID for the application in Maskinporten |
 | `MASKINPORTEN_CLIENT_JWK` | Private JWK containing the private RSA key for creating signed JWTs when using the [JWT grant]. |
 | `MASKINPORTEN_SCOPES` |  The scopes registered for the client at Maskinporten as a whitepace-separated string. See [JWT grant] for more information. |
-| `MASKINPORTEN_WELL_KNOWN_URL` | The well-known URL for the OIDC metadata discovery document for ID-porten. |
+| `MASKINPORTEN_WELL_KNOWN_URL` | The well-known URL for the OIDC metadata discovery document for Maskinporten. |
 {% endcode-tabs-item %}
 {% code-tabs-item title="Example values" %}
 | Name | Values |
