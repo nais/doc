@@ -1,9 +1,9 @@
-# On-premise clusters
+# On-premises
 
 The on-premise Kubernetes clusters are split across two zones and two environments:
 
 | cluster | zone | environment |
-| ------- | ---- | ----------- |
+| :--- | :--- | :--- |
 | `dev-fss` | fagsystemsonen | development |
 | `dev-sbs` | selvbetjeningssonen | development |
 | `prod-fss` | fagsystemsonen | production |
@@ -11,13 +11,10 @@ The on-premise Kubernetes clusters are split across two zones and two environmen
 
 ## Accessing the application
 
-Access is controlled in part by ingresses, which define where your application will be exposed as a HTTP endpoint.
-You can control where your application is reachable from by selecting the appropriate ingress domain.
+Access is controlled in part by ingresses, which define where your application will be exposed as a HTTP endpoint. You can control where your application is reachable from by selecting the appropriate ingress domain.
 
 {% hint style="warning" %}
-Make sure you understand where you expose your application, taking into account
-the state of your application, what kind of data it exposes and how it is
-secured. If in doubt, ask in #nais or someone on the NAIS team.
+Make sure you understand where you expose your application, taking into account the state of your application, what kind of data it exposes and how it is secured. If in doubt, ask in \#nais or someone on the NAIS team.
 {% endhint %}
 
 You can control from where you application is reachable by selecting the appropriate ingress domain.
@@ -25,35 +22,36 @@ You can control from where you application is reachable by selecting the appropr
 ### dev-fss
 
 | domain | accessible from | description |
-| ------ | --------------- | ----------- |
-| dev.adeo.no | [naisdevice](../device/README.md) | development ingress for adeo.no applications |
+| :--- | :--- | :--- |
+| dev.adeo.no | [naisdevice](../device/) | development ingress for adeo.no applications |
 | intern.dev.adeo.no | internal network only | development ingress for adeo.no applications |
-| dev-fss.nais.io | [naisdevice](../device/README.md) | reserved for platform services |
+| dev-fss.nais.io | [naisdevice](../device/) | reserved for platform services |
 | nais.preprod.local | vdi | **deprecated**, use {intern,}.dev.adeo.no instead |
 
 ### dev-sbs
 
 | domain | accessible from | description |
-| ------ | --------------- | ----------- |
-| dev.nav.no | [naisdevice](../device/README.md) | development ingress for nav.no applications |
+| :--- | :--- | :--- |
+| dev.nav.no | [naisdevice](../device/) | development ingress for nav.no applications |
 | intern.dev.nav.no | internal network only | development ingress for nav.no applications |
-| dev-sbs.nais.io | [naisdevice](../device/README.md) | reserved for platform services |
+| dev-sbs.nais.io | [naisdevice](../device/) | reserved for platform services |
 | nais.oera-q.local | vdi | **deprecated**, use {intern,}.dev.nav.no instead |
 
 ### prod-fss
 
 | domain | accessible from | description |
-| ------ | --------------- | ----------- |
+| :--- | :--- | :--- |
 | nais.adeo.no | vdi | automatically configured |
-| prod-fss.nais.io | [naisdevice](../device/README.md) | reserved for platform services |
+| prod-fss.nais.io | [naisdevice](../device/) | reserved for platform services |
 
 ### prod-sbs
 
 | domain | accessible from | description |
-| ------ | --------------- | ----------- |
-| nav.no | internet | currently manually configured by #tech-sikkerhet |
+| :--- | :--- | :--- |
+| nav.no | internet | currently manually configured by \#tech-sikkerhet |
 | nais.oera.no | vdi | automatically configured. Typically used by backend/admin apps not exposed to end-users |
 | tjenester.nav.no | internet | context root based routing on format `tjenester.nav.no/<appname>`. |
-| prod-sbs.nais.io | [naisdevice](../device/README.md) | reserved for platform services |
+| prod-sbs.nais.io | [naisdevice](../device/) | reserved for platform services |
 
 More info about how DNS is configured for these domains can be found [here](../appendix/ingress-dns.md)
+

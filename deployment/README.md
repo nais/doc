@@ -1,15 +1,14 @@
-# Deploy your application
+# Deployment
 
-This section will take you through the deployment of your application using _NAIS deploy_.
-NAIS deploy enables you to deploy your application from any continuous integration platform.
-Our primary supported platform is GitHub Actions, but you can also deploy from CircleCI, Travis CI, Jenkins, or other tools.
+This section will take you through the deployment of your application using _NAIS deploy_. NAIS deploy enables you to deploy your application from any continuous integration platform. Our primary supported platform is GitHub Actions, but you can also deploy from CircleCI, Travis CI, Jenkins, or other tools.
 
 If you experience any trouble along the way, please take a look at the [troubleshooting page](troubleshooting.md).
 
 ## How it works
+
 Your application is assumed to be present in the form of a Docker image when using the _NAIS deploy tool_. The _NAIS deploy tool_ is used to create a deployment request. The Docker image will be deployed to Kubernetes, and the deploy tool will wait until your deployment is rolled out, gets an error, or a timeout occurs. Underway, deployment statuses are continually posted back to _GitHub Deployment API_. Deployment logs can be viewed on _Kibana_. The link to the logs will be provided by the deploy tool.
 
-## Set it up 
+## Set it up
 
 1. Your application must have a repository on GitHub containing a `nais.yml` and `Dockerfile`.
 2. Your GitHub team must have _admin_ access on that repository.
@@ -22,14 +21,13 @@ Your application is assumed to be present in the form of a Docker image when usi
 
 A GitHub Actions pipeline is called a _Workflow_. You can set up workflows by adding a YAML file to your application's Git repository.
 
-In this example, the workflow is set up in the file `deploy.yml`. The workflow will build a Docker image and push it to GitHub Package Registry.
-Next, if the code was pushed to the `master` branch AND the `build` job succeeded, the application will be deployed to NAIS.
+In this example, the workflow is set up in the file `deploy.yml`. The workflow will build a Docker image and push it to GitHub Package Registry. Next, if the code was pushed to the `master` branch AND the `build` job succeeded, the application will be deployed to NAIS.
 
 Official GitHub documentation: [Automating your workflow with GitHub Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions).
 
 Get started by creating the following structure in your application repository:
 
-```
+```text
 myapplication/
 ├── .github/
 │   └── workflows/
@@ -38,13 +36,10 @@ myapplication/
 └── nais.yml
 ```
 
-Add the example files below, then commit and push. This will trigger the workflow, and you can follow its progress
-under the _Actions_ tab on your GitHub repository page.
+Add the example files below, then commit and push. This will trigger the workflow, and you can follow its progress under the _Actions_ tab on your GitHub repository page.
 
-{% code-tabs %}
-
-{% code-tabs-item title=".github/workflows/deploy.yml" %}
-
+{% tabs %}
+{% tab title=".github/workflows/deploy.yml" %}
 ```yaml
 name: Build, push, and deploy
 
@@ -82,10 +77,9 @@ jobs:
         RESOURCE: nais.yml
         VAR: image=${{ env.docker_image }}
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="nais.yml" %}
-
+{% tab title="nais.yml" %}
 ```yaml
 apiVersion: nais.io/v1alpha1
 kind: Application
@@ -100,58 +94,48 @@ spec:
   #       ^--- interpolated from the ${{ env.docker_image }} variable in the action
 ```
 
-In this `nais.yml` file, `{{ image }}` will be replaced by the `$docker_image` environment variable set in the action. You can
-add more by using a comma separated list, or even put all your variables in a file; see _action configuration_ below.
+In this `nais.yml` file, `{{ image }}` will be replaced by the `$docker_image` environment variable set in the action. You can add more by using a comma separated list, or even put all your variables in a file; see _action configuration_ below.
+{% endtab %}
 
-{% endcode-tabs-item %}
-
-{% code-tabs-item title="Dockerfile" %}
-
-```dockerfile
+{% tab title="Dockerfile" %}
+```text
 FROM nginx
 ```
 
-You have to write your own Dockerfile, but if you're just trying this out,
-you can use the following example file.
-
-{% endcode-tabs-item %}
-
-{% endcode-tabs %}
+You have to write your own Dockerfile, but if you're just trying this out, you can use the following example file.
+{% endtab %}
+{% endtabs %}
 
 ### Action configuration
 
 | Environment variable | Default | Description |
 | :--- | :--- | :--- |
-| APIKEY | (required) | NAIS deploy API key. Obtained from https://deploy.nais.io. |
-| CLUSTER | (required) | Which [NAIS cluster](../clusters/README.md) to deploy into. |
-| DRY_RUN | `false` | If `true`, run templating and validate input, but do not actually make any requests. |
-| ENVIRONMENT | (auto-detect) | The environment to be shown in GitHub Deployments. Defaults to `CLUSTER:NAMESPACE` for the resource to be deployed if not specified, otherwise falls back to `CLUSTER` if multiple namespaces exist in the given resources. |
-| OWNER | (auto-detect) | Owner of the repository making the request. |
-| PRINT_PAYLOAD | `false` | If `true`, print templated resources to standard output. |
+| APIKEY | \(required\) | NAIS deploy API key. Obtained from [https://deploy.nais.io](https://deploy.nais.io). |
+| CLUSTER | \(required\) | Which [NAIS cluster](../clusters/) to deploy into. |
+| DRY\_RUN | `false` | If `true`, run templating and validate input, but do not actually make any requests. |
+| ENVIRONMENT | \(auto-detect\) | The environment to be shown in GitHub Deployments. Defaults to `CLUSTER:NAMESPACE` for the resource to be deployed if not specified, otherwise falls back to `CLUSTER` if multiple namespaces exist in the given resources. |
+| OWNER | \(auto-detect\) | Owner of the repository making the request. |
+| PRINT\_PAYLOAD | `false` | If `true`, print templated resources to standard output. |
 | QUIET | `false` | If `true`, suppress all informational messages. |
-| REF | `master` (auto-detect) | Commit reference of the deployment. Shown in GitHub's interface. |
-| REPOSITORY | (auto-detect) | Name of the repository making the request. |
-| RESOURCE | (required) | Comma-separated list of files containing Kubernetes resources. Must be JSON or YAML format. |
+| REF | `master` \(auto-detect\) | Commit reference of the deployment. Shown in GitHub's interface. |
+| REPOSITORY | \(auto-detect\) | Name of the repository making the request. |
+| RESOURCE | \(required\) | Comma-separated list of files containing Kubernetes resources. Must be JSON or YAML format. |
 | RETRY | `true` | Automatically retry deploying if deploy service is unavailable. |
-| TEAM | (auto-detect) | Team making the deployment. |
+| TEAM | \(auto-detect\) | Team making the deployment. |
 | TIMEOUT | `10m` | Time to wait for deployment completion, especially when using `WAIT`. |
-| VAR | | Comma-separated list of template variables in the form `key=value`. Will overwrite any identical template variable in the `VARS` file. |
+| VAR |  | Comma-separated list of template variables in the form `key=value`. Will overwrite any identical template variable in the `VARS` file. |
 | VARS | `/dev/null` | File containing template variables. Will be interpolated with the `$RESOURCE` file. Must be JSON or YAML format. |
 | WAIT | `true` | Block until deployment has completed with either `success`, `failure` or `error` state. |
 
-Note that `OWNER` and `REPOSITORY` corresponds to the two parts of a full repository identifier.
-If that name is `navikt/myapplication`, those two variables should be set to `navikt` and `myapplication`, respectively.
+Note that `OWNER` and `REPOSITORY` corresponds to the two parts of a full repository identifier. If that name is `navikt/myapplication`, those two variables should be set to `navikt` and `myapplication`, respectively.
 
 ## Deploy with other CI
 
-You can still use NAIS deploy even if not using GitHub Actions.
-Our deployment command line tool supports all CI tools such as Jenkins, Travis or Circle.
-Use can either use a Docker image or one the [binaries] to make deployments.
+You can still use NAIS deploy even if not using GitHub Actions. Our deployment command line tool supports all CI tools such as Jenkins, Travis or Circle. Use can either use a Docker image or one the [binaries](https://github.com/nais/deploy/releases) to make deployments.
 
-{% code-tabs %}
-
-{% code-tabs-item title="Docker usage" %}
-```
+{% tabs %}
+{% tab title="Docker usage" %}
+```text
 docker run -it --rm navikt/deployment:v1 \
   -v $(pwd):/nais /
   /app/deploy \
@@ -167,12 +151,11 @@ docker run -it --rm navikt/deployment:v1 \
 
 Here we use the current directory as a volume for the CLI, and we have to append `/nais` to the path to our manifest.
 
-So if our original manifest is under `/home/cooluser/workspace/bestapp/nais.yaml`, we then need to 
-`--resource="/nais/nais.yaml"`, and not only `--resource="nais.yaml"`.
-{% endcode-tabs-item %}
+So if our original manifest is under `/home/cooluser/workspace/bestapp/nais.yaml`, we then need to `--resource="/nais/nais.yaml"`, and not only `--resource="nais.yaml"`.
+{% endtab %}
 
-{% code-tabs-item title="CLI usage" %}
-```
+{% tab title="CLI usage" %}
+```text
 deploy \
 --apikey="$NAIS_DEPLOY_APIKEY" \
 --cluster="$CLUSTER" \
@@ -182,13 +165,12 @@ deploy \
 --vars="/path/to/resources" \
 --wait=true
 ```
-{% endcode-tabs-item %}
-
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 Syntax:
 
-```
+```text
 --apikey string          NAIS Deploy API key.
 --cluster string         NAIS cluster to deploy into.
 --deploy-server string   URL to API server. (default "https://deployment.prod-sbs.nais.io")
@@ -208,13 +190,13 @@ Syntax:
 
 All of these options can be set using environment variables, such as `$APIKEY` and `$PRINT_PAYLOAD`.
 
-### Proxy server 
+### Proxy server
 
-If you are running NAIS deploy from an internal Jenkins server you need to set up an HTTP proxy as deploy.nais.io is a public address. 
+If you are running NAIS deploy from an internal Jenkins server you need to set up an HTTP proxy as deploy.nais.io is a public address.
 
-When using the CLI binary you can wrap steps in your pipeline with injected environment variables. 
+When using the CLI binary you can wrap steps in your pipeline with injected environment variables.
 
-```
+```text
 stage('Deploy') {
   withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
     ...
@@ -222,16 +204,15 @@ stage('Deploy') {
 }
 ```
 
-When using NAIS deploy docker image, pass the environment variable to Docker run. 
+When using NAIS deploy docker image, pass the environment variable to Docker run.
 
-```
-sh "docker run --env HTTPS_PROXY='http://webproxy-utvikler.nav.no:8088'  ..." ;            	
+```text
+sh "docker run --env HTTPS_PROXY='http://webproxy-utvikler.nav.no:8088'  ..." ;
 ```
 
 ## Templating
 
-Templates use [Handlebars](https://handlebarsjs.com/) 3.0 syntax.
-Both the template and variable file supports either YAML or JSON syntax.
+Templates use [Handlebars](https://handlebarsjs.com/) 3.0 syntax. Both the template and variable file supports either YAML or JSON syntax.
 
 A practical example follows. Create a `nais.yml` file:
 
@@ -265,7 +246,7 @@ ingresses:
 
 Run the `deploy` tool to see the final results:
 
-```json
+```javascript
 $ deploy --dry-run --print-payload --resource nais.yml --vars vars.yml | jq ".resources[0]"
 {
   "apiVersion": "nais.io/v1alpha1",
@@ -289,15 +270,16 @@ $ deploy --dry-run --print-payload --resource nais.yml --vars vars.yml | jq ".re
 
 ### Escaping and raw resources
 
-If you do not specify the `--vars` or `--var` command-line flags, your resource will not be
-run through the templating engine, so these resources will not need templating.
+If you do not specify the `--vars` or `--var` command-line flags, your resource will not be run through the templating engine, so these resources will not need templating.
 
-Handlebars content may be escaped by prefixing a mustache block with \\, such as:
-```
+Handlebars content may be escaped by prefixing a mustache block with \, such as:
+
+```text
 \{{escaped}}
 ```
 
 Real-world example:
+
 ```yaml
 apiVersion: nais.io/v1alpha1
 kind: Alert
@@ -320,7 +302,8 @@ spec:
 ```
 
 Will result in:
-```json
+
+```javascript
 deploy --dry-run --print-payload --resource alert.yml --vars vars.yml | jq .resources
 [
   {
@@ -380,4 +363,3 @@ Use the following URL to create a small badge for your workflow/action.
 https://github.com/{github_id}/{repository}/workflows/{workflow_name}/badge.svg
 ```
 
-[binaries]: https://github.com/nais/deploy/releases

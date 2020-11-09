@@ -1,18 +1,16 @@
 # Teams
 
-Access to a resource in NAIS is based on a label set on the resource called `team`. In the context of [Azure Active
-Directory][AAD] a group is the same as a team, and you may already be part of a team that has applications on NAIS.
+Access to a resource in NAIS is based on a label set on the resource called `team`. In the context of [Azure Active Directory](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups) a group is the same as a team, and you may already be part of a team that has applications on NAIS.
 
-Every group in [AAD] has a so-called mailnick/tag, this is what NAIS generally uses to identify teams. When viewing
-a group, the mailnick is the value before the `@` in the email field.
+Every group in [AAD](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups) has a so-called mailnick/tag, this is what NAIS generally uses to identify teams. When viewing a group, the mailnick is the value before the `@` in the email field.
 
 ## Creating a new team
 
-* To create a new team, make a pull request to the [teams repository] on Github
-* The group's owners can manage the group using either [outlook] or [AAD]
+* To create a new team, make a pull request to the [teams repository](https://github.com/navikt/teams) on Github
+* The group's owners can manage the group using either [outlook](https://outlook.office365.com/owa) or [AAD](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups)
 * The following resources will be generated for the new team:
 
-![nais-teams](_media/nais-teams.png)
+![nais-teams](../.gitbook/assets/nais-teams.png)
 
 * An Azure AD group is created, and can be viewed in the [Azure portal](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ManagedAppMenuBlade/Users/appId/5cbaf0ba-4d99-48a1-acf5-cca701361fd2/objectId/4c5e3226-106e-404d-81be-d02f31104b5a)
 * A [GitHub team](https://github.com/orgs/navikt/teams) is created.
@@ -22,35 +20,22 @@ a group, the mailnick is the value before the `@` in the email field.
 * Namespaces are provisioned in all Kubernetes clusters.
 
 ## Managing your team
-* Team members are managed by managing the group in [AAD]
 
-{% hint style="warning" %} It is the responsibility of each team to keep the group member roster up to date. This includes removing former team members in a timely fashion. {% endhint %}
+* Team members are managed by managing the group in [AAD](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups)
+
+{% hint style="warning" %}
+It is the responsibility of each team to keep the group member roster up to date. This includes removing former team members in a timely fashion.
+{% endhint %}
 
 ## Access to API keys
 
-In order to access _team API keys_, go to [deploy.nais.io].
-Here you will find API keys for all teams you are a member of. 
+In order to access _team API keys_, go to [deploy.nais.io](https://deploy.nais.io/). Here you will find API keys for all teams you are a member of.
 
 ## Rotate API key for a team
 
-Go to [deploy.nais.io] and click on "Create new key" button for 
-
-[deploy.nais.io]: https://deploy.nais.io/
-
-[AAD]: https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups
-
-[outlook]: https://outlook.office365.com/owa
-
-[teams repository]: https://github.com/navikt/teams
-
-[All teams]: https://navno.sharepoint.com/sites/Bestillinger/Lists/Nytt%20Team/AllItems.aspx
-
-[#nais]: https://nav-it.slack.com/messages/C5KUST8N6
-
-[#vault-pr]: https://nav-it.slack.com/archives/CQFTZBUFN
-
-[vault-iac]: https://github.com/navikt/vault-iac/tree/master/terraform/teams
+Go to [deploy.nais.io](https://deploy.nais.io/) and click on "Create new key" button for
 
 ## Team namespaces
 
 Team namespaces are supported in both on-prem and in GCP. Refer to the [team namespaces documentation](../clusters/team-namespaces.md) for details.
+

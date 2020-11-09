@@ -1,9 +1,8 @@
-# NAISjobs (Jobs / CronJobs)
+# NAISjobs \(Jobs / CronJobs\)
 
-We currently do not offer any abstractions for the [Job] or [CronJobs] resources on Kubernetes.
+We currently do not offer any abstractions for the [Job](https://kubernetes.io/docs/concepts/workloads/controllers/job/) or [CronJobs](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/) resources on Kubernetes.
 
-Setting up a `Job` or `CronJob` on NAIS requires a more hands-on approach compared to other parts of NAIS.
-We'll guide you through it below.
+Setting up a `Job` or `CronJob` on NAIS requires a more hands-on approach compared to other parts of NAIS. We'll guide you through it below.
 
 ## Team Namespaces
 
@@ -19,9 +18,9 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
 | `${teamname}` | name of the team | my-team |
 | `${namespace}` | name of the namespace, should match the team name | my-team |
 | `${image}` | image used for the pods running the job | docker.pkg.github.com/navikt/my-app/my-app:1.0.0 |
-| `${schedule}` | the job's schedule in a [cron time string format] | `"*/15 * * * *"` |
-| `${secretname}` | name of the [Kubernetes Secrets] object | my-secret |
-| `${vault_image}` | the [latest release] of the Vault sidecar | navikt/vault-sidekick:v0.3.10-d122b16 |
+| `${schedule}` | the job's schedule in a [cron time string format](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07) | `"*/15 * * * *"` |
+| `${secretname}` | name of the [Kubernetes Secrets](https://kubernetes.io/docs/concepts/configuration/secret/) object | my-secret |
+| `${vault_image}` | the [latest release](https://hub.docker.com/r/navikt/vault-sidekick/tags) of the Vault sidecar | navikt/vault-sidekick:v0.3.10-d122b16 |
 | `${envclass}` | one of `prod` or `preprod` | prod |
 | `${zone}` | one of `fss` or `sbs` | fss |
 | `${vault_login}` | Vault auth path from Kubernetes | auth/kubernetes/${envclass}/${zone}/login |
@@ -29,9 +28,8 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
 
 ### Job
 
-{% code-tabs %}
-
-{% code-tabs-item title="Basic", type="yaml" %}
+{% tabs %}
+{% tab title="Basic" type="yaml" %}
 ```yaml
 apiVersion: batch/v1
 kind: Job
@@ -61,9 +59,9 @@ spec:
               memory: 1024Mi
               cpu: 1000m
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="w/Kubernetes Secret", type="yaml" %}
+{% tab title="w/Kubernetes Secret" type="yaml" %}
 ```yaml
 apiVersion: batch/v1
 kind: Job
@@ -96,9 +94,9 @@ spec:
             - secretRef:
                 name: ${secretname}
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="w/CA Bundles", type="yaml" %}
+{% tab title="w/CA Bundles" type="yaml" %}
 ```yaml
 apiVersion: batch/v1
 kind: Job
@@ -167,9 +165,9 @@ spec:
             name: ca-bundle-pem
           name: ca-bundle-pem
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="w/Vault integration", type="yaml" %}
+{% tab title="w/Vault integration" type="yaml" %}
 ```yaml
 apiVersion: batch/v1
 kind: Job
@@ -238,9 +236,9 @@ spec:
           emptyDir:
             medium: Memory
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="w/CA Bundles and Vault", type="yaml" %}
+{% tab title="w/CA Bundles and Vault" type="yaml" %}
 ```yaml
 apiVersion: batch/v1
 kind: Job
@@ -345,10 +343,8 @@ spec:
           emptyDir:
             medium: Memory
 ```
-
-{% endcode-tabs-item %}
-
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 {% hint style="info" %}
 Note that `.spec.template.spec.imagePullSecrets` can be removed if your image is **not** hosted at Github Package Registry
@@ -358,7 +354,7 @@ Note that `.spec.template.spec.imagePullSecrets` can be removed if your image is
 
 A `CronJob` runs `Jobs` on a time-based schedule, as denoted in `.spec.schedule`.
 
-The `.spec.jobTemplate` is the template for the job, and has exactly the same schema as the `spec` in [`Job`](#job).
+The `.spec.jobTemplate` is the template for the job, and has exactly the same schema as the `spec` in [`Job`](naisjobs.md#job).
 
 ```yaml
 apiVersion: batch/v1beta1
@@ -377,11 +373,9 @@ spec:
 
 ## Certificates for accessing internal services
 
-Reaching internal services such as Kafka requires the presence of a truststore that includes the certificates for these
-services.
+Reaching internal services such as Kafka requires the presence of a truststore that includes the certificates for these services.
 
-Looking at the differences between the `Basic` and the `w/CA Bundles` [examples](#examples), 
-we spot the following:
+Looking at the differences between the `Basic` and the `w/CA Bundles` [examples](naisjobs.md#examples), we spot the following:
 
 ### 1. Fetch CA Bundles
 
@@ -443,12 +437,12 @@ spec:
               readOnly: true
               subPath: ca-bundle.jks
 ```
- 
+
 The files from step 1 found in `subPath` are mounted to the path specified in `mountPath` for the container of your application.
 
-The example covers the common locations for these bundles for most systems. 
+The example covers the common locations for these bundles for most systems.
 
-### 3. (optional) Specify the location of the CA bundle
+### 3. \(optional\) Specify the location of the CA bundle
 
 `.spec.template.spec.containers[0].env[]`
 
@@ -466,20 +460,17 @@ spec:
               value: changeme
 ```
 
-Java applications using the [NAV baseimages] may specify environment variables to automatically inject the
-bundles/truststore into the JVM.
+Java applications using the [NAV baseimages](https://github.com/navikt/baseimages) may specify environment variables to automatically inject the bundles/truststore into the JVM.
 
 ## Kubernetes Secrets
 
-If your job needs secrets that are not found in Vault, using the native [Kubernetes Secrets] functionality is much
-simpler than utilizing Vault.
+If your job needs secrets that are not found in Vault, using the native [Kubernetes Secrets](https://kubernetes.io/docs/concepts/configuration/secret/) functionality is much simpler than utilizing Vault.
 
 ### Configuration
 
 This assumes that you have already [created a Secret](https://kubernetes.io/docs/concepts/configuration/secret/#creating-your-own-secrets).
 
-Looking at the differences between the `Basic` and the `w/Kubernetes Secret` [examples](#examples), 
-we spot the following:
+Looking at the differences between the `Basic` and the `w/Kubernetes Secret` [examples](naisjobs.md#examples), we spot the following:
 
 #### 1. Secret data as container environment variables
 
@@ -499,22 +490,19 @@ spec:
                 name: ${secretname}
 ```
 
-`.spec.template.spec.containers[0].envFrom[]` exports all the Secrets referenced 
-(in `envFrom[].secretRef.name`) as environment variables for the container.
+`.spec.template.spec.containers[0].envFrom[]` exports all the Secrets referenced \(in `envFrom[].secretRef.name`\) as environment variables for the container.
 
 Each key from each `Secret` becomes the environment variable name in the container.
 
 ## Vault
 
-If your job needs to access Vault for fetching secrets or uses PostgreSQL on-premises, you'll also have to
-set up Vault integration for your job.
+If your job needs to access Vault for fetching secrets or uses PostgreSQL on-premises, you'll also have to set up Vault integration for your job.
 
 ### 1. Permissions Setup
 
 To be able to retrieve secrets from Vault, you need to add permissions for the Kubernetes service account.
 
-Go to [Vault IaC] and add the following changes to your
-`terraform/teams/${teamname}/apps/${jobname}.yml` file:
+Go to [Vault IaC](https://github.com/navikt/vault-iac) and add the following changes to your `terraform/teams/${teamname}/apps/${jobname}.yml` file:
 
 ```yaml
 name: ${jobname}
@@ -526,8 +514,7 @@ cluster:
 
 ### 2. Configuration
 
-Looking at the differences between the `Basic` and the `w/Vault integration` [examples](#examples), 
-we spot the following:
+Looking at the differences between the `Basic` and the `w/Vault integration` [examples](naisjobs.md#examples), we spot the following:
 
 #### 2.1 Volume mount setup for Pod
 
@@ -546,8 +533,7 @@ spec:
             medium: Memory
 ```
 
-Sets up an empty in-memory volume mount for the pod.
-This is where the secrets will be stored in your pod. They will not be written to disk.
+Sets up an empty in-memory volume mount for the pod. This is where the secrets will be stored in your pod. They will not be written to disk.
 
 #### 2.2 Vault Init Container
 
@@ -582,26 +568,23 @@ spec:
               value: ${vault_login}
 ```
 
-This specifies a container that should start and run before your application container starts up. 
+This specifies a container that should start and run before your application container starts up.
 
-In this case, the container is responsible for fetching secrets from Vault before startup, as seen in 
-`.spec.template.spec.initContainers[0].args[]`:
+In this case, the container is responsible for fetching secrets from Vault before startup, as seen in `.spec.template.spec.initContainers[0].args[]`:
 
 ```yaml
 - -save-token=/var/run/secrets/nais.io/vault/vault_token
 ```
 
 Saves the Vault token to this path for later usage if desired.
-               
+
 ```yaml
 - -cn=secret:${vault_kv_path}:dir=/var/run/secrets/nais.io/vault,fmt=flatten,retries=1
 ```
 
-Reads a secret from `${vault_kv_path}` and outputs the files to the directory `/var/run/secrets/nais.io/vault/`
-in the volume mount.
+Reads a secret from `${vault_kv_path}` and outputs the files to the directory `/var/run/secrets/nais.io/vault/` in the volume mount.
 
-The volume for the Pod described in step 2.1 is mounted to the init container as seen in 
-`.spec.template.spec.initContainers[0].volumeMounts[0]`:
+The volume for the Pod described in step 2.1 is mounted to the init container as seen in `.spec.template.spec.initContainers[0].volumeMounts[0]`:
 
 ```yaml
 spec:
@@ -638,7 +621,7 @@ spec:
 
 The files from step 2.3 found in `subPath` are mounted to the path specified in `mountPath` for the container of your application.
 
-#### 2.4 (optional) Vault token path as environment variable
+#### 2.4 \(optional\) Vault token path as environment variable
 
 `.spec.template.spec.containers[0].env[]`
 
@@ -662,11 +645,11 @@ If your application uses an environment variable to locate the Vault token path.
 Repeat the steps below for each secret you want from Vault.
 
 #### 3.1 Specify the paths where your secret should be mounted to
- 
+
 Add a new `volumeMount` entry to the list in:
 
-- `.spec.template.initContainers[0].volumeMounts[]` 
-- `.spec.template.containers[0].volumeMounts[]`
+* `.spec.template.initContainers[0].volumeMounts[]` 
+* `.spec.template.containers[0].volumeMounts[]`
 
 ```yaml
 spec:
@@ -720,8 +703,7 @@ spec:
 
 #### 3.2 Specify where the secret is found in Vault
 
-Now that you've specified the mount path for the secret, you'll need to specify where the secret is found in Vault,
-and 
+Now that you've specified the mount path for the secret, you'll need to specify where the secret is found in Vault, and
 
 Add a new entry to the list of `.spec.template.initContainers[0].args`
 
@@ -739,10 +721,10 @@ spec:
             - -cn=secret:${kv_path}:dir=${mount_path},fmt=flatten,retries=1
 ```
 
-where 
+where
 
-- `${kv_path}` is the location of the Vault secret
-- `${mount_path}` is the `mountPath` that you specified in step 3.1
+* `${kv_path}` is the location of the Vault secret
+* `${mount_path}` is the `mountPath` that you specified in step 3.1
 
 For example:
 
@@ -764,8 +746,7 @@ spec:
 
 When all the aforementioned steps have been completed, you're finally ready to deploy your `Job` or `CronJob` to the cluster.
 
-While you may run your job as part of a pipeline with [NAIS deploy](../deployment/README.md), sometimes you might just 
-want to run a one-time job.
+While you may run your job as part of a pipeline with [NAIS deploy](../deployment/), sometimes you might just want to run a one-time job.
 
 The easiest way to do so is to simply `apply` the `Job` or `CronJob` to the cluster:
 
@@ -773,10 +754,3 @@ The easiest way to do so is to simply `apply` the `Job` or `CronJob` to the clus
 $ kubectl apply -f job.yml
 ```
 
-[Job]: https://kubernetes.io/docs/concepts/workloads/controllers/job/
-[CronJobs]: https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/
-[cron time string format]: https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07
-[latest release]: https://hub.docker.com/r/navikt/vault-sidekick/tags
-[NAV baseimages]: https://github.com/navikt/baseimages
-[Vault IaC]: https://github.com/navikt/vault-iac
-[Kubernetes Secrets]: https://kubernetes.io/docs/concepts/configuration/secret/

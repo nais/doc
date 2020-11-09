@@ -1,7 +1,8 @@
 ---
 description: A complete example of all features in nais.yaml
 ---
-# Max example
+
+# Full example
 
 ```yaml
 apiVersion: "nais.io/v1alpha1"
@@ -138,3 +139,4 @@ spec:
             - port: 9200
               protocol: TCP
 ```
+

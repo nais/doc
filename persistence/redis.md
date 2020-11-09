@@ -1,29 +1,27 @@
 ---
-description: >
-  Redis is an open source (BSD licensed) in-memory data structure store used as a database, cache and message broker.
+description: >-
+  Redis is an open source (BSD licensed) in-memory data structure store used as
+  a database, cache and message broker.
 ---
 
 # Redis
 
-Redis on NAIS is run without disk/storage. This means that if a Redis instance is restarted due to something like
-maintenance, the data will be lost. In other words, *do not* store data here that you cannot afford to lose.
+Redis on NAIS is run without disk/storage. This means that if a Redis instance is restarted due to something like maintenance, the data will be lost. In other words, _do not_ store data here that you cannot afford to lose.
 
 It's also possible to password protect the Redis instance with some configuration.
 
 ## How to
 
-Redis can be run as a normal NAIS application. This means that you can only run single instances that are not scalable;
-increasing replicas will only start new databases that are not synced. Contact [@Kyrre.Havik.Eriksen] if you need High
-Availability-Redis.
+Redis can be run as a normal NAIS application. This means that you can only run single instances that are not scalable; increasing replicas will only start new databases that are not synced. Contact [@Kyrre.Havik.Eriksen](https://nav-it.slack.com/messages/D8QQ9ELK1) if you need High Availability-Redis.
 
-### Example deployments 
+### Example deployments
 
 An example Redis setup looks like this:
 
-{% code-tabs %}
-{% code-tabs-item title="redis.yaml" %}
+{% tabs %}
+{% tab title="redis.yaml" %}
+#### Vanilla Redis <a id="redis-vanilla"></a>
 
-#### Vanilla Redis {#redis-vanilla}
 ```yaml
 ---
 apiVersion: "nais.io/v1alpha1"
@@ -54,11 +52,11 @@ spec:
       rules:
         - application: ${inbound-app}
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="redis-with-metrics.yaml" %}
+{% tab title="redis-with-metrics.yaml" %}
+#### Vanilla Redis with metrics <a id="redis-with-metrics"></a>
 
-#### Vanilla Redis with metrics {#redis-with-metrics}
 ```yaml
 ---
 apiVersion: "nais.io/v1alpha1"
@@ -123,10 +121,11 @@ spec:
     - name: REDIS_EXPORTER_LOG_FORMAT
       value: json
 ```
-{% endcode-tabs-item %}
-{% code-tabs-item title="redis-secure.yaml" %}
+{% endtab %}
 
-#### Secured Redis with metrics {#redis-secure}
+{% tab title="redis-secure.yaml" %}
+#### Secured Redis with metrics <a id="redis-secure"></a>
+
 ```yaml
 ---
 apiVersion: "nais.io/v1alpha1"
@@ -193,18 +192,18 @@ spec:
     - name: REDIS_EXPORTER_LOG_FORMAT
       value: json
   envFrom:
-    - secret: ${secret-name} 
+    - secret: ${secret-name}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
-Then, running `kubectl apply -f <redis-config>.yaml` will start up a Redis instance. Or deploy it with
-[nais/deploy].
+Then, running `kubectl apply -f <redis-config>.yaml` will start up a Redis instance. Or deploy it with [nais/deploy](../deployment/).
 
-{% hint style="success" %}Check out [hub.docker.com] for latest Redis version{% endhint %}
+{% hint style="success" %}
+Check out [hub.docker.com](https://hub.docker.com/_/redis) for latest Redis version
+{% endhint %}
 
-For any applications that wishes to communicate with the Redis instance, it is recommended to add the following 
-environment variable to the applications' `nais.yaml` files:
+For any applications that wishes to communicate with the Redis instance, it is recommended to add the following environment variable to the applications' `nais.yaml` files:
 
 ```yaml
 env:
@@ -214,7 +213,7 @@ env:
 
 ### GCP
 
-If on [GCP], the host name is slightly different:
+If on [GCP](../clusters/gcp.md), the host name is slightly different:
 
 ```yaml
 env:
@@ -222,7 +221,7 @@ env:
     value: ${appname}.${namespace}.svc.cluster.local
 ```
 
-Remember to set up [access policies][Access Policy] for your Redis instance as well:
+Remember to set up [access policies](../nais-application/access-policy.md) for your Redis instance as well:
 
 ```yaml
 accessPolicy:
@@ -242,43 +241,39 @@ accessPolicy:
 
 #### Redis metrics
 
-If you want metrics from a Redis instance running on NAIS, a separate exporter must also be run. An example
-`nais.yaml` for the simplest version of such an exporter is found above. NAIS has also made a dashboard that everyone
-can use. The only caveat is that the exporter application needs to end its name with `redisexporter` in the
-configuration. The dashboard is called [Redis exporters]. The dashboard sorts by `addr`, enabling a single exporter
-to scrape several Redis instances.
+If you want metrics from a Redis instance running on NAIS, a separate exporter must also be run. An example `nais.yaml` for the simplest version of such an exporter is found above. NAIS has also made a dashboard that everyone can use. The only caveat is that the exporter application needs to end its name with `redisexporter` in the configuration. The dashboard is called [Redis exporters](https://grafana.adeo.no/d/L-Ktprrmz). The dashboard sorts by `addr`, enabling a single exporter to scrape several Redis instances.
 
 {% hint style="info" %}
-
-See the [`redis-with-metrics.yaml`](#redis-with-metrics) example in [examples above](#example-deployments) for setting up a configuration with the metrics exporter.
-
+See the [`redis-with-metrics.yaml`](redis.md#redis-with-metrics) example in [examples above](redis.md#example-deployments) for setting up a configuration with the metrics exporter.
 {% endhint %}
 
-{% hint style="success" %}Check out [hub.docker.com][Dockerhub Redis Exporter] for latest Redis metrics exporter version{% endhint %}
+{% hint style="success" %}
+Check out [hub.docker.com](https://hub.docker.com/r/oliver006/redis_exporter/tags) for latest Redis metrics exporter version
+{% endhint %}
 
 ## Secure Redis
 
-If you need to password protect your Redis instance, the easiest way to do this is to use [Kubernetes secrets] and mount
-them to your container, however you will also have to use a [different Redis baseimage from Bitnami][Bitnami Redis Dockerhub].
+If you need to password protect your Redis instance, the easiest way to do this is to use [Kubernetes secrets](../security/secrets/kubernetes-secrets.md) and mount them to your container, however you will also have to use a [different Redis baseimage from Bitnami](https://hub.docker.com/r/bitnami/redis/).
 
-{% hint style="success" %}Check out [hub.docker.com][Bitnami Redis Dockerhub] for latest Bitnami Redis version{% endhint %}
+{% hint style="success" %}
+Check out [hub.docker.com](https://hub.docker.com/r/bitnami/redis/) for latest Bitnami Redis version
+{% endhint %}
 
 Start by creating a Kubernetes secret:
 
-```shell
+```text
 kubectl create secret generic ${secret-name} \
     --from-literal=${key}=${value}
 ```
 
 For example:
 
-```shell
+```text
 kubectl create secret generic redis-password \
     --from-literal=REDIS_PASSWORD=$(date +%s | sha256sum | base64 | head -c 32)
 ```
 
-Now that you have a secret in Kubernetes (use `kubectl describe secret redis-password` to look at it), all you have to
-do left is to mount it.
+Now that you have a secret in Kubernetes \(use `kubectl describe secret redis-password` to look at it\), all you have to do left is to mount it.
 
 Then you should also mount it to any applications that connects to the Redis instance. This is done by adding the following to your `nais.yaml`.
 
@@ -289,9 +284,7 @@ spec:
 ```
 
 {% hint style="info" %}
-
-See the [`redis-secure.yaml`](#redis-secure) example in the [examples above](#example-deployments) for setting up Redis with a password from the secret you just created.
-
+See the [`redis-secure.yaml`](redis.md#redis-secure) example in the [examples above](redis.md#example-deployments) for setting up Redis with a password from the secret you just created.
 {% endhint %}
 
 ## Code examples
@@ -310,15 +303,3 @@ redis:
   port: 6379
 ```
 
-[NAIS manifest]: ../nais-application/reference.md
-[Grafana]: https://grafana.adeo.no/d/Jmg7MydWz
-[@Kyrre.Havik.Eriksen]: https://nav-it.slack.com/messages/D8QQ9ELK1
-[Redis exporters]: https://grafana.adeo.no/d/L-Ktprrmz
-[baseimages]: https://github.com/navikt/baseimages/tree/master/redis
-[nais/deploy]: ../deployment
-[hub.docker.com]: https://hub.docker.com/_/redis
-[Dockerhub Redis Exporter]: https://hub.docker.com/r/oliver006/redis_exporter/tags
-[Kubernetes secrets]: ../security/secrets/kubernetes-secrets.md
-[Bitnami Redis Dockerhub]: https://hub.docker.com/r/bitnami/redis/
-[GCP]: ../clusters/gcp.md
-[Access Policy]: ../nais-application/access-policy.md

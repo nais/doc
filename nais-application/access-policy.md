@@ -1,20 +1,22 @@
-{% hint style="info" title="feature differences" %}
-network policies and istio authorization is only applied in GCP clusters. 
-{% endhint %}
-
 # Access Policy
 
-Access policies express which applications and services you are able to communicate with, both inbound and outbound. 
-The default policy is to **deny all incoming and outgoing traffic** for your application, meaning you must be conscious of which services/application you consume, and who your consumers are.
+{% hint style="info" %}
+network policies and istio authorization is only applied in GCP clusters.
+{% endhint %}
 
-## Inbound rules
+## Access Policy
 
-Inbound rules specifies what other applications *in the same cluster* your application receives traffic from.
+Access policies express which applications and services you are able to communicate with, both inbound and outbound. The default policy is to **deny all incoming and outgoing traffic** for your application, meaning you must be conscious of which services/application you consume, and who your consumers are.
 
-### Receive requests from other app in the same namespace
+### Inbound rules
+
+Inbound rules specifies what other applications _in the same cluster_ your application receives traffic from.
+
+#### Receive requests from other app in the same namespace
+
 For app `app-a` to be able to receive incoming requests from `app-b` in the same cluster and the same namespace, this specification is needed for `app-a`:
 
-``` yaml
+```yaml
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
@@ -28,11 +30,11 @@ spec:
         - application: app-b
 ```
 
+#### Receive requests from other app in the another namespace
 
-### Receive requests from other app in the another namespace
-For app `app-a` to be able to receive incoming requests from `app-b` in the same cluster but another namespace (`othernamespace`), this specification is needed for `app-a`:
+For app `app-a` to be able to receive incoming requests from `app-b` in the same cluster but another namespace \(`othernamespace`\), this specification is needed for `app-a`:
 
-``` yaml
+```yaml
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
@@ -47,13 +49,15 @@ spec:
           namespace: othernamespace
 ```
 
-## Outbound rules
-Inbound rules specifies what other applications your application receives traffic from. `spec.accessPolicy.outbound.rules` specifies which applications in the same cluster to open for. To open for external applications, use the field `spec.accessPolicy.outbound.external`. 
+### Outbound rules
 
-### Send requests to other app in the same namespace
+Inbound rules specifies what other applications your application receives traffic from. `spec.accessPolicy.outbound.rules` specifies which applications in the same cluster to open for. To open for external applications, use the field `spec.accessPolicy.outbound.external`.
+
+#### Send requests to other app in the same namespace
+
 For app `app-a` to be able to send requests to `app-b` in the same cluster and the same namespace, this specification is needed for `app-a`:
 
-``` yaml
+```yaml
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
@@ -67,11 +71,11 @@ spec:
         - application: app-b
 ```
 
+#### Send requests to other app in the another namespace
 
-### Send requests to other app in the another namespace
-For app `app-a` to be able to send requests requests to `app-b` in the same cluster but in another namespace (`othernamespace`), this specification is needed for `app-a`:
+For app `app-a` to be able to send requests requests to `app-b` in the same cluster but in another namespace \(`othernamespace`\), this specification is needed for `app-a`:
 
-``` yaml
+```yaml
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
@@ -86,10 +90,11 @@ spec:
           namespace: othernamespace
 ```
 
-### External services
+#### External services
+
 In order to send requests to services outside of the cluster, `external.host` is needed:
 
-``` yaml
+```yaml
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
@@ -103,20 +108,21 @@ spec:
         - host: www.external-application.com
 ```
 
-#### Global Service Entries 
+**Global Service Entries**
+
 There are some services that are automatically added to the mesh in [dev-gcp](https://github.com/navikt/nais-yaml/blob/master/vars/dev-gcp/global-serviceentries.yaml) and [prod-gcp](https://github.com/navikt/nais-yaml/blob/master/vars/prod-gcp/global-serviceentries.yaml)
 
-
-## Advanced: Resources created by Naiserator
+### Advanced: Resources created by Naiserator
 
 The previous application manifest examples will create both Kubernetes Network Policies and Istio resources.
 
-### Kubernetes Network Policy
+#### Kubernetes Network Policy
 
-#### Default policy
+**Default policy**
+
 Every app created will have this default network policy that allows traffic from Istio pilot and mixer, as well as kube-dns. This policy will be created for every app, also those who don't have any access policies specified.
 
-``` yaml
+```yaml
 apiVersion: extensions/v1beta1
 kind: NetworkPolicy
 metadata:
@@ -157,10 +163,11 @@ spec:
   - Egress
 ```
 
-#### Kubernetes network policies
+**Kubernetes network policies**
+
 The applications specified in `spec.accessPolicy.inbound.rules` and `spec.accessPolicy.outbound.rules` will append these fields to the default Network Policy:
 
-``` yaml
+```yaml
 apiVersion: extensions/v1beta1
 kind: NetworkPolicy
 ...
@@ -201,14 +208,15 @@ Note that for namespace match labels to work, the namespaces must be labeled wit
 `kube-system` should be labeled accordingly for the default rule that allows traffic to `kube-dns`, but in GCP, the label is removed by some job in regular intervals...
 {% endhint %}
 
-### Istio Resources
+#### Istio Resources
 
 The policies from `spec.accessPolicy` will in addition create these Istio-resources:
 
-#### ServiceRole and ServiceRoleBinding
+**ServiceRole and ServiceRoleBinding**
+
 For Istio to allow request from `app-b` in the same namespace and in `othernamespace`, these resources will be created:
 
-``` yaml
+```yaml
 apiVersion: rbac.istio.io/v1alpha1
 kind: ServiceRole
 metadata:
@@ -227,8 +235,7 @@ spec:
     - app-a.my-team.svc.cluster.local
 ```
 
-
-``` yaml
+```yaml
 apiVersion: rbac.istio.io/v1alpha1
 kind: ServiceRoleBinding
 metadata:
@@ -246,10 +253,11 @@ spec:
   - user: cluster.local/ns/othernamespace/sa/app-b
 ```
 
-#### ServiceEntry
+**ServiceEntry**
+
 `spec.accessRules.outbound.external` will create ServiceEntry:
 
-``` yaml
+```yaml
 apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
@@ -269,11 +277,11 @@ spec:
   resolution: DNS
 ```
 
-#### VirtualService
+**VirtualService**
 
 In the cloud `spec.ingresses` will create VirtualService instead of Ingress objects:
 
-``` yaml
+```yaml
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -296,3 +304,4 @@ spec:
         subset: ""
       weight: 100
 ```
+

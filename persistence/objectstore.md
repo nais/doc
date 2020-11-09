@@ -1,15 +1,16 @@
 ---
-description: >
-  Objectstore is a storage solution based on the AWS S3 api and is used for persistent storage. 
+description: >-
+  Objectstore is a storage solution based on the AWS S3 api and is used for
+  persistent storage.
 ---
 
-# Objectstore / S3
+# S3 object store
 
 objectstore on NAIS stores files in buckets. On-prem uses rook ceph storage nodes as the storage solution. This is persistent storage and available in all clusters. The preferred solution is to use GCP for both applications and buckets, but it is supported on-prem as well.
 
 The objectstore / S3 bucket access is secured with access keys and secret keys stored in kubernetes.
 
-{% hint style="tip" %}
+{% hint style="info" %}
 This feature is only available in on-premises clusters.
 {% endhint %}
 
@@ -17,12 +18,12 @@ This feature is only available in on-premises clusters.
 
 ### Ceph object storage user
 
-On NAIS on-prem you're required to add a ceph object storage user. This is done through nais-yaml. After applying changes to the ceph-users.yaml and applying this to the cluster the rook operator will create the necessary secrets used to access the S3 bucket.
-Contact [@Sten.Ivar.Røkke] for access or create a pull-request in [navikt/nais-yaml].
+On NAIS on-prem you're required to add a ceph object storage user. This is done through nais-yaml. After applying changes to the ceph-users.yaml and applying this to the cluster the rook operator will create the necessary secrets used to access the S3 bucket. Contact [@Sten.Ivar.Røkke](https://nav-it.slack.com/archives/D5KP2068Z) for access or create a pull-request in [navikt/nais-yaml](https://github.com/navikt/nais-yaml.git).
 
 Example yaml for ceph user:
 
 ceph-user.yaml
+
 ```yaml
 apiVersion: ceph.rook.io/v1
 kind: CephObjectStoreUser
@@ -34,19 +35,17 @@ spec:
   displayName: "example-application"
 ```
 
-After a few minutes the rook operator in the cluster will create the secret. 
-The keys necessary can then be fetched and stored in vault for mounting and usage runtime for the application. Contact [@Sten.Ivar.Røkke] or other nais team members for keys. 
+After a few minutes the rook operator in the cluster will create the secret. The keys necessary can then be fetched and stored in vault for mounting and usage runtime for the application. Contact [@Sten.Ivar.Røkke](https://nav-it.slack.com/archives/D5KP2068Z) or other nais team members for keys.
 
-The objectstore service endpoint is http://objectstore.rook-ceph.svc.nais.local.
-The objectstore can also be reached from other clusters using https://objectstore.nais.{domain name}.
+The objectstore service endpoint is [http://objectstore.rook-ceph.svc.nais.local](http://objectstore.rook-ceph.svc.nais.local). The objectstore can also be reached from other clusters using [https://objectstore.nais.{domain](https://objectstore.nais.{domain) name}.
 
 ## Metrics
 
 General ceph metrics are available from several dashboards in grafana:
 
-[Grafana Ceph Cluster]
+[Grafana Ceph Cluster](https://grafana.adeo.no/d/vwcB0Bzml/ceph-cluster?orgId=1&refresh=10s)
 
-[Grafana Ceph OSD]
+[Grafana Ceph OSD](https://grafana.adeo.no/d/Fj5fAfzik/ceph-osd?orgId=1&refresh=15m)
 
 ## Code examples
 
@@ -118,7 +117,3 @@ object S3Client {
 
 Feel free to help us out by adding more examples!
 
-[@Sten.Ivar.Røkke]: https://nav-it.slack.com/archives/D5KP2068Z
-[navikt/nais-yaml]: https://github.com/navikt/nais-yaml.git
-[Grafana Ceph Cluster]: https://grafana.adeo.no/d/vwcB0Bzml/ceph-cluster?orgId=1&refresh=10s
-[Grafana Ceph OSD]: https://grafana.adeo.no/d/Fj5fAfzik/ceph-osd?orgId=1&refresh=15m
