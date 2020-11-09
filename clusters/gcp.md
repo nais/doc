@@ -2,7 +2,7 @@
 
 | cluster | environment | comment |
 | ------- | ----------- | ------- |
-| `dev-gcp` | development | |
+| `dev-gcp` | development | selected ingresses publicly accessible |
 | `prod-gcp` | production | publicly accessible |
 | `labs-gcp` | development | publicly accessible |
 
