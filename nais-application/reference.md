@@ -451,6 +451,13 @@ Name of the database
 
 **Required**: `true`
 
+#### `spec.gcp.sqlInstances[].databases[].envVarPrefix`
+You can customize the environment variable name prefix that is generated for your instance. 
+
+Setting this to DB will give you DB_HOST, DB_USERNAME, etc.
+
+**Default**: Application name
+
 ## `spec.gcp.buckets`
 List of buckets to provision in gcp
 
