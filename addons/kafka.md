@@ -203,7 +203,9 @@ These variables are made available inside the pod.
 | Variable name | Description |
 |---|---|
 | `KAFKA_BROKERS` | Comma-separated list of HOST:PORT pairs to Kafka brokers |
-| `KAFKA_SCHEMA_REGISTRY` | Comma-separated list of URLs to schema registry |
+| `KAFKA_SCHEMA_REGISTRY` | URL to schema registry |
+| `KAFKA_SCHEMA_REGISTRY_USER` | Username to use with schema registry |
+| `KAFKA_SCHEMA_REGISTRY_PASSWORD` | Password to use with schema registry |
 | `KAFKA_CERTIFICATE` | Client certificate for connecting to the Kafka brokers, as string data |
 | `KAFKA_CERTIFICATE_PATH` | Client certificate for connecting to the Kafka brokers, as file |
 | `KAFKA_PRIVATE_KEY` | Client certificate key for connecting to the Kafka brokers, as string data |
