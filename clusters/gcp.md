@@ -32,6 +32,7 @@ If no ingress is selected, the application will not be reachable from outside th
 
 | domain | accessible from | description |
 | ------ | --------------- | ----------- |
+| ekstern.dev.nav.no | internet | manually configured by adding to `external_domains` in [load balancer config] and making a pull request |
 | dev.nav.no | [naisdevice](../device/README.md) | development ingress for nav.no applications |
 | dev.intern.nav.no | [naisdevice](../device/README.md) | development ingress for non-public/internet-facing applications |
 | dev-gcp.nais.io | [naisdevice](../device/README.md) | reserved for platform services |
@@ -72,3 +73,4 @@ to [Leif Tore Løvmo], while [Line Langlo Spongsveen] can answer questions about
 [PVK]: https://navno.sharepoint.com/sites/intranett-personvern/SitePages/PVK.aspx
 [Behandlingsoversikt]: https://navno.sharepoint.com/sites/intranett-personvern/SitePages/Behandlingskatalog.aspx
 [zero trust]: ../appendix/zero-trust/README.md
+[load balancer config]: https://github.com/nais/gcp/blob/master/infrastructure/dev.tfvars
