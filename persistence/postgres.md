@@ -58,7 +58,7 @@ The database is provisioned into the teams own project in GCP. Here the team has
 
 ### Automated backup
 
-The database is backed up nightly at 3 AM \(GMT+1\) by default, but can be overridden in [`nais.yaml`](../nais-application/nais.yaml/reference.md#spec-gcp-sqlinstances-autobackuptime) by setting `spec.gcp.sqlInstances[].autoBackupTime`. Default 7 backups will be kept. More info [here] (https://cloud.google.com/sql/docs/postgres/backup-recovery/backups).
+The database is backed up nightly at 3 AM \(GMT+1\) by default, but can be overridden in [`nais.yaml`](../nais-application/nais.yaml/reference.md#spec-gcp-sqlinstances-autobackuptime) by setting `spec.gcp.sqlInstances[].autoBackupTime`. Default 7 backups will be kept. More info [here](https://cloud.google.com/sql/docs/postgres/backup-recovery/backups).
 
 More 
 
