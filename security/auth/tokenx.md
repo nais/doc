@@ -81,6 +81,7 @@ spec:
           namespace: team-b
           cluster: prod-gcp
 ```
+{% endtab %}
 {% endtabs %}
 
 ### Access Policies
