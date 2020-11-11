@@ -58,23 +58,7 @@ See the [NAIS manifest](../../nais-application/nais.yaml/reference.md#spec-token
 ### Getting Started
 
 {% tabs %}
-{% tab title="Minimal nais.yaml example" %}
-```yaml
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
-metadata:
-  name: app-1
-  namespace: aura
-  labels:
-    team: aura
-spec:
-  image: navikt/app-1:1234
-  tokenx:
-    enabled: true
-```
-{% endtab %}
-
-{% tab title="Full nais.yaml example" %}
+{% tab title="Example nais.yaml" %}
 ```yaml
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
@@ -97,7 +81,6 @@ spec:
           namespace: team-b
           cluster: prod-gcp
 ```
-{% endtab %}
 {% endtabs %}
 
 ### Access Policies
