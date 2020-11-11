@@ -44,6 +44,8 @@ spec:
   image: navikt/nais-testapp:66.0.0
   idporten:
     enabled: true
+  ingresses:
+    - "https://my.application.dev.nav.no"
 ```
 {% endtab %}
 
