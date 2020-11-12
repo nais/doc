@@ -2,6 +2,11 @@
 
 You can provision and configure [Postgres](https://www.postgresql.org/) through [`nais.yaml`](../nais-application/nais.yaml/reference.md).
 
+{% hint style="warning" %}
+If you change the postgreSQL version your data will be lost, as a new database will be created.
+In other words to upgrade the database version you will need to do a migration as described here: [Upgrade GCP postgreSQL](https://cloud.google.com/sql/docs/postgres/upgrade-db)
+{% endhint %}
+
 When you deploy your application with database config, NAIS will ensure the database exists in a [Google Cloud SQL instance](https://cloud.google.com/sql) with the specified [Postgres](https://cloud.google.com/sql/docs/postgres/) version, and configure the application with means to connect to it.
 
 {% hint style="info" %}
