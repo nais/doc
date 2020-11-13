@@ -20,7 +20,7 @@ naisdevice ensures that your laptop meets NAVs requirements before allowing acce
 
 ## Setup your [`kubeconfig`](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 
-The `kubectl` tool uses a `kubeconfig` file to get the information it needs in order to connect to a cluster. We provide a [pre-made kubeconfig](https://github.com/navikt/kubeconfigs) file with NAV's [clusters](../../clusters/).
+The `kubectl` tool uses a `kubeconfig` file to get the information it needs in order to connect to a cluster. We provide a [pre-made kubeconfig](https://github.com/navikt/kubeconfigs) file with NAV's [clusters](../clusters/README.md).
 
 !!! info
     If you use `utviklerimage` or connect to NAV through BigIP VPN you need to use the kubeconfig under the Git tag `utviklerimage`. Go to the directory where you cloned kubeconfig and run

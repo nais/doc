@@ -44,41 +44,42 @@ Currently, use the `nav-dev` pool for development, and `nav-prod` for production
 | `nav-prod` | 2 | 3 | `prod-gcp` | `prod-gcp`, `prod-fss`, `prod-sbs` |
 
 
-```yaml
----
-apiVersion: kafka.nais.io/v1
-kind: Topic
-metadata:
-  name: mytopic
-  namespace: myteam
-  labels:
-    team: myteam
-spec:
-  pool: nav-dev
-  config:  # optional; all fields are optional too; defaults shown
-    cleanupPolicy: delete  # delete, compact
-    minimumInSyncReplicas: 1
-    partitions: 1
-    replication: 3  # see min/max requirements
-    retentionBytes: -1
-    retentionHours: 72
-  acl:
-    - team: myteam
-      application: ownerapp
-      access: readwrite   # read, write, readwrite
-    - team: bigteam
-      application: consumerapp1
-      access: read
-    - team: bigteam
-      application: consumerapp2
-      access: read
-    - team: bigteam
-      application: producerapp1
-      access: write
-    - team: producerteam
-      application: producerapp
-      access: write
-```
+=== "topic.yaml"
+    ```yaml
+    ---
+    apiVersion: kafka.nais.io/v1
+    kind: Topic
+    metadata:
+      name: mytopic
+      namespace: myteam
+      labels:
+        team: myteam
+    spec:
+      pool: nav-dev
+      config:  # optional; all fields are optional too; defaults shown
+        cleanupPolicy: delete  # delete, compact
+        minimumInSyncReplicas: 1
+        partitions: 1
+        replication: 3  # see min/max requirements
+        retentionBytes: -1
+        retentionHours: 72
+      acl:
+        - team: myteam
+          application: ownerapp
+          access: readwrite   # read, write, readwrite
+        - team: bigteam
+          application: consumerapp1
+          access: read
+        - team: bigteam
+          application: consumerapp2
+          access: read
+        - team: bigteam
+          application: producerapp1
+          access: write
+        - team: producerteam
+          application: producerapp
+          access: write
+    ```
 
 ### Data catalog metadata
 
@@ -86,14 +87,14 @@ If your topic exposes data meant for consumption by a wider audience, you should
 
 Syntax:
 
-
-```
-apiVersion: kafka.nais.io/v1
-kind: Topic
-metadata:
-  annotations:
-    dcat.data.nav.no/<key>: "<value>"
-```
+=== "topic.yaml"
+    ```
+    apiVersion: kafka.nais.io/v1
+    kind: Topic
+    metadata:
+      annotations:
+        dcat.data.nav.no/<key>: "<value>"
+    ```
 
 Use the following annotations and prefix them with `dcat.data.nav.no/`. Default values will be used where not supplied.
 
@@ -120,20 +121,20 @@ One or more of the following keys can also be supplied if the default values bel
 ### Permanently deleting topic and data
 
 !!! warning
-  Permanent deletes are irreversible. Enable this feature only as a step to completely remove your data.
+    Permanent deletes are irreversible. Enable this feature only as a step to completely remove your data.
 
 
 When a `Topic` resource is deleted from a Kubernetes cluster, the Kafka topic is still retained, and the data kept intact. If you need to remove data and start from scratch, you must add the following annotation to your `Topic` resource:
 
-
-```yaml
----
-apiVersion: kafka.nais.io/v1
-kind: Topic
-metadata:
-  annotations:
-    kafka.nais.io/removeDataWhenResourceIsDeleted: "true"
-```
+=== "topic.yaml"
+    ```yaml
+    ---
+    apiVersion: kafka.nais.io/v1
+    kind: Topic
+    metadata:
+      annotations:
+        kafka.nais.io/removeDataWhenResourceIsDeleted: "true"
+    ```
 
 When this annotation is in place, deleting the topic resource from Kubernetes will trigger data removal.
 
@@ -141,19 +142,20 @@ When this annotation is in place, deleting the topic resource from Kubernetes wi
 
 Adding `.kafka.pool` to your `Application` spec will inject Kafka credentials into your pod. Your application needs to follow some design guidelines; see the next section on _application design guidelines_. Make sure that the topic name is prefixed with the owner's team namespace, e.g. `myteam.mytopic`.
 
-```yaml
----
-apiVersion: nais.io/v1alpha1
-kind: Application
-metadata:
-  name: consumerapp
-  namespace: myteam
-  labels:
-    team: myteam
-spec:
-  kafka:
-    pool: nav-dev    # enum of nav-dev, nav-prod
-```
+=== "nais.yaml"
+    ```yaml
+    ---
+    apiVersion: nais.io/v1alpha1
+    kind: Application
+    metadata:
+      name: consumerapp
+      namespace: myteam
+      labels:
+        team: myteam
+    spec:
+      kafka:
+        pool: nav-dev    # enum of nav-dev, nav-prod
+    ```
 
 ### Application config
 
