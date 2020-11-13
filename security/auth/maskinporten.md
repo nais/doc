@@ -1,6 +1,6 @@
 ---
 description: >
-  Enabling `server-2-server` authentication using Maskinporten.
+  Enabling `server-2-server` authentication with external agencies using Maskinporten.
 ---
 
 # Maskinporten Client
@@ -13,7 +13,7 @@ This feature is only available in the [Google Cloud Platform (GCP)](../../cluste
 
 ## Abstract
 
-Maskinporten is a service that offers a simple API security model based on the OAuth2 protocol, and the use of JWT bearer grants and inspired by [Google's System Accounts].
+Maskinporten is a service that offers a simple API security model based on the OAuth2 protocol, and the use of JWT bearer grants. A Concept inspired by [Google's System Accounts].
 
 Maskinporten allows API providers to define access to their APIs, modeled as scopes, based on the consumer's organization number.
 
@@ -40,7 +40,7 @@ spec:
   maskinporten:
     enabled: true
     scopes:
-      - "nav:some/scope"
+      - scope: "nav:some/scope"
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -62,11 +62,12 @@ You do not need to specify these explicitly.
 
 Maskinporten allows API providers to define access to their APIs, modeled as scopes, based on the consumer's organization number.
 
-Maskinporten will first validate the validity of the JWT. Then the signature (used to sign the JWT) will be validated and if the 
-client has access to the requested resources (scopes), an access_token will be returned to the client.
+When a NAIS client requests Maskinporten for a token, Maskinporten will first validate the validity of the JWT, then the signature (used to sign the JWT) will be validated and if the 
+NAIS client has access to the requested resources (scopes), an access_token will be returned to the client to be used for further actions.
 
 {% hint style="warning" %}
-Make sure the `scopes` specified in the manifest, NAV have pre-registered with rights to **all** the scopes, or provision of client will fail.
+Make sure that **NAV** have pre-registered rights to **all** the scopes `scopes`, specified in the manifest, or provision of client will fail.
+This can be checked with proper access rights in [Digdir-Selvbetjening].
 {% endhint %}
 
 ### Runtime Variables & Credentials
@@ -109,6 +110,23 @@ The following environment variables and files (under the directory `/var/run/sec
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+### Migration guide - step by step
+
+The following describes the steps needed to migrate an existing legacy client.
+
+#### Step 1 - Update your application (and any dependants) in the IaC repository
+
+- Ensure the **`description`** of the client registered in the [IaC repository][IaC] is updated to match: `cluster:namespace:application`. 
+
+#### Step 3 - Deploy your NAIS application with Maskinporten provisioning enabled
+
+- See [getting started](#getting-started).
+
+#### Step 4 - Delete your application from the IaC repository
+
+- Verify that everything works after the migration
+- Delete the application from the [IaC repository][IaC] in order to maintain a single source of truth
+
 ## Internals
 
 This section is intended for readers interested in the inner workings of this feature.
@@ -126,3 +144,5 @@ More details in the [Digdirator] repository.
 [Maskinporten client]: https://difi.github.io/felleslosninger/maskinporten_auth_server-to-server-oauth2.html
 [Digdirator]: https://github.com/nais/digdirator
 [custom resource]: https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/
+[Digdir-Selvbetjening]: https://selvbetjening-samarbeid-ver2.difi.no/auth/login
+[IaC]: https://github.com/navikt/nav-maskinporten/tree/master/clients
