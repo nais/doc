@@ -60,8 +60,8 @@ You do not need to specify these explicitly.
 
 Maskinporten allows API providers to define access to their APIs, modeled as scopes, based on the consumer's organization number.
 
-When a NAIS client requests Maskinporten for a token, Maskinporten will first validate the validity of the JWT, then the signature (used to sign the JWT) will be validated and if the 
-NAIS client has access to the requested resources (scopes), an access_token will be returned to the client to be used for further actions.
+When a `client` requests Maskinporten for a token, Maskinporten will first validate the validity of the JWT, then the signature (used to sign the JWT) will be validated and if the 
+`client` has access to the requested resources (scopes), an `access_token` will be returned to the client to be used for further actions.
 
 {% hint style="warning" %}
 Make sure that **NAV** have pre-registered rights to **all** the scopes `scopes`, specified in the manifest, or provision of client will fail.
@@ -136,6 +136,10 @@ Digdirator generates a Kubernetes Secret containing the values needed for your a
 Every deploy will trigger rotation of credentials, invalidating any credentials that are not in use. _In use_ in this context refers to all credentials that are currently mounted to an existing pod - regardless of their status (`Running`, `CrashLoopBackOff`, etc.). In other words, credential rotation should happen with zero downtime.
 
 More details in the [Digdirator] repository.
+
+### Overview of flow
+
+![Overview - see Maskinporten](https://raw.githubusercontent.com/nais/digdirator/feat_maskinporten_client/docs/sequence.png)
 
 [JWT grants]: https://difi.github.io/felleslosninger/maskinporten_protocol_token.html
 [Google's System Accounts]: https://developers.google.com/identity/protocols/oauth2/service-account
