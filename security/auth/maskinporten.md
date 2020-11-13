@@ -62,6 +62,7 @@ Maskinporten allows API providers to define access to their APIs, modeled as sco
 
 When a `client` requests Maskinporten for a token, Maskinporten will first validate the validity of the JWT, then the signature (used to sign the JWT) will be validated and if the 
 `client` has access to the requested resources (scopes), an `access_token` will be returned to the client to be used for further actions.
+For more details see: [Overview of flows in Digdirator](#Overview-of-flow)
 
 {% hint style="warning" %}
 Make sure that **NAV** have pre-registered rights to **all** the scopes `scopes`, specified in the manifest, or provision of client will fail.
@@ -137,9 +138,9 @@ Every deploy will trigger rotation of credentials, invalidating any credentials 
 
 More details in the [Digdirator] repository.
 
-### Overview of flow
+### Overview of flows
 
-![Overview - see Maskinporten](https://raw.githubusercontent.com/nais/digdirator/feat_maskinporten_client/docs/sequence.png)
+![Overview - usage Maskinporten](https://raw.githubusercontent.com/nais/digdirator/feat_maskinporten_client/docs/sequence.png)
 
 [JWT grants]: https://difi.github.io/felleslosninger/maskinporten_protocol_token.html
 [Google's System Accounts]: https://developers.google.com/identity/protocols/oauth2/service-account
