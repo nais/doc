@@ -62,7 +62,7 @@ Maskinporten allows API providers to define access to their APIs, modeled as sco
 
 When a `client` requests Maskinporten for a token, Maskinporten will first validate the validity of the JWT, then the signature (used to sign the JWT) will be validated and if the 
 `client` has access to the requested resources (scopes), an `access_token` will be returned to the client to be used for further actions.
-For more details see: [Overview of flows in Digdirator](#Overview-of-flow)
+For more details see: [Overview of flows in Digdirator](#Overview-of-flows)
 
 {% hint style="warning" %}
 Make sure that **NAV** have pre-registered rights to **all** the scopes `scopes`, specified in the manifest, or provision of client will fail.
