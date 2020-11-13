@@ -114,7 +114,7 @@ The following describes the steps needed to migrate an existing legacy client.
 
 #### Step 1 - Update your application (and any dependants) in the IaC repository
 
-- Ensure the **`description`** of the client registered in the [IaC repository][IaC] is updated to match: `cluster:namespace:application`. 
+- Ensure the **`description`** of the client registered in the [IaC repository] is updated to match: `cluster:namespace:application`. 
 
 #### Step 3 - Deploy your NAIS application with Maskinporten provisioning enabled
 
@@ -123,7 +123,7 @@ The following describes the steps needed to migrate an existing legacy client.
 #### Step 4 - Delete your application from the IaC repository
 
 - Verify that everything works after the migration
-- Delete the application from the [IaC repository][IaC] in order to maintain a single source of truth
+- Delete the application from the [IaC repository] in order to maintain a single source of truth
 
 ## Internals
 
@@ -143,4 +143,4 @@ More details in the [Digdirator] repository.
 [Digdirator]: https://github.com/nais/digdirator
 [custom resource]: https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/
 [Digdir-Selvbetjening]: https://selvbetjening-samarbeid-ver2.difi.no/auth/login
-[IaC]: https://github.com/navikt/nav-maskinporten/tree/master/clients
+[IaC repository]: https://github.com/navikt/nav-maskinporten/tree/master/clients
