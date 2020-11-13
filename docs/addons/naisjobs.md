@@ -735,7 +735,7 @@ spec:
 
 When all the aforementioned steps have been completed, you're finally ready to deploy your `Job` or `CronJob` to the cluster.
 
-While you may run your job as part of a pipeline with [NAIS deploy](../../deployment/), sometimes you might just want to run a one-time job.
+While you may run your job as part of a pipeline with [NAIS deploy](../deployment/README.md), sometimes you might just want to run a one-time job.
 
 The easiest way to do so is to simply `apply` the `Job` or `CronJob` to the cluster:
 

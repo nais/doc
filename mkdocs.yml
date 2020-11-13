@@ -11,6 +11,9 @@ theme:
     scheme: default
     primary: white
     accent: white
+  features:
+    - navigation.instant
+    - navigation.tabs
 extra:
   search:
     language: 'en'
@@ -46,6 +49,9 @@ markdown_extensions:
       emoji_generator: !!python/name:pymdownx.emoji.to_svg
 nav:
   - Introduction to NAIS: README.md
+  - Access from laptop: basics/access.md
+  - Teams: basics/teams.md
+  - Your first NAIS application: basics/application.md
   - Clusters:
     - Overview: clusters/README.md
     - Google Cloud Platform: clusters/gcp.md
@@ -53,10 +59,6 @@ nav:
     - Migrating to GCP: clusters/migrating-to-gcp.md
     - Migrating databases to GCP: clusters/migrating-databases-to-gcp.md
     - Team namespaces: clusters/team-namespaces.md
-  - Getting started:
-    - Access from laptop: basics/access.md
-    - Teams: basics/teams.md
-    - Your first NAIS application: basics/application.md
   - NAIS Application:
     - Overview: nais-application/README.md
     - nais.yaml:
