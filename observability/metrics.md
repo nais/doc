@@ -1,6 +1,6 @@
 # Metrics
 
-Prometheus is used to scrape metrics from the pod. You have to add Prometheus in your [NAIS manifest](../nais-application/reference.md) to enable scrape.
+Prometheus is used to scrape metrics from the pod. You have to add Prometheus in your [NAIS manifest](../nais-application/nais.yaml/reference.md) to enable scrape.
 
 Each app that have scraping enabled can use the default Grafana dashboard [nais-app-dashboard](https://grafana.adeo.no/d/000000283/nais-app-dashbord), or create theire own.
 
@@ -35,7 +35,7 @@ sensu.nais:3030
 
 Example message:
 
-```json
+```javascript
 {
   "name": "myapp_metrics",
   "type": "metric",
@@ -44,12 +44,11 @@ Example message:
 }
 ```
 
-The format of the data (The `output` field in the message) should be formatted as [Influxdb Line Protocol](https://docs.influxdata.com/influxdb/v1.5/write_protocols/line_protocol_tutorial/#syntax).
+The format of the data \(The `output` field in the message\) should be formatted as [Influxdb Line Protocol](https://docs.influxdata.com/influxdb/v1.5/write_protocols/line_protocol_tutorial/#syntax).
 
 {% hint style="warning" %}
 Note that each variation of tag values will create a new time series, so avoid using tags for data that varies a lot. Read more about best practices here: [InfluxDB schema design and data layout](https://docs.influxdata.com/influxdb/v1.8/concepts/schema_and_data_layout/)
 {% endhint %}
-
 
 ## Overview
 

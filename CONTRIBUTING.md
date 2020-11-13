@@ -25,6 +25,10 @@
 - Merge PR to master
 - Commit directly to master
 
+## Preview branch on Github instead of master
+
+Gitbook ([doc.nais.io](https://doc.nais.io)) only shows the content of the master branch by default.
+In order to preview your branch on Gitbook, push your branch with the prefix `preview/`.
 
 ## Cool features in Gitbook
 

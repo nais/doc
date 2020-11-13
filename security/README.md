@@ -1,5 +1,6 @@
 ---
-description: Security features and addons available to your applications on NAIS 
+description: Security features and addons available to your applications on NAIS
 ---
 
 # Security
+

@@ -1,3 +1,4 @@
 # Roles and responsibilities
 
-(Coming soon)
+\(Coming soon\)
+
