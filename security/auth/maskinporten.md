@@ -25,7 +25,6 @@ An Maskinporten client allows your application to leverage Maskinporten for auth
 
 ### Getting Started
 
-{% code-tabs %}
 {% code-tabs-item title="Minimal nais.yaml example" %}
 ```yaml
 apiVersion: "nais.io/v1alpha1"
@@ -43,7 +42,6 @@ spec:
       - scope: "nav:some/scope"
 ```
 {% endcode-tabs-item %}
-{% endcode-tabs %}
 
 ### Spec
 
