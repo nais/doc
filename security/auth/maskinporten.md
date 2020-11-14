@@ -60,10 +60,10 @@ You do not need to specify these explicitly.
 
 Maskinporten allows API providers to define access to their APIs, modeled as scopes, based on the consumer's organization number.
 
-When a `client` requests Maskinporten for a token:
-1. Maskinporten will first validate the validity of the JWT.  
-2. Maskinporten will then the validated signature (used to sign the JWT).  
-3. When `client` has access to the requested resources (scope(s)), an `access_token` will be returned to the client to be used for further actions.
+When a `client` requests Maskinporten (Identity Provider) for a token:
+- Maskinporten will first validate the validity of the JWT.  
+- Maskinporten will then the validated signature (used to sign the JWT).  
+- When `client` has access to the requested resources (scope(s)), an `access_token` will be returned to the client to be used for further actions.
 
 For more details see: [Overview of flows in Digdirator](#overview-of-flows)
 
