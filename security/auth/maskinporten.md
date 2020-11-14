@@ -60,9 +60,12 @@ You do not need to specify these explicitly.
 
 Maskinporten allows API providers to define access to their APIs, modeled as scopes, based on the consumer's organization number.
 
-When a `client` requests Maskinporten for a token, Maskinporten will first validate the validity of the JWT, then the signature (used to sign the JWT) will be validated and if the 
-`client` has access to the requested resources (scopes), an `access_token` will be returned to the client to be used for further actions.
-For more details see: [Overview of flows in Digdirator](#Overview-of-flows)
+When a `client` requests Maskinporten for a token:
+1. Maskinporten will first validate the validity of the JWT.  
+2. Maskinporten will then the validated signature (used to sign the JWT).  
+3. When `client` has access to the requested resources (scope(s)), an `access_token` will be returned to the client to be used for further actions.
+
+For more details see: [Overview of flows in Digdirator](#overview-of-flows)
 
 {% hint style="warning" %}
 Make sure that **NAV** have pre-registered rights to **all** the scopes `scopes`, specified in the manifest, or provision of client will fail.
@@ -115,7 +118,7 @@ The following describes the steps needed to migrate an existing legacy client.
 
 #### Step 1 - Update your application (and any dependants) in the IaC repository
 
-- Ensure the **`description`** of the client registered in the [IaC repository] is updated to match: `cluster:namespace:application`. 
+- Ensure the **`description`** of the client registered in the [IaC repository](https://github.com/navikt/nav-maskinporten) is updated to match: `cluster:namespace:application`. 
 
 #### Step 3 - Deploy your NAIS application with Maskinporten provisioning enabled
 
@@ -124,7 +127,7 @@ The following describes the steps needed to migrate an existing legacy client.
 #### Step 4 - Delete your application from the IaC repository
 
 - Verify that everything works after the migration
-- Delete the application from the [IaC repository] in order to maintain a single source of truth
+- Delete the application from the [IaC repository](https://github.com/navikt/nav-maskinporten) in order to maintain a single source of truth
 
 ## Internals
 
@@ -148,4 +151,3 @@ More details in the [Digdirator] repository.
 [Digdirator]: https://github.com/nais/digdirator
 [custom resource]: https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/
 [Digdir-Selvbetjening]: https://selvbetjening-samarbeid-ver2.difi.no/auth/login
-[IaC repository]: https://github.com/navikt/nav-maskinporten/tree/master/clients
