@@ -131,15 +131,7 @@ The following describes the steps needed to migrate an existing legacy client.
 
 ## Internals
 
-This section is intended for readers interested in the inner workings of this feature.
-
-Provisioning is handled by [Digdirator] - a Kubernetes operator that watches a [custom resource] (called `MaskinportenClient`) that we've defined in our clusters.
-
-Digdirator generates a Kubernetes Secret containing the values needed for your application to integrate with Maskinporten, e.g. credentials and URLs. This secret will be mounted to the pods of your application during deploy.
-
-Every deploy will trigger rotation of credentials, invalidating any credentials that are not in use. _In use_ in this context refers to all credentials that are currently mounted to an existing pod - regardless of their status (`Running`, `CrashLoopBackOff`, etc.). In other words, credential rotation should happen with zero downtime.
-
-More details in the [Digdirator] repository.
+See: [ID-porten](idporten.md)
 
 ### Overview of flows
 
@@ -148,6 +140,4 @@ More details in the [Digdirator] repository.
 [JWT grants]: https://difi.github.io/felleslosninger/maskinporten_protocol_token.html
 [Google's System Accounts]: https://developers.google.com/identity/protocols/oauth2/service-account
 [Maskinporten client]: https://difi.github.io/felleslosninger/maskinporten_auth_server-to-server-oauth2.html
-[Digdirator]: https://github.com/nais/digdirator
-[custom resource]: https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/
 [Digdir-Selvbetjening]: https://selvbetjening-samarbeid-ver2.difi.no/auth/login
