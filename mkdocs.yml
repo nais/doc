@@ -8,7 +8,7 @@ theme:
   logo: assets/logo.png
   favicon: assets/logo.png
   palette:
-    scheme: default
+    scheme: preference
     primary: white
     accent: white
   features:
