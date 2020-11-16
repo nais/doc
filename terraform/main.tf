@@ -29,10 +29,6 @@ resource "google_storage_bucket" "nais-mkdocs-html" {
   force_destroy = true
 
   uniform_bucket_level_access = true
-  retention_policy {
-    # Keep retention for two months!
-    retention_period = 3600 * 24 * 30 * 2
-  }
 }
 
 # Reserve an external IP
@@ -84,6 +80,7 @@ resource "google_compute_global_forwarding_rule" "default" {
   port_range            = "443"
   target                = google_compute_target_https_proxy.website.self_link
 }
+
 resource "google_storage_bucket_iam_member" "nais-team" {
   bucket = google_storage_bucket.nais-mkdocs-html.name
   role   = "roles/storage.admin"
