@@ -26,7 +26,8 @@ Once a bucket is provisioned, it will not be automatically deleted unless one ex
 {% endhint %}
 
 Bucket names must be globally unique across the entire Google infrastructure. This can cause provisioning problems if your bucket name is used by someone else. 
-RetentionPeriodDays is set in number of days, no retention policy will be set and files will never be deleted from the bucket.
+
+RetentionPeriodDays is set in number of days, if not set; no retention policy will be set and files will never be deleted from the bucket.
 
 If you have problems getting your bucket up and running, check errors in the event log:
 
