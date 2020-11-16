@@ -71,6 +71,7 @@ nav:
     - Manually: deployment/manual.md
     - Changing teams: deployment/change-team.md
     - Troubleshooting: deployment/troubleshooting.md
+    - Allowed Registries: deployment/allowed-registries.md
   - Observability:
     - Alerts:
       - Overview: observability/alerts/README.md
