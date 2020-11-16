@@ -16,14 +16,14 @@ spec:
   gcp:
     buckets:
       - name: mybucket
-        retentionPeriod: 3600
+        retentionPeriod: 30
 ```
 
 !!! info
     Once a bucket is provisioned, it will not be automatically deleted unless one explicitly sets `spec.gcp.buckets[].cascadingDelete` to `true`. This means that any cleanup must be done manually.
 
 Bucket names must be globally unique across the entire Google infrastructure. This can cause provisioning problems if your bucket name is used by someone else. 
-RetentionPeriod is set in number of seconds, if not set files will not be deleted.
+RetentionPeriod is set in number of days, if not set files will never be deleted from the bucket.
 
 If you have problems getting your bucket up and running, check errors in the event log:
 
