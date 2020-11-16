@@ -19,13 +19,6 @@ extra:
     language: 'en'
 plugins:
   - search
-  - mermaid2: # Graphing lib
-      arguments:
-        securityLevel: 'loose' # OK for as long as we trust source for graph data
-        sequence:
-          showSequenceNumbers: true
-extra_javascript:
-  - https://unpkg.com/mermaid@8.5.0/dist/mermaid.min.js
 markdown_extensions:
   - toc:
       permalink: True
@@ -34,10 +27,6 @@ markdown_extensions:
   - pymdownx.tilde
   - pymdownx.superfences:
       preserve_tabs: true
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_div_format
   - pymdownx.highlight:
       css_class: codehilite
       linenums_style: pymdownx-inline
