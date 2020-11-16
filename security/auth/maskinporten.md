@@ -13,13 +13,13 @@ This feature is only available in the [Google Cloud Platform (GCP)](../../cluste
 
 ## Abstract
 
-Maskinporten is a service that offers a simple API security model based on the OAuth2 protocol, and the use of JWT bearer grants. A Concept inspired by [Google's System Accounts].
+Maskinporten is a service that offers a simple API security model based on the OAuth2 protocol, and the use of JWT bearer grants. A Concept inspired by [Google's System Accounts](https://developers.google.com/identity/protocols/oauth2/service-account).
 
 Maskinporten allows API providers to define access to their APIs, modeled as scopes, based on the consumer's organization number.
 
-The Nais platform provides support for simple declarative provisioning of an [Maskinporten client] with sensible defaults that your application may use to integrate with Maskinporten.
+The Nais platform provides support for simple declarative provisioning of an [Maskinporten client](https://difi.github.io/felleslosninger/maskinporten_auth_server-to-server-oauth2.html) with sensible defaults that your application may use to integrate with Maskinporten.
 
-An Maskinporten client allows your application to leverage Maskinporten for authentication and authorization requesting external apis. To achieve this, your application must implement [JWT grants].
+An Maskinporten client allows your application to leverage Maskinporten for authentication and authorization requesting external apis. To achieve this, your application must implement [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html).
 
 ## Configuration
 
@@ -69,7 +69,7 @@ For more details see: [Overview of flows in Digdirator](#overview-of-flows)
 
 {% hint style="warning" %}
 Make sure that **NAV** have pre-registered rights to **all** the scopes `scopes`, specified in the manifest, or provision of client will fail.
-This can be checked with proper access rights in [Digdir-Selvbetjening].
+This can be checked with proper access rights in [Digdir Selvbetjening](https://selvbetjening-samarbeid-ver2.difi.no/auth/login).
 {% endhint %}
 
 ### Runtime Variables & Credentials
@@ -81,8 +81,8 @@ The following environment variables and files (under the directory `/var/run/sec
 | Name | Description |
 |---|---|
 | `MASKINPORTEN_CLIENT_ID` | Maskinporten client ID. Unique ID for the application in Maskinporten |
-| `MASKINPORTEN_CLIENT_JWK` | Private JWK containing the private RSA key for creating signed JWTs when using the [JWT grants]. |
-| `MASKINPORTEN_SCOPES` |  The scopes registered for the client at Maskinporten as a whitepace-separated string. See [JWT grants] for more information. |
+| `MASKINPORTEN_CLIENT_JWK` | Private JWK containing the private RSA key for creating signed JWTs when using the [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html). |
+| `MASKINPORTEN_SCOPES` |  The scopes registered for the client at Maskinporten as a whitepace-separated string. See [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html) for more information. |
 | `MASKINPORTEN_WELL_KNOWN_URL` | The well-known URL for the OIDC metadata discovery document for Maskinporten. |
 {% endcode-tabs-item %}
 {% code-tabs-item title="Example values" %}
@@ -131,13 +131,8 @@ The following describes the steps needed to migrate an existing legacy client.
 
 ## Internals
 
-See: [ID-porten](idporten.md)
+See: [ID-porten internals](idporten.md#internals)
 
 ### Overview of flows
 
 ![Overview - usage Maskinporten](https://raw.githubusercontent.com/nais/digdirator/feat_maskinporten_client/docs/sequence.png)
-
-[JWT grants]: https://difi.github.io/felleslosninger/maskinporten_protocol_token.html
-[Google's System Accounts]: https://developers.google.com/identity/protocols/oauth2/service-account
-[Maskinporten client]: https://difi.github.io/felleslosninger/maskinporten_auth_server-to-server-oauth2.html
-[Digdir-Selvbetjening]: https://selvbetjening-samarbeid-ver2.difi.no/auth/login
