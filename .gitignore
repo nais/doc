@@ -10,3 +10,6 @@
 
 # mkdocs output folder (which contains all the HTML)
 site/
+
+# Terraform
+.terraform/

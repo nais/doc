@@ -1,0 +1,97 @@
+terraform {
+  required_providers {
+    google-beta = {
+      source  = "hashicorp/google-beta"
+      version = "3.47.0"
+    }
+    google = {
+      source  = "hashicorp/google"
+      version = "3.47.0"
+    }
+  }
+  backend "gcs" {
+    prefix = "nais-mkdocs"
+    bucket = "terraform-prod-235011"
+  }
+}
+
+provider "google-beta" {
+  project = "aura-prod-d7e3"
+}
+
+provider "google" {
+  project = "aura-prod-d7e3"
+}
+
+resource "google_storage_bucket" "nais-mkdocs-html" {
+  name          = "newdoc.nais.io"
+  location      = "EU"
+  force_destroy = true
+
+  uniform_bucket_level_access = true
+  retention_policy {
+    # Keep retention for two months!
+    retention_period = 3600 * 24 * 30 * 2
+  }
+}
+
+# Reserve an external IP
+resource "google_compute_global_address" "website" {
+  provider = google
+  name     = "doc-nais-io-ip"
+}
+
+# Add the bucket as a CDN backend
+resource "google_compute_backend_bucket" "website" {
+  provider    = google
+  name        = "doc-nais-io-backend"
+  description = "Contains files needed by the website"
+  bucket_name = google_storage_bucket.nais-mkdocs-html.name
+  enable_cdn  = true
+}
+
+# Create HTTPS certificate
+resource "google_compute_managed_ssl_certificate" "website" {
+  provider = google-beta
+  name     = "doc-nais-io"
+  managed {
+    domains = ["newdoc.nais.io."]
+  }
+}
+
+# GCP URL MAP
+resource "google_compute_url_map" "website" {
+  provider        = google
+  name            = "doc-nais-io-url-map"
+  default_service = google_compute_backend_bucket.website.self_link
+}
+
+# GCP target proxy
+resource "google_compute_target_https_proxy" "website" {
+  provider         = google
+  name             = "doc-nais-io-target-proxy"
+  url_map          = google_compute_url_map.website.self_link
+  ssl_certificates = [google_compute_managed_ssl_certificate.website.self_link]
+}
+
+# GCP forwarding rule
+resource "google_compute_global_forwarding_rule" "default" {
+  provider              = google
+  name                  = "doc-nais-io-forwarding-rule"
+  load_balancing_scheme = "EXTERNAL"
+  ip_address            = google_compute_global_address.website.address
+  ip_protocol           = "TCP"
+  port_range            = "443"
+  target                = google_compute_target_https_proxy.website.self_link
+}
+resource "google_storage_bucket_iam_member" "nais-team" {
+  bucket = google_storage_bucket.nais-mkdocs-html.name
+  role   = "roles/storage.admin"
+  member = "group:grp-gcp-admin@nav.no"
+}
+
+resource "google_storage_bucket_iam_member" "member" {
+  bucket = google_storage_bucket.nais-mkdocs-html.name
+  role   = "roles/storage.objectViewer"
+  member = "allUsers"
+}
