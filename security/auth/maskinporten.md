@@ -19,7 +19,7 @@ Maskinporten allows API providers (external agencies) to define access to their 
 
 The NAIS platform provides support for simple declarative provisioning of an [Maskinporten client](https://difi.github.io/felleslosninger/maskinporten_auth_server-to-server-oauth2.html) with sensible defaults that your application may use to integrate with Maskinporten.
 
-An Maskinporten `client` allows your application to leverage Maskinporten for authentication and authorization requesting external agencies. To achieve this, your application must implement [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html).
+An Maskinporten client allows your application to leverage Maskinporten for authentication and authorization when performing service-to-service requests to external agencies. To achieve this, your application must implement [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html).
 
 ## Configuration
 
