@@ -1,6 +1,6 @@
 ---
 description: >
-  Enabling `server-2-server` authentication with external agencies using Maskinporten.
+  Enabling service-to-service authentication with external agencies using Maskinporten.
 ---
 
 # Maskinporten Client
