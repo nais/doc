@@ -639,7 +639,7 @@ The lifetime in seconds for the issued refresh token from ID-porten. The refresh
 **Default**: `43200` \(12 hours\)
 
 ## `spec.maskinporten`
-Configures a Maskinporten client for this application. See [Maskinporten](../security/auth/maskinporten.md) for more details.
+Configures a Maskinporten client for this application. See [Maskinporten](../../security/auth/maskinporten.md) for more details.
 
 ### `spec.maskinporten.enabled`
 If enabled, will provision a Maskinporten client for the application.
@@ -652,5 +652,5 @@ Valid list of scopes that the Maskinporten client can use.
 **Required**: `true`
 
 {% hint style="info" %}
-See [Maskinporten Scopes](../security/auth/maskinporten.md#Scopes) for more details.
+See [Maskinporten Scopes](../../security/auth/maskinporten.md#scopes) for more details.
 {% endhint %}

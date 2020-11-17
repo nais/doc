@@ -64,8 +64,6 @@ When a `client` requests Maskinporten (Identity Provider) for a token:
 - Maskinporten validates the validity of the JWT and signature ([Runtime JWK Secret](#runtime-variables-&-credentials) used to sign the JWT).  
 - When `client` has access to the requested resources: `scope`, an `access_token` will be returned to the `client` and can be used for further actions.
 
-For more details see: [Overview of flows in Digdirator](#overview-of-flows)
-
 {% hint style="warning" %}
 Make sure that the relevant service providers have pre-registered **NAV** as a valid consumer of any scopes that you define. Provisioning of client will fail otherwise.
 NAV´s `pre-registered` scopes can be found with proper access rights in [Digdir selvbetjening](https://selvbetjening-samarbeid-ver2.difi.no/auth/login).
