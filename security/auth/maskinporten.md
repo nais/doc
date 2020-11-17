@@ -15,11 +15,11 @@ This feature is only available in the [Google Cloud Platform (GCP)](../../cluste
 
 Maskinporten is a service that offers a simple API security model based on the OAuth2 protocol, and the use of JWT bearer grants. A Concept inspired by [Google's System Accounts](https://developers.google.com/identity/protocols/oauth2/service-account).
 
-Maskinporten allows API providers to define access to their APIs, modeled as scopes, based on the consumer's organization number.
+Maskinporten allows API providers (external agencies) to define access to their APIs, modeled as scopes and based on the consumer's organization number.
 
-The Nais platform provides support for simple declarative provisioning of an [Maskinporten client](https://difi.github.io/felleslosninger/maskinporten_auth_server-to-server-oauth2.html) with sensible defaults that your application may use to integrate with Maskinporten.
+The NAIS platform provides support for simple declarative provisioning of an [Maskinporten client](https://difi.github.io/felleslosninger/maskinporten_auth_server-to-server-oauth2.html) with sensible defaults that your application may use to integrate with Maskinporten.
 
-An Maskinporten client allows your application to leverage Maskinporten for authentication and authorization requesting external apis. To achieve this, your application must implement [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html).
+An Maskinporten `client` allows your application to leverage Maskinporten for authentication and authorization requesting external agencies. To achieve this, your application must implement [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html).
 
 ## Configuration
 
@@ -58,18 +58,17 @@ You do not need to specify these explicitly.
 
 ### Scopes
 
-Maskinporten allows API providers to define access to their APIs, modeled as scopes, based on the consumer's organization number.
+Maskinporten allows API providers to define access to their APIs, modeled as scopes and based on the consumer's organization number.
 
 When a `client` requests Maskinporten (Identity Provider) for a token:
-- Maskinporten will first validate the validity of the JWT.  
-- Maskinporten will then the validated signature (used to sign the JWT).  
-- When `client` has access to the requested resources (scope(s)), an `access_token` will be returned to the client to be used for further actions.
+- Maskinporten validates the validity of the JWT and signature ([Runtime JWK Secret](#runtime-variables-&-credentials) used to sign the JWT).  
+- When `client` has access to the requested resources: `scope`, an `access_token` will be returned to the `client` and can be used for further actions.
 
 For more details see: [Overview of flows in Digdirator](#overview-of-flows)
 
 {% hint style="warning" %}
-Make sure that **NAV** have pre-registered rights to **all** the scopes `scopes`, specified in the manifest, or provision of client will fail.
-This can be checked with proper access rights in [Digdir Selvbetjening](https://selvbetjening-samarbeid-ver2.difi.no/auth/login).
+Make sure **NAV** have `pre-registered` rights to **all** `scopes` specified in the manifest or provision o client will fail.
+NAV´s `pre-registered` scopes can be found with proper access rights in [Digdir selvbetjening](https://selvbetjening-samarbeid-ver2.difi.no/auth/login).
 {% endhint %}
 
 ### Runtime Variables & Credentials
@@ -118,7 +117,11 @@ The following describes the steps needed to migrate an existing legacy client.
 
 #### Step 1 - Update your application (and any dependants) in the IaC repository
 
-- Ensure the **`description`** of the client registered in the [IaC repository](https://github.com/navikt/nav-maskinporten) is updated to match: `cluster:namespace:application`. 
+- Ensure the **`description`** of the client registered in the [IaC repository](https://github.com/navikt/nav-maskinporten) the following naming scheme:
+
+```text
+<cluster>:<metadata.namespace>:<metadata.name>
+```
 
 #### Step 3 - Deploy your NAIS application with Maskinporten provisioning enabled
 
@@ -127,7 +130,7 @@ The following describes the steps needed to migrate an existing legacy client.
 #### Step 4 - Delete your application from the IaC repository
 
 - Verify that everything works after the migration
-- Delete the application from the [IaC repository](https://github.com/navikt/nav-maskinporten) in order to maintain a single source of truth
+- Delete the application from the [IaC repository](https://github.com/navikt/nav-maskinporten) in order to maintain a single source of truth.
 
 ## Internals
 
