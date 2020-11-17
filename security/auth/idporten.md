@@ -194,7 +194,7 @@ ID-porten maintains a public list of test users found [here](https://difi.github
 
 This section is intended for readers interested in the inner workings of this feature.
 
-Provisioning is handled by [Digdirator](https://github.com/nais/digdirator) - a Kubernetes operator that watches a [custom resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/). Their called \(`IDPortenClient`\) and \(`MaskinportenClient`\) \(see[Maskinporten](maskinporten.md)\) that we've defined in our clusters.
+Provisioning is handled by [Digdirator](https://github.com/nais/digdirator) - a Kubernetes operator that watches and operates on two [custom resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) that we've defined in our clusters: `IDPortenClient` and `MaskinportenClient` \(see [Maskinporten](maskinporten.md)\).
 
 Digdirator generates a Kubernetes Secret containing the values needed for your application to integrate with ID-porten, e.g. credentials and URLs. This secret will be mounted to the pods of your application during deploy.
 
