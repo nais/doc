@@ -67,7 +67,7 @@ When a `client` requests Maskinporten (Identity Provider) for a token:
 For more details see: [Overview of flows in Digdirator](#overview-of-flows)
 
 {% hint style="warning" %}
-Make sure **NAV** have `pre-registered` rights to **all** `scopes` specified in the manifest or provision o client will fail.
+Make sure that the relevant service providers have pre-registered **NAV** as a valid consumer of any scopes that you define. Provisioning of client will fail otherwise.
 NAV´s `pre-registered` scopes can be found with proper access rights in [Digdir selvbetjening](https://selvbetjening-samarbeid-ver2.difi.no/auth/login).
 {% endhint %}
 
