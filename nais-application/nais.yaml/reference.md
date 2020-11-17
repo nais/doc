@@ -649,10 +649,8 @@ If enabled, will provision a Maskinporten client for the application.
 ### `spec.maskinporten.scopes[].scope`
 Valid list of scopes that the Maskinporten client can use.
 
-Example: `[ "nav:some/scope" ]`
+**Required**: `true`
 
 {% hint style="info" %}
-Make sure that **NAV** have pre-registered rights to **all** the scopes `scopes`, specified in the manifest, or provision of client will fail.
-
-See [Maskinporten Scopes](../security/auth/maskinporten.md#Scopes) for details.
+See [Maskinporten Scopes](../security/auth/maskinporten.md#Scopes) for more details.
 {% endhint %}
