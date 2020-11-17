@@ -45,7 +45,7 @@ spec:
 
 ### Spec
 
-See the [NAIS manifest](../../nais-application/reference.md#spec-maskinporten).
+See the [NAIS manifest](../../nais-application/nais.yaml/reference.md#spec-maskinporten).
 
 ### Access Policies
 
@@ -61,7 +61,7 @@ You do not need to specify these explicitly.
 Maskinporten allows API providers to define access to their APIs, modeled as scopes and based on the consumer's organization number.
 
 When a `client` requests Maskinporten (Identity Provider) for a token:
-- Maskinporten validates the validity of the JWT and signature ([Runtime JWK Secret](#runtime-variables-&-credentials) used to sign the JWT).  
+- Maskinporten validates the validity of the JWT and signature ([Runtime JWK Secret](#runtime-variables-and-credentials) used to sign the JWT).  
 - When `client` has access to the requested resources: `scope`, an `access_token` will be returned to the `client` and can be used for further actions.
 
 {% hint style="warning" %}
@@ -69,7 +69,7 @@ Make sure that the relevant service providers have pre-registered **NAV** as a v
 NAV´s `pre-registered` scopes can be found with proper access rights in [Digdir selvbetjening](https://selvbetjening-samarbeid-ver2.difi.no/auth/login).
 {% endhint %}
 
-### Runtime Variables & Credentials
+### Runtime Variables and Credentials
 
 The following environment variables and files (under the directory `/var/run/secrets/nais.io/maskinporten`) are available at runtime:
 
@@ -111,7 +111,7 @@ The following environment variables and files (under the directory `/var/run/sec
 
 ### Migration guide to keep existing Maskinporten client (NAIS application only)
 
-Migrating from `ÌaC` to [Digdirator](https://github.com/nais/digdirator) ensures that your application for very deploy will trigger rotation of JWK(s). Keeping all used and invalidating non used. 
+Migrating from [IaC repository](https://github.com/navikt/nav-maskinporten) to [Digdirator](https://github.com/nais/digdirator) ensures that your application for very deploy will trigger rotation of JWK(s). Keeping all used and invalidating non used. 
 
 The following describes the steps needed to migrate a client registered in [IaC repository](https://github.com/navikt/nav-maskinporten).
 
