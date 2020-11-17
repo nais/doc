@@ -647,7 +647,7 @@ If enabled, will provision a Maskinporten client for the application.
 **Default**: `false`
 
 ### `spec.maskinporten.scopes[].scope`
-Valid list of Scopes that the Maskinporten client can be used for authentication and authorization, se the [Digdir maskinporten documentation for use of the JWT grant](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html).
+Valid list of scopes that the Maskinporten client can use.
 
 Example: `[ "nav:some/scope" ]`
 
