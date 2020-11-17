@@ -21,6 +21,7 @@
   * [Manually](deployment/manual.md)
   * [Changing teams](deployment/change-team.md)
   * [Troubleshooting](deployment/troubleshooting.md)
+  * [Allowed Registries](deployment/allowed-registries.md)
 * [Observability](observability/README.md)
   * [Alerts](observability/alerts/README.md)
     * [Recommended](observability/alerts/recommended_alerts.md)
