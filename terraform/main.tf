@@ -65,7 +65,7 @@ resource "google_compute_url_map" "website" {
 # GCP target proxy
 resource "google_compute_target_https_proxy" "website" {
   provider         = google
-  name             = "doc-nais-io-target-proxy"
+  name             = "doc-nais-io"
   url_map          = google_compute_url_map.website.self_link
   ssl_certificates = [google_compute_managed_ssl_certificate.website.self_link]
 }
