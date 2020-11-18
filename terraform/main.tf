@@ -102,3 +102,29 @@ resource "google_storage_bucket_iam_member" "member" {
   role   = "roles/storage.objectViewer"
   member = "allUsers"
 }
+
+resource "google_compute_url_map" "http-https_redirect" {
+  name        = "doc-nais-io-http-to-https"
+  description = "http to https redirector"
+  default_url_redirect {
+    strip_query            = false
+    https_redirect         = true
+    redirect_response_code = "MOVED_PERMANENTLY_DEFAULT"
+  }
+}
+
+resource "google_compute_target_http_proxy" "http-https_redirect" {
+  provider = google-beta
+  name     = "doc-nais-io-http-to-https"
+  url_map  = google_compute_url_map.http-https_redirect.id
+}
+
+resource "google_compute_global_forwarding_rule" "http-https_redirect" {
+  provider = google-beta
+  name     = "doc-nais-io-http-to-https"
+
+  ip_address  = google_compute_global_address.website.address
+  ip_protocol = "TCP"
+  port_range  = "80"
+  target      = google_compute_target_http_proxy.http-https_redirect.id
+}
