@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+    paths: 
+      - mkdocs.yml
+      - 'docs/**'
+      - pyproject.toml
+      - poetry.lock
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2.1.4
+        with:
+          python-version: 3.9
+          architecture: x64
+
+      - name: Install build tools and build documentation
+        run: |
+          # Install mkdocs
+          pip3 install --upgrade pip
+          pip3 install --no-cache-dir poetry
+          poetry install --no-dev
+          
+          # Build docs
+          poetry run mkdocs build --strict
+
+      - uses: actions-hub/gcloud@318.0.0
+        env:
+          PROJECT_ID: aura-prod-d7e3
+          APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+        with:
+          args: -m cp -r site/* gs://newdoc.nais.io
+          cli: gsutil
