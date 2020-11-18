@@ -21,7 +21,7 @@ metadata:
 spec:
   gcp:
     sqlInstances:
-      - type: POSTGRES_11
+      - type: POSTGRES_12
         databases:
           - name: mydb
 ```
