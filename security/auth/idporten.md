@@ -67,7 +67,8 @@ spec:
     frontchannelLogoutURI: "https://my.application.dev.nav.no/logout" 
     postLogoutRedirectURIs:
       - "https://nav.no"
-    refreshTokenLifetime: 21600 # in seconds - 6 hours
+    accessTokenLifetime: 3600 # in seconds - 1 hour
+    sessionLifetime: 7200 # in seconds - 2 hours
   ingresses:
     - "https://my.application.dev.nav.no"
 ```
@@ -194,10 +195,11 @@ ID-porten maintains a public list of test users found [here](https://difi.github
 
 This section is intended for readers interested in the inner workings of this feature.
 
-Provisioning is handled by [Digdirator](https://github.com/nais/digdirator) - a Kubernetes operator that watches and operates on two [custom resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) that we've defined in our clusters: `IDPortenClient` and `MaskinportenClient` \(see [Maskinporten](maskinporten.md)\).
+Provisioning is handled by [Digdirator](https://github.com/nais/digdirator) - a Kubernetes operator that watches a [custom resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) \(called `IDPortenClient`\) that we've defined in our clusters.
 
 Digdirator generates a Kubernetes Secret containing the values needed for your application to integrate with ID-porten, e.g. credentials and URLs. This secret will be mounted to the pods of your application during deploy.
 
 Every deploy will trigger rotation of credentials, invalidating any credentials that are not in use. _In use_ in this context refers to all credentials that are currently mounted to an existing pod - regardless of their status \(`Running`, `CrashLoopBackOff`, etc.\). In other words, credential rotation should happen with zero downtime.
 
 More details in the [Digdirator](https://github.com/nais/digdirator) repository.
+

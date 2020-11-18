@@ -632,11 +632,25 @@ Note that `spec.idporten.redirectURI` can only be omitted if `spec.ingresses` ar
 See [Redirect URIs](../../security/auth/idporten.md#redirect-uri) for details.
 {% endhint %}
 
-### `spec.idporten.refreshTokenLifetime`
+### `spec.idporten.sessionLifetime`
 
-The lifetime in seconds for the issued refresh token from ID-porten. The refresh token may only be used once.
+The lifetime in seconds for the user's session at ID-porten. Your application **must** force the user to reauthenticate after this. Using refresh tokens will not work beyond this lifetime. 
 
-**Default**: `43200` \(12 hours\)
+**Default**: `7200` \(2 hours\)
+
+**Minimum value**: `3600`
+
+**Maximum value**: `7200`
+
+### `spec.idporten.accessTokenLifetime`
+
+The lifetime in seconds for any issued access token from ID-porten.
+
+**Default**: `3600` \(2 hours\)
+
+**Minimum value**: `1`
+
+**Maximum value**: `3600`
 
 ## `spec.maskinporten`
 Configures a Maskinporten client for this application. See [Maskinporten](../../security/auth/maskinporten.md) for more details.
