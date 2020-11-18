@@ -9,8 +9,6 @@ RUN pip3 --no-input install \
     --progress-bar ascii \
     poetry
 
-RUN apt update && apt install --assume-yes strace vim less
-# RUN mkdir /app && chown -R mkdocs /app
 USER mkdocs
 WORKDIR /app
 
