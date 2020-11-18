@@ -50,8 +50,14 @@ resource "google_compute_backend_bucket" "website" {
 resource "google_compute_managed_ssl_certificate" "website" {
   provider = google-beta
   name     = "doc-nais-io"
+
   managed {
     domains = ["doc.nais.io."]
+  }
+
+  # See README.md's 'Things went wrong when we attempted to edit FQDN'
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
