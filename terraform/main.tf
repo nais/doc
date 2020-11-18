@@ -24,7 +24,7 @@ provider "google" {
 }
 
 resource "google_storage_bucket" "nais-mkdocs-html" {
-  name          = "newdoc.nais.io"
+  name          = "doc.nais.io"
   location      = "EU"
   force_destroy = true
 
@@ -51,7 +51,7 @@ resource "google_compute_managed_ssl_certificate" "website" {
   provider = google-beta
   name     = "doc-nais-io"
   managed {
-    domains = ["newdoc.nais.io."]
+    domains = ["doc.nais.io."]
   }
 }
 

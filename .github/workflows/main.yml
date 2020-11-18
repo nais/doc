@@ -36,5 +36,5 @@ jobs:
           PROJECT_ID: aura-prod-d7e3
           APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         with:
-          args: -m cp -r site/* gs://newdoc.nais.io
+          args: -m cp -r site/* gs://doc.nais.io
           cli: gsutil
