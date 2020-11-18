@@ -67,7 +67,8 @@ spec:
     frontchannelLogoutURI: "https://my.application.dev.nav.no/logout" 
     postLogoutRedirectURIs:
       - "https://nav.no"
-    refreshTokenLifetime: 21600 # in seconds - 6 hours
+    accessTokenLifetime: 3600 # in seconds - 1 hour
+    sessionLifetime: 7200 # in seconds - 2 hours
   ingresses:
     - "https://my.application.dev.nav.no"
 ```
