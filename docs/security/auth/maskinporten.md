@@ -5,11 +5,8 @@ description: >
 
 # Maskinporten Client
 
-{% hint style="warning" %}
-**Status: Opt-In Open Beta**
-
-This feature is only available in the [Google Cloud Platform (GCP)](../../clusters/gcp.md) clusters.
-{% endhint %}
+!!! warning "Status: Opt-In Open Beta"
+    This feature is only available in the [Google Cloud Platform (GCP)](../../clusters/gcp.md) clusters.
 
 ## Abstract
 
@@ -25,23 +22,22 @@ An Maskinporten client allows your application to leverage Maskinporten for auth
 
 ### Getting Started
 
-{% code-tabs-item title="Minimal nais.yaml example" %}
-```yaml
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
-metadata:
-  name: nais-testapp
-  namespace: aura
-  labels:
-    team: aura
-spec:
-  image: navikt/nais-testapp:66.0.0
-  maskinporten:
-    enabled: true
-    scopes:
-      - scope: "nav:some/scope"
-```
-{% endcode-tabs-item %}
+=== "Minimal nais.yaml example"
+    ```yaml
+    apiVersion: "nais.io/v1alpha1"
+    kind: "Application"
+    metadata:
+    name: nais-testapp
+    namespace: aura
+    labels:
+        team: aura
+    spec:
+    image: navikt/nais-testapp:66.0.0
+    maskinporten:
+        enabled: true
+        scopes:
+        - scope: "nav:some/scope"
+    ```
 
 ### Spec
 
@@ -64,50 +60,44 @@ When a `client` requests Maskinporten (Identity Provider) for a token:
 - Maskinporten validates the validity of the JWT and signature ([Runtime JWK Secret](#runtime-variables-and-credentials) used to sign the JWT).  
 - When `client` has access to the requested resources: `scope`, an `access_token` will be returned to the `client` and can be used for further actions.
 
-{% hint style="warning" %}
-Make sure that the relevant service providers have pre-registered **NAV** as a valid consumer of any scopes that you define. Provisioning of client will fail otherwise.
-NAV´s `pre-registered` scopes can be found with proper access rights in [Digdir selvbetjening](https://selvbetjening-samarbeid-ver2.difi.no/auth/login).
-{% endhint %}
+!!! danger
+    Make sure that the relevant service providers have pre-registered **NAV** as a valid consumer of any scopes that you define. Provisioning of client will fail otherwise.
+    NAV´s `pre-registered` scopes can be found with proper access rights in [Digdir selvbetjening](https://selvbetjening-samarbeid-ver2.difi.no/auth/login).
 
 ### Runtime Variables and Credentials
 
 The following environment variables and files (under the directory `/var/run/secrets/nais.io/maskinporten`) are available at runtime:
 
-{% code-tabs %}
-{% code-tabs-item title="Description" %}
-| Name | Description |
-|---|---|
-| `MASKINPORTEN_CLIENT_ID` | Maskinporten client ID. Unique ID for the application in Maskinporten |
-| `MASKINPORTEN_CLIENT_JWK` | Private JWK containing the private RSA key for creating signed JWTs when using the [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html). |
-| `MASKINPORTEN_SCOPES` |  The scopes registered for the client at Maskinporten as a whitepace-separated string. See [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html) for more information. |
-| `MASKINPORTEN_WELL_KNOWN_URL` | The well-known URL for the OIDC metadata discovery document for Maskinporten. |
-{% endcode-tabs-item %}
-{% code-tabs-item title="Example values" %}
-| Name | Values |
-|---|---|
-| `MASKINPORTEN_CLIENT_ID` | `e89006c5-7193-4ca3-8e26-d0990d9d981f` |
-| `MASKINPORTEN_SCOPES` | `nav:first/scope nav:another/scope` |
-| `MASKINPORTEN_WELL_KNOWN_URL` | `https://ver2.maskinporten.no/.well-known/oauth-authorization-server` |
-{% endcode-tabs-item %}
-{% code-tabs-item title="Example value for MASKINPORTEN_CLIENT_JWK" %}
-```json
-{
-  "use": "sig",
-  "kty": "RSA",
-  "kid": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
-  "alg": "RS256",
-  "n": "xQ3chFsz...",
-  "e": "AQAB",
-  "d": "C0BVXQFQ...",
-  "p": "9TGEF_Vk...",
-  "q": "zb0yTkgqO...",
-  "dp": "7YcKcCtJ...",
-  "dq": "sXxLHp9A...",
-  "qi": "QCW5VQjO..."
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+===" Description"
+    | Name | Description |
+    |---|---|
+    | `MASKINPORTEN_CLIENT_ID` | Maskinporten client ID. Unique ID for the application in Maskinporten |
+    | `MASKINPORTEN_CLIENT_JWK` | Private JWK containing the private RSA key for creating signed JWTs when using the [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html). |
+    | `MASKINPORTEN_SCOPES` |  The scopes registered for the client at Maskinporten as a whitepace-separated string. See [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html) for more information. |
+    | `MASKINPORTEN_WELL_KNOWN_URL` | The well-known URL for the OIDC metadata discovery document for Maskinporten. |
+=== "Example values"
+    | Name | Values |
+    |---|---|
+    | `MASKINPORTEN_CLIENT_ID` | `e89006c5-7193-4ca3-8e26-d0990d9d981f` |
+    | `MASKINPORTEN_SCOPES` | `nav:first/scope nav:another/scope` |
+    | `MASKINPORTEN_WELL_KNOWN_URL` | `https://ver2.maskinporten.no/.well-known/oauth-authorization-server` |
+=== "Example value for MASKINPORTEN_CLIENT_JWK"
+    ```javascript
+    {
+    "use": "sig",
+    "kty": "RSA",
+    "kid": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
+    "alg": "RS256",
+    "n": "xQ3chFsz...",
+    "e": "AQAB",
+    "d": "C0BVXQFQ...",
+    "p": "9TGEF_Vk...",
+    "q": "zb0yTkgqO...",
+    "dp": "7YcKcCtJ...",
+    "dq": "sXxLHp9A...",
+    "qi": "QCW5VQjO..."
+    }
+    ```
 
 ### Migration guide to keep existing Maskinporten client (NAIS application only)
 
