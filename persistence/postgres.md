@@ -8,9 +8,8 @@ When you deploy your application with database config, NAIS will ensure the data
 [Postgres](https://cloud.google.com/sql/docs/postgres/) version, and configure the application with means to connect to
 it.
 
-{% hint style="tip" %}
+!!! info
     This feature is only available in GCP clusters. If you need on-prem databases, head over to [navikt/database-iac](https://github.com/navikt/database-iac).
-{% endhint %}
 
 Below is an example of the minimal configuration needed.
 See all configuration options in the [nais.yaml reference](../nais-application/reference.md#spec-gcp-sqlinstances).
