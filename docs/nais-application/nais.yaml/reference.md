@@ -660,6 +660,5 @@ Valid list of scopes that the Maskinporten client can use.
 
 **Required**: `true`
 
-{% hint style="info" %}
-See [Maskinporten Scopes](../../security/auth/maskinporten.md#scopes) for more details.
-{% endhint %}
+!!! info
+    See [Maskinporten Scopes](../../security/auth/maskinporten.md#scopes) for more details.
