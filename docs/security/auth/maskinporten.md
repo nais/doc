@@ -27,16 +27,16 @@ An Maskinporten client allows your application to leverage Maskinporten for auth
     apiVersion: "nais.io/v1alpha1"
     kind: "Application"
     metadata:
-    name: nais-testapp
-    namespace: aura
-    labels:
-        team: aura
+       name: nais-testapp
+       namespace: aura
+       labels:
+           team: aura
     spec:
-    image: navikt/nais-testapp:66.0.0
-    maskinporten:
+      image: navikt/nais-testapp:66.0.0
+      maskinporten:
         enabled: true
         scopes:
-        - scope: "nav:some/scope"
+          - scope: "nav:some/scope"
     ```
 
 ### Spec
