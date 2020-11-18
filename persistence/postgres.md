@@ -9,7 +9,7 @@ When you deploy your application with database config, NAIS will ensure the data
 it.
 
 {% hint style="tip" %}
-This feature is only available in GCP clusters. If you need on-prem databases, head over to [navikt/database-iac](https://github.com/navikt/database-iac).
+    This feature is only available in GCP clusters. If you need on-prem databases, head over to [navikt/database-iac](https://github.com/navikt/database-iac).
 {% endhint %}
 
 Below is an example of the minimal configuration needed.
@@ -83,9 +83,8 @@ The database is not automatically removed when deleting your NAIS application. R
 incurring unnecessary costs. This is done by setting
 [cascadingDelete](../nais-application/reference.md#spec-gcp-sqlinstances-cascadingdelete) in your `nais.yaml`-specification.
 
-{% hint style="danger" %}
-When you delete an Cloud SQL instance, you cannot reuse the name of the deleted instance until one week from the deletion date.
-{% endhint %}
+!!! danger
+    When you delete an Cloud SQL instance, you cannot reuse the name of the deleted instance until one week from the deletion date.
 
 ### Maintenance window
 
@@ -155,9 +154,8 @@ $ echo `echo <THE_ENCODED_DATA> | base64 --decode`
 
 You can now connect to localhost:5088 with the retrieved database name, username and password. 
 
-{% hint style="danger" %}
-Be aware that you are now connected with the app user which is an admin user. 
-You should consider creating a new personal user account in the GCP console, and grant SELECT to this user.
-{% endhint %}
+!!! danger
+    Be aware that you are now connected with the app user which is an admin user. 
+    You should consider creating a new personal user account in the GCP console, and grant SELECT to this user.
 
 [ACCESS_FROM_LAPTOP]: ../basics/access.md
