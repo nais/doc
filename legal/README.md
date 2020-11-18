@@ -1,2 +1,0 @@
-# Laws and regulations
-
