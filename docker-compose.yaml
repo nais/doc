@@ -12,4 +12,4 @@ services:
       # without turning off `--strict` flag.
       #
       # Ref: https://github.com/mkdocs/mkdocs/issues/2108
-      - ./docs/:/app/docs
+      - ./:/app/
