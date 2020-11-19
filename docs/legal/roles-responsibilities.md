@@ -14,7 +14,7 @@ In these cases the nais team operates the resources and is responsibility for th
 In other cases the product teams provision their own resources directly from the underlying vendors. 
 In these cases, the product teams have greater direct control over the service. The division of responsibility in the different cases is best described through examples:
 
-**Postgres on GCP**
+## Postgres on GCP
 
 - Developers are responsible for their own credentials
 - The product team is responsible for their applications' service accounts and the service account credentials
@@ -32,7 +32,7 @@ In these cases, the product teams have greater direct control over the service. 
 
 
 
-**Metrics and alerts**
+## Metrics and alerts
 
 - The product team is responsible for making metrics from their applications available
 - The product team is responsible for configuring alerts
