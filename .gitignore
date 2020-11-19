@@ -13,3 +13,6 @@ site/
 
 # Terraform
 .terraform/
+
+# Git folder - for .dockerignore purposes
+.git/
