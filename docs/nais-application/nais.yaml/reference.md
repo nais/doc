@@ -646,3 +646,19 @@ The lifetime in seconds for any issued access token from ID-porten.
 **Minimum value**: `1`
 
 **Maximum value**: `3600`
+
+## `spec.maskinporten`
+Configures a Maskinporten client for this application. See [Maskinporten](../../security/auth/maskinporten.md) for more details.
+
+### `spec.maskinporten.enabled`
+If enabled, will provision a Maskinporten client for the application.
+
+**Default**: `false`
+
+### `spec.maskinporten.scopes[].scope`
+Valid list of scopes that the Maskinporten client can use.
+
+**Required**: `true`
+
+!!! info
+    See [Maskinporten Scopes](../../security/auth/maskinporten.md#scopes) for more details.
