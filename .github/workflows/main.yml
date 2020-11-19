@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - master
+      - '*'
     paths:
       - mkdocs.yml
       - 'docs/**'
@@ -32,7 +32,8 @@ jobs:
           # Build docs
           poetry run mkdocs build --strict
 
-      - uses: actions-hub/gcloud@318.0.0
+      - if: github.ref == "refs/heads/$default-branch"
+        uses: actions-hub/gcloud@318.0.0
         env:
           PROJECT_ID: aura-prod-d7e3
           APPLICATION_CREDENTIALS: ${{ secrets.GCP_SERVICEACCOUNT_KEY_FOR_DOC_NAIS_IO_BUCKET }}
