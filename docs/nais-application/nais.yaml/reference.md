@@ -589,7 +589,8 @@ File system path that the secrets will be mounted into.
 
 ## `spec.preStopHookPath`
 
-A HTTP GET will be issued to this endpoint at least once before the pod is terminated. Read more under [nais-application](https://doc.nais.io/nais-application#handles-termination-gracefully).
+A HTTP GET will be issued to this endpoint at least once before the pod is terminated.
+Read more under [nais-application](../README.md#handles-termination-gracefully).
 
 ## `spec.leaderElection`
 

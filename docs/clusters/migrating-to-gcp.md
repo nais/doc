@@ -10,7 +10,7 @@
 
 ### Prerequisites
 
-The team needs to update their ROS and PVK analysis to migrate to GCP. Refer to [Google Cloud Platform](gcp.md)'s [ROS and PVK section](../legal/README.md).
+The team needs to update their ROS and PVK analysis to migrate to GCP. Refer to [Google Cloud Platform's ROS and PVK section](./gcp.md#ros-and-pvk).
 
 #### Basic setup
 
@@ -112,7 +112,7 @@ A minimal application without any external requirements only have to change a si
 
 **Yes.** [NAV's evaluation of our Data Processor Agreement with Google post-Schrems II](https://navno.sharepoint.com/:w:/r/sites/Skytjenesterforvaltningsregime/_layouts/15/Doc.aspx?sourcedoc=%7BA9562232-BB00-40CB-930D-4EF254A5AD7F%7D&file=2020-10-10%20GCP%20-%20behandling%20og%20avtaler.docx&action=default&mobileredirect=true) is that it still protects us and is valid for use **given that data is stored and processed in data centers located within the EU/EEA**. If your team uses resources provisioned through NAIS, this is guaranteed by the nais team. If your team uses any other GCP services the team is responsible for ensuring that only resources within EU/EES are used \(as well as for evaluating the risk of using these services\).
 
-See [laws and regulations](../legal/README.md) for details.
+See [Laws and regulations/Application PVK](../legal/app-pvk.md) for details.
 
 ## GCP compared to on-premises
 

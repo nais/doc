@@ -1,4 +1,4 @@
-# Platform risk assessments \(ROS\)
+# Platform risk assessments (ROS)
 
 The nais team has conducted the following risk assessments:
 

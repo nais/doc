@@ -14,13 +14,15 @@ See [creating a new team](teams.md) to get started with teams. After creating a 
 
 Check out the [official documentation](https://kubernetes.io/docs/tasks/tools/install-kubectl) for instructions on how to install the binaries.
 
-## Install [naisdevice](https://doc.nais.io/device)
+## Install [naisdevice](../device/README.md)
 
-naisdevice ensures that your laptop meets NAVs requirements before allowing access to internal resources such as our NAIS clusters. Install by following the [naisdevice installation guide](https://doc.nais.io/device/install).
+naisdevice ensures that your laptop meets NAVs requirements before allowing access to internal resources such as our NAIS clusters. 
+Install by following the [naisdevice installation guide](../device/install.md).
 
 ## Setup your [`kubeconfig`](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 
-The `kubectl` tool uses a `kubeconfig` file to get the information it needs in order to connect to a cluster. We provide a [pre-made kubeconfig](https://github.com/navikt/kubeconfigs) file with NAV's [clusters](../clusters/README.md).
+The `kubectl` tool uses a `kubeconfig` file to get the information it needs in order to connect to a cluster.
+We provide a [pre-made kubeconfig](https://github.com/navikt/kubeconfigs) file with NAV's clusters.
 
 !!! info
     If you use `utviklerimage` or connect to NAV through BigIP VPN you need to use the kubeconfig under the Git tag `utviklerimage`. Go to the directory where you cloned kubeconfig and run

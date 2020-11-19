@@ -43,7 +43,6 @@ nav:
       - Teams: basics/teams.md
       - Your first NAIS application: basics/application.md
     - Clusters:
-      - Overview: clusters/README.md
       - Google Cloud Platform: clusters/gcp.md
       - On-premises: clusters/on-premises.md
       - Migrating to GCP: clusters/migrating-to-gcp.md
@@ -107,12 +106,11 @@ nav:
     - Troubleshooting: device/troubleshooting.md
     - Available services: device/services.md
   - Laws and regulations:
-    - Overview: legal/README.md
     - Roles and responsibilities: legal/roles-responsibilities.md
     - Platform risk assessments (ROS): legal/nais-ros.md
     - Application risk assessments (ROS): legal/app-ros.md
-    - Platform privacy assessment (PVK): legal/nais-pvk.md
-    - Application privacy assessments (PVK): legal/app-pvk.md
+    - Platform privacy impact assessments (PVK): legal/nais-pvk.md
+    - Application privacy impact assessments (PVK): legal/app-pvk.md
     - Vendor Data Processor Agreements:
       - Overview: legal/dpa/README.md
       - GCP Data Processor Agreement: legal/dpa/gcp-dpa.md
