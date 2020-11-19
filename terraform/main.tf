@@ -128,3 +128,14 @@ resource "google_compute_global_forwarding_rule" "http-https_redirect" {
   port_range  = "80"
   target      = google_compute_target_http_proxy.http-https_redirect.id
 }
+
+resource "google_service_account" "doc-nais-io-bucket-write-sa" {
+  account_id   = "doc-nais-io-bucket-write-sa"
+  description  = "Service Account for updating doc.nais.io bucket in github.com/nais/doc workflow."
+}
+
+resource "google_storage_bucket_iam_member" "assign_sa_write_permission_to_doc-nais-io_bucket" {
+  bucket = google_storage_bucket.nais-mkdocs-html.name
+  role = "roles/storage.admin"
+  member = "serviceAccount:${google_service_account.doc-nais-io-bucket-write-sa.email}"
+}

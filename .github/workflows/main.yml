@@ -2,15 +2,16 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
-    paths: 
+    branches:
+      - master
+    paths:
       - mkdocs.yml
       - 'docs/**'
       - pyproject.toml
       - poetry.lock
 
 jobs:
-  build:
+  build_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -34,7 +35,7 @@ jobs:
       - uses: actions-hub/gcloud@318.0.0
         env:
           PROJECT_ID: aura-prod-d7e3
-          APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          APPLICATION_CREDENTIALS: ${{ secrets.GCP_SERVICEACCOUNT_KEY_FOR_DOC_NAIS_IO_BUCKET }}
         with:
           args: -m cp -r site/* gs://doc.nais.io
           cli: gsutil
