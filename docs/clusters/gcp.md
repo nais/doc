@@ -50,7 +50,12 @@ More info about how DNS is configured for these domains can be found [here](../a
 
 ## ROS and PVK
 
-When establishing an application on GCP, it is a great time to update its [Risikovurdering \(ROS\)](https://navno.sharepoint.com/sites/intranett-it/SitePages/Risikovurderinger.aspx) analysis. It is required to update the application's entry in the [Behandlingsoversikt](https://navno.sharepoint.com/sites/intranett-personvern/SitePages/Behandlingskatalog.aspx) when changing platforms. If both of these words are unfamiliar to your team, it's time to sit down and take a look at both of them.
+When establishing an application on GCP, it is a great time to update its [Risikovurdering (*ROS*)](https://navno.sharepoint.com/sites/intranett-it/SitePages/Risikovurderinger.aspx) analysis. It is required to update the application's entry in the [*Behandlingsoversikt*](https://navno.sharepoint.com/sites/intranett-personvern/SitePages/Behandlingskatalog.aspx) when changing platforms. If both of these words are unfamiliar to your team, it's time to sit down and take a look at both of them.
 
-Every application needs to have a [ROS](https://navno.sharepoint.com/sites/intranett-it/SitePages/Risikovurderinger.aspx) analysis, and applications handling personal information needs a [Personvernkonsekvens \(PVK\)](https://navno.sharepoint.com/sites/intranett-personvern/SitePages/PVK.aspx) analysis, and furthermore an entry in the [Behandlingsoversikt](https://navno.sharepoint.com/sites/intranett-personvern/SitePages/Behandlingskatalog.aspx). More information about [ROS](https://navno.sharepoint.com/sites/intranett-it/SitePages/Risikovurderinger.aspx), [PVK](https://navno.sharepoint.com/sites/intranett-personvern/SitePages/PVK.aspx), and [Behandlingsoversikt](https://navno.sharepoint.com/sites/intranett-personvern/SitePages/Behandlingskatalog.aspx) can be found on our intranet. Questions about ROS can be directed to [Leif Tore Løvmo](https://nav-it.slack.com/messages/DB4DDCACF), while [Line Langlo Spongsveen](https://nav-it.slack.com/messages/DNXJ7PMH7) can answer questions about the other two.
+Every application needs to have a *ROS* analysis. 
+Applications handling personal information needs a [Personvernkonsekvens (*PVK*)](https://navno.sharepoint.com/sites/intranett-personvern/SitePages/PVK.aspx) analysis and an entry in the *Behandlingsoversikt*.
+
+See also additional information about [*ROS*](../legal/app-ros.md) and [*PVK*](../legal/app-pvk.md) under Laws and regulations.
+
+Questions about *ROS* can be directed to [Leif Tore Løvmo](https://nav-it.slack.com/messages/DB4DDCACF), while [Line Langlo Spongsveen](https://nav-it.slack.com/messages/DNXJ7PMH7) can answer questions about *PVK* and *Behandlingsoversikt*.
 

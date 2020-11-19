@@ -1,4 +1,4 @@
-# Application privacy assessment \(PVK\)
+# Application privacy impact assessments (PVK)
 
 Before deploying any application that processes and/or stores data to nais, a privacy assessment \(PVK\) must be conducted. This PVK should be kept reasonably up-to-date through the life cycle of the application. Refer to the [PVK process documentation for details](https://navno.sharepoint.com/sites/intranett-personvern/SitePages/PVK.aspx) \(NAV internal link\).
 
