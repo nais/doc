@@ -30,7 +30,7 @@ The following describes a few core concepts in Azure AD referred to throughout t
 
 A tenant represents an organization in Azure AD. Each tenant will have their own set of applications, users and groups. In order to log in to a tenant, you must use an account specific to that tenant.
 
-The default tenant for applications provisioned through NAIS in _all clusters_ is `nav.no`. If your use case requires you to use `trygdeetaten.no` in the `dev-*`-clusters, then you must [explicitly configure this](azure-ad.md#tenants-1).
+The default tenant for applications provisioned through NAIS in _all clusters_ is `nav.no`. If your use case requires you to use `trygdeetaten.no` in the `dev-*`-clusters, then you must [explicitly configure this](azure-ad.md#tenants_1).
 
 The same application in different clusters will result in unique Azure AD clients, with each having their own client IDs and access policies. For instance, the following applications in the same `nav.no` tenant will result in separate, unique clients in Azure AD:
 
@@ -145,7 +145,7 @@ This case is enforced by Azure AD:
 
 ### Spec
 
-See the [NAIS manifest](../../nais-application/nais.yaml/reference.md#spec-azure-application).
+See the [NAIS manifest](../../nais-application/nais.yaml/reference.md#specazureapplication).
 
 ### Accessing external hosts
 
@@ -162,7 +162,7 @@ You do not need to specify these explicitly.
 
 #### On-premises
 
-You must enable and use [`webproxy`](../../nais-application/nais.yaml/reference.md#spec-webproxy) for external communication.
+You must enable and use [`webproxy`](../../nais-application/nais.yaml/reference.md#specwebproxy) for external communication.
 
 ### Reply URLs
 
@@ -228,7 +228,7 @@ spec:
 
 Clients that should receive and validate access tokens from other clients should [pre-authorize](azure-ad.md#pre-authorization) said clients.
 
-These are declared by specifying [`spec.accessPolicy.inbound.rules[]`](../../nais-application/nais.yaml/reference.md#spec-accesspolicy-gcp-only):
+These are declared by specifying [`spec.accessPolicy.inbound.rules[]`](../../nais-application/nais.yaml/reference.md#specaccesspolicy-gcp-only):
 
 !!! danger
     Any client referred to **must** already exist in Azure AD in order to be assigned the access policy permissions.
@@ -272,7 +272,7 @@ The following environment variables and files \(under the directory `/var/run/se
     | `AZURE_APP_CLIENT_SECRET` | Azure AD client secret, i.e. password for [authenticating the application to Azure AD](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow#first-case-access-token-request-with-a-shared-secret) |
     | `AZURE_APP_JWK` | Private JWK as defined in [RFC7517](https://tools.ietf.org/html/rfc7517), i.e. a JWK with the private RSA key for creating signed JWTs when [authenticating to Azure AD with a certificate](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow#second-case-access-token-request-with-a-certificate). |
     | `AZURE_APP_JWKS` | A JWK Set as defined in [RFC7517 section 5](https://tools.ietf.org/html/rfc7517#section-5). This will always contain a single key, i.e. `AZURE_APP_JWK` - the newest key registered. |
-    | `AZURE_APP_PRE_AUTHORIZED_APPS` | A JSON string. List of names and client IDs for the valid \(i.e. those that exist in Azure AD\) applications defined in [`spec.accessPolicy.inbound.rules[]`](../../nais-application/nais.yaml/reference.md#spec-accesspolicy-gcp-only) |
+    | `AZURE_APP_PRE_AUTHORIZED_APPS` | A JSON string. List of names and client IDs for the valid \(i.e. those that exist in Azure AD\) applications defined in [`spec.accessPolicy.inbound.rules[]`](../../nais-application/nais.yaml/reference.md#specaccesspolicy-gcp-only) |
     | `AZURE_APP_TENANT_ID` | The Azure AD tenant ID for which the Azure AD client resides in. |
     | `AZURE_APP_WELL_KNOWN_URL` | The well-known URL to the [metadata discovery document](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig) for the specific tenant in which the Azure AD client resides in. |
 === "Example values"
@@ -376,7 +376,7 @@ This section only applies if you have an existing Azure AD client registered in 
 
 ### Why migrate?
 
-* Declarative provisioning, straight from your application's [`nais.yaml`](../../nais-application/nais.yaml/reference.md#spec-azure-application)
+* Declarative provisioning, straight from your application's [`nais.yaml`](../../nais-application/nais.yaml/reference.md#specazureapplication)
 * No longer dependent on manual user approvals in multiple IaC repositories
 * No longer dependent on Vault
 * Credentials are rotated on _every_ deploy, completely transparent to the application. This ensures that credentials are fresh and lessens the impact in the case of exposure.
@@ -386,7 +386,7 @@ This section only applies if you have an existing Azure AD client registered in 
 
 Where the IaC solution defaulted to `trygdeetaten.no` for non-production environments, we now default to `nav.no` for all environments and clusters.
 
-If your use case requires you to use `trygdeetaten.no` in the `dev-*`-clusters, then you must [explicitly configure this](azure-ad.md#tenants-1).
+If your use case requires you to use `trygdeetaten.no` in the `dev-*`-clusters, then you must [explicitly configure this](azure-ad.md#tenants_1).
 
 ### Pre-authorization
 
@@ -412,8 +412,8 @@ Prerequisites:
 Steps:
 
 * The legacy client **must** follow the expected [naming format](azure-ad.md#naming-format).
-  * Follow step 1 and step 2 in the [migration guide](azure-ad.md#migration-guide-step-by-step).
-* Refer to the legacy client [analogously to a NAIS application](azure-ad.md#pre-authorization-1)
+    * Follow step 1 and step 2 in the [migration guide](azure-ad.md#migration-guide-step-by-step).
+* Refer to the legacy client [analogously to a NAIS application](azure-ad.md#pre-authorization_1)
 
 ### Migration guide - step by step
 

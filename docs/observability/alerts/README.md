@@ -86,7 +86,7 @@ jobs:
 
 ## Different receivers/notifications
 
-Alerterator supports three different types of notification, [Slack](spec.md#spec-receivers-slack), [E-mail](spec.md#spec-receivers-email), and [SMS](spec.md#spec-receivers-sms). In our spec we follow the naming convention of Alertmanager and call it `receivers`.
+Alerterator supports three different types of notification, [Slack](spec.md#specreceiversslack), [E-mail](spec.md#specreceiversemail), and [SMS](spec.md#specreceiverssms). In our spec we follow the naming convention of Alertmanager and call it `receivers`.
 
 Take a look below too see exactly how each receiver is configured.
 

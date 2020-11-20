@@ -11,7 +11,7 @@ When you deploy your application with database config, NAIS will ensure the data
 !!! info
     This feature is only available in GCP clusters. If you need on-prem databases, head over to [navikt/database-iac](https://github.com/navikt/database-iac).
 
-Below is an example of the minimal configuration needed. See all configuration options in the [nais.yaml reference](../nais-application/nais.yaml/reference.md#spec-gcp-sqlinstances).
+Below is an example of the minimal configuration needed. See all configuration options in the [nais.yaml reference](../nais-application/nais.yaml/reference.md#specgcpsqlinstances).
 
 ```yaml
 ...
@@ -53,7 +53,7 @@ For more detailed information, check out the [Cloud SQL Proxy documentation](htt
 
 ### Sizing your database
 
-By default, the database server has 1 vCPU, 614 MB RAM and 10GB of SSD storage with no automatic storage increase. If you need to change the defaults you can do this in [`nais.yaml`](../nais-application/nais.yaml/reference.md#spec-gcp-sqlinstances-disksize).
+By default, the database server has 1 vCPU, 614 MB RAM and 10GB of SSD storage with no automatic storage increase. If you need to change the defaults you can do this in [`nais.yaml`](../nais-application/nais.yaml/reference.md#specgcpsqlinstancesdisksize).
 
 ### Administration
 
@@ -61,7 +61,7 @@ The database is provisioned into the teams own project in GCP. Here the team has
 
 ### Automated backup
 
-The database is backed up nightly at 3 AM \(GMT+1\) by default, but can be overridden in [`nais.yaml`](../nais-application/nais.yaml/reference.md#spec-gcp-sqlinstances-autobackuptime) by setting `spec.gcp.sqlInstances[].autoBackupTime`. 
+The database is backed up nightly at 3 AM \(GMT+1\) by default, but can be overridden in [`nais.yaml`](../nais-application/nais.yaml/reference.md#specgcpsqlinstancesautobackuptime) by setting `spec.gcp.sqlInstances[].autoBackupTime`. 
 
 Default 7 backups will be kept. More info [here](https://cloud.google.com/sql/docs/postgres/backup-recovery/backups).
 
@@ -69,14 +69,14 @@ The backups can be found in the [Google Cloud SQL instance](https://cloud.google
 
 ### Deleting the database
 
-The database is not automatically removed when deleting your NAIS application. Remove unused databases to avoid incurring unnecessary costs. This is done by setting [cascadingDelete](../nais-application/nais.yaml/reference.md#spec-gcp-sqlinstances-cascadingdelete) in your `nais.yaml`-specification.
+The database is not automatically removed when deleting your NAIS application. Remove unused databases to avoid incurring unnecessary costs. This is done by setting [cascadingDelete](../nais-application/nais.yaml/reference.md#specgcpsqlinstancescascadingdelete) in your `nais.yaml`-specification.
 
 !!! danger
     When you delete an Cloud SQL instance, you cannot reuse the name of the deleted instance until one week from the deletion date.
 
 ### Maintenance window
 
-Google will automatically perform upgrades, fix bugs and apply security patches to prevent exploits. Your application should be able to handle occational downtime as this maintenance is performed. Read more on maintenance windows [here](https://cloud.google.com/sql/docs/postgres/maintenance). NAIS will automatically configure the maintenance window to 4 AM \(GMT+1\), but can be overridden in [`nais.yaml`](../nais-application/nais.yaml/reference.md#spec-gcp-sqlinstances).
+Google will automatically perform upgrades, fix bugs and apply security patches to prevent exploits. Your application should be able to handle occational downtime as this maintenance is performed. Read more on maintenance windows [here](https://cloud.google.com/sql/docs/postgres/maintenance). NAIS will automatically configure the maintenance window to 4 AM \(GMT+1\), but can be overridden in [`nais.yaml`](../nais-application/nais.yaml/reference.md#specgcpsqlinstances).
 
 If you wish to be notified about upcoming maintenance, you can opt-in for this on the Communications page\([https://console.cloud.google.com/user-preferences/communication](https://console.cloud.google.com/user-preferences/communication)\) in the GCP console.
 

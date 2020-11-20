@@ -49,7 +49,7 @@ There are primarily two distinct cases where one must use TokenX:
 
 ### Spec
 
-See the [NAIS manifest](../../nais-application/nais.yaml/reference.md#spec-tokenx-enabled).
+See the [NAIS manifest](../../nais-application/nais.yaml/reference.md#spectokenxenabled).
 
 ### Getting Started
 

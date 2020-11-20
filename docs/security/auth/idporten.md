@@ -65,7 +65,7 @@ This is also a critical first step in request chains involving an end-user whose
 
 ### Spec
 
-See the [NAIS manifest](../../nais-application/nais.yaml/reference.md#spec-idporten).
+See the [NAIS manifest](../../nais-application/nais.yaml/reference.md#specidporten).
 
 ### Access Policies
 

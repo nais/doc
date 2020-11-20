@@ -41,7 +41,7 @@ An Maskinporten client allows your application to leverage Maskinporten for auth
 
 ### Spec
 
-See the [NAIS manifest](../../nais-application/nais.yaml/reference.md#spec-maskinporten).
+See the [NAIS manifest](../../nais-application/nais.yaml/reference.md#specmaskinporten).
 
 ### Access Policies
 

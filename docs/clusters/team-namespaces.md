@@ -15,7 +15,7 @@ Using team namespaces instead of shared namespaces has several advantages:
 
 ## On-prem migration to team namespaces
 
-Migrating an application to a team namespace is done by changing the [namespace](../nais-application/nais.yaml/reference.md#metadata-namespace) field in the naiserator yaml file and redeploying the app.
+Migrating an application to a team namespace is done by changing the [namespace](../nais-application/nais.yaml/reference.md#metadatanamespace) field in the naiserator yaml file and redeploying the app.
 
 For example, if you're migrating `my-app` from the `default` namespace to a namespace called `my-team`, your yaml previously looked like this:
 
@@ -123,7 +123,7 @@ http://<another-service>.<another-namespace>
 ```
 
 !!! info "Note for on-prem"
-    If your application has [webproxy](../nais-application/nais.yaml/reference.md#spec-webproxy) enabled, you should use the full hostname for all service discovery calls.
+    If your application has [webproxy](../nais-application/nais.yaml/reference.md#specwebproxy) enabled, you should use the full hostname for all service discovery calls.
 
     This is to ensure that your application does not attempt to perform these in-cluster calls through the proxy, as the environment variable `NO_PROXY` includes `*.local`.
 
