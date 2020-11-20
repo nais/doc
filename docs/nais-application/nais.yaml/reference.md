@@ -307,11 +307,25 @@ The value of this **must** be a subpath of your application's ingress.
 
     See [Redirect URIs](../../security/auth/idporten.md#redirect-uri) for details.
 
-### `spec.idporten.refreshTokenLifetime`
+### `spec.idporten.sessionLifetime`
+The lifetime in seconds for the user's session at ID-porten. Your application **must** force the user to reauthenticate after this. Using refresh tokens will not work beyond this lifetime. 
 
-The lifetime in seconds for the issued refresh token from ID-porten. The refresh token may only be used once.
+**Default**: `7200` \(2 hours\)
 
-**Default**: `43200` \(12 hours\)
+**Minimum value**: `3600`
+
+**Maximum value**: `7200`
+
+### `spec.idporten.accessTokenLifetime`
+
+The lifetime in seconds for any issued access token from ID-porten.
+
+**Default**: `3600` \(2 hours\)
+
+**Minimum value**: `1`
+
+**Maximum value**: `3600`
+
 
 ## `spec.image`
 
@@ -364,6 +378,22 @@ How often \(in seconds\) to perform the probe.
 When a Pod starts and the probe fails, Kubernetes will try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the Pod.
 
 **Default**: 3
+
+## `spec.maskinporten`
+Configures a Maskinporten client for this application. See [Maskinporten](../../security/auth/maskinporten.md) for more details.
+
+### `spec.maskinporten.enabled`
+If enabled, will provision a Maskinporten client for the application.
+
+**Default**: `false`
+
+### `spec.maskinporten.scopes[].scope`
+Valid list of scopes that the Maskinporten client can use.
+
+**Required**: `true`
+
+!!! info
+    See [Maskinporten Scopes](../../security/auth/maskinporten.md#scopes) for more details.
 
 ## `spec.port`
 
@@ -629,41 +659,6 @@ Port for the default service.
 If true, no certificate authority bundle will be injected.
 
 **Default**: `false`
-
-### `spec.idporten.sessionLifetime`
-The lifetime in seconds for the user's session at ID-porten. Your application **must** force the user to reauthenticate after this. Using refresh tokens will not work beyond this lifetime. 
-
-**Default**: `7200` \(2 hours\)
-
-**Minimum value**: `3600`
-
-**Maximum value**: `7200`
-
-### `spec.idporten.accessTokenLifetime`
-
-The lifetime in seconds for any issued access token from ID-porten.
-
-**Default**: `3600` \(2 hours\)
-
-**Minimum value**: `1`
-
-**Maximum value**: `3600`
-
-## `spec.maskinporten`
-Configures a Maskinporten client for this application. See [Maskinporten](../../security/auth/maskinporten.md) for more details.
-
-### `spec.maskinporten.enabled`
-If enabled, will provision a Maskinporten client for the application.
-
-**Default**: `false`
-
-### `spec.maskinporten.scopes[].scope`
-Valid list of scopes that the Maskinporten client can use.
-
-**Required**: `true`
-
-!!! info
-    See [Maskinporten Scopes](../../security/auth/maskinporten.md#scopes) for more details.
 
 ## `spec.tokenx.enabled`
 Toggle for enabling [TokenX](../../security/auth/tokenx.md) for your application.
