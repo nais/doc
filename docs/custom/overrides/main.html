@@ -2,44 +2,50 @@
 
 {% block analytics %}
 <script type="text/javascript">
-    (function (e, t) {
-        var n = e.amplitude || { _q: [], _iq: {} }; var r = t.createElement("script")
-            ; r.type = "text/javascript"
-            ; r.integrity = "sha384-girahbTbYZ9tT03PWWj0mEVgyxtZoyDF9KVZdL+R53PP5wCY0PiVUKq0jeRlMx9M"
-            ; r.crossOrigin = "anonymous"; r.async = true
-            ; r.src = "https://cdn.amplitude.com/libs/amplitude-7.2.1-min.gz.js"
-            ; r.onload = function () {
-                if (!e.amplitude.runQueuedFunctions) {
-                    console.log("[Amplitude] Error: could not load SDK")
-                }
+    (function (window, document) {
+        var amplitude = window.amplitude || { '_q': [], '_iq': {} };
+        var as = document.createElement('script');
+        as.type = 'text/javascript';
+        as.async = true;
+        as.src = '/custom/javascript/amplitude.min.js';
+        as.onload = function () { if (window.amplitude.runQueuedFunctions) { window.amplitude.runQueuedFunctions(); } else { console.log('[Amplitude] Error: could not load SDK'); } };
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(as, s);
+        function proxy(obj, fn) {
+            obj.prototype[fn] = function () {
+                this._q.push([fn].concat(Array.prototype.slice.call(arguments, 0))); return this;
+            };
+        }
+        var Identify = function () { this._q = []; return this; };
+        var identifyFuncs = ['add', 'append', 'clearAll', 'prepend', 'set', 'setOnce', 'unset'];
+        for (var i = 0; i < identifyFuncs.length; i++) { proxy(Identify, identifyFuncs[i]); }
+        amplitude.Identify = Identify;
+        var Revenue = function () { this._q = []; return this; };
+        var revenueFuncs = ['setProductId', 'setQuantity', 'setPrice', 'setRevenueType', 'setEventProperties'];
+        for (var j = 0; j < revenueFuncs.length; j++) { proxy(Revenue, revenueFuncs[j]); }
+        amplitude.Revenue = Revenue;
+        var funcs = ['init', 'logEvent', 'logRevenue', 'setUserId', 'setUserProperties',
+            'setOptOut', 'setVersionName', 'setDomain', 'setDeviceId',
+            'setGlobalUserProperties', 'identify', 'clearUserProperties',
+            'setGroup', 'logRevenueV2', 'regenerateDeviceId',
+            'logEventWithTimestamp', 'logEventWithGroups'];
+        function setUpProxy(instance) {
+            function proxyMain(fn) {
+                instance[fn] = function () {
+                    instance._q.push([fn].concat(Array.prototype.slice.call(arguments, 0)));
+                };
             }
-            ; var i = t.getElementsByTagName("script")[0]; i.parentNode.insertBefore(r, i)
-            ; function s(e, t) {
-                e.prototype[t] = function () {
-                    this._q.push([t].concat(Array.prototype.slice.call(arguments, 0))); return this
-                }
+            for (var k = 0; k < funcs.length; k++) { proxyMain(funcs[k]); }
+        }
+        setUpProxy(amplitude);
+        amplitude.getInstance = function (instance) {
+            instance = ((!instance || instance.length === 0) ? '$default_instance' : instance).toLowerCase();
+            if (!amplitude._iq.hasOwnProperty(instance)) {
+                amplitude._iq[instance] = { '_q': [] }; setUpProxy(amplitude._iq[instance]);
             }
-        var o = function () { this._q = []; return this }
-            ; var a = ["add", "append", "clearAll", "prepend", "set", "setOnce", "unset"]
-            ; for (var c = 0; c < a.length; c++) { s(o, a[c]) } n.Identify = o; var u = function () {
-                this._q = []
-                    ; return this
-            }
-            ; var l = ["setProductId", "setQuantity", "setPrice", "setRevenueType", "setEventProperties"]
-            ; for (var p = 0; p < l.length; p++) { s(u, l[p]) } n.Revenue = u
-            ; var d = ["init", "logEvent", "logRevenue", "setUserId", "setUserProperties", "setOptOut", "setVersionName", "setDomain", "setDeviceId", "enableTracking", "setGlobalUserProperties", "identify", "clearUserProperties", "setGroup", "logRevenueV2", "regenerateDeviceId", "groupIdentify", "onInit", "logEventWithTimestamp", "logEventWithGroups", "setSessionId", "resetSessionId"]
-            ; function v(e) {
-                function t(t) {
-                    e[t] = function () {
-                        e._q.push([t].concat(Array.prototype.slice.call(arguments, 0)))
-                    }
-                }
-                for (var n = 0; n < d.length; n++) { t(d[n]) }
-            } v(n); n.getInstance = function (e) {
-                e = (!e || e.length === 0 ? "$default_instance" : e).toLowerCase()
-                    ; if (!n._iq.hasOwnProperty(e)) { n._iq[e] = { _q: [] }; v(n._iq[e]) } return n._iq[e]
-            }
-            ; e.amplitude = n
+            return amplitude._iq[instance];
+        };
+        window.amplitude = amplitude;
     })(window, document);
 
     amplitude.getInstance().init(document.domain === "doc.nais.io" ? "487ae1d6430543123d5da2c3467d0844" : "69f900cf5fe06368af2469ca4cf1f927", undefined, {
