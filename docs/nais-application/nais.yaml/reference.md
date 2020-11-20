@@ -308,7 +308,7 @@ The value of this **must** be a subpath of your application's ingress.
     See [Redirect URIs](../../security/auth/idporten.md#redirect-uri) for details.
 
 ### `spec.idporten.sessionLifetime`
-The lifetime in seconds for the user's session at ID-porten. Your application **must** force the user to reauthenticate after this. Using refresh tokens will not work beyond this lifetime. 
+The maximum lifetime in seconds for any given user's session in your application. The timeout starts whenever the user is redirected from the `authorization_endpoint` at ID-porten. Attempting to refresh the user's `access_token` beyond this timeout will yield an error. 
 
 **Default**: `7200` \(2 hours\)
 
