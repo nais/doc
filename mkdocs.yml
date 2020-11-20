@@ -6,6 +6,7 @@ theme:
   language: 'en'
   logo: assets/logo.png
   favicon: assets/logo.png
+  custom_dir: docs/custom/overrides
   palette:
     scheme: preference
     primary: white
@@ -16,6 +17,8 @@ theme:
 extra:
   search:
     language: 'en'
+extra_javascript:
+  - custom/javascript/analytics.js
 plugins:
   - search
 markdown_extensions:
