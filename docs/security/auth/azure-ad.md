@@ -352,9 +352,9 @@ Access is limited in accordance with the principle of least privilege.
 
 Rules:
 
-1. If your Azure AD client exists in the default \(`nav.no`\) tenant, your [team](https://github.com/navikt/teams)'s owners will automatically be given owner access. 
-2. Otherwise, the application will not be assigned any owners.
-3. Special cases such as extra permissions are manually handled on a case-by-case basis.
+- If your Azure AD client exists in the default \(`nav.no`\) tenant, your [team](https://github.com/navikt/teams)'s owners will automatically be given owner access. 
+- Otherwise, the application will not be assigned any owners.
+- Special cases such as extra permissions are manually handled on a case-by-case basis.
 
 If you are not registered as an owner in your team, you should either have an existing owner promote you or have them perform whatever you need.
 
@@ -411,8 +411,7 @@ Prerequisites:
 
 Steps:
 
-* The legacy client **must** follow the expected [naming format](azure-ad.md#naming-format).
-    * Follow step 1 and step 2 in the [migration guide](azure-ad.md#migration-guide-step-by-step).
+* The legacy client **must** follow the expected [naming format](azure-ad.md#naming-format). Follow step 1 and step 2 in the [migration guide](azure-ad.md#migration-guide-step-by-step).
 * Refer to the legacy client [analogously to a NAIS application](azure-ad.md#pre-authorization_1)
 
 ### Migration guide - step by step
