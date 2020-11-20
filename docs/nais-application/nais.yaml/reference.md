@@ -326,7 +326,6 @@ The lifetime in seconds for any issued access token from ID-porten.
 
 **Maximum value**: `3600`
 
-
 ## `spec.image`
 
 Docker image location plus including docker tag \(e.g. `docker.pkg.github.com/appname/appname:v1.0.0`\)
@@ -338,6 +337,12 @@ Docker image location plus including docker tag \(e.g. `docker.pkg.github.com/ap
 List of ingress URLs that will route HTTP traffic to the application.
 
 Depending on where your application is running, check out [On-premises/Accessing the application](../../clusters/on-premises.md#accessing-the-application) or [Google Cloud Platform/Accessing the application](../../clusters/gcp.md#accessing-the-application) for more info on which ingresses to use.
+
+## `spec.leaderElection`
+
+If true, a HTTP endpoint will be available at `$ELECTOR_PATH` that returns the current leader. Read more about leader election in [addons/leader election](../../addons/leader-election.md).
+
+**Default**: `false`
 
 ## `spec.liveness`
 
@@ -378,6 +383,14 @@ How often \(in seconds\) to perform the probe.
 When a Pod starts and the probe fails, Kubernetes will try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the Pod.
 
 **Default**: 3
+
+## `spec.logformat`
+
+Format of the logs from the container. Use this if the container doesn't support json logging and the log is in a special format that need to be parsed. Supported formats: accesslog, accesslog\_with\_processing\_time, accesslog\_with\_referer\_useragent, capnslog, logrus, gokit, redis, glog, simple, influxdb, log15.
+
+## `spec.logtransform`
+
+Extra filters for modifying log content. This can e.g. be used for setting loglevel based on http status code. Supported filters: http\_loglevel, dns\_loglevel
 
 ## `spec.maskinporten`
 Configures a Maskinporten client for this application. See [Maskinporten](../../security/auth/maskinporten.md) for more details.
@@ -499,6 +512,11 @@ We recommend to read more about [container lifecycle hooks](https://kubernetes.i
 
 **Default**: `50`
 
+## `spec.preStopHookPath`
+
+A HTTP GET will be issued to this endpoint at least once before the pod is terminated.
+Read more under [nais-application](../README.md#handles-termination-gracefully).
+
 ## `spec.prometheus`
 
 Prometheus is used to scrape [metrics](../../observability/metrics.md) from the pod.
@@ -573,6 +591,29 @@ Guaranteed amount of memory.
 
 **Example**: `memory: 512Mi`
 
+## `spec.secureLogs.enabled`
+
+If true, mount a volume for secure logs in the pod.
+
+**Default**: `false`
+
+## `spec.service.port`
+
+Port for the default service.
+
+**Default**: 80
+
+## `spec.skipCaBundle`
+
+If true, no certificate authority bundle will be injected.
+
+**Default**: `false`
+
+## `spec.tokenx.enabled`
+Toggle for enabling [TokenX](../../security/auth/tokenx.md) for your application.
+
+**Default**: `false`
+
 ## `spec.tracing`
 
 Configuration of [tracing](../../observability/tracing.md).
@@ -617,50 +658,8 @@ File system path that the secrets will be mounted into.
 
 **Default**: `/var/run/secrets/nais.io/vault`
 
-## `spec.preStopHookPath`
-
-A HTTP GET will be issued to this endpoint at least once before the pod is terminated.
-Read more under [nais-application](../README.md#handles-termination-gracefully).
-
-## `spec.leaderElection`
-
-If true, a HTTP endpoint will be available at `$ELECTOR_PATH` that returns the current leader. Read more about leader election in [addons/leader election](../../addons/leader-election.md).
-
-**Default**: `false`
-
 ## `spec.webproxy`
 
 Expose web proxy configuration to the application using the `$HTTP_PROXY`, `$HTTPS_PROXY` and `$NO_PROXY` environment variables.
-
-**Default**: `false`
-
-## `spec.logformat`
-
-Format of the logs from the container. Use this if the container doesn't support json logging and the log is in a special format that need to be parsed. Supported formats: accesslog, accesslog\_with\_processing\_time, accesslog\_with\_referer\_useragent, capnslog, logrus, gokit, redis, glog, simple, influxdb, log15.
-
-## `spec.logtransform`
-
-Extra filters for modifying log content. This can e.g. be used for setting loglevel based on http status code. Supported filters: http\_loglevel, dns\_loglevel
-
-## `spec.secureLogs.enabled`
-
-If true, mount a volume for secure logs in the pod.
-
-**Default**: `false`
-
-## `spec.service.port`
-
-Port for the default service.
-
-**Default**: 80
-
-## `spec.skipCaBundle`
-
-If true, no certificate authority bundle will be injected.
-
-**Default**: `false`
-
-## `spec.tokenx.enabled`
-Toggle for enabling [TokenX](../../security/auth/tokenx.md) for your application.
 
 **Default**: `false`
