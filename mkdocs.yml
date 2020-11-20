@@ -18,7 +18,7 @@ extra:
   search:
     language: 'en'
 extra_javascript:
-  - custom/javascript/analytics.js
+  - custom/javascript/events.js
 plugins:
   - search
 markdown_extensions:
