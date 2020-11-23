@@ -24,4 +24,4 @@ docker push docker.pkg.github.com/navikt/reponame/imagename:tag
 
 Alternatively, in special cases, submit a pull request to the [list of allowed sources] instead.
 
-[list of allowed sources]: https://github.com/navikt/nais-yaml/tree/master/templates/constraint.yaml
+[list of allowed sources]: https://github.com/nais/image-verification/blob/main/data/valid-images.yaml
