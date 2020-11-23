@@ -23,6 +23,7 @@ You can control from where you application is reachable by selecting the appropr
 
 | domain | accessible from | description |
 | :--- | :--- | :--- |
+| dev.intern.nav.no | [naisdevice](../device/) | development ingress for dev internal applications (supersedes dev.adeo.no). Also available in dev-gcp, use this to ease migration |
 | dev.adeo.no | [naisdevice](../device/) | development ingress for adeo.no applications |
 | intern.dev.adeo.no | internal network only | development ingress for adeo.no applications |
 | dev-fss.nais.io | [naisdevice](../device/) | reserved for platform services |
@@ -41,6 +42,7 @@ You can control from where you application is reachable by selecting the appropr
 
 | domain | accessible from | description |
 | :--- | :--- | :--- |
+| intern.nav.no | [naisdevice](../device/) | ingress for internal applications (supersedes nais.adeo.no). Also available in prod-gcp, use this to ease migration |
 | nais.adeo.no | vdi | automatically configured |
 | prod-fss.nais.io | [naisdevice](../device/) | reserved for platform services |
 
