@@ -450,7 +450,7 @@ Number of seconds after which the probe times out.
 
 ## `spec.startup`
 
-Startup probes will be available with Kubernetes 1.17. Do not use this feature yet as it will not work.
+Startup probes will be available with Kubernetes 1.18 (in GCP, and 1.17 on-prem). Do not use this feature yet as it will not work.
 
 Sometimes, you have to deal with legacy applications that might require an additional startup time on their first initialization. In such cases, it can be tricky to set up liveness probe parameters without compromising the fast response to deadlocks that motivated such a probe. The trick is to set up a startup probe with the same command, HTTP or TCP check, with a failureThreshold \* periodSeconds long enough to cover the worse case startup time. Read more about this over at the [Kubernetes startup probe documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-startup-probes).
 
