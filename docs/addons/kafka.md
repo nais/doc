@@ -61,8 +61,8 @@ Currently, use the `nav-dev` pool for development, and `nav-prod` for production
         minimumInSyncReplicas: 1
         partitions: 1
         replication: 3  # see min/max requirements
-        retentionBytes: -1
-        retentionHours: 72
+        retentionBytes: -1  # -1 means unlimited
+        retentionHours: 72  # -1 means unlimited
       acl:
         - team: myteam
           application: ownerapp
