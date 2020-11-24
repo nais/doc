@@ -43,6 +43,7 @@ jobs:
             --no-interaction \
             --ansi \
             --remove-untracked
+          echo -e "\n$(which poetry)"
 
       - name: Build documentation
         run: ~/.local/bin/poetry run mkdocs build --strict
