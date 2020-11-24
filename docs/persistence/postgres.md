@@ -75,20 +75,18 @@ Here's how:
 When the instance is created, we need to grant the IAM users access to the "public" schema.
 This can either be done by using the default application database user during database creation/migration with scripts (e.g. flyway), or as a one-time setup by using the default postgres user:
 
-- In order to use the postgres user, you have to set a password first:
+In order to use the postgres user, you have to set a password first:
 ```bash
-gcloud sql users set-password postgres --instance=[INSTANCE_NAME] --prompt-for-password --project PROJECT_ID
+gcloud sql users set-password postgres --instance=<INSTANCE_NAME> --prompt-for-password --project <PROJECT_ID>
 ```
 
-Download cloudsql proxy binary:
-```bash
-curl -L https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.amd64 > cloudsql-proxy
-```
+[Install cloudsql-proxy binary](https://cloud.google.com/sql/docs/postgres/sql-proxy#install)
 
-- Then set up the cloudsql proxy and log in to the database (you will be prompted for the password you just set):
+Then set up the cloudsql proxy and log in to the database (you will be prompted for the password you just set):
 ```bash
-cloudsql-proxy -instances=<project id>:<location>:<database name>=tcp:5432
-psql -U postgres -h localhost -p 5432 <database name> -W
+CONNECTION_NAME=$(gcloud sql instances describe <INSTANCE_NAME> --format="get(connectionName)" --project <PROJECT_ID>);
+cloudsql-proxy -instances=${CONNECTION_NAME}=tcp:5432
+psql -U postgres -h localhost <DATABASE_NAME> -W
 ```
 
 ##### Granting access
@@ -104,24 +102,23 @@ Or for a specific user:
 alter default privileges in schema public grant all on tables to 'user@nav.no';
 ```
 
+#### Log in with personal user:
+```bash
+export PGPASSWORD=$(gcloud auth print-access-token)
+psql -U first.last@nav.no -h localhost <DATABASE_NAME> 
+```
 
 #### Granting temporary personal access
 
 Create database IAM user
 ```bash
 gcloud beta sql users create <FIRSTNAME>.<LASTNAME>@nav.no --instance=<INSTANCE_NAME> --type=cloud_iam_user --project <PROJECT_ID>
-
-example:
-gcloud beta sql users create bobby.brown@nav.no --instance=databasename --type=cloud_iam_user --project nais-dev-d7d7
 ```
 
 Create a temporary IAM binding for 1 hour:
 (for linux use `date -d '+1 hour'` instead)
 ```bash
-gcloud projects add-iam-policy-binding PROJECT_ID --member=user:<FIRSTNAME>.<LASTNAME>@nav.no --role=roles/cloudsql.instanceUser --condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
-
-example:
-gcloud projects add-iam-policy-binding nais-dev-d7d7 --member=user:bobby.brown@nav.no --role=roles/cloudsql.instanceUser --condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
+gcloud projects add-iam-policy-binding <PROJECT_ID> --member=user:<FIRSTNAME>.<LASTNAME>@nav.no --role=roles/cloudsql.instanceUser --condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
 ```
 
 ### Deleting the database
