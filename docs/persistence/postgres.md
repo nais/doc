@@ -68,53 +68,56 @@ Default 7 backups will be kept. More info [here](https://cloud.google.com/sql/do
 The backups can be found in the [Google Cloud SQL instance](https://cloud.google.com/sql) dashboard.
 
 ### Personal database access
-
-In order to access the database with your personal cloud user.
+Databases should always be accessed using a personal account, and the access should ideally be temporary.
+Here's how:
 
 #### Prerequisites
-
 When the instance is created, we need to grant the IAM users access to the "public" schema.
+This can either be done by using the default application database user during database creation/migration with scripts (e.g. flyway), or as a one-time setup by using the default postgres user:
 
-This can be done once in the instance like this (all IAM users are assigned the role cloudsqliamuser):
+- In order to use the postgres user, you have to set a password first:
+```bash
+gcloud sql users set-password postgres --instance=[INSTANCE_NAME] --prompt-for-password
 ```
+
+- Then set up the cloudsql proxy and log in to the database (you will be prompted for the password you just set):
+```bash
+cloudsql-proxy -instances=<project id>:<location>:<database name>=tcp:5432
+psql -U postgres -h localhost -p 5432 <database name> -W
+```
+
+##### Granting access
+This can be enabled for all cloudsqliamusers with the following command: 
+(all IAM users are assigned the role cloudsqliamuser)
+```sql
 alter default privileges in schema public grant all on tables to cloudsqliamuser;
 ```
 
-Or to a specific user like this (the IAM user must exist in the database):
-```
+Or for a specific user:
+(the IAM user must exist in the database):
+```sql
 alter default privileges in schema public grant all on tables to 'user@nav.no';
 ```
-
-This can either be done by using the default application database user during database creation/migration with scripts (e.g. flyway), or as a one-time setup by using the default postgres user.
-
-Set the password for the postgres user:
-```
-gcloud sql users set-password postgres \
-    --instance=[INSTANCE_NAME] --prompt-for-password
-```
-
-Set up the cloudsql proxy and log in to the database (you will be prompted for the password):
-```
-cloudsql-proxy -instances=<project id>:<location>:<database name>=tcp:5432
-psql -U postgres -h localhost -p 5432 <database name> -W
-...
 
 
 #### Granting temporary personal access
 
 Create database IAM user
-```
-gcloud beta sql users create <firstname>.<lastname>@nav.no --instance=INSTANCE_NAME --type=cloud_iam_user
+```bash
+gcloud beta sql users create <FIRSTNAME>.<LASTNAME>@nav.no --instance=<INSTANCE_NAME> --type=cloud_iam_user --project <PROJECT_ID>
+
+example:
+gcloud beta sql users create bobby.brown@nav.no --instance=databasename --type=cloud_iam_user --project nais-dev-d7d7
 ```
 
-Create an IAM binding 
-```
-gcloud projects add-iam-policy-binding PROJECT_ID
-    --member=user:EMAIL --role=roles/cloudsql.instanceUser --conditions ...
-```
+Create a temporary IAM binding for 1 hour:
+(for linux use `date -d '+1 hour'` instead)
+```bash
+gcloud projects add-iam-policy-binding PROJECT_ID --member=user:<FIRSTNAME>.<LASTNAME>@nav.no --role=roles/cloudsql.instanceUser --condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
 
-Conditions
-
+example:
+gcloud projects add-iam-policy-binding nais-dev-d7d7 --member=user:bobby.brown@nav.no --role=roles/cloudsql.instanceUser --condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
+```
 
 ### Deleting the database
 
