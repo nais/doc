@@ -28,6 +28,8 @@ jobs:
           path: |
             ~/.cache/pip
             ~/.cache/pyproject
+            ~/.local/venvs/poetry
+            ~/.local/bin
           key: pip-${{ hashfiles('poetry.lock') }}
 
       - name: Install build tools
