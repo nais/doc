@@ -25,11 +25,13 @@ jobs:
         id: pip-cache
         name: Cache pip dependencies
         with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashfiles('poetry.lock') }}
+          path: |
+            ~/.cache/pip
+            ~/.cache/pyproject
+          key: pip-${{ hashfiles('poetry.lock') }}
 
       - name: Install build tools
-        if: steps.pip-cache.outputs.cache-hit != 'true'
+        # if: steps.pip-cache.outputs.cache-hit != 'true'
         run: |
           # Install mkdocs
           pip3 install --upgrade pip
