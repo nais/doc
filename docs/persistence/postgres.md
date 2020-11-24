@@ -69,23 +69,23 @@ The backups can be found in the [Google Cloud SQL instance](https://cloud.google
 
 ### Personal database access
 
-In order to access the database with your personal...
+In order to access the database with your personal cloud user.
 
 #### Prerequisites
 
-When the instance is created, we need to grant the IAM users access to the public schema.
+When the instance is created, we need to grant the IAM users access to the "public" schema.
 
-This can be done once for all users granted <xxx> in the project like this (they all receive the role cloudsqliamuser):
+This can be done once in the instance like this (all IAM users are assigned the role cloudsqliamuser):
 ```
 alter default privileges in schema public grant all on tables to cloudsqliamuser;
 ```
 
-Or to a specific user like so (the user must have been created):
+Or to a specific user like this (the IAM user must exist in the database):
 ```
 alter default privileges in schema public grant all on tables to 'user@nav.no';
 ```
 
-This can either be done by using the default application database user during database creation/migration scripts (e.g. flyway), or as a one-time setup by using the default postgres user.
+This can either be done by using the default application database user during database creation/migration with scripts (e.g. flyway), or as a one-time setup by using the default postgres user.
 
 Set the password for the postgres user:
 ```
@@ -93,9 +93,10 @@ gcloud sql users set-password postgres \
     --instance=[INSTANCE_NAME] --prompt-for-password
 ```
 
+Set up the cloudsql proxy and log in to the database (you will be prompted for the password):
 ```
-cloudsql-proxy -instances ...
-psql -U postgres .... 
+cloudsql-proxy -instances=<project id>:<location>:<database name>=tcp:5432
+psql -U postgres -h localhost -p 5432 <database name> -W
 ...
 
 
@@ -111,6 +112,8 @@ Create an IAM binding
 gcloud projects add-iam-policy-binding PROJECT_ID
     --member=user:EMAIL --role=roles/cloudsql.instanceUser --conditions ...
 ```
+
+Conditions
 
 
 ### Deleting the database
