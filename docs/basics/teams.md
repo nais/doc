@@ -12,7 +12,7 @@ Every group in [AAD](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/Group
 
 ![nais-teams](../assets/nais-teams.png)
 
-* An Azure AD group is created, and can be viewed in the [Azure portal](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ManagedAppMenuBlade/Users/appId/5cbaf0ba-4d99-48a1-acf5-cca701361fd2/objectId/4c5e3226-106e-404d-81be-d02f31104b5a)
+* An Azure AD group is created, and can be viewed in the [My Groups portal](https://account.activedirectory.windowsazure.com/r#/groups)
 * A [GitHub team](https://github.com/orgs/navikt/teams) is created.
 * Deploy keys are created, and can be obtained in the [NAIS deploy frontend](https://deploy.nais.io/).
 * GCP users are provisioned, and users can log in to the [Google Cloud Console](https://console.cloud.google.com/) using their NAV e-mail address.
@@ -21,7 +21,7 @@ Every group in [AAD](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/Group
 
 ## Managing your team
 
-* Team members are managed by managing the group in [AAD](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups)
+* Team members are managed by managing the group in [My Groups portal](https://account.activedirectory.windowsazure.com/r#/groups)
 
 !!! warning
     It is the responsibility of each team to keep the group member roster up to date. This includes removing former team members in a timely fashion.
