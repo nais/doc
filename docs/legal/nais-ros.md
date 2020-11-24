@@ -9,6 +9,7 @@ The nais team has conducted the following risk assessments:
 * [Google Kubernetes Engine](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=481)
 * [Sentry i GCP](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=244)
 * [Aiven Kafka - Leverandørvurdering](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=190)
+* [Google Secret Manager](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=538)
 
 \(Note that all risk assessments link to the NAV internal tool TryggNok.\)
 
