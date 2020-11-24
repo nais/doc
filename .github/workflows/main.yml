@@ -45,7 +45,7 @@ jobs:
             --remove-untracked
 
       - name: Build documentation
-        run: poetry run mkdocs build --strict
+        run: ~/.local/bin/poetry run mkdocs build --strict
 
       - name: Ensure documentation is produced
         id: check-build
