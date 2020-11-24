@@ -21,17 +21,6 @@ jobs:
           python-version: 3.9
           architecture: x64
 
-      - uses: actions/cache@v2
-        id: pip-cache
-        name: Cache pip dependencies
-        with:
-          path: |
-            ~/.cache/pip
-            ~/.cache/pyproject
-            ~/.local/lib
-            ~/.local/bin
-          key: pip-${{ hashfiles('poetry.lock') }}-${{ hashfiles('.github/workflows/main.yml') }}
-
       - name: Install build tools
         if: steps.pip-cache.outputs.cache-hit != 'true'
         run: |
@@ -43,20 +32,9 @@ jobs:
             --no-interaction \
             --ansi \
             --remove-untracked
-          echo -e "\n$(which poetry)"
+          poetry run mkdocs build --strict
 
-      - name: Build documentation
-        run: ~/.local/bin/poetry run mkdocs build --strict
-
-      - name: Ensure documentation is produced
-        id: check-build
-        uses: andstor/file-existence-action@86879431204d0e234fcd16a174a50d9ab49860fe
-        with:
-                # default files we expect to always be present
-          files: site/404.html, site/index.html, site/sitemap.xml
-          allow_failure: false
-
-      - if: github.ref == 'refs/heads/master' && steps.check-build.files_exists == 'true'
+      - if: github.ref == 'refs/heads/master'
         uses: actions-hub/gcloud@318.0.0
         env:
           PROJECT_ID: aura-prod-d7e3
