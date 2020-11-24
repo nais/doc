@@ -52,7 +52,7 @@ jobs:
         uses: andstor/file-existence-action@86879431204d0e234fcd16a174a50d9ab49860fe
         with:
                 # default files we expect to always be present
-          path: site/404.html, site/index.html, site/sitemap.xml
+          files: site/404.html, site/index.html, site/sitemap.xml
           allow_failure: false
 
       - if: github.ref == 'refs/heads/master' && steps.check-build.files_exists == 'true'
