@@ -30,7 +30,7 @@ jobs:
             ~/.cache/pyproject
             ~/.local/venvs/poetry
             ~/.local/bin
-          key: pip-${{ hashfiles('poetry.lock') }}
+          key: pip-${{ hashfiles('poetry.lock') }}-${{ hashfiles('.github/workflows/main.yml') }}
 
       - name: Install build tools
         # if: steps.pip-cache.outputs.cache-hit != 'true'
