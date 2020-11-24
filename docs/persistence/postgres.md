@@ -67,6 +67,60 @@ Default 7 backups will be kept. More info [here](https://cloud.google.com/sql/do
 
 The backups can be found in the [Google Cloud SQL instance](https://cloud.google.com/sql) dashboard.
 
+### Personal database access
+Databases should always be accessed using a personal account, and the access should ideally be temporary.
+Here's how:
+
+#### Prerequisites
+When the instance is created, we need to grant the IAM users access to the "public" schema.
+This can either be done by using the default application database user during database creation/migration with scripts (e.g. flyway), or as a one-time setup by using the default postgres user:
+
+In order to use the postgres user, you have to set a password first:
+```bash
+gcloud sql users set-password postgres --instance=<INSTANCE_NAME> --prompt-for-password --project <PROJECT_ID>
+```
+
+[Install cloudsql-proxy binary](https://cloud.google.com/sql/docs/postgres/sql-proxy#install)
+
+Then set up the cloudsql proxy and log in to the database (you will be prompted for the password you just set):
+```bash
+CONNECTION_NAME=$(gcloud sql instances describe <INSTANCE_NAME> --format="get(connectionName)" --project <PROJECT_ID>);
+cloudsql-proxy -instances=${CONNECTION_NAME}=tcp:5432
+psql -U postgres -h localhost <DATABASE_NAME> -W
+```
+
+##### Granting access
+This can be enabled for all cloudsqliamusers with the following command: 
+(all IAM users are assigned the role cloudsqliamuser)
+```sql
+alter default privileges in schema public grant all on tables to cloudsqliamuser;
+```
+
+Or for a specific user:
+(the IAM user must exist in the database):
+```sql
+alter default privileges in schema public grant all on tables to 'user@nav.no';
+```
+
+#### Log in with personal user:
+```bash
+export PGPASSWORD=$(gcloud auth print-access-token)
+psql -U first.last@nav.no -h localhost <DATABASE_NAME> 
+```
+
+#### Granting temporary personal access
+
+Create database IAM user
+```bash
+gcloud beta sql users create <FIRSTNAME>.<LASTNAME>@nav.no --instance=<INSTANCE_NAME> --type=cloud_iam_user --project <PROJECT_ID>
+```
+
+Create a temporary IAM binding for 1 hour:
+(for linux use `date -d '+1 hour'` instead)
+```bash
+gcloud projects add-iam-policy-binding <PROJECT_ID> --member=user:<FIRSTNAME>.<LASTNAME>@nav.no --role=roles/cloudsql.instanceUser --condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
+```
+
 ### Deleting the database
 
 The database is not automatically removed when deleting your NAIS application. Remove unused databases to avoid incurring unnecessary costs. This is done by setting [cascadingDelete](../nais-application/nais.yaml/reference.md#specgcpsqlinstancescascadingdelete) in your `nais.yaml`-specification.
