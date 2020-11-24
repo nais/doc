@@ -47,11 +47,19 @@ jobs:
       - name: Build documentation
         run: poetry run mkdocs build --strict
 
-      - if: github.ref == 'refs/heads/master'
+      - name: Ensure documentation is produced
+        id: check-build
+        uses: andstor/file-existence-action@86879431204d0e234fcd16a174a50d9ab49860fe
+        with:
+                # default files we expect to always be present
+          path: site/404.html, site/index.html, site/sitemap.xml
+          allow_failure: false
+
+      - if: github.ref == 'refs/heads/master' && steps.check-build.files_exists == 'true'
         uses: actions-hub/gcloud@318.0.0
         env:
           PROJECT_ID: aura-prod-d7e3
           APPLICATION_CREDENTIALS: ${{ secrets.GCP_SERVICEACCOUNT_KEY_FOR_DOC_NAIS_IO_BUCKET }}
         with:
-          args: -m cp -r site/* gs://doc.nais.io
+          args: -m rsync -r -c -d site/* gs://doc.nais.io
           cli: gsutil
