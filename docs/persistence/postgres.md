@@ -67,6 +67,52 @@ Default 7 backups will be kept. More info [here](https://cloud.google.com/sql/do
 
 The backups can be found in the [Google Cloud SQL instance](https://cloud.google.com/sql) dashboard.
 
+### Personal database access
+
+In order to access the database with your personal...
+
+#### Prerequisites
+
+When the instance is created, we need to grant the IAM users access to the public schema.
+
+This can be done once for all users granted <xxx> in the project like this (they all receive the role cloudsqliamuser):
+```
+alter default privileges in schema public grant all on tables to cloudsqliamuser;
+```
+
+Or to a specific user like so (the user must have been created):
+```
+alter default privileges in schema public grant all on tables to 'user@nav.no';
+```
+
+This can either be done by using the default application database user during database creation/migration scripts (e.g. flyway), or as a one-time setup by using the default postgres user.
+
+Set the password for the postgres user:
+```
+gcloud sql users set-password postgres \
+    --instance=[INSTANCE_NAME] --prompt-for-password
+```
+
+```
+cloudsql-proxy -instances ...
+psql -U postgres .... 
+...
+
+
+#### Granting temporary personal access
+
+Create database IAM user
+```
+gcloud beta sql users create <firstname>.<lastname>@nav.no --instance=INSTANCE_NAME --type=cloud_iam_user
+```
+
+Create an IAM binding 
+```
+gcloud projects add-iam-policy-binding PROJECT_ID
+    --member=user:EMAIL --role=roles/cloudsql.instanceUser --conditions ...
+```
+
+
 ### Deleting the database
 
 The database is not automatically removed when deleting your NAIS application. Remove unused databases to avoid incurring unnecessary costs. This is done by setting [cascadingDelete](../nais-application/nais.yaml/reference.md#specgcpsqlinstancescascadingdelete) in your `nais.yaml`-specification.
