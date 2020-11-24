@@ -121,6 +121,10 @@ Explicitly target a given [tenant](../../security/auth/azure-ad.md#tenants) in A
 
 **Allowed values**: enum of `{trygdeetaten.no, nav.no}`
 
+## `spec.elastic.instance`
+
+Will add access policy for the given instance, and label your pods to use the correct network policy to allow traffic to Aiven.
+
 ## `spec.env[]`
 
 Custom environment variables injected into your container.
