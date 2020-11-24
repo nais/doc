@@ -28,7 +28,7 @@ jobs:
           path: |
             ~/.cache/pip
             ~/.cache/pyproject
-            ~/.local/venvs/poetry
+            ~/.local/lib
             ~/.local/bin
           key: pip-${{ hashfiles('poetry.lock') }}-${{ hashfiles('.github/workflows/main.yml') }}
 
@@ -43,7 +43,7 @@ jobs:
             --no-interaction \
             --ansi \
             --remove-untracked
-          
+
       - name: Build documentation
         run: poetry run mkdocs build --strict
 
