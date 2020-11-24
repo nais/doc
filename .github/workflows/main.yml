@@ -21,15 +21,27 @@ jobs:
           python-version: 3.9
           architecture: x64
 
-      - name: Install build tools and build documentation
+      - uses: actions/cache@v2
+        id: pip-cache
+        name: Cache pip dependencies
+        with:
+          path: ~/.cache/pip
+          key: ${{ }}-pip-${{ hashfiles('poetry.lock') }}
+
+      - name: Install build tools
+        if: steps.pip-cache.outputs.cache-hit != 'true'
         run: |
           # Install mkdocs
           pip3 install --upgrade pip
-          pip3 install --no-cache-dir poetry
-          poetry install --no-dev
+          pip3 install poetry
+          poetry install \
+            --no-dev \
+            --no-interaction \
+            --ansi \
+            --remove-untracked
           
-          # Build docs
-          poetry run mkdocs build --strict
+      - name: Build documentation
+        run: poetry run mkdocs build --strict
 
       - if: github.ref == 'refs/heads/master'
         uses: actions-hub/gcloud@318.0.0
