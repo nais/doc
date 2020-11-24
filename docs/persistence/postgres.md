@@ -77,7 +77,12 @@ This can either be done by using the default application database user during da
 
 - In order to use the postgres user, you have to set a password first:
 ```bash
-gcloud sql users set-password postgres --instance=[INSTANCE_NAME] --prompt-for-password
+gcloud sql users set-password postgres --instance=[INSTANCE_NAME] --prompt-for-password --project PROJECT_ID
+```
+
+Download cloudsql proxy binary:
+```bash
+curl -L https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.amd64 > cloudsql-proxy
 ```
 
 - Then set up the cloudsql proxy and log in to the database (you will be prompted for the password you just set):
