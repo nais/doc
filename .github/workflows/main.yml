@@ -33,7 +33,7 @@ jobs:
           key: pip-${{ hashfiles('poetry.lock') }}-${{ hashfiles('.github/workflows/main.yml') }}
 
       - name: Install build tools
-        # if: steps.pip-cache.outputs.cache-hit != 'true'
+        if: steps.pip-cache.outputs.cache-hit != 'true'
         run: |
           # Install mkdocs
           pip3 install --upgrade pip
