@@ -39,5 +39,5 @@ jobs:
           PROJECT_ID: aura-prod-d7e3
           APPLICATION_CREDENTIALS: ${{ secrets.GCP_SERVICEACCOUNT_KEY_FOR_DOC_NAIS_IO_BUCKET }}
         with:
-          args: -m rsync -r -c -d site/* gs://doc.nais.io
+          args: -m rsync -r -c -d site/ gs://doc.nais.io
           cli: gsutil
