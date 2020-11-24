@@ -21,8 +21,7 @@ jobs:
           python-version: 3.9
           architecture: x64
 
-      - name: Install build tools
-        if: steps.pip-cache.outputs.cache-hit != 'true'
+      - name: Install build tools and build documentation
         run: |
           # Install mkdocs
           pip3 install --upgrade pip
