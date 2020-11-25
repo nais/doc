@@ -10,7 +10,7 @@ In general, responsibilities for services are separated along these lines:
 
 What constitutes a nais service, an underlying service or what is owned by a product team varies from case to case. 
 In some instances, the product team is a user of common resources owned by the nais team (e.g. the ELK stack, or the kubernetes clusters). 
-In these cases the nais team operates the resources and is responsibility for the service availability. 
+In these cases the nais team operates the resources and is responsible for the service availability. 
 In other cases the product teams provision their own resources directly from the underlying vendors. 
 In these cases, the product teams have greater direct control over the service. The division of responsibility in the different cases is best described through examples:
 
