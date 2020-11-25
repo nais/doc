@@ -27,7 +27,7 @@ You can control from where you application is reachable by selecting the appropr
 | dev.adeo.no | [naisdevice](../device/) | development ingress for adeo.no applications |
 | intern.dev.adeo.no | internal network only | development ingress for adeo.no applications |
 | dev-fss.nais.io | [naisdevice](../device/) | reserved for platform services |
-| nais.preprod.local | vdi | **deprecated**, use {intern,}.dev.adeo.no instead |
+| nais.preprod.local | vdi | **deprecated**, use .dev.intern.nav.no instead |
 
 ### dev-sbs
 
