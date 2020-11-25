@@ -10,7 +10,8 @@
 
 ### Prerequisites
 
-The team needs to update their ROS and PVK analysis to migrate to GCP. Refer to [Google Cloud Platform's ROS and PVK section](./gcp.md#ros-and-pvk).
+* The team needs to update their ROS and PVK analysis to migrate to GCP. Refer to [Google Cloud Platform's ROS and PVK section](./gcp.md#ros-and-pvk).
+* Read this [roles and responsibilites](../legal/roles-responsibilities.md)
 
 #### Basic setup
 
