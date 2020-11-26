@@ -1,8 +1,10 @@
 # Teams
 
-Access to a resource in NAIS is based on a label set on the resource called `team`. In the context of [Azure Active Directory](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups) a group is the same as a team, and you may already be part of a team that has applications on NAIS.
+Access to a resource in NAIS is based on a label set on the resource called `team`.
+In the context of [Azure Active Directory](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups) a group is the same as a team, and you may already be part of a team that has applications on NAIS.
 
-Every group in [AAD](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups) has a so-called mailnick/tag, this is what NAIS generally uses to identify teams. When viewing a group, the mailnick is the value before the `@` in the email field.
+Every group in [AAD](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups) has a so-called mailnick/tag, this is what NAIS generally uses to identify teams.
+When viewing a group, the mailnick is the value before the `@` in the email field.
 
 ## Creating a new team
 
@@ -31,11 +33,10 @@ Every group in [AAD](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/Group
 
 In order to access _team API keys_, go to [deploy.nais.io](https://deploy.nais.io/). Here you will find API keys for all teams you are a member of.
 
-## Rotate API key for a team
+### Rotate API key
 
 Go to [deploy.nais.io](https://deploy.nais.io/) and click on "Create new key" button for
 
 ## Team namespaces
 
 Team namespaces are supported in both on-prem and in GCP. Refer to the [team namespaces documentation](../clusters/team-namespaces.md) for details.
-
