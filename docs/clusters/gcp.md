@@ -26,7 +26,7 @@ You can control from where you application is reachable by selecting the appropr
 
 | domain | accessible from | description |
 | :--- | :--- | :--- |
-| ekstern.dev.nav.no | internet | manually configured by adding to `external_domains` in [load balancer config](https://github.com/nais/gcp/blob/master/infrastructure/dev.tfvars) and making a pull request |
+| ekstern.dev.nav.no | internet | manually configured by adding to `external_domains` in [load balancer config](https://github.com/nais/gcp/blob/master/infrastructure/dev.tfvars) and making a pull request. Ingresses containing `metrics`, `actuator` or `internal` are blocked |
 | dev.nav.no | [naisdevice](../device/README.md) | development ingress for nav.no applications |
 | dev.intern.nav.no | [naisdevice](../device/README.md) | development ingress for non-public/internet-facing applications |
 | dev-gcp.nais.io | [naisdevice](../device/README.md) | reserved for platform services |
@@ -36,7 +36,7 @@ You can control from where you application is reachable by selecting the appropr
 
 | domain | accessible from | description |
 | :--- | :--- | :--- |
-| nav.no | internet | manually configured, contact at \#tech-sikkerhet |
+| nav.no | internet | manually configured, contact at \#tech-sikkerhet. Ingresses containing `metrics`, `actuator` or `internal` are blocked |
 | intern.nav.no | [naisdevice](../device/README.md) | used by non-public/internet-facing applications \(previously called adeo.no\). |
 | prod-gcp.nais.io | [naisdevice](../device/README.md) | reserved for platform services |
 
