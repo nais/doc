@@ -43,22 +43,26 @@ Team namespaces are supported in both on-prem and in GCP. Refer to the [team nam
 
 ## GCP Team projects
 
-Each team has their own [Google Cloud Platform project](https://cloud.google.com/storage/docs/projects), which consist of a set of users; a set of APIs; and authentication, and monitoring settings of those APIs.
+Each team has their own [Google Cloud Platform project](https://cloud.google.com/storage/docs/projects), which consist of:
+   * a set of users,
+   * a set of APIs,
+   * in addition to authentication and monitoring settings of those APIs.
+   
 So, for example, all of your Cloud Storage buckets and objects, along with user permissions for accessing them, reside in a project.
 
-In general every memeber of the team have the possibility to add the necessary permissions they need via [IAM role managment](https://console.cloud.google.com/iam-admin/iam).
-There are also no general limit on which features/products that can be used in a project, but everything has need been [ROS'd](https://doc.nais.io/legal/nais-ros/).
-Each team is responsible to do the necessary ROS and PVK changes to use a new feature.
+In general every member of the team has the possibility to add the necessary permissions they need via [IAM role managment](https://console.cloud.google.com/iam-admin/iam).
+There is no general limitation as to which features/products that can be used in a project, but everything needs to have been [ROS'd](https://doc.nais.io/legal/nais-ros/).
+While we encourage the teams to base their ROS(s) and PVK(s) on the ones done by the NAIS team, each team is responsible to do their own necessary ROS and PVK aimed for their usage/feature not covered by existing ROS.
 
 Remember to clean up after yourself, so we don't have unnecessary resources running, and costing us money.
 We have a dashboard showing what each [team](https://datastudio.google.com/u/1/reporting/417b0a1d-b307-4a6d-a699-77a6ab239661/page/mJdmB) is using, plus a dashboard for [everything](https://datastudio.google.com/reporting/fda5f821-caef-4056-9356-9aa4f7082699/page/mJdmB) in GCP.
 
 ### Access management
 
-To promote autonomous teams, teams control access to their own projects completely by them self.
+To promote autonomous teams, teams control access to their own projects completely by themselves.
 This can be done either by pipeline, or manually adding access when needed.
 
-There are different scenarios for when and how to give access to users, and the official [Google Cloud Docs](https://cloud.google.com/iam/docs/granting-changing-revoking-access) is definitive the best source for information.
+There are different scenarios for when and how to give access to users, and the official [Google Cloud Docs](https://cloud.google.com/iam/docs/granting-changing-revoking-access) is definitively the best source for information.
 
 Google Docs has a list of possible [predefined roles](https://cloud.google.com/iam/docs/understanding-roles#predefined_roles) that we recommend using.
 These roles can also be listed our with `gcloud iam roles list --filter $feature`.
@@ -80,29 +84,29 @@ To be able to run this commando, you first need to find your `PROJECT_ID`, and t
 gcloud projects add-iam-policy-binding <PROJECT_ID> --member=user:<FIRSTNAME>.<LASTNAME>@nav.no --role=<ROLE_NAME> --condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
 ```
 
-For example if you wanted to take a look at the Storage buckets that you have, then you would need the `roles/storage.objectViewer` role.
+As an example, if you'd want to view your teams Storage buckets, you'll need the `roles/storage.objectViewer` role.
 It's always smart to only give out [temporary access](#temporary-access).
 
-This can also be used to give a user in a different team access.
+This can also be leveraged to give a user belonging to a different team access to _your_ team's resources.
 
 ##### How to give a service account access
 
-A service account is also a `--member` of a project, but instead of running the command using in the previous paragraph, you change `--member=user:<email>` to `--member=serviceAccount:<email>`.
+A service account is also a `--member` of a project, but instead of running the command mentioned in '[How to give your self access](#How-to-give-your-self-access)', you change `--member=user:<email>` to `--member=serviceAccount:<email>`.
 
 #### Temporary access
 
 On a general basis, access should not be permanent.
 A good habit is to only grant your self or other a temporary access.
 
-Using `gcloud`-cli the following command will grant a user 1 hours of access to `roles/cloudsql.instanceUser`:
+Using the following `gcloud`-cli command will grant a user 1 hours of access to `roles/cloudsql.instanceUser`:
 ```bash
 gcloud projects add-iam-policy-binding <PROJECT_ID> --member=user:<FIRSTNAME>.<LASTNAME>@nav.no --role=roles/cloudsql.instanceUser --condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
 ```
 
 There is more information over at [Google Cloud Docs](https://cloud.google.com/iam/docs/configuring-temporary-access).
 
-#### IAM recommander
+#### GCP IAM recommender
 
 Some time you end up giving a wider access than needed, but GCP has a IAM recommender that will monitor each access given, and compare it to the access used.
-Then the IAM recommender will recommend a more granular access, that is probably more fitting for the user.
+After which the IAM recommender will recommend a more granular access, that probably fits you and your usage better!
 Read more about the IAM recommender over at [Google Cloud Docs](https://cloud.google.com/iam/docs/recommender-overview).
