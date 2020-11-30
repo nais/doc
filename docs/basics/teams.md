@@ -35,7 +35,7 @@ In order to access _team API keys_, go to [deploy.nais.io](https://deploy.nais.i
 
 ### Rotate API key
 
-Go to [deploy.nais.io](https://deploy.nais.io/) and click on "Create new key" button for
+Go to [deploy.nais.io](https://deploy.nais.io/) and click on the "Rotate key" button, a pop-up will ask you to confirm the rotation.
 
 ## Team namespaces
 
