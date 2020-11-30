@@ -54,7 +54,7 @@ In general every member of the team has the possibility to add the necessary per
 There is no general limitation as to which features/products that can be used in a project, but everything needs to have been [ROS'd](https://doc.nais.io/legal/nais-ros/).
 While we encourage the teams to base their ROS(s) and PVK(s) on the ones done by the NAIS team, each team is responsible to do their own necessary ROS and PVK aimed for their usage/feature not covered by existing ROS.
 
-Remember to clean up after yourself, so we don't have unnecessary resources running, and costing us money.
+Remember to clean up after yourself, so that NAV doesn't unnecessarily pay for resources.
 We have a dashboard showing what each [team](https://datastudio.google.com/u/1/reporting/417b0a1d-b307-4a6d-a699-77a6ab239661/page/mJdmB) is using, plus a dashboard for [everything](https://datastudio.google.com/reporting/fda5f821-caef-4056-9356-9aa4f7082699/page/mJdmB) in GCP.
 
 ### Access management
@@ -64,7 +64,7 @@ This can be done either by pipeline, or manually adding access when needed.
 
 There are different scenarios for when and how to give access to users, and the official [Google Cloud Docs](https://cloud.google.com/iam/docs/granting-changing-revoking-access) is definitively the best source for information.
 
-Google Docs has a list of possible [predefined roles](https://cloud.google.com/iam/docs/understanding-roles#predefined_roles) that we recommend using.
+Google's documentation has a list of possible [predefined roles](https://cloud.google.com/iam/docs/understanding-roles#predefined_roles) that we at NAIS recommend teams keep in mind/use.
 These roles can also be listed our with `gcloud iam roles list --filter $feature`.
 Running the command without the `--filter` argument will return a very long list.
 
@@ -107,6 +107,7 @@ There is more information over at [Google Cloud Docs](https://cloud.google.com/i
 
 #### GCP IAM recommender
 
-Some time you end up giving a wider access than needed, but GCP has a IAM recommender that will monitor each access given, and compare it to the access used.
+Sometimes you might end up giving more (a wider) access than strictly necessary - but fear not!
+GCP has an IAM recommender which will monitor each access permission given, and compare it to accesses actually asked for (or required).
 After which the IAM recommender will recommend a more granular access, that probably fits you and your usage better!
 Read more about the IAM recommender over at [Google Cloud Docs](https://cloud.google.com/iam/docs/recommender-overview).
