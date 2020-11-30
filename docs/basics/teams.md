@@ -84,7 +84,7 @@ To be able to run this commando, you first need to find your `PROJECT_ID`, and t
 gcloud projects add-iam-policy-binding <PROJECT_ID> --member=user:<FIRSTNAME>.<LASTNAME>@nav.no --role=<ROLE_NAME> --condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
 ```
 
-As an example, if you'd want to view your teams Storage buckets, you'll need the `roles/storage.objectViewer` role.
+As an example, if you'd want to view your team's Storage buckets, you'll need the `roles/storage.objectViewer` role.
 It's always smart to only give out [temporary access](#temporary-access).
 
 This can also be leveraged to give a user belonging to a different team access to _your_ team's resources.
