@@ -104,7 +104,7 @@ This can also be leveraged to give a user belonging to a different team access t
 
 ##### How to give a service account access
 
-A service account is also a `--member` of a project, but instead of running the command mentioned in '[How to give your self access](#How-to-give-your-self-access)', you change `--member=user:<email>` to `--member=serviceAccount:<email>`.
+A service account is also a `--member` of a project, but instead of running the command mentioned in [How to give your self access](#how-to-give-your-self-access), you change `--member=user:<email>` to `--member=serviceAccount:<email>`.
 
 #### GCP IAM recommender
 
