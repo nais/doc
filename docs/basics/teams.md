@@ -92,7 +92,7 @@ Do get a better understanding of how to give and revoke access with `gcloud`, yo
 
 ##### How to give your self access
 
-To be able to run this commando, you first need to find your `PROJECT_ID`, and the specific `ROLE_NAME` you want access to.
+To be able to run this commando, you first need to find your `PROJECT_ID`, and the specific `ROLE_NAME` you want access to. To adhere to the principle of using temporary access, the example below will give access to `ROLE_NAME` for 1 hour.
 ```bash
 gcloud projects add-iam-policy-binding <PROJECT_ID> --member=user:<FIRSTNAME>.<LASTNAME>@nav.no --role=<ROLE_NAME> --condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
 ```
