@@ -65,7 +65,7 @@ This can be done either by pipeline, or manually adding access when needed.
 There are different scenarios for when and how to give access to users, and the official [Google Cloud Docs](https://cloud.google.com/iam/docs/granting-changing-revoking-access) is definitively the best source for information.
 
 Google Docs has a list of possible [predefined roles](https://cloud.google.com/iam/docs/understanding-roles#predefined_roles) that we recommend using.
-These roles can also be listed our with `gcloud iam roles list --filter $feature`.
+These roles can also be listed our with `gcloud iam roles list --filter $resource`.
 Running the command without the `--filter` argument will return a very long list.
 
 #### Temporary access
