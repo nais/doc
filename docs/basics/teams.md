@@ -57,6 +57,8 @@ While we encourage the teams to base their ROS(s) and PVK(s) on the ones done by
 Remember to clean up after yourself, so that NAV doesn't unnecessarily pay for resources.
 We have a dashboard showing what each [team](https://datastudio.google.com/u/1/reporting/417b0a1d-b307-4a6d-a699-77a6ab239661/page/mJdmB) is using, plus a dashboard for [everything](https://datastudio.google.com/reporting/fda5f821-caef-4056-9356-9aa4f7082699/page/mJdmB) in GCP.
 
+Nais recommends that teams use Terraform, og similar technologies, to control the lifecycle of resources created in team-projects. This is more important in production, for services that will run for a longer period of time, than ad-hoc experimentation in dev. 
+
 ### Access management
 
 To promote autonomous teams, teams control access to their own projects completely by themselves.
