@@ -68,6 +68,18 @@ Google Docs has a list of possible [predefined roles](https://cloud.google.com/i
 These roles can also be listed our with `gcloud iam roles list --filter $feature`.
 Running the command without the `--filter` argument will return a very long list.
 
+#### Temporary access
+
+On a general basis, access should not be permanent.
+A good habit is to only grant your self or other a temporary access.
+
+Using the following `gcloud`-cli command will grant a user 1 hours of access to `roles/cloudsql.instanceUser`:
+```bash
+gcloud projects add-iam-policy-binding <PROJECT_ID> --member=user:<FIRSTNAME>.<LASTNAME>@nav.no --role=roles/cloudsql.instanceUser --condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
+```
+
+There is more information over at [Google Cloud Docs](https://cloud.google.com/iam/docs/configuring-temporary-access).
+
 #### Examples
 
 !!! Info "Access to Postgres"
@@ -92,18 +104,6 @@ This can also be leveraged to give a user belonging to a different team access t
 ##### How to give a service account access
 
 A service account is also a `--member` of a project, but instead of running the command mentioned in '[How to give your self access](#How-to-give-your-self-access)', you change `--member=user:<email>` to `--member=serviceAccount:<email>`.
-
-#### Temporary access
-
-On a general basis, access should not be permanent.
-A good habit is to only grant your self or other a temporary access.
-
-Using the following `gcloud`-cli command will grant a user 1 hours of access to `roles/cloudsql.instanceUser`:
-```bash
-gcloud projects add-iam-policy-binding <PROJECT_ID> --member=user:<FIRSTNAME>.<LASTNAME>@nav.no --role=roles/cloudsql.instanceUser --condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
-```
-
-There is more information over at [Google Cloud Docs](https://cloud.google.com/iam/docs/configuring-temporary-access).
 
 #### GCP IAM recommender
 
