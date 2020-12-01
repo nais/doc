@@ -266,6 +266,34 @@ Whether the instance should be deleted if the application is deleted
 
 **Default**: `false`
 
+### `spec.gcp.buckets[].retentionPeriodDays`
+
+Retention period in days for objects in bucket
+
+### `spec.gcp.buckets[].lifecycleCondition`
+
+List of lifecycle conditions in bucket
+
+### `spec.gcp.buckets[].lifecycleCondition[]`
+
+List of lifecycle conditions in bucket
+
+### `spec.gcp.buckets[].lifecycleCondition[].age`
+
+Age of object in days before objects are subject to permanent deletion
+
+### `spec.gcp.buckets[].lifecycleCondition[].createdBefore`
+
+Creation date of object where older objects are subject to permanent deletion
+
+### `spec.gcp.buckets[].lifecycleCondition[].numNewerVersions`
+
+Number of versions of objects to be kept, older versions are subject to permanent deletion
+
+### `spec.gcp.buckets[].lifecycleCondition[].withState`
+
+State of objects (LIVE, ARCHIVED, ANY) subject to permanen deletion
+
 ## `spec.idporten`
 
 Configures an ID-porten client for this application. See [ID-porten](../../security/auth/idporten.md) for more details.
