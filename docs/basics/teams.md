@@ -44,9 +44,10 @@ Team namespaces are supported in both on-prem and in GCP. Refer to the [team nam
 ## GCP Team projects
 
 Each team has their own [Google Cloud Platform project](https://cloud.google.com/storage/docs/projects), which consist of:
-   * a set of users,
-   * a set of APIs,
-   * in addition to authentication and monitoring settings of those APIs.
+
+* a set of users,
+* a set of APIs,
+* in addition to authentication and monitoring settings of those APIs.
    
 So, for example, all of your Cloud Storage buckets and objects, along with user permissions for accessing them, reside in a project.
 
