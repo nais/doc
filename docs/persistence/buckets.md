@@ -32,6 +32,7 @@ Bucket names must be globally unique across the entire Google infrastructure. Th
 RetentionPeriodDays is set in number of days, if not set; no retention policy will be set and files will never be deleted from the bucket.
 
 LifecycleCondition can be set to verify which files/objects are subject to permanent deletion based on the conditions set.
+
 - **age** specifies days it has existed in the bucket before it can be deleted.
 - **createdBefore** specifies a date all files created before this date can be deleted.
 - **numNewerVersions** specifies the number of revisions that must be kept, all older revisions can be deleted.

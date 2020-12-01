@@ -98,6 +98,12 @@ spec:
     buckets:
       - name: my-cloud-storage-bucket
         cascadingDelete: false
+        retentionPeriodDays: 30
+        lifecycleCondition:
+          age: 10
+          createdBefore: 2020-01-01
+          numNewerVersions: 2
+          withState: ARCHIVED
     sqlInstances:
       - name: myinstance
         type: POSTGRES_11
