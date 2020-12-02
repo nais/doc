@@ -171,6 +171,44 @@ Path to where files will be mounted.
 
 **Default \(secret\)**: `/var/run/secrets`
 
+## `spec.gcp.permissions[]`
+
+List of _additional_ permissions that should be granted to your application for accessing external GCP resources that have **not** been provisioned through NAIS.
+
+[Supported resources found here](https://cloud.google.com/config-connector/docs/reference/resource-docs/iam/iampolicymember#external_organization_level_policy_member).
+
+### `spec.gcp.permissions[].role`
+
+The role that should be assigned to your application for a given resource.
+
+For example, [Pub/Sub has the following roles available for its resources](https://cloud.google.com/pubsub/docs/access-control#roles).
+
+### `spec.gcp.permissions[].resource`
+
+_resource_ refers to the actual GCP resource that the role defined in `spec.gcp.permissions[].role` should be applicable for.
+
+In accordance with the _principle of least privilege_, you should always strive to assign a role to the lowest available resource, e.g. for the Pub/Sub example a specific `Topic` rather than _all_ `Topics` within a `Project`.
+
+### `spec.gcp.permissions[].resource.apiVersion`
+
+_apiVersion_ refers to the Config Connector resource name and version in Kubernetes. 
+
+For example, a [Pub/Sub resource](https://cloud.google.com/config-connector/docs/reference/resource-docs/pubsub/pubsubsubscription#sample_yamls) will have `apiVersion: pubsub.cnrm.cloud.google.com/v1beta1`.
+
+### `spec.gcp.permissions[].resource.kind`
+
+_kind_ refers to the [Config Connector resource name](https://cloud.google.com/config-connector/docs/reference/overview).
+ 
+For example, a Pub/Sub subscription would have a kind `PubSubSubscription`.
+
+### `spec.gcp.permissions[].resource.name`
+
+_name_ is an external reference to the actual GCP resource and should be formatted according to the [supported reference formats](https://cloud.google.com/config-connector/docs/reference/resource-docs/iam/iampolicymember#supported_resources).
+
+NAIS will _always_ prefix the reference with `projects/{{project_id}}`.
+
+For example, when referring to an external `PubSubSubscription`, the external reference format specified by Google is `projects/{{project}}/subscriptions/{{name}}`. However, you will only have to specify `name: subscriptions/{{name}}`.
+
 ## `spec.gcp.sqlInstances`
 
 List of sql instances to provision in GCP
