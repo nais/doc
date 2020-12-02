@@ -27,9 +27,9 @@ The name of the [team](../../basics/teams.md) that owns this application \(lower
 
 **Allowed values**: `([a-z0-9\-])+` team name starting with a letter and only lowercase letters, numbers and dashes is allowed
 
-## `spec.accessPolicy` \(GCP only\)
+## `spec.accessPolicy` 
 
-Default will not allow any traffic to or from application. [Access policy](../access-policy.md) is currently supported in GKE clusters, only.
+Default will not allow any traffic to or from application in GKE clusters. [Access policy](../access-policy.md) for istio rules is currently supported in GKE clusters, only.
 
 ### `spec.accessPolicy.inbound.rules[]`
 
