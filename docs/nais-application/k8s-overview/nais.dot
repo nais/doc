@@ -1,0 +1,23 @@
+digraph NAIS {
+    application -> { deployment horizontalPodAutoscaler	service	serviceAccount };
+
+    deployment -> replicaSet;
+    replicaSet -> pod [label="scales"];
+    service -> endpoint;
+    horizontalPodAutoscaler -> deployment [label="scales"];
+    
+    caBundle [label="configMap: caBundle"]
+    gcpCredential [label="secret: gcp-credential"]
+
+    // interactions
+    edge [color=grey]
+    endpoint -> pod [style=dotted label="watches"];
+    ingress -> service [style=dotted label="watches"];
+    pod -> { caBundle gcpCredential serviceAccount } [style=dotted label="mounts"];
+    
+    edge [color=black]
+
+    subgraph onprem {
+	application -> ingress;
+    }
+}
