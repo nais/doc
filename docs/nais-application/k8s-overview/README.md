@@ -1,12 +1,12 @@
 # K8s overview
 
-A simplified overview over resources created/mounted/used by a nais-app.
+A simplified overview of resources created, mounted, and used by a nais-app.
 
-![Overview of kubernetes resources created when deploy your nais-app](nais.png)
+![Overview of Kubernetes resources created upon deployment of your nais-app](nais.png)
 
 ## Generate new image
 
-We're using [the Dot language](https://graphviz.org/doc/info/lang.html) to create the overview.
+Using [the DOT language](https://graphviz.org/doc/info/lang.html), one can create an overview of an application.
 
 Run the following command in this directory:
 ```bash
