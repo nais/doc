@@ -4,6 +4,11 @@ description: This document describes the properties a NAIS application should ha
 
 # NAIS Application
 
+A simplified overview of resources created, mounted, and used by a nais-app (on-prem).
+
+![Overview of Kubernetes resources created upon deployment of your nais-app](resource-overview.svg)
+
+
 ## Handles termination gracefully
 
 !!! info
