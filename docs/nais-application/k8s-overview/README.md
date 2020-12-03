@@ -2,7 +2,7 @@
 
 A simplified overview of resources created, mounted, and used by a nais-app.
 
-![Overview of Kubernetes resources created upon deployment of your nais-app](nais.png)
+![Overview of Kubernetes resources created upon deployment of your nais-app](nais.svg)
 
 ## Generate new image
 
