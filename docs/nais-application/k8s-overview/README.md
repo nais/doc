@@ -10,5 +10,5 @@ We're using [the Dot language](https://graphviz.org/doc/info/lang.html) to creat
 
 Run the following command in this directory:
 ```bash
-dot -Tpng nais.dot -o nais.png
+dot -Tsvg nais.dot -o nais.svg
 ```
