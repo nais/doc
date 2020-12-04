@@ -33,14 +33,19 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
     apiVersion: batch/v1
     kind: Job
     metadata:
-      name: ${jobname}
-      namespace: ${teamname}
       labels:
         team: ${teamname}
+        app: ${jobname}
+      name: ${jobname}
+      namespace: ${teamname}
     spec:
       ttlSecondsAfterFinished: 300
       backoffLimit: 1
       template:
+        metadata:
+          labels:
+            team: ${teamname}
+            app: ${jobname}
         spec:
           imagePullSecrets:
             - name: gpr-credentials
@@ -63,14 +68,19 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
     apiVersion: batch/v1
     kind: Job
     metadata:
-      name: ${jobname}
-      namespace: ${teamname}
       labels:
         team: ${teamname}
+        app: ${jobname}
+      name: ${jobname}
+      namespace: ${teamname}
     spec:
       ttlSecondsAfterFinished: 300
       backoffLimit: 1
       template:
+        metadata:
+          labels:
+            team: ${teamname}
+            app: ${jobname}
         spec:
           imagePullSecrets:
             - name: gpr-credentials
@@ -96,14 +106,19 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
     apiVersion: batch/v1
     kind: Job
     metadata:
-      name: ${jobname}
-      namespace: ${teamname}
       labels:
         team: ${teamname}
+        app: ${jobname}
+      name: ${jobname}
+      namespace: ${teamname}
     spec:
       ttlSecondsAfterFinished: 300
       backoffLimit: 1
       template:
+        metadata:
+          labels:
+            team: ${teamname}
+            app: ${jobname}
         spec:
           imagePullSecrets:
             - name: gpr-credentials
@@ -165,14 +180,19 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
     apiVersion: batch/v1
     kind: Job
     metadata:
-      name: ${jobname}
-      namespace: ${teamname}
       labels:
         team: ${teamname}
+        app: ${jobname}
+      name: ${jobname}
+      namespace: ${teamname}
     spec:
       ttlSecondsAfterFinished: 300
       backoffLimit: 1
       template:
+        metadata:
+          labels:
+            team: ${teamname}
+            app: ${jobname}
         spec:
           imagePullSecrets:
             - name: gpr-credentials
@@ -234,14 +254,19 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
     apiVersion: batch/v1
     kind: Job
     metadata:
-      name: ${jobname}
-      namespace: ${teamname}
       labels:
         team: ${teamname}
+        app: ${jobname}
+      name: ${jobname}
+      namespace: ${teamname}
     spec:
       ttlSecondsAfterFinished: 300
       backoffLimit: 1
       template:
+        metadata:
+          labels:
+            team: ${teamname}
+            app: ${jobname}
         spec:
           imagePullSecrets:
             - name: gpr-credentials
@@ -349,10 +374,11 @@ The `.spec.jobTemplate` is the template for the job, and has exactly the same sc
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: ${jobname}
-  namespace: ${teamname}
   labels:
     team: ${teamname}
+    app: ${jobname}
+  name: ${jobname}
+  namespace: ${teamname}
 spec:
   schedule: ${schedule}
   jobTemplate:
@@ -637,7 +663,7 @@ Repeat the steps below for each secret you want from Vault.
 
 Add a new `volumeMount` entry to the list in:
 
-* `.spec.template.initContainers[0].volumeMounts[]` 
+* `.spec.template.initContainers[0].volumeMounts[]`
 * `.spec.template.containers[0].volumeMounts[]`
 
 ```yaml
@@ -741,4 +767,105 @@ The easiest way to do so is to simply `apply` the `Job` or `CronJob` to the clus
 
 ```bash
 $ kubectl apply -f job.yml
+```
+
+## GCP
+### NetworkPolicy
+```
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  labels:
+    team: ${teamname}
+    app: ${jobname}
+  name: ${jobname}
+  namespace: ${namespace}
+spec:
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: istio-system
+      podSelector:
+        matchLabels:
+          istio: istiod
+    - namespaceSelector:
+        matchLabels:
+          name: istio-system
+      podSelector:
+        matchLabels:
+          istio: pilot
+    - namespaceSelector:
+        matchLabels:
+          name: istio-system
+      podSelector:
+        matchLabels:
+          istio: mixer
+    - namespaceSelector:
+        matchLabels:
+          name: istio-system
+      podSelector:
+        matchLabels:
+          istio: ingressgateway
+    - namespaceSelector: {}
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    - ipBlock:
+        cidr: 0.0.0.0/0
+        except:
+        - 10.6.0.0/15
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: istio-system
+      podSelector:
+        matchLabels:
+          app: prometheus
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: istio-system
+      podSelector:
+        matchLabels:
+          istio: ingressgateway
+  podSelector:
+    matchLabels:
+      app: ${jobname}
+  policyTypes:
+  - Ingress
+  - Egress
+```
+
+### ServiceEntry
+```
+apiVersion: networking.istio.io/v1beta1
+kind: ServiceEntry
+metadata:
+  labels:
+    team: ${teamname}
+    app: ${jobname}
+  name: ${jobname}
+  namespace: ${namespace}
+spec:
+  exportTo:
+  - .
+  hosts:
+  - aadcdn.msauth.net
+  - aadcdn.msauthimages.net
+  - aadcdn.msftauth.net
+  - device.login.microsoftonline.com
+  - login.live.com
+  - login.microsoftonline.com
+  - login.microsoftonline.com
+  - www.office.com
+  location: MESH_EXTERNAL
+  ports:
+  - name: https
+    number: 443
+    protocol: HTTPS
+  resolution: DNS
 ```
