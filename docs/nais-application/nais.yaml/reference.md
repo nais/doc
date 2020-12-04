@@ -233,9 +233,9 @@ Tier of the instance. Format: db-custom-- \| db-f1-micro \| db-g1-small [example
 
 ### `spec.gcp.sqlInstances[].diskType`
 
-disk type, can be ssd or hdd
+disk type, can be SSD or HDD
 
-**Default**: `ssd`
+**Default**: `SSD`
 
 ### `spec.gcp.sqlInstances[].highAvailability`
 
