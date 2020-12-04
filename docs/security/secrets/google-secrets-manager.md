@@ -8,6 +8,10 @@ You may store secrets in [Google Secrets
 Manager](https://cloud.google.com/secret-manager) as an alternative to the
 other offered solutions.
 
+As a supplement to [Kubernetes Secrets](kubernetes-secrets.md), we also offer one-way 
+synchronization of secrets from Google Secrets Manager to Kubernetes Secrets
+that you may mount into your applications in the GCP clusters.
+
 ## Getting started
 
 Start at the [GCP
