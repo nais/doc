@@ -770,6 +770,12 @@ $ kubectl apply -f job.yml
 ```
 
 ## GCP
+For jobs running on GCP you need two more resources:
+- network policy (think of this as your apps firewall)
+- service entry (defining which http hosts to allow outbound from your job)
+
+Note: If you need to make http requests to services in the cluster, use ingress instead of service discovery for Jobs for now. And notify the nais team that you have this use-case so we can prioritize fixing it.
+
 ### NetworkPolicy
 ```yaml
 apiVersion: networking.k8s.io/v1
