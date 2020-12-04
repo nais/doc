@@ -121,6 +121,12 @@ Explicitly target a given [tenant](../../security/auth/azure-ad.md#tenants) in A
 
 **Allowed values**: enum of `{trygdeetaten.no, nav.no}`
 
+### `spec.azure.application.claims.extra[]`
+
+List of additional claims that should be emitted in tokens for your application.
+
+**Allowed values**: `NAVident`
+
 ## `spec.elastic.instance`
 
 Will add access policy for the given instance, and label your pods to use the correct network policy to allow traffic to Aiven.
