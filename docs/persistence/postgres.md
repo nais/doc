@@ -42,9 +42,9 @@ The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instan
 | database url with credentials | `NAIS_DATABASE_MYAPP_MYDB_URL` | `postgres://username:password@127.0.0.1:5432/mydb` |
 
 !!! info 
-    Note that if you have deployed your application with one configuration, and then change it later, you have to manually delete the google-sql-*INSTANCE_NAME* secret before you make a new deploy:
+    Note that if you have deployed your application with one configuration, and then change it later, you have to manually delete the google-sql-*MYAPP* secret before you make a new deploy:
 ```bash
-$ kubectl delete secret google-sql-<INSTANCE_NAME>
+$ kubectl delete secret google-sql-<MYAPP>
 ```
  
 ### Cloud SQL Proxy
