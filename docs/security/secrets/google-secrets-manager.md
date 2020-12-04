@@ -19,11 +19,15 @@ All secrets must exist in the region `europe-north1`. This option is found when
 you click _manually select region_. Unfortunately, we cannot enforce a default
 value here.
 
+![Google Secret Manager Region selection](../../assets/google-secret-manager-region.png)
+
 ## Using secrets in applications
 
 Label your secret with `sync=true` to enable synchronization to NAIS. The
 latest _secret version_ will be copied into your Kubernetes namespace. This
 feature is only available in GCP clusters.
+
+![Google Secret Manager Sync label](../../assets/google-secret-manager-sync-label.png)
 
 If the secret already existed without this tag, you must create a new _secret
 version_ to effectuate the sync.
@@ -35,8 +39,13 @@ imported.
 Modifications to secrets will NOT be synchronized back to Google Secret
 Manager, and any modifications might be overwritten at any time.
 
-If your secret contains a list of environment variables, additionally add the
-label `env=true`.
+If your secret contains a list of environment variables:
+
+![Google Secret Manager environment variables example](../../assets/google-secret-manager-env-value.png)
+
+additionally add the label `env=true`:
+
+![Google Secret Manager environment variables label](../../assets/google-secret-manager-env-label.png)
 
 The synchronization of secrets into namespaces is managed by the application
 [hunter2](https://github.com/nais/hunter2). This application runs in all team
