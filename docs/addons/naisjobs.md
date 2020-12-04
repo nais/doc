@@ -771,7 +771,7 @@ $ kubectl apply -f job.yml
 
 ## GCP
 ### NetworkPolicy
-```
+```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -841,7 +841,7 @@ spec:
 ```
 
 ### ServiceEntry
-```
+```yaml
 apiVersion: networking.istio.io/v1beta1
 kind: ServiceEntry
 metadata:
