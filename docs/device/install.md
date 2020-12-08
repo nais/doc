@@ -40,8 +40,7 @@
 1. In a terminal/shell of your choice, navigate to [kubeconfigs repo](https://github.com/navikt/kubeconfigs)'.
    1. If you haven't downloaded repo already: `git clone https://github.com/navikt/kubeconfigs.git && cd kubeconfigs`
 2. `git pull` To ensure you've got latest & greatest.
-3. `git checkout naisdevice` Remember to use the right branch!
-4. Pek KUBECONFIG miljøvariabelen på config-filen \(fra terminal\): `export KUBECONFIG="<path-to>/kubeconfigs/config"`
+3. Pek KUBECONFIG miljøvariabelen på config-filen \(fra terminal\): `export KUBECONFIG="<path-to>/kubeconfigs/config"`
 
 ## Uninstall navtunnel
 
