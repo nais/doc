@@ -136,7 +136,7 @@ See [Laws and regulations/Application PVK](../legal/app-pvk.md) for details.
 | Laptop access | ✔️ | ✔️ |  |
 | domain: dev.nav.no | ✔️ \(IAC\) | ✔️ \(Automatic\) | Wildcard DNS points to GCP load balancer |
 | domain: dev.adeo.no | ✔️ \(IAC\) | ✔️ \(Automatic\) | Wildcard DNS points to GCP load balancer |
-| Access to FSS services | ✔️ | ✔️ | Identical \(either API-gw or [TokenX](../security/auth/tokenx.md) |
+| Access to FSS services | ✔️ | ✔️ | Identical \(either API-gw or [TokenX](../security/auth/tokenx.md). May require a proxy app, see [Security Blueprints](https://security.labs.nais.io/pages/guide/sonekryssing/google-cloud-platform.html) for details. |
 | OpenAM | ✔️ | ✖️ | OpenAM is EOL, use [TokenX](../security/auth/tokenx.md) |
 | NAV truststore | ✔️ | ✔️ |  |
 | PVK required | ✔️ | ✔️ | amend to cover storage in cloud |
