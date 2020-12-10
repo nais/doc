@@ -30,7 +30,7 @@ Major features coming:
 
 ## Creating topics and defining access
 
-Creating or modifying a `Topic` Kubernetes resource will trigger topic creation and ACL management with Aiven \(hosted Kafka provider\). The topic name will be prefixed with your team namespace, thus in the example below, the fully qualified topic name will be `myteam.mytopic`.
+Creating or modifying a `Topic` Kubernetes resource will trigger topic creation and ACL management with Aiven \(hosted Kafka provider\). The topic name will be prefixed with your team namespace, thus in the example below, the fully qualified topic name will be `myteam.mytopic`. This name will be set in the `.status.fullyQualifiedName` field on your Topic resource once the Topic is synchronized to Aiven.
 
 To add access to this topic for your application, see the next section: _Accessing topics from an application_.
 
@@ -140,7 +140,7 @@ When this annotation is in place, deleting the topic resource from Kubernetes wi
 
 ## Accessing topics from an application
 
-Adding `.kafka.pool` to your `Application` spec will inject Kafka credentials into your pod. Your application needs to follow some design guidelines; see the next section on _application design guidelines_. Make sure that the topic name is prefixed with the owner's team namespace, e.g. `myteam.mytopic`.
+Adding `.kafka.pool` to your `Application` spec will inject Kafka credentials into your pod. Your application needs to follow some design guidelines; see the next section on _application design guidelines_. Make sure that the topic name matches the `fullyQualifiedName` found in the Topic resource, e.g. `myteam.mytopic`.
 
 === "nais.yaml"
     ```yaml
@@ -284,3 +284,7 @@ Follow these steps:
 * Q: why do I have to specify a pool name if there is only `nav-dev` and `nav-prod`?
 
   A: custom pools will be added in the future.
+
+* Q: I can't produce/consume on my topic, with an error message like "topic not found". What's wrong?
+
+  A: you need to use the _fully qualified name_; check the `.status.fullyQualifiedName` field in your Topic resource.
