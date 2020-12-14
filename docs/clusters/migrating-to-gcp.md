@@ -2,7 +2,7 @@
 
 ### Why migrate our application\(s\)?
 
-* Access to self-service [buckets](../persistence/buckets.md) and [Postgres databases](../persistence/postgres.md). 
+* Access to self-service Google-managed [buckets](../persistence/buckets.md) and [Postgres databases](../persistence/postgres.md). 
 * Access to Google Cloud features.
 * [Zero Trust security model](../appendix/zero-trust.md) instead of FSS/SBS zone model.
 * [Built-in call tracing](https://istio.io/docs/tasks/observability/distributed-tracing/) similar to AppDynamics.
@@ -21,7 +21,7 @@ Follow the Getting started's [Access from laptop](../basics/access.md) instructi
 
 Our GCP clusters use a zero trust security model, implying that the application must specify both incoming and outgoing connections in order to receive or send traffic at all. This is expressed using the [access policy spec](../nais-application/access-policy.md).
 
-The access policy also enables zone traversal and cross-cluster communication. This must be implemented in both applications, by using and accepting tokens from [TokenX](../security/auth/tokenx.md).
+The access policy also enables zone traversal and cross-cluster communication. This must be implemented in both applications, by using and accepting tokens from [TokenX](../security/auth/tokenx.md) or AAD. 
 
 #### Deploy
 
@@ -67,15 +67,18 @@ See [this table](migrating-to-gcp.md#gcp-compared-to-on-premises) for the differ
 
 #### What should we change?
 
-Use [TokenX](../security/auth/tokenx.md) instead of API-GW If using automatically configured [buckets](../persistence/buckets.md) or [postgres](../persistence/postgres.md), use [Google APIs](https://cloud.google.com/storage/docs/reference/libraries)
+- Use [TokenX](../security/auth/tokenx.md) instead of API-GW.
+- If using automatically configured [buckets](../persistence/buckets.md) or [postgres](../persistence/postgres.md), use [Google APIs](https://cloud.google.com/storage/docs/reference/libraries)
 
 #### What do we not need to change?
 
-You do not have to make any changes to your application code. Ingresses work the same way, although some domains overlap and others are exclusive. Logging, secure logging, metrics and alerts work the same way
+You do not have to make any changes to your application code. Ingresses work the same way, although some domains overlap and others are exclusive. Logging, secure logging, metrics and alerts work the same way. 
 
 #### What can we do now to ease migration to GCP later?
 
-Make sure your PVK is up to date. Deploy your application to your team's namespace instead of `default`
+- Make sure your PVK is up to date. 
+- Deploy your application to your team's namespace instead of `default`, as this is not available in GCP.
+- Use a token auth flow between your applications. Either [TokenX](../security/auth/tokenx.md), AAD on-behalf-of or AAD client_credentials flow depending on your use case. This allows for a more seamless migration of your applications. E.g. if you have two apps in FSS, you can migrate one without the other. 
 
 #### What about PVK?
 
@@ -134,10 +137,9 @@ See [Laws and regulations/Application PVK](../legal/app-pvk.md) for details.
 | Storage | Ceph | Buckets |  |
 | Postgres | ✔️ \(IAC\) | ✔️ \(self-service\) |  |
 | Laptop access | ✔️ | ✔️ |  |
-| domain: dev.nav.no | ✔️ \(IAC\) | ✔️ \(Automatic\) | Wildcard DNS points to GCP load balancer |
-| domain: dev.adeo.no | ✔️ \(IAC\) | ✔️ \(Automatic\) | Wildcard DNS points to GCP load balancer |
-| Access to FSS services | ✔️ | ✔️ | Identical \(either API-gw or [TokenX](../security/auth/tokenx.md). May require a proxy app, see [Security Blueprints](https://security.labs.nais.io/pages/guide/sonekryssing/google-cloud-platform.html) for details. |
-| OpenAM | ✔️ | ✖️ | OpenAM is EOL, use [TokenX](../security/auth/tokenx.md) |
+| domain: dev.intern.nav.no (if migrating from SBS) | ✔️ \(IAC\) | ✔️ \(Automatic\) | Wildcard DNS points to GCP load balancer |
+| Access to FSS services (if migrating from SBS) | ✔️ | ✔️ | Identical \(either API-gw or [TokenX](../security/auth/tokenx.md). May require a proxy app, see [Security Blueprints](https://security.labs.nais.io/pages/guide/sonekryssing/google-cloud-platform.html) for details. |
+| OpenAM (ESSO) | ✔️ | ✖️ | OpenAM is EOL, use [TokenX](../security/auth/tokenx.md) |
 | NAV truststore | ✔️ | ✔️ |  |
 | PVK required | ✔️ | ✔️ | amend to cover storage in cloud |
 | Security | Zone Model | [zero-trust](../appendix/zero-trust.md) |  |
