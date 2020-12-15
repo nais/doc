@@ -6,7 +6,7 @@ theme:
   language: 'en'
   logo: assets/logo.png
   favicon: assets/logo.png
-  custom_dir: docs/custom/overrides
+  custom_dir: custom_theme_overrides
   palette:
     scheme: preference
     primary: white
@@ -18,7 +18,9 @@ extra:
   search:
     language: 'en'
 extra_javascript:
-  - custom/javascript/events.js
+  - amplitude_javascript/events.js
+extra_css:
+  - material_theme_stylesheet_overrides/uu.css
 plugins:
   - search
 markdown_extensions:
