@@ -19,6 +19,8 @@ extra:
     language: 'en'
 extra_javascript:
   - amplitude_javascript/events.js
+extra_css:
+  - material_theme_stylesheet_overrides/uu.css
 plugins:
   - search
 markdown_extensions:
