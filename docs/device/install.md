@@ -1,6 +1,6 @@
 # Installation
 
-## MacOS
+## MacOS Installation
 
 1. \[if you had navtunnel\]: [uninstall navtunnel](install.md#uninstall-navtunnel)
 2. [install Kolide agent](install.md#install-kolide-agent)
@@ -8,7 +8,7 @@
 4. Command+Space -&gt; `naisdevice` -&gt; systray icon -&gt; connect \([allow ~20 seconds before filing issues](https://github.com/nais/device/issues/38)\)
 5. Remember to [update your kubeconfig](install.md#connecting-to-nais-clusters)
 
-## Windows
+## Windows Installation
 
 1. [install Kolide agent](install.md#install-kolide-agent)
 2. [install WireGuard](https://www.wireguard.com/install/) \(Note: Ignore error message regarding UI only being accessible by the Builtin Administrators group\)
