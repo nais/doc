@@ -84,7 +84,7 @@ In your Systray (where all your small program icons are located - see above pict
 1. Read through the list of "Do's and don'ts".
 2. If you've got any questions, you may join the [#naisdevice](https://nav-it.slack.com/archives/C013XV66XHB) Slack channel.
    _Which happens to be one of the required "Do's" anyways ;)_.
-3. If you accept the terms (they are not negotiable); click the green "Accept" button at the botttom of the page!
+3. If you accept the terms (they are non-negotiable); click the green "Accept" button at the botttom of the page!
    The button should turn into a red "Reject" button once your acceptance has been processed!
 
 ### Connecting to NAIS clusters
