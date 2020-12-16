@@ -10,7 +10,7 @@ theme:
   palette:
     scheme: preference
     primary: blue grey
-    accent: deep orange
+    accent: deep purple
   features:
     - navigation.instant
     - navigation.tabs
