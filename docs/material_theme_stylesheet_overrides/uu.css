@@ -1,5 +1,12 @@
 :root {
+  --md-default-fg-color: #2a2a2a;
+  --md-default-bg-color: #ffffff;
+
   --md-default-fg-color--light: #2a2a2a;
+  --md-default-bg-color--light: #ffffff;
+
+  --md-default-fg-color--dark: rgb(233, 235, 252);
+  --md-default-bg-color--dark: rgb(46, 48, 62);
 }
 
 a {
