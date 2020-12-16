@@ -1,0 +1,126 @@
+site_name: NAIS
+repo_url: https://github.com/nais/doc
+site_url: https://doc.nais.io/
+theme:
+  name: material
+  language: 'en'
+  logo: assets/logo.png
+  favicon: assets/logo.png
+  custom_dir: custom_theme_overrides
+  palette:
+    scheme: preference
+    primary: blue grey
+    accent: deep purple
+  features:
+    - navigation.instant
+    - navigation.tabs
+extra:
+  search:
+    language: 'en'
+extra_javascript:
+  - amplitude_javascript/events.js
+extra_css:
+  - material_theme_stylesheet_overrides/uu.css
+plugins:
+  - search
+markdown_extensions:
+  - toc:
+      permalink: True
+  - admonition
+  - pymdownx.details
+  - pymdownx.tilde
+  - pymdownx.superfences:
+      preserve_tabs: true
+  - pymdownx.highlight:
+      css_class: codehilite
+      linenums_style: pymdownx-inline
+  - pymdownx.tasklist
+  - pymdownx.smartsymbols
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+nav:
+  - NAIS:
+    - Introduction to NAIS: README.md
+    - Getting started:
+      - Access from laptop: basics/access.md
+      - Teams: basics/teams.md
+      - Your first NAIS application: basics/application.md
+    - Clusters:
+      - Google Cloud Platform: clusters/gcp.md
+      - On-premises: clusters/on-premises.md
+      - Migrating to GCP: clusters/migrating-to-gcp.md
+      - Migrating databases to GCP: clusters/migrating-databases-to-gcp.md
+      - Team namespaces: clusters/team-namespaces.md
+    - NAIS Application:
+      - Overview: nais-application/README.md
+      - nais.yaml:
+        - Reference: nais-application/nais.yaml/reference.md
+        - Full example: nais-application/nais.yaml/full-example.md
+        - Minimal example: nais-application/nais.yaml/min-example.md
+      - Access Policy: nais-application/access-policy.md
+    - Deployment:
+      - Overview: deployment/README.md
+      - Manually: deployment/manual.md
+      - Changing teams: deployment/change-team.md
+      - Troubleshooting: deployment/troubleshooting.md
+      - Allowed Registries: deployment/allowed-registries.md
+    - Observability:
+      - Alerts:
+        - Overview: observability/alerts/README.md
+        - Recommended: observability/alerts/recommended_alerts.md
+        - Spec: observability/alerts/spec.md
+      - Logs:
+        - Overview: observability/logs/README.md
+        - Examples: observability/logs/examples.md
+      - Metrics: observability/metrics.md
+      - Tracing: observability/tracing.md
+    - Persistence:
+      - Responsibilities: persistence/responsibilities.md
+      - Buckets: persistence/buckets.md
+      - Elastic Search: persistence/elastic-search.md
+      - Postgres: persistence/postgres.md
+      - S3 object store: persistence/objectstore.md
+      - Redis: persistence/redis.md
+      - On-premises disk: persistence/volume-storage.md
+    - Security:
+      - AuthN & AuthZ:
+        - Overview: security/auth/README.md
+        - Azure AD: security/auth/azure-ad.md
+        - ID-porten: security/auth/idporten.md
+        - Maskinporten: security/auth/maskinporten.md
+        - TokenX: security/auth/tokenx.md
+      - Secrets:
+        - Kubernetes Secrets: security/secrets/kubernetes-secrets.md
+        - Google Secrets Manager: security/secrets/google-secrets-manager.md
+        - Vault: security/secrets/vault.md
+      - Anti-virus Scanning: security/antivirus.md
+    - Addons:
+      - Kafka: addons/kafka.md
+      - Leader Election: addons/leader-election.md
+      - NAISjobs (Jobs / CronJobs): addons/naisjobs.md
+      - Velero backup and restore: addons/velero-backup-and-restore.md
+    - Legacy:
+      - AM/OpenAM: legacy/am.md
+    - Appendix:
+      - Zero-Trust Network Architecture: appendix/zero-trust.md
+      - Ingress DNS setup: appendix/ingress-dns.md
+  - naisdevice:
+    - Overview: device/README.md
+    - Installation: device/install.md
+    - Troubleshooting: device/troubleshooting.md
+    - Available services: device/services.md
+  - Laws and regulations:
+    - Roles and responsibilities: legal/roles-responsibilities.md
+    - Platform risk assessments (ROS): legal/nais-ros.md
+    - Application risk assessments (ROS): legal/app-ros.md
+    - Platform privacy impact assessments (PVK): legal/nais-pvk.md
+    - Application privacy impact assessments (PVK): legal/app-pvk.md
+    - Vendor Data Processor Agreements:
+      - Overview: legal/dpa/README.md
+      - GCP Data Processor Agreement: legal/dpa/gcp-dpa.md
+      - Azure Data Processor Agreement: legal/dpa/azure-dpa.md
+      - Aiven Data Processor Agreement: legal/dpa/aiven-dpa.md
+    - Arkivloven: legal/arkivloven.md
+    - Sikkerhetsloven: legal/sikkerhetsloven.md

@@ -1,2 +1,18 @@
+# IntelliJ / IDEA
 .idea
 *.iml
+
+# Mac OS shait
+.DS_Store
+
+# Vim
+*.swp
+
+# mkdocs output folder (which contains all the HTML)
+site/
+
+# Terraform
+.terraform/
+
+# Git folder - for .dockerignore purposes
+.git/

@@ -1,0 +1,4 @@
+# Sikkerhetsloven
+
+\(Coming soon\)
+
