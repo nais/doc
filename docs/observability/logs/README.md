@@ -65,3 +65,30 @@ curl -X POST -d '{"log":"hello world","field1":"value1"}' -H 'Content-Type: appl
 
 ![From app to Kibana](../../assets/logging_overview.png)
 
+## Gaining access in kibana
+
+Once everything is configured, your secure logs will be sent to the `tjenestekall-*` index in kibana. To gain access to these logs, you need to do the following:
+
+### 1 Create an AD-group
+
+To make sure you gain access to the proper logs, you need an AD-group connected to the nais-team. So the first thing you do is create this group.
+
+Go to [Porten (service desk)](https://jira.adeo.no/plugins/servlet/desk/portal/542) and click `Melde sak til IT`. The follow the template below.
+
+![ticket](../../assets/jira_secure_log.png)
+
+### 2 Connect the AD group to your team in Kibana
+
+Your app produces logs based on nais-team. So in order for you to get access to the logs, the AD-group must be linked with the nais team, so whoever is in the AD-group can read all logs produced by apps belonging to the nais-team.
+
+The easiest way to achieve this is to ask in the `#atom` slack channel. And ask them to connect AD-group X to team Y.
+
+### 3 Put people into the AD-group
+
+This must be done by "identansvarlig". For NAV-IT employees, this is `nav.it.identhandtering@nav.no`. Send them an email and ask for access with a CC to whoever is your superior.
+
+For everyone else, the team lead or who ever is their superior should know.
+
+### What can go wrong?
+
+Basically, the one thing that can go wrong here is that the AD-group is not registered in "identrutinen". If this happens, the group cannot be found by "identansvarlig". If this happens, make a new JIRA-ticket to the same people and tell them to transfer the group. Sadly this can take a few days.
