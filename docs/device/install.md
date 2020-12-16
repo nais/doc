@@ -89,10 +89,11 @@ In your Systray (where all your small program icons are located - see above pict
 
 ### Connecting to NAIS clusters
 
-1. In a terminal/shell of your choice, navigate to [kubeconfigs repo](https://github.com/navikt/kubeconfigs)'.
-   1. If you haven't downloaded repo already: `git clone https://github.com/navikt/kubeconfigs.git && cd kubeconfigs`
+1. In a terminal/shell of your choice, navigate to [kubeconfigs repo](https://github.com/navikt/kubeconfigs).
+    1. If you haven't downloaded repo already: `git clone https://github.com/navikt/kubeconfigs.git && cd kubeconfigs`
 2. `git pull` To ensure you've got latest & greatest.
-3. Pek KUBECONFIG miljøvariabelen på config-filen \(fra terminal\): `export KUBECONFIG="<path-to>/kubeconfigs/config"`
+3. Make and set the `KUBECONFIG` environment variable to the path of the `config`-file.
+    1. You can do this from the terminal with: `export KUBECONFIG="<path-to>/kubeconfigs/config"`
 
 ## Uninstall navtunnel
 
