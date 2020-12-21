@@ -2,7 +2,7 @@
 
 ## OS-specific installation steps
 
-### MacOS Installation
+### macOS Installation
 
 1. If you have got __`navtunnel`__ installed -> [uninstall navtunnel](#uninstall-navtunnel).
 2. [Install the Kolide agent](#install-kolide-agent).
@@ -58,7 +58,7 @@
 
 ### Connect naisdevice through task/sys -tray icon
 
-![A MacOS systray exemplifying a red-colored `naisdevice` icon.](../assets/naisdevice-systray-icon.svg)
+![A macOS systray exemplifying a red-colored `naisdevice` icon.](../assets/naisdevice-systray-icon.svg)
 
 In your Systray (where all your small program icons are located - see above picture):
 
@@ -111,7 +111,7 @@ In your Systray (where all your small program icons are located - see above pict
 
 * Remove Navtunnel settings from .ssh/config and .ssh/config.d
 
-### MacOS
+### macOS
 
 !!! info
     The below commands should be safe to run as-is, you'll encounter "Insufficient access"-like error messages if you lack sufficient privileges.
@@ -128,4 +128,3 @@ Run the below commands in a terminal.
 
 1. Remove Navtunnel-entries from c:\windows\system32\drivers\etc\hosts
 2. Remove proxy settings from your browser
-
