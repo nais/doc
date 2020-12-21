@@ -114,7 +114,8 @@ In your Systray (where all your small program icons are located - see above pict
 ### macOS
 
 !!! info
-    The below commands should be safe to run as-is, you'll encounter "Insufficient access"-like error messages if you lack sufficient privileges.
+    The below commands should be safe to run as-is.
+    The terminal will reply with "Insufficient access"-like error messages if you lack sufficient privileges.
     Try them one by one.
 
 Run the below commands in a terminal.
@@ -123,6 +124,8 @@ Run the below commands in a terminal.
 2. `sudo rm -rf "/Applications/navtunnel.app" && echo -e '\n\t*navtunnel* app deleted sucessfully!'`
 3. `sudo rm -rf "/Applications/ScaleFT.app" && echo -e '\n\t*ScaleFT* deleted successfully!'`
 4. `networksetup -setautoproxystate "Wi-Fi" off && echo -e '\n\t*Wi-Fi* Wi-Fi proxying turned off successfully!'`
+
+Questions you might have after having attempted to execute any of these commands may be asked in the [#naisdevice](https://nav-it.slack.com/archives/C013XV66XHB) Slach channel.
 
 ### Windows
 
