@@ -24,8 +24,8 @@
 
 1. [install Kolide agent](install.md#install-kolide-agent)
 2. Install wireguard
-   1. `sudo add-apt-repository ppa:wireguard/wireguard`
-   2. `sudo apt install wireguard`
+    1. `sudo add-apt-repository ppa:wireguard/wireguard`
+    2. `sudo apt install wireguard`
 3. Clone repo: `git clone https://github.com/nais/device`
 4. Make binaries: `cd device && make linux-client`
     1. NB!!! Modify the `Makefile` if you _do **not**_ appreciate surprising `sudo apt install --assume-yes` commands to be automatically executed without user prompt.
