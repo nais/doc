@@ -30,7 +30,8 @@ The following describes a few core concepts in Azure AD referred to throughout t
 
 A tenant represents an organization in Azure AD. Each tenant will have their own set of applications, users and groups. In order to log in to a tenant, you must use an account specific to that tenant.
 
-The default tenant for applications provisioned through NAIS in _all clusters_ is `nav.no`. If your use case requires you to use `trygdeetaten.no` in the `dev-*`-clusters, then you must [explicitly configure this](azure-ad.md#tenants_1).
+!!! warning
+    The default tenant for applications provisioned through NAIS in _all clusters_ is `nav.no`. If your use case requires you to use `trygdeetaten.no` in the `dev-*`-clusters, then you must [explicitly configure this](azure-ad.md#tenants_1).
 
 The same application in different clusters will result in unique Azure AD clients, with each having their own client IDs and access policies. For instance, the following applications in the same `nav.no` tenant will result in separate, unique clients in Azure AD:
 
