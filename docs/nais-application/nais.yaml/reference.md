@@ -627,11 +627,19 @@ If true, mount a volume for secure logs in the pod.
 
 **Default**: `false`
 
-## `spec.service.port`
+## `spec.service`
+
+### `spec.service.port`
 
 Port for the default service.
 
 **Default**: 80
+
+### `spec.service.protocol`
+
+Name of the port for the default service. It's called `protocol`, for this field is read as a protocol by Istio.
+
+**Default**: http
 
 ## `spec.skipCaBundle`
 
