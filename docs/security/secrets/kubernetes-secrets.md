@@ -1,5 +1,8 @@
 # Kubernetes Secrets
 
+!!! info "Google Cloud Platform"
+    We also offer an optional integration with [_Google Secret Manager_](google-secrets-manager.md) as a simplified supplement to using Kubernetes Secrets directly. 
+
 When running an application in a team namespace, [Kubernetes Secrets](https://kubernetes.io/docs/concepts/configuration/secret) can be used directly instead of Vault.
 
 To get started using this, simply [create the secrets](https://kubernetes.io/docs/concepts/configuration/secret/#creating-your-own-secrets). A secret can be either key-value pairs or files, and can be exposed to the application as environment variables or files.
@@ -37,4 +40,3 @@ spec:
 The secret is then exposed under the path specified by `spec.filesFrom[].mountPath` \(default `/var/run/secrets`\). For this example it is available at `/var/run/secrets/key1`.
 
 See the official [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/secret) or by running `kubectl create secret generic --help` for more details on creating and managing your secrets.
-
