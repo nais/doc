@@ -1,8 +1,9 @@
 # Access Policy
 
 !!! info
-    network policies and istio authorization is only applied in GCP clusters.
-
+    Network policies and Istio authorization is only applied in GCP clusters.
+    
+    However, inbound rules for authorization in the context of [_TokenX_](../security/auth/tokenx.md) or [_Azure AD_](../security/auth/azure-ad.md) apply to all clusters.
 
 ## Access Policy
 
