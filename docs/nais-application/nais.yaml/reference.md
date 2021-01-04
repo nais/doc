@@ -490,12 +490,6 @@ The port number which is exposed by the container and should receive HTTP traffi
 
 **Default**: 8080
 
-## `spec.strategy.type`
-
-Specifies the strategy used to replace old Pods by new ones.
-
-**Default**: RollingUpdate
-
 ## `spec.readiness`
 
 Sometimes, applications are temporarily unable to serve traffic. For example, an application might need to load large data or configuration files during startup, or depend on external services after startup. In such cases, you don't want to kill the application, but you don’t want to send it requests either. Kubernetes provides readiness probes to detect and mitigate these situations. A pod with containers reporting that they are not ready does not receive traffic through Kubernetes Services. Read more about this over at the [Kubernetes readiness documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
@@ -523,46 +517,6 @@ Number of seconds after the container has started before readiness probes are in
 Number of seconds after which the probe times out.
 
 **Default**: 1
-
-## `spec.startup`
-
-Startup probes will be available with Kubernetes 1.18 (in GCP, and 1.17 on-prem). Do not use this feature yet as it will not work.
-
-Sometimes, you have to deal with legacy applications that might require an additional startup time on their first initialization. In such cases, it can be tricky to set up liveness probe parameters without compromising the fast response to deadlocks that motivated such a probe. The trick is to set up a startup probe with the same command, HTTP or TCP check, with a failureThreshold \* periodSeconds long enough to cover the worse case startup time. Read more about this over at the [Kubernetes startup probe documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-startup-probes).
-
-### `spec.startup.path`
-
-HTTP endpoint path that signals 200 OK if the application has started successfully.
-
-**Required**: `true`
-
-### `spec.startup.port`
-
-Port for the startup probe.
-
-**Default**: `.spec.port`
-
-### `spec.startup.initialDelay`
-
-Number of seconds after the container has started before startup probes are initiated.
-
-**Default**: 20
-
-### `spec.startup.timeout`
-
-Number of seconds after which the probe times out.
-
-**Default**: 1
-
-### `spec.startup.periodSeconds`
-
-How often \(in seconds\) to perform the probe.
-
-**Default**: 10
-
-### `spec.startup.failureThreshold`
-
-When a Pod starts and the probe fails, Kubernetes will try `failureThreshold` times before giving up. Giving up in case of a startup probe means restarting the Pod.
 
 ## `spec.replicas`
 
@@ -685,7 +639,54 @@ If true, no certificate authority bundle will be injected.
 
 **Default**: `false`
 
+## `spec.startup`
+
+Startup probes will be available with Kubernetes 1.18 (in GCP, and 1.17 on-prem). Do not use this feature yet as it will not work.
+
+Sometimes, you have to deal with legacy applications that might require an additional startup time on their first initialization. In such cases, it can be tricky to set up liveness probe parameters without compromising the fast response to deadlocks that motivated such a probe. The trick is to set up a startup probe with the same command, HTTP or TCP check, with a failureThreshold \* periodSeconds long enough to cover the worse case startup time. Read more about this over at the [Kubernetes startup probe documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-startup-probes).
+
+### `spec.startup.failureThreshold`
+
+When a Pod starts and the probe fails, Kubernetes will try `failureThreshold` times before giving up. Giving up in case of a startup probe means restarting the Pod.
+
+### `spec.startup.initialDelay`
+
+Number of seconds after the container has started before startup probes are initiated.
+
+**Default**: 20
+
+### `spec.startup.path`
+
+HTTP endpoint path that signals 200 OK if the application has started successfully.
+
+**Required**: `true`
+
+### `spec.startup.periodSeconds`
+
+How often \(in seconds\) to perform the probe.
+
+**Default**: 10
+
+### `spec.startup.port`
+
+Port for the startup probe.
+
+**Default**: `.spec.port`
+
+### `spec.startup.timeout`
+
+Number of seconds after which the probe times out.
+
+**Default**: 1
+
+## `spec.strategy.type`
+
+Specifies the strategy used to replace old Pods by new ones.
+
+**Default**: RollingUpdate
+
 ## `spec.tokenx.enabled`
+
 Toggle for enabling [TokenX](../../security/auth/tokenx.md) for your application.
 
 **Default**: `false`
