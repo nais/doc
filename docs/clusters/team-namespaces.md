@@ -65,7 +65,7 @@ Service calls via api-gateway or service-gateway will also work without any chan
 ### Integration via [Kubernetes service discovery](team-namespaces.md#service-discovery-in-kubernetes)
 
 When migrating your application from either the `default` namespace or from a environment namespace (e.g. t1, q1 etc.), the service URL will change and consequently break your consumer integrations.
-This can be mitigated during a migration phase by creating an `ExternalName`-service in the namespace you are migrating from, that points to the new service in the team namespace.
+This can be mitigated during a migration phase by creating an [`ExternalName`-service](https://kubernetes.io/docs/concepts/services-networking/service/#externalname) in the namespace you are migrating from, that points to the new service in the team namespace.
 
 #### Example
 
