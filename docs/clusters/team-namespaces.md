@@ -62,27 +62,27 @@ no changes are required.
 
 Service calls via api-gateway or service-gateway will also work without any changes.
 
-### Integration via Kubernetes service discovery
+### Integration via [Kubernetes service discovery](team-namespaces.md#service-discovery-in-kubernetes)
 
-If you're migrating `my-app` from the `default` namespace to a namespace called `my-team`, [service discovery](team-namespaces.md#service-discovery-in-kubernetes) calls to other apps that are still in the `default` namespace will not work without modifying the url.
+When migrating your application from either the `default` namespace or from a environment namespace (e.g. t1, q1 etc.), the service URL will change and consequently break your consumer integrations.
+This can be mitigated during a migration phase by creating an `ExternalName`-service in the namespace you are migrating from, that points to the new service in the team namespace.
 
-For example, calls to `http://<another-app-in-default-namespace>` will fail to resolve.
+#### Example
 
-!!! danger "Check with your consumers to ensure that they update their URLs if they use service discovery to reach your application."
+When migrating your application `my-app` from the `default` namespace to `my-teamnamespace`, you can create the following `Service` in the default namespace to keep the previous service URL, and allow for a seamless migration.
 
-Example:
-
-The application `my-app` is deployed to the `default` namespace. The service discovery URL for the app is then:
-
-```text
-http://my-app.default.svc.nais.local
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: my-app.my-teamnamespace.svc.nais.local
 ```
 
-If the application is moved to the `my-team` namespace, the service discovery URL is now:
-
-```text
-http://my-app.my-team.svc.nais.local
-```
+This will create a CNAME DNS record that will resolve `my-app.default.svc.nais.local` as `my-app.my-teamnamespace.svc.nais.local`
 
 ## Service Discovery in Kubernetes
 
