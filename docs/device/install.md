@@ -27,8 +27,7 @@
     1. `sudo add-apt-repository ppa:wireguard/wireguard`
     2. `sudo apt install wireguard`
 3. Clone repo: `git clone https://github.com/nais/device`
-4. Make binaries: `cd device && make linux-client`
-    1. NB!!! Modify the `Makefile` if you _do **not**_ appreciate surprising `sudo apt install --assume-yes` commands to be automatically executed without user prompt.
+4. Make binaries: `cd device && make linux-init linux-client`
 5. Run agent: `bin/linux-client/device-agent`
 6. Remember to [update your kubeconfig](install.md#connecting-to-nais-clusters)
 
