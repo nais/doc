@@ -16,7 +16,7 @@ If you are just starting out developing applications and wish to deploy them to 
 
 ## Why NAIS exists
 
-When you have a large development organisation, providing the developers with turnkey solutions \([Wikipedia turnkey article](https://en.wikipedia.org/wiki/Turnkey#Specific_usage), [turnkey solution explained](https://www.investopedia.com/terms/t/turnkey_solution.asp)\) for their most common needs can be a good investment.
+When you have a large development organisation, providing the developers with turn-key solutions for their most common needs can be a good investment.
 
 This includes \(but not limited to\) [logging](observability/logs/), [metrics](observability/metrics.md), [alerts](observability/alerts/), [deployment](deployment/) and a [runtime environment](clusters/).
 
