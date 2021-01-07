@@ -18,7 +18,7 @@ If you are just starting out developing applications and wish to deploy them to 
 
 When you have a large development organisation, providing the developers with turn-key solutions for their most common needs can be a good investment.
 
-This includes \(but not limited to\) [logging](observability/logs/), [metrics](observability/metrics.md), [alerts](observability/alerts/), [deployment](deployment/) and a [runtime environment](clusters/).
+This includes \(but not limited to\) [logging](observability/logs/), [metrics](observability/metrics.md), [alerts](observability/alerts/), [deployment](deployment/) and a runtime environment (across [on-prem](clusters/on-premises.md) and [GCP](clusters/gcp.md)).
 
 Within each of these aspects, we leverage open source projects best suited for our needs and provide them with usable abstractions, sane defaults and the required security hardening.
 
