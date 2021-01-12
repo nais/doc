@@ -118,6 +118,13 @@ A minimal application without any external requirements only have to change a si
 
 See [Laws and regulations/Application PVK](../legal/app-pvk.md) for details.
 
+### How do I reach an application found on-premises from my application in GCP?
+
+Your applications must first be secured with [OAuth 2.0](../security/auth/README.md). Then, the on-premises application can be
+exposed to GCP through a special ingress. 
+
+See the [NAV Security Guide](https://security.labs.nais.io/pages/guide/sonekryssing/gcp-til-fss.html) for details.
+
 ## GCP compared to on-premises
 
 | Feature | on-prem | gcp | Comment |

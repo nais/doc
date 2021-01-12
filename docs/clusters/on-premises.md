@@ -27,7 +27,7 @@ You can control from where you application is reachable by selecting the appropr
 | dev.adeo.no | [naisdevice](../device/) | development ingress for adeo.no applications |
 | intern.dev.adeo.no | internal network only | development ingress for adeo.no applications |
 | dev-fss.nais.io | [naisdevice](../device/) | reserved for platform services |
-| dev-fss-pub.nais.io | GCP | Exposing applications to GCP requires a manual entry in BigIP as well. Contact #nais-i-sky |
+| dev-fss-pub.nais.io | GCP | [Exposing applications to GCP][sonekryssing] requires a manual entry in BigIP as well. Contact #nais-i-sky |
 | nais.preprod.local | vdi | **deprecated**, use .dev.intern.nav.no instead |
 
 ### dev-sbs
@@ -46,7 +46,7 @@ You can control from where you application is reachable by selecting the appropr
 | intern.nav.no | [naisdevice](../device/) | ingress for internal applications (supersedes nais.adeo.no). Also available in prod-gcp, use this to ease migration |
 | nais.adeo.no | vdi | automatically configured |
 | prod-fss.nais.io | [naisdevice](../device/) | reserved for platform services |
-| prod-fss-pub.nais.io | GCP | Exposing applications to GCP requires a manual entry in BigIP as well. Contact #nais-i-sky |
+| prod-fss-pub.nais.io | GCP | [Exposing applications to GCP][sonekryssing] requires a manual entry in BigIP as well. Contact #nais-i-sky |
 
 ### prod-sbs
 
@@ -59,3 +59,4 @@ You can control from where you application is reachable by selecting the appropr
 
 More info about how DNS is configured for these domains can be found [here](../appendix/ingress-dns.md)
 
+[sonekryssing]: https://security.labs.nais.io/pages/guide/sonekryssing/gcp-til-fss.html
