@@ -12,6 +12,13 @@ The applications running in GCP need [access policy rules defined](../nais-appli
 
 To access the GCP clusters, see [Access](../basics/access.md#google-cloud-platform-gcp).
 
+## Access to GCP
+In order to use GCP, a team is required to add their team in a PR to [navikt/teams](https://github.com/navikt/teams).
+This will generate a namespace for the team in each cluster, and dev and prod GCP projects will be created.
+The team's group is initially granted a restricted set of permissions in these projects, but have the ability to grant further permissions on demand using the [GCP console](https://console.cloud.google.com)
+!!! warning
+    With the ability to grant permissions, the team has full control of the team's GCP projects, and should take care when granting further permissions or enabling features and APIs.
+
 ## Accessing the application
 
 Access is controlled in part by ingresses, which define where your application will be exposed as a HTTP endpoint. You can control where your application is reachable from by selecting the appropriate ingress domain.
@@ -59,3 +66,16 @@ See also additional information about [*ROS*](../legal/app-ros.md) and [*PVK*](.
 
 Questions about *ROS* can be directed to [Leif Tore Løvmo](https://nav-it.slack.com/messages/DB4DDCACF), while [Line Langlo Spongsveen](https://nav-it.slack.com/messages/DNXJ7PMH7) can answer questions about *PVK* and *Behandlingsoversikt*.
 
+## Starting application when Istio proxy is ready
+In GCP, all pods gets Istio proxy injected as a sidecar. All traffic to and from the application container will be routed through this proxy, and it is therefore essential that this conainer is running.
+If the application attempts communication before the Istio proxy is ready, it will result in an error situation.
+To avoid this, you can add a wrapper application called [scuttle](https://github.com/redboxllc/scuttle) around your application executable in your container, which will ensure that Istio proxy is ready before your application executable starts.
+Scuttle also ensures that Istio proxy is terminated when the application exits. This is particularly useful when running jobs.
+
+Add the following to your Dockerfile:
+```
+COPY --from=redboxoss/scuttle:latest /scuttle /bin/scuttle
+ENV ENVOY_ADMIN_API=http://127.0.0.1:15000
+ENV ISTIO_QUIT_API=http://127.0.0.1:15020
+ENTRYPOINT ["scuttle", "node", "index.js"]
+```
