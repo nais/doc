@@ -77,6 +77,10 @@ spec:
       enabled: false
       replyUrls:
         - "https://nais-testapp.nais.adeo.no/oauth2/callback"
+      tenant: nav.no
+      claims:
+        extra:
+          - NAVident
   tokenx:
     enabled: false
   #
@@ -93,6 +97,19 @@ spec:
   #
   # the following spec is only available when running in GCP.
   #
+  idporten:
+    enabled: false
+    clientURI: "https://www.nav.no"
+    frontchannelLogoutURI: ""
+    postLogoutRedirectURIs:
+      - "https://www.nav.no"
+    redirectURI: "https://my-app.nav.no/oauth2/callback"
+    sessionLifetime: 7200
+    accessTokenLifetime: 3600
+  maskinporten:
+    enabled: false
+    scopes:
+      - name: "some:scope"
 
   gcp:
     buckets:
