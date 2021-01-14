@@ -23,12 +23,8 @@
 ### Ubuntu \(using Gnome DE - only supported variant atm\)
 
 1. [install Kolide agent](install.md#install-kolide-agent)
-2. Install wireguard
-    1. `sudo add-apt-repository ppa:wireguard/wireguard`
-    2. `sudo apt install wireguard`
-3. Clone repo: `git clone https://github.com/nais/device`
-4. Make binaries: `cd device && make linux-init linux-client`
-5. Run agent: `bin/linux-client/device-agent`
+2. [install naisdevice](https://github.com/nais/device/releases/latest)
+5. Start application naisdevice
 6. Remember to [update your kubeconfig](install.md#connecting-to-nais-clusters)
 
 ## OS-agnostic install steps
