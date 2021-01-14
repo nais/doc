@@ -14,9 +14,9 @@ description: >
 
 Maskinporten is a service that offers a simple API security model based on the OAuth2 protocol, and the use of JWT bearer grants. A Concept inspired by [Google's System Accounts](https://developers.google.com/identity/protocols/oauth2/service-account).
 
-The NAIS platform provides support for simple declarative provisioning of an Maskinporten client that your application may use to integrate with Maskinporten.
+The NAIS platform provides support for simple declarative provisioning of a Maskinporten client that your application may use to integrate with Maskinporten.
 
-An Maskinporten client allows your application to leverage Maskinporten for authentication and authorization when performing service-to-service requests to external agencies. To achieve this, your application must implement [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html).
+A Maskinporten client allows your application to leverage Maskinporten for authentication and authorization when performing service-to-service requests to external agencies. To achieve this, your application must implement [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html).
 
 ## Configuration
 
@@ -36,7 +36,7 @@ An Maskinporten client allows your application to leverage Maskinporten for auth
       maskinporten:
         enabled: true
         scopes:
-          - scope: "nav:some/scope"
+          - name: "nav:some/scope"
     ```
 
 ### Spec
@@ -56,9 +56,10 @@ You do not need to specify these explicitly.
 
 Maskinporten allows API providers to define access to their APIs, modeled as scopes and based on the consumer's organization number.
 
-When a `client` requests a token from Maskinporten:
-- Maskinporten validates the validity of the JWT and signature ([Runtime JWK Secret](#runtime-variables-and-credentials) used to sign the JWT).  
-- When `client` has access to the requested resources: `scope`, an `access_token` will be returned to the `client` and can be used for further actions.
+When a client requests a token from Maskinporten:
+
+- Maskinporten validates the validity of the JWT and its signature ([Runtime JWK Secret](#runtime-variables-and-credentials) used to sign the JWT).
+- When client has access to the requested list of `scopes`, an `access_token` will be returned to the client and which can be used for authentication to the intended external service.
 
 !!! danger
     Make sure that the relevant service providers have pre-registered **NAV** as a valid consumer of any scopes that you define. Provisioning of client will fail otherwise.

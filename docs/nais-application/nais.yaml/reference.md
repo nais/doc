@@ -476,13 +476,17 @@ If enabled, will provision a Maskinporten client for the application.
 
 **Default**: `false`
 
-### `spec.maskinporten.scopes[].scope`
+### `spec.maskinporten.scopes[]`
 Valid list of scopes that the Maskinporten client can use.
 
 **Required**: `true`
 
 !!! info
     See [Maskinporten Scopes](../../security/auth/maskinporten.md#scopes) for more details.
+
+### `spec.maskinporten.scopes[].name` 
+
+Name of the Maskinporten scope that the client should have access to.
 
 ## `spec.port`
 
