@@ -20,6 +20,26 @@ The name of the [team](../../basics/teams.md) that owns this application \(lower
 
 **Allowed values**: `[a-z]*`
 
+## `spec.route`
+
+Let you configure some of the configurations in the `route`-config.
+
+### `spec.route.groupWait`
+
+How long to initially wait to send a notification for a group of alerts.
+Allows to wait for an inhibiting alert to arrive or collect more initial alerts for the same group. 
+(Usually ~0s to few minutes.)
+
+### `spec.route.groupInterval`
+
+How long to wait before sending a notification about new alerts that are added to a group of alerts for which an initial notification has already been sent.
+(Usually ~5m or more.)
+
+### `spec.route.repeatInterval`
+
+How long to wait before sending a notification again if it has already been sent successfully for an alert.
+(Usually ~3h or more).
+
 ## `spec.receivers`
 
 A list of notification recievers. You can use one or more of: e-mail or slack. There needs to be at least one receiver.
