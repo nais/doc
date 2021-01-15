@@ -22,12 +22,12 @@
 
 ### Ubuntu \(using Gnome DE - only supported variant atm\)
 
-1. [Install Kolide agent](install.md#install-kolide-agent)
+1. [Install Kolide agent](install.md#install-kolide-agent).
 2. Write in the terminal: `curl https://device.nais.io/install.sh | bash` \(you might be prompted for your laptop-account's password to unlock `sudo`\).
-3. Turn on your freshly installed `naisdevice` application
-    1. Find `Naisdevice` in your application menu, or use `naisdevice` in a terminal to start the application
+3. Turn on your freshly installed `naisdevice` application.
+    1. Find `naisdevice` in your application menu, or use the `naisdevice` command in a terminal to start the application.
     2. Follow the [instructions to connect your _nais_ device](#connect-naisdevice-through-tasksys-tray-icon).
-4. Remember to [update your kubeconfig](install.md#connecting-to-nais-clusters)
+4. Remember to [update your kubeconfig](install.md#connecting-to-nais-clusters).
 
 ## OS-agnostic install steps
 ###  Install Kolide agent
