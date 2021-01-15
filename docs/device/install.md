@@ -23,8 +23,10 @@
 ### Ubuntu \(using Gnome DE - only supported variant atm\)
 
 1. [Install Kolide agent](install.md#install-kolide-agent)
-2. [Install naisdevice .deb package](https://github.com/nais/device/releases/latest)
-3. Start application `naisdevice` which should be in `PATH` after the installation
+2. Write in the terminal: `curl https://device.nais.io/install.sh | bash` \(you might be prompted for your laptop-account's password to unlock `sudo`\).
+3. Turn on your freshly installed `naisdevice` application
+    1. Find `Naisdevice` in your application menu, or use `naisdevice` in a terminal to start the application
+    2. Follow the [instructions to connect your _nais_ device](#connect-naisdevice-through-tasksys-tray-icon).
 4. Remember to [update your kubeconfig](install.md#connecting-to-nais-clusters)
 
 ## OS-agnostic install steps
@@ -56,7 +58,7 @@
 
 ![A macOS systray exemplifying a red-colored `naisdevice` icon.](../assets/naisdevice-systray-icon.svg)
 
-In your Systray (where all your small program icons are located - see above picture):
+In your Systray (where all your small program icons are located - see above picture for how it looks on Mac):
 
 1. Find your `naisdevice` icon (pictured above - though it should not be red at first attempted connection).
 2. Left-click it and select `Connect`.
