@@ -145,7 +145,7 @@ See the [NAV Security Guide](https://security.labs.nais.io/pages/guide/sonekryss
 | Laptop access | ✔️ | ✔️ |  |
 | domain: dev.intern.nav.no (if migrating from SBS) | ✔️ \(IAC\) | ✔️ \(Automatic\) | Wildcard DNS points to GCP load balancer |
 | Access to FSS services (if migrating from SBS) | ✔️ | ✔️ | Identical \(either API-gw or [TokenX](../security/auth/tokenx.md). May require a proxy app, see [Security Blueprints](https://security.labs.nais.io/pages/guide/sonekryssing/google-cloud-platform.html) for details. |
-| OpenAM (ESSO) | ✔️ | ✖️ | OpenAM is EOL, use [TokenX](../security/auth/tokenx.md) |
+| OpenAM (ESSO) | ✔️ | ✔️ | OpenAM is available for existing application, but it is EOL. We recommend migrating to [TokenX](../security/auth/tokenx.md) |
 | NAV truststore | ✔️ | ✔️ |  |
 | PVK required | ✔️ | ✔️ | amend to cover storage in cloud |
 | Security | Zone Model | [zero-trust](../appendix/zero-trust.md) |  |
