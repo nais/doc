@@ -22,10 +22,10 @@
 
 ### Ubuntu \(using Gnome DE - only supported variant atm\)
 
-1. [install Kolide agent](install.md#install-kolide-agent)
-2. [install naisdevice](https://github.com/nais/device/releases/latest)
-5. Start application naisdevice
-6. Remember to [update your kubeconfig](install.md#connecting-to-nais-clusters)
+1. [Install Kolide agent](install.md#install-kolide-agent)
+2. [Install naisdevice .deb package](https://github.com/nais/device/releases/latest)
+3. Start application `naisdevice` which should be in `PATH` after the installation
+4. Remember to [update your kubeconfig](install.md#connecting-to-nais-clusters)
 
 ## OS-agnostic install steps
 ###  Install Kolide agent
