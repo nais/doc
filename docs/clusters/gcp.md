@@ -67,7 +67,7 @@ See also additional information about [*ROS*](../legal/app-ros.md) and [*PVK*](.
 Questions about *ROS* can be directed to [Leif Tore Løvmo](https://nav-it.slack.com/messages/DB4DDCACF), while [Line Langlo Spongsveen](https://nav-it.slack.com/messages/DNXJ7PMH7) can answer questions about *PVK* and *Behandlingsoversikt*.
 
 ## Starting application when Istio proxy is ready
-In GCP, all pods gets Istio proxy injected as a sidecar. All traffic to and from the application container will be routed through this proxy, and it is therefore essential that this conainer is running.
+In GCP, all pods gets Istio proxy injected as a sidecar. All traffic to and from the application container will be routed through this proxy, and it is therefore essential that this container is running.
 If the application attempts communication before the Istio proxy is ready, it will result in an error situation.
 To avoid this, you can add a wrapper application called [scuttle](https://github.com/redboxllc/scuttle) around your application executable in your container, which will ensure that Istio proxy is ready before your application executable starts.
 Scuttle also ensures that Istio proxy is terminated when the application exits. This is particularly useful when running jobs.
