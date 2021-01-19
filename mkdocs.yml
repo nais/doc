@@ -109,6 +109,8 @@ nav:
   - naisdevice:
     - naisdevice Overview: device/README.md
     - Installation: device/install.md
+    - Updating: device/update.md
+    - Unenrolling: device/unenroll.md
     - naisdevice Troubleshooting: device/troubleshooting.md
     - Available services: device/services.md
   - Laws and regulations:
