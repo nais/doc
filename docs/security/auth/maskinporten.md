@@ -6,17 +6,17 @@ description: >
 # Maskinporten Client
 
 !!! warning "Status: Opt-In Open Beta"
-    This feature is only available in the [Google Cloud Platform (GCP)](../../clusters/gcp.md) clusters.
+    This feature is currently only available in the [Google Cloud Platform (GCP)](../../clusters/gcp.md) clusters.
 
 ## Abstract
 
-[Maskinporten](https://difi.github.io/felleslosninger/maskinporten_auth_server-to-server-oauth2.html) allows API providers (external agencies) to define access to their APIs, modeled as scopes and based on the organization number.
+[Maskinporten](https://difi.github.io/felleslosninger/maskinporten_auth_server-to-server-oauth2.html) allows API providers (in this case, external agencies) to define access policies to their APIs, modeled using scopes based on the organization number of the consumer.
 
-Maskinporten is a service that offers a simple API security model based on the OAuth2 protocol, and the use of JWT bearer grants. A Concept inspired by [Google's System Accounts](https://developers.google.com/identity/protocols/oauth2/service-account).
+Maskinporten is a service that offers a simple API security model based on the OAuth2 protocol with the use of JWT bearer grants, a concept inspired by [Google's System Accounts](https://developers.google.com/identity/protocols/oauth2/service-account).
 
 The NAIS platform provides support for simple declarative provisioning of a Maskinporten client that your application may use to integrate with Maskinporten.
 
-A Maskinporten client allows your application to leverage Maskinporten for authentication and authorization when performing service-to-service requests to external agencies. To achieve this, your application must implement [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html).
+The client allows your application to leverage Maskinporten for authentication and authorization when performing service-to-service requests to external agencies. To achieve this, your application must implement [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html).
 
 ## Configuration
 
@@ -71,7 +71,7 @@ When a client requests a token from Maskinporten:
 
 The following environment variables and files (under the directory `/var/run/secrets/nais.io/maskinporten`) are available at runtime:
 
-===" Description"
+=== "Description"
     | Name | Description |
     |---|---|
     | `MASKINPORTEN_CLIENT_ID` | Maskinporten client ID. Unique ID for the application in Maskinporten |
@@ -101,6 +101,12 @@ The following environment variables and files (under the directory `/var/run/sec
     "qi": "QCW5VQjO..."
     }
     ```
+
+### Consume an API
+
+Refer to the [documentation at DigDir](https://docs.digdir.no/maskinporten_guide_apikonsument.html).
+
+You may skip any step involving client registration as this is automatically handled when [enabling this feature](#getting-started).
 
 ## Legacy
 
