@@ -130,6 +130,7 @@ List of additional claims that should be emitted in tokens for your application.
 ## `spec.elastic.instance`
 
 Will add access policy for the given instance, and label your pods to use the correct network policy to allow traffic to Aiven.
+Use the `instance_name` that you specified in [navikt/aiven-iac](https://github.com/navikt/aiven-iac)-repo.
 
 ## `spec.env[]`
 
