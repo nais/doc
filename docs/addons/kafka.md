@@ -279,7 +279,7 @@ Follow these steps:
 4. Change producer to write messages to Aiven
 5. Remove MirrorMaker configuration (or let us know that we can remove it)
 
-## FAQ
+## FAQ/Troubleshooting
 
 * Q: why do I have to specify a pool name if there is only `nav-dev` and `nav-prod`?
 
@@ -288,3 +288,7 @@ Follow these steps:
 * Q: I can't produce/consume on my topic, with an error message like "topic not found". What's wrong?
 
   A: you need to use the _fully qualified name_; check the `.status.fullyQualifiedName` field in your Topic resource.
+
+* Q: I get the error `MountVolume.SetUp failed for volume "kafka-credentials" : secret ... not found`
+
+  A: Make sure you added the application to `.spec.acl` in your `topic.yaml`.
