@@ -132,6 +132,8 @@ List of additional claims that should be emitted in tokens for your application.
 Will add access policy for the given instance, and label your pods to use the correct network policy to allow traffic to Aiven.
 Use the `instance_name` that you specified in [navikt/aiven-iac](https://github.com/navikt/aiven-iac)-repo.
 
+Don't add the address to the Elastic instance to `accessPolicy`, this will be done for you by Naiserator.
+
 ## `spec.env[]`
 
 Custom environment variables injected into your container.
