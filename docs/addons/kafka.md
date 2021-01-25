@@ -281,14 +281,14 @@ Follow these steps:
 
 ## FAQ/Troubleshooting
 
-* Q: why do I have to specify a pool name if there is only `nav-dev` and `nav-prod`?
+### Why do I have to specify a pool name if there is only `nav-dev` and `nav-prod`?
 
-  A: custom pools will be added in the future.
+Custom pools might be added in the future, so this is done to avoid changing that part of the API.
 
-* Q: I can't produce/consume on my topic, with an error message like "topic not found". What's wrong?
+### I can't produce/consume on my topic, with an error message like "topic not found". What's wrong?
 
-  A: you need to use the _fully qualified name_; check the `.status.fullyQualifiedName` field in your Topic resource.
+You need to use the _fully qualified name_; check the `.status.fullyQualifiedName` field in your Topic resource.
 
-* Q: I get the error `MountVolume.SetUp failed for volume "kafka-credentials" : secret ... not found`
+### I get the error _MountVolume.SetUp failed for volume "kafka-credentials" : secret ... not found_
 
-  A: Make sure you added the application to `.spec.acl` in your `topic.yaml`.
+Make sure you added the application to `.spec.acl` in your `topic.yaml`.
