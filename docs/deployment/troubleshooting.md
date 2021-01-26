@@ -32,7 +32,7 @@ All deployments are logged to Kibana. You can get a direct link to your deployme
 
 This link is also printed in the console output. It looks like `https://deployment.prod-sbs.nais.io/logs?delivery_id=<UUID>&ts=<TIMESTAMP>`.
 
-## FAQ
+## Error messages
 
 | Message | Action |
 | :--- | :--- |
@@ -40,6 +40,7 @@ This link is also printed in the console output. It looks like `https://deployme
 | 403 authentication failed | Either you're using the wrong _team API key_, or if using the old version of NAIS deploy, your team is not [registered in the team portal](../basics/teams.md). |
 | 502 bad gateway | There is some transient error with GitHub or Vault. Please try again later. If the problem persists, ask _@nais-team_ for help. |
 | deployment failed: failed authentication | Wrong _team API key_, please check [https://deploy.nais.io/](https://deploy.nais.io/) for the correct key. |
+| applications.nais.io is forbidden: User "..." cannot create resource "applications" in API group "nais.io" at the cluster scope | You forgot to specify the `.namespace` attribute in `nais.yaml`. |
 | failed authentication: HMAC signature error | See above. |
 | "tobac.nais.io" denied the request: user 'system:serviceaccount:default:serviceuser-FOO' has no access to team 'BAR' | The application is already deployed, and team names differ. See [changing teams](change-team.md). |
 | “tobac.nais.io” denied the request: team 'FOO' on existing resource does not exist | The team owning the resource may have been deleted or renamed. Ask _@nais-team_ for help. |

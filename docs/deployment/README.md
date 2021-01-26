@@ -1,4 +1,4 @@
-# Deployment
+# NAIS deploy
 
 This section will take you through the deployment of your application using _NAIS deploy_. NAIS deploy enables you to deploy your application from any continuous integration platform. Our primary supported platform is GitHub Actions, but you can also deploy from CircleCI, Travis CI, Jenkins, or other tools.
 
