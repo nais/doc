@@ -63,6 +63,7 @@ nav:
     - Deployment:
       - NAIS deploy: deployment/README.md
       - Changing teams: deployment/change-team.md
+      - Delete app: deployment/delete-app.md
       - Troubleshooting: deployment/troubleshooting.md
       - Allowed registries: deployment/allowed-registries.md
       - Manual deployment: deployment/manual.md
