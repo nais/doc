@@ -24,8 +24,8 @@ You can control from where you application is reachable by selecting the appropr
 | domain | accessible from | description |
 | :--- | :--- | :--- |
 | dev.intern.nav.no | [naisdevice](../device/) | development ingress for dev internal applications (supersedes dev.adeo.no). Also available in dev-gcp, use this to ease migration |
-| dev.adeo.no | [naisdevice](../device/) | development ingress for adeo.no applications |
-| intern.dev.adeo.no | internal network only | development ingress for adeo.no applications |
+| dev.adeo.no | [naisdevice](../device/) | **deprecated** development ingress for adeo.no applications (superceded by dev.intern.nav.no) |
+| intern.dev.adeo.no | internal network only | development ingress for adeo.no applications that should not be reached from naisdevice |
 | dev-fss.nais.io | [naisdevice](../device/) | reserved for platform services |
 | dev-fss-pub.nais.io | GCP | [Exposing applications to GCP][sonekryssing] requires a manual entry in BigIP as well. Contact #nais-i-sky |
 | nais.preprod.local | vdi | **deprecated**, use .dev.intern.nav.no instead |
