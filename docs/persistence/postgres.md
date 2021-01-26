@@ -40,13 +40,17 @@ The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instan
 | database user | `NAIS_DATABASE_MYAPP_MYDB_USERNAME` | `.spec.gcp.sqlInstances[].name` |
 | database password | `NAIS_DATABASE_MYAPP_MYDB_PASSWORD` | \(randomly generated\) |
 | database url with credentials | `NAIS_DATABASE_MYAPP_MYDB_URL` | `postgres://username:password@127.0.0.1:5432/mydb` |
-
+ 
+!!! info
+    The application is the only application that can access the database instance. Other applications can not connect. It is not, for instance,
+    possible to have two applications (e.g. producer and consumer) connecting directly to the database.
+    
 !!! info 
     Note that if you have deployed your application with one configuration, and then change it later, you have to manually delete the google-sql-*MYAPP* secret before you make a new deploy:
 ```bash
 $ kubectl delete secret google-sql-<MYAPP>
 ```
- 
+
 ### Cloud SQL Proxy
 
 The application will connect to the database using [Cloud SQL Proxy](https://cloud.google.com/sql/docs/postgres/sql-proxy), ensuring that the database communication happens in secure tunnel, authenticated with automatically rotated credentials.
