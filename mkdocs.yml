@@ -61,11 +61,11 @@ nav:
         - Minimal example: nais-application/nais.yaml/min-example.md
       - Access Policy: nais-application/access-policy.md
     - Deployment:
-      - Deployment Overview: deployment/README.md
-      - Manually: deployment/manual.md
+      - NAIS deploy: deployment/README.md
       - Changing teams: deployment/change-team.md
-      - Deployment Troubleshooting: deployment/troubleshooting.md
-      - Allowed Registries: deployment/allowed-registries.md
+      - Troubleshooting: deployment/troubleshooting.md
+      - Allowed registries: deployment/allowed-registries.md
+      - Manual deployment: deployment/manual.md
     - Observability:
       - Alerts:
         - Alerts Overview: observability/alerts/README.md
