@@ -18,3 +18,39 @@ If you need access from an application, use the following [nais.yaml-reference](
 
 ## Support
 We do not offer support on Elastic Search as software, but questions about Aiven and provisioning can be directed to [#pig_aiven](https://nav-it.slack.com/archives/C018L1JATBQ) on Slack.
+
+## Alerts
+We recommend that you set up your own alerts so that you can react to problems in your Elastic instance. 
+Aiven uses Telegraf to collect and present metrics, so available metrics can be found in the [Telegraf documentation](https://github.com/influxdata/telegraf).
+
+Particularly relevant input plugins are:
+
+- [elasticsearch](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/elasticsearch)
+- [mem](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/mem)
+- [cpu](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/cpu)
+- [diskio](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/diskio)
+- [disk](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/disk)
+
+O'Reilly has a useful [article](https://www.oreilly.com/content/10-elasticsearch-metrics-to-watch/) about metrics to watch in an Elastic cluster.
+
+Some metrics that might be useful to watch, based on above article (We need feedback on this list, as we have no practical experience to lean on):
+
+- `elasticsearch_cluster_health_status_code`
+- `elasticsearch_cluster_health_active_shards`
+- `elasticsearch_cluster_health_initializing_shards`
+- `elasticsearch_cluster_health_relocating_shards`
+- `elasticsearch_cluster_health_unassigned_shards`
+- `elasticsearch_jvm_mem_heap_used_percent`
+- `elasticsearch_jvm_gc_collectors_old_collection_time_in_millis`
+- `elasticsearch_jvm_gc_collectors_young_collection_time_in_millis`
+- `elasticsearch_jvm_mem_pools_old_used_in_byte` vs. `elasticsearch_jvm_mem_pools_old_max_in_bytes`
+- `elasticsearch_jvm_mem_pools_survivor_used_in_byte` vs. `elasticsearch_jvm_mem_pools_survivor_max_in_bytes`
+- `elasticsearch_jvm_mem_pools_young_used_in_byte` vs. `elasticsearch_jvm_mem_pools_young_max_in_bytes`
+- `elasticsearch_indices_search_query_time_in_millis`
+- `elasticsearch_indices_fielddata_evictions`
+- `elasticsearch_indices_fielddata_memory_size_in_bytes`
+- `elasticsearch_indices_indexing_index_time_in_millis`
+- `elasticsearch_indices_indexing_index_total`
+- `elasticsearch_indices_merges_total_time_in_millis`
+- `cpu_usage_user`
+- `diskio_weighted_io_time`
