@@ -9,41 +9,38 @@ description: Enabling zero trust on the application layer
 
     It currently only supports _self-service/citizen facing applications_ - however other use-cases have been identified.
 
-## Abstract
+## Abstract 
 
-### What is TokenX?
+!!! abstract
+    ### What is TokenX?
 
-**TokenX** is the short term for [OAuth 2.0 Token Exchange](https://github.com/nais/tokendings) implemented in the context of Kubernetes.
+    **TokenX** is the short term for [OAuth 2.0 Token Exchange](https://github.com/nais/tokendings) implemented in the context of Kubernetes.
 
-It consists of mainly 3 components:
+    It consists of mainly 3 components:
 
-* [Tokendings](https://github.com/nais/tokendings) - an OAuth 2.0 Authorization Server implementing the OAuth 2.0 Token Exchange specification
-* [Jwker](https://github.com/nais/jwker/) - a Kubernetes operator responsible for registering applications as OAuth 2.0 clients in Tokendings
-* [Naiserator](https://github.com/nais/naiserator/) - a Kubernetes operator that handles the lifecycle of applications on the [NAIS platform](https://nais.io/)
+    * [Tokendings](https://github.com/nais/tokendings) - an OAuth 2.0 Authorization Server implementing the OAuth 2.0 Token Exchange specification
+    * [Jwker](https://github.com/nais/jwker/) - a Kubernetes operator responsible for registering applications as OAuth 2.0 clients in Tokendings
+    * [Naiserator](https://github.com/nais/naiserator/) - a Kubernetes operator that handles the lifecycle of applications on the [NAIS platform](https://nais.io/)
 
-In short, TokenX is a OAuth 2.0 compliant add-on that enables and allows your application to maintain the [zero trust](../../appendix/zero-trust.md) _networking_ principles (together with components such as [**Istio**](https://istio.io/)). It does this by allowing applications to exchange and acquire properly scoped security tokens in order to securely communicate with each other.
+    In short, TokenX is a OAuth 2.0 compliant add-on that enables and allows your application to maintain the [zero trust](../../appendix/zero-trust.md) _networking_ principles (together with components such as [**Istio**](https://istio.io/)). It does this by allowing applications to exchange and acquire properly scoped security tokens in order to securely communicate with each other.
 
-Interested readers may find more details in the [Tokendings documentation](https://github.com/nais/tokendings).
+    Interested readers may find more technical details in the [Tokendings documentation](https://github.com/nais/tokendings).
 
-!!! info
-    **See also the** [**NAV Security Guide**](https://security.labs.nais.io/) **for NAV-specific usage.**
+    ### Why do I need TokenX?
 
-### Why do I need TokenX?
+    In a [zero trust](../../appendix/zero-trust.md) architecture, one cannot rely on traditional boundaries such as **security zones** and **security gateways**. Such security measures are no longer required for applications that leverage TokenX correctly as each application is self-contained within its own zone; requiring specific tokens in order to communicate with other applications.
 
-In a [zero trust](../../appendix/zero-trust.md) architecture, one cannot rely on traditional boundaries such as **security zones** and **security gateways**. Such security measures are no longer required for applications that leverage TokenX correctly as each application is self-contained within its own zone; requiring specific tokens in order to communicate with other applications.
+    Using TokenX correctly throughout a call-chain also ensures that the identity of the original caller or subject \(e.g. an end-user\) is propagated while still maintaining proper scoping and security between each application.
 
-Using TokenX correctly throughout a call-chain also ensures that the identity of the original caller or subject \(e.g. an end-user\) is propagated while still maintaining proper scoping and security between each application.
+    ### When do I need TokenX?
 
-### When do I need TokenX?
+    There are primarily two distinct cases where one must use TokenX:
 
-There are primarily two distinct cases where one must use TokenX:
+    1. You have a user facing app using [ID-porten](idporten.md) that should perform calls to another app on behalf of a user.
+    2. You have an app receiving tokens issued from Tokendings and need to call another app while still propagating the original user context.
 
-1. You have a user facing app using [ID-porten](idporten.md) that should perform calls to another app on behalf of a user.
-2. You have an app receiving tokens issued from Tokendings and need to call another app while still propagating the original user context.
-
-### Overview of flow
-
-![Overview of token exchange flow](https://raw.githubusercontent.com/nais/tokendings/master/doc/downstream_example.svg)
+??? info "Overview of flow"
+    ![Overview of token exchange flow](https://raw.githubusercontent.com/nais/tokendings/master/doc/downstream_example.svg)
 
 ## Configuration
 
@@ -53,31 +50,9 @@ See the [NAIS manifest](../../nais-application/nais.yaml/reference.md#spectokenx
 
 ### Getting Started
 
-=== "Minimal nais.yaml example"
+=== "nais.yaml"
     ```yaml
-    apiVersion: "nais.io/v1alpha1"
-    kind: "Application"
-    metadata:
-      name: app-1
-      namespace: aura
-      labels:
-        team: aura
     spec:
-      image: navikt/app-1:1234
-      tokenx:
-        enabled: true
-    ```
-=== "Full nais.yaml example"
-    ```yaml
-    apiVersion: "nais.io/v1alpha1"
-    kind: "Application"
-    metadata:
-      name: app-1
-      namespace: aura
-      labels:
-        team: aura
-    spec:
-      image: navikt/app-1:1234
       tokenx:
         enabled: true
       accessPolicy:
@@ -122,55 +97,49 @@ The above configuration authorizes the following applications:
 
 ## Usage
 
+!!! info
+    **See the** [**NAV Security Guide**](https://security.labs.nais.io/) **for NAV-specific usage.**
+
 ### Runtime Variables & Credentials
 
 Enabling TokenX will expose the following runtime environment variables and files \(under the directory `/var/run/secrets/nais.io/jwker`\) for your application:
 
-* `TOKEN_X_WELL_KNOWN_URL`
-* `TOKEN_X_CLIENT_ID`
-* `TOKEN_X_PRIVATE_JWK`
+??? example "`TOKEN_X_WELL_KNOWN_URL`"
+    The well-known URL of the OAuth 2.0 Token Exchange authorization server, in this case Tokendings. This URL contains the server metadata as defined in [RFC8414](https://tools.ietf.org/html/rfc8414) that your application may use. For example:
 
-#### `TOKEN_X_WELL_KNOWN_URL`
+    * `issuer`
+    * `token_endpoint`
+    * `jwks_uri`
 
-The well-known URL of the OAuth 2.0 Token Exchange authorization server, in this case Tokendings. This URL contains the server metadata as defined in [RFC8414](https://tools.ietf.org/html/rfc8414) that your application may use. For example:
+    See [OAuth 2.0 Authorization Server Metadata](https://tools.ietf.org/html/rfc8414) for more information about the contents of the response from the well-known url.
 
-* `issuer`
-* `token_endpoint`
-* `jwks_uri`
+??? example "`TOKEN_X_CLIENT_ID`"
+    Unique `client_id` that identifies your application. using the following naming scheme:
 
-See [OAuth 2.0 Authorization Server Metadata](https://tools.ietf.org/html/rfc8414) for more information about the contents of the response from the well-known url.
+    ```text
+    <cluster>:<metadata.namespace>:<metadata.name>
+    ```
 
-#### `TOKEN_X_CLIENT_ID`
+    This value should be used in the [client assertion](tokenx.md#client-authentication) when exchanging a token with [Tokendings](https://github.com/nais/tokendings).
 
-Unique `client_id` which represents your application using the following naming scheme:
+??? example "`TOKEN_X_PRIVATE_JWK`"
+    Contains a JWK with the private RSA key for creating signed JWTs when [authenticating to Tokendings with a signed `client_assertion`](tokenx.md#client-authentication).
 
-```text
-<cluster>:<metadata.namespace>:<metadata.name>
-```
-
-This value should be used in the [client assertion](tokenx.md#client-authentication) when exchanging a token with [Tokendings](https://github.com/nais/tokendings).
-
-#### `TOKEN_X_PRIVATE_JWK`
-
-Contains a JWK with the private RSA key for creating signed JWTs when [authenticating to Tokendings with a signed `client_assertion`](tokenx.md#client-authentication).
-
-Example value:
-
-```javascript
-{
-    "use": "sig",
-    "kty": "RSA",
-    "kid": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
-    "n": "xQ3chFsz...",
-    "e": "AQAB",
-    "d": "C0BVXQFQ...",
-    "p": "9TGEF_Vk...",
-    "q": "zb0yTkgqO...",
-    "dp": "7YcKcCtJ...",
-    "dq": "sXxLHp9A...",
-    "qi": "QCW5VQjO..."
-}
-```
+    ```javascript
+    {
+        "use": "sig",
+        "kty": "RSA",
+        "kid": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
+        "n": "xQ3chFsz...",
+        "e": "AQAB",
+        "d": "C0BVXQFQ...",
+        "p": "9TGEF_Vk...",
+        "q": "zb0yTkgqO...",
+        "dp": "7YcKcCtJ...",
+        "dq": "sXxLHp9A...",
+        "qi": "QCW5VQjO..."
+    }
+    ```
 
 ### Client Authentication
 
@@ -233,8 +202,8 @@ Tokendings will then issue an `access_token` in JWT format, based on the paramet
 #### Prerequisites
 
 * You have a _subject token_ in the form of an `access_token` issued by one of the following providers:
-  * [ID-porten](idporten.md)
-  * Tokendings
+    - [ID-porten](idporten.md)
+    - Tokendings
 * You have a [client assertion](tokenx.md#client-authentication) that _authenticates_ your application.
 
 #### Exchange Request
@@ -252,20 +221,19 @@ The following denotes the required parameters needed to perform an exchange requ
 
 The request should then sent to the `token_endpoint` of Tokendings, the value of which exists in the metadata found at the [well-known endpoint](tokenx.md#token_x_well_known_url).
 
-Example:
+??? example
+    ```http
+    POST /token HTTP/1.1
+    Host: tokendings.prod-gcp.nais.io
+    Content-Type: application/x-www-form-urlencoded
 
-```http
-POST /token HTTP/1.1
-Host: tokendings.prod-gcp.nais.io
-Content-Type: application/x-www-form-urlencoded
-
-grant_type=urn:ietf:params:oauth:grant-type:token-exchange&
-client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&
-client_assertion=eY...............&
-subject_token_type=urn:ietf:params:oauth:token-type:jwt&
-subject_token=eY...............&
-audience=prod-fss:namespace1:app1
-```
+    grant_type=urn:ietf:params:oauth:grant-type:token-exchange&
+    client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer&
+    client_assertion=eY...............&
+    subject_token_type=urn:ietf:params:oauth:token-type:jwt&
+    subject_token=eY...............&
+    audience=prod-fss:namespace1:app1
+    ```
 
 !!! info
     See [frontend-dings](https://github.com/nais/frontend-dings) for a complete example that illustrates:
@@ -301,29 +269,29 @@ The following claims in the token should explicitly be validated:
 
 #### Example Token \(exchanged from ID-porten\)
 
-The following example shows the claims of a token issued by Tokendings, where the exchanged subject token is issued by IDPorten:
+The following example shows the claims of a token issued by Tokendings, where the exchanged subject token is issued by [ID-porten](idporten.md):
 
-```javascript
-{
-  "sub": "HmjqfL7....",
-  "iss": "https://tokendings.prod-gcp.nais.io",
-  "client_amr": "client_secret_post",
-  "pid": "12345678910",
-  "token_type": "Bearer",
-  "client_id": "prod-gcp:team-a:app-a",
-  "aud": "prod-fss:team-b:app-b",
-  "acr": "Level4",
-  "nbf": 1597783152,
-  "idp": "https://oidc.difi.no/idporten-oidc-provider/",
-  "scope": "openid",
-  "exp": 1597783452,
-  "iat": 1597783152,
-  "client_orgno": "889640782",
-  "jti": "97f580a6-b479-426d-876b-267aa9848e2e",
-  "consumer": {
-    "authority": "iso6523-actorid-upis",
-    "ID": "0192:889640782"
-  }
-}
-```
-
+??? example 
+    ```javascript
+    {
+      "sub": "HmjqfL7....",
+      "iss": "https://tokendings.prod-gcp.nais.io",
+      "client_amr": "client_secret_post",
+      "pid": "12345678910",
+      "token_type": "Bearer",
+      "client_id": "prod-gcp:team-a:app-a",
+      "aud": "prod-fss:team-b:app-b",
+      "acr": "Level4",
+      "nbf": 1597783152,
+      "idp": "https://oidc.difi.no/idporten-oidc-provider/",
+      "scope": "openid",
+      "exp": 1597783452,
+      "iat": 1597783152,
+      "client_orgno": "889640782",
+      "jti": "97f580a6-b479-426d-876b-267aa9848e2e",
+      "consumer": {
+        "authority": "iso6523-actorid-upis",
+        "ID": "0192:889640782"
+      }
+    }
+    ```

@@ -389,7 +389,7 @@ The value of this **must** be a subpath of your application's ingress.
 ### `spec.idporten.sessionLifetime`
 The maximum lifetime in seconds for any given user's session in your application. The timeout starts whenever the user is redirected from the `authorization_endpoint` at ID-porten. Attempting to refresh the user's `access_token` beyond this timeout will yield an error. 
 
-**Default**: `7200` \(2 hours\)
+**Default**: `7200` (2 hours)
 
 **Minimum value**: `3600`
 
@@ -399,7 +399,7 @@ The maximum lifetime in seconds for any given user's session in your application
 
 The lifetime in seconds for any issued access token from ID-porten.
 
-**Default**: `3600` \(2 hours\)
+**Default**: `3600` (1 hour)
 
 **Minimum value**: `1`
 

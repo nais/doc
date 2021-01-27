@@ -10,29 +10,22 @@ description: >
 
 ## Abstract
 
-[Maskinporten](https://difi.github.io/felleslosninger/maskinporten_auth_server-to-server-oauth2.html) allows API providers (in this case, external agencies) to define access policies to their APIs, modeled using scopes based on the organization number of the consumer.
+!!! abstract
+    [Maskinporten](https://difi.github.io/felleslosninger/maskinporten_auth_server-to-server-oauth2.html) is a service provided by DigDir that allows API providers - in this case, external agencies - to securely enforce server-to-server authorization of their exposed APIs using OAuth 2.0 JWT grants, inspired by [Google's System Accounts](https://developers.google.com/identity/protocols/oauth2/service-account).
+ 
+    With Maskinporten, API providers may model access policies by using scopes based on the organization number of the consumer.
 
-Maskinporten is a service that offers a simple API security model based on the OAuth2 protocol with the use of JWT bearer grants, a concept inspired by [Google's System Accounts](https://developers.google.com/identity/protocols/oauth2/service-account).
+    The NAIS platform provides support for simple declarative provisioning of a Maskinporten client that your application may use to integrate with Maskinporten.
 
-The NAIS platform provides support for simple declarative provisioning of a Maskinporten client that your application may use to integrate with Maskinporten.
-
-The client allows your application to leverage Maskinporten for authentication and authorization when performing service-to-service requests to external agencies. To achieve this, your application must implement [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html).
+    The client allows your application to leverage Maskinporten for authentication and authorization when performing service-to-service requests to external agencies. To achieve this, your application must implement [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html).
 
 ## Configuration
 
 ### Getting Started
 
-=== "Minimal nais.yaml example"
+=== "nais.yaml"
     ```yaml
-    apiVersion: "nais.io/v1alpha1"
-    kind: "Application"
-    metadata:
-       name: nais-testapp
-       namespace: aura
-       labels:
-           team: aura
     spec:
-      image: navikt/nais-testapp:66.0.0
       maskinporten:
         enabled: true
         scopes:
@@ -71,20 +64,28 @@ When a client requests a token from Maskinporten:
 
 The following environment variables and files (under the directory `/var/run/secrets/nais.io/maskinporten`) are available at runtime:
 
-=== "Description"
-    | Name | Description |
-    |---|---|
-    | `MASKINPORTEN_CLIENT_ID` | Maskinporten client ID. Unique ID for the application in Maskinporten |
-    | `MASKINPORTEN_CLIENT_JWK` | Private JWK containing the private RSA key for creating signed JWTs when using the [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html). |
-    | `MASKINPORTEN_SCOPES` |  The scopes registered for the client at Maskinporten as a whitepace-separated string. See [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html) for more information. |
-    | `MASKINPORTEN_WELL_KNOWN_URL` | The well-known URL for the OIDC metadata discovery document for Maskinporten. |
-=== "Example values"
-    | Name | Values |
-    |---|---|
-    | `MASKINPORTEN_CLIENT_ID` | `e89006c5-7193-4ca3-8e26-d0990d9d981f` |
-    | `MASKINPORTEN_SCOPES` | `nav:first/scope nav:another/scope` |
-    | `MASKINPORTEN_WELL_KNOWN_URL` | `https://ver2.maskinporten.no/.well-known/oauth-authorization-server` |
-=== "Example value for MASKINPORTEN_CLIENT_JWK"
+??? example "`MASKINPORTEN_CLIENT_ID`"
+
+    Maskinporten client ID. Unique ID for the application in Maskinporten.
+
+    Example value: `e89006c5-7193-4ca3-8e26-d0990d9d981f`
+
+??? example "`MASKINPORTEN_SCOPES`"
+
+    The scopes registered for the client at Maskinporten as a whitepace-separated string. See [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html) for more information.
+
+    Example value: `nav:first/scope nav:another/scope`
+
+??? example "`MASKINPORTEN_WELL_KNOWN_URL`"
+
+    The well-known URL for the OIDC metadata discovery document for Maskinporten. 
+
+    Example value: `https://ver2.maskinporten.no/.well-known/oauth-authorization-server`
+
+??? example "`MASKINPORTEN_CLIENT_JWK`"
+
+    Private JWK containing the private RSA key for creating signed JWTs when using the [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html).
+
     ```javascript
     {
     "use": "sig",
@@ -110,7 +111,8 @@ You may skip any step involving client registration as this is automatically han
 
 ## Legacy
 
-This section only applies if you have an existing client registered at the [IaC repository](https://github.com/navikt/nav-maskinporten)  
+!!! info
+    This section only applies if you have an existing client registered at the [IaC repository](https://github.com/navikt/nav-maskinporten)  
 
 ### Migration guide to keep existing Maskinporten client (NAIS application only)
 

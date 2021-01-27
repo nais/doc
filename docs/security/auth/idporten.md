@@ -5,17 +5,18 @@ description: Enabling public-facing authentication using ID-porten.
 # ID-porten
 
 !!! warning "Status: Opt-In Open Beta"
-    This feature is only available in the [Google Cloud Platform \(GCP\)](../../clusters/gcp.md) clusters.
+    This feature is currently only available in the [Google Cloud Platform \(GCP\)](../../clusters/gcp.md) clusters.
 
 ## Abstract
 
-ID-porten is a common log-in system used for logging into Norwegian public e-services for citizens.
+!!! abstract
+    ID-porten is a common log-in system used for logging into Norwegian public e-services for citizens.
 
-The NAIS platform provides support for simple, declarative provisioning of an [ID-porten client](https://difi.github.io/felleslosninger/oidc_index.html) with sensible defaults that your application may use to integrate with ID-porten.
+    The NAIS platform provides support for simple, declarative provisioning of an [ID-porten client](https://difi.github.io/felleslosninger/oidc_index.html) with sensible defaults that your application may use to integrate with ID-porten.
 
-An ID-porten client allows your application to leverage ID-porten for authentication of citizen end-users, providing sign-in capabilities with single sign-on \(SSO\). To achieve this, your application must implement [OpenID Connect with the Authorization Code](https://difi.github.io/felleslosninger/oidc_guide_idporten.html) flow.
+    An ID-porten client allows your application to leverage ID-porten for authentication of citizen end-users, providing sign-in capabilities with single sign-on \(SSO\). To achieve this, your application must implement [OpenID Connect with the Authorization Code](https://difi.github.io/felleslosninger/oidc_guide_idporten.html) flow.
 
-This is also a critical first step in request chains involving an end-user whose identity and permissions should be propagated through each service/web API when accessing services in NAV using the [OAuth 2.0 Token Exchange](https://www.rfc-editor.org/rfc/rfc8693.html) protocol. See the [TokenX documentation](tokenx.md) for details.
+    This is also a critical first step in request chains involving an end-user whose identity and permissions should be propagated through each service/web API when accessing services in NAV using the [OAuth 2.0 Token Exchange](https://www.rfc-editor.org/rfc/rfc8693.html) protocol. See the [TokenX documentation](tokenx.md) for details.
 
 !!! info
     **See the** [**NAV Security Guide**](https://security.labs.nais.io/) **for NAV-specific usage of this client.**
@@ -25,42 +26,30 @@ This is also a critical first step in request chains involving an end-user whose
 ## Configuration
 
 ### Getting Started
-=== "Minimal nais.yaml example"
+=== "nais.yaml"
     ```yaml
-    apiVersion: "nais.io/v1alpha1"
-    kind: "Application"
-    metadata:
-      name: nais-testapp
-      namespace: aura
-      labels:
-        team: aura
     spec:
-      image: navikt/nais-testapp:66.0.0
       idporten:
         enabled: true
-    ```
-=== "Full nais.yaml example"
-    ```yaml
-    apiVersion: "nais.io/v1alpha1"
-    kind: "Application"
-    metadata:
-      name: nais-testapp
-      namespace: aura
-      labels:
-        team: aura
-    spec:
-      image: navikt/nais-testapp:66.0.0
-      idporten:
-        enabled: true
+
+        # optional, default shown
         clientURI: "https://nav.no"
+
+        # optional, generated default shown
         redirectURI: "https://my.application.dev.nav.no/callback"
+
+        # optional, generated default shown
         frontchannelLogoutURI: "https://my.application.dev.nav.no/logout"
-        postLogoutRedirectURIs:
+
+        # optional, defaults shown
+        postLogoutRedirectURIs: 
           - "https://nav.no"
-        accessTokenLifetime: 3600 # in seconds - 1 hour
-        sessionLifetime: 7200 # in seconds - 2 hours
-      ingresses:
-        - "https://my.application.dev.nav.no"
+
+        # optional, in seconds - defaults shown (1 hour)
+        accessTokenLifetime: 3600
+
+        # optional, in seconds - defaults shown (2 hours)
+        sessionLifetime: 7200
     ```
 
 ### Spec
@@ -134,20 +123,16 @@ For example, if you have specified an ingress at `https://my.application.dev.nav
 
 The following environment variables and files \(under the directory `/var/run/secrets/nais.io/idporten`\) are available at runtime:
 
-===" Description"
-    | Name | Description |
-    | :--- | :--- |
-    | `IDPORTEN_CLIENT_ID` | ID-porten client ID. Unique ID for the application in ID-porten |
-    | `IDPORTEN_CLIENT_JWK` | Private JWK containing the private RSA key for creating signed JWTs when [authenticating to ID-porten with a JWT grant](https://difi.github.io/felleslosninger/oidc_guide_idporten.html#klientautentisering-med-jwt-token). |
-    | `IDPORTEN_REDIRECT_URI` | The redirect URI registered for the client at ID-porten. This must be a valid URI for the application where the user is redirected back to after successful authentication and authorization. |
-    | `IDPORTEN_WELL_KNOWN_URL` | The well-known URL for the OIDC metadata discovery document for ID-porten. |
-=== "Example values"
-    | Name | Values |
-    | :--- | :--- |
-    | `IDPORTEN_CLIENT_ID` | `e89006c5-7193-4ca3-8e26-d0990d9d981f` |
-    | `IDPORTEN_REDIRECT_URI` | `https://my.application.dev.nav.no/callback` |
-    | `IDPORTEN_WELL_KNOWN_URL` | `https://oidc-ver2.difi.no/idporten-oidc-provider/.well-known/openid-configuration` |
-=== "Example value for IDPORTEN_CLIENT_JWK"
+??? example "`IDPORTEN_CLIENT_ID`"
+
+    ID-porten client ID. Unique ID for the application in ID-porten.
+
+    Example value: `e89006c5-7193-4ca3-8e26-d0990d9d981f`
+
+??? example "`IDPORTEN_CLIENT_JWK`"
+
+    Private JWK containing the private RSA key for creating signed JWTs when [authenticating to ID-porten with a JWT grant](https://difi.github.io/felleslosninger/oidc_guide_idporten.html#klientautentisering-med-jwt-token).
+
     ```javascript
     {
       "use": "sig",
@@ -164,6 +149,18 @@ The following environment variables and files \(under the directory `/var/run/se
       "qi": "QCW5VQjO..."
     }
     ```
+
+??? example "`IDPORTEN_REDIRECT_URI`"
+
+    The redirect URI registered for the client at ID-porten. This must be a valid URI for the application where the user is redirected back to after successful authentication and authorization.
+    
+    Example value: `https://my.application.dev.nav.no/callback` 
+
+??? example "`IDPORTEN_WELL_KNOWN_URL`"
+
+    The well-known URL for the OIDC metadata discovery document for ID-porten.
+
+    Example value: `https://oidc-ver2.difi.no/idporten-oidc-provider/.well-known/openid-configuration`
 
 ### Test Users for Logins
 

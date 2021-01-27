@@ -9,15 +9,16 @@ description: Enabling authentication and authorization in internal web applicati
 
 ## Abstract
 
-The NAIS platform provides support for simple, declarative provisioning of an Azure AD client configured with sensible defaults.
+!!! abstract
+    The NAIS platform provides support for simple, declarative provisioning of an Azure AD client configured with sensible defaults.
 
-An Azure AD client allows your application to leverage Azure AD for authentication and authorization.
+    An Azure AD client allows your application to leverage Azure AD for authentication and authorization.
 
-The most common cases include:
+    The most common cases include:
 
-* User \(employees only\) sign-in with SSO, using [OpenID Connect with Authorization Code flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow)
-* Request chains involving an end-user whose identity and permissions should be propagated through each service/web API, using the [OAuth 2.0 On-Behalf-Of flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow)
-* Daemon / server-side applications for server-to-server interactions without a user, using the [OAuth 2.0 client credentials flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow)
+    * User \(employees only\) sign-in with SSO, using [OpenID Connect with Authorization Code flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow)
+    * Request chains involving an end-user whose identity and permissions should be propagated through each service/web API, using the [OAuth 2.0 On-Behalf-Of flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow)
+    * Daemon / server-side applications for server-to-server interactions without a user, using the [OAuth 2.0 client credentials flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow)
 
 !!! info
     **See the** [**NAV Security Guide**](https://security.labs.nais.io/) **for NAV-specific usage of this client.**
@@ -98,42 +99,20 @@ This case is enforced by Azure AD:
 
 ### Getting started
 
-=== "Minimal nais.yaml example"
+=== "nais.yaml"
     ```yaml
-    apiVersion: "nais.io/v1alpha1"
-    kind: "Application"
-    metadata:
-      name: nais-testapp
-      namespace: aura
-      labels:
-        team: aura
     spec:
-      image: navikt/nais-testapp:65.0.0
       azure:
         application:
           enabled: true
-      webproxy: true # required for on-premises only
-    ```
+            
+          # optional, enum of {trygdeetaten.no, nav.no}, defaults to nav.no
+          tenant: trygdeetaten.no 
 
-=== "Full nais.yaml example"
-    ```yaml
-    apiVersion: "nais.io/v1alpha1"
-    kind: "Application"
-    metadata:
-      name: nais-testapp
-      namespace: aura
-      labels:
-        team: aura
-    spec:
-      image: navikt/nais-testapp:65.0.0
-      azure:
-        application:
-          enabled: true
-          tenant: trygdeetaten.no
-          replyURLs:
-            - "https://my-app.dev.nav.no/custompath/oidc/callback"
-      ingresses:
-        - "https://my-app.dev.nav.no"
+          # optional, generated defaults shown
+          replyURLs: 
+            - "https://my-app.dev.nav.no/oauth2/callback"
+
       accessPolicy:
         inbound:
           rules:
@@ -141,7 +120,9 @@ This case is enforced by Azure AD:
               namespace: othernamespace
               cluster: dev-fss
             - application: app-b
-      webproxy: true # required for on-premises only
+
+      # required for on-premises only
+      webproxy: true 
     ```
 
 ### Spec
@@ -188,30 +169,32 @@ spec.ingresses[n] + "/oauth2/callback"
 
 In other words, this:
 
-```yaml
-spec:
-  azure:
-    application:
-      enabled: true
-  ingresses:
-    - "https://my.application.dev.nav.no"
-    - "https://my.application.dev.nav.no/subpath"
-```
+??? example
+    ```yaml
+    spec:
+      azure:
+        application:
+          enabled: true
+      ingresses:
+        - "https://my.application.dev.nav.no"
+        - "https://my.application.dev.nav.no/subpath"
+    ```
 
 will generate a spec equivalent to this:
 
-```yaml
-spec:
-  azure:
-    application:
-      enabled: true
-      replyURLs:
-        - "https://my.application.dev.nav.no/oauth2/callback"
-        - "https://my.application.dev.nav.no/subpath/oauth2/callback"
-  ingresses:
-    - "https://my.application.dev.nav.no"
-    - "https://my.application.dev.nav.no/subpath"
-```
+??? example
+    ```yaml
+    spec:
+      azure:
+        application:
+          enabled: true
+          replyURLs:
+            - "https://my.application.dev.nav.no/oauth2/callback"
+            - "https://my.application.dev.nav.no/subpath/oauth2/callback"
+      ingresses:
+        - "https://my.application.dev.nav.no"
+        - "https://my.application.dev.nav.no/subpath"
+    ```
 
 ### Tenants
 
@@ -222,7 +205,10 @@ spec:
   azure:
     application:
       enabled: true
-      tenant: trygdeetaten.no    # enum of {trygdeetaten.no, nav.no}, defaults to nav.no if omitted
+      
+      # enum of {trygdeetaten.no, nav.no}
+      # defaults to nav.no if omitted
+      tenant: trygdeetaten.no 
 ```
 
 ### Pre-authorization
@@ -266,45 +252,22 @@ The above configuration will pre-authorize the Azure AD clients belonging to:
 
 The following environment variables and files \(under the directory `/var/run/secrets/nais.io/azure`\) are available at runtime:
 
-=== "Description"
-    | Name | Description |
-    | :--- | :--- |
-    | `AZURE_APP_CLIENT_ID` | Azure AD client ID. Unique ID for the application in Azure AD |
-    | `AZURE_APP_CLIENT_SECRET` | Azure AD client secret, i.e. password for [authenticating the application to Azure AD](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow#first-case-access-token-request-with-a-shared-secret) |
-    | `AZURE_APP_JWK` | Private JWK as defined in [RFC7517](https://tools.ietf.org/html/rfc7517), i.e. a JWK with the private RSA key for creating signed JWTs when [authenticating to Azure AD with a certificate](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow#second-case-access-token-request-with-a-certificate). |
-    | `AZURE_APP_JWKS` | A JWK Set as defined in [RFC7517 section 5](https://tools.ietf.org/html/rfc7517#section-5). This will always contain a single key, i.e. `AZURE_APP_JWK` - the newest key registered. |
-    | `AZURE_APP_PRE_AUTHORIZED_APPS` | A JSON string. List of names and client IDs for the valid \(i.e. those that exist in Azure AD\) applications defined in [`spec.accessPolicy.inbound.rules[]`](../../nais-application/nais.yaml/reference.md#specaccesspolicy) |
-    | `AZURE_APP_TENANT_ID` | The Azure AD tenant ID for which the Azure AD client resides in. |
-    | `AZURE_APP_WELL_KNOWN_URL` | The well-known URL to the [metadata discovery document](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig) for the specific tenant in which the Azure AD client resides in. |
-=== "Example values"
-    | Name | Value |
-    | :--- | :--- |
-    | `AZURE_APP_CLIENT_ID` | `e89006c5-7193-4ca3-8e26-d0990d9d981f` |
-    | `AZURE_APP_CLIENT_SECRET` | `b5S0Bgg1OF17Ptpy4_uvUg-m.I~KU_.5RR` |
-    | `AZURE_APP_TENANT_ID` | `77678b69-1daf-47b6-9072-771d270ac800` |
-    | `AZURE_APP_WELL_KNOWN_URL` | `https://login.microsoftonline.com/77678b69-1daf-47b6-9072-771d270ac800/v2.0/.well-known/openid-configuration` |
-=== "Example value for AZURE_APP_JWK"
-    ```javascript
-    {
-      "use": "sig",
-      "kty": "RSA",
-      "kid": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
-      "n": "xQ3chFsz...",
-      "e": "AQAB",
-      "d": "C0BVXQFQ...",
-      "p": "9TGEF_Vk...",
-      "q": "zb0yTkgqO...",
-      "dp": "7YcKcCtJ...",
-      "dq": "sXxLHp9A...",
-      "qi": "QCW5VQjO...",
-      "x5c": [
-        "MIID8jCC..."
-      ],
-      "x5t": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
-      "x5t#S256": "AH2gbUvjZYmSQXZ6-YIRxM2YYrLiZYW8NywowyGcxp0"
-    }
-    ```
-=== "Example value for AZURE_APP_JWKS"
+??? example "`AZURE_APP_CLIENT_ID`"
+
+    Azure AD client ID. Unique ID for the application in Azure AD
+    
+    Example value: `e89006c5-7193-4ca3-8e26-d0990d9d981f`
+
+??? example "`AZURE_APP_CLIENT_SECRET`"
+
+    Azure AD client secret, i.e. password for [authenticating the application to Azure AD](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow#first-case-access-token-request-with-a-shared-secret) 
+
+    Example value: `b5S0Bgg1OF17Ptpy4_uvUg-m.I~KU_.5RR`
+
+??? example "`AZURE_APP_JWKS`"
+
+    A JWK Set as defined in [RFC7517 section 5](https://tools.ietf.org/html/rfc7517#section-5). This will always contain a single key, i.e. `AZURE_APP_JWK` - the newest key registered.
+
     ```javascript
     {
       "keys": [
@@ -328,8 +291,37 @@ The following environment variables and files \(under the directory `/var/run/se
         }
       ]
     }
+    ``` 
+
+??? example "`AZURE_APP_JWK`"
+
+    Private JWK as defined in [RFC7517](https://tools.ietf.org/html/rfc7517), i.e. a JWK with the private RSA key for creating signed JWTs when [authenticating to Azure AD with a certificate](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow#second-case-access-token-request-with-a-certificate).
+
+    ```javascript
+    {
+      "use": "sig",
+      "kty": "RSA",
+      "kid": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
+      "n": "xQ3chFsz...",
+      "e": "AQAB",
+      "d": "C0BVXQFQ...",
+      "p": "9TGEF_Vk...",
+      "q": "zb0yTkgqO...",
+      "dp": "7YcKcCtJ...",
+      "dq": "sXxLHp9A...",
+      "qi": "QCW5VQjO...",
+      "x5c": [
+        "MIID8jCC..."
+      ],
+      "x5t": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
+      "x5t#S256": "AH2gbUvjZYmSQXZ6-YIRxM2YYrLiZYW8NywowyGcxp0"
+    }
     ```
-=== "Example value for AZURE_APP_PRE_AUTHORIZED_APPS"
+   
+??? example "`AZURE_APP_PRE_AUTHORIZED_APPS`"
+    
+    A JSON string. List of names and client IDs for the valid \(i.e. those that exist in Azure AD\) applications defined in [`spec.accessPolicy.inbound.rules[]`](../../nais-application/nais.yaml/reference.md#specaccesspolicy)
+    
     ```javascript
     [
       {
@@ -342,6 +334,18 @@ The following environment variables and files \(under the directory `/var/run/se
       }
     ]
     ```
+
+??? example "`AZURE_APP_TENANT_ID`"
+
+    The Azure AD tenant ID for which the Azure AD client resides in. 
+
+    Example value: `77678b69-1daf-47b6-9072-771d270ac800` 
+
+??? example "`AZURE_APP_WELL_KNOWN_URL`"
+
+    The well-known URL to the [metadata discovery document](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig) for the specific tenant in which the Azure AD client resides in.
+
+    Example value: `https://login.microsoftonline.com/77678b69-1daf-47b6-9072-771d270ac800/v2.0/.well-known/openid-configuration`
 
 ## Administration
 
