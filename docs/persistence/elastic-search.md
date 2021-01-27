@@ -23,6 +23,9 @@ We do not offer support on Elastic Search as software, but questions about Aiven
 We recommend that you set up your own alerts so that you can react to problems in your Elastic instance. 
 Aiven uses Telegraf to collect and present metrics, so available metrics can be found in the [Telegraf documentation](https://github.com/influxdata/telegraf).
 
+We have configured our Prometheus instances in GCP to scrape the Elastic clusters in Aiven, so these metrics should be available in Grafana.
+New Elastic clusters currently need to be manually added to the Prometheus config, so if you can't find your cluster, please poke us.
+
 Particularly relevant input plugins are:
 
 - [elasticsearch](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/elasticsearch)
