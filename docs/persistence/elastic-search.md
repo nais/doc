@@ -55,5 +55,6 @@ Some metrics that might be useful to watch, based on above article (We need feed
 - `elasticsearch_indices_indexing_index_time_in_millis`
 - `elasticsearch_indices_indexing_index_total`
 - `elasticsearch_indices_merges_total_time_in_millis`
+- `elasticsearch_indices_store_size_in_bytes`
 - `cpu_usage_user`
 - `diskio_weighted_io_time`
