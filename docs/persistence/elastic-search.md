@@ -36,6 +36,8 @@ Particularly relevant input plugins are:
 
 O'Reilly has a useful [article](https://www.oreilly.com/content/10-elasticsearch-metrics-to-watch/) about metrics to watch in an Elastic cluster.
 
+[Awesome prometheus alerts](https://awesome-prometheus-alerts.grep.to/rules#elasticsearch) is another good source of alerts to look out for.
+
 Some metrics that might be useful to watch, based on above article (We need feedback on this list, as we have no practical experience to lean on):
 
 - `elasticsearch_cluster_health_status_code`
