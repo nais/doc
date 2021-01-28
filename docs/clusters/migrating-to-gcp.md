@@ -120,9 +120,45 @@ See [Laws and regulations/Application PVK](../legal/app-pvk.md) for details.
 
 #### How do I reach an application found on-premises from my application in GCP?
 
-Your applications must first be secured with [OAuth 2.0](../security/auth/README.md). Then, the on-premises application can be exposed to GCP through a special ingress.
+??? faq
 
-See the [NAV Security Guide](https://security.labs.nais.io/pages/guide/sonekryssing/gcp-til-fss.html) for details.
+    The application _on-premises_ **must** fulfill the following requirements:
+
+    1. Be secured with [OAuth 2.0](../security/auth/README.md). That is, either:
+        - a. [TokenX](../security/auth/tokenx.md), or 
+        - b. [Azure AD](../security/auth/azure-ad.md)
+    2. Exposed to GCP using a special ingress:
+        - `https://<app>.dev-fss-pub.nais.io`
+        - `https://<app>.prod-fss-pub.nais.io`
+
+    Contact [#nais-i-sky](https://nav-it.slack.com/archives/C0190SV7KSN) to set up these ingresses.
+
+    The application _in GCP_ must then:
+
+    1. Add the above hosts to their [outbound external access policies](../nais-application/access-policy.md#external-services):
+
+    ```yaml
+    spec:
+      accessPolicy:
+        outbound:
+          external:
+            - host: <app>.dev-fss-pub.nais.io
+    ```
+
+#### How do I reach an application found on GCP from my application on-premises?
+
+??? faq 
+
+    The application in GCP must be exposed on a [matching ingress](gcp.md#accessing-the-application):
+
+    | ingress | reachable from zone |
+    | :--- | :--- |
+    | `<app>.dev.intern.nav.no` | `dev-fss` |
+    | `<app>.dev.nav.no` | `dev-sbs` |
+    | `<app>.intern.nav.no` | `prod-fss` |
+    | `<app>.nav.no` | `prod-sbs` |
+
+    The application on-premises should _not_ have to use webproxy to reach these ingresses.
 
 ## GCP compared to on-premises
 
@@ -144,7 +180,7 @@ See the [NAV Security Guide](https://security.labs.nais.io/pages/guide/sonekryss
 | Postgres | ✔️ \(IAC\) | ✔️ \(self-service\) |  |
 | Laptop access | ✔️ | ✔️ |  |
 | domain: dev.intern.nav.no (if migrating from SBS) | ✔️ \(IAC\) | ✔️ \(Automatic\) | Wildcard DNS points to GCP load balancer |
-| Access to FSS services (if migrating from SBS) | ✔️ | ✔️ | Identical \(either API-gw or [TokenX](../security/auth/tokenx.md). May require a proxy app, see [Security Blueprints](https://security.labs.nais.io/pages/guide/sonekryssing/google-cloud-platform.html) for details. |
+| Access to FSS services (if migrating from SBS) | ✔️ | ✔️ | Identical \(either API-gw or [TokenX](../security/auth/tokenx.md). May require a proxy app, see [FAQ](#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp) for details. |
 | OpenAM (ESSO) | ✔️ | ✔️ | OpenAM is available for existing application, but it is EOL. We recommend migrating to [TokenX](../security/auth/tokenx.md) |
 | NAV truststore | ✔️ | ✔️ |  |
 | PVK required | ✔️ | ✔️ | amend to cover storage in cloud |

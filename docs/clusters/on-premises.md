@@ -59,4 +59,4 @@ You can control from where you application is reachable by selecting the appropr
 
 More info about how DNS is configured for these domains can be found [here](../appendix/ingress-dns.md)
 
-[sonekryssing]: https://security.labs.nais.io/pages/guide/sonekryssing/gcp-til-fss.html
+[sonekryssing]: migrating-to-gcp.md#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp
