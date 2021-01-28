@@ -52,75 +52,101 @@ If your application stores personally identifiable information in any GCP data s
 
 #### What do we have to change?
 
-* Cluster name: All references to cluster name. \(Logs, grafana, deploy, etc.\)
-* Secrets: are now stored as native secrets in the cluster, rather than externally in vault.
-* Namespace: If your application is in the `default` namespace, you will have to move to team namespace
-* Storage: Use `GCS-buckets` instead of `s3` in GCP. Buckets, and access to them, are expressed in your [application manifest](../nais-application/nais.yaml/full-example.md)
-* Ingress: There are some domains that are available both on-prem and in GCP, but some differ, make sure to verify before you move.
-* Postgres: A new database \(and access to it\) is automatically configured when expressing `sqlInstance` in your [application manifest](../nais-application/nais.yaml/full-example.md)
+???+ faq "Answer"
 
-  We're currently investigating the possibility of using on-prem databases during a migration window.
+    * Cluster name: All references to cluster name. \(Logs, grafana, deploy, etc.\)
+    * Secrets: are now stored as native secrets in the cluster, rather than externally in Vault.
+    * Namespace: If your application is in the `default` namespace, you will have to move to team namespace
+    * Storage: Use `GCS-buckets` instead of `s3` in GCP. Buckets, and access to them, are expressed in your [application manifest](../nais-application/nais.yaml/full-example.md)
+    * Ingress: There are some domains that are available both on-prem and in GCP, but some differ, make sure to verify before you move.
+    * Postgres: A new database \(and access to it\) is automatically configured when expressing `sqlInstance` in your [application manifest](../nais-application/nais.yaml/full-example.md)
 
-* PVK: Update your existing PVK to include cloud
+      We're currently investigating the possibility of using on-prem databases during a migration window.
 
-See [this table](migrating-to-gcp.md#gcp-compared-to-on-premises) for the differences between GCP and on-premises, and which that may apply to your application.
+    * PVK: Update your existing PVK to include cloud
+
+    See [this table](migrating-to-gcp.md#gcp-compared-to-on-premises) for the differences between GCP and on-premises, and which that may apply to your application.
 
 #### What should we change?
 
-- Use [TokenX](../security/auth/tokenx.md) instead of API-GW.
-- If using automatically configured [buckets](../persistence/buckets.md) or [postgres](../persistence/postgres.md), use [Google APIs](https://cloud.google.com/storage/docs/reference/libraries)
+???+ faq "Answer"
+
+    - Use [TokenX](../security/auth/tokenx.md) instead of API-GW.
+    - If using automatically configured [buckets](../persistence/buckets.md) or [postgres](../persistence/postgres.md), use [Google APIs](https://cloud.google.com/storage/docs/reference/libraries)
 
 #### What do we not need to change?
 
-You do not have to make any changes to your application code. Ingresses work the same way, although some domains overlap and others are exclusive. Logging, secure logging, metrics and alerts work the same way.
+???+ faq "Answer"
+
+    You do not have to make any changes to your application code. Ingresses work the same way, although some domains overlap and others are exclusive. Logging, secure logging, metrics and alerts work the same way.
 
 #### What can we do now to ease migration to GCP later?
 
-- Make sure your PVK is up to date.
-- Deploy your application to your team's namespace instead of `default`, as this is not available in GCP.
-- Use a token auth flow between your applications. Either [TokenX](../security/auth/tokenx.md), [AAD on-behalf-of or AAD client_credentials flow](../security/auth/azure-ad.md) depending on your use case. This allows for a more seamless migration of your applications. E.g. if you have two apps in FSS, you can migrate one without the other.
+???+ faq "Answer"
+
+    - Make sure your PVK is up to date.
+    - Deploy your application to your team's namespace instead of `default`, as this is not available in GCP.
+    - Use a token auth flow between your applications. Either [TokenX](../security/auth/tokenx.md), [AAD on-behalf-of or AAD client_credentials flow](../security/auth/azure-ad.md) depending on your use case. This allows for a more seamless migration of your applications. E.g. if you have two apps in FSS, you can migrate one without the other.
 
 #### What about PVK?
 
-A PVK is not a unique requirement for GCP, so all applications should already have one. See [about security and privacy when using platform services](../README.md#about-security-and-privacy-when-using-platform-services) for details
+???+ faq "Answer"
+
+    A PVK is not a unique requirement for GCP, so all applications should already have one. See [about security and privacy when using platform services](../README.md#about-security-and-privacy-when-using-platform-services) for details
 
 #### How do we migrate our database?
 
-See [Migrating databases to GCP](migrating-databases-to-gcp.md).
+???+ faq "Answer"
 
-#### Why is there no vault in GCP?
+    See [Migrating databases to GCP](migrating-databases-to-gcp.md).
 
-There is native functionality in GCP that overlap with many of the use cases that Vault have covered on-prem. Using these mechanisms removes the need to deal with these secrets at all. Introducing team namespaces allows the teams to manage their own secrets in their own namespaces without the need for IAC and manual routines. For other secrets that are not used by the application during runtime, you can use the [Secret Manager](../security/secrets/google-secrets-manager.md) in each team's GCP project.
+#### Why is there no Vault in GCP?
 
-#### How do we migrate from vault to secrets manager
+???+ faq "Answer"
 
-Retrieve the secret from vault and store it in a file. `kubectl apply -f <secret-file>`. See the [secrets documentation](../security/secrets/kubernetes-secrets.md) for an example.
+    There is native functionality in GCP that overlap with many of the use cases that Vault have covered on-prem. Using these mechanisms removes the need to deal with these secrets at all. Introducing team namespaces allows the teams to manage their own secrets in their own namespaces without the need for IAC and manual routines. For other secrets that are not used by the application during runtime, you can use the [Secret Manager](../security/secrets/google-secrets-manager.md) in each team's GCP project.
 
-#### How do we migrate from filestorage to buckets
+#### How do we migrate from Vault to Secrets Manager?
 
-Add a bucket to your application spec Copy the data from the filestore using [s3cmd](https://s3tools.org/s3cmd) to the bucket using [gsutil](https://cloud.google.com/storage/docs/gsutil)
+???+ faq "Answer"
+
+    See the [Secrets Manager documentation](../security/secrets/google-secrets-manager.md).
+
+#### How do we migrate from filestorage to buckets?
+
+???+ faq "Answer"
+
+    Add a bucket to your application spec Copy the data from the filestore using [s3cmd](https://s3tools.org/s3cmd) to the bucket using [gsutil](https://cloud.google.com/storage/docs/gsutil)
 
 #### What are the plans for cloud migration in NAV?
 
-We aim to shut down both sbs clusters by summer 2021 NAVs strategic goal is to shut off all on-prem datacenters by the end of 2023
+???+ faq "Answer"
+    
+    We aim to shut down both sbs clusters by summer 2021 NAVs strategic goal is to shut off all on-prem datacenters by the end of 2023
 
 #### What can we do in our GCP project?
 
-The teams GCP projects are primarily used for automatically generated resources \(buckets and postgres\). We're working on extending the service offering. However, additional access may be granted if required by the team
+???+ faq "Answer" 
+
+    The teams GCP projects are primarily used for automatically generated resources \(buckets and postgres\). We're working on extending the service offering. However, additional access may be granted if required by the team
 
 #### How long does it take to migrate?
 
-A minimal application without any external requirements only have to change a single configuration parameter when deploying and have migrated their application in 5 minutes. See [this table](migrating-to-gcp.md#gcp-compared-to-on-premises) for the differences between GCP and on-premises, and which that may apply to your application.
+???+ faq "Answer"
+
+    A minimal application without any external requirements only have to change a single configuration parameter when deploying and have migrated their application in 5 minutes. See [this table](migrating-to-gcp.md#gcp-compared-to-on-premises) for the differences between GCP and on-premises, and which that may apply to your application.
 
 #### We have personally identifiable and/or sensitive data in our application, and we heard about the Privacy Shield invalidation. Can we still use GCP?
 
-**Yes.** [NAV's evaluation of our Data Processor Agreement with Google post-Schrems II](https://navno.sharepoint.com/:w:/r/sites/Skytjenesterforvaltningsregime/_layouts/15/Doc.aspx?sourcedoc=%7BA9562232-BB00-40CB-930D-4EF254A5AD7F%7D&file=2020-10-10%20GCP%20-%20behandling%20og%20avtaler.docx&action=default&mobileredirect=true) is that it still protects us and is valid for use **given that data is stored and processed in data centers located within the EU/EEA**. If your team uses resources provisioned through NAIS, this is guaranteed by the nais team. If your team uses any other GCP services the team is responsible for ensuring that only resources within EU/EES are used \(as well as for evaluating the risk of using these services\).
+???+ faq "Answer"
 
-See [Laws and regulations/Application PVK](../legal/app-pvk.md) for details.
+    **Yes.** [NAV's evaluation of our Data Processor Agreement with Google post-Schrems II](https://navno.sharepoint.com/:w:/r/sites/Skytjenesterforvaltningsregime/_layouts/15/Doc.aspx?sourcedoc=%7BA9562232-BB00-40CB-930D-4EF254A5AD7F%7D&file=2020-10-10%20GCP%20-%20behandling%20og%20avtaler.docx&action=default&mobileredirect=true) is that it still protects us and is valid for use **given that data is stored and processed in data centers located within the EU/EEA**. If your team uses resources provisioned through NAIS, this is guaranteed by the nais team. If your team uses any other GCP services the team is responsible for ensuring that only resources within EU/EES are used \(as well as for evaluating the risk of using these services\).
+
+    See [Laws and regulations/Application PVK](../legal/app-pvk.md) for details.
 
 #### How do I reach an application found on-premises from my application in GCP?
 
-??? faq
+???+ faq "Answer"
 
     The application _on-premises_ **must** fulfill the following requirements:
 
@@ -147,7 +173,7 @@ See [Laws and regulations/Application PVK](../legal/app-pvk.md) for details.
 
 #### How do I reach an application found on GCP from my application on-premises?
 
-??? faq 
+???+ faq "Answer" 
 
     The application in GCP must be exposed on a [matching ingress](gcp.md#accessing-the-application):
 
@@ -171,7 +197,7 @@ See [Laws and regulations/Application PVK](../legal/app-pvk.md) for details.
 | Alerts | ✔️ | ✔️ | identical |
 | Secure logs | ✔️ | ✔️ | different clustername in logs.adeo.no |
 | Kafka | ✔️ | ✔️ | identical |
-| Secrets | vault | Secret manager |  |
+| Secrets | Vault | Secret manager |  |
 | Team namespaces | ✔️ | ✔️ |  |
 | Shared namespaces | ✔️ | ✖️ | Default namespace not available for teams in GCP |
 | Health checks | ✔️ | ✔️ | identical |
