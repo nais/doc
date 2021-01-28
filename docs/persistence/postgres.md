@@ -92,7 +92,8 @@ Databases should always be accessed using a personal account, and the access sho
 ##### Grant privileges to sql IAM users
 
 !!! info
-    This is only required once per database instance 
+    This is only required once per database instance and should be done before DDL scripts are run in the database, 
+    in order to ensure the objects have the right permissions.
 
 Once the database instance is created, we need to grant the IAM users access to the "public" schema.
 This can either be done by using the default application database user during database creation/migration with scripts (e.g. flyway), or as a one-time setup by using the default postgres user:
@@ -126,7 +127,7 @@ alter default privileges in schema public grant all on tables to 'user@nav.no';
 ##### Create database IAM user
 
 !!! info
-    This is required once per user
+    This is required once per user and requires that you have create user permission in IAM in your project, e.g. Cloud SQL Admin
 
 ```bash
 gcloud beta sql users create <FIRSTNAME>.<LASTNAME>@nav.no --instance=<INSTANCE_NAME> --type=cloud_iam_user --project <PROJECT_ID>
