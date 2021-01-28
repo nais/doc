@@ -1,3 +1,7 @@
+.md-header-nav__source a {
+  text-decoration: none;
+}
+
 .md-footer-copyright {
   color: #ffffff;
 }
