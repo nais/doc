@@ -258,7 +258,7 @@ Configure your app with the [OAuth 2.0 Authorization Server Metadata](https://ww
 
 #### Claims
 
-The following claims in the token should explicitly be validated:
+The following claims is by default provided in the issued token and should explicitly be validated:
 
 * `iss` \(**issuer**\): The issuer of the token, the Tokendings issuer URI **must match exactly**.
 * `aud` \(**audience**\): The intended audience for the token, **must match** your application's [client\_id](tokenx.md#token_x_client_id).
@@ -274,24 +274,25 @@ The following example shows the claims of a token issued by Tokendings, where th
 ??? example 
     ```javascript
     {
+      "at_hash": "x6lQGCdbMX62p1VHeDsFBA",
       "sub": "HmjqfL7....",
+      "amr": [
+        "BankID"
+      ],
       "iss": "https://tokendings.prod-gcp.nais.io",
-      "client_amr": "client_secret_post",
       "pid": "12345678910",
-      "token_type": "Bearer",
+      "locale": "nb",
       "client_id": "prod-gcp:team-a:app-a",
+      "sid": "DASgLATSjYTp__ylaVbskHy66zWiplQrGDAYahvwk1k",
       "aud": "prod-fss:team-b:app-b",
       "acr": "Level4",
       "nbf": 1597783152,
       "idp": "https://oidc.difi.no/idporten-oidc-provider/",
-      "scope": "openid",
+      "auth_time": 1611926877,
       "exp": 1597783452,
       "iat": 1597783152,
-      "client_orgno": "889640782",
-      "jti": "97f580a6-b479-426d-876b-267aa9848e2e",
-      "consumer": {
-        "authority": "iso6523-actorid-upis",
-        "ID": "0192:889640782"
-      }
+      "jti": "97f580a6-b479-426d-876b-267aa9848e2e"
     }
     ```
+
+Other claims in the issued token is passed on from the original issuer `idp`.
