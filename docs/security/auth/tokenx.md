@@ -258,7 +258,7 @@ Configure your app with the [OAuth 2.0 Authorization Server Metadata](https://ww
 
 #### Claims
 
-The following claims is by default provided in the issued token and should explicitly be validated:
+The following claims are by default provided in the issued token and should explicitly be validated:
 
 * `iss` \(**issuer**\): The issuer of the token, the Tokendings issuer URI **must match exactly**.
 * `aud` \(**audience**\): The intended audience for the token, **must match** your application's [client\_id](tokenx.md#token_x_client_id).
@@ -266,6 +266,8 @@ The following claims is by default provided in the issued token and should expli
 * `nbf` \(**not before time**\): The token cannot be used before this time, i.e. if the token is issued in the "future" \(outside "reasonable" clock skew\) it **must be rejected**.
 * `iat` \(**issued at time**\): The time at which the token has been issued. **Must be before `exp`**.
 * `sub` \(**subject**\): If applicable, used in user centric access control. This represents a unique identifier for the user.
+
+Other claims in the token are passed on verbatim from the original token issued by `idp`.
 
 #### Example Token \(exchanged from ID-porten\)
 
@@ -294,5 +296,3 @@ The following example shows the claims of a token issued by Tokendings, where th
       "jti": "97f580a6-b479-426d-876b-267aa9848e2e"
     }
     ```
-
-Other claims in the issued token is passed on from the original issuer `idp`.
