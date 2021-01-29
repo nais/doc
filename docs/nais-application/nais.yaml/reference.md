@@ -127,6 +127,16 @@ List of additional claims that should be emitted in tokens for your application.
 
 **Allowed values**: `NAVident`
 
+### `spec.azure.application.claims.groups[]`
+
+List of groups that contain members that should be allowed to access your application. 
+
+This also controls the `groups` claim for a user token, which will only contain groups that are both explicitly assigned to the application _and_ which the user is a direct member of.
+
+### `spec.azure.application.claims.groups[].id`
+
+Object ID for the group in Azure AD - a GUID, e.g. `00000000-0000-0000-0000-000000000000`
+
 ## `spec.elastic.instance`
 
 Will add access policy for the given instance, and label your pods to use the correct network policy to allow traffic to Aiven.

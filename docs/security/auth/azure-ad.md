@@ -49,51 +49,41 @@ All clients provisioned through NAIS will be registered in Azure AD using the fo
 <cluster>:<namespace>:<app-name>
 ```
 
-For example:
+??? example
+    ```text
+    dev-gcp:aura:nais-testapp
+    ```
+
+Equivalently, the identifier used to refer to the application almost follows the same format.
+
+The only notable difference is that `:` replaced by `.`
 
 ```text
-dev-gcp:aura:nais-testapp
+api://<cluster>.<namespace>.<app-name>
 ```
+
+!!! tip "Scopes in token requests"
+    The above means that instead of using the API provider's client ID:
+
+    ```text
+    api://e89006c5-7193-4ca3-8e26-d0990d9d981f/.default
+    ```
+
+    you can do this:
+
+    ```text
+    api://dev-gcp.aura.nais-testapp/.default
+    ```
 
 ### Client ID
 
 An Azure AD client has its own ID that uniquely identifies the client within a tenant, and is used in authentication requests to Azure AD.
-
-#### How to find your Client ID
 
 Your application's Azure AD client ID is available at multiple locations:
 
 1. The environment variable `AZURE_APP_CLIENT_ID`, available inside your application at runtime
 2. In the Kubernetes resource - `kubectl get azureapp <app-name>`
 3. The [Azure Portal](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps). You may have to click on `All applications` if it does not show up in `Owned applications`. Search using the naming scheme mentioned earlier: `<cluster>:<namespace>:<app>`.
-
-### Pre-authorization
-
-For proper scoping of tokens when performing calls between clients, one must either:
-
-1. Request a token for a specific client ID using the client using the [OAuth 2.0 client credentials flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow) \(service-to-service calls\).
-2. Exchange a token containing an end-user context using the [OAuth 2.0 On-Behalf-Of flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow) \(service-to-service calls on behalf of an end-user\).
-
-#### [OAuth 2.0 client credentials flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow) \(service-to-service calls\)
-
-This case is _not_ enforced by Azure AD:
-
-* Access tokens requested by pre-authorized clients will contain a **`roles`** claim.
-  * The `roles` claim is a list of strings.
-  * Any pre-authorized client will have the role **`access_as_application`**.
-* Your application **should use and validate** this claim when enforcing authorization.
-
-#### [OAuth 2.0 On-Behalf-Of flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow) \(service-to-service calls on behalf of an end-user\)
-
-This case is enforced by Azure AD:
-
-* You **must** pre-authorize any clients that should be able to perform the on-behalf-of flow.
-
-### Reply URLs
-
-> A redirect URI, or reply URL, is the location that the authorization server will send the user to once the app has been successfully authorized, and granted an authorization code or access token. The code or token is contained in the redirect URI or reply token so it's important that you register the correct location as part of the app registration process.
->
-> -- Microsoft's documentation on [reply URLs](https://docs.microsoft.com/en-us/azure/active-directory/develop/reply-url)
 
 ## Configuration
 
@@ -112,6 +102,13 @@ This case is enforced by Azure AD:
           # optional, generated defaults shown
           replyURLs: 
             - "https://my-app.dev.nav.no/oauth2/callback"
+
+          # optional
+          claims:
+            extra:
+              - "NAVident"
+            groups:
+              - id: "<object ID of Azure AD group>"
 
       accessPolicy:
         inbound:
@@ -148,7 +145,11 @@ You must enable and use [`webproxy`](../../nais-application/nais.yaml/reference.
 
 ### Reply URLs
 
-!!! info
+> A redirect URI, or reply URL, is the location that the authorization server will send the user to once the app has been successfully authorized, and granted an authorization code or access token. The code or token is contained in the redirect URI or reply token so it's important that you register the correct location as part of the app registration process.
+>
+> -- Microsoft's documentation on [reply URLs](https://docs.microsoft.com/en-us/azure/active-directory/develop/reply-url)
+
+!!! tip
     Note that `spec.azure.application.replyURLs[]` can be omitted if `spec.ingresses` are specified. See [ingresses](azure-ad.md#ingresses).
 
 You may set reply URLs manually by specifying `spec.azure.application.replyURLs[]`. Doing so will **replace** all of the [auto-generated reply URLs](azure-ad.md#ingresses).
@@ -158,8 +159,7 @@ You may set reply URLs manually by specifying `spec.azure.application.replyURLs[
 
     **Ensure that these URLs conform to the restrictions and limitations of** [**reply URLs**](https://docs.microsoft.com/en-us/azure/active-directory/develop/reply-url) **as specified by Microsoft.**
 
-
-### Ingresses
+#### Ingresses
 
 If you have _not_ specified any reply URLs, we will automatically generate a reply URL for each ingress specified using this formula:
 
@@ -167,9 +167,9 @@ If you have _not_ specified any reply URLs, we will automatically generate a rep
 spec.ingresses[n] + "/oauth2/callback"
 ```
 
-In other words, this:
-
 ??? example
+    In other words, this:
+
     ```yaml
     spec:
       azure:
@@ -180,20 +180,19 @@ In other words, this:
         - "https://my.application.dev.nav.no/subpath"
     ```
 
-will generate a spec equivalent to this:
+    will generate a spec equivalent to this:
 
-??? example
     ```yaml
     spec:
+      ingresses:
+        - "https://my.application.dev.nav.no"
+        - "https://my.application.dev.nav.no/subpath"
       azure:
         application:
           enabled: true
           replyURLs:
             - "https://my.application.dev.nav.no/oauth2/callback"
             - "https://my.application.dev.nav.no/subpath/oauth2/callback"
-      ingresses:
-        - "https://my.application.dev.nav.no"
-        - "https://my.application.dev.nav.no/subpath"
     ```
 
 ### Tenants
@@ -213,6 +212,13 @@ spec:
 
 ### Pre-authorization
 
+For proper scoping of tokens when performing calls between clients, one must either:
+
+1. Request a token for a specific client ID using the client using the [OAuth 2.0 client credentials flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow) \(service-to-service calls\).
+2. Exchange a token containing an end-user context using the [OAuth 2.0 On-Behalf-Of flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow) \(service-to-service calls on behalf of an end-user\).
+
+Azure AD will enforce authorization for both flows. In other words, you **must** pre-authorize any consumer clients for your application.
+
 Clients that should receive and validate access tokens from other clients should [pre-authorize](azure-ad.md#pre-authorization) said clients.
 
 These are declared by specifying [`spec.accessPolicy.inbound.rules[]`](../../nais-application/nais.yaml/reference.md#specaccesspolicy):
@@ -222,15 +228,16 @@ These are declared by specifying [`spec.accessPolicy.inbound.rules[]`](../../nai
 
     **Clients that do** _**not**_ **exist in Azure AD will be skipped. Assignment will not be retried until next deploy.**
 
-
 ```yaml
 spec:
   accessPolicy:
     inbound:
       rules:
         - application: app-a
+
         - application: app-b
           namespace: other-namespace
+
         - application: app-c
           namespace: other-namespace
           cluster: other-cluster
@@ -241,6 +248,28 @@ The above configuration will pre-authorize the Azure AD clients belonging to:
 * application `app-a` running in the **same namespace** and **same cluster** as your application 
 * application `app-b` running in the namespace `other-namespace` in the **same cluster**
 * application `app-c` running in the namespace `other-namespace` in the cluster `other-cluster`
+
+### Groups
+
+By default, all users within the tenant is allowed to log in to your application. 
+
+For some use cases, it is desirable to restrict access to smaller groups of users.
+
+This can be done by explicitly declaring which groups are allowed to access the application:
+
+```yaml
+spec:
+  azure:
+    application:
+      enabled: true
+      claims:
+        groups:
+          - id: "<object ID of group in Azure AD>"
+```
+
+Azure AD will now only allow sign-ins and token exchanges with the on-behalf-of flow if a given user is a _direct_ member of the groups declared. 
+
+This also controls the `groups` claim for a user token, which will only contain groups that are both explicitly assigned to the application _and_ which the user is a direct member of.
 
 ## Usage
 
@@ -268,7 +297,7 @@ The following environment variables and files \(under the directory `/var/run/se
 
     A JWK Set as defined in [RFC7517 section 5](https://tools.ietf.org/html/rfc7517#section-5). This will always contain a single key, i.e. `AZURE_APP_JWK` - the newest key registered.
 
-    ```javascript
+    Example value: ```javascript
     {
       "keys": [
         {
@@ -297,7 +326,7 @@ The following environment variables and files \(under the directory `/var/run/se
 
     Private JWK as defined in [RFC7517](https://tools.ietf.org/html/rfc7517), i.e. a JWK with the private RSA key for creating signed JWTs when [authenticating to Azure AD with a certificate](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow#second-case-access-token-request-with-a-certificate).
 
-    ```javascript
+    Example value: ```javascript
     {
       "use": "sig",
       "kty": "RSA",
@@ -322,7 +351,7 @@ The following environment variables and files \(under the directory `/var/run/se
     
     A JSON string. List of names and client IDs for the valid \(i.e. those that exist in Azure AD\) applications defined in [`spec.accessPolicy.inbound.rules[]`](../../nais-application/nais.yaml/reference.md#specaccesspolicy)
     
-    ```javascript
+    Example value: ```javascript
     [
       {
         "name": "dev-gcp:othernamespace:app-a",
@@ -395,58 +424,62 @@ If your use case requires you to use `trygdeetaten.no` in the `dev-*`-clusters, 
 
 ### Pre-authorization
 
-#### Referring to a NAIS client from legacy
+???+ example "aad-iac -> NAIS"
 
-Prerequisites:
+    #### Referring to a NAIS client from legacy
 
-* You have a legacy Azure client registered in the [IaC](https://github.com/navikt/aad-iac) repository.
-* You would like to [pre-authorize](azure-ad.md#pre-authorization) an Azure client provisioned through NAIS.
+    Prerequisites:
 
-Steps:
+    * You have a legacy Azure client registered in the [IaC](https://github.com/navikt/aad-iac) repository.
+    * You would like to [pre-authorize](azure-ad.md#pre-authorization) an Azure client provisioned through NAIS.
 
-* Refer to the NAIS client using its _fully qualified name_ \(see [naming format](azure-ad.md#naming-format)\).
-* See [this example](https://github.com/navikt/aad-iac/blob/073664fc5e455c17f1a33ec394c4f07464ae0a2f/prod/hookd.yaml#L4-L5).
+    Steps:
 
-#### Referring to a legacy client from NAIS
+    * Refer to the NAIS client using its _fully qualified name_ \(see [naming format](azure-ad.md#naming-format)\).
+    * See [this example](https://github.com/navikt/aad-iac/blob/073664fc5e455c17f1a33ec394c4f07464ae0a2f/prod/hookd.yaml#L4-L5).
 
-Prerequisites:
+???+ example "NAIS -> aad-iac"
 
-* You have an Azure client provisioned through NAIS.
-* You would like to [pre-authorize](azure-ad.md#pre-authorization) a legacy Azure client registered in the [IaC](https://github.com/navikt/aad-iac) repository.
+    #### Referring to a legacy client from NAIS
 
-Steps:
+    Prerequisites:
 
-* The legacy client **must** follow the expected [naming format](azure-ad.md#naming-format). Follow step 1 and step 2 in the [migration guide](azure-ad.md#migration-guide-step-by-step).
-* Refer to the legacy client [analogously to a NAIS application](azure-ad.md#pre-authorization_1)
+    * You have an Azure client provisioned through NAIS.
+    * You would like to [pre-authorize](azure-ad.md#pre-authorization) a legacy Azure client registered in the [IaC](https://github.com/navikt/aad-iac) repository.
+
+    Steps:
+
+    * The legacy client **must** follow the expected [naming format](azure-ad.md#naming-format). Follow step 1 and step 2 in the [migration guide](azure-ad.md#migration-guide-step-by-step).
+    * Refer to the legacy client [analogously to a NAIS application](azure-ad.md#pre-authorization_1)
 
 ### Migration guide - step by step
 
-The following describes the steps needed to migrate an existing legacy client.
+The following describes the steps needed to migrate an existing legacy client where you wish to keep the existing client ID and configuration.
 
-#### Step 1 - Rename your application in the Azure Portal
-
-The `Display name` of the application registered in the [Azure Portal](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps) **must** match the [expected format](azure-ad.md#naming-format).
-
-* Go to the **`Branding`** tab for your client in the [Azure Portal](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps).
-* Update the `Name`.
-
-#### Step 2 - Update your application \(and any dependants\) in the IaC repository
-
-* Ensure the **`name`** of the client registered in the [IaC repository](https://github.com/navikt/aad-iac) is updated to match the name set in [step 1](azure-ad.md#step-1-rename-your-application-in-the-azure-portal).
-* Ensure that any clients that has a reference to the previous name in their **`preauthorizedapplications`** is also updated. 
+If keeping the existing client ID and configuration is not important, it should be much easier to just provision new clients instead.
 
 !!! warning
     Be aware of the [differences in tenants](azure-ad.md#tenants) between the [IaC repository](https://github.com/navikt/aad-iac) and NAIS:
 
-    * `nonprod` ➡️️ `trygdeetaten.no`
-    * `prod` ➡️ `nav.no`
+    * `nonprod` -> `trygdeetaten.no`
+    * `prod` -> `nav.no`
 
-#### Step 3 - Deploy your NAIS application with Azure AD provisioning enabled
+???+ check "Step 1 - Rename your application in the Azure Portal" 
+    The `Display name` of the application registered in the [Azure Portal](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps) **must** match the [expected format](azure-ad.md#naming-format).
 
-* See [getting started](azure-ad.md#getting-started).
+    * Go to the **`Branding`** tab for your client in the [Azure Portal](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps).
+    * Update the `Name`.
 
-#### Step 4 - Delete your application from the IaC repository
+???+ check "Step 2 - Update your application \(and any dependants\) in the IaC repository"
 
-* Verify that everything works after the migration
-* Delete the application from the [IaC repository](https://github.com/navikt/aad-iac) in order to maintain a single source of truth
+    * Ensure the **`name`** of the client registered in the [IaC repository](https://github.com/navikt/aad-iac) is updated to match the name set in [step 1](azure-ad.md#step-1-rename-your-application-in-the-azure-portal).
+    * Ensure that any clients that has a reference to the previous name in their **`preauthorizedapplications`** is also updated. 
 
+???+ check "Step 3 - Deploy your NAIS application with Azure AD provisioning enabled"
+
+    * See [getting started](azure-ad.md#getting-started).
+
+???+ check "Step 4 - Delete your application from the IaC repository"
+
+    * Verify that everything works after the migration
+    * Delete the application from the [IaC repository](https://github.com/navikt/aad-iac) in order to maintain a single source of truth
