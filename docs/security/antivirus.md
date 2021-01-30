@@ -17,6 +17,23 @@ curl -v http://clamav.nais.svc.nais.local/scan?url=url_to_file
 
 See [REST api documentation](https://github.com/navikt/muescheli) and [clamAV documentation](https://www.clamav.net/documents/clam-antivirus-user-manual)
 
+When using ClamAV on GCP, remember to add an [outbound access policy](../nais-application/access-policy.md):
+
+```yaml
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: app-a
+...
+spec:
+  ...
+  accessPolicy:
+    outbound:
+      rules:
+        - application: clamav
+          namespace: clamav
+```
+
 If you have any questions about clamAV please contact the nais team on the [nais slack channel](https://nav-it.slack.com/messages/C5KUST8N6) or contact [@Sten.Ivar.Røkke](https://nav-it.slack.com/archives/D5KP2068Z).
 
 ## Examples
