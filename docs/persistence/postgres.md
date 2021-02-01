@@ -157,7 +157,11 @@ The database is not automatically removed when deleting your NAIS application. R
 
 Google will automatically perform upgrades, fix bugs and apply security patches to prevent exploits. Your application should be able to handle occational downtime as this maintenance is performed. Read more on maintenance windows [here](https://cloud.google.com/sql/docs/postgres/maintenance). NAIS will automatically configure the maintenance window to 4 AM \(GMT+1\), but can be overridden in [`nais.yaml`](../nais-application/nais.yaml/reference.md#specgcpsqlinstances).
 
-If you wish to be notified about upcoming maintenance, you can opt-in for this on the Communications page\([https://console.cloud.google.com/user-preferences/communication](https://console.cloud.google.com/user-preferences/communication)\) in the GCP console.
+If you wish to be notified about upcoming maintenance, you can opt-in for this on the [Communications page](https://console.cloud.google.com/user-preferences/communication) in the GCP console.
+
+### Disaster backup
+
+In case of catastrophic failure in GCP we are running a daily complete backup of the postgresql databases in GCP to an on-prem location. This backup currently runs at 5 am. This is in addition to the regular backups in GCP.
 
 ### Debugging
 
