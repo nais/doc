@@ -12,7 +12,7 @@ NAIS is _NAV's Application Infrastructure Service_, an open source application p
 
 ## Getting started with NAIS
 
-If you are just starting out developing applications and wish to deploy them to NAIS, it is highly recommended to read through the [Getting started](basics/) section!
+If you are just starting out developing applications and wish to deploy them to NAIS, it is highly recommended to read through the [Getting started](basics/access/) section!
 
 ## Why NAIS exists
 
