@@ -13,7 +13,7 @@ description: >-
 
 * For data stored in NAV's on-premises data centers, ITIP is operating the storage infrastructure
 * For data stored in GCP, Google is operating the storage infrastructure. If your team uses data storage in GCP, \[Behandlingskatalogen\]&lt;&gt; should be updated to reflect that Google is a data processor
-* For data stored in Azure, Microsfot is operating the storage infrastructure. If your team uses data storage in Azure, \[Behandlingskatalogen\]&lt;&gt; should be updated to reflect that Microsoft is a data processor
+* For data stored in Azure, Microsoft is operating the storage infrastructure. If your team uses data storage in Azure, \[Behandlingskatalogen\]&lt;&gt; should be updated to reflect that Microsoft is a data processor
 
 ### Operating and maintaing tooling for provisioning and interfacing with storage
 
