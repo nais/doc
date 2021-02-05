@@ -4,10 +4,6 @@
     This feature applies only to _Aiven hosted Kafka_. On-premises Kafka will deprecated after Aiven hosted Kafka is generally available. For on-premises Kafka, see [on-premises Kafka documentation](https://confluence.adeo.no/display/AURA/Kafka).
 
 
-!!! warning
-    Aiven hosted Kafka is currently in _OPEN BETA_. Serious battle testing has yet to be performed, but preliminary tests show that the system is stable enough for general use. The API is considered stable, but might have future additions. Kafka connectivity is monitored by the NAIS team. Apps can be deployed to production, but service interruptions might occur.
-
-
 ## Abstract
 
 NAV uses Aiven hosted Kafka. Access to Kafka is granted by defining a `Topic` resource in one of our Kubernetes clusters.
@@ -18,10 +14,10 @@ For a list of variables, see _accessing topics from an application_ below.
 
 ## Status and roadmap
 
-* Release status: OPEN BETA
+* Release status: Generally Available
 * Availability: NAIS GCP, NAIS on-premises, legacy infrastructure on-premises
 
-Follow development on the [PIG-Kafka Trello board](https://trello.com/b/O0EvBshY/pig-kafka).
+Follow development on the [PIG-Aiven Trello board](https://trello.com/b/O0EvBshY/pig-aiven).
 
 Major features coming:
 
@@ -164,6 +160,7 @@ These variables are made available inside the pod.
 | Variable name | Description |
 | :--- | :--- |
 | `KAFKA_BROKERS` | Comma-separated list of HOST:PORT pairs to Kafka brokers |
+| `KAFKA_REST_API` | URL to Kafka REST API |
 | `KAFKA_SCHEMA_REGISTRY` | URL to schema registry |
 | `KAFKA_SCHEMA_REGISTRY_USER` | Username to use with schema registry |
 | `KAFKA_SCHEMA_REGISTRY_PASSWORD` | Password to use with schema registry |
