@@ -20,7 +20,9 @@
 4. Remember to [update your kubeconfig](install.md#connecting-to-nais-clusters)
 5. Start _naisdevice_ from the _Start menu_ 
 
-### Ubuntu \(using Gnome DE - only supported variant atm\)
+### Ubuntu Installation
+
+Using Gnome DE - only supported variant atm
 
 1. [Install Kolide agent](install.md#install-kolide-agent).
 2. Write in the terminal: `curl https://device.nais.io/install.sh | bash` \(you might be prompted for your laptop-account's password to unlock `sudo`\).
@@ -47,6 +49,7 @@
 5. Check your devices status: `/msg @Kolide status` on Slack and fix errors if there are any.
 6. Unless Kolide reports your device as "Ok"/"Healthy", follow the instructions on how to remediate the issues.
 
+Go back to [macOS](#macos-installation), [Windows](#windows-installation) or [Ubuntu](#ubuntu-installation) installations to continue.
 
 !!! warning
     The issues reported by Kolide _**must**_ be addressed - these remediations have been vetted by the NAIS team and should be followed.
@@ -61,6 +64,7 @@
 In your Systray (where all your small program icons are located - see above picture for how it looks on Mac):
 
 1. Find your `naisdevice` icon (pictured above - though it should not be red at first attempted connection).
+    - Can't find the icon? Make sure it is installed (See [macOS](#macos-installation), [Windows](#windows-installation) or [Ubuntu](#ubuntu-installation))
 2. Left-click it and select `Connect`.
 3. Read and accept the End-User terms and agreement (The `Do's and Don'ts` of `naisdevice`).
    See the [picture below](#how-to-accept-the-dos-and-donts-of-naisdevice).
