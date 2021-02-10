@@ -17,7 +17,7 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
 | `${jobname}` | name for the job or cronjob | my-job |
 | `${teamname}` | name of the team | my-team |
 | `${namespace}` | name of the namespace, should match the team name | my-team |
-| `${image}` | image used for the pods running the job | docker.pkg.github.com/navikt/my-app/my-app:1.0.0 |
+| `${image}` | image used for the pods running the job | ghcr.io/navikt/my-app:1.0.0 |
 | `${schedule}` | the job's schedule in a [cron time string format](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07) | `"*/15 * * * *"` |
 | `${secretname}` | name of the [Kubernetes Secrets](https://kubernetes.io/docs/concepts/configuration/secret/) object | my-secret |
 | `${vault_image}` | the [latest release](https://hub.docker.com/r/navikt/vault-sidekick/tags) of the Vault sidecar | navikt/vault-sidekick:v0.3.10-d122b16 |
@@ -48,8 +48,8 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
             app: ${jobname}
         spec:
           imagePullSecrets:
-            - name: gpr-credentials   # If the image you're pulling comes from "docker.pkg.github.com/"
-            - name: ghcr-credentials  # If the image you're pulling comes from "ghcr.io/"
+            - name: ghcr-credentials  # If the image you're pulling comes from ghcr.io
+            - name: gpr-credentials   # If the image you're pulling comes from docker.pkg.github.com (deprecated)
           serviceAccount: default
           serviceAccountName: default
           restartPolicy: Never
@@ -84,9 +84,8 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
             app: ${jobname}
         spec:
           imagePullSecrets:
-            - name: gpr-credentials   # If the image you're pulling comes from "docker.pkg.github.com/"
-            - name: ghcr-credentials  # If the image you're pulling comes from "ghcr.io/"
-
+            - name: ghcr-credentials  # If the image you're pulling comes from ghcr.io
+            - name: gpr-credentials   # If the image you're pulling comes from docker.pkg.github.com (deprecated)
           serviceAccount: default
           serviceAccountName: default
           restartPolicy: Never
@@ -124,9 +123,8 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
             app: ${jobname}
         spec:
           imagePullSecrets:
-            - name: gpr-credentials   # If the image you're pulling comes from "docker.pkg.github.com/"
-            - name: ghcr-credentials  # If the image you're pulling comes from "ghcr.io/"
-
+            - name: ghcr-credentials  # If the image you're pulling comes from ghcr.io
+            - name: gpr-credentials   # If the image you're pulling comes from docker.pkg.github.com (deprecated)
           serviceAccount: default
           serviceAccountName: default
           restartPolicy: Never
@@ -200,9 +198,8 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
             app: ${jobname}
         spec:
           imagePullSecrets:
-            - name: gpr-credentials   # If the image you're pulling comes from "docker.pkg.github.com/"
-            - name: ghcr-credentials  # If the image you're pulling comes from "ghcr.io/"
-
+            - name: ghcr-credentials  # If the image you're pulling comes from ghcr.io
+            - name: gpr-credentials   # If the image you're pulling comes from docker.pkg.github.com (deprecated)
           serviceAccount: default
           serviceAccountName: default
           restartPolicy: Never
@@ -276,9 +273,8 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
             app: ${jobname}
         spec:
           imagePullSecrets:
-            - name: gpr-credentials   # If the image you're pulling comes from "docker.pkg.github.com/"
-            - name: ghcr-credentials  # If the image you're pulling comes from "ghcr.io/"
-
+            - name: ghcr-credentials  # If the image you're pulling comes from ghcr.io
+            - name: gpr-credentials   # If the image you're pulling comes from docker.pkg.github.com (deprecated)
           serviceAccount: default
           serviceAccountName: default
           restartPolicy: Never

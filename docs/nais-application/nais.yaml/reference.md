@@ -407,7 +407,7 @@ The lifetime in seconds for any issued access token from ID-porten.
 
 ## `spec.image`
 
-Docker image location plus including docker tag \(e.g. `docker.pkg.github.com/appname/appname:v1.0.0`\)
+Docker image location plus including docker tag \(e.g. `ghcr.io/navikt/myapp:1.6.9`\)
 
 **Required**: `true`
 
