@@ -48,7 +48,8 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
             app: ${jobname}
         spec:
           imagePullSecrets:
-            - name: gpr-credentials
+            - name: gpr-credentials   # If the image you're pulling comes from "docker.pkg.github.com/"
+            - name: ghcr-credentials  # If the image you're pulling comes from "ghcr.io/"
           serviceAccount: default
           serviceAccountName: default
           restartPolicy: Never
@@ -83,7 +84,9 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
             app: ${jobname}
         spec:
           imagePullSecrets:
-            - name: gpr-credentials
+            - name: gpr-credentials   # If the image you're pulling comes from "docker.pkg.github.com/"
+            - name: ghcr-credentials  # If the image you're pulling comes from "ghcr.io/"
+
           serviceAccount: default
           serviceAccountName: default
           restartPolicy: Never
@@ -121,7 +124,9 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
             app: ${jobname}
         spec:
           imagePullSecrets:
-            - name: gpr-credentials
+            - name: gpr-credentials   # If the image you're pulling comes from "docker.pkg.github.com/"
+            - name: ghcr-credentials  # If the image you're pulling comes from "ghcr.io/"
+
           serviceAccount: default
           serviceAccountName: default
           restartPolicy: Never
@@ -195,7 +200,9 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
             app: ${jobname}
         spec:
           imagePullSecrets:
-            - name: gpr-credentials
+            - name: gpr-credentials   # If the image you're pulling comes from "docker.pkg.github.com/"
+            - name: ghcr-credentials  # If the image you're pulling comes from "ghcr.io/"
+
           serviceAccount: default
           serviceAccountName: default
           restartPolicy: Never
@@ -269,7 +276,9 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
             app: ${jobname}
         spec:
           imagePullSecrets:
-            - name: gpr-credentials
+            - name: gpr-credentials   # If the image you're pulling comes from "docker.pkg.github.com/"
+            - name: ghcr-credentials  # If the image you're pulling comes from "ghcr.io/"
+
           serviceAccount: default
           serviceAccountName: default
           restartPolicy: Never
