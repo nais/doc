@@ -45,7 +45,7 @@ Add the example files below, then commit and push. This will trigger the workflo
     on: [push]
 
     env:
-      docker_image: docker.pkg.github.com/${{ github.repository }}/myapplication:${{ github.sha }}
+      docker_image: ghcr.io/navikt/myapplication:${{ github.sha }}
 
     jobs:
 
@@ -58,8 +58,8 @@ Add the example files below, then commit and push. This will trigger the workflo
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           run: |
+            echo ${GITHUB_TOKEN} | docker login ghcr.io --username ${GITHUB_REPOSITORY} --password-stdin
             docker build --tag ${docker_image} .
-            docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
             docker push ${docker_image}
 
       deploy:
@@ -87,7 +87,7 @@ Add the example files below, then commit and push. This will trigger the workflo
         team: myteam
     spec:
       image: {{ image }}
-      #image: docker.pkg.github.com/navikt/myrepository/myapplication:417dcaa2c839b9da72e0189e2cfdd4e90e9cc6fd
+      #image: ghcr.io/navikt/myapplication:417dcaa2c839b9da72e0189e2cfdd4e90e9cc6fd
       #       ^--- interpolated from the ${{ env.docker_image }} variable in the action
     ```
 
@@ -226,7 +226,7 @@ Now, create a `vars.yml` file containing variables for your deployment:
 app: myapplication
 namespace: myteam
 team: myteam
-image: docker.pkg.github.com/navikt/myapplication/myapplication:latest
+image: ghcr.io/navikt/myapplication:latest
 ingresses:
   - https://myapplication.nav.no
   - https://tjenester.nav.no/myapplication
@@ -247,7 +247,7 @@ $ deploy --dry-run --print-payload --resource nais.yml --vars vars.yml | jq ".re
     "namespace": "default"
   },
   "spec": {
-    "image": "docker.pkg.github.com/navikt/myapplication/myapplication:latest",
+    "image": "ghcr.io/navikt/myapplication:latest",
     "ingresses": [
       "https://myapplication.nav.no",
       "https://tjenester.nav.no/myapplication"

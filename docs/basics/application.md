@@ -16,10 +16,10 @@ metadata:
   labels:
     team: teamname
 spec:
-  image: navikt/docker-image:docker-tag
+  image: ghcr.io/navikt/imagename:tag
 ```
 
-In the example, `spec.image` points to a Docker image on [Docker Hub](https://hub.docker.com/) named `docker-image`. If the image is pushed to some other repository, the URL must be explicitly defined. For instance, if the image exists in GitHub's repositories, the manifest file's `spec.image` value would be `docker.pkg.github.com/navikt/repo/docker-image:docker-tag`, and then NAIS will fetch it from there.
+See https://github.com/features/packages for more info on how to publish packages to ghcr.io.
 
 For more information about the `nais.yaml` specification, see [Manifest](../nais-application/nais.yaml/reference.md).
 
