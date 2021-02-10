@@ -18,8 +18,8 @@ Re-tag the image and upload it to Docker Package Registry:
 
 ```bash
 docker pull unlisted/image:tag
-docker tag unlisted/image:tag docker.pkg.github.com/navikt/reponame/imagename:tag
-docker push docker.pkg.github.com/navikt/reponame/imagename:tag
+docker tag unlisted/image:tag ghcr.io/navikt/reponame/imagename:tag
+docker push ghcr.io/navikt/reponame/imagename:tag
 ```
 
 Alternatively, in special cases, submit a pull request to the [list of allowed sources] instead.
