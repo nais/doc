@@ -96,8 +96,9 @@ Your application's Azure AD client ID is available at multiple locations:
         application:
           enabled: true
             
-          # optional, enum of {trygdeetaten.no, nav.no}, defaults to nav.no
-          tenant: trygdeetaten.no 
+          # optional, enum of {trygdeetaten.no, nav.no}
+          # defaults to nav.no
+          tenant: nav.no
 
           # optional, generated defaults shown
           replyURLs: 
