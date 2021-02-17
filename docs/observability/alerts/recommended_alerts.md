@@ -18,7 +18,7 @@ spec:
       prependText: '<!here> | '
   alerts:
     - alert: applikasjon nede
-      expr: up{app="<appname>", job="kubernetes-pods"} == 0
+      expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
       for: 2m
       description: "App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace }}"
       action: "`kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for logger"
