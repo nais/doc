@@ -369,7 +369,7 @@ The URL shown to the user at ID-porten when displaying a 'back' button or on err
 
 ### `spec.idporten.frontchannelLogoutURI`
 
-Where ID-porten sends a request to whenever the user has initiated a logout elsewhere as part of a [single logout \(front channel logout\)](https://difi.github.io/felleslosninger/oidc_func_sso.html#motta-informasjon-om-slo-front-channel-logout) process, e.g. `"https://my.application.ingress/oauth2/logout"`
+Where ID-porten sends a request to whenever the user has initiated a logout elsewhere as part of a [single logout \(front channel logout\)](https://docs.digdir.no/oidc_func_sso.html#2-h%C3%A5ndtere-utlogging-fra-id-porten) process, e.g. `"https://my.application.ingress/oauth2/logout"`
 
 **Default**: `(no value)`
 
@@ -377,7 +377,7 @@ Where ID-porten sends a request to whenever the user has initiated a logout else
 
 ### `spec.idporten.postLogoutRedirectURIs[]`
 
-Valid URIs that ID-porten will allow redirecting the end-user to after a [single logout](https://difi.github.io/felleslosninger/oidc_func_sso.html#initiering-av-slo-session-management) has been initiated and performed by the application.
+Valid URIs that ID-porten will allow redirecting the end-user to after a [single logout](https://docs.digdir.no/oidc_func_sso.html#1-utlogging-fra-egen-tjeneste) has been initiated and performed by the application.
 
 Example: `[ "https://my.application.ingress/" ]`
 

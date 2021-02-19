@@ -20,8 +20,9 @@ description: Enabling public-facing authentication using ID-porten.
 
 !!! info
     **See the** [**NAV Security Guide**](https://security.labs.nais.io/) **for NAV-specific usage of this client.**
-
-    Refer to the [ID-porten Integration guide](https://difi.github.io/felleslosninger/oidc_guide_idporten.html) for further details.
+    
+!!! warning
+    Please ensure that you have read the [ID-porten Integration guide](https://docs.digdir.no/oidc_guide_idporten.html).
 
 ## Configuration
 
@@ -113,6 +114,31 @@ For example, if you have specified an ingress at `https://my.application.dev.nav
 
 * ✅ `https://my.application.dev.nav.no/some/path` is valid
 * ❌ `http://localhost/some/path` is invalid 
+
+### Logout URIs
+
+!!! warning
+    When integrating with ID-porten, you are **required** to correctly implement proper logout functionality.
+    Refer to the [documentation at DigDir](https://docs.digdir.no/oidc_func_sso.html) for further details.
+
+#### Self-initiated Logout
+
+[When logout is initiated from your client](https://docs.digdir.no/oidc_func_sso.html#1-utlogging-fra-egen-tjeneste), you must redirect the given user to ID-porten's `endsession`-endpoint.
+
+ID-porten will then log the user out from all other services connected to the same single sign-on session.
+
+If the optional parameters `id_token_hint` and `post_logout_redirect_uri` are set in the request, ID-porten will redirect the user to the specified URI given that the URI is registered for the client. 
+
+#### Front-channel Logout
+
+[Front-channel logouts](https://docs.digdir.no/oidc_func_sso.html#2-h%C3%A5ndtere-utlogging-fra-id-porten) are logouts initiated by _other_ ID-porten clients. 
+
+Your application will receive a `GET` request from ID-porten at `frontchannel_logout_uri`. 
+This request includes two parameters:
+- `iss` which denotes the _issuer_ for the Identity Provider
+- `sid` which denotes the user's associated session ID at ID-porten which is set in the `sid` claim in the user's `id_token`
+
+In short, when receiving such a request you are obligated to clear the local session for your application for the given user's `sid` so that the user is properly logged out across all services in the circle-of-trust.
 
 ## Usage
 
