@@ -62,7 +62,7 @@ no changes are required.
 
 Service calls via api-gateway or service-gateway will also work without any changes.
 
-### Integration via [Kubernetes service discovery](team-namespaces.md#service-discovery-in-kubernetes)
+### Integration via [Kubernetes service discovery](service-discovery.md)
 
 When migrating your application from either the `default` namespace or from a environment namespace (e.g. t1, q1 etc.), the service URL will change and consequently break your consumer integrations.
 This can be mitigated during a migration phase by creating an [`ExternalName`-service](https://kubernetes.io/docs/concepts/services-networking/service/#externalname) in the namespace you are migrating from, that points to the new service in the team namespace.
@@ -83,47 +83,3 @@ spec:
 ```
 
 This will create a CNAME DNS record that will resolve `my-app.default.svc.nais.local` as `my-app.my-teamnamespace.svc.nais.local`
-
-## Service Discovery in Kubernetes
-
-Applications deployed to Kubernetes are exposed through a service. This is an address that allows for direct communication within a Kubernetes cluster without having to go through an external ingress or load balancer.
-
-Services available can be viewed with `kubectl get service` or shorthand `kubectl get svc`. The service name is the same in both dev and prod clusters. This allows for simpler configuration.
-
-### Google Cloud Platform
-
-The full hostname of a service on GCP follows this format:
-
-```text
-http://<service-name>.<namespace>.svc.cluster.local
-```
-
-### On-prem
-
-The full hostname of a service on-prem follows this format:
-
-```text
-http://<service-name>.<namespace>.svc.nais.local
-```
-
-### Short names
-
-You often won't need to use the full hostname to contact another service.
-
-If you’re addressing a service in the same namespace, you can use just the service name to contact it:
-
-```text
-http://<another-service>
-```
-
-If the service exists in a different namespace, you must add the appropriate namespace:
-
-```text
-http://<another-service>.<another-namespace>
-```
-
-!!! info "Note for on-prem"
-    If your application has [webproxy](../nais-application/nais.yaml/reference.md#specwebproxy) enabled, you should use the full hostname for all service discovery calls.
-
-    This is to ensure that your application does not attempt to perform these in-cluster calls through the proxy, as the environment variable `NO_PROXY` includes `*.local`.
-

@@ -9,6 +9,13 @@
 
 Access policies express which applications and services you are able to communicate with, both inbound and outbound. The default policy is to **deny all incoming and outgoing traffic** for your application, meaning you must be conscious of which services/application you consume, and who your consumers are.
 
+!!! warning
+    The Istio access policies only apply when communicating interally within the cluster with [service discovery](../clusters/service-discovery.md).
+    
+    Outbound requests to ingresses are regarded as external hosts, even if these ingresses exist in the same cluster.
+    
+    Analogously, inbound access policies are thus _not_ enforced for requests coming through exposed ingresses.
+
 ### Inbound rules
 
 Inbound rules specifies what other applications _in the same cluster_ your application receives traffic from.
