@@ -53,6 +53,7 @@ nav:
       - Migrating to GCP: clusters/migrating-to-gcp.md
       - Migrating databases to GCP: clusters/migrating-databases-to-gcp.md
       - Team namespaces: clusters/team-namespaces.md
+      - Service discovery: clusters/service-discovery.md
     - NAIS Application:
       - NAIS Application Overview: nais-application/README.md
       - nais.yaml:
