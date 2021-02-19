@@ -11,13 +11,13 @@ description: >
 ## Abstract
 
 !!! abstract
-    [Maskinporten](https://difi.github.io/felleslosninger/maskinporten_auth_server-to-server-oauth2.html) is a service provided by DigDir that allows API providers - in this case, external agencies - to securely enforce server-to-server authorization of their exposed APIs using OAuth 2.0 JWT grants, inspired by [Google's System Accounts](https://developers.google.com/identity/protocols/oauth2/service-account).
+    [Maskinporten](https://docs.digdir.no/maskinporten_auth_server-to-server-oauth2.html) is a service provided by DigDir that allows API providers - in this case, external agencies - to securely enforce server-to-server authorization of their exposed APIs using OAuth 2.0 JWT grants, inspired by [Google's System Accounts](https://developers.google.com/identity/protocols/oauth2/service-account).
  
     With Maskinporten, API providers may model access policies by using scopes based on the organization number of the consumer.
 
-    The NAIS platform provides support for simple declarative provisioning of a Maskinporten client that your application may use to integrate with Maskinporten.
+    The NAIS platform provides support for simple declarative provisioning of a Maskinporten client that your application may use to integrate with Maskinporten, and in turn consume services and APIs served by external agencies.
 
-    The client allows your application to leverage Maskinporten for authentication and authorization when performing service-to-service requests to external agencies. To achieve this, your application must implement [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html).
+    The client allows your application to leverage Maskinporten for authentication and authorization when performing service-to-service requests to external agencies. To achieve this, your application must implement [JWT grants](https://docs.digdir.no/maskinporten_protocol_token.html).
 
 ## Configuration
 
@@ -72,7 +72,7 @@ The following environment variables and files (under the directory `/var/run/sec
 
 ??? example "`MASKINPORTEN_SCOPES`"
 
-    The scopes registered for the client at Maskinporten as a whitepace-separated string. See [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html) for more information.
+    The scopes registered for the client at Maskinporten as a whitepace-separated string. See [JWT grants](https://docs.digdir.no/maskinporten_protocol_token.html) for more information.
 
     Example value: `nav:first/scope nav:another/scope`
 
@@ -84,7 +84,7 @@ The following environment variables and files (under the directory `/var/run/sec
 
 ??? example "`MASKINPORTEN_CLIENT_JWK`"
 
-    Private JWK containing the private RSA key for creating signed JWTs when using the [JWT grants](https://difi.github.io/felleslosninger/maskinporten_protocol_token.html).
+    Private JWK containing the private RSA key for creating signed JWTs when using the [JWT grants](https://docs.digdir.no/maskinporten_protocol_token.html).
 
     ```javascript
     {

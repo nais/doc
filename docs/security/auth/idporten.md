@@ -12,9 +12,9 @@ description: Enabling public-facing authentication using ID-porten.
 !!! abstract
     ID-porten is a common log-in system used for logging into Norwegian public e-services for citizens.
 
-    The NAIS platform provides support for simple, declarative provisioning of an [ID-porten client](https://difi.github.io/felleslosninger/oidc_index.html) with sensible defaults that your application may use to integrate with ID-porten.
+    The NAIS platform provides support for simple, declarative provisioning of an [ID-porten client](https://docs.digdir.no/oidc_index.html) with sensible defaults that your application may use to integrate with ID-porten.
 
-    An ID-porten client allows your application to leverage ID-porten for authentication of citizen end-users, providing sign-in capabilities with single sign-on \(SSO\). To achieve this, your application must implement [OpenID Connect with the Authorization Code](https://difi.github.io/felleslosninger/oidc_guide_idporten.html) flow.
+    An ID-porten client allows your application to leverage ID-porten for authentication of citizen end-users, providing sign-in capabilities with single sign-on \(SSO\). To achieve this, your application must implement [OpenID Connect with the Authorization Code](https://docs.digdir.no/oidc_guide_idporten.html) flow.
 
     This is also a critical first step in request chains involving an end-user whose identity and permissions should be propagated through each service/web API when accessing services in NAV using the [OAuth 2.0 Token Exchange](https://www.rfc-editor.org/rfc/rfc8693.html) protocol. See the [TokenX documentation](tokenx.md) for details.
 
@@ -157,7 +157,7 @@ The following environment variables and files \(under the directory `/var/run/se
 
 ??? example "`IDPORTEN_CLIENT_JWK`"
 
-    Private JWK containing the private RSA key for creating signed JWTs when [authenticating to ID-porten with a JWT grant](https://difi.github.io/felleslosninger/oidc_guide_idporten.html#klientautentisering-med-jwt-token).
+    Private JWK containing the private RSA key for creating signed JWTs when [authenticating to ID-porten with a JWT grant](https://docs.digdir.no/oidc_protocol_token.html#client-authentication-using-jwt-token).
 
     ```javascript
     {
@@ -190,7 +190,7 @@ The following environment variables and files \(under the directory `/var/run/se
 
 ### Test Users for Logins
 
-ID-porten maintains a public list of test users found [here](https://difi.github.io/felleslosninger/idporten_testbrukere.html).
+ID-porten maintains a public list of test users found [here](https://docs.digdir.no/idporten_testbrukere.html).
 
 ## Internals
 
