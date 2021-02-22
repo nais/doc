@@ -82,6 +82,7 @@ nav:
       - Responsibilities: persistence/responsibilities.md
       - Buckets: persistence/buckets.md
       - Elastic Search: persistence/elastic-search.md
+      - Influxdb: persistence/influxdb.md
       - Postgres: persistence/postgres.md
       - S3 object store: persistence/objectstore.md
       - Redis: persistence/redis.md
