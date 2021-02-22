@@ -92,6 +92,10 @@ Databases should always be accessed using a personal account, and the access sho
 ##### Grant privileges to sql IAM users
 
 !!! info
+    To be able to perform the gcloud commands mentioned below you need a role with user edit permissions, e.g. `roles/cloudsql.editor`
+    To grant yourself this role for a given project: `gcloud projects add-iam-policy-binding <project> --member user:<your-email> --role roles/cloudsql.editor`
+
+!!! info
     This is only required once per database instance and should be done before DDL scripts are run in the database, 
     in order to ensure the objects have the right permissions.
 
