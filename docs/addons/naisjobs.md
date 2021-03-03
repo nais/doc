@@ -245,7 +245,7 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
                 - name: VAULT_AUTH_METHOD
                   value: kubernetes
                 - name: VAULT_SIDEKICK_ROLE
-                  value: ${teamname}
+                  value: ${jobname}
                 - name: VAULT_K8S_LOGIN_PATH
                   value: ${vault_login}
           volumes:
@@ -348,7 +348,7 @@ Jobs and CronJobs are only allowed to run in [your team's own namespace](../clus
                 - name: VAULT_AUTH_METHOD
                   value: kubernetes
                 - name: VAULT_SIDEKICK_ROLE
-                  value: ${teamname}
+                  value: ${jobname}
                 - name: VAULT_K8S_LOGIN_PATH
                   value: ${vault_login}
           volumes:
@@ -528,6 +528,8 @@ Go to [Vault IaC](https://github.com/navikt/vault-iac) and add the following cha
 name: ${jobname}
 cluster:
   ${cluster}:
+    namespace:
+      - ${teamname}
     serviceaccounts:
       - default
 ```
@@ -583,7 +585,7 @@ spec:
             - name: VAULT_AUTH_METHOD
               value: kubernetes
             - name: VAULT_SIDEKICK_ROLE
-              value: ${teamname}
+              value: ${jobname}
             - name: VAULT_K8S_LOGIN_PATH
               value: ${vault_login}
 ```
