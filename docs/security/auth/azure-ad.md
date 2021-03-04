@@ -298,7 +298,9 @@ The following environment variables and files \(under the directory `/var/run/se
 
     A JWK Set as defined in [RFC7517 section 5](https://tools.ietf.org/html/rfc7517#section-5). This will always contain a single key, i.e. `AZURE_APP_JWK` - the newest key registered.
 
-    Example value: ```javascript
+    Example value: 
+
+    ```javascript
     {
       "keys": [
         {
@@ -327,7 +329,9 @@ The following environment variables and files \(under the directory `/var/run/se
 
     Private JWK as defined in [RFC7517](https://tools.ietf.org/html/rfc7517), i.e. a JWK with the private RSA key for creating signed JWTs when [authenticating to Azure AD with a certificate](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow#second-case-access-token-request-with-a-certificate).
 
-    Example value: ```javascript
+    Example value: 
+
+    ```javascript
     {
       "use": "sig",
       "kty": "RSA",
@@ -352,7 +356,9 @@ The following environment variables and files \(under the directory `/var/run/se
     
     A JSON string. List of names and client IDs for the valid \(i.e. those that exist in Azure AD\) applications defined in [`spec.accessPolicy.inbound.rules[]`](../../nais-application/nais.yaml/reference.md#specaccesspolicy)
     
-    Example value: ```javascript
+    Example value: 
+
+    ```javascript
     [
       {
         "name": "dev-gcp:othernamespace:app-a",
