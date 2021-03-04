@@ -10,3 +10,14 @@ kubectl delete app <app-name>
 This will remove the application/pods from the cluster, do some minor cleaning (removing your ingress), and that's all.
 
 Other services needs to be manually removed, such as [Kafka](https://doc.nais.io/addons/kafka/#permanently-deleting-topic-and-data), and [Postgres](https://doc.nais.io/persistence/postgres/#deleting-the-database).
+
+## FAQ
+
+### I deleted an application by running `kubectl delete deployment <app-name>`, why did it reappear?
+
+???+ faq "Answer"
+
+    An `Application` is a resource in Kubernetes that itself is the source of configuration for other resources, e.g. `Deployment`.
+    By only deleting `Deployment`, it will be recreated whenever the parent resource `Application` is synchronized again.
+
+    To ensure that an application is completely deleted from the cluster, delete the `Application` as [shown above](#delete-app).
