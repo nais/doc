@@ -102,10 +102,10 @@ spec:
   idporten:
     enabled: false
     clientURI: "https://www.nav.no"
-    frontchannelLogoutURI: ""
     postLogoutRedirectURIs:
       - "https://www.nav.no"
-    redirectURI: "https://my-app.nav.no/oauth2/callback"
+    redirectPath: "/oauth2/callback"
+    frontchannelLogoutPath: "/oauth2/logout"
     sessionLifetime: 7200
     accessTokenLifetime: 3600
   maskinporten:

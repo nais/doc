@@ -36,11 +36,11 @@ description: Enabling public-facing authentication using ID-porten.
         # optional, default shown
         clientURI: "https://nav.no"
 
-        # optional, generated default shown
-        redirectURI: "https://my.application.dev.nav.no/callback"
+        # optional, default shown
+        redirectPath: "/oauth2/callback"
 
-        # optional, generated default shown
-        frontchannelLogoutURI: "https://my.application.dev.nav.no/logout"
+        # optional, default shown
+        frontchannelLogoutPath: "/oauth2/logout"
 
         # optional, defaults shown
         postLogoutRedirectURIs: 
@@ -71,49 +71,24 @@ You do not need to specify these explicitly.
 !!! danger
     For security reasons you may only specify **one** ingress when this feature is enabled.
 
-The ingress specified will by default generate a redirect URL using the formula:
-
-```text
-spec.ingresses[0] + "/oauth2/callback"
-```
-
-In other words, this:
-
-```yaml
-spec:
-  idporten:
-    enabled: true
-  ingresses:
-    - "https://my.application.dev.nav.no"
-```
-
-will generate a spec equivalent to this:
-
-```yaml
-spec:
-  idporten:
-    enabled: true
-    redirectURI: "https://my.application.dev.nav.no/oauth2/callback"
-  ingresses:
-    - "https://my.application.dev.nav.no"
-```
-
 ### Redirect URI
 
-If you wish to use a different path than the auto-generated one, you may do so by manually specifying `spec.idporten.redirectURI`.
+The redirect URI is the fully qualified URI that ID-porten redirects back to after a successful authorization request.
 
-!!! warning
-    Specifying `spec.idporten.redirectURI` will replace the auto-generated redirect URI.
+NAIS will automatically infer the complete redirect URI to be registered at ID-porten using the scheme:
+```
+spec.ingresses[0] + spec.idporten.redirectPath
+```
 
-The redirect URI must adhere to the following rules:
+where `spec.idporten.redirectPath` has a default value of `/oauth2/callback`.
 
-* It **must** start with `https://`.
-* It **must** be a path within your ingress.
+E.g.
 
-For example, if you have specified an ingress at `https://my.application.dev.nav.no`, then:
+```
+https://my.application.ingress/oauth2/callback
+```
 
-* ✅ `https://my.application.dev.nav.no/some/path` is valid
-* ❌ `http://localhost/some/path` is invalid 
+If you wish to use a different path than the default, you may do so by manually specifying `spec.idporten.redirectPath`.
 
 ### Logout URIs
 
@@ -139,6 +114,22 @@ This request includes two parameters:
 - `sid` which denotes the user's associated session ID at ID-porten which is set in the `sid` claim in the user's `id_token`
 
 In short, when receiving such a request you are obligated to clear the local session for your application for the given user's `sid` so that the user is properly logged out across all services in the circle-of-trust.
+
+Your application's `frontchannel_logout_uri` is by default automatically inferred by NAIS and registered at ID-porten using the following scheme:
+
+```
+spec.ingresses[0] + spec.idporten.frontchannelLogoutPath
+```
+
+where `spec.idporten.frontchannelLogoutPath` has a default value of `/oauth2/logout`.
+
+E.g.
+
+```
+https://my.application.ingress/oauth2/logout
+```
+
+If you wish to use a different path than the default, you may do so by manually specifying `spec.idporten.frontchannelLogoutPath`.
 
 ## Usage
 

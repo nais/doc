@@ -367,13 +367,22 @@ The URL shown to the user at ID-porten when displaying a 'back' button or on err
 
 **Default**: `https://www.nav.no`
 
-### `spec.idporten.frontchannelLogoutURI`
+### `spec.idporten.frontchannelLogoutPath`
 
 Where ID-porten sends a request to whenever the user has initiated a logout elsewhere as part of a [single logout \(front channel logout\)](https://docs.digdir.no/oidc_func_sso.html#2-h%C3%A5ndtere-utlogging-fra-id-porten) process, e.g. `"https://my.application.ingress/oauth2/logout"`
 
-**Default**: `(no value)`
+NAIS will automatically infer the complete logout URI to be registered using the scheme:
+```
+spec.ingresses[0] + spec.idporten.frontchannelLogoutPath
+```
 
-**Required**: `false`
+E.g.
+
+```
+https://my.application.ingress/oauth2/logout
+```
+
+**Default**: `/oauth2/logout`
 
 ### `spec.idporten.postLogoutRedirectURIs[]`
 
@@ -383,18 +392,22 @@ Example: `[ "https://my.application.ingress/" ]`
 
 **Default**: `[ "https://www.nav.no" ]`
 
-### `spec.idporten.redirectURI`
+### `spec.idporten.redirectPath`
 
-Valid URI that ID-porten redirects back to after a successful authorization request, e.g. `"https://my.application.ingress/oauth2/callback"`.
+Valid path that ID-porten redirects back to after a successful authorization request.
 
-The value of this **must** be a subpath of your application's ingress.
+NAIS will automatically infer the complete redirect URI to be registered using the scheme:
+```
+spec.ingresses[0] + spec.idporten.redirectPath
+```
 
-**Default**: `spec.ingresses[0]` + `/oauth2/callback`
+E.g.
 
-!!! info
-    Note that `spec.idporten.redirectURI` can only be omitted if `spec.ingresses` are specified.
+```
+https://my.application.ingress/oauth2/callback
+```
 
-    See [Redirect URIs](../../security/auth/idporten.md#redirect-uri) for details.
+**Default**: `/oauth2/callback`
 
 ### `spec.idporten.sessionLifetime`
 The maximum lifetime in seconds for any given user's session in your application. The timeout starts whenever the user is redirected from the `authorization_endpoint` at ID-porten. Attempting to refresh the user's `access_token` beyond this timeout will yield an error. 
