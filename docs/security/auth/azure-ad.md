@@ -383,6 +383,24 @@ The following environment variables and files \(under the directory `/var/run/se
 
     Example value: `https://login.microsoftonline.com/77678b69-1daf-47b6-9072-771d270ac800/v2.0/.well-known/openid-configuration`
 
+??? example "`AZURE_OPENID_CONFIG_ISSUER`"
+
+    `issuer` from the metadata discovery document.
+
+    Example value: `https://login.microsoftonline.com/77678b69-1daf-47b6-9072-771d270ac800/v2.0`
+
+??? example "`AZURE_OPENID_CONFIG_JWKS_URI`"
+
+    `jwks_uri` from the metadata discovery document.
+
+    Example value: `https://login.microsoftonline.com/77678b69-1daf-47b6-9072-771d270ac800/discovery/v2.0/keys`
+
+??? example "`AZURE_OPENID_CONFIG_TOKEN_ENDPOINT`"
+
+    `token_endpoint` from the metadata discovery document.
+
+    Example value: `https://login.microsoftonline.com/77678b69-1daf-47b6-9072-771d270ac800/oauth2/v2.0/token`
+
 ## Administration
 
 ### Owner Access
