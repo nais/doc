@@ -236,7 +236,9 @@ See [postgres](../../persistence/postgres.md)-doc for more details
 
 ### `spec.gcp.sqlInstances[].type`
 
-Database type. Only POSTGRES\_11 available atm. [List of database types GCP supports](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
+Database type. POSTGRES\_11 and POSTGRES\12 available at the moment. [List of database types GCP supports](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1beta4/SqlDatabaseVersion)
+
+**Required**: `true`
 
 ### `spec.gcp.sqlInstances[].name`
 
@@ -279,6 +281,20 @@ Whether the disk should automatically grow
 When the instance should create backups.
 
 **Default**: `02:00`
+
+### `spec.gcp.sqlInstances[].maintenanceWindow`
+
+When the instance can be updated by google.
+
+#### `spec.gcp.sqlInstances[].maintenanceWindow.day`
+
+Day of the week from 1 to 7 (1 being Monday)
+
+#### `spec.gcp.sqlInstances[].maintenanceWindow.hour`
+
+Hour of the day the one-hour maintenance window starts from 0 to 23 (GMT+1)
+
+**Default**: None
 
 ### `spec.gcp.sqlInstances[].cascadingDelete`
 
