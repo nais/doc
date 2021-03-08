@@ -135,6 +135,9 @@ spec:
         databases:
           - name: mydb
             envVarPrefix: NAIS_DATABASE
+        maintenanceWindow:
+          day: 1
+          hour: 4
         cascadingDelete: false
   accessPolicy:
     inbound:
