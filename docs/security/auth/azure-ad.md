@@ -268,7 +268,7 @@ spec:
           - id: "<object ID of group in Azure AD>"
 ```
 
-Azure AD will now only allow sign-ins and token exchanges with the on-behalf-of flow if a given user is a _direct_ member of the groups declared. 
+Azure AD will now only allow sign-ins and token exchanges with the on-behalf-of flow if a given user is a _direct_ member of at least _one of_ the groups declared. 
 
 This also controls the `groups` claim for a user token, which will only contain groups that are both explicitly assigned to the application _and_ which the user is a direct member of.
 
