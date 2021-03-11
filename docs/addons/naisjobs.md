@@ -598,13 +598,19 @@ In this case, the container is responsible for fetching secrets from Vault befor
 - -save-token=/var/run/secrets/nais.io/vault/vault_token
 ```
 
-Saves the Vault token to this path for later usage if desired.
+The above saves the Vault token to this path for later usage if desired.
 
 ```yaml
 - -cn=secret:${vault_kv_path}:dir=/var/run/secrets/nais.io/vault,fmt=flatten,retries=1
 ```
 
-Reads a secret from `${vault_kv_path}` and outputs the files to the directory `/var/run/secrets/nais.io/vault/` in the volume mount.
+The above reads a secret from `${vault_kv_path}` and outputs the files to the directory `/var/run/secrets/nais.io/vault/` in the volume mount.
+
+For example:
+
+```yaml
+- -cn=secret:/kv/preprod/fss/my-app/my-team:dir=/var/run/secrets/nais.io/vault,fmt=flatten,retries=1
+```
 
 The volume for the Pod described in step 2.1 is mounted to the init container as seen in `.spec.template.spec.initContainers[0].volumeMounts[0]`:
 
@@ -745,8 +751,20 @@ spec:
 
 where
 
-* `${kv_path}` is the location of the Vault secret
+* `${kv_path}` is the location of the Vault secret.
 * `${mount_path}` is the `mountPath` that you specified in step 3.1
+
+The default `${kv_path}` follows the form 
+
+```
+kv/${envclass}/${zone}/my-job/my-team
+
+e.g.
+
+kv/preprod/fss/my-job/my-team
+```
+
+See [vault-iac](https://github.com/navikt/vault-iac/blob/master/doc/getting-started.md#adding-an-application-to-your-team) for other Vault kv-paths.
 
 For example:
 
