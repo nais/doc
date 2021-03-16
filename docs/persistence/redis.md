@@ -253,7 +253,7 @@ For example:
 
 ```text
 kubectl create secret generic redis-password \
-    --from-literal=REDIS_PASSWORD=$(date +%s | sha256sum | base64 | head -c 32)
+    --from-literal=REDIS_PASSWORD=$(cat /dev/urandom | env LC_ALL=C tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 ```
 
 Now that you have a secret in Kubernetes \(use `kubectl describe secret redis-password` to look at it\), all you have to do left is to mount it.
