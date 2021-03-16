@@ -274,6 +274,26 @@ Follow these steps:
 4. Change producer to write messages to Aiven
 5. Remove MirrorMaker configuration (or let us know that we can remove it)
 
+## Avro and schema
+
+### Delete schema
+
+You can delete schemaes (or versions) using the REST-API for the schema registry.
+The easiest way to communicate with the API is to use curl from one of your Kafka-pods, so that you have easy access to both the schema registry URL and the username/password.
+
+In order to delete version 10 of the schema registered under subject "test-key" (if it exists):
+
+```
+$ curl -X DELETE http://$KAFKA_SCHEMA_REGISTRY/subjects/test-key/versions/10
+  10
+```
+
+To delete all versions of the schema registered under subject "test-key":
+```
+$ curl -X DELETE http://$KAFKA_SCHEMA_REGISTRY/subjects/test-key
+  [1]
+```
+
 ## FAQ/Troubleshooting
 
 ### Why do I have to specify a pool name if there is only `nav-dev` and `nav-prod`?
