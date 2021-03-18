@@ -3,14 +3,6 @@
 We use [Prometheus](https://prometheus.io/) to collect metrics, and can trigger alerts based on these metrics.
 Alerts are specified in their own Kubernetes resource called `alerts` as we have made our own operator called [Alerterator](https://github.com/nais/alerterator).
 
-This means that you can manage your alerts with `kubectl`, and that alerts are not tied to a specific app or namespace.
-Giving you more freedom to set up the necessary alerts for one or several apps. You can even make your own personal alert profile.
-
-Using `kubectl` you can add, update, and remove the alert resource.
-Adding and updating is done with the `kubectl apply -f alerts.yaml`, while delete is done either with `kubectl delete alert <alert-name>` and `kubectl delete -f alerts.yaml`.
-
-You can list alerts in the cluster with `kubectl get alerts` (singluar: `alert`, shorten: `al`), and describe a specific alert resource with `kubectl describe alert <alert-name>`.
-
 ## Getting started
 
 To get started using Alerts we need to have a yaml-file describing our rules.
@@ -51,11 +43,7 @@ spec:
       severity: danger
 ```
 
-When you have written your alert-file, you can apply it with `kubectl`,
-
-```text
-kubectl apply -f alerts.yaml
-```
+### Deployment
 
 If you already use `nais/deploy`, adding a new deploy-action is rather simple. Create a file called `.github/workflows/alert-deploy.yaml`
 
@@ -74,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: deploy to dev
         uses: nais/deploy/actions/deploy@v1
         env:
@@ -88,6 +76,8 @@ jobs:
           CLUSTER: prod-fss
           RESOURCE: /path/to/alerts.yaml
 ```
+
+You can also add `/path/to/alerts.yaml` to `RESOURCE` in a previous workflow, just remember to [escape](../../deployment/#escaping-and-raw-resources) your expressive descriptions.
 
 ## Different receivers/notifications
 
