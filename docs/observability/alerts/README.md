@@ -47,7 +47,7 @@ spec:
 
 If you already use `nais/deploy`, adding a new deploy-action is rather simple. Create a file called `.github/workflows/alert-deploy.yaml`
 
-```text
+```yaml
 name: Deploy alerts to NAIS
 on:
   push:
