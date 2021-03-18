@@ -23,6 +23,14 @@ We also recommend to export the default metrics.
 DefaultExports.initialize();
 ```
 
+## Retention
+
+When using Prometheus the retention is 16 weeks for prod, and 4 weeks for dev.
+If you need data stored longer then what Prometheus support, we recommend using your own [Aiven Influxdb](/addons/influxdb).
+Then you have full control of the database and retention.
+
+Data via [push metrics/sensu](#push-metrics) is stored for one year.
+
 ## Push metrics
 
 If you don't want to just rely on pull metrics, you can push data directly to InfluxDB via [Sensu](https://sensu.io/).
