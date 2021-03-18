@@ -1,18 +1,23 @@
 # Alerts
 
-We use [Prometheus](https://prometheus.io/) to collect metrics, and can trigger alerts based on these metrics. Alerts are specified in their own Kubernetes resource called `alerts` as we have made our own operator called [Alerterator](https://github.com/nais/alerterator).
+We use [Prometheus](https://prometheus.io/) to collect metrics, and can trigger alerts based on these metrics.
+Alerts are specified in their own Kubernetes resource called `alerts` as we have made our own operator called [Alerterator](https://github.com/nais/alerterator).
 
-This means that you can manage your alerts with `kubectl`, and that alerts are not tied to a specific app or namespace. Giving you more freedom to set up the necessary alerts for one or several apps. You can even make your own personal alert profile.
+This means that you can manage your alerts with `kubectl`, and that alerts are not tied to a specific app or namespace.
+Giving you more freedom to set up the necessary alerts for one or several apps. You can even make your own personal alert profile.
 
-Using `kubectl` you can add, update, and remove the alert resource. Adding and updating is done with the `kubectl apply -f alerts.yaml`, while delete is done either with `kubectl delete alert <alert-name>` og `kubectl delete -f alerts.yaml`.
+Using `kubectl` you can add, update, and remove the alert resource.
+Adding and updating is done with the `kubectl apply -f alerts.yaml`, while delete is done either with `kubectl delete alert <alert-name>` and `kubectl delete -f alerts.yaml`.
 
-You can list alerts in the cluster with `kubectl get alerts` \(singluar: `alert`, shorten: `al`\), and describe a specific alert resource with `kubectl describe alert <alert-name>`.
+You can list alerts in the cluster with `kubectl get alerts` (singluar: `alert`, shorten: `al`), and describe a specific alert resource with `kubectl describe alert <alert-name>`.
 
 ## Getting started
 
-To get started using Alerts we need to have a yaml-file describing our rules. You can start of with our [recommended alerts](recommended_alerts.md) \(made by contributions from our users!\).
+To get started using Alerts we need to have a yaml-file describing our rules.
+You can start of with our [recommended alerts](recommended_alerts.md) (made by contributions from our users!).
 
-Usually it's simplest to just call this file `alerts.yaml`, which we will do in this example. You can see the content of the file below, and you will see that we only notify Slack, but you can add more receivers.
+Usually it's simplest to just call this file `alerts.yaml`, which we will do in this example.
+You can see the content of the file below, and you will see that we only notify Slack, but you can add more receivers.
 
 ```yaml
 apiVersion: "nais.io/v1"
@@ -86,7 +91,8 @@ jobs:
 
 ## Different receivers/notifications
 
-Alerterator supports three different types of notification, [Slack](spec.md#specreceiversslack), [E-mail](spec.md#specreceiversemail), and [SMS](spec.md#specreceiverssms). In our spec we follow the naming convention of Alertmanager and call it `receivers`.
+Alerterator supports three different types of notification, [Slack](spec.md#specreceiversslack), [E-mail](spec.md#specreceiversemail), and [SMS](spec.md#specreceiverssms).
+In our spec we follow the naming convention of Alertmanager and call it `receivers`.
 
 Take a look below too see exactly how each receiver is configured.
 
@@ -130,13 +136,15 @@ spec:
 
 ### Writing the `expr`
 
-In order to minimize the feedback loop we suggest experimenting on the Prometheus server to find the right metric for your alert and the notification threshold. The Prometheus server can be found in each cluster, at `https://prometheus.{cluster.ingress}` \(i.e. [https://prometheus.nais.preprod.local](https://prometheus.nais.preprod.local)\).
+In order to minimize the feedback loop we suggest experimenting on the Prometheus server to find the right metric for your alert and the notification threshold.
+The Prometheus server can be found in each cluster, at `https://prometheus.{cluster.ingress}` (i.e. [https://prometheus.nais.preprod.local](https://prometheus.nais.preprod.local)).
 
-You can also visit the Alertmanager at `https://alertmanager.{cluster.ingress}` \(i.e. [https://alertmanager.nais.preprod.local](https://alertmanager.nais.preprod.local)\) to see which alerts are triggered now \(you can also silence already triggered alerts\).
+You can also visit the Alertmanager at `https://alertmanager.{cluster.ingress}` (i.e. [https://alertmanager.nais.preprod.local](https://alertmanager.nais.preprod.local)) to see which alerts are triggered now (you can also silence already triggered alerts).
 
 ### Expressive descriptions or actions
 
-You can also use `labels` in your notification by referencing them with `{{ $labels.<field> }}`. Run your query on the Prometheus server to see which `labels` are available for your alert.
+You can also use `labels` in your notification by referencing them with `{{ $labels.<field> }}`.
+Run your query on the Prometheus server to see which `labels` are available for your alert.
 
 For example:
 
@@ -154,19 +162,22 @@ You can read more about this over at the [Prometheus documentation](https://prom
 
 #### Labels and nais/deploy
 
-If you are using labels and variables with nais/deploy, you need to remember to escape the labels used for the alerts. See [deployment\#escaping-and-raw-resources](https://doc.nais.io/deployment#escaping-and-raw-resources) for how.
+If you are using labels and variables with nais/deploy, you need to remember to escape the labels used for the alerts.
+See [deployment\#escaping-and-raw-resources](https://doc.nais.io/deployment#escaping-and-raw-resources) for how.
 
 ### Target several apps or namespaces in a query
 
-Using regular expression, you can target multiple apps or namespaces with one query. This saves on repeating the same alert for each your apps.
+Using regular expression, you can target multiple apps or namespaces with one query.
+This saves on repeating the same alert for each your apps.
 
 ```text
 absent(up{app=~"myapp|otherapp|thirdapp"})
 ```
 
-Here we use `=~` to select labels that match the provided string \(or substring\) using a regular expression. Use `!~` to negate the regular expression.
+Here we use `=~` to select labels that match the provided string (or substring) using a regular expression. Use `!~` to negate the regular expression.
 
-When doing this, it can be smart to use labels \(mention above\), to list which namespace the alert is tied to. Use the `kubernetes_namespace` label in your `action` or `description` by adding `{{ $labels.kubernetes_namespace }}`, and it will write the namespace for the app that is having problems.
+When doing this, it can be smart to use labels (mention above), to list which namespace the alert is tied to.
+Use the `kubernetes_namespace` label in your `action` or `description` by adding `{{ $labels.kubernetes_namespace }}`, and it will write the namespace for the app that is having problems.
 
 ## Slack
 
@@ -174,9 +185,11 @@ When doing this, it can be smart to use labels \(mention above\), to list which 
 
 Slack has their own syntax for notifying `@channel` or `@here`, respectively `<!channel>` and `<!here>`.
 
-Notifying a user group on the other hand is a bit more complicated. The user group `@nais-vakt` is written `<!subteam^SB8KS4WAV|nais-vakt>` in a Slack alert message, where `SB8KS4WAV` is the id for the specific user group, and `nais-vakt` is the name of the user group.
+Notifying a user group on the other hand is a bit more complicated.
+The user group `@nais-vakt` is written `<!subteam^SB8KS4WAV|nais-vakt>` in a Slack alert message, where `SB8KS4WAV` is the id for the specific user group, and `nais-vakt` is the name of the user group.
 
-You can find the id by right clicking on the name in the user group list. Where last part in the URL is the id. The URL will look something like the one below:
+You can find the id by right clicking on the name in the user group list.
+Where last part in the URL is the id. The URL will look something like the one below:
 
 ```text
 https://nav-it.slack.com/usergroups/SB8KS4WAV
@@ -184,7 +197,9 @@ https://nav-it.slack.com/usergroups/SB8KS4WAV
 
 ### Examples of the different Slack/severity colors
 
-Slack alerts supports colors. The severity field defines the color \(`good` is results in a green message, `warning` in a yellow and `danger` in a red\). If you want to define another color, specify the wanted hex code as severity instead of the pre-defined words.
+Slack alerts supports colors.
+The severity field defines the color (`good` is results in a green message, `warning` in a yellow and `danger` in a red).
+If you want to define another color, specify the wanted hex code as severity instead of the pre-defined words.
 
 ![Slack colors](../../assets/attachment_color.png)
 
