@@ -284,13 +284,13 @@ The easiest way to communicate with the API is to use curl from one of your Kafk
 In order to delete version 10 of the schema registered under subject "test-key" (if it exists):
 
 ```
-$ curl -X DELETE http://$KAFKA_SCHEMA_REGISTRY/subjects/test-key/versions/10
+$ curl -X DELETE -u brukernavn:passord http://$KAFKA_SCHEMA_REGISTRY/subjects/test-key/versions/10
   10
 ```
 
 To delete all versions of the schema registered under subject "test-key":
 ```
-$ curl -X DELETE http://$KAFKA_SCHEMA_REGISTRY/subjects/test-key
+$ curl -X DELETE -u brukernavn:passord http://$KAFKA_SCHEMA_REGISTRY/subjects/test-key
   [1]
 ```
 
