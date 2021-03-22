@@ -6,7 +6,7 @@ description: >
 # Maskinporten Client
 
 !!! warning "Status: Opt-In Open Beta"
-    This feature is currently only available in the [Google Cloud Platform (GCP)](../../clusters/gcp.md) clusters.
+    This feature is only available in [team namespaces](../../clusters/team-namespaces.md)
 
 ## Abstract
 
