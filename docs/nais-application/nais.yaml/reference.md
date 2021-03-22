@@ -117,8 +117,6 @@ List of [reply URLs](https://docs.microsoft.com/en-us/azure/active-directory/dev
 
 Explicitly target a given [tenant](../../security/auth/azure-ad.md#tenants) in Azure AD.
 
-**Default**: `nav.no`
-
 **Allowed values**: enum of `{trygdeetaten.no, nav.no}`
 
 ### `spec.azure.application.claims.extra[]`

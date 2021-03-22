@@ -31,8 +31,14 @@ The following describes a few core concepts in Azure AD referred to throughout t
 
 A tenant represents an organization in Azure AD. Each tenant will have their own set of applications, users and groups. In order to log in to a tenant, you must use an account specific to that tenant.
 
+NAV has two tenants in Azure AD:
+
+- `nav.no` - available in all clusters, default tenant for production clusters
+- `trygdeetaten.no` - only available in `dev-*`-clusters, default tenant for development clusters
+
 !!! warning
-    The default tenant for applications provisioned through NAIS in _all clusters_ is `nav.no`. If your use case requires you to use `trygdeetaten.no` in the `dev-*`-clusters, then you must [explicitly configure this](azure-ad.md#tenants_1).
+    If your use case requires you to use `nav.no` in the `dev-*`-clusters, then you must [explicitly configure this](azure-ad.md#tenants_1).
+    Note that you _cannot_ interact with clients or applications across different tenants.
 
 The same application in different clusters will result in unique Azure AD clients, with each having their own client IDs and access policies. For instance, the following applications in the same `nav.no` tenant will result in separate, unique clients in Azure AD:
 
@@ -97,7 +103,7 @@ Your application's Azure AD client ID is available at multiple locations:
           enabled: true
             
           # optional, enum of {trygdeetaten.no, nav.no}
-          # defaults to nav.no
+          # defaults to trygdeetaten.no in dev-* clusters, nav.no in production
           tenant: nav.no
 
           # optional, generated defaults shown
@@ -207,7 +213,6 @@ spec:
       enabled: true
       
       # enum of {trygdeetaten.no, nav.no}
-      # defaults to nav.no if omitted
       tenant: trygdeetaten.no 
 ```
 
@@ -411,7 +416,7 @@ Access is limited in accordance with the principle of least privilege.
 
 Rules:
 
-- If your Azure AD client exists in the default \(`nav.no`\) tenant, your [team](https://github.com/navikt/teams)'s owners will automatically be given owner access. 
+- If your Azure AD client exists in the `nav.no` tenant, your [team](https://github.com/navikt/teams)'s owners will automatically be given owner access. 
 - Otherwise, the application will not be assigned any owners.
 - Special cases such as extra permissions are manually handled on a case-by-case basis.
 
@@ -442,10 +447,6 @@ This section only applies if you have an existing Azure AD client registered in 
 * The exact same feature is present in the [GCP](../../clusters/gcp.md) clusters, which simplifies [migration](../../clusters/migrating-to-gcp.md).
 
 ### Tenants
-
-Where the IaC solution defaulted to `trygdeetaten.no` for non-production environments, we now default to `nav.no` for all environments and clusters.
-
-If your use case requires you to use `trygdeetaten.no` in the `dev-*`-clusters, then you must [explicitly configure this](azure-ad.md#tenants_1).
 
 ### Pre-authorization
 
