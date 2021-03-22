@@ -39,7 +39,7 @@ description: Enabling zero trust on the application layer
     1. You have a user facing app using [ID-porten](idporten.md) that should perform calls to another app on behalf of a user.
     2. You have an app receiving tokens issued from Tokendings and need to call another app while still propagating the original user context.
 
-??? info "Overview of flow"
+???+ info "Overview of flow"
     ![Overview of token exchange flow](https://raw.githubusercontent.com/nais/tokendings/master/doc/downstream_example.svg)
 
 ## Configuration
@@ -104,7 +104,7 @@ The above configuration authorizes the following applications:
 
 Enabling TokenX will expose the following runtime environment variables and files \(under the directory `/var/run/secrets/nais.io/jwker`\) for your application:
 
-??? example "`TOKEN_X_WELL_KNOWN_URL`"
+???+ example "`TOKEN_X_WELL_KNOWN_URL`"
     The well-known URL of the OAuth 2.0 Token Exchange authorization server, in this case Tokendings. This URL contains the server metadata as defined in [RFC8414](https://tools.ietf.org/html/rfc8414) that your application may use. For example:
 
     * `issuer`
@@ -113,7 +113,7 @@ Enabling TokenX will expose the following runtime environment variables and file
 
     See [OAuth 2.0 Authorization Server Metadata](https://tools.ietf.org/html/rfc8414) for more information about the contents of the response from the well-known url.
 
-??? example "`TOKEN_X_CLIENT_ID`"
+???+ example "`TOKEN_X_CLIENT_ID`"
     Unique `client_id` that identifies your application. using the following naming scheme:
 
     ```text
@@ -122,7 +122,7 @@ Enabling TokenX will expose the following runtime environment variables and file
 
     This value should be used in the [client assertion](tokenx.md#client-authentication) when exchanging a token with [Tokendings](https://github.com/nais/tokendings).
 
-??? example "`TOKEN_X_PRIVATE_JWK`"
+???+ example "`TOKEN_X_PRIVATE_JWK`"
     Contains a JWK with the private RSA key for creating signed JWTs when [authenticating to Tokendings with a signed `client_assertion`](tokenx.md#client-authentication).
 
     ```javascript
@@ -221,7 +221,7 @@ The following denotes the required parameters needed to perform an exchange requ
 
 The request should then sent to the `token_endpoint` of Tokendings, the value of which exists in the metadata found at the [well-known endpoint](tokenx.md#token_x_well_known_url).
 
-??? example
+???+ example
     ```http
     POST /token HTTP/1.1
     Host: tokendings.prod-gcp.nais.io
@@ -273,7 +273,7 @@ Other claims in the token are passed on verbatim from the original token issued 
 
 The following example shows the claims of a token issued by Tokendings, where the exchanged subject token is issued by [ID-porten](idporten.md):
 
-??? example 
+???+ example 
     ```javascript
     {
       "at_hash": "x6lQGCdbMX62p1VHeDsFBA",

@@ -55,7 +55,7 @@ All clients provisioned through NAIS will be registered in Azure AD using the fo
 <cluster>:<namespace>:<app-name>
 ```
 
-??? example
+???+ example
     ```text
     dev-gcp:aura:nais-testapp
     ```
@@ -174,7 +174,7 @@ If you have _not_ specified any reply URLs, we will automatically generate a rep
 spec.ingresses[n] + "/oauth2/callback"
 ```
 
-??? example
+???+ example
     In other words, this:
 
     ```yaml
@@ -287,19 +287,19 @@ This also controls the `groups` claim for a user token, which will only contain 
 
 The following environment variables and files \(under the directory `/var/run/secrets/nais.io/azure`\) are available at runtime:
 
-??? example "`AZURE_APP_CLIENT_ID`"
+???+ example "`AZURE_APP_CLIENT_ID`"
 
     Azure AD client ID. Unique ID for the application in Azure AD
     
     Example value: `e89006c5-7193-4ca3-8e26-d0990d9d981f`
 
-??? example "`AZURE_APP_CLIENT_SECRET`"
+???+ example "`AZURE_APP_CLIENT_SECRET`"
 
     Azure AD client secret, i.e. password for [authenticating the application to Azure AD](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow#first-case-access-token-request-with-a-shared-secret) 
 
     Example value: `b5S0Bgg1OF17Ptpy4_uvUg-m.I~KU_.5RR`
 
-??? example "`AZURE_APP_JWKS`"
+???+ example "`AZURE_APP_JWKS`"
 
     A JWK Set as defined in [RFC7517 section 5](https://tools.ietf.org/html/rfc7517#section-5). This will always contain a single key, i.e. `AZURE_APP_JWK` - the newest key registered.
 
@@ -330,7 +330,7 @@ The following environment variables and files \(under the directory `/var/run/se
     }
     ``` 
 
-??? example "`AZURE_APP_JWK`"
+???+ example "`AZURE_APP_JWK`"
 
     Private JWK as defined in [RFC7517](https://tools.ietf.org/html/rfc7517), i.e. a JWK with the private RSA key for creating signed JWTs when [authenticating to Azure AD with a certificate](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow#second-case-access-token-request-with-a-certificate).
 
@@ -357,7 +357,7 @@ The following environment variables and files \(under the directory `/var/run/se
     }
     ```
    
-??? example "`AZURE_APP_PRE_AUTHORIZED_APPS`"
+???+ example "`AZURE_APP_PRE_AUTHORIZED_APPS`"
     
     A JSON string. List of names and client IDs for the valid \(i.e. those that exist in Azure AD\) applications defined in [`spec.accessPolicy.inbound.rules[]`](../../nais-application/nais.yaml/reference.md#specaccesspolicy)
     
@@ -376,31 +376,31 @@ The following environment variables and files \(under the directory `/var/run/se
     ]
     ```
 
-??? example "`AZURE_APP_TENANT_ID`"
+???+ example "`AZURE_APP_TENANT_ID`"
 
     The Azure AD tenant ID for which the Azure AD client resides in. 
 
     Example value: `77678b69-1daf-47b6-9072-771d270ac800` 
 
-??? example "`AZURE_APP_WELL_KNOWN_URL`"
+???+ example "`AZURE_APP_WELL_KNOWN_URL`"
 
     The well-known URL to the [metadata discovery document](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig) for the specific tenant in which the Azure AD client resides in.
 
     Example value: `https://login.microsoftonline.com/77678b69-1daf-47b6-9072-771d270ac800/v2.0/.well-known/openid-configuration`
 
-??? example "`AZURE_OPENID_CONFIG_ISSUER`"
+???+ example "`AZURE_OPENID_CONFIG_ISSUER`"
 
     `issuer` from the metadata discovery document.
 
     Example value: `https://login.microsoftonline.com/77678b69-1daf-47b6-9072-771d270ac800/v2.0`
 
-??? example "`AZURE_OPENID_CONFIG_JWKS_URI`"
+???+ example "`AZURE_OPENID_CONFIG_JWKS_URI`"
 
     `jwks_uri` from the metadata discovery document.
 
     Example value: `https://login.microsoftonline.com/77678b69-1daf-47b6-9072-771d270ac800/discovery/v2.0/keys`
 
-??? example "`AZURE_OPENID_CONFIG_TOKEN_ENDPOINT`"
+???+ example "`AZURE_OPENID_CONFIG_TOKEN_ENDPOINT`"
 
     `token_endpoint` from the metadata discovery document.
 
