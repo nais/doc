@@ -57,7 +57,7 @@ The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instan
 $ kubectl delete secret google-sql-<MYAPP>
 ```
 
-### Cloud SQL Proxy
+## Cloud SQL Proxy
 
 The application will connect to the database using [Cloud SQL Proxy](https://cloud.google.com/sql/docs/postgres/sql-proxy), ensuring that the database communication happens in secure tunnel, authenticated with automatically rotated credentials.
 
@@ -67,15 +67,15 @@ NAIS will add and configure the proxy client container as a sidecar in the pod, 
 
 For more detailed information, check out the [Cloud SQL Proxy documentation](https://cloud.google.com/sql/docs/postgres/sql-proxy)
 
-### Sizing your database
+## Sizing your database
 
 By default, the database server has 1 vCPU, 614 MB RAM and 10GB of SSD storage with no automatic storage increase. If you need to change the defaults you can do this in [`nais.yaml`](../nais-application/nais.yaml/reference.md#specgcpsqlinstancesdisksize).
 
-### Administration
+## Administration
 
 The database is provisioned into the teams own project in GCP. Here the team has full access to view logs, create and restore backups and other administrative database tasks.
 
-### Automated backup
+## Automated backup
 
 The database is backed up nightly at 3 AM \(GMT+1\) by default, but can be overridden in [`nais.yaml`](../nais-application/nais.yaml/reference.md#specgcpsqlinstancesautobackuptime) by setting `spec.gcp.sqlInstances[].autoBackupTime`. 
 
@@ -83,91 +83,162 @@ Default 7 backups will be kept. More info [here](https://cloud.google.com/sql/do
 
 The backups can be found in the [Google Cloud SQL instance](https://cloud.google.com/sql) dashboard.
 
-### Personal database access
+## Personal database access
 
 Databases should always be accessed using a personal account, and the access should ideally be temporary.
 
-#### Prerequisites
+### Prerequisites
 
-##### Install local binaries
+???+ check "Step 1. Install local binaries"
 
-- [cloudsql-proxy binary](https://cloud.google.com/sql/docs/postgres/sql-proxy#install)
-- [psql binary](https://blog.timescale.com/tutorials/how-to-install-psql-on-mac-ubuntu-debian-windows/)
+    This guide assumes that you have the following installed on your local machine:
 
+    - [cloudsql-proxy binary](https://cloud.google.com/sql/docs/postgres/sql-proxy#install)
+    - [psql binary](https://blog.timescale.com/tutorials/how-to-install-psql-on-mac-ubuntu-debian-windows/)
 
-##### Grant privileges to sql IAM users
+???+ check "Step 2. Allow your user to edit Cloud SQL resources for your project"
+    Ensure that you have authenticated `gcloud` by running
 
-!!! info
+    ```bash
+    gcloud auth login
+    ```
+
     To be able to perform the gcloud commands mentioned below you need a role with user edit permissions, e.g. `roles/cloudsql.editor`
-    To grant yourself this role for a given project: `gcloud projects add-iam-policy-binding <project> --member user:<your-email> --role roles/cloudsql.editor`
 
-!!! info
-    This is only required once per database instance and should be done before DDL scripts are run in the database, 
-    in order to ensure the objects have the right permissions.
+    To grant yourself this role for a given project, run the following command: 
 
-Once the database instance is created, we need to grant the IAM users access to the "public" schema.
-This can either be done by using the default application database user during database creation/migration with scripts (e.g. flyway), or as a one-time setup by using the default postgres user:
+    ```bash
+    gcloud projects add-iam-policy-binding <project-id> \
+        --member user:<your-email> \
+        --role roles/cloudsql.editor
+    ```
 
-In order to use the postgres user, you have to set a password first:
-```bash
-gcloud sql users set-password postgres --instance=<INSTANCE_NAME> --prompt-for-password --project <PROJECT_ID>
-```
+    where `<project-id>` can be found by running: 
 
-Then set up the cloudsql proxy and log in to the database (you will be prompted for the password you just set):
-```bash
-CONNECTION_NAME=$(gcloud sql instances describe <INSTANCE_NAME> --format="get(connectionName)" --project <PROJECT_ID>);
-cloud_sql_proxy -instances=${CONNECTION_NAME}=tcp:5432
-psql -U postgres -h localhost <DATABASE_NAME> -W
-```
+    ```bash
+    gcloud projects list \
+        --filter=<team>
+    ```
 
-This can be enabled for all cloudsqliamusers with the following command: 
-(all IAM users are assigned the role cloudsqliamuser)
-```sql
-alter default privileges in schema public grant all on tables to cloudsqliamuser;
-```
+???+ check "Step 3. One-time setup of privileges to SQL IAM users"
 
-Or for a specific user:
-(the IAM user must exist in the database):
-```sql
-alter default privileges in schema public grant all on tables to 'user@nav.no';
-```
+    This is only required once per database instance and should be done before DDL scripts are run in the database in order to ensure the objects have the right permissions.
 
-#### Granting temporary personal access
+    Once the database instance is created, we need to grant the IAM users access to the `public` schema.
 
-##### Create database IAM user
+    This can either be done by using the default application database user during database creation/migration with scripts (e.g. Flyway), or as a one-time setup by using the default `postgres` user.
 
-!!! info
-    This is required once per user and requires that you have create user permission in IAM in your project, e.g. Cloud SQL Admin
+???+ check "Step 3a. Set password for `postgres` user"
 
-```bash
-gcloud beta sql users create <FIRSTNAME>.<LASTNAME>@nav.no --instance=<INSTANCE_NAME> --type=cloud_iam_user --project <PROJECT_ID>
-```
+    In order to use the `postgres` user, you have to set a password first:
 
-##### Create a temporary IAM binding for 1 hour:
+    ```bash
+    gcloud sql users set-password postgres \
+        --instance=<INSTANCE_NAME> \
+        --prompt-for-password \
+        --project <PROJECT_ID>
+    ```
 
-```bash
-gcloud projects add-iam-policy-binding <PROJECT_ID> --member=user:<FIRSTNAME>.<LASTNAME>@nav.no --role=roles/cloudsql.instanceUser --condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
-```
+???+ check "Step 3b. Log in to the database with the `postgres` user"
 
-#### Log in with personal user:
+    Set up the `cloudsql-proxy`:
 
-```bash
-export PGPASSWORD=$(gcloud auth print-access-token)
-psql -U <FIRSTNAME>.<LASTNAME>@nav.no -h localhost <DATABASE_NAME> 
-```
+    ```bash
+    CONNECTION_NAME=$(gcloud sql instances describe <INSTANCE_NAME> \
+        --format="get(connectionName)" \
+        --project <PROJECT_ID>);
 
-### Deleting the database
+    cloud_sql_proxy -instances=${CONNECTION_NAME}=tcp:5432
+    ```
+
+    Log in to the database (you will be prompted for the password you set in the previous step):
+
+    ```bash
+    psql -U postgres -h localhost <DATABASE_NAME> -W
+    ```
+
+???+ check "Step 3c. Enable privileges for user(s) in database"
+
+    This can be enabled for all `cloudsqliamusers` (all IAM users are assigned the role `cloudsqliamuser`) with the following command: 
+   
+    ```sql
+    alter default privileges in schema public grant all on tables to cloudsqliamuser;
+    ```
+
+    Or for a specific user (the given IAM user must exist in the database):
+
+    ```sql
+    alter default privileges in schema public grant all on tables to 'user@nav.no';
+    ```
+
+### Granting temporary personal access
+
+???+ check "Step 1. Create database IAM user"
+
+    This is required once per user and requires that you have create user permission in IAM in your project, e.g. Cloud SQL Admin.
+
+    To grant yourself this role for a given project, run the following command: 
+
+    ```bash
+    gcloud projects add-iam-policy-binding <project-id> \
+        --member user:<your-email> \
+        --role roles/cloudsql.admin
+    ```
+
+    Then, to create the database IAM user:
+
+    ```bash
+    gcloud beta sql users create <FIRSTNAME>.<LASTNAME>@nav.no \
+        --instance=<INSTANCE_NAME> \
+        --type=cloud_iam_user \
+        --project <PROJECT_ID>
+    ```
+
+???+ check "Step 2. Create a temporary IAM binding for 1 hour"
+
+    Generally, you should try to keep your personal database access time-limited. 
+
+    The following command grants your user permission to log into the database for 1 hour.
+
+    ```bash
+    gcloud projects add-iam-policy-binding <PROJECT_ID> \
+        --member=user:<FIRSTNAME>.<LASTNAME>@nav.no \
+        --role=roles/cloudsql.instanceUser \
+        --condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
+    ```
+
+???+ check "Step 3. Log in with personal user"
+
+    Ensure that the `cloudsql-proxy` is up and running, if not then:
+
+    ```bash
+    CONNECTION_NAME=$(gcloud sql instances describe <INSTANCE_NAME> \
+      --format="get(connectionName)" \
+      --project <PROJECT_ID>);
+
+    cloud_sql_proxy -instances=${CONNECTION_NAME}=tcp:5432
+    ```
+
+    Then, connect to the database:
+
+    ```bash
+    export PGPASSWORD=$(gcloud auth print-access-token)
+
+    psql -U <FIRSTNAME>.<LASTNAME>@nav.no -h localhost <DATABASE_NAME> 
+    ```
+
+## Deleting the database
 
 The database is not automatically removed when deleting your NAIS application. Remove unused databases to avoid incurring unnecessary costs. This is done by setting [cascadingDelete](../nais-application/nais.yaml/reference.md#specgcpsqlinstancescascadingdelete) in your `nais.yaml`-specification.
 
 !!! danger
     When you delete an Cloud SQL instance, you cannot reuse the name of the deleted instance until one week from the deletion date.
 
-### Disaster backup
+## Disaster backup
 
 In case of catastrophic failure in GCP we are running a daily complete backup of the postgresql databases in GCP to an on-prem location. This backup currently runs at 5 am. This is in addition to the regular backups in GCP.
 
-### Debugging
+## Debugging
 
 Check the events on the [Config Connector](https://cloud.google.com/config-connector/docs/overview) resources
 
@@ -183,7 +254,7 @@ Check the logs of the Cloud SQL Proxy
 $ kubectl logs <pod> -c cloudsql-proxy
 ```
 
-### Example with all configuration options
+## Example with all configuration options
 
 See [full example](../nais-application/nais.yaml/full-example.md).
 
