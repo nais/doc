@@ -117,6 +117,7 @@ Your application's Azure AD client ID is available at multiple locations:
             groups:
               - id: "<object ID of Azure AD group>"
 
+      # optional, only relevant if your application should receive requests from consumers
       accessPolicy:
         inbound:
           rules:
