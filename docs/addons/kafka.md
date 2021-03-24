@@ -249,7 +249,7 @@ This approach is suitable if:
 
 Follow these steps:
 
-1. Create a mirroring application that reads messages from on-prem and writes them to Aiven
+1. Create a mirroring application that reads messages from on-prem and writes them to Aiven (The NAIS team has created [AiviA](https://github.com/nais/aivia) for this)
 2. Stop producers
 3. Wait for mirroring to catch up
 4. Change consumers to read messages from Aiven
