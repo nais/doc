@@ -334,6 +334,7 @@ These environment variables will be injected into your application container
 | NAIS\_NAMESPACE | default | metadata.namespace from nais.yaml |
 | NAIS\_APP\_IMAGE | navikt/myapp:69 | spec.image from nais.yaml |
 | NAIS\_CLUSTER\_NAME | prod-fss | naiserator runtime context |
+| NAIS\_CLIENT\_ID | prod-fss:default:myapp | concatenation of cluster, namespace and app name  |
 
 Environment variables for loading CA bundles into your application will also be injected:
 
