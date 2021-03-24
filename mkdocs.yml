@@ -116,7 +116,7 @@ nav:
     - Updating: device/update.md
     - Unenrolling: device/unenroll.md
     - naisdevice Troubleshooting: device/troubleshooting.md
-	- Uninstall: device/uninstall.md
+    - Uninstall: device/uninstall.md
     - Available services: device/services.md
   - Laws and regulations:
     - Roles and responsibilities: legal/roles-responsibilities.md
