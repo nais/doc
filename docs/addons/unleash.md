@@ -8,7 +8,7 @@ Get started at (unleash.nais.io)[https://unleash.nais.io/].
 We only have one supported environment, but if you want to test it out you can use [unleash.dev.intern.nav.no](https://unleash.dev.intern.nav.no/).
 
 ## Support
-Ask question in (#unleash)[https://nav-it.slack.com/archives/C9BPTSULS].
+Ask question in [#unleash](https://nav-it.slack.com/archives/C9BPTSULS).
 
 ## Metrics
 Unleash supports metrics of usage of features.
