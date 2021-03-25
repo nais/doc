@@ -1,8 +1,5 @@
 # Influxdb
 
-!!! Info
-    This feature is only available in [GCP clusters](../clusters/gcp.md).
-
 The NAIS platform offers Influxdb via [Aiven](https://aiven.io/).
 
 ## Get your own
@@ -16,6 +13,10 @@ There is only one user for Influxdb.
 ### Default database name
 The default database name is `defaultdb`.
 
+## Datasource in grafana.adeo.no
+Let us know in [#pig-aiven](https://nav-it.slack.com/archives/C018L1JATBQ) if you want your Influxdb to be exposed at grafana.adeo.no.
+This means that everyone has access to your data.
+
 ## Access from Nais-app
 If you need access from an application, you need to reuse the access given for Elastic Search instances.
 See [nais.yaml-reference](../nais-application/nais.yaml/reference.md#specelasticinstance).
@@ -25,4 +26,4 @@ With Naisdevice you have access to the _aiven-prod_ gateway.
 This is a JITA (just in time access) gateway, so you need to describe why, but the access is automatically given.
 
 ## Support
-We do not offer support on Elastic Search as software, but questions about Aiven and provisioning can be directed to [#pig_aiven](https://nav-it.slack.com/archives/C018L1JATBQ) on Slack.
+We do not offer support on Influxdb as software, but questions about Aiven and provisioning can be directed to [#pig_aiven](https://nav-it.slack.com/archives/C018L1JATBQ) on Slack.
