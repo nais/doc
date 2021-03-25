@@ -1,9 +1,9 @@
 # Kubernetes Secrets
 
-!!! info "Google Cloud Platform"
+!!! info "Integration with Google Cloud Platform"
     We also offer an optional integration with [_Google Secret Manager_](google-secrets-manager.md) as a simplified supplement to using Kubernetes Secrets directly. 
 
-When running an application in a team namespace, [Kubernetes Secrets](https://kubernetes.io/docs/concepts/configuration/secret) can be used directly instead of Vault.
+When running an application in a team namespace, [Kubernetes Secrets](https://kubernetes.io/docs/concepts/configuration/secret) can be used directly.
 
 To get started using this, simply [create the secrets](https://kubernetes.io/docs/concepts/configuration/secret/#creating-your-own-secrets). A secret can be either key-value pairs or files, and can be exposed to the application as environment variables or files.
 

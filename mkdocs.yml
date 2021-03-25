@@ -95,6 +95,7 @@ nav:
         - Maskinporten: security/auth/maskinporten.md
         - TokenX: security/auth/tokenx.md
       - Secrets:
+        - Overview: security/secrets/README.md
         - Kubernetes Secrets: security/secrets/kubernetes-secrets.md
         - Google Secrets Manager: security/secrets/google-secrets-manager.md
         - Vault: security/secrets/vault.md
