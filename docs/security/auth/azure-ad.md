@@ -510,3 +510,23 @@ If keeping the existing client ID and configuration is not important, it should 
 
     * Verify that everything works after the migration
     * Delete the application from the [IaC repository](https://github.com/navikt/aad-iac) in order to maintain a single source of truth
+
+## Permanently deleting a client
+
+!!! warning
+Permanent deletes are irreversible. Only do this if you are certain that you wish to completely remove the client from DigDir.
+
+When an `AzureAdApplication` resource is deleted from a Kubernetes cluster, the client is not deleted from DigDir.
+
+!!! info
+The `Application` resource owns the `AzureAdApplication` resource, deletion of the former will thus trigger a deletion of the latter.
+
+If the `AzureAdApplication` resource is recreated, the client will thus retain the same client ID.
+
+If you want to provision a new client, you must add the following annotation to the `AzureAdApplication` resource:
+
+```bash
+kubectl annotate azureapp <app> azure.nais.io/delete=true
+```
+
+When this annotation is in place, deleting the `AzureAdApplication` resource from Kubernetes will trigger removal of the client from DigDir.
