@@ -30,13 +30,14 @@ sudo systemctl disable launcher.kolide-k2.service
 ```bash
 sudo apt(-get) remove launcher-kolide-k2
 ```
-
 3. Delete files & caches
 ```bash
 sudo rm -r /{etc,var}/kolide-k2
 ```
+
 ## OS-agnostic uninstall steps
 When the program has been removed from your device, let an admin know in [#naisdevice](https://nav-it.slack.com/archives/C013XV66XHB) Slack channel.
 This is necessary so that the record of your device can be purged from our Kolide systems.
+
 !!! info
     This might be automated soon(tm).
