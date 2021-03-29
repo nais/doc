@@ -22,7 +22,8 @@
 
 ### Ubuntu Installation
 
-Using Gnome DE - only supported variant atm
+!!! warn
+    Using Gnome DE on latest Ubuntu LTS - only supported variant atm
 
 1. [Install Kolide agent](install.md#install-kolide-agent).
 2. Write in the terminal: `curl https://device.nais.io/install.sh | bash` \(you might be prompted for your laptop-account's password to unlock `sudo`\).
@@ -36,7 +37,7 @@ Using Gnome DE - only supported variant atm
 
 1. Send a message to the Kolide app on Slack, either by:
     1. Pasting the following command (in any message input field) in Slack: `/msg @Kolide installers` or by,
-    2. finding the "Kolide" app and directly messaging it `installers`.
+    2. finding the "Kolide" app and directly messaging it the word `installers` (case independent).
 2. Follow Kolide's walk-through:
     1. Select `Enroll a Device`
     2. Select `Enroll your device`
