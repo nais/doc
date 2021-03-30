@@ -28,6 +28,7 @@ markdown_extensions:
       permalink: True
   - admonition
   - pymdownx.details
+  - pymdownx.caret
   - pymdownx.tilde
   - pymdownx.superfences:
       preserve_tabs: true
