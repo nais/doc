@@ -269,6 +269,8 @@ The following claims are by default provided in the issued token and should expl
 
 Other claims in the token are passed on verbatim from the original token issued by `idp`.
 
+* `idp` \(**identity provider**\): A trusted Identity Provider from whom the original token used for a exchange flow was first exchanged.
+
 #### Example Token \(exchanged from ID-porten\)
 
 The following example shows the claims of a token issued by Tokendings, where the exchanged subject token is issued by [ID-porten](idporten.md):
@@ -296,3 +298,19 @@ The following example shows the claims of a token issued by Tokendings, where th
       "jti": "97f580a6-b479-426d-876b-267aa9848e2e"
     }
     ```
+
+#### Migration
+
+To ease migration of applications from Loginservice (AzureB2C) -> Idporten, TokenX supports integration with both identity providers.
+
+Identification claims in trusted identity providers:
+
+* idporten: `pid` \(**Personidentifikator**\): The Norwegian national ID number (fødselsnummer/d-nummer) of the authenticated end user.
+* azureb2c (loginservice): `sub` \(**subject**\): This represents a unique identifier for the user.
+
+Scenarios:
+* **Idporten** All Applications included in the exchange flow will only integrate with other applications in the same namespace, in other words - your team controls the flow. 
+     Team do not need to consider `idp` claim.
+     
+* **Idporten + Loginservice** Exchange flow will go through several application across cluster/namespaces with a both issuers in use. 
+     Team has to consider `idp` claim to validate the right costume claim when identifying the user.
