@@ -51,6 +51,9 @@ description: Enabling public-facing authentication using ID-porten.
 
         # optional, in seconds - defaults shown (2 hours)
         sessionLifetime: 7200
+
+      # required for on-premises only
+      webproxy: true
     ```
 
 ### Spec
@@ -59,12 +62,20 @@ See the [NAIS manifest](../../nais-application/nais.yaml/reference.md#specidport
 
 ### Access Policies
 
+ID-porten is a third-party service outside of our clusters, which is not reachable by default like most third-party services.
+
+#### Google Cloud Platform \(GCP\)
+
 The following [outbound external hosts](../../nais-application/access-policy.md#external-services) are automatically added when enabling this feature:
 
 * `oidc-ver2.difi.no` in development
 * `oidc.difi.no` in production
 
 You do not need to specify these explicitly.
+
+#### On-premises
+
+You must enable and use [`webproxy`](../../nais-application/nais.yaml/reference.md#specwebproxy) for external communication.
 
 ### Ingresses
 

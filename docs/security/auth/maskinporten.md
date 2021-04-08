@@ -30,6 +30,9 @@ description: >
         enabled: true
         scopes:
           - name: "nav:some/scope"
+
+      # required for on-premises only
+      webproxy: true
     ```
 
 ### Spec
@@ -38,12 +41,20 @@ See the [NAIS manifest](../../nais-application/nais.yaml/reference.md#specmaskin
 
 ### Access Policies
 
+Maskinporten is a third-party service outside of our clusters, which is not reachable by default like most third-party services.
+
+#### Google Cloud Platform \(GCP\)
+
 The following [outbound external hosts](../../nais-application/access-policy.md#external-services) are automatically added when enabling this feature:
 
 - `ver2.maskinporten.no` in development
 - `maskinporten.no` in production
 
 You do not need to specify these explicitly.
+
+#### On-premises
+
+You must enable and use [`webproxy`](../../nais-application/nais.yaml/reference.md#specwebproxy) for external communication.
 
 ### Scopes
 
