@@ -514,16 +514,16 @@ If keeping the existing client ID and configuration is not important, it should 
 ## Permanently deleting a client
 
 !!! warning
-Permanent deletes are irreversible. Only do this if you are certain that you wish to completely remove the client from DigDir.
+    Permanent deletes are irreversible. Only do this if you are certain that you wish to completely remove the client from DigDir.
 
 When an `AzureAdApplication` resource is deleted from a Kubernetes cluster, the client is not deleted from DigDir.
 
 !!! info
-The `Application` resource owns the `AzureAdApplication` resource, deletion of the former will thus trigger a deletion of the latter.
+    The `Application` resource owns the `AzureAdApplication` resource, deletion of the former will thus trigger a deletion of the latter.
 
-If the `AzureAdApplication` resource is recreated, the client will thus retain the same client ID.
+    If the `AzureAdApplication` resource is recreated, the client will thus retain the same client ID.
 
-If you want to provision a new client, you must add the following annotation to the `AzureAdApplication` resource:
+If you want to completely delete the client from Azure AD, you must add the following annotation to the `AzureAdApplication` resource:
 
 ```bash
 kubectl annotate azureapp <app> azure.nais.io/delete=true

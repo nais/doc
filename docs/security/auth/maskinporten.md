@@ -160,9 +160,9 @@ When an `MaskinportenClient` resource is deleted from a Kubernetes cluster, the 
 !!! info
     The `Application` resource owns the `MaskinportenClient` resource, deletion of the former will thus trigger a deletion of the latter.
 
-If the `MaskinportenClient` resource is recreated, the client will thus retain the same client ID.
+    If the `MaskinportenClient` resource is recreated, the client will thus retain the same client ID.
 
-If you want to provision a new client, you must add the following annotation to the `MaskinportenClient` resource:
+If you want to completely delete the client from DigDir, you must add the following annotation to the `MaskinportenClient` resource:
 
 ```bash
 kubectl annotate maskinportenclient <app> digdir.nais.io/delete=true
