@@ -272,7 +272,7 @@ Other claims in the token are passed on verbatim from the original token issued 
 
 The claim used for the national identity number (_fødselsnummer_) varies from issuer to issuer. For instance: ID-porten use `pid`, loginservice use `sub`. The situation may be similar for other kinds of information with no standard claim name. TokenX does not try to unify this kind of information — claims are copied verbatim as described above.
 
-To extract such non-standard information from tokens, you must figure out which claim is used by each of the issuers that TokenX accept tokens from. And in your code, you must first use `idp` to look up the correct claim for that specific token.
+To extract such non-standard information from tokens, first use the `idp` claim to find the original token issuer. You can then map the original issuer's preferred claims to the claims in tokens issued by TokenX.
 
 #### Example Token \(exchanged from ID-porten\)
 
