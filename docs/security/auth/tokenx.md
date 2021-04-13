@@ -204,7 +204,7 @@ Tokendings will then issue an `access_token` in JWT format, based on the paramet
 * You have a _subject token_ in the form of an `access_token` issued by one of the following providers:
     - [ID-porten](idporten.md)
     - Tokendings
-    - [Loginservice](https://doc.nais.io/legacy/sunset/#loginservice) (Remember that loginservice is a legacy system. TokenX accept their tokens to ease migration away from on-prem.)
+    - [Loginservice](../../../legacy/sunset/#loginservice) (Remember that loginservice is a legacy system. TokenX accept their tokens to ease migration away from on-prem.)
 * You have a [client assertion](tokenx.md#client-authentication) that _authenticates_ your application.
 
 #### Exchange Request
