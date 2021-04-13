@@ -50,6 +50,8 @@ that you may mount into your applications in the GCP clusters.
     ![Google Secret Manager Sync label](../../assets/google-secret-manager-sync-label.png)
 
     !!! info 
+        Synchronization only occurs when new _secret versions_ are created.
+
         If the secret already existed without this label, you must create a new _secret
         version_ to effectuate the sync.
 
