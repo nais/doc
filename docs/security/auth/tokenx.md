@@ -204,6 +204,7 @@ Tokendings will then issue an `access_token` in JWT format, based on the paramet
 * You have a _subject token_ in the form of an `access_token` issued by one of the following providers:
     - [ID-porten](idporten.md)
     - Tokendings
+    - [Loginservice](../../../legacy/sunset/#loginservice) (Remember that loginservice is a legacy system. TokenX accept their tokens to ease migration away from on-prem.)
 * You have a [client assertion](tokenx.md#client-authentication) that _authenticates_ your application.
 
 #### Exchange Request
@@ -268,6 +269,10 @@ The following claims are by default provided in the issued token and should expl
 * `sub` \(**subject**\): If applicable, used in user centric access control. This represents a unique identifier for the user.
 
 Other claims in the token are passed on verbatim from the original token issued by `idp`.
+
+The claim used for the national identity number (_fødselsnummer_) varies from issuer to issuer. For instance: ID-porten use `pid`, loginservice use `sub`. The situation may be similar for other kinds of information with no standard claim name. TokenX does not try to unify this kind of information — claims are copied verbatim as described above.
+
+To extract such non-standard information from tokens, first use the `idp` claim to find the original token issuer. You can then map the original issuer's preferred claims to the claims in tokens issued by TokenX.
 
 #### Example Token \(exchanged from ID-porten\)
 
