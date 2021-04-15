@@ -13,11 +13,14 @@ The objectstore / S3 bucket access is secured with access keys and secret keys s
 !!! info
     This feature is only available in on-premises clusters.
 
+!!! info
+    This feature does not have backups of the data in the buckets, please move to GCP if this is needed.
+
 ## How to
 
 ### Ceph object storage user
 
-On NAIS on-prem you're required to add a ceph object storage user. This is done through nais-yaml. After applying changes to the ceph-users.yaml and applying this to the cluster the rook operator will create the necessary secrets used to access the S3 bucket. Contact [@Sten.Ivar.Røkke](https://nav-it.slack.com/archives/D5KP2068Z) for access or create a pull-request in [navikt/nais-yaml](https://github.com/navikt/nais-yaml.git).
+On NAIS on-prem you're required to add a ceph object storage user. This is done through nais-yaml. After applying changes to the ceph-users.yaml and applying this to the cluster the rook operator will create the necessary secrets used to access the S3 bucket. To get access create a pull-request in [navikt/nais-yaml](https://github.com/navikt/nais-yaml.git).
 
 Example yaml for ceph user:
 
