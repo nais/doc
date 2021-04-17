@@ -377,6 +377,14 @@ See [postgres](../../persistence/postgres.md)-doc for more details
     Setting this to DB will give you DB\_HOST, DB\_USERNAME, etc.  
     `Default`: Application name
 
+    ---
+
+    #### `spec.gcp.sqlInstances[].databases[].additionalUsers`
+
+    You can add additional users for your instance. Rights for useres is managed in the google ui.
+
+    `Default`:  Standard User by Application name
+
 ## `spec.gcp.buckets`
 
 List of buckets to provision in gcp
