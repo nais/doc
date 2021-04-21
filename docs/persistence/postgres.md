@@ -91,10 +91,10 @@ With `.spec.gcp.sqlInstances[].databases[].envVarPrefix` set to `DB` and additio
 Details about environment variables is specified her: [`configuration`](../persistence/postgres.md#configuration)
 
 !!! info
-Note that if you have deployed your application with an additional user, and then change name or remove the user from configuration, you have to manually delete the google-sql-*MYAPP*-*USER*:
-```bash
-$ kubectl delete secret google-sql-<MYAPP>-<USER>
-```
+    If you've deployed your application with an [additional user](#additional-users-databases), and then change name or remove the user from configuration, you need to _manually_ delete the `google-sql-<MYAPP>-<USER>` secret:
+    ```bash
+    $ kubectl delete secret google-sql-<MYAPP>-<USER>
+    ```
 
 ## Personal database access
 
