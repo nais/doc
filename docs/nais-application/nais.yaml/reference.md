@@ -379,11 +379,11 @@ See [postgres](../../persistence/postgres.md)-doc for more details
 
     ---
 
-    #### `spec.gcp.sqlInstances[].databases[].additionalUsers`
+    #### `spec.gcp.sqlInstances[].databases[].users`
 
-    You can add additional users for your instance. Rights for useres is managed in the google ui.
+    You can add additional users for each datbase instance. To be able to use the new user(s) you need to enable privileges for user(s) to database. See [buckets](../../persistence/postgres.md) for more details
 
-    `Default`:  Standard User by Application name
+    `Default`:  sqlInstance name
 
 ## `spec.gcp.buckets`
 

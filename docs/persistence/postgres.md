@@ -83,6 +83,12 @@ Default 7 backups will be kept. More info [here](https://cloud.google.com/sql/do
 
 The backups can be found in the [Google Cloud SQL instance](https://cloud.google.com/sql) dashboard.
 
+## Additional user(s) database(s)
+
+You can add users to your database by setting database configuration option: `.spec.gcp.sqlInstances[].databases[].users`. 
+Names added must match regex: `^[_a-zA-Z][_a-zA-Z0-9]+$`. Secrets is generated and mounted for each user.
+With `.spec.gcp.sqlInstances[].databases[].envVarPrefix` set to `DB` and additional username to `_user2` you will get environment variables in format `DB_USER2_MYDB_USERNAME` etc. Details about environment variables is specified her: [`configuration`](../persistence/postgres.md#configuration)
+
 ## Personal database access
 
 Databases should always be accessed using a personal account, and the access should ideally be temporary.
