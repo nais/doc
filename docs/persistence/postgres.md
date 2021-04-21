@@ -87,7 +87,8 @@ The backups can be found in the [Google Cloud SQL instance](https://cloud.google
 
 You can add users to your database by setting database configuration option: `.spec.gcp.sqlInstances[].databases[].users`. 
 Names added must match regex: `^[_a-zA-Z][_a-zA-Z0-9]+$`. Secrets is generated and mounted for each user.
-With `.spec.gcp.sqlInstances[].databases[].envVarPrefix` set to `DB` and additional username to `_user2` you will get environment variables in format `DB_USER2_MYDB_USERNAME` etc. Details about environment variables is specified her: [`configuration`](../persistence/postgres.md#configuration)
+With `.spec.gcp.sqlInstances[].databases[].envVarPrefix` set to `DB` and additional username to `_user2` you will get environment variables in format `DB_USER2_MYDB_USERNAME` etc.
+Details about environment variables is specified her: [`configuration`](../persistence/postgres.md#configuration)
 
 !!! info
 Note that if you have deployed your application with an additional user, and then change name or remove the user from configuration, you have to manually delete the google-sql-*MYAPP*-*USER*:
@@ -269,4 +270,3 @@ $ kubectl logs <pod> -c cloudsql-proxy
 ## Example with all configuration options
 
 See [full example](../nais-application/nais.yaml/full-example.md).
-
