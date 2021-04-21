@@ -90,7 +90,7 @@ Names added must match regex: `^[_a-zA-Z][_a-zA-Z0-9]+$`. Secrets is generated a
 With `.spec.gcp.sqlInstances[].databases[].envVarPrefix` set to `DB` and additional username to `_user2` you will get environment variables in format `DB_USER2_MYDB_USERNAME` etc. Details about environment variables is specified her: [`configuration`](../persistence/postgres.md#configuration)
 
 !!! info
-Note that if you have deployed your application a user, and then change name or remove the user from configuration, you have to manually delete the google-sql-*MYAPP*-*USER*:
+Note that if you have deployed your application with an additional user, and then change name or remove the user from configuration, you have to manually delete the google-sql-*MYAPP*-*USER*:
 ```bash
 $ kubectl delete secret google-sql-<MYAPP>-<USER>
 ```
