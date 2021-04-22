@@ -135,6 +135,9 @@ spec:
         databases:
           - name: mydb
             envVarPrefix: NAIS_DATABASE
+            users:
+              - name: user2
+              - name: _user3
         maintenanceWindow:
           day: 1
           hour: 4
