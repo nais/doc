@@ -383,7 +383,7 @@ See [postgres](../../persistence/postgres.md)-doc for more details
     
     Name of user
 
-    You can add additional users for each datbase in the instance. To be able to use the new user(s) you need to enable privileges for user(s) to database. See [buckets](../../persistence/postgres.md) for more details
+    You can add additional users for each datbase in the instance. To be able to use the new user(s) you need to enable privileges for user(s) to database. See [postgres](../../persistence/postgres.md) for more details
 
     `Default`:  sqlInstance name
 
