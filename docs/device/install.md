@@ -73,8 +73,12 @@ In your Systray (where all your small program icons are located - see above pict
    You might need to allow ~20 seconds to pass before clicking `Connect` turns your `naisdevice` icon green.
 5. If `naisdevice` gives a pop-up notification about your device being unhealthy - double check that Kolide still reports your device as healthy.
    (The `naisdevice` systray-icon should have turned into a yellow color).
-    1. If not your device is not healthy - remediate the issues.
-    2. If your device is healthy - try to disconnect and re-connect `naisdevice` through the menu given by clicking the icon on the systray.
+    - If not your device is not healthy - remediate the issues.
+
+!!! tip
+    If Kolide reports your device to be healthy, but still naisdevice won't let you connect, try to disconnect and re-connect `naisdevice`.
+
+    If naisdevice still won't let you connect, be aware that it may take up to 5 minutes for the `naisdevice` server to register that Kolide now thinks your device is okay.
 
 ### How to accept the "Do's and don'ts" of `naisdevice`
 
