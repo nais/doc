@@ -137,7 +137,7 @@ Configures an Azure AD client for this application. See [Azure AD](../../securit
     ### `spec.azure.application.claims.extra[]`
 
     List of additional claims that should be emitted in tokens for your application.  
-    `Allowed values`: `NAVident`
+    `Allowed values`: [`NAVident`, `azp_name`]
 
     ---
 

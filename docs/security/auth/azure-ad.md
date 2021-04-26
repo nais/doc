@@ -88,7 +88,7 @@ An Azure AD client has its own ID that uniquely identifies the client within a t
 Your application's Azure AD client ID is available at multiple locations:
 
 1. The environment variable `AZURE_APP_CLIENT_ID`, available inside your application at runtime
-2. In the Kubernetes resource - `kubectl get azureapp <app-name>`
+2. In the Kubernetes resource - `kubectl get azureapp <app-name> -o wide`
 3. The [Azure Portal](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps). You may have to click on `All applications` if it does not show up in `Owned applications`. Search using the naming scheme mentioned earlier: `<cluster>:<namespace>:<app>`.
 
 ## Configuration
@@ -114,6 +114,7 @@ Your application's Azure AD client ID is available at multiple locations:
           claims:
             extra:
               - "NAVident"
+              - "azp_name"
             groups:
               - id: "<object ID of Azure AD group>"
 
@@ -226,14 +227,8 @@ For proper scoping of tokens when performing calls between clients, one must eit
 
 Azure AD will enforce authorization for both flows. In other words, you **must** pre-authorize any consumer clients for your application.
 
-Clients that should receive and validate access tokens from other clients should [pre-authorize](azure-ad.md#pre-authorization) said clients.
-
+Clients that should receive and validate access tokens from other clients should [pre-authorize](azure-ad.md#pre-authorization) said clients. 
 These are declared by specifying [`spec.accessPolicy.inbound.rules[]`](../../nais-application/nais.yaml/reference.md#specaccesspolicy):
-
-!!! danger
-    Any client referred to **must** already exist in Azure AD in order to be assigned the access policy permissions.
-
-    **Clients that do** _**not**_ **exist in Azure AD will be skipped. Assignment will not be retried until next deploy.**
 
 ```yaml
 spec:
@@ -249,6 +244,13 @@ spec:
           namespace: other-namespace
           cluster: other-cluster
 ```
+
+!!! danger
+    Any client referred to **must** already exist in Azure AD in order to be assigned the access policy permissions.
+
+    Be aware of dependency order when deploying your applications for the first time in each cluster with provisioning enabled.
+
+    **Clients defined in the Spec that do _not_ exist in Azure AD at deploy time will be skipped. [Assignments will not be automatically retried.](#forcing-resynchronization)**
 
 The above configuration will pre-authorize the Azure AD clients belonging to:
 
@@ -444,7 +446,7 @@ This section only applies if you have an existing Azure AD client registered in 
 * Declarative provisioning, straight from your application's [`nais.yaml`](../../nais-application/nais.yaml/reference.md#specazureapplication)
 * No longer dependent on manual user approvals in multiple IaC repositories
 * No longer dependent on Vault
-* Credentials are rotated on _every_ deploy, completely transparent to the application. This ensures that credentials are fresh and lessens the impact in the case of exposure.
+* Credentials are rotated regularly, completely transparent to the application. This ensures that credentials are fresh and lessens the impact in the case of exposure.
 * The exact same feature is present in the [GCP](../../clusters/gcp.md) clusters, which simplifies [migration](../../clusters/migrating-to-gcp.md).
 
 ### Tenants
@@ -537,12 +539,14 @@ If keeping the existing client ID and configuration is not important, it should 
     * Verify that everything works after the migration
     * Delete the application from the [IaC repository](https://github.com/navikt/aad-iac) in order to maintain a single source of truth
 
-## Permanently deleting a client
+## Operations
+
+### Permanently deleting a client
 
 !!! warning
-    Permanent deletes are irreversible. Only do this if you are certain that you wish to completely remove the client from DigDir.
+    Permanent deletes are irreversible. Only do this if you are certain that you wish to completely remove the client from Azure AD.
 
-When an `AzureAdApplication` resource is deleted from a Kubernetes cluster, the client is not deleted from DigDir.
+When an `AzureAdApplication` resource is deleted from a Kubernetes cluster, the client is not deleted from Azure AD.
 
 !!! info
     The `Application` resource owns the `AzureAdApplication` resource, deletion of the former will thus trigger a deletion of the latter.
@@ -555,4 +559,36 @@ If you want to completely delete the client from Azure AD, you must add the foll
 kubectl annotate azureapp <app> azure.nais.io/delete=true
 ```
 
-When this annotation is in place, deleting the `AzureAdApplication` resource from Kubernetes will trigger removal of the client from DigDir.
+When this annotation is in place, deleting the `AzureAdApplication` resource from Kubernetes will trigger removal of the client from Azure AD.
+
+### Forcing resynchronization
+
+Synchronization to Azure AD only happens when at least one of two things happen:
+
+1. Any [Spec](#spec) value has changed.
+2. An annotation is applied to the resource:
+
+```bash
+kubectl annotate azureapp <app> azure.nais.io/resync=true
+```
+
+The annotation is removed after synchronization. It can then be re-applied to trigger new synchronizations.
+
+If you previously deployed an application where the access policy for [pre-authorization](#pre-authorization) included 
+a non-existing client which now exists, you should thus force resynchronization to Azure AD as shown above.
+
+### Forcing credential rotation
+
+Credential rotation happens automatically on a regular basis. 
+
+However, if you need to trigger rotation manually you may do so by applying the following annotation:
+
+```bash
+kubectl annotate azureapp <app> azure.nais.io/rotate=true
+```
+
+You should then restart your pods so that the new credentials are re-injected:
+
+```bash
+kubectl rollout restart deployment <app>
+```
