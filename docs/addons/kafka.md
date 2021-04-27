@@ -20,7 +20,6 @@ Follow development on the [PIG-Aiven Trello board](https://trello.com/b/O0EvBshY
 
 Major features coming:
 
-* Live data migration from on-premises to Aiven
 * Custom pools for teams with large amounts of data
 
 ## Creating topics and defining access
@@ -293,6 +292,16 @@ To delete all versions of the schema registered under subject "test-key":
 $ curl -X DELETE -u brukernavn:passord http://$KAFKA_SCHEMA_REGISTRY/subjects/test-key
   [1]
 ```
+
+## REST API
+
+For applications that can't use Kafka directly, a REST API is possible.
+Because of security implications, we have not enabled the REST API on the cluster, but interested parties may run their own instance.
+
+We have packaged [Aivens Karapace](https://github.com/aiven/karapace) project in a NAIS-friendly package.
+Teams can install [Karapace](https://github.com/nais/karapace) in their own namespace with relevant access to provide a REST API for Kafka topics.
+Check the Karapace Readme for details.
+
 
 ## FAQ/Troubleshooting
 
