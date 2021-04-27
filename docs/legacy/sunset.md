@@ -43,11 +43,11 @@ Det er ingen plan om å avvikle de gamle ingressene i FSS, men vi anbefaler en g
 
 ### MQ
 
-MQ benyttes i dag kun via on-premises servere som driftes og vedlikeholdes av ATOM og Linux.  
+MQ benyttes i dag kun via on-premises servere som driftes og vedlikeholdes av ATOM og Linux. 
 
-Det er ønskelig at de applikasjonene som har mulighet heller benytter Aiven Kafka. Det er dog støtte for MQ fra nais-klusterne on-premises og GCP, men kun de nye serverne som er satt opp med sikkerhet. 
+Det er ønskelig at de applikasjonene som har mulighet heller benytter Aiven Kafka. Det er dog støtte for MQ fra nais-klusterne on-premises og i GCP, men da kun med nye serverne som er satt opp med autentisering.
 
-Det er ingen plan om avvikle MQ on-premises, disse vil fortsatt leve lenge.
+MQ on-premises skal ikke sunsettes i seg selv, men bruk av ikke-autentisert MQ vil ikke lenger være mulig fra nais-klusterne  i nær fremtid. 
 
 ### Rook/Ceph
 
@@ -55,8 +55,7 @@ Rook/Ceph er i dag satt opp on-premises og tilgjengelig fra alle nais-klustere d
 
 Rook/Ceph ønskes sanert, vi ønsker derfor at ingen nye apper tar dette i bruk og heller benytter seg av buckets i GCP og ElasticSearch i GCP eller Aiven. Rook/ceph anses som en risiko pga utilstrekkelig backup ettersom et kluster ikke kan relokeres eller flyttes. 
 
-Det er en uttalt plan for sanering av Rook/Ceph, men løsningen vil leve videre med vedlikehold til tilstrekkelig mange applikasjoner har flyttet sine data ut i offentlig sky.s
-
+Det er en uttalt plan for sanering av Rook/Ceph, men løsningen vil leve videre med vedlikehold til tilstrekkelig mange applikasjoner har flyttet sine data ut i offentlig sky.
 
 ### Kafka onprem
 
