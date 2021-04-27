@@ -51,15 +51,32 @@ Det er ingen plan om å avvikle de gamle ingressene i FSS, men vi anbefaler en g
 
 ### Kafka onprem
 
-Kafka er i dag tilgjengelig både som en tjeneste fra Aiven som kjører i GCP og som en tjeneste vi kjører i egne datasentre. Begge variantene av kafka kan nås fra alle nais-clustre. 
+Kafka er i dag tilgjengelig både som en tjeneste fra Aiven som kjører i GCP og som en tjeneste vi kjører i egne datasentre.
+Begge variantene av kafka kan nås fra alle nais-clustre. 
 
-Kafka onprem driftes og vedlikeholdes av en håndfull personer, hvor ingen har Kafka som sin hovedoppgave. I tillegg er det tekniske oppsettet uhensiktsmesig og sårbart for en lang rekke problemer, sist sett da det var problemer med en disk i SAN i høst. På grunn av vanskeligheter med lisenser, så er vi hindret fra å oppgradere til nyere versjoner av Kafka uten å måtte gjøre et større løft, og da er det mer hensiktsmessig å migrere til Aiven hvor dette allerede er løst.
+Kafka onprem driftes og vedlikeholdes av en håndfull personer, hvor ingen har Kafka som sin hovedoppgave.
+Det er også identifisert flere potensielle problemer som ikke lar seg løse:
 
-Aiven er en leverandør som har Kafka som hovedprodukt, det er et av de første produktene de tilbød, og de har opparbeidet seg høy kompetanse på drift og oppsett av Kafka i sky. Aiven Kafka er derfor å regne som langt mer robust enn Kafka onprem, og blir kontinuerlig vedlikeholdt og forbedret av Aiven. Det er enkelt for oss å oppgradere til nyere versjoner av Kafka, og vi drar nytte av alle driftsfordelene med sky.
+- Av lisensmessige årsaker kan vi ikke oppgradere clusteret in-place, så vi er bundet til nåværende versjon.
+- Clusteret er satt opp med felles diskløsning (SAN), noe som gjør at alle nodene har et delt point-of-failure.
+  Dette kan i visse feilsituasjoner øke sjansene for tap av data.
+- Av historiske årsaker er clusteret "feilkonfigurert" på en måte som gjør at consumer offset topicet er veldig stort.
+  Dette fører til lange recovery tider og potensiale for å miste offsets i feilsituasjoner.
 
-Som følge av Aivens gode APIer er det også mulig for NAIS å integrere Kafka tettere i plattformen, og vi har flere muligheter for videreutvikling. Kombinasjonen av Aiven Kafka og Kafkarator gjør det betydelig enklere for team å ta i bruk Aiven Kafka sammenlignet med Kafka onprem.
+Løsningen på disse problemene er å migrere til et nytt cluster, og da har vi valgt å migrere til Aiven Kafka.
 
-Vi har hatt en ambisjon om at Kafka onprem skal skrus av før sommeren 2021, men siden vi ser at enkelte team vil ha problemer med å migrere før dette kommer vi ikke til å ha dette som en hard deadline. Vi vil likevel oppfordre alle som har mulighet til å migrere til Aiven Kafka allerede nå.
+Aiven er en leverandør som har Kafka som hovedprodukt, det er et av de første produktene de tilbød, og de har opparbeidet seg høy kompetanse på drift og oppsett av Kafka i sky.
+Aiven Kafka er derfor å regne som langt mer robust enn Kafka onprem, og blir kontinuerlig vedlikeholdt og forbedret av Aiven.
+Det er enkelt for oss å oppgradere til nyere versjoner av Kafka, og vi drar nytte av alle driftsfordelene med sky.
+
+Som følge av Aivens gode APIer er det også mulig for NAIS å integrere Kafka tettere i plattformen, og vi har flere muligheter for videreutvikling.
+Kombinasjonen av Aiven Kafka og Kafkarator gjør det betydelig enklere for team å ta i bruk Aiven Kafka sammenlignet med Kafka onprem.
+
+Vi har hatt en ambisjon om at Kafka onprem skal skrus av før sommeren 2021, men siden vi ser at enkelte team vil ha problemer med å migrere før dette kommer vi ikke til å ha dette som en hard deadline.
+Vi vil likevel oppfordre alle som har mulighet til å migrere til Aiven Kafka allerede nå.
+
+Vi har allikevel besluttet at vi stenger for å opprette nye topics i Kafka onprem fra 1. juni 2021. 
+Hypotesen er at siden det allikevel er et nytt topic, så er det både enklere og mer fremtidsrettet om det opprettes på Aiven Kafka, og vi ønsker å redusere mengden data som går gjennom Kafka onprem.
 
 ### loginservice
 
