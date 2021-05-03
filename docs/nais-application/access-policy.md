@@ -1,7 +1,7 @@
 # Access Policy
 
 !!! info
-    Network policies and Istio authorization is only applied in GCP clusters.
+    Network policies are only applied in GCP clusters.
     
     However, inbound rules for authorization in the context of [_TokenX_](../security/auth/tokenx.md) or [_Azure AD_](../security/auth/azure-ad.md) apply to all clusters.
 
@@ -10,7 +10,7 @@
 Access policies express which applications and services you are able to communicate with, both inbound and outbound. The default policy is to **deny all incoming and outgoing traffic** for your application, meaning you must be conscious of which services/application you consume, and who your consumers are.
 
 !!! warning
-    The Istio access policies only apply when communicating interally within the cluster with [service discovery](../clusters/service-discovery.md).
+    The Access policies only apply when communicating interally within the cluster with [service discovery](../clusters/service-discovery.md).
     
     Outbound requests to ingresses are regarded as external hosts, even if these ingresses exist in the same cluster.
     
@@ -122,13 +122,15 @@ There are some services that are automatically added to the mesh in [dev-gcp](ht
 
 ### Advanced: Resources created by Naiserator
 
-The previous application manifest examples will create both Kubernetes Network Policies and Istio resources.
+The previous application manifest examples will create Kubernetes Network Policies.
 
 #### Kubernetes Network Policy
 
 **Default policy**
 
-Every app created will have this default network policy that allows traffic from Istio pilot and mixer, as well as kube-dns. This policy will be created for every app, also those who don't have any access policies specified.
+Every app created will have this default network policy that allows traffic to Linkerd and kube-dns. 
+It also allows incoming traffic from the Linkerd control plane and from tap and prometheus in the linkerd-viz namespace. This is what enables monitoring via the linkerd dashboard.
+These policies will be created for every app, also those who don't have any access policies specified.
 
 ```yaml
 apiVersion: extensions/v1beta1
@@ -141,34 +143,46 @@ metadata:
   namespace: teamname
 spec:
   egress:
-  - to:
-    - namespaceSelector:
-        matchLabels:
-          name: istio-system
-      podSelector:
-        matchLabels:
-          istio: pilot
-    - namespaceSelector:
-        matchLabels:
-          name: istio-system
-      podSelector:
-        matchLabels:
-          istio: mixer
-    - namespaceSelector: {}
-      podSelector:
-        matchLabels:
-          k8s-app: kube-dns
-    - ipBlock:
-        cidr: 0.0.0.0/0
-        except:
-        - 10.0.0.0/8
-        - 172.16.0.0/12
-        - 192.168.0.0/16
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              linkerd.io/is-control-plane: "true"
+        - namespaceSelector: {}
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except:
+              - 10.6.0.0/15
+              - 172.16.0.0/12
+              - 192.168.0.0/16
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              linkerd.io/is-control-plane: "true"
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              linkerd.io/extension: viz
+          podSelector:
+            matchLabels:
+              component: tap
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              linkerd.io/extension: viz
+          podSelector:
+            matchLabels:
+              component: prometheus
   podSelector:
     matchLabels:
       app: appname
   policyTypes:
-  - Egress
+    - Ingress
+    - Egress
+
 ```
 
 **Kubernetes network policies**
@@ -214,101 +228,4 @@ spec:
     Note that for namespace match labels to work, the namespaces must be labeled with `name: namespacename`.
 
     `kube-system` should be labeled accordingly for the default rule that allows traffic to `kube-dns`, but in GCP, the label is removed by some job in regular intervals...
-
-#### Istio Resources
-
-The policies from `spec.accessPolicy` will in addition create these Istio-resources:
-
-**ServiceRole and ServiceRoleBinding**
-
-For Istio to allow request from `app-b` in the same namespace and in `othernamespace`, these resources will be created:
-
-```yaml
-apiVersion: rbac.istio.io/v1alpha1
-kind: ServiceRole
-metadata:
-  labels:
-    app: app-a
-    team: my-team 
-  name: app-a
-  namespace: my-team
-spec:
-  rules:
-  - methods:
-    - '*'
-    paths:
-    - '*'
-    services:
-    - app-a.my-team.svc.cluster.local
-```
-
-```yaml
-apiVersion: rbac.istio.io/v1alpha1
-kind: ServiceRoleBinding
-metadata:
-  labels:
-    app: app-a
-    team: my-team
-  name: app-a
-  namespace: my-team
-spec:
-  roleRef:
-    kind: ServiceRole
-    name: app-a
-  subjects:
-  - user: cluster.local/ns/my-team/sa/app-b
-  - user: cluster.local/ns/othernamespace/sa/app-b
-```
-
-**ServiceEntry**
-
-`spec.accessRules.outbound.external` will create ServiceEntry:
-
-```yaml
-apiVersion: networking.istio.io/v1alpha3
-kind: ServiceEntry
-metadata:
-  labels:
-    app: app-a
-    team: my-team
-  name: app-a
-  namespace: my-team
-spec:
-  hosts:
-  - www.external-application.com
-  location: MESH_EXTERNAL
-  ports:
-  - name: https
-    number: 443
-    protocol: HTTPS
-  resolution: DNS
-```
-
-**VirtualService**
-
-In the cloud `spec.ingresses` will create VirtualService instead of Ingress objects:
-
-```yaml
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  labels:
-    app: app-a
-    team: my-team
-  name: app-a-app-a-dev-gcp-nais-io
-  namespace: my-team
-spec:
-  gateways:
-  - istio-system/ingress-gateway-nais-io
-  hosts:
-  - my-app.dev-gcp.nais.io
-  http:
-  - route:
-    - destination:
-        host: app-a
-        port:
-          number: 80
-        subset: ""
-      weight: 100
-```
 

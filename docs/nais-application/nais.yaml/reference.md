@@ -31,7 +31,7 @@ The name of the [team](../../basics/teams.md) that owns this application \(lower
 
 ## `spec.accessPolicy` 
 
-Default will not allow any traffic to or from application in GKE clusters. [Access policy](../access-policy.md) for istio rules is currently supported in GKE clusters, only.
+By default, all traffic is disallowed between applications in GKE clusters. [Access policy](../access-policy.md) for linkerd rules is currently supported in GKE clusters, only.
 
 ??? "`spec.accessPolicy.*`"
     ### `spec.accessPolicy.inbound.rules[]`
@@ -795,7 +795,6 @@ How to connect to the default service in your application's container.
 
     ### `spec.service.protocol`
 
-    Name of the port for the default service. It's called `protocol`, for this field is read as a protocol by Istio.  
     `Default`: `http`
 
 ## `spec.skipCaBundle`
@@ -870,18 +869,6 @@ Toggle for enabling [TokenX](../../security/auth/tokenx.md) for your application
 `Default`: `false`
 
 ---
-
-## `spec.tracing`
-
-Configuration of [tracing](../../observability/tracing.md).
-
-??? "`spec.tracing.*`"
-    ### `spec.tracing.enabled`
-    
-    Allow network egress to the Jaeger tracing app and configures istio-proxy to trace all incoming requests.  
-    `Default`: `false`
-
-## `spec.vault`
 
 Provides secrets management, identity-based access, and encrypting application data for auditing of secrets for applications, systems, and users.
 Vault documentation can be found in [navikt/vault-iac](https://github.com/navikt/vault-iac/tree/master/doc).

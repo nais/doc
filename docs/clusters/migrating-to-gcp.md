@@ -5,7 +5,7 @@
 * Access to self-service Google-managed [buckets](../persistence/buckets.md) and [Postgres databases](../persistence/postgres.md).
 * Access to Google Cloud features.
 * [Zero Trust security model](../appendix/zero-trust.md) instead of FSS/SBS zone model.
-* [Built-in call tracing](https://istio.io/docs/tasks/observability/distributed-tracing/) similar to AppDynamics.
+* [Built-in call tracing](https://github.com/linkerd/linkerd-viz) similar to AppDynamics.
 * Cost efficient and future proof.
 
 ### Prerequisites
