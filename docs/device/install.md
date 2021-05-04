@@ -30,6 +30,7 @@
 3. Turn on your freshly installed `naisdevice` application.
     1. Find `naisdevice` in your application menu, or use the `naisdevice` command in a terminal to start the application.
     2. Follow the [instructions to connect your _nais_ device](#connect-naisdevice-through-tasksys-tray-icon).
+    3. It may take some time from Kolide reports that everything is ok to the naisdevice app "agrees" and can connect. In one case at least four hours. Leave the laptop on and try to reconnect with the naisdevice app the next day.
 4. Remember to [update your kubeconfig](install.md#connecting-to-nais-clusters).
 
 ## OS-agnostic install steps
