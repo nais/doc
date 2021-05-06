@@ -93,6 +93,10 @@ Your application's Azure AD client ID is available at multiple locations:
 
 ## Configuration
 
+### Spec
+
+See the [NAIS manifest](../../nais-application/nais.yaml/reference.md#specazureapplication).
+
 ### Getting started
 
 === "nais.yaml"
@@ -130,10 +134,6 @@ Your application's Azure AD client ID is available at multiple locations:
       # required for on-premises only
       webproxy: true 
     ```
-
-### Spec
-
-See the [NAIS manifest](../../nais-application/nais.yaml/reference.md#specazureapplication).
 
 ### Accessing external hosts
 
@@ -565,7 +565,7 @@ When this annotation is in place, deleting the `AzureAdApplication` resource fro
 
 Synchronization to Azure AD only happens when at least one of two things happen:
 
-1. Any [Spec](#spec) value has changed.
+1. Any [spec.azure.* or spec.accessPolicy.inbound.rules[]](#spec) value has changed.
 2. An annotation is applied to the resource:
 
 ```bash
