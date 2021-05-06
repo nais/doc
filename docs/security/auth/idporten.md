@@ -121,6 +121,7 @@ If the optional parameters `id_token_hint` and `post_logout_redirect_uri` are se
 
 Your application will receive a `GET` request from ID-porten at `frontchannel_logout_uri`. 
 This request includes two parameters:
+
 - `iss` which denotes the _issuer_ for the Identity Provider
 - `sid` which denotes the user's associated session ID at ID-porten which is set in the `sid` claim in the user's `id_token`
 
