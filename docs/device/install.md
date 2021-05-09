@@ -12,7 +12,7 @@
 brew tap nais/tap
 brew install naisdevice
 ``` 
-(you'll might be prompted for your laptop-account's password to unlock `sudo`).
+(you will be prompted for your laptop-account's password to unlock `sudo`).
 5. Turn on your freshly installed `naisdevice` app.
     1. Use &lt;Command&gt; + &lt;Space&gt; to find your `naisdevice.app` and press &lt;Enter&gt;.
     2. Follow the [instructions to connect your _nais_ device](#connect-naisdevice-through-tasksys-tray-icon).
