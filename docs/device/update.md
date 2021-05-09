@@ -5,7 +5,11 @@ If this is not the case, head over to the [installation instructions](./install.
 
 ## OS-specific update instructions
 
-### macOS and Ubuntu \(using Gnome DE - only supported variant atm\)
+### macOS
+
+Use the [standard mechanisms](https://docs.brew.sh/FAQ#how-do-i-update-my-local-packages) provided by Homebrew to upgrade the `naisdevice` cask
+
+### Ubuntu \(using Gnome DE - only supported variant atm\)
 
 Write in the terminal: `curl https://device.nais.io/install.sh | bash` \(you might be prompted for your laptop-account's password to unlock `sudo`\).
 

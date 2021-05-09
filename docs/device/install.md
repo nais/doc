@@ -6,11 +6,17 @@
 
 1. If you have got __`navtunnel`__ installed -> [uninstall navtunnel](#uninstall-navtunnel).
 2. [Install the Kolide agent](#install-kolide-agent).
-3. Write in the terminal: `curl https://device.nais.io/install.sh | bash` \(you might be prompted for your laptop-account's password to unlock `sudo`\).
-4. Turn on your freshly installed `naisdevice` app.
+3. Install [Homebrew](https://brew.sh/) unless yoy already have it.
+4. Write in the terminal: 
+```bash
+brew tap nais/tap
+brew install naisdevice
+``` 
+(you'll might be prompted for your laptop-account's password to unlock `sudo`).
+5. Turn on your freshly installed `naisdevice` app.
     1. Use &lt;Command&gt; + &lt;Space&gt; to find your `naisdevice.app` and press &lt;Enter&gt;.
     2. Follow the [instructions to connect your _nais_ device](#connect-naisdevice-through-tasksys-tray-icon).
-5. Remember to [update your kubeconfig](#connecting-to-nais-clusters) if you need to connect to anything running in a K8s cluster.
+6. Remember to [update your kubeconfig](#connecting-to-nais-clusters) if you need to connect to anything running in a K8s cluster.
 
 ### Windows Installation
 

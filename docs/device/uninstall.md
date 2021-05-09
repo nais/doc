@@ -15,6 +15,11 @@ sudo /bin/rm -rf /etc/kolide-k2
 sudo /bin/rm -rf /var/kolide-k2
 ```
 
+3. Uninstall the naisdevice Homebrew cask
+```bash
+brew uninstall --force naisdevice
+```
+
 ### Windows uninstall
 1. Enter  Apps & Features
 2. Search for Kolide 
