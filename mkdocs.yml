@@ -62,6 +62,7 @@ nav:
         - Full example: nais-application/nais.yaml/full-example.md
         - Minimal example: nais-application/nais.yaml/min-example.md
       - Access Policy: nais-application/access-policy.md
+      - Ingress customization: nais-application/ingress.md
     - Deployment:
       - NAIS deploy: deployment/README.md
       - Changing teams: deployment/change-team.md
