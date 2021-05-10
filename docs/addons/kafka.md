@@ -31,11 +31,13 @@ To add access to this topic for your application, see the next section: _Accessi
 Topic resources can only be specified in GCP clusters. However, applications might access topics from any cluster, including on-premises. For details, read the next section.
 
 Currently, use the `nav-dev` pool for development, and `nav-prod` for production.
+If you need cross-environment communications, use the `nav-infrastructure` pool.
 
 | Pool | Min. replication | Max. replication | Topic declared in | Available from |
 | :--- | :--- | :--- | :--- | :--- |
 | `nav-dev` | 2 | 3 | `dev-gcp` | `dev-gcp`, `dev-fss`, `dev-sbs` |
 | `nav-prod` | 2 | 3 | `prod-gcp` | `prod-gcp`, `prod-fss`, `prod-sbs` |
+| `nav-infrastructure` | 2 | 3 | `prod-gcp` | `dev-gcp`, `dev-fss`, `dev-sbs`, `prod-gcp`, `prod-fss`, `prod-sbs` |
 
 
 === "topic.yaml"
