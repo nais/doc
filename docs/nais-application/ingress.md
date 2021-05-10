@@ -14,7 +14,7 @@ However, Naiserator will copy these parameters from your Application spec.
 
 ```
 kind: Application
-apiVersion: v1alpha1
+apiVersion: nais.io/v1alpha1
 metadata:
   name: myapplication
   namespace: myteam
