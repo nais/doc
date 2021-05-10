@@ -795,7 +795,9 @@ How to connect to the default service in your application's container.
 
     ### `spec.service.protocol`
 
+    Which protocol the backend service runs on.
     `Default`: `http`
+    `Allowed values`: `http`, `redis`, `tcp`, `grpc`
 
 ## `spec.skipCaBundle`
 

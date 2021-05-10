@@ -71,6 +71,9 @@ spec:
     enabled: false
   service:
     port: 80
+    protocol: http
+  kafka:
+    pool: nav-dev
   skipCaBundle: false
   azure:
     application:
