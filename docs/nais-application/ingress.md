@@ -3,11 +3,9 @@
 !!! info
     Ingress parameter customization is enabled for GCP clusters only.
 
-You can add these Kubernetes annotations to your app spec to customize Ingress behavior.
-
-These parameters allow tweaking of many different variables. For a full list of
-supported variables, see [Nginx ingress
-documentation](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/).
+You can tweak the Ingress configuration by specifying certain Kubernetes annotations in your app spec.
+A list of supported variables are specified in the
+[Nginx ingress documentation](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/).
 
 As the Nginx ingress documentation states, these parameters are set on the Ingress object.
 However, Naiserator will copy these parameters from your Application spec.
