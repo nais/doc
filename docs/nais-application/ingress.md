@@ -21,6 +21,6 @@ metadata:
   name: myapplication
   namespace: myteam
   annotations:
-    nginx.ingress.kubernetes.io/client-body-buffer-size: "256M"
+    nginx.ingress.kubernetes.io/proxy-body-size: "256M"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
 ```
