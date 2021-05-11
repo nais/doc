@@ -236,12 +236,14 @@ Custom environment variables injected into your container.
 * JSONPath: `.spec.env[].name`
 * Type: `string`
 * Required: `false`
+* Example value: `MY_CUSTOM_VAR`
 
 #### value
 
 * JSONPath: `.spec.env[].value`
 * Type: `string`
 * Required: `false`
+* Example value: `some_value`
 
 #### valueFrom
 
@@ -285,12 +287,14 @@ Will expose all variables in ConfigMap or Secret resource as environment variabl
 * JSONPath: `.spec.envFrom[].configmap`
 * Type: `string`
 * Required: `false`
+* Example value: `configmap-with-envs`
 
 #### secret
 
 * JSONPath: `.spec.envFrom[].secret`
 * Type: `string`
 * Required: `false`
+* Example value: `secret-with-envs`
 
 ### filesFrom
 
@@ -306,18 +310,21 @@ List of ConfigMap or Secret resources that will have their contents mounted into
 * JSONPath: `.spec.filesFrom[].configmap`
 * Type: `string`
 * Required: `false`
+* Example value: `example-files-configmap`
 
 #### mountPath
 
 * JSONPath: `.spec.filesFrom[].mountPath`
 * Type: `string`
 * Required: `false`
+* Example value: `/var/run/secrets`
 
 #### secret
 
 * JSONPath: `.spec.filesFrom[].secret`
 * Type: `string`
 * Required: `false`
+* Example value: `my-secret-file`
 
 ### gcp
 
@@ -682,14 +689,16 @@ When a Pod starts and the probe fails, Kubernetes will try _failureThreshold_ ti
 * JSONPath: `.spec.liveness.failureThreshold`
 * Type: `integer`
 * Required: `false`
+* Example value: `10`
 
 #### initialDelay
 
-Number of seconds after the container has started before startup probes are initiated. Default: 20
+Number of seconds after the container has started before startup probes are initiated.
 
 * JSONPath: `.spec.liveness.initialDelay`
 * Type: `integer`
 * Required: `false`
+* Example value: `20`
 
 #### path
 
@@ -698,30 +707,34 @@ HTTP endpoint path that signals 200 OK if the application has started successful
 * JSONPath: `.spec.liveness.path`
 * Type: `string`
 * Required: `true`
+* Example value: `/isalive`
 
 #### periodSeconds
 
-How often (in seconds) to perform the probe. Default: 10
+How often (in seconds) to perform the probe.
 
 * JSONPath: `.spec.liveness.periodSeconds`
 * Type: `integer`
 * Required: `false`
+* Example value: `10`
 
 #### port
 
-Port for the startup probe. Default: .spec.port
+Port for the startup probe.
 
 * JSONPath: `.spec.liveness.port`
 * Type: `integer`
 * Required: `false`
+* Example value: `http`
 
 #### timeout
 
-Number of seconds after which the probe times out. Default: 1
+Number of seconds after which the probe times out.
 
 * JSONPath: `.spec.liveness.timeout`
 * Type: `integer`
 * Required: `false`
+* Example value: `1`
 
 ### logformat
 
@@ -788,6 +801,7 @@ The port number which is exposed by the container and should receive traffic.
 * JSONPath: `.spec.port`
 * Type: `integer`
 * Required: `false`
+* Example value: `8080`
 
 ### preStopHookPath
 
@@ -810,18 +824,21 @@ Prometheus is used to [scrape metrics from the pod](https://doc.nais.io/observab
 * JSONPath: `.spec.prometheus.enabled`
 * Type: `boolean`
 * Required: `false`
+* Example value: `true`
 
 #### path
 
 * JSONPath: `.spec.prometheus.path`
 * Type: `string`
 * Required: `false`
+* Example value: `/metrics`
 
 #### port
 
 * JSONPath: `.spec.prometheus.port`
 * Type: `string`
 * Required: `false`
+* Example value: `8080`
 
 ### readiness
 
@@ -838,14 +855,16 @@ When a Pod starts and the probe fails, Kubernetes will try _failureThreshold_ ti
 * JSONPath: `.spec.readiness.failureThreshold`
 * Type: `integer`
 * Required: `false`
+* Example value: `10`
 
 #### initialDelay
 
-Number of seconds after the container has started before startup probes are initiated. Default: 20
+Number of seconds after the container has started before startup probes are initiated.
 
 * JSONPath: `.spec.readiness.initialDelay`
 * Type: `integer`
 * Required: `false`
+* Example value: `20`
 
 #### path
 
@@ -854,30 +873,34 @@ HTTP endpoint path that signals 200 OK if the application has started successful
 * JSONPath: `.spec.readiness.path`
 * Type: `string`
 * Required: `true`
+* Example value: `/isalive`
 
 #### periodSeconds
 
-How often (in seconds) to perform the probe. Default: 10
+How often (in seconds) to perform the probe.
 
 * JSONPath: `.spec.readiness.periodSeconds`
 * Type: `integer`
 * Required: `false`
+* Example value: `10`
 
 #### port
 
-Port for the startup probe. Default: .spec.port
+Port for the startup probe.
 
 * JSONPath: `.spec.readiness.port`
 * Type: `integer`
 * Required: `false`
+* Example value: `http`
 
 #### timeout
 
-Number of seconds after which the probe times out. Default: 1
+Number of seconds after which the probe times out.
 
 * JSONPath: `.spec.readiness.timeout`
 * Type: `integer`
 * Required: `false`
+* Example value: `1`
 
 ### replicas
 
@@ -894,6 +917,7 @@ Amount of CPU usage before the autoscaler kicks in.
 * JSONPath: `.spec.replicas.cpuThresholdPercentage`
 * Type: `integer`
 * Required: `false`
+* Example value: `50`
 
 #### max
 
@@ -902,6 +926,7 @@ The pod autoscaler will scale deployments on demand until this maximum has been 
 * JSONPath: `.spec.replicas.max`
 * Type: `integer`
 * Required: `false`
+* Example value: `4`
 
 #### min
 
@@ -910,6 +935,7 @@ The minimum amount of replicas acceptable for a successful deployment.
 * JSONPath: `.spec.replicas.min`
 * Type: `integer`
 * Required: `false`
+* Example value: `2`
 
 ### resources
 
@@ -930,6 +956,7 @@ When Containers have [resource requests](http://kubernetes.io/docs/user-guide/co
 * JSONPath: `.spec.resources.limits.cpu`
 * Type: `string`
 * Required: `false`
+* Example value: `500m`
 * Pattern: `^\d+m?$`
 
 ##### memory
@@ -937,6 +964,7 @@ When Containers have [resource requests](http://kubernetes.io/docs/user-guide/co
 * JSONPath: `.spec.resources.limits.memory`
 * Type: `string`
 * Required: `false`
+* Example value: `256Mi`
 * Pattern: `^\d+[KMG]i$`
 
 #### requests
@@ -950,6 +978,7 @@ When Containers have [resource requests](http://kubernetes.io/docs/user-guide/co
 * JSONPath: `.spec.resources.requests.cpu`
 * Type: `string`
 * Required: `false`
+* Example value: `500m`
 * Pattern: `^\d+m?$`
 
 ##### memory
@@ -957,6 +986,7 @@ When Containers have [resource requests](http://kubernetes.io/docs/user-guide/co
 * JSONPath: `.spec.resources.requests.memory`
 * Type: `string`
 * Required: `false`
+* Example value: `256Mi`
 * Pattern: `^\d+[KMG]i$`
 
 ### secureLogs
@@ -1028,14 +1058,16 @@ When a Pod starts and the probe fails, Kubernetes will try _failureThreshold_ ti
 * JSONPath: `.spec.startup.failureThreshold`
 * Type: `integer`
 * Required: `false`
+* Example value: `10`
 
 #### initialDelay
 
-Number of seconds after the container has started before startup probes are initiated. Default: 20
+Number of seconds after the container has started before startup probes are initiated.
 
 * JSONPath: `.spec.startup.initialDelay`
 * Type: `integer`
 * Required: `false`
+* Example value: `20`
 
 #### path
 
@@ -1044,30 +1076,34 @@ HTTP endpoint path that signals 200 OK if the application has started successful
 * JSONPath: `.spec.startup.path`
 * Type: `string`
 * Required: `true`
+* Example value: `/isalive`
 
 #### periodSeconds
 
-How often (in seconds) to perform the probe. Default: 10
+How often (in seconds) to perform the probe.
 
 * JSONPath: `.spec.startup.periodSeconds`
 * Type: `integer`
 * Required: `false`
+* Example value: `10`
 
 #### port
 
-Port for the startup probe. Default: .spec.port
+Port for the startup probe.
 
 * JSONPath: `.spec.startup.port`
 * Type: `integer`
 * Required: `false`
+* Example value: `http`
 
 #### timeout
 
-Number of seconds after which the probe times out. Default: 1
+Number of seconds after which the probe times out.
 
 * JSONPath: `.spec.startup.timeout`
 * Type: `integer`
 * Required: `false`
+* Example value: `1`
 
 ### strategy
 
@@ -1082,6 +1118,7 @@ Specifies the strategy used to replace old Pods by new ones.
 * JSONPath: `.spec.strategy.type`
 * Type: `enum`
 * Required: `true`
+* Example value: `RollingUpdate`
 * Allowed values:
   * `Recreate`
   * `RollingUpdate`
@@ -1131,12 +1168,14 @@ Provides secrets management, identity-based access, and encrypting application d
 * JSONPath: `.spec.vault`
 * Type: `object`
 * Required: `false`
+* Availability: on-premises
 
 #### enabled
 
 * JSONPath: `.spec.vault.enabled`
 * Type: `boolean`
 * Required: `false`
+* Example value: `true`
 
 #### paths
 
@@ -1149,6 +1188,7 @@ Provides secrets management, identity-based access, and encrypting application d
 * JSONPath: `.spec.vault.paths[].format`
 * Type: `enum`
 * Required: `false`
+* Example value: `env`
 * Allowed values:
   * `flatten`
   * `json`
@@ -1162,18 +1202,21 @@ Provides secrets management, identity-based access, and encrypting application d
 * JSONPath: `.spec.vault.paths[].kvPath`
 * Type: `string`
 * Required: `false`
+* Example value: `/kv/preprod/fss/application/namespace`
 
 ##### mountPath
 
 * JSONPath: `.spec.vault.paths[].mountPath`
 * Type: `string`
 * Required: `false`
+* Example value: `/var/run/secrets/nais.io/vault`
 
 #### sidecar
 
 * JSONPath: `.spec.vault.sidecar`
 * Type: `boolean`
 * Required: `false`
+* Example value: `true`
 
 ### webproxy
 
