@@ -80,6 +80,9 @@ By default, all traffic is disallowed between applications in GKE clusters. [Acc
 
     ---
 
+    #### `spec.accessPolicy.outbound.external[].ports[].name`
+    Name of the outgoing port.
+
     #### `spec.accessPolicy.outbound.external[].ports[].port`
     Port number of outgoing port.
 
