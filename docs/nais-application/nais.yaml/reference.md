@@ -122,28 +122,32 @@ Configures an Azure AD client for this application. See [Azure AD](../../securit
 
     ### `spec.azure.application.replyURLs[]`
 
-    List of [reply URLs](https://docs.microsoft.com/en-us/azure/active-directory/develop/reply-url) that should be registered for the Azure AD client, e.g.  
-    `[ "https://my.application/oauth2/callback" ]`  
-    `Default`: `[]`
+    List of [reply URLs](../../security/auth/azure-ad.md#reply-urls) that should be registered for the Azure AD client, e.g.  
+    `[ "https://my.application/oauth2/callback" ]`
 
-    !!! info
-        Note that `spec.azure.application.replyURLs[]` can be omitted if `spec.ingresses` are specified.
-
-        See [this "Reply URLs" NAIS documentation](../../security/auth/azure-ad.md#reply-urls) for details.
+    `Default`: see [defaults](../../security/auth/azure-ad.md#defaults).
 
     ---
 
     ### `spec.azure.application.tenant`
 
-    Explicitly target a given [tenant](../../security/auth/azure-ad.md#tenants) in Azure AD.  
-    `Allowed values`: enum of `{trygdeetaten.no, nav.no}`
+    Explicitly target a given [tenant](../../security/auth/azure-ad.md#tenants) in Azure AD.
+
+    `Allowed values`:
+    
+    - {`trygdeetaten.no`, `nav.no`} in dev-* clusters
+    - {`nav.no`} in production clusters
 
     ---
 
     ### `spec.azure.application.claims.extra[]`
 
-    List of additional claims that should be emitted in tokens for your application.  
-    `Allowed values`: [`NAVident`, `azp_name`]
+    List of additional claims that should be emitted in tokens for your application.
+
+    `Allowed values`: 
+
+    - `NAVident` - internal identifier for the given user
+    - `azp_name` - display name for the given authorized party (`azp` is the client ID for said party)
 
     ---
 

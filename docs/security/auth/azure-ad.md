@@ -60,15 +60,15 @@ All clients provisioned through NAIS will be registered in Azure AD using the fo
     dev-gcp:aura:nais-testapp
     ```
 
-Equivalently, the identifier used to refer to the application almost follows the same format.
-
-The only notable difference is that `:` replaced by `.`
-
-```text
-api://<cluster>.<namespace>.<app-name>
-```
-
 !!! tip "Scopes in token requests"
+    Equivalently, the identifier used to refer to the application almost follows the same format.
+
+    The only notable difference is that `:` replaced by `.`
+
+    ```text
+    api://<cluster>.<namespace>.<app-name>
+    ```
+
     The above means that instead of using the API provider's client ID:
 
     ```text
@@ -158,17 +158,7 @@ You must enable and use [`webproxy`](../../nais-application/nais.yaml/reference.
 >
 > -- Microsoft's documentation on [reply URLs](https://docs.microsoft.com/en-us/azure/active-directory/develop/reply-url)
 
-!!! tip
-    Note that `spec.azure.application.replyURLs[]` can be omitted if `spec.ingresses` are specified. See [ingresses](azure-ad.md#ingresses).
-
-You may set reply URLs manually by specifying `spec.azure.application.replyURLs[]`. Doing so will **replace** all of the [auto-generated reply URLs](azure-ad.md#ingresses).
-
-!!! danger
-    If you do override the reply URLs, make sure that you specify **all** the URLs that should be registered for the Azure AD client.
-
-    **Ensure that these URLs conform to the restrictions and limitations of** [**reply URLs**](https://docs.microsoft.com/en-us/azure/active-directory/develop/reply-url) **as specified by Microsoft.**
-
-#### Ingresses
+#### Defaults
 
 If you have _not_ specified any reply URLs, we will automatically generate a reply URL for each ingress specified using this formula:
 
@@ -181,12 +171,12 @@ spec.ingresses[n] + "/oauth2/callback"
 
     ```yaml
     spec:
-      azure:
-        application:
-          enabled: true
       ingresses:
         - "https://my.application.dev.nav.no"
         - "https://my.application.dev.nav.no/subpath"
+      azure:
+        application:
+          enabled: true
     ```
 
     will generate a spec equivalent to this:
@@ -203,6 +193,27 @@ spec.ingresses[n] + "/oauth2/callback"
             - "https://my.application.dev.nav.no/oauth2/callback"
             - "https://my.application.dev.nav.no/subpath/oauth2/callback"
     ```
+#### Overriding explicitly
+
+You may set reply URLs manually by specifying `spec.azure.application.replyURLs[]`:
+
+???+ example
+    ```yaml
+    spec:
+      azure:
+        application:
+          enabled: true
+          replyURLs:
+            - "https://my.application.dev.nav.no/oauth2/callback"
+            - "https://my.application.dev.nav.no/subpath/oauth2/callback"
+    ```
+
+Doing so will **replace** all of the [default auto-generated reply URLs](#defaults).
+
+!!! danger
+    If you do override the reply URLs, make sure that you specify **all** the URLs that should be registered for the Azure AD client.
+
+    **Ensure that these URLs conform to the restrictions and limitations of** [**reply URLs**](https://docs.microsoft.com/en-us/azure/active-directory/develop/reply-url) **as specified by Microsoft.**
 
 ### Tenants
 
@@ -425,18 +436,6 @@ Rules:
 
 If you are not registered as an owner in your team, you should either have an existing owner promote you or have them perform whatever you need.
 
-## Internals
-
-This section is intended for readers interested in the inner workings of this feature.
-
-Provisioning is handled by [Azurerator](https://github.com/nais/azurerator) - a Kubernetes operator that watches a [custom resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) \(called `AzureAdApplication`\) that we've defined in our clusters.
-
-Azurerator generates a Kubernetes Secret containing the values needed for your application to integrate with Azure AD, e.g. credentials and URLs. This secret will be mounted to the pods of your application during deploy.
-
-Every deploy will trigger rotation of credentials, invalidating any passwords and keys that are not in use. _In use_ in this context refers to all credentials that are currently mounted to an existing pod - regardless of their status \(`Running`, `CrashLoopBackOff`, etc.\). In other words, credential rotation should happen with zero downtime.
-
-More details in the [Azurerator](https://github.com/nais/azurerator) repository.
-
 ## Legacy
 
 This section only applies if you have an existing Azure AD client registered in the [IaC repository](https://github.com/navikt/aad-iac).
@@ -546,12 +545,15 @@ If keeping the existing client ID and configuration is not important, it should 
 !!! warning
     Permanent deletes are irreversible. Only do this if you are certain that you wish to completely remove the client from Azure AD.
 
-When an `AzureAdApplication` resource is deleted from a Kubernetes cluster, the client is not deleted from Azure AD.
+When an `AzureAdApplication` resource is deleted from a Kubernetes cluster, the client is by default _not_ deleted from Azure AD.
 
-!!! info
-    The `Application` resource owns the `AzureAdApplication` resource, deletion of the former will thus trigger a deletion of the latter.
+!!! info "Details"
+    In Kubernetes terms, the `Application` resource owns the `AzureAdApplication` resource.
 
-    If the `AzureAdApplication` resource is recreated, the client will thus retain the same client ID.
+    [Deletion](../../deployment/delete-app.md) of the `Application` will trigger a deletion of the `AzureAdApplication`. 
+    The _actual_ client registered in Azure AD however is not deleted by default.
+
+    If the `AzureAdApplication` resource is recreated -- for example by redeploying a previously deleted `Application` -- it will thus retain the same Azure AD client ID.
 
 If you want to completely delete the client from Azure AD, you must add the following annotation to the `AzureAdApplication` resource:
 
