@@ -81,13 +81,16 @@ By default, all traffic is disallowed between applications in GKE clusters. [Acc
     ---
 
     #### `spec.accessPolicy.outbound.external[].ports[].name`
-    Name of the outgoing port.
+    Name of the outgoing port.  
+    `Required: True`
 
     #### `spec.accessPolicy.outbound.external[].ports[].port`
-    Port number of outgoing port.
+    Port number of outgoing port.  
+    `Required: True`
 
     #### `spec.accessPolicy.outbound.external[].ports[].protocol`
-    The protocol exposed on the port. MUST BE one of `HTTP|HTTPS|GRPC|HTTP2|MONGO|TCP|TLS`. TLS implies the connection will be routed based on the SNI header to the destination without terminating the TLS connection.
+    The protocol exposed on the port. MUST BE one of `HTTP|HTTPS|GRPC|HTTP2|MONGO|TCP|TLS`. TLS implies the connection will be routed based on the SNI header to the destination without terminating the TLS connection.  
+    `Required: True`
 
     ---
 
