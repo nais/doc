@@ -2,7 +2,7 @@
 
 ApplicationSpec contains the NAIS manifest. Please keep this list sorted for clarity.
 
-Path: ``<br />
+Path: _no value_<br />
 Type: `object`<br />
 Required: `false`<br />
 
@@ -87,13 +87,13 @@ Path: `.accessPolicy.outbound.external[].ports[].protocol`<br />
 Type: `enum`<br />
 Required: `false`<br />
 Allowed values:<br />
-  - `HTTP`
-  - `HTTPS`
-  - `GRPC`
-  - `HTTP2`
-  - `MONGO`
-  - `TCP`
-  - `TLS`
+  * `HTTP`
+  * `HTTPS`
+  * `GRPC`
+  * `HTTP2`
+  * `MONGO`
+  * `TCP`
+  * `TLS`
 
 #### rules
 
@@ -181,8 +181,8 @@ Path: `.azure.application.tenant`<br />
 Type: `enum`<br />
 Required: `false`<br />
 Allowed values:<br />
-  - `nav.no`
-  - `trygdeetaten.no`
+  * `nav.no`
+  * `trygdeetaten.no`
 
 ## elastic
 
@@ -239,15 +239,15 @@ Path: `.env[].valueFrom.fieldRef.fieldPath`<br />
 Type: `enum`<br />
 Required: `true`<br />
 Allowed values:<br />
-  - _no value_
-  - `metadata.name`
-  - `metadata.namespace`
-  - `metadata.labels`
-  - `metadata.annotations`
-  - `spec.nodeName`
-  - `spec.serviceAccountName`
-  - `status.hostIP`
-  - `status.podIP`
+  * _no value_
+  * `metadata.name`
+  * `metadata.namespace`
+  * `metadata.labels`
+  * `metadata.annotations`
+  * `spec.nodeName`
+  * `spec.serviceAccountName`
+  * `status.hostIP`
+  * `status.podIP`
 
 ## envFrom
 
@@ -483,8 +483,8 @@ Path: `.gcp.sqlInstances[].diskType`<br />
 Type: `enum`<br />
 Required: `false`<br />
 Allowed values:<br />
-  - `SSD`
-  - `HDD`
+  * `SSD`
+  * `HDD`
 
 #### highAvailability
 
@@ -533,8 +533,8 @@ Path: `.gcp.sqlInstances[].type`<br />
 Type: `enum`<br />
 Required: `false`<br />
 Allowed values:<br />
-  - `POSTGRES_11`
-  - `POSTGRES_12`
+  * `POSTGRES_11`
+  * `POSTGRES_12`
 
 ## idporten
 
@@ -638,13 +638,13 @@ Path: `.kafka.pool`<br />
 Type: `enum`<br />
 Required: `true`<br />
 Allowed values:<br />
-  - `nav-dev`
-  - `nav-prod`
-  - `nav-infrastructure`
+  * `nav-dev`
+  * `nav-prod`
+  * `nav-infrastructure`
 
 ## leaderElection
 
-If true, a HTTP endpoint will be available at `$ELECTOR_PATH` that returns the current leader. See https://doc.nais.io/addons/leader-election/.
+If true, an HTTP endpoint will be available at `$ELECTOR_PATH` that returns the current leader. See https://doc.nais.io/addons/leader-election/.
 
 Path: `.leaderElection`<br />
 Type: `boolean`<br />
@@ -660,7 +660,7 @@ Required: `false`<br />
 
 ### failureThreshold
 
-When a Pod starts and the probe fails, Kubernetes will try _failureThreshold_ times before giving up. Giving up in case of a startup probe means restarting the Pod.
+When a Pod starts, and the probe fails, Kubernetes will try _failureThreshold_ times before giving up. Giving up in case of a startup probe means restarting the Pod.
 
 Path: `.liveness.failureThreshold`<br />
 Type: `integer`<br />
@@ -720,18 +720,18 @@ Path: `.logformat`<br />
 Type: `enum`<br />
 Required: `false`<br />
 Allowed values:<br />
-  - _no value_
-  - `accesslog`
-  - `accesslog_with_processing_time`
-  - `accesslog_with_referer_useragent`
-  - `capnslog`
-  - `logrus`
-  - `gokit`
-  - `redis`
-  - `glog`
-  - `simple`
-  - `influxdb`
-  - `log15`
+  * _no value_
+  * `accesslog`
+  * `accesslog_with_processing_time`
+  * `accesslog_with_referer_useragent`
+  * `capnslog`
+  * `logrus`
+  * `gokit`
+  * `redis`
+  * `glog`
+  * `simple`
+  * `influxdb`
+  * `log15`
 
 ## logtransform
 
@@ -741,8 +741,8 @@ Path: `.logtransform`<br />
 Type: `enum`<br />
 Required: `false`<br />
 Allowed values:<br />
-  - `http_loglevel`
-  - `dns_loglevel`
+  * `http_loglevel`
+  * `dns_loglevel`
 
 ## maskinporten
 
@@ -826,7 +826,7 @@ Required: `false`<br />
 
 ### failureThreshold
 
-When a Pod starts and the probe fails, Kubernetes will try _failureThreshold_ times before giving up. Giving up in case of a startup probe means restarting the Pod.
+When a Pod starts, and the probe fails, Kubernetes will try _failureThreshold_ times before giving up. Giving up in case of a startup probe means restarting the Pod.
 
 Path: `.readiness.failureThreshold`<br />
 Type: `integer`<br />
@@ -1005,10 +1005,10 @@ Path: `.service.protocol`<br />
 Type: `enum`<br />
 Required: `false`<br />
 Allowed values:<br />
-  - `http`
-  - `redis`
-  - `tcp`
-  - `grpc`
+  * `http`
+  * `redis`
+  * `tcp`
+  * `grpc`
 
 ## skipCaBundle
 
@@ -1029,7 +1029,7 @@ Required: `false`<br />
 
 ### failureThreshold
 
-When a Pod starts and the probe fails, Kubernetes will try _failureThreshold_ times before giving up. Giving up in case of a startup probe means restarting the Pod.
+When a Pod starts, and the probe fails, Kubernetes will try _failureThreshold_ times before giving up. Giving up in case of a startup probe means restarting the Pod.
 
 Path: `.startup.failureThreshold`<br />
 Type: `integer`<br />
@@ -1096,8 +1096,8 @@ Type: `enum`<br />
 Required: `true`<br />
 Default value: `RollingUpdate`<br />
 Allowed values:<br />
-  - `Recreate`
-  - `RollingUpdate`
+  * `Recreate`
+  * `RollingUpdate`
 
 ## tokenx
 
@@ -1166,12 +1166,12 @@ Type: `enum`<br />
 Required: `false`<br />
 Example value: `env`<br />
 Allowed values:<br />
-  - `flatten`
-  - `json`
-  - `yaml`
-  - `env`
-  - `properties`
-  - _no value_
+  * `flatten`
+  * `json`
+  * `yaml`
+  * `env`
+  * `properties`
+  * _no value_
 
 #### kvPath
 
