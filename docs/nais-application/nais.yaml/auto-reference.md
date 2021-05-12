@@ -111,13 +111,13 @@ By default, all traffic is disallowed between applications inside the cluster. C
 * Type: `enum`
 * Required: `false`
 * Allowed values:
-  * `HTTP`
-  * `HTTPS`
-  * `GRPC`
-  * `HTTP2`
-  * `MONGO`
-  * `TCP`
-  * `TLS`
+    * `HTTP`
+    * `HTTPS`
+    * `GRPC`
+    * `HTTP2`
+    * `MONGO`
+    * `TCP`
+    * `TLS`
 
 ##### rules
 
@@ -205,8 +205,8 @@ Groups is a list of Azure AD group IDs to be emitted in the 'Groups' claim.
 * Type: `enum`
 * Required: `false`
 * Allowed values:
-  * `nav.no`
-  * `trygdeetaten.no`
+    * `nav.no`
+    * `trygdeetaten.no`
 
 ### elastic
 
@@ -263,15 +263,15 @@ Custom environment variables injected into your container.
 * Type: `enum`
 * Required: `true`
 * Allowed values:
-  * _no value_
-  * `metadata.name`
-  * `metadata.namespace`
-  * `metadata.labels`
-  * `metadata.annotations`
-  * `spec.nodeName`
-  * `spec.serviceAccountName`
-  * `status.hostIP`
-  * `status.podIP`
+    * _no value_
+    * `metadata.name`
+    * `metadata.namespace`
+    * `metadata.labels`
+    * `metadata.annotations`
+    * `spec.nodeName`
+    * `spec.serviceAccountName`
+    * `status.hostIP`
+    * `status.podIP`
 
 ### envFrom
 
@@ -507,8 +507,8 @@ Provision database instances and connect them to your application. See [PostgreS
 * Type: `enum`
 * Required: `false`
 * Allowed values:
-  * `SSD`
-  * `HDD`
+    * `SSD`
+    * `HDD`
 
 ##### highAvailability
 
@@ -557,8 +557,8 @@ Provision database instances and connect them to your application. See [PostgreS
 * Type: `enum`
 * Required: `false`
 * Allowed values:
-  * `POSTGRES_11`
-  * `POSTGRES_12`
+    * `POSTGRES_11`
+    * `POSTGRES_12`
 
 ### idporten
 
@@ -662,9 +662,9 @@ Configures your application to access an Aiven Kafka cluster. See https://doc.na
 * Type: `enum`
 * Required: `true`
 * Allowed values:
-  * `nav-dev`
-  * `nav-prod`
-  * `nav-infrastructure`
+    * `nav-dev`
+    * `nav-prod`
+    * `nav-infrastructure`
 
 ### leaderElection
 
@@ -689,7 +689,7 @@ When a Pod starts and the probe fails, Kubernetes will try _failureThreshold_ ti
 * JSONPath: `.spec.liveness.failureThreshold`
 * Type: `integer`
 * Required: `false`
-* Example value: `10`
+* Default value: `3`
 
 #### initialDelay
 
@@ -716,7 +716,7 @@ How often (in seconds) to perform the probe.
 * JSONPath: `.spec.liveness.periodSeconds`
 * Type: `integer`
 * Required: `false`
-* Example value: `10`
+* Default value: `10`
 
 #### port
 
@@ -734,7 +734,7 @@ Number of seconds after which the probe times out.
 * JSONPath: `.spec.liveness.timeout`
 * Type: `integer`
 * Required: `false`
-* Example value: `1`
+* Default value: `1`
 
 ### logformat
 
@@ -744,18 +744,18 @@ Format of the logs from the container. Use this if the container doesn't support
 * Type: `enum`
 * Required: `false`
 * Allowed values:
-  * _no value_
-  * `accesslog`
-  * `accesslog_with_processing_time`
-  * `accesslog_with_referer_useragent`
-  * `capnslog`
-  * `logrus`
-  * `gokit`
-  * `redis`
-  * `glog`
-  * `simple`
-  * `influxdb`
-  * `log15`
+    * _no value_
+    * `accesslog`
+    * `accesslog_with_processing_time`
+    * `accesslog_with_referer_useragent`
+    * `capnslog`
+    * `logrus`
+    * `gokit`
+    * `redis`
+    * `glog`
+    * `simple`
+    * `influxdb`
+    * `log15`
 
 ### logtransform
 
@@ -765,8 +765,8 @@ Extra filters for modifying log content. This can e.g. be used for setting logle
 * Type: `enum`
 * Required: `false`
 * Allowed values:
-  * `http_loglevel`
-  * `dns_loglevel`
+    * `http_loglevel`
+    * `dns_loglevel`
 
 ### maskinporten
 
@@ -801,7 +801,7 @@ The port number which is exposed by the container and should receive traffic.
 * JSONPath: `.spec.port`
 * Type: `integer`
 * Required: `false`
-* Example value: `8080`
+* Default value: `8080`
 
 ### preStopHookPath
 
@@ -831,7 +831,7 @@ Prometheus is used to [scrape metrics from the pod](https://doc.nais.io/observab
 * JSONPath: `.spec.prometheus.path`
 * Type: `string`
 * Required: `false`
-* Example value: `/metrics`
+* Default value: `/metrics`
 
 #### port
 
@@ -917,7 +917,7 @@ Amount of CPU usage before the autoscaler kicks in.
 * JSONPath: `.spec.replicas.cpuThresholdPercentage`
 * Type: `integer`
 * Required: `false`
-* Example value: `50`
+* Default value: `50`
 
 #### max
 
@@ -926,7 +926,7 @@ The pod autoscaler will scale deployments on demand until this maximum has been 
 * JSONPath: `.spec.replicas.max`
 * Type: `integer`
 * Required: `false`
-* Example value: `4`
+* Default value: `4`
 
 #### min
 
@@ -935,7 +935,7 @@ The minimum amount of replicas acceptable for a successful deployment.
 * JSONPath: `.spec.replicas.min`
 * Type: `integer`
 * Required: `false`
-* Example value: `2`
+* Default value: `2`
 
 ### resources
 
@@ -956,7 +956,7 @@ When Containers have [resource requests](http://kubernetes.io/docs/user-guide/co
 * JSONPath: `.spec.resources.limits.cpu`
 * Type: `string`
 * Required: `false`
-* Example value: `500m`
+* Default value: `500m`
 * Pattern: `^\d+m?$`
 
 ##### memory
@@ -964,7 +964,7 @@ When Containers have [resource requests](http://kubernetes.io/docs/user-guide/co
 * JSONPath: `.spec.resources.limits.memory`
 * Type: `string`
 * Required: `false`
-* Example value: `256Mi`
+* Default value: `512Mi`
 * Pattern: `^\d+[KMG]i$`
 
 #### requests
@@ -978,7 +978,7 @@ When Containers have [resource requests](http://kubernetes.io/docs/user-guide/co
 * JSONPath: `.spec.resources.requests.cpu`
 * Type: `string`
 * Required: `false`
-* Example value: `500m`
+* Default value: `200m`
 * Pattern: `^\d+m?$`
 
 ##### memory
@@ -986,7 +986,7 @@ When Containers have [resource requests](http://kubernetes.io/docs/user-guide/co
 * JSONPath: `.spec.resources.requests.memory`
 * Type: `string`
 * Required: `false`
-* Example value: `256Mi`
+* Default value: `256Mi`
 * Pattern: `^\d+[KMG]i$`
 
 ### secureLogs
@@ -1029,10 +1029,10 @@ Which protocol the backend service runs on. Default is http.
 * Type: `enum`
 * Required: `false`
 * Allowed values:
-  * `http`
-  * `redis`
-  * `tcp`
-  * `grpc`
+    * `http`
+    * `redis`
+    * `tcp`
+    * `grpc`
 
 ### skipCaBundle
 
@@ -1118,10 +1118,10 @@ Specifies the strategy used to replace old Pods by new ones.
 * JSONPath: `.spec.strategy.type`
 * Type: `enum`
 * Required: `true`
-* Example value: `RollingUpdate`
+* Default value: `RollingUpdate`
 * Allowed values:
-  * `Recreate`
-  * `RollingUpdate`
+    * `Recreate`
+    * `RollingUpdate`
 
 ### tokenx
 
@@ -1190,12 +1190,12 @@ Provides secrets management, identity-based access, and encrypting application d
 * Required: `false`
 * Example value: `env`
 * Allowed values:
-  * `flatten`
-  * `json`
-  * `yaml`
-  * `env`
-  * `properties`
-  * _no value_
+    * `flatten`
+    * `json`
+    * `yaml`
+    * `env`
+    * `properties`
+    * _no value_
 
 ##### kvPath
 
