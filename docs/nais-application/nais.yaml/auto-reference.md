@@ -168,6 +168,7 @@ Required: `false`<br />
 Path: `.azure.application.enabled`<br />
 Type: `boolean`<br />
 Required: `true`<br />
+Default value: `false`<br />
 
 #### replyURLs
 
@@ -364,8 +365,7 @@ Required: `false`<br />
 Path: `.gcp.buckets[].retentionPeriodDays`<br />
 Type: `integer`<br />
 Required: `false`<br />
-Minimum value: `1`<br />
-Minimum value: `36500`<br />
+Value range: `1`-`36500`<br />
 
 ### permissions
 
@@ -418,8 +418,7 @@ Required: `false`<br />
 Path: `.gcp.sqlInstances[].autoBackupHour`<br />
 Type: `integer`<br />
 Required: `false`<br />
-Minimum value: `0`<br />
-Minimum value: `23`<br />
+Value range: `0`-`23`<br />
 
 #### cascadingDelete
 
@@ -475,7 +474,7 @@ Required: `false`<br />
 Path: `.gcp.sqlInstances[].diskSize`<br />
 Type: `integer`<br />
 Required: `false`<br />
-Minimum value: `10`<br />
+Value range: `10`-`+Inf`<br />
 
 #### diskType
 
@@ -503,16 +502,14 @@ Required: `false`<br />
 Path: `.gcp.sqlInstances[].maintenance.day`<br />
 Type: `integer`<br />
 Required: `false`<br />
-Minimum value: `1`<br />
-Minimum value: `7`<br />
+Value range: `1`-`7`<br />
 
 ##### hour
 
 Path: `.gcp.sqlInstances[].maintenance.hour`<br />
 Type: `integer`<br />
 Required: `false`<br />
-Minimum value: `0`<br />
-Minimum value: `23`<br />
+Value range: `0`-`23`<br />
 
 #### name
 
@@ -549,8 +546,7 @@ Required: `false`<br />
 Path: `.idporten.accessTokenLifetime`<br />
 Type: `integer`<br />
 Required: `false`<br />
-Minimum value: `1`<br />
-Minimum value: `3600`<br />
+Value range: `1`-`3600`<br />
 
 ### clientURI
 
@@ -602,8 +598,7 @@ Pattern: `^https:\/\/.+$`<br />
 Path: `.idporten.sessionLifetime`<br />
 Type: `integer`<br />
 Required: `false`<br />
-Minimum value: `3600`<br />
-Minimum value: `7200`<br />
+Value range: `3600`-`7200`<br />
 
 ## image
 
@@ -980,6 +975,7 @@ Whether to enable a sidecar container for secure logging. If enabled, a volume i
 Path: `.secureLogs.enabled`<br />
 Type: `boolean`<br />
 Required: `true`<br />
+Default value: `false`<br />
 
 ## service
 
@@ -996,6 +992,7 @@ Port for the default service. Default port is 80.
 Path: `.service.port`<br />
 Type: `integer`<br />
 Required: `true`<br />
+Default value: `80`<br />
 
 ### protocol
 
@@ -1004,6 +1001,7 @@ Which protocol the backend service runs on. Default is http.
 Path: `.service.protocol`<br />
 Type: `enum`<br />
 Required: `false`<br />
+Default value: `http`<br />
 Allowed values:<br />
   * `http`
   * `redis`
@@ -1114,6 +1112,7 @@ if enabled, the application will have a jwker secret injected
 Path: `.tokenx.enabled`<br />
 Type: `boolean`<br />
 Required: `true`<br />
+Default value: `false`<br />
 
 ### mountSecretsAsFilesOnly
 
