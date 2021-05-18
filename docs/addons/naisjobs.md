@@ -816,28 +816,7 @@ spec:
   - to:
     - namespaceSelector:
         matchLabels:
-          name: istio-system
-      podSelector:
-        matchLabels:
-          istio: istiod
-    - namespaceSelector:
-        matchLabels:
-          name: istio-system
-      podSelector:
-        matchLabels:
-          istio: pilot
-    - namespaceSelector:
-        matchLabels:
-          name: istio-system
-      podSelector:
-        matchLabels:
-          istio: mixer
-    - namespaceSelector:
-        matchLabels:
-          name: istio-system
-      podSelector:
-        matchLabels:
-          istio: ingressgateway
+          linkerd.io/is-control-plane: "true"
     - namespaceSelector: {}
       podSelector:
         matchLabels:
@@ -849,54 +828,35 @@ spec:
         - 172.16.0.0/12
         - 192.168.0.0/16
   ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          name: istio-system
-      podSelector:
-        matchLabels:
-          app: prometheus
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          name: istio-system
-      podSelector:
-        matchLabels:
-          istio: ingressgateway
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            name: nais
+        podSelector:
+          matchLabels:
+            app: prometheus
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            linkerd.io/is-control-plane: "true"
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            linkerd.io/extension: viz
+        podSelector:
+          matchLabels:
+            component: tap
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            linkerd.io/extension: viz
+        podSelector:
+          matchLabels:
+            component: prometheus
   podSelector:
     matchLabels:
       app: ${jobname}
   policyTypes:
   - Ingress
   - Egress
-```
-
-### ServiceEntry
-```yaml
-apiVersion: networking.istio.io/v1beta1
-kind: ServiceEntry
-metadata:
-  labels:
-    team: ${teamname}
-    app: ${jobname}
-  name: ${jobname}
-  namespace: ${namespace}
-spec:
-  exportTo:
-  - .
-  hosts:
-  - aadcdn.msauth.net
-  - aadcdn.msauthimages.net
-  - aadcdn.msftauth.net
-  - device.login.microsoftonline.com
-  - login.live.com
-  - login.microsoftonline.com
-  - login.microsoftonline.com
-  - www.office.com
-  location: MESH_EXTERNAL
-  ports:
-  - name: https
-    number: 443
-    protocol: HTTPS
-  resolution: DNS
 ```

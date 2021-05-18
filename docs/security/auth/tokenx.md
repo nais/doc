@@ -22,7 +22,7 @@ description: Enabling zero trust on the application layer
     * [Jwker](https://github.com/nais/jwker/) - a Kubernetes operator responsible for registering applications as OAuth 2.0 clients in Tokendings
     * [Naiserator](https://github.com/nais/naiserator/) - a Kubernetes operator that handles the lifecycle of applications on the [NAIS platform](https://nais.io/)
 
-    In short, TokenX is a OAuth 2.0 compliant add-on that enables and allows your application to maintain the [zero trust](../../appendix/zero-trust.md) _networking_ principles (together with components such as [**Istio**](https://istio.io/)). It does this by allowing applications to exchange and acquire properly scoped security tokens in order to securely communicate with each other.
+    In short, TokenX is a OAuth 2.0 compliant add-on that enables and allows your application to maintain the [zero trust](../../appendix/zero-trust.md) _networking_ principles (together with components such as [**LinkerD**](https://linkerd.io/)). It does this by allowing applications to exchange and acquire properly scoped security tokens in order to securely communicate with each other.
 
     Interested readers may find more technical details in the [Tokendings documentation](https://github.com/nais/tokendings).
 

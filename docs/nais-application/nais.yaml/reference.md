@@ -31,7 +31,7 @@ The name of the [team](../../basics/teams.md) that owns this application \(lower
 
 ## `spec.accessPolicy` 
 
-Default will not allow any traffic to or from application in GKE clusters. [Access policy](../access-policy.md) for istio rules is currently supported in GKE clusters, only.
+By default, all traffic is disallowed between applications in GKE clusters. [Access policy](../access-policy.md) for linkerd rules is currently supported in GKE clusters, only.
 
 ??? "`spec.accessPolicy.*`"
     ### `spec.accessPolicy.inbound.rules[]`
@@ -80,11 +80,17 @@ Default will not allow any traffic to or from application in GKE clusters. [Acce
 
     ---
 
+    #### `spec.accessPolicy.outbound.external[].ports[].name`
+    Name of the outgoing port.  
+    `Required: True`
+
     #### `spec.accessPolicy.outbound.external[].ports[].port`
-    Port number of outgoing port.
+    Port number of outgoing port.  
+    `Required: True`
 
     #### `spec.accessPolicy.outbound.external[].ports[].protocol`
-    The protocol exposed on the port. MUST BE one of `HTTP|HTTPS|GRPC|HTTP2|MONGO|TCP|TLS`. TLS implies the connection will be routed based on the SNI header to the destination without terminating the TLS connection.
+    The protocol exposed on the port. MUST BE one of `HTTP|HTTPS|GRPC|HTTP2|MONGO|TCP|TLS`. TLS implies the connection will be routed based on the SNI header to the destination without terminating the TLS connection.  
+    `Required: True`
 
     ---
 
@@ -116,28 +122,32 @@ Configures an Azure AD client for this application. See [Azure AD](../../securit
 
     ### `spec.azure.application.replyURLs[]`
 
-    List of [reply URLs](https://docs.microsoft.com/en-us/azure/active-directory/develop/reply-url) that should be registered for the Azure AD client, e.g.  
-    `[ "https://my.application/oauth2/callback" ]`  
-    `Default`: `[]`
+    List of [reply URLs](../../security/auth/azure-ad.md#reply-urls) that should be registered for the Azure AD client, e.g.  
+    `[ "https://my.application/oauth2/callback" ]`
 
-    !!! info
-        Note that `spec.azure.application.replyURLs[]` can be omitted if `spec.ingresses` are specified.
-
-        See [this "Reply URLs" NAIS documentation](../../security/auth/azure-ad.md#reply-urls) for details.
+    `Default`: see [defaults](../../security/auth/azure-ad.md#defaults).
 
     ---
 
     ### `spec.azure.application.tenant`
 
-    Explicitly target a given [tenant](../../security/auth/azure-ad.md#tenants) in Azure AD.  
-    `Allowed values`: enum of `{trygdeetaten.no, nav.no}`
+    Explicitly target a given [tenant](../../security/auth/azure-ad.md#tenants) in Azure AD.
+
+    `Allowed values`:
+    
+    - {`trygdeetaten.no`, `nav.no`} in dev-* clusters
+    - {`nav.no`} in production clusters
 
     ---
 
     ### `spec.azure.application.claims.extra[]`
 
-    List of additional claims that should be emitted in tokens for your application.  
-    `Allowed values`: `NAVident`
+    List of additional claims that should be emitted in tokens for your application.
+
+    `Allowed values`: 
+
+    - `NAVident` - internal identifier for the given user
+    - `azp_name` - display name for the given authorized party (`azp` is the client ID for said party)
 
     ---
 
@@ -795,8 +805,9 @@ How to connect to the default service in your application's container.
 
     ### `spec.service.protocol`
 
-    Name of the port for the default service. It's called `protocol`, for this field is read as a protocol by Istio.  
+    Which protocol the backend service runs on.
     `Default`: `http`
+    `Allowed values`: `http`, `redis`, `tcp`, `grpc`
 
 ## `spec.skipCaBundle`
 
@@ -870,18 +881,6 @@ Toggle for enabling [TokenX](../../security/auth/tokenx.md) for your application
 `Default`: `false`
 
 ---
-
-## `spec.tracing`
-
-Configuration of [tracing](../../observability/tracing.md).
-
-??? "`spec.tracing.*`"
-    ### `spec.tracing.enabled`
-    
-    Allow network egress to the Jaeger tracing app and configures istio-proxy to trace all incoming requests.  
-    `Default`: `false`
-
-## `spec.vault`
 
 Provides secrets management, identity-based access, and encrypting application data for auditing of secrets for applications, systems, and users.
 Vault documentation can be found in [navikt/vault-iac](https://github.com/navikt/vault-iac/tree/master/doc).

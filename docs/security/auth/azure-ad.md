@@ -60,15 +60,15 @@ All clients provisioned through NAIS will be registered in Azure AD using the fo
     dev-gcp:aura:nais-testapp
     ```
 
-Equivalently, the identifier used to refer to the application almost follows the same format.
-
-The only notable difference is that `:` replaced by `.`
-
-```text
-api://<cluster>.<namespace>.<app-name>
-```
-
 !!! tip "Scopes in token requests"
+    Equivalently, the identifier used to refer to the application almost follows the same format.
+
+    The only notable difference is that `:` replaced by `.`
+
+    ```text
+    api://<cluster>.<namespace>.<app-name>
+    ```
+
     The above means that instead of using the API provider's client ID:
 
     ```text
@@ -88,10 +88,14 @@ An Azure AD client has its own ID that uniquely identifies the client within a t
 Your application's Azure AD client ID is available at multiple locations:
 
 1. The environment variable `AZURE_APP_CLIENT_ID`, available inside your application at runtime
-2. In the Kubernetes resource - `kubectl get azureapp <app-name>`
+2. In the Kubernetes resource - `kubectl get azureapp <app-name> -o wide`
 3. The [Azure Portal](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps). You may have to click on `All applications` if it does not show up in `Owned applications`. Search using the naming scheme mentioned earlier: `<cluster>:<namespace>:<app>`.
 
 ## Configuration
+
+### Spec
+
+See the [NAIS manifest](../../nais-application/nais.yaml/reference.md#specazureapplication).
 
 ### Getting started
 
@@ -114,6 +118,7 @@ Your application's Azure AD client ID is available at multiple locations:
           claims:
             extra:
               - "NAVident"
+              - "azp_name"
             groups:
               - id: "<object ID of Azure AD group>"
 
@@ -129,10 +134,6 @@ Your application's Azure AD client ID is available at multiple locations:
       # required for on-premises only
       webproxy: true 
     ```
-
-### Spec
-
-See the [NAIS manifest](../../nais-application/nais.yaml/reference.md#specazureapplication).
 
 ### Accessing external hosts
 
@@ -157,17 +158,7 @@ You must enable and use [`webproxy`](../../nais-application/nais.yaml/reference.
 >
 > -- Microsoft's documentation on [reply URLs](https://docs.microsoft.com/en-us/azure/active-directory/develop/reply-url)
 
-!!! tip
-    Note that `spec.azure.application.replyURLs[]` can be omitted if `spec.ingresses` are specified. See [ingresses](azure-ad.md#ingresses).
-
-You may set reply URLs manually by specifying `spec.azure.application.replyURLs[]`. Doing so will **replace** all of the [auto-generated reply URLs](azure-ad.md#ingresses).
-
-!!! danger
-    If you do override the reply URLs, make sure that you specify **all** the URLs that should be registered for the Azure AD client.
-
-    **Ensure that these URLs conform to the restrictions and limitations of** [**reply URLs**](https://docs.microsoft.com/en-us/azure/active-directory/develop/reply-url) **as specified by Microsoft.**
-
-#### Ingresses
+#### Defaults
 
 If you have _not_ specified any reply URLs, we will automatically generate a reply URL for each ingress specified using this formula:
 
@@ -180,12 +171,12 @@ spec.ingresses[n] + "/oauth2/callback"
 
     ```yaml
     spec:
-      azure:
-        application:
-          enabled: true
       ingresses:
         - "https://my.application.dev.nav.no"
         - "https://my.application.dev.nav.no/subpath"
+      azure:
+        application:
+          enabled: true
     ```
 
     will generate a spec equivalent to this:
@@ -202,6 +193,27 @@ spec.ingresses[n] + "/oauth2/callback"
             - "https://my.application.dev.nav.no/oauth2/callback"
             - "https://my.application.dev.nav.no/subpath/oauth2/callback"
     ```
+#### Overriding explicitly
+
+You may set reply URLs manually by specifying `spec.azure.application.replyURLs[]`:
+
+???+ example
+    ```yaml
+    spec:
+      azure:
+        application:
+          enabled: true
+          replyURLs:
+            - "https://my.application.dev.nav.no/oauth2/callback"
+            - "https://my.application.dev.nav.no/subpath/oauth2/callback"
+    ```
+
+Doing so will **replace** all of the [default auto-generated reply URLs](#defaults).
+
+!!! danger
+    If you do override the reply URLs, make sure that you specify **all** the URLs that should be registered for the Azure AD client.
+
+    **Ensure that these URLs conform to the restrictions and limitations of** [**reply URLs**](https://docs.microsoft.com/en-us/azure/active-directory/develop/reply-url) **as specified by Microsoft.**
 
 ### Tenants
 
@@ -226,14 +238,8 @@ For proper scoping of tokens when performing calls between clients, one must eit
 
 Azure AD will enforce authorization for both flows. In other words, you **must** pre-authorize any consumer clients for your application.
 
-Clients that should receive and validate access tokens from other clients should [pre-authorize](azure-ad.md#pre-authorization) said clients.
-
+Clients that should receive and validate access tokens from other clients should [pre-authorize](azure-ad.md#pre-authorization) said clients. 
 These are declared by specifying [`spec.accessPolicy.inbound.rules[]`](../../nais-application/nais.yaml/reference.md#specaccesspolicy):
-
-!!! danger
-    Any client referred to **must** already exist in Azure AD in order to be assigned the access policy permissions.
-
-    **Clients that do** _**not**_ **exist in Azure AD will be skipped. Assignment will not be retried until next deploy.**
 
 ```yaml
 spec:
@@ -249,6 +255,13 @@ spec:
           namespace: other-namespace
           cluster: other-cluster
 ```
+
+!!! danger
+    Any client referred to **must** already exist in Azure AD in order to be assigned the access policy permissions.
+
+    Be aware of dependency order when deploying your applications for the first time in each cluster with provisioning enabled.
+
+    **Clients defined in the Spec that do _not_ exist in Azure AD at deploy time will be skipped. [Assignments will not be automatically retried.](#forcing-resynchronization)**
 
 The above configuration will pre-authorize the Azure AD clients belonging to:
 
@@ -423,18 +436,6 @@ Rules:
 
 If you are not registered as an owner in your team, you should either have an existing owner promote you or have them perform whatever you need.
 
-## Internals
-
-This section is intended for readers interested in the inner workings of this feature.
-
-Provisioning is handled by [Azurerator](https://github.com/nais/azurerator) - a Kubernetes operator that watches a [custom resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) \(called `AzureAdApplication`\) that we've defined in our clusters.
-
-Azurerator generates a Kubernetes Secret containing the values needed for your application to integrate with Azure AD, e.g. credentials and URLs. This secret will be mounted to the pods of your application during deploy.
-
-Every deploy will trigger rotation of credentials, invalidating any passwords and keys that are not in use. _In use_ in this context refers to all credentials that are currently mounted to an existing pod - regardless of their status \(`Running`, `CrashLoopBackOff`, etc.\). In other words, credential rotation should happen with zero downtime.
-
-More details in the [Azurerator](https://github.com/nais/azurerator) repository.
-
 ## Legacy
 
 This section only applies if you have an existing Azure AD client registered in the [IaC repository](https://github.com/navikt/aad-iac).
@@ -444,7 +445,7 @@ This section only applies if you have an existing Azure AD client registered in 
 * Declarative provisioning, straight from your application's [`nais.yaml`](../../nais-application/nais.yaml/reference.md#specazureapplication)
 * No longer dependent on manual user approvals in multiple IaC repositories
 * No longer dependent on Vault
-* Credentials are rotated on _every_ deploy, completely transparent to the application. This ensures that credentials are fresh and lessens the impact in the case of exposure.
+* Credentials are rotated regularly, completely transparent to the application. This ensures that credentials are fresh and lessens the impact in the case of exposure.
 * The exact same feature is present in the [GCP](../../clusters/gcp.md) clusters, which simplifies [migration](../../clusters/migrating-to-gcp.md).
 
 ### Tenants
@@ -537,17 +538,22 @@ If keeping the existing client ID and configuration is not important, it should 
     * Verify that everything works after the migration
     * Delete the application from the [IaC repository](https://github.com/navikt/aad-iac) in order to maintain a single source of truth
 
-## Permanently deleting a client
+## Operations
+
+### Permanently deleting a client
 
 !!! warning
-    Permanent deletes are irreversible. Only do this if you are certain that you wish to completely remove the client from DigDir.
+    Permanent deletes are irreversible. Only do this if you are certain that you wish to completely remove the client from Azure AD.
 
-When an `AzureAdApplication` resource is deleted from a Kubernetes cluster, the client is not deleted from DigDir.
+When an `AzureAdApplication` resource is deleted from a Kubernetes cluster, the client is by default _not_ deleted from Azure AD.
 
-!!! info
-    The `Application` resource owns the `AzureAdApplication` resource, deletion of the former will thus trigger a deletion of the latter.
+!!! info "Details"
+    In Kubernetes terms, the `Application` resource owns the `AzureAdApplication` resource.
 
-    If the `AzureAdApplication` resource is recreated, the client will thus retain the same client ID.
+    [Deletion](../../deployment/delete-app.md) of the `Application` will trigger a deletion of the `AzureAdApplication`. 
+    The _actual_ client registered in Azure AD however is not deleted by default.
+
+    If the `AzureAdApplication` resource is recreated -- for example by redeploying a previously deleted `Application` -- it will thus retain the same Azure AD client ID.
 
 If you want to completely delete the client from Azure AD, you must add the following annotation to the `AzureAdApplication` resource:
 
@@ -555,4 +561,36 @@ If you want to completely delete the client from Azure AD, you must add the foll
 kubectl annotate azureapp <app> azure.nais.io/delete=true
 ```
 
-When this annotation is in place, deleting the `AzureAdApplication` resource from Kubernetes will trigger removal of the client from DigDir.
+When this annotation is in place, deleting the `AzureAdApplication` resource from Kubernetes will trigger removal of the client from Azure AD.
+
+### Forcing resynchronization
+
+Synchronization to Azure AD only happens when at least one of two things happen:
+
+1. Any [spec.azure.* or spec.accessPolicy.inbound.rules[]](#spec) value has changed.
+2. An annotation is applied to the resource:
+
+```bash
+kubectl annotate azureapp <app> azure.nais.io/resync=true
+```
+
+The annotation is removed after synchronization. It can then be re-applied to trigger new synchronizations.
+
+If you previously deployed an application where the access policy for [pre-authorization](#pre-authorization) included 
+a non-existing client which now exists, you should thus force resynchronization to Azure AD as shown above.
+
+### Forcing credential rotation
+
+Credential rotation happens automatically on a regular basis. 
+
+However, if you need to trigger rotation manually you may do so by applying the following annotation:
+
+```bash
+kubectl annotate azureapp <app> azure.nais.io/rotate=true
+```
+
+You should then restart your pods so that the new credentials are re-injected:
+
+```bash
+kubectl rollout restart deployment <app>
+```

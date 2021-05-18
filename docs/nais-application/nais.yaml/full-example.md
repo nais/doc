@@ -71,6 +71,9 @@ spec:
     enabled: false
   service:
     port: 80
+    protocol: http
+  kafka:
+    pool: nav-dev
   skipCaBundle: false
   azure:
     application:
@@ -80,7 +83,8 @@ spec:
       tenant: nav.no
       claims:
         extra:
-          - NAVident
+          - "NAVident"
+          - "azp_name"
         groups:
           - id: "00000000-0000-0000-0000-000000000000"
   tokenx:
