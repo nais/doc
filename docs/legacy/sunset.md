@@ -47,7 +47,7 @@ MQ benyttes i dag kun via on-premises servere som driftes og vedlikeholdes av AT
 
 Det er ønskelig at de applikasjonene som har mulighet heller benytter Aiven Kafka. Det er dog støtte for MQ fra nais-klusterne on-premises og i GCP, men da kun med nye serverne som er satt opp med autentisering.
 
-MQ on-premises skal ikke sunsettes i seg selv, men bruk av ikke-autentisert MQ vil ikke lenger være mulig fra nais-klusterne  i nær fremtid. 
+Bruk av ikke-autentisert MQ vil ikke være mulig fra nais-klusterne fra og med første september (01.09.2021). 
 
 ### Rook/Ceph
 
