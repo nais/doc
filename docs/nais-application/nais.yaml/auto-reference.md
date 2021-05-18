@@ -207,12 +207,10 @@ Required: `false`<br />
 ### env[].name
 Type: `string`<br />
 Required: `false`<br />
-Example value: `MY_CUSTOM_VAR`<br />
 
 ### env[].value
 Type: `string`<br />
 Required: `false`<br />
-Example value: `some_value`<br />
 
 ### env[].valueFrom
 Type: `object`<br />
@@ -245,12 +243,10 @@ Availability: team namespaces<br />
 ### envFrom[].configmap
 Type: `string`<br />
 Required: `false`<br />
-Example value: `configmap-with-envs`<br />
 
 ### envFrom[].secret
 Type: `string`<br />
 Required: `false`<br />
-Example value: `secret-with-envs`<br />
 
 ## filesFrom[]
 List of ConfigMap or Secret resources that will have their contents mounted into the containers as files. Either `configmap` or `secret` is required.
@@ -272,17 +268,14 @@ Availability: team namespaces<br />
 ### filesFrom[].configmap
 Type: `string`<br />
 Required: `false`<br />
-Example value: `example-files-configmap`<br />
 
 ### filesFrom[].mountPath
 Type: `string`<br />
 Required: `false`<br />
-Example value: `/var/run/secrets`<br />
 
 ### filesFrom[].secret
 Type: `string`<br />
 Required: `false`<br />
-Example value: `my-secret-file`<br />
 
 ## gcp
 Type: `object`<br />
@@ -554,7 +547,6 @@ Your application's Docker image location and tag.
 
 Type: `string`<br />
 Required: `true`<br />
-Example value: `ghcr.io/navikt/myapp:1.6.9`<br />
 
 ??? example
     ``` yaml
@@ -650,14 +642,12 @@ Number of seconds after the container has started before startup probes are init
 
 Type: `integer`<br />
 Required: `false`<br />
-Example value: `20`<br />
 
 ### liveness.path
 HTTP endpoint path that signals 200 OK if the application has started successfully.
 
 Type: `string`<br />
 Required: `true`<br />
-Example value: `/isalive`<br />
 
 ### liveness.periodSeconds
 How often (in seconds) to perform the probe.
@@ -671,7 +661,6 @@ Port for the startup probe.
 
 Type: `integer`<br />
 Required: `false`<br />
-Example value: `http`<br />
 
 ### liveness.timeout
 Number of seconds after which the probe times out.
@@ -779,7 +768,6 @@ Required: `false`<br />
 ### prometheus.enabled
 Type: `boolean`<br />
 Required: `false`<br />
-Example value: `true`<br />
 
 ### prometheus.path
 Type: `string`<br />
@@ -789,7 +777,6 @@ Default value: `/metrics`<br />
 ### prometheus.port
 Type: `string`<br />
 Required: `false`<br />
-Example value: `8080`<br />
 
 ## readiness
 Sometimes, applications are temporarily unable to serve traffic. For example, an application might need to load large data or configuration files during startup, or depend on external services after startup. In such cases, you don't want to kill the application, but you don’t want to send it requests either. Kubernetes provides readiness probes to detect and mitigate these situations. A pod with containers reporting that they are not ready does not receive traffic through Kubernetes Services. Read more about this over at the [Kubernetes readiness documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
@@ -814,42 +801,36 @@ When a Pod starts, and the probe fails, Kubernetes will try _failureThreshold_ t
 
 Type: `integer`<br />
 Required: `false`<br />
-Example value: `10`<br />
 
 ### readiness.initialDelay
 Number of seconds after the container has started before startup probes are initiated.
 
 Type: `integer`<br />
 Required: `false`<br />
-Example value: `20`<br />
 
 ### readiness.path
 HTTP endpoint path that signals 200 OK if the application has started successfully.
 
 Type: `string`<br />
 Required: `true`<br />
-Example value: `/isalive`<br />
 
 ### readiness.periodSeconds
 How often (in seconds) to perform the probe.
 
 Type: `integer`<br />
 Required: `false`<br />
-Example value: `10`<br />
 
 ### readiness.port
 Port for the startup probe.
 
 Type: `integer`<br />
 Required: `false`<br />
-Example value: `http`<br />
 
 ### readiness.timeout
 Number of seconds after which the probe times out.
 
 Type: `integer`<br />
 Required: `false`<br />
-Example value: `1`<br />
 
 ## replicas
 The numbers of pods to run in parallel.
@@ -1000,7 +981,7 @@ Required: `false`<br />
 
 ## startup
 Startup probes will be available with Kubernetes 1.18 (in GCP, and 1.17 on-prem). Do not use this feature yet as it will not work. 
- Sometimes, you have to deal with legacy applications that might require an additional startup time on their first initialization. In such cases, it can be tricky to set up liveness probe parameters without compromising the fast response to deadlocks that motivated such a probe. The trick is to set up a startup probe with the same command, HTTP or TCP check, with a failureThreshold * periodSeconds long enough to cover the worst case startup time.
+ Sometimes, you have to deal with legacy applications that might require an additional startup time on their first initialization. In such cases, it can be tricky to set up liveness probe parameters without compromising the fast response to deadlocks that motivated such a probe. The trick is to set up a startup probe with the same command, HTTP or TCP check, with a `failureThreshold * periodSeconds` long enough to cover the worst case startup time.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -1022,42 +1003,36 @@ When a Pod starts, and the probe fails, Kubernetes will try _failureThreshold_ t
 
 Type: `integer`<br />
 Required: `false`<br />
-Example value: `10`<br />
 
 ### startup.initialDelay
 Number of seconds after the container has started before startup probes are initiated.
 
 Type: `integer`<br />
 Required: `false`<br />
-Example value: `20`<br />
 
 ### startup.path
 HTTP endpoint path that signals 200 OK if the application has started successfully.
 
 Type: `string`<br />
 Required: `true`<br />
-Example value: `/isalive`<br />
 
 ### startup.periodSeconds
 How often (in seconds) to perform the probe.
 
 Type: `integer`<br />
 Required: `false`<br />
-Example value: `10`<br />
 
 ### startup.port
 Port for the startup probe.
 
 Type: `integer`<br />
 Required: `false`<br />
-Example value: `http`<br />
 
 ### startup.timeout
 Number of seconds after which the probe times out.
 
 Type: `integer`<br />
 Required: `false`<br />
-Example value: `1`<br />
 
 ## strategy
 Specifies the strategy used to replace old Pods by new ones.
@@ -1141,7 +1116,6 @@ Availability: on-premises<br />
 ### vault.enabled
 Type: `boolean`<br />
 Required: `false`<br />
-Example value: `true`<br />
 
 ### vault.paths[]
 Type: `array`<br />
@@ -1150,23 +1124,19 @@ Required: `false`<br />
 #### vault.paths[].format
 Type: `enum`<br />
 Required: `false`<br />
-Example value: `env`<br />
 Allowed values: _(empty string)_, `env`, `flatten`, `json`, `properties`, `yaml`<br />
 
 #### vault.paths[].kvPath
 Type: `string`<br />
 Required: `false`<br />
-Example value: `/kv/preprod/fss/application/namespace`<br />
 
 #### vault.paths[].mountPath
 Type: `string`<br />
 Required: `false`<br />
-Example value: `/var/run/secrets/nais.io/vault`<br />
 
 ### vault.sidecar
 Type: `boolean`<br />
 Required: `false`<br />
-Example value: `true`<br />
 
 ## webproxy
 Expose web proxy configuration to the application using the `$HTTP_PROXY`, `$HTTPS_PROXY` and `$NO_PROXY` environment variables.
