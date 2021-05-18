@@ -414,10 +414,10 @@ Example value: `ghcr.io/navikt/myapp:1.6.9`<br />
 ## ingresses[]
 List of URLs that will route HTTPS traffic to the application. All URLs must start with `https://`. Domain availability differs according to which environment your application is running in.
 
-Relevant information:<br />
+Relevant information:
 
-* https://doc.nais.io/clusters/gcp/
-* https://doc.nais.io/clusters/on-premises/
+* [https://doc.nais.io/clusters/gcp/](https://doc.nais.io/clusters/gcp/)
+* [https://doc.nais.io/clusters/on-premises/](https://doc.nais.io/clusters/on-premises/)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -431,9 +431,9 @@ Required: `false`<br />
 ### kafka.pool
 Configures your application to access an Aiven Kafka cluster.
 
-Relevant information:<br />
+Relevant information:
 
-* https://doc.nais.io/addons/kafka/
+* [https://doc.nais.io/addons/kafka/](https://doc.nais.io/addons/kafka/)
 
 Type: `enum`<br />
 Required: `true`<br />
@@ -442,9 +442,9 @@ Allowed values: `nav-dev`, `nav-infrastructure`, `nav-prod`<br />
 ## leaderElection
 If true, an HTTP endpoint will be available at `$ELECTOR_PATH` that returns the current leader.
 
-Relevant information:<br />
+Relevant information:
 
-* https://doc.nais.io/addons/leader-election/
+* [https://doc.nais.io/addons/leader-election/](https://doc.nais.io/addons/leader-election/)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -539,9 +539,9 @@ Default value: `8080`<br />
 ## preStopHookPath
 A HTTP GET will be issued to this endpoint at least once before the pod is terminated.
 
-Relevant information:<br />
+Relevant information:
 
-* https://doc.nais.io/nais-application/#handles-termination-gracefully
+* [https://doc.nais.io/nais-application/#handles-termination-gracefully](https://doc.nais.io/nais-application/#handles-termination-gracefully)
 
 Type: `string`<br />
 Required: `false`<br />
@@ -813,9 +813,9 @@ Required: `true`<br />
 ## vault
 Provides secrets management, identity-based access, and encrypting application data for auditing of secrets for applications, systems, and users.
 
-Relevant information:<br />
+Relevant information:
 
-* https://github.com/navikt/vault-iac/tree/master/doc
+* [https://github.com/navikt/vault-iac/tree/master/doc](https://github.com/navikt/vault-iac/tree/master/doc)
 
 Type: `object`<br />
 Required: `false`<br />
