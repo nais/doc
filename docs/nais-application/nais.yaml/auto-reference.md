@@ -1,3 +1,5 @@
+# Application spec reference
+
 ## accessPolicy
 By default, all traffic is disallowed between applications inside the cluster. Configure access policies to allow specific applications.
 
