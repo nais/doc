@@ -7,6 +7,39 @@ Type: `object`<br />
 Required: `false`<br />
 Availability: GCP<br />
 
+??? example
+    ``` yaml
+    spec:
+      accessPolicy:
+        inbound:
+          rules:
+          - application: app1
+          - application: app2
+            namespace: q1
+          - application: app3
+            cluster: dev-gcp
+            namespace: q2
+          - application: '*'
+            namespace: q3
+        outbound:
+          external:
+          - host: external-application.example.com
+          - host: non-http-service.example.com
+            ports:
+            - name: kafka
+              port: 9200
+              protocol: TCP
+          rules:
+          - application: app1
+          - application: app2
+            namespace: q1
+          - application: app3
+            cluster: dev-gcp
+            namespace: q2
+          - application: '*'
+            namespace: q3
+    ```
+
 ### accessPolicy.inbound
 Type: `object`<br />
 Required: `false`<br />
@@ -76,6 +109,23 @@ Required: `false`<br />
 Type: `object`<br />
 Required: `false`<br />
 
+??? example
+    ``` yaml
+    spec:
+      azure:
+        application:
+          claims:
+            extra:
+            - NAVident
+            - azp_name
+            groups:
+            - id: 00000000-0000-0000-0000-000000000000
+          enabled: true
+          replyURLs:
+          - https://myapplication.nav.no/oauth2/callback
+          tenant: nav.no
+    ```
+
 ### azure.application
 Configures an Azure AD client for this application. See [Azure AD](https://doc.nais.io/security/auth/azure-ad/) for more details.
 
@@ -122,6 +172,13 @@ Allowed values: `nav.no`, `trygdeetaten.no`<br />
 Type: `object`<br />
 Required: `false`<br />
 
+??? example
+    ``` yaml
+    spec:
+      elastic:
+        instance: my-elastic-instance
+    ```
+
 ### elastic.instance
 Provisions an Elasticsearch instance and configures your application so it can access it. Use the `instance_name` that you specified in the [navikt/aiven-iac](https://github.com/navikt/aiven-iac) repository.
 
@@ -134,6 +191,18 @@ Custom environment variables injected into your container.
 
 Type: `array`<br />
 Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      env:
+      - name: MY_CUSTOM_VAR
+        value: some_value
+      - name: MY_APPLICATION_NAME
+        valueFrom:
+          fieldRef:
+            fieldPath: metadata.name
+    ```
 
 ### env[].name
 Type: `string`<br />
@@ -165,6 +234,14 @@ Type: `array`<br />
 Required: `false`<br />
 Availability: team namespaces<br />
 
+??? example
+    ``` yaml
+    spec:
+      envFrom:
+      - secret: my-secret-with-envs
+      - configmap: my-configmap-with-envs
+    ```
+
 ### envFrom[].configmap
 Type: `string`<br />
 Required: `false`<br />
@@ -181,6 +258,16 @@ List of ConfigMap or Secret resources that will have their contents mounted into
 Type: `array`<br />
 Required: `false`<br />
 Availability: team namespaces<br />
+
+??? example
+    ``` yaml
+    spec:
+      filesFrom:
+      - configmap: example-files-configmap
+        mountPath: /var/run/configmaps
+      - mountPath: /var/run/secrets
+        secret: my-secret-file
+    ```
 
 ### filesFrom[].configmap
 Type: `string`<br />
@@ -201,6 +288,46 @@ Example value: `my-secret-file`<br />
 Type: `object`<br />
 Required: `false`<br />
 Availability: GCP<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        buckets:
+        - cascadingDelete: true
+          lifecycleCondition:
+            age: 10
+            createdBefore: "2020-01-01"
+            numNewerVersions: 2
+            withState: ARCHIVED
+          name: my-cloud-storage-bucket
+          retentionPeriodDays: 30
+        permissions:
+        - resource:
+            apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+            kind: Project
+            name: myteam-dev-ab23
+          role: roles/cloudsql.client
+        sqlInstances:
+        - autoBackupHour: 1
+          cascadingDelete: true
+          collation: nb_NO.UTF8
+          databases:
+          - envVarPrefix: DB
+            name: mydatabase
+            users:
+            - name: extra_user
+          diskAutoresize: true
+          diskSize: 30
+          diskType: SSD
+          highAvailability: true
+          maintenance:
+            day: 1
+            hour: 4
+          name: myinstance
+          tier: db-f1-micro
+          type: POSTGRES_12
+    ```
 
 ### gcp.buckets[]
 Provision cloud storage buckets and connect them to your application.
@@ -365,6 +492,22 @@ Configures an ID-porten client for this application. See [ID-porten](https://doc
 Type: `object`<br />
 Required: `false`<br />
 
+??? example
+    ``` yaml
+    spec:
+      idporten:
+        accessTokenLifetime: 3600
+        clientURI: https://www.nav.no
+        enabled: true
+        frontchannelLogoutPath: /oauth2/logout
+        frontchannelLogoutURI: https://myapplication.nav.no/oauth2/logout
+        postLogoutRedirectURIs:
+        - https://www.nav.no
+        redirectPath: /oauth2/callback
+        redirectURI: https://myapplication.nav.no/oauth2/callback
+        sessionLifetime: 7200
+    ```
+
 ### idporten.accessTokenLifetime
 Type: `integer`<br />
 Required: `false`<br />
@@ -413,6 +556,12 @@ Type: `string`<br />
 Required: `true`<br />
 Example value: `ghcr.io/navikt/myapp:1.6.9`<br />
 
+??? example
+    ``` yaml
+    spec:
+      image: navikt/testapp:69.0.0
+    ```
+
 ## ingresses[]
 List of URLs that will route HTTPS traffic to the application. All URLs must start with `https://`. Domain availability differs according to which environment your application is running in.
 
@@ -424,11 +573,25 @@ Relevant information:
 Type: `array`<br />
 Required: `false`<br />
 
+??? example
+    ``` yaml
+    spec:
+      ingresses:
+      - https://myapplication.nav.no
+    ```
+
 ## kafka
 Enable Aiven Kafka for your application.
 
 Type: `object`<br />
 Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      kafka:
+        pool: nav-dev
+    ```
 
 ### kafka.pool
 Configures your application to access an Aiven Kafka cluster.
@@ -451,11 +614,29 @@ Relevant information:
 Type: `boolean`<br />
 Required: `false`<br />
 
+??? example
+    ``` yaml
+    spec:
+      leaderElection: true
+    ```
+
 ## liveness
 Many applications running for long periods of time eventually transition to broken states, and cannot recover except by being restarted. Kubernetes provides liveness probes to detect and remedy such situations. Read more about this over at the [Kubernetes probes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 Type: `object`<br />
 Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      liveness:
+        failureThreshold: 10
+        initialDelay: 20
+        path: /isalive
+        periodSeconds: 5
+        port: 8080
+        timeout: 1
+    ```
 
 ### liveness.failureThreshold
 When a Pod starts, and the probe fails, Kubernetes will try _failureThreshold_ times before giving up. Giving up in case of a startup probe means restarting the Pod.
@@ -506,6 +687,12 @@ Type: `enum`<br />
 Required: `false`<br />
 Allowed values: _(empty string)_, `accesslog`, `accesslog_with_processing_time`, `accesslog_with_referer_useragent`, `capnslog`, `glog`, `gokit`, `influxdb`, `log15`, `logrus`, `redis`, `simple`<br />
 
+??? example
+    ``` yaml
+    spec:
+      logformat: accesslog_with_referer_useragent
+    ```
+
 ## logtransform
 Extra filters for modifying log content. This can e.g. be used for setting loglevel based on http status code.
 
@@ -513,11 +700,26 @@ Type: `enum`<br />
 Required: `false`<br />
 Allowed values: `dns_loglevel`, `http_loglevel`<br />
 
+??? example
+    ``` yaml
+    spec:
+      logtransform: http_loglevel
+    ```
+
 ## maskinporten
 Configures a Maskinporten client for this application. See [Maskinporten](https://doc.nais.io/security/auth/maskinporten/) for more details.
 
 Type: `object`<br />
 Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      maskinporten:
+        enabled: true
+        scopes:
+        - name: some_scope
+    ```
 
 ### maskinporten.enabled
 Type: `boolean`<br />
@@ -538,6 +740,12 @@ Type: `integer`<br />
 Required: `false`<br />
 Default value: `8080`<br />
 
+??? example
+    ``` yaml
+    spec:
+      port: 8080
+    ```
+
 ## preStopHookPath
 A HTTP GET will be issued to this endpoint at least once before the pod is terminated.
 
@@ -548,11 +756,25 @@ Relevant information:
 Type: `string`<br />
 Required: `false`<br />
 
+??? example
+    ``` yaml
+    spec:
+      preStopHookPath: /internal/stop
+    ```
+
 ## prometheus
 Prometheus is used to [scrape metrics from the pod](https://doc.nais.io/observability/metrics/).
 
 Type: `object`<br />
 Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      prometheus:
+        enabled: true
+        path: /metrics
+    ```
 
 ### prometheus.enabled
 Type: `boolean`<br />
@@ -574,6 +796,18 @@ Sometimes, applications are temporarily unable to serve traffic. For example, an
 
 Type: `object`<br />
 Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      readiness:
+        failureThreshold: 10
+        initialDelay: 20
+        path: /isready
+        periodSeconds: 5
+        port: 8080
+        timeout: 1
+    ```
 
 ### readiness.failureThreshold
 When a Pod starts, and the probe fails, Kubernetes will try _failureThreshold_ times before giving up. Giving up in case of a startup probe means restarting the Pod.
@@ -623,6 +857,15 @@ The numbers of pods to run in parallel.
 Type: `object`<br />
 Required: `false`<br />
 
+??? example
+    ``` yaml
+    spec:
+      replicas:
+        cpuThresholdPercentage: 50
+        max: 4
+        min: 2
+    ```
+
 ### replicas.cpuThresholdPercentage
 Amount of CPU usage before the autoscaler kicks in.
 
@@ -649,6 +892,18 @@ When Containers have [resource requests](http://kubernetes.io/docs/user-guide/co
 
 Type: `object`<br />
 Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      resources:
+        limits:
+          cpu: 500m
+          memory: 512Mi
+        requests:
+          cpu: 200m
+          memory: 256Mi
+    ```
 
 ### resources.limits
 Type: `object`<br />
@@ -688,6 +943,13 @@ Whether or not to enable a sidecar container for secure logging.
 Type: `object`<br />
 Required: `false`<br />
 
+??? example
+    ``` yaml
+    spec:
+      secureLogs:
+        enabled: true
+    ```
+
 ### secureLogs.enabled
 Whether to enable a sidecar container for secure logging. If enabled, a volume is mounted in the pods where secure logs can be saved.
 
@@ -700,6 +962,14 @@ How to connect to the default service in your application's container.
 
 Type: `object`<br />
 Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      service:
+        port: 80
+        protocol: http
+    ```
 
 ### service.port
 Port for the default service. Default port is 80.
@@ -722,12 +992,30 @@ Whether to skip injection of certificate authority bundle or not. Defaults to fa
 Type: `boolean`<br />
 Required: `false`<br />
 
+??? example
+    ``` yaml
+    spec:
+      skipCaBundle: true
+    ```
+
 ## startup
 Startup probes will be available with Kubernetes 1.18 (in GCP, and 1.17 on-prem). Do not use this feature yet as it will not work. 
  Sometimes, you have to deal with legacy applications that might require an additional startup time on their first initialization. In such cases, it can be tricky to set up liveness probe parameters without compromising the fast response to deadlocks that motivated such a probe. The trick is to set up a startup probe with the same command, HTTP or TCP check, with a failureThreshold * periodSeconds long enough to cover the worst case startup time.
 
 Type: `object`<br />
 Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      startup:
+        failureThreshold: 10
+        initialDelay: 20
+        path: /started
+        periodSeconds: 5
+        port: 8080
+        timeout: 1
+    ```
 
 ### startup.failureThreshold
 When a Pod starts, and the probe fails, Kubernetes will try _failureThreshold_ times before giving up. Giving up in case of a startup probe means restarting the Pod.
@@ -777,6 +1065,13 @@ Specifies the strategy used to replace old Pods by new ones.
 Type: `object`<br />
 Required: `false`<br />
 
+??? example
+    ``` yaml
+    spec:
+      strategy:
+        type: RollingUpdate
+    ```
+
 ### strategy.type
 Type: `enum`<br />
 Required: `true`<br />
@@ -788,6 +1083,14 @@ OAuth2 tokens from TokenX for your application.
 
 Type: `object`<br />
 Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      tokenx:
+        enabled: true
+        mountSecretsAsFilesOnly: true
+    ```
 
 ### tokenx.enabled
 if enabled, the application will have a jwker secret injected
@@ -822,6 +1125,18 @@ Relevant information:
 Type: `object`<br />
 Required: `false`<br />
 Availability: on-premises<br />
+
+??? example
+    ``` yaml
+    spec:
+      vault:
+        enabled: true
+        paths:
+        - format: env
+          kvPath: /kv/preprod/fss/application/namespace
+          mountPath: /var/run/secrets/nais.io/vault
+        sidecar: true
+    ```
 
 ### vault.enabled
 Type: `boolean`<br />
@@ -859,4 +1174,10 @@ Expose web proxy configuration to the application using the `$HTTP_PROXY`, `$HTT
 Type: `boolean`<br />
 Required: `false`<br />
 Availability: on-premises<br />
+
+??? example
+    ``` yaml
+    spec:
+      webproxy: true
+    ```
 
