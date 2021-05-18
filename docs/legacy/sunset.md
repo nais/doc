@@ -45,7 +45,9 @@ Det er ingen plan om å avvikle de gamle ingressene i FSS, men vi anbefaler en g
 
 MQ benyttes i dag kun via on-premises servere som driftes og vedlikeholdes av ATOM og Linux. 
 
-Det er ønskelig at de applikasjonene som har mulighet heller benytter Aiven Kafka. Det er dog støtte for MQ fra nais-klusterne on-premises og i GCP, men da kun med nye serverne som er satt opp med autentisering.
+Det er ønskelig at de applikasjonene som har mulighet heller benytter Aiven Kafka. Vi ønsker at man går vekk fra MQ fordi dette vil forenkle overgang til offentlig sky og et eventuelt bytte av leverandør der. Dette vil også forenkle oppsettet for applikasjonene og plattform.
+
+Det er dog støtte for MQ fra nais-klusterne on-premises og i GCP, men da kun med nye MQ-servere som er satt opp med autentisering. 
 
 Bruk av ikke-autentisert MQ vil ikke være mulig fra nais-klusterne fra og med første september (01.09.2021). 
 
