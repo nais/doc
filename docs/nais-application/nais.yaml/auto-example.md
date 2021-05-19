@@ -1,6 +1,6 @@
 # Full example of application spec
 
-```
+``` yaml
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
@@ -50,6 +50,8 @@ spec:
       replyURLs:
       - https://myapplication.nav.no/oauth2/callback
       tenant: nav.no
+  elastic:
+    instance: my-elastic-instance
   env:
   - name: MY_CUSTOM_VAR
     value: some_value
