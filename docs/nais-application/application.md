@@ -9,7 +9,6 @@ Relevant information:
 
 Type: `object`<br />
 Required: `false`<br />
-Availability: GCP<br />
 
 ??? example
     ``` yaml
@@ -65,6 +64,8 @@ Required: `false`<br />
     ```
 
 #### accessPolicy.inbound.rules
+List of NAIS applications that may access your application. These settings apply both to Zero Trust network connectivity and token validity for Azure AD and TokenX tokens.
+
 Type: `array`<br />
 Required: `true`<br />
 
@@ -174,6 +175,7 @@ Required: `false`<br />
 #### accessPolicy.outbound.external
 Type: `array`<br />
 Required: `false`<br />
+Availability: GCP<br />
 
 ??? example
     ``` yaml
@@ -281,6 +283,8 @@ Allowed values: `GRPC`, `HTTP`, `HTTP2`, `HTTPS`, `MONGO`, `TCP`, `TLS`<br />
     ```
 
 #### accessPolicy.outbound.rules
+List of NAIS applications that your application needs to access. These settings apply to Zero Trust network connectivity.
+
 Type: `array`<br />
 Required: `false`<br />
 
