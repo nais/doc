@@ -95,7 +95,7 @@ Your application's Azure AD client ID is available at multiple locations:
 
 ### Spec
 
-See the [NAIS manifest](../../nais-application/application.md#specazureapplication).
+See the [NAIS manifest](../../nais-application/application.md#azureapplication).
 
 ### Getting started
 
@@ -150,7 +150,7 @@ You do not need to specify these explicitly.
 
 #### On-premises
 
-You must enable and use [`webproxy`](../../nais-application/application.md#specwebproxy) for external communication.
+You must enable and use [`webproxy`](../../nais-application/application.md#webproxy) for external communication.
 
 ### Reply URLs
 
@@ -239,7 +239,7 @@ For proper scoping of tokens when performing calls between clients, one must eit
 Azure AD will enforce authorization for both flows. In other words, you **must** pre-authorize any consumer clients for your application.
 
 Clients that should receive and validate access tokens from other clients should [pre-authorize](azure-ad.md#pre-authorization) said clients. 
-These are declared by specifying [`spec.accessPolicy.inbound.rules[]`](../../nais-application/application.md#specaccesspolicy):
+These are declared by specifying [`spec.accessPolicy.inbound.rules[]`](../../nais-application/application.md#accesspolicy):
 
 ```yaml
 spec:
@@ -373,7 +373,7 @@ The following environment variables and files \(under the directory `/var/run/se
    
 ???+ example "`AZURE_APP_PRE_AUTHORIZED_APPS`"
     
-    A JSON string. List of names and client IDs for the valid \(i.e. those that exist in Azure AD\) applications defined in [`spec.accessPolicy.inbound.rules[]`](../../nais-application/application.md#specaccesspolicy)
+    A JSON string. List of names and client IDs for the valid \(i.e. those that exist in Azure AD\) applications defined in [`spec.accessPolicy.inbound.rules[]`](../../nais-application/application.md#accesspolicy)
     
     Example value: 
 
@@ -442,7 +442,7 @@ This section only applies if you have an existing Azure AD client registered in 
 
 ### Why migrate?
 
-* Declarative provisioning, straight from your application's [`nais.yaml`](../../nais-application/application.md#specazureapplication)
+* Declarative provisioning, straight from your application's [`nais.yaml`](../../nais-application/application.md#azureapplication)
 * No longer dependent on manual user approvals in multiple IaC repositories
 * No longer dependent on Vault
 * Credentials are rotated regularly, completely transparent to the application. This ensures that credentials are fresh and lessens the impact in the case of exposure.

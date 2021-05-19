@@ -81,7 +81,7 @@ You can also add `/path/to/alerts.yaml` to `RESOURCE` in a previous workflow, ju
 
 ## Different receivers/notifications
 
-Alerterator supports three different types of notification, [Slack](spec.md#specreceiversslack), [E-mail](spec.md#specreceiversemail), and [SMS](spec.md#specreceiverssms).
+Alerterator supports three different types of notification, [Slack](spec.md#receiversslack), [E-mail](spec.md#receiversemail), and [SMS](spec.md#receiverssms).
 In our spec we follow the naming convention of Alertmanager and call it `receivers`.
 
 Take a look below too see exactly how each receiver is configured.

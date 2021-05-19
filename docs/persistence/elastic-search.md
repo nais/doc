@@ -14,7 +14,7 @@ For now we are manually distributing the username and password for each instance
 To make it easier for you, we're making four different users: admin, read, write, read/write.
 
 ## Access from Nais-app
-If you need access from an application, use the following [nais.yaml-reference](../nais-application/application.md#specelasticinstance).
+If you need access from an application, use the following [nais.yaml-reference](../nais-application/application.md#elasticinstance).
 
 ## Access from laptop
 With Naisdevice you have access to the _aiven-prod_ gateway.

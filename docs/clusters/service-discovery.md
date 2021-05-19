@@ -40,6 +40,6 @@ http://<another-service>.<another-namespace>
 ```
 
 !!! info "Note for on-prem"
-    If your application has [webproxy](../nais-application/application.md#specwebproxy) enabled, you should use the full hostname for all service discovery calls.
+    If your application has [webproxy](../nais-application/application.md#webproxy) enabled, you should use the full hostname for all service discovery calls.
 
     This is to ensure that your application does not attempt to perform these in-cluster calls through the proxy, as the environment variable `NO_PROXY` includes `*.local`.

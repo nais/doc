@@ -731,7 +731,7 @@ The numbers of pods to run in parallel.
     The total CPU percentage threshold for the [Horizontal Pod Autoscaler \(HPA\)](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/).  
     `Default`: `50`
 
-    In short, if `current number of replicas for a deployment` is less than the `maximum number of replicas set in $spec.replicas.max`, HPA will automatically increase the number of replicas - as long as the `average CPU utilization across all replicas` reach this threshold percentage of the [requested](reference.md#specresourcesrequests) CPU resources.
+    In short, if `current number of replicas for a deployment` is less than the `maximum number of replicas set in $spec.replicas.max`, HPA will automatically increase the number of replicas - as long as the `average CPU utilization across all replicas` reach this threshold percentage of the [requested](reference.md#resourcesrequests) CPU resources.
 
     We recommend to read more about [container lifecycle hooks](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/).
 
@@ -906,7 +906,7 @@ Vault documentation can be found in [navikt/vault-iac](https://github.com/navikt
     Refer to the [Vault documentation](https://github.com/navikt/vault-iac/tree/master/doc) for details.
 
     !!! important
-        The default path specified with [`spec.vault.paths[].kvPath`](#specvaultpathskvpath) will always be attemped to be mounted.
+        The default path specified with [`spec.vault.paths[].kvPath`](#vaultpathskvpath) will always be attemped to be mounted.
 
     ---
 

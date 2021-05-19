@@ -58,7 +58,7 @@ description: Enabling public-facing authentication using ID-porten.
 
 ### Spec
 
-See the [NAIS manifest](../../nais-application/application.md#specidporten).
+See the [NAIS manifest](../../nais-application/application.md#idporten).
 
 ### Access Policies
 
@@ -75,7 +75,7 @@ You do not need to specify these explicitly.
 
 #### On-premises
 
-You must enable and use [`webproxy`](../../nais-application/application.md#specwebproxy) for external communication.
+You must enable and use [`webproxy`](../../nais-application/application.md#webproxy) for external communication.
 
 ### Ingresses
 
