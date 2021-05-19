@@ -152,13 +152,21 @@ If you wish to use a different path than the default, you may do so by manually 
 
 The following environment variables and files \(under the directory `/var/run/secrets/nais.io/idporten`\) are available at runtime:
 
-???+ example "`IDPORTEN_CLIENT_ID`"
+---
+
+#### `IDPORTEN_CLIENT_ID`
+
+???+ note
 
     ID-porten client ID. Unique ID for the application in ID-porten.
 
     Example value: `e89006c5-7193-4ca3-8e26-d0990d9d981f`
 
-???+ example "`IDPORTEN_CLIENT_JWK`"
+---
+
+#### `IDPORTEN_CLIENT_JWK`
+
+???+ note
 
     Private JWK containing the private RSA key for creating signed JWTs when [authenticating to ID-porten with a JWT grant](https://docs.digdir.no/oidc_protocol_token.html#client-authentication-using-jwt-token).
 
@@ -179,13 +187,21 @@ The following environment variables and files \(under the directory `/var/run/se
     }
     ```
 
-???+ example "`IDPORTEN_REDIRECT_URI`"
+---
+
+#### `IDPORTEN_REDIRECT_URI`
+
+???+ note
 
     The redirect URI registered for the client at ID-porten. This must be a valid URI for the application where the user is redirected back to after successful authentication and authorization.
     
     Example value: `https://my.application.dev.nav.no/callback` 
 
-???+ example "`IDPORTEN_WELL_KNOWN_URL`"
+---
+
+#### `IDPORTEN_WELL_KNOWN_URL`
+
+???+ note
 
     The well-known URL for the OIDC metadata discovery document for ID-porten.
 

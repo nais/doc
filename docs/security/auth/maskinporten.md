@@ -75,25 +75,41 @@ When a client requests a token from Maskinporten:
 
 The following environment variables and files (under the directory `/var/run/secrets/nais.io/maskinporten`) are available at runtime:
 
-???+ example "`MASKINPORTEN_CLIENT_ID`"
+---
+
+#### `MASKINPORTEN_CLIENT_ID`
+
+???+ note
 
     Maskinporten client ID. Unique ID for the application in Maskinporten.
 
     Example value: `e89006c5-7193-4ca3-8e26-d0990d9d981f`
 
-???+ example "`MASKINPORTEN_SCOPES`"
+---
+
+#### `MASKINPORTEN_SCOPES`
+
+???+ note
 
     The scopes registered for the client at Maskinporten as a whitepace-separated string. See [JWT grants](https://docs.digdir.no/maskinporten_protocol_token.html) for more information.
 
     Example value: `nav:first/scope nav:another/scope`
 
-???+ example "`MASKINPORTEN_WELL_KNOWN_URL`"
+---
+
+#### `MASKINPORTEN_WELL_KNOWN_URL`
+
+???+ note
 
     The well-known URL for the OIDC metadata discovery document for Maskinporten. 
 
     Example value: `https://ver2.maskinporten.no/.well-known/oauth-authorization-server`
 
-???+ example "`MASKINPORTEN_CLIENT_JWK`"
+---
+
+#### `MASKINPORTEN_CLIENT_JWK`
+
+???+ note
 
     Private JWK containing the private RSA key for creating signed JWTs when using the [JWT grants](https://docs.digdir.no/maskinporten_protocol_token.html).
 
