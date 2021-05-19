@@ -57,9 +57,9 @@ If your application stores personally identifiable information in any GCP data s
     * Cluster name: All references to cluster name. \(Logs, grafana, deploy, etc.\)
     * Secrets: are now stored as native secrets in the cluster, rather than externally in Vault.
     * Namespace: If your application is in the `default` namespace, you will have to move to team namespace
-    * Storage: Use `GCS-buckets` instead of `s3` in GCP. Buckets, and access to them, are expressed in your [application manifest](../nais-application/nais.yaml/full-example.md)
+    * Storage: Use `GCS-buckets` instead of `s3` in GCP. Buckets, and access to them, are expressed in your [application manifest](../nais-application/example.md)
     * Ingress: There are some domains that are available both on-prem and in GCP, but some differ, make sure to verify before you move.
-    * Postgres: A new database \(and access to it\) is automatically configured when expressing `sqlInstance` in your [application manifest](../nais-application/nais.yaml/full-example.md)
+    * Postgres: A new database \(and access to it\) is automatically configured when expressing `sqlInstance` in your [application manifest](../nais-application/example.md)
 
       We're currently investigating the possibility of using on-prem databases during a migration window.
 

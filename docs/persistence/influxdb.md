@@ -19,7 +19,7 @@ This means that everyone has access to your data.
 
 ## Access from Nais-app
 If you need access from an application, you need to reuse the access given for Elastic Search instances.
-See [nais.yaml-reference](../nais-application/nais.yaml/reference.md#specelasticinstance).
+See [nais.yaml-reference](../nais-application/application.md#specelasticinstance).
 
 ## Access from laptop
 With Naisdevice you have access to the _aiven-prod_ gateway.

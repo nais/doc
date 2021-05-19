@@ -46,7 +46,7 @@ description: Enabling zero trust on the application layer
 
 ### Spec
 
-See the [NAIS manifest](../../nais-application/nais.yaml/reference.md#spectokenxenabled).
+See the [NAIS manifest](../../nais-application/application.md#spectokenxenabled).
 
 ### Getting Started
 

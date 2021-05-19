@@ -17,7 +17,7 @@ Ensure that;
 1. Defaults are set
 2. Your app doesn't die/freak out if it doesn't reach NAV IT's unleash server
 3. Feature toggles have expiration date (and are short-lived)
-    - If you don't want to remove the "`if feature -> toggle`" code/functionality from the feature toggled in your application, consider adding it as an configuration setting in your [nais.yaml](../../nais-application/nais.yaml/reference#specenvfromconfigmap) instead.
+    - If you don't want to remove the "`if feature -> toggle`" code/functionality from the feature toggled in your application, consider adding it as an configuration setting in your [nais.yaml](../../nais-application/application#specenvfromconfigmap) instead.
 
 ## Metrics
 Unleash supports metrics of usage of features.

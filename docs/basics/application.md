@@ -24,7 +24,7 @@ spec:
 
 See https://github.com/features/packages for more info on how to publish packages to ghcr.io.
 
-For more information about the `nais.yaml` specification, see [Manifest](../nais-application/nais.yaml/reference.md).
+For more information about the `nais.yaml` specification, see [Manifest](../nais-application/application.md).
 
 Now that you've created your application, it's time to [deploy to Kubernetes](../deployment/README.md).
 
