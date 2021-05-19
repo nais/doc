@@ -56,13 +56,9 @@ nav:
       - Team namespaces: clusters/team-namespaces.md
       - Service discovery: clusters/service-discovery.md
     - NAIS Application:
-      - NAIS Application Overview: nais-application/README.md
-      - nais.yaml:
-        - Reference: nais-application/nais.yaml/reference.md
-        - Full example: nais-application/nais.yaml/full-example.md
-        - Minimal example: nais-application/nais.yaml/min-example.md
-        - (BETA) Auto-generated reference: nais-application/nais.yaml/auto-reference.md
-        - (BETA) Auto-generated full example: nais-application/nais.yaml/auto-example.md
+      - Overview: nais-application/README.md
+      - Full example: nais-application/example.md
+      - Reference: nais-application/application.md
       - Access Policy: nais-application/access-policy.md
       - Ingress customization: nais-application/ingress.md
     - Deployment:
