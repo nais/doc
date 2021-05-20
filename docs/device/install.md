@@ -39,10 +39,11 @@ brew install naisdevice
 ``` 
 curl -s --compressed "https://ppa.nais.io/KEY.gpg" | sudo apt-key add -
 sudo curl -s --compressed -o /etc/apt/sources.list.d/my_list_file.list "https://ppa.nais.io/my_list_file.list"
+sudo apt update
 ```
 3. Intall the naisdevice package:
 ```
-apt install naisdevice
+sudo apt install naisdevice
 ```
 4. Turn on your freshly installed `naisdevice` application.
     1. Find `naisdevice` in your application menu, or use the `naisdevice` command in a terminal to start the application.
