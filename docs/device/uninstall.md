@@ -31,13 +31,17 @@ brew uninstall --force naisdevice
 sudo systemctl stop launcher.kolide-k2.service
 sudo systemctl disable launcher.kolide-k2.service
 ```
-2. Uninstall program files
+2. Uninstall Kolide program files
 ```bash
 sudo apt(-get) remove launcher-kolide-k2
 ```
-3. Delete files & caches
+3. Delete Kolide files & caches
 ```bash
 sudo rm -r /{etc,var}/kolide-k2
+```
+4. Uninstall the naisdevice deb package
+```bash
+sudo apt remove naisdevice
 ```
 
 ## OS-agnostic uninstall steps

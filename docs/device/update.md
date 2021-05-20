@@ -11,7 +11,7 @@ Use the [standard mechanisms](https://docs.brew.sh/FAQ#how-do-i-update-my-local-
 
 ### Ubuntu \(using Gnome DE - only supported variant atm\)
 
-Write in the terminal: `curl https://device.nais.io/install.sh | bash` \(you might be prompted for your laptop-account's password to unlock `sudo`\).
+Use the [standard mechanisms](https://ubuntu.com/server/docs/package-management) provided by APT to upgrade the `naisdevice` package
 
 ### Windows
 

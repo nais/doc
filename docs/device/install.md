@@ -7,16 +7,19 @@
 1. If you have got __`navtunnel`__ installed -> [uninstall navtunnel](#uninstall-navtunnel).
 2. [Install the Kolide agent](#install-kolide-agent).
 3. Install [Homebrew](https://brew.sh/) unless yoy already have it.
-4. Write in the terminal: 
+4. Add the nais tap
 ```bash
 brew tap nais/tap
+```
+5. Install the naisdevice cask: 
+```bash
 brew install naisdevice
 ``` 
 (you will be prompted for your laptop-account's password to unlock `sudo`).
-5. Turn on your freshly installed `naisdevice` app.
+6. Turn on your freshly installed `naisdevice` app.
     1. Use &lt;Command&gt; + &lt;Space&gt; to find your `naisdevice.app` and press &lt;Enter&gt;.
     2. Follow the [instructions to connect your _nais_ device](#connect-naisdevice-through-tasksys-tray-icon).
-6. Remember to [update your kubeconfig](#connecting-to-nais-clusters) if you need to connect to anything running in a K8s cluster.
+7. Remember to [update your kubeconfig](#connecting-to-nais-clusters) if you need to connect to anything running in a K8s cluster.
 
 ### Windows Installation
 
@@ -32,11 +35,19 @@ brew install naisdevice
     Using Gnome DE on latest Ubuntu LTS - only supported variant atm
 
 1. [Install Kolide agent](install.md#install-kolide-agent).
-2. Write in the terminal: `curl https://device.nais.io/install.sh | bash` \(you might be prompted for your laptop-account's password to unlock `sudo`\).
-3. Turn on your freshly installed `naisdevice` application.
+2. Add the nais PPA repo:
+``` 
+curl -s --compressed "https://ppa.nais.io/KEY.gpg" | sudo apt-key add -
+sudo curl -s --compressed -o /etc/apt/sources.list.d/my_list_file.list "https://ppa.nais.io/my_list_file.list"
+```
+3. Intall the naisdevice package:
+```
+apt install naisdevice
+```
+4. Turn on your freshly installed `naisdevice` application.
     1. Find `naisdevice` in your application menu, or use the `naisdevice` command in a terminal to start the application.
     2. Follow the [instructions to connect your _nais_ device](#connect-naisdevice-through-tasksys-tray-icon).
-4. Remember to [update your kubeconfig](install.md#connecting-to-nais-clusters).
+5. Remember to [update your kubeconfig](install.md#connecting-to-nais-clusters).
 
 ## OS-agnostic install steps
 ###  Install Kolide agent
