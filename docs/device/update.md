@@ -9,13 +9,13 @@ If this is not the case, head over to the [installation instructions](./install.
 
 Use the [standard mechanisms](https://docs.brew.sh/FAQ#how-do-i-update-my-local-packages) provided by Homebrew to upgrade the `naisdevice` cask
 
-### Ubuntu \(using Gnome DE - only supported variant atm\)
-
-Use the [standard mechanisms](https://ubuntu.com/server/docs/package-management) provided by APT to upgrade the `naisdevice` package
-
 ### Windows
 
 Download and run the newest [naisdevice installer](https://github.com/nais/device/releases/latest) \(naisdevice.msi\).
+
+### Ubuntu \(using Gnome DE - only supported variant atm\)
+
+Use the [standard mechanisms](https://ubuntu.com/server/docs/package-management) provided by APT to upgrade the `naisdevice` package
 
 ## Troubleshooting
 
