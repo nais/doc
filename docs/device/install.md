@@ -38,7 +38,7 @@ brew install naisdevice
 2. Add the nais PPA repo:
 ``` 
 curl -s --compressed "https://ppa.nais.io/KEY.gpg" | sudo apt-key add -
-sudo curl -s --compressed -o /etc/apt/sources.list.d/my_list_file.list "https://ppa.nais.io/my_list_file.list"
+curl -s --compressed -o "https://ppa.nais.io/nav_nais.list" | sudo tee /etc/apt/sources.list.d/nav_nais.list
 sudo apt update
 ```
 3. Intall the naisdevice package:
