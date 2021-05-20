@@ -15,6 +15,11 @@ sudo /bin/rm -rf /etc/kolide-k2
 sudo /bin/rm -rf /var/kolide-k2
 ```
 
+3. Uninstall the naisdevice Homebrew cask
+```bash
+brew uninstall --force naisdevice
+```
+
 ### Windows uninstall
 1. Enter  Apps & Features
 2. Search for Kolide 
@@ -26,13 +31,17 @@ sudo /bin/rm -rf /var/kolide-k2
 sudo systemctl stop launcher.kolide-k2.service
 sudo systemctl disable launcher.kolide-k2.service
 ```
-2. Uninstall program files
+2. Uninstall Kolide program files
 ```bash
 sudo apt(-get) remove launcher-kolide-k2
 ```
-3. Delete files & caches
+3. Delete Kolide files & caches
 ```bash
 sudo rm -r /{etc,var}/kolide-k2
+```
+4. Uninstall the naisdevice deb package
+```bash
+sudo apt remove naisdevice
 ```
 
 ## OS-agnostic uninstall steps
