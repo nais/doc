@@ -13,6 +13,14 @@ There is only one user for Influxdb.
 ### Default database name
 The default database name is `defaultdb`.
 
+### Retention policies
+
+The default database is created with a default retention policy of 30 days. You might want to adjust this by e.g. creating a new default retention policy with 1 year retention:
+
+```
+create retention policy "365d" on "defaultdb" duration 365d replication 1 shard duration 1w default
+```
+
 ## Datasource in grafana.adeo.no
 Let us know in [#pig-aiven](https://nav-it.slack.com/archives/C018L1JATBQ) if you want your Influxdb to be exposed at grafana.adeo.no.
 This means that everyone has access to your data.
