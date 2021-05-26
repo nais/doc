@@ -1,10 +1,12 @@
 # What is production ready?
 
 ## 12 factor app
-Twelve factor apps have declarative system requirements, are suitable for
-deployment in Docker containers, do not have differences between deployment and
-production, and can scale up without significant changes to tooling,
-architecture, or development practices.
+Twelve factor apps
+
+- have declarative system requirements,
+- are suitable for deployment in Docker containers,
+- do not have differences between development and production, and
+- can scale up without significant changes to tooling, architecture, or development practices.
 
 Read more at https://12factor.net/
 
