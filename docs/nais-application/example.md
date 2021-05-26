@@ -57,6 +57,12 @@ spec:
       replyURLs:
       - https://myapplication.nav.no/oauth2/callback
       tenant: nav.no
+  command:
+  - /app/myapplication
+  - --param
+  - value
+  - --other-param
+  - other-value
   elastic:
     instance: my-elastic-instance
   env:

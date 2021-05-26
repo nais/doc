@@ -572,8 +572,19 @@ Allowed values: `nav.no`, `trygdeetaten.no`<br />
 ## command
 Override command when starting Docker image.
 
-Type: `string`<br />
+Type: `array`<br />
 Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      command:
+      - /app/myapplication
+      - --param
+      - value
+      - --other-param
+      - other-value
+    ```
 
 ## elastic
 Type: `object`<br />
