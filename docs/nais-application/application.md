@@ -569,6 +569,12 @@ Allowed values: `nav.no`, `trygdeetaten.no`<br />
           tenant: nav.no
     ```
 
+## command
+Override command when starting Docker image.
+
+Type: `string`<br />
+Required: `false`<br />
+
 ## elastic
 Type: `object`<br />
 Required: `false`<br />
