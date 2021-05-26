@@ -8,11 +8,13 @@
 -->
 
 ## accessPolicy
-By default, no traffic is allowed between applications inside the cluster. Configure access policies to allow specific applications.
+By default, no traffic is allowed between applications inside the cluster. Configure access policies to explicitly allow communication between applications. This is also used for granting inbound access in the context of Azure AD and TokenX clients.
 
 Relevant information:
 
 * [https://doc.nais.io/appendix/zero-trust/](https://doc.nais.io/appendix/zero-trust/)
+* [https://doc.nais.io/security/auth/azure-ad/#pre-authorization](https://doc.nais.io/security/auth/azure-ad/#pre-authorization)
+* [https://doc.nais.io/security/auth/tokenx/#access-policies](https://doc.nais.io/security/auth/tokenx/#access-policies)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -51,6 +53,8 @@ Required: `false`<br />
     ```
 
 ### accessPolicy.inbound
+Configures inbound access for your application.
+
 Type: `object`<br />
 Required: `false`<br />
 
@@ -93,6 +97,8 @@ Required: `true`<br />
     ```
 
 ##### accessPolicy.inbound.rules[].application
+The application's name.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -113,6 +119,8 @@ Required: `false`<br />
     ```
 
 ##### accessPolicy.inbound.rules[].cluster
+The application's cluster. May be omitted if it should be in the same cluster as your application.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -133,6 +141,8 @@ Required: `false`<br />
     ```
 
 ##### accessPolicy.inbound.rules[].namespace
+The application's namespace. May be omitted if it should be in the same namespace as your application.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -153,6 +163,8 @@ Required: `false`<br />
     ```
 
 ### accessPolicy.outbound
+Configures outbound access for your application.
+
 Type: `object`<br />
 Required: `false`<br />
 
@@ -180,6 +192,8 @@ Required: `false`<br />
     ```
 
 #### accessPolicy.outbound.external
+List of external resources that your applications should be able to reach.
+
 Type: `array`<br />
 Required: `false`<br />
 Availability: GCP<br />
@@ -199,6 +213,8 @@ Availability: GCP<br />
     ```
 
 ##### accessPolicy.outbound.external[].host
+The _host_ that your application should be able to reach, i.e. without the protocol (e.g. `https://`).
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -217,6 +233,8 @@ Required: `false`<br />
     ```
 
 ##### accessPolicy.outbound.external[].ports
+List of port rules for external communication. Must be specified if using protocols other than HTTPS.
+
 Type: `array`<br />
 Required: `false`<br />
 
@@ -235,6 +253,8 @@ Required: `false`<br />
     ```
 
 ###### accessPolicy.outbound.external[].ports[].name
+Human-readable identifier for this rule.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -253,6 +273,8 @@ Required: `false`<br />
     ```
 
 ###### accessPolicy.outbound.external[].ports[].port
+The port used for communication.
+
 Type: `integer`<br />
 Required: `false`<br />
 
@@ -271,6 +293,8 @@ Required: `false`<br />
     ```
 
 ###### accessPolicy.outbound.external[].ports[].protocol
+The protocol used for communication.
+
 Type: `enum`<br />
 Required: `false`<br />
 Allowed values: `GRPC`, `HTTP`, `HTTP2`, `HTTPS`, `MONGO`, `TCP`, `TLS`<br />
@@ -312,6 +336,8 @@ Required: `false`<br />
     ```
 
 ##### accessPolicy.outbound.rules[].application
+The application's name.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -332,6 +358,8 @@ Required: `false`<br />
     ```
 
 ##### accessPolicy.outbound.rules[].cluster
+The application's cluster. May be omitted if it should be in the same cluster as your application.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -352,6 +380,8 @@ Required: `false`<br />
     ```
 
 ##### accessPolicy.outbound.rules[].namespace
+The application's namespace. May be omitted if it should be in the same namespace as your application.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -372,6 +402,8 @@ Required: `false`<br />
     ```
 
 ## azure
+Provisions and configures Azure resources.
+
 Type: `object`<br />
 Required: `false`<br />
 
@@ -416,7 +448,7 @@ Required: `true`<br />
     ```
 
 #### azure.application.claims
-Claims defines additional configuration of the emitted claims in tokens returned to the AzureAdApplication
+Claims defines additional configuration of the emitted claims in tokens returned to the Azure AD application.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -468,6 +500,8 @@ Required: `false`<br />
     ```
 
 ###### azure.application.claims.groups[].id
+ID is the actual `object ID` associated with the given group in Azure AD.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -482,6 +516,8 @@ Required: `false`<br />
     ```
 
 #### azure.application.enabled
+Whether to enable provisioning of an Azure AD application. If enabled, an Azure AD application will be provisioned.
+
 Type: `boolean`<br />
 Required: `true`<br />
 Default value: `false`<br />
@@ -495,6 +531,12 @@ Default value: `false`<br />
     ```
 
 #### azure.application.replyURLs
+ReplyURLs is a list of allowed redirect URLs used when performing OpenID Connect flows for authenticating end-users.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/azure-ad/#reply-urls](https://doc.nais.io/security/auth/azure-ad/#reply-urls)
+
 Type: `array`<br />
 Required: `false`<br />
 
@@ -508,6 +550,13 @@ Required: `false`<br />
     ```
 
 #### azure.application.tenant
+A Tenant represents an organization in Azure AD. 
+ If unspecified, will default to `trygdeetaten.no` for development clusters and `nav.no` for production clusters.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/azure-ad/#tenants](https://doc.nais.io/security/auth/azure-ad/#tenants)
+
 Type: `enum`<br />
 Required: `false`<br />
 Allowed values: `nav.no`, `trygdeetaten.no`<br />
@@ -546,7 +595,7 @@ Availability: GCP<br />
     ```
 
 ## env
-Custom environment variables injected into your container.
+Custom environment variables injected into your container. Specify either `value` or `valueFrom`, but not both.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -564,6 +613,8 @@ Required: `false`<br />
     ```
 
 ### env[].name
+Environment variable name. May only contain letters, digits, and the underscore `_` character.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -580,6 +631,8 @@ Required: `false`<br />
     ```
 
 ### env[].value
+Environment variable value. Numbers and boolean values must be quoted. Required unless `valueFrom` is specified.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -596,6 +649,12 @@ Required: `false`<br />
     ```
 
 ### env[].valueFrom
+Dynamically set environment variables based on fields found in the Pod spec.
+
+Relevant information:
+
+* [https://kubernetes.io/docs/tasks/inject-data-application/environment-variable-expose-pod-information/](https://kubernetes.io/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
+
 Type: `object`<br />
 Required: `false`<br />
 
@@ -628,6 +687,8 @@ Required: `true`<br />
     ```
 
 ##### env[].valueFrom.fieldRef.fieldPath
+Field value from the `Pod` spec that should be copied into the environment variable.
+
 Type: `enum`<br />
 Required: `true`<br />
 Allowed values: _(empty string)_, `metadata.annotations`, `metadata.labels`, `metadata.name`, `metadata.namespace`, `spec.nodeName`, `spec.serviceAccountName`, `status.hostIP`, `status.podIP`<br />
@@ -645,7 +706,9 @@ Allowed values: _(empty string)_, `metadata.annotations`, `metadata.labels`, `me
     ```
 
 ## envFrom
-Will expose all variables in ConfigMap or Secret resource as environment variables. One of `configmap` or `secret` is required.
+EnvFrom exposes all variables in the ConfigMap or Secret resources as environment variables. One of `configMap` or `secret` is required. 
+ Environment variables will take the form `KEY=VALUE`, where `key` is the ConfigMap or Secret key. You can specify as many keys as you like in a single ConfigMap or Secret. 
+ The ConfigMap and Secret resources must live in the same Kubernetes namespace as the Application resource.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -660,6 +723,8 @@ Availability: team namespaces<br />
     ```
 
 ### envFrom[].configmap
+Name of the `ConfigMap` where environment variables are specified. Required unless `secret` is set.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -672,6 +737,8 @@ Required: `false`<br />
     ```
 
 ### envFrom[].secret
+Name of the `Secret` where environment variables are specified. Required unless `configMap` is set.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -684,7 +751,9 @@ Required: `false`<br />
     ```
 
 ## filesFrom
-List of ConfigMap or Secret resources that will have their contents mounted into the containers as files. Either `configmap` or `secret` is required.
+List of ConfigMap or Secret resources that will have their contents mounted into the containers as files. Either `configMap` or `secret` is required. 
+ Files will take the path `<mountPath>/<key>`, where `key` is the ConfigMap or Secret key. You can specify as many keys as you like in a single ConfigMap or Secret, and they will all be mounted to the same directory. 
+ The ConfigMap and Secret resources must live in the same Kubernetes namespace as the Application resource.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -701,6 +770,8 @@ Availability: team namespaces<br />
     ```
 
 ### filesFrom[].configmap
+Name of the `ConfigMap` that contains files that should be mounted into the container. Required unless `secret` is set.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -715,6 +786,9 @@ Required: `false`<br />
     ```
 
 ### filesFrom[].mountPath
+Filesystem path inside the pod where files are mounted. The directory will be created if it does not exist. If the directory exists, any files in the directory will be made unaccessible. 
+ Defaults to `/var/run/configmaps/<NAME>` or `/var/run/secrets`, depending on which of them is specified.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -729,6 +803,8 @@ Required: `false`<br />
     ```
 
 ### filesFrom[].secret
+Name of the `Secret` that contains files that should be mounted into the container. Required unless `configMap` is set. If mounting multiple secrets, `mountPath` *MUST* be set to avoid collisions.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -790,8 +866,13 @@ Availability: GCP<br />
 ### gcp.buckets
 Provision cloud storage buckets and connect them to your application.
 
+Relevant information:
+
+* [https://doc.nais.io/persistence/buckets/](https://doc.nais.io/persistence/buckets/)
+
 Type: `array`<br />
 Required: `false`<br />
+Availability: GCP<br />
 
 ??? example
     ``` yaml
@@ -809,6 +890,8 @@ Required: `false`<br />
     ```
 
 #### gcp.buckets[].cascadingDelete
+Allows deletion of bucket. Set to true if you want to delete the bucket.
+
 Type: `boolean`<br />
 Required: `false`<br />
 
@@ -828,6 +911,12 @@ Required: `false`<br />
     ```
 
 #### gcp.buckets[].lifecycleCondition
+Conditions for the bucket to use when selecting objects to delete in cleanup.
+
+Relevant information:
+
+* [https://cloud.google.com/storage/docs/lifecycle](https://cloud.google.com/storage/docs/lifecycle)
+
 Type: `object`<br />
 Required: `false`<br />
 
@@ -847,6 +936,8 @@ Required: `false`<br />
     ```
 
 ##### gcp.buckets[].lifecycleCondition.age
+Condition is satisfied when the object reaches the specified age in days. These will be deleted.
+
 Type: `integer`<br />
 Required: `false`<br />
 
@@ -866,6 +957,8 @@ Required: `false`<br />
     ```
 
 ##### gcp.buckets[].lifecycleCondition.createdBefore
+Condition is satisfied when the object is created before midnight on the specified date. These will be deleted.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -885,6 +978,8 @@ Required: `false`<br />
     ```
 
 ##### gcp.buckets[].lifecycleCondition.numNewerVersions
+Condition is satisfied when the object has the specified number of newer versions. The older versions will be deleted.
+
 Type: `integer`<br />
 Required: `false`<br />
 
@@ -904,8 +999,11 @@ Required: `false`<br />
     ```
 
 ##### gcp.buckets[].lifecycleCondition.withState
-Type: `string`<br />
+Condition is satisfied when the object has the specified state.
+
+Type: `enum`<br />
 Required: `false`<br />
+Allowed values: _(empty string)_, `ANY`, `ARCHIVED`, `LIVE`<br />
 
 ??? example
     ``` yaml
@@ -923,6 +1021,8 @@ Required: `false`<br />
     ```
 
 #### gcp.buckets[].name
+The name of the bucket
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -942,6 +1042,8 @@ Required: `false`<br />
     ```
 
 #### gcp.buckets[].retentionPeriodDays
+The number of days to hold objects in the bucket before it is allowed to delete them.
+
 Type: `integer`<br />
 Required: `false`<br />
 Value range: `1`-`36500`<br />
@@ -962,10 +1064,15 @@ Value range: `1`-`36500`<br />
     ```
 
 ### gcp.permissions
-List of _additional_ permissions that should be granted to your application for accessing external GCP resources that have not been provisioned through NAIS. [Supported resources found here](https://cloud.google.com/config-connector/docs/reference/resource-docs/iam/iampolicymember#external_organization_level_policy_member).
+List of _additional_ permissions that should be granted to your application for accessing external GCP resources that have not been provisioned through NAIS.
+
+Relevant information:
+
+* [https://cloud.google.com/config-connector/docs/reference/resource-docs/iam/iampolicymember#external_organization_level_policy_member](https://cloud.google.com/config-connector/docs/reference/resource-docs/iam/iampolicymember#external_organization_level_policy_member)
 
 Type: `array`<br />
 Required: `false`<br />
+Availability: GCP<br />
 
 ??? example
     ``` yaml
@@ -980,6 +1087,8 @@ Required: `false`<br />
     ```
 
 #### gcp.permissions[].resource
+IAM resource to bind the role to.
+
 Type: `object`<br />
 Required: `false`<br />
 
@@ -996,6 +1105,8 @@ Required: `false`<br />
     ```
 
 ##### gcp.permissions[].resource.apiVersion
+Kubernetes _APIVersion_.
+
 Type: `string`<br />
 Required: `true`<br />
 
@@ -1012,6 +1123,8 @@ Required: `true`<br />
     ```
 
 ##### gcp.permissions[].resource.kind
+Kubernetes _Kind_.
+
 Type: `string`<br />
 Required: `true`<br />
 
@@ -1028,6 +1141,8 @@ Required: `true`<br />
     ```
 
 ##### gcp.permissions[].resource.name
+Kubernetes _Name_.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -1044,6 +1159,8 @@ Required: `false`<br />
     ```
 
 #### gcp.permissions[].role
+Name of the GCP role to bind the resource to.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -1060,10 +1177,16 @@ Required: `false`<br />
     ```
 
 ### gcp.sqlInstances
-Provision database instances and connect them to your application. See [PostgreSQL documentation](https://doc.nais.io/persistence/postgres/) for more details.
+Provision database instances and connect them to your application.
+
+Relevant information:
+
+* [https://doc.nais.io/persistence/postgres/](https://doc.nais.io/persistence/postgres/)
+* [https://cloud.google.com/sql/docs/postgres/instance-settings#impact](https://cloud.google.com/sql/docs/postgres/instance-settings#impact)
 
 Type: `array`<br />
 Required: `false`<br />
+Availability: GCP<br />
 
 ??? example
     ``` yaml
@@ -1123,6 +1246,8 @@ Value range: `0`-`23`<br />
     ```
 
 #### gcp.sqlInstances[].cascadingDelete
+Remove the entire Postgres server including all data when the Kubernetes resource is deleted. *THIS IS A DESTRUCTIVE OPERATION*! Set cascading delete only when you want to remove data forever.
+
 Type: `boolean`<br />
 Required: `false`<br />
 
@@ -1152,6 +1277,8 @@ Required: `false`<br />
     ```
 
 #### gcp.sqlInstances[].collation
+Sort order for `ORDER BY ...` clauses.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -1181,6 +1308,8 @@ Required: `false`<br />
     ```
 
 #### gcp.sqlInstances[].databases
+List of databases that should be created on this Postgres server.
+
 Type: `array`<br />
 Required: `false`<br />
 
@@ -1210,6 +1339,8 @@ Required: `false`<br />
     ```
 
 ##### gcp.sqlInstances[].databases[].envVarPrefix
+Prefix to add to environment variables made available for database connection.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -1239,6 +1370,8 @@ Required: `false`<br />
     ```
 
 ##### gcp.sqlInstances[].databases[].name
+Database name.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -1268,6 +1401,8 @@ Required: `false`<br />
     ```
 
 ##### gcp.sqlInstances[].databases[].users
+The users created to allow database access.
+
 Type: `array`<br />
 Required: `false`<br />
 
@@ -1297,6 +1432,8 @@ Required: `false`<br />
     ```
 
 ###### gcp.sqlInstances[].databases[].users[].name
+User name.
+
 Type: `string`<br />
 Required: `false`<br />
 Pattern: `^[_a-zA-Z][_a-zA-Z0-9]+$`<br />
@@ -1327,6 +1464,12 @@ Pattern: `^[_a-zA-Z][_a-zA-Z0-9]+$`<br />
     ```
 
 #### gcp.sqlInstances[].diskAutoresize
+When set to true, GCP will automatically increase storage by XXX for the database when disk usage is above the high water mark.
+
+Relevant information:
+
+* [https://cloud.google.com/sql/docs/postgres/instance-settings#threshold](https://cloud.google.com/sql/docs/postgres/instance-settings#threshold)
+
 Type: `boolean`<br />
 Required: `false`<br />
 
@@ -1388,6 +1531,8 @@ Minimum value: `10`<br />
     ```
 
 #### gcp.sqlInstances[].diskType
+Disk type to use for storage in the database.
+
 Type: `enum`<br />
 Required: `false`<br />
 Allowed values: `HDD`, `SSD`<br />
@@ -1418,6 +1563,8 @@ Allowed values: `HDD`, `SSD`<br />
     ```
 
 #### gcp.sqlInstances[].highAvailability
+When set to true this will set up standby database for failover.
+
 Type: `boolean`<br />
 Required: `false`<br />
 
@@ -1447,6 +1594,8 @@ Required: `false`<br />
     ```
 
 #### gcp.sqlInstances[].maintenance
+Desired maintenance window for database updates.
+
 Type: `object`<br />
 Required: `false`<br />
 
@@ -1536,6 +1685,8 @@ Value range: `0`-`23`<br />
     ```
 
 #### gcp.sqlInstances[].name
+The name of the instance, if omitted the database name will be used.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -1597,6 +1748,8 @@ Pattern: `db-.+`<br />
     ```
 
 #### gcp.sqlInstances[].type
+PostgreSQL version.
+
 Type: `enum`<br />
 Required: `false`<br />
 Allowed values: `POSTGRES_11`, `POSTGRES_12`<br />
@@ -1649,6 +1802,9 @@ Required: `false`<br />
     ```
 
 ### idporten.accessTokenLifetime
+AccessTokenLifetime is the lifetime in seconds for any issued access token from ID-porten. 
+ If unspecified, defaults to `3600` seconds (1 hour).
+
 Type: `integer`<br />
 Required: `false`<br />
 Value range: `1`-`3600`<br />
@@ -1661,6 +1817,8 @@ Value range: `1`-`3600`<br />
     ```
 
 ### idporten.clientURI
+ClientURI is the URL shown to the user at ID-porten when displaying a 'back' button or on errors.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -1672,6 +1830,8 @@ Required: `false`<br />
     ```
 
 ### idporten.enabled
+Whether to enable provisioning of an ID-porten client. If enabled, an ID-porten client be provisioned.
+
 Type: `boolean`<br />
 Required: `true`<br />
 
@@ -1683,6 +1843,14 @@ Required: `true`<br />
     ```
 
 ### idporten.frontchannelLogoutPath
+FrontchannelLogoutPath is a valid path for your application where ID-porten sends a request to whenever the user has initiated a logout elsewhere as part of a single logout (front channel logout) process. 
+ If unspecified, defaults to `/oauth2/logout`.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/idporten/#front-channel-logout](https://doc.nais.io/security/auth/idporten/#front-channel-logout)
+* [https://docs.digdir.no/oidc_func_sso.html#2-h%C3%A5ndtere-utlogging-fra-id-porten](https://docs.digdir.no/oidc_func_sso.html#2-h%C3%A5ndtere-utlogging-fra-id-porten)
+
 Type: `string`<br />
 Required: `false`<br />
 Pattern: `^\/.*$`<br />
@@ -1695,6 +1863,13 @@ Pattern: `^\/.*$`<br />
     ```
 
 ### idporten.frontchannelLogoutURI
+*DEPRECATED*. Prefer using `frontchannelLogoutPath`.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/idporten/#front-channel-logout](https://doc.nais.io/security/auth/idporten/#front-channel-logout)
+* [https://docs.digdir.no/oidc_func_sso.html#2-h%C3%A5ndtere-utlogging-fra-id-porten](https://docs.digdir.no/oidc_func_sso.html#2-h%C3%A5ndtere-utlogging-fra-id-porten)
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -1706,6 +1881,14 @@ Required: `false`<br />
     ```
 
 ### idporten.postLogoutRedirectURIs
+PostLogoutRedirectURIs are valid URIs that ID-porten will allow redirecting the end-user to after a single logout has been initiated and performed by the application. 
+ If unspecified, will default to `[ "https://www.nav.no" ]`
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/idporten/#self-initiated-logout](https://doc.nais.io/security/auth/idporten/#self-initiated-logout)
+* [https://docs.digdir.no/oidc_func_sso.html#1-utlogging-fra-egen-tjeneste](https://docs.digdir.no/oidc_func_sso.html#1-utlogging-fra-egen-tjeneste)
+
 Type: `array`<br />
 Required: `false`<br />
 
@@ -1718,6 +1901,9 @@ Required: `false`<br />
     ```
 
 ### idporten.redirectPath
+RedirectPath is a valid path that ID-porten redirects back to after a successful authorization request. 
+ If unspecified, will default to `/oauth2/callback`.
+
 Type: `string`<br />
 Required: `false`<br />
 Pattern: `^\/.*$`<br />
@@ -1730,6 +1916,8 @@ Pattern: `^\/.*$`<br />
     ```
 
 ### idporten.redirectURI
+*DEPRECATED*. Prefer using `redirectPath`.
+
 Type: `string`<br />
 Required: `false`<br />
 Pattern: `^https:\/\/.+$`<br />
@@ -1742,6 +1930,9 @@ Pattern: `^https:\/\/.+$`<br />
     ```
 
 ### idporten.sessionLifetime
+SessionLifetime is the maximum lifetime in seconds for any given user's session in your application. The timeout starts whenever the user is redirected from the `authorization_endpoint` at ID-porten. 
+ If unspecified, defaults to `7200` seconds (2 hours). Note: Attempting to refresh the user's `access_token` beyond this timeout will yield an error.
+
 Type: `integer`<br />
 Required: `false`<br />
 Value range: `3600`-`7200`<br />
@@ -1971,6 +2162,8 @@ Required: `false`<br />
     ```
 
 ### maskinporten.enabled
+If enabled, provisions and configures a Maskinporten client at DigDir.
+
 Type: `boolean`<br />
 Required: `true`<br />
 
@@ -1982,6 +2175,8 @@ Required: `true`<br />
     ```
 
 ### maskinporten.scopes
+List of scopes that your client should request access to. Ensure that the NAV organization has been granted access to the scope prior to requesting access.
+
 Type: `array`<br />
 Required: `false`<br />
 
@@ -1994,6 +2189,8 @@ Required: `false`<br />
     ```
 
 #### maskinporten.scopes[].name
+The fully qualified name of the scope.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -2035,7 +2232,7 @@ Required: `false`<br />
     ```
 
 ## prometheus
-Prometheus is used to [scrape metrics from the pod](https://doc.nais.io/observability/metrics/).
+Prometheus is used to [scrape metrics from the pod](https://doc.nais.io/observability/metrics/). Use this configuration to override the default values.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -2209,7 +2406,7 @@ Default value: `50`<br />
     ```
 
 ### replicas.max
-The pod autoscaler will scale deployments on demand until this maximum has been reached.
+The pod autoscaler will increase replicas when required up to the maximum.
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -2223,7 +2420,7 @@ Default value: `4`<br />
     ```
 
 ### replicas.min
-The minimum amount of replicas acceptable for a successful deployment.
+The minimum amount of running replicas for a deployment.
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -2255,6 +2452,8 @@ Required: `false`<br />
     ```
 
 ### resources.limits
+Limit defines the maximum amount of resources a container can use before getting evicted.
+
 Type: `object`<br />
 Required: `false`<br />
 
@@ -2296,6 +2495,8 @@ Pattern: `^\d+[KMG]i$`<br />
     ```
 
 ### resources.requests
+Request defines the amount of resources a container is allocated on startup.
+
 Type: `object`<br />
 Required: `false`<br />
 
@@ -2364,7 +2565,7 @@ Default value: `false`<br />
     ```
 
 ## service
-How to connect to the default service in your application's container.
+Specify which port and protocol is used to connect to the application in the container. Defaults to HTTP on port 80.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -2392,7 +2593,7 @@ Default value: `80`<br />
     ```
 
 ### service.protocol
-Which protocol the backend service runs on. Default is http.
+Which protocol the backend service runs on. Default is `http`.
 
 Type: `enum`<br />
 Required: `false`<br />
@@ -2407,7 +2608,7 @@ Allowed values: `grpc`, `http`, `redis`, `tcp`<br />
     ```
 
 ## skipCaBundle
-Whether to skip injection of certificate authority bundle or not. Defaults to false.
+Whether to skip injection of NAV certificate authority bundle or not. Defaults to false.
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -2419,7 +2620,7 @@ Required: `false`<br />
     ```
 
 ## startup
-Startup probes will be available with Kubernetes 1.18 (in GCP, and 1.17 on-prem). Do not use this feature yet as it will not work. 
+Startup probes will be available with Kubernetes 1.20. Do not use this feature yet as it will not work. 
  Sometimes, you have to deal with legacy applications that might require an additional startup time on their first initialization. In such cases, it can be tricky to set up liveness probe parameters without compromising the fast response to deadlocks that motivated such a probe. The trick is to set up a startup probe with the same command, HTTP or TCP check, with a `failureThreshold * periodSeconds` long enough to cover the worst case startup time.
 
 Type: `object`<br />
@@ -2529,6 +2730,8 @@ Required: `false`<br />
     ```
 
 ### strategy.type
+Specifies the strategy used to replace old Pods by new ones. `RollingUpdate` is the default value.
+
 Type: `enum`<br />
 Required: `true`<br />
 Default value: `RollingUpdate`<br />
@@ -2542,7 +2745,11 @@ Allowed values: `Recreate`, `RollingUpdate`<br />
     ```
 
 ## tokenx
-OAuth2 tokens from TokenX for your application.
+Provisions and configures a TokenX client for your application.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/tokenx/](https://doc.nais.io/security/auth/tokenx/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -2556,7 +2763,7 @@ Required: `false`<br />
     ```
 
 ### tokenx.enabled
-if enabled, the application will have a jwker secret injected
+If enabled, will provision and configure a TokenX client and inject an accompanying secret.
 
 Type: `boolean`<br />
 Required: `true`<br />
@@ -2570,7 +2777,7 @@ Default value: `false`<br />
     ```
 
 ### tokenx.mountSecretsAsFilesOnly
-if enabled, secrets for TokenX will be mounted as files only, i.e. not as env.
+If enabled, secrets for TokenX will be mounted as files only, i.e. not as environment variables.
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -2583,12 +2790,12 @@ Required: `false`<br />
     ```
 
 ## tracing
+*DEPRECATED*. Do not use. Will be removed in a future version.
+
 Type: `object`<br />
 Required: `false`<br />
 
 ### tracing.enabled
-if enabled, a rule allowing egress to app:jaeger will be appended to NetworkPolicy
-
 Type: `boolean`<br />
 Required: `true`<br />
 
@@ -2616,6 +2823,8 @@ Availability: on-premises<br />
     ```
 
 ### vault.enabled
+If set to true, fetch secrets from Vault and inject into the pods.
+
 Type: `boolean`<br />
 Required: `false`<br />
 
@@ -2627,6 +2836,11 @@ Required: `false`<br />
     ```
 
 ### vault.paths
+List of secret paths to be read from Vault and injected into the pod's filesystem. Overriding the `paths` array is optional, and will give you fine-grained control over which Vault paths that will be mounted on the file system. 
+ By default, the list will contain an entry with 
+ `kvPath: /kv/<environment>/<zone>/<application>/<namespace>` `mountPath: /var/run/secrets/nais.io/vault` 
+ that will always be attempted to be mounted.
+
 Type: `array`<br />
 Required: `false`<br />
 
@@ -2641,6 +2855,8 @@ Required: `false`<br />
     ```
 
 #### vault.paths[].format
+Format of the secret that should be processed.
+
 Type: `enum`<br />
 Required: `false`<br />
 Allowed values: _(empty string)_, `env`, `flatten`, `json`, `properties`, `yaml`<br />
@@ -2656,6 +2872,8 @@ Allowed values: _(empty string)_, `env`, `flatten`, `json`, `properties`, `yaml`
     ```
 
 #### vault.paths[].kvPath
+Path to Vault key/value store that should be mounted into the file system.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -2670,6 +2888,8 @@ Required: `false`<br />
     ```
 
 #### vault.paths[].mountPath
+File system path that the secret will be mounted into.
+
 Type: `string`<br />
 Required: `false`<br />
 
@@ -2684,6 +2904,8 @@ Required: `false`<br />
     ```
 
 ### vault.sidecar
+If enabled, the sidecar will automatically refresh the token's Time-To-Live before it expires.
+
 Type: `boolean`<br />
 Required: `false`<br />
 
@@ -2695,7 +2917,7 @@ Required: `false`<br />
     ```
 
 ## webproxy
-Expose web proxy configuration to the application using the `$HTTP_PROXY`, `$HTTPS_PROXY` and `$NO_PROXY` environment variables.
+Inject web proxy configuration to the application using the `$HTTP_PROXY`, `$HTTPS_PROXY` and `$NO_PROXY` environment variables.
 
 Type: `boolean`<br />
 Required: `false`<br />
