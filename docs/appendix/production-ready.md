@@ -46,7 +46,7 @@ Objectives](https://sre.google/sre-book/service-level-objectives/) in the
 Google Site Reliability Engineering handbook.
 
 ## Alerts
-[Alerts](https://doc.nais.io/observability/alerts/) should be tied to SLOs.
+[Alerts](../observability/alerts.md) should be tied to SLOs.
 Consider if alerting is at all needed. An alert should only fire if human intervention is required.
 Too many alerts going off will result in [alarm fatigue](https://en.wikipedia.org/wiki/Alarm_fatigue).
 
@@ -87,4 +87,4 @@ and work on the system, to avoid [bus factor](https://en.wikipedia.org/wiki/Bus_
 Perform, if applicable, a _Data Protection Impact Assessment_ (or in Norwegian, _personvernskonsekvensvurdering_ (PVK)).
 
 ## Security Audit
-Perform a [security audit (ROS)](https://doc.nais.io/clusters/migrating-to-gcp/#ros) before releasing to production.
+Perform a [security audit (ROS)](../clusters/migrating-to-gcp.md#ros) before releasing to production.
