@@ -46,7 +46,7 @@ Objectives](https://sre.google/sre-book/service-level-objectives/) in the
 Google Site Reliability Engineering handbook.
 
 ## Alerts
-[Alerts](../observability/alerts.md) should be tied to SLOs.
+[Alerts](../observability/alerts/README.md) should be tied to SLOs.
 Consider if alerting is at all needed. An alert should only fire if human intervention is required.
 Too many alerts going off will result in [alarm fatigue](https://en.wikipedia.org/wiki/Alarm_fatigue).
 
