@@ -112,6 +112,7 @@ nav:
     - Appendix:
       - Zero-Trust Network Architecture: appendix/zero-trust.md
       - Ingress DNS setup: appendix/ingress-dns.md
+      - What is production ready?: appendix/production-ready.md
   - naisdevice:
     - naisdevice Overview: device/README.md
     - Installation: device/install.md
