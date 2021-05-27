@@ -1,14 +1,28 @@
 # What is production ready?
+This is the NAIS team's attempt to define what _production ready_ means to us.
+Production implies quality and durability. Running a system means serving
+requests, and requests are ultimately serving users. We care about our users,
+thus we must care about our systems.
+
+At NAIS, we strive to:
+
+* provide fully self serviced products with minimal downtime,
+* be confident that code changes will not break existing functionality,
+* respond quickly when systems fail,
+* spend minimal time fixing errors,
+* and most importantly: spend as much time possible implementing useful services for our users. (you!)
+
+We believe that if our systems conform to the principles in this document, we have a greater chance of achieving these goals.
 
 ## 12 factor app
-Twelve factor apps
+Write your application according to the principles of [12 factor apps](https://12factor.net/).
 
-- have declarative system requirements,
-- are suitable for deployment in Docker containers,
-- do not have differences between development and production, and
-- can scale up without significant changes to tooling, architecture, or development practices.
+Twelve factor apps:
 
-Read more at https://12factor.net/
+* have declarative system requirements,
+* are suitable for deployment in Docker containers,
+* do not have differences between development and production, and
+* can scale up without significant changes to tooling, architecture, or development practices.
 
 ## Observability
 Expose a Prometheus metric endpoint to allow scraping of key application metrics.
