@@ -6,7 +6,7 @@
 
 1. If you have got __`navtunnel`__ installed -> [uninstall navtunnel](#uninstall-navtunnel).
 2. [Install the Kolide agent](#install-kolide-agent).
-3. Install [Homebrew](https://brew.sh/) unless yoy already have it.
+3. Install [Homebrew](https://brew.sh/) unless you already have it.
 4. Add the nais tap
 ```bash
 brew tap nais/tap
