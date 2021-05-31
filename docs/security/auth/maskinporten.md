@@ -164,26 +164,6 @@ The following describes the steps needed to migrate a client registered in [IaC 
 - Verify that everything works after the migration
 - Delete the application from the [IaC repository](https://github.com/navikt/nav-maskinporten) in order to maintain a single source of truth.
 
-## Permanently deleting a client
-
-!!! warning
-    Permanent deletes are irreversible. Only do this if you are certain that you wish to completely remove the client from DigDir.
-
-When an `MaskinportenClient` resource is deleted from a Kubernetes cluster, the client is not deleted from DigDir.
-
-!!! info
-    The `Application` resource owns the `MaskinportenClient` resource, deletion of the former will thus trigger a deletion of the latter.
-
-    If the `MaskinportenClient` resource is recreated, the client will thus retain the same client ID.
-
-If you want to completely delete the client from DigDir, you must add the following annotation to the `MaskinportenClient` resource:
-
-```bash
-kubectl annotate maskinportenclient <app> digdir.nais.io/delete=true
-```
-
-When this annotation is in place, deleting the `MaskinportenClient` resource from Kubernetes will trigger removal of the client from DigDir.
-
 ## Expose Scopes
 
 ### About
@@ -294,6 +274,25 @@ The following describes the steps needed to migrate a client registered in [IaC 
 - Verify that everything works after the migration
 - Delete the application from the [IaC repository](https://github.com/navikt/nav-maskinporten) in order to maintain a single source of truth.
 
+## Permanently deleting a client
+
+!!! warning
+Permanent deletes are irreversible. Only do this if you are certain that you wish to completely remove the client from DigDir and deactivates exposed scopes and remove granted access for possible consumers.
+
+When an `MaskinportenClient` resource is deleted from a Kubernetes cluster, the client is not deleted from DigDir.
+
+!!! info
+The `Application` resource owns the `MaskinportenClient` resource, deletion of the former will thus trigger a deletion of the latter.
+
+    If the `MaskinportenClient` resource is recreated, the client will thus retain the same client ID.
+
+If you want to completely delete the client from DigDir, you must add the following annotation to the `MaskinportenClient` resource:
+
+```bash
+kubectl annotate maskinportenclient <app> digdir.nais.io/delete=true
+```
+
+When this annotation is in place, deleting the `MaskinportenClient` resource from Kubernetes will trigger removal of the client from DigDir.
 ## Internals
 
 See [ID-porten internals](idporten.md#internals).
