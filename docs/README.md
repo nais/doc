@@ -52,7 +52,7 @@ The team can be found on [Slack](https://nav-it.slack.com/messages/C5KUST8N6/).
 
 ### NAM
 If your team would like closer follow-up for a period (or permanently), we would happily dedicate someone from NAIS as your NAM(s) - short for "NAIS Account Managers".
-This mean we will create a dedicated slack channel for nais/team-communication and have meetings when/if required to discuss your concerns, issues, or wishes for the platform.
+This means we will create a dedicated slack channel for nais/team-communication and have meetings when/if required to discuss your concerns, issues, or wishes for the platform.
 
 ---
 Also, follow us on Twitter [@nais\_io](https://twitter.com/nais_io)!
