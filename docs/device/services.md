@@ -16,9 +16,7 @@ This document describes the different services you will get access to through na
 * [data.adeo.no](https://data.adeo.no)
 * [dolly](https://dolly.nais-dev-fss.adeo.no)
 * VDI/Utviklerimage \(Use horizon.nav.no as connection server\)
+* [Microsoft Teams](https://teams.microsoft.com/)
+* [Microsoft Sharepoint/Navet](https://navno.sharepoint.com/)
 
-## Currently unavailable unless you have NAV managed mac/windows laptop \(Intune\)
-
-* Microsoft Teams \(Use Zoom instead\)
-* Microsoft Sharepoint \(Works on mobile\)
 
