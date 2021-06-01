@@ -2934,7 +2934,7 @@ Required: `false`<br />
     ```
 
 ## webproxy
-Inject web proxy configuration to the application using the `$HTTP_PROXY`, `$HTTPS_PROXY` and `$NO_PROXY` environment variables.
+Inject on-premises web proxy configuration into the application pod. Most Linux applications should auto-detect these settings from the `$HTTP_PROXY`, `$HTTPS_PROXY` and `$NO_PROXY` environment variables (and their lowercase counterparts). Java applications can start the JVM using parameters from the `$JAVA_PROXY_OPTIONS` environment variable.
 
 Type: `boolean`<br />
 Required: `false`<br />
