@@ -256,6 +256,20 @@ The request should then sent to the `token_endpoint` of Tokendings, the value of
     * token exchange with the user's `access_token`
     * calling a protected API using the exchanged token
 
+#### Exchange Response
+
+Tokendings will respond with a JSON object
+
+???+ example
+    ```javascript
+    {
+      "access_token" : "eyJraWQiOi..............",
+      "issued_token_type" : "urn:ietf:params:oauth:token-type:access_token",
+      "token_type" : "Bearer",
+      "expires_in" : 299
+    }
+    ```
+
 ### Token Validation
 
 If your app receives a token from another application, it is **your responsibility** to ensure this token is valid and intended for your application.
