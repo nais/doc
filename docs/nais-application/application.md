@@ -100,7 +100,7 @@ Required: `true`<br />
 The application's name.
 
 Type: `string`<br />
-Required: `false`<br />
+Required: `true`<br />
 
 ??? example
     ``` yaml
@@ -216,7 +216,7 @@ Availability: GCP<br />
 The _host_ that your application should be able to reach, i.e. without the protocol (e.g. `https://`).
 
 Type: `string`<br />
-Required: `false`<br />
+Required: `true`<br />
 
 ??? example
     ``` yaml
@@ -256,7 +256,7 @@ Required: `false`<br />
 Human-readable identifier for this rule.
 
 Type: `string`<br />
-Required: `false`<br />
+Required: `true`<br />
 
 ??? example
     ``` yaml
@@ -276,7 +276,7 @@ Required: `false`<br />
 The port used for communication.
 
 Type: `integer`<br />
-Required: `false`<br />
+Required: `true`<br />
 
 ??? example
     ``` yaml
@@ -296,7 +296,7 @@ Required: `false`<br />
 The protocol used for communication.
 
 Type: `enum`<br />
-Required: `false`<br />
+Required: `true`<br />
 Allowed values: `GRPC`, `HTTP`, `HTTP2`, `HTTPS`, `MONGO`, `TCP`, `TLS`<br />
 
 ??? example
@@ -339,7 +339,7 @@ Required: `false`<br />
 The application's name.
 
 Type: `string`<br />
-Required: `false`<br />
+Required: `true`<br />
 
 ??? example
     ``` yaml
@@ -633,7 +633,7 @@ Required: `false`<br />
 Environment variable name. May only contain letters, digits, and the underscore `_` character.
 
 Type: `string`<br />
-Required: `false`<br />
+Required: `true`<br />
 
 ??? example
     ``` yaml
@@ -1041,7 +1041,7 @@ Allowed values: _(empty string)_, `ANY`, `ARCHIVED`, `LIVE`<br />
 The name of the bucket
 
 Type: `string`<br />
-Required: `false`<br />
+Required: `true`<br />
 
 ??? example
     ``` yaml
@@ -1107,7 +1107,7 @@ Availability: GCP<br />
 IAM resource to bind the role to.
 
 Type: `object`<br />
-Required: `false`<br />
+Required: `true`<br />
 
 ??? example
     ``` yaml
@@ -1179,7 +1179,7 @@ Required: `false`<br />
 Name of the GCP role to bind the resource to.
 
 Type: `string`<br />
-Required: `false`<br />
+Required: `true`<br />
 
 ??? example
     ``` yaml
@@ -1390,7 +1390,7 @@ Required: `false`<br />
 Database name.
 
 Type: `string`<br />
-Required: `false`<br />
+Required: `true`<br />
 
 ??? example
     ``` yaml
@@ -1452,7 +1452,7 @@ Required: `false`<br />
 User name.
 
 Type: `string`<br />
-Required: `false`<br />
+Required: `true`<br />
 Pattern: `^[_a-zA-Z][_a-zA-Z0-9]+$`<br />
 
 ??? example
@@ -1768,7 +1768,7 @@ Pattern: `db-.+`<br />
 PostgreSQL version.
 
 Type: `enum`<br />
-Required: `false`<br />
+Required: `true`<br />
 Allowed values: `POSTGRES_11`, `POSTGRES_12`<br />
 
 ??? example
@@ -2209,7 +2209,7 @@ Required: `false`<br />
 The fully qualified name of the scope.
 
 Type: `string`<br />
-Required: `false`<br />
+Required: `true`<br />
 
 ??? example
     ``` yaml
@@ -2891,7 +2891,7 @@ Allowed values: _(empty string)_, `env`, `flatten`, `json`, `properties`, `yaml`
 Path to Vault key/value store that should be mounted into the file system.
 
 Type: `string`<br />
-Required: `false`<br />
+Required: `true`<br />
 
 ??? example
     ``` yaml
@@ -2907,7 +2907,7 @@ Required: `false`<br />
 File system path that the secret will be mounted into.
 
 Type: `string`<br />
-Required: `false`<br />
+Required: `true`<br />
 
 ??? example
     ``` yaml
