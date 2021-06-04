@@ -29,6 +29,10 @@ This means that everyone has access to your data.
 If you need access from an application, you need to reuse the access given for Elastic Search instances.
 See [nais.yaml-reference](../nais-application/application.md#elasticinstance).
 
+### Access to CA-certificate
+Your application also need a CA-certificate for accessing Aiven.
+For now you can only get these when setting [`.spec.kafka.pool`](../nais-application/application.md#kafkapool).
+
 ## Access from laptop
 With Naisdevice you have access to the _aiven-prod_ gateway.
 This is a JITA (just in time access) gateway, so you need to describe why, but the access is automatically given.
