@@ -36,7 +36,7 @@ With Naisdevice you have access to the _aiven-prod_ gateway.
 This is a JITA (just in time access) gateway, so you need to describe why, but the access is automatically given.
 
 ```
-an example of a cli command here?
+influx -username avnadmin -password foo -host influx-instancename-nav-dev.aivencloud.com -port 26482 -ssl
 ```
 
 ## Support
