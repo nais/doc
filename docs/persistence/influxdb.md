@@ -29,7 +29,7 @@ If you need access from an application, you need to reuse the access given for E
 See [nais.yaml-reference](../nais-application/application.md#elasticinstance).
 
 ### Loading CA-certificate
-Your application will also need an CA-certificate for your app to be able to connect to Aiven with SSL. The certificate will be loaded into to your pod as an environment variable if you define a [`.spec.kafka.pool`](../nais-application/application.md#kafkapool) in your nais.yaml file.
+Your application will also need an CA-certificate for your app to be able to connect to Aiven with SSL. The certificate will be loaded into your pod as an environment variable if you define a [`.spec.kafka.pool`](../nais-application/application.md#kafkapool) in your nais.yaml file.
 
 ## Access from laptop
 With Naisdevice you have access to the _aiven-prod_ gateway.
