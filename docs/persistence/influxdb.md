@@ -39,5 +39,6 @@ This is a JITA (just in time access) gateway, so you need to describe why, but t
 influx -username avnadmin -password foo -host influx-instancename-nav-dev.aivencloud.com -port 26482 -ssl
 ```
 
+PS: Remember to use Influxdb CLI pre v2. For example v1.8.3.
 ## Support
 We do not offer support on Influxdb as software, but questions about Aiven and provisioning can be directed to [#pig_aiven](https://nav-it.slack.com/archives/C018L1JATBQ) on Slack.
