@@ -103,7 +103,6 @@ nav:
     - Addons:
       - Kafka: addons/kafka.md
       - Leader Election: addons/leader-election.md
-      - NAISjobs (Jobs / CronJobs): addons/naisjobs.md
       - Unleash (feature toggling): addons/unleash.md
       - Velero backup and restore: addons/velero-backup-and-restore.md
     - Legacy:
