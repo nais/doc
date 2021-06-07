@@ -30,7 +30,10 @@ curl -X POST http://127.0.0.1:4191/shutdown
 This is done from inside your pod-container.
 
 ### Securelogs
-TBA
+Securelogs runs on Fluentd, and Fluentd exposes an endpoint to shut itself down.
+```
+curl /api/processes.killWorkers
+```
 
 ### Vault sidecar
-TBA
+Vault sidecar does not support turning off remotely.
