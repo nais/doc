@@ -1,6 +1,7 @@
 # MQ
 
-Although we recommend using Kafka if possible, MQ is supported on the nais platform. 
+MQ is supported on the nais platform on-premises and on GCP. 
+We recommend using kafka where possible and sensible. 
 
 
 ### Requirements
@@ -58,6 +59,9 @@ These servers are available from on-premises and GCP alike.
 
 The application needs to implement MQ authentication using the client libraries, as opposed to previously just sending username.
 
-If you are using MQ client lower than 9.2 set this parameter when connecting: 
+If you are using MQ client lower than 9.2.1.0 set this parameter when connecting: 
 ```USER_AUTHENTICATION_MQCSP=true```
+
+Setting this in java: 
+```connectionFactory.setBooleanProperty(JmsConstants.USER_AUTHENTICATION_MQCSP, true);```
 
