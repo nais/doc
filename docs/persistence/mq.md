@@ -58,4 +58,3 @@ These servers are available from on-premises and GCP alike.
 The application needs to implement MQ authentication using the client libraries, as opposed to previously just sending username.
 
 If you are using MQ client lower than 9.2 set this parameter when connecting: 
-```USER_AUTHENTICATION_MQCSP=true```
