@@ -20,6 +20,7 @@ Access to basta (and fasit) can be obtained by requesting access from [identity 
 
 Access to development environments (including legacy u, t and q environments):
 
+``` 0000-GA-env-config-TestAdmin - Fasit T/Q```
 
 Access to production environments (including legacy p environment):
 
@@ -59,8 +60,10 @@ These servers are available from on-premises and GCP alike.
 The application needs to implement MQ authentication using the client libraries, as opposed to previously just sending username.
 
 If you are using MQ client lower than 9.2.1.0 set this parameter when connecting: 
-```USER_AUTHENTICATION_MQCSP=true```
+
+``` USER_AUTHENTICATION_MQCSP=true```
 
 Setting this in java: 
-```connectionFactory.setBooleanProperty(JmsConstants.USER_AUTHENTICATION_MQCSP, true);```
+
+``` connectionFactory.setBooleanProperty(JmsConstants.USER_AUTHENTICATION_MQCSP, true);```
 
