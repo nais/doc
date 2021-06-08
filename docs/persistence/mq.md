@@ -19,7 +19,6 @@ Access to basta (and fasit) can be obtained by requesting access from [identity 
 
 Access to development environments (including legacy u, t and q environments):
 
-``` 0000-GA-env-config-TestAdmin - Fasit T/Q```
 
 Access to production environments (including legacy p environment):
 
