@@ -10,7 +10,7 @@ We recommend using kafka where possible and sensible.
 #### Basta
 
 !!! info
-When ordering groups for existing service users the password will be reset
+    When ordering groups for existing service users the password will be reset
 
 MQ groups and users are ordered using [basta](https://basta.intern.nav.no). 
 For legacy applications registered in [fasit](https://fasit.adeo.no) use "AD groups" on the "Create" tab, 
@@ -20,7 +20,6 @@ Access to basta (and fasit) can be obtained by requesting access from [identity 
 
 Access to development environments (including legacy u, t and q environments):
 
-``` 0000-GA-env-config-TestAdmin - Fasit T/Q```
 
 Access to production environments (including legacy p environment):
 
