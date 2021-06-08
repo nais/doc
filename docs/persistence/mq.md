@@ -9,7 +9,7 @@ Although we recommend using Kafka if possible, MQ is supported on the nais platf
 #### Basta
 
 !!! info
-When ordering groups for existing service users the password will be reset
+    When ordering groups for existing service users the password will be reset
 
 MQ groups and users are ordered using [basta](https://basta.intern.nav.no). 
 For legacy applications registered in [fasit](https://fasit.adeo.no) use "AD groups" on the "Create" tab, 
@@ -60,4 +60,3 @@ The application needs to implement MQ authentication using the client libraries,
 
 If you are using MQ client lower than 9.2 set this parameter when connecting: 
 ```USER_AUTHENTICATION_MQCSP=true```
-
