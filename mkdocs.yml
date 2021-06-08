@@ -61,6 +61,10 @@ nav:
       - Reference: nais-application/application.md
       - Access Policy: nais-application/access-policy.md
       - Ingress customization: nais-application/ingress.md
+    - Naisjob:
+      - Overview: naisjob/README.md
+      - Full example: naisjob/example.md
+      - Reference: naisjob/reference.md
     - Deployment:
       - NAIS deploy: deployment/README.md
       - Changing teams: deployment/change-team.md
@@ -104,7 +108,6 @@ nav:
     - Addons:
       - Kafka: addons/kafka.md
       - Leader Election: addons/leader-election.md
-      - NAISjobs (Jobs / CronJobs): addons/naisjobs.md
       - Unleash (feature toggling): addons/unleash.md
       - Velero backup and restore: addons/velero-backup-and-restore.md
     - Legacy:

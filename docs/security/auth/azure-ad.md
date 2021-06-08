@@ -257,11 +257,11 @@ spec:
 ```
 
 !!! danger
-    Any client referred to **must** already exist in Azure AD in order to be assigned the access policy permissions.
-
-    Be aware of dependency order when deploying your applications for the first time in each cluster with provisioning enabled.
-
-    **Clients defined in the Spec that do _not_ exist in Azure AD at deploy time will be skipped. [Assignments will not be automatically retried.](#forcing-resynchronization)**
+    - Any client referred to **must** already exist in Azure AD in order to be assigned the access policy permissions.
+    - Be aware of dependency order when deploying your applications for the first time in each cluster with provisioning enabled.
+    - If you're pre-authorizing a client provisioned through `aad-iac`, ensure that you've read the [legacy](#pre-authorization_1) section.
+    - **Clients defined in the Spec that do _not_ exist in Azure AD at deploy time will be skipped.**
+    - **[Assignments will not be automatically retried.](#forcing-resynchronization)**
 
 The above configuration will pre-authorize the Azure AD clients belonging to:
 
@@ -616,9 +616,6 @@ kubectl annotate azureapp <app> azure.nais.io/resync=true
 
 The annotation is removed after synchronization. It can then be re-applied to trigger new synchronizations.
 
-If you previously deployed an application where the access policy for [pre-authorization](#pre-authorization) included 
-a non-existing client which now exists, you should thus force resynchronization to Azure AD as shown above.
-
 ### Forcing credential rotation
 
 Credential rotation happens automatically on a regular basis. 
@@ -634,3 +631,42 @@ You should then restart your pods so that the new credentials are re-injected:
 ```bash
 kubectl rollout restart deployment <app>
 ```
+
+## FAQ / Troubleshooting
+
+### First steps
+
+If something isn't quite right, these `kubectl` commands may be of help in diagnosing and reporting errors.
+
+To get a summary of the status of your Azure AD client:
+
+```bash
+kubectl get azureapp <app> -owide 
+```
+
+For additional details:
+
+```bash
+kubectl describe azureapp <app>
+```
+
+### "Application `Alice` is not assigned to a role for the application `Bob`"
+
+An application may receive the following `400 Bad Request` response error when requesting a token from Azure AD:
+
+```json
+{
+  "error": "invalid_grant",
+  "error_description": "AADSTS501051: Application '<client ID>'(<cluster>:<namespace>:<alice>) is not assigned to a role for the application 'api://<cluster>.<namespace>.<bob>'(<cluster>:<namespace>:<bob>)",
+  ...
+}
+```
+
+???+ faq "Answer"
+
+    - Ensure that Bob's [access policy](#pre-authorization) includes Alice.
+    - Run `kubectl get azureapp bob -owide` to check the current count of assigned applications for Bob. 
+    - Run `kubectl describe azureapp bob` to check the detailed statuses for all of Bob's desired pre-authorized applications. 
+    - If Bob added Alice to its access policy before Alice existed in Azure AD, try to [resynchronize](#forcing-resynchronization) Bob:
+        - `kubectl annotate azureapp Bob azure.nais.io/resync=true`
+    - If all else fails, ask an adult in the `#nais` channel on Slack.
