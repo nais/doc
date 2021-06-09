@@ -85,6 +85,14 @@ spec:
   - mountPath: /var/run/secrets
     secret: my-secret-file
   gcp:
+    bigQueryDatasets:
+    - cascadingDelete: true
+      description: Contains big data, supporting big queries, for use in big ideas.
+      name: my_bigquery_dataset1
+      permission: READWRITE
+    - description: Contains big data, supporting big queries, for use in big ideas.
+      name: my_bigquery_dataset2
+      permission: READ
     buckets:
     - cascadingDelete: true
       lifecycleCondition:
