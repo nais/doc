@@ -884,6 +884,14 @@ Availability: GCP<br />
     ``` yaml
     spec:
       gcp:
+        bigQueryDatasets:
+        - cascadingDelete: true
+          description: Contains big data, supporting big queries, for use in big ideas.
+          name: my_bigquery_dataset1
+          permission: READWRITE
+        - description: Contains big data, supporting big queries, for use in big ideas.
+          name: my_bigquery_dataset2
+          permission: READ
         buckets:
         - cascadingDelete: true
           lifecycleCondition:
@@ -918,6 +926,113 @@ Availability: GCP<br />
           name: myinstance
           tier: db-f1-micro
           type: POSTGRES_12
+    ```
+
+### gcp.bigQueryDatasets
+Provision BigQuery datasets and give your application's pod mountable secrets for connecting to each dataset. Datasets are immutable and cannot be changed.
+
+Relevant information:
+
+* [https://cloud.google.com/bigquery/docs](https://cloud.google.com/bigquery/docs)
+
+Type: `array`<br />
+Required: `false`<br />
+Availability: GCP<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        bigQueryDatasets:
+        - cascadingDelete: true
+          description: Contains big data, supporting big queries, for use in big ideas.
+          name: my_bigquery_dataset1
+          permission: READWRITE
+        - description: Contains big data, supporting big queries, for use in big ideas.
+          name: my_bigquery_dataset2
+          permission: READ
+    ```
+
+#### gcp.bigQueryDatasets[].cascadingDelete
+When set to true will delete the dataset, when the application resource is deleted. NB: If no tables exist in the bigquery dataset, it _will_ delete the dataset even if this value is set/defaulted to `false`. Default value is `false`.
+
+Type: `boolean`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        bigQueryDatasets:
+        - cascadingDelete: true
+          description: Contains big data, supporting big queries, for use in big ideas.
+          name: my_bigquery_dataset1
+          permission: READWRITE
+        - description: Contains big data, supporting big queries, for use in big ideas.
+          name: my_bigquery_dataset2
+          permission: READ
+    ```
+
+#### gcp.bigQueryDatasets[].description
+Human-readable description of what this BigQuery dataset contains, or is used for. Will be visible in the GCP Console.
+
+Type: `string`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        bigQueryDatasets:
+        - cascadingDelete: true
+          description: Contains big data, supporting big queries, for use in big ideas.
+          name: my_bigquery_dataset1
+          permission: READWRITE
+        - description: Contains big data, supporting big queries, for use in big ideas.
+          name: my_bigquery_dataset2
+          permission: READ
+    ```
+
+#### gcp.bigQueryDatasets[].name
+Name of the BigQuery Dataset. The canonical name of the dataset will be `<TEAM_PROJECT_ID>:<NAME>`.
+
+Type: `string`<br />
+Required: `true`<br />
+Pattern: `^[a-z0-9][a-z0-9_]+$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        bigQueryDatasets:
+        - cascadingDelete: true
+          description: Contains big data, supporting big queries, for use in big ideas.
+          name: my_bigquery_dataset1
+          permission: READWRITE
+        - description: Contains big data, supporting big queries, for use in big ideas.
+          name: my_bigquery_dataset2
+          permission: READ
+    ```
+
+#### gcp.bigQueryDatasets[].permission
+Permission level given to application.
+
+Type: `enum`<br />
+Required: `true`<br />
+Allowed values: `READ`, `READWRITE`<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        bigQueryDatasets:
+        - cascadingDelete: true
+          description: Contains big data, supporting big queries, for use in big ideas.
+          name: my_bigquery_dataset1
+          permission: READWRITE
+        - description: Contains big data, supporting big queries, for use in big ideas.
+          name: my_bigquery_dataset2
+          permission: READ
     ```
 
 ### gcp.buckets
