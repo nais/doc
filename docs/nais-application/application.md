@@ -916,7 +916,7 @@ Availability: GCP<br />
     ```
 
 #### gcp.bigQueryDatasets[].cascadingDelete
-When set to true will delete the dataset, when the application resource is deleted. Default value is `false`.
+When set to true will delete the dataset, when the application resource is deleted. NB: If no tables exist in the bigquery dataset, it _will_ delete the dataset even if this value is set/defaulted to `false`. Default value is `false`.
 
 Type: `boolean`<br />
 Required: `false`<br />
