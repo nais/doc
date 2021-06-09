@@ -24,7 +24,6 @@ Access to development environments (including legacy u, t and q environments):
 
 Access to production environments (including legacy p environment):
 
-``` 0000-GA-env-config-ProdAdmin - Fasit P```
 
 Order the group by using your applications name, the group name in AD will be 0000-GA-MQ- followed by the application name.
 If no service account exists with the name srv + application name, it will be created and added to the group.
@@ -66,4 +65,3 @@ If you are using MQ client lower than 9.2.1.0 set this parameter when connecting
 Setting this in java: 
 
 ``` connectionFactory.setBooleanProperty(JmsConstants.USER_AUTHENTICATION_MQCSP, true);```
-
