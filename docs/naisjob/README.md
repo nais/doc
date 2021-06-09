@@ -5,7 +5,7 @@ description: This document describes the properties a Naisjob should have.
 # Naisjob
 A Naisjob is very similar to a [NAIS Application](../nais-application/README.md), just that it only runs once.
 It is built on Kubernetes [Job](https://kubernetes.io/docs/concepts/workloads/controllers/job/) and [CronJob](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/).
-In short a Job as opposed to Application will just run a pod one time. 
+Compared to an Application, a Job will only start a pod once. 
 A CronJob runs Jobs on a time-based schedule, as denoted in `.spec.schedule`.
 
 Below you can find a minimal Naisjob example with a `schedule` for running a Job every minute.
