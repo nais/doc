@@ -1,7 +1,7 @@
 # Bigquery Datasets
 
 !!! info
-    This feature is only available in GCP clusters.
+    This feature is only available in [GCP](../../clusters/gcp) clusters.
 
 ## NAIS Application yaml manifest options
 Full documentation of all available options can be found over at: [`spec.gcp.bigQueryDatasets[]`](../../nais-application/application#gcpbigquerydatasets).
@@ -9,7 +9,8 @@ Full documentation of all available options can be found over at: [`spec.gcp.big
 Example of an application using a `nais.yaml` provisioned BigQuery Dataset can be found here: [testapp](https://github.com/nais/testapp/blob/master/pkg/bigquery/bigquery.go).
 
 ## Minimal Working Example
-=== "You can request a MWE Google Cloud BiqQuery Dataset through the NAIS Application manifest like so:"
+
+=== "See below for a minimal working example for a NAIS Application manifest"
     ```yaml
     apiVersion: "nais.io/v1alpha1"
     kind: "Application"
