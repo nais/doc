@@ -48,8 +48,8 @@ When a client requests a token from Maskinporten:
 - When client has access to the requested list of `scopes`, an `access_token` will be returned to the client and which can be used for authentication to the intended external service.
 
 !!! danger
-Make sure that the relevant service providers have pre-registered **NAV** as a valid consumer of any scopes that you define. Provisioning of client will fail otherwise.
-NAV´s `pre-registered` scopes can be found with proper access rights in [Digdir selvbetjening](https://selvbetjening-samarbeid-ver2.difi.no/auth/login).
+    Make sure that the relevant service providers have pre-registered **NAV** as a valid consumer of any scopes that you define. Provisioning of client will fail otherwise.
+    NAV´s `pre-registered` scopes can be found with proper access rights in [Digdir selvbetjening](https://selvbetjening-samarbeid-ver2.difi.no/auth/login).
 
 ### Consumes Configuration
 
@@ -224,7 +224,7 @@ subscope := arbeid/some.scope.read
 ```
 
 !!! info "regex match of subscope"
-Be sure to match subscope `<product><./:><name>` to regex: `^([a-zæøå0-9]+\/?)+(\:[a-zæøå0-9]+)*[a-zæøå0-9]+(\.[a-zæøå0-9]+)*$`.
+    Be sure to match subscope `<product><./:><name>` to regex: `^([a-zæøå0-9]+\/?)+(\:[a-zæøå0-9]+)*[a-zæøå0-9]+(\.[a-zæøå0-9]+)*$`.
 
 The registered scope at Maskinporten:
 
@@ -286,12 +286,12 @@ The following describes the steps needed to migrate a scope registered in [IaC r
 ## Permanently deleting a client
 
 !!! warning
-Permanent deletes are irreversible. Only do this if you are certain that you wish to completely remove the client from DigDir and deactivates exposed scopes and granted access for consumers wil be removed.
+    Permanent deletes are irreversible. Only do this if you are certain that you wish to completely remove the client from DigDir and deactivates exposed scopes and granted access for consumers wil be removed.
 
-When an `MaskinportenClient` resource gets deleted from a Kubernetes cluster, the client will not be deleted from DigDir.
+    When an `MaskinportenClient` resource gets deleted from a Kubernetes cluster, the client will not be deleted from DigDir.
 
 !!! info
-The `Application` resource owns the `MaskinportenClient` resource, deletion of the former will thus trigger a deletion of the latter.
+    The `Application` resource owns the `MaskinportenClient` resource, deletion of the former will thus trigger a deletion of the latter.
 
     If the `MaskinportenClient` resource is recreated, the client will thus retain the same client ID.
 
