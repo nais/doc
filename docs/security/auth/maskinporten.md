@@ -286,7 +286,8 @@ The following describes the steps needed to migrate a scope registered in [IaC r
 ## Permanently deleting a client
 
 !!! warning
-    Permanent deletes are irreversible. Only do this if you are certain that you wish to completely remove the client from DigDir and deactivates exposed scopes and granted access for consumers wil be removed.
+    Permanent deletes are irreversible. Only do this if you are certain that you wish to completely remove the client from DigDir 
+    and deactivates exposed scopes and granted access for consumers wil be removed.
 
     When an `MaskinportenClient` resource gets deleted from a Kubernetes cluster, the client will not be deleted from DigDir.
 
