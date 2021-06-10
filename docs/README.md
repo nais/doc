@@ -27,7 +27,6 @@ Within each of these aspects, we leverage open source projects best suited for o
 GitOps is a way of implementing Continuous Deployment for cloud native applications. It focuses on a developer-centric experience when operating infrastructure, by using tools developers are already familiar with, including Git and Continuous Deployment tools.
 
 Read more over at [gitops.tech](https://www.gitops.tech).
-
 > GitOps: versioned CI/CD on top of declarative infrastructure. Stop scripting and start shipping.
 >
 > — [Kelsey Hightower](https://twitter.com/kelseyhightower/status/953638870888849408)
@@ -45,6 +44,15 @@ When a team adopts new technology, it may trigger a change in the privacy impact
 If so, the team should update the PVK. ROS will often include information security, and can provide support in the completion of the PVK.
 
 When a team wants to process personal data in a whole new way, the existing PVK might not cover this purpose. In this case, a new PVK is required in order to document the purpose and legal basis for the treatment. A legal coach from "juridisk seksjon" can assist with such an assessment.
+
+## On-call services
+NAIS has a 24/7 on-call service for operation and troubleshooting of the on-premises and GCP platforms, as well as third-party suppliers Aiven. 
+
+The on-call service is to be used for production environment events outside regular working hours only. Use slack mention @nais-team during regular working hours.
+
+The on-call service is rotated, but the person on-call at the moment can be found in the slack user group "nais-vakt". The on-call phone number can be found in the header of the [nais slack](https://nav-it.slack.com/archives/C5KUST8N6).
+
+Response time for a request should be no more than 30 minutes for slack mentions (@nais-vakt).
 
 ## Contact the NAIS team
 
