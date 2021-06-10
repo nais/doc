@@ -91,6 +91,7 @@ nav:
       - S3 object store: persistence/objectstore.md
       - Redis: persistence/redis.md
       - On-premises disk: persistence/volume-storage.md
+      - MQ: persistence/mq.md
     - Security:
       - AuthN & AuthZ:
         - Authentication & Authorization Overview: security/auth/README.md
