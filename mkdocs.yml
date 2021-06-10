@@ -84,10 +84,12 @@ nav:
       - Tracing: observability/tracing.md
     - Persistence:
       - Responsibilities: persistence/responsibilities.md
-      - Buckets: persistence/buckets.md
+      - GCP storage alternatives:
+        - Buckets: persistence/buckets.md
+        - Postgres: persistence/postgres.md
+        - BigQuery: persistence/bigquery.md
       - Elastic Search: persistence/elastic-search.md
       - Influxdb: persistence/influxdb.md
-      - Postgres: persistence/postgres.md
       - S3 object store: persistence/objectstore.md
       - Redis: persistence/redis.md
       - On-premises disk: persistence/volume-storage.md
