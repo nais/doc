@@ -136,7 +136,7 @@ The following environment variables and files (under the directory `/var/run/sec
 
 Refer to the [documentation at DigDir](https://docs.digdir.no/maskinporten_guide_apikonsument.html).
 
-You may skip any step involving client registration as this is automatically handled when [enabling this feature](#configuration).
+You may skip any step involving client registration as this is automatically handled when [enabling this feature](#consumes-configuration).
 
 ## Legacy
 
@@ -168,7 +168,7 @@ The following describes the steps needed to migrate a client registered in [IaC 
 
 ### Why expose your api?
 
-Maskinporten simplifies data sharing between machines and companies, since NAV does not have to spend resources on developing and maintaining its own security mechanisms.
+Maskinporten simplifies data sharing between machines and companies and NAV does not have to spend resources on developing and maintaining its own security mechanisms.
 By exposing your scope and secure your API with Maskinporten, NAV as a public company can be sure to communicate and share data with private and public companies supposed to have access.
 
 The role to Maskinporten is to be a trust anchor - a security mechanism for secure sharing of data that ensures that data only flows where it should.
@@ -204,20 +204,20 @@ In the Maskinporten context, an API is the same as an Oauth2 scope. NAV as API p
 prefix := nav:
 ```
 
-Applications in NAV has the freedom to decide their semantics for their `name` (subscope) for API security within the framework of the Oauth2 standards.
-An exposed scope will be categorized by `product`, your product-area. Scopes registered for NAV as API provider must be unique in the context of `product`.
+Applications in NAV has the freedom to decide semantics for their `name` (subscope) to apply API security within the framework of the Oauth2 standards.
+An exposed scope will be categorized by `product`, in this case your product-area. Scopes registered for NAV as API provider must be unique in the context of `product` or provisioning of scope will fail.
 
 ```text
 subscope := <product><./:><name>
 ```
 
-If `name` is separated by `.` or `:` the final `subscope`:
+If `name` is separated by `.` or `:`:
 
 ```text
 subscope := arbeid:some.scope.read
 ```
 
-If `name` is separated by `/` the final `subscope`:
+If `name` is separated by `/`:
 
 ```text
 subscope := arbeid/some.scope.read
@@ -226,7 +226,7 @@ subscope := arbeid/some.scope.read
 !!! info "regex match of subscope"
     Be sure to match subscope `<product><./:><name>` to regex: `^([a-zæøå0-9]+\/?)+(\:[a-zæøå0-9]+)*[a-zæøå0-9]+(\.[a-zæøå0-9]+)*$`.
 
-The registered scope at Maskinporten:
+The registered scope at Maskinporten will have this form:
 
 ```text
 scope := nav:<product><./:><name>
@@ -246,15 +246,15 @@ scope := nav:arbeid/some.scope.read
 
 Default `maskinporten`.
 
-If this attribute is set, one of the values must include the "maskinporten" in order for external consumers of the scope to be used with a "maskinporten" client.
+If set, this restricts consumers of your scope to only use "maskinporten" client.
 
-Configuration supports several of values, other values can be `idporten` and `krr`.
+Supports several of values, other values can be `idporten` and `krr`.
 
 ##### At Max Age
 
 Default `30`.
 
-Allows a provider applications scope to specify a maximum lifetime in `seconds` for issued access_token.
+Allows you to specify a maximum lifetime in `seconds` for issued access_token.
 
 ### Audience
 
