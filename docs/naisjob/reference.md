@@ -2131,7 +2131,17 @@ Required: `false`<br />
       maskinporten:
         enabled: true
         scopes:
-        - name: some_scope
+          consumes:
+          - name: skatt:scope.read
+          exposes:
+          - allowedIntegrations:
+            - maskinporten
+            consumers:
+            - name: KST
+              orgno: "123456789"
+            enabled: true
+            name: scope.read
+            product: arbeid
     ```
 
 ### maskinporten.enabled
@@ -2150,6 +2160,28 @@ Required: `true`<br />
 ### maskinporten.scopes
 List of scopes that your client should request access to. Ensure that the NAV organization has been granted access to the scope prior to requesting access.
 
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      maskinporten:
+        scopes:
+          consumes:
+          - name: skatt:scope.read
+          exposes:
+          - allowedIntegrations:
+            - maskinporten
+            consumers:
+            - name: KST
+              orgno: "123456789"
+            enabled: true
+            name: scope.read
+            product: arbeid
+    ```
+
+#### maskinporten.scopes.consumes
 Type: `array`<br />
 Required: `false`<br />
 
@@ -2158,12 +2190,11 @@ Required: `false`<br />
     spec:
       maskinporten:
         scopes:
-        - name: some_scope
+          consumes:
+          - name: skatt:scope.read
     ```
 
-#### maskinporten.scopes[].name
-The fully qualified name of the scope.
-
+##### maskinporten.scopes.consumes[].name
 Type: `string`<br />
 Required: `true`<br />
 
@@ -2172,7 +2203,208 @@ Required: `true`<br />
     spec:
       maskinporten:
         scopes:
-        - name: some_scope
+          consumes:
+          - name: skatt:scope.read
+    ```
+
+#### maskinporten.scopes.exposes
+Type: `array`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      maskinporten:
+        scopes:
+          exposes:
+          - allowedIntegrations:
+            - maskinporten
+            consumers:
+            - name: KST
+              orgno: "123456789"
+            enabled: true
+            name: scope.read
+            product: arbeid
+    ```
+
+##### maskinporten.scopes.exposes[].allowedIntegrations
+AllowedIntegrations whitelist of type of integration's allowed. Default is `maskinporten`
+
+Type: `array`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      maskinporten:
+        scopes:
+          exposes:
+          - allowedIntegrations:
+            - maskinporten
+            consumers:
+            - name: KST
+              orgno: "123456789"
+            enabled: true
+            name: scope.read
+            product: arbeid
+    ```
+
+##### maskinporten.scopes.exposes[].atMaxAge
+AtMaxAge Max time in seconds for a issued access_token, default is `30`
+
+Type: `integer`<br />
+Required: `false`<br />
+Value range: `30`-`680`<br />
+
+??? example
+    ``` yaml
+    spec:
+      maskinporten:
+        scopes:
+          exposes:
+          - allowedIntegrations:
+            - maskinporten
+            consumers:
+            - name: KST
+              orgno: "123456789"
+            enabled: true
+            name: scope.read
+            product: arbeid
+    ```
+
+##### maskinporten.scopes.exposes[].consumers
+Consumers External consumers granted access to this scope and able to get acess_token
+
+Type: `array`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      maskinporten:
+        scopes:
+          exposes:
+          - allowedIntegrations:
+            - maskinporten
+            consumers:
+            - name: KST
+              orgno: "123456789"
+            enabled: true
+            name: scope.read
+            product: arbeid
+    ```
+
+###### maskinporten.scopes.exposes[].consumers[].name
+Name is a describing name intended for clearity.
+
+Type: `string`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      maskinporten:
+        scopes:
+          exposes:
+          - allowedIntegrations:
+            - maskinporten
+            consumers:
+            - name: KST
+              orgno: "123456789"
+            enabled: true
+            name: scope.read
+            product: arbeid
+    ```
+
+###### maskinporten.scopes.exposes[].consumers[].orgno
+Orgno is the external business (consumer) organisation number
+
+Type: `string`<br />
+Required: `true`<br />
+Pattern: `^\d{9}$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      maskinporten:
+        scopes:
+          exposes:
+          - allowedIntegrations:
+            - maskinporten
+            consumers:
+            - name: KST
+              orgno: "123456789"
+            enabled: true
+            name: scope.read
+            product: arbeid
+    ```
+
+##### maskinporten.scopes.exposes[].enabled
+Enabled sets scope availible for use and consumer can be granted access
+
+Type: `boolean`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      maskinporten:
+        scopes:
+          exposes:
+          - allowedIntegrations:
+            - maskinporten
+            consumers:
+            - name: KST
+              orgno: "123456789"
+            enabled: true
+            name: scope.read
+            product: arbeid
+    ```
+
+##### maskinporten.scopes.exposes[].name
+Name is the actual subscope, build: scope := prefix:<Product></:><Name>
+
+Type: `string`<br />
+Required: `true`<br />
+Pattern: `^([a-zæøå0-9]+\/?)+(\:[a-zæøå0-9]+)*[a-zæøå0-9]+(\.[a-zæøå0-9]+)*$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      maskinporten:
+        scopes:
+          exposes:
+          - allowedIntegrations:
+            - maskinporten
+            consumers:
+            - name: KST
+              orgno: "123456789"
+            enabled: true
+            name: scope.read
+            product: arbeid
+    ```
+
+##### maskinporten.scopes.exposes[].product
+Product is the product development area an application belongs to. This will be included in the final registered scope
+
+Type: `string`<br />
+Required: `true`<br />
+Pattern: `^[a-z0-9]+$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      maskinporten:
+        scopes:
+          exposes:
+          - allowedIntegrations:
+            - maskinporten
+            consumers:
+            - name: KST
+              orgno: "123456789"
+            enabled: true
+            name: scope.read
+            product: arbeid
     ```
 
 ## preStopHookPath

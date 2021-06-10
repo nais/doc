@@ -156,7 +156,17 @@ spec:
   maskinporten:
     enabled: true
     scopes:
-    - name: some_scope
+      consumes:
+      - name: skatt:scope.read
+      exposes:
+      - allowedIntegrations:
+        - maskinporten
+        consumers:
+        - name: KST
+          orgno: "123456789"
+        enabled: true
+        name: scope.read
+        product: arbeid
   port: 8080
   preStopHookPath: /internal/stop
   prometheus:

@@ -143,7 +143,17 @@ spec:
   maskinporten:
     enabled: true
     scopes:
-    - name: some_scope
+      consumes:
+      - name: skatt:scope.read
+      exposes:
+      - allowedIntegrations:
+        - maskinporten
+        consumers:
+        - name: KST
+          orgno: "123456789"
+        enabled: true
+        name: scope.read
+        product: arbeid
   preStopHookPath: /internal/stop
   readiness:
     failureThreshold: 10
