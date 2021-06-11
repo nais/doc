@@ -157,7 +157,7 @@ If your application stores personally identifiable information in any GCP data s
         - `https://<app>.dev-fss-pub.nais.io`
         - `https://<app>.prod-fss-pub.nais.io`
 
-    Contact [#nais-i-sky](https://nav-it.slack.com/archives/C0190SV7KSN) to set up these ingresses.
+    Create a pull request at <https://github.com/navikt/bigip-iac/tree/main/pub-fss> set up these ingresses.
 
     The application _in GCP_ must then:
 
