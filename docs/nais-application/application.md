@@ -2307,7 +2307,7 @@ Required: `false`<br />
     ```
 
 ### maskinporten.enabled
-If enabled, provisions and configures a Maskinporten client with consumed scopes and/or Exposed scopes with at DigDir.
+If enabled, provisions and configures a Maskinporten client with consumed scopes and/or Exposed scopes with DigDir.
 
 Type: `boolean`<br />
 Required: `true`<br />
@@ -2321,7 +2321,7 @@ Availability: team namespaces<br />
     ```
 
 ### maskinporten.scopes
-To Configure Maskinporten clients, consumed scopes and/or exposed scopes
+Schema to configure Maskinporten clients with consumed scopes and/or exposed scopes.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -2345,7 +2345,7 @@ Required: `false`<br />
     ```
 
 #### maskinporten.scopes.consumes
-MaskinportenScope is the Schema for the ConsumedScopes and  ExposedScopes API and it contains lists of consumed scopes and exposed scopes. `ConsumedScopes` is a list of scopes that your client should request access to. `ExposedScopes` is a list of scopes your application want to expose to other organization and access to the exposed scope is based on organization number.
+This is the Schema for the consumes and exposes API. `consumes` is a list of scopes that your client can request access to.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -2362,6 +2362,10 @@ Required: `false`<br />
 ##### maskinporten.scopes.consumes[].name
 The scope consumed by the application to gain access to an external organization API. Ensure that the NAV organization has been granted access to the scope prior to requesting access.
 
+Relevant information:
+
+* [https://doc.nais.io/security/auth/maskinporten/#consume-scopes](https://doc.nais.io/security/auth/maskinporten/#consume-scopes)
+
 Type: `string`<br />
 Required: `true`<br />
 
@@ -2375,6 +2379,8 @@ Required: `true`<br />
     ```
 
 #### maskinporten.scopes.exposes
+`exposes` is a list of scopes your application want to expose to other organization where access to the scope is based on organization number.
+
 Type: `array`<br />
 Required: `false`<br />
 
@@ -2421,7 +2427,7 @@ Required: `false`<br />
     ```
 
 ##### maskinporten.scopes.exposes[].atMaxAge
-Max time in seconds for a issued access_token. Default is `30`
+Max time in seconds for a issued access_token. Default is `30` sec.
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -2537,7 +2543,7 @@ Required: `true`<br />
     ```
 
 ##### maskinporten.scopes.exposes[].name
-The actual subscope combined with `Product`. Ensure that `<Product></:><Name> matches `Pattern`.
+The actual subscope combined with `Product`. Ensure that `<Product><Name>` matches `Pattern`.
 
 Type: `string`<br />
 Required: `true`<br />
@@ -2560,7 +2566,7 @@ Pattern: `^([a-zæøå0-9]+\/?)+(\:[a-zæøå0-9]+)*[a-zæøå0-9]+(\.[a-zæøå
     ```
 
 ##### maskinporten.scopes.exposes[].product
-The product-area your application belongs to e.g. arbeid, helse ... This will be included in the final scope `nav:<Product></:><Name>`.
+The product-area your application belongs to e.g. arbeid, helse ... This will be included in the final scope `nav:<Product><Name>`.
 
 Type: `string`<br />
 Required: `true`<br />
