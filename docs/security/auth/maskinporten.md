@@ -19,25 +19,7 @@ description: >
 
     The client allows your application to leverage Maskinporten for authentication and authorization when performing service-to-service requests to external agencies. To achieve this, your application must implement [JWT grants](https://docs.digdir.no/maskinporten_protocol_token.html).
 
-## Configuration
-
-### Getting Started
-
-=== "nais.yaml"
-    ```yaml
-    spec:
-      maskinporten:
-        enabled: true
-        scopes:
-          - name: "nav:some/scope"
-
-      # required for on-premises only
-      webproxy: true
-    ```
-
-### Spec
-
-See the [NAIS manifest](../../nais-application/application.md#maskinporten).
+## Getting Started
 
 ### Access Policies
 
@@ -56,7 +38,7 @@ You do not need to specify these explicitly.
 
 You must enable and use [`webproxy`](../../nais-application/application.md#webproxy) for external communication.
 
-### Scopes
+## Consume Scopes
 
 Maskinporten allows API providers to define access to their APIs, modeled as scopes and based on the consumer's organization number.
 
@@ -68,6 +50,26 @@ When a client requests a token from Maskinporten:
 !!! danger
     Make sure that the relevant service providers have pre-registered **NAV** as a valid consumer of any scopes that you define. Provisioning of client will fail otherwise.
     NAV´s `pre-registered` scopes can be found with proper access rights in [Digdir selvbetjening](https://selvbetjening-samarbeid-ver2.difi.no/auth/login).
+
+### Consumes Configuration
+
+=== "nais.yaml"
+    ```yaml
+    spec:
+      maskinporten:
+        enabled: true
+        scopes:
+          consumes:
+            - name: "skatt:some.scope"
+            - name: "nav:some/other/scope"
+
+    # required for on-premises only
+    webproxy: true
+    ```
+
+### Spec
+
+See the [NAIS manifest](../../nais-application/application.md#maskinporten).
 
 ## Usage
 
@@ -130,11 +132,11 @@ The following environment variables and files (under the directory `/var/run/sec
     }
     ```
 
-### Consume an API
+### API Consumer
 
 Refer to the [documentation at DigDir](https://docs.digdir.no/maskinporten_guide_apikonsument.html).
 
-You may skip any step involving client registration as this is automatically handled when [enabling this feature](#getting-started).
+You may skip any step involving client registration as this is automatically handled when [enabling this feature](#consumes-configuration).
 
 ## Legacy
 
@@ -155,23 +157,139 @@ The following describes the steps needed to migrate a client registered in [IaC 
 
 #### Step 3 - Deploy your NAIS application with Maskinporten provisioning enabled
 
-- See [getting started](#getting-started).
+- See [configuration](#consumes-configuration).
 
 #### Step 4 - Delete your application from the IaC repository
 
 - Verify that everything works after the migration
 - Delete the application from the [IaC repository](https://github.com/navikt/nav-maskinporten) in order to maintain a single source of truth.
 
-## Internals
+## Expose Scopes
 
-See [ID-porten internals](idporten.md#internals).
+### Why expose your api?
+
+Maskinporten simplifies data sharing between machines and companies and NAV does not have to spend resources on developing and maintaining its own security mechanisms.
+By exposing your scope and secure your API with Maskinporten, NAV as a public company can be sure to communicate and share data with private and public companies supposed to have access.
+
+The role to Maskinporten is to be a trust anchor - a security mechanism for secure sharing of data that ensures that data only flows where it should.
+When the data exchange is to take place between machines, maskinporten ensures the identity of the consumer.
+
+NAIS applications can define secure access to their APIs, modeled and exposed as scopes, based on the API consumers' organization numbers.
+
+#### Exposes Configuration
+
+=== "nais.yaml"
+    ```yaml
+    spec:
+    maskinporten:
+      enabled: true
+      scopes:
+        exposes:
+          - name: "some.scope.read"
+            enabled: true
+            product: "arbeid"
+            allowedIntegrations:
+             - maskinporten
+            atMaxAge: 120
+            consumers:
+              - orgno: "123456789"
+
+    # required for on-premises only
+    webproxy: true
+    ```
+
+In the Maskinporten context, an API is the same as an Oauth2 scope. NAV as API provider has a prefix manually assigned.
+
+```text
+prefix := nav:
+```
+
+Applications in NAV has the freedom to decide semantics for their `name` (subscope) to apply API security within the framework of the Oauth2 standards.
+An exposed scope will be categorized by `product`, in this case your product-area. Scopes registered for NAV as API provider must be unique in the context of `product` or provisioning of scope will fail.
+
+```text
+subscope := <product><./:><name>
+```
+
+If `name` is separated by `.` or `:`:
+
+```text
+subscope := arbeid:some.scope.read
+```
+
+If `name` is separated by `/`:
+
+```text
+subscope := arbeid/some.scope.read
+```
+
+!!! info "regex match of subscope"
+    Be sure to match subscope `<product><./:><name>` to regex: `^([a-zæøå0-9]+\/?)+(\:[a-zæøå0-9]+)*[a-zæøå0-9]+(\.[a-zæøå0-9]+)*$`.
+
+The registered scope at Maskinporten will have this form:
+
+```text
+scope := nav:<product><./:><name>
+```
+
+```text
+scope := nav:arbeid:some.scope.read
+```
+
+or
+
+```text
+scope := nav:arbeid/some.scope.read
+```
+
+##### Allowed integration types
+
+Default `maskinporten`.
+
+If set, this restricts consumers of your scope to only use "maskinporten" client.
+
+Supports several of values, other values can be `idporten` and `krr`.
+
+##### At Max Age
+
+Default `30`.
+
+Allows you to specify a maximum lifetime in `seconds` for issued access_token.
+
+### Audience
+
+For more information on how to [audience-restrict](https://docs.digdir.no/maskinporten_func_audience_restricted_tokens.html?h=resource) an application scope.
+
+### Migration guide to keep existing Maskinporten Scope (NAIS application only)
+
+The following describes the steps needed to migrate a scope registered in [IaC repository](https://github.com/navikt/nav-maskinporten/scopes).
+
+#### Step 1 - Update your scope description in the IaC repository
+
+- Ensure the **`description`** of the scope registered in the `IaC` repository follows the naming scheme:
+
+```text
+<cluster>:<metadata.namespace>:<metadata.name>.<subscope>
+```
+
+#### Step 3 - Deploy your NAIS application with Maskinporten provisioning enabled.
+
+- Ensure exposed scopes enabled and name matches the already exposed `subscope`
+
+- See [configuration](#exposes-configuration).
+
+#### Step 4 - Delete your scope from the IaC repository
+
+- Verify that everything works after the migration
+- Delete the scope from the [IaC repository](https://github.com/navikt/nav-maskinporten/scopes) in order to maintain a single source of truth.
 
 ## Permanently deleting a client
 
 !!! warning
-    Permanent deletes are irreversible. Only do this if you are certain that you wish to completely remove the client from DigDir.
+    Permanent deletes are irreversible. Only do this if you are certain that you wish to completely remove the client from DigDir 
+    and deactivates exposed scopes and granted access for consumers wil be removed.
 
-When an `MaskinportenClient` resource is deleted from a Kubernetes cluster, the client is not deleted from DigDir.
+    When an `MaskinportenClient` resource gets deleted from a Kubernetes cluster, the client will not be deleted from DigDir.
 
 !!! info
     The `Application` resource owns the `MaskinportenClient` resource, deletion of the former will thus trigger a deletion of the latter.
@@ -184,4 +302,7 @@ If you want to completely delete the client from DigDir, you must add the follow
 kubectl annotate maskinportenclient <app> digdir.nais.io/delete=true
 ```
 
-When this annotation is in place, deleting the `MaskinportenClient` resource from Kubernetes will trigger removal of the client from DigDir.
+When this annotation is in place, deleting the `MaskinportenClient` resource from Kubernetes will trigger removal of the client and inactivating of registered scopes from DigDir.
+## Internals
+
+See [ID-porten internals](idporten.md#internals).
