@@ -1968,6 +1968,7 @@ Whether to enable provisioning of an ID-porten client. If enabled, an ID-porten 
 
 Type: `boolean`<br />
 Required: `true`<br />
+Availability: team namespaces<br />
 
 ??? example
     ``` yaml
@@ -2306,10 +2307,11 @@ Required: `false`<br />
     ```
 
 ### maskinporten.enabled
-If enabled, provisions and configures a Maskinporten client at DigDir.
+If enabled, provisions and configures a Maskinporten client with consumed scopes and/or Exposed scopes with at DigDir.
 
 Type: `boolean`<br />
 Required: `true`<br />
+Availability: team namespaces<br />
 
 ??? example
     ``` yaml
@@ -2319,7 +2321,7 @@ Required: `true`<br />
     ```
 
 ### maskinporten.scopes
-List of scopes that your client should request access to. Ensure that the NAV organization has been granted access to the scope prior to requesting access.
+To Configure Maskinporten clients, consumed scopes and/or exposed scopes
 
 Type: `object`<br />
 Required: `false`<br />
@@ -2343,6 +2345,8 @@ Required: `false`<br />
     ```
 
 #### maskinporten.scopes.consumes
+MaskinportenScope is the Schema for the ConsumedScopes and  ExposedScopes API and it contains lists of consumed scopes and exposed scopes. `ConsumedScopes` is a list of scopes that your client should request access to. `ExposedScopes` is a list of scopes your application want to expose to other organization and access to the exposed scope is based on organization number.
+
 Type: `array`<br />
 Required: `false`<br />
 
@@ -2356,6 +2360,8 @@ Required: `false`<br />
     ```
 
 ##### maskinporten.scopes.consumes[].name
+The scope consumed by the application to gain access to an external organization API. Ensure that the NAV organization has been granted access to the scope prior to requesting access.
+
 Type: `string`<br />
 Required: `true`<br />
 
@@ -2389,7 +2395,11 @@ Required: `false`<br />
     ```
 
 ##### maskinporten.scopes.exposes[].allowedIntegrations
-AllowedIntegrations whitelist of type of integration's allowed. Default is `maskinporten`
+Whitelisting of integration's allowed. Default is `maskinporten`
+
+Relevant information:
+
+* [https://docs.digdir.no/maskinporten_guide_apitilbyder.html#scope-begrensninger](https://docs.digdir.no/maskinporten_guide_apitilbyder.html#scope-begrensninger)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -2411,7 +2421,7 @@ Required: `false`<br />
     ```
 
 ##### maskinporten.scopes.exposes[].atMaxAge
-AtMaxAge Max time in seconds for a issued access_token, default is `30`
+Max time in seconds for a issued access_token. Default is `30`
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -2434,7 +2444,7 @@ Value range: `30`-`680`<br />
     ```
 
 ##### maskinporten.scopes.exposes[].consumers
-Consumers External consumers granted access to this scope and able to get acess_token
+External consumers granted access to this scope and able to request access_token.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -2456,7 +2466,7 @@ Required: `false`<br />
     ```
 
 ###### maskinporten.scopes.exposes[].consumers[].name
-Name is a describing name intended for clearity.
+This is a describing field intended for clarity not used for any other purpose.
 
 Type: `string`<br />
 Required: `false`<br />
@@ -2478,7 +2488,7 @@ Required: `false`<br />
     ```
 
 ###### maskinporten.scopes.exposes[].consumers[].orgno
-Orgno is the external business (consumer) organisation number
+The external business/organization number.
 
 Type: `string`<br />
 Required: `true`<br />
@@ -2501,7 +2511,11 @@ Pattern: `^\d{9}$`<br />
     ```
 
 ##### maskinporten.scopes.exposes[].enabled
-Enabled sets scope availible for use and consumer can be granted access
+If Enabled the configured scope is available to be used and consumed by organizations granted access.
+
+Relevant information:
+
+* [https://doc.nais.io/naisjob/reference/#maskinportenscopesexposesconsumers](https://doc.nais.io/naisjob/reference/#maskinportenscopesexposesconsumers)
 
 Type: `boolean`<br />
 Required: `true`<br />
@@ -2523,7 +2537,7 @@ Required: `true`<br />
     ```
 
 ##### maskinporten.scopes.exposes[].name
-Name is the actual subscope, build: scope := prefix:<Product></:><Name>
+The actual subscope combined with `Product`. Ensure that `<Product></:><Name> matches `Pattern`.
 
 Type: `string`<br />
 Required: `true`<br />
@@ -2546,7 +2560,7 @@ Pattern: `^([a-zæøå0-9]+\/?)+(\:[a-zæøå0-9]+)*[a-zæøå0-9]+(\.[a-zæøå
     ```
 
 ##### maskinporten.scopes.exposes[].product
-Product is the product development area an application belongs to. This will be included in the final registered scope
+The product-area your application belongs to e.g. arbeid, helse ... This will be included in the final scope `nav:<Product></:><Name>`.
 
 Type: `string`<br />
 Required: `true`<br />
