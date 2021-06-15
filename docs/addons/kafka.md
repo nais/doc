@@ -189,7 +189,7 @@ In this case, Aivenator will update the `status` part of the resource, with furt
 
 If you have an application on legacy infrastructure (outside NAIS clusters), you can still access topics with a few more manual steps.
 
-The first step is to add your application to the topic ACLs, the same was as for applications in NAIS clusters (see [the previous section](#accessing-topics-from-an-application)).
+The first step is to add your application to the topic ACLs, the same way as for applications in NAIS clusters (see [the previous section](#accessing-topics-from-an-application)).
 Use your team name, and a suitable name for the application, following NAIS naming conventions.
 
 To create a service user and credentials for your application, you need to manually create the `AivenApplication` resource that would normally be created by Naiserator.
