@@ -1,15 +1,17 @@
 # Kafka
 
 !!! warning
-    This feature applies only to _Aiven hosted Kafka_. On-premises Kafka is deprecated, and we will disable creating new topics summer 2021. For on-premises Kafka, see [on-premises Kafka documentation](https://confluence.adeo.no/display/AURA/Kafka).
+    This feature applies only to _Aiven hosted Kafka_. On-premises Kafka is deprecated, and creating new topics on-premises was disabled summer 2021. For on-premises Kafka, see [on-premises Kafka documentation](https://confluence.adeo.no/display/AURA/Kafka).
 
 ## Abstract
 
 NAV uses Aiven hosted Kafka. Access to Kafka is granted by defining a `Topic` resource in one of our Kubernetes clusters.
 
-Upon defining a Topic, _Kafkarator_ will create the Topic in one of the Kafka _pools_. A pool is a highly available, replicated Kafka cluster running at Aiven. After the topic is created, Kafkarator will orchestrate generation of users and credentials, and add the relevant users to the topic's access control list \(ACL\). These credentials are made available to applications through a _Secret_ in the relevant team namespace. This secret is automatically mounted by Naiserator into application pods as environment variables.
+Upon defining a Topic, [Kafkarator](https://github.com/nais/kafkarator) will create the Topic in one of the Kafka _pools_. A pool is a highly available, replicated Kafka cluster running at Aiven. After the topic is created, Kafkarator will add relevant users to the topic's access control list \(ACL\).
 
-For a list of variables, see _accessing topics from an application_ below.
+When an application that uses Kafka is deployed, [Aivenator](https://github.com/nais/aivenator) will orchestrate generation of users and credentials. These credentials are made available to applications through a _Secret_ in the relevant team namespace. This secret is automatically mounted by Naiserator into application pods as environment variables and files.
+
+For a list of variables, see [accessing topics from an application](#accessing-topics-from-an-application) below.
 
 ## Status and roadmap
 
@@ -18,9 +20,6 @@ For a list of variables, see _accessing topics from an application_ below.
 
 Follow development on the [PIG-Aiven Trello board](https://trello.com/b/O0EvBshY/pig-aiven).
 
-Major features coming:
-
-* Custom pools for teams with large amounts of data
 
 ## Creating topics and defining access
 
@@ -31,7 +30,7 @@ To add access to this topic for your application, see the next section: _Accessi
 Topic resources can only be specified in GCP clusters. However, applications might access topics from any cluster, including on-premises. For details, read the next section.
 
 Currently, use the `nav-dev` pool for development, and `nav-prod` for production.
-If you need cross-environment communications, use the `nav-infrastructure` pool.
+If you need cross-environment communications, use the `nav-infrastructure` pool, but please consult the NAIS team before you do.
 
 | Pool | Min. replication | Max. replication | Topic declared in | Available from |
 | :--- | :--- | :--- | :--- | :--- |
@@ -136,7 +135,7 @@ When this annotation is in place, deleting the topic resource from Kubernetes wi
 
 ## Accessing topics from an application
 
-Adding `.kafka.pool` to your `Application` spec will inject Kafka credentials into your pod. Your application needs to follow some design guidelines; see the next section on _application design guidelines_. Make sure that the topic name matches the `fullyQualifiedName` found in the Topic resource, e.g. `myteam.mytopic`.
+Adding `.kafka.pool` to your `Application` spec will inject Kafka credentials into your pod. Your application needs to follow some design guidelines; see the next section on [application design guidelines](#application-design-guidelines). Make sure that the topic name matches the `fullyQualifiedName` found in the Topic resource, e.g. `myteam.mytopic`.
 
 === "nais.yaml"
     ```yaml
@@ -172,15 +171,60 @@ These variables are made available inside the pod.
 | `KAFKA_CREDSTORE_PASSWORD` | Password needed to use the keystore and truststore |
 | `KAFKA_KEYSTORE_PATH` | PKCS\#12 keystore for use with Java clients, as file |
 | `KAFKA_TRUSTSTORE_PATH` | JKS truststore for use with Java clients, as file |
+| `AIVEN_SECRET_UPDATED` | A timestamp of when the secret was created |
+
+### What happens on deploy?
+
+When you deploy an application that requests access to Kafka, Naiserator will create an `AivenApplication` resource in the cluster.
+The `AivenApplication` has a name that matches the deployed application, and the name of the secret to generate. 
+Naiserator will request that a secret with this name used in the deployment.
+
+When an `AivenApplication` resource is created or updated, Aivenator will create a new service user and generate credentials. 
+These credentials are then inserted into the requested secret and used in the deployment.
+
+If there is a problem generating the secret, this might fail your deployment. 
+In this case, Aivenator will update the `status` part of the resource, with further information about the problem.
+
+## Accessing topics from an application on legacy infrastructure
+
+If you have an application on legacy infrastructure (outside NAIS clusters), you can still access topics with a few more manual steps.
+
+The first step is to add your application to the topic ACLs, the same was as for applications in NAIS clusters (see [the previous section](#accessing-topics-from-an-application)).
+Use your team name, and a suitable name for the application, following NAIS naming conventions.
+
+To create a service user and credentials for your application, you need to manually create the `AivenApplication` resource that would normally be created by Naiserator.
+
+=== "aivenapp.yaml"
+    ```yaml
+    ---
+    apiVersion: aiven.nais.io/v1
+    kind: AivenApplication
+    metadata:
+      name: legacyapplication
+      namespace: myteam
+    spec:
+      kafka:
+        pool: nav-dev
+      secretName: unique-name
+      protected: true
+    ```
+
+Since Aivenator automatically deletes secrets that are not in use by any pod, you need to set the `protected` flag to `true`.
+This ensures that the secret will not be deleted by any automated process.
+
+After the `AivenApplication` resources has been created, Aivenator will create the secret, using the name specified.
+Using `kubectl`, extract the secret and make the values available to your legacy application.
+
+When you no longer have a need for the credentials created in this way, delete the `AivenApplication` resource, and make sure the secret is also deleted.
+
+If you migrate the application to NAIS, the first deploy to NAIS will overwrite the `AivenApplication` resource.
+When this happens, it is no longer `protected`.
+In this case, it is recommended that you manually delete the protected secret when it is no longer needed.
+
 
 ## Application design guidelines
 
-The NAIS platform will rotate credentials at regular intervals, and when topic configuration changes. This implies that your application must handle errors concerning invalid credentials. When this error occurs you must either:
-
-1. reloading credentials from disk, then retrying the connection, or
-2. trigger a restart by either terminating the application or reporting an unhealthy state.
-
-Kafka requires TLS client certificates for authentication. Make sure your Kafka and/or TLS library can do client certificate authentication, and that you can specify a custom CA certificate for server validation.
+The NAIS platform will generate new credentials when your applications is deployed. Kafka requires TLS client certificates for authentication. Make sure your Kafka and/or TLS library can do client certificate authentication, and that you can specify a custom CA certificate for server validation.
 
 ## Migrating from on-prem to Aiven
 
@@ -315,6 +359,10 @@ Custom pools might be added in the future, so this is done to avoid changing tha
 
 You need to use the _fully qualified name_; check the `.status.fullyQualifiedName` field in your Topic resource.
 
-### I get the error _MountVolume.SetUp failed for volume "kafka-credentials" : secret ... not found_
+### I can't produce/consume on my topic, with an error message like "not authorized". What's wrong?
 
 Make sure you added the application to `.spec.acl` in your `topic.yaml`.
+
+### I get the error _MountVolume.SetUp failed for volume "kafka-credentials" : secret ... not found_
+
+Check the status of the `AivenApplication` resource created by Naiserator to look for errors.
