@@ -192,7 +192,7 @@ If you have an application on legacy infrastructure (outside NAIS clusters), you
 The first step is to add your application to the topic ACLs, the same way as for applications in NAIS clusters (see [the previous section](#accessing-topics-from-an-application)).
 Use your team name, and a suitable name for the application, following NAIS naming conventions.
 
-To create a service user and credentials for your application, you need to manually create the `AivenApplication` resource that would normally be created by Naiserator.
+To create a credentials for your application, you need to manually create the `AivenApplication` resource that would normally be created by Naiserator.
 
 === "aivenapp.yaml"
     ```yaml
