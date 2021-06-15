@@ -26,8 +26,9 @@ Create migration app as a container in the same pod as the database application 
 
 Examples:
 
-* [PAM AD Migration](https://github.com/navikt/pam-ad-migration)
-* [Rekrutteringsbistand migration](https://github.com/navikt/rekrutteringsbistand-kandidat-api-migrering) \(not using JPA for easier code and less memory-intensive data handling, but as-is only suitable on-premise migration\)
+* [PAM Stillingsregistrering API Migration](https://github.com/navikt/pam-stillingsregistrering-api-migration/#pam-stillingsregistrering-api-migration) (documentation and code)
+* [PAM AD Migration](https://github.com/navikt/pam-ad-migration) (no documentation, just code)
+* [Rekrutteringsbistand migration](https://github.com/navikt/rekrutteringsbistand-kandidat-api-migrering)  (not using JPA for easier code and less memory-intensive data handling, but as-is only suitable on-premise migration)
 
 Trigger migration from command line \(or use another form of trigger\) and read the data from a feed or kafka.
 
