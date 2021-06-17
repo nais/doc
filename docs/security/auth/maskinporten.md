@@ -303,6 +303,3 @@ kubectl annotate maskinportenclient <app> digdir.nais.io/delete=true
 ```
 
 When this annotation is in place, deleting the `MaskinportenClient` resource from Kubernetes will trigger removal of the client and inactivating of registered scopes from DigDir.
-## Internals
-
-See [ID-porten internals](idporten.md#internals).
