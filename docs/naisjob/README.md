@@ -31,6 +31,9 @@ spec:
     You need to shut down all containers running in the pod for the `Job` to complete.
     See [Shutting down extra containers](#shutting-down-extra-containers) for more information.
 
+## Re-run Naisjob
+If you don't want to run your job at a schedule, but still want to re-run your Naisjob, you either have to delete the old Naisjob first, og run under a different name.
+
 ## Applying your Naisjob to Kubernetes
 You can deploy your Naisjob just as you would deploy your Application using [NAIS deploy](../deployment/README.md).
 
@@ -49,6 +52,9 @@ Linkerd exposes an endpoint to shut itself down.
 curl -X POST http://127.0.0.1:4191/shutdown
 ```
 This is done from inside your pod-container.
+
+### CloudSQL-proxy sidecar
+CloudSQL-proxy sidecar does not support turning off remotely.
 
 ### Securelogs
 Securelogs runs on Fluentd, and Fluentd exposes an endpoint to shut itself down.
