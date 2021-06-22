@@ -52,7 +52,7 @@ If you need cross-environment communications, use the `nav-infrastructure` pool,
     spec:
       pool: nav-dev
       config:  # optional; all fields are optional too; defaults shown
-        cleanupPolicy: delete  # delete, compact, both
+        cleanupPolicy: delete  # delete, compact, compact,delete
         minimumInSyncReplicas: 1
         partitions: 1
         replication: 3  # see min/max requirements
