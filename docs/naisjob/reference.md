@@ -2440,12 +2440,53 @@ Pattern: `^[a-z0-9]+$`<br />
             product: arbeid
     ```
 
-## preStopHookPath
-A HTTP GET will be issued to this endpoint at least once before the pod is terminated.
+## preStopHook
+PreStopHook is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The reason for termination is passed to the handler. The Pod's termination grace period countdown begins before the PreStop hooked is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period. Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
 
 Relevant information:
 
-* [https://doc.nais.io/nais-Naisjob/#handles-termination-gracefully](https://doc.nais.io/nais-Naisjob/#handles-termination-gracefully)
+* [https://doc.nais.io/nais-application/#handles-termination-gracefully](https://doc.nais.io/nais-application/#handles-termination-gracefully)
+
+Type: `object`<br />
+Required: `false`<br />
+
+### preStopHook.exec
+Exec describes a "run in container" action
+
+Type: `object`<br />
+Required: `false`<br />
+
+#### preStopHook.exec.command
+Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
+
+Type: `array`<br />
+Required: `false`<br />
+
+### preStopHook.http
+Http describes an action based on HTTP Get requests.
+
+Type: `object`<br />
+Required: `false`<br />
+
+#### preStopHook.http.path
+Path to access on the HTTP server.
+
+Type: `string`<br />
+Required: `false`<br />
+
+#### preStopHook.http.port
+Port to access on the container. Defaults to application port. (spec.port)
+
+Type: `integer`<br />
+Required: `false`<br />
+Value range: `1`-`65535`<br />
+
+## preStopHookPath
+A HTTP GET will be issued to this endpoint at least once before the pod is terminated. This feature is deprecated and will be removed in the next major version (nais.io/v1).
+
+Relevant information:
+
+* [https://doc.nais.io/nais-application/#handles-termination-gracefully](https://doc.nais.io/nais-application/#handles-termination-gracefully)
 
 Type: `string`<br />
 Required: `false`<br />
