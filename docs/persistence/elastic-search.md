@@ -1,8 +1,5 @@
 # Elastic Search
 
-!!! Info
-    This feature is only available in [GCP clusters](../clusters/gcp.md).
-
 The NAIS platform offers Elastic Search via [Aiven](https://aiven.io/).
 
 ## Get your own
