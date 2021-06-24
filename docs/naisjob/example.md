@@ -129,6 +129,8 @@ spec:
       tier: db-f1-micro
       type: POSTGRES_12
   image: navikt/testapp:69.0.0
+  influx:
+    instance: influx-instance
   kafka:
     pool: nav-dev
   liveness:
