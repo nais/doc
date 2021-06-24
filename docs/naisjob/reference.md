@@ -614,6 +614,8 @@ Required: `false`<br />
     ```
 
 ## elastic
+To get your own Elastic Search instance head over to the IaC-repo to provision each instance. See [navikt/aiven-iac](https://github.com/navikt/aiven-iac) repository
+
 Type: `object`<br />
 Required: `false`<br />
 
@@ -629,7 +631,6 @@ Provisions an Elasticsearch instance and configures your application so it can a
 
 Type: `string`<br />
 Required: `true`<br />
-Availability: GCP<br />
 
 ??? example
     ``` yaml
@@ -1962,6 +1963,19 @@ Required: `true`<br />
     spec:
       image: navikt/testapp:69.0.0
     ```
+
+## influx
+An Influxdb via Aiven. A typical use case is to store metrics from your application and visualize them in Grafana. See [navikt/aiven-iac](https://github.com/navikt/aiven-iac) repository
+
+Type: `object`<br />
+Required: `false`<br />
+Availability: GCP<br />
+
+### influx.instance
+Provisions an InfluxDB instance and configures your application to access it. Use the prefix: `influx-` + `team` that you specified in the [navikt/aiven-iac](https://github.com/navikt/aiven-iac) repository.
+
+Type: `string`<br />
+Required: `true`<br />
 
 ## kafka
 Enable Aiven Kafka for your Naisjob.
