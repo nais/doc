@@ -156,6 +156,15 @@ spec:
         enabled: true
         name: scope.read
         product: arbeid
+  preStopHook:
+    exec:
+      command:
+      - ./my
+      - --shell
+      - script
+    http:
+      path: /internal/stop
+      port: 8080
   preStopHookPath: /internal/stop
   readiness:
     failureThreshold: 10

@@ -2464,11 +2464,36 @@ Relevant information:
 Type: `object`<br />
 Required: `false`<br />
 
+??? example
+    ``` yaml
+    spec:
+      preStopHook:
+        exec:
+          command:
+          - ./my
+          - --shell
+          - script
+        http:
+          path: /internal/stop
+          port: 8080
+    ```
+
 ### preStopHook.exec
 Exec describes a "run in container" action
 
 Type: `object`<br />
 Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      preStopHook:
+        exec:
+          command:
+          - ./my
+          - --shell
+          - script
+    ```
 
 #### preStopHook.exec.command
 Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
@@ -2476,11 +2501,31 @@ Command is the command line to execute inside the container, the working directo
 Type: `array`<br />
 Required: `false`<br />
 
+??? example
+    ``` yaml
+    spec:
+      preStopHook:
+        exec:
+          command:
+          - ./my
+          - --shell
+          - script
+    ```
+
 ### preStopHook.http
 Http describes an action based on HTTP Get requests.
 
 Type: `object`<br />
 Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      preStopHook:
+        http:
+          path: /internal/stop
+          port: 8080
+    ```
 
 #### preStopHook.http.path
 Path to access on the HTTP server.
@@ -2488,12 +2533,28 @@ Path to access on the HTTP server.
 Type: `string`<br />
 Required: `false`<br />
 
+??? example
+    ``` yaml
+    spec:
+      preStopHook:
+        http:
+          path: /internal/stop
+    ```
+
 #### preStopHook.http.port
 Port to access on the container. Defaults to application port. (spec.port)
 
 Type: `integer`<br />
 Required: `false`<br />
 Value range: `1`-`65535`<br />
+
+??? example
+    ``` yaml
+    spec:
+      preStopHook:
+        http:
+          port: 8080
+    ```
 
 ## preStopHookPath
 A HTTP GET will be issued to this endpoint at least once before the pod is terminated. This feature is deprecated and will be removed in the next major version (nais.io/v1).
