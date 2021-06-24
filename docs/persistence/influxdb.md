@@ -25,8 +25,8 @@ Let us know in [#pig-aiven](https://nav-it.slack.com/archives/C018L1JATBQ) if yo
 This means that everyone can access your data.
 
 ## Access from Nais-app
-If you need access from an application, you need to reuse the access given for Elastic Search instances.
-See [nais.yaml-reference](../nais-application/application.md#elasticinstance).
+If you need access from an application, you need to specify Inluxdb instance.
+See [nais.yaml-reference](../nais-application/application.md#influxinstance).
 
 ### Loading CA-certificate
 Your application will also need an CA-certificate for your app to be able to connect to Aiven with SSL. The certificate will be loaded into your pod as an environment variable if you define a [`.spec.kafka.pool`](../nais-application/application.md#kafkapool) in your nais.yaml file.
