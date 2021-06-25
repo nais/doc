@@ -2455,11 +2455,12 @@ Pattern: `^[a-z0-9]+$`<br />
     ```
 
 ## preStopHook
-PreStopHook is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The reason for termination is passed to the handler. The Pod's termination grace period countdown begins before the PreStop hooked is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period. Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+PreStopHook is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits by itself. The reason for termination is passed to the handler.
 
 Relevant information:
 
-* [https://doc.nais.io/nais-application/#handles-termination-gracefully](https://doc.nais.io/nais-application/#handles-termination-gracefully)
+* [https://doc.nais.io/naisjob/#handles-termination-gracefully](https://doc.nais.io/naisjob/#handles-termination-gracefully)
+* [https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -2479,7 +2480,7 @@ Required: `false`<br />
     ```
 
 ### preStopHook.exec
-Exec describes a "run in container" action
+Command that should be run inside the main container just before the pod is shut down by Kubernetes.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -2496,7 +2497,8 @@ Required: `false`<br />
     ```
 
 #### preStopHook.exec.command
-Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
+Command is the command line to execute inside the container before the pod is shut down. The command is not run inside a shell, so traditional shell instructions (pipes, redirects, etc.) won't work. To use a shell, you need to explicitly call out to that shell. 
+ If the exit status is non-zero, the pod will still be shut down, and marked as `Failed`.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -2513,7 +2515,7 @@ Required: `false`<br />
     ```
 
 ### preStopHook.http
-Http describes an action based on HTTP Get requests.
+HTTP GET request that is called just before the pod is shut down by Kubernetes.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -2531,7 +2533,7 @@ Required: `false`<br />
 Path to access on the HTTP server.
 
 Type: `string`<br />
-Required: `false`<br />
+Required: `true`<br />
 
 ??? example
     ``` yaml
@@ -2542,7 +2544,7 @@ Required: `false`<br />
     ```
 
 #### preStopHook.http.port
-Port to access on the container. Defaults to application port. (spec.port)
+Port to access on the container. Defaults to application port, as defined in `.spec.port`.
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -2554,22 +2556,6 @@ Value range: `1`-`65535`<br />
       preStopHook:
         http:
           port: 8080
-    ```
-
-## preStopHookPath
-A HTTP GET will be issued to this endpoint at least once before the pod is terminated. This feature is deprecated and will be removed in the next major version (nais.io/v1).
-
-Relevant information:
-
-* [https://doc.nais.io/nais-application/#handles-termination-gracefully](https://doc.nais.io/nais-application/#handles-termination-gracefully)
-
-Type: `string`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      preStopHookPath: /internal/stop
     ```
 
 ## readiness
@@ -2824,7 +2810,7 @@ Required: `false`<br />
     ```
 
 ## startup
-Kubernetes uses startup probes to know when a container Naisjob has started. If such a probe is configured, it disables liveness and readiness checks until it succeeds, making sure those probes don't interfere with the Naisjob startup. This can be used to adopt liveness checks on slow starting containers, avoiding them getting killed by Kubernetes before they are up and running.
+Kubernetes uses startup probes to know when a container application has started. If such a probe is configured, it disables liveness and readiness checks until it succeeds, making sure those probes don't interfere with the application startup. This can be used to adopt liveness checks on slow starting containers, avoiding them getting killed by Kubernetes before they are up and running.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -2946,7 +2932,7 @@ Availability: on-premises<br />
     ```
 
 ## vault
-Provides secrets management, identity-based access, and encrypting Naisjob data for auditing of secrets for Naisjobs, systems, and users.
+Provides secrets management, identity-based access, and encrypting application data for auditing of secrets for applications, systems, and users.
 
 Relevant information:
 
@@ -3063,7 +3049,7 @@ Required: `false`<br />
     ```
 
 ## webproxy
-Inject on-premises web proxy configuration into the Naisjob pod. Most Linux Naisjobs should auto-detect these settings from the `$HTTP_PROXY`, `$HTTPS_PROXY` and `$NO_PROXY` environment variables (and their lowercase counterparts). Java Naisjobs can start the JVM using parameters from the `$JAVA_PROXY_OPTIONS` environment variable.
+Inject on-premises web proxy configuration into the job container. Most Linux applications should auto-detect these settings from the `$HTTP_PROXY`, `$HTTPS_PROXY` and `$NO_PROXY` environment variables (and their lowercase counterparts). Java applications can start the JVM using parameters from the `$JAVA_PROXY_OPTIONS` environment variable.
 
 Type: `boolean`<br />
 Required: `false`<br />

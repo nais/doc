@@ -165,7 +165,6 @@ spec:
     http:
       path: /internal/stop
       port: 8080
-  preStopHookPath: /internal/stop
   readiness:
     failureThreshold: 10
     initialDelay: 20
