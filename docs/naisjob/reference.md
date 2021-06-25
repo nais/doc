@@ -2164,6 +2164,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2202,6 +2203,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2258,6 +2260,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2284,6 +2287,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2307,6 +2311,7 @@ Value range: `30`-`680`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2329,6 +2334,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2351,6 +2357,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2374,6 +2381,7 @@ Pattern: `^\d{9}$`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2400,6 +2408,7 @@ Required: `true`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2423,6 +2432,7 @@ Pattern: `^([a-zæøå0-9]+\/?)+(\:[a-zæøå0-9]+)*[a-zæøå0-9]+(\.[a-zæøå
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2446,6 +2456,7 @@ Pattern: `^[a-z0-9]+$`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"

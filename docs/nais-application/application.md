@@ -2326,6 +2326,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2364,6 +2365,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2420,6 +2422,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2446,6 +2449,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2469,6 +2473,7 @@ Value range: `30`-`680`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2491,6 +2496,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2513,6 +2519,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2536,6 +2543,7 @@ Pattern: `^\d{9}$`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2562,6 +2570,7 @@ Required: `true`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2585,6 +2594,7 @@ Pattern: `^([a-zæøå0-9]+\/?)+(\:[a-zæøå0-9]+)*[a-zæøå0-9]+(\.[a-zæøå
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2608,6 +2618,7 @@ Pattern: `^[a-z0-9]+$`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
+            atMaxAge: 60
             consumers:
             - name: KST
               orgno: "123456789"
@@ -3305,16 +3316,6 @@ Required: `false`<br />
       tokenx:
         mountSecretsAsFilesOnly: true
     ```
-
-## tracing
-*DEPRECATED*. Do not use. Will be removed in a future version.
-
-Type: `object`<br />
-Required: `false`<br />
-
-### tracing.enabled
-Type: `boolean`<br />
-Required: `true`<br />
 
 ## vault
 Provides secrets management, identity-based access, and encrypting application data for auditing of secrets for applications, systems, and users.
