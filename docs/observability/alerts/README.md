@@ -155,6 +155,9 @@ You can read more about this over at the [Prometheus documentation](https://prom
 If you are using labels and variables with nais/deploy, you need to remember to escape the labels used for the alerts.
 See [deployment\#escaping-and-raw-resources](https://doc.nais.io/deployment#escaping-and-raw-resources) for how.
 
+#### Value of expression
+You can get the value of your expression with `$value`
+
 ### Target several apps or namespaces in a query
 
 Using regular expression, you can target multiple apps or namespaces with one query.
