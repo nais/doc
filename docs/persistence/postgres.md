@@ -36,7 +36,7 @@ If you wish to be notified about upcoming maintenance, you can opt-in for this o
 
 To connect your application to the database, use information from the environment variables below.
 
-The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instance name `myapp` \(defaults to application name\) and `mydb` \(from database spec\). You can customize these environment variable names by setting `.spec.gcp.sqlInstances[].databases[].envVarPrefix`. For instance, setting this to `DB` will give you `DB_HOST`, `DB_USERNAME`, etc. Note that changing or adding `envVarPrefix` requires you to manually delete the `google-sql-<MYAPP>` secret, see below.
+The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instance name `myapp` \(defaults to application name\) and `mydb` \(from database spec\). You can customize these environment variable names by setting `.spec.gcp.sqlInstances[].databases[].envVarPrefix`. For instance, setting this to `DB` will give you `DB_HOST`, `DB_USERNAME`, etc. Note that changing or adding `envVarPrefix` requires you to manually delete the `google-sql-<MYAPP>` secret and `SQLUser` with the same name as the application, see below.
 
 | key | environment variable | default |
 | :--- | :--- | :--- |
@@ -52,9 +52,10 @@ The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instan
     possible to have two applications (e.g. producer and consumer) connecting directly to the database.
     
 !!! info 
-    Note that if you have deployed your application with one configuration, and then change it later, you have to manually delete the google-sql-*MYAPP* secret before you make a new deploy:
+    Note that if you have deployed your application with one configuration, and then change it later, you have to manually delete the google-sql-*MYAPP* secret before you make a new deploy (if you change the envVarPrefix you also have to delete the sqluser):
 ```bash
 $ kubectl delete secret google-sql-<MYAPP>
+$ kubectl delete sqluser <MYAPP>
 ```
 
 ## Cloud SQL Proxy
