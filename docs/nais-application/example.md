@@ -170,6 +170,15 @@ spec:
         name: scope.read
         product: arbeid
   port: 8080
+  preStopHook:
+    exec:
+      command:
+      - ./my
+      - --shell
+      - script
+    http:
+      path: /internal/stop
+      port: 8080
   preStopHookPath: /internal/stop
   prometheus:
     enabled: true
