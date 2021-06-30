@@ -163,7 +163,7 @@ spec:
       exposes:
       - allowedIntegrations:
         - maskinporten
-        atMaxAge: 60
+        atMaxAge: 30
         consumers:
         - name: KST
           orgno: "123456789"

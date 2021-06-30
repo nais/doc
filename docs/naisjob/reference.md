@@ -2164,7 +2164,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2178,6 +2178,7 @@ If enabled, provisions and configures a Maskinporten client with consumed scopes
 
 Type: `boolean`<br />
 Required: `true`<br />
+Default value: `false`<br />
 Availability: team namespaces<br />
 
 ??? example
@@ -2203,7 +2204,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2260,7 +2261,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2278,6 +2279,7 @@ Relevant information:
 
 Type: `array`<br />
 Required: `false`<br />
+Default value: `maskinporten`<br />
 
 ??? example
     ``` yaml
@@ -2287,7 +2289,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2301,6 +2303,7 @@ Max time in seconds for a issued access_token. Default is `30` sec.
 
 Type: `integer`<br />
 Required: `false`<br />
+Default value: `30`<br />
 Value range: `30`-`680`<br />
 
 ??? example
@@ -2311,7 +2314,7 @@ Value range: `30`-`680`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2334,7 +2337,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2357,7 +2360,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2381,7 +2384,7 @@ Pattern: `^\d{9}$`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2408,7 +2411,7 @@ Required: `true`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2422,6 +2425,7 @@ The actual subscope combined with `Product`. Ensure that `<Product><Name>` match
 
 Type: `string`<br />
 Required: `true`<br />
+Default value: `false`<br />
 Pattern: `^([a-zæøå0-9]+\/?)+(\:[a-zæøå0-9]+)*[a-zæøå0-9]+(\.[a-zæøå0-9]+)*$`<br />
 
 ??? example
@@ -2432,7 +2436,7 @@ Pattern: `^([a-zæøå0-9]+\/?)+(\:[a-zæøå0-9]+)*[a-zæøå0-9]+(\.[a-zæøå
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2456,7 +2460,7 @@ Pattern: `^[a-z0-9]+$`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2774,6 +2778,7 @@ RestartPolicy describes how the container should be restarted. Only one of the f
 
 Type: `enum`<br />
 Required: `false`<br />
+Default value: `Never`<br />
 Allowed values: `Never`, `OnFailure`<br />
 
 ??? example

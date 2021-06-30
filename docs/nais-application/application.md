@@ -1942,6 +1942,7 @@ AccessTokenLifetime is the lifetime in seconds for any issued access token from 
 
 Type: `integer`<br />
 Required: `false`<br />
+Default value: `3600`<br />
 Value range: `1`-`3600`<br />
 
 ??? example
@@ -1979,8 +1980,7 @@ Availability: team namespaces<br />
     ```
 
 ### idporten.frontchannelLogoutPath
-FrontchannelLogoutPath is a valid path for your application where ID-porten sends a request to whenever the user has initiated a logout elsewhere as part of a single logout (front channel logout) process. 
- If unspecified, defaults to `/oauth2/logout`.
+FrontchannelLogoutPath is a valid path for your application where ID-porten sends a request to whenever the user has initiated a logout elsewhere as part of a single logout (front channel logout) process.
 
 Relevant information:
 
@@ -1989,6 +1989,7 @@ Relevant information:
 
 Type: `string`<br />
 Required: `false`<br />
+Default value: `/oauth2/logout`<br />
 Pattern: `^\/.*$`<br />
 
 ??? example
@@ -2017,8 +2018,7 @@ Required: `false`<br />
     ```
 
 ### idporten.postLogoutRedirectURIs
-PostLogoutRedirectURIs are valid URIs that ID-porten will allow redirecting the end-user to after a single logout has been initiated and performed by the application. 
- If unspecified, will default to `[ "https://www.nav.no" ]`
+PostLogoutRedirectURIs are valid URIs that ID-porten will allow redirecting the end-user to after a single logout has been initiated and performed by the application.
 
 Relevant information:
 
@@ -2027,6 +2027,7 @@ Relevant information:
 
 Type: `array`<br />
 Required: `false`<br />
+Default value: `https://www.nav.no`<br />
 
 ??? example
     ``` yaml
@@ -2037,11 +2038,11 @@ Required: `false`<br />
     ```
 
 ### idporten.redirectPath
-RedirectPath is a valid path that ID-porten redirects back to after a successful authorization request. 
- If unspecified, will default to `/oauth2/callback`.
+RedirectPath is a valid path that ID-porten redirects back to after a successful authorization request.
 
 Type: `string`<br />
 Required: `false`<br />
+Default value: `/oauth2/callback`<br />
 Pattern: `^\/.*$`<br />
 
 ??? example
@@ -2071,6 +2072,7 @@ SessionLifetime is the maximum lifetime in seconds for any given user's session 
 
 Type: `integer`<br />
 Required: `false`<br />
+Default value: `7200`<br />
 Value range: `3600`-`7200`<br />
 
 ??? example
@@ -2326,7 +2328,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2340,6 +2342,7 @@ If enabled, provisions and configures a Maskinporten client with consumed scopes
 
 Type: `boolean`<br />
 Required: `true`<br />
+Default value: `false`<br />
 Availability: team namespaces<br />
 
 ??? example
@@ -2365,7 +2368,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2422,7 +2425,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2440,6 +2443,7 @@ Relevant information:
 
 Type: `array`<br />
 Required: `false`<br />
+Default value: `maskinporten`<br />
 
 ??? example
     ``` yaml
@@ -2449,7 +2453,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2463,6 +2467,7 @@ Max time in seconds for a issued access_token. Default is `30` sec.
 
 Type: `integer`<br />
 Required: `false`<br />
+Default value: `30`<br />
 Value range: `30`-`680`<br />
 
 ??? example
@@ -2473,7 +2478,7 @@ Value range: `30`-`680`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2496,7 +2501,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2519,7 +2524,7 @@ Required: `false`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2543,7 +2548,7 @@ Pattern: `^\d{9}$`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2570,7 +2575,7 @@ Required: `true`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2584,6 +2589,7 @@ The actual subscope combined with `Product`. Ensure that `<Product><Name>` match
 
 Type: `string`<br />
 Required: `true`<br />
+Default value: `false`<br />
 Pattern: `^([a-zæøå0-9]+\/?)+(\:[a-zæøå0-9]+)*[a-zæøå0-9]+(\.[a-zæøå0-9]+)*$`<br />
 
 ??? example
@@ -2594,7 +2600,7 @@ Pattern: `^([a-zæøå0-9]+\/?)+(\:[a-zæøå0-9]+)*[a-zæøå0-9]+(\.[a-zæøå
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
@@ -2618,7 +2624,7 @@ Pattern: `^[a-z0-9]+$`<br />
           exposes:
           - allowedIntegrations:
             - maskinporten
-            atMaxAge: 60
+            atMaxAge: 30
             consumers:
             - name: KST
               orgno: "123456789"
