@@ -9,6 +9,7 @@
 
 This is a complete example of an `Naisjob` resource.
 
+For an in-depth explanation of each field, head over to the [reference documentation](reference.md).
 ``` yaml
 apiVersion: nais.io/v1
 kind: Naisjob
@@ -180,6 +181,7 @@ spec:
     requests:
       cpu: 200m
       memory: 256Mi
+  restartPolicy: Never
   schedule: '*/15 0 0 0 0'
   secureLogs:
     enabled: true

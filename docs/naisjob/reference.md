@@ -2769,6 +2769,19 @@ Pattern: `^\d+[KMG]i$`<br />
           memory: 256Mi
     ```
 
+## restartPolicy
+RestartPolicy describes how the container should be restarted. Only one of the following restart policies may be specified. If none of the following policies is specified, the default one is Never. Read more about [Kubernetes handling pod and container failures](https://kubernetes.io/docs/concepts/workloads/controllers/job/#handling-pod-and-container-failures)
+
+Type: `enum`<br />
+Required: `false`<br />
+Allowed values: `Never`, `OnFailure`<br />
+
+??? example
+    ``` yaml
+    spec:
+      restartPolicy: Never
+    ```
+
 ## schedule
 The [Cron](https://en.wikipedia.org/wiki/Cron) schedule for running the Naisjob. If not specified, the Naisjob will be run as a one-shot Job.
 
