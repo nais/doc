@@ -399,8 +399,6 @@ Required: `false`<br />
       receivers:
         email:
           to: myteam@nav.no
-        pushover:
-          user_key: ""
         slack:
           channel: '#alert-channel'
           icon_emoji: ':chart_with_upwards_trend:'
@@ -442,36 +440,6 @@ Required: `true`<br />
       receivers:
         email:
           to: myteam@nav.no
-    ```
-
-### receivers.pushover
-Not in use
-
-Type: `object`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      receivers:
-        pushover:
-          user_key: ""
-    ```
-
-#### receivers.pushover.send_resolved
-Type: `boolean`<br />
-Required: `false`<br />
-
-#### receivers.pushover.user_key
-Type: `string`<br />
-Required: `true`<br />
-
-??? example
-    ``` yaml
-    spec:
-      receivers:
-        pushover:
-          user_key: ""
     ```
 
 ### receivers.slack

@@ -49,8 +49,6 @@ spec:
   receivers:
     email:
       to: myteam@nav.no
-    pushover:
-      user_key: ""
     slack:
       channel: '#alert-channel'
       icon_emoji: ':chart_with_upwards_trend:'
