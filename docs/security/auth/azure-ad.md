@@ -129,6 +129,11 @@ See the [NAIS manifest](../../nais-application/application.md#azureapplication).
             - application: app-a
               namespace: othernamespace
               cluster: dev-fss
+              permissions:
+                roles:
+                  - "custom-role"
+                scopes:
+                  - "custom-scope"
             - application: app-b
 
       # required for on-premises only
@@ -169,7 +174,7 @@ spec.ingresses[n] + "/oauth2/callback"
 ???+ example
     In other words, this:
 
-    ```yaml
+    ```yaml hl_lines="2-4"
     spec:
       ingresses:
         - "https://my.application.dev.nav.no"
@@ -181,7 +186,7 @@ spec.ingresses[n] + "/oauth2/callback"
 
     will generate a spec equivalent to this:
 
-    ```yaml
+    ```yaml  hl_lines="2-4 7-10"
     spec:
       ingresses:
         - "https://my.application.dev.nav.no"
@@ -193,12 +198,13 @@ spec.ingresses[n] + "/oauth2/callback"
             - "https://my.application.dev.nav.no/oauth2/callback"
             - "https://my.application.dev.nav.no/subpath/oauth2/callback"
     ```
+
 #### Overriding explicitly
 
 You may set reply URLs manually by specifying `spec.azure.application.replyURLs[]`:
 
 ???+ example
-    ```yaml
+    ```yaml hl_lines="5-7"
     spec:
       azure:
         application:
@@ -229,7 +235,9 @@ spec:
       tenant: trygdeetaten.no 
 ```
 
-### Pre-authorization
+### Access Policy
+
+#### Pre-authorization
 
 For proper scoping of tokens when performing calls between clients, one must either:
 
@@ -269,6 +277,131 @@ The above configuration will pre-authorize the Azure AD clients belonging to:
 * application `app-b` running in the namespace `other-namespace` in the **same cluster**
 * application `app-c` running in the namespace `other-namespace` in the cluster `other-cluster`
 
+The default permissions will grant consumer clients the role `access_as_application`, which will only appear in tokens acquired with the client credentials flow (i.e. service-to-service requests).
+
+If you require more fine-grained access control, see [Fine-Grained Access Control](#fine-grained-access-control).
+
+### Fine-Grained Access Control 
+
+You may define custom permissions for your client in Azure AD. These can be granted to consumer clients individually as an
+extension of the [access policy](#access-policy) definitions described above.
+
+When granted to a consumer, the permissions will appear in their respective claims in tokens targeted to your application. 
+Your application can then use these claims to implement custom authorization logic.
+
+!!! warning
+    Custom permissions only apply in the context of _your own application_ as an API provider. 
+    **They are _not_ global permissions.**
+    
+    These permissions only appear in tokens when all the following conditions are met:
+    
+    1. The token is acquired by a consumer of your application.
+    2. The consumer has been granted a custom permission in your access policy definition.
+    3. The target _audience_ is your application.
+
+#### Custom Scopes
+
+A _scope_ only applies to tokens acquired using the 
+[OAuth 2.0 On-Behalf-Of flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow) 
+(service-to-service calls on behalf of an end-user).
+
+!!! example "Example configuration"
+
+    ```yaml hl_lines="8-10"
+    spec:
+      accessPolicy:
+        inbound:
+          rules:
+            - application: app-a
+              namespace: other-namespace
+              cluster: other-cluster
+              permissions:
+                scopes:
+                  - "custom-scope"
+    ```
+
+The above configuration grants the application `app-a` the scope `custom-scope`.
+
+???+ example "Decoded on-behalf-of token"
+    ```json hl_lines="17"
+    {
+      "aud": "8a5...",
+      "iss": "https://login.microsoftonline.com/.../v2.0",
+      "iat": 1624957183,
+      "nbf": 1624957183,
+      "exp": 1624961081,
+      "aio": "AXQ...",
+      "azp": "e37...",
+      "azpacr": "1",
+      "groups": [
+        "2d7..."
+      ],
+      "name": "Navnesen, Navn",
+      "oid": "15c...",
+      "preferred_username": "Navn.Navnesen@nav.no",
+      "rh": "0.AS...",
+      "scp": "custom-scope defaultaccess",
+      "sub": "6OC...",
+      "tid": "623...",
+      "uti": "i03...",
+      "ver": "2.0"
+    }
+    ```
+
+!!! info
+    Any custom scopes granted will appear as a _space separated string_ in the `scp` claim.
+
+#### Custom Roles
+
+A _role_ only applies to tokens acquired using the
+using the [OAuth 2.0 client credentials flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow) 
+(service-to-service calls).
+
+!!! example "Example configuration"
+
+    ```yaml hl_lines="8-10"
+    spec:
+      accessPolicy:
+        inbound:
+          rules:
+            - application: app-a
+              namespace: other-namespace
+              cluster: other-cluster
+              permissions:
+                roles:
+                  - "custom-role"
+    ```
+
+The above configuration grants the application `app-a` the role `custom-role`.
+
+???+ example "Example decoded client credentials token"
+
+    ```json hl_lines="12-15"
+    {
+      "aud": "8a5...",
+      "iss": "https://login.microsoftonline.com/.../v2.0",
+      "iat": 1624957347,
+      "nbf": 1624957347,
+      "exp": 1624961247,
+      "aio": "E2Z...",
+      "azp": "e37...",
+      "azpacr": "1",
+      "oid": "933...",
+      "rh": "0.AS...",
+      "roles": [
+        "access_as_application",
+        "custom-role"
+      ],
+      "sub": "933...",
+      "tid": "623...",
+      "uti": "kbG...",
+      "ver": "2.0"
+    }
+    ```
+
+!!! info
+    Any custom roles granted will appear in the `roles` claim, which is an _array of strings_.
+
 ### Groups
 
 By default, all users within the tenant is allowed to log in to your application. 
@@ -277,7 +410,7 @@ For some use cases, it is desirable to restrict access to smaller groups of user
 
 This can be done by explicitly declaring which groups are allowed to access the application:
 
-```yaml
+```yaml hl_lines="5-7"
 spec:
   azure:
     application:
@@ -529,7 +662,7 @@ Communication between legacy clients provisioned through [aad-iac](https://githu
     Steps:
 
     * The legacy client **must** follow the expected [naming format](azure-ad.md#naming-format). Follow step 1 and step 2 in the [migration guide](azure-ad.md#migration-guide-step-by-step).
-    * Refer to the legacy client [analogously to a NAIS application](azure-ad.md#pre-authorization_1)
+    * Refer to the legacy client [analogously to a NAIS application](azure-ad.md#pre-authorization)
     
     Example:
     
