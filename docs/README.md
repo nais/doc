@@ -33,6 +33,9 @@ Read more over at [gitops.tech](https://www.gitops.tech).
 
 ## About security and privacy when using platform services
 
+In general, the necessary agreements and assessments regarding security and privacy for use of the NAIS platform in GCP are in place. The summary of this can be read in:
+[NAIS on GCP - privacy and security](https://navno.sharepoint.com/:w:/r/sites/Skystrategi817/Shared%20Documents/General/Personvern%20og%20sikkerhet/GCP/NAIS%20(GCP)%20-%20personvern%20og%20sikkerhet.docx?d=wd94444c57c0348b9b7ab34863488c684&csf=1&web=1&e=j3dUzd). This document is only available for NAV employees and in Norwegian.
+
 For services from NAIS, a security assessment ([*ROS*](./legal/app-ros.md)) has already been carried out. 
 Teams who wish to use the service are responsible for assessing whether the security is sufficient for their use. 
 Most safety assessments are documented in the PowerApps application TryggNok. 
