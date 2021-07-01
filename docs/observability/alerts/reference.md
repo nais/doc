@@ -408,6 +408,7 @@ Required: `false`<br />
           username: Alertmanager
         sms:
           recipients: "12345678"
+          send_resolved: false
     ```
 
 ### receivers.email
@@ -557,6 +558,7 @@ Required: `false`<br />
       receivers:
         sms:
           recipients: "12345678"
+          send_resolved: false
     ```
 
 #### receivers.sms.recipients
@@ -576,6 +578,14 @@ Whether or not to notify about resolved alerts.
 
 Type: `boolean`<br />
 Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      receivers:
+        sms:
+          send_resolved: false
+    ```
 
 ## route
 Type: `object`<br />

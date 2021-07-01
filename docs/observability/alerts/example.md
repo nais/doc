@@ -58,6 +58,7 @@ spec:
       username: Alertmanager
     sms:
       recipients: "12345678"
+      send_resolved: false
   route:
     groupInterval: 5m
     groupWait: 30s
