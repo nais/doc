@@ -1,6 +1,6 @@
 # Recommended
 
-```text
+```yaml
 # Dette er en liste over anbefalte Alerts, har du forbedringer, eller forslag
 # til Alerts vi bør ha med? Lag en pull request, så merger vi inn!
 ---
