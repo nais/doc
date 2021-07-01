@@ -15,7 +15,7 @@ In short, OpenID Connect is used to delegate end user authentication to a third 
 As OAuth 2.0, OpenID Connect, and the variety of "flows" within those specifications can be complex and "large", we aim to reduce the cognitive load on the common developer by providing a guide and blueprints for the most common scenarios in NAV.
 
 !!! info
-    **Please consult the** [**NAV Security Guide**](https://security.labs.nais.io) **\(internal access required\) for details on the usage of these specifications and protocols within NAV.**
+    **Please consult the** [**NAV Security Guide**](https://security.labs.nais.io) **\(internal access required\) for details on the usage of these specifications and protocols within NAV. This guide also includes details and examples on how to do AuthNZ against legacy apps that are not yet part of the security model discussed here. **
 
 ### Citizen-facing applications
 
