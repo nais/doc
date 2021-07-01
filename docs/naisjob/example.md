@@ -31,6 +31,20 @@ spec:
         namespace: q2
       - application: '*'
         namespace: q3
+      - application: app4
+        permissions:
+          scopes:
+          - custom-scope
+      - application: app5
+        permissions:
+          roles:
+          - custom-role
+      - application: app6
+        permissions:
+          roles:
+          - custom-role
+          scopes:
+          - custom-scope
     outbound:
       external:
       - host: external-application.example.com

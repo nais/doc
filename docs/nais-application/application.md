@@ -35,6 +35,20 @@ Required: `false`<br />
             namespace: q2
           - application: '*'
             namespace: q3
+          - application: app4
+            permissions:
+              scopes:
+              - custom-scope
+          - application: app5
+            permissions:
+              roles:
+              - custom-role
+          - application: app6
+            permissions:
+              roles:
+              - custom-role
+              scopes:
+              - custom-scope
         outbound:
           external:
           - host: external-application.example.com
@@ -74,6 +88,20 @@ Required: `false`<br />
             namespace: q2
           - application: '*'
             namespace: q3
+          - application: app4
+            permissions:
+              scopes:
+              - custom-scope
+          - application: app5
+            permissions:
+              roles:
+              - custom-role
+          - application: app6
+            permissions:
+              roles:
+              - custom-role
+              scopes:
+              - custom-scope
     ```
 
 #### accessPolicy.inbound.rules
@@ -96,6 +124,20 @@ Required: `true`<br />
             namespace: q2
           - application: '*'
             namespace: q3
+          - application: app4
+            permissions:
+              scopes:
+              - custom-scope
+          - application: app5
+            permissions:
+              roles:
+              - custom-role
+          - application: app6
+            permissions:
+              roles:
+              - custom-role
+              scopes:
+              - custom-scope
     ```
 
 ##### accessPolicy.inbound.rules[].application
@@ -118,6 +160,20 @@ Required: `true`<br />
             namespace: q2
           - application: '*'
             namespace: q3
+          - application: app4
+            permissions:
+              scopes:
+              - custom-scope
+          - application: app5
+            permissions:
+              roles:
+              - custom-role
+          - application: app6
+            permissions:
+              roles:
+              - custom-role
+              scopes:
+              - custom-scope
     ```
 
 ##### accessPolicy.inbound.rules[].cluster
@@ -140,6 +196,20 @@ Required: `false`<br />
             namespace: q2
           - application: '*'
             namespace: q3
+          - application: app4
+            permissions:
+              scopes:
+              - custom-scope
+          - application: app5
+            permissions:
+              roles:
+              - custom-role
+          - application: app6
+            permissions:
+              roles:
+              - custom-role
+              scopes:
+              - custom-scope
     ```
 
 ##### accessPolicy.inbound.rules[].namespace
@@ -162,6 +232,140 @@ Required: `false`<br />
             namespace: q2
           - application: '*'
             namespace: q3
+          - application: app4
+            permissions:
+              scopes:
+              - custom-scope
+          - application: app5
+            permissions:
+              roles:
+              - custom-role
+          - application: app6
+            permissions:
+              roles:
+              - custom-role
+              scopes:
+              - custom-scope
+    ```
+
+##### accessPolicy.inbound.rules[].permissions
+Permissions contains a set of permissions that are granted to the given application. Currently only applicable for Azure AD clients.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/azure-ad#fine-grained-access-control](https://doc.nais.io/security/auth/azure-ad#fine-grained-access-control)
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      accessPolicy:
+        inbound:
+          rules:
+          - application: app1
+          - application: app2
+            namespace: q1
+          - application: app3
+            cluster: dev-gcp
+            namespace: q2
+          - application: '*'
+            namespace: q3
+          - application: app4
+            permissions:
+              scopes:
+              - custom-scope
+          - application: app5
+            permissions:
+              roles:
+              - custom-role
+          - application: app6
+            permissions:
+              roles:
+              - custom-role
+              scopes:
+              - custom-scope
+    ```
+
+###### accessPolicy.inbound.rules[].permissions.roles
+Roles is a set of custom permission roles that are granted to a given application.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/azure-ad#custom-roles](https://doc.nais.io/security/auth/azure-ad#custom-roles)
+
+Type: `array`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      accessPolicy:
+        inbound:
+          rules:
+          - application: app1
+          - application: app2
+            namespace: q1
+          - application: app3
+            cluster: dev-gcp
+            namespace: q2
+          - application: '*'
+            namespace: q3
+          - application: app4
+            permissions:
+              scopes:
+              - custom-scope
+          - application: app5
+            permissions:
+              roles:
+              - custom-role
+          - application: app6
+            permissions:
+              roles:
+              - custom-role
+              scopes:
+              - custom-scope
+    ```
+
+###### accessPolicy.inbound.rules[].permissions.scopes
+Scopes is a set of custom permission scopes that are granted to a given application.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/azure-ad#custom-scopes](https://doc.nais.io/security/auth/azure-ad#custom-scopes)
+
+Type: `array`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      accessPolicy:
+        inbound:
+          rules:
+          - application: app1
+          - application: app2
+            namespace: q1
+          - application: app3
+            cluster: dev-gcp
+            namespace: q2
+          - application: '*'
+            namespace: q3
+          - application: app4
+            permissions:
+              scopes:
+              - custom-scope
+          - application: app5
+            permissions:
+              roles:
+              - custom-role
+          - application: app6
+            permissions:
+              roles:
+              - custom-role
+              scopes:
+              - custom-scope
     ```
 
 ### accessPolicy.outbound
