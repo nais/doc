@@ -713,29 +713,6 @@ If keeping the existing client ID and configuration is not important, it should 
 
 ## Operations
 
-### Permanently deleting a client
-
-!!! warning
-    Permanent deletes are irreversible. Only do this if you are certain that you wish to completely remove the client from Azure AD.
-
-When an `AzureAdApplication` resource is deleted from a Kubernetes cluster, the client is by default _not_ deleted from Azure AD.
-
-!!! info "Details"
-    In Kubernetes terms, the `Application` resource owns the `AzureAdApplication` resource.
-
-    [Deletion](../../deployment/delete-app.md) of the `Application` will trigger a deletion of the `AzureAdApplication`. 
-    The _actual_ client registered in Azure AD however is not deleted by default.
-
-    If the `AzureAdApplication` resource is recreated -- for example by redeploying a previously deleted `Application` -- it will thus retain the same Azure AD client ID.
-
-If you want to completely delete the client from Azure AD, you must add the following annotation to the `AzureAdApplication` resource:
-
-```bash
-kubectl annotate azureapp <app> azure.nais.io/delete=true
-```
-
-When this annotation is in place, deleting the `AzureAdApplication` resource from Kubernetes will trigger removal of the client from Azure AD.
-
 ### Forcing resynchronization
 
 Synchronization to Azure AD only happens when at least one of two things happen:
