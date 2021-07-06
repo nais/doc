@@ -760,23 +760,53 @@ For additional details:
 kubectl describe azureapp <app>
 ```
 
+### Unassigned Pre-Authorized Apps
+
+???+ quote "Example"
+
+    You might see the following status message when running `kubectl describe azureapp <app>`:
+
+    ```yaml
+    Status:
+      ...
+      Pre Authorized Apps:
+        ...
+        Unassigned:
+          Access Policy Rule:
+            Application:      <other-application>
+            Cluster:          <cluster>
+            Namespace:        <namespace>
+          Reason:             WARNING: Application '<cluster>:<namespace>:<other-application>' was not found in the Azure AD tenant (<tenant>) and will _NOT_ be pre-authorized.
+        Unassigned Count:     1
+    ```
+
+???+ success "Solution / Answer"
+
+    - Ensure that the application you're attempting to pre-authorize exists in Azure AD:
+        - Run `kubectl get azureapp <other-application>` and check that the `Synchronized` field is not empty.
+    - If you added the application to your access policy before it existed in Azure AD, try to [resynchronize](#forcing-resynchronization) your own application:
+        - `kubectl annotate azureapp <my-application> azure.nais.io/resync=true`
+    - If all else fails, ask an adult in the `#nais` channel on Slack.
+
 ### "Application `Alice` is not assigned to a role for the application `Bob`"
 
-An application may receive the following `400 Bad Request` response error when requesting a token from Azure AD:
+???+ quote "Example"
 
-```json
-{
-  "error": "invalid_grant",
-  "error_description": "AADSTS501051: Application '<client ID>'(<cluster>:<namespace>:<alice>) is not assigned to a role for the application 'api://<cluster>.<namespace>.<bob>'(<cluster>:<namespace>:<bob>)",
-  ...
-}
-```
+    An application may receive the following `400 Bad Request` response error when requesting a token from Azure AD:
 
-???+ faq "Answer"
+    ```json
+    {
+      "error": "invalid_grant",
+      "error_description": "AADSTS501051: Application '<client ID>'(<cluster>:<namespace>:<alice>) is not assigned to a role for the application 'api://<cluster>.<namespace>.<bob>'(<cluster>:<namespace>:<bob>)",
+      ...
+    }
+    ```
+
+???+ success "Solution / Answer"
 
     - Ensure that Bob's [access policy](#pre-authorization) includes Alice.
     - Run `kubectl get azureapp bob -owide` to check the current count of assigned applications for Bob. 
     - Run `kubectl describe azureapp bob` to check the detailed statuses for all of Bob's desired pre-authorized applications. 
     - If Bob added Alice to its access policy before Alice existed in Azure AD, try to [resynchronize](#forcing-resynchronization) Bob:
-        - `kubectl annotate azureapp Bob azure.nais.io/resync=true`
+        - `kubectl annotate azureapp bob azure.nais.io/resync=true`
     - If all else fails, ask an adult in the `#nais` channel on Slack.
