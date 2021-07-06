@@ -6,6 +6,19 @@ Configure your application to log to console \(stdout/stderr\), it will be scrap
 
 If you want more information than just the log message \(loglevel, MDC, etc\), you should log in JSON format; the fields you provide will then be indexed.
 
+## Gain access to logs.adeo.no
+
+In order to get access to logs.adeo.no you need to have the correct access rights added to your AD account. This can be requested through your Personnal Manager.
+
+These permissions will give you access:
+```
+0000-GA-Logganalyse
+0000-GA-Logganalyse_FullVerdikjede_Prod
+0000-GA-Logganalyse_FullVerdikjede_UTQ
+```
+
+If you're unsure if you already have these permission, or some of them, you can check what permission you currently have at igruppe.adeo.no
+
 ## Secure logs
 
 Some applications have logs with information that should not be stored with the normal application logs. To support this a directory for these logs can be mounted in the application, and the content of logs written here will be transferred to separate indices in Elasticsearch.
