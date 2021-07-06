@@ -188,6 +188,14 @@ Databases should always be accessed using a personal account, and the access sho
     alter default privileges in schema public grant all on tables to 'user@nav.no';
     ```
 
+    If your application created the tables before you were able to run these commands, then the owner of the tables is set to the application's user. 
+    
+    Thus, your application must run the following command either through your chosen database migration tool (e.g. Flyway) or manually with the application user's credentials:
+
+    ```sql
+    grant all on all tables in schema public to cloudsqliamuser;
+    ```
+
 ### Granting temporary personal access
 
 ???+ check "Step 1. Create database IAM user"
