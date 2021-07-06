@@ -673,7 +673,7 @@ Required: `false`<br />
     ```
 
 ##### azure.application.claims.extra
-Extra is a list of additional claims to be mapped from an associated claim-mapping policy.
+Extra is a list of additional claims to be mapped from an associated claim-mapping policy. Currently, the only supported values are `NAVident` and `azp_name`.
 
 Type: `array`<br />
 Required: `false`<br />
