@@ -13,13 +13,18 @@ that you may mount into your applications in the GCP clusters.
 
 ## Getting started
 
+!!! tip
+    See the [examples](#examples) for a complete illustration of the process.
+
 ### Step 1: Create a Secret in Google Secret Manager
 
 ???+ check
 
-    Start at the [GCP Console](https://console.cloud.google.com/security/secret-manager) page and
-    refer to the [documentation](https://cloud.google.com/secret-manager/docs/quickstart#secretmanager-quickstart-web) for
-    guides and how-tos on creating and managing secrets.
+    Start at the [GCP Console](https://console.cloud.google.com/security/secret-manager) page.
+
+    ![Google Secret Manager start page](../../assets/google-secret-manager-start.png)
+
+    Click on the `Create Secret` button.
 
     All secrets must exist in the region `europe-north1`. 
     
@@ -28,6 +33,10 @@ that you may mount into your applications in the GCP clusters.
     ![Google Secret Manager Region selection](../../assets/google-secret-manager-region.png)
 
     Unfortunately, we cannot enforce a default value here.
+
+    Fill in the `Secret value`.
+
+    ![Google Secret Manager Secret value field](../../assets/google-secret-manager-secret-value.png)
 
 ### Step 2: Import Secret to Kubernetes
 
