@@ -98,7 +98,15 @@ nav:
     - Security:
       - AuthN & AuthZ:
         - Authentication & Authorization Overview: security/auth/README.md
-        - Azure AD: security/auth/azure-ad.md
+        - Azure AD:
+          - Intro: security/auth/azure-ad/README.md
+          - Concepts: security/auth/azure-ad/concepts.md
+          - Configuration: security/auth/azure-ad/configuration.md
+          - Access Policy: security/auth/azure-ad/access-policy.md
+          - Usage: security/auth/azure-ad/usage.md
+          - FAQ / Troubleshooting: security/auth/azure-ad/faq-troubleshooting.md
+          - Operations: security/auth/azure-ad/operations.md
+          - Legacy: security/auth/azure-ad/legacy.md
         - ID-porten: security/auth/idporten.md
         - Maskinporten: security/auth/maskinporten.md
         - TokenX: security/auth/tokenx.md

@@ -21,7 +21,7 @@ Follow the Getting started's [Access from laptop](../basics/access.md) instructi
 
 Our GCP clusters use a zero trust security model, implying that the application must specify both incoming and outgoing connections in order to receive or send traffic at all. This is expressed using the [access policy spec](../nais-application/access-policy.md).
 
-The access policy also enables zone traversal and cross-cluster communication. This must be implemented in both applications, by using and accepting tokens from [TokenX](../security/auth/tokenx.md) or [AAD](../security/auth/azure-ad.md).
+The access policy also enables zone traversal and cross-cluster communication. This must be implemented in both applications, by using and accepting tokens from [TokenX](../security/auth/tokenx.md) or [AAD](../security/auth/azure-ad/README.md).
 
 #### Deploy
 
@@ -86,7 +86,7 @@ If your application stores personally identifiable information in any GCP data s
 
     - Make sure your PVK is up to date.
     - Deploy your application to your team's namespace instead of `default`, as this is not available in GCP.
-    - Use a token auth flow between your applications. Either [TokenX](../security/auth/tokenx.md), [AAD on-behalf-of or AAD client_credentials flow](../security/auth/azure-ad.md) depending on your use case. This allows for a more seamless migration of your applications. E.g. if you have two apps in FSS, you can migrate one without the other.
+    - Use a token auth flow between your applications. Either [TokenX](../security/auth/tokenx.md), [AAD on-behalf-of or AAD client_credentials flow](../security/auth/azure-ad/README.md) depending on your use case. This allows for a more seamless migration of your applications. E.g. if you have two apps in FSS, you can migrate one without the other.
 
 #### What about PVK?
 
@@ -152,7 +152,7 @@ If your application stores personally identifiable information in any GCP data s
 
     1. Be secured with [OAuth 2.0](../security/auth/README.md). That is, either:
         - a. [TokenX](../security/auth/tokenx.md), or 
-        - b. [Azure AD](../security/auth/azure-ad.md)
+        - b. [Azure AD](../security/auth/azure-ad/README.md)
     2. Exposed to GCP using a special ingress:
         - `https://<app>.dev-fss-pub.nais.io`
         - `https://<app>.prod-fss-pub.nais.io`

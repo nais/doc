@@ -59,7 +59,7 @@ Events:
   Warning  FailedMount  22m (x5 over 22m)  kubelet            MountVolume.SetUp failed for volume "<secret-name>" : secret "<secret-name>" not found
 ```
 
-Some secrets (such as those from [Azure AD](../security/auth/azure-ad.md) or [Kafka](../addons/kafka.md)) are _eventually consistent_.
+Some secrets (such as those from [Azure AD](../security/auth/azure-ad/README.md) or [Kafka](../addons/kafka.md)) are _eventually consistent_.
 
 Typically, the message appears on either:
 

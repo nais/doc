@@ -3,7 +3,7 @@
 !!! info
     Network policies are only applied in GCP clusters.
     
-    However, inbound rules for authorization in the context of [_TokenX_](../security/auth/tokenx.md) or [_Azure AD_](../security/auth/azure-ad.md) apply to all clusters.
+    However, inbound rules for authorization in the context of [_TokenX_](../security/auth/tokenx.md) or [_Azure AD_](../security/auth/azure-ad/README.md) apply to all clusters.
 
 ## Access Policy
 
