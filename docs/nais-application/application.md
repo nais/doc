@@ -15,7 +15,7 @@ By default, no traffic is allowed between applications inside the cluster. Confi
 Relevant information:
 
 * [https://doc.nais.io/appendix/zero-trust/](https://doc.nais.io/appendix/zero-trust/)
-* [https://doc.nais.io/security/auth/azure-ad/#pre-authorization](https://doc.nais.io/security/auth/azure-ad/#pre-authorization)
+* [https://doc.nais.io/security/auth/azure-ad/access-policy](https://doc.nais.io/security/auth/azure-ad/access-policy)
 * [https://doc.nais.io/security/auth/tokenx/#access-policies](https://doc.nais.io/security/auth/tokenx/#access-policies)
 
 Type: `object`<br />
@@ -253,7 +253,7 @@ Permissions contains a set of permissions that are granted to the given applicat
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad#fine-grained-access-control](https://doc.nais.io/security/auth/azure-ad#fine-grained-access-control)
+* [https://doc.nais.io/security/auth/azure-ad/access-policy#fine-grained-access-control](https://doc.nais.io/security/auth/azure-ad/access-policy#fine-grained-access-control)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -293,7 +293,7 @@ Roles is a set of custom permission roles that are granted to a given applicatio
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad#custom-roles](https://doc.nais.io/security/auth/azure-ad#custom-roles)
+* [https://doc.nais.io/security/auth/azure-ad/access-policy#custom-roles](https://doc.nais.io/security/auth/azure-ad/access-policy#custom-roles)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -333,7 +333,7 @@ Scopes is a set of custom permission scopes that are granted to a given applicat
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad#custom-scopes](https://doc.nais.io/security/auth/azure-ad#custom-scopes)
+* [https://doc.nais.io/security/auth/azure-ad/access-policy#custom-scopes](https://doc.nais.io/security/auth/azure-ad/access-policy#custom-scopes)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -741,7 +741,7 @@ ReplyURLs is a list of allowed redirect URLs used when performing OpenID Connect
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/#reply-urls](https://doc.nais.io/security/auth/azure-ad/#reply-urls)
+* [https://doc.nais.io/security/auth/azure-ad/configuration#reply-urls](https://doc.nais.io/security/auth/azure-ad/configuration#reply-urls)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -761,7 +761,7 @@ A Tenant represents an organization in Azure AD.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/#tenants](https://doc.nais.io/security/auth/azure-ad/#tenants)
+* [https://doc.nais.io/security/auth/azure-ad/concepts#tenants](https://doc.nais.io/security/auth/azure-ad/concepts#tenants)
 
 Type: `enum`<br />
 Required: `false`<br />
