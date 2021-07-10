@@ -60,7 +60,7 @@ kubectl describe azureapp <app>
 
 ???+ success "Solution / Answer"
 
-    - Ensure that Bob's [access policy](#pre-authorization) includes Alice.
+    - Ensure that Bob's [access policy](access-policy.md#pre-authorization) includes Alice.
     - Run `kubectl get azureapp bob -owide` to check the current count of assigned applications for Bob. 
     - Run `kubectl describe azureapp bob` to check the detailed statuses for all of Bob's desired pre-authorized applications. 
     - If Bob added Alice to its access policy before Alice existed in Azure AD, try to [resynchronize](operations.md#forcing-resynchronization) Bob:
