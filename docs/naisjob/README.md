@@ -23,7 +23,7 @@ metadata:
   namespace: myteam
 spec:
   image: ghcr.io/navikt/myapp:mytag
-  schedule: "1/* * * * *"
+  schedule: "*/1 * * * *"
 ```
 
 !!! warning
