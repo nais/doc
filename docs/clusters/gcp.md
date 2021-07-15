@@ -33,11 +33,13 @@ You can control from where you application is reachable by selecting the appropr
 
 | domain | accessible from | description |
 | :--- | :--- | :--- |
-| ekstern.dev.nav.no | internet | manually configured by adding to `external_domains` in [load balancer config](https://github.com/nais/gcp/blob/master/infrastructure/dev.tfvars) and making a pull request. URLs containing `/metrics`, `/actuator` or `/internal` are blocked |
+| ekstern.dev.nav.no | internet | manually configured by adding to `external_domains` in [load balancer config](https://github.com/nais/gcp/blob/master/infrastructure/dev.tfvars)* and making a pull request. URLs containing `/metrics`, `/actuator` or `/internal` are blocked |
 | dev.nav.no | [naisdevice](../device/README.md) | development ingress for nav.no applications |
 | dev.intern.nav.no | [naisdevice](../device/README.md) | development ingress for non-public/internet-facing applications |
 | dev-gcp.nais.io | [naisdevice](../device/README.md) | reserved for platform services |
 | ~~dev.adeo.no~~ |  | _deprecated_ replaced by dev.intern.nav.no |
+
+\* if [load balancer config](https://github.com/nais/gcp/blob/master/infrastructure/dev.tfvars) returns 404 Page not found, you need to add the `Github.com (nais)` app using [myapps.microsoft.com](https://account.activedirectory.windowsazure.com/r#/addApplications).
 
 ### prod-gcp ingresses
 
