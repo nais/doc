@@ -60,6 +60,8 @@ spec:
       recipients: "12345678"
       send_resolved: false
   route:
+    group_by:
+    - <label_name>
     groupInterval: 5m
     groupWait: 30s
     repeatInterval: 3h

@@ -595,6 +595,8 @@ Required: `false`<br />
     ``` yaml
     spec:
       route:
+        group_by:
+        - <label_name>
         groupInterval: 5m
         groupWait: 30s
         repeatInterval: 3h
@@ -626,6 +628,21 @@ Pattern: `([0-9]+(ms|[smhdwy]))?`<br />
     spec:
       route:
         groupWait: 30s
+    ```
+
+### route.group_by
+The labels by which incoming alerts are grouped together. For example, multiple alerts coming in for cluster=A and alertname=LatencyHigh would be batched into a single group. 
+ To aggregate by all possible labels use '...' as the sole label name. This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what you want, unless you have a very low alert volume or your upstream notification system performs its own grouping. Example: group_by: [...]
+
+Type: `array`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      route:
+        group_by:
+        - <label_name>
     ```
 
 ### route.repeatInterval
