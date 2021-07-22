@@ -786,7 +786,7 @@ Required: `false`<br />
     spec:
       cleanup:
         enabled: true
-        grace_period: 24h
+        gracePeriod: 24h
         rollback: true
     ```
 
@@ -803,7 +803,7 @@ Required: `true`<br />
         enabled: true
     ```
 
-### cleanup.grace_period
+### cleanup.gracePeriod
 Default: `24h`
 
 Type: `string`<br />
@@ -814,7 +814,7 @@ Pattern: `^[0-9]+h$`<br />
     ``` yaml
     spec:
       cleanup:
-        grace_period: 24h
+        gracePeriod: 24h
     ```
 
 ### cleanup.rollback

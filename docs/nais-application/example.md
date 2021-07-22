@@ -77,7 +77,7 @@ spec:
       tenant: nav.no
   cleanup:
     enabled: true
-    grace_period: 24h
+    gracePeriod: 24h
     rollback: true
   command:
   - /app/myapplication
