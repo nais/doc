@@ -56,12 +56,30 @@ This is done from inside your pod-container.
 ### CloudSQL-proxy sidecar
 CloudSQL-proxy sidecar does not support turning off remotely.
 
+It can be shut down by running exec into the container.
+```
+kubectl exec yourpod-12345 -c cloudsql-proxy -- kill -s INT 1
+```
+
 ### Securelogs
 Securelogs runs on Fluentd, and Fluentd exposes an endpoint to shut itself down.
 ```
-curl /api/processes.killWorkers
+curl http://127.0.0.1:24444/api/processes.killWorkers
 ```
 This is done from inside your pod-container.
 
+Additionally, Securelogs runs a second sidecar called `secure-logs-configmap-reload`.
+This can be shut down by running exec into the container.
+
+```
+kubectl exec yourpod-12345 -c secure-logs-configmap-reload -- /bin/killall configmap-reload
+```
+
 ### Vault sidecar
 Vault sidecar does not support turning off remotely.
+
+It can be shut down by running exec into the container.
+```
+kubectl exec yourpod-12345 -c vks-sidecar -- /bin/kill -s INT 1
+```
+
