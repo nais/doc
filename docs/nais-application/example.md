@@ -75,6 +75,10 @@ spec:
       replyURLs:
       - https://myapplication.nav.no/oauth2/callback
       tenant: nav.no
+  cleanup:
+    enabled: true
+    grace_period: 24h
+    rollback: true
   command:
   - /app/myapplication
   - --param

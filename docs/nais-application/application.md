@@ -775,6 +775,61 @@ Allowed values: `nav.no`, `trygdeetaten.no`<br />
           tenant: nav.no
     ```
 
+## cleanup
+Configuration for automatic cleanup of failing pods
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      cleanup:
+        enabled: true
+        grace_period: 24h
+        rollback: true
+    ```
+
+### cleanup.enabled
+Enables automatic cleanup Default: `true`
+
+Type: `boolean`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      cleanup:
+        enabled: true
+    ```
+
+### cleanup.grace_period
+Default: `24h`
+
+Type: `string`<br />
+Required: `false`<br />
+Pattern: `^[0-9]+h$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      cleanup:
+        grace_period: 24h
+    ```
+
+### cleanup.rollback
+Rollback sets whether a deployment is rolled back or scaled down. If `true` the deployment will be rolled back to the previous working version. If `false` the deployment will be scaled down to zero replicas instead. Default: `true`
+
+Type: `boolean`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      cleanup:
+        rollback: true
+    ```
+
 ## command
 Override command when starting Docker image.
 
