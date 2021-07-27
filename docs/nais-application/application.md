@@ -821,7 +821,7 @@ Pattern: `^[0-9]+h$`<br />
 Rollback sets whether a deployment is rolled back or scaled down. If `true` the deployment will be rolled back to the previous working version. If `false` the deployment will be scaled down to zero replicas instead. Default: `true`
 
 Type: `boolean`<br />
-Required: `true`<br />
+Required: `false`<br />
 
 ??? example
     ``` yaml
