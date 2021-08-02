@@ -26,9 +26,18 @@ that you may mount into your applications in the GCP clusters.
 
     Click on the `Create Secret` button.
 
+    !!! warning "Secret Name Restrictions"
+        In order to synchronize the secret to Kubernetes, ensure that the secret name adheres to the following restrictions:
+        
+        - Maximum length of 63 characters.
+        - May only contain letters, numbers and hyphens (`-`).
+        - Must be lowercase.
+        - Must start with a lowercase letter or number.
+        - Must end with a lowercase letter or number.
+
     All secrets must exist in the region `europe-north1`. 
     
-    This option is found when you click _manually select region_. 
+    This option is found when you click _manually manage locations for this secret_. 
 
     ![Google Secret Manager Region selection](../../assets/google-secret-manager-region.png)
 
@@ -117,9 +126,9 @@ that you may mount into your applications in the GCP clusters.
         - secret: my-google-secret # secret name in Google Secret Manager
     ```
 
-### Examples
+## Examples
 
-#### Example secret with single value format
+### Example secret with single value format
 
 ??? example "Secret in Google Secret Manager (click to expand)"
     
@@ -163,7 +172,7 @@ that you may mount into your applications in the GCP clusters.
         - secret: my-google-secret # secret name in Google Secret Manager
     ```
 
-#### Example with environment variable format
+### Example with environment variable format
 
 ??? example "Secret in Google Secret Manager (click to expand)"
 
