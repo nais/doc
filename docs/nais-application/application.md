@@ -787,7 +787,8 @@ Required: `false`<br />
       cleanup:
         enabled: true
         gracePeriod: 24h
-        rollback: true
+        strategy:
+        - downscale
     ```
 
 ### cleanup.enabled
@@ -817,17 +818,20 @@ Pattern: `^[0-9]+h$`<br />
         gracePeriod: 24h
     ```
 
-### cleanup.rollback
-Rollback sets whether a deployment is rolled back or scaled down. If `true` the deployment will be rolled back to the previous working version. If `false` the deployment will be scaled down to zero replicas instead. Default: `true`
+### cleanup.strategy
+Strategy sets how a deployment might be handled. Setting this to an empty list is equivalent to setting `enabled: false`. Default: `["abort-rollout", "downscale"]`. 
+ - `abort-rollout`: if new pods in a deployment are failing, but previous pods from the previous working    revision are still running, Babylon can roll the deployment back to the working revision,    aborting the rollout. 
+ - `downscale`: if all pods in a deployment are failing, Babylon will set replicaset to 0
 
-Type: `boolean`<br />
+Type: `array`<br />
 Required: `false`<br />
 
 ??? example
     ``` yaml
     spec:
       cleanup:
-        rollback: true
+        strategy:
+        - downscale
     ```
 
 ## command

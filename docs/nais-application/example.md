@@ -78,7 +78,8 @@ spec:
   cleanup:
     enabled: true
     gracePeriod: 24h
-    rollback: true
+    strategy:
+    - downscale
   command:
   - /app/myapplication
   - --param
