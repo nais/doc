@@ -2,7 +2,7 @@
 
 ## Spec
 
-See the complete specifiation in the [NAIS manifest](../../../nais-application/application.md#azureapplication).
+See the complete specification in the [NAIS manifest](../../../nais-application/application.md#azure).
 
 ## Getting started
 
@@ -28,6 +28,9 @@ See the complete specifiation in the [NAIS manifest](../../../nais-application/a
               - "azp_name"
             groups:
               - id: "<object ID of Azure AD group>"
+
+          # optional, defaults shown
+          singlePageApplication: false
 
       # optional, only relevant if your application should receive requests from consumers
       accessPolicy:
@@ -140,6 +143,20 @@ spec:
       
       # enum of {trygdeetaten.no, nav.no}
       tenant: trygdeetaten.no 
+```
+
+## Single-Page Application
+
+Azure AD supports the [OAuth 2.0 Auth Code Flow with PKCE](https://docs.microsoft.com/en-us/azure/active-directory/develop/scenario-spa-overview) for logins from client-side/browser single-page-applications.
+
+However, this requires some [explicit configuration](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow#redirect-uri-setup-required-for-single-page-apps) to avoid issues with CORS:
+
+```yaml
+spec:
+  azure:
+    application:
+      enabled: true
+      singlePageApplication: true
 ```
 
 ## Access Policy
