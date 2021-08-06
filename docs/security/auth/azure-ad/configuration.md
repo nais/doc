@@ -30,6 +30,7 @@ See the complete specification in the [NAIS manifest](../../../nais-application/
               - id: "<object ID of Azure AD group>"
 
           # optional, defaults shown
+          allowAllUsers: true
           singlePageApplication: false
 
       # optional, only relevant if your application should receive requests from consumers
@@ -149,7 +150,7 @@ spec:
 
 Azure AD supports the [OAuth 2.0 Auth Code Flow with PKCE](https://docs.microsoft.com/en-us/azure/active-directory/develop/scenario-spa-overview) for logins from client-side/browser single-page-applications.
 
-However, this requires some [explicit configuration](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow#redirect-uri-setup-required-for-single-page-apps) to avoid issues with CORS:
+However, the support for this must be explicitly enabled to avoid issues with CORS:
 
 ```yaml
 spec:
@@ -158,6 +159,158 @@ spec:
       enabled: true
       singlePageApplication: true
 ```
+
+## Claims
+
+### Groups
+
+The `groups` claim in user tokens is by default omitted due to potential issues with the token's size when used in cookies.
+
+Sometimes however, it is desirable to check for group membership for a given user's token.
+Start by defining all Azure AD group IDs that should appear in user tokens:
+
+```yaml hl_lines="5-8"
+spec:
+  azure:
+    application:
+      enabled: true
+      allowAllUsers: true
+      claims:
+        groups:
+          - id: "<object ID of group in Azure AD>"
+```
+
+!!! warning
+
+    Ensure that you include the `allowAllUsers` field and set the value to your desired behaviour. 
+
+    If undefined, the default behaviour will [only allow access to users in the defined groups](access-policy.md#groups).
+
+Now all user tokens acquired for your application will include the `groups` claim.
+
+The claim will only contain groups that are **both explicitly assigned to the application _and_ which the user is a direct member of**.
+
+???+ example "Example decoded on-behalf-of token"
+
+    ```json hl_lines="10-12"
+    {
+        "aud": "8a5...",
+        "iss": "https://login.microsoftonline.com/.../v2.0",
+        "iat": 1624957183,
+        "nbf": 1624957183,
+        "exp": 1624961081,
+        "aio": "AXQ...",
+        "azp": "e37...",
+        "azpacr": "1",
+        "groups": [
+            "2d7..."
+        ],
+        "name": "Navnesen, Navn",
+        "oid": "15c...",
+        "preferred_username": "Navn.Navnesen@nav.no",
+        "rh": "0.AS...",
+        "scp": "defaultaccess",
+        "sub": "6OC...",
+        "tid": "623...",
+        "uti": "i03...",
+        "ver": "2.0"
+    }
+    ```
+
+If you wish to also restrict sign-ins and token exchanges with the on-behalf-of flow to users in these groups, 
+see the [groups section in access policy](access-policy.md#groups). 
+
+### Extra
+
+The Azure AD tenants in NAV have defined some non-standard claims that are available for inclusion in tokens. 
+
+These are opt-in by default, and you may selectively include any (or all) of these as needed.
+
+#### NAVident
+
+The value of the `NAVident` claim maps to an internal identifier for the employees in NAV. 
+This claim thus only applies in flows where a user is involved i.e., either the sign-in or on-behalf-of flows.
+
+```yaml hl_lines="5-7"
+spec:
+  azure:
+    application:
+      enabled: true
+      claims:
+        extra:
+          - NAVident
+```
+
+???+ example "Example decoded on-behalf-of token"
+
+    ```json hl_lines="22"
+    {
+        "aud": "8a5...",
+        "iss": "https://login.microsoftonline.com/.../v2.0",
+        "iat": 1624957183,
+        "nbf": 1624957183,
+        "exp": 1624961081,
+        "aio": "AXQ...",
+        "azp": "e37...",
+        "azpacr": "1",
+        "groups": [
+            "2d7..."
+        ],
+        "name": "Navnesen, Navn",
+        "oid": "15c...",
+        "preferred_username": "Navn.Navnesen@nav.no",
+        "rh": "0.AS...",
+        "scp": "defaultaccess",
+        "sub": "6OC...",
+        "tid": "623...",
+        "uti": "i03...",
+        "ver": "2.0",
+        "NAVident": "Z123456"
+    }
+    ```
+
+#### azp_name
+
+The `azp_name` claim will return the [name](concepts.md#naming-format) of the consumer application that requested the token. 
+This claim applies to both the client credentials flow and the on-behalf-of flow.
+
+```yaml hl_lines="5-7"
+spec:
+  azure:
+    application:
+      enabled: true
+      claims:
+        extra:
+          - azp_name
+```
+
+???+ example "Example decoded on-behalf-of token"
+
+    ```json hl_lines="22"
+    {
+        "aud": "8a5...",
+        "iss": "https://login.microsoftonline.com/.../v2.0",
+        "iat": 1624957183,
+        "nbf": 1624957183,
+        "exp": 1624961081,
+        "aio": "AXQ...",
+        "azp": "e37...",
+        "azpacr": "1",
+        "groups": [
+            "2d7..."
+        ],
+        "name": "Navnesen, Navn",
+        "oid": "15c...",
+        "preferred_username": "Navn.Navnesen@nav.no",
+        "rh": "0.AS...",
+        "scp": "defaultaccess",
+        "sub": "6OC...",
+        "tid": "623...",
+        "uti": "i03...",
+        "ver": "2.0",
+        "azp_name": "dev-gcp:some-team:some-consumer"
+    }
+    ```
 
 ## Access Policy
 

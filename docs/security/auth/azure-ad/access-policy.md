@@ -168,19 +168,30 @@ The above configuration grants the application `app-a` the role `custom-role`.
 !!! info
     Any custom roles granted will appear in the `roles` claim, which is an _array of strings_.
 
-## Groups
+## Users
 
-By default, all users within the tenant is allowed to log in to your application.
+By default, all users within the tenant are allowed to log in to your application. This behaviour is toggleable:
 
-For some use cases, it is desirable to restrict access to smaller groups of users.
-
-This can be done by explicitly declaring which groups are allowed to access the application:
-
-```yaml hl_lines="5-7"
+```yaml hl_lines="5"
 spec:
   azure:
     application:
       enabled: true
+      allowAllUsers: true
+```
+
+## Groups
+
+For some use cases, it is desirable to restrict access to smaller groups of users.
+
+This can be done by disallowing all users and explicitly declaring which groups are allowed to access the application:
+
+```yaml hl_lines="5-8"
+spec:
+  azure:
+    application:
+      enabled: true
+      allowAllUsers: false
       claims:
         groups:
           - id: "<object ID of group in Azure AD>"
@@ -188,4 +199,4 @@ spec:
 
 Azure AD will now only allow sign-ins and token exchanges with the on-behalf-of flow if a given user is a _direct_ member of at least _one of_ the groups declared.
 
-This also controls the `groups` claim for a user token, which will only contain groups that are both explicitly assigned to the application _and_ which the user is a direct member of.
+This also controls the [`groups` claim](configuration.md#groups) for a user token.
