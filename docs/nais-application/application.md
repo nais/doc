@@ -2220,6 +2220,7 @@ ClientURI is the URL shown to the user at ID-porten when displaying a 'back' but
 
 Type: `string`<br />
 Required: `false`<br />
+Pattern: `^https:\/\/.+$`<br />
 
 ??? example
     ``` yaml
@@ -2272,6 +2273,7 @@ Relevant information:
 
 Type: `string`<br />
 Required: `false`<br />
+Pattern: `^https:\/\/.+$`<br />
 
 ??? example
     ``` yaml
