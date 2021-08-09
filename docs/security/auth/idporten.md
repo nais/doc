@@ -7,6 +7,11 @@ description: Enabling public-facing authentication using ID-porten.
 !!! warning "Status: Opt-In Open Beta"
     This feature is only available in [team namespaces](../../clusters/team-namespaces.md)
 
+!!! warning "Forthcoming changes"
+    ID-porten is currently undergoing some [changes](https://docs.digdir.no/oidc_protocol_nye_idporten.html). These changes will roll out in the coming months.
+    
+    TL;DR: new URL and issuer, [PKCE](https://oauth.net/2/pkce/) is required for Authorization Code Flow and the contents of the `sub` claim will likely change.
+
 ## Abstract
 
 !!! abstract
