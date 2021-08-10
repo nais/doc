@@ -65,6 +65,7 @@ spec:
         namespace: q3
   azure:
     application:
+      allowAllUsers: true
       claims:
         extra:
         - NAVident
@@ -74,6 +75,7 @@ spec:
       enabled: true
       replyURLs:
       - https://myapplication.nav.no/oauth2/callback
+      singlePageApplication: true
       tenant: nav.no
   cleanup:
     enabled: true

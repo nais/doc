@@ -630,6 +630,7 @@ Required: `false`<br />
     spec:
       azure:
         application:
+          allowAllUsers: true
           claims:
             extra:
             - NAVident
@@ -639,11 +640,16 @@ Required: `false`<br />
           enabled: true
           replyURLs:
           - https://myapplication.nav.no/oauth2/callback
+          singlePageApplication: true
           tenant: nav.no
     ```
 
 ### azure.application
-Configures an Azure AD client for this application. See [Azure AD](https://doc.nais.io/security/auth/azure-ad/) for more details.
+Configures an Azure AD client for this application.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/azure-ad/](https://doc.nais.io/security/auth/azure-ad/)
 
 Type: `object`<br />
 Required: `true`<br />
@@ -653,6 +659,7 @@ Required: `true`<br />
     spec:
       azure:
         application:
+          allowAllUsers: true
           claims:
             extra:
             - NAVident
@@ -662,7 +669,22 @@ Required: `true`<br />
           enabled: true
           replyURLs:
           - https://myapplication.nav.no/oauth2/callback
+          singlePageApplication: true
           tenant: nav.no
+    ```
+
+#### azure.application.allowAllUsers
+AllowAllUsers denotes whether or not all users within the tenant should be allowed to access this AzureAdApplication. If undefined will default to `true` when Spec.Claims.Groups is undefined, and `false` if Spec,Claims.Groups is defined.
+
+Type: `boolean`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      azure:
+        application:
+          allowAllUsers: true
     ```
 
 #### azure.application.claims
@@ -687,6 +709,10 @@ Required: `false`<br />
 ##### azure.application.claims.extra
 Extra is a list of additional claims to be mapped from an associated claim-mapping policy. Currently, the only supported values are `NAVident` and `azp_name`.
 
+Relevant information:
+
+* [https://doc.nais.io/security/auth/azure-ad/configuration#extra](https://doc.nais.io/security/auth/azure-ad/configuration#extra)
+
 Type: `array`<br />
 Required: `false`<br />
 
@@ -702,7 +728,11 @@ Required: `false`<br />
     ```
 
 ##### azure.application.claims.groups
-Groups is a list of Azure AD group IDs to be emitted in the 'Groups' claim.
+Groups is a list of Azure AD group IDs to be emitted in the 'Groups' claim. This also restricts access to only contain users of the defined groups unless overridden by Spec.AllowAllUsers.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/azure-ad/access-policy#groups](https://doc.nais.io/security/auth/azure-ad/access-policy#groups)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -765,6 +795,20 @@ Required: `false`<br />
         application:
           replyURLs:
           - https://myapplication.nav.no/oauth2/callback
+    ```
+
+#### azure.application.singlePageApplication
+SinglePageApplication denotes whether or not this Azure AD application should be registered as a single-page-application.
+
+Type: `boolean`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      azure:
+        application:
+          singlePageApplication: true
     ```
 
 #### azure.application.tenant
