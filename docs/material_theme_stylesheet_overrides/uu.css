@@ -14,20 +14,26 @@ a {
   .md-search__inner {
     width: 14.7rem;
   }
+}
 
-  .md-search__input {
-    background-color: var(--md-code-bg-color);
-  }
+.md-search__input {
+  background-color: hsla(0, 0%, 96%, 1);
+  color: hsla(0, 0%, 0%, 0.87);
+}
 
-  .md-search__icon svg {
-    color: var(--md-default-fg-color);
-  }
+.md-search__icon svg {
+  color: hsla(0, 0%, 0%, 0.87);
+}
 
-  .md-search__input:hover {
-    background-color: var(--md-default-bg-color);
-  }
+.md-search__input:hover {
+  background-color: hsla(0, 0%, 100%, 1);
+}
 
-  .md-search__input::placeholder {
-    color: var(--md-default-fg-color);
-  }
+.md-search__input::placeholder {
+  color: hsla(0, 0%, 0%, 0.87);
+}
+
+[data-md-toggle=search]:checked~.md-header .md-search__input {
+  color: hsla(0, 0%, 0%, 0.87);
+  background-color: hsla(0, 0%, 100%, 1);
 }
