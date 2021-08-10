@@ -5,7 +5,7 @@ description: MongoDB support in GCP
 # MongoDB in GKE
 
 !!! info "Disclaimer"
-    Nais does not officially support MongoDB in GKE, however one can easily set up one manually. The team is responsible for maintenance and upgrades.
+    Nais does not support MongoDB in GKE, however one can easily set up one manually. Your team is responsible for maintenance and upgrades.
 
 First create your MongoDB-instance with the following StatefulSet. The following example creates an instance with three
 replicas using a pre-existing storage-class. The storage-class is a cluster-wide resource. 
