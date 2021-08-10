@@ -9,3 +9,25 @@
 a {
   text-decoration: underline;
 }
+
+@media screen and (min-width: 60em) {
+  .md-search__inner {
+    width: 14.7rem;
+  }
+
+  .md-search__input {
+    background-color: var(--md-code-bg-color);
+  }
+
+  .md-search__icon svg {
+    color: var(--md-default-fg-color);
+  }
+
+  .md-search__input:hover {
+    background-color: var(--md-default-bg-color);
+  }
+
+  .md-search__input::placeholder {
+    color: var(--md-default-fg-color);
+  }
+}
