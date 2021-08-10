@@ -174,8 +174,8 @@ spec:
       rules:
       - application: my-mongodb
   env:
-  - name: VERADB_URL
-    value: mongodb://my-mongodb-0.vera-mongo:27017,my-mongodb-1.vera-mongodb:27017,my-mongodb-2.vera-mongo:27017/deploy_log?replicaSet=MainRepSet
+  - name: MONGODB_URL
+    value: mongodb://my-mongodb-0.my-mongodb:27017,my-mongodb-1.my-mongodb:27017,my-mongodb-2.my-mongo:27017/deploy_log?replicaSet=MainRepSet
 ```
 
 ## Backup of MongoDB-instance
