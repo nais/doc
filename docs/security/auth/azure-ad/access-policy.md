@@ -197,6 +197,12 @@ spec:
           - id: "<object ID of group in Azure AD>"
 ```
 
+!!! warning
+
+    **Ensure that the object ID for the group is valid, and that the group actually exists in Azure AD.**
+
+    Non-existing groups will be skipped.
+
 Azure AD will now only allow sign-ins and token exchanges with the on-behalf-of flow if a given user is a _direct_ member of at least _one of_ the groups declared.
 
 This also controls the [`groups` claim](configuration.md#groups) for a user token.

@@ -182,9 +182,15 @@ spec:
 
 !!! warning
 
-    Ensure that you include the `allowAllUsers` field and set the value to your desired behaviour. 
+    **Ensure that you include the `allowAllUsers` field and set the value to your desired behaviour.**
 
     If undefined, the default behaviour will [only allow access to users in the defined groups](access-policy.md#groups).
+
+!!! warning
+
+    **Ensure that the object ID for the group is valid, and that the group actually exists in Azure AD.**
+
+    Non-existing groups will be skipped.
 
 Now all user tokens acquired for your application will include the `groups` claim.
 
