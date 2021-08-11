@@ -185,6 +185,24 @@ These credentials are then inserted into the requested secret and used in the de
 If there is a problem generating the secret, this might fail your deployment. 
 In this case, Aivenator will update the `status` part of the resource, with further information about the problem.
 
+### Testing your application
+
+If you need to test that you have configured your consumer application correctly, you can use one of the kafkarator-canary topics.
+All applications (from all teams) have read access to the canary topics.
+All the canary topics receives a message on a fixed interval, containing a RFC3339 formatted timestamp.
+The only difference between each, is where the producer is located.
+The available canary topics are:
+
+| Pool     | Topic name                      |
+| :------- | :------------------------------ |
+| nav-dev  | aura.kafkarator-canary-dev-gcp  |
+| nav-dev  | aura.kafkarator-canary-dev-sbs  |
+| nav-dev  | aura.kafkarator-canary-dev-fss  |
+| nav-prod | aura.kafkarator-canary-prod-gcp |
+| nav-prod | aura.kafkarator-canary-prod-sbs |
+| nav-prod | aura.kafkarator-canary-prod-fss |
+
+
 ## Accessing topics from an application on legacy infrastructure
 
 If you have an application on legacy infrastructure (outside NAIS clusters), you can still access topics with a few more manual steps.
