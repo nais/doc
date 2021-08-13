@@ -108,7 +108,10 @@ nav:
           - Operations: security/auth/azure-ad/operations.md
           - Legacy: security/auth/azure-ad/legacy.md
         - ID-porten: security/auth/idporten.md
-        - Maskinporten: security/auth/maskinporten.md
+        - Maskinporten:
+          - Intro: security/auth/maskinporten/README.md
+          - Client: security/auth/maskinporten/client.md
+          - Scopes: security/auth/maskinporten/scopes.md
         - TokenX: security/auth/tokenx.md
       - Secrets:
         - Overview: security/secrets/README.md
