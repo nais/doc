@@ -3,7 +3,7 @@
 A _scope_ in Maskinporten terminology is equivalent to a distinct API. As an API provider, you will:
 
 - define scopes to be registered in Maskinporten
-- grant access to other organizations to your defined scopes
+- grant access to other organizations for your defined scopes
   
 The notion of scope is loosely defined to allow semantic freedom in terms of API providers' own definition and granularity of access and authorization.
 
@@ -50,7 +50,7 @@ scope := <prefix>:<subscope>
     ```
 ### Prefix
 
-The _prefix_ for all scopes provisioned through NAIS will **always** have the prefix `nav`.
+The _prefix_ for all scopes provisioned through NAIS will **always** be `nav`.
 
 ### Subscope
 
