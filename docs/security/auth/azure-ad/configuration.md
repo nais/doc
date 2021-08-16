@@ -29,8 +29,12 @@ See the complete specification in the [NAIS manifest](../../../nais-application/
             groups:
               - id: "<object ID of Azure AD group>"
 
-          # optional, defaults shown
+          # optional; if omitted:
+          # - false if claims.groups is defined
+          # - true otherwise
           allowAllUsers: true
+
+          # optional, defaults shown
           singlePageApplication: false
 
       # optional, only relevant if your application should receive requests from consumers

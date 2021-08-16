@@ -30,11 +30,10 @@ spec:
 
 !!! danger
 
+    - These rules are _eventually consistent_, which means it might take a few minutes to propagate throughout Azure AD.
     - Any client referred to **must** already exist in Azure AD in order to be assigned the access policy permissions.
-    - Be aware of dependency order when deploying your applications for the first time in each cluster with provisioning enabled.
     - If you're pre-authorizing a client provisioned through `aad-iac`, ensure that you've read the [legacy](legacy.md#pre-authorization) section.
-    - **Clients defined in the Spec that do _not_ exist in Azure AD at deploy time will be skipped.**
-    - **[Assignments will not be automatically retried.](operations.md#forcing-resynchronization)**
+    - **Clients defined in the Spec that do _not_ exist in Azure AD at deploy time will be skipped.** If a non-existing client is created at a later time, we'll attempt to automatically [force a resynchronization](operations.md#forcing-resynchronization).
 
 The above configuration will pre-authorize the Azure AD clients belonging to:
 
