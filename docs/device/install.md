@@ -4,7 +4,6 @@
 
 ### macOS Installation
 
-1. If you have got __`navtunnel`__ installed -> [uninstall navtunnel](#uninstall-navtunnel).
 2. [Install the Kolide agent](#install-kolide-agent).
 3. Install [Homebrew](https://brew.sh/) unless you already have it.
 4. Add the nais tap
@@ -123,40 +122,3 @@ In your Systray (where all your small program icons are located - see above pict
 3. `git pull` To ensure you've got latest & greatest.
 4. Make and set the `KUBECONFIG` environment variable to the path of the `config`-file.
     1. You can do this from the terminal with: `export KUBECONFIG="<path-to>/kubeconfigs/config"`
-
-## Uninstall navtunnel
-
-### For your existing applications
-
-!!! info
-    The below application-specific instructions are only relevant if you've got the applications installed.
-    If you don't use them in your daily work, they're most likely not installed.
-
-#### Maven
-
-* Remove proxy settings from MAVEN\_OPTS and Maven settings.xml
-
-#### SSH
-
-* Remove Navtunnel settings from .ssh/config and .ssh/config.d
-
-### macOS
-
-!!! info
-    The below commands should be safe to run as-is.
-    The terminal will reply with "Insufficient access"-like error messages if you lack sufficient privileges.
-    Try them one by one.
-
-Run the below commands in a terminal.
-
-1. `sudo sed -i -e '/\# NAV MANAGED/,/\# END NAV MANAGED/d' /private/etc/hosts && echo -e '\n\t*sed* command executed successfully!'`
-2. `sudo rm -rf "/Applications/navtunnel.app" && echo -e '\n\t*navtunnel* app deleted sucessfully!'`
-3. `sudo rm -rf "/Applications/ScaleFT.app" && echo -e '\n\t*ScaleFT* deleted successfully!'`
-4. `networksetup -setautoproxystate "Wi-Fi" off && echo -e '\n\t*Wi-Fi* Wi-Fi proxying turned off successfully!'`
-
-Questions you might have after having attempted to execute any of these commands may be asked in the [#naisdevice](https://nav-it.slack.com/archives/C013XV66XHB) Slach channel.
-
-### Windows
-
-1. Remove Navtunnel-entries from c:\windows\system32\drivers\etc\hosts
-2. Remove proxy settings from your browser
