@@ -4,20 +4,27 @@ This guide will take you through the required tools and permissions that need to
 
 ## Set up a team
 
-The primary unit of access is a _team_, whose origin is a group in Azure AD. Each team is given its own namespace with the same name as the team. The team will have unrestricted access to all Kubernetes assets in that namespace.
+The primary unit of access is a _team_, whose origin is a group in Azure AD.
+Each team is given its own namespace with the same name as the team.
+The team will have unrestricted access to all Kubernetes assets in that namespace.
 
-See [creating a new team](teams.md) to get started with teams. After creating a new team, you should have access to all clusters.
+See [creating a new team](teams.md#creating-a-new-team) to get started with teams.
+After creating a new team, you should have access to all clusters.
+
+!!! info "You're probably part of an existing team"
+    If this is your first time here, chances are that you're already part of a team in the context of NAIS.
+    There is currently no simple way to verify this, though you can look through [the AAD-groups that you are part of](https://account.activedirectory.windowsazure.com/r#/groups) and see if there's any overlap with [navikt/teams](https://github.com/navikt/teams/blob/main/teams.md).
+
+## Install [naisdevice](../device/README.md)
+
+naisdevice ensures that your laptop meets NAVs requirements before allowing access to internal resources such as our NAIS clusters. 
+Install by following the [naisdevice installation guide](../device/install.md).
 
 ## Install [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl)
 
 `kubectl` is a command-line tool used to manage your Kubernetes resources.
 
 Check out the [official documentation](https://kubernetes.io/docs/tasks/tools/install-kubectl) for instructions on how to install the binaries.
-
-## Install [naisdevice](../device/README.md)
-
-naisdevice ensures that your laptop meets NAVs requirements before allowing access to internal resources such as our NAIS clusters. 
-Install by following the [naisdevice installation guide](../device/install.md).
 
 ## Setup your [`kubeconfig`](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 
