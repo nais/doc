@@ -61,6 +61,7 @@ nav:
       - Reference: nais-application/application.md
       - Access Policy: nais-application/access-policy.md
       - Ingress customization: nais-application/ingress.md
+      - Linkerd/sidecar customization: nais-application/linkerd.md
     - Naisjob:
       - Overview: naisjob/README.md
       - Full example: naisjob/example.md
