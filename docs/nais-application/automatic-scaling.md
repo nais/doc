@@ -10,7 +10,7 @@
 A custom metric is based on a direct value or a rate over time.
 To make the custom metric available for scaling, you have to label it with either hpa="value" or hpa="rate"
 
-example metric output:
+Example metric output:
 ```
 # HELP active_sessions number of active sessions
 # TYPE active_sessions gauge
@@ -21,10 +21,11 @@ documents_received{hpa="rate"} 69
 ```
 
 Once the metric is labelled correctly, it can be used in a HorizontalPodAutoscaler Kubernetes object.
-Refer to the [https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/](Kubernetes documentation) for details.
+Refer to the [Kubernetes documentation](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/) for details.
 
-In the example below, the amount of replicas will be increased once the average of "active_sessions" exceeds 150 across all currently running pods.
-```YAML
+In the example below, the amount of replicas will be increased once the average of `active_sessions` exceeds 150 across all currently running pods.
+
+```yaml
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
@@ -46,15 +47,16 @@ spec:
         type: AverageValue
         averageValue: 150
 ```
-!!! info
-  The platform provides metrics from the LinkerD sidecar by default: `linkerd_request_total`.
-  This metric contains the rate of inbound requests
 
-## Scaling based on external metrics.
+!!! info 
+    The platform provides metrics from the LinkerD sidecar by default: `linkerd_request_total`.
+    This metric contains the rate of inbound requests.
+
+## Scaling based on external metrics
 External metrics are provided by the platform for services external to the application, i.e. Kafka lag.
 If you want your application to scale based on external metrics, replace the metrics section of the previous example with the one below.
 
-```
+```yaml
  metrics:
   - type: External
     external:
