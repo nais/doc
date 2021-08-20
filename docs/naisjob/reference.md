@@ -1207,6 +1207,7 @@ When set to true will delete the dataset, when the application resource is delet
 
 Type: `boolean`<br />
 Required: `false`<br />
+Immutable: `true`<br />
 
 ??? example
     ``` yaml
@@ -1227,6 +1228,7 @@ Human-readable description of what this BigQuery dataset contains, or is used fo
 
 Type: `string`<br />
 Required: `false`<br />
+Immutable: `true`<br />
 
 ??? example
     ``` yaml
@@ -1247,6 +1249,7 @@ Name of the BigQuery Dataset. The canonical name of the dataset will be `<TEAM_P
 
 Type: `string`<br />
 Required: `true`<br />
+Immutable: `true`<br />
 Pattern: `^[a-z0-9][a-z0-9_]+$`<br />
 
 ??? example
@@ -1268,6 +1271,7 @@ Permission level given to application.
 
 Type: `enum`<br />
 Required: `true`<br />
+Immutable: `true`<br />
 Allowed values: `READ`, `READWRITE`<br />
 
 ??? example
