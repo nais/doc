@@ -58,6 +58,24 @@ $ kubectl delete secret google-sql-<MYAPP>
 $ kubectl delete sqluser <MYAPP>
 ```
 
+## Cloud SQL 
+Cloud SQL uses CNRM to create and manage all relevant resources (sqldatabase, sqlinstance, sqluser, credentials) for postgreSQL. 
+When creating an application via your nais.yaml ConfigConnector/CNRM creates the database in your google project along with other necessary resources.
+The creation of the database will take about ten minutes, and the credential settings will be updated after the database is ready for use.
+
+!!! warning
+    If you delete and recreate your app new credentials will be created and a synchronization is needed. 
+    This process can take up to ten minutes. Using the workaround described below you can avoid this synchronization period.
+
+### Workaround for password synchronization issues
+Retrieve the password from the secret google-sql-<MYAPP> in your namespace (the password is base64 encoded).
+```
+k get secret google-sql-<MYAPP> -o jsonpath="{ .data['<YOUR PASSWORD VARIABLE>'] }" | base64 -d
+```
+
+Log in to the Google [https://console.cloud.google.com](Cloud Console) and set the password manually for the application user in the sql instance:
+SQL -> <MYDATABASE> -> Users -> <MYAPPUSER> -> Change password
+
 ## Cloud SQL Proxy
 
 The application will connect to the database using [Cloud SQL Proxy](https://cloud.google.com/sql/docs/postgres/sql-proxy), ensuring that the database communication happens in secure tunnel, authenticated with automatically rotated credentials.
