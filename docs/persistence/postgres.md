@@ -2,6 +2,8 @@
 
 You can provision and configure [Postgres](https://www.postgresql.org/) through [`nais.yaml`](../nais-application/application.md).
 
+The database is provisioned into the teams own project in GCP. Here the team has full access to view logs, create and restore backups and other administrative database tasks.
+
 !!! warning
     If you change the postgreSQL version your data will be lost, as a new database will be created.
     In other words to upgrade the database version you will need to do a migration as described here: [Upgrade GCP postgreSQL](https://cloud.google.com/sql/docs/postgres/upgrade-db)
@@ -26,12 +28,6 @@ spec:
           - name: mydb
 ```
 
-### Maintenance window
-
-Google will automatically perform upgrades, fix bugs and apply security patches to prevent exploits. Your application should be able to handle occasional downtime as this maintenance is performed. Read more on maintenance windows [here](https://cloud.google.com/sql/docs/postgres/maintenance). NAIS does not configure the maintenance window, but this can be set up in the application spec: [`nais.yaml`](../nais-application/application.md#gcpsqlinstances).
-
-If you wish to be notified about upcoming maintenance, you can opt-in for this on the [Communications page](https://console.cloud.google.com/user-preferences/communication) in the GCP console.
-
 ## Configuration
 
 To connect your application to the database, use information from the environment variables below.
@@ -52,16 +48,29 @@ The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instan
     possible to have two applications (e.g. producer and consumer) connecting directly to the database.
     
 !!! info 
-    Note that if you have deployed your application with one configuration, and then change it later, you have to manually delete the google-sql-*MYAPP* secret before you make a new deploy (if you change the envVarPrefix you also have to delete the sqluser):
-```bash
-$ kubectl delete secret google-sql-<MYAPP>
-$ kubectl delete sqluser <MYAPP>
-```
+    Note that if you change your application name, database name or envVarPrefix, and then change it later, 
+    you have to manually [reset database credentials](#reset-database-credentials).
 
-## Cloud SQL 
-Cloud SQL uses CNRM to create and manage all relevant resources (sqldatabase, sqlinstance, sqluser, credentials) for postgreSQL. 
-When creating an application via your nais.yaml ConfigConnector/CNRM creates the database in your google project along with other necessary resources.
-The creation of the database will take about ten minutes, and the credential settings will be updated after the database is ready for use.
+### Maintenance window
+Google will automatically perform upgrades, fix bugs and apply security patches to prevent exploits. Your application should be able to handle occasional downtime as this maintenance is performed. Read more on maintenance windows [here](https://cloud.google.com/sql/docs/postgres/maintenance). NAIS does not configure the maintenance window, but this can be set up in the application spec: [`nais.yaml`](../nais-application/application.md#gcpsqlinstances).
+If you wish to be notified about upcoming maintenance, you can opt-in for this on the [Communications page](https://console.cloud.google.com/user-preferences/communication) in the GCP console.
+
+### Sizing your database
+By default, the database server has 1 vCPU, 614 MB RAM and 10GB of SSD storage with no automatic storage increase. If you need to change the defaults you can do this in [`nais.yaml`](../nais-application/application.md#gcpsqlinstancesdisksize).
+
+### Automated backup
+The database is backed up nightly at 3 AM \(GMT+1\) by default, but can be overridden in [`nais.yaml`](../nais-application/application.md#gcpsqlinstancesautobackuptime) by setting `spec.gcp.sqlInstances[].autoBackupTime`.
+By default, seven backups will be kept. More info [here](https://cloud.google.com/sql/docs/postgres/backup-recovery/backups).
+
+The backups can be found in the [Google Cloud SQL instance](https://cloud.google.com/sql) dashboard.
+
+#### Disaster backup
+In case of catastrophic failure in GCP we are running a daily complete backup of the postgresql databases in GCP to an on-prem location. This backup currently runs at 5 am. This is in addition to the regular backups in GCP.
+
+## Cloud SQL credentials 
+Cloud SQL uses ConfigConnector/CNRM to create and manage all relevant resources (sqldatabase, sqlinstance, sqluser, credentials) for postgreSQL. 
+When creating an application via your nais.yaml the database in your google project, along with other necessary resources, are created.
+The creation of the database takes about ten minutes, and the credential settings will be updated after the database is ready for use.
 
 !!! warning
     If you delete and recreate your app new credentials will be created and a synchronization is needed. 
@@ -73,9 +82,15 @@ Retrieve the password from the secret google-sql-<MYAPP> in your namespace (the 
 k get secret google-sql-<MYAPP> -o jsonpath="{ .data['<YOUR PASSWORD VARIABLE>'] }" | base64 -d
 ```
 
-Log in to the Google [https://console.cloud.google.com](Cloud Console) and set the password manually for the application user in the sql instance:
+Log in to the Google [Cloud Console](https://console.cloud.google.com) and set the password manually for the application user in the sql instance:
 SQL -> <MYDATABASE> -> Users -> <MYAPPUSER> -> Change password
 
+### Reset database credentials
+To reset the database credentials for your application (if application name, database name or envVarPrefix has been changed):
+```bash
+$ kubectl delete secret google-sql-<MYAPP>
+$ kubectl delete sqluser <MYAPP>
+```
 ## Cloud SQL Proxy
 
 The application will connect to the database using [Cloud SQL Proxy](https://cloud.google.com/sql/docs/postgres/sql-proxy), ensuring that the database communication happens in secure tunnel, authenticated with automatically rotated credentials.
@@ -85,22 +100,6 @@ NAIS will add and configure the proxy client container as a sidecar in the pod, 
 ![sqlproxy](../assets/sqlproxy.svg)
 
 For more detailed information, check out the [Cloud SQL Proxy documentation](https://cloud.google.com/sql/docs/postgres/sql-proxy)
-
-## Sizing your database
-
-By default, the database server has 1 vCPU, 614 MB RAM and 10GB of SSD storage with no automatic storage increase. If you need to change the defaults you can do this in [`nais.yaml`](../nais-application/application.md#gcpsqlinstancesdisksize).
-
-## Administration
-
-The database is provisioned into the teams own project in GCP. Here the team has full access to view logs, create and restore backups and other administrative database tasks.
-
-## Automated backup
-
-The database is backed up nightly at 3 AM \(GMT+1\) by default, but can be overridden in [`nais.yaml`](../nais-application/application.md#gcpsqlinstancesautobackuptime) by setting `spec.gcp.sqlInstances[].autoBackupTime`. 
-
-Default 7 backups will be kept. More info [here](https://cloud.google.com/sql/docs/postgres/backup-recovery/backups).
-
-The backups can be found in the [Google Cloud SQL instance](https://cloud.google.com/sql) dashboard.
 
 ## Additional user(s) database(s)
 
@@ -113,7 +112,7 @@ With `.spec.gcp.sqlInstances[].databases[].envVarPrefix` set to `DB` and additio
 Details about environment variables is specified her: [`configuration`](../persistence/postgres.md#configuration)
 
 !!! info
-    If you've deployed your application with an [additional user](#additional-users-databases), and then change name or remove the user from configuration, you need to _manually_ delete the `google-sql-<MYAPP>-<USER>` secret:
+    If you've deployed your application with an additional users, and then change name or remove the user from configuration, you need to _manually_ delete the `google-sql-<MYAPP>-<USER>` secret:
     ```bash
     $ kubectl delete secret google-sql-<MYAPP>-<USER>
     ```
@@ -276,10 +275,6 @@ The database is not automatically removed when deleting your NAIS application. R
 
 !!! danger
     When you delete an Cloud SQL instance, you cannot reuse the name of the deleted instance until one week from the deletion date.
-
-## Disaster backup
-
-In case of catastrophic failure in GCP we are running a daily complete backup of the postgresql databases in GCP to an on-prem location. This backup currently runs at 5 am. This is in addition to the regular backups in GCP.
 
 ## Debugging
 
