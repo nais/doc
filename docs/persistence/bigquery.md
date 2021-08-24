@@ -29,7 +29,7 @@ Example of an application using a `nais.yaml` provisioned BigQuery Dataset can b
 
 === "Automatic Deletion"
     Once a BigQuery Dataset is provisioned, it will not be automatically deleted - unless one explicitly sets [`spec.gcp.bigQueryDatasets[].cascadingDelete`](../../nais-application/application#gcpbigquerydatasetscascadingdelete) to `true`.
-    This means that any cleanup must be done manually.  
+    Clean up is done by deleting application resource and deleting the BigQuery instance directly in [console.cloud.google.com](https://console.cloud.google.com/bigquery).  
     <br/>
     When there exist no tables in the specified BigQuery Dataset, deleting the "nais application" will delete the whole BigQuery Dataset, even if [`spec.gcp.bigQueryDatasets[].cascadingDelete`](../../nais-application/application#gcpbigquerydatasetscascadingdelete) is set to `false`.
 === "Unique names"
