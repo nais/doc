@@ -159,6 +159,8 @@ spec:
     redirectPath: /oauth2/callback
     redirectURI: https://myapplication.nav.no/oauth2/callback
     sessionLifetime: 7200
+    sidecar:
+      enabled: true
   image: navikt/testapp:69.0.0
   influx:
     instance: influx-instance

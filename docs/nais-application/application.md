@@ -2245,6 +2245,8 @@ Required: `false`<br />
         redirectPath: /oauth2/callback
         redirectURI: https://myapplication.nav.no/oauth2/callback
         sessionLifetime: 7200
+        sidecar:
+          enabled: true
     ```
 
 ### idporten.accessTokenLifetime
@@ -2393,6 +2395,33 @@ Value range: `3600`-`7200`<br />
     spec:
       idporten:
         sessionLifetime: 7200
+    ```
+
+### idporten.sidecar
+Sidecar configures a sidecar that intercepts requests and performs the OIDC flow if necessary. 
+ **EXPERIMENTAL, NOT PRODUCTION READY**
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      idporten:
+        sidecar:
+          enabled: true
+    ```
+
+#### idporten.sidecar.enabled
+Type: `boolean`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      idporten:
+        sidecar:
+          enabled: true
     ```
 
 ## image
