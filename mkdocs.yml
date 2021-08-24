@@ -115,6 +115,7 @@ nav:
           - Client: security/auth/maskinporten/client.md
           - Scopes: security/auth/maskinporten/scopes.md
         - TokenX: security/auth/tokenx.md
+      - Kubernetes SecurityContext: security/securitycontext.md
       - Secrets:
         - Overview: security/secrets/README.md
         - Kubernetes Secrets: security/secrets/kubernetes-secrets.md
