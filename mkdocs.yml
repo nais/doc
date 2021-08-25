@@ -126,6 +126,7 @@ nav:
       - Kafka: addons/kafka.md
       - Leader Election: addons/leader-election.md
       - MongoDB in GCP: addons/mongodb-in-gcp.md
+      - Snorlax: addons/snorlax.md
       - Unleash (feature toggling): addons/unleash.md
       - Velero backup and restore: addons/velero-backup-and-restore.md
     - Legacy:
