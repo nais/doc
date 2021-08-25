@@ -261,7 +261,7 @@ If the new instances are not able to connect to Kafka, keeping the old ones unti
 
 There are multiple viable strategies for migrating to Aiven. Which one is best for your team depends on many factors. Here we will describe a few approaches, other approaches are also possible. You need to find the one that suits your situation best. Make sure you understand how the different approaches affects your message processing. Some approaches might result in messages being processed more than once, and some approaches might allow for messages to be processed out of order.
 
-If you are using the Schema Registry, you need to make sure that your schemas are uploaded to the new schema registry in Aiven when migrating. How you do that depends on how you do your migration.
+*If you are using the Schema Registry, you need to make sure that your schemas are uploaded to the new schema registry in Aiven when migrating. How you do that depends on how you do your migration.*
 
 The first step is always:
 
@@ -322,6 +322,7 @@ This approach is suitable if:
 
 * You have historical data you wish to keep
 * You can afford a pause in processing of messages
+* You don't use Schema Registry
 
 Follow these steps:
 
@@ -341,6 +342,7 @@ This approach is suitable if:
 * You have historical data you wish to keep
 * You can't afford a pause in processing of messages
 * Your messages are not idempotent
+* You require migrating Schemas in sync with migrating messages
 
 Follow these steps:
 
