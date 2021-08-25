@@ -125,6 +125,7 @@ nav:
       - Anti-virus Scanning: security/antivirus.md
     - Addons:
       - Leader Election: addons/leader-election.md
+      - Snorlax: addons/snorlax.md
       - Unleash (feature toggling): addons/unleash.md
       - Velero backup and restore: addons/velero-backup-and-restore.md
     - Legacy:
