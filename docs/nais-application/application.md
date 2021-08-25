@@ -905,7 +905,22 @@ Required: `false`<br />
     ``` yaml
     spec:
       elastic:
+        access: readwrite
         instance: my-elastic-instance
+    ```
+
+### elastic.access
+Access level for elastic user
+
+Type: `enum`<br />
+Required: `false`<br />
+Allowed values: `admin`, `read`, `readwrite`, `write`<br />
+
+??? example
+    ``` yaml
+    spec:
+      elastic:
+        access: readwrite
     ```
 
 ### elastic.instance
