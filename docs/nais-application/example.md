@@ -232,6 +232,9 @@ spec:
     port: 80
     protocol: http
   skipCaBundle: true
+  snorlax:
+    noSuspendCron: '* 07-17 * * 1-5'
+    strategy: enabled
   startup:
     failureThreshold: 10
     initialDelay: 20

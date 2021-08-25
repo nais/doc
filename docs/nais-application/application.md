@@ -3496,6 +3496,48 @@ Required: `false`<br />
       skipCaBundle: true
     ```
 
+## snorlax
+Snorlax defines some instructions which might help save costs. Only used in the development cluster on GCP.
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      snorlax:
+        noSuspendCron: '* 07-17 * * 1-5'
+        strategy: enabled
+    ```
+
+### snorlax.noSuspendCron
+If specified, the app will not be suspended within the time specified. This will not automatically start the application.
+
+Type: `string`<br />
+Required: `false`<br />
+Pattern: `((((\d+,)+\d+|(\d+(\/|-)\d+)|\d+|\*) ?){5,7})?`<br />
+
+??? example
+    ``` yaml
+    spec:
+      snorlax:
+        noSuspendCron: '* 07-17 * * 1-5'
+    ```
+
+### snorlax.strategy
+Strategy blah blah. Defaults to disabled.
+
+Type: `enum`<br />
+Required: `false`<br />
+Allowed values: _(empty string)_, `disabled`, `enabled`<br />
+
+??? example
+    ``` yaml
+    spec:
+      snorlax:
+        strategy: enabled
+    ```
+
 ## startup
 Kubernetes uses startup probes to know when a container application has started. If such a probe is configured, it disables liveness and readiness checks until it succeeds, making sure those probes don't interfere with the application startup. This can be used to adopt liveness checks on slow starting containers, avoiding them getting killed by Kubernetes before they are up and running.
 
