@@ -4,34 +4,40 @@ description: Automatic authentication, token validation, and login/logout for ID
 
 # ID-porten sidecar
 
-!!! warning "Status: Opt-In Open Beta"
+!!! warning "Status: Alpha"
     This feature is only available in [team namespaces](../../../clusters/team-namespaces.md)
+
+## Description
+
+Automatic handling of ID-porten login, callback, logout, and front channel logout.
 
 Prerequisite: [enable ID-porten for your application](README.md).
 
-Enabling the ID-porten sidecar feature will inject a sidecar container into all
-of your application pods.  The sidecar will intercept and proxy all HTTP
-traffic to the application.  If the user is successfully authenticated with
-ID-porten, the following header will be present in all requests to the
-application, where `<JWT>` is a valid OAuth2 access token from ID-porten:
+All HTTP requests to the application will be intercepted by a sidecar ("wonderwall"), and checked for valid ID-porten credentials.
+When a user successfully logs in, the ID and access tokens are validated according to the
+[OIDC specification](https://docs.digdir.no/oidc_guide_idporten.html).
+If the tokens are valid, an `Authentication` header is added to the request, which is then forwarded to the application container.
 
 ```
-Authentication: Bearer <JWT>
+Authentication: Bearer JWT_ACCESS_TOKEN
 X-Pwned-By: wonderwall
 ```
 
-If the user _does not_ have a valid ID-porten session, the sidecar guarantees that no requests have
-the `Authentication` header.
+## Notes
 
-In order to obtain a valid ID-porten session, the application must redirect the user to `<INGRESS>/oauth2/login`.
+* The ID-porten access token can be exchanged for a TokenX token.
+* The `Authentication` header is removed from the original request if the user _does not_ have a valid ID-porten session.
+* When you must authenticate a user, redirect to `https://app.ingress/oauth2/login`.
+* All HTTP requests to `/oauth2` are owned by the sidecar and will never be forwarded to the application.
 
-All HTTP requests to `/oauth2` are owned by the sidecar and will never be forwarded to the application.
+The sidecar provides these endpoints under `https://app.ingress`:
 
-When a user successfully logs in, the ID token and access tokens are validated according to the
-[OIDC specification](https://docs.digdir.no/oidc_guide_idporten.html).
+* `/oauth2/login` redirects the user to ID-porten.
+* `/oauth2/callback` retrieves and validates ID-porten tokens.
+* `/oauth2/logout` logs out the user globally.
+* `/oauth2/logout/frontchannel` implements front channel logout.
 
-
-### Getting Started
+## Spec
 
 === "nais.yaml"
     ```yaml
@@ -40,7 +46,5 @@ When a user successfully logs in, the ID token and access tokens are validated a
         sidecar:
           enabled: true
     ```
-
-### Spec
 
 See the [NAIS manifest](../../../nais-application/application.md#idportensidecar).
