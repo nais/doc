@@ -2383,7 +2383,10 @@ Pattern: `^\/.*$`<br />
     ```
 
 ### idporten.redirectURI
-*DEPRECATED*. Prefer using `redirectPath`.
+Use `redirectPath` instead.
+
+!!! failure "Deprecated"
+    This feature is deprecated, preserved only for backwards compatibility.
 
 Type: `string`<br />
 Required: `false`<br />
@@ -2413,8 +2416,10 @@ Value range: `3600`-`7200`<br />
     ```
 
 ### idporten.sidecar
-Sidecar configures a sidecar that intercepts requests and performs the OIDC flow if necessary. 
- **EXPERIMENTAL, NOT PRODUCTION READY**
+Sidecar configures a sidecar that intercepts requests and performs the OIDC flow if necessary.
+
+!!! warning "Experimental feature"
+    This feature has not undergone much testing, and is subject to API change, instability, or removal.
 
 Type: `object`<br />
 Required: `false`<br />
