@@ -13,7 +13,7 @@ Other services needs to be manually removed, such as:
 
 - [Kafka](../persistence/kafka.md#permanently-deleting-topic-and-data)
 - [Postgres](../persistence/postgres.md#deleting-the-database)
-- [ID-porten](../security/auth/idporten.md#permanently-deleting-a-client)
+- [ID-porten](../security/auth/idporten/README.md#permanently-deleting-a-client)
 - [Maskinporten](../security/auth/maskinporten/client.md#permanently-deleting-a-client)
 
 ## FAQ

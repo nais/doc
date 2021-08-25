@@ -36,7 +36,7 @@ description: Enabling zero trust on the application layer
 
     There are primarily two distinct cases where one must use TokenX:
 
-    1. You have a user facing app using [ID-porten](idporten.md) that should perform calls to another app on behalf of a user.
+    1. You have a user facing app using [ID-porten](idporten/README.md) that should perform calls to another app on behalf of a user.
     2. You have an app receiving tokens issued from Tokendings and need to call another app while still propagating the original user context.
 
 ???+ info "Overview of flow"
@@ -215,7 +215,7 @@ Tokendings will then issue an `access_token` in JWT format, based on the paramet
 #### Prerequisites
 
 * You have a _subject token_ in the form of an `access_token` issued by one of the following providers:
-    - [ID-porten](idporten.md)
+    - [ID-porten](idporten/README.md)
     - Tokendings
     - [Loginservice](../../../legacy/sunset/#loginservice) (Remember that loginservice is a legacy system. TokenX accept their tokens to ease migration away from on-prem.)
 * You have a [client assertion](tokenx.md#client-authentication) that _authenticates_ your application.
@@ -252,7 +252,7 @@ The request should then sent to the `token_endpoint` of Tokendings, the value of
 !!! info
     See [frontend-dings](https://github.com/nais/frontend-dings) for a complete example that illustrates:
 
-    * end-user authentication through [ID-porten](idporten.md)
+    * end-user authentication through [ID-porten](idporten/README.md)
     * token exchange with the user's `access_token`
     * calling a protected API using the exchanged token
 
@@ -303,7 +303,7 @@ To extract such non-standard information from tokens, first use the `idp` claim 
 
 #### Example Token \(exchanged from ID-porten\)
 
-The following example shows the claims of a token issued by Tokendings, where the exchanged subject token is issued by [ID-porten](idporten.md):
+The following example shows the claims of a token issued by Tokendings, where the exchanged subject token is issued by [ID-porten](idporten/README.md):
 
 ???+ example 
     ```javascript

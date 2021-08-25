@@ -110,7 +110,9 @@ nav:
           - FAQ / Troubleshooting: security/auth/azure-ad/faq-troubleshooting.md
           - Operations: security/auth/azure-ad/operations.md
           - Legacy: security/auth/azure-ad/legacy.md
-        - ID-porten: security/auth/idporten.md
+        - ID-porten:
+          - Intro: security/auth/idporten/README.md
+          - Sidecar: security/auth/idporten/sidecar.md
         - Maskinporten:
           - Intro: security/auth/maskinporten/README.md
           - Client: security/auth/maskinporten/client.md
