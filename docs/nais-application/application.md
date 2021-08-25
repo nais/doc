@@ -2329,7 +2329,10 @@ Pattern: `^\/.*$`<br />
     ```
 
 ### idporten.frontchannelLogoutURI
-*DEPRECATED*. Prefer using `frontchannelLogoutPath`.
+Prefer using `frontchannelLogoutPath`.
+
+!!! failure "Deprecated"
+    This feature is deprecated, preserved only for backwards compatibility.
 
 Relevant information:
 
@@ -2416,10 +2419,15 @@ Value range: `3600`-`7200`<br />
     ```
 
 ### idporten.sidecar
-Sidecar configures a sidecar that intercepts requests and performs the OIDC flow if necessary.
+Sidecar configures a sidecar that intercepts every HTTP request, and performs the OIDC flow if necessary. All requests to ingress + `/oauth2` will be processed only by the sidecar, whereas all other requests will be proxied to the application. 
+ If the client is authenticated with IDPorten, the `Authorization` header will be set to `Bearer <JWT>`.
 
 !!! warning "Experimental feature"
     This feature has not undergone much testing, and is subject to API change, instability, or removal.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/idporten/sidecar/](https://doc.nais.io/security/auth/idporten/sidecar/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -2433,6 +2441,8 @@ Required: `false`<br />
     ```
 
 #### idporten.sidecar.enabled
+Enable the sidecar.
+
 Type: `boolean`<br />
 Required: `true`<br />
 
