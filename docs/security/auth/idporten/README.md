@@ -5,7 +5,7 @@ description: Enabling public-facing authentication using ID-porten.
 # ID-porten
 
 !!! warning "Status: Opt-In Open Beta"
-    This feature is only available in [team namespaces](../../clusters/team-namespaces.md)
+    This feature is only available in [team namespaces](../../../clusters/team-namespaces.md)
 
 !!! warning "Forthcoming changes"
     ID-porten is currently undergoing some [changes](https://docs.digdir.no/oidc_protocol_nye_idporten.html). These changes will roll out in the coming months.
@@ -21,7 +21,7 @@ description: Enabling public-facing authentication using ID-porten.
 
     An ID-porten client allows your application to leverage ID-porten for authentication of citizen end-users, providing sign-in capabilities with single sign-on \(SSO\). To achieve this, your application must implement [OpenID Connect with the Authorization Code](https://docs.digdir.no/oidc_guide_idporten.html) flow.
 
-    This is also a critical first step in request chains involving an end-user whose identity and permissions should be propagated through each service/web API when accessing services in NAV using the [OAuth 2.0 Token Exchange](https://www.rfc-editor.org/rfc/rfc8693.html) protocol. See the [TokenX documentation](tokenx.md) for details.
+    This is also a critical first step in request chains involving an end-user whose identity and permissions should be propagated through each service/web API when accessing services in NAV using the [OAuth 2.0 Token Exchange](https://www.rfc-editor.org/rfc/rfc8693.html) protocol. See the [TokenX documentation](../tokenx.md) for details.
 
 !!! info
     **See the** [**NAV Security Guide**](https://security.labs.nais.io/) **for NAV-specific usage of this client.**
@@ -63,7 +63,7 @@ description: Enabling public-facing authentication using ID-porten.
 
 ### Spec
 
-See the [NAIS manifest](../../nais-application/application.md#idporten).
+See the [NAIS manifest](../../../nais-application/application.md#idporten).
 
 ### Access Policies
 
@@ -71,7 +71,7 @@ ID-porten is a third-party service outside of our clusters, which is not reachab
 
 #### Google Cloud Platform \(GCP\)
 
-The following [outbound external hosts](../../nais-application/access-policy.md#external-services) are automatically added when enabling this feature:
+The following [outbound external hosts](../../../nais-application/access-policy.md#external-services) are automatically added when enabling this feature:
 
 * `oidc-ver2.difi.no` in development
 * `oidc.difi.no` in production
@@ -80,7 +80,7 @@ You do not need to specify these explicitly.
 
 #### On-premises
 
-You must enable and use [`webproxy`](../../nais-application/application.md#webproxy) for external communication.
+You must enable and use [`webproxy`](../../../nais-application/application.md#webproxy) for external communication.
 
 ### Ingresses
 

@@ -905,7 +905,22 @@ Required: `false`<br />
     ``` yaml
     spec:
       elastic:
+        access: readwrite
         instance: my-elastic-instance
+    ```
+
+### elastic.access
+Access level for elastic user
+
+Type: `enum`<br />
+Required: `false`<br />
+Allowed values: `admin`, `read`, `readwrite`, `write`<br />
+
+??? example
+    ``` yaml
+    spec:
+      elastic:
+        access: readwrite
     ```
 
 ### elastic.instance
@@ -2245,6 +2260,8 @@ Required: `false`<br />
         redirectPath: /oauth2/callback
         redirectURI: https://myapplication.nav.no/oauth2/callback
         sessionLifetime: 7200
+        sidecar:
+          enabled: true
     ```
 
 ### idporten.accessTokenLifetime
@@ -2312,7 +2329,10 @@ Pattern: `^\/.*$`<br />
     ```
 
 ### idporten.frontchannelLogoutURI
-*DEPRECATED*. Prefer using `frontchannelLogoutPath`.
+Prefer using `frontchannelLogoutPath`.
+
+!!! failure "Deprecated"
+    This feature is deprecated, preserved only for backwards compatibility.
 
 Relevant information:
 
@@ -2366,7 +2386,10 @@ Pattern: `^\/.*$`<br />
     ```
 
 ### idporten.redirectURI
-*DEPRECATED*. Prefer using `redirectPath`.
+Use `redirectPath` instead.
+
+!!! failure "Deprecated"
+    This feature is deprecated, preserved only for backwards compatibility.
 
 Type: `string`<br />
 Required: `false`<br />
@@ -2393,6 +2416,42 @@ Value range: `3600`-`7200`<br />
     spec:
       idporten:
         sessionLifetime: 7200
+    ```
+
+### idporten.sidecar
+Sidecar configures a sidecar that intercepts every HTTP request, and performs the OIDC flow if necessary. All requests to ingress + `/oauth2` will be processed only by the sidecar, whereas all other requests will be proxied to the application. 
+ If the client is authenticated with IDPorten, the `Authorization` header will be set to `Bearer <JWT>`.
+
+!!! warning "Experimental feature"
+    This feature has not undergone much testing, and is subject to API change, instability, or removal.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/idporten/sidecar/](https://doc.nais.io/security/auth/idporten/sidecar/)
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      idporten:
+        sidecar:
+          enabled: true
+    ```
+
+#### idporten.sidecar.enabled
+Enable the sidecar.
+
+Type: `boolean`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      idporten:
+        sidecar:
+          enabled: true
     ```
 
 ## image

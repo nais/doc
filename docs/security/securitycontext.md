@@ -44,8 +44,8 @@ ns=$1
 [ "$ns" == "" ] && exit 1
 echo "namespace: $ns"
 for app in $(kubectl get app -n "$ns" -o name); do
-    kubectl annotate app "$app" -n "$ns" nais.io/restricted="true"
-    kubectl -n "$ns"  patch "$app" -p '[{"op": "remove", "path": "/status/synchronizationHash"}]' --type=json
+    kubectl annotate "$app" -n "$ns" nais.io/restricted="true"
+    kubectl -n "$ns" patch "$app" -p '[{"op": "remove", "path": "/status/synchronizationHash"}]' --type=json
 done
 ```
 

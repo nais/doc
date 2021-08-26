@@ -19,7 +19,7 @@ As OAuth 2.0, OpenID Connect, and the variety of "flows" within those specificat
 
 ### Citizen-facing applications
 
-See [ID-porten](idporten.md) and [TokenX](tokenx.md)
+See [ID-porten](idporten/README.md) and [TokenX](tokenx.md)
 
 ### Employee-facing applications
 

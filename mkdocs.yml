@@ -87,16 +87,17 @@ nav:
       - Tracing: observability/tracing.md
     - Persistence:
       - Responsibilities: persistence/responsibilities.md
-      - GCP storage alternatives:
-        - Buckets: persistence/buckets.md
-        - Postgres: persistence/postgres.md
-        - BigQuery: persistence/bigquery.md
-      - Elastic Search: persistence/elastic-search.md
-      - Influxdb: persistence/influxdb.md
-      - S3 object store: persistence/objectstore.md
+      - Kafka: persistence/kafka.md
+      - Google Cloud Storage/Buckets: persistence/buckets.md
+      - Google Cloud SQL (postgres): persistence/postgres.md
+      - Google BigQuery: persistence/bigquery.md
+      - ElasticSearch: persistence/elastic-search.md
+      - InfluxDB: persistence/influxdb.md
+      - S3 objectstore: persistence/objectstore.md
       - Redis: persistence/redis.md
       - On-premises disk: persistence/volume-storage.md
       - MQ: persistence/mq.md
+      - MongoDB in GCP: persistence/mongodb-in-gcp.md
     - Security:
       - AuthN & AuthZ:
         - Authentication & Authorization Overview: security/auth/README.md
@@ -109,7 +110,9 @@ nav:
           - FAQ / Troubleshooting: security/auth/azure-ad/faq-troubleshooting.md
           - Operations: security/auth/azure-ad/operations.md
           - Legacy: security/auth/azure-ad/legacy.md
-        - ID-porten: security/auth/idporten.md
+        - ID-porten:
+          - Intro: security/auth/idporten/README.md
+          - Sidecar: security/auth/idporten/sidecar.md
         - Maskinporten:
           - Intro: security/auth/maskinporten/README.md
           - Client: security/auth/maskinporten/client.md
@@ -123,9 +126,8 @@ nav:
         - Vault: security/secrets/vault.md
       - Anti-virus Scanning: security/antivirus.md
     - Addons:
-      - Kafka: addons/kafka.md
       - Leader Election: addons/leader-election.md
-      - MongoDB in GCP: addons/mongodb-in-gcp.md
+      - Snorlax: addons/snorlax.md
       - Unleash (feature toggling): addons/unleash.md
       - Velero backup and restore: addons/velero-backup-and-restore.md
     - Legacy:

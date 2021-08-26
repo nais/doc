@@ -1,5 +1,8 @@
 # Influxdb
 
+!!! info "Aiven discontinues InfluxDB"
+    Aiven has informed us that they will discontinue support for InfluxDB. The timeline is yet to be confirmed, but could be as early as end-of-year 2022. Talk to us in NAIS before starting to use InfluxDB
+
 The NAIS platform offers Influxdb via [Aiven](https://aiven.io/). A typical use case is to store metrics from your app and visualize them in [Grafana](https://grafana.adeo.no/).
 
 ## Get your own instance

@@ -11,9 +11,9 @@ This will remove the application/pods from the cluster, do some minor cleaning (
 
 Other services needs to be manually removed, such as:
 
-- [Kafka](../addons/kafka.md#permanently-deleting-topic-and-data)
+- [Kafka](../persistence/kafka.md#permanently-deleting-topic-and-data)
 - [Postgres](../persistence/postgres.md#deleting-the-database)
-- [ID-porten](../security/auth/idporten.md#permanently-deleting-a-client)
+- [ID-porten](../security/auth/idporten/README.md#permanently-deleting-a-client)
 - [Maskinporten](../security/auth/maskinporten/client.md#permanently-deleting-a-client)
 
 ## FAQ
