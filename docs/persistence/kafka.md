@@ -131,7 +131,7 @@ When a `Topic` resource is deleted from a Kubernetes cluster, the Kafka topic is
         kafka.nais.io/removeDataWhenResourceIsDeleted: "true"
     ```
 
-When this annotation is in place, deleting the topic resource from Kubernetes will trigger data removal.
+When this annotation is in place, deleting the topic resource from Kubernetes will also delete the Kafka topic and all of its data.
 
 ## Accessing topics from an application
 
