@@ -5,13 +5,21 @@ The NAIS platform offers Elastic Search via [Aiven](https://aiven.io/).
 ## Get your own
 As there are few teams that need an Elastic Search instance we use a IaC-repo to provision each instance.
 Head over to [aiven-iac](https://github.com/navikt/aiven-iac#elastic-search) to learn how to get your own instance.
-
-### Username and password
-For now we are manually distributing the username and password for each instance.
-To make it easier for you, we're making four different users: admin, read, write, read/write.
+To make it easier for you, when creating the instance, we will also create four users with read, write, readwrite and admin access.
 
 ## Access from Nais-app
-If you need access from an application, use the following [nais.yaml-reference](../nais-application/application.md#elasticinstance).
+If you need access from an application, use the following [nais.yaml-reference](../nais-application/application.md#elastic).
+
+When an application requesting an elastic instance is deployed, credentials will be provided as environment variables.
+The service URI for Elastic is also available.
+If you specify `elastic.access`, the credentials will be for the user with those access rights.
+If not specified, the credentials will be for a user with read access.
+
+| Environment variable | Description |
+| -------------------- | ----------- |
+| ELASTIC_USERNAME     | Username    |
+| ELASTIC_PASSWORD     | Password    |
+| ELASTIC_URI          | Service URI |
 
 ## Access from laptop
 With Naisdevice you have access to the _aiven-prod_ gateway.
