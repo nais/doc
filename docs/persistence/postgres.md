@@ -191,6 +191,11 @@ Databases should always be accessed using a personal account, and the access sho
     psql -U postgres -h localhost <DATABASE_NAME> -W
     ```
 
+    If you are using Cloud SQL Auth proxy v1.21.0 or newer you can get the token in the cloud_sql_proxy command so you can run the psql-command without the -W parameter:
+    ```bash
+    cloud_sql_proxy -enable_iam_login -instances=${CONNECTION_NAME}=tcp:5432
+    ```
+
 ???+ check "Step 3c. Enable privileges for user(s) in database"
 
     This can be enabled for all `cloudsqliamusers` (all IAM users are assigned the role `cloudsqliamuser`) with the following command: 
