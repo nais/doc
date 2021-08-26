@@ -106,13 +106,13 @@ https://my.application.ingress/oauth2/callback
 
 If you wish to use a different path than the default, you may do so by manually specifying `spec.idporten.redirectPath`.
 
-### Logout URIs
+## Logout URIs
 
 !!! warning
     When integrating with ID-porten, you are **required** to correctly implement proper logout functionality.
     Refer to the [documentation at DigDir](https://docs.digdir.no/oidc_func_sso.html) for further details.
 
-#### Self-initiated Logout
+### Self-initiated Logout
 
 [When logout is initiated from your client](https://docs.digdir.no/oidc_func_sso.html#1-utlogging-fra-egen-tjeneste), you must redirect the given user to ID-porten's `endsession`-endpoint.
 
@@ -120,7 +120,7 @@ ID-porten will then log the user out from all other services connected to the sa
 
 If the optional parameters `id_token_hint` and `post_logout_redirect_uri` are set in the request, ID-porten will redirect the user to the specified URI given that the URI is registered for the client. 
 
-#### Front-channel Logout
+### Front-channel Logout
 
 [Front-channel logouts](https://docs.digdir.no/oidc_func_sso.html#2-h%C3%A5ndtere-utlogging-fra-id-porten) are logouts initiated by _other_ ID-porten clients. 
 
