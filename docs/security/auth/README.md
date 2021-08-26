@@ -2,7 +2,7 @@
 description: Services and addons to support authentication (AuthN) & authorization (AuthZ)
 ---
 
-# AuthN & AuthZ
+# Authentication and Authorization - Overview
 
 ## Introduction to OAuth 2.0 / OpenID Connect
 

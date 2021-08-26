@@ -100,7 +100,7 @@ nav:
       - MongoDB in GCP: persistence/mongodb-in-gcp.md
     - Security:
       - Auth:
-        - Authentication & Authorization Overview: security/auth/README.md
+        - Auth Overview: security/auth/README.md
         - Azure AD:
           - Intro: security/auth/azure-ad/README.md
           - Concepts: security/auth/azure-ad/concepts.md
