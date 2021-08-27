@@ -56,12 +56,25 @@ The sidecar provides these endpoints under `https://app.ingress`:
 
 ## Usage
 
-- When you must authenticate a user, redirect to `https://app.ingress/oauth2/login`.
-- Redirects after successful authentication follow these rules in ascending priority:
-    1. `/` (default).
-    2. The URL set in the `Referer` header.
-    3. The URL or relative path set in the query parameter `redirect`, e.g. `https://app.ingress/oauth2/login?redirect=/some/path`.
-- The ID-porten access token can be exchanged for a [TokenX](../tokenx.md) token.
+### Authenticate a user
+
+When you must authenticate a user, redirect to `https://app.ingress/oauth2/login`.
+
+### Redirect after authentication
+
+Redirects after successful authentication follow these rules in ascending priority:
+
+1. `/` (default).
+2. The URL set in the `Referer` header.
+3. The URL or relative path set in the query parameter `redirect`, e.g. `https://app.ingress/oauth2/login?redirect=/some/path`.
+
+The host and scheme (if provided) are stripped from the redirect URL, which effectively only allows 
+redirects to paths within your own ingress.
+
+### Calling downstream APIs
+
+The ID-porten access token can be exchanged for a [TokenX](../tokenx.md) token. 
+The TokenX token can then be used when calling downstream APIs.
 
 ## Responsibilities and Guarantees
 
