@@ -13,6 +13,7 @@ If you need access from an application, use the following [nais.yaml-reference](
 When an application requesting an elastic instance is deployed, credentials will be provided as environment variables.
 The service URI for Elastic is also available.
 If you specify `elastic.access`, the credentials will be for the user with those access rights.
+The available access levels are: 'admin', 'read', 'write', 'readwrite'
 If not specified, the credentials will be for a user with read access.
 
 | Environment variable | Description |
