@@ -59,8 +59,9 @@ nav:
       - Overview: nais-application/README.md
       - Full example: nais-application/example.md
       - Reference: nais-application/application.md
-      - Access Policy: nais-application/access-policy.md
-      - Automatic Scaling: nais-application/automatic-scaling.md
+      - Access policy: nais-application/access-policy.md
+      - Automatic scaling: nais-application/automatic-scaling.md
+      - Config reloading: nais-application/config-reloading.md
       - Ingress customization: nais-application/ingress.md
       - Linkerd/sidecar customization: nais-application/linkerd.md
     - Naisjob:
