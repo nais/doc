@@ -16,6 +16,27 @@ In these cases the nais team operates the resources and is responsible for the s
 In other cases the product teams provision their own resources directly from the underlying vendors. 
 In these cases, the product teams have greater direct control over the service. The division of responsibility in the different cases is best described through examples:
 
+## About security and privacy when using platform services
+
+In general, the necessary agreements and assessments regarding security and privacy for use of the NAIS platform in GCP are in place.
+A summary can be found in: [NAIS on GCP - privacy and security](https://navno.sharepoint.com/:w:/r/sites/Skystrategi817/Shared%20Documents/General/Personvern%20og%20sikkerhet/GCP/NAIS%20(GCP)%20-%20personvern%20og%20sikkerhet.docx?d=wd94444c57c0348b9b7ab34863488c684&csf=1&web=1&e=j3dUzd). 
+This document is only available for NAV employees and in Norwegian.
+
+A security assessment ([*ROS*](/legal/app-ros)) has been carried out covering the services that NAIS offers.
+Teams that wish to use NAIS are responsible for assessing whether the security is sufficient for their use.
+Most safety assessments are documented in the PowerApps application [TryggNok](https://navno.sharepoint.com/sites/intranett-it/SitePages/Skal-du-bruke-TryggNok-for-f%C3%B8rste-gang-.aspx) (internal link).
+[Contact the NAIS team](#contact-the-nais-team) if you can't find a relevant security assessment.
+
+In NAV, we conduct Privacy Impact Assessments ([*PVK*](/legal/app-pvk)) to document that we operate in accordance with GDPR. 
+Each team must have a PVK that covers any processing of personal data that may occur in their applications.
+
+Adopting a new technology may also impact privacy, in which case the team should update their PVK.
+ROS will often include information security, and can provide support in the completion of the PVK.
+
+If the team wants to process personal data in a new way, the existing PVK might not cover that purpose.
+This requires a new PVK in order to document the purpose and legal grounds for the treatment.
+A legal coach from "juridisk seksjon" can assist with such an assessment.
+
 ## Postgres on GCP
 
 - Developers are responsible for their own credentials
