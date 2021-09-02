@@ -45,10 +45,10 @@ nav:
   - NAIS:
     - Introduction to NAIS: README.md
     - Getting started:
-      - Concepts: 
+      - Background: 
+        - nais.yaml: basics/nais-yaml.md
         - Clusters: basics/clusters.md
         - Teams: basics/teams_overview.md
-        - nais.yaml: basics/nais-yaml.md
       - Access from laptop: basics/access.md
       - Teams: basics/teams.md
       - Your first NAIS application: basics/application.md

@@ -12,3 +12,8 @@ The on-call service is rotated, the person on-call can be found in the Slack use
 The on-call phone number can be found in the header of the [NAIS Slack](https://nav-it.slack.com/archives/C5KUST8N6).
 
 Response time for a request should be no more than 30 minutes for Slack mentions (@nais-vakt).
+
+### Would your team like to work more closely with NAIS?
+If your team would like closer follow-up for a period (or permanently), we would happily dedicate someone from NAIS as your NAM(s) - short for "NAIS Account Managers".
+This means we will create a dedicated Slack channel for NAIS/team-communication and have meetings if required to discuss your concerns, issues, or wishes for the platform.
+
