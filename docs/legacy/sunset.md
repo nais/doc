@@ -48,7 +48,9 @@ Det er ønskelig at de applikasjonene som har mulighet heller benytter Aiven Kaf
 
 Det er dog støtte for MQ fra nais-klusterne on-premises og i GCP, men da kun med nye MQ-servere som er satt opp med autentisering. 
 
-*Bruk av ikke-autentisert MQ er definert som et alvorlig sikkerhetshull*. Vi ønsker at alle migrerer sine applikasjoner til enten autentisert MQ, eller aller helst Kafka, så fort som mulig. 
+*Bruk av ikke-autentisert MQ er definert som et alvorlig sikkerhetshull*. 
+Vi ønsker at alle migrerer sine applikasjoner til enten autentisert MQ, eller aller helst Kafka, så fort som mulig. 
+Bruk av ikke-autentisert MQ vil ikke være mulig fra nais-klusterne fra og med 01.12.2021. 
 
 ### Rook/Ceph
 
