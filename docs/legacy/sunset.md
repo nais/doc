@@ -49,7 +49,7 @@ Det er ønskelig at de applikasjonene som har mulighet heller benytter Aiven Kaf
 
 Det er dog støtte for MQ fra nais-klusterne on-premises og i GCP, men da kun med nye MQ-servere som er satt opp med autentisering. 
 
-Bruk av ikke-autentisert MQ vil ikke være mulig fra nais-klusterne fra og med første september (01.09.2021). 
+Bruk av ikke-autentisert MQ vil ikke være mulig fra nais-klusterne fra og med 01.12.2021. 
 
 ### Rook/Ceph
 
