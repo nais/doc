@@ -8,13 +8,12 @@ nais-clustrene `dev-sbs` og `prod-sbs`, også kjent som "selvbetjeningssonen" ø
 
 - automatisk provisjonering av databaser og bøtter
 - bedre sikkerhet og mer robuste mønster for app-til-app kommunikasjon
-- tilgang på tracing med Jaeger og Kiali. 
 - bedre applikasjonsmetrikker, for eksempel på kall inn og ut av appen
 - helautomatisert konfigurasjon når en app skal eksponeres
 
 For brukere av nais betyr det at nye applikasjoner skal legges til GCP fremfor SBS, og at eksisterende applikasjoner i SBS på sikt må migreres til GCP.
 
-Vi har hatt en ambisjon om at nais-sbs skal skrus av før sommeren 2021, men siden vi ser at enkelte team vil ha problemer med å migrere før dette kommer vi ikke til å ha dette som en hard deadline. Vi vil likevel oppfordre alle som har mulighet til å migrere ut av SBS allerede nå.
+Vi hadde tidligere en ambisjon om at nais-sbs skulle skrus av før sommeren 2021, men siden vi så at enkelte team ville ha problemer med å migrere før det har vi gått vekk fra en hard deadline for dette. Vi vil likevel oppfordre alle som har mulighet til å migrere ut av SBS så snart som mulig.
 
 
 
@@ -49,6 +48,8 @@ Det er ønskelig at de applikasjonene som har mulighet heller benytter Aiven Kaf
 
 Det er dog støtte for MQ fra nais-klusterne on-premises og i GCP, men da kun med nye MQ-servere som er satt opp med autentisering. 
 
+*Bruk av ikke-autentisert MQ er definert som et alvorlig sikkerhetshull*. 
+Vi ønsker at alle migrerer sine applikasjoner til enten autentisert MQ, eller aller helst Kafka, så fort som mulig. 
 Bruk av ikke-autentisert MQ vil ikke være mulig fra nais-klusterne fra og med 01.12.2021. 
 
 ### Rook/Ceph
@@ -82,8 +83,7 @@ Det er enkelt for oss å oppgradere til nyere versjoner av Kafka, og vi drar nyt
 Som følge av Aivens gode APIer er det også mulig for NAIS å integrere Kafka tettere i plattformen, og vi har flere muligheter for videreutvikling.
 Kombinasjonen av Aiven Kafka og Kafkarator gjør det betydelig enklere for team å ta i bruk Aiven Kafka sammenlignet med Kafka onprem.
 
-Vi har hatt en ambisjon om at Kafka onprem skal skrus av før sommeren 2021, men siden vi ser at enkelte team vil ha problemer med å migrere før dette kommer vi ikke til å ha dette som en hard deadline.
-Vi vil likevel oppfordre alle som har mulighet til å migrere til Aiven Kafka allerede nå.
+Vi hadde tidligere en ambisjon om at Kafka onprem skulle skrus av før sommeren 2021, men siden vi så at enkelte team ville ha problemer med å migrere før det har vi gått vekk fra en hard deadline for dette. Vi vil likevel oppfordre alle som har mulighet til å migrere til Aiven Kafka så snart som mulig.
 
 Vi har allikevel besluttet at vi stenger for å opprette nye topics i Kafka onprem fra 1. juni 2021. 
 Hypotesen er at siden det allikevel er et nytt topic, så er det både enklere og mer fremtidsrettet om det opprettes på Aiven Kafka, og vi ønsker å redusere mengden data som går gjennom Kafka onprem.
