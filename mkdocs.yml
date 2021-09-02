@@ -45,6 +45,10 @@ nav:
   - NAIS:
     - Introduction to NAIS: README.md
     - Getting started:
+      - Background: 
+        - nais.yaml: basics/nais-yaml.md
+        - Clusters: basics/clusters.md
+        - Teams: basics/teams_overview.md
       - Access from laptop: basics/access.md
       - Teams: basics/teams.md
       - Your first NAIS application: basics/application.md
@@ -137,7 +141,7 @@ nav:
     - Appendix:
       - Zero-Trust Network Architecture: appendix/zero-trust.md
       - Ingress DNS setup: appendix/ingress-dns.md
-      - What is production ready?: appendix/production-ready.md
+    - Support: support.md
   - naisdevice:
     - naisdevice Overview: device/README.md
     - Installation: device/install.md

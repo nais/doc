@@ -26,7 +26,5 @@ See https://github.com/features/packages for more info on how to publish package
 
 For more information about the `nais.yaml` specification, see [Manifest](../nais-application/application.md).
 
-Consider reading [What is production ready?](../appendix/production-ready.md) and check that you implemented everything. Writing documentation is part of deploying to production!
-
 Now that you've created your application, it's time to [deploy to Kubernetes](../deployment/README.md).
 
