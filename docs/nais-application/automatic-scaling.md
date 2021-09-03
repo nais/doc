@@ -3,7 +3,6 @@
 !!! warning
     
     In order to use custom scaling policies and rules, make sure you disable default NAIS HPA by setting spec.replicas.min == spec.replicas.max 
-    Scaling based on custom and external metrics is only available in GCP.
 
 
 ## Scaling based on custom metrics
