@@ -1,4 +1,4 @@
-# Clusters
+### Clusters
 
 In ye olde days of yore, NAVs security model was based on network segmentation and zones.
 
@@ -28,3 +28,7 @@ And so the two GCP clusters `dev-gcp` and `prod-gcp` was born.
 There are a couple of additional clusters in GCP as well, though - `ci-gcp` for us to test changes and `labs-gcp` where the teams can experiment.
 
 ![clusters](/assets/clusters.png)
+
+## Access from laptop
+
+In the extended NAIS universe we also have a component called naisdevice. This is a cross plattform mechanism that provices access to NAIS services. The product adheres to the same principles as are decribed [here](https://honest.security) and 
