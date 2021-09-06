@@ -2,9 +2,7 @@
 # Introduction
 
 ### A top level overview of NAIS describing the larger moving parts and concepts.
-(9 minute read)
-  
-⏩ [(or you can fast forward to the nuts & bolts)](basics/access.md) 
+_(5 minute read) [(or you can fast forward to the nuts & bolts)](basics/access.md) ⏩_ 
 
 
 ## Why NAIS exists
@@ -45,18 +43,18 @@ In order to get the data they need they have to jump through several burning rin
 ![zones](assets/zones.png)
 
 ### NAIS on-premises - 🇩🇪
-_United like Germany but with artefacs that represent seperation_
+_"United like Germany but with artefacts that represent seperation"_
 
 When we started building NAIS, we built it to exist in this world, and have separate clusters in each of these two zones.
 We further divided our clusters in to development and production clusters to maintain a healthy separation.
 Thus the four clusters we've got on-premises are: `dev-fss`, `dev-sbs`, `prod-fss` and `prod-sbs` (and a fifth called nais-ci, but that's just for us to test stuff)
 
 ### NAIS GCP - 🇺🇳
-_Like the UN. Has a security council but everyone can talk to everyone_
+_"Like the UN. Has a security council but everyone can talk to everyone"_
 
 Luckily the world has moved on from zones and segmentation.
 When we built NAIS in GCP we wanted the applications to be able to communicate without jumping over hurdles and figured we'd adopt a [zero-trust-model](https://doc.nais.io/appendix/zero-trust/), where applications specify with whom they want to communicate, and who is allowed to communicate with them in their application manifest.
-And so the two GCP clusters `dev-gcp` and `prod-gcp` was born.
+And so the two GCP clusters `dev-gcp` and `prod-gcp` were born.
 There are a couple of additional clusters in GCP as well, though - `ci-gcp` for us to test changes and `labs-gcp` where the teams can experiment.
 
 ![clusters](assets/clusters.png)
