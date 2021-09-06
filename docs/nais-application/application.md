@@ -2262,6 +2262,7 @@ Required: `false`<br />
         sessionLifetime: 7200
         sidecar:
           enabled: true
+          level: Level4
     ```
 
 ### idporten.accessTokenLifetime
@@ -2438,6 +2439,7 @@ Required: `false`<br />
       idporten:
         sidecar:
           enabled: true
+          level: Level4
     ```
 
 #### idporten.sidecar.enabled
@@ -2452,6 +2454,26 @@ Required: `true`<br />
       idporten:
         sidecar:
           enabled: true
+    ```
+
+#### idporten.sidecar.level
+Desired security level for all authentication requests.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/idporten/sidecar#security-levels](https://doc.nais.io/security/auth/idporten/sidecar#security-levels)
+
+Type: `enum`<br />
+Required: `false`<br />
+Default value: `Level4`<br />
+Allowed values: `Level3`, `Level4`<br />
+
+??? example
+    ``` yaml
+    spec:
+      idporten:
+        sidecar:
+          level: Level4
     ```
 
 ## image

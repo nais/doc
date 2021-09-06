@@ -162,6 +162,7 @@ spec:
     sessionLifetime: 7200
     sidecar:
       enabled: true
+      level: Level4
   image: navikt/testapp:69.0.0
   influx:
     instance: influx-instance
