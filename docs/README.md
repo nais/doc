@@ -16,11 +16,11 @@ At the core of NAIS lies [*Kubernetes*](https://kubernetes.io), which can be des
 
 Our goal is to lift this burden from our developers, and in order to do so we've condensed the essential parts into a single configuration file that we use to generate all the underlying Kubernetes resources. In nais terms this file is most commonly referred to as [nais.yaml](https://doc.nais.io/nais-application/example/)
 
-![](assets/nais-yaml.png)
-
 The services included are (but not limited to) logging, metrics, alerts, deployment, operators and a runtime environment (across on-premis and Google Cloud Platform).
 
 To make this all happen we leverage open source projects best suited to our needs and provide them with usable abstractions, sane defaults and the required security hardening.
+
+![](assets/nais_army_knife.png)
 
 ## Clusters - 🍇
 In ye olde days of yore, NAVs security model was based on network segmentation and zones. (And if we are being honest this still holds true for parts of our operation). Our goal (and strategy) however is to move everything to "Public Cloud". So anything described as on-prem is scheduled to be taken out behind the barn at some point and new apps, services or products are destined to exist in GCP (for now). 
