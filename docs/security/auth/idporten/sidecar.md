@@ -41,6 +41,7 @@ X-Pwned-By: wonderwall
       idporten:
         sidecar:
           enabled: true
+          level: Level4
     ```
 
 See the [NAIS manifest](../../../nais-application/application.md#idportensidecar).
@@ -70,6 +71,22 @@ Redirects after successful authentication follow these rules in ascending priori
 
 The host and scheme (if provided) are stripped from the redirect URL, which effectively only allows 
 redirects to paths within your own ingress.
+
+### Security Levels
+
+ID-porten supports [different levels of security](https://eid.difi.no/en/security-and-cookies/different-levels-security)
+when authenticating users. 
+This is sent as the `acr_values` parameter to the [`/authorize` endpoint](https://docs.digdir.no/oidc_protocol_authorize.html).
+Valid values are `Level3` or `Level4`.
+
+You can set a default value for _all_ requests by specifying [`spec.idporten.sidecar.level`](../../../nais-application/application.md#idportensidecarlevel). 
+**If unspecified, the sidecar use `Level4` as the default value.**
+
+For fine-grained control of the value, set the query parameter `level` when redirecting the user to login:
+
+```
+https://app.ingress/oauth2/login?level=Level4
+```
 
 ### Calling downstream APIs
 
@@ -102,4 +119,4 @@ The following describes the contract for usage of the sidecar.
     * That is, validate the standard claims such as `iss`, `iat`, `exp`.
     * Note that the `aud` claim is _not_ set for ID-porten access tokens.
       You should instead validate that the `client_id` claim has a value equal to your ID-porten client ID.
-    * Validate that the `acr` claim exists and that the set level matches the desired security level for your endpoints.
+    * Validate that the `acr` claim exists and that the set level matches the desired [security level](#security-levels) for your endpoints.
