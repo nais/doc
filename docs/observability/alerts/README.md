@@ -127,9 +127,9 @@ spec:
 ### Writing the `expr`
 
 In order to minimize the feedback loop we suggest experimenting on the Prometheus server to find the right metric for your alert and the notification threshold.
-The Prometheus server can be found in each cluster, at `https://prometheus.{cluster.ingress}` (i.e. [https://prometheus.nais.preprod.local](https://prometheus.nais.preprod.local)).
+The Prometheus server can be found in each cluster, at `https://prometheus.{cluster.ingress}` (i.e. [https://prometheus.dev-gcp.nais.io](https://prometheus.dev-gcp.nais.io)).
 
-You can also visit the Alertmanager at `https://alertmanager.{cluster.ingress}` (i.e. [https://alertmanager.nais.preprod.local](https://alertmanager.nais.preprod.local)) to see which alerts are triggered now (you can also silence already triggered alerts).
+You can also visit the Alertmanager at `https://alertmanager.{cluster.ingress}` (i.e. [https://alertmanager.dev-gcp.nais.io](https://alertmanager.dev-gcp.nais.io)) to see which alerts are triggered now (you can also silence already triggered alerts).
 
 ### Expressive descriptions or actions
 
