@@ -23,7 +23,6 @@ To make this all happen we leverage open source projects best suited to our need
 ## Clusters - 🍇
 In ye olde days of yore, NAVs security model was based on network segmentation and zones. (And if we are being honest this still holds true for parts of our operation). Our goal (and strategy) however is to move everything to "Public Cloud". So anything described as on-prem is scheduled to be taken out behind the barn at some point and new apps, services or products are destined to exist in GCP (for now). 
 
-
 ### FSS - 🇰🇵
 _"North Korea"_
 
