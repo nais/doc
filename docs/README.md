@@ -27,10 +27,14 @@ In ye olde days of yore, NAVs security model was based on network segmentation a
 
 
 ### FSS - 🇰🇵
+_"North Korea"_
+
 Many of our older systems, and systems with a high degree of sensitive content were placed in a dedicated zone with very strict restrictions: Fagsystemsone (FSS).
 Connectivity to and from this zone is very limited - no connectivity to the internet, inbound connections have to go through security gateways. However - connectivity inside this zone is not restricted in any way, shape or form. Everyone can connect with everyone else - like a true hippie community. (As many of these applications were written in the seventies, it sort of makes sense)
 
 ### SBS - 🇸🇪
+_"Neutral zone - but lets stuff through"_
+
 There came a day when NAV discovered this thing called "the Internet", and that this was something we could use to provide Norwegian citizens with services directly.
 This created the demand for a separate zone, as allowing traffic from the internet directly in to our hippie commune called FSS seemed unwise.
 Thus Selvbetjeningssonen (SBS) was born.
@@ -40,12 +44,16 @@ In order to get the data they need they have to jump through several burning rin
 
 ![zones](assets/zones.png)
 
-### NAIS on-premises - 🇨🇭
+### NAIS on-premises - 🇩🇪
+_United like Germany but with artefacs that represent seperation_
+
 When we started building NAIS, we built it to exist in this world, and have separate clusters in each of these two zones.
 We further divided our clusters in to development and production clusters to maintain a healthy separation.
 Thus the four clusters we've got on-premises are: `dev-fss`, `dev-sbs`, `prod-fss` and `prod-sbs` (and a fifth called nais-ci, but that's just for us to test stuff)
 
 ### NAIS GCP - 🇺🇳
+_Like the UN. Has a security council but everyone can talk to everyone_
+
 Luckily the world has moved on from zones and segmentation.
 When we built NAIS in GCP we wanted the applications to be able to communicate without jumping over hurdles and figured we'd adopt a [zero-trust-model](https://doc.nais.io/appendix/zero-trust/), where applications specify with whom they want to communicate, and who is allowed to communicate with them in their application manifest.
 And so the two GCP clusters `dev-gcp` and `prod-gcp` was born.
