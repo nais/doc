@@ -16,7 +16,7 @@ Our goal is to lift this burden from our developers, and in order to do so we've
 
 ![](assets/nais_army_knife.png)
 
-The services included are (but not limited to) logging, metrics, alerts, deployment, operators and a runtime environment (across on-premis and Google Cloud Platform).
+The services included are (but not limited to) logging, metrics, alerts, deployment, operators and a runtime environment (across on-premise and Google Cloud Platform).
 
 To make this all happen we leverage open source projects best suited to our needs and provide them with usable abstractions, sane defaults and the required security hardening.
 
