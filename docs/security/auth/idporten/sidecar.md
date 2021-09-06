@@ -102,3 +102,4 @@ The following describes the contract for usage of the sidecar.
     * That is, validate the standard claims such as `iss`, `iat`, `exp`.
     * Note that the `aud` claim is _not_ set for ID-porten access tokens.
       You should instead validate that the `client_id` claim has a value equal to your ID-porten client ID.
+    * Validate that the `acr` claim exists and that the set level matches the desired security level for your endpoints.
