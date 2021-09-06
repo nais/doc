@@ -80,7 +80,7 @@ This is sent as the `acr_values` parameter to the [`/authorize` endpoint](https:
 Valid values are `Level3` or `Level4`.
 
 You can set a default value for _all_ requests by specifying [`spec.idporten.sidecar.level`](../../../nais-application/application.md#idportensidecarlevel). 
-**If unspecified, the sidecar use `Level4` as the default value.**
+**If unspecified, the sidecar will use `Level4` as the default value.**
 
 For fine-grained control of the value, set the query parameter `level` when redirecting the user to login:
 
@@ -119,4 +119,4 @@ The following describes the contract for usage of the sidecar.
     * That is, validate the standard claims such as `iss`, `iat`, `exp`.
     * Note that the `aud` claim is _not_ set for ID-porten access tokens.
       You should instead validate that the `client_id` claim has a value equal to your ID-porten client ID.
-    * Validate that the `acr` claim exists and that the set level matches the desired [security level](#security-levels) for your endpoints.
+    * Validate that the `acr` claim exists and that the set level matches the minimum [security level](#security-levels) for your endpoints.
