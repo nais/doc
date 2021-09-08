@@ -157,7 +157,18 @@ If your application stores personally identifiable information in any GCP data s
         - `https://<app>.dev-fss-pub.nais.io`
         - `https://<app>.prod-fss-pub.nais.io`
 
-    Create a pull request at <https://github.com/navikt/bigip-iac/tree/main/pub-fss> set up these ingresses.
+    Create a pull request at <https://github.com/navikt/bigip-iac/tree/main/pub-fss> add these ingresses which allows 
+    them be exposed to GCP.
+
+    The application _on-premises_ must then:
+
+    1. Add the ingress created above to the list of ingresses:
+    
+    ```yaml
+    spec:
+      ingresses:
+        - https://<app>.<dev|prod>-fss-pub.nais.io
+    ```
 
     The application _in GCP_ must then:
 
@@ -168,7 +179,7 @@ If your application stores personally identifiable information in any GCP data s
       accessPolicy:
         outbound:
           external:
-            - host: <app>.dev-fss-pub.nais.io
+            - host: <app>.<dev|prod>-fss-pub.nais.io
     ```
 
 #### How do I reach an application found on GCP from my application on-premises?
