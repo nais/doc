@@ -79,7 +79,8 @@ redirects to paths within your own ingress.
 
 ID-porten supports [different levels of security](https://eid.difi.no/en/security-and-cookies/different-levels-security)
 when authenticating users. 
-This is sent as the `acr_values` parameter to the [`/authorize` endpoint](https://docs.digdir.no/oidc_protocol_authorize.html).
+This is sent by the sidecar as the `acr_values` parameter to the [`/authorize` endpoint](https://docs.digdir.no/oidc_protocol_authorize.html).
+
 Valid values are `Level3` or `Level4`.
 
 You can set a default value for _all_ requests by specifying [`spec.idporten.sidecar.level`](../../../nais-application/application.md#idportensidecarlevel). 
@@ -89,6 +90,29 @@ For fine-grained control of the value, set the query parameter `level` when redi
 
 ```
 https://app.ingress/oauth2/login?level=Level4
+```
+
+### Locales
+
+ID-porten supports a few different locales for the user interface during authentication. 
+This is sent by the sidecar as the `ui_locales` parameter to the [`/authorize` endpoint](https://docs.digdir.no/oidc_protocol_authorize.html).
+
+Valid values shown below:
+
+| Value | Description       |
+| :---- | :---------------- |
+| `nb`  | Norwegian Bokmål  |
+| `nn`  | Norwegian Nynorsk |
+| `en`  | English           |
+| `se`  | Sámi              |
+
+You can set a default value for _all_ requests by specifying [`spec.idporten.sidecar.locale`](../../../nais-application/application.md#idportensidecarlocale).
+**If unspecified, the sidecar will use `nb` as the default value.**
+
+For fine-grained control of the value, set the query parameter `locale` when redirecting the user to login:
+
+```
+https://app.ingress/oauth2/login?locale=en
 ```
 
 ### Calling downstream APIs
