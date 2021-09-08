@@ -144,7 +144,8 @@ Databases should always be accessed using a personal account, and the access sho
     ```bash
     gcloud projects add-iam-policy-binding <project-id> \
         --member user:<your-email> \
-        --role roles/cloudsql.editor
+        --role roles/cloudsql.admin \
+        -condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
     ```
 
     where `<project-id>` can be found by running: 
@@ -229,7 +230,8 @@ Databases should always be accessed using a personal account, and the access sho
     ```bash
     gcloud projects add-iam-policy-binding <project-id> \
         --member user:<your-email> \
-        --role roles/cloudsql.admin
+        --role roles/cloudsql.admin \
+        -condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
     ```
 
     Then, to create the database IAM user:
