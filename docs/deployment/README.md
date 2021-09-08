@@ -324,6 +324,8 @@ deploy --dry-run --print-payload --resource alert.yml --vars vars.yml | jq .reso
 ]
 ```
 
+PS: Templating will not be run if you do not use `VARS` and/or `VAR`, meaning `\{{ }}` will not be handled by nais/deploy.
+
 ## Default environment variables
 
 These environment variables will be injected into your application container
