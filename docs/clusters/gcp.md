@@ -54,12 +54,12 @@ Add a new entry to `external_domains` under `rules` for `"gw-ekstern-dev-nav-no"
 ```terraform
 external_domains = {
   ...
-  "gw-dev-gcp-nais-io" = {
+  "gw-ekstern-dev-nav-no" = {
     rules = [
       ...
       {
         description = "allow access to <app>.ekstern.dev.nav.no"
-        priority    = "<previous value + 1>"
+        priority    = "<previous value, incremented by 1>"
         action      = "allow"
         expr        = "request.headers['Host'] == '<app>.ekstern.dev.nav.no'"
         preview     = false
