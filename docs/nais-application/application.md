@@ -2263,6 +2263,7 @@ Required: `false`<br />
         sidecar:
           enabled: true
           level: Level4
+          locale: nb
     ```
 
 ### idporten.accessTokenLifetime
@@ -2440,6 +2441,7 @@ Required: `false`<br />
         sidecar:
           enabled: true
           level: Level4
+          locale: nb
     ```
 
 #### idporten.sidecar.enabled
@@ -2457,7 +2459,7 @@ Required: `true`<br />
     ```
 
 #### idporten.sidecar.level
-Desired security level for all authentication requests.
+Default security level for all authentication requests.
 
 Relevant information:
 
@@ -2474,6 +2476,26 @@ Allowed values: `Level3`, `Level4`<br />
       idporten:
         sidecar:
           level: Level4
+    ```
+
+#### idporten.sidecar.locale
+Default user interface locale for all authentication requests.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/idporten/sidecar#locales](https://doc.nais.io/security/auth/idporten/sidecar#locales)
+
+Type: `enum`<br />
+Required: `false`<br />
+Default value: `nb`<br />
+Allowed values: `en`, `es`, `nb`, `nn`<br />
+
+??? example
+    ``` yaml
+    spec:
+      idporten:
+        sidecar:
+          locale: nb
     ```
 
 ## image

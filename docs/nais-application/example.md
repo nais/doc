@@ -163,6 +163,7 @@ spec:
     sidecar:
       enabled: true
       level: Level4
+      locale: nb
   image: navikt/testapp:69.0.0
   influx:
     instance: influx-instance
