@@ -58,10 +58,11 @@ sudo apt install naisdevice
     1. Pasting the following command (in any message input field) in Slack: `/msg @Kolide installers` or by,
     2. finding the "Kolide" app and directly messaging it the word `installers` (case independent).
 2. Follow Kolide's walk-through:
-    1. Select `Enroll a Device`
-    2. Select `Enroll your device`
-    3. Select `My employer owns this device` (`naisdevice` is currently _**not**_ supported on private devices).
-    4. Select platform and wait for Kolide to create your installer.
+
+     1. Select `Enroll a Device`
+     2. Select `Enroll your device`
+     3. Select platform and wait for Kolide to create your installer.
+
 3. Install the package created by Kolide in your chat with the app (named `xkxp-*-kolide-launcher.{pkg,msi,deb}`).
    There are is _no_ success feedback given by Kolide in Slack.
    No error message means that the installation was successful.
