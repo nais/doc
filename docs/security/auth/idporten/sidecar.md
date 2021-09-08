@@ -148,4 +148,4 @@ The following describes the contract for usage of the sidecar.
       You should instead validate that the `client_id` claim has a value equal to your ID-porten client ID.
     * Validate that the `acr` claim exists and that the set level matches the minimum [security level](#security-levels) for your endpoints.
         * If your endpoint(s) accepts a minimum of `Level3` authentication, you must also accept `Level4`.
-        * The inverse should be rejected. That is, applicatione expecting `Level4` authentication should _NOT_ accept tokens with `acr=Level3`.
+        * The inverse should be rejected. That is, applications expecting `Level4` authentication should _NOT_ accept tokens with `acr=Level3`.
