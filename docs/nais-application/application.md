@@ -2488,7 +2488,7 @@ Relevant information:
 Type: `enum`<br />
 Required: `false`<br />
 Default value: `nb`<br />
-Allowed values: `en`, `es`, `nb`, `nn`<br />
+Allowed values: `en`, `nb`, `nn`, `se`<br />
 
 ??? example
     ``` yaml
