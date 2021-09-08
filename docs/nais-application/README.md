@@ -10,7 +10,9 @@ A simplified overview of resources created, mounted, and used by a nais-app (on-
 
 To get an explenation of what the different resources are, you can read [here](https://kubernetes.io/docs/concepts/)
 
-## Handles termination gracefully
+## Good Practices
+
+### Handles termination gracefully
 
 !!! info
     The application should make sure it listens to the `SIGTERM` signal, and prepare for shutdown \(closing connections etc.\) upon receival.
@@ -28,15 +30,15 @@ To best be able to handle this in your application, it helps to be aware of the 
 
 The platform will automatically add a `preStop`-hook that pauses the termination sufficiently that e.g. the ingress controller has time to update it's list of endpoints \(thus avoid sending traffic to a application while terminating\).
 
-## Exposes relevant application metrics
+### Exposes relevant application metrics
 
 The application should be instrumented using [Prometheus](https://prometheus.io/docs/instrumenting/clientlibs/), exposing the relevant application metrics. See the [metrics documentation](../observability/metrics.md) for more info.
 
-## Writes structured logs to `stdout`
+### Writes structured logs to `stdout`
 
 The application should emit `json`-formatted logs by writing directly to standard output. This will make it easier to index, view and search the logs later. See more details in the [logs documentation](../observability/logs/README.md).
 
-## Implements `readiness` and `liveness` endpoints
+### Implements `readiness` and `liveness` endpoints
 
 The `readiness`-probe is used by Kubernetes to determine if the application should receive traffic, while the `liveness`-probe lets Kubernetes know if your application is alive. If it's dead, Kubernetes will remove the pod and bring up a new one.
 

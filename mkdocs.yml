@@ -56,6 +56,7 @@ nav:
       - Team namespaces: clusters/team-namespaces.md
       - Service discovery: clusters/service-discovery.md
     - NAIS Application:
+      - Overview: nais-application/README.md
       - Full example: nais-application/example.md
       - Reference: nais-application/application.md
       - Access policy: nais-application/access-policy.md
@@ -63,7 +64,6 @@ nav:
       - Config reloading: nais-application/config-reloading.md
       - Ingress customization: nais-application/ingress.md
       - Linkerd/sidecar customization: nais-application/linkerd.md
-      - Good practices: nais-application/good-practices.md
     - Naisjob:
       - Overview: naisjob/README.md
       - Full example: naisjob/example.md
