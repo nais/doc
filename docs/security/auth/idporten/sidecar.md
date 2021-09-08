@@ -1,5 +1,5 @@
 ---
-description: Automatic authentication, token validation, and login/logout for ID-Porten
+description: Reverse-proxy that handles automatic authentication and login/logout flows for ID-porten.
 ---
 
 # ID-porten sidecar
@@ -23,15 +23,18 @@ modifications to the application container.
 
 In order to obtain a local session, the user must be redirected to the `/oauth2/login` endpoint, which performs the
 [OpenID Connect Authorization Code Flow as specified by ID-porten](https://docs.digdir.no/oidc_guide_idporten.html).
-Tokens acquired from this flow are validated and verified according to the specifications. 
 
 If the user successfully completed the login flow, a session is established with the sidecar. All requests that are 
-forwarded to the application container will now contain an `Authentication` header with the user's access token from ID-porten:
+forwarded to the application container will now contain an `Authentication` header with the user's `access_token`. from ID-porten:
 
 ```
 Authentication: Bearer JWT_ACCESS_TOKEN
 X-Pwned-By: wonderwall
 ```
+
+Only the `id_token` acquired from this flow is validated and verified by the sidecar in accordance with the
+[OpenID Connect specifications](https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation). 
+**Your application is [responsible](#responsibilities-and-guarantees) for validating the `access_token`.**
 
 ## Spec
 
@@ -114,9 +117,11 @@ The following describes the contract for usage of the sidecar.
 
 **Your application should:**
 
-* Secure its own endpoints.
+* Secure its own endpoints. That is, deny access to sensitive endpoints if the appropriate authentication is not supplied.
 * Validate the claims and signature for the ID-porten `access_token` attached by the sidecar.
     * That is, validate the standard claims such as `iss`, `iat`, `exp`.
     * Note that the `aud` claim is _not_ set for ID-porten access tokens.
       You should instead validate that the `client_id` claim has a value equal to your ID-porten client ID.
     * Validate that the `acr` claim exists and that the set level matches the minimum [security level](#security-levels) for your endpoints.
+        * If your endpoint(s) accepts a minimum of `Level3` authentication, you must also accept `Level4`.
+        * The inverse should be rejected. That is, applicatione expecting `Level4` authentication should _NOT_ accept tokens with `acr=Level3`.
