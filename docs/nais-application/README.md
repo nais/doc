@@ -8,7 +8,7 @@ A simplified overview of resources created, mounted, and used by a nais-app (on-
 
 ![Overview of Kubernetes resources created upon deployment of your nais-app](../assets/resource-overview.svg)
 
-To get an explenation of what the different resources are, you can read [here](https://kubernetes.io/docs/concepts/)
+To get an explanation of what the different resources are, you can find further reading [here](https://kubernetes.io/docs/concepts/)
 
 ## Good Practices
 
@@ -32,7 +32,7 @@ The platform will automatically add a `preStop`-hook that pauses the termination
 
 ### Exposes relevant application metrics
 
-The application should be instrumented using [Prometheus](https://prometheus.io/docs/instrumenting/clientlibs/), exposing the relevant application metrics. See the [metrics documentation](../observability/metrics.md) for more info.
+The application should be instrumented using [Prometheus](https://prometheus.io/docs/instrumenting/clientlibs/), exposing the relevant application metrics. See the [metrics documentation](../observability/metrics.md) for more information.
 
 ### Writes structured logs to `stdout`
 
