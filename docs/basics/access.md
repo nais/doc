@@ -64,7 +64,7 @@ You will also need to perform a self-service step to synchronize your user from 
 
 After you have done this your user will be synced to Google Cloud Platform. The sync is not instantaneous, but usually does not take more than a few minutes.
 
-First you need to install `gcloud` following the [instructions](https://cloud.google.com/sdk/docs/#install_the_latest_cloud_tools_version_cloudsdk_current_version) for your platform.
+First you need to install `gcloud` following the [instructions](https://cloud.google.com/sdk/docs/install) for your platform.
 
 Once installed, you need to authenticate with Google using your NAV e-mail.
 
