@@ -29,7 +29,9 @@ spec:
 
 Bucket names must be globally unique across the entire Google infrastructure. This can cause provisioning problems if your bucket name is used by someone else. 
 
-RetentionPeriodDays is set in number of days, if not set; no retention policy will be set and files will never be deleted from the bucket.
+RetentionPeriodDays and lifecycleCondition must be set when creating the bucket as they cannot be changed after the bucket is created.
+
+RetentionPeriodDays is set in number of days, if not set; no retention policy will be set and files can be deleted by application or manually from the point they are created.
 
 LifecycleCondition can be set to verify which files/objects are subject to permanent deletion based on the conditions set.
 
