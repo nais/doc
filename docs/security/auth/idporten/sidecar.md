@@ -62,7 +62,11 @@ The sidecar provides these endpoints under `https://app.ingress`:
 
 ### Authenticate a user
 
-When you must authenticate a user, redirect to `https://app.ingress/oauth2/login`.
+When you must authenticate a user, redirect to the user to:
+
+```
+https://app.ingress/oauth2/login
+```
 
 ### Redirect after authentication
 
@@ -70,7 +74,11 @@ Redirects after successful authentication follow these rules in ascending priori
 
 1. `/` (default).
 2. The URL set in the `Referer` header.
-3. The URL or relative path set in the query parameter `redirect`, e.g. `https://app.ingress/oauth2/login?redirect=/some/path`.
+3. The URL or relative path set in the query parameter `redirect`, e.g:
+   
+```
+https://app.ingress/oauth2/login?redirect=/some/path
+```
 
 The host and scheme (if provided) are stripped from the redirect URL, which effectively only allows 
 redirects to paths within your own ingress.
@@ -119,6 +127,41 @@ https://app.ingress/oauth2/login?locale=en
 
 The ID-porten access token can be exchanged for a [TokenX](../tokenx.md) token. 
 The TokenX token can then be used when calling downstream APIs.
+
+### Logging a user out
+
+When you must log a user out, redirect to the user to:
+
+```
+https://app.ingress/oauth2/logout
+```
+
+The user's session with the sidecar will be cleared, and the user will be redirected to ID-porten for global logout.
+
+#### Redirect after logout
+
+After the user is successfully logged out at ID-porten, the user may be redirected to another URI.
+
+By default, the sidecar will indicate to ID-porten that the user should be redirected to `https://www.nav.no`.
+
+You may configure or override this in two ways:
+
+##### For all users
+
+If defined, the first entry in [`.spec.idporten.postLogoutRedirectURIs`](../../../nais-application/application.md#idportenpostlogoutredirecturis) 
+will be used.
+
+##### Runtime
+
+Set the `post_logout_redirect_uri` parameter when redirecting the user to logout:
+
+```
+https://app.ingress/oauth2/logout?post_logout_redirect_uri=https://example.nav.no
+```
+
+Note that ID-porten requires the exact redirect URI to be pre-registered. That is, the complete URI should be listed 
+under [`.spec.idporten.postLogoutRedirectURIs`](../../../nais-application/application.md#idportenpostlogoutredirecturis). 
+Otherwise, the user will not be redirected to the given URI.
 
 ## Responsibilities and Guarantees
 
