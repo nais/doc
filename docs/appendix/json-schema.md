@@ -36,7 +36,7 @@ Within the root object, add the following:
 
 It will enable the `nais-k8s-all.json` schema for all yaml files with the name `nais.yaml`, or in the `nais` or `.nais` directory.
 
-See the [extension documentations](https://github.com/redhat-developer/vscode-yaml#associating-schemas) for more ways to assosiate schemas.
+See the [extension documentations](https://github.com/redhat-developer/vscode-yaml#associating-schemas) for more ways to associate schemas.
 
 ## Known limitations
 
