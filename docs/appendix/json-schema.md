@@ -38,6 +38,12 @@ It will enable the `nais-k8s-all.json` schema for all yaml files with the name `
 
 See the [extension documentations](https://github.com/redhat-developer/vscode-yaml#associating-schemas) for more ways to associate schemas.
 
+## IntelliJ
+
+See the [documentation at Jetbrains](https://www.jetbrains.com/help/idea/json.html#ws_json_schema_add_custom).
+
+Unfortunately, you will have to set this up individually per project.
+
 ## Known limitations
 
 ### Templating
