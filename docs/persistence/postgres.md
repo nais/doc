@@ -249,6 +249,17 @@ Databases should always be accessed using a personal account, and the access sho
 
     The following command grants your user permission to log into the database for 1 hour.
 
+    If your system has GNU utilities installed:
+    
+    ```bash
+    gcloud projects add-iam-policy-binding <PROJECT_ID> \
+        --member=user:<FIRSTNAME>.<LASTNAME>@nav.no \
+        --role=roles/cloudsql.instanceUser \
+        --condition="expression=request.time < timestamp('$(date --iso-8601=seconds -d '+1 hours')'),title=temp_access"
+    ```
+ 
+    Otherwise (e.g. MacOS users):
+
     ```bash
     gcloud projects add-iam-policy-binding <PROJECT_ID> \
         --member=user:<FIRSTNAME>.<LASTNAME>@nav.no \
