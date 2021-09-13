@@ -2125,7 +2125,7 @@ Value range: `0`-`23`<br />
     ```
 
 #### gcp.sqlInstances[].name
-The name of the instance, if omitted the database name will be used.
+The name of the instance, if omitted the application name will be used.
 
 Type: `string`<br />
 Required: `false`<br />
