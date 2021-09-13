@@ -62,7 +62,7 @@ This creates better software and happier teams.
 To achieve this, we ensure that each team has their own space where they can experiment, develop and host the stuff they build.
 Here they have the full set of permissions, and are only limited by their own imagination.
 
-Details about the technology to logically group users, their access and permissions is described [here]().
+Details about the technology to logically group users, their access and permissions is described [here](basics/teams).
 
 ## Access from laptop
 
