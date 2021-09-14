@@ -88,7 +88,13 @@ nav:
       - Tracing: observability/tracing.md
     - Persistence:
       - Responsibilities: persistence/responsibilities.md
-      - Kafka: persistence/kafka.md
+      - Kafka: 
+        - Overview: persistence/kafka/index.md
+        - Application: persistence/kafka/application.md
+        - Manage topics: persistence/kafka/manage_topics.md
+        - Migrate from onprem: persistence/kafka/migrate_from_onprem.md
+        - Avro and REST: persistence/kafka/avro_and_rest.md
+        - FAQ: persistence/kafka/faq.md
       - Google Cloud Storage/Buckets: persistence/buckets.md
       - Google Cloud SQL (postgres): persistence/postgres.md
       - Google BigQuery: persistence/bigquery.md
