@@ -1205,10 +1205,16 @@ Availability: GCP<br />
           diskSize: 30
           diskType: SSD
           highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
           maintenance:
             day: 1
             hour: 4
           name: myinstance
+          pointInTimeRecovery: true
           tier: db-f1-micro
           type: POSTGRES_12
     ```
@@ -1666,10 +1672,16 @@ Availability: GCP<br />
           diskSize: 30
           diskType: SSD
           highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
           maintenance:
             day: 1
             hour: 4
           name: myinstance
+          pointInTimeRecovery: true
           tier: db-f1-micro
           type: POSTGRES_12
     ```
@@ -1698,10 +1710,16 @@ Value range: `0`-`23`<br />
           diskSize: 30
           diskType: SSD
           highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
           maintenance:
             day: 1
             hour: 4
           name: myinstance
+          pointInTimeRecovery: true
           tier: db-f1-micro
           type: POSTGRES_12
     ```
@@ -1729,10 +1747,16 @@ Required: `false`<br />
           diskSize: 30
           diskType: SSD
           highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
           maintenance:
             day: 1
             hour: 4
           name: myinstance
+          pointInTimeRecovery: true
           tier: db-f1-micro
           type: POSTGRES_12
     ```
@@ -1760,10 +1784,16 @@ Required: `false`<br />
           diskSize: 30
           diskType: SSD
           highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
           maintenance:
             day: 1
             hour: 4
           name: myinstance
+          pointInTimeRecovery: true
           tier: db-f1-micro
           type: POSTGRES_12
     ```
@@ -1791,10 +1821,16 @@ Required: `false`<br />
           diskSize: 30
           diskType: SSD
           highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
           maintenance:
             day: 1
             hour: 4
           name: myinstance
+          pointInTimeRecovery: true
           tier: db-f1-micro
           type: POSTGRES_12
     ```
@@ -1822,10 +1858,16 @@ Required: `false`<br />
           diskSize: 30
           diskType: SSD
           highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
           maintenance:
             day: 1
             hour: 4
           name: myinstance
+          pointInTimeRecovery: true
           tier: db-f1-micro
           type: POSTGRES_12
     ```
@@ -1853,10 +1895,16 @@ Required: `true`<br />
           diskSize: 30
           diskType: SSD
           highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
           maintenance:
             day: 1
             hour: 4
           name: myinstance
+          pointInTimeRecovery: true
           tier: db-f1-micro
           type: POSTGRES_12
     ```
@@ -1884,10 +1932,16 @@ Required: `false`<br />
           diskSize: 30
           diskType: SSD
           highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
           maintenance:
             day: 1
             hour: 4
           name: myinstance
+          pointInTimeRecovery: true
           tier: db-f1-micro
           type: POSTGRES_12
     ```
@@ -1916,10 +1970,16 @@ Pattern: `^[_a-zA-Z][_a-zA-Z0-9]+$`<br />
           diskSize: 30
           diskType: SSD
           highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
           maintenance:
             day: 1
             hour: 4
           name: myinstance
+          pointInTimeRecovery: true
           tier: db-f1-micro
           type: POSTGRES_12
     ```
@@ -1951,10 +2011,16 @@ Required: `false`<br />
           diskSize: 30
           diskType: SSD
           highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
           maintenance:
             day: 1
             hour: 4
           name: myinstance
+          pointInTimeRecovery: true
           tier: db-f1-micro
           type: POSTGRES_12
     ```
@@ -1983,10 +2049,16 @@ Minimum value: `10`<br />
           diskSize: 30
           diskType: SSD
           highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
           maintenance:
             day: 1
             hour: 4
           name: myinstance
+          pointInTimeRecovery: true
           tier: db-f1-micro
           type: POSTGRES_12
     ```
@@ -2015,10 +2087,16 @@ Allowed values: `HDD`, `SSD`<br />
           diskSize: 30
           diskType: SSD
           highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
           maintenance:
             day: 1
             hour: 4
           name: myinstance
+          pointInTimeRecovery: true
           tier: db-f1-micro
           type: POSTGRES_12
     ```
@@ -2046,10 +2124,203 @@ Required: `false`<br />
           diskSize: 30
           diskType: SSD
           highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
           maintenance:
             day: 1
             hour: 4
           name: myinstance
+          pointInTimeRecovery: true
+          tier: db-f1-micro
+          type: POSTGRES_12
+    ```
+
+#### gcp.sqlInstances[].insights
+Configures query insights which are now default for new sql instances.
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        sqlInstances:
+        - autoBackupHour: 1
+          cascadingDelete: true
+          collation: nb_NO.UTF8
+          databases:
+          - envVarPrefix: DB
+            name: mydatabase
+            users:
+            - name: extra_user
+          diskAutoresize: true
+          diskSize: 30
+          diskType: SSD
+          highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
+          maintenance:
+            day: 1
+            hour: 4
+          name: myinstance
+          pointInTimeRecovery: true
+          tier: db-f1-micro
+          type: POSTGRES_12
+    ```
+
+##### gcp.sqlInstances[].insights.enabled
+True if Query Insights feature is enabled.
+
+Type: `boolean`<br />
+Required: `false`<br />
+Default value: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        sqlInstances:
+        - autoBackupHour: 1
+          cascadingDelete: true
+          collation: nb_NO.UTF8
+          databases:
+          - envVarPrefix: DB
+            name: mydatabase
+            users:
+            - name: extra_user
+          diskAutoresize: true
+          diskSize: 30
+          diskType: SSD
+          highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
+          maintenance:
+            day: 1
+            hour: 4
+          name: myinstance
+          pointInTimeRecovery: true
+          tier: db-f1-micro
+          type: POSTGRES_12
+    ```
+
+##### gcp.sqlInstances[].insights.queryStringLength
+Maximum query length stored in bytes. Between 256 and 4500. Default to 1024.
+
+Type: `integer`<br />
+Required: `false`<br />
+Value range: `256`-`4500`<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        sqlInstances:
+        - autoBackupHour: 1
+          cascadingDelete: true
+          collation: nb_NO.UTF8
+          databases:
+          - envVarPrefix: DB
+            name: mydatabase
+            users:
+            - name: extra_user
+          diskAutoresize: true
+          diskSize: 30
+          diskType: SSD
+          highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
+          maintenance:
+            day: 1
+            hour: 4
+          name: myinstance
+          pointInTimeRecovery: true
+          tier: db-f1-micro
+          type: POSTGRES_12
+    ```
+
+##### gcp.sqlInstances[].insights.recordApplicationTags
+True if Query Insights will record application tags from query when enabled.
+
+Type: `boolean`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        sqlInstances:
+        - autoBackupHour: 1
+          cascadingDelete: true
+          collation: nb_NO.UTF8
+          databases:
+          - envVarPrefix: DB
+            name: mydatabase
+            users:
+            - name: extra_user
+          diskAutoresize: true
+          diskSize: 30
+          diskType: SSD
+          highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
+          maintenance:
+            day: 1
+            hour: 4
+          name: myinstance
+          pointInTimeRecovery: true
+          tier: db-f1-micro
+          type: POSTGRES_12
+    ```
+
+##### gcp.sqlInstances[].insights.recordClientAddress
+True if Query Insights will record client address when enabled.
+
+Type: `boolean`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        sqlInstances:
+        - autoBackupHour: 1
+          cascadingDelete: true
+          collation: nb_NO.UTF8
+          databases:
+          - envVarPrefix: DB
+            name: mydatabase
+            users:
+            - name: extra_user
+          diskAutoresize: true
+          diskSize: 30
+          diskType: SSD
+          highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
+          maintenance:
+            day: 1
+            hour: 4
+          name: myinstance
+          pointInTimeRecovery: true
           tier: db-f1-micro
           type: POSTGRES_12
     ```
@@ -2077,10 +2348,16 @@ Required: `false`<br />
           diskSize: 30
           diskType: SSD
           highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
           maintenance:
             day: 1
             hour: 4
           name: myinstance
+          pointInTimeRecovery: true
           tier: db-f1-micro
           type: POSTGRES_12
     ```
@@ -2107,10 +2384,16 @@ Value range: `1`-`7`<br />
           diskSize: 30
           diskType: SSD
           highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
           maintenance:
             day: 1
             hour: 4
           name: myinstance
+          pointInTimeRecovery: true
           tier: db-f1-micro
           type: POSTGRES_12
     ```
@@ -2137,10 +2420,16 @@ Value range: `0`-`23`<br />
           diskSize: 30
           diskType: SSD
           highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
           maintenance:
             day: 1
             hour: 4
           name: myinstance
+          pointInTimeRecovery: true
           tier: db-f1-micro
           type: POSTGRES_12
     ```
@@ -2168,10 +2457,53 @@ Required: `false`<br />
           diskSize: 30
           diskType: SSD
           highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
           maintenance:
             day: 1
             hour: 4
           name: myinstance
+          pointInTimeRecovery: true
+          tier: db-f1-micro
+          type: POSTGRES_12
+    ```
+
+#### gcp.sqlInstances[].pointInTimeRecovery
+Enables point-in-time recovery for sql instances using write-ahead logs.
+
+Type: `boolean`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        sqlInstances:
+        - autoBackupHour: 1
+          cascadingDelete: true
+          collation: nb_NO.UTF8
+          databases:
+          - envVarPrefix: DB
+            name: mydatabase
+            users:
+            - name: extra_user
+          diskAutoresize: true
+          diskSize: 30
+          diskType: SSD
+          highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
+          maintenance:
+            day: 1
+            hour: 4
+          name: myinstance
+          pointInTimeRecovery: true
           tier: db-f1-micro
           type: POSTGRES_12
     ```
@@ -2200,10 +2532,16 @@ Pattern: `db-.+`<br />
           diskSize: 30
           diskType: SSD
           highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
           maintenance:
             day: 1
             hour: 4
           name: myinstance
+          pointInTimeRecovery: true
           tier: db-f1-micro
           type: POSTGRES_12
     ```
@@ -2232,10 +2570,16 @@ Allowed values: `POSTGRES_11`, `POSTGRES_12`<br />
           diskSize: 30
           diskType: SSD
           highAvailability: true
+          insights:
+            enabled: true
+            queryStringLength: 4500
+            recordApplicationTags: true
+            recordClientAddress: true
           maintenance:
             day: 1
             hour: 4
           name: myinstance
+          pointInTimeRecovery: true
           tier: db-f1-micro
           type: POSTGRES_12
     ```

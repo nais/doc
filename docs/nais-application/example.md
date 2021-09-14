@@ -143,10 +143,16 @@ spec:
       diskSize: 30
       diskType: SSD
       highAvailability: true
+      insights:
+        enabled: true
+        queryStringLength: 4500
+        recordApplicationTags: true
+        recordClientAddress: true
       maintenance:
         day: 1
         hour: 4
       name: myinstance
+      pointInTimeRecovery: true
       tier: db-f1-micro
       type: POSTGRES_12
   idporten:
