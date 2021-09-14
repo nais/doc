@@ -63,7 +63,9 @@ nav:
       - Automatic scaling: nais-application/automatic-scaling.md
       - Config reloading: nais-application/config-reloading.md
       - Ingress customization: nais-application/ingress.md
-      - Linkerd/sidecar customization: nais-application/linkerd.md
+      - Linkerd / sidecar customization: nais-application/linkerd.md
+      - Container security context / kernel capabilities: nais-application/securitycontext.md
+      - Good practices: nais-application/good-practices.md
     - Naisjob:
       - Overview: naisjob/README.md
       - Full example: naisjob/example.md
@@ -119,7 +121,6 @@ nav:
           - Client: security/auth/maskinporten/client.md
           - Scopes: security/auth/maskinporten/scopes.md
         - TokenX: security/auth/tokenx.md
-      - Kubernetes SecurityContext: security/securitycontext.md
       - Secrets:
         - Overview: security/secrets/README.md
         - Kubernetes Secrets: security/secrets/kubernetes-secrets.md
