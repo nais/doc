@@ -1889,7 +1889,7 @@ Required: `true`<br />
     ```
 
 ##### gcp.sqlInstances[].databases[].users
-The users created to allow database access.
+Add extra users for database access. These users need to be manually given access to database tables.
 
 Type: `array`<br />
 Required: `false`<br />
