@@ -51,6 +51,15 @@ The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instan
     Note that if you change your application name, database name or envVarPrefix, and then change it later, 
     you have to manually [reset database credentials](#reset-database-credentials).
 
+### Query Insights
+Query insights are now enabled by default in GCP. This feature provides query overview and analysis. 
+The data is available in the Google cloud console.
+
+For further reading see [Google Cloud SQL Query Insights](https://cloud.google.com/sql/docs/postgres/query-insights-overview)
+
+!!! info 
+    Data is available for seven days, increasing this will incur extra cost.
+
 ### Maintenance window
 Google will automatically perform upgrades, fix bugs and apply security patches to prevent exploits. Your application should be able to handle occasional downtime as this maintenance is performed. Read more on maintenance windows [here](https://cloud.google.com/sql/docs/postgres/maintenance). NAIS does not configure the maintenance window, but this can be set up in the application spec: [`nais.yaml`](../nais-application/application.md#gcpsqlinstances).
 If you wish to be notified about upcoming maintenance, you can opt-in for this on the [Communications page](https://console.cloud.google.com/user-preferences/communication) in the GCP console.
@@ -63,6 +72,19 @@ The database is backed up nightly at 3 AM \(GMT+1\) by default, but can be overr
 By default, seven backups will be kept. More info [here](https://cloud.google.com/sql/docs/postgres/backup-recovery/backups).
 
 The backups can be found in the [Google Cloud SQL instance](https://cloud.google.com/sql) dashboard.
+
+#### Point-in-time recovery
+Point-in-time recovery can be enabled by configuring this in the sql instance for your application spec.
+This feature allows you to recover your database to a specific point in time. 
+
+!!! info
+    This feature is not enabled by default. When enabled the Postgres instance will be restarted.
+    
+!!! warning
+    Use this feature with automatic storage increase enabled.
+
+See application spec reference [here](https://doc.nais.io/nais-application/application/#gcpsqlinstancespointintimerecovery)
+For further reading see [google Cloud SQL PIT recovery](https://cloud.google.com/sql/docs/postgres/backup-recovery/pitr)
 
 #### Disaster backup
 In case of catastrophic failure in GCP we are running a daily complete backup of the postgresql databases in GCP to an on-prem location. This backup currently runs at 5 am. This is in addition to the regular backups in GCP.
