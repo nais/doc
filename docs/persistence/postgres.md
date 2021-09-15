@@ -103,7 +103,9 @@ For more detailed information, check out the [Cloud SQL Proxy documentation](htt
 
 ## Additional user(s) database(s)
 
-You can add users to your database by setting database configuration option: `.spec.gcp.sqlInstances[].databases[].users[].name`. 
+You can add users to your database by setting database configuration option: `.spec.gcp.sqlInstances[].databases[].users[].name`.
+Additional users needs to manually be given access to the database and table.
+Either directly or with Flyway or other database migration tools.
 
 Names added must match regex: `^[_a-zA-Z][_a-zA-Z0-9]+$`. Secrets is generated and mounted for each user.
 
