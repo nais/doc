@@ -122,6 +122,9 @@ An example Redis setup looks like this:
     metadata:
       labels:
         team: ${teamname}
+      annotations:
+        "nais.io/run-as-group": "0"
+        "nais.io/read-only-file-system": "false"
       name: ${appname}
       namespace: ${teamname}
     spec:
