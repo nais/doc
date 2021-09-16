@@ -38,3 +38,5 @@ Useful resources on the topic:
 * `readiness` and `liveness` should be implemented as separate services and they usually have different characteristics
 * `liveness`-probe should simply return `HTTP 200 OK` if main loop is running, and `HTTP 5xx` if not
 * `readiness`-probe returns `HTTP 200 OK` is able to process requests, and `HTTP 5xx` if not. If the application has dependencies to e.g. a database to serve traffic, it's a good idea to check if the database is available in the `readiness`-probe
+
+## 
