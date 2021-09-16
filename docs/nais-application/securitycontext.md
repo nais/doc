@@ -7,8 +7,6 @@ Kubernetes restricts the capabilities of containers by using `SecurityContext` s
 
 By default we set the following `securityContext` in the PodSpec for the application container:
 ```yaml
-runAsUser: 1069
-runAsGroup: 1069
 allowPrivilegeEscalation: false
 readOnlyRootFilesystem: true 
 runAsNonRoot: true
