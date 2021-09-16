@@ -27,11 +27,6 @@ spec:
   schedule: "*/1 * * * *"
 ```
 
-!!! warning
-    If your Naisjob is [running in GCP](../clusters/gcp/), or if it is using [Vault sidecar](reference/#vaultsidecar) or [Securelogs](reference/#securelogs).
-    You need to shut down all containers running in the pod for the `Job` to complete.
-    See [Shutting down extra containers](#shutting-down-extra-containers) for more information.
-
 ## Re-run Naisjob
 If you don't want to run your job at a schedule, but still want to re-run your Naisjob, you either have to delete the old Naisjob first, og run under a different name.
 
@@ -39,48 +34,57 @@ If you don't want to run your job at a schedule, but still want to re-run your N
 You can deploy your Naisjob just as you would deploy your Application using [NAIS deploy](../deployment/README.md).
 
 ## Shutting down extra containers
-If your Naisjob has any of these traits:
+Due to the nature of NAIS, your Naisjob might end up having a few sidecars.
+Since a sidecar typically has little to no logic to look at sibling containers, these would normally not turn off once your app completes. 
+As a result, the Naisjob would continue running indefinitely unless some entity from above sorts it out.
+To remediate this, an operator named [Ginuudan](https://github.com/nais/ginuudan) has been created to run in every cluster and observe every Naisjob.
+Once the "main" container in a Naisjob completes, Ginuudan will shut down the surrounding sidecars and thus make the Naisjob run to completion.
 
- * [runs in GCP](../clusters/gcp/)
- * [uses Vault sidecar](reference/#vaultsidecar)
- * [uses Securelogs](reference/#securelogs)
+You can look at what Ginuudan has done to complete your Naisjob by running `kubectl describe pod my-naisjob-3f91a0` and viewing the Events section.
 
-You will need to shut down all containers running in the pod for the `Job` to complete.
+!!! info "My Naisjob hasn't completed"
+    If you see no events from Ginuudan in your Naisjob, you might want to redeploy it.
+    Naisjobs deployed before Ginuudan was published will not be observed by Ginuudan.
 
-### Shutting down Linkerd
-Linkerd exposes an endpoint to shut itself down.
-```
-curl -X POST http://127.0.0.1:4191/shutdown
-```
-This is done from inside your pod-container.
+    If you do see events from Ginuudan but your Naisjob didn't complete, we'd be happy if you could tell us in the #nais channel on Slack.
 
-### CloudSQL-proxy sidecar
-CloudSQL-proxy sidecar does not support turning off remotely.
+??? question "My Naisjob deployment is old, and I want to manually shut down the sidecars to make the Naisjob complete"
 
-It can be shut down by running exec into the container.
-```
-kubectl exec yourpod-12345 -c cloudsql-proxy -- kill -s INT 1
-```
+    Here's some legacy documentation on how to shut down most sidecars.
 
-### Securelogs
-Securelogs runs on Fluentd, and Fluentd exposes an endpoint to shut itself down.
-```
-curl http://127.0.0.1:24444/api/processes.killWorkers
-```
-This is done from inside your pod-container.
+    ### Linkerd
+    Linkerd exposes an endpoint to shut itself down.
+    ```
+    curl -X POST http://127.0.0.1:4191/shutdown
+    ```
+    This is done from inside your pod-container.
 
-Additionally, Securelogs runs a second sidecar called `secure-logs-configmap-reload`.
-This can be shut down by running exec into the container.
+    ### CloudSQL-proxy sidecar
+    CloudSQL-proxy sidecar does not support turning off remotely.
 
-```
-kubectl exec yourpod-12345 -c secure-logs-configmap-reload -- /bin/killall configmap-reload
-```
+    It can be shut down by running exec into the container.
+    ```
+    kubectl exec yourpod-12345 -c cloudsql-proxy -- kill -s INT 1
+    ```
 
-### Vault sidecar
-Vault sidecar does not support turning off remotely.
+    ### Securelogs
+    Securelogs runs on Fluentd, and Fluentd exposes an endpoint to shut itself down.
+    ```
+    curl http://127.0.0.1:24444/api/processes.killWorkers
+    ```
+    This is done from inside your pod-container.
 
-It can be shut down by running exec into the container.
-```
-kubectl exec yourpod-12345 -c vks-sidecar -- /bin/kill -s INT 1
-```
+    Additionally, Securelogs runs a second sidecar called `secure-logs-configmap-reload`.
+    This can be shut down by running exec into the container.
 
+    ```
+    kubectl exec yourpod-12345 -c secure-logs-configmap-reload -- /bin/killall configmap-reload
+    ```
+
+    ### Vault sidecar
+    Vault sidecar does not support turning off remotely.
+
+    It can be shut down by running exec into the container.
+    ```
+    kubectl exec yourpod-12345 -c vks-sidecar -- /bin/kill -s INT 1
+    ```
