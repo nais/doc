@@ -30,6 +30,8 @@ The application should emit `json`-formatted logs by writing directly to standar
 If the application reaches an unrecoverable error, you should let it crash.
 Instead, you should immediately exit the process and let the kubelet restart the container.
 
+By restarting the container, you allow for the eventual readiness of other dependencies.
+
 ## Implements `readiness` and `liveness` endpoints
 
 The `readiness`-probe is used by Kubernetes to determine if the application should receive traffic, while the `liveness`-probe lets Kubernetes know if your application is alive. If it's dead, Kubernetes will remove the pod and bring up a new one.
