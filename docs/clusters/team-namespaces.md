@@ -83,3 +83,8 @@ spec:
 ```
 
 This will create a CNAME DNS record that will resolve `my-app.default.svc.nais.local` as `my-app.my-teamnamespace.svc.nais.local`
+
+#### Migrating an application from default to team namespace with minimal downtime.
+First thing you need to do, is to deploy the application to your team's namespace.
+Create a file locally using the example above, then you replace the service in the `default` namespace using `kubectl replace -f service.yaml`
+You can now delete the application from the `default` namespace.
