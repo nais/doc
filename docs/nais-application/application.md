@@ -2917,7 +2917,7 @@ Configures your application to access an Aiven Kafka cluster.
 
 Relevant information:
 
-* [https://doc.nais.io/addons/kafka/](https://doc.nais.io/addons/kafka/)
+* [https://doc.nais.io/persistence/kafka/](https://doc.nais.io/persistence/kafka/)
 
 Type: `enum`<br />
 Required: `true`<br />
