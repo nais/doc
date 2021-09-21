@@ -3,6 +3,9 @@
 !!! warning
     This feature applies only to _Aiven hosted Kafka_. On-premises Kafka is deprecated, and creating new topics on-premises was disabled summer 2021. For on-premises Kafka, see [on-premises Kafka documentation](https://confluence.adeo.no/display/AURA/Kafka).
 
+!!! warning
+    For the time being, Kafka Streams is not supported on Aiven. This is due to how Kafka Streams creates temporary topics. We have a plan to solve this, but it is not implemented yet.
+
 ## Abstract
 
 NAV uses Aiven hosted Kafka. Access to Kafka is granted by defining a `Topic` resource in one of our Kubernetes clusters.
