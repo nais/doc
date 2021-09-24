@@ -4,7 +4,7 @@ The aiven command can be used to create a AivenApplication and extract credentia
 create a Protected & time-limited AivenApplication in your specified namespace.
 
 This command will give access to personal but time limited credentials. These credentials can be used to debug an Aiven
-hosted kafka topic. The `aiven get` command extracts the credentials and puts them in tmp folder. The created
+hosted kafka topic. The `aiven get` command extracts the credentials and puts them in `/tmp` folder. The created
 AivenApplication has sane default (days-to-live) 1 day.
 
 To gain access to a specific topic be sure to update your topic resource and topic ACLs. Add username to acl.application
