@@ -31,7 +31,7 @@ nais aiven create username namespace
 | Argument    | Required  | Description                                                 |          
 |-------------|-----------|-------------------------------------------------------------|
 | username    | Yes       | Preferred username.                                         |
-| namespace   | Yes       | Kubernetes Namespace where aivenApplication will be created.|
+| namespace   | Yes       | Kubernetes namespace where AivenApplication will be created.|
 
 ```bash
 nais aiven create username namespace -p nav-prod -s some-unique-secretname -e 10
