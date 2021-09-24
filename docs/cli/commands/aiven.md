@@ -19,7 +19,7 @@ spec:
   acl:
     - access: write
       team: test
-      application: my-user
+      application: username
 ```
 
 ## create
