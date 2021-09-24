@@ -153,12 +153,11 @@ nav:
     - naisdevice Troubleshooting: device/troubleshooting.md
     - Uninstall: device/uninstall.md
     - Available services: device/services.md
-  - tools:
-      - Tools Overview: tools/README.md
-      - Installation: tools/install.md
-      - Use tool: tools/tools.md
-        - Commands:
-          - Aiven: tools/aiven/aiven.md
+  - nais-cli:
+    - Overview: cli/README.md
+    - Installation: cli/install.md
+    - Commands:
+      - Aiven: cli/commands/aiven.md
   - Laws and regulations:
     - Roles and responsibilities: legal/roles-responsibilities.md
     - Platform risk assessments (ROS): legal/nais-ros.md
