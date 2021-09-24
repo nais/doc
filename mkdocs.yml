@@ -154,10 +154,11 @@ nav:
     - Uninstall: device/uninstall.md
     - Available services: device/services.md
   - tools:
-      - Tool Overview: tools/README.md
+      - Tools Overview: tools/README.md
       - Installation: tools/install.md
-      - Use tool: tools/aiven.md
-        - Aiven Command: tools/aiven/aiven.md
+      - Use tool: tools/tools.md
+        - Commands:
+          - Aiven: tools/aiven/aiven.md
   - Laws and regulations:
     - Roles and responsibilities: legal/roles-responsibilities.md
     - Platform risk assessments (ROS): legal/nais-ros.md
