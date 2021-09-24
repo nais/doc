@@ -25,7 +25,7 @@ In order to obtain a local session, the user must be redirected to the `/oauth2/
 [OpenID Connect Authorization Code Flow as specified by ID-porten](https://docs.digdir.no/oidc_guide_idporten.html).
 
 If the user successfully completed the login flow, a session is established with the sidecar. All requests that are 
-forwarded to the application container will now contain an `Authentication` header with the user's `access_token`. from ID-porten:
+forwarded to the application container will now contain an `Authentication` header with the user's `access_token` from ID-porten:
 
 ```
 Authentication: Bearer JWT_ACCESS_TOKEN
