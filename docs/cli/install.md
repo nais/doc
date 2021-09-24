@@ -30,7 +30,7 @@ NAIS_GPG_KEY="/usr/local/share/keyrings/nav_nais.gpg"
 sudo mkdir -p "$(dirname "$NAIS_GPG_KEY")"
 curl -sfSL "https://ppa.nais.io/KEY.gpg" | gpg --dearmor | sudo dd of="$NAIS_GPG_KEY"
 echo "deb [signed-by=$NAIS_GPG_KEY] https://ppa.nais.io/ ./" | sudo tee /etc/apt/sources.list.d/nav_nais.list
-sudo apt update # Now you can apt install naisdevice
+sudo apt update # Now you can apt install nais
 ```
 
 2. Install the nais package:
