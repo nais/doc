@@ -4,10 +4,10 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 
 # ID-porten sidecar
 
-!!! warning "Status: Alpha"
+!!! warning "Status: beta"
     This feature is only available in [team namespaces](../../../clusters/team-namespaces.md)
 
-    **Experimental**: subject to API change, instability, or removal.
+    **Experimental**: users report that this component is working, but it needs a broader audience to be battle-tested properly.
 
 ## Description
 
