@@ -65,7 +65,7 @@ nais aiven get secret-name namespace -d /my-temp-folder/ -c kcat
 
 ## tidy
 
-Removes folders in `/tmp` directory that starts with `aiven-secret-`.
+Removes folders in `/tmp` ($TEMPDIR) directory that starts with `aiven-secret-`.
 
 ```bash
 nais aiven tidy
