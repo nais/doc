@@ -13,7 +13,7 @@ nais-clustrene `dev-sbs` og `prod-sbs`, også kjent som "selvbetjeningssonen" ø
 
 For brukere av nais betyr det at nye applikasjoner skal legges til GCP fremfor SBS, og at eksisterende applikasjoner i SBS må migreres til GCP. Følgende frister gjelder for migrering:
 
-- Fredag 8. oktobe 2021 stenges muligheten for å lage nye apper i SBS-clustrene
+- Fredag 8. oktober 2021 stenges muligheten for å lage nye apper i SBS-clustrene
 - Fredag 1. april 2022 skal alle apper i SBS være migrert til GCP
 
 Begge datoene gjelder for både prod-sbs og dev-sbs. Dersom deres team har en applikasjon som ikke er mulig å migrere til sky vil det være mulig å få unntak fra kravet om migrering. Slike unntak skal godkjennes av IT-direktøren, og det vil komme mer info senere om prosessen for å søke om unntak. Vi vil komme tilbake til hvilke løsninger som blir tilgjengelig onprem for disse appene som er unntatt migrering.
