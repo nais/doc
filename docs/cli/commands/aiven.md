@@ -149,7 +149,7 @@ Alternatively, you can specify the same settings directly on the command line:
 
 ```
 kcat \
-    -b https://boostrap-server.aivencloud.com:26484 \
+    -b boostrap-server.aivencloud.com:26484 \
     -X security.protocol=ssl \
     -X ssl.key.location=service.key \
     -X ssl.certificate.location=service.cert \
