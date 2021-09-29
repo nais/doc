@@ -27,45 +27,45 @@ Required: `false`<br />
       accessPolicy:
         inbound:
           rules:
-          - application: app1
-          - application: app2
-            namespace: q1
-          - application: app3
-            cluster: dev-gcp
-            namespace: q2
-          - application: '*'
-            namespace: q3
-          - application: app4
-            permissions:
-              scopes:
-              - custom-scope
-          - application: app5
-            permissions:
-              roles:
-              - custom-role
-          - application: app6
-            permissions:
-              roles:
-              - custom-role
-              scopes:
-              - custom-scope
+            - application: app1
+            - application: app2
+              namespace: q1
+            - application: app3
+              cluster: dev-gcp
+              namespace: q2
+            - application: '*'
+              namespace: q3
+            - application: app4
+              permissions:
+                scopes:
+                  - custom-scope
+            - application: app5
+              permissions:
+                roles:
+                  - custom-role
+            - application: app6
+              permissions:
+                roles:
+                  - custom-role
+                scopes:
+                  - custom-scope
         outbound:
           external:
-          - host: external-application.example.com
-          - host: non-http-service.example.com
-            ports:
-            - name: kafka
-              port: 9200
-              protocol: TCP
+            - host: external-application.example.com
+            - host: non-http-service.example.com
+              ports:
+                - name: kafka
+                  port: 9200
+                  protocol: TCP
           rules:
-          - application: app1
-          - application: app2
-            namespace: q1
-          - application: app3
-            cluster: dev-gcp
-            namespace: q2
-          - application: '*'
-            namespace: q3
+            - application: app1
+            - application: app2
+              namespace: q1
+            - application: app3
+              cluster: dev-gcp
+              namespace: q2
+            - application: '*'
+              namespace: q3
     ```
 
 ### accessPolicy.inbound
@@ -80,28 +80,28 @@ Required: `false`<br />
       accessPolicy:
         inbound:
           rules:
-          - application: app1
-          - application: app2
-            namespace: q1
-          - application: app3
-            cluster: dev-gcp
-            namespace: q2
-          - application: '*'
-            namespace: q3
-          - application: app4
-            permissions:
-              scopes:
-              - custom-scope
-          - application: app5
-            permissions:
-              roles:
-              - custom-role
-          - application: app6
-            permissions:
-              roles:
-              - custom-role
-              scopes:
-              - custom-scope
+            - application: app1
+            - application: app2
+              namespace: q1
+            - application: app3
+              cluster: dev-gcp
+              namespace: q2
+            - application: '*'
+              namespace: q3
+            - application: app4
+              permissions:
+                scopes:
+                  - custom-scope
+            - application: app5
+              permissions:
+                roles:
+                  - custom-role
+            - application: app6
+              permissions:
+                roles:
+                  - custom-role
+                scopes:
+                  - custom-scope
     ```
 
 #### accessPolicy.inbound.rules
@@ -116,28 +116,28 @@ Required: `true`<br />
       accessPolicy:
         inbound:
           rules:
-          - application: app1
-          - application: app2
-            namespace: q1
-          - application: app3
-            cluster: dev-gcp
-            namespace: q2
-          - application: '*'
-            namespace: q3
-          - application: app4
-            permissions:
-              scopes:
-              - custom-scope
-          - application: app5
-            permissions:
-              roles:
-              - custom-role
-          - application: app6
-            permissions:
-              roles:
-              - custom-role
-              scopes:
-              - custom-scope
+            - application: app1
+            - application: app2
+              namespace: q1
+            - application: app3
+              cluster: dev-gcp
+              namespace: q2
+            - application: '*'
+              namespace: q3
+            - application: app4
+              permissions:
+                scopes:
+                  - custom-scope
+            - application: app5
+              permissions:
+                roles:
+                  - custom-role
+            - application: app6
+              permissions:
+                roles:
+                  - custom-role
+                scopes:
+                  - custom-scope
     ```
 
 ##### accessPolicy.inbound.rules[].application
@@ -152,28 +152,28 @@ Required: `true`<br />
       accessPolicy:
         inbound:
           rules:
-          - application: app1
-          - application: app2
-            namespace: q1
-          - application: app3
-            cluster: dev-gcp
-            namespace: q2
-          - application: '*'
-            namespace: q3
-          - application: app4
-            permissions:
-              scopes:
-              - custom-scope
-          - application: app5
-            permissions:
-              roles:
-              - custom-role
-          - application: app6
-            permissions:
-              roles:
-              - custom-role
-              scopes:
-              - custom-scope
+            - application: app1
+            - application: app2
+              namespace: q1
+            - application: app3
+              cluster: dev-gcp
+              namespace: q2
+            - application: '*'
+              namespace: q3
+            - application: app4
+              permissions:
+                scopes:
+                  - custom-scope
+            - application: app5
+              permissions:
+                roles:
+                  - custom-role
+            - application: app6
+              permissions:
+                roles:
+                  - custom-role
+                scopes:
+                  - custom-scope
     ```
 
 ##### accessPolicy.inbound.rules[].cluster
@@ -188,28 +188,28 @@ Required: `false`<br />
       accessPolicy:
         inbound:
           rules:
-          - application: app1
-          - application: app2
-            namespace: q1
-          - application: app3
-            cluster: dev-gcp
-            namespace: q2
-          - application: '*'
-            namespace: q3
-          - application: app4
-            permissions:
-              scopes:
-              - custom-scope
-          - application: app5
-            permissions:
-              roles:
-              - custom-role
-          - application: app6
-            permissions:
-              roles:
-              - custom-role
-              scopes:
-              - custom-scope
+            - application: app1
+            - application: app2
+              namespace: q1
+            - application: app3
+              cluster: dev-gcp
+              namespace: q2
+            - application: '*'
+              namespace: q3
+            - application: app4
+              permissions:
+                scopes:
+                  - custom-scope
+            - application: app5
+              permissions:
+                roles:
+                  - custom-role
+            - application: app6
+              permissions:
+                roles:
+                  - custom-role
+                scopes:
+                  - custom-scope
     ```
 
 ##### accessPolicy.inbound.rules[].namespace
@@ -224,28 +224,28 @@ Required: `false`<br />
       accessPolicy:
         inbound:
           rules:
-          - application: app1
-          - application: app2
-            namespace: q1
-          - application: app3
-            cluster: dev-gcp
-            namespace: q2
-          - application: '*'
-            namespace: q3
-          - application: app4
-            permissions:
-              scopes:
-              - custom-scope
-          - application: app5
-            permissions:
-              roles:
-              - custom-role
-          - application: app6
-            permissions:
-              roles:
-              - custom-role
-              scopes:
-              - custom-scope
+            - application: app1
+            - application: app2
+              namespace: q1
+            - application: app3
+              cluster: dev-gcp
+              namespace: q2
+            - application: '*'
+              namespace: q3
+            - application: app4
+              permissions:
+                scopes:
+                  - custom-scope
+            - application: app5
+              permissions:
+                roles:
+                  - custom-role
+            - application: app6
+              permissions:
+                roles:
+                  - custom-role
+                scopes:
+                  - custom-scope
     ```
 
 ##### accessPolicy.inbound.rules[].permissions
@@ -264,28 +264,28 @@ Required: `false`<br />
       accessPolicy:
         inbound:
           rules:
-          - application: app1
-          - application: app2
-            namespace: q1
-          - application: app3
-            cluster: dev-gcp
-            namespace: q2
-          - application: '*'
-            namespace: q3
-          - application: app4
-            permissions:
-              scopes:
-              - custom-scope
-          - application: app5
-            permissions:
-              roles:
-              - custom-role
-          - application: app6
-            permissions:
-              roles:
-              - custom-role
-              scopes:
-              - custom-scope
+            - application: app1
+            - application: app2
+              namespace: q1
+            - application: app3
+              cluster: dev-gcp
+              namespace: q2
+            - application: '*'
+              namespace: q3
+            - application: app4
+              permissions:
+                scopes:
+                  - custom-scope
+            - application: app5
+              permissions:
+                roles:
+                  - custom-role
+            - application: app6
+              permissions:
+                roles:
+                  - custom-role
+                scopes:
+                  - custom-scope
     ```
 
 ###### accessPolicy.inbound.rules[].permissions.roles
@@ -304,28 +304,28 @@ Required: `false`<br />
       accessPolicy:
         inbound:
           rules:
-          - application: app1
-          - application: app2
-            namespace: q1
-          - application: app3
-            cluster: dev-gcp
-            namespace: q2
-          - application: '*'
-            namespace: q3
-          - application: app4
-            permissions:
-              scopes:
-              - custom-scope
-          - application: app5
-            permissions:
-              roles:
-              - custom-role
-          - application: app6
-            permissions:
-              roles:
-              - custom-role
-              scopes:
-              - custom-scope
+            - application: app1
+            - application: app2
+              namespace: q1
+            - application: app3
+              cluster: dev-gcp
+              namespace: q2
+            - application: '*'
+              namespace: q3
+            - application: app4
+              permissions:
+                scopes:
+                  - custom-scope
+            - application: app5
+              permissions:
+                roles:
+                  - custom-role
+            - application: app6
+              permissions:
+                roles:
+                  - custom-role
+                scopes:
+                  - custom-scope
     ```
 
 ###### accessPolicy.inbound.rules[].permissions.scopes
@@ -344,28 +344,28 @@ Required: `false`<br />
       accessPolicy:
         inbound:
           rules:
-          - application: app1
-          - application: app2
-            namespace: q1
-          - application: app3
-            cluster: dev-gcp
-            namespace: q2
-          - application: '*'
-            namespace: q3
-          - application: app4
-            permissions:
-              scopes:
-              - custom-scope
-          - application: app5
-            permissions:
-              roles:
-              - custom-role
-          - application: app6
-            permissions:
-              roles:
-              - custom-role
-              scopes:
-              - custom-scope
+            - application: app1
+            - application: app2
+              namespace: q1
+            - application: app3
+              cluster: dev-gcp
+              namespace: q2
+            - application: '*'
+              namespace: q3
+            - application: app4
+              permissions:
+                scopes:
+                  - custom-scope
+            - application: app5
+              permissions:
+                roles:
+                  - custom-role
+            - application: app6
+              permissions:
+                roles:
+                  - custom-role
+                scopes:
+                  - custom-scope
     ```
 
 ### accessPolicy.outbound
@@ -380,21 +380,21 @@ Required: `false`<br />
       accessPolicy:
         outbound:
           external:
-          - host: external-application.example.com
-          - host: non-http-service.example.com
-            ports:
-            - name: kafka
-              port: 9200
-              protocol: TCP
+            - host: external-application.example.com
+            - host: non-http-service.example.com
+              ports:
+                - name: kafka
+                  port: 9200
+                  protocol: TCP
           rules:
-          - application: app1
-          - application: app2
-            namespace: q1
-          - application: app3
-            cluster: dev-gcp
-            namespace: q2
-          - application: '*'
-            namespace: q3
+            - application: app1
+            - application: app2
+              namespace: q1
+            - application: app3
+              cluster: dev-gcp
+              namespace: q2
+            - application: '*'
+              namespace: q3
     ```
 
 #### accessPolicy.outbound.external
@@ -410,12 +410,12 @@ Availability: GCP<br />
       accessPolicy:
         outbound:
           external:
-          - host: external-application.example.com
-          - host: non-http-service.example.com
-            ports:
-            - name: kafka
-              port: 9200
-              protocol: TCP
+            - host: external-application.example.com
+            - host: non-http-service.example.com
+              ports:
+                - name: kafka
+                  port: 9200
+                  protocol: TCP
     ```
 
 ##### accessPolicy.outbound.external[].host
@@ -430,12 +430,12 @@ Required: `true`<br />
       accessPolicy:
         outbound:
           external:
-          - host: external-application.example.com
-          - host: non-http-service.example.com
-            ports:
-            - name: kafka
-              port: 9200
-              protocol: TCP
+            - host: external-application.example.com
+            - host: non-http-service.example.com
+              ports:
+                - name: kafka
+                  port: 9200
+                  protocol: TCP
     ```
 
 ##### accessPolicy.outbound.external[].ports
@@ -450,12 +450,12 @@ Required: `false`<br />
       accessPolicy:
         outbound:
           external:
-          - host: external-application.example.com
-          - host: non-http-service.example.com
-            ports:
-            - name: kafka
-              port: 9200
-              protocol: TCP
+            - host: external-application.example.com
+            - host: non-http-service.example.com
+              ports:
+                - name: kafka
+                  port: 9200
+                  protocol: TCP
     ```
 
 ###### accessPolicy.outbound.external[].ports[].name
@@ -470,12 +470,12 @@ Required: `true`<br />
       accessPolicy:
         outbound:
           external:
-          - host: external-application.example.com
-          - host: non-http-service.example.com
-            ports:
-            - name: kafka
-              port: 9200
-              protocol: TCP
+            - host: external-application.example.com
+            - host: non-http-service.example.com
+              ports:
+                - name: kafka
+                  port: 9200
+                  protocol: TCP
     ```
 
 ###### accessPolicy.outbound.external[].ports[].port
@@ -490,12 +490,12 @@ Required: `true`<br />
       accessPolicy:
         outbound:
           external:
-          - host: external-application.example.com
-          - host: non-http-service.example.com
-            ports:
-            - name: kafka
-              port: 9200
-              protocol: TCP
+            - host: external-application.example.com
+            - host: non-http-service.example.com
+              ports:
+                - name: kafka
+                  port: 9200
+                  protocol: TCP
     ```
 
 ###### accessPolicy.outbound.external[].ports[].protocol
@@ -511,12 +511,12 @@ Allowed values: `GRPC`, `HTTP`, `HTTP2`, `HTTPS`, `MONGO`, `TCP`, `TLS`<br />
       accessPolicy:
         outbound:
           external:
-          - host: external-application.example.com
-          - host: non-http-service.example.com
-            ports:
-            - name: kafka
-              port: 9200
-              protocol: TCP
+            - host: external-application.example.com
+            - host: non-http-service.example.com
+              ports:
+                - name: kafka
+                  port: 9200
+                  protocol: TCP
     ```
 
 #### accessPolicy.outbound.rules
@@ -531,14 +531,14 @@ Required: `false`<br />
       accessPolicy:
         outbound:
           rules:
-          - application: app1
-          - application: app2
-            namespace: q1
-          - application: app3
-            cluster: dev-gcp
-            namespace: q2
-          - application: '*'
-            namespace: q3
+            - application: app1
+            - application: app2
+              namespace: q1
+            - application: app3
+              cluster: dev-gcp
+              namespace: q2
+            - application: '*'
+              namespace: q3
     ```
 
 ##### accessPolicy.outbound.rules[].application
@@ -553,14 +553,14 @@ Required: `true`<br />
       accessPolicy:
         outbound:
           rules:
-          - application: app1
-          - application: app2
-            namespace: q1
-          - application: app3
-            cluster: dev-gcp
-            namespace: q2
-          - application: '*'
-            namespace: q3
+            - application: app1
+            - application: app2
+              namespace: q1
+            - application: app3
+              cluster: dev-gcp
+              namespace: q2
+            - application: '*'
+              namespace: q3
     ```
 
 ##### accessPolicy.outbound.rules[].cluster
@@ -575,14 +575,14 @@ Required: `false`<br />
       accessPolicy:
         outbound:
           rules:
-          - application: app1
-          - application: app2
-            namespace: q1
-          - application: app3
-            cluster: dev-gcp
-            namespace: q2
-          - application: '*'
-            namespace: q3
+            - application: app1
+            - application: app2
+              namespace: q1
+            - application: app3
+              cluster: dev-gcp
+              namespace: q2
+            - application: '*'
+              namespace: q3
     ```
 
 ##### accessPolicy.outbound.rules[].namespace
@@ -597,14 +597,14 @@ Required: `false`<br />
       accessPolicy:
         outbound:
           rules:
-          - application: app1
-          - application: app2
-            namespace: q1
-          - application: app3
-            cluster: dev-gcp
-            namespace: q2
-          - application: '*'
-            namespace: q3
+            - application: app1
+            - application: app2
+              namespace: q1
+            - application: app3
+              cluster: dev-gcp
+              namespace: q2
+            - application: '*'
+              namespace: q3
     ```
 
 ## activeDeadlineSeconds
@@ -633,13 +633,13 @@ Required: `false`<br />
           allowAllUsers: true
           claims:
             extra:
-            - NAVident
-            - azp_name
+              - NAVident
+              - azp_name
             groups:
-            - id: 00000000-0000-0000-0000-000000000000
+              - id: 00000000-0000-0000-0000-000000000000
           enabled: true
           replyURLs:
-          - https://myapplication.nav.no/oauth2/callback
+            - https://myapplication.nav.no/oauth2/callback
           singlePageApplication: true
           tenant: nav.no
     ```
@@ -662,13 +662,13 @@ Required: `true`<br />
           allowAllUsers: true
           claims:
             extra:
-            - NAVident
-            - azp_name
+              - NAVident
+              - azp_name
             groups:
-            - id: 00000000-0000-0000-0000-000000000000
+              - id: 00000000-0000-0000-0000-000000000000
           enabled: true
           replyURLs:
-          - https://myapplication.nav.no/oauth2/callback
+            - https://myapplication.nav.no/oauth2/callback
           singlePageApplication: true
           tenant: nav.no
     ```
@@ -700,10 +700,10 @@ Required: `false`<br />
         application:
           claims:
             extra:
-            - NAVident
-            - azp_name
+              - NAVident
+              - azp_name
             groups:
-            - id: 00000000-0000-0000-0000-000000000000
+              - id: 00000000-0000-0000-0000-000000000000
     ```
 
 ##### azure.application.claims.extra
@@ -723,8 +723,8 @@ Required: `false`<br />
         application:
           claims:
             extra:
-            - NAVident
-            - azp_name
+              - NAVident
+              - azp_name
     ```
 
 ##### azure.application.claims.groups
@@ -744,7 +744,7 @@ Required: `false`<br />
         application:
           claims:
             groups:
-            - id: 00000000-0000-0000-0000-000000000000
+              - id: 00000000-0000-0000-0000-000000000000
     ```
 
 ###### azure.application.claims.groups[].id
@@ -760,7 +760,7 @@ Required: `false`<br />
         application:
           claims:
             groups:
-            - id: 00000000-0000-0000-0000-000000000000
+              - id: 00000000-0000-0000-0000-000000000000
     ```
 
 #### azure.application.enabled
@@ -794,7 +794,7 @@ Required: `false`<br />
       azure:
         application:
           replyURLs:
-          - https://myapplication.nav.no/oauth2/callback
+            - https://myapplication.nav.no/oauth2/callback
     ```
 
 #### azure.application.singlePageApplication
@@ -854,11 +854,11 @@ Required: `false`<br />
     ``` yaml
     spec:
       command:
-      - /app/myapplication
-      - --param
-      - value
-      - --other-param
-      - other-value
+        - /app/myapplication
+        - --param
+        - value
+        - --other-param
+        - other-value
     ```
 
 ## elastic
@@ -912,12 +912,12 @@ Required: `false`<br />
     ``` yaml
     spec:
       env:
-      - name: MY_CUSTOM_VAR
-        value: some_value
-      - name: MY_APPLICATION_NAME
-        valueFrom:
-          fieldRef:
-            fieldPath: metadata.name
+        - name: MY_CUSTOM_VAR
+          value: some_value
+        - name: MY_APPLICATION_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
     ```
 
 ### env[].name
@@ -930,12 +930,12 @@ Required: `true`<br />
     ``` yaml
     spec:
       env:
-      - name: MY_CUSTOM_VAR
-        value: some_value
-      - name: MY_APPLICATION_NAME
-        valueFrom:
-          fieldRef:
-            fieldPath: metadata.name
+        - name: MY_CUSTOM_VAR
+          value: some_value
+        - name: MY_APPLICATION_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
     ```
 
 ### env[].value
@@ -948,12 +948,12 @@ Required: `false`<br />
     ``` yaml
     spec:
       env:
-      - name: MY_CUSTOM_VAR
-        value: some_value
-      - name: MY_APPLICATION_NAME
-        valueFrom:
-          fieldRef:
-            fieldPath: metadata.name
+        - name: MY_CUSTOM_VAR
+          value: some_value
+        - name: MY_APPLICATION_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
     ```
 
 ### env[].valueFrom
@@ -970,12 +970,12 @@ Required: `false`<br />
     ``` yaml
     spec:
       env:
-      - name: MY_CUSTOM_VAR
-        value: some_value
-      - name: MY_APPLICATION_NAME
-        valueFrom:
-          fieldRef:
-            fieldPath: metadata.name
+        - name: MY_CUSTOM_VAR
+          value: some_value
+        - name: MY_APPLICATION_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
     ```
 
 #### env[].valueFrom.fieldRef
@@ -986,12 +986,12 @@ Required: `true`<br />
     ``` yaml
     spec:
       env:
-      - name: MY_CUSTOM_VAR
-        value: some_value
-      - name: MY_APPLICATION_NAME
-        valueFrom:
-          fieldRef:
-            fieldPath: metadata.name
+        - name: MY_CUSTOM_VAR
+          value: some_value
+        - name: MY_APPLICATION_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
     ```
 
 ##### env[].valueFrom.fieldRef.fieldPath
@@ -1005,12 +1005,12 @@ Allowed values: _(empty string)_, `metadata.annotations`, `metadata.labels`, `me
     ``` yaml
     spec:
       env:
-      - name: MY_CUSTOM_VAR
-        value: some_value
-      - name: MY_APPLICATION_NAME
-        valueFrom:
-          fieldRef:
-            fieldPath: metadata.name
+        - name: MY_CUSTOM_VAR
+          value: some_value
+        - name: MY_APPLICATION_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
     ```
 
 ## envFrom
@@ -1026,8 +1026,8 @@ Availability: team namespaces<br />
     ``` yaml
     spec:
       envFrom:
-      - secret: my-secret-with-envs
-      - configmap: my-configmap-with-envs
+        - secret: my-secret-with-envs
+        - configmap: my-configmap-with-envs
     ```
 
 ### envFrom[].configmap
@@ -1040,8 +1040,8 @@ Required: `false`<br />
     ``` yaml
     spec:
       envFrom:
-      - secret: my-secret-with-envs
-      - configmap: my-configmap-with-envs
+        - secret: my-secret-with-envs
+        - configmap: my-configmap-with-envs
     ```
 
 ### envFrom[].secret
@@ -1054,8 +1054,8 @@ Required: `false`<br />
     ``` yaml
     spec:
       envFrom:
-      - secret: my-secret-with-envs
-      - configmap: my-configmap-with-envs
+        - secret: my-secret-with-envs
+        - configmap: my-configmap-with-envs
     ```
 
 ## failedJobsHistoryLimit
@@ -1084,10 +1084,10 @@ Availability: team namespaces<br />
     ``` yaml
     spec:
       filesFrom:
-      - configmap: example-files-configmap
-        mountPath: /var/run/configmaps
-      - mountPath: /var/run/secrets
-        secret: my-secret-file
+        - configmap: example-files-configmap
+          mountPath: /var/run/configmaps
+        - mountPath: /var/run/secrets
+          secret: my-secret-file
     ```
 
 ### filesFrom[].configmap
@@ -1100,10 +1100,10 @@ Required: `false`<br />
     ``` yaml
     spec:
       filesFrom:
-      - configmap: example-files-configmap
-        mountPath: /var/run/configmaps
-      - mountPath: /var/run/secrets
-        secret: my-secret-file
+        - configmap: example-files-configmap
+          mountPath: /var/run/configmaps
+        - mountPath: /var/run/secrets
+          secret: my-secret-file
     ```
 
 ### filesFrom[].mountPath
@@ -1117,10 +1117,10 @@ Required: `false`<br />
     ``` yaml
     spec:
       filesFrom:
-      - configmap: example-files-configmap
-        mountPath: /var/run/configmaps
-      - mountPath: /var/run/secrets
-        secret: my-secret-file
+        - configmap: example-files-configmap
+          mountPath: /var/run/configmaps
+        - mountPath: /var/run/secrets
+          secret: my-secret-file
     ```
 
 ### filesFrom[].secret
@@ -1133,10 +1133,10 @@ Required: `false`<br />
     ``` yaml
     spec:
       filesFrom:
-      - configmap: example-files-configmap
-        mountPath: /var/run/configmaps
-      - mountPath: /var/run/secrets
-        secret: my-secret-file
+        - configmap: example-files-configmap
+          mountPath: /var/run/configmaps
+        - mountPath: /var/run/secrets
+          secret: my-secret-file
     ```
 
 ## gcp
@@ -1149,53 +1149,53 @@ Availability: GCP<br />
     spec:
       gcp:
         bigQueryDatasets:
-        - cascadingDelete: true
-          description: Contains big data, supporting big queries, for use in big ideas.
-          name: my_bigquery_dataset1
-          permission: READWRITE
-        - description: Contains big data, supporting big queries, for use in big ideas.
-          name: my_bigquery_dataset2
-          permission: READ
+          - cascadingDelete: true
+            description: Contains big data, supporting big queries, for use in big ideas.
+            name: my_bigquery_dataset1
+            permission: READWRITE
+          - description: Contains big data, supporting big queries, for use in big ideas.
+            name: my_bigquery_dataset2
+            permission: READ
         buckets:
-        - cascadingDelete: true
-          lifecycleCondition:
-            age: 10
-            createdBefore: "2020-01-01"
-            numNewerVersions: 2
-            withState: ARCHIVED
-          name: my-cloud-storage-bucket
-          retentionPeriodDays: 30
+          - cascadingDelete: true
+            lifecycleCondition:
+              age: 10
+              createdBefore: "2020-01-01"
+              numNewerVersions: 2
+              withState: ARCHIVED
+            name: my-cloud-storage-bucket
+            retentionPeriodDays: 30
         permissions:
-        - resource:
-            apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
-            kind: Project
-            name: myteam-dev-ab23
-          role: roles/cloudsql.client
+          - resource:
+              apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+              kind: Project
+              name: myteam-dev-ab23
+            role: roles/cloudsql.client
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 ### gcp.bigQueryDatasets
@@ -1214,13 +1214,13 @@ Availability: GCP<br />
     spec:
       gcp:
         bigQueryDatasets:
-        - cascadingDelete: true
-          description: Contains big data, supporting big queries, for use in big ideas.
-          name: my_bigquery_dataset1
-          permission: READWRITE
-        - description: Contains big data, supporting big queries, for use in big ideas.
-          name: my_bigquery_dataset2
-          permission: READ
+          - cascadingDelete: true
+            description: Contains big data, supporting big queries, for use in big ideas.
+            name: my_bigquery_dataset1
+            permission: READWRITE
+          - description: Contains big data, supporting big queries, for use in big ideas.
+            name: my_bigquery_dataset2
+            permission: READ
     ```
 
 #### gcp.bigQueryDatasets[].cascadingDelete
@@ -1235,13 +1235,13 @@ Immutable: `true`<br />
     spec:
       gcp:
         bigQueryDatasets:
-        - cascadingDelete: true
-          description: Contains big data, supporting big queries, for use in big ideas.
-          name: my_bigquery_dataset1
-          permission: READWRITE
-        - description: Contains big data, supporting big queries, for use in big ideas.
-          name: my_bigquery_dataset2
-          permission: READ
+          - cascadingDelete: true
+            description: Contains big data, supporting big queries, for use in big ideas.
+            name: my_bigquery_dataset1
+            permission: READWRITE
+          - description: Contains big data, supporting big queries, for use in big ideas.
+            name: my_bigquery_dataset2
+            permission: READ
     ```
 
 #### gcp.bigQueryDatasets[].description
@@ -1256,13 +1256,13 @@ Immutable: `true`<br />
     spec:
       gcp:
         bigQueryDatasets:
-        - cascadingDelete: true
-          description: Contains big data, supporting big queries, for use in big ideas.
-          name: my_bigquery_dataset1
-          permission: READWRITE
-        - description: Contains big data, supporting big queries, for use in big ideas.
-          name: my_bigquery_dataset2
-          permission: READ
+          - cascadingDelete: true
+            description: Contains big data, supporting big queries, for use in big ideas.
+            name: my_bigquery_dataset1
+            permission: READWRITE
+          - description: Contains big data, supporting big queries, for use in big ideas.
+            name: my_bigquery_dataset2
+            permission: READ
     ```
 
 #### gcp.bigQueryDatasets[].name
@@ -1278,13 +1278,13 @@ Pattern: `^[a-z0-9][a-z0-9_]+$`<br />
     spec:
       gcp:
         bigQueryDatasets:
-        - cascadingDelete: true
-          description: Contains big data, supporting big queries, for use in big ideas.
-          name: my_bigquery_dataset1
-          permission: READWRITE
-        - description: Contains big data, supporting big queries, for use in big ideas.
-          name: my_bigquery_dataset2
-          permission: READ
+          - cascadingDelete: true
+            description: Contains big data, supporting big queries, for use in big ideas.
+            name: my_bigquery_dataset1
+            permission: READWRITE
+          - description: Contains big data, supporting big queries, for use in big ideas.
+            name: my_bigquery_dataset2
+            permission: READ
     ```
 
 #### gcp.bigQueryDatasets[].permission
@@ -1300,13 +1300,13 @@ Allowed values: `READ`, `READWRITE`<br />
     spec:
       gcp:
         bigQueryDatasets:
-        - cascadingDelete: true
-          description: Contains big data, supporting big queries, for use in big ideas.
-          name: my_bigquery_dataset1
-          permission: READWRITE
-        - description: Contains big data, supporting big queries, for use in big ideas.
-          name: my_bigquery_dataset2
-          permission: READ
+          - cascadingDelete: true
+            description: Contains big data, supporting big queries, for use in big ideas.
+            name: my_bigquery_dataset1
+            permission: READWRITE
+          - description: Contains big data, supporting big queries, for use in big ideas.
+            name: my_bigquery_dataset2
+            permission: READ
     ```
 
 ### gcp.buckets
@@ -1325,14 +1325,14 @@ Availability: GCP<br />
     spec:
       gcp:
         buckets:
-        - cascadingDelete: true
-          lifecycleCondition:
-            age: 10
-            createdBefore: "2020-01-01"
-            numNewerVersions: 2
-            withState: ARCHIVED
-          name: my-cloud-storage-bucket
-          retentionPeriodDays: 30
+          - cascadingDelete: true
+            lifecycleCondition:
+              age: 10
+              createdBefore: "2020-01-01"
+              numNewerVersions: 2
+              withState: ARCHIVED
+            name: my-cloud-storage-bucket
+            retentionPeriodDays: 30
     ```
 
 #### gcp.buckets[].cascadingDelete
@@ -1346,14 +1346,14 @@ Required: `false`<br />
     spec:
       gcp:
         buckets:
-        - cascadingDelete: true
-          lifecycleCondition:
-            age: 10
-            createdBefore: "2020-01-01"
-            numNewerVersions: 2
-            withState: ARCHIVED
-          name: my-cloud-storage-bucket
-          retentionPeriodDays: 30
+          - cascadingDelete: true
+            lifecycleCondition:
+              age: 10
+              createdBefore: "2020-01-01"
+              numNewerVersions: 2
+              withState: ARCHIVED
+            name: my-cloud-storage-bucket
+            retentionPeriodDays: 30
     ```
 
 #### gcp.buckets[].lifecycleCondition
@@ -1371,14 +1371,14 @@ Required: `false`<br />
     spec:
       gcp:
         buckets:
-        - cascadingDelete: true
-          lifecycleCondition:
-            age: 10
-            createdBefore: "2020-01-01"
-            numNewerVersions: 2
-            withState: ARCHIVED
-          name: my-cloud-storage-bucket
-          retentionPeriodDays: 30
+          - cascadingDelete: true
+            lifecycleCondition:
+              age: 10
+              createdBefore: "2020-01-01"
+              numNewerVersions: 2
+              withState: ARCHIVED
+            name: my-cloud-storage-bucket
+            retentionPeriodDays: 30
     ```
 
 ##### gcp.buckets[].lifecycleCondition.age
@@ -1392,14 +1392,14 @@ Required: `false`<br />
     spec:
       gcp:
         buckets:
-        - cascadingDelete: true
-          lifecycleCondition:
-            age: 10
-            createdBefore: "2020-01-01"
-            numNewerVersions: 2
-            withState: ARCHIVED
-          name: my-cloud-storage-bucket
-          retentionPeriodDays: 30
+          - cascadingDelete: true
+            lifecycleCondition:
+              age: 10
+              createdBefore: "2020-01-01"
+              numNewerVersions: 2
+              withState: ARCHIVED
+            name: my-cloud-storage-bucket
+            retentionPeriodDays: 30
     ```
 
 ##### gcp.buckets[].lifecycleCondition.createdBefore
@@ -1413,14 +1413,14 @@ Required: `false`<br />
     spec:
       gcp:
         buckets:
-        - cascadingDelete: true
-          lifecycleCondition:
-            age: 10
-            createdBefore: "2020-01-01"
-            numNewerVersions: 2
-            withState: ARCHIVED
-          name: my-cloud-storage-bucket
-          retentionPeriodDays: 30
+          - cascadingDelete: true
+            lifecycleCondition:
+              age: 10
+              createdBefore: "2020-01-01"
+              numNewerVersions: 2
+              withState: ARCHIVED
+            name: my-cloud-storage-bucket
+            retentionPeriodDays: 30
     ```
 
 ##### gcp.buckets[].lifecycleCondition.numNewerVersions
@@ -1434,14 +1434,14 @@ Required: `false`<br />
     spec:
       gcp:
         buckets:
-        - cascadingDelete: true
-          lifecycleCondition:
-            age: 10
-            createdBefore: "2020-01-01"
-            numNewerVersions: 2
-            withState: ARCHIVED
-          name: my-cloud-storage-bucket
-          retentionPeriodDays: 30
+          - cascadingDelete: true
+            lifecycleCondition:
+              age: 10
+              createdBefore: "2020-01-01"
+              numNewerVersions: 2
+              withState: ARCHIVED
+            name: my-cloud-storage-bucket
+            retentionPeriodDays: 30
     ```
 
 ##### gcp.buckets[].lifecycleCondition.withState
@@ -1456,14 +1456,14 @@ Allowed values: _(empty string)_, `ANY`, `ARCHIVED`, `LIVE`<br />
     spec:
       gcp:
         buckets:
-        - cascadingDelete: true
-          lifecycleCondition:
-            age: 10
-            createdBefore: "2020-01-01"
-            numNewerVersions: 2
-            withState: ARCHIVED
-          name: my-cloud-storage-bucket
-          retentionPeriodDays: 30
+          - cascadingDelete: true
+            lifecycleCondition:
+              age: 10
+              createdBefore: "2020-01-01"
+              numNewerVersions: 2
+              withState: ARCHIVED
+            name: my-cloud-storage-bucket
+            retentionPeriodDays: 30
     ```
 
 #### gcp.buckets[].name
@@ -1477,14 +1477,14 @@ Required: `true`<br />
     spec:
       gcp:
         buckets:
-        - cascadingDelete: true
-          lifecycleCondition:
-            age: 10
-            createdBefore: "2020-01-01"
-            numNewerVersions: 2
-            withState: ARCHIVED
-          name: my-cloud-storage-bucket
-          retentionPeriodDays: 30
+          - cascadingDelete: true
+            lifecycleCondition:
+              age: 10
+              createdBefore: "2020-01-01"
+              numNewerVersions: 2
+              withState: ARCHIVED
+            name: my-cloud-storage-bucket
+            retentionPeriodDays: 30
     ```
 
 #### gcp.buckets[].retentionPeriodDays
@@ -1499,14 +1499,14 @@ Value range: `1`-`36500`<br />
     spec:
       gcp:
         buckets:
-        - cascadingDelete: true
-          lifecycleCondition:
-            age: 10
-            createdBefore: "2020-01-01"
-            numNewerVersions: 2
-            withState: ARCHIVED
-          name: my-cloud-storage-bucket
-          retentionPeriodDays: 30
+          - cascadingDelete: true
+            lifecycleCondition:
+              age: 10
+              createdBefore: "2020-01-01"
+              numNewerVersions: 2
+              withState: ARCHIVED
+            name: my-cloud-storage-bucket
+            retentionPeriodDays: 30
     ```
 
 ### gcp.permissions
@@ -1525,11 +1525,11 @@ Availability: GCP<br />
     spec:
       gcp:
         permissions:
-        - resource:
-            apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
-            kind: Project
-            name: myteam-dev-ab23
-          role: roles/cloudsql.client
+          - resource:
+              apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+              kind: Project
+              name: myteam-dev-ab23
+            role: roles/cloudsql.client
     ```
 
 #### gcp.permissions[].resource
@@ -1543,11 +1543,11 @@ Required: `true`<br />
     spec:
       gcp:
         permissions:
-        - resource:
-            apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
-            kind: Project
-            name: myteam-dev-ab23
-          role: roles/cloudsql.client
+          - resource:
+              apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+              kind: Project
+              name: myteam-dev-ab23
+            role: roles/cloudsql.client
     ```
 
 ##### gcp.permissions[].resource.apiVersion
@@ -1561,11 +1561,11 @@ Required: `true`<br />
     spec:
       gcp:
         permissions:
-        - resource:
-            apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
-            kind: Project
-            name: myteam-dev-ab23
-          role: roles/cloudsql.client
+          - resource:
+              apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+              kind: Project
+              name: myteam-dev-ab23
+            role: roles/cloudsql.client
     ```
 
 ##### gcp.permissions[].resource.kind
@@ -1579,11 +1579,11 @@ Required: `true`<br />
     spec:
       gcp:
         permissions:
-        - resource:
-            apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
-            kind: Project
-            name: myteam-dev-ab23
-          role: roles/cloudsql.client
+          - resource:
+              apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+              kind: Project
+              name: myteam-dev-ab23
+            role: roles/cloudsql.client
     ```
 
 ##### gcp.permissions[].resource.name
@@ -1597,11 +1597,11 @@ Required: `false`<br />
     spec:
       gcp:
         permissions:
-        - resource:
-            apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
-            kind: Project
-            name: myteam-dev-ab23
-          role: roles/cloudsql.client
+          - resource:
+              apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+              kind: Project
+              name: myteam-dev-ab23
+            role: roles/cloudsql.client
     ```
 
 #### gcp.permissions[].role
@@ -1615,11 +1615,11 @@ Required: `true`<br />
     spec:
       gcp:
         permissions:
-        - resource:
-            apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
-            kind: Project
-            name: myteam-dev-ab23
-          role: roles/cloudsql.client
+          - resource:
+              apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+              kind: Project
+              name: myteam-dev-ab23
+            role: roles/cloudsql.client
     ```
 
 ### gcp.sqlInstances
@@ -1639,30 +1639,30 @@ Availability: GCP<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 #### gcp.sqlInstances[].autoBackupHour
@@ -1677,30 +1677,30 @@ Value range: `0`-`23`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 #### gcp.sqlInstances[].cascadingDelete
@@ -1714,30 +1714,30 @@ Required: `false`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 #### gcp.sqlInstances[].collation
@@ -1751,30 +1751,30 @@ Required: `false`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 #### gcp.sqlInstances[].databases
@@ -1788,30 +1788,30 @@ Required: `false`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 ##### gcp.sqlInstances[].databases[].envVarPrefix
@@ -1825,30 +1825,30 @@ Required: `false`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 ##### gcp.sqlInstances[].databases[].name
@@ -1862,30 +1862,30 @@ Required: `true`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 ##### gcp.sqlInstances[].databases[].users
@@ -1899,30 +1899,30 @@ Required: `false`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 ###### gcp.sqlInstances[].databases[].users[].name
@@ -1937,30 +1937,30 @@ Pattern: `^[_a-zA-Z][_a-zA-Z0-9]+$`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 #### gcp.sqlInstances[].diskAutoresize
@@ -1978,30 +1978,30 @@ Required: `false`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 #### gcp.sqlInstances[].diskSize
@@ -2016,30 +2016,30 @@ Minimum value: `10`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 #### gcp.sqlInstances[].diskType
@@ -2054,30 +2054,30 @@ Allowed values: `HDD`, `SSD`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 #### gcp.sqlInstances[].highAvailability
@@ -2091,30 +2091,30 @@ Required: `false`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 #### gcp.sqlInstances[].insights
@@ -2128,30 +2128,30 @@ Required: `false`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 ##### gcp.sqlInstances[].insights.enabled
@@ -2166,30 +2166,30 @@ Default value: `true`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 ##### gcp.sqlInstances[].insights.queryStringLength
@@ -2204,30 +2204,30 @@ Value range: `256`-`4500`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 ##### gcp.sqlInstances[].insights.recordApplicationTags
@@ -2241,30 +2241,30 @@ Required: `false`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 ##### gcp.sqlInstances[].insights.recordClientAddress
@@ -2278,30 +2278,30 @@ Required: `false`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 #### gcp.sqlInstances[].maintenance
@@ -2315,30 +2315,30 @@ Required: `false`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 ##### gcp.sqlInstances[].maintenance.day
@@ -2351,30 +2351,30 @@ Value range: `1`-`7`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 ##### gcp.sqlInstances[].maintenance.hour
@@ -2387,30 +2387,30 @@ Value range: `0`-`23`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 #### gcp.sqlInstances[].name
@@ -2424,30 +2424,30 @@ Required: `false`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 #### gcp.sqlInstances[].pointInTimeRecovery
@@ -2461,30 +2461,30 @@ Required: `false`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 #### gcp.sqlInstances[].tier
@@ -2499,30 +2499,30 @@ Pattern: `db-.+`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 #### gcp.sqlInstances[].type
@@ -2537,30 +2537,30 @@ Allowed values: `POSTGRES_11`, `POSTGRES_12`<br />
     spec:
       gcp:
         sqlInstances:
-        - autoBackupHour: 1
-          cascadingDelete: true
-          collation: nb_NO.UTF8
-          databases:
-          - envVarPrefix: DB
-            name: mydatabase
-            users:
-            - name: extra_user
-          diskAutoresize: true
-          diskSize: 30
-          diskType: SSD
-          highAvailability: true
-          insights:
-            enabled: true
-            queryStringLength: 4500
-            recordApplicationTags: true
-            recordClientAddress: true
-          maintenance:
-            day: 1
-            hour: 4
-          name: myinstance
-          pointInTimeRecovery: true
-          tier: db-f1-micro
-          type: POSTGRES_12
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
     ```
 
 ## image
@@ -2771,17 +2771,17 @@ Required: `false`<br />
         enabled: true
         scopes:
           consumes:
-          - name: skatt:scope.read
+            - name: skatt:scope.read
           exposes:
-          - allowedIntegrations:
-            - maskinporten
-            atMaxAge: 30
-            consumers:
-            - name: KST
-              orgno: "123456789"
-            enabled: true
-            name: scope.read
-            product: arbeid
+            - allowedIntegrations:
+                - maskinporten
+              atMaxAge: 30
+              consumers:
+                - name: KST
+                  orgno: "123456789"
+              enabled: true
+              name: scope.read
+              product: arbeid
     ```
 
 ### maskinporten.enabled
@@ -2811,17 +2811,17 @@ Required: `false`<br />
       maskinporten:
         scopes:
           consumes:
-          - name: skatt:scope.read
+            - name: skatt:scope.read
           exposes:
-          - allowedIntegrations:
-            - maskinporten
-            atMaxAge: 30
-            consumers:
-            - name: KST
-              orgno: "123456789"
-            enabled: true
-            name: scope.read
-            product: arbeid
+            - allowedIntegrations:
+                - maskinporten
+              atMaxAge: 30
+              consumers:
+                - name: KST
+                  orgno: "123456789"
+              enabled: true
+              name: scope.read
+              product: arbeid
     ```
 
 #### maskinporten.scopes.consumes
@@ -2836,7 +2836,7 @@ Required: `false`<br />
       maskinporten:
         scopes:
           consumes:
-          - name: skatt:scope.read
+            - name: skatt:scope.read
     ```
 
 ##### maskinporten.scopes.consumes[].name
@@ -2855,7 +2855,7 @@ Required: `true`<br />
       maskinporten:
         scopes:
           consumes:
-          - name: skatt:scope.read
+            - name: skatt:scope.read
     ```
 
 #### maskinporten.scopes.exposes
@@ -2870,15 +2870,15 @@ Required: `false`<br />
       maskinporten:
         scopes:
           exposes:
-          - allowedIntegrations:
-            - maskinporten
-            atMaxAge: 30
-            consumers:
-            - name: KST
-              orgno: "123456789"
-            enabled: true
-            name: scope.read
-            product: arbeid
+            - allowedIntegrations:
+                - maskinporten
+              atMaxAge: 30
+              consumers:
+                - name: KST
+                  orgno: "123456789"
+              enabled: true
+              name: scope.read
+              product: arbeid
     ```
 
 ##### maskinporten.scopes.exposes[].allowedIntegrations
@@ -2898,15 +2898,15 @@ Default value: `maskinporten`<br />
       maskinporten:
         scopes:
           exposes:
-          - allowedIntegrations:
-            - maskinporten
-            atMaxAge: 30
-            consumers:
-            - name: KST
-              orgno: "123456789"
-            enabled: true
-            name: scope.read
-            product: arbeid
+            - allowedIntegrations:
+                - maskinporten
+              atMaxAge: 30
+              consumers:
+                - name: KST
+                  orgno: "123456789"
+              enabled: true
+              name: scope.read
+              product: arbeid
     ```
 
 ##### maskinporten.scopes.exposes[].atMaxAge
@@ -2923,15 +2923,15 @@ Value range: `30`-`680`<br />
       maskinporten:
         scopes:
           exposes:
-          - allowedIntegrations:
-            - maskinporten
-            atMaxAge: 30
-            consumers:
-            - name: KST
-              orgno: "123456789"
-            enabled: true
-            name: scope.read
-            product: arbeid
+            - allowedIntegrations:
+                - maskinporten
+              atMaxAge: 30
+              consumers:
+                - name: KST
+                  orgno: "123456789"
+              enabled: true
+              name: scope.read
+              product: arbeid
     ```
 
 ##### maskinporten.scopes.exposes[].consumers
@@ -2946,15 +2946,15 @@ Required: `false`<br />
       maskinporten:
         scopes:
           exposes:
-          - allowedIntegrations:
-            - maskinporten
-            atMaxAge: 30
-            consumers:
-            - name: KST
-              orgno: "123456789"
-            enabled: true
-            name: scope.read
-            product: arbeid
+            - allowedIntegrations:
+                - maskinporten
+              atMaxAge: 30
+              consumers:
+                - name: KST
+                  orgno: "123456789"
+              enabled: true
+              name: scope.read
+              product: arbeid
     ```
 
 ###### maskinporten.scopes.exposes[].consumers[].name
@@ -2969,15 +2969,15 @@ Required: `false`<br />
       maskinporten:
         scopes:
           exposes:
-          - allowedIntegrations:
-            - maskinporten
-            atMaxAge: 30
-            consumers:
-            - name: KST
-              orgno: "123456789"
-            enabled: true
-            name: scope.read
-            product: arbeid
+            - allowedIntegrations:
+                - maskinporten
+              atMaxAge: 30
+              consumers:
+                - name: KST
+                  orgno: "123456789"
+              enabled: true
+              name: scope.read
+              product: arbeid
     ```
 
 ###### maskinporten.scopes.exposes[].consumers[].orgno
@@ -2993,15 +2993,15 @@ Pattern: `^\d{9}$`<br />
       maskinporten:
         scopes:
           exposes:
-          - allowedIntegrations:
-            - maskinporten
-            atMaxAge: 30
-            consumers:
-            - name: KST
-              orgno: "123456789"
-            enabled: true
-            name: scope.read
-            product: arbeid
+            - allowedIntegrations:
+                - maskinporten
+              atMaxAge: 30
+              consumers:
+                - name: KST
+                  orgno: "123456789"
+              enabled: true
+              name: scope.read
+              product: arbeid
     ```
 
 ##### maskinporten.scopes.exposes[].enabled
@@ -3020,15 +3020,15 @@ Required: `true`<br />
       maskinporten:
         scopes:
           exposes:
-          - allowedIntegrations:
-            - maskinporten
-            atMaxAge: 30
-            consumers:
-            - name: KST
-              orgno: "123456789"
-            enabled: true
-            name: scope.read
-            product: arbeid
+            - allowedIntegrations:
+                - maskinporten
+              atMaxAge: 30
+              consumers:
+                - name: KST
+                  orgno: "123456789"
+              enabled: true
+              name: scope.read
+              product: arbeid
     ```
 
 ##### maskinporten.scopes.exposes[].name
@@ -3045,15 +3045,15 @@ Pattern: `^([a-zæøå0-9]+\/?)+(\:[a-zæøå0-9]+)*[a-zæøå0-9]+(\.[a-zæøå
       maskinporten:
         scopes:
           exposes:
-          - allowedIntegrations:
-            - maskinporten
-            atMaxAge: 30
-            consumers:
-            - name: KST
-              orgno: "123456789"
-            enabled: true
-            name: scope.read
-            product: arbeid
+            - allowedIntegrations:
+                - maskinporten
+              atMaxAge: 30
+              consumers:
+                - name: KST
+                  orgno: "123456789"
+              enabled: true
+              name: scope.read
+              product: arbeid
     ```
 
 ##### maskinporten.scopes.exposes[].product
@@ -3069,15 +3069,15 @@ Pattern: `^[a-z0-9]+$`<br />
       maskinporten:
         scopes:
           exposes:
-          - allowedIntegrations:
-            - maskinporten
-            atMaxAge: 30
-            consumers:
-            - name: KST
-              orgno: "123456789"
-            enabled: true
-            name: scope.read
-            product: arbeid
+            - allowedIntegrations:
+                - maskinporten
+              atMaxAge: 30
+              consumers:
+                - name: KST
+                  orgno: "123456789"
+              enabled: true
+              name: scope.read
+              product: arbeid
     ```
 
 ## preStopHook
@@ -3097,9 +3097,9 @@ Required: `false`<br />
       preStopHook:
         exec:
           command:
-          - ./my
-          - --shell
-          - script
+            - ./my
+            - --shell
+            - script
         http:
           path: /internal/stop
           port: 8080
@@ -3117,9 +3117,9 @@ Required: `false`<br />
       preStopHook:
         exec:
           command:
-          - ./my
-          - --shell
-          - script
+            - ./my
+            - --shell
+            - script
     ```
 
 #### preStopHook.exec.command
@@ -3135,9 +3135,9 @@ Required: `false`<br />
       preStopHook:
         exec:
           command:
-          - ./my
-          - --shell
-          - script
+            - ./my
+            - --shell
+            - script
     ```
 
 ### preStopHook.http
@@ -3588,9 +3588,9 @@ Availability: on-premises<br />
       vault:
         enabled: true
         paths:
-        - format: env
-          kvPath: /kv/preprod/fss/application/namespace
-          mountPath: /var/run/secrets/nais.io/vault
+          - format: env
+            kvPath: /kv/preprod/fss/application/namespace
+            mountPath: /var/run/secrets/nais.io/vault
         sidecar: true
     ```
 
@@ -3621,9 +3621,9 @@ Required: `false`<br />
     spec:
       vault:
         paths:
-        - format: env
-          kvPath: /kv/preprod/fss/application/namespace
-          mountPath: /var/run/secrets/nais.io/vault
+          - format: env
+            kvPath: /kv/preprod/fss/application/namespace
+            mountPath: /var/run/secrets/nais.io/vault
     ```
 
 #### vault.paths[].format
@@ -3638,9 +3638,9 @@ Allowed values: _(empty string)_, `env`, `flatten`, `json`, `properties`, `yaml`
     spec:
       vault:
         paths:
-        - format: env
-          kvPath: /kv/preprod/fss/application/namespace
-          mountPath: /var/run/secrets/nais.io/vault
+          - format: env
+            kvPath: /kv/preprod/fss/application/namespace
+            mountPath: /var/run/secrets/nais.io/vault
     ```
 
 #### vault.paths[].kvPath
@@ -3654,9 +3654,9 @@ Required: `true`<br />
     spec:
       vault:
         paths:
-        - format: env
-          kvPath: /kv/preprod/fss/application/namespace
-          mountPath: /var/run/secrets/nais.io/vault
+          - format: env
+            kvPath: /kv/preprod/fss/application/namespace
+            mountPath: /var/run/secrets/nais.io/vault
     ```
 
 #### vault.paths[].mountPath
@@ -3670,9 +3670,9 @@ Required: `true`<br />
     spec:
       vault:
         paths:
-        - format: env
-          kvPath: /kv/preprod/fss/application/namespace
-          mountPath: /var/run/secrets/nais.io/vault
+          - format: env
+            kvPath: /kv/preprod/fss/application/namespace
+            mountPath: /var/run/secrets/nais.io/vault
     ```
 
 ### vault.sidecar
