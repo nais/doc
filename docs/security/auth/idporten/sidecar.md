@@ -38,6 +38,11 @@ Only the `id_token` acquired from this flow is validated and verified by the sid
 
 ## Spec
 
+!!! danger "Port Configuration"
+    The sidecar will occupy and use the ports `7564` and `7565`.
+
+    Ensure that you do **not** bind to these ports from your application as they will be overridden.
+
 === "nais.yaml"
     ```yaml
     spec:
