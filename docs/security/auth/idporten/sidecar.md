@@ -25,10 +25,10 @@ In order to obtain a local session, the user must be redirected to the `/oauth2/
 [OpenID Connect Authorization Code Flow as specified by ID-porten](https://docs.digdir.no/oidc_guide_idporten.html).
 
 If the user successfully completed the login flow, a session is established with the sidecar. All requests that are 
-forwarded to the application container will now contain an `Authentication` header with the user's `access_token` from ID-porten:
+forwarded to the application container will now contain an `Authorization` header with the user's `access_token` from ID-porten:
 
 ```
-Authentication: Bearer JWT_ACCESS_TOKEN
+Authorization: Bearer JWT_ACCESS_TOKEN
 X-Pwned-By: wonderwall
 ```
 
@@ -169,8 +169,8 @@ The following describes the contract for usage of the sidecar.
 
 **The sidecar guarantees the following:**
 
-* The `Authentication` header is added to the original request if the user has a valid session.
-* The `Authentication` header is removed from the original request if the user _does not_ have a valid session.
+* The `Authorization` header is added to the original request if the user has a valid session.
+* The `Authorization` header is removed from the original request if the user _does not_ have a valid session.
 * All HTTP requests to the `/oauth2` endpoints [defined above](#endpoints) are owned by the sidecar and will never be forwarded to the application.
 * The sidecar is safe to enable and use with multiple replicas of your application.
 
