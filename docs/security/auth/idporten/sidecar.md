@@ -128,11 +128,6 @@ For fine-grained control of the value, set the query parameter `locale` when red
 https://app.ingress/oauth2/login?locale=en
 ```
 
-### Calling downstream APIs
-
-The ID-porten access token can be exchanged for a [TokenX](../tokenx.md) token. 
-The TokenX token can then be used when calling downstream APIs.
-
 ### Logging a user out
 
 When you must log a user out, redirect to the user to:
