@@ -45,22 +45,24 @@ Add the example files below, then commit and push. This will trigger the workflo
     on: [push]
 
     env:
-      docker_image: ghcr.io/navikt/myapplication:${{ github.sha }}
+      docker_image: ghcr.io/${{ github.repository }}:${{ github.sha }}
 
     jobs:
-
       build:
         name: Build and push Docker container
         runs-on: ubuntu-latest
         steps:
         - uses: actions/checkout@v1
-        - name: Build and publish Docker image
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          run: |
-            echo ${GITHUB_TOKEN} | docker login ghcr.io --username ${GITHUB_REPOSITORY} --password-stdin
-            docker build --tag ${docker_image} .
-            docker push ${docker_image}
+        - uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ env.IMAGE }}
 
       deploy:
         name: Deploy to NAIS
@@ -246,7 +248,7 @@ $ deploy --dry-run --print-payload --resource nais.yml --vars vars.yml | jq ".re
     "namespace": "default"
   },
   "spec": {
-    "image": "ghcr.io/navikt/myapplication:latest",
+    "image": "ghcr.io/navikt/myapplication:417dcaa2c839b9da72e0189e2cfdd4e90e9cc6fd",
     "ingresses": [
       "https://myapplication.nav.no",
       "https://tjenester.nav.no/myapplication"
