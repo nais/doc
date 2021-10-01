@@ -7,8 +7,8 @@ This command will give access to personal but time limited credentials. These cr
 hosted kafka topic. The `aiven get` command extracts the credentials and puts them in `/tmp` folder. The created
 AivenApplication has sane default (days-to-live) set to 1 day.
 
-To gain access to a specific topic be sure to update your topic resource and topic ACLs.
-Add `username` to `acl.application` field in your topic.yaml and apply to your namespace.
+To gain access to a specific topic be sure to update your topic resource and topic ACLs. Add `username`
+to `acl.application` field in your topic.yaml and apply to your namespace.
 
 ```yaml
 # topic.yml
@@ -55,13 +55,12 @@ nais aiven get secret-name namespace
 | namespace         | Yes       | Kubernetes namespace for the created AivenApplication.                         |
 
 ```bash
-nais aiven get secret-name namespace -d /my-temp-folder/ -c kcat
+nais aiven get secret-name namespace -c kcat
 ```
 
-| Flag          | Required    | Short   |Default               |Description                                                        |      
-|------------------|----------|---------|----------------------|-------------------------------------------------------------------|
-| dest             | No       | -d      |  system `/tmp`       | Other then system default `/tmp` folder.                          |
-| secret-name      | No       | -c      |  all                 | Type of config to generated, supported values: .env, kcat, all.   |
+| Flag             | Required    | Short   |Default            |Description                                                        |      
+|------------------|-------------|---------|----------------------|-------------------------------------------------------------------|
+| config           | No          | -c      |  all                 | Type of config to generated, supported values: .env, kcat, all.   |
 
 ## tidy
 
@@ -81,13 +80,13 @@ You can specify a configuration `flag` to generate `all | kcat | .env`. Default 
 
 #### all
 
- - client.keystore.p12
- - client.truststore.jks
- - kafka-ca.pem
- - kafka-certificate.crt
- - kafka-private-key.pem
- - kafka-secret.env
- - kcat.conf
+- client.keystore.p12
+- client.truststore.jks
+- kafka-ca.pem
+- kafka-certificate.crt
+- kafka-private-key.pem
+- kafka-secret.env
+- kcat.conf
 
 #### .env
 
@@ -136,8 +135,8 @@ security.protocol=ssl
 The generated `kcat.conf` can be used with [kcat](https://github.com/edenhill/kcat) to authenticate against the Aiven
 hosted topics in GCP.
 
-Read more about [kcat.conf](https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md) configurable
-properties.
+Read more about kcat.conf [configurable properties](https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md)
+.
 
 You can refer to generated config with -F flag:
 
