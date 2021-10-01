@@ -17,18 +17,15 @@ Required: `false`<br />
     ``` yaml
     spec:
       alerts:
-      - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace
-          }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace
-          }}` for logger
-        alert: applikasjon nede
-        description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace
-          }}
-        documentation: https://doc.nais.io/observability/alerts/
-        expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
-        for: 2m
-        priority: "0"
-        severity: danger
-        sla: Mellom 8 og 16
+        - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for logger
+          alert: applikasjon nede
+          description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace }}
+          documentation: https://doc.nais.io/observability/alerts/
+          expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
+          for: 2m
+          priority: "0"
+          severity: danger
+          sla: Mellom 8 og 16
     ```
 
 ### alerts[].action
@@ -41,18 +38,15 @@ Required: `true`<br />
     ``` yaml
     spec:
       alerts:
-      - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace
-          }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace
-          }}` for logger
-        alert: applikasjon nede
-        description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace
-          }}
-        documentation: https://doc.nais.io/observability/alerts/
-        expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
-        for: 2m
-        priority: "0"
-        severity: danger
-        sla: Mellom 8 og 16
+        - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for logger
+          alert: applikasjon nede
+          description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace }}
+          documentation: https://doc.nais.io/observability/alerts/
+          expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
+          for: 2m
+          priority: "0"
+          severity: danger
+          sla: Mellom 8 og 16
     ```
 
 ### alerts[].alert
@@ -65,18 +59,15 @@ Required: `true`<br />
     ``` yaml
     spec:
       alerts:
-      - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace
-          }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace
-          }}` for logger
-        alert: applikasjon nede
-        description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace
-          }}
-        documentation: https://doc.nais.io/observability/alerts/
-        expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
-        for: 2m
-        priority: "0"
-        severity: danger
-        sla: Mellom 8 og 16
+        - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for logger
+          alert: applikasjon nede
+          description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace }}
+          documentation: https://doc.nais.io/observability/alerts/
+          expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
+          for: 2m
+          priority: "0"
+          severity: danger
+          sla: Mellom 8 og 16
     ```
 
 ### alerts[].description
@@ -89,18 +80,15 @@ Required: `false`<br />
     ``` yaml
     spec:
       alerts:
-      - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace
-          }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace
-          }}` for logger
-        alert: applikasjon nede
-        description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace
-          }}
-        documentation: https://doc.nais.io/observability/alerts/
-        expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
-        for: 2m
-        priority: "0"
-        severity: danger
-        sla: Mellom 8 og 16
+        - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for logger
+          alert: applikasjon nede
+          description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace }}
+          documentation: https://doc.nais.io/observability/alerts/
+          expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
+          for: 2m
+          priority: "0"
+          severity: danger
+          sla: Mellom 8 og 16
     ```
 
 ### alerts[].documentation
@@ -113,18 +101,15 @@ Required: `false`<br />
     ``` yaml
     spec:
       alerts:
-      - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace
-          }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace
-          }}` for logger
-        alert: applikasjon nede
-        description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace
-          }}
-        documentation: https://doc.nais.io/observability/alerts/
-        expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
-        for: 2m
-        priority: "0"
-        severity: danger
-        sla: Mellom 8 og 16
+        - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for logger
+          alert: applikasjon nede
+          description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace }}
+          documentation: https://doc.nais.io/observability/alerts/
+          expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
+          for: 2m
+          priority: "0"
+          severity: danger
+          sla: Mellom 8 og 16
     ```
 
 ### alerts[].expr
@@ -137,18 +122,15 @@ Required: `true`<br />
     ``` yaml
     spec:
       alerts:
-      - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace
-          }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace
-          }}` for logger
-        alert: applikasjon nede
-        description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace
-          }}
-        documentation: https://doc.nais.io/observability/alerts/
-        expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
-        for: 2m
-        priority: "0"
-        severity: danger
-        sla: Mellom 8 og 16
+        - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for logger
+          alert: applikasjon nede
+          description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace }}
+          documentation: https://doc.nais.io/observability/alerts/
+          expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
+          for: 2m
+          priority: "0"
+          severity: danger
+          sla: Mellom 8 og 16
     ```
 
 ### alerts[].for
@@ -162,18 +144,15 @@ Pattern: `^\d+[smhdwy]$`<br />
     ``` yaml
     spec:
       alerts:
-      - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace
-          }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace
-          }}` for logger
-        alert: applikasjon nede
-        description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace
-          }}
-        documentation: https://doc.nais.io/observability/alerts/
-        expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
-        for: 2m
-        priority: "0"
-        severity: danger
-        sla: Mellom 8 og 16
+        - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for logger
+          alert: applikasjon nede
+          description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace }}
+          documentation: https://doc.nais.io/observability/alerts/
+          expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
+          for: 2m
+          priority: "0"
+          severity: danger
+          sla: Mellom 8 og 16
     ```
 
 ### alerts[].priority
@@ -186,18 +165,15 @@ Required: `false`<br />
     ``` yaml
     spec:
       alerts:
-      - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace
-          }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace
-          }}` for logger
-        alert: applikasjon nede
-        description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace
-          }}
-        documentation: https://doc.nais.io/observability/alerts/
-        expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
-        for: 2m
-        priority: "0"
-        severity: danger
-        sla: Mellom 8 og 16
+        - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for logger
+          alert: applikasjon nede
+          description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace }}
+          documentation: https://doc.nais.io/observability/alerts/
+          expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
+          for: 2m
+          priority: "0"
+          severity: danger
+          sla: Mellom 8 og 16
     ```
 
 ### alerts[].severity
@@ -211,18 +187,15 @@ Pattern: `^$|good|warning|danger|#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})`<br />
     ``` yaml
     spec:
       alerts:
-      - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace
-          }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace
-          }}` for logger
-        alert: applikasjon nede
-        description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace
-          }}
-        documentation: https://doc.nais.io/observability/alerts/
-        expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
-        for: 2m
-        priority: "0"
-        severity: danger
-        sla: Mellom 8 og 16
+        - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for logger
+          alert: applikasjon nede
+          description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace }}
+          documentation: https://doc.nais.io/observability/alerts/
+          expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
+          for: 2m
+          priority: "0"
+          severity: danger
+          sla: Mellom 8 og 16
     ```
 
 ### alerts[].sla
@@ -235,18 +208,15 @@ Required: `false`<br />
     ``` yaml
     spec:
       alerts:
-      - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace
-          }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace
-          }}` for logger
-        alert: applikasjon nede
-        description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace
-          }}
-        documentation: https://doc.nais.io/observability/alerts/
-        expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
-        for: 2m
-        priority: "0"
-        severity: danger
-        sla: Mellom 8 og 16
+        - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for logger
+          alert: applikasjon nede
+          description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace }}
+          documentation: https://doc.nais.io/observability/alerts/
+          expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
+          for: 2m
+          priority: "0"
+          severity: danger
+          sla: Mellom 8 og 16
     ```
 
 ## inhibitRules
@@ -259,17 +229,17 @@ Required: `false`<br />
     ``` yaml
     spec:
       inhibitRules:
-      - labels:
-        - label
-        - lebal
-        sources:
-          key: value
-        sourcesRegex:
-          key: value(.)?
-        targets:
-          key: value
-        targetsRegex:
-          key: value(.)+
+        - labels:
+            - label
+            - lebal
+          sources:
+            key: value
+          sourcesRegex:
+            key: value(.)?
+          targets:
+            key: value
+          targetsRegex:
+            key: value(.)+
     ```
 
 ### inhibitRules[].labels
@@ -282,17 +252,17 @@ Required: `false`<br />
     ``` yaml
     spec:
       inhibitRules:
-      - labels:
-        - label
-        - lebal
-        sources:
-          key: value
-        sourcesRegex:
-          key: value(.)?
-        targets:
-          key: value
-        targetsRegex:
-          key: value(.)+
+        - labels:
+            - label
+            - lebal
+          sources:
+            key: value
+          sourcesRegex:
+            key: value(.)?
+          targets:
+            key: value
+          targetsRegex:
+            key: value(.)+
     ```
 
 ### inhibitRules[].sources
@@ -305,17 +275,17 @@ Required: `false`<br />
     ``` yaml
     spec:
       inhibitRules:
-      - labels:
-        - label
-        - lebal
-        sources:
-          key: value
-        sourcesRegex:
-          key: value(.)?
-        targets:
-          key: value
-        targetsRegex:
-          key: value(.)+
+        - labels:
+            - label
+            - lebal
+          sources:
+            key: value
+          sourcesRegex:
+            key: value(.)?
+          targets:
+            key: value
+          targetsRegex:
+            key: value(.)+
     ```
 
 ### inhibitRules[].sourcesRegex
@@ -328,17 +298,17 @@ Required: `false`<br />
     ``` yaml
     spec:
       inhibitRules:
-      - labels:
-        - label
-        - lebal
-        sources:
-          key: value
-        sourcesRegex:
-          key: value(.)?
-        targets:
-          key: value
-        targetsRegex:
-          key: value(.)+
+        - labels:
+            - label
+            - lebal
+          sources:
+            key: value
+          sourcesRegex:
+            key: value(.)?
+          targets:
+            key: value
+          targetsRegex:
+            key: value(.)+
     ```
 
 ### inhibitRules[].targets
@@ -351,17 +321,17 @@ Required: `false`<br />
     ``` yaml
     spec:
       inhibitRules:
-      - labels:
-        - label
-        - lebal
-        sources:
-          key: value
-        sourcesRegex:
-          key: value(.)?
-        targets:
-          key: value
-        targetsRegex:
-          key: value(.)+
+        - labels:
+            - label
+            - lebal
+          sources:
+            key: value
+          sourcesRegex:
+            key: value(.)?
+          targets:
+            key: value
+          targetsRegex:
+            key: value(.)+
     ```
 
 ### inhibitRules[].targetsRegex
@@ -374,17 +344,17 @@ Required: `false`<br />
     ``` yaml
     spec:
       inhibitRules:
-      - labels:
-        - label
-        - lebal
-        sources:
-          key: value
-        sourcesRegex:
-          key: value(.)?
-        targets:
-          key: value
-        targetsRegex:
-          key: value(.)+
+        - labels:
+            - label
+            - lebal
+          sources:
+            key: value
+          sourcesRegex:
+            key: value(.)?
+          targets:
+            key: value
+          targetsRegex:
+            key: value(.)+
     ```
 
 ## receivers
@@ -596,7 +566,7 @@ Required: `false`<br />
     spec:
       route:
         group_by:
-        - <label_name>
+          - <label_name>
         groupInterval: 5m
         groupWait: 30s
         repeatInterval: 3h
@@ -642,7 +612,7 @@ Required: `false`<br />
     spec:
       route:
         group_by:
-        - <label_name>
+          - <label_name>
     ```
 
 ### route.repeatInterval

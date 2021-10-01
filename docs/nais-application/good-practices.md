@@ -25,16 +25,27 @@ The application should be instrumented using [Prometheus](https://prometheus.io/
 
 The application should emit `json`-formatted logs by writing directly to standard output. This will make it easier to index, view and search the logs later. See more details in the [logs documentation](../observability/logs/README.md).
 
+## Crashes on fatal errors
+
+If the application reaches an unrecoverable error, you should let it crash.
+Instead, you should immediately exit the process and let the kubelet restart the container.
+
+By restarting the container, you allow for the eventual readiness of other dependencies.
+
 ## Implements `readiness` and `liveness` endpoints
 
 The `readiness`-probe is used by Kubernetes to determine if the application should receive traffic, while the `liveness`-probe lets Kubernetes know if your application is alive. If it's dead, Kubernetes will remove the pod and bring up a new one.
+They should be implemented as separate services as they usually have different characteristics.
+
+* `liveness`-probe should simply return `HTTP 200 OK` if main loop is running, and `HTTP 5xx` if not.
+* `readiness`-probe returns `HTTP 200 OK` is able to process requests, and `HTTP 5xx` if not. If the application has dependencies to e.g. a database to serve traffic, it's a good idea to check if the database is available in the `readiness`-probe.
 
 Useful resources on the topic:
 
 * [https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)
 * [https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-setting-up-health-checks-with-readiness-and-liveness-probes](https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-setting-up-health-checks-with-readiness-and-liveness-probes)
 * [https://medium.com/metrosystemsro/kubernetes-readiness-liveliness-probes-best-practices-86c3cd9f0b4a](https://medium.com/metrosystemsro/kubernetes-readiness-liveliness-probes-best-practices-86c3cd9f0b4a)
+* [https://blog.colinbreck.com/kubernetes-liveness-and-readiness-probes-revisited-how-to-avoid-shooting-yourself-in-the-other-foot/#letitcrash](https://blog.colinbreck.com/kubernetes-liveness-and-readiness-probes-revisited-how-to-avoid-shooting-yourself-in-the-other-foot/#letitcrash)
 
-* `readiness` and `liveness` should be implemented as separate services and they usually have different characteristics
-* `liveness`-probe should simply return `HTTP 200 OK` if main loop is running, and `HTTP 5xx` if not
-* `readiness`-probe returns `HTTP 200 OK` is able to process requests, and `HTTP 5xx` if not. If the application has dependencies to e.g. a database to serve traffic, it's a good idea to check if the database is available in the `readiness`-probe
+
+## 

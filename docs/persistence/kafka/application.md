@@ -53,7 +53,41 @@ The available canary topics are:
 | nav-prod | aura.kafkarator-canary-prod-sbs |
 | nav-prod | aura.kafkarator-canary-prod-fss |
 
+## Accessing topics from an application on legacy infrastructure
 
+If you have an application on legacy infrastructure (outside NAIS clusters), you can still access topics with a few more manual steps.
+
+The first step is to add your application to the topic ACLs, the same way as for applications in NAIS clusters (see [the previous section](#accessing-topics-from-an-application)).
+Use your team name, and a suitable name for the application, following NAIS naming conventions.
+
+To create a credentials for your application, you need to manually create the `AivenApplication` resource that would normally be created by Naiserator.
+
+=== "aivenapp.yaml"
+    ```yaml
+    ---
+    apiVersion: aiven.nais.io/v1
+    kind: AivenApplication
+    metadata:
+      name: legacyapplication
+      namespace: myteam
+    spec:
+      kafka:
+        pool: nav-dev
+      secretName: unique-name
+      protected: true
+    ```
+
+Since Aivenator automatically deletes secrets that are not in use by any pod, you need to set the `protected` flag to `true`.
+This ensures that the secret will not be deleted by any automated process.
+
+After the `AivenApplication` resources has been created, Aivenator will create the secret, using the name specified.
+Using `kubectl`, extract the secret and make the values available to your legacy application.
+
+When you no longer have a need for the credentials created in this way, delete the `AivenApplication` resource, and make sure the secret is also deleted.
+
+If you migrate the application to NAIS, the first deploy to NAIS will overwrite the `AivenApplication` resource.
+When this happens, it is no longer `protected`.
+In this case, it is recommended that you manually delete the protected secret when it is no longer needed.
 
 ## Application design guidelines
 

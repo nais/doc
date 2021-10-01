@@ -56,7 +56,6 @@ nav:
       - Team namespaces: clusters/team-namespaces.md
       - Service discovery: clusters/service-discovery.md
     - NAIS Application:
-      - Overview: nais-application/README.md
       - Full example: nais-application/example.md
       - Reference: nais-application/application.md
       - Access policy: nais-application/access-policy.md
@@ -154,6 +153,11 @@ nav:
     - naisdevice Troubleshooting: device/troubleshooting.md
     - Uninstall: device/uninstall.md
     - Available services: device/services.md
+  - nais-cli:
+    - Overview: cli/README.md
+    - Installation: cli/install.md
+    - Commands:
+      - Aiven: cli/commands/aiven.md
   - Laws and regulations:
     - Roles and responsibilities: legal/roles-responsibilities.md
     - Platform risk assessments (ROS): legal/nais-ros.md

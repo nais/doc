@@ -26,6 +26,9 @@ An example Redis setup looks like this:
     metadata:
       labels:
         team: ${teamname}
+      annotations:
+        nais.io/read-only-file-system: "false"
+        nais.io/run-as-user: "999"
       name: ${appname}
       namespace: ${teamname}
     spec:
@@ -57,6 +60,9 @@ An example Redis setup looks like this:
     metadata:
       labels:
         team: ${teamname}
+      annotations:
+        nais.io/read-only-file-system: "false"
+        nais.io/run-as-user: "999"
       name: ${appname}
       namespace: ${teamname}
     spec:
@@ -122,6 +128,9 @@ An example Redis setup looks like this:
     metadata:
       labels:
         team: ${teamname}
+      annotations:
+        "nais.io/run-as-group": "0"
+        "nais.io/read-only-file-system": "false"
       name: ${appname}
       namespace: ${teamname}
     spec:
@@ -284,4 +293,3 @@ redis:
   host: ${REDIS_HOST}
   port: 6379
 ```
-

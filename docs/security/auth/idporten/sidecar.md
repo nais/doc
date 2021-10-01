@@ -4,10 +4,10 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 
 # ID-porten sidecar
 
-!!! warning "Status: Alpha"
+!!! warning "Status: beta"
     This feature is only available in [team namespaces](../../../clusters/team-namespaces.md)
 
-    **Experimental**: subject to API change, instability, or removal.
+    **Experimental**: users report that this component is working, but it needs a broader audience to be battle-tested properly.
 
 ## Description
 
@@ -25,10 +25,10 @@ In order to obtain a local session, the user must be redirected to the `/oauth2/
 [OpenID Connect Authorization Code Flow as specified by ID-porten](https://docs.digdir.no/oidc_guide_idporten.html).
 
 If the user successfully completed the login flow, a session is established with the sidecar. All requests that are 
-forwarded to the application container will now contain an `Authentication` header with the user's `access_token`. from ID-porten:
+forwarded to the application container will now contain an `Authorization` header with the user's `access_token` from ID-porten:
 
 ```
-Authentication: Bearer JWT_ACCESS_TOKEN
+Authorization: Bearer JWT_ACCESS_TOKEN
 X-Pwned-By: wonderwall
 ```
 
@@ -37,6 +37,11 @@ Only the `id_token` acquired from this flow is validated and verified by the sid
 **Your application is [responsible](#responsibilities-and-guarantees) for validating the `access_token`.**
 
 ## Spec
+
+!!! danger "Port Configuration"
+    The sidecar will occupy and use the ports `7564` and `7565`.
+
+    Ensure that you do **not** bind to these ports from your application as they will be overridden.
 
 === "nais.yaml"
     ```yaml
@@ -123,11 +128,6 @@ For fine-grained control of the value, set the query parameter `locale` when red
 https://app.ingress/oauth2/login?locale=en
 ```
 
-### Calling downstream APIs
-
-The ID-porten access token can be exchanged for a [TokenX](../tokenx.md) token. 
-The TokenX token can then be used when calling downstream APIs.
-
 ### Logging a user out
 
 When you must log a user out, redirect to the user to:
@@ -169,8 +169,8 @@ The following describes the contract for usage of the sidecar.
 
 **The sidecar guarantees the following:**
 
-* The `Authentication` header is added to the original request if the user has a valid session.
-* The `Authentication` header is removed from the original request if the user _does not_ have a valid session.
+* The `Authorization` header is added to the original request if the user has a valid session.
+* The `Authorization` header is removed from the original request if the user _does not_ have a valid session.
 * All HTTP requests to the `/oauth2` endpoints [defined above](#endpoints) are owned by the sidecar and will never be forwarded to the application.
 * The sidecar is safe to enable and use with multiple replicas of your application.
 
