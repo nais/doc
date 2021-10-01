@@ -54,15 +54,15 @@ Add the example files below, then commit and push. This will trigger the workflo
         steps:
         - uses: actions/checkout@v1
         - uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: true
-          tags: ${{ env.IMAGE }}
+          with:
+            registry: ghcr.io
+            username: ${{ github.actor }}
+            password: ${{ secrets.GITHUB_TOKEN }}
+        - uses: docker/build-push-action@v2
+          with:
+            context: .
+            push: true
+            tags: ${{ env.IMAGE }}
 
       deploy:
         name: Deploy to NAIS
