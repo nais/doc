@@ -1186,6 +1186,7 @@ Availability: GCP<br />
               withState: ARCHIVED
             name: my-cloud-storage-bucket
             retentionPeriodDays: 30
+            uniformBucketLevelAccess: true
         permissions:
           - resource:
               apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
@@ -1354,6 +1355,7 @@ Availability: GCP<br />
               withState: ARCHIVED
             name: my-cloud-storage-bucket
             retentionPeriodDays: 30
+            uniformBucketLevelAccess: true
     ```
 
 #### gcp.buckets[].cascadingDelete
@@ -1375,6 +1377,7 @@ Required: `false`<br />
               withState: ARCHIVED
             name: my-cloud-storage-bucket
             retentionPeriodDays: 30
+            uniformBucketLevelAccess: true
     ```
 
 #### gcp.buckets[].lifecycleCondition
@@ -1400,6 +1403,7 @@ Required: `false`<br />
               withState: ARCHIVED
             name: my-cloud-storage-bucket
             retentionPeriodDays: 30
+            uniformBucketLevelAccess: true
     ```
 
 ##### gcp.buckets[].lifecycleCondition.age
@@ -1421,6 +1425,7 @@ Required: `false`<br />
               withState: ARCHIVED
             name: my-cloud-storage-bucket
             retentionPeriodDays: 30
+            uniformBucketLevelAccess: true
     ```
 
 ##### gcp.buckets[].lifecycleCondition.createdBefore
@@ -1442,6 +1447,7 @@ Required: `false`<br />
               withState: ARCHIVED
             name: my-cloud-storage-bucket
             retentionPeriodDays: 30
+            uniformBucketLevelAccess: true
     ```
 
 ##### gcp.buckets[].lifecycleCondition.numNewerVersions
@@ -1463,6 +1469,7 @@ Required: `false`<br />
               withState: ARCHIVED
             name: my-cloud-storage-bucket
             retentionPeriodDays: 30
+            uniformBucketLevelAccess: true
     ```
 
 ##### gcp.buckets[].lifecycleCondition.withState
@@ -1485,6 +1492,7 @@ Allowed values: _(empty string)_, `ANY`, `ARCHIVED`, `LIVE`<br />
               withState: ARCHIVED
             name: my-cloud-storage-bucket
             retentionPeriodDays: 30
+            uniformBucketLevelAccess: true
     ```
 
 #### gcp.buckets[].name
@@ -1492,6 +1500,7 @@ The name of the bucket
 
 Type: `string`<br />
 Required: `true`<br />
+Immutable: `true`<br />
 
 ??? example
     ``` yaml
@@ -1506,6 +1515,7 @@ Required: `true`<br />
               withState: ARCHIVED
             name: my-cloud-storage-bucket
             retentionPeriodDays: 30
+            uniformBucketLevelAccess: true
     ```
 
 #### gcp.buckets[].retentionPeriodDays
@@ -1528,6 +1538,35 @@ Value range: `1`-`36500`<br />
               withState: ARCHIVED
             name: my-cloud-storage-bucket
             retentionPeriodDays: 30
+            uniformBucketLevelAccess: true
+    ```
+
+#### gcp.buckets[].uniformBucketLevelAccess
+Allows you to uniformly control access to your Cloud Storage resources. When you enable uniform bucket-level access on a bucket, Access Control Lists (ACLs) are disabled, and only bucket-level Identity and Access Management (IAM) permissions grant access to that bucket and the objects it contains. Uniform access control can not be reversed!
+
+Relevant information:
+
+* [https://cloud.google.com/storage/docs/uniform-bucket-level-access](https://cloud.google.com/storage/docs/uniform-bucket-level-access)
+
+Type: `boolean`<br />
+Required: `false`<br />
+Immutable: `true`<br />
+Default value: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        buckets:
+          - cascadingDelete: true
+            lifecycleCondition:
+              age: 10
+              createdBefore: "2020-01-01"
+              numNewerVersions: 2
+              withState: ARCHIVED
+            name: my-cloud-storage-bucket
+            retentionPeriodDays: 30
+            uniformBucketLevelAccess: true
     ```
 
 ### gcp.permissions

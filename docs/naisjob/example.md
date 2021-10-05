@@ -121,6 +121,7 @@ spec:
         withState: ARCHIVED
       name: my-cloud-storage-bucket
       retentionPeriodDays: 30
+      uniformBucketLevelAccess: true
     permissions:
     - resource:
         apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
