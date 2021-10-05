@@ -1500,7 +1500,6 @@ The name of the bucket
 
 Type: `string`<br />
 Required: `true`<br />
-Immutable: `true`<br />
 
 ??? example
     ``` yaml
@@ -1542,7 +1541,8 @@ Value range: `1`-`36500`<br />
     ```
 
 #### gcp.buckets[].uniformBucketLevelAccess
-Allows you to uniformly control access to your Cloud Storage resources. When you enable uniform bucket-level access on a bucket, Access Control Lists (ACLs) are disabled, and only bucket-level Identity and Access Management (IAM) permissions grant access to that bucket and the objects it contains. Uniform access control can not be reversed!
+Allows you to uniformly control access to your Cloud Storage resources. When you enable uniform bucket-level access on a bucket, Access Control Lists (ACLs) are disabled, and only bucket-level Identity and Access Management (IAM) permissions grant access to that bucket and the objects it contains. 
+ Uniform access control can not be reversed after 90 days! This is controlled by Google.
 
 Relevant information:
 
@@ -1550,7 +1550,6 @@ Relevant information:
 
 Type: `boolean`<br />
 Required: `false`<br />
-Immutable: `true`<br />
 Default value: `false`<br />
 
 ??? example
