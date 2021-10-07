@@ -62,7 +62,7 @@ Add the example files below, then commit and push. This will trigger the workflo
           with:
             context: .
             push: true
-            tags: ${{ env.IMAGE }}
+            tags: ${{ env.docker_image }}
 
       deploy:
         name: Deploy to NAIS
