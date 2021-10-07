@@ -29,3 +29,38 @@ You should then restart your pods so that the new credentials are re-injected:
 ```bash
 kubectl rollout restart deployment <app>
 ```
+
+## Deletion
+
+The client is automatically deleted from Azure AD whenever the associated `Application` resource is deleted from Kubernetes.
+That is, if you were to run the following command:
+
+```shell
+kubectl delete app <application>
+```
+
+the `AzureAdApplication` resource will also be deleted from Kubernetes, and its associated Azure AD client is deleted.
+Consequently, the previous client ID used will no longer be available.
+
+If the application is re-deployed, the client ID will have **a new and different value**. 
+Generally speaking, your application nor its consumers should not depend on or hard code the value of a client ID when 
+acquiring tokens - see [scopes](concepts.md#scopes).
+
+### Prevent Deletion
+
+Sometimes you will want to prevent the deletion of the client, e.g. if your client has had a manual set up of additional 
+Microsoft Graph permissions beyond the standard set.
+
+If you want to prevent deletion of the client, add the following annotation to your `nais.yaml` manifest:
+
+```yaml hl_lines="7"
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: myapplication
+  namespace: myteam
+  annotations:
+    azure.nais.io/preserve: "true"
+```
+
+If you decide that the client should be removed at a later point, remove the annotation from the spec.
