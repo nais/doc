@@ -92,6 +92,7 @@ nav:
       - Kafka: 
         - Overview: persistence/kafka/index.md
         - Application: persistence/kafka/application.md
+        - Grafana metrics: persistence/kafka/metrics.md
         - Manage topics: persistence/kafka/manage_topics.md
         - Migrate from onprem: persistence/kafka/migrate_from_onprem.md
         - Avro and REST: persistence/kafka/avro_and_rest.md
