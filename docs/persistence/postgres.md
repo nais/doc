@@ -105,11 +105,11 @@ kubectl get secret google-sql-<MYAPP> -o jsonpath="{ .data['<YOUR PASSWORD VARIA
 ```
 
 #### Through gcloud-cli
-Give yourself the role of `roles/cloudsql.editor` (which includes the needed permission `cloudsql.users.update`).
+Give yourself the role of `roles/cloudsql.admin` (which includes the needed permission `cloudsql.users.update`).
 ```
 gcloud projects add-iam-policy-binding <PROJECT_ID> \
     --member=user:<FIRSTNAME>.<LASTNAME>@nav.no \
-    --role=roles/cloudsql.instanceUser \
+    --role=roles/cloudsql.admin \
     --condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
 ```
 
@@ -176,7 +176,7 @@ Databases should always be accessed using a personal account, and the access sho
     gcloud auth login
     ```
 
-    To be able to perform the gcloud commands mentioned below you need a role with user edit permissions, e.g. `roles/cloudsql.editor`
+    To be able to perform the gcloud commands mentioned below you need a role with user edit permissions, e.g. `roles/cloudsql.admin`
 
     To grant yourself this role for a given project, run the following command: 
 
