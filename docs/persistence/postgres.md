@@ -101,9 +101,24 @@ The creation of the database takes about ten minutes, and the credential setting
 ### Workaround for password synchronization issues
 Retrieve the password from the secret google-sql-<MYAPP> in your namespace (the password is base64 encoded).
 ```
-k get secret google-sql-<MYAPP> -o jsonpath="{ .data['<YOUR PASSWORD VARIABLE>'] }" | base64 -d
+kubectl get secret google-sql-<MYAPP> -o jsonpath="{ .data['<YOUR PASSWORD VARIABLE>'] }" | base64 -d
 ```
 
+#### Through gcloud-cli
+Give yourself the role of `roles/cloudsql.editor` (which includes the needed permission `cloudsql.users.update`).
+```
+gcloud projects add-iam-policy-binding <PROJECT_ID> \
+    --member=user:<FIRSTNAME>.<LASTNAME>@nav.no \
+    --role=roles/cloudsql.instanceUser \
+    --condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
+```
+
+Then you can set the new password with the following command.
+```
+gcloud sql users set-password <USERNAME> --instance <DB_INSTANCE> --prompt-for-password
+```
+
+#### Through console.cloud.google.com
 Log in to the Google [Cloud Console](https://console.cloud.google.com) and set the password manually for the application user in the sql instance:
 SQL -> <MYDATABASE> -> Users -> <MYAPPUSER> -> Change password
 
