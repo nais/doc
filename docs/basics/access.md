@@ -49,7 +49,7 @@ We provide a [pre-made kubeconfig](https://github.com/navikt/kubeconfigs) file w
 `kubectl` will by default look for a file named `config` in the `$HOME/.kube/` folder. This can be overriden by having the absolute path of the file in the environment variable `KUBECONFIG`.
 
 ```bash
-export KUBECONFIG="/home/$(whoami)/kubeconfigs/config"
+export KUBECONFIG="<path to your navikt/kubeconfigs repo>/config"
 ```
 
 The above example can also be added to something like `~/.bash_profile`, or the equivalent in your preferred shell.
