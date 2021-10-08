@@ -26,6 +26,13 @@ Install by following the [naisdevice installation guide](../device/install.md).
 
 Check out the [official documentation](https://kubernetes.io/docs/tasks/tools/install-kubectl) for instructions on how to install the binaries.
 
+Remember that `kubectl` is supported within one minor version (older or newer) of `kube-apiserver`.
+This is called [`version skew`](https://kubernetes.io/releases/version-skew-policy/#kubectl).
+You can see our on-prem version over at [naisible/group_vars](https://github.com/nais/naisible/blob/master/group_vars/all#L12).
+
+Using `brew` to manage `kubectl` will make it troublesome to be within the version skew, as it's hard to downgrade `kubectl` to older versions.
+Therefor we recommend installing `kubectl` manually, or through tools like [asdf](https://asdf-vm.com/).
+
 ## Setup your [`kubeconfig`](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 
 The `kubectl` tool uses a `kubeconfig` file to get the information it needs in order to connect to a cluster.
