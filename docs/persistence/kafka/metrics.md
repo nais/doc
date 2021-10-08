@@ -2,10 +2,11 @@
 
 This is a user-generated list of metrics that can be used with Grafana to monitor your Kafka topics.
 
-Since you can have use Kafka both from on-prem and GCP, some metrics are read from the Grafana source for where your app is running, and some needs to be from the datasource the topics belongs (topics can only be created in GCP).
+Since you can use Kafka both from on-prem and GCP, the metrics are either read from the datasource where your app is running, or from the datasource where the topics belong (topics can only be created in GCP).
+GCP apps will use the same datasource for all listed metrics.
 
 ## General tips
-`kafka_producer_topic_record_send_total` is a good metric for the totalt amount of produced messages on a topic.
+`kafka_producer_topic_record_send_total` is a good metric for the total amount of produced messages on a topic.
 
 `kafka_consumer_fetch_manager_records_consumed_total` is a good metric for consumed messages of a topic.
 
