@@ -138,7 +138,7 @@ Enabling TokenX will expose the following runtime environment variables and file
 ???+ note
     Contains a JWK with the private RSA key for creating signed JWTs when [authenticating to Tokendings with a signed `client_assertion`](tokenx.md#client-authentication).
 
-    ```javascript
+    ```json
     {
         "use": "sig",
         "kty": "RSA",
@@ -180,11 +180,21 @@ Additionally, the headers of the assertion must contain the following parameters
 | **`typ`** | `JWT` | Represents the type of this JWT. Set this to `JWT`. |
 | **`alg`** | `RS256` | Represents the cryptographic algorithm used to secure the JWT. Set this to `RS256`. |
 
+An assertion should be unique and not be reused when authenticating with _Tokendings_ in accordance with the 
+[security considerations in RFC7521](https://datatracker.ietf.org/doc/html/rfc7521#section-8.2).
+
+That is, every request to Tokendings should contain a unique client assertion:
+
+- Set the JWT ID (`jti`) claim to a unique value, such as an UUID.
+- Set the JWT expiry (`exp`) claim so that the lifetime of the token is reasonably low.
+    - Tokendings allows a _maximum_ lifetime of 120 seconds.
+    - A lifetime between 10-30 seconds should be fine for most situations.
+
 #### Example Client Assertion Values
 
 **Header**
 
-```javascript
+```json
 {
   "kid": "93ad09a5-70bc-4858-bd26-5ff4a0c5f73f",
   "typ": "JWT",
@@ -194,7 +204,7 @@ Additionally, the headers of the assertion must contain the following parameters
 
 **Payload**
 
-```javascript
+```json
 {
   "sub": "prod-gcp:namespace-gcp:gcp-app",
   "aud": "https://tokendings.prod-gcp.nais.io/token",
@@ -261,7 +271,7 @@ The request should then sent to the `token_endpoint` of Tokendings, the value of
 Tokendings will respond with a JSON object
 
 ???+ example
-    ```javascript
+    ```json
     {
       "access_token" : "eyJraWQiOi..............",
       "issued_token_type" : "urn:ietf:params:oauth:token-type:access_token",
@@ -269,6 +279,8 @@ Tokendings will respond with a JSON object
       "expires_in" : 299
     }
     ```
+
+If performance is a concern, the token can be cached for reuse within the validity period indicated by the `expires_in` field.
 
 ### Token Validation
 
@@ -306,7 +318,7 @@ To extract such non-standard information from tokens, first use the `idp` claim 
 The following example shows the claims of a token issued by Tokendings, where the exchanged subject token is issued by [ID-porten](idporten/README.md):
 
 ???+ example 
-    ```javascript
+    ```json
     {
       "at_hash": "x6lQGCdbMX62p1VHeDsFBA",
       "sub": "HmjqfL7....",
