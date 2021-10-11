@@ -168,7 +168,9 @@ spec:
     redirectURI: https://myapplication.nav.no/oauth2/callback
     sessionLifetime: 7200
     sidecar:
+      autoLogin: true
       enabled: true
+      errorPath: /error
       level: Level4
       locale: nb
   image: navikt/testapp:69.0.0

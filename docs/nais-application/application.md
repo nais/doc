@@ -2643,7 +2643,9 @@ Required: `false`<br />
         redirectURI: https://myapplication.nav.no/oauth2/callback
         sessionLifetime: 7200
         sidecar:
+          autoLogin: true
           enabled: true
+          errorPath: /error
           level: Level4
           locale: nb
     ```
@@ -2821,9 +2823,30 @@ Required: `false`<br />
     spec:
       idporten:
         sidecar:
+          autoLogin: true
           enabled: true
+          errorPath: /error
           level: Level4
           locale: nb
+    ```
+
+#### idporten.sidecar.autoLogin
+Automatically redirect the user to login for all proxied routes.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/idporten/sidecar#auto-login](https://doc.nais.io/security/auth/idporten/sidecar#auto-login)
+
+Type: `boolean`<br />
+Required: `false`<br />
+Default value: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      idporten:
+        sidecar:
+          autoLogin: true
     ```
 
 #### idporten.sidecar.enabled
@@ -2838,6 +2861,24 @@ Required: `true`<br />
       idporten:
         sidecar:
           enabled: true
+    ```
+
+#### idporten.sidecar.errorPath
+Absolute path to redirect the user to on authentication errors for custom error handling.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/idporten/sidecar#error-handling](https://doc.nais.io/security/auth/idporten/sidecar#error-handling)
+
+Type: `string`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      idporten:
+        sidecar:
+          errorPath: /error
     ```
 
 #### idporten.sidecar.level
