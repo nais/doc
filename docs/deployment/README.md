@@ -74,7 +74,7 @@ Add the example files below, then commit and push. This will trigger the workflo
         - uses: nais/deploy/actions/deploy@v1
           env:
             APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-            CLUSTER: dev-fss
+            CLUSTER: dev-gcp
             RESOURCE: nais.yml
             VAR: image=${{ env.docker_image }}
     ```
