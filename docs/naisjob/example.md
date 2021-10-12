@@ -103,6 +103,8 @@ spec:
     mountPath: /var/run/configmaps
   - mountPath: /var/run/secrets
     secret: my-secret-file
+  - mountPath: /var/run/pvc
+    persistentVolumeClaim: pvc-name
   gcp:
     bigQueryDatasets:
     - cascadingDelete: true

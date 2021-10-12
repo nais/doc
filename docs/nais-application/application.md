@@ -1109,10 +1109,12 @@ Availability: team namespaces<br />
           mountPath: /var/run/configmaps
         - mountPath: /var/run/secrets
           secret: my-secret-file
+        - mountPath: /var/run/pvc
+          persistentVolumeClaim: pvc-name
     ```
 
 ### filesFrom[].configmap
-Name of the `ConfigMap` that contains files that should be mounted into the container. Required unless `secret` is set.
+Name of the `ConfigMap` that contains files that should be mounted into the container. Required unless `secret` or `persistentVolumeClaim` is set.
 
 Type: `string`<br />
 Required: `false`<br />
@@ -1125,11 +1127,13 @@ Required: `false`<br />
           mountPath: /var/run/configmaps
         - mountPath: /var/run/secrets
           secret: my-secret-file
+        - mountPath: /var/run/pvc
+          persistentVolumeClaim: pvc-name
     ```
 
 ### filesFrom[].mountPath
 Filesystem path inside the pod where files are mounted. The directory will be created if it does not exist. If the directory exists, any files in the directory will be made unaccessible. 
- Defaults to `/var/run/configmaps/<NAME>` or `/var/run/secrets`, depending on which of them is specified.
+ Defaults to `/var/run/configmaps/<NAME>`, `/var/run/secrets`, or `/var/run/pvc/<NAME>`, depending on which of them is specified.
 
 Type: `string`<br />
 Required: `false`<br />
@@ -1142,10 +1146,30 @@ Required: `false`<br />
           mountPath: /var/run/configmaps
         - mountPath: /var/run/secrets
           secret: my-secret-file
+        - mountPath: /var/run/pvc
+          persistentVolumeClaim: pvc-name
+    ```
+
+### filesFrom[].persistentVolumeClaim
+Name of the `PersistentVolumeClaim` that should be mounted into the container. Required unless `configMap` or `secret` is set. This feature requires coordination with the NAIS team.
+
+Type: `string`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      filesFrom:
+        - configmap: example-files-configmap
+          mountPath: /var/run/configmaps
+        - mountPath: /var/run/secrets
+          secret: my-secret-file
+        - mountPath: /var/run/pvc
+          persistentVolumeClaim: pvc-name
     ```
 
 ### filesFrom[].secret
-Name of the `Secret` that contains files that should be mounted into the container. Required unless `configMap` is set. If mounting multiple secrets, `mountPath` *MUST* be set to avoid collisions.
+Name of the `Secret` that contains files that should be mounted into the container. Required unless `configMap` or `persistentVolumeClaim` is set. If mounting multiple secrets, `mountPath` *MUST* be set to avoid collisions.
 
 Type: `string`<br />
 Required: `false`<br />
@@ -1158,6 +1182,8 @@ Required: `false`<br />
           mountPath: /var/run/configmaps
         - mountPath: /var/run/secrets
           secret: my-secret-file
+        - mountPath: /var/run/pvc
+          persistentVolumeClaim: pvc-name
     ```
 
 ## gcp
