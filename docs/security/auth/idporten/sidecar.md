@@ -5,7 +5,7 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 # ID-porten sidecar
 
 !!! warning "Status: beta"
-    This feature is only available in [team namespaces](../../../clusters/team-namespaces.md)
+    This feature is only available in the [GCP clusters](../../../clusters/gcp.md).
 
     **Experimental**: users report that this component is working, but it needs a broader audience to be battle-tested properly.
 
@@ -205,12 +205,11 @@ The following describes the contract for usage of the sidecar.
 * The `Authorization` header is removed from the original request if the user _does not_ have a valid session.
 * All HTTP requests to the `/oauth2` endpoints [defined above](#endpoints) are owned by the sidecar and will never be forwarded to the application.
 * The sidecar is safe to enable and use with multiple replicas of your application.
+* The sidecar stores session data to a highly available Redis service on Aiven, and falls back to using cookies if unavailable.
 
 **The sidecar does _not_:**
 
 * Automatically refresh the user's tokens. 
-* Use a highly available session store.
-    * It currently connects and persists session data to an automatically provisioned Redis instance that runs with a single replica.
 * Secure your application's endpoints.
 * Validate the user's access token set in the `Authorization` header. The token may be invalid or expired by the time your application receives it.
 
