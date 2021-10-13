@@ -84,6 +84,7 @@ spec:
   - value
   - --other-param
   - other-value
+  concurrencyPolicy: Allow
   elastic:
     access: readwrite
     instance: my-elastic-instance

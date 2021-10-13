@@ -861,6 +861,24 @@ Required: `false`<br />
         - other-value
     ```
 
+## concurrencyPolicy
+Specifies how to treat concurrent executions of a job that is created by this Naisjob-cron.
+
+Relevant information:
+
+* [https://kubernetes.io/docs/tasks/job/automated-tasks-with-cron-jobs/#concurrency-policy](https://kubernetes.io/docs/tasks/job/automated-tasks-with-cron-jobs/#concurrency-policy)
+
+Type: `enum`<br />
+Required: `false`<br />
+Default value: `Allow`<br />
+Allowed values: `Allow`, `Forbid`, `Replace`<br />
+
+??? example
+    ``` yaml
+    spec:
+      concurrencyPolicy: Allow
+    ```
+
 ## elastic
 To get your own Elastic Search instance head over to the IaC-repo to provision each instance. See [navikt/aiven-iac](https://github.com/navikt/aiven-iac) repository
 
