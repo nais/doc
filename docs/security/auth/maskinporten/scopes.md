@@ -126,7 +126,8 @@ See DigDir's documentation on [audience-restricted tokens](https://docs.digdir.n
 ## Legacy
 
 !!! info
-    This section only applies if you have an existing scope registered at the [IaC repository](https://github.com/navikt/nav-maskinporten) or use the scope in on-prem clusters today.
+    This section only applies if you have an existing scope registered at the [IaC repository](https://github.com/navikt/nav-maskinporten) 
+    or use the scope in on-prem clusters today.
 
 ### Application do not use the IaC repo and is migrating from on-prem to gcp
 
