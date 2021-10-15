@@ -4,12 +4,10 @@ A _scope_ in Maskinporten terminology is equivalent to a distinct API. As an API
 
 - define scopes to be registered in Maskinporten
 - grant access to other organizations for your defined scopes
+  
+The notion of scope is loosely defined to allow semantic freedom in terms of API providers' own definition and granularity of access and authorization.
 
-The notion of scope is loosely defined to allow semantic freedom in terms of API providers' own definition and
-granularity of access and authorization.
-
-An external consumer that has been granted access to your scopes may then acquire an `access_token` with their own
-Maskinporten client, which they will need to acquire from DigDir on their own.
+An external consumer that has been granted access to your scopes may then acquire an `access_token` with their own Maskinporten client, which they will need to acquire from DigDir on their own. 
 [Our NAIS clients](client.md) are registered as part of the NAV organization and may only be used by NAV.
 
 ## Spec
@@ -19,7 +17,6 @@ See the [NAIS manifest](../../../nais-application/application.md#maskinporten).
 ## Configuration
 
 === "nais.yaml"
-
   ```yaml
   spec:
     maskinporten:
@@ -48,24 +45,21 @@ scope := <prefix>:<subscope>
 ```
 
 ???+ example "Example scope"
-
-```text scope := nav:trygdeopplysninger
-```
-
+    ```text
+    scope := nav:trygdeopplysninger
+    ```
 ### Prefix
 
 The _prefix_ for all scopes provisioned through NAIS will **always** be `nav`.
 
 ### Subscope
 
-A _subscope_ should describe the resource to be exposed as accurately as possible (e.g. `trygdeopplysninger`
-or `helseopplysninger`).
+A _subscope_ should describe the resource to be exposed as accurately as possible (e.g. `trygdeopplysninger` or `helseopplysninger`).
 
-The subscope may also be _postfixed_ to separate between access levels, for instance `read` and/or `write` access (
-e.g. `nav:trygdeopplysninger.write`).
+The subscope may also be _postfixed_ to separate between access levels, for instance `read` and/or `write` access (e.g. `nav:trygdeopplysninger.write`). 
 
 Absence of a postfix should generally be treated as strictly `read` access.
-
+  
 All _subscopes_ for NAIS clients will have the following form:
 
 ```text
@@ -78,8 +72,8 @@ where `separator` is:
 - `:` otherwise.
 
 ???+ example "Subscope example"
-For the [example configuration](#configuration) above where
-
+    For the [example configuration](#configuration) above where
+    
     - `product := arbeid`
     - `name := some.scope.read`
 
@@ -96,8 +90,8 @@ For the [example configuration](#configuration) above where
     ```
 
 ???+ example "Subscope example with different separator"
-If the `name` instead contains the `/` character, e.g:
-
+    If the `name` instead contains the `/` character, e.g:
+    
     - `name := some/scope.read`
 
     and the product is the same as before:
@@ -120,22 +114,19 @@ If the `name` instead contains the `/` character, e.g:
 
 If there are multiple APIs that are protected by the same _scope_, one might be susceptible to replay attacks.
 
-One way to mitigate this is to require that tokens contain an `aud` claim with a unique value for each unique API. The
-API should reject requests with tokens that do not have this claim and expected value. This ensures that
-an `access_token` may only be used for a specific API.
+One way to mitigate this is to require that tokens contain an `aud` claim with a unique value for each unique API. 
+The API should reject requests with tokens that do not have this claim and expected value. 
+This ensures that an `access_token` may only be used for a specific API.
 
-The value of this must be defined by the API provider out-of-band from Maskinporten. It is thus the API provider's
-responsibility to inform any consumers of this expected value so that they can modify their requests accordingly.
+The value of this must be defined by the API provider out-of-band from Maskinporten. 
+It is thus the API provider's responsibility to inform any consumers of this expected value so that they can modify their requests accordingly.
 
-See DigDir's documentation
-on [audience-restricted tokens](https://docs.digdir.no/maskinporten_func_audience_restricted_tokens.html) for more
-information.
+See DigDir's documentation on [audience-restricted tokens](https://docs.digdir.no/maskinporten_func_audience_restricted_tokens.html) for more information.
 
 ## Legacy
 
-!!! info This section only applies if you have an existing scope registered at
-the [IaC repository](https://github.com/navikt/nav-maskinporten)
-or use the scope in on-prem clusters today.
+!!! info
+    This section only applies if you have an existing scope registered at the [IaC repository](https://github.com/navikt/nav-maskinporten) or use the scope in on-prem clusters today.
 
 ### Application do not use the IaC repo and is migrating from on-prem to gcp
 
@@ -152,8 +143,7 @@ consumers until cluster is update. Right now the cluster need to be changed manu
 
 ### Migration guide to keep existing Maskinporten scope (IaC -> nais.yml) (NAIS application only)
 
-The following describes the steps needed to migrate a scope registered
-in [IaC repository](https://github.com/navikt/nav-maskinporten/scopes).
+The following describes the steps needed to migrate a scope registered in [IaC repository](https://github.com/navikt/nav-maskinporten/scopes).
 
 #### Step 1 - Update your scope description in the IaC repository
 
@@ -172,5 +162,4 @@ in [IaC repository](https://github.com/navikt/nav-maskinporten/scopes).
 #### Step 4 - Delete your scope from the IaC repository
 
 - Verify that everything works after the migration
-- Delete the scope from the [IaC repository](https://github.com/navikt/nav-maskinporten/scopes) in order to maintain a
-  single source of truth.
+- Delete the scope from the [IaC repository](https://github.com/navikt/nav-maskinporten/scopes) in order to maintain a single source of truth.
