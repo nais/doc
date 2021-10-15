@@ -139,7 +139,7 @@ The scope is assigned your application in your current cluster;
 
 so when migrating from on-prem nais to gcp, the scope belongs to that cluster. If you already migrated your app, there
 is no reason to panic, scope still exists and works as before, but you are not able to make changes eg. add/remove
-consumers until cluster is update. Right now the cluster need to be changed manually so please take contact in channel
+consumers until cluster is updated. Right now the cluster need to be changed manually so please take contact in channel
 \#nais.
 
 ### Migration guide to keep existing Maskinporten scope (IaC -> nais.yml) (NAIS application only)
