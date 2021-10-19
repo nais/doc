@@ -47,30 +47,16 @@ that your API provider accepts.
 The scope has the following format:
 
 ```text
-api://<identifier>/.default
-```
-
-where `<identifier>` can be either the [client ID](#client-id) of the API provider, or a human-readable identifier.
-
-The identifier used to refer to the application almost follows the same format as mentioned in the [naming format](#naming-format).
-
-The only notable difference is that `:` replaced by `.`
-
-```text
 api://<cluster>.<namespace>.<app-name>
 ```
 
-The above means that instead of using the API provider's client ID:
-
-```text
-api://e89006c5-7193-4ca3-8e26-d0990d9d981f/.default
-```
-
-you can do this:
+For example:
 
 ```text
 api://dev-gcp.aura.nais-testapp/.default
 ```
+
+The identifier used to refer to the application almost follows the same format as mentioned in the [naming format](#naming-format), where the only notable difference is that `:` replaced by `.`
 
 ## Client ID
 
@@ -79,5 +65,5 @@ An Azure AD client has its own ID that uniquely identifies the client within a t
 Your application's Azure AD client ID is available at multiple locations:
 
 1. The environment variable `AZURE_APP_CLIENT_ID`, available inside your application at runtime
-2. In the Kubernetes resource - `kubectl get azureapp <app-name> -o wide`
+2. In the Kubernetes resource - `kubectl get azureapp <app-name>`
 3. The [Azure Portal](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps). You may have to click on `All applications` if it does not show up in `Owned applications`. Search using the naming scheme mentioned earlier: `<cluster>:<namespace>:<app>`.

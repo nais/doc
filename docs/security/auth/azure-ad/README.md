@@ -20,9 +20,10 @@ description: Enabling authentication and authorization in internal web applicati
     * Request chains involving an end-user whose identity and permissions should be propagated through each service/web API, using the [OAuth 2.0 On-Behalf-Of flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow)
     * Daemon / server-side applications for server-to-server interactions without a user, using the [OAuth 2.0 client credentials flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow)
 
-    This feature _only provisions and configures_ an Azure AD client. 
-    It does _not_ provide any proxy mechanisms such as user logins or validation of incoming requests for your application at runtime.
+    The feature described in [configuration](configuration.md) only _provisions_ and _configures_ an Azure AD client.
     **Your application is responsible for using the client to implement the desired use case.**
+
+    If you need functionality to sign-in end-users with said client, we also provide a separate [sidecar](sidecar.md) proxy that handles this.
 
 !!! info
     **See the** [**NAV Security Guide**](https://security.labs.nais.io/) **for NAV-specific usage of this client.**
