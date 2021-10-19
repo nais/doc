@@ -4,17 +4,21 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 
 # Azure AD sidecar
 
-!!! warning "Status: alpha"
+!!! warning "Status: Alpha"
     This feature is only available in the [GCP clusters](../../../clusters/gcp.md).
 
     **Experimental**: this is a new feature. Use it in production, but be aware that bugs might arise.
+
+    Report any issues to the #nais channel on Slack.
 
 ## Description
 
 A reverse proxy that automatically handles of Azure AD login, logout, and front-channel logout.
 
-!!! info "Prerequisite"
+!!! info "Prerequisites"
     **Ensure that you first [enable Azure AD for your application](README.md).**
+    
+    **Ensure that you also define an [ingress](../../../nais-application/application.md#ingresses) for your application.**
 
 All HTTP requests to the application will be intercepted by a sidecar ("_wonderwall_").
 
@@ -25,7 +29,7 @@ In order to obtain a local session, the user must be redirected to the `/oauth2/
 [OpenID Connect Authorization Code Flow as specified by Microsoft](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow).
 
 If the user successfully completed the login flow, a session is established with the sidecar. All requests that are 
-forwarded to the application container will now contain an `Authorization` header with the user's `access_token` from ID-porten,
+forwarded to the application container will now contain an `Authorization` header with the user's `access_token` from Azure AD,
 in addition to an `X-Wonderwall-ID-Token` header which contains the `id_token`.
 
 ```
@@ -60,10 +64,10 @@ See the [NAIS manifest](../../../nais-application/application.md#azuresidecar).
 
 The sidecar provides these endpoints under `https://app.ingress`:
 
-* `/oauth2/login` redirects the user to ID-porten to perform the OpenID Connect Authorization Code Flow.
-* `/oauth2/callback` handles callbacks from ID-porten as part of the OpenID Connect Authorization Code Flow.
-* `/oauth2/logout` implements [self-initiated logout](README.md#self-initiated-logout).
-* `/oauth2/logout/frontchannel` implements [front-channel logout](README.md#front-channel-logout).
+* `/oauth2/login` redirects the user to Azure AD to perform the OpenID Connect Authorization Code Flow.
+* `/oauth2/callback` handles callbacks from Azure AD as part of the OpenID Connect Authorization Code Flow.
+* `/oauth2/logout` implements [self-initiated logout](https://openid.net/specs/openid-connect-rpinitiated-1_0.html).
+* `/oauth2/logout/frontchannel` implements [front-channel logout](https://openid.net/specs/openid-connect-frontchannel-1_0.html).
 
 ## Login
 
@@ -110,16 +114,6 @@ https://app.ingress/oauth2/logout
 
 The user's session with the sidecar will be cleared, and the user will be redirected to Azure AD for global logout.
 
-### Redirect after logout
-
-After the user is successfully logged out at Azure AD, the user may be redirected to another URI.
-
-By default, the sidecar will indicate to Azure AD that the user should be redirected to `https://www.nav.no`.
-
-You may configure or override this by defining
-[`.spec.azure.application.replyURLs`](../../../nais-application/application.md#azureapplicationreplyurls).
-The base path of the first reply URL will be used as the redirect URL.
-
 ## Error Handling
 
 Authentication should generally not fail. However, in the event that it does happen; the sidecar automatically presents 
@@ -130,7 +124,7 @@ within your ingress that should handle such requests:
 
 ```yaml
 spec:
-  idporten:
+  azure:
     sidecar:
       errorPath: /login/error
 ```
@@ -166,5 +160,7 @@ The following describes the contract for usage of the sidecar.
 
 #### Token Validation
 
-Your application should also validate the claims and signature for the Azure AD `access_token` attached by the sidecar. 
-That is, validate the standard claims such as `iss`, `iat`, `exp`, and `aud`.
+Your application should also validate the claims and signature for the Azure AD JWT `access_token` attached by the sidecar.
+
+That is, validate the standard claims such as `iss`, `iat`, `exp`, and `aud`. 
+`aud` should be equal to [your application's client ID](usage.md#azure_app_client_id) in Azure AD.
