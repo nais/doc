@@ -630,6 +630,10 @@ Required: `false`<br />
             - https://myapplication.nav.no/oauth2/callback
           singlePageApplication: true
           tenant: nav.no
+        sidecar:
+          autoLogin: true
+          enabled: true
+          errorPath: /error
     ```
 
 ### azure.application
@@ -817,6 +821,78 @@ Allowed values: `nav.no`, `trygdeetaten.no`<br />
       azure:
         application:
           tenant: nav.no
+    ```
+
+### azure.sidecar
+Sidecar configures a sidecar that intercepts every HTTP request, and performs the OIDC flow if necessary. All requests to ingress + `/oauth2` will be processed only by the sidecar, whereas all other requests will be proxied to the application. 
+ If the client is authenticated with Azure AD, the `Authorization` header will be set to `Bearer <JWT>`.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/azure-ad/sidecar/](https://doc.nais.io/security/auth/azure-ad/sidecar/)
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      azure:
+        sidecar:
+          autoLogin: true
+          enabled: true
+          errorPath: /error
+    ```
+
+#### azure.sidecar.autoLogin
+Automatically redirect the user to login for all proxied routes.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/azure-ad/sidecar#auto-login](https://doc.nais.io/security/auth/azure-ad/sidecar#auto-login)
+
+Type: `boolean`<br />
+Required: `false`<br />
+Default value: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      azure:
+        sidecar:
+          autoLogin: true
+    ```
+
+#### azure.sidecar.enabled
+Enable the sidecar.
+
+Type: `boolean`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      azure:
+        sidecar:
+          enabled: true
+    ```
+
+#### azure.sidecar.errorPath
+Absolute path to redirect the user to on authentication errors for custom error handling.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/azure-ad/sidecar#error-handling](https://doc.nais.io/security/auth/azure-ad/sidecar#error-handling)
+
+Type: `string`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      azure:
+        sidecar:
+          errorPath: /error
     ```
 
 ## cleanup
@@ -2833,9 +2909,6 @@ Value range: `3600`-`7200`<br />
 ### idporten.sidecar
 Sidecar configures a sidecar that intercepts every HTTP request, and performs the OIDC flow if necessary. All requests to ingress + `/oauth2` will be processed only by the sidecar, whereas all other requests will be proxied to the application. 
  If the client is authenticated with IDPorten, the `Authorization` header will be set to `Bearer <JWT>`.
-
-!!! warning "Experimental feature"
-    This feature has not undergone much testing, and is subject to API change, instability, or removal.
 
 Relevant information:
 

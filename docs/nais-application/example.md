@@ -77,6 +77,10 @@ spec:
       - https://myapplication.nav.no/oauth2/callback
       singlePageApplication: true
       tenant: nav.no
+    sidecar:
+      autoLogin: true
+      enabled: true
+      errorPath: /error
   cleanup:
     enabled: true
     gracePeriod: 24h
