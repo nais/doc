@@ -33,6 +33,7 @@ jobs:
             --remove-untracked
           poetry run mkdocs build --strict
 
+      # Synchronize doctree with Google Cloud Bucket
       - if: github.ref == 'refs/heads/master'
         uses: actions-hub/gcloud@318.0.0
         env:
@@ -40,4 +41,14 @@ jobs:
           APPLICATION_CREDENTIALS: ${{ secrets.GCP_SERVICEACCOUNT_KEY_FOR_DOC_NAIS_IO_BUCKET }}
         with:
           args: -m rsync -r -c -d site/ gs://doc.nais.io
+          cli: gsutil
+
+      # Cache buster
+      - if: github.ref == 'refs/heads/master'
+        uses: actions-hub/gcloud@318.0.0
+        env:
+          PROJECT_ID: aura-prod-d7e3
+          APPLICATION_CREDENTIALS: ${{ secrets.GCP_SERVICEACCOUNT_KEY_FOR_DOC_NAIS_IO_BUCKET }}
+        with:
+          args: -m setmeta -r -h "Cache-Control:public, max-age=180" "gs://doc.nais.io/*"
           cli: gsutil
