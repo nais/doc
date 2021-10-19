@@ -4,10 +4,12 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 
 # ID-porten sidecar
 
-!!! warning "Status: beta"
+!!! warning "Status: Beta"
     This feature is only available in the [GCP clusters](../../../clusters/gcp.md).
 
     **Experimental**: users report that this component is working, but it needs a broader audience to be battle-tested properly.
+
+    Report any issues to the #nais channel on Slack.
 
 ## Description
 
@@ -220,7 +222,7 @@ The following describes the contract for usage of the sidecar.
 
 #### Token Validation
 
-Your application should also validate the claims and signature for the ID-porten `access_token` attached by the sidecar. 
+Your application should also validate the claims and signature for the ID-porten JWT `access_token` attached by the sidecar. 
 That is, validate the standard claims such as `iss`, `iat`, `exp`.
 
 Note that the `aud` claim is _not_ set for ID-porten access tokens. 
