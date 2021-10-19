@@ -116,6 +116,7 @@ nav:
           - Configuration: security/auth/azure-ad/configuration.md
           - Access Policy: security/auth/azure-ad/access-policy.md
           - Usage: security/auth/azure-ad/usage.md
+          - Sidecar: security/auth/azure-ad/sidecar.md
           - FAQ / Troubleshooting: security/auth/azure-ad/faq-troubleshooting.md
           - Operations: security/auth/azure-ad/operations.md
           - Legacy: security/auth/azure-ad/legacy.md
