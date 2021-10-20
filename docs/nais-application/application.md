@@ -2091,7 +2091,7 @@ User name.
 
 Type: `string`<br />
 Required: `true`<br />
-Pattern: `^[_a-zA-Z][_a-zA-Z0-9]+$`<br />
+Pattern: `^[_a-zA-Z][-_a-zA-Z0-9]+$`<br />
 
 ??? example
     ``` yaml
