@@ -126,9 +126,23 @@ See DigDir's documentation on [audience-restricted tokens](https://docs.digdir.n
 ## Legacy
 
 !!! info
-    This section only applies if you have an existing scope registered at the [IaC repository](https://github.com/navikt/nav-maskinporten)
+    This section only applies if you have an existing scope registered at the [IaC repository](https://github.com/navikt/nav-maskinporten) 
+    or use the scope in on-prem clusters today.
 
-### Migration guide to keep existing Maskinporten scope (NAIS application only)
+### Application do not use the IaC repo and is migrating from on-prem to gcp
+
+The scope is assigned your application in your current cluster;
+
+```text
+<cluster>:<metadata.namespace>:<metadata.name>.<subscope>
+```
+
+so when migrating from on-prem nais to gcp, the scope belongs to that cluster. If you already migrated your app, there
+is no reason to panic, scope still exists and works as before, but you are not able to make changes eg. add/remove
+consumers until cluster is updated. Right now the cluster need to be changed manually so please take contact in channel
+\#nais.
+
+### Migration guide to keep existing Maskinporten scope (IaC -> nais.yml) (NAIS application only)
 
 The following describes the steps needed to migrate a scope registered in [IaC repository](https://github.com/navikt/nav-maskinporten/scopes).
 
