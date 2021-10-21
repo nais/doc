@@ -69,9 +69,23 @@ The sidecar provides these endpoints under `https://app.ingress`:
 * `/oauth2/logout` implements [self-initiated logout](https://openid.net/specs/openid-connect-rpinitiated-1_0.html).
 * `/oauth2/logout/frontchannel` implements [front-channel logout](https://openid.net/specs/openid-connect-frontchannel-1_0.html).
 
-## Login
+## Usage
 
-### Authenticate a user
+### Overview
+
+The contract for usage of the sidecar is fairly simple. For any endpoint that requires authentication:
+
+- Validate the `Authorization` header as specified in the [responsibilities section](#your-application).
+- If the `Authorization` header is missing, redirect the user to the [login endpoint](#authenticate-a-user).
+- If the JWT `access_token` in the `Authorization` header is invalid or expired, redirect the user to the [login endpoint](#authenticate-a-user).
+- If you need to log out a user, redirect the user to the [logout endpoint](#logout).
+
+!!! example
+    See <https://github.com/nais/wonderwalled> for an example application that does this.
+
+### Login
+
+#### Authenticate a user
 
 When you must authenticate a user, redirect to the user to:
 
@@ -79,7 +93,7 @@ When you must authenticate a user, redirect to the user to:
 https://app.ingress/oauth2/login
 ```
 
-### Redirect after authentication
+#### Redirect after authentication
 
 Redirects after successful authentication follow these rules in ascending priority:
 
@@ -94,7 +108,7 @@ https://app.ingress/oauth2/login?redirect=/some/path
 The host and scheme (if provided) are stripped from the redirect URL, which effectively only allows 
 redirects to paths within your own ingress.
 
-### Auto Login
+#### Auto Login
 
 If you want _all_ routes to your application to require an authenticated session, you can enable auto-login
 by setting the `.spec.azure.sidecar.autoLogin` field to `true`.
@@ -102,9 +116,7 @@ This will make the sidecar automatically redirect
 any user to login when attempting to browse to any path for your application. You should still validate and check the
 `Authorization` header and the token within as specified in [responsibilitites and guarantees](#responsibilities-and-guarantees).
 
-## Logout
-
-### Logging a user out
+### Logout
 
 When you must log a user out, redirect to the user to:
 
@@ -114,7 +126,7 @@ https://app.ingress/oauth2/logout
 
 The user's session with the sidecar will be cleared, and the user will be redirected to Azure AD for global logout.
 
-## Error Handling
+### Error Handling
 
 Authentication should generally not fail. However, in the event that it does happen; the sidecar automatically presents 
 the end-users with a simple error page that allows the user to retry the authentication flow.
@@ -162,5 +174,6 @@ The following describes the contract for usage of the sidecar.
 
 Your application should also validate the claims and signature for the Azure AD JWT `access_token` attached by the sidecar.
 
-That is, validate the standard claims such as `iss`, `iat`, `exp`, and `aud`. 
-`aud` should be equal to [your application's client ID](usage.md#azure_app_client_id) in Azure AD.
+That is, validate the standard claims such as `iss`, `iat`, `exp`, and `aud`.
+
+`aud` must be equal to [your application's client ID](usage.md#azure_app_client_id) in Azure AD.

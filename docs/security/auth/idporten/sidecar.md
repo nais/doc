@@ -69,9 +69,23 @@ The sidecar provides these endpoints under `https://app.ingress`:
 * `/oauth2/logout` implements [self-initiated logout](README.md#self-initiated-logout).
 * `/oauth2/logout/frontchannel` implements [front-channel logout](README.md#front-channel-logout).
 
-## Login
+## Usage
 
-### Authenticate a user
+### Overview
+
+The contract for usage of the sidecar is fairly simple. For any endpoint that requires authentication:
+
+- Validate the `Authorization` header as specified in the [responsibilities section](#your-application).
+- If the `Authorization` header is missing, redirect the user to the [login endpoint](#authenticate-a-user). 
+- If the JWT `access_token` in the `Authorization` header is invalid or expired, redirect the user to the [login endpoint](#authenticate-a-user).
+- If you need to log out a user, redirect the user to the [logout endpoint](#logout).
+
+!!! example
+    See <https://github.com/nais/wonderwalled> for an example application that does this.
+
+### Login
+
+#### Authenticate a user
 
 When you must authenticate a user, redirect to the user to:
 
@@ -79,7 +93,7 @@ When you must authenticate a user, redirect to the user to:
 https://app.ingress/oauth2/login
 ```
 
-### Redirect after authentication
+#### Redirect after authentication
 
 Redirects after successful authentication follow these rules in ascending priority:
 
@@ -94,7 +108,7 @@ https://app.ingress/oauth2/login?redirect=/some/path
 The host and scheme (if provided) are stripped from the redirect URL, which effectively only allows 
 redirects to paths within your own ingress.
 
-### Security Levels
+#### Security Levels
 
 ID-porten supports [different levels of security](https://eid.difi.no/en/security-and-cookies/different-levels-security)
 when authenticating users. 
@@ -111,7 +125,7 @@ For runtime control of the value, set the query parameter `level` when redirecti
 https://app.ingress/oauth2/login?level=Level4
 ```
 
-### Locales
+#### Locales
 
 ID-porten supports a few different locales for the user interface during authentication. 
 This is sent by the sidecar as the `ui_locales` parameter to the [`/authorize` endpoint](https://docs.digdir.no/oidc_protocol_authorize.html).
@@ -134,7 +148,7 @@ For runtime control of the value, set the query parameter `locale` when redirect
 https://app.ingress/oauth2/login?locale=en
 ```
 
-### Auto Login
+#### Auto Login
 
 If you want _all_ routes to your application to require an authenticated session, you can enable auto-login
 by setting the `.spec.idporten.sidecar.autoLogin` field to `true`.
@@ -142,9 +156,7 @@ This will make the sidecar automatically redirect
 any user to login when attempting to browse to any path for your application. You should still validate and check the
 `Authorization` header and the token within as specified in [responsibilitites and guarantees](#responsibilities-and-guarantees).
 
-## Logout
-
-### Logging a user out
+### Logout
 
 When you must log a user out, redirect to the user to:
 
@@ -154,7 +166,7 @@ https://app.ingress/oauth2/logout
 
 The user's session with the sidecar will be cleared, and the user will be redirected to ID-porten for global logout.
 
-### Redirect after logout
+#### Redirect after logout
 
 After the user is successfully logged out at ID-porten, the user may be redirected to another URI.
 
@@ -176,7 +188,7 @@ Note that ID-porten requires the exact redirect URI to be pre-registered. That i
 under [`.spec.idporten.postLogoutRedirectURIs`](../../../nais-application/application.md#idportenpostlogoutredirecturis). 
 Otherwise, the user will not be redirected to the given URI.
 
-## Error Handling
+### Error Handling
 
 Authentication should generally not fail. However, in the event that it does happen; the sidecar automatically presents 
 the end-users with a simple error page that allows the user to retry the authentication flow.
