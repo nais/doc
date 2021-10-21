@@ -103,8 +103,8 @@ that you may mount into your applications in the GCP clusters.
 
     There are two ways of mounting/exposing a Kubernetes Secret to your application:
 
-    - as files, or 
-    - as environment variables
+    - [as files](../../nais-application/application.md#filesfromsecret), or
+    - [as environment variables](../../nais-application/application.md#envfromsecret)
 
     #### Files
 
@@ -113,7 +113,7 @@ that you may mount into your applications in the GCP clusters.
       # secret will be available in the file named "secret"
       # in the directory /var/run/secrets/my-secret/
       filesFrom:
-        - secret: my-google-secret # secret name in Google Secret Manager
+        - secret: my-google-secret # value is the secret name in Google Secret Manager
           mountPath: /var/run/secrets/my-secret
     ```
 
@@ -123,12 +123,15 @@ that you may mount into your applications in the GCP clusters.
     spec:
       # secret will be made available as environment variables
       envFrom:
-        - secret: my-google-secret # secret name in Google Secret Manager
+        - secret: my-google-secret # value is the secret name in Google Secret Manager
     ```
 
 ## Examples
 
 ### Example secret with single value format
+
+This method is generally used when you need a binary file as a secret mounted to the file system of your pod. 
+If you need environment variables, see the [other example](#example-with-environment-variable-format).
 
 ??? example "Secret in Google Secret Manager (click to expand)"
     
@@ -160,16 +163,12 @@ that you may mount into your applications in the GCP clusters.
 
     ```yaml
     spec:
-      # secret will be available in the file named "secret" in the directory /var/run/secrets/my-secret/
-      # e.g. /var/run/secrets/my-secret/secret
+      # secret will be available in the file named "secret" in the directory /var/run/secrets/my-google-secret/
+      # e.g. /var/run/secrets/my-google-secret/secret
+      # note that the name "secret" is hard-coded and not configurable; the key used in the example below _must_ be "secret".
       filesFrom:
-        - secret: my-google-secret # secret name in Google Secret Manager
-          mountPath: /var/run/secrets/my-secret
-
-      # secret will be made available as environment variable named "secret"
-      # secret=some-secret-value
-      envFrom:
-        - secret: my-google-secret # secret name in Google Secret Manager
+        - secret: my-google-secret # value is the secret name in Google Secret Manager
+          mountPath: /var/run/secrets/my-google-secret
     ```
 
 ### Example with environment variable format
@@ -207,15 +206,15 @@ that you may mount into your applications in the GCP clusters.
 
     ```yaml
     spec:
-      # secret will be available as files in the directory /var/run/secrets/my-secret/
-      # e.g. /var/run/secrets/my-secret/SOME_ENV and /var/run/secrets/my-secret/SOME_OTHER_ENV
+      # secret will be available as files in the directory /var/run/secrets/my-google-secret/
+      # e.g. /var/run/secrets/my-google-secret/SOME_ENV and /var/run/secrets/my-google-secret/SOME_OTHER_ENV
       filesFrom:
-        - secret: my-google-secret # secret name in Google Secret Manager
-          mountPath: /var/run/secrets/my-secret
+        - secret: my-google-secret # value is the secret name in Google Secret Manager
+          mountPath: /var/run/secrets/my-google-secret
 
       # secret will be made available as environment variables
       # SOME_ENV=some-secret-value
       # SOME_OTHER_ENV=some-other-secret
       envFrom:
-        - secret: my-google-secret # secret name in Google Secret Manager
+        - secret: my-google-secret # value is the secret name in Google Secret Manager
     ```
