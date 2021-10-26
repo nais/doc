@@ -235,6 +235,7 @@ spec:
     timeout: 1
   replicas:
     cpuThresholdPercentage: 50
+    disableAutoScaling: true
     max: 4
     min: 2
   resources:

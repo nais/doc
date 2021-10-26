@@ -3860,6 +3860,7 @@ Required: `false`<br />
     spec:
       replicas:
         cpuThresholdPercentage: 50
+        disableAutoScaling: true
         max: 4
         min: 2
     ```
@@ -3876,6 +3877,20 @@ Default value: `50`<br />
     spec:
       replicas:
         cpuThresholdPercentage: 50
+    ```
+
+### replicas.disableAutoScaling
+Disable autoscaling
+
+Type: `boolean`<br />
+Required: `false`<br />
+Default value: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      replicas:
+        disableAutoScaling: true
     ```
 
 ### replicas.max
