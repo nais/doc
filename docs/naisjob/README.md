@@ -88,3 +88,25 @@ You can look at what Ginuudan has done to complete your Naisjob by running `kube
     ```
     kubectl exec yourpod-12345 -c vks-sidecar -- /bin/kill -s INT 1
     ```
+
+## Troubleshooting / FAQ
+
+
+### My NaisJob doesn't want to start any scheduled Jobs
+
+???+ "Answer"
+
+    Sometimes, if the defined schedule attempts to start Jobs frequently without succeeding, Kubernetes will eventually stop
+    attempting to start the Job.
+
+    You might see the following event or message for the related CronJob (`kubectl describe cronjob <name>`):
+
+    > Cannot determine if job needs to be started: too many missed start time (> 100). Set or decrease .spec.startingDeadlineSeconds or check clock skew
+
+    Currently, the only way to fix this is to delete the CronJob and NaisJob, and then re-apply or -deploy the NaisJob:
+
+    ```shell
+    kubectl delete cronjob <name>
+    kubectl delete naisjob <name>
+    kubectl apply -f <path-to-naisjob.yaml>
+    ```
