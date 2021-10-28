@@ -4,10 +4,6 @@ You can provision and configure [Postgres](https://www.postgresql.org/) through 
 
 The database is provisioned into the teams own project in GCP. Here the team has full access to view logs, create and restore backups and other administrative database tasks.
 
-!!! warning
-    If you change the postgreSQL version your data will be lost, as a new database will be created.
-    In other words to upgrade the database version you will need to do a migration as described here: [Upgrade GCP postgreSQL](https://cloud.google.com/sql/docs/postgres/upgrade-db)
-
 When you deploy your application with database config, NAIS will ensure the database exists in a [Google Cloud SQL instance](https://cloud.google.com/sql) with the specified [Postgres](https://cloud.google.com/sql/docs/postgres/) version, and configure the application with means to connect to it.
 
 !!! info
@@ -325,6 +321,12 @@ Databases should always be accessed using a personal account, and the access sho
 
     psql -U <FIRSTNAME>.<LASTNAME>@nav.no -h localhost <DATABASE_NAME> 
     ```
+
+## Upgrading major version
+
+In-place database upgrades through `nais.yaml` is currently not supported. If you attempt to change the version this way, you will get an error message.
+
+In order to upgrade the database version, you will need to follow the Cloud SQL docs on [upgrading PostgreSQL for an instance](https://cloud.google.com/sql/docs/postgres/upgrade-db).
 
 ## Deleting the database
 
