@@ -96,5 +96,5 @@ Applications handling personal information needs a [Personvernkonsekvens (*PVK*)
 
 See also additional information about [*ROS*](../legal/app-ros.md) and [*PVK*](../legal/app-pvk.md) under Laws and regulations.
 
-Questions about *ROS* can be directed to [Leif Tore Løvmo](https://nav-it.slack.com/messages/DB4DDCACF), while [Line Langlo Spongsveen](https://nav-it.slack.com/messages/DNXJ7PMH7) can answer questions about *PVK* and *Behandlingsoversikt*.
+Questions about ROS can be directed to Leif Tore Løvmo or Line Langlo Spongsveen or posted in [#tryggnok](https://nav-it.slack.com/archives/CQ0D5HLSW). Questions about *Behandling* should be directed to [#behandlinskatalogen](https://nav-it.slack.com/archives/CR1B19E6L).
 
