@@ -7,6 +7,8 @@ When running an application in a team namespace, [Kubernetes Secrets](https://ku
 
 To get started using this, simply [create the secrets](https://kubernetes.io/docs/concepts/configuration/secret/#creating-your-own-secrets). A secret can be either key-value pairs or files, and can be exposed to the application as environment variables or files.
 
+Microsoft has a good [YouTube](https://www.youtube.com/watch?v=KmhM33j5WYk) video that explains the concepts of Kubernetes secrets.
+
 ## Example
 
 Creating a secret
