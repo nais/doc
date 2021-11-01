@@ -36,6 +36,15 @@ The `Pod` is what actually runs your code.
 
 If you make a `Naisjob` without `schedule`, Kubernetes will create a `Job`-resource directly, which will create a `Pod`-resource.
 
+Below you can see some of the resources the `Naisjob` `tiltak-okonomi-avstemming` creates.
+```
+➜ k tree naisjob tiltak-okonomi-avstemming
+NAMESPACE     NAME                                        READY  REASON  AGE
+arbeidsgiver  Naisjob/tiltak-okonomi-avstemming           -              109d
+arbeidsgiver  ├─Job/tiltak-okonomi-avstemming             -              109d
+arbeidsgiver  │ └─Pod/tiltak-okonomi-avstemming-brb7c     True           12d
+```
+
 ## Re-run Naisjob
 If you don't want to run your job at a schedule, but still want to re-run your Naisjob, you either have to delete the old Naisjob first, og run under a different name.
 
