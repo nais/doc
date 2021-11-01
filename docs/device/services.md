@@ -18,5 +18,4 @@ This document describes the different services you will get access to through na
 * VDI/Utviklerimage \(Use horizon.nav.no as connection server\)
 * [Microsoft Teams](https://teams.microsoft.com/)
 * [Microsoft Sharepoint/Navet](https://navno.sharepoint.com/)
-
-
+* Postgres ([join this team to get access](https://teams.microsoft.com/l/team/19%3ab9d12407248e489589a71464f7265d9f%40thread.tacv2/conversations?groupId=a6816684-aced-43be-8791-451f18a266c5&tenantId=62366534-1ec3-4962-8869-9b5535279d0b), [howto](https://nav-it.slack.com/archives/C010WR3ALNR/p1611051372002600))
