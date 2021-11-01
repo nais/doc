@@ -27,6 +27,15 @@ spec:
   schedule: "*/1 * * * *"
 ```
 
+Behind the scene when you make a `Naisjob`, Kubernetes makes a bunch of different resources for you.
+`Naisjob` is one resource that has been defined by the NAIS team.
+When you deploy a `Naisjob` with `spec.schedule`, Kubernetes will create a `CronJob` for you.
+A `Cronjob` is a Kubernetes native resource.
+When the `Cronjob`-`schedule` triggers, Kubernetes will create a `Job`-ressource, which creates a `Pod`-resource.
+The `Pod` is what actually runs your code.
+
+If you make a `Naisjob` without `schedule`, Kubernetes will create a `Job`-resource directly, which will create a `Pod`-resource.
+
 ## Re-run Naisjob
 If you don't want to run your job at a schedule, but still want to re-run your Naisjob, you either have to delete the old Naisjob first, og run under a different name.
 
@@ -109,4 +118,14 @@ You can look at what Ginuudan has done to complete your Naisjob by running `kube
     kubectl delete cronjob <name>
     kubectl delete naisjob <name>
     kubectl apply -f <path-to-naisjob.yaml>
+    ```
+
+### How to I force run my scheduled job
+
+???+ "Answer"
+
+    Run the following command to create a ad-hoc job based on your cronjob:
+
+    ```shell
+    kubectl create job --name=<newname> --from=cronjobs/<naisjobname>
     ```
