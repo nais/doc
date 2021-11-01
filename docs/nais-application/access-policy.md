@@ -118,7 +118,7 @@ spec:
 
 **Global Service Entries**
 
-There are some services that are automatically added to the mesh in [dev-gcp](https://github.com/navikt/nais-yaml/blob/master/vars/dev-gcp/global-serviceentries.yaml) and [prod-gcp](https://github.com/navikt/nais-yaml/blob/master/vars/prod-gcp/global-serviceentries.yaml)
+There are some services that are automatically added to the mesh in [dev-gcp](https://github.com/navikt/nais-yaml/blob/master/vars/dev-gcp.yaml) and [prod-gcp](https://github.com/navikt/nais-yaml/blob/master/vars/prod-gcp.yaml) (search for `global_serviceentries`).
 
 ### Advanced: Resources created by Naiserator
 
