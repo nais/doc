@@ -27,7 +27,7 @@ spec:
   schedule: "*/1 * * * *"
 ```
 
-Behind the scene when you make a `Naisjob`, Kubernetes makes a bunch of different resources for you.
+Behind the scenes, when you make a `Naisjob`, Kubernetes makes a bunch of different resources for you.
 `Naisjob` is one resource that has been defined by the NAIS team.
 When you deploy a `Naisjob` with `spec.schedule`, Kubernetes will create a `CronJob` for you.
 A `Cronjob` is a Kubernetes native resource.
