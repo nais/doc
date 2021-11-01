@@ -31,7 +31,7 @@ Behind the scenes, when you make a `Naisjob`, Kubernetes makes a bunch of differ
 `Naisjob` is one resource that has been defined by the NAIS team.
 When you deploy a `Naisjob` with `spec.schedule`, Kubernetes will create a `CronJob` for you.
 A `Cronjob` is a Kubernetes native resource.
-When the `Cronjob`-`schedule` triggers, Kubernetes will create a `Job`-ressource, which creates a `Pod`-resource.
+When the `Cronjob`-`schedule` triggers, Kubernetes will create a `Job`-ressource, which creates a [`Pod`](https://kubernetes.io/docs/concepts/workloads/pods/)-resource.
 The `Pod` is what actually runs your code.
 
 If you make a `Naisjob` without `schedule`, Kubernetes will create a `Job`-resource directly, which will create a `Pod`-resource.
