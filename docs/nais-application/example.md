@@ -186,6 +186,7 @@ spec:
   - https://myapplication.nav.no
   kafka:
     pool: nav-dev
+    streams: true
   leaderElection: true
   liveness:
     failureThreshold: 10

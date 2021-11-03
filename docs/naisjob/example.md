@@ -161,6 +161,7 @@ spec:
     instance: influx-instance
   kafka:
     pool: nav-dev
+    streams: true
   liveness:
     failureThreshold: 10
     initialDelay: 20
