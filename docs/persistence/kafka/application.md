@@ -55,6 +55,10 @@ The available canary topics are:
 
 ## Using Kafka Streams with internal topics
 
+!!! info
+    This feature is only available in GCP clusters.
+
+
 In some configurations of kafka streams your application needs to create internal topics. To allow
 your app to make internal topics, you need to set
 [.spec.kafka.streams](/nais-application/application/#kafkastreams) to `true` in your application
