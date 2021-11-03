@@ -60,7 +60,7 @@ your app to make internal topics, you need to set
 [.spec.kafka.streams](/nais-application/application/#kafkastreams) to `true` in your application
 spec (nais.yaml)
 
-When you do this you *must* configure Kafka Streams by setting the property `application.id` to the
+When you do this you **must** configure Kafka Streams by setting the property `application.id` to the
 value of the env var `KAFKA_STREAMS_APPLICATION_ID`, which will be injected into your pod
 automatically.
 
