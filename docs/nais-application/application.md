@@ -3114,11 +3114,12 @@ Allow this app to use kafka streams
 
 Relevant information:
 
-* [https://doc.nais.io/persistence/kafka/application/#streams](https://doc.nais.io/persistence/kafka/application/#streams)
+* [https://doc.nais.io/persistence/kafka/application/#using-kafka-streams-with-internal-topics](https://doc.nais.io/persistence/kafka/application/#using-kafka-streams-with-internal-topics)
 
 Type: `boolean`<br />
 Required: `false`<br />
 Default value: `false`<br />
+Availability: GCP<br />
 
 ??? example
     ``` yaml
