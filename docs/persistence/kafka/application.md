@@ -53,6 +53,21 @@ The available canary topics are:
 | nav-prod | aura.kafkarator-canary-prod-sbs |
 | nav-prod | aura.kafkarator-canary-prod-fss |
 
+## Using Kafka Streams with internal topics
+
+!!! info
+    This feature is only available in GCP clusters.
+
+
+In some configurations of kafka streams your application needs to create internal topics. To allow
+your app to make internal topics, you need to set
+[.spec.kafka.streams](/nais-application/application/#kafkastreams) to `true` in your application
+spec (nais.yaml)
+
+When you do this you **must** configure Kafka Streams by setting the property `application.id` to the
+value of the env var `KAFKA_STREAMS_APPLICATION_ID`, which will be injected into your pod
+automatically.
+
 ## Accessing topics from an application on legacy infrastructure
 
 If you have an application on legacy infrastructure (outside NAIS clusters), you can still access topics with a few more manual steps.

@@ -3078,7 +3078,11 @@ Required: `false`<br />
     ```
 
 ## kafka
-Enable Aiven Kafka for your application.
+Set up Aiven Kafka for your application.
+
+Relevant information:
+
+* [https://doc.nais.io/persistence/kafka/](https://doc.nais.io/persistence/kafka/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3088,14 +3092,11 @@ Required: `false`<br />
     spec:
       kafka:
         pool: nav-dev
+        streams: true
     ```
 
 ### kafka.pool
 Configures your application to access an Aiven Kafka cluster.
-
-Relevant information:
-
-* [https://doc.nais.io/persistence/kafka/](https://doc.nais.io/persistence/kafka/)
 
 Type: `enum`<br />
 Required: `true`<br />
@@ -3106,6 +3107,25 @@ Allowed values: `nav-dev`, `nav-infrastructure`, `nav-prod`<br />
     spec:
       kafka:
         pool: nav-dev
+    ```
+
+### kafka.streams
+Allow this app to use kafka streams
+
+Relevant information:
+
+* [https://doc.nais.io/persistence/kafka/application/#using-kafka-streams-with-internal-topics](https://doc.nais.io/persistence/kafka/application/#using-kafka-streams-with-internal-topics)
+
+Type: `boolean`<br />
+Required: `false`<br />
+Default value: `false`<br />
+Availability: GCP<br />
+
+??? example
+    ``` yaml
+    spec:
+      kafka:
+        streams: true
     ```
 
 ## leaderElection
