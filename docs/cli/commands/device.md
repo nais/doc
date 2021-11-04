@@ -63,3 +63,30 @@ nais device jita my-privileged-access-gateway
     ```bash
     nais device status -ojson | jq -r '.Gateways[] | select(.requiresPrivilegedAccess == true) | .name'
     ```
+
+## config
+
+Shows and adjusts the naisdevice-agent configuration.
+
+### get
+
+Shows the current naisdevice-agent configuration.
+Currently, there are only to config fields: `AutoConnect` and `CertRenewal`.
+
+```bash
+nais device config get
+```
+
+
+### set
+
+Sets a naisdevice-agent configuration field to a desired value.
+
+```bash
+nais device config set AutoConnect true
+```
+
+| Argument | Required |Description                                        |
+|----------|----------|---------------------------------------------------|
+| setting  | Yes      | The setting to adjust. Must be one of `[autoconnect, certrenewal]`, case insensitive. |
+| value    | Yes      | The value to set. Must be one of `[true, false]`, or anything [`strconv.ParseBool`](https://pkg.go.dev/strconv#ParseBool) can parse. |
