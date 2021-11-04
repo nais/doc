@@ -85,6 +85,9 @@ For further reading see [google Cloud SQL PIT recovery](https://cloud.google.com
 #### Disaster backup
 In case of catastrophic failure in GCP we are running a daily complete backup of the postgresql databases in GCP to an on-prem location. This backup currently runs at 5 am. This is in addition to the regular backups in GCP.
 
+## Metrics
+Metrics for each Postgres can be found in [Grafana](https://grafana.nais.io/d/AVwFIm0Mz/cloudsql-gcp?orgId=1).
+
 ## Cloud SQL credentials 
 Cloud SQL uses ConfigConnector/CNRM to create and manage all relevant resources (sqldatabase, sqlinstance, sqluser, credentials) for postgreSQL. 
 When creating an application via your nais.yaml the database in your google project, along with other necessary resources, are created.
