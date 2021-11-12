@@ -21,7 +21,7 @@ Once the group is empty, Kafka retains the offsets for 7 days.
 
 ### Manually assigned partitions
 
-When using the [`assign`](https://kafka.apache.org/28/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#assign(java.util.Collection)) API you are responsible for keeping track of consumers.
+When using the [`assign`][assign] API you are responsible for keeping track of consumers.
 In this scenario, Kafka uses the time of the last commit to determine offset retention.
 
 Offsets are kept for 7 days after the last commit.
@@ -55,10 +55,9 @@ If your consumer processes messages in other threads, you probably need to manag
 ### Managing offsets explicitly
 
 The KafkaConsumer exposes two APIs for committing offsets.
-[Asynchronous commits using `commitAsync`](https://kafka.apache.org/28/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#commitAsync()) and
-[synchronous commits using `commitSync`](https://kafka.apache.org/28/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#commitSync()).
+[Asynchronous commits using `commitAsync`][commitAsync] and [synchronous commits using `commitSync`][commitSync].
 
-From the [Confluent documentation](https://docs.confluent.io/platform/current/clients/consumer.html#offset-management):
+From the [Confluent documentation][offset-management]:
 
 > Each call to the commit API results in an offset commit request being sent to the broker. Using the synchronous API, the consumer is blocked until that request returns successfully. This may reduce overall throughput since the consumer might otherwise be able to process records while that commit is pending.
 > 
@@ -83,4 +82,29 @@ This will avoid issues with offsets passing beyond the retention threshold, in c
 When storing offsets outside Kafka, your consumer needs to pay attention to rebalance events, to ensure correct offset management.
 In these cases it might be easier to also [manage partition assignment explicitly](#manually-assigned-partitions).
 
-Before storing offsets outside Kafka, consult the [Kafka documentation](https://kafka.apache.org/28/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#rebalancecallback) on the topic.
+Before storing offsets outside Kafka, consult the [Kafka documentation][rebalance] on the topic.
+
+## What to do when you lose your offsets
+
+Shit happens, and you may experience lost offsets even if you've done everything right.
+In these cases, having a good plan for recovery can be crucial.
+Depending on your application, there are several paths to recovery, some more complicated than others.
+
+In the best of cases, you can simply start your consumer from either `earliest` or `latest` offsets and process normally.
+If you can accept reprocessing everything, start at `earliest`.
+If you can accept missing a few messages, start at `latest`.
+If neither of those are the case, your path becomes more complicated.
+
+If you don't want to start at either end, but have a reasonable estimate of where your consumer stopped, you can use the [`seek`][seek] API to jump to the wanted offset before starting your consumer.
+
+For other strategies, post a message in [#kafka](https://nav-it.slack.com/archives/C73B9LC86) on slack, and ask for help.
+Several teams have plans and tools for recovery that they can share.
+
+
+<!-- Long links moved here for better text flow -->
+[assign]: https://kafka.apache.org/28/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#assign(java.util.Collection)
+[commitAsync]: https://kafka.apache.org/28/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#commitAsync()
+[commitSync]: https://kafka.apache.org/28/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#commitSync()
+[offset-management]: https://docs.confluent.io/platform/current/clients/consumer.html#offset-management
+[rebalance]: https://kafka.apache.org/28/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#rebalancecallback
+[seek]: https://kafka.apache.org/28/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#seek(org.apache.kafka.common.TopicPartition,long)
