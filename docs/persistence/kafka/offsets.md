@@ -91,14 +91,33 @@ In these cases, having a good plan for recovery can be crucial.
 Depending on your application, there are several paths to recovery, some more complicated than others.
 
 In the best of cases, you can simply start your consumer from either `earliest` or `latest` offsets and process normally.
-If you can accept reprocessing everything, start at `earliest`.
-If you can accept missing a few messages, start at `latest`.
-If neither of those are the case, your path becomes more complicated.
+If you can accept reprocessing everything, set `auto.offset.reset=earliest`.
+If you can accept missing a few messages, set `auto.offset.reset=latest`.
+If neither of those are the case, your path becomes more complicated, and it is probably best to set `auto.offset.reset=none`.
+
+If you need to assess or manually handle the situation before continuing, setting `auto.offset.reset` to `none` will make your application fail immediately after offsets are lost.
+Trying to recover from lost offsets are considerably more complicated after your consumer has been doing the wrong thing for an hour.
 
 If you don't want to start at either end, but have a reasonable estimate of where your consumer stopped, you can use the [`seek`][seek] API to jump to the wanted offset before starting your consumer.
 
+You can also update consumer offsets using the Kafka command-line tool `kafka-consumer-groups.sh`. 
+Aiven has written a short [article][aiven-offset-help] about its usage, that is a great place to start.
+In order to use it you need credentials giving you access to the topic, which you can get using the [nais cli](/cli/commands/aiven/).
+
 For other strategies, post a message in [#kafka](https://nav-it.slack.com/archives/C73B9LC86) on slack, and ask for help.
 Several teams have plans and tools for recovery that they can share.
+
+### Getting estimates for last offset
+
+Finding a good estimate for where your last offset was can be tricky.
+
+One place to go is Prometheus.
+In our clusters, we have kafka-lag-exporter running.
+This tracks various offset-related metrics, one of which is the last seen offset for a consumer group.
+
+You can use this query to get offsets for a consumer group:
+
+[max(kafka_consumergroup_group_offset{group="spedisjon-v1"}) by (topic, partition)](https://prometheus.dev-gcp.nais.io/graph?g0.expr=max(kafka_consumergroup_group_offset%7Bgroup%3D%22spedisjon-v1%22%7D)%20by%20(topic%2C%20partition)&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h)
 
 
 <!-- Long links moved here for better text flow -->
@@ -108,3 +127,4 @@ Several teams have plans and tools for recovery that they can share.
 [offset-management]: https://docs.confluent.io/platform/current/clients/consumer.html#offset-management
 [rebalance]: https://kafka.apache.org/28/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#rebalancecallback
 [seek]: https://kafka.apache.org/28/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#seek(org.apache.kafka.common.TopicPartition,long)
+[aiven-offset-help]: https://help.aiven.io/en/articles/2661525-viewing-and-resetting-consumer-group-offsets
