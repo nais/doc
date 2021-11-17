@@ -1,8 +1,5 @@
 # device command
 
-!!! info "MVP"
-    The `device` command is very fresh, and only has a small subset of functions compared to [naisdevice](../../../device).
-
 The device command can be used to connect to, disconnect from, and view the connection status of [naisdevice](../../../device).
 Currently, the command requires the processes `naisdevice-agent` and `naisdevice-helper` to run, both of which can be run by starting naisdevice.
 
