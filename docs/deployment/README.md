@@ -10,7 +10,7 @@ Your application is assumed to be present in the form of a Docker image when usi
 
 ## Set it up
 
-1. Your application must have a repository on GitHub containing a `nais.yml` and `Dockerfile`.
+1. Your application must have a repository on GitHub containing a `nais.yaml` and `Dockerfile`.
 2. Your GitHub team must have _admin_ access on that repository.
 3. Your GitHub team's identifier must match the _Kubernetes team label_ in your `nais.yaml`. There is an example file below.
 4. Retrieve your [team API key](https://deploy.nais.io). Save the key as a secret named `NAIS_DEPLOY_APIKEY` in your GitHub repository.
@@ -21,7 +21,7 @@ Your application is assumed to be present in the form of a Docker image when usi
 
 A GitHub Actions pipeline is called a _Workflow_. You can set up workflows by adding a YAML file to your application's Git repository.
 
-In this example, the workflow is set up in the file `deploy.yml`. The workflow will build a Docker image and push it to GitHub Package Registry. Next, if the code was pushed to the `master` branch AND the `build` job succeeded, the application will be deployed to NAIS.
+In this example, the workflow is set up in the file `deploy.yaml`. The workflow will build a Docker image and push it to GitHub Package Registry. Next, if the code was pushed to the `master` branch AND the `build` job succeeded, the application will be deployed to NAIS.
 
 Official GitHub documentation: [Automating your workflow with GitHub Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions).
 
@@ -31,14 +31,14 @@ Get started by creating the following structure in your application repository:
 myapplication/
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml
+│       └── deploy.yaml
 ├── Dockerfile
-└── nais.yml
+└── nais.yaml
 ```
 
 Add the example files below, then commit and push. This will trigger the workflow, and you can follow its progress under the _Actions_ tab on your GitHub repository page.
 
-=== ".github/workflows/deploy.yml"
+=== ".github/workflows/deploy.yaml"
     ```yaml
     name: Build, push, and deploy
 
@@ -75,10 +75,10 @@ Add the example files below, then commit and push. This will trigger the workflo
           env:
             APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
             CLUSTER: dev-gcp
-            RESOURCE: nais.yml
+            RESOURCE: nais.yaml
             VAR: image=${{ env.docker_image }}
     ```
-=== "nais.yml"
+=== "nais.yaml"
     ```yaml
     apiVersion: nais.io/v1alpha1
     kind: Application
@@ -93,7 +93,7 @@ Add the example files below, then commit and push. This will trigger the workflo
       #       ^--- interpolated from the ${{ env.docker_image }} variable in the action
     ```
 
-    In this `nais.yml` file, `{{ image }}` will be replaced by the `$docker_image` environment variable set in the action. You can add more by using a comma separated list, or even put all your variables in a file; see _action configuration_ below.
+    In this `nais.yaml` file, `{{ image }}` will be replaced by the `$docker_image` environment variable set in the action. You can add more by using a comma separated list, or even put all your variables in a file; see _action configuration_ below.
 === "Dockerfile"
     ```text
     FROM nginx
@@ -136,7 +136,7 @@ You can still use NAIS deploy even if not using GitHub Actions. Our deployment c
         --cluster="$CLUSTER" \
         --owner="$OWNER" \
         --repository="$REPOSITORY" \
-        --resource="/nais/path/to/nais.yml" \
+        --resource="/nais/path/to/nais.yaml" \
         --vars="/nais/path/to/resources" \
         --wait=true \
         ;
@@ -152,7 +152,7 @@ You can still use NAIS deploy even if not using GitHub Actions. Our deployment c
     --cluster="$CLUSTER" \
     --owner="$OWNER" \
     --repository="$REPOSITORY" \
-    --resource="/path/to/nais.yml" \
+    --resource="/path/to/nais.yaml" \
     --vars="/path/to/resources" \
     --wait=true
     ```
@@ -203,7 +203,7 @@ sh "docker run --env HTTPS_PROXY='http://webproxy-utvikler.nav.no:8088'  ..." ;
 
 Templates use [Handlebars](https://handlebarsjs.com/) 3.0 syntax. Both the template and variable file supports either YAML or JSON syntax.
 
-A practical example follows. Create a `nais.yml` file:
+A practical example follows. Create a `nais.yaml` file:
 
 ```yaml
 apiVersion: nais.io/v1alpha1
@@ -221,7 +221,7 @@ spec:
   {{/each}}
 ```
 
-Now, create a `vars.yml` file containing variables for your deployment:
+Now, create a `vars.yaml` file containing variables for your deployment:
 
 ```yaml
 app: myapplication
@@ -236,7 +236,7 @@ ingresses:
 Run the `deploy` tool to see the final results:
 
 ```javascript
-$ deploy --dry-run --print-payload --resource nais.yml --vars vars.yml | jq ".resources[0]"
+$ deploy --dry-run --print-payload --resource nais.yaml --vars vars.yaml | jq ".resources[0]"
 {
   "apiVersion": "nais.io/v1alpha1",
   "kind": "Application",
@@ -293,7 +293,7 @@ spec:
 Will result in:
 
 ```javascript
-deploy --dry-run --print-payload --resource alert.yml --vars vars.yml | jq .resources
+deploy --dry-run --print-payload --resource alert.yaml --vars vars.yaml | jq .resources
 [
   {
     "apiVersion": "nais.io/v1alpha1",
