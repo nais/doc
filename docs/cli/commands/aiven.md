@@ -1,7 +1,9 @@
 # aiven command
 
-The aiven command can be used to create a AivenApplication and extract credentials. The `aiven create` command will
-create a Protected & time-limited AivenApplication in your specified namespace.
+The aiven command can be used to create a AivenApplication and extract credentials.
+The `aiven create` command will create a Protected & time-limited AivenApplication in your specified namespace.
+This uses your currently configured kubectl context, so in order for it to work you need to select a suitable context first.
+For instance, credentials for nav-prod can only be generated in the prod clusters.
 
 This command will give access to personal but time limited credentials. These credentials can be used to debug an Aiven
 hosted kafka topic. The `aiven get` command extracts the credentials and puts them in `/tmp` folder. The created
