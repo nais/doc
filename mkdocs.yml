@@ -96,6 +96,7 @@ nav:
         - Manage topics: persistence/kafka/manage_topics.md
         - Migrate from onprem: persistence/kafka/migrate_from_onprem.md
         - Avro and REST: persistence/kafka/avro_and_rest.md
+        - Working with Kafka Offsets: persistence/kafka/offsets.md
         - FAQ: persistence/kafka/faq.md
       - Google Cloud Storage/Buckets: persistence/buckets.md
       - Google Cloud SQL (postgres): persistence/postgres.md

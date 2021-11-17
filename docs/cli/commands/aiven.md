@@ -1,7 +1,9 @@
 # aiven command
 
-The aiven command can be used to create a AivenApplication and extract credentials. The `aiven create` command will
-create a Protected & time-limited AivenApplication in your specified namespace.
+The aiven command can be used to create a AivenApplication and extract credentials.
+The `aiven create` command will create a Protected & time-limited AivenApplication in your specified namespace.
+This uses your currently configured kubectl context, so in order for it to work you need to select a suitable context first.
+For instance, credentials for nav-prod can only be generated in the prod clusters.
 
 This command will give access to personal but time limited credentials. These credentials can be used to debug an Aiven
 hosted kafka topic. The `aiven get` command extracts the credentials and puts them in `/tmp` folder. The created
@@ -58,9 +60,9 @@ nais aiven get secret-name namespace
 nais aiven get secret-name namespace -c kcat
 ```
 
-| Flag             | Required    | Short   |Default            |Description                                                        |      
-|------------------|-------------|---------|----------------------|-------------------------------------------------------------------|
-| config           | No          | -c      |  all                 | Type of config to generated, supported values: .env, kcat, all.   |
+| Flag   | Required | Short | Default | Description                                                           |      
+|--------|----------|-------|---------|-----------------------------------------------------------------------|
+| config | No       | -c    | all     | Type of config to generated, supported values: java, .env, kcat, all. |
 
 ## tidy
 
@@ -76,7 +78,7 @@ After Successful `nais aiven create` and `nais aiven get` commands, a set of fil
 
 ### Configuration
 
-You can specify a configuration `flag` to generate `all | kcat | .env`. Default is `all`
+You can specify a configuration `flag` to generate `all | kcat | .env | java`. Default is `all`
 
 #### all
 
@@ -87,6 +89,7 @@ You can specify a configuration `flag` to generate `all | kcat | .env`. Default 
 - kafka-private-key.pem
 - kafka-secret.env
 - kcat.conf
+- kafka.properties
 
 #### .env
 
@@ -156,3 +159,27 @@ kcat \
 ```
 
 For more details [aiven-kcat](https://help.aiven.io/en/articles/2607674-using-kafkacat)
+
+#### java
+
+- client.keystore.p12
+- client.truststore.jks
+- kafka.properties
+
+##### kafka.properties file
+
+```
+# nais-cli 2021-11-16 20:26:00 +0100 CET
+# Usage example: kafka-console-consumer.sh --topic aura.your.topic --bootstrap-server <broker uri> --consumer.config <file path>/kafka.properties
+security.protocol=SSL
+ssl.protocol=TLS
+ssl.keystore.type=PKCS12
+ssl.truststore.type=JKS
+ssl.keystore.location=<path to keystore>
+ssl.key.password=<password for keystore/truststore>
+ssl.keystore.password=<password for keystore/truststore>
+ssl.truststore.password=<password for keystore/truststore>
+ssl.truststore.location=<path to truststore>
+```
+
+The `kafka.properties` file can be used with the official Kafka command-line tools included in the Kafka distribution, and with many other Java based tools/applications.

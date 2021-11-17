@@ -21,7 +21,7 @@ spec:
       expr: kube_deployment_status_replicas_available{deployment="<appname>"} == 0
       for: 2m
       description: "App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace }}"
-      action: "`kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for logger"
+      action: "`kubectl describe pod -l app={{ $labels.app }} -n {{ $labels.namespace }}` for events, og `kubectl logs -l app={{ $labels.app }} -n {{ $labels.namespace }}` for logger"
     - alert: høy feilrate i logger
       expr: (100 * sum by (log_app, log_namespace) (rate(logd_messages_total{log_app="<appname>",log_level=~"Warning|Error"}[3m])) / sum by (log_app, log_namespace) (rate(logd_messages_total{log_app="<appname>"}[3m]))) > 10
       for: 3m

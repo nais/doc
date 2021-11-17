@@ -10,7 +10,7 @@ We recommend using kafka where possible and sensible.
 #### Basta
 
 !!! info
-    When ordering groups for existing service users the password will be reset
+    When ordering groups for existing service users the password will be reset. If you do not want the password to be reset, contact windows admin and ask them to add the existing user to the AD group and set the "extensionAttribute9" property on the user
 
 MQ groups and users are ordered using [basta](https://basta.intern.nav.no). 
 For legacy applications registered in [fasit](https://fasit.adeo.no) use "AD groups" on the "Create" tab, 
