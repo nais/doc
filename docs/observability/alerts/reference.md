@@ -23,7 +23,6 @@ Required: `false`<br />
           documentation: https://doc.nais.io/observability/alerts/
           expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
           for: 2m
-          priority: "0"
           severity: danger
           sla: Mellom 8 og 16
     ```
@@ -44,7 +43,6 @@ Required: `true`<br />
           documentation: https://doc.nais.io/observability/alerts/
           expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
           for: 2m
-          priority: "0"
           severity: danger
           sla: Mellom 8 og 16
     ```
@@ -65,7 +63,6 @@ Required: `true`<br />
           documentation: https://doc.nais.io/observability/alerts/
           expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
           for: 2m
-          priority: "0"
           severity: danger
           sla: Mellom 8 og 16
     ```
@@ -86,7 +83,6 @@ Required: `false`<br />
           documentation: https://doc.nais.io/observability/alerts/
           expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
           for: 2m
-          priority: "0"
           severity: danger
           sla: Mellom 8 og 16
     ```
@@ -107,7 +103,6 @@ Required: `false`<br />
           documentation: https://doc.nais.io/observability/alerts/
           expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
           for: 2m
-          priority: "0"
           severity: danger
           sla: Mellom 8 og 16
     ```
@@ -128,7 +123,6 @@ Required: `true`<br />
           documentation: https://doc.nais.io/observability/alerts/
           expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
           for: 2m
-          priority: "0"
           severity: danger
           sla: Mellom 8 og 16
     ```
@@ -150,28 +144,6 @@ Pattern: `^\d+[smhdwy]$`<br />
           documentation: https://doc.nais.io/observability/alerts/
           expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
           for: 2m
-          priority: "0"
-          severity: danger
-          sla: Mellom 8 og 16
-    ```
-
-### alerts[].priority
-Not in use
-
-Type: `string`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      alerts:
-        - action: kubectl describe pod {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for events, og `kubectl logs {{ $labels.kubernetes_pod_name }} -n {{ $labels.kubernetes_namespace }}` for logger
-          alert: applikasjon nede
-          description: App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace }}
-          documentation: https://doc.nais.io/observability/alerts/
-          expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
-          for: 2m
-          priority: "0"
           severity: danger
           sla: Mellom 8 og 16
     ```
@@ -193,7 +165,6 @@ Pattern: `^$|good|warning|danger|#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})`<br />
           documentation: https://doc.nais.io/observability/alerts/
           expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
           for: 2m
-          priority: "0"
           severity: danger
           sla: Mellom 8 og 16
     ```
@@ -214,7 +185,6 @@ Required: `false`<br />
           documentation: https://doc.nais.io/observability/alerts/
           expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
           for: 2m
-          priority: "0"
           severity: danger
           sla: Mellom 8 og 16
     ```

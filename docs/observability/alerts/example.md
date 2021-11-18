@@ -31,7 +31,6 @@ spec:
     documentation: https://doc.nais.io/observability/alerts/
     expr: kube_deployment_status_replicas_available{deployment="<appname>"} > 0
     for: 2m
-    priority: "0"
     severity: danger
     sla: Mellom 8 og 16
   inhibitRules:
