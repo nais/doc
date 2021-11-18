@@ -39,7 +39,7 @@ All clients provisioned through NAIS will be registered in Azure AD using the fo
 
 A _scope_ is a parameter that is set during authorization flows when requesting a token from Azure AD.
 
-It is used to indicate the intended _audience_ (the expected target resource) for the requested token.
+It is used to indicate the intended _audience_ (the expected target resource) for the requested token, which is found in the `aud` claim in the JWT returned from Azure AD.
 
 When consuming a downstream API that expects an Azure AD token, you must therefore set the correct scope to fetch a token
 that your API provider accepts.
@@ -56,7 +56,12 @@ For example:
 api://dev-gcp.aura.nais-testapp/.default
 ```
 
-The identifier used to refer to the application almost follows the same format as mentioned in the [naming format](#naming-format), where the only notable difference is that `:` replaced by `.`
+### Default scope
+
+The `/.default` scope is a static scope which indicates to Azure AD that your application is requesting _all_ available scopes that have been granted to your application. 
+
+For example, if your application has access to `api://dev-gcp.aura.nais-testapp/defaultaccess` and `api://dev-gcp.aura.nais-testapp/read`, requesting `api://dev-gcp.aura.nais-testapp/.default` will return a token that contains both of these scopes.
+If you want granularity, you may explicitly request the individual scopes instead as needed.
 
 ## Client ID
 
