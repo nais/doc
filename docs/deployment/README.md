@@ -21,7 +21,7 @@ Your application is assumed to be present in the form of a Docker image when usi
 
 A GitHub Actions pipeline is called a _Workflow_. You can set up workflows by adding a YAML file to your application's Git repository.
 
-In this example, the workflow is set up in the file `deploy.yaml`. The workflow will build a Docker image and push it to GitHub Package Registry. Next, if the code was pushed to the `master` branch AND the `build` job succeeded, the application will be deployed to NAIS.
+In this example, the workflow is set up in the file `deploy.yaml`. The workflow will build a Docker image and push it to GitHub Container Registry. Next, if the code was pushed to the `master` branch AND the `build` job succeeded, the application will be deployed to NAIS.
 
 Official GitHub documentation: [Automating your workflow with GitHub Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions).
 
