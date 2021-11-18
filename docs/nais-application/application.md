@@ -3592,7 +3592,7 @@ Pattern: `^[a-z0-9]+$`<br />
     ```
 
 ## port
-The port number which is exposed by the container and should receive traffic.
+The port number which is exposed by the container and should receive traffic. Note that ports under 1024 are unavailable.
 
 Type: `integer`<br />
 Required: `false`<br />
