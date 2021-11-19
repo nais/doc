@@ -36,7 +36,7 @@ spec:
   inhibitRules:
   - labels:
     - label
-    - lebal
+    - name
     sources:
       key: value
     sourcesRegex:
@@ -60,7 +60,8 @@ spec:
       send_resolved: false
   route:
     group_by:
-    - <label_name>
+    - label
+    - name
     groupInterval: 5m
     groupWait: 30s
     repeatInterval: 3h

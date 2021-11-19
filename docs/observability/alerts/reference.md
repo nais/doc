@@ -108,7 +108,7 @@ Required: `false`<br />
     ```
 
 ### alerts[].expr
-Prometheus expression that triggers an alert.
+Prometheus expression that triggers an alert. Explore expressions in the [Prometheus](https://docs.nais.io/observability/alerts/#writing-the-expr)-interface
 
 Type: `string`<br />
 Required: `true`<br />
@@ -153,6 +153,7 @@ Alert level for Slack messages.
 
 Type: `string`<br />
 Required: `false`<br />
+Default value: `danger`<br />
 Pattern: `^$|good|warning|danger|#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})`<br />
 
 ??? example
@@ -170,7 +171,7 @@ Pattern: `^$|good|warning|danger|#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})`<br />
     ```
 
 ### alerts[].sla
-Time before the alert should be resolved.
+Time before a human should resolve the alert.
 
 Type: `string`<br />
 Required: `false`<br />
@@ -190,7 +191,11 @@ Required: `false`<br />
     ```
 
 ## inhibitRules
-A list of inhibit rules. Read more about it at [prometheus.io/docs](https://prometheus.io/docs/alerting/latest/configuration/#inhibit_rule).
+A list of inhibit rules. An inhibition rule mutes an alert (target) matching a set of matchers when an alert (source) exists that matches another set of matchers. Both target and source alerts must have the same label values for the label names in the labels list.
+
+Relevant information:
+
+* [https://prometheus.io/docs/alerting/latest/configuration/#inhibit_rule](https://prometheus.io/docs/alerting/latest/configuration/#inhibit_rule)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -201,7 +206,7 @@ Required: `false`<br />
       inhibitRules:
         - labels:
             - label
-            - lebal
+            - name
           sources:
             key: value
           sourcesRegex:
@@ -213,7 +218,7 @@ Required: `false`<br />
     ```
 
 ### inhibitRules[].labels
-Labels that must have an equal value in the source and target alert for the inhibition to take effect. These are key/value pairs, where the value can be a regex.
+Labels that must have an equal value in the source and target alert for the inhibition to take effect.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -224,7 +229,7 @@ Required: `false`<br />
       inhibitRules:
         - labels:
             - label
-            - lebal
+            - name
           sources:
             key: value
           sourcesRegex:
@@ -236,7 +241,7 @@ Required: `false`<br />
     ```
 
 ### inhibitRules[].sources
-Matchers for which one or more alerts have to exist for the inhibition to take effect.
+Matchers for which one or more alerts have to exist for the inhibition to take effect. These are key/value pairs.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -247,7 +252,7 @@ Required: `false`<br />
       inhibitRules:
         - labels:
             - label
-            - lebal
+            - name
           sources:
             key: value
           sourcesRegex:
@@ -259,7 +264,7 @@ Required: `false`<br />
     ```
 
 ### inhibitRules[].sourcesRegex
-Regex matchers for which one or more alerts have to exist for the inhibition to take effect. These are key/value pairs.
+Regex matchers for which one or more alerts have to exist for the inhibition to take effect. These are key/value pairs, where the value can be a regex.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -270,7 +275,7 @@ Required: `false`<br />
       inhibitRules:
         - labels:
             - label
-            - lebal
+            - name
           sources:
             key: value
           sourcesRegex:
@@ -293,7 +298,7 @@ Required: `false`<br />
       inhibitRules:
         - labels:
             - label
-            - lebal
+            - name
           sources:
             key: value
           sourcesRegex:
@@ -316,7 +321,7 @@ Required: `false`<br />
       inhibitRules:
         - labels:
             - label
-            - lebal
+            - name
           sources:
             key: value
           sourcesRegex:
@@ -370,6 +375,7 @@ Whether or not to notify about resolved alerts.
 
 Type: `boolean`<br />
 Required: `false`<br />
+Default value: `false`<br />
 
 #### receivers.email.to
 Type: `string`<br />
@@ -463,6 +469,7 @@ Whether or not to notify about resolved alerts.
 
 Type: `boolean`<br />
 Required: `false`<br />
+Default value: `true`<br />
 
 ??? example
     ``` yaml
@@ -518,6 +525,7 @@ Whether or not to notify about resolved alerts.
 
 Type: `boolean`<br />
 Required: `false`<br />
+Default value: `true`<br />
 
 ??? example
     ``` yaml
@@ -536,18 +544,20 @@ Required: `false`<br />
     spec:
       route:
         group_by:
-          - <label_name>
+          - label
+          - name
         groupInterval: 5m
         groupWait: 30s
         repeatInterval: 3h
     ```
 
 ### route.groupInterval
-How long to wait before sending a notification about new alerts that are added to a group of alerts for which an initial notification has already been sent. (Usually ~5m or more.)
+How long to wait before sending a notification about new alerts that are added to a group of alerts for which an initial notification has already been sent.
 
 Type: `string`<br />
 Required: `false`<br />
-Pattern: `([0-9]+(ms|[smhdwy]))?`<br />
+Default value: `5m`<br />
+Pattern: `((([0-9]+)y)?(([0-9]+)w)?(([0-9]+)d)?(([0-9]+)h)?(([0-9]+)m)?(([0-9]+)s)?(([0-9]+)ms)?|0)`<br />
 
 ??? example
     ``` yaml
@@ -557,11 +567,12 @@ Pattern: `([0-9]+(ms|[smhdwy]))?`<br />
     ```
 
 ### route.groupWait
-How long to initially wait to send a notification for a group of alerts. Allows to wait for an inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)
+How long to initially wait to send a notification for a group of alerts. Allows to wait for an inhibiting alert to arrive or collect more initial alerts for the same group.
 
 Type: `string`<br />
 Required: `false`<br />
-Pattern: `([0-9]+(ms|[smhdwy]))?`<br />
+Default value: `10s`<br />
+Pattern: `((([0-9]+)y)?(([0-9]+)w)?(([0-9]+)d)?(([0-9]+)h)?(([0-9]+)m)?(([0-9]+)s)?(([0-9]+)ms)?|0)`<br />
 
 ??? example
     ``` yaml
@@ -571,8 +582,7 @@ Pattern: `([0-9]+(ms|[smhdwy]))?`<br />
     ```
 
 ### route.group_by
-The labels by which incoming alerts are grouped together. For example, multiple alerts coming in for cluster=A and alertname=LatencyHigh would be batched into a single group. 
- To aggregate by all possible labels use '...' as the sole label name. This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what you want, unless you have a very low alert volume or your upstream notification system performs its own grouping. Example: group_by: [...]
+The labels by which incoming alerts are grouped together.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -582,15 +592,17 @@ Required: `false`<br />
     spec:
       route:
         group_by:
-          - <label_name>
+          - label
+          - name
     ```
 
 ### route.repeatInterval
-How long to wait before sending a notification again if it has already been sent successfully for an alert. (Usually ~3h or more).
+How long to wait before sending a notification again if it has already been sent successfully for an alert.
 
 Type: `string`<br />
 Required: `false`<br />
-Pattern: `([0-9]+(ms|[smhdwy]))?`<br />
+Default value: `1h`<br />
+Pattern: `((([0-9]+)y)?(([0-9]+)w)?(([0-9]+)d)?(([0-9]+)h)?(([0-9]+)m)?(([0-9]+)s)?(([0-9]+)ms)?|0)`<br />
 
 ??? example
     ``` yaml
