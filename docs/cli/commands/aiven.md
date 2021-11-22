@@ -10,7 +10,7 @@ hosted kafka topic. The `aiven get` command extracts the credentials and puts th
 AivenApplication has sane default (days-to-live) set to 1 day.
 
 To gain access to a specific topic be sure to update your topic resource and topic ACLs. Add `username`
-to `acl.application` field in your topic.yaml and apply to your namespace.
+to `acl.application` field in your topic.yaml and apply to your namespace. The `username` is the one spescified in the [next step](#create).
 
 ```yaml
 # topic.yml
@@ -19,7 +19,7 @@ spec:
   config:
     retentionHours: 900
   acl:
-    - access: write
+    - access: read
       team: test
       application: username
 ```
