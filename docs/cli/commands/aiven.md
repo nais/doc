@@ -10,7 +10,7 @@ hosted kafka topic. The `aiven get` command extracts the credentials and puts th
 AivenApplication has sane default (days-to-live) set to 1 day.
 
 To gain access to a specific topic be sure to update your topic resource and topic ACLs. Add `username`
-to `acl.application` field in your topic.yaml and apply to your namespace.
+to `acl.application` field in your topic.yaml and apply to your namespace. The `username` is the one spescified in the [next step](#create).
 
 ```yaml
 # topic.yml
@@ -19,7 +19,7 @@ spec:
   config:
     retentionHours: 900
   acl:
-    - access: write
+    - access: read
       team: test
       application: username
 ```
@@ -30,7 +30,7 @@ spec:
 nais aiven create username namespace
 ```
 
-| Argument    | Required  | Description                                                 |          
+| Argument    | Required  | Description                                                 |
 |-------------|-----------|-------------------------------------------------------------|
 | username    | Yes       | Preferred username.                                         |
 | namespace   | Yes       | Kubernetes namespace where AivenApplication will be created.|
@@ -39,7 +39,7 @@ nais aiven create username namespace
 nais aiven create username namespace -p nav-prod -s some-unique-secretname -e 10
 ```
 
-| Flag          | Required   | Short   |Default                                |Description                                        |      
+| Flag          | Required   | Short   |Default                                |Description                                        |
 |---------------|------------|---------|---------------------------------------|---------------------------------------------------|
 | pool          | No         | -p      |  nav-dev                              | [Kafka pool](../../persistence/kafka/index.md).   |
 | secret-name   | No         | -s      |  namespace-username-randomstring      | Preferred secret-name.                            |
@@ -51,7 +51,7 @@ nais aiven create username namespace -p nav-prod -s some-unique-secretname -e 10
 nais aiven get secret-name namespace
 ```
 
-| Argument          | Required  | Description                                                                    |          
+| Argument          | Required  | Description                                                                    |
 |-------------------|-----------|--------------------------------------------------------------------------------|
 | secret-name       | Yes       | Default secret-name or flag `-s` in `create` command.                          |
 | namespace         | Yes       | Kubernetes namespace for the created AivenApplication.                         |
@@ -60,7 +60,7 @@ nais aiven get secret-name namespace
 nais aiven get secret-name namespace -c kcat
 ```
 
-| Flag   | Required | Short | Default | Description                                                           |      
+| Flag   | Required | Short | Default | Description                                                           |
 |--------|----------|-------|---------|-----------------------------------------------------------------------|
 | config | No       | -c    | all     | Type of config to generated, supported values: java, .env, kcat, all. |
 
@@ -143,13 +143,13 @@ Read more about kcat.conf [configurable properties](https://github.com/edenhill/
 
 You can refer to generated config with -F flag:
 
-```
+```sh
 kcat -F path/to/kcat.conf -t namespace.your.topic
 ```
 
 Alternatively, you can specify the same settings directly on the command line:
 
-```
+```sh
 kcat \
     -b boostrap-server.aivencloud.com:26484 \
     -X security.protocol=ssl \
@@ -168,7 +168,7 @@ For more details [aiven-kcat](https://help.aiven.io/en/articles/2607674-using-ka
 
 ##### kafka.properties file
 
-```
+```txt
 # nais-cli 2021-11-16 20:26:00 +0100 CET
 # Usage example: kafka-console-consumer.sh --topic aura.your.topic --bootstrap-server <broker uri> --consumer.config <file path>/kafka.properties
 security.protocol=SSL
