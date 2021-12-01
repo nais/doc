@@ -133,8 +133,7 @@ You can also visit the Alertmanager at `https://alertmanager.{cluster.ingress}` 
 
 ### Expressive descriptions or actions
 
-You can also use `labels` in your notification by referencing them with `{{ $labels.<field> }}`.
-Run your query on the Prometheus server to see which `labels` are available for your alert.
+You can also use `labels` in your notification by referencing them with `{{ $labels.<field> }}`. 
 
 For example:
 
@@ -147,6 +146,8 @@ turns into the following when notifying:
 ```text
 b27apvl00178.preprod.local is marked as unschedulable
 ```
+
+Note that the query decides which labels are available, since the labels correnspond to the field names in the document that is the query result. To see which labels are available for your specific query, run your query on the Prometheus server. Here's an [example](https://prometheus.dev-fss.nais.io/graph?g0.expr=kube_deployment_status_replicas_available%20%3D%3D%200&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h) (remember to connect your naisdeveice).
 
 You can read more about this over at the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/#templating) and at the [Kubernetes documentation of exposed metrics](https://github.com/kubernetes/kube-state-metrics/tree/master/docs).
 
