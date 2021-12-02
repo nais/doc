@@ -1,6 +1,6 @@
 # Leader Election
 
-With leader election it is possible to have one responsible pod. This can be used to control that only one pod runs a batch-job or similar tasks. This is done by asking the `elector` pod which pod is the current leader, and comparing that to the pod's hostname. (onprem it is atleast one)
+With leader election it is possible to have one responsible pod. This can be used to control that only one pod runs a batch-job or similar tasks. This is done by asking the `elector` pod which pod is the current leader, and comparing that to the pod's hostname. (onprem it is at least one)
 
 The leader election configuration does not control which pod the external service requests will be routed to.
 
