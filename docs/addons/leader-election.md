@@ -1,6 +1,6 @@
 # Leader Election
 
-With leader election it is possible to have one responsible pod. This can be used to control that only one pod runs a batch-job or similar tasks. This is done by asking the `elector` pod which pod is the current leader, and comparing that to the pod's hostname.
+With leader election it is possible to have one responsible pod. This can be used to control that only one pod runs a batch-job or similar tasks. This is done by asking the `elector` pod which pod is the current leader, and comparing that to the pod's hostname. (onprem it is at least one)
 
 The leader election configuration does not control which pod the external service requests will be routed to.
 
@@ -37,7 +37,6 @@ root@elector-sidecar-755b7c5795-7k2qn:/# curl $ELECTOR_PATH
 ## Issues
 
 * This is not really an issue with NAIS but _Kubernetes' `leader-election`-image does not support fencing, which means it does not guarantee that there is only one leader_.
-  Since NAIS keeps the date and time in the pods syncronized this should not be an issue; there will always be only one leader.
 
 * Redeployment of the deployment/pods will in some cases make the non-leaders believe that the old leader still exists and is the leader.
   The current leader is not affected, and will be aware that the pod itself is the leader.
