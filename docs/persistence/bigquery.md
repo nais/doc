@@ -25,17 +25,28 @@ Example of an application using a `nais.yaml` provisioned BigQuery Dataset can b
             permission: READWRITE
     ```
 
+## Connecting to the Dataset
+When connecting your BigQuery client you need to specify the project ID and the dataset ID.
+The project ID is available in the `GCP_TEAM_PROJECT_ID` environment variable.
+There's no automatic environment variable for the dataset ID.
+
+```kotlin
+val projectId = System.getenv("GCP_TEAM_PROJECT_ID")
+val datasetId = "my_bigquery_dataset"
+val bigQueryClient = BigQueryClient.create(projectId, datasetId)
+```
+
 ## Caveats to be aware of
 
 === "Automatic Deletion"
     Once a BigQuery Dataset is provisioned, it will not be automatically deleted - unless one explicitly sets [`spec.gcp.bigQueryDatasets[].cascadingDelete`](../../nais-application/application#gcpbigquerydatasetscascadingdelete) to `true`.
-    Clean up is done by deleting application resource and deleting the BigQuery instance directly in [console.cloud.google.com](https://console.cloud.google.com/bigquery).  
+    Clean up is done by deleting application resource and deleting the BigQuery instance directly in [console.cloud.google.com](https://console.cloud.google.com/bigquery).
     <br/>
     When there exist no tables in the specified BigQuery Dataset, deleting the "nais application" will delete the whole BigQuery Dataset, even if [`spec.gcp.bigQueryDatasets[].cascadingDelete`](../../nais-application/application#gcpbigquerydatasetscascadingdelete) is set to `false`.
 === "Unique names"
     The name of your Dataset must be unique within your team's GCP project.
 === "Updates/Immutability"
-    The NAIS Manifest does not currently support updating any setting of existing BigQuery Datasets.  
+    The NAIS Manifest does not currently support updating any setting of existing BigQuery Datasets.
     <br/>
     Thus, if you want a read-connection to a already-created BigQuery Dataset, take a look at [nais/dp](https://github.com/nais/dp/#dp).
 === "K8s resource naming"
@@ -51,4 +62,3 @@ If you have problems getting your bucket up and running, check errors in the eve
 ```bash
 kubectl describe bigquerydataset my-bigquery-dataset
 ```
-
