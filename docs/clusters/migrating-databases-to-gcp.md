@@ -57,69 +57,84 @@ Use docker container image with psql and cloudsdk: [GCP migration image](https:/
 
 Deploy the pod into on-premise cluster that can connect to the database
 
-```text
+```shell
 kubectl apply -f https://raw.githubusercontent.com/navikt/gcp-migrering/main/gcloud.yml
 ```
 
 `exec` into that pod
 
-```text
+```shell
 kubectl exec -it gcloud /bin/bash
-```
-
-Use `pg_dump` to create the dump file \(stop writes to database before running `pg_dump`\)
-
-```text
-pg_dump -h <postgreSQL on-premise host name> -d <database instance name> -U <database user name to connect with>  --format=plain --no-owner --no-acl --data-only -Z 9 > dump.sql.gz
 ```
 
 Log in to gcloud with your own NAV-account
 
-```text
+```shell
 gcloud auth login
 ```
 
 Configure the project id \(find project id with `gcloud projects list --filter team`\)
 
-```text
+```shell
 gcloud config set project <project id>
 ```
 
-Create GCP bucket:
+Create a GCP bucket. You will need the `roles/storage.admin` IAM role for the required operations on the bucket.
 
-```text
+```shell
 gsutil mb -l europe-north1 gs://<bucket name>
 ```
 
 Find the GCP service account e-mail \(the instance id is specified in your `nais.yaml` file\)
 
-```text
+```shell
 gcloud sql instances describe <CloudSQL instance id> | yq r - serviceAccountEmailAddress
 ```
 
 Set the objectAdmin role for the bucket \(with the previous e-mail\)
 
-```text
+```shell
 gsutil iam ch serviceAccount:<GCP service account e-mail>:objectAdmin gs://<bucket name>/
+```
+
+Use `pg_dump` to create the dump file. Notes:
+
+- Make sure that you stop writes to database before running `pg_dump`.
+- Get a [database user from Vault](https://github.com/navikt/utvikling/blob/main/docs/teknisk/Vault.md#--hente-ut-postgresql-credentials-til-en-utvikler).
+- If the database in GCP already has the `flyway_schema_history` table, 
+  you might want to exclude the equivalent table in the dump by using the `--exclude-table=flyway_schema_history` option.
+
+```shell
+pg_dump \
+  -h <postgreSQL on-premise host name> \
+  -d <database instance name> \
+  -U <database user name to connect with> \
+  --format=plain --no-owner --no-acl --data-only -Z 9 > dump.sql.gz
 ```
 
 Copy the dump file to GCP bucket
 
-```text
+```shell
 gsutil -o GSUtil:parallel_composite_upload_threshold=150M -h "Content-Type:application/x-gzip" cp dump.sql.gz gs://<bucket name>/
 ```
 
-Import the dump into the GCP postgreSQL database
+Import the dump into the GCP postgreSQL database. Notes:
 
-```text
-gcloud sql import sql <Cloud SQL instance id> gs://<bucket name>/dump.sql.gz --database=<database instance name> --user=<database instance user name>
+- You need the `roles/cloudsql.admin` IAM role in order to perform the import.
+- The `user` in the command below should be a GCP SQL Instance user.
+- If the GCP Postgres database has any existing tables or sequences, make sure that the `user` has all required grants for these.
+
+```shell
+gcloud sql import sql <Cloud SQL instance id> gs://<bucket name>/dump.sql.gz \
+  --database=<database instance name> \
+  --user=<database instance user name>
 ```
 
 Verify that the application is behaving as expected and that the data in the new database is correct. Finally we need to switch loadbalancer to route to the GCP application instead of the on-premise equivalent.
 
 Delete the bucket in GCP after migration is complete
 
-```text
+```shell
 gsutil -m rm -r gs://<bucket name>
 gsutil rb gs://<bucket name>
 ```
