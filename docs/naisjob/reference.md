@@ -2574,7 +2574,11 @@ Server tier, i.e. how much CPU and memory allocated. Available tiers can be retr
 
 Type: `string`<br />
 Required: `false`<br />
+Default value: `db-f1-micro`<br />
 Pattern: `db-.+`<br />
+
+Relevant information:
+* [Sizing your database](../persistence/postgres.md/#sizing-your-database)
 
 ??? example
     ``` yaml

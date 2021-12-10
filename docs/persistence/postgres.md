@@ -61,7 +61,8 @@ Google will automatically perform upgrades, fix bugs and apply security patches 
 If you wish to be notified about upcoming maintenance, you can opt-in for this on the [Communications page](https://console.cloud.google.com/user-preferences/communication) in the GCP console.
 
 ### Sizing your database
-By default, the database server has 1 vCPU, 614 MB RAM and 10GB of SSD storage with no automatic storage increase. If you need to change the defaults you can do this in [`nais.yaml`](../nais-application/application.md#gcpsqlinstancesdisksize).
+By default, the database server is `db-f1-micro`, has 1 vCPU, 614 MB RAM and 10GB of SSD storage with no automatic storage increase. If you need to change the defaults you can do this in [`nais.yaml`](../nais-application/application.md#gcpsqlinstancesdisksize).
+* Shared CPU machine types (db-f1-micro and db-g1-small) are not covered by the [Cloud SQL SLA](https://cloud.google.com/sql/sla).
 
 ### Automated backup
 The database is backed up nightly at 3 AM \(GMT+1\) by default, but can be overridden in [`nais.yaml`](../nais-application/application.md#gcpsqlinstancesautobackuptime) by setting `spec.gcp.sqlInstances[].autoBackupTime`.
