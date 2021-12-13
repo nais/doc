@@ -70,22 +70,22 @@ The max log message size in Docker is 16KB, so if it will be split into parts if
   <dependency>
     <groupId>org.apache.logging.log4j</groupId>
     <artifactId>log4j-api</artifactId>
-    <version>2.11.0</version>
+    <version>2.15.0</version>
   </dependency>
   <dependency>
     <groupId>org.apache.logging.log4j</groupId>
     <artifactId>log4j-core</artifactId>
-    <version>2.11.0</version>
+    <version>2.15.0</version>
   </dependency>
   <dependency>
-    <groupId>com.vlkan.log4j2</groupId>
-    <artifactId>log4j2-logstash-layout-fatjar</artifactId>
-    <version>0.11</version>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-layout-template-json</artifactId>
+    <version>2.15.0</version>
   </dependency>
   <dependency>
     <groupId>org.apache.logging.log4j</groupId>
     <artifactId>log4j-slf4j-impl</artifactId>
-    <version>2.11.0</version>
+    <version>2.15.0</version>
   </dependency>
   <dependency>
     <groupId>org.slf4j</groupId>
@@ -99,13 +99,10 @@ The max log message size in Docker is 16KB, so if it will be split into parts if
 
 ```markup
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="INFO" packages="com.vlkan.log4j2.logstash.layout">
+<Configuration status="INFO">
     <Appenders>
         <Console name="ConsoleAppender" target="SYSTEM_OUT">
-          <LogstashLayout dateTimeFormatPattern="yyyy-MM-dd'T'HH:mm:ss.SSSZZZ"
-                          templateUri="classpath:LogstashJsonEventLayoutV1.json"
-                          prettyPrintEnabled="false"
-                          stackTraceEnabled="true"/>
+          <JsonTemplateLayout templateUri="classpath:LogstashJsonEventLayoutV1.json" stackTraceEnabled="true"/>
         </Console>
     </Appenders>
     <Loggers>
@@ -115,4 +112,3 @@ The max log message size in Docker is 16KB, so if it will be split into parts if
     </Loggers>
 </Configuration>
 ```
-
