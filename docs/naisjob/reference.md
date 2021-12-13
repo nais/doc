@@ -2570,7 +2570,8 @@ Required: `false`<br />
     ```
 
 #### gcp.sqlInstances[].tier
-Server tier, i.e. how much CPU and memory allocated. Available tiers can be retrieved on the command line by running `gcloud sql tiers list`.
+Server tier, i.e. how much CPU and memory allocated. 
+Available tiers are `db-f1-micro`, `db-g1-small` and custom `db-custom-CPU-RAM` (e.g. `db-custom-1-2048` for 1 cpu, 2GB ram)
 
 Type: `string`<br />
 Required: `false`<br />
