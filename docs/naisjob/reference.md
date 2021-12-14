@@ -2577,6 +2577,9 @@ Required: `false`<br />
 Default value: `db-f1-micro`<br />
 Pattern: `db-.+`<br />
 
+Relevant information:
+* [Sizing your database](../persistence/postgres.md/#sizing-your-database)
+
 ??? example
     ``` yaml
     spec:
