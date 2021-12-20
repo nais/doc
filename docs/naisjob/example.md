@@ -84,6 +84,7 @@ spec:
   - value
   - --other-param
   - other-value
+  completions: 1
   concurrencyPolicy: Allow
   elastic:
     access: readwrite
@@ -186,6 +187,7 @@ spec:
         enabled: true
         name: scope.read
         product: arbeid
+  parallelism: 1
   preStopHook:
     exec:
       command:

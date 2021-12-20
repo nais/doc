@@ -861,6 +861,23 @@ Required: `false`<br />
         - other-value
     ```
 
+## completions
+A Job tracks the successful completions. When a specified number of successful completions is reached, the task (ie, Job) is complete.
+
+Relevant information:
+
+* [https://kubernetes.io/docs/concepts/workloads/controllers/job/#job-patterns](https://kubernetes.io/docs/concepts/workloads/controllers/job/#job-patterns)
+
+Type: `integer`<br />
+Required: `false`<br />
+Default value: `1`<br />
+
+??? example
+    ``` yaml
+    spec:
+      completions: 1
+    ```
+
 ## concurrencyPolicy
 Specifies how to treat concurrent executions of a job that is created by this Naisjob-cron.
 
@@ -2577,9 +2594,6 @@ Required: `false`<br />
 Default value: `db-f1-micro`<br />
 Pattern: `db-.+`<br />
 
-Relevant information:
-* [Sizing your database](../persistence/postgres.md/#sizing-your-database)
-
 ??? example
     ``` yaml
     spec:
@@ -3180,6 +3194,23 @@ Pattern: `^[a-z0-9]+$`<br />
               enabled: true
               name: scope.read
               product: arbeid
+    ```
+
+## parallelism
+For running pods in parallel. If it is specified as 0, then the Job is effectively paused until it is increased.
+
+Relevant information:
+
+* [https://kubernetes.io/docs/concepts/workloads/controllers/job/#controlling-parallelism](https://kubernetes.io/docs/concepts/workloads/controllers/job/#controlling-parallelism)
+
+Type: `integer`<br />
+Required: `false`<br />
+Default value: `1`<br />
+
+??? example
+    ``` yaml
+    spec:
+      parallelism: 1
     ```
 
 ## preStopHook
