@@ -52,7 +52,7 @@ Add the example files below, then commit and push. This will trigger the workflo
         name: Build and push Docker container
         runs-on: ubuntu-latest
         steps:
-        - uses: actions/checkout@v1
+        - uses: actions/checkout@v2
         - uses: docker/login-action@v1
           with:
             registry: ghcr.io
@@ -70,7 +70,7 @@ Add the example files below, then commit and push. This will trigger the workflo
         if: github.ref == 'refs/heads/master'
         runs-on: ubuntu-latest
         steps:
-        - uses: actions/checkout@v1
+        - uses: actions/checkout@v2
         - uses: nais/deploy/actions/deploy@v1
           env:
             APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
