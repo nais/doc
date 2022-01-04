@@ -331,7 +331,7 @@ Databases should always be accessed using a personal account, and the access sho
 
 In-place database upgrades through `nais.yaml` is currently not supported. If you attempt to change the version this way, you will get an error message.
 
-In order to upgrade the database version, you will need to follow the Cloud SQL docs on [upgrading PostgreSQL for an instance](https://cloud.google.com/sql/docs/postgres/upgrade-db).
+In order to upgrade the database version, you will need to follow the Cloud SQL docs on [upgrading PostgreSQL for an instance](https://cloud.google.com/sql/docs/postgres/upgrade-major-db-version).
 
 ## Deleting the database
 
