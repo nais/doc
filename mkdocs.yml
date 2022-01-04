@@ -156,6 +156,7 @@ nav:
     - naisdevice Troubleshooting: device/troubleshooting.md
     - Uninstall: device/uninstall.md
     - Available services: device/services.md
+    - JITA: device/jita.md
   - nais-cli:
     - Overview: cli/README.md
     - Installation: cli/install.md
