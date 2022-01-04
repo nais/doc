@@ -96,7 +96,7 @@ Add the example files below, then commit and push. This will trigger the workflo
     In this `nais.yaml` file, `{{ image }}` will be replaced by the `$docker_image` environment variable set in the action. You can add more by using a comma separated list, or even put all your variables in a file; see _action configuration_ below.
 === "Dockerfile"
     ```text
-    FROM nginx
+    FROM nginxinc/nginx-unprivileged
     ```
 
     You have to write your own Dockerfile, but if you're just trying this out, you can use the following example file.
