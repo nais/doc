@@ -1,5 +1,9 @@
 # Elastic Search
 
+!!! warning
+    Aiven is migrating to OpenSearch, so new instances of ElasticSearch should be avoided.
+    Use [OpenSearch](./open-search.md) instead.
+
 The NAIS platform offers Elastic Search via [Aiven](https://aiven.io/).
 
 ## Get your own

@@ -102,6 +102,7 @@ nav:
       - Google Cloud SQL (postgres): persistence/postgres.md
       - Google BigQuery: persistence/bigquery.md
       - ElasticSearch: persistence/elastic-search.md
+      - OpenSearch: persistence/open-search.md
       - InfluxDB: persistence/influxdb.md
       - S3 objectstore: persistence/objectstore.md
       - Redis: persistence/redis.md
