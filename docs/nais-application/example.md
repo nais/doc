@@ -212,6 +212,9 @@ spec:
         enabled: true
         name: scope.read
         product: arbeid
+  openSearch:
+    access: readwrite
+    instance: my-open-search-instance
   port: 8080
   preStopHook:
     exec:
