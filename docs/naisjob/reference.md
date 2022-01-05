@@ -3196,6 +3196,47 @@ Pattern: `^[a-z0-9]+$`<br />
               product: arbeid
     ```
 
+## openSearch
+To get your own OpenSearch instance head over to the IaC-repo to provision each instance. See [navikt/aiven-iac](https://github.com/navikt/aiven-iac) repository.
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      openSearch:
+        access: readwrite
+        instance: my-open-search-instance
+    ```
+
+### openSearch.access
+Access level for OpenSearch user
+
+Type: `enum`<br />
+Required: `false`<br />
+Allowed values: `admin`, `read`, `readwrite`, `write`<br />
+
+??? example
+    ``` yaml
+    spec:
+      openSearch:
+        access: readwrite
+    ```
+
+### openSearch.instance
+Configure your application to access your OpenSearch instance. Use the `instance_name` that you specified in the [navikt/aiven-iac](https://github.com/navikt/aiven-iac) repository.
+
+Type: `string`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      openSearch:
+        instance: my-open-search-instance
+    ```
+
 ## parallelism
 For running pods in parallel. If it is specified as 0, then the Job is effectively paused until it is increased.
 

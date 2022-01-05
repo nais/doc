@@ -187,6 +187,9 @@ spec:
         enabled: true
         name: scope.read
         product: arbeid
+  openSearch:
+    access: readwrite
+    instance: my-open-search-instance
   parallelism: 1
   preStopHook:
     exec:
