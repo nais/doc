@@ -1,5 +1,19 @@
 This document describes the different properties a NAIS application should have.
 
+## Set reasonable resource requests and limits
+
+Setting reasonable resource `requests` and `limits` helps keep the clusters healthy, while not wasting resources.
+
+A rule of thumb is to set the requested CPU and memory to what your applications uses under "normal" circumstances,
+and set limits to what it is reasonable to allow the application to use at most.
+
+Most of the time, the important aspect is `requests`, because this says how much Kubernetes should reserve for your application.
+If you request too much, we are wasting resources.
+If you request too little, you run the risk of your application being starved in a low-resource situation.
+
+`limits` is mostly a mechanism to protect the cluster when something goes wrong.
+A memory leak that results in your application using all available memory on the node is inconvenient.
+
 ## Handles termination gracefully
 
 The application should make sure it listens to the `SIGTERM` signal, and prepare for shutdown \(closing connections etc.\) upon receival.
