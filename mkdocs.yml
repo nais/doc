@@ -65,6 +65,7 @@ nav:
       - Linkerd / sidecar customization: nais-application/linkerd.md
       - Container security context / kernel capabilities: nais-application/securitycontext.md
       - Good practices: nais-application/good-practices.md
+      - Debugging: nais-application/debugging.md
     - Naisjob:
       - Overview: naisjob/README.md
       - Full example: naisjob/example.md
