@@ -107,6 +107,6 @@ When prompted like above, go to the address and enter the code. You then log in 
 ## Recommended tools
 
 * [kubectx](https://github.com/ahmetb/kubectx) - Simplifies changing cluster and namespace context.
-* [kubeaware](https://github.com/jhrv/kubeaware) - Visualize which cluster and namespace is currently active.
+* [kubeaware](https://github.com/jhrv/kubeaware) or [Starship](https://starship.rs/) - Visualize which cluster and namespace is currently active.
 * [emacs-kubectx-mode](https://github.com/terjesannum/emacs-kubectx-mode) - Switch kubectl context and namespace in Emacs and display current setting in mode line.
 
