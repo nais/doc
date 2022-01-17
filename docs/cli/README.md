@@ -13,4 +13,4 @@ the [github repository](https://github.com/nais/nais-cli/tree/master/doc) docume
 
 ## Use
 
-See the chapters about [installation](install.md) and [commands](commands/).
+See the chapters on installation and commands in the sidebar.
