@@ -29,7 +29,17 @@ To best be able to handle this in your application, it helps to be aware of the 
 5. Grace period ends, and container receives `SIGKILL`
 6. Pod disappears from the API, and is no longer visible for the client.
 
-The platform will automatically add a `preStop`-hook that pauses the termination sufficiently that e.g. the ingress controller has time to update it's list of endpoints \(thus avoid sending traffic to a application while terminating\).
+If your application does proper graceful shutdown when receiving a `SIGTERM` signal, you shouldn't need to do anything differently.
+If you need some other way to trigger graceful shutdown, you can define your own [`preStop`-hook](./application.md#prestophook).
+Be aware that even after your `preStop`-hook has been triggered, your application might still receive new connections for a few seconds.
+This is because step 3 above can take a few seconds to complete.
+Your application should handle those connections before exiting.
+
+If not set, the platform will automatically add a `preStop`-hook that pauses the termination sufficiently that e.g. the ingress controller has time to update it's list of endpoints \(thus avoid sending traffic to a application while terminating\).
+
+The default `preStop`-hook is implemented by calling `sleep 5`.
+The `sleep` binary needs to be on `PATH` in your container for this to work.
+If this is not the case \(for example if you use `distroless` baseimages\), you will see warnings in the log when your container is stopping.
 
 ## Exposes relevant application metrics
 
