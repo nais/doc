@@ -20,6 +20,16 @@ If you need cross-environment communications, use the `nav-infrastructure` pool,
 | `nav-prod` | 2 | 3 | `prod-gcp` | `prod-gcp`, `prod-fss`, `prod-sbs` |
 | `nav-infrastructure` | 2 | 3 | `prod-gcp` | `dev-gcp`, `dev-fss`, `dev-sbs`, `prod-gcp`, `prod-fss`, `prod-sbs` |
 
+### ACLs
+
+On your topic, you must define ACLs to manage access to the topic.
+Access is granted to applications, belonging to teams.
+Every ACL must contain team, application and which access to grant.
+Possible access is `read`, `write` and `readwrite`.
+
+It is possible to use simple wildcards (`*`) in both team and application names, which matches any character any number of times.
+Be aware that due to the way ACLs are generated and length limits, the ends of long names can be cut, eliminating any wildcards at the end.
+
 
 === "topic.yaml"
     ```yaml
@@ -56,6 +66,15 @@ If you need cross-environment communications, use the `nav-infrastructure` pool,
         - team: producerteam
           application: producerapp
           access: write
+        - team: trusted-team
+          application: *
+          access: read     # All applications from this trusted-team has read
+        - team: *
+          application: aivia
+          access: read     # Applicatios named aivia from any team has read
+        - team: myteam
+          application: rapid-*
+          access: readwrite   # Applications from myteam with names starting with `rapid-` has readwrite access
     ```
 
 ### Data catalog metadata
