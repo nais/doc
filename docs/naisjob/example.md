@@ -144,6 +144,9 @@ spec:
       diskAutoresize: true
       diskSize: 30
       diskType: SSD
+      flags:
+      - name: max_connections
+        value: "50"
       highAvailability: true
       insights:
         enabled: true

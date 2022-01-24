@@ -1307,6 +1307,9 @@ Availability: GCP<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -1811,6 +1814,9 @@ Availability: GCP<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -1849,6 +1855,9 @@ Value range: `0`-`23`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -1886,6 +1895,9 @@ Required: `false`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -1923,6 +1935,9 @@ Required: `false`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -1960,6 +1975,9 @@ Required: `false`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -1997,6 +2015,9 @@ Required: `false`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -2034,6 +2055,9 @@ Required: `true`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -2071,6 +2095,9 @@ Required: `false`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -2109,6 +2136,9 @@ Pattern: `^[_a-zA-Z][-_a-zA-Z0-9]+$`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -2150,6 +2180,9 @@ Required: `false`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -2188,6 +2221,9 @@ Minimum value: `10`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -2226,6 +2262,133 @@ Allowed values: `HDD`, `SSD`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
+    ```
+
+#### gcp.sqlInstances[].flags
+Set flags to control the behavior of the instance.
+
+Relevant information:
+
+* [https://cloud.google.com/sql/docs/postgres/flags#list-flags-postgres](https://cloud.google.com/sql/docs/postgres/flags#list-flags-postgres)
+
+Type: `array`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        sqlInstances:
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
+    ```
+
+##### gcp.sqlInstances[].flags[].name
+Name of the flag.
+
+Type: `string`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        sqlInstances:
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            tier: db-f1-micro
+            type: POSTGRES_12
+    ```
+
+##### gcp.sqlInstances[].flags[].value
+Value of the flag.
+
+Type: `string`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        sqlInstances:
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -2263,6 +2426,9 @@ Required: `false`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -2300,6 +2466,9 @@ Required: `false`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -2338,6 +2507,9 @@ Default value: `true`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -2376,6 +2548,9 @@ Value range: `256`-`4500`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -2413,6 +2588,9 @@ Required: `false`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -2450,6 +2628,9 @@ Required: `false`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -2487,6 +2668,9 @@ Required: `false`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -2523,6 +2707,9 @@ Value range: `1`-`7`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -2559,6 +2746,9 @@ Value range: `0`-`23`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -2596,6 +2786,9 @@ Required: `false`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -2633,6 +2826,9 @@ Required: `false`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -2672,6 +2868,9 @@ Pattern: `db-.+`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
@@ -2710,6 +2909,9 @@ Allowed values: `POSTGRES_11`, `POSTGRES_12`<br />
             diskAutoresize: true
             diskSize: 30
             diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
             highAvailability: true
             insights:
               enabled: true
