@@ -48,5 +48,5 @@ If you have problems getting your bucket up and running, check errors in the eve
 kubectl describe storagebucket mybucket
 ```
 
-An example application using workflow identity to access a bucket: [testapp](https://github.com/nais/testapp/blob/master/pkg/bucket/bucket.go)
+An example application using workflow identity to access a bucket: [testapp](https://github.com/nais/testapp)
 
