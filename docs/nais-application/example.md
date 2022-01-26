@@ -171,10 +171,14 @@ spec:
     enabled: true
     frontchannelLogoutPath: /oauth2/logout
     frontchannelLogoutURI: https://myapplication.nav.no/oauth2/logout
+    integrationType: idporten
     postLogoutRedirectURIs:
     - https://www.nav.no
     redirectPath: /oauth2/callback
     redirectURI: https://myapplication.nav.no/oauth2/callback
+    scopes:
+    - openid
+    - profile
     sessionLifetime: 7200
     sidecar:
       autoLogin: true

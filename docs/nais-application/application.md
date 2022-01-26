@@ -2942,10 +2942,14 @@ Required: `false`<br />
         enabled: true
         frontchannelLogoutPath: /oauth2/logout
         frontchannelLogoutURI: https://myapplication.nav.no/oauth2/logout
+        integrationType: idporten
         postLogoutRedirectURIs:
           - https://www.nav.no
         redirectPath: /oauth2/callback
         redirectURI: https://myapplication.nav.no/oauth2/callback
+        scopes:
+          - openid
+          - profile
         sessionLifetime: 7200
         sidecar:
           autoLogin: true
@@ -3041,6 +3045,27 @@ Pattern: `^https:\/\/.+$`<br />
         frontchannelLogoutURI: https://myapplication.nav.no/oauth2/logout
     ```
 
+### idporten.integrationType
+IntegrationType is used to make sensible choices for your client. Which type of integration you choose will provide guidance on which scopes you can use with the client. A client can only have one integration type. 
+ NB! It is not possible to change the integration type after creation.
+
+Relevant information:
+
+* [https://docs.digdir.no/oidc_protocol_scope.html#scope-limitations](https://docs.digdir.no/oidc_protocol_scope.html#scope-limitations)
+
+Type: `enum`<br />
+Required: `false`<br />
+Immutable: `true`<br />
+Default value: `idporten`<br />
+Allowed values: `api_klient`, `idporten`, `krr`<br />
+
+??? example
+    ``` yaml
+    spec:
+      idporten:
+        integrationType: idporten
+    ```
+
 ### idporten.postLogoutRedirectURIs
 PostLogoutRedirectURIs are valid URIs that ID-porten will allow redirecting the end-user to after a single logout has been initiated and performed by the application.
 
@@ -3091,6 +3116,26 @@ Pattern: `^https:\/\/.+$`<br />
     spec:
       idporten:
         redirectURI: https://myapplication.nav.no/oauth2/callback
+    ```
+
+### idporten.scopes
+Register different oauth2 Scopes on your client. You will not be able to add a scope to your client that conflicts with the client's IntegrationType. For example, you can not add a scope that is limited to the IntegrationType `krr` of IntegrationType `idporten`, and vice versa. 
+ Default for IntegrationType `krr` = ("krr:global/kontaktinformasjon.read", "krr:global/digitalpost.read") Default for IntegrationType `idporten` = ("openid", "profile") IntegrationType `api_klient` have no Default, checkout Digdir documentation.
+
+Relevant information:
+
+* [https://docs.digdir.no/oidc_func_clientreg.html?h=api_klient#scopes](https://docs.digdir.no/oidc_func_clientreg.html?h=api_klient#scopes)
+
+Type: `array`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      idporten:
+        scopes:
+          - openid
+          - profile
     ```
 
 ### idporten.sessionLifetime
