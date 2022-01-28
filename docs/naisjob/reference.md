@@ -1259,6 +1259,7 @@ Availability: GCP<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -1766,6 +1767,7 @@ Availability: GCP<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -1807,6 +1809,7 @@ Value range: `0`-`23`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -1847,6 +1850,7 @@ Required: `false`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -1887,6 +1891,7 @@ Required: `false`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -1927,6 +1932,7 @@ Required: `false`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -1967,6 +1973,7 @@ Required: `false`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2007,6 +2014,7 @@ Required: `true`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2047,6 +2055,7 @@ Required: `false`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2088,6 +2097,7 @@ Pattern: `^[_a-zA-Z][-_a-zA-Z0-9]+$`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2132,6 +2142,7 @@ Required: `false`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2173,6 +2184,7 @@ Minimum value: `10`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2214,6 +2226,7 @@ Allowed values: `HDD`, `SSD`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2258,6 +2271,7 @@ Required: `false`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2298,6 +2312,7 @@ Required: `true`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2338,6 +2353,7 @@ Required: `true`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2378,6 +2394,7 @@ Required: `false`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2418,6 +2435,7 @@ Required: `false`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2459,6 +2477,7 @@ Default value: `true`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2500,6 +2519,7 @@ Value range: `256`-`4500`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2540,6 +2560,7 @@ Required: `false`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2580,6 +2601,7 @@ Required: `false`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2620,6 +2642,7 @@ Required: `false`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2659,6 +2682,7 @@ Value range: `1`-`7`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2698,6 +2722,7 @@ Value range: `0`-`23`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2738,6 +2763,7 @@ Required: `false`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2778,6 +2804,54 @@ Required: `false`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
+            tier: db-f1-micro
+            type: POSTGRES_12
+    ```
+
+#### gcp.sqlInstances[].retainedBackups
+Number of daily backups to retain. Defaults to 7 backups.
+
+Relevant information:
+
+* [https://cloud.google.com/sql/docs/postgres/backup-recovery/backups](https://cloud.google.com/sql/docs/postgres/backup-recovery/backups)
+
+Type: `integer`<br />
+Required: `false`<br />
+Default value: `7`<br />
+Value range: `1`-`365`<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        sqlInstances:
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskSize: 30
+            diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2820,6 +2894,7 @@ Pattern: `db-.+`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```
@@ -2861,6 +2936,7 @@ Allowed values: `POSTGRES_11`, `POSTGRES_12`<br />
               hour: 4
             name: myinstance
             pointInTimeRecovery: true
+            retainedBackups: 14
             tier: db-f1-micro
             type: POSTGRES_12
     ```

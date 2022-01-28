@@ -163,6 +163,7 @@ spec:
         hour: 4
       name: myinstance
       pointInTimeRecovery: true
+      retainedBackups: 14
       tier: db-f1-micro
       type: POSTGRES_12
   idporten:
