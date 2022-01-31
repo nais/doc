@@ -65,8 +65,7 @@ Before following these steps, make sure your team is enabled for Google Cloud Pl
 
 You will also need to perform a self-service step to synchronize your user from Azure AD to Google Cloud Platform. This can be done by following these steps:
 
-1. Login to [https://myapps.microsoft.com](https://myapps.microsoft.com) using your NAV user
-2. Click on "Add app" at the top of the page
+1. Login to [My Apps > Add Application](https://account.activedirectory.windowsazure.com/r#/addApplications)
 3. Locate "Google Cloud Platform", and click on the icon
 
 After you have done this your user will be synced to Google Cloud Platform. The sync is not instantaneous, but usually does not take more than a few minutes.
