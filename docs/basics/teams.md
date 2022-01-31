@@ -48,6 +48,8 @@ Each team has their own [Google Cloud Platform project](https://cloud.google.com
 * a set of users,
 * a set of APIs,
 * in addition to authentication and monitoring settings of those APIs.
+
+These projects are managed through [Google Cloud Console](https://console.cloud.google.com/).
    
 So, for example, all of your Cloud Storage buckets and objects, along with user permissions for accessing them, reside in a project.
 
