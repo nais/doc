@@ -30,7 +30,7 @@ Open `settings.json` by pressing `CTRL/CMD+,` and search for `Preferences: Open 
 Within the root object, add the following:
 ```json
 "yaml.schemas": {
-	"https://storage.googleapis.com/nais-json-schema-2c91/nais-k8s-all.json": ["nais.yaml", "nais/*", ".nais/*"],
+	"https://storage.googleapis.com/nais-json-schema-2c91/nais-k8s-all.json": ["nais.yaml", "nais.yml", "nais/*", ".nais/*"],
 },
 ```
 
