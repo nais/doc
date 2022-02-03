@@ -161,6 +161,9 @@ Details about environment variables is specified her: [`configuration`](../persi
 
 Databases should always be accessed using a personal account, and the access should ideally be temporary.
 
+!!! info
+    Personal database access can also be configured using the nais-cli as described [here](../cli/commands/postgres.md).
+
 ### Prerequisites
 
 ???+ check "Step 1. Install local binaries"
