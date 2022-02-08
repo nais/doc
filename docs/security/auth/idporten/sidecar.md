@@ -15,8 +15,12 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 
 A reverse proxy that automatically handles of ID-porten login, logout, and front-channel logout.
 
-!!! info "Prerequisite"
-    **Ensure that you first [enable ID-porten for your application](README.md).**
+!!! info "Prerequisites"
+    - [x] Ensure that you first [enable ID-porten for your application](README.md).
+    - [x] Ensure that you define an [ingress](../../../nais-application/application.md#ingresses) for your application.
+    - [x] Ensure that the ingress is on the correct domain:
+        - `dev.nav.no` for the [_development_ clusters](../../../clusters/gcp.md#dev-gcp-ingresses)
+        - `nav.no` for the [_production_ clusters](../../../clusters/gcp.md#prod-gcp-ingresses)
 
 All HTTP requests to the application will be intercepted by a sidecar (["_wonderwall_"](https://github.com/nais/wonderwall)).
 

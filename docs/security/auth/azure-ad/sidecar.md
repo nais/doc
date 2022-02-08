@@ -4,7 +4,7 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 
 # Azure AD sidecar
 
-!!! warning "Status: Alpha"
+!!! warning "Status: Beta"
     This feature is only available in the [GCP clusters](../../../clusters/gcp.md).
 
     **Experimental**: this is a new feature. Use it in production, but be aware that bugs might arise.
@@ -16,9 +16,8 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 A reverse proxy that automatically handles of Azure AD login, logout, and front-channel logout.
 
 !!! info "Prerequisites"
-    **Ensure that you first [enable Azure AD for your application](README.md).**
-    
-    **Ensure that you also define an [ingress](../../../nais-application/application.md#ingresses) for your application.**
+    - [x] Ensure that you first [enable Azure AD for your application](README.md).
+    - [x] Ensure that you also define at least one [ingress](../../../nais-application/application.md#ingresses) for your application.
 
 All HTTP requests to the application will be intercepted by a sidecar (["_wonderwall_"](https://github.com/nais/wonderwall)).
 

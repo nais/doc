@@ -41,6 +41,9 @@ markdown_extensions:
   - pymdownx.tabbed
   - pymdownx.emoji:
       emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
 nav:
   - NAIS:
     - Introduction to NAIS: README.md
