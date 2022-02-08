@@ -20,7 +20,7 @@ A reverse proxy that automatically handles of Azure AD login, logout, and front-
     
     **Ensure that you also define an [ingress](../../../nais-application/application.md#ingresses) for your application.**
 
-All HTTP requests to the application will be intercepted by a sidecar ("_wonderwall_").
+All HTTP requests to the application will be intercepted by a sidecar (["_wonderwall_"](https://github.com/nais/wonderwall)).
 
 If the user does _not_ have a valid local session with the sidecar, the request will be proxied as-is without 
 modifications to the application container.

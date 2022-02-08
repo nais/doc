@@ -18,7 +18,7 @@ A reverse proxy that automatically handles of ID-porten login, logout, and front
 !!! info "Prerequisite"
     **Ensure that you first [enable ID-porten for your application](README.md).**
 
-All HTTP requests to the application will be intercepted by a sidecar ("_wonderwall_").
+All HTTP requests to the application will be intercepted by a sidecar (["_wonderwall_"](https://github.com/nais/wonderwall)).
 
 If the user does _not_ have a valid local session with the sidecar, the request will be proxied as-is without 
 modifications to the application container.
