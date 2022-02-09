@@ -11,6 +11,7 @@ The nais team has conducted the following risk assessments:
 * [Aiven Kafka - Leverandørvurdering](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=190)
 * [Aiven ElasticSearch](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=515)
 * [Google Secret Manager](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=538)
+* [Dataplattform (including BigQuery)](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=897)
 
 \(Note that all risk assessments link to the NAV internal tool TryggNok.\)
 
