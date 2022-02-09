@@ -2,14 +2,6 @@
 
 This section only applies if you have an existing Azure AD client registered in the [IaC repository](https://github.com/navikt/aad-iac).
 
-## Why migrate?
-
-* Declarative provisioning, straight from your application's [`nais.yaml`](../../../nais-application/application.md#azureapplication)
-* No longer dependent on manual user approvals in multiple IaC repositories
-* No longer dependent on Vault
-* Credentials are rotated regularly, completely transparent to the application. This ensures that credentials are fresh and lessens the impact in the case of exposure.
-* The exact same feature is present in the [GCP](../../../clusters/gcp.md) clusters, which simplifies [migration](../../../clusters/migrating-to-gcp.md).
-
 ## Pre-authorization
 
 Communication between legacy clients provisioned through [aad-iac](https://github.com/navikt/aad-iac) and clients provisioned through NAIS requires some additional configuration.
@@ -66,34 +58,8 @@ Communication between legacy clients provisioned through [aad-iac](https://githu
             cluster: dev-fss
     ```
 
-## Migration guide - step by step
+## Migration
 
-The following describes the steps needed to migrate an existing legacy client where you wish to keep the existing client ID and configuration.
+If you have an existing legacy client in [aad-iac](https://github.com/navikt/aad-iac) and wish to keep the current client ID and configuration when moving to NAIS, [contact us](../../../support.md) on Slack for assistance.
 
-If keeping the existing client ID and configuration is not important, it should be much easier to just provision new clients instead.
-
-!!! warning
-    Be aware of the [differences in tenants](concepts.md#tenants) between the [IaC repository](https://github.com/navikt/aad-iac) and NAIS:
-
-    * `nonprod` -> `trygdeetaten.no`
-    * `prod` -> `nav.no`
-
-???+ check "Step 1 - Rename your application in the Azure Portal"
-    The `Display name` of the application registered in the [Azure Portal](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps) **must** match the [expected format](concepts.md#naming-format).
-
-    * Go to the **`Branding`** tab for your client in the [Azure Portal](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps).
-    * Update the `Name`.
-
-???+ check "Step 2 - Update your application \(and any dependants\) in the IaC repository"
-
-    * Ensure the **`name`** of the client registered in the [IaC repository](https://github.com/navikt/aad-iac) is updated to match the name set in **step 1**.
-    * Ensure that any clients that has a reference to the previous name in their **`preauthorizedapplications`** is also updated. 
-
-???+ check "Step 3 - Deploy your NAIS application with Azure AD provisioning enabled"
-
-    * See [getting started](configuration.md#getting-started).
-
-???+ check "Step 4 - Delete your application from the IaC repository"
-
-    * Verify that everything works after the migration
-    * Delete the application from the [IaC repository](https://github.com/navikt/aad-iac) in order to maintain a single source of truth
+If keeping the existing client ID and configuration is not important, it should be much easier to just [provision new clients](configuration.md#getting-started) instead.
