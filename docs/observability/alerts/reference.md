@@ -354,6 +354,14 @@ Required: `false`<br />
         sms:
           recipients: "12345678"
           send_resolved: false
+        webhook:
+          http_config:
+            proxy_url: webproxy.nav
+            tls_config:
+              insecure_skip_verify: true
+          max_alerts: 0
+          send_resolved: true
+          url: https://the.feature.now
     ```
 
 ### receivers.email
@@ -533,6 +541,135 @@ Default value: `true`<br />
       receivers:
         sms:
           send_resolved: false
+    ```
+
+### receivers.webhook
+Alerts via custom web application
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      receivers:
+        webhook:
+          http_config:
+            proxy_url: webproxy.nav
+            tls_config:
+              insecure_skip_verify: true
+          max_alerts: 0
+          send_resolved: true
+          url: https://the.feature.now
+    ```
+
+#### receivers.webhook.http_config
+A http_config allows configuring the HTTP client that the receiver uses to communicate with HTTP-based API services.
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      receivers:
+        webhook:
+          http_config:
+            proxy_url: webproxy.nav
+            tls_config:
+              insecure_skip_verify: true
+    ```
+
+##### receivers.webhook.http_config.proxy_url
+Optional proxy URL.
+
+Type: `string`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      receivers:
+        webhook:
+          http_config:
+            proxy_url: webproxy.nav
+    ```
+
+##### receivers.webhook.http_config.tls_config
+Configures the TLS settings.
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      receivers:
+        webhook:
+          http_config:
+            tls_config:
+              insecure_skip_verify: true
+    ```
+
+###### receivers.webhook.http_config.tls_config.insecure_skip_verify
+Disable validation of the server certificate.
+
+Type: `boolean`<br />
+Required: `false`<br />
+Default value: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      receivers:
+        webhook:
+          http_config:
+            tls_config:
+              insecure_skip_verify: true
+    ```
+
+#### receivers.webhook.max_alerts
+The maximum number of alerts to include in a single webhook message. Alerts above this threshold are truncated. When leaving this at its default value of 0, all alerts are included.
+
+Type: `integer`<br />
+Required: `true`<br />
+Default value: `0`<br />
+
+??? example
+    ``` yaml
+    spec:
+      receivers:
+        webhook:
+          max_alerts: 0
+    ```
+
+#### receivers.webhook.send_resolved
+Whether or not to notify about resolved alerts.
+
+Type: `boolean`<br />
+Required: `false`<br />
+Default value: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      receivers:
+        webhook:
+          send_resolved: true
+    ```
+
+#### receivers.webhook.url
+The endpoint to send HTTP POST requests to.
+
+Type: `string`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      receivers:
+        webhook:
+          url: https://the.feature.now
     ```
 
 ## route

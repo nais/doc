@@ -58,6 +58,14 @@ spec:
     sms:
       recipients: "12345678"
       send_resolved: false
+    webhook:
+      http_config:
+        proxy_url: webproxy.nav
+        tls_config:
+          insecure_skip_verify: true
+      max_alerts: 0
+      send_resolved: true
+      url: https://the.feature.now
   route:
     group_by:
     - label
