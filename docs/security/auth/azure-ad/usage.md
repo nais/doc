@@ -1,7 +1,7 @@
 # Usage
 
 !!! info
-    **See the** [**NAV Security Guide**](https://security.labs.nais.io/) **for NAV-specific usage.**
+    **See the** [**NAV Security Guide**](https://security.labs.nais.io/pages/idp/azure-ad.html) **for NAV-specific usage.**
 
 ## Runtime Variables & Credentials
 

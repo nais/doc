@@ -26,4 +26,4 @@ description: Enabling authentication and authorization in internal web applicati
     If you need functionality to sign-in end-users with said client, we also provide a separate [sidecar](sidecar.md) proxy that handles this.
 
 !!! info
-    **See the** [**NAV Security Guide**](https://security.labs.nais.io/) **for NAV-specific usage of this client.**
+    **See the** [**NAV Security Guide**](https://security.labs.nais.io/pages/idp/azure-ad.html) **for NAV-specific usage of this client.**
