@@ -259,13 +259,6 @@ The request should then sent to the `token_endpoint` of Tokendings, the value of
     audience=prod-fss:namespace1:app1
     ```
 
-!!! info
-    See [frontend-dings](https://github.com/nais/frontend-dings) for a complete example that illustrates:
-
-    * end-user authentication through [ID-porten](idporten/README.md)
-    * token exchange with the user's `access_token`
-    * calling a protected API using the exchanged token
-
 #### Exchange Response
 
 Tokendings will respond with a JSON object
