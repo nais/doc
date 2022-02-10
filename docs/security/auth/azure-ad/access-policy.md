@@ -51,7 +51,8 @@ You may define custom permissions for your client in Azure AD. These can be gran
 extension of the [access policy](#access-policy) definitions described above.
 
 When granted to a consumer, the permissions will appear in their respective claims in tokens targeted to your application.
-Your application can then use these claims to implement custom authorization logic.
+Your application can then use these claims to implement custom authorization logic. Note that it is your application's
+responsibility to authorize or reject requests based on the permissions present in the token.
 
 !!! warning
 
@@ -116,6 +117,8 @@ The above configuration grants the application `app-a` the scope `custom-scope`.
 !!! info
     Any custom scopes granted will appear as a _space separated string_ in the `scp` claim.
 
+    All clients defined in the [access policy](#access-policy) will by default have the scope `defaultaccess`.
+
 ### Custom Roles
 
 A _role_ only applies to tokens acquired using the
@@ -166,6 +169,8 @@ The above configuration grants the application `app-a` the role `custom-role`.
 
 !!! info
     Any custom roles granted will appear in the `roles` claim, which is an _array of strings_.
+    
+    All clients defined in the [access policy](#access-policy) will by default have the role `access_as_application`.
 
 ## Users
 

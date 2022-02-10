@@ -37,9 +37,18 @@ All clients provisioned through NAIS will be registered in Azure AD using the fo
 
 ## Scopes
 
-A _scope_ is a parameter that is set during authorization flows when requesting a token from Azure AD.
+A _scope_ is a parameter that is set during authorization flows of an end-user to Azure AD (where `scope=openid <scope1> <scope2>` and so on), 
+or when requesting a token using the on-behalf-of (OBO) or client credentials flows. The term _scope_ in this case is synonymous with _permission_.
 
-It is used to indicate the intended _audience_ (the expected target resource) for the requested token, which is found in the `aud` claim in the JWT returned from Azure AD.
+Generally, we will use it to indicate the intended _audience_ (the expected target resource) for the requested token, 
+which is found in the `aud` claim in the JWT returned from Azure AD.
+
+### Default scope
+
+The `/.default` scope is a static scope which indicates to Azure AD that your application is requesting _all_ available permissions
+that have been granted to your application.
+
+When performing either the on-behalf-of (OBO) or client credentials flows, the `./default` scope must be used.
 
 When consuming a downstream API that expects an Azure AD token, you must therefore set the correct scope to fetch a token
 that your API provider accepts.
@@ -47,7 +56,7 @@ that your API provider accepts.
 The scope has the following format:
 
 ```text
-api://<cluster>.<namespace>.<app-name>
+api://<cluster>.<namespace>.<app-name>/.default
 ```
 
 For example:
@@ -55,13 +64,6 @@ For example:
 ```text
 api://dev-gcp.aura.nais-testapp/.default
 ```
-
-### Default scope
-
-The `/.default` scope is a static scope which indicates to Azure AD that your application is requesting _all_ available scopes that have been granted to your application. 
-
-For example, if your application has access to `api://dev-gcp.aura.nais-testapp/defaultaccess` and `api://dev-gcp.aura.nais-testapp/read`, requesting `api://dev-gcp.aura.nais-testapp/.default` will return a token that contains both of these scopes.
-If you want granularity, you may explicitly request the individual scopes instead as needed.
 
 ## Client ID
 
