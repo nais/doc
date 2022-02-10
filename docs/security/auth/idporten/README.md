@@ -4,13 +4,19 @@ description: Enabling public-facing authentication using ID-porten.
 
 # ID-porten
 
-!!! warning "Status: Opt-In Open Beta"
+!!! warning "Availability"
     This feature is only available in [team namespaces](../../../clusters/team-namespaces.md)
 
-!!! warning "Forthcoming changes"
-    ID-porten is currently undergoing some [changes](https://docs.digdir.no/oidc_protocol_nye_idporten.html). These changes will roll out in the coming months.
+!!! warning "Forthcoming changes in 2022-2023"
+    ID-porten is currently undergoing some [changes](https://docs.digdir.no/oidc_protocol_nye_idporten.html). These changes will roll out in 2022-2023.
     
-    TL;DR: new URL and issuer, [PKCE](https://oauth.net/2/pkce/) is required for Authorization Code Flow and the contents of the `sub` claim will likely change.
+    TL;DR:
+
+    1. new URL and issuer
+    2. [PKCE](https://oauth.net/2/pkce/), state and nonce is required for Authorization Code Flow
+    3. the contents of the `sub` claim will likely change
+    
+    You will likely only need to worry about 2. if you're implementing a client on your own and 3. if you're using the `sub` claim.
 
 ## Abstract
 
@@ -23,11 +29,10 @@ description: Enabling public-facing authentication using ID-porten.
 
     This is also a critical first step in request chains involving an end-user whose identity and permissions should be propagated through each service/web API when accessing services in NAV using the [OAuth 2.0 Token Exchange](https://www.rfc-editor.org/rfc/rfc8693.html) protocol. See the [TokenX documentation](../tokenx.md) for details.
 
-!!! info
-    **See the** [**NAV Security Guide**](https://security.labs.nais.io/) **for NAV-specific usage of this client.**
-    
 !!! warning
-    Please ensure that you have read the [ID-porten Integration guide](https://docs.digdir.no/oidc_guide_idporten.html).
+    - [ ] Please ensure that you have read the [ID-porten integration guide](https://docs.digdir.no/oidc_guide_idporten.html).
+    - [ ] If you're implementing your own client, you **must** perform the [verification tests](https://docs.digdir.no/docs/idporten/idporten/idporten_verifikasjonstester) to ensure that your integration works as expected.
+    - [ ] We **strongly** recommend that you use the [sidecar](sidecar.md) instead of implementing a client on your own.
 
 ## Configuration
 
@@ -85,7 +90,7 @@ You must enable and use [`webproxy`](../../../nais-application/application.md#we
 ### Ingresses
 
 !!! danger
-    For security reasons you may only specify **one** ingress when this feature is enabled.
+    You may only specify **one** ingress when this feature is enabled.
 
 ### Redirect URI
 
@@ -106,9 +111,9 @@ https://my.application.ingress/oauth2/callback
 
 If you wish to use a different path than the default, you may do so by manually specifying `spec.idporten.redirectPath`.
 
-## Logout URIs
+## Logout
 
-!!! warning
+!!! danger
     When integrating with ID-porten, you are **required** to correctly implement proper logout functionality.
     Refer to the [documentation at DigDir](https://docs.digdir.no/oidc_func_sso.html) for further details.
 
@@ -124,13 +129,21 @@ If the optional parameters `id_token_hint` and `post_logout_redirect_uri` are se
 
 [Front-channel logouts](https://docs.digdir.no/oidc_func_sso.html#2-h%C3%A5ndtere-utlogging-fra-id-porten) are logouts initiated by _other_ ID-porten clients. 
 
-Your application will receive a `GET` request from ID-porten at `frontchannel_logout_uri`. 
+When the user logs out from another ID-porten application, ID-porten will trigger a `GET` request from the user's user-agent (browser) to `frontchannel_logout_uri` via an iframe.
 This request includes two parameters:
 
 - `iss` which denotes the _issuer_ for the Identity Provider
 - `sid` which denotes the user's associated session ID at ID-porten which is set in the `sid` claim in the user's `id_token`
 
 In short, when receiving such a request you are obligated to clear the local session for your application for the given user's `sid` so that the user is properly logged out across all services in the circle-of-trust.
+
+!!! danger "Here be dragons!"
+    In order for single logout to work properly across all SSO services, all ID-porten clients **must** properly implement an endpoint that destroys the user's session on front-channel logouts.
+    
+    Do not rely on cookies. They will likely not be sent with the iframe request from the user's browser due to the request being cross-domain and `SameSite` not being handled consistently by all browsers.
+    This means that attempting to clear any session cookies when receiving such requests will fail.
+    
+    The **only** reliable indicator of the user's session ID is the `sid` parameter. This also means that you likely need a server-side session storage (such as Redis) in order to revoke the session.
 
 Your application's `frontchannel_logout_uri` is by default automatically inferred by NAIS and registered at ID-porten using the following scheme:
 
@@ -150,8 +163,18 @@ If you wish to use a different path than the default, you may do so by manually 
 
 ## Usage
 
-!!! info
-    **See the** [**NAV Security Guide**](https://security.labs.nais.io/) **for NAV-specific usage.**
+### Client Authentication
+
+All ID-porten clients in NAV **must** use _"client assertions"_ when authenticating itself with ID-porten. That is,
+ID-porten will only accept the `private_key_jwt` client authentication method as described in [OpenID Connect Core 1.0, 9. Client Authentication](https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication).
+
+In order to perform this client authentication, you must first [create a client assertion](https://docs.digdir.no/docs/idporten/oidc/oidc_protocol_token#client-authentication-using-jwt-token) - which is a [JWT grant](https://docs.digdir.no/docs/idporten/oidc/oidc_protocol_jwtgrant).
+
+Notes:
+
+- Set the **`kid`** header claim. The value for this is found in the JWK ([JSON Web Key](https://datatracker.ietf.org/doc/html/rfc7517)) belonging to your client, i.e. `IDPORTEN_CLIENT_JWK`. This JWK also contains a private key that you must use to sign the JWT grant.
+- Do not set the `x5c` header claim.
+- Ensure that the **`aud`** claim is equal to the **`issuer`** value found in the [metadata/discovery document](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata) (hosted at `IDPORTEN_WELL_KNOWN_URL`)
 
 ### Runtime Variables & Credentials
 
