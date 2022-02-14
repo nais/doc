@@ -4,7 +4,7 @@ If you want to completely remove your application from a cluster, you need to ha
 Then run the following command:
 
 ```
-kubectl delete app <app-name>
+kubectl delete app <app-name> -n <namespace> --context <cluster>
 ```
 
 This will remove the application/pods from the cluster, do some minor cleaning (removing your ingress), and that's all.
