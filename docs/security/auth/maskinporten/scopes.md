@@ -158,6 +158,7 @@ The following describes the steps needed to migrate a scope registered in [IaC r
     `meatdata.namespace` is your running applications namespace  
     `meatdata.name` is your running applications name  
     `clutser, metadata.namespace and metadata.name` containing `-` should be replaced with ``
+    `subscope` is described her [subscope](#subscope)
 
 #### Step 4 - IaC repository provisioning the scope client to Digdir.
 
