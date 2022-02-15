@@ -154,13 +154,22 @@ The following describes the steps needed to migrate a scope registered in [IaC r
 <cluster>:<metadata.namespace>:<metadata.name>.<subscope>
 ```
 
-#### Step 3 - Deploy your NAIS application with Maskinporten provisioning enabled.
+!!! info
+    meatdata.namespace is your running applications namespace
+    meatdata.name is your running applications name
+    clutser, metadata.namespace and metadata.name containing `-` should be replaced with ``
+
+#### Step 4 - Let IaC repository provisioning the scope client to Digdir.
+
+- Wait for IaC repo actions to finish. [maskinporten IaC actions](https://github.com/navikt/nav-maskinporten/actions)
+
+#### Step 5 - Deploy your NAIS application with Maskinporten provisioning enabled.
 
 - Ensure exposed scopes enabled and name matches the already exposed `subscope`
 
 - See [configuration](#configuration).
 
-#### Step 4 - Delete your scope from the IaC repository
+#### Step 6 - Delete your scope from the IaC repository
 
 - Verify that everything works after the migration
 - Delete the scope from the [IaC repository](https://github.com/navikt/nav-maskinporten/scopes) in order to maintain a single source of truth.
