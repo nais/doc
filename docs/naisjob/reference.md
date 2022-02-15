@@ -2902,9 +2902,13 @@ Pattern: `db-.+`<br />
 #### gcp.sqlInstances[].type
 PostgreSQL version.
 
+Relevant information:
+
+* [https://cloud.google.com/sql/docs/postgres/instance-settings](https://cloud.google.com/sql/docs/postgres/instance-settings)
+
 Type: `enum`<br />
 Required: `true`<br />
-Allowed values: `POSTGRES_11`, `POSTGRES_12`<br />
+Allowed values: `POSTGRES_11`, `POSTGRES_12`, `POSTGRES_13`, `POSTGRES_14`<br />
 
 ??? example
     ``` yaml
