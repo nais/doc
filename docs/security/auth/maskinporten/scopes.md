@@ -155,11 +155,11 @@ The following describes the steps needed to migrate a scope registered in [IaC r
 ```
 
 !!! info
-    meatdata.namespace is your running applications namespace
-    meatdata.name is your running applications name
-    clutser, metadata.namespace and metadata.name containing `-` should be replaced with ``
+    `meatdata.namespace` is your running applications namespace  
+    `meatdata.name` is your running applications name  
+    `clutser, metadata.namespace and metadata.name` containing `-` should be replaced with ``
 
-#### Step 4 - Let IaC repository provisioning the scope client to Digdir.
+#### Step 4 - IaC repository provisioning the scope client to Digdir.
 
 - Wait for IaC repo actions to finish. [maskinporten IaC actions](https://github.com/navikt/nav-maskinporten/actions)
 
