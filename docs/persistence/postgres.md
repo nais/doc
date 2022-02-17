@@ -362,3 +362,11 @@ $ kubectl logs <pod> -c cloudsql-proxy
 ## Example with all configuration options
 
 See [full example](../nais-application/example.md).
+
+## FAQ
+
+### `FATAL: password authentication failed for user "<user>"`
+
+???+ faq "Answer"
+    The synchronization of the password to the database may have failed. 
+    See [workaround for password synchronization issues](#workaround-for-password-synchronization-issues).
