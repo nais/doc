@@ -43,9 +43,9 @@ You can control from where you application is reachable by selecting the appropr
 
 | domain | accessible from | description |
 | :--- | :--- | :--- |
-| intern.nav.no | [naisdevice](../device/) | ingress for internal applications (supersedes nais.adeo.no). Also available in prod-gcp, use this to ease migration. Requires [JITA](../device/jita.md) to `onprem-k8s` |
+| intern.nav.no | [naisdevice](../device/) | ingress for internal applications (supersedes nais.adeo.no). Also available in prod-gcp, use this to ease migration. Requires [JITA](../device/jita.md) to `onprem-k8s-prod` |
 | nais.adeo.no | vdi | automatically configured |
-| prod-fss.nais.io | [naisdevice](../device/) | reserved for platform services. Requires [JITA](../device/jita.md) to `onprem-k8s` |
+| prod-fss.nais.io | [naisdevice](../device/) | reserved for platform services. Requires [JITA](../device/jita.md) to `onprem-k8s-prod` |
 | prod-fss-pub.nais.io | GCP | Exposing applications to GCP requires a manual entry in BigIP as well. See [sonekryssing].|
 
 ### prod-sbs
