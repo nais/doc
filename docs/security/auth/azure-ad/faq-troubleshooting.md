@@ -60,7 +60,7 @@ kubectl describe azureapp <app>
 
     Or the other variant:
 
-     ```json
+    ```json
     {
       "error": "invalid_grant",
       "error_description": "AADSTS65001: The user or administrator has not consented to use the application with ID '<client ID>' named '<cluster>:<namespace>:<alice>'. Send an interactive authorization request for this user and resource.",
