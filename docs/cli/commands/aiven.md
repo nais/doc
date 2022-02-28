@@ -5,12 +5,14 @@ The `aiven create` command will create a Protected & time-limited AivenApplicati
 This uses your currently configured kubectl context, so in order for it to work you need to select a suitable context first.
 For instance, credentials for nav-prod can only be generated in the prod clusters.
 
-This command will give access to personal but time limited credentials. These credentials can be used to debug an Aiven
-hosted kafka topic. The `aiven get` command extracts the credentials and puts them in `/tmp` folder. The created
-AivenApplication has sane default (days-to-live) set to 1 day.
+This command will give access to personal but time limited credentials.
+These credentials can be used to debug an Aiven kafka topic.
+The `aiven get` command extracts the credentials and puts them in `/tmp` folder.
+The created AivenApplication has sane default (days-to-live) set to 1 day.
 
-To gain access to a specific topic be sure to update your topic resource and topic ACLs. Add `username`
-to `acl.application` field in your topic.yaml and apply to your namespace. The `username` is the one spescified in the [next step](#create).
+To gain access to a specific topic be sure to update your topic resource and topic ACLs.
+Add `username` to `acl.application` field in your topic.yaml and apply to your namespace.
+The `username` is the one spescified in the [next step](#create).
 
 ```yaml
 # topic.yml
@@ -30,20 +32,20 @@ spec:
 nais aiven create username namespace
 ```
 
-| Argument    | Required  | Description                                                 |
-|-------------|-----------|-------------------------------------------------------------|
-| username    | Yes       | Preferred username.                                         |
-| namespace   | Yes       | Kubernetes namespace where AivenApplication will be created.|
+| Argument  | Required | Description                                                  |
+|-----------|----------|--------------------------------------------------------------|
+| username  | Yes      | Preferred username.                                          |
+| namespace | Yes      | Kubernetes namespace where AivenApplication will be created. |
 
 ```bash
 nais aiven create username namespace -p nav-prod -s some-unique-secretname -e 10
 ```
 
-| Flag          | Required   | Short   |Default                                |Description                                        |
-|---------------|------------|---------|---------------------------------------|---------------------------------------------------|
-| pool          | No         | -p      |  nav-dev                              | [Kafka pool](../../persistence/kafka/index.md).   |
-| secret-name   | No         | -s      |  namespace-username-randomstring      | Preferred secret-name.                            |
-| expire        | No         | -e      |  1                                    | Time in days the secret should be valid.          |
+| Flag        | Required | Short | Default                         | Description                                     |
+|-------------|----------|-------|---------------------------------|-------------------------------------------------|
+| pool        | No       | -p    | nav-dev                         | [Kafka pool](../../persistence/kafka/index.md). |
+| secret-name | No       | -s    | namespace-username-randomstring | Preferred secret-name.                          |
+| expire      | No       | -e    | 1                               | Time in days the secret should be valid.        |
 
 ## get
 
@@ -51,10 +53,10 @@ nais aiven create username namespace -p nav-prod -s some-unique-secretname -e 10
 nais aiven get secret-name namespace
 ```
 
-| Argument          | Required  | Description                                                                    |
-|-------------------|-----------|--------------------------------------------------------------------------------|
-| secret-name       | Yes       | Default secret-name or flag `-s` in `create` command.                          |
-| namespace         | Yes       | Kubernetes namespace for the created AivenApplication.                         |
+| Argument    | Required | Description                                            |
+|-------------|----------|--------------------------------------------------------|
+| secret-name | Yes      | Default secret-name or flag `-s` in `create` command.  |
+| namespace   | Yes      | Kubernetes namespace for the created AivenApplication. |
 
 ```bash
 nais aiven get secret-name namespace -c kcat
@@ -135,8 +137,7 @@ ssl.ca.location=<path to ca certificate>
 security.protocol=ssl
 ```
 
-The generated `kcat.conf` can be used with [kcat](https://github.com/edenhill/kcat) to authenticate against the Aiven
-hosted topics in GCP.
+The generated `kcat.conf` can be used with [kcat](https://github.com/edenhill/kcat) to authenticate against the Aiven hosted topics in GCP.
 
 Read more about kcat.conf [configurable properties](https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md)
 .
