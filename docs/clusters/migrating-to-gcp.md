@@ -191,9 +191,9 @@ If your application stores personally identifiable information in any GCP data s
     | ingress | reachable from zone |
     | :--- | :--- |
     | `<app>.dev.intern.nav.no` | `dev-fss` |
-    | `<app>.dev.nav.no` | `dev-sbs` |
+    | `<app>.dev.nav.no` | `dev-sbs`, `dev-fss` |
     | `<app>.intern.nav.no` | `prod-fss` |
-    | `<app>.nav.no` | `prod-sbs` |
+    | `<app>.nav.no` | internet, i.e. all clusters |
 
     The application on-premises should _not_ have to use webproxy to reach these ingresses.
 
