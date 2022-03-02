@@ -1,14 +1,16 @@
 # aiven command
 
 The aiven command can be used to create a AivenApplication and extract credentials.
-The `aiven create` command will create a Protected & time-limited AivenApplication in your specified namespace.
+The `aiven create service` command will create a Protected & time-limited AivenApplication in your specified namespace.
 This uses your currently configured kubectl context, so in order for it to work you need to select a suitable context first.
 For instance, credentials for nav-prod can only be generated in the prod clusters.
 
 This command will give access to personal but time limited credentials.
-These credentials can be used to debug an Aiven kafka topic.
+These credentials can be used to debug an Aiven kafka topic, or Opensearch instance.
 The `aiven get` command extracts the credentials and puts them in `/tmp` folder.
 The created AivenApplication has sane default (days-to-live) set to 1 day.
+
+## Kafka
 
 To gain access to a specific topic be sure to update your topic resource and topic ACLs.
 Add `username` to `acl.application` field in your topic.yaml and apply to your namespace.
@@ -29,16 +31,19 @@ spec:
 ## create
 
 ```bash
-nais aiven create username namespace
+nais aiven create service username namespace
 ```
 
 | Argument  | Required | Description                                                  |
 |-----------|----------|--------------------------------------------------------------|
+| service   | Yes      | Service to use, Kafka or OpenSearch supported.               |
 | username  | Yes      | Preferred username.                                          |
 | namespace | Yes      | Kubernetes namespace where AivenApplication will be created. |
 
+### Kafka
+
 ```bash
-nais aiven create username namespace -p nav-prod -s some-unique-secretname -e 10
+nais aiven create kafka username namespace -p nav-prod -s some-unique-secretname -e 10
 ```
 
 | Flag        | Required | Short | Default                         | Description                                     |
@@ -46,6 +51,19 @@ nais aiven create username namespace -p nav-prod -s some-unique-secretname -e 10
 | pool        | No       | -p    | nav-dev                         | [Kafka pool](../../persistence/kafka/index.md). |
 | secret-name | No       | -s    | namespace-username-randomstring | Preferred secret-name.                          |
 | expire      | No       | -e    | 1                               | Time in days the secret should be valid.        |
+
+### OpenSearch
+
+```bash
+nais aiven create opensearch username namespace -i instance -a read -s some-unique-secretname -e 10
+```
+
+| Flag        | Required | Short | Default                         | Description                                                         |
+|-------------|----------|-------|---------------------------------|---------------------------------------------------------------------|
+| access      | No       | -a    | read                            | One of: admin, read, write, readwrite.                              |
+| instance    | Yes      | -i    |                                 | Name of the [instance](../../persistence/open-search/#get-your-own). |
+| secret-name | No       | -s    | namespace-username-randomstring | Preferred secret-name.                                              |
+| expire      | No       | -e    | 1                               | Time in days the secret should be valid.                            |
 
 ## get
 
@@ -59,12 +77,12 @@ nais aiven get secret-name namespace
 | namespace   | Yes      | Kubernetes namespace for the created AivenApplication. |
 
 ```bash
-nais aiven get secret-name namespace -c kcat
+nais aiven get secret-name namespace
 ```
 
-| Flag   | Required | Short | Default | Description                                                           |
-|--------|----------|-------|---------|-----------------------------------------------------------------------|
-| config | No       | -c    | all     | Type of config to generated, supported values: java, .env, kcat, all. |
+For Kafka we will create a Java properties file, KCat config file, and an .env file.
+For OpenSearch only .env file will be created.
+All files will ble placed in `/tmp/aiven-secret-`.
 
 ## tidy
 
@@ -78,20 +96,7 @@ nais aiven tidy
 
 After Successful `nais aiven create` and `nais aiven get` commands, a set of files wil be available.
 
-### Configuration
-
-You can specify a configuration `flag` to generate `all | kcat | .env | java`. Default is `all`
-
-#### all
-
-- client.keystore.p12
-- client.truststore.jks
-- kafka-ca.pem
-- kafka-certificate.crt
-- kafka-private-key.pem
-- kafka-secret.env
-- kcat.conf
-- kafka.properties
+### For Kafka
 
 #### .env
 
@@ -184,3 +189,17 @@ ssl.truststore.location=<path to truststore>
 ```
 
 The `kafka.properties` file can be used with the official Kafka command-line tools included in the Kafka distribution, and with many other Java based tools/applications.
+
+### For OpenSearch
+
+#### .env
+
+- opensearch-secret.env
+
+##### opensearch-secret.env file
+
+```Properties
+OPEN_SEARCH_URI_="<uri>"
+OPEN_SEARCH_PASSWORD="<password>"
+OPEN_SEARCH_USER="<username>"
+```
