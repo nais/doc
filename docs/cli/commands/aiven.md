@@ -68,7 +68,7 @@ nais aiven create opensearch username namespace -i instance -a read -s some-uniq
 ## get
 
 ```bash
-nais aiven get secret-name namespace
+nais aiven get kafka secret-name namespace
 ```
 
 | Argument    | Required | Description                                            |
@@ -77,7 +77,7 @@ nais aiven get secret-name namespace
 | namespace   | Yes      | Kubernetes namespace for the created AivenApplication. |
 
 ```bash
-nais aiven get secret-name namespace
+nais aiven get kafka secret-name namespace
 ```
 
 For Kafka we will create a Java properties file, KCat config file, and an .env file.
