@@ -37,10 +37,8 @@ This approach is suitable if:
 Follow these steps:
 
 1. Change producers to write messages both to on-prem and to Aiven
-2. Change consumers to read messages from Aiven, allowing for the fact that some messages will be 
-
+2. Change consumers to read messages from Aiven, allowing for the fact that some messages will be
    processed twice \(once when read from on-prem, once when read from Aiven\)
-
 3. When all consumers are reading from Aiven, remove old code from producer
 
 ## Double consumers
