@@ -1,0 +1,36 @@
+@startuml
+'https://plantuml.com/deployment-diagram
+!theme materia
+
+left to right direction
+
+cloud Metabase
+database BigQuery
+queue "Kafka Rapid" as Kafka
+
+card bq_sink [
+    BigQuery sink river
+    <size:8>BigQuery Client</size>
+]
+card producer1 [
+    Producer 1
+    <size:8>Kafka Client</size>
+]
+card producer2 [
+    Producer 2
+    <size:8>Kafka Client</size>
+]
+card app1 [
+    Non-Kafka app
+    <size:8>BigQuery Client</size>
+]
+
+
+producer1 --> Kafka
+producer2 --> Kafka
+Kafka --> bq_sink
+bq_sink --> BigQuery
+BigQuery <-- Metabase
+app1 --> BigQuery
+
+@enduml

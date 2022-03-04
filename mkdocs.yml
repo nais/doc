@@ -23,6 +23,9 @@ extra_css:
   - material_theme_stylesheet_overrides/uu.css
 plugins:
   - search
+  - build_plantuml:
+      output_format: "svg"
+      input_extensions: "puml"
 markdown_extensions:
   - toc:
       permalink: True
