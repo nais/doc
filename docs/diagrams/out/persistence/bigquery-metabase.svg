@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="219.7917px" preserveAspectRatio="none" style="width:881px;height:219px;background:#00000000;" version="1.1" viewBox="0 0 881 219" width="881.25px" zoomAndPan="magnify"><defs><linearGradient id="gaxgshl64qhey0" x1="50%" x2="50%" y1="0%" y2="100%"><stop offset="0%" stop-color="#F2FCFE"/><stop offset="100%" stop-color="#EEEEEE"/></linearGradient><filter height="300%" id="faxgshl64qhey" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0833333333333335"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.166666666666667" dy="4.166666666666667" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter><linearGradient id="gaxgshl64qhey1" x1="50%" x2="50%" y1="0%" y2="100%"><stop offset="0%" stop-color="#4DABF5"/><stop offset="100%" stop-color="#2196F3"/></linearGradient><linearGradient id="gaxgshl64qhey2" x1="50%" x2="50%" y1="0%" y2="100%"><stop offset="0%" stop-color="#B052C0"/><stop offset="100%" stop-color="#9C27B0"/></linearGradient></defs><g><!--MD5=[633a4c6592f0035e0725e0dfdccc51a8]
+entity Metabase--><g id="elem_Metabase"><path d="M763.7029,108.4798 C767.7663,102.697 772.192,102.4624 777.047,107.5041 C781.4373,101.1107 785.7003,101.8787 789.9764,107.6257 C793.1224,102.7698 796.6929,102.8775 800.494,106.8448 C802.2458,99.2447 808.7343,98.9145 813.3506,103.9242 C818.1533,97.8006 823.663,99.816 825.9565,106.4111 C830.3508,100.6614 833.9733,100.6606 837.6298,107.1167 C841.72,102.695 847.1292,103.6523 849.329,109.3107 C853.9894,104.4149 858.3495,103.7634 861.9127,110.4979 C867.7975,113.2978 867.8974,118.5552 862.2634,121.7152 C868.2028,124.768 869.261,131.2218 863.3156,135.2018 C868.5271,140.1219 867.9113,143.5135 861.2958,146.2765 C867.736,150.3824 867.7845,155.1476 861.9314,159.8301 C859.0307,165.2775 853.6712,166.8988 849.763,160.9012 C846.698,168.2958 840.5327,168.6753 836.2042,162.1302 C833.332,167.2407 829.1743,167.845 826.0504,162.3716 C822.9486,169.5574 816.6525,169.8274 812.2528,163.7186 C808.5416,168.4851 803.9397,168.1554 801.4181,162.4839 C797.1756,169.294 791.3778,168.1679 788.2613,161.3934 C783.8754,167.0214 778.8648,166.1417 775.8492,159.9539 C772.4958,165.0686 767.6389,165.7792 763.9967,160.2763 C757.3624,157.1141 757.4279,151.2694 763.0285,147.2011 C757.6919,143.8632 757.2052,138.1554 763.0018,134.7935 C755.9962,130.9282 756.7141,125.9266 762.7283,121.7875 C756.4963,117.8546 758.0647,111.5435 763.7029,108.4798 " fill="url(#gaxgshl64qhey0)" filter="url(#faxgshl64qhey)" style="stroke:#F2FCFE;stroke-width:1.0416666666666667;"/><text fill="#222222" font-family="&quot;Verdana&quot;" font-size="12.5" lengthAdjust="spacing" textLength="61.4583" x="781.25" y="137.6444">Metabase</text></g><!--MD5=[cec4048bf136b712678d084f71899b2d]
+entity BigQuery--><g id="elem_BigQuery"><path d="M592.7083,110.9375 C592.7083,100.5208 642.7083,100.5208 642.7083,100.5208 C642.7083,100.5208 692.7083,100.5208 692.7083,110.9375 L692.7083,155.6966 C692.7083,166.1133 642.7083,166.1133 642.7083,166.1133 C642.7083,166.1133 592.7083,166.1133 592.7083,155.6966 L592.7083,110.9375 " fill="url(#gaxgshl64qhey1)" filter="url(#faxgshl64qhey)" style="stroke:#2196F3;stroke-width:1.0416666666666667;"/><path d="M592.7083,110.9375 C592.7083,121.3542 642.7083,121.3542 642.7083,121.3542 C642.7083,121.3542 692.7083,121.3542 692.7083,110.9375 " fill="none" style="stroke:#2196F3;stroke-width:1.0416666666666667;"/><text fill="#222222" font-family="&quot;Verdana&quot;" font-size="12.5" lengthAdjust="spacing" textLength="58.3333" x="613.5417" y="147.5403">BigQuery</text></g><!--MD5=[59ceac3e1bb6f0ece56988f2042cffc2]
+entity Kafka--><g id="elem_Kafka"><path d="M195.8333,65.625 L300,65.625 C305.2083,65.625 305.2083,88.5254 305.2083,88.5254 C305.2083,88.5254 305.2083,111.4258 300,111.4258 L195.8333,111.4258 C190.625,111.4258 190.625,88.5254 190.625,88.5254 C190.625,88.5254 190.625,65.625 195.8333,65.625 " fill="url(#gaxgshl64qhey1)" filter="url(#faxgshl64qhey)" style="stroke:#2196F3;stroke-width:1.0416666666666667;"/><path d="M300,65.625 C294.7917,65.625 294.7917,88.5254 294.7917,88.5254 C294.7917,111.4258 300,111.4258 300,111.4258 " fill="none" style="stroke:#2196F3;stroke-width:1.0416666666666667;"/><text fill="#FFFFFF" font-family="&quot;Verdana&quot;" font-size="12.5" lengthAdjust="spacing" textLength="72.9167" x="206.25" y="92.8528">Kafka Rapid</text></g><!--MD5=[d268dfbd51d7e0491b6c4af726bbd868]
+entity bq_sink--><g id="elem_bq_sink"><rect fill="url(#gaxgshl64qhey2)" filter="url(#faxgshl64qhey)" height="52.0508" rx="4.1667" ry="4.1667" style="stroke:#9C27B0;stroke-width:1.0416666666666667;" width="162.5" x="367.7083" y="62.5"/><text fill="#FFFFFF" font-family="&quot;Verdana&quot;" font-size="12.5" lengthAdjust="spacing" textLength="120.8333" x="388.5417" y="87.6444">BigQuery sink river</text><text fill="#FFFFFF" font-family="&quot;Verdana&quot;" font-size="8.3333" lengthAdjust="spacing" textLength="68.75" x="388.5417" y="98.3276">BigQuery Client</text></g><!--MD5=[a72c47cdc6bb8f555d842274f043e0a4]
+entity producer1--><g id="elem_producer1"><rect fill="url(#gaxgshl64qhey2)" filter="url(#faxgshl64qhey)" height="52.0508" rx="4.1667" ry="4.1667" style="stroke:#9C27B0;stroke-width:1.0416666666666667;" width="109.375" x="18.2292" y="17.7083"/><text fill="#FFFFFF" font-family="&quot;Verdana&quot;" font-size="12.5" lengthAdjust="spacing" textLength="67.7083" x="39.0625" y="42.8528">Producer 1</text><text fill="#FFFFFF" font-family="&quot;Verdana&quot;" font-size="8.3333" lengthAdjust="spacing" textLength="54.1667" x="39.0625" y="53.536">Kafka Client</text></g><!--MD5=[3e34b956f241c65904223a8e6a5dfc9f]
+entity producer2--><g id="elem_producer2"><rect fill="url(#gaxgshl64qhey2)" filter="url(#faxgshl64qhey)" height="52.0508" rx="4.1667" ry="4.1667" style="stroke:#9C27B0;stroke-width:1.0416666666666667;" width="110.4167" x="17.7083" y="106.25"/><text fill="#FFFFFF" font-family="&quot;Verdana&quot;" font-size="12.5" lengthAdjust="spacing" textLength="68.75" x="38.5417" y="131.3944">Producer 2</text><text fill="#FFFFFF" font-family="&quot;Verdana&quot;" font-size="8.3333" lengthAdjust="spacing" textLength="54.1667" x="38.5417" y="142.0776">Kafka Client</text></g><!--MD5=[019f6774f902f72c488c9dcee70d4d6c]
+entity app1--><g id="elem_app1"><rect fill="url(#gaxgshl64qhey2)" filter="url(#faxgshl64qhey)" height="52.0508" rx="4.1667" ry="4.1667" style="stroke:#9C27B0;stroke-width:1.0416666666666667;" width="133.3333" x="382.2917" y="151.0417"/><text fill="#FFFFFF" font-family="&quot;Verdana&quot;" font-size="12.5" lengthAdjust="spacing" textLength="91.6667" x="403.125" y="176.1861">Non-Kafka app</text><text fill="#FFFFFF" font-family="&quot;Verdana&quot;" font-size="8.3333" lengthAdjust="spacing" textLength="68.75" x="403.125" y="186.8693">BigQuery Client</text></g><!--MD5=[e749cf2317fe09cb1cfbe442f6f1e415]
+link producer1 to Kafka--><g id="link_producer1_Kafka"><path d="M127.7219,57.6771 C145.9375,62.3948 166.4229,67.701 185.2031,72.5667 " fill="none" id="producer1-to-Kafka" style="stroke:#2196F3;stroke-width:3.125;"/><polygon fill="#2196F3" points="190.4521,73.926,182.4204,67.543,185.4099,72.6209,180.3321,75.6104,190.4521,73.926" style="stroke:#2196F3;stroke-width:3.125;"/></g><!--MD5=[9cd7ce266f494e629ef18eb3968d7d00]
+link producer2 to Kafka--><g id="link_producer2_Kafka"><path d="M128.1958,118.569 C146.3021,113.9877 166.6094,108.8499 185.2365,104.137 " fill="none" id="producer2-to-Kafka" style="stroke:#2196F3;stroke-width:3.125;"/><polygon fill="#2196F3" points="190.4427,102.8198,180.3318,101.0814,185.3937,104.098,182.377,109.1598,190.4427,102.8198" style="stroke:#2196F3;stroke-width:3.125;"/></g><!--MD5=[828544d6cb4f83e58cf9b217020d9462]
+link Kafka to bq_sink--><g id="link_Kafka_bq_sink"><path d="M305.4396,88.5417 C323.0813,88.5417 342.9573,88.5417 362.1406,88.5417 " fill="none" id="Kafka-to-bq_sink" style="stroke:#2196F3;stroke-width:3.125;"/><polygon fill="#2196F3" points="367.5302,88.5417,358.1552,84.375,362.3219,88.5417,358.1552,92.7083,367.5302,88.5417" style="stroke:#2196F3;stroke-width:3.125;"/></g><!--MD5=[f85bca38f3a21ae93f2ad7f07095331c]
+link bq_sink to BigQuery--><g id="link_bq_sink_BigQuery"><path d="M530.451,107.3427 C549.576,111.8122 569.5406,116.4777 587.1896,120.6022 " fill="none" id="bq_sink-to-BigQuery" style="stroke:#2196F3;stroke-width:3.125;"/><polygon fill="#2196F3" points="592.5885,121.8641,584.4086,115.6721,587.517,120.6781,582.5111,123.7865,592.5885,121.8641" style="stroke:#2196F3;stroke-width:3.125;"/></g><!--MD5=[049702028a4f1d4e5ef92f6e3f42bde2]
+reverse link BigQuery to Metabase--><g id="link_BigQuery_Metabase"><path d="M698.5542,133.3333 C716.6542,133.3333 736.8063,133.3333 754.9906,133.3333 " fill="none" id="BigQuery-backto-Metabase" style="stroke:#2196F3;stroke-width:3.125;"/><polygon fill="#2196F3" points="693.0073,133.3333,702.3823,137.5,698.2156,133.3333,702.3823,129.1667,693.0073,133.3333" style="stroke:#2196F3;stroke-width:3.125;"/></g><!--MD5=[18dda4f0a49ccb99df63f547a4dab1dd]
+link app1 to BigQuery--><g id="link_app1_BigQuery"><path d="M515.6927,162.0882 C539.0677,156.7526 565.1073,150.8089 587.4167,145.7166 " fill="none" id="app1-to-BigQuery" style="stroke:#2196F3;stroke-width:3.125;"/><polygon fill="#2196F3" points="592.7063,144.509,582.639,142.5334,587.6286,145.6682,584.4938,150.6577,592.7063,144.509" style="stroke:#2196F3;stroke-width:3.125;"/></g><!--MD5=[de5915d779c3e81ffbffedc8dbf0fea1]
+@startuml
+'https://plantuml.com/deployment-diagram
+!theme materia
+
+left to right direction
+
+cloud Metabase
+database BigQuery
+queue "Kafka Rapid" as Kafka
+
+card bq_sink [
+BigQuery sink river
+<size:8>BigQuery Client</size>
+]
+card producer1 [
+Producer 1
+<size:8>Kafka Client</size>
+]
+card producer2 [
+Producer 2
+<size:8>Kafka Client</size>
+]
+card app1 [
+Non-Kafka app
+<size:8>BigQuery Client</size>
+]
+
+
+producer1 - -> Kafka
+producer2 - -> Kafka
+Kafka - -> bq_sink
+bq_sink - -> BigQuery
+BigQuery <- - Metabase
+app1 - -> BigQuery
+@enduml
+
+@startuml
+
+
+
+skinparam backgroundColor transparent
+skinparam useBetaStyle false
+
+
+
+
+
+
+<style>
+  root {
+    BackgroundColor transparent
+    FontColor #FFF
+    HyperLinkColor #fd7e14
+    LineColor #1a78c2
+    LineThickness 1
+    Margin 10
+    Padding 6
+    Shadowing 0.0
+  }
+  node {
+   Padding 15
+   roundcorner 20
+   BackgroundColor #2196F3-#1a78c2
+  }
+  caption {
+    LineThickness 0
+  }
+  footer {
+    LineThickness 0
+  }
+  groupHeader {
+    BackgroundColor #fff
+    FontColor #9C27B0
+    FontStyle bold
+  }
+  header {
+    LineThickness 0
+  }
+  referenceHeader {
+    BackgroundColor transparent
+    FontColor #222
+    FontStyle bold
+  }
+  separator {
+    BackgroundColor #222
+    FontColor transparent
+    FontStyle bold
+  }
+  title {
+	FontSize 20
+	BorderRoundCorner            8
+	BorderThickness 	         1
+	BackgroundColor  #fff-#fff
+	FontColor #2196F3
+	BorderColor #fff
+  }
+  nwdiagDiagram {
+	network {
+			FontColor #FFF
+	BorderColor #2196F3
+	BackgroundColor #4dabf5-#2196F3    
+		LineColor #2196F3
+		LineThickness 1.0
+		FontColor #1a78c2
+	}
+	server {
+			FontColor #FFF
+	BorderColor #2196F3
+	BackgroundColor #4dabf5-#2196F3
+	}
+	arrow {
+		FontColor #1a78c2
+		LineColor #1a78c2
+	}
+	group {
+		BackGroundColor #fff
+		LineColor $LIGHT_DARK
+		LineThickness 2.0
+		Margin 5
+		Padding 5
+	}
+  }
+  ganttDiagram {
+	task {
+			FontColor #FFF
+	BorderColor #2196F3
+	BackgroundColor #4dabf5-#2196F3
+		LineColor #2196F3
+		Margin 10
+		Padding 6
+	}
+	note {
+		FontColor #FFF
+		LineColor #7D1F8D
+		BackGroundColor #9C27B0
+	}
+	separator {
+		LineColor #fff
+		BackGroundColor #fff-#cccccc
+		FontColor #222
+	}
+	milestone {
+		FontColor #9C27B0
+		FontSize 16
+		FontStyle italic
+		BackGroundColor #fff
+		LineColor #cccccc
+	}
+	timeline {
+		BackgroundColor #fff
+		FontColor #222
+	}
+	closed {
+		BackgroundColor #CC7A00
+		FontColor #FFF
+	}
+  }
+</style>
+skinparam defaultFontName       "Verdana"
+skinparam defaultFontSize       12
+skinparam dpi                   100
+skinparam shadowing             true
+skinparam roundcorner           8
+skinparam ParticipantPadding    40
+skinparam BoxPadding            40
+skinparam Padding               10
+skinparam ArrowColor            #666
+skinparam stereotype {
+    CBackgroundColor #fff
+    CBorderColor #cccccc
+    ABackgroundColor #70bf73
+    ABorderColor #3D8C40
+    IBackgroundColor #B7161C
+    IBorderColor #b7161c
+    EBackgroundColor #ffad33
+    EBorderColor #CC7A00
+    NBackgroundColor #b052c0
+    NBorderColor #7D1F8D
+}
+skinparam title {
+	FontColor	                 #2196F3
+	BorderColor	                 #cccccc
+	FontSize	    	         20
+	BorderRoundCorner            8
+	BorderThickness 	         1
+	BackgroundColor              #fff-#fff
+}
+
+skinparam legend {
+	BackgroundColor #fff
+	BorderColor #cccccc
+	FontColor #222
+}
+
+skinparam swimlane {
+	BorderColor #9C27B0
+	BorderThickness 2
+	TitleBackgroundColor  #fff-#fff
+	TitleFontColor #2196F3
+}
+
+
+skinparam activity {
+		FontColor #FFF
+	BorderColor #2196F3
+	BackgroundColor #4dabf5-#2196F3
+	BarColor #4CAF50
+	StartColor #9C27B0
+	EndColor #9C27B0
+	DiamondBackgroundColor #FFF-#fff
+  	DiamondBorderColor #cccccc
+	DiamondFontColor #222
+}
+
+
+skinparam participant {
+		FontColor #FFF
+	BorderColor #2196F3
+	BackgroundColor #4dabf5-#2196F3
+	ParticipantBorderThickness 2
+}
+
+
+skinparam actor {
+		FontColor #FFF
+	BorderColor #2196F3
+	BackgroundColor #4dabf5-#2196F3
+	FontColor #222
+}
+
+
+skinparam arrow {
+	Thickness 3
+	Color #2196F3
+	FontColor #222
+}
+
+
+skinparam sequence {
+	BorderColor #2196F3
+	TitleFontColor #2196F3
+	BackgroundColor transparent
+	StartColor #2196F3
+	EndColor #2196F3
+	BoxBackgroundColor #fff
+	BoxBorderColor #666
+	BoxFontColor #222
+	DelayFontColor #222
+	LifeLineBorderColor #cccccc
+	LifeLineBorderThickness 2
+	LifeLineBackgroundColor #fff
+	GroupBorderColor #666
+	GroupFontColor #222
+	GroupHeaderFontColor #9C27B0
+	DividerBackgroundColor #FFF-#fff
+    DividerBorderColor #666
+    DividerBorderThickness 2
+    DividerFontColor #222
+	ReferenceBackgroundColor transparent
+	ReferenceBorderColor #666
+	ReferenceFontColor #222
+	ReferenceHeaderFontColor #9C27B0
+	StereotypeFontColor #FFF
+}
+
+
+skinparam partition {
+	BorderColor #2196F3
+	FontColor #2196F3
+	BackgroundColor transparent
+}
+
+
+skinparam collections {
+		FontColor #FFF
+	BorderColor #2196F3
+	BackgroundColor #4dabf5-#2196F3
+}
+
+
+skinparam control {
+		FontColor #FFF
+	BorderColor #2196F3
+	BackgroundColor #4dabf5-#2196F3
+	FontColor #222
+}
+
+
+skinparam entity {
+		FontColor #FFF
+	BorderColor #2196F3
+	BackgroundColor #4dabf5-#2196F3
+	FontColor #222
+}
+
+
+skinparam boundary {
+		FontColor #FFF
+	BorderColor #2196F3
+	BackgroundColor #4dabf5-#2196F3
+	FontColor #222
+}
+
+
+skinparam agent {
+	BackgroundColor #orange
+	BorderColor #999999
+	FontColor #333333
+}
+
+
+skinparam note {
+	BorderThickness 1
+	BackgroundColor #b052c0-#9C27B0
+	BorderColor #9C27B0
+	FontColor #FFF
+}
+
+
+skinparam artifact {
+	BackgroundColor #FFF-#fff
+	BorderColor #666
+	FontColor #666
+}
+
+
+skinparam component {
+		FontColor #FFF
+	BorderColor #2196F3
+	BackgroundColor #4dabf5-#2196F3
+}
+
+
+skinparam interface {
+	BackgroundColor  #B7161C
+	BorderColor  #e51c23
+	FontColor #222
+}
+
+
+skinparam storage {
+	BackgroundColor #ffad33-#ff9800
+  	BorderColor #ff9800
+	FontColor #FFF
+}
+
+
+skinparam node {
+	BackgroundColor #fff-#fff
+	BorderColor #222
+	FontColor #222
+}
+
+
+skinparam cloud {
+	BackgroundColor #F2FCFE-#eeeeee
+	BorderColor #F2FCFE
+	FontColor #222
+}
+
+
+skinparam database {
+		FontColor #FFF
+	BorderColor #2196F3
+	BackgroundColor #4dabf5-#2196F3
+	FontColor #222
+}
+
+
+skinparam class {
+		FontColor #FFF
+	BorderColor #2196F3
+	BackgroundColor #4dabf5-#2196F3
+	HeaderBackgroundColor #2196F3-#1a78c2
+	StereotypeFontColor #222
+	BorderThickness 1
+	AttributeFontColor #fff
+	AttributeFontSize 11
+}
+
+
+skinparam object {
+		FontColor #FFF
+	BorderColor #2196F3
+	BackgroundColor #4dabf5-#2196F3
+	StereotypeFontColor #222
+	BorderThickness 1
+	AttributeFontColor #222
+	AttributeFontSize 11
+}
+
+
+skinparam usecase {
+		FontColor #FFF
+	BorderColor #2196F3
+	BackgroundColor #4dabf5-#2196F3
+	BorderThickness 2
+	StereotypeFontColor #2196F3
+}
+
+
+skinparam rectangle {
+	FontColor #2196F3
+	BackgroundColor #fff-#fff
+	BorderThickness 2
+	StereotypeFontColor #2196F3
+}
+
+
+skinparam package {
+		FontColor #FFF
+	BorderColor #2196F3
+	BackgroundColor #4dabf5-#2196F3
+	BackgroundColor #fff-#fff
+	BorderThickness 2
+}
+
+
+skinparam folder {
+	BackgroundColor #FFF-#fff
+  	BorderColor #ff9800
+	FontColor #ff9800
+	BorderThickness 2
+}
+
+
+skinparam frame {
+	BackgroundColor #FFF-#fff
+  	BorderColor #9C27B0
+	FontColor #9C27B0
+	BorderThickness 2
+}
+
+
+skinparam state {
+		FontColor #FFF
+	BorderColor #2196F3
+	BackgroundColor #4dabf5-#2196F3
+	BorderColor #1a78c2
+	StartColor #9C27B0
+	EndColor #9C27B0
+	AttributeFontColor #222
+	AttributeFontSize 11
+}
+
+
+skinparam queue {
+		FontColor #FFF
+	BorderColor #2196F3
+	BackgroundColor #4dabf5-#2196F3
+}
+
+
+skinparam card {
+	BackgroundColor #b052c0-#9C27B0
+	BorderColor #9C27B0
+	FontColor #FFF
+}
+
+
+skinparam file {
+	BackgroundColor #fff-#fff
+	BorderColor #666
+	FontColor #666
+
+}
+
+
+skinparam stack {
+		FontColor #FFF
+	BorderColor #2196F3
+	BackgroundColor #4dabf5-#2196F3
+}
+
+left to right direction
+
+cloud Metabase
+database BigQuery
+queue "Kafka Rapid" as Kafka
+
+card bq_sink [
+BigQuery sink river
+<size:8>BigQuery Client</size>
+]
+card producer1 [
+Producer 1
+<size:8>Kafka Client</size>
+]
+card producer2 [
+Producer 2
+<size:8>Kafka Client</size>
+]
+card app1 [
+Non-Kafka app
+<size:8>BigQuery Client</size>
+]
+
+
+producer1 - -> Kafka
+producer2 - -> Kafka
+Kafka - -> bq_sink
+bq_sink - -> BigQuery
+BigQuery <- - Metabase
+app1 - -> BigQuery
+@enduml
+
+PlantUML version 1.2022.2beta11(Unknown compile time)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
