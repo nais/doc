@@ -12,7 +12,7 @@ It's also possible to password protect the Redis instance with some configuratio
 
 ## How to
 
-Redis can be run as a normal NAIS application. This means that you can only run single instances that are not scalable; increasing replicas will only start new databases that are not synced. Contact [@Kyrre.Havik.Eriksen](https://nav-it.slack.com/messages/D8QQ9ELK1) if you need High Availability-Redis.
+Redis can be run as a normal NAIS application. This means that you can only run single instances that are not scalable; increasing replicas will only start new databases that are not synced. Contact [@Kyrre.Havik](https://nav-it.slack.com/messages/D8QQ9ELK1) if you need High Availability-Redis.
 
 ### Example deployments
 
