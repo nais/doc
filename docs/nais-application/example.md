@@ -92,9 +92,6 @@ spec:
   - value
   - --other-param
   - other-value
-  elastic:
-    access: readwrite
-    instance: my-elastic-instance
   env:
   - name: MY_CUSTOM_VAR
     value: some_value

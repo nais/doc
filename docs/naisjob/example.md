@@ -86,9 +86,6 @@ spec:
   - other-value
   completions: 1
   concurrencyPolicy: Allow
-  elastic:
-    access: readwrite
-    instance: my-elastic-instance
   env:
   - name: MY_CUSTOM_VAR
     value: some_value

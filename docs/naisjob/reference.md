@@ -896,47 +896,6 @@ Allowed values: `Allow`, `Forbid`, `Replace`<br />
       concurrencyPolicy: Allow
     ```
 
-## elastic
-To get your own Elastic Search instance head over to the IaC-repo to provision each instance. See [navikt/aiven-iac](https://github.com/navikt/aiven-iac) repository
-
-Type: `object`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      elastic:
-        access: readwrite
-        instance: my-elastic-instance
-    ```
-
-### elastic.access
-Access level for elastic user
-
-Type: `enum`<br />
-Required: `false`<br />
-Allowed values: `admin`, `read`, `readwrite`, `write`<br />
-
-??? example
-    ``` yaml
-    spec:
-      elastic:
-        access: readwrite
-    ```
-
-### elastic.instance
-Provisions an Elasticsearch instance and configures your application so it can access it. Use the `instance_name` that you specified in the [navikt/aiven-iac](https://github.com/navikt/aiven-iac) repository.
-
-Type: `string`<br />
-Required: `true`<br />
-
-??? example
-    ``` yaml
-    spec:
-      elastic:
-        instance: my-elastic-instance
-    ```
-
 ## env
 Custom environment variables injected into your container. Specify either `value` or `valueFrom`, but not both.
 
