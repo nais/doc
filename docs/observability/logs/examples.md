@@ -70,22 +70,22 @@ The max log message size in Docker is 16KB, so if it will be split into parts if
   <dependency>
     <groupId>org.apache.logging.log4j</groupId>
     <artifactId>log4j-api</artifactId>
-    <version>2.15.0</version>
+    <version>2.17.2</version>
   </dependency>
   <dependency>
     <groupId>org.apache.logging.log4j</groupId>
     <artifactId>log4j-core</artifactId>
-    <version>2.15.0</version>
+    <version>2.17.2</version>
   </dependency>
   <dependency>
     <groupId>org.apache.logging.log4j</groupId>
     <artifactId>log4j-layout-template-json</artifactId>
-    <version>2.15.0</version>
+    <version>2.17.2</version>
   </dependency>
   <dependency>
     <groupId>org.apache.logging.log4j</groupId>
     <artifactId>log4j-slf4j-impl</artifactId>
-    <version>2.15.0</version>
+    <version>2.17.2</version>
   </dependency>
   <dependency>
     <groupId>org.slf4j</groupId>
