@@ -81,11 +81,6 @@ spec:
       autoLogin: true
       enabled: true
       errorPath: /error
-  cleanup:
-    enabled: true
-    gracePeriod: 24h
-    strategy:
-    - downscale
   command:
   - /app/myapplication
   - --param

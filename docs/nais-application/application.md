@@ -895,65 +895,6 @@ Required: `false`<br />
           errorPath: /error
     ```
 
-## cleanup
-Configuration for automatic cleanup of failing pods
-
-Type: `object`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      cleanup:
-        enabled: true
-        gracePeriod: 24h
-        strategy:
-          - downscale
-    ```
-
-### cleanup.enabled
-Enables automatic cleanup Default: `true`
-
-Type: `boolean`<br />
-Required: `true`<br />
-
-??? example
-    ``` yaml
-    spec:
-      cleanup:
-        enabled: true
-    ```
-
-### cleanup.gracePeriod
-Default: `24h`
-
-Type: `string`<br />
-Required: `false`<br />
-Pattern: `^[0-9]+h$`<br />
-
-??? example
-    ``` yaml
-    spec:
-      cleanup:
-        gracePeriod: 24h
-    ```
-
-### cleanup.strategy
-Strategy sets how a deployment might be handled. Setting this to an empty list is equivalent to setting `enabled: false`. Default: `["abort-rollout", "downscale"]`. 
- - `abort-rollout`: if new pods in a deployment are failing, but previous pods from the previous working    revision are still running, Babylon can roll the deployment back to the working revision,    aborting the rollout. 
- - `downscale`: if all pods in a deployment are failing, Babylon will set replicaset to 0
-
-Type: `array`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      cleanup:
-        strategy:
-          - downscale
-    ```
-
 ## command
 Override command when starting Docker image.
 
