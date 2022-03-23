@@ -15,10 +15,10 @@ Currently, use the `nav-dev` pool for development, and `nav-prod` for production
 If you need cross-environment communications, use the `nav-infrastructure` pool, but please consult the NAIS team before you do.
 
 | Pool | Min. replication | Max. replication | Topic declared in | Available from |
-| :--- | :--- | :--- | :--- | :--- |
-| `nav-dev` | 2 | 3 | `dev-gcp` | `dev-gcp`, `dev-fss`, `dev-sbs` |
-| `nav-prod` | 2 | 3 | `prod-gcp` | `prod-gcp`, `prod-fss`, `prod-sbs` |
-| `nav-infrastructure` | 2 | 3 | `prod-gcp` | `dev-gcp`, `dev-fss`, `dev-sbs`, `prod-gcp`, `prod-fss`, `prod-sbs` |
+| :--- | :--- |:-----------------| :--- | :--- |
+| `nav-dev` | 2 | 3                | `dev-gcp` | `dev-gcp`, `dev-fss`, `dev-sbs` |
+| `nav-prod` | 2 | 9                | `prod-gcp` | `prod-gcp`, `prod-fss`, `prod-sbs` |
+| `nav-infrastructure` | 2 | 3                | `prod-gcp` | `dev-gcp`, `dev-fss`, `dev-sbs`, `prod-gcp`, `prod-fss`, `prod-sbs` |
 
 ### ACLs
 
@@ -45,7 +45,7 @@ Be aware that due to the way ACLs are generated and length limits, the ends of l
       pool: nav-dev
       config:  # optional; all fields are optional too; defaults shown
         cleanupPolicy: delete  # delete, compact, compact,delete
-        minimumInSyncReplicas: 1
+        minimumInSyncReplicas: 2
         partitions: 1
         replication: 3  # see min/max requirements
         retentionBytes: -1  # -1 means unlimited
