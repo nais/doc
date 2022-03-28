@@ -666,7 +666,11 @@ Required: `true`<br />
     ```
 
 #### azure.application.allowAllUsers
-AllowAllUsers denotes whether or not all users within the tenant should be allowed to access this AzureAdApplication. If undefined will default to `true` when Spec.Claims.Groups is undefined, and `false` if Spec,Claims.Groups is defined.
+AllowAllUsers denotes whether or not all users within the tenant should be allowed to access this AzureAdApplication. If undefined will default to `true` when Spec.Claims.Groups is undefined, and `false` if Spec.Claims.Groups is defined.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/azure-ad/access-policy#users](https://doc.nais.io/security/auth/azure-ad/access-policy#users)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -790,10 +794,15 @@ Required: `false`<br />
     ```
 
 #### azure.application.singlePageApplication
-SinglePageApplication denotes whether or not this Azure AD application should be registered as a single-page-application.
+SinglePageApplication denotes whether or not this Azure AD application should be registered as a single-page-application for usage in client-side applications without access to secrets.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/azure-ad/configuration#single-page-application](https://doc.nais.io/security/auth/azure-ad/configuration#single-page-application)
 
 Type: `boolean`<br />
 Required: `false`<br />
+Default value: `false`<br />
 
 ??? example
     ``` yaml
