@@ -169,8 +169,6 @@ The following describes the contract for usage of the sidecar.
 
 #### Token Validation
 
-Your application should also validate the claims and signature for the Azure AD JWT `access_token` attached by the sidecar.
-
-That is, validate the standard claims such as `iss`, `iat`, `exp`, and `aud`.
+Your application should also [validate the claims and signature](../concepts/tokens.md#token-validation) for the Azure AD JWT `access_token` attached by the sidecar.
 
 `aud` must be equal to [your application's client ID](usage.md#azure_app_client_id) in Azure AD.

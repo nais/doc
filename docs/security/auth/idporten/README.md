@@ -165,14 +165,14 @@ If you wish to use a different path than the default, you may do so by manually 
 
 ### Client Authentication
 
-All ID-porten clients in NAV **must** use _"client assertions"_ when authenticating itself with ID-porten. That is,
-ID-porten will only accept the `private_key_jwt` client authentication method as described in [OpenID Connect Core 1.0, 9. Client Authentication](https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication).
-
-In order to perform this client authentication, you must first [create a client assertion](https://docs.digdir.no/docs/idporten/oidc/oidc_protocol_token#client-authentication-using-jwt-token) - which is a [JWT grant](https://docs.digdir.no/docs/idporten/oidc/oidc_protocol_jwtgrant).
+All ID-porten clients in NAV **must** use [client assertions](../concepts/actors.md#client-assertion) when 
+authenticating itself with ID-porten. In order to perform this client authentication, you must first 
+[create a client assertion](https://docs.digdir.no/docs/idporten/oidc/oidc_protocol_token#client-authentication-using-jwt-token)
+as specified by ID-porten.
 
 Notes:
 
-- Set the **`kid`** header claim. The value for this is found in the JWK ([JSON Web Key](https://datatracker.ietf.org/doc/html/rfc7517)) belonging to your client, i.e. `IDPORTEN_CLIENT_JWK`. This JWK also contains a private key that you must use to sign the JWT grant.
+- Set the **`kid`** header claim. The value for this is found in the [private JWK](../concepts/cryptography.md#private-keys) belonging to your client, i.e. `IDPORTEN_CLIENT_JWK`. This JWK must also be used to sign the JWT grant.
 - Do not set the `x5c` header claim.
 - Ensure that the **`aud`** claim is equal to the **`issuer`** value found in the [metadata/discovery document](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata) (hosted at `IDPORTEN_WELL_KNOWN_URL`)
 
@@ -186,7 +186,7 @@ The following environment variables and files \(under the directory `/var/run/se
 
 ???+ note
 
-    ID-porten client ID. Unique ID for the application in ID-porten.
+    [Client ID](../concepts/actors.md#client-id) that uniquely identifies the application in ID-porten.
 
     Example value: `e89006c5-7193-4ca3-8e26-d0990d9d981f`
 
@@ -196,7 +196,7 @@ The following environment variables and files \(under the directory `/var/run/se
 
 ???+ note
 
-    Private JWK containing the private RSA key for creating signed JWTs when [authenticating to ID-porten with a JWT grant](https://docs.digdir.no/oidc_protocol_token.html#client-authentication-using-jwt-token).
+    [Private JWK](../concepts/cryptography.md#private-keys) containing an RSA key belonging to your client. Used to sign client assertions during [client authentication](#client-authentication).
 
     ```javascript
     {
@@ -231,13 +231,9 @@ The following environment variables and files \(under the directory `/var/run/se
 
 ???+ note
 
-    The well-known URL for the OIDC metadata discovery document for ID-porten.
+    The well-known URL for the [OIDC metadata discovery document](../concepts/actors.md#well-known-url-metadata-document) for ID-porten.
 
     Example value: `https://oidc-ver2.difi.no/idporten-oidc-provider/.well-known/openid-configuration`
-
-### Test Users for Logins
-
-ID-porten maintains a public list of test users found [here](https://docs.digdir.no/idporten_testbrukere.html).
 
 ## Permanently deleting a client
 

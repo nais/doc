@@ -97,9 +97,6 @@ The above configuration authorizes the following applications:
 
 ## Usage
 
-!!! info
-    **See the** [**NAV Security Guide**](https://security.labs.nais.io/pages/idp/tokenx.html) **for NAV-specific usage.**
-
 ### Runtime Variables & Credentials
 
 Enabling TokenX will expose the following runtime environment variables and files \(under the directory `/var/run/secrets/nais.io/jwker`\) for your application:
@@ -110,20 +107,16 @@ Enabling TokenX will expose the following runtime environment variables and file
 
 ???+ note
 
-    The well-known URL of the OAuth 2.0 Token Exchange authorization server, in this case Tokendings. This URL contains the server metadata as defined in [RFC8414](https://tools.ietf.org/html/rfc8414) that your application may use. For example:
+    The well-known URL for the OAuth 2.0 Token Exchange authorization server (in this case, Tokendings) [metadata document](concepts/actors.md#well-known-url-metadata-document).
 
-    * `issuer`
-    * `token_endpoint`
-    * `jwks_uri`
-
-    See [OAuth 2.0 Authorization Server Metadata](https://tools.ietf.org/html/rfc8414) for more information about the contents of the response from the well-known url.
-
+    Example value: `https://tokendings.dev-gcp.nais.io/.well-known/oauth-authorization-server`
 ---
 
 #### `TOKEN_X_CLIENT_ID`
 
 ???+ note
-    Unique `client_id` that identifies your application. using the following naming scheme:
+    
+    [Client ID](concepts/actors.md#client-id) that uniquely identifies the application in TokenX. It has the following naming scheme:
 
     ```text
     <cluster>:<metadata.namespace>:<metadata.name>
@@ -136,7 +129,8 @@ Enabling TokenX will expose the following runtime environment variables and file
 #### `TOKEN_X_PRIVATE_JWK`
 
 ???+ note
-    Contains a JWK with the private RSA key for creating signed JWTs when [authenticating to Tokendings with a signed `client_assertion`](tokenx.md#client-authentication).
+
+    [Private JWK](concepts/cryptography.md#private-keys) containing an RSA key belonging to your client. Used to sign client assertions during [client authentication](tokenx.md#client-authentication).
 
     ```json
     {
@@ -156,9 +150,9 @@ Enabling TokenX will expose the following runtime environment variables and file
 
 ### Client Authentication
 
-Your applications **must** authenticate itself with [Tokendings](https://github.com/nais/tokendings) when attempting to perform token exchanges. To do so, you must create a _client assertion_ as per [RFC7523](https://tools.ietf.org/html/rfc7523).
+Your application **must** authenticate itself with [Tokendings](https://github.com/nais/tokendings) when attempting to perform token exchanges. To do so, you must create a [client assertion](concepts/actors.md#client-assertion).
 
-In other words, you must create a [JSON Web Token \(JWT\)](https://tools.ietf.org/html/rfc7519) that is signed by your application using the private key contained within [`TOKEN_X_PRIVATE_JWK`](tokenx.md#token_x_private_jwk).
+In other words, you must create a [JWT](concepts/tokens.md#jwt) that is signed by your application using the [private key](concepts/cryptography.md#private-keys) contained within [`TOKEN_X_PRIVATE_JWK`](tokenx.md#token_x_private_jwk).
 
 The assertion **must** contain the following claims:
 
@@ -181,7 +175,7 @@ Additionally, the headers of the assertion must contain the following parameters
 | **`alg`** | `RS256` | Represents the cryptographic algorithm used to secure the JWT. Set this to `RS256`. |
 
 An assertion should be unique and not be reused when authenticating with _Tokendings_ in accordance with the 
-[security considerations in RFC7521](https://datatracker.ietf.org/doc/html/rfc7521#section-8.2).
+[security considerations in RFC 7521](https://datatracker.ietf.org/doc/html/rfc7521#section-8.2).
 
 That is, every request to Tokendings should contain a unique client assertion:
 
@@ -220,14 +214,14 @@ That is, every request to Tokendings should contain a unique client assertion:
 
 In order to acquire a token from [Tokendings](https://github.com/nais/tokendings) that is properly scoped to a given target application, you must exchange an existing _subject token_ \(i.e. a token that contains a subject, in this case a citizen end-user\).
 
-Tokendings will then issue an `access_token` in JWT format, based on the parameters set in the token request. The token can then be used as a **Bearer token** in the Authorization header when calling your target API on behalf of the aforementioned subject.
+Tokendings will then issue an `access_token` in JWT format, based on the parameters set in the token request. The token can then be used as a [**Bearer token**](concepts/tokens.md#bearer-token) in the Authorization header when calling your target API on behalf of the aforementioned subject.
 
 #### Prerequisites
 
 * You have a _subject token_ in the form of an `access_token` issued by one of the following providers:
     - [ID-porten](idporten/README.md)
     - Tokendings
-    - [Loginservice](../../../legacy/sunset/#loginservice) (Remember that loginservice is a legacy system. TokenX accept their tokens to ease migration away from on-prem.)
+    - [Loginservice](../../legacy/sunset.md#loginservice) (Remember that loginservice is a deprecated legacy system. TokenX currently accepts these tokens during the grace period for migration.)
 * You have a [client assertion](tokenx.md#client-authentication) that _authenticates_ your application.
 
 #### Exchange Request
@@ -278,7 +272,7 @@ If performance is a concern, the token can be cached for reuse within the validi
 #### Exchange Error Response
 
 If the exchange request is invalid, Tokendings will respond with a structured error, as specified in 
-[RFC8693, Section 2.2.2](https://www.rfc-editor.org/rfc/rfc8693.html#name-error-response):
+[RFC 8693, Section 2.2.2](https://www.rfc-editor.org/rfc/rfc8693.html#name-error-response):
 
 ???+ example
     ```json
@@ -290,9 +284,10 @@ If the exchange request is invalid, Tokendings will respond with a structured er
 
 ### Token Validation
 
-If your app receives a token from another application, it is **your responsibility** to ensure this token is valid and intended for your application.
+If your app is a [resource server / API](concepts/actors.md#resource-server) and receives a token from another application, it is **your responsibility** to [validate the token](concepts/tokens.md#token-validation) intended for your application.
 
-Configure your app with the [OAuth 2.0 Authorization Server Metadata](https://www.rfc-editor.org/rfc/rfc8414.html) from the [well-known endpoint](tokenx.md#token_x_well_known_url) in order to retrieve issuer name and `jwks_uri` for public keys retrieval.
+Configure your app with the [OAuth 2.0 Authorization Server Metadata](concepts/actors.md#well-known-url-metadata-document) from the [well-known endpoint](tokenx.md#token_x_well_known_url). 
+This contains the [issuer name](concepts/actors.md#issuer) and [JWKS endpoint](concepts/actors.md#jwks-endpoint-public-keys) containing the authorization server's [public keys](concepts/cryptography.md#public-keys).
 
 #### Signature Verification
 
@@ -313,9 +308,8 @@ The following claims are by default provided in the issued token and should expl
 * `iat` \(**issued at time**\): The time at which the token has been issued. **Must be before `exp`**.
 * `sub` \(**subject**\): If applicable, used in user centric access control. This represents a unique identifier for the user.
 
-Other claims in the token are passed on verbatim from the original token issued by `idp`.
-
-The claim used for the national identity number (_fødselsnummer_) varies from issuer to issuer. For instance: ID-porten use `pid`, loginservice use `sub`. The situation may be similar for other kinds of information with no standard claim name. TokenX does not try to unify this kind of information — claims are copied verbatim as described above.
+Other non-standard claims in the token are copied verbatim from the original token issued by `idp`.
+For example, the claim used for the national identity number (_fødselsnummer_) for tokens issued by ID-porten is `pid`.
 
 To extract such non-standard information from tokens, first use the `idp` claim to find the original token issuer. You can then map the original issuer's preferred claims to the claims in tokens issued by TokenX.
 

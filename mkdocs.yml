@@ -118,7 +118,16 @@ nav:
       - MongoDB in GCP: persistence/mongodb-in-gcp.md
     - Security:
       - Auth:
-        - Auth Overview: security/auth/README.md
+        - Overview:
+          - Intro: security/auth/README.md
+          - Development: security/auth/overview/development.md
+          - Best Practices: security/auth/overview/best-practices.md
+        - Concepts:
+          - Overview: security/auth/concepts/README.md
+          - Protocols: security/auth/concepts/protocols.md
+          - Actors: security/auth/concepts/actors.md
+          - Tokens: security/auth/concepts/tokens.md
+          - Cryptography: security/auth/concepts/cryptography.md
         - Azure AD:
           - Intro: security/auth/azure-ad/README.md
           - Concepts: security/auth/azure-ad/concepts.md

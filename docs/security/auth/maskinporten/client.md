@@ -69,7 +69,7 @@ The following environment variables and files (under the directory `/var/run/sec
 
 ???+ note
 
-    Maskinporten client ID. Unique ID for the application in Maskinporten.
+    [Client ID](../concepts/actors.md#client-id) that uniquely identifies the application in Maskinporten.
 
     Example value: `e89006c5-7193-4ca3-8e26-d0990d9d981f`
 
@@ -89,7 +89,7 @@ The following environment variables and files (under the directory `/var/run/sec
 
 ???+ note
 
-    The well-known URL for the OIDC metadata discovery document for Maskinporten. 
+    The well-known URL for the OAuth 2.0 authorization server (in this case, Maskinporten) [metadata document](../concepts/actors.md#well-known-url-metadata-document).
 
     Example value: `https://ver2.maskinporten.no/.well-known/oauth-authorization-server`
 
@@ -99,7 +99,7 @@ The following environment variables and files (under the directory `/var/run/sec
 
 ???+ note
 
-    Private JWK containing the private RSA key for creating signed JWTs when using the [JWT grants](https://docs.digdir.no/maskinporten_protocol_token.html).
+    [Private JWK](../concepts/cryptography.md#private-keys) containing an RSA key belonging to your client. Used to sign client assertions during [client authentication](../concepts/actors.md#client-assertion).
 
     ```javascript
     {
@@ -120,7 +120,7 @@ The following environment variables and files (under the directory `/var/run/sec
 
 ### Consuming an API
 
-Refer to the [documentation at DigDir](https://docs.digdir.no/maskinporten_guide_apikonsument.html).
+Refer to the [documentation at DigDir](https://docs.digdir.no/docs/Maskinporten/maskinporten_guide_apikonsument.html#5-be-om-token).
 
 You may skip any step involving client registration as this is automatically handled when [enabling this feature](#configuration).
 

@@ -236,10 +236,9 @@ The following describes the contract for usage of the sidecar.
 
 #### Token Validation
 
-Your application should also validate the claims and signature for the ID-porten JWT `access_token` attached by the sidecar. 
-That is, validate the standard claims such as `iss`, `iat`, `exp`.
+Your application should also [validate the claims and signature](../concepts/tokens.md#token-validation) for the ID-porten JWT `access_token` attached by the sidecar.
 
-Note that the `aud` claim is _not_ set for ID-porten access tokens. 
+Note that the `aud` claim is _not_ set for ID-porten access tokens.
 You should instead validate that the `client_id` claim has a value equal to your [own ID-porten client ID](README.md#idporten_client_id).
 
 Validate that the `acr` claim exists and that the set level matches the minimum [security level](#security-levels) for your endpoints:
