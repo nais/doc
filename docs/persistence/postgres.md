@@ -47,6 +47,39 @@ The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instan
     Note that if you change your application name, database name or envVarPrefix, and then change it later, 
     you have to manually [reset database credentials](#reset-database-credentials).
 
+### Database flags
+
+!!! info
+    Use database flags with caution, they will alter the behaviour of your postgres instance.
+
+Postgres in gcp supports setting database flags to alter the database instance performance and functionality,
+the flags available are listed here: [Google Cloud SQL supported flags](https://cloud.google.com/sql/docs/postgres/flags#list-flags-postgres).
+This listing specifies what value types are expected, which ranges are allowed and if a restart is required.
+
+!!! info
+    The value is always required to be a string in [`nais.yaml`](../nais-application/application.md).
+
+Example of setting database flags:
+```yaml
+...
+kind: Application
+metadata:
+  name: myapp
+spec:
+  gcp:
+    sqlInstances:
+      - type: POSTGRES_14
+        databases:
+          - name: mydb
+        flags:
+        - name: autovacuum_max_workers
+          value: "10"                           #integer in google spec, requires restart
+        - name: autovacuum
+          value: "on"                           #boolean in google spec
+        - name: autovacuum_analyze_scale_factor
+          value: "2"                            #float in google spec
+```
+
 ### Query Insights
 Query insights are now enabled by default in GCP. This feature provides query overview and analysis. 
 The data is available in the Google cloud console.
