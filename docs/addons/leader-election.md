@@ -2,13 +2,13 @@
 
 With leader election it is possible to have one responsible pod.
 This can be used to control that only one pod runs a batch-job or similar tasks.
-This is done by asking the `elector` container which pod is the current leader, and comparing that to the pod's hostname.
+This is done by asking the [elector container](https://github.com/nais/elector) which pod is the current leader, and comparing that to the pod's hostname.
 
 The leader election configuration does not control which pod the external service requests will be routed to.
 
 ## Enable leader election
 
-Enabling leader election in a pod is done by adding the line `leaderElection: true` to your `nais.yaml`-file.
+Enabling leader election in a pod is done by adding the line `leaderElection: true`[doc api](https://doc.nais.io/nais-application/application/#leaderelection) in the spec section to your `nais.yaml`-file.
 With that setting enabled, NAIS will sidecar an elector container into your pod.
 
 When you have the `elector` container running in your pod,
@@ -32,7 +32,8 @@ In doing so, we have made other trade-offs, which results in these issues:
   There is no push mechanism in place to inform your application about changes.
   This means your application needs to check at reasonable intervals for changes in leadership.
   (This was also the case in the old implementation).
-
+  NB: `$ELECTOR_PATH` is the raw ip string without the protocol i.e localhost:4040 so be aware
+  of this and make sure to specify this in your http-client.
 
 ## Examples
 
