@@ -81,6 +81,13 @@ spec:
       autoLogin: true
       enabled: true
       errorPath: /error
+      resources:
+        limits:
+          cpu: 250m
+          memory: 256Mi
+        requests:
+          cpu: 20m
+          memory: 32Mi
   command:
   - /app/myapplication
   - --param
@@ -179,6 +186,13 @@ spec:
       errorPath: /error
       level: Level4
       locale: nb
+      resources:
+        limits:
+          cpu: 250m
+          memory: 256Mi
+        requests:
+          cpu: 20m
+          memory: 32Mi
   image: navikt/testapp:69.0.0
   influx:
     instance: influx-instance

@@ -634,6 +634,13 @@ Required: `false`<br />
           autoLogin: true
           enabled: true
           errorPath: /error
+          resources:
+            limits:
+              cpu: 250m
+              memory: 256Mi
+            requests:
+              cpu: 20m
+              memory: 32Mi
     ```
 
 ### azure.application
@@ -851,6 +858,13 @@ Required: `false`<br />
           autoLogin: true
           enabled: true
           errorPath: /error
+          resources:
+            limits:
+              cpu: 250m
+              memory: 256Mi
+            requests:
+              cpu: 20m
+              memory: 32Mi
     ```
 
 #### azure.sidecar.autoLogin
@@ -902,6 +916,124 @@ Required: `false`<br />
       azure:
         sidecar:
           errorPath: /error
+    ```
+
+#### azure.sidecar.resources
+Resource requirements for the sidecar container.
+
+Relevant information:
+
+* [https://kubernetes.io/docs/concepts/configuration/manage-resources-containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers)
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      azure:
+        sidecar:
+          resources:
+            limits:
+              cpu: 250m
+              memory: 256Mi
+            requests:
+              cpu: 20m
+              memory: 32Mi
+    ```
+
+##### azure.sidecar.resources.limits
+Limit defines the maximum amount of resources a container can use before getting evicted.
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      azure:
+        sidecar:
+          resources:
+            limits:
+              cpu: 250m
+              memory: 256Mi
+    ```
+
+###### azure.sidecar.resources.limits.cpu
+Type: `string`<br />
+Required: `false`<br />
+Pattern: `^\d+m?$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      azure:
+        sidecar:
+          resources:
+            limits:
+              cpu: 250m
+    ```
+
+###### azure.sidecar.resources.limits.memory
+Type: `string`<br />
+Required: `false`<br />
+Pattern: `^\d+[KMG]i$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      azure:
+        sidecar:
+          resources:
+            limits:
+              memory: 256Mi
+    ```
+
+##### azure.sidecar.resources.requests
+Request defines the amount of resources a container is allocated on startup.
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      azure:
+        sidecar:
+          resources:
+            requests:
+              cpu: 20m
+              memory: 32Mi
+    ```
+
+###### azure.sidecar.resources.requests.cpu
+Type: `string`<br />
+Required: `false`<br />
+Pattern: `^\d+m?$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      azure:
+        sidecar:
+          resources:
+            requests:
+              cpu: 20m
+    ```
+
+###### azure.sidecar.resources.requests.memory
+Type: `string`<br />
+Required: `false`<br />
+Pattern: `^\d+[KMG]i$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      azure:
+        sidecar:
+          resources:
+            requests:
+              memory: 32Mi
     ```
 
 ## command
@@ -2946,6 +3078,13 @@ Required: `false`<br />
           errorPath: /error
           level: Level4
           locale: nb
+          resources:
+            limits:
+              cpu: 250m
+              memory: 256Mi
+            requests:
+              cpu: 20m
+              memory: 32Mi
     ```
 
 ### idporten.accessTokenLifetime
@@ -3164,6 +3303,13 @@ Required: `false`<br />
           errorPath: /error
           level: Level4
           locale: nb
+          resources:
+            limits:
+              cpu: 250m
+              memory: 256Mi
+            requests:
+              cpu: 20m
+              memory: 32Mi
     ```
 
 #### idporten.sidecar.autoLogin
@@ -3255,6 +3401,124 @@ Allowed values: `en`, `nb`, `nn`, `se`<br />
       idporten:
         sidecar:
           locale: nb
+    ```
+
+#### idporten.sidecar.resources
+Resource requirements for the sidecar container.
+
+Relevant information:
+
+* [https://kubernetes.io/docs/concepts/configuration/manage-resources-containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers)
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      idporten:
+        sidecar:
+          resources:
+            limits:
+              cpu: 250m
+              memory: 256Mi
+            requests:
+              cpu: 20m
+              memory: 32Mi
+    ```
+
+##### idporten.sidecar.resources.limits
+Limit defines the maximum amount of resources a container can use before getting evicted.
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      idporten:
+        sidecar:
+          resources:
+            limits:
+              cpu: 250m
+              memory: 256Mi
+    ```
+
+###### idporten.sidecar.resources.limits.cpu
+Type: `string`<br />
+Required: `false`<br />
+Pattern: `^\d+m?$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      idporten:
+        sidecar:
+          resources:
+            limits:
+              cpu: 250m
+    ```
+
+###### idporten.sidecar.resources.limits.memory
+Type: `string`<br />
+Required: `false`<br />
+Pattern: `^\d+[KMG]i$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      idporten:
+        sidecar:
+          resources:
+            limits:
+              memory: 256Mi
+    ```
+
+##### idporten.sidecar.resources.requests
+Request defines the amount of resources a container is allocated on startup.
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      idporten:
+        sidecar:
+          resources:
+            requests:
+              cpu: 20m
+              memory: 32Mi
+    ```
+
+###### idporten.sidecar.resources.requests.cpu
+Type: `string`<br />
+Required: `false`<br />
+Pattern: `^\d+m?$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      idporten:
+        sidecar:
+          resources:
+            requests:
+              cpu: 20m
+    ```
+
+###### idporten.sidecar.resources.requests.memory
+Type: `string`<br />
+Required: `false`<br />
+Pattern: `^\d+[KMG]i$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      idporten:
+        sidecar:
+          resources:
+            requests:
+              memory: 32Mi
     ```
 
 ## image
