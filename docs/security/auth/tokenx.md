@@ -275,6 +275,19 @@ Tokendings will respond with a JSON object
 
 If performance is a concern, the token can be cached for reuse within the validity period indicated by the `expires_in` field.
 
+#### Exchange Error Response
+
+If the exchange request is invalid, Tokendings will respond with a structured error, as specified in 
+[RFC8693, Section 2.2.2](https://www.rfc-editor.org/rfc/rfc8693.html#name-error-response):
+
+???+ example
+    ```json
+    {
+        "error_description" : "token exchange audience <some-audience> is invalid",
+        "error" : "invalid_request"
+    }
+    ```
+
 ### Token Validation
 
 If your app receives a token from another application, it is **your responsibility** to ensure this token is valid and intended for your application.
