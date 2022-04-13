@@ -2971,7 +2971,7 @@ Configures your application to access an Aiven Kafka cluster.
 
 Type: `enum`<br />
 Required: `true`<br />
-Allowed values: `nav-dev`, `nav-infrastructure`, `nav-prod`<br />
+Allowed values: `nav-dev`, `nav-infrastructure`, `nav-integration-test`, `nav-prod`<br />
 
 ??? example
     ``` yaml
