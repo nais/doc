@@ -188,7 +188,10 @@ spec:
 
     **Ensure that you include the `allowAllUsers` field and set the value to your desired behaviour.**
 
-    If undefined, the default behaviour will [only allow access to users in the defined groups](access-policy.md#groups).
+    If undefined, `allowAllUsers` will default to `false` if the list of `groups` is not empty. 
+    This means that Azure AD only allows access to [users in the defined groups](access-policy.md#groups).
+
+    Conversely, `allowAllUsers` defaults to `true` if `groups` is undefined or empty.
 
 !!! warning
 
