@@ -148,7 +148,7 @@ If your application stores personally identifiable information in any GCP data s
 
 ???+ faq "Answer"
 
-    The application _on-premises_ **must** fulfill the following requirements:
+    The application _on-premises_ should generally fulfill the following requirements:
 
     1. Be secured with [OAuth 2.0](../security/auth/README.md). That is, either:
         - a. [TokenX](../security/auth/tokenx.md), or 
@@ -156,6 +156,8 @@ If your application stores personally identifiable information in any GCP data s
     2. Exposed to GCP using a special ingress:
         - `https://<app>.dev-fss-pub.nais.io`
         - `https://<app>.prod-fss-pub.nais.io`
+
+    In cases where the application contains unsecured or endpoints secured with other mechanisms, see the "Application Requirements" section in [this document](https://github.com/navikt/bigip-iac/blob/main/pub-fss/security.md#application-requirements).
 
     Create a pull request at <https://github.com/navikt/bigip-iac/tree/main/pub-fss> add these ingresses which allows 
     them be exposed to GCP.
