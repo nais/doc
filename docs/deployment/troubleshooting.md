@@ -12,18 +12,36 @@
 
 ## First debugging steps
 
-When something is wrong with your application, these kubectl tools should be the first things you check out:
+When something is wrong with your application, these [kubectl](../basics/access.md) commands should be the first things 
+you check out:
 
-Describe the pod to find statuses and messages:
+### List the pods for your application for a quick overview of their status
+
+```text
+kubectl get po -l app=<appname>
+```
+
+### Describe a given pod to get more detailed statuses and messages
 
 ```text
 kubectl describe pod <podname>
 ```
 
-And view the logs for your pods with this command:
+This may reveal which container is failing and any exit codes that are emitted.
+
+### View the logs for your pods
 
 ```text
 kubectl logs <podname>
+```
+
+This will output the logs from your application container.
+
+If there are other containers in your pod (which you can see from the `describe` command above), you may view the 
+logs by specifying the exact container:
+
+```text
+kubectl logs <podname> -c <container>
 ```
 
 ## Logs
