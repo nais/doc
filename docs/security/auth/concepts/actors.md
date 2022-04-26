@@ -5,7 +5,7 @@ This page describes the typical actors involved in OAuth 2.0 grants and OpenID C
 ## Identity Provider
 
 An _identity provider_ (IdP) is a common service that NAV delegates to for authentication of end-users and/or services.
-You might come across other terms such as _authorization server_ (AS) or_OpenID provider_ (OP). For simplicity's sake,
+You might come across other terms such as _authorization server_ (AS) or _OpenID provider_ (OP). For simplicity's sake,
 we'll just use the umbrella term _identity provider_.
 
 The following is a list of the providers that the platform supports provisioning of clients for:
@@ -87,7 +87,7 @@ below.
 
 #### Issuer
 
-The `issuer` property defines the identifier for the provider. This identifier must be a a URL that uses the "https" 
+The `issuer` property defines the identifier for the provider. This identifier must be a URL that uses the "https" 
 scheme and without query or fragment components. 
 
 Any [JWT](tokens.md#jwt) issued by the provider must contain a `iss` claim with a value that is exactly equal to the 

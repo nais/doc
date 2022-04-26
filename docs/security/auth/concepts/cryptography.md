@@ -81,7 +81,7 @@ provider.
 
 Conversely, your client application might use [client assertions](actors.md#client-assertion) to authenticate itself
 with an identity provider. As part of the automated provisioning process, the platform will pre-register corresponding 
-_public_ keys for your client at the identity provider. The identity provider will in turn then use these public keys to 
+_public_ keys for your client at the identity provider. The identity provider will in turn use these public keys to 
 verify the signature of your client assertions as proof of your client's identity.
 
 ??? example "Public JWK (click to expand)"

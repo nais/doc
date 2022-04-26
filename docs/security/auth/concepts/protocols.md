@@ -53,7 +53,7 @@ Detailed specifications in [RFC 8693](https://datatracker.ietf.org/doc/html/rfc8
 
 This grant is Microsoft's implementation of the [Token Exchange Grant](#token-exchange-grant). As it was implemented
 before the RFC for the Token Exchange Grant was finalized, there are some minor differences in parameter names and 
-values - however the main concepts remains the same.
+values - however the main concepts remain the same.
 
 This grant is used
 for [machine-to-machine requests with end user context](../README.md#2-my-application-performs-machine-to-machine-requests-with-an-end-user-context)
