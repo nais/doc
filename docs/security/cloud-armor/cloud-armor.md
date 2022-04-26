@@ -1,6 +1,11 @@
+---
+description: Cloud Armor and preconfigured ModeSecurity rules.
+---
+
 # Cloud Armor
 
-In Google Cloud we have enabled Google Cloud Armor (GCA) to protect our loadbalancer and the services behind it.
+In Google Cloud we enabled Google Cloud Armor (GCA) to protect our loadbalancer and the services behind it.
+
 The GCA is an WAF (Web Application Firewall) to help mitigate the [OWASP Top 10](https://owasp.org/www-project-top-ten/)
 risks add to add support for
 the [Zero-trust architecture](https://csrc.nist.gov/publications/detail/sp/800-207/final), the WAF protects web
@@ -32,3 +37,14 @@ allows you to choose the desired level of rule checks.
 Each NAIS load-balancer is configured with `level 1` for each set of `ModSecurity rule`.
 
 A lower sensitivity level indicates a higher confidence signature, which is less likely to generate a false positive.
+
+### False positive
+
+When using the preconfigured rule for example XSS or SQLi that are based on static signature matching on HTTP request
+headers and other L7 parameters. These regular expression patterns are prone to false positives.
+
+!!! tip "Troubleshooting false positives"
+If you need additional information about what particular rules that are triggered, or you suspect that some
+requests get blocked by something outside your application, check out the
+[Cloud Armor Kibana dashboard](https://logs.adeo.no/goto/e6bb3e20cf35b7c3b224338240739fce) or reach out on slack -
+#nais.
