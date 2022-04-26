@@ -7,7 +7,7 @@ description: Cloud Armor and preconfigured ModeSecurity rules.
 In Google Cloud we enabled Google Cloud Armor (GCA) to protect our loadbalancer and the services behind it.
 
 The GCA is an WAF (Web Application Firewall) to help mitigate the [OWASP Top 10](https://owasp.org/www-project-top-ten/)
-risks add to add support for
+risks to add support for
 the [Zero-trust architecture](https://csrc.nist.gov/publications/detail/sp/800-207/final), the WAF protects web
 applications from a variety of
 application layer attacks, such
@@ -20,7 +20,7 @@ through [configurable security rules](#configured-security-rules).
 
 Cloud Armor is also configured
 with [costume expressions](https://cloud.google.com/armor/docs/configure-security-policies#sample-expressions), witch
-can be an expression that matches against requests from a certain IP address or IP range, requests from a certain region
+can be expressions that matches against requests from a certain IP address or IP range, requests from a certain region
 or headers that contains a specific value.
 
 ## Configured Security Rules
@@ -32,15 +32,15 @@ source [MOD Security Core Rules](https://github.com/coreruleset/coreruleset/tree
 ## Paranoia Level
 
 [ModSecurity](https://cloud.google.com/armor/docs/rule-tuning#preconfigured_modsecurity_rules) paranoia level setting
-allows you to choose the desired level of rule checks.
+allows ous to choose the desired level of rule checks.
 
-Each NAIS load-balancer is configured with `level 1` for each set of `ModSecurity rule`.
+Each NAIS loadbalancer is configured with `level 1` for each set of `ModSecurity rule`.
 
 A lower sensitivity level indicates a higher confidence signature, which is less likely to generate a false positive.
 
 ### False positive
 
-When using the preconfigured rule for example XSS or SQLi that are based on static signature matching on HTTP request
+When using the preconfigured rule for example `XSS` or `SQLi` that are based on static signature matching on HTTP request
 headers and other L7 parameters. These regular expression patterns are prone to false positives.
 
 !!! tip "Troubleshooting false positives"
