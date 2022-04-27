@@ -25,7 +25,7 @@ or headers that contains a specific value.
 
 ## Configured Security Rules
 
-In NAIS the GCA uses a set of [preconfigured](https://cloud.google.com/armor/docs/rule-tuning) complex WAF rules with
+In nais the GCA uses a set of [preconfigured](https://cloud.google.com/armor/docs/rule-tuning) complex WAF rules with
 dozens of signatures that are compiled from open source industry standard
 source [MOD Security Core Rules](https://github.com/coreruleset/coreruleset/tree/v3.0/master).
 
