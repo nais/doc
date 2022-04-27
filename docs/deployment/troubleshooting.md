@@ -48,7 +48,7 @@ kubectl logs <podname> -c <container>
 
 All deployments are logged to Kibana. You can get a direct link to your deployment logs from https://deploy.nais.io or the `https://github.com/navikt/<YOUR_REPOSITORY>/deployments` page. Click on the link that says _deployed_.
 
-This link is also printed in the console output. It looks like `https://deployment.prod-sbs.nais.io/logs?delivery_id=<UUID>&ts=<TIMESTAMP>`.
+This link is also printed in the console output. It looks like `https://deployment.prod-gcp.nais.io/logs?delivery_id=<UUID>&ts=<TIMESTAMP>`.
 
 ## Error messages
 

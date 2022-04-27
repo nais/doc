@@ -47,10 +47,8 @@ The available canary topics are:
 | Pool     | Topic name                      |
 | :------- | :------------------------------ |
 | nav-dev  | aura.kafkarator-canary-dev-gcp  |
-| nav-dev  | aura.kafkarator-canary-dev-sbs  |
 | nav-dev  | aura.kafkarator-canary-dev-fss  |
 | nav-prod | aura.kafkarator-canary-prod-gcp |
-| nav-prod | aura.kafkarator-canary-prod-sbs |
 | nav-prod | aura.kafkarator-canary-prod-fss |
 
 ## Using Kafka Streams with internal topics

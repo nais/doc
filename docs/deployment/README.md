@@ -162,7 +162,7 @@ Syntax:
 ```text
 --apikey string          NAIS Deploy API key.
 --cluster string         NAIS cluster to deploy into.
---deploy-server string   URL to API server. (default "https://deployment.prod-sbs.nais.io")
+--deploy-server string   URL to API server.
 --dry-run                Run templating, but don't actually make any requests.
 --environment string     Environment for GitHub deployment. Auto-detected from nais.yaml if not specified.
 --owner string           Owner of GitHub repository. (default "navikt")

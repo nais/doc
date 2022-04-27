@@ -5,9 +5,9 @@ The on-premise Kubernetes clusters are split across two zones and two environmen
 | cluster | zone | environment |
 | :--- | :--- | :--- |
 | `dev-fss` | fagsystemsonen | development |
-| `dev-sbs` | selvbetjeningssonen | development |
+| ~~`dev-sbs`~~ | no longer available | development |
 | `prod-fss` | fagsystemsonen | production |
-| `prod-sbs` | selvbetjeningssonen | production |
+| ~~`prod-sbs`~~ | no longer available | production |
 
 ## Accessing the application
 
@@ -30,15 +30,6 @@ You can control from where you application is reachable by selecting the appropr
 | dev-fss-pub.nais.io | GCP | Exposing applications to GCP requires a manual entry in BigIP as well. See [sonekryssing]. |
 | nais.preprod.local | vdi | **deprecated**, use .dev.intern.nav.no instead |
 
-### dev-sbs
-
-| domain | accessible from | description |
-| :--- | :--- | :--- |
-| dev.nav.no | [naisdevice](../device/) | development ingress for nav.no applications |
-| intern.dev.nav.no | internal network only | development ingress for nav.no applications |
-| dev-sbs.nais.io | [naisdevice](../device/) | reserved for platform services |
-| nais.oera-q.local | vdi | **deprecated**, use {intern,}.dev.nav.no instead |
-
 ### prod-fss
 
 | domain | accessible from | description |
@@ -48,14 +39,6 @@ You can control from where you application is reachable by selecting the appropr
 | prod-fss.nais.io | [naisdevice](../device/) | reserved for platform services. Requires [JITA](../device/jita.md) to `onprem-k8s-prod` |
 | prod-fss-pub.nais.io | GCP | Exposing applications to GCP requires a manual entry in BigIP as well. See [sonekryssing].|
 
-### prod-sbs
-
-| domain | accessible from | description |
-| :--- | :--- | :--- |
-| nav.no | internet | currently manually configured by \#tech-sikkerhet |
-| nais.oera.no | vdi | automatically configured. Typically used by backend/admin apps not exposed to end-users |
-| tjenester.nav.no | internet | context root based routing on format `tjenester.nav.no/<appname>`. |
-| prod-sbs.nais.io | [naisdevice](../device/) | reserved for platform services |
 
 More info about how DNS is configured for these domains can be found [here](../appendix/ingress-dns.md)
 

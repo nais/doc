@@ -1,12 +1,8 @@
 # AM/OpenAM
 
-Dersom applikasjonen din trenger ForgeRock AM oppsett i SBS eller FSS, kan dette settes opp ved å kalle tjenesten Named \(NAIS Access Management Extension\).
+Dersom applikasjonen din trenger ForgeRock AM oppsett i FSS, kan dette settes opp ved å kalle tjenesten Named \(NAIS Access Management Extension\).
 
 Dersom deployregimet til ATOM benyttes kan man angi `skipOpenam` i deploy request for å slippe konfigurasjon av dette.
-
-## Policyoppsett i SBS
-
-Oppsett av policy og not enforced urls gjøres som tidligere på AM-serverne, dvs man benytter samme skript for oppsettet. Forskjellen er at dette kalles fra en tjeneste som heter nameD. Denne tjenesten kan kalles ved en enkel curl eller ved bruk av CLI'et som er laget for tjenesten \(se README på [https://github.com/nais/named](https://github.com/nais/named)\).
 
 ### Følgende krav må være oppfylt ved kall til nameD
 
@@ -33,8 +29,6 @@ Request sendes til tjenesten \(eksemplet gjelder for AM konfigurasjon i `t` og `
 curl -k -d '{"application": "<appnavn>", "version": "<versjon>", "environment": "<fasitmiljø>", "username": "<fasit brukernavn>", "password": "<fasit passord>"}' https://named.nais.oera-q.local/configure
 ```
 
-NB! Ved oppsett av AM i SBS skal man bruke Named-tjenesten som ligger i SBS \(named.nais.oera-q.local eller named.nais.oera.no\)
-
 ## ISSO agent oppsett i FSS
 
 Oppsett av ISSO agentene gjøres ved hjelp av REST api'et til AM. Konfigurasjonen vil opprette agent med navn - i AM. For å benytte denne agenten må man autentisere mot AM med bruker agentadmin og dennes passord.
@@ -53,7 +47,7 @@ Oppsett av ISSO agentene gjøres ved hjelp av REST api'et til AM. Konfigurasjone
 | contextroots | applikasjonens context som agenten skal støtte |
 
 * Det sjekkes for gyldighet av `application`, `environment`, `username`, og `password` mot Fasit, og `application`, og `version` mot Nexus
-* I motsetning til AM i SBS trengs det ingen eksterne konfigurasjonsfiler
+* Det trengs ingen eksterne konfigurasjonsfiler
 * Et ekstra parameter kreves for oppsett av korrekte URL'er i openam agenten, nemlig `contextroots`, dette er da context-rootene som tidligere ble satt i app-config.xml for gammel plattform, men som nå sendes direkte i requesten \(disse kan det være flere av\)
 
 Request sendes til tjenesten \(eksemplet gjelder for AM konfigurasjon i `t` og `q`\):

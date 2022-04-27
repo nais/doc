@@ -122,7 +122,7 @@ If your application stores personally identifiable information in any GCP data s
 
 ???+ faq "Answer"
     
-    We aim to shut down both sbs clusters by summer 2021 NAVs strategic goal is to shut off all on-prem datacenters by the end of 2023
+    Both sbs clusters are now retired. NAVs strategic goal is to shut off all on-prem datacenters by the end of 2023
 
 #### What can we do in our GCP project?
 
@@ -193,7 +193,7 @@ If your application stores personally identifiable information in any GCP data s
     | ingress | reachable from zone |
     | :--- | :--- |
     | `<app>.dev.intern.nav.no` | `dev-fss` |
-    | `<app>.dev.nav.no` | `dev-sbs`, `dev-fss` |
+    | `<app>.dev.nav.no` | `dev-fss` |
     | `<app>.intern.nav.no` | `prod-fss` |
     | `<app>.nav.no` | internet, i.e. all clusters |
 
@@ -218,8 +218,8 @@ If your application stores personally identifiable information in any GCP data s
 | Storage | Ceph | Buckets |  |
 | Postgres | ✔️ \(IAC\) | ✔️ \(self-service\) |  |
 | Laptop access | ✔️ | ✔️ |  |
-| domain: dev.intern.nav.no (if migrating from SBS) | ✔️ \(IAC\) | ✔️ \(Automatic\) | Wildcard DNS points to GCP load balancer |
-| Access to FSS services (if migrating from SBS) | ✔️ | ✔️ | Identical \(either API-gw or [TokenX](../security/auth/tokenx.md). May require a proxy app, see [FAQ](#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp) for details. |
+| domain: dev.intern.nav.no |  | ✔️ \(Automatic\) | Wildcard DNS points to GCP load balancer |
+| Access to FSS services  |  | ✔️ | Identical \(either API-gw or [TokenX](../security/auth/tokenx.md). May require a proxy app, see [FAQ](#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp) for details. |
 | OpenAM (ESSO) | ✔️ | ✔️ | OpenAM is available for existing application, but it is EOL. We recommend migrating to [TokenX](../security/auth/tokenx.md) |
 | NAV truststore | ✔️ | ✔️ |  |
 | PVK required | ✔️ | ✔️ | amend to cover storage in cloud |

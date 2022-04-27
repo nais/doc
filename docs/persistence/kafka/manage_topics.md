@@ -16,9 +16,9 @@ If you need cross-environment communications, use the `nav-infrastructure` pool,
 
 | Pool | Min. replication | Max. replication | Topic declared in | Available from |
 | :--- | :--- |:-----------------| :--- | :--- |
-| `nav-dev` | 2 | 3                | `dev-gcp` | `dev-gcp`, `dev-fss`, `dev-sbs` |
-| `nav-prod` | 2 | 9                | `prod-gcp` | `prod-gcp`, `prod-fss`, `prod-sbs` |
-| `nav-infrastructure` | 2 | 3                | `prod-gcp` | `dev-gcp`, `dev-fss`, `dev-sbs`, `prod-gcp`, `prod-fss`, `prod-sbs` |
+| `nav-dev` | 2 | 3                | `dev-gcp` | `dev-gcp`, `dev-fss` |
+| `nav-prod` | 2 | 9                | `prod-gcp` | `prod-gcp`, `prod-fss` |
+| `nav-infrastructure` | 2 | 3                | `prod-gcp` | `dev-gcp`, `dev-fss`, `prod-gcp`, `prod-fss` |
 
 ### ACLs
 
