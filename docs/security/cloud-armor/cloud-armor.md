@@ -34,7 +34,7 @@ source [MOD Security Core Rules](https://github.com/coreruleset/coreruleset/tree
 [ModSecurity](https://cloud.google.com/armor/docs/rule-tuning#preconfigured_modsecurity_rules) paranoia level setting
 allows us to choose the desired level of rule checks.
 
-Each NAIS loadbalancer is configured with `level 1` for each set of `ModSecurity rule`.
+Each nais loadbalancer is configured with `level 1` for each set of `ModSecurity rule`.
 
 A lower sensitivity level indicates a higher confidence signature, which is less likely to generate a false positive.
 
