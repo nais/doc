@@ -14,11 +14,11 @@ Topic resources can only be specified in GCP clusters. However, applications mig
 Currently, use the `nav-dev` pool for development, and `nav-prod` for production.
 If you need cross-environment communications, use the `nav-infrastructure` pool, but please consult the NAIS team before you do.
 
-| Pool | Min. replication | Max. replication | Topic declared in | Available from |
-| :--- | :--- |:-----------------| :--- | :--- |
-| `nav-dev` | 2 | 3                | `dev-gcp` | `dev-gcp`, `dev-fss` |
-| `nav-prod` | 2 | 9                | `prod-gcp` | `prod-gcp`, `prod-fss` |
-| `nav-infrastructure` | 2 | 3                | `prod-gcp` | `dev-gcp`, `dev-fss`, `prod-gcp`, `prod-fss` |
+| Pool                 | Min. replication | Max. replication | Topic declared in | Available from                               |
+|:---------------------|:-----------------|:-----------------|:------------------|:---------------------------------------------|
+| `nav-dev`            | 2                | 3                | `dev-gcp`         | `dev-gcp`, `dev-fss`                         |
+| `nav-prod`           | 2                | 9                | `prod-gcp`        | `prod-gcp`, `prod-fss`                       |
+| `nav-infrastructure` | 2                | 3                | `prod-gcp`        | `dev-gcp`, `dev-fss`, `prod-gcp`, `prod-fss` |
 
 ### ACLs
 
@@ -94,25 +94,25 @@ Syntax:
 
 Use the following annotations and prefix them with `dcat.data.nav.no/`. Default values will be used where not supplied.
 
-| Key | Importance | Comment | Example Value |  |
-| :--- | :--- | :--- | :--- | :--- |
-| title | mandatory | String | Inntektskjema mottatt fra Altinn | _topic name_ |
-| description | mandatory | String | Inntektsmeldingen arbeidsgiveren sender fra eget lønns- og personalsystem eller fra altinn.no |  |
-| theme | recommended | A main category of the resource. A resource can have multiple themes entered as a comma-separated list of strings. | inntekt |  |
-| keyword | recommended | A string or a list of strings | inntekt,arbeidsgiver,altinn |  |
+| Key         | Importance  | Comment                                                                                                            | Example Value                                                                                 |              |
+|:------------|:------------|:-------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------|:-------------|
+| title       | mandatory   | String                                                                                                             | Inntektskjema mottatt fra Altinn                                                              | _topic name_ |
+| description | mandatory   | String                                                                                                             | Inntektsmeldingen arbeidsgiveren sender fra eget lønns- og personalsystem eller fra altinn.no |              |
+| theme       | recommended | A main category of the resource. A resource can have multiple themes entered as a comma-separated list of strings. | inntekt                                                                                       |              |
+| keyword     | recommended | A string or a list of strings                                                                                      | inntekt,arbeidsgiver,altinn                                                                   |              |
 
 One or more of the following keys can also be supplied if the default values below are not sufficient:
 
-| Key | Importance | Comment | Example Value | Default value |
-| :--- | :--- | :--- | :--- | :--- |
-| temporal | optional | An interval of time covered by the topic, start and end date. Formatted as two ISO 8601 dates \(or datetimes\) separated by a slash. | 2020/2020 or 2020-06/2020-06 | _current year_/_current year_ |
-| language | optional | Two or three letter code. | NO | NO |
-| creator | optional | The entity responsible for producing the topic. An agent \(eg. person, group, software or physical artifact\). | NAV | _team name_ |
-| publisher | optional | The entity responsible for making the topic available. An agent \(eg. person, group, software or physical artifact\). | NAV | NAV |
-| accessRights | optional | Information about who can access the topic or an indication of its security status. | internal | internal |
-| license | optional | Either a license URI or a title. | MIT |  |
-| rights | optional | A statement that concerns all rights not addressed with `license` or `accessRights`, such as copyright statements. | Copyright 2020, NAV | Copyright _year_, NAV |
-| catalog | optional | The catalog\(s\) where the metadata will be published. The value can be either `internal` \(only visibible within the organization\) or `public`. | public | internal |
+| Key          | Importance | Comment                                                                                                                                           | Example Value                | Default value                 |
+|:-------------|:-----------|:--------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------|:------------------------------|
+| temporal     | optional   | An interval of time covered by the topic, start and end date. Formatted as two ISO 8601 dates \(or datetimes\) separated by a slash.              | 2020/2020 or 2020-06/2020-06 | _current year_/_current year_ |
+| language     | optional   | Two or three letter code.                                                                                                                         | NO                           | NO                            |
+| creator      | optional   | The entity responsible for producing the topic. An agent \(eg. person, group, software or physical artifact\).                                    | NAV                          | _team name_                   |
+| publisher    | optional   | The entity responsible for making the topic available. An agent \(eg. person, group, software or physical artifact\).                             | NAV                          | NAV                           |
+| accessRights | optional   | Information about who can access the topic or an indication of its security status.                                                               | internal                     | internal                      |
+| license      | optional   | Either a license URI or a title.                                                                                                                  | MIT                          |                               |
+| rights       | optional   | A statement that concerns all rights not addressed with `license` or `accessRights`, such as copyright statements.                                | Copyright 2020, NAV          | Copyright _year_, NAV         |
+| catalog      | optional   | The catalog\(s\) where the metadata will be published. The value can be either `internal` \(only visibible within the organization\) or `public`. | public                       | internal                      |
 
 ### Permanently deleting topic and data
 
