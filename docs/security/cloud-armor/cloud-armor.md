@@ -46,5 +46,5 @@ headers and other L7 parameters. These regular expression patterns are prone to 
 !!! tip "Troubleshooting false positives"
 If you need additional information about what particular rules that are triggered, or you suspect that some
 requests get blocked by something outside your application, check out the
-[Cloud Armor Kibana dashboard](https://logs.adeo.no/goto/e6bb3e20cf35b7c3b224338240739fce) or reach out on slack -
+[Cloud Armor Kibana dashboard](https://logs.adeo.no/goto/e6bb3e20cf35b7c3b224338240739fce) or reach out on Slack -
 #nais.
