@@ -19,7 +19,7 @@ GCA can help detect and absorb attacks and filter traffic
 through [configurable security rules](#configured-security-rules).
 
 Cloud Armor is also configured
-with [costume expressions](https://cloud.google.com/armor/docs/configure-security-policies#sample-expressions), witch
+with [costume expressions](https://cloud.google.com/armor/docs/configure-security-policies#sample-expressions), which
 can be expressions that matches against requests from a certain IP address or IP range, requests from a certain region
 or headers that contains a specific value.
 
