@@ -166,6 +166,12 @@ spec:
 
 ## Claims
 
+[JWTs](../concepts/tokens.md#jwt) contain claims about the principal that the token represents.
+
+The claims below are _additional_ claims that are specific to Azure AD. They are opt-in and not included by default.
+These additional claims only affect tokens that are acquired where your application is the intended audience (i.e. 
+[scoped](concepts.md#scopes) to your application).
+
 ### Groups
 
 The `groups` claim in user tokens is by default omitted due to potential issues with the token's size when used in cookies.
@@ -242,7 +248,8 @@ These are opt-in by default, and you may selectively include any (or all) of the
 #### NAVident
 
 The value of the `NAVident` claim maps to an internal identifier for the employees in NAV. 
-This claim thus only applies in flows where a user is involved i.e., either the sign-in or on-behalf-of flows.
+This claim thus only applies in flows where a user is involved i.e., either the [sign-in](usage.md#openid-connect-authorization-code-flow) 
+or [on-behalf-of](usage.md#oauth-20-on-behalf-of-grant) flows.
 
 ```yaml hl_lines="5-7"
 spec:
@@ -285,7 +292,8 @@ spec:
 #### azp_name
 
 The `azp_name` claim will return the [name](concepts.md#naming-format) of the consumer application that requested the token. 
-This claim applies to both the client credentials flow and the on-behalf-of flow.
+This claim applies to both the [client credentials](usage.md#oauth-20-client-credentials-grant) flow and the 
+[on-behalf-of](usage.md#oauth-20-on-behalf-of-grant) flow.
 
 ```yaml hl_lines="5-7"
 spec:
