@@ -234,23 +234,3 @@ The following environment variables and files \(under the directory `/var/run/se
     The well-known URL for the [OIDC metadata discovery document](../concepts/actors.md#well-known-url-metadata-document) for ID-porten.
 
     Example value: `https://oidc-ver2.difi.no/idporten-oidc-provider/.well-known/openid-configuration`
-
-## Permanently deleting a client
-
-!!! warning
-    Permanent deletes are irreversible. Only do this if you are certain that you wish to completely remove the client from DigDir.
-
-When an `IDPortenClient` resource is deleted from a Kubernetes cluster, the client is not deleted from DigDir.
-
-!!! info
-    The `Application` resource owns the `IDPortenClient` resource, deletion of the former will thus trigger a deletion of the latter.
-
-    If the `IDPortenClient` resource is recreated, the client will thus retain the same client ID.
-
-If you want to completely delete the client from DigDir, you must add the following annotation to the `IDPortenClient` resource:
-
-```bash
-kubectl annotate idportenclient <app> digdir.nais.io/delete=true
-```
-
-When this annotation is in place, deleting the `IDPortenClient` resource from Kubernetes will trigger removal of the client from DigDir.
