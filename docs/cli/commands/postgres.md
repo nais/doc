@@ -64,7 +64,7 @@ nais postgres proxy appname
 Create a shell to the postgres instance by opening a proxy on a random port (see the proxy command for more info) and opening a psql shell.
 
 ```bash
-nais postgres psql app-name
+nais postgres psql appname
 ```
 
 | Argument    | Required  | Description                                                 |
@@ -76,3 +76,38 @@ nais postgres psql app-name
 | namespace | No       | -n    | namespace set in kubeconfig  | Kubernetes namespace where app is deployed  |
 | cluster   | No       | -c    | context set in kubeconfig    | Kubernetes context where app is deployed    |
 | verbose   | No       | -V    | false                        | Verbose will print proxy log                |
+
+## users add
+Adds a user to the database. By default the user is granted select privileges to the database public schema. The privilege level can be altered with the `--privilege` flag.
+
+```bash
+nais postgres users add username password appname
+```
+
+| Argument    | Required  | Description                                                 |
+|-------------|-----------|-------------------------------------------------------------|
+| username    | Yes       | Name of the new database user                               |
+| password    | Yes       | Password for the new database user                          |
+| appname     | Yes       | Name of application owning the database                     |
+
+| Flag      | Required | Short |Default                       |Description                                  |
+|-----------|----------|-------|------------------------------|---------------------------------------------|
+| namespace | No       | -n    | namespace set in kubeconfig  | Kubernetes namespace where app is deployed  |
+| cluster   | No       | -c    | context set in kubeconfig    | Kubernetes context where app is deployed    |
+| privilege | No       |       | select                       | The privilege level the user is granted     |
+
+## users list
+Lists all users in a database.
+
+```bash
+nais postgres users list appname
+```
+
+| Argument    | Required  | Description                                                 |
+|-------------|-----------|-------------------------------------------------------------|
+| appname     | Yes       | Name of application owning the database                     |
+
+| Flag      | Required | Short |Default                       |Description                                  |
+|-----------|----------|-------|------------------------------|---------------------------------------------|
+| namespace | No       | -n    | namespace set in kubeconfig  | Kubernetes namespace where app is deployed  |
+| cluster   | No       | -c    | context set in kubeconfig    | Kubernetes context where app is deployed    |
