@@ -164,6 +164,7 @@ nav:
       - Zero-Trust Network Architecture: appendix/zero-trust.md
       - Ingress DNS setup: appendix/ingress-dns.md
       - Validation and autocompletion: appendix/json-schema.md
+      - Wonderwall: appendix/wonderwall.md
     - Support: support.md
   - naisdevice:
     - naisdevice Overview: device/README.md
