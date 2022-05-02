@@ -75,6 +75,8 @@ Det er også identifisert flere potensielle problemer som ikke lar seg løse:
   Dette kan i visse feilsituasjoner øke sjansene for tap av data.
 - Av historiske årsaker er clusteret "feilkonfigurert" på en måte som gjør at consumer offset topicet er veldig stort.
   Dette fører til lange recovery tider og potensiale for å miste offsets i feilsituasjoner.
+- Skjer det noe med on-prem Kafka (sikkerhetshull, uforutsette feilhendelser) så har vi ikke mulighet til å oppgradere.
+  - Dersom feilen er sikkerhetshull, så vil eneste løsning være å skru av clusteret umiddelbart med de tap av data det medfører.
 
 Løsningen på disse problemene er å migrere til et nytt cluster, og da har vi valgt å migrere til Aiven Kafka.
 
@@ -89,6 +91,9 @@ Vi hadde tidligere en ambisjon om at Kafka onprem skulle skrus av før sommeren 
 
 Vi har allikevel besluttet at vi stenger for å opprette nye topics i Kafka onprem fra 1. juni 2021. 
 Hypotesen er at siden det allikevel er et nytt topic, så er det både enklere og mer fremtidsrettet om det opprettes på Aiven Kafka, og vi ønsker å redusere mengden data som går gjennom Kafka onprem.
+
+[ROS for Kafka i NAV](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=252)
+
 
 ### loginservice
 
