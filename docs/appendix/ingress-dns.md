@@ -8,4 +8,12 @@ Example:
 
 This means that all entries under this domain, e.g. foo.dev-gcp.nais.io, will resolve to this address automatically.
 
+## Shared domains
 
+When domains are shared between clusters, such as `dev.intern.nav.no` which exists both in `dev-gcp` and `dev-fss`, we have a wildcard entry pointing to dev-gcp. 
+In addition, to be able to use the same domain in `dev-fss`, we have to create explicit records in DNS to be able to direct the traffic to another cluster.
+
+These records are automatically created based on the ingresses defined in the cluster.
+
+!!! warning
+    You cannot have a application using the same ingress in both clusters, as the explicit record created will always override the wildcard ingress.
