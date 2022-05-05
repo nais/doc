@@ -117,9 +117,10 @@ Do note that the set of keys may change (e.g. revoking/rotating or introducing n
 libraries are able to handle such cases by regularly fetching a new set of keys from the endpoint.
 
 In cases where a client encounters tokens that are signed with a new key, one will usually just force a refresh of
-the locally cached set of keys to find the new, matching key. See also
-<https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-signing-key-rollover> for a more
-thorough discussion on key rotation.
+the locally cached set of keys to find the new, matching key. See also these discussions:
+
+- <https://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys>
+- <https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-signing-key-rollover>
 
 ---
 
