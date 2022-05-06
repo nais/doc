@@ -152,6 +152,7 @@ nav:
         - Google Secrets Manager: security/secrets/google-secrets-manager.md
         - Vault: security/secrets/vault.md
       - Anti-virus Scanning: security/antivirus.md
+      - Cloud Armor: security/cloud-armor.md
     - Addons:
       - Leader Election: addons/leader-election.md
       - Snorlax: addons/snorlax.md
