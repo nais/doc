@@ -87,6 +87,11 @@ More info about how DNS is configured for these domains can be found [here](../a
 | :--- | :--- | :--- |
 | labs.nais.io | internet | automatically configured |
 
+!!! warning
+    Note that the `labs-gcp` cluster is a separate cluster, primarily meant for deploying simple demos with mocks. 
+    
+    It does **not** provide any features or integrations that are present in the normal clusters (e.g. Kafka, Azure, etc.)
+
 ## ROS and PVK
 
 When establishing an application on GCP, it is a great time to update its [Risikovurdering (*ROS*)](https://navno.sharepoint.com/sites/intranett-it/SitePages/Risikovurderinger.aspx) analysis. It is required to update the application's entry in the [*Behandlingsoversikt*](https://navno.sharepoint.com/sites/intranett-personvern/SitePages/Behandlingskatalog.aspx) when changing platforms. If both of these words are unfamiliar to your team, it's time to sit down and take a look at both of them.
