@@ -72,6 +72,7 @@ The sidecar provides these endpoints under your application's [ingress](../nais-
 | `/oauth2/login`               | Initiates the OpenID Connect Authorization Code flow                                       |
 | `/oauth2/callback`            | Handles the callback from the [identity provider]                                          |
 | `/oauth2/logout`              | Initiates local and global/single-logout                                                   |
+| `/oauth2/logout/callback`     | Handles the logout callback from the identity provider                                     |
 | `/oauth2/logout/frontchannel` | Handles global logout request (initiated by identity provider on behalf of another client) |
 
 ## Usage
