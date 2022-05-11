@@ -3062,12 +3062,10 @@ Required: `false`<br />
         clientURI: https://www.nav.no
         enabled: true
         frontchannelLogoutPath: /oauth2/logout
-        frontchannelLogoutURI: https://myapplication.nav.no/oauth2/logout
         integrationType: idporten
         postLogoutRedirectURIs:
           - https://www.nav.no
         redirectPath: /oauth2/callback
-        redirectURI: https://myapplication.nav.no/oauth2/callback
         scopes:
           - openid
           - profile
@@ -3151,28 +3149,6 @@ Pattern: `^\/.*$`<br />
         frontchannelLogoutPath: /oauth2/logout
     ```
 
-### idporten.frontchannelLogoutURI
-Prefer using `frontchannelLogoutPath`.
-
-!!! failure "Deprecated"
-    This feature is deprecated, preserved only for backwards compatibility.
-
-Relevant information:
-
-* [https://doc.nais.io/security/auth/idporten/#front-channel-logout](https://doc.nais.io/security/auth/idporten/#front-channel-logout)
-* [https://docs.digdir.no/oidc_func_sso.html#2-h%C3%A5ndtere-utlogging-fra-id-porten](https://docs.digdir.no/oidc_func_sso.html#2-h%C3%A5ndtere-utlogging-fra-id-porten)
-
-Type: `string`<br />
-Required: `false`<br />
-Pattern: `^https:\/\/.+$`<br />
-
-??? example
-    ``` yaml
-    spec:
-      idporten:
-        frontchannelLogoutURI: https://myapplication.nav.no/oauth2/logout
-    ```
-
 ### idporten.integrationType
 IntegrationType is used to make sensible choices for your client. Which type of integration you choose will provide guidance on which scopes you can use with the client. A client can only have one integration type. 
  NB! It is not possible to change the integration type after creation.
@@ -3227,23 +3203,6 @@ Pattern: `^\/.*$`<br />
     spec:
       idporten:
         redirectPath: /oauth2/callback
-    ```
-
-### idporten.redirectURI
-Use `redirectPath` instead.
-
-!!! failure "Deprecated"
-    This feature is deprecated, preserved only for backwards compatibility.
-
-Type: `string`<br />
-Required: `false`<br />
-Pattern: `^https:\/\/.+$`<br />
-
-??? example
-    ``` yaml
-    spec:
-      idporten:
-        redirectURI: https://myapplication.nav.no/oauth2/callback
     ```
 
 ### idporten.scopes
