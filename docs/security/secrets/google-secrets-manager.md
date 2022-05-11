@@ -126,6 +126,13 @@ that you may mount into your applications in the GCP clusters.
         - secret: my-google-secret # value is the secret name in Google Secret Manager
     ```
 
+### Automatic Reload
+
+The Kubernetes secret will automatically have the `reloader.stakater.com/match: "true"` annotation set.
+
+If the value of the secret is changed or updated, any application that refers to this secret will be 
+[automatically restarted](../../nais-application/config-reloading.md) to load the new values.
+
 ## Examples
 
 ### Example secret with single value format
@@ -151,6 +158,7 @@ If you need environment variables, see the [other example](#example-with-environ
         hunter2.nais.io/last-modified: "2021-03-25T08:04:19Z"
         hunter2.nais.io/last-modified-by: user@nav.no
         hunter2.nais.io/secret-version: "1"
+        reloader.stakater.com/match: "true"
       creationTimestamp: "2021-03-25T08:04:25Z"
       labels:
         nais.io/created-by: hunter2
@@ -194,6 +202,7 @@ If you need environment variables, see the [other example](#example-with-environ
         hunter2.nais.io/last-modified: "2021-03-25T08:24:58Z"
         hunter2.nais.io/last-modified-by: user@nav.no
         hunter2.nais.io/secret-version: "2"
+        reloader.stakater.com/match: "true"
       creationTimestamp: "2021-03-25T08:04:25Z"
       labels:
         nais.io/created-by: hunter2
