@@ -85,6 +85,8 @@ below.
     }
     ```
 
+---
+
 #### Issuer
 
 The `issuer` property defines the identifier for the provider. This identifier must be a URL that uses the "https" 
@@ -97,6 +99,8 @@ by [OpenID Connect clients](#client) and [resource servers](#resource-server).
 Additionally, the `issuer` value should be equal to the well-known URL when appending the appropriate well-known suffix.
 For the examples above, the `issuer` would be `https://as.example.com`.
 
+---
+
 #### Token Endpoint
 
 The `token_endpoint` property points to the endpoint where your client can request tokens from the provider
@@ -106,6 +110,8 @@ respond with tokens as defined in
 
 Note that the tokens usually have an expiry time (often indicated by the `expires_in` field in the token response) and
 are thus suitable for caching if network latency or throughput is a concern.
+
+---
 
 #### JWKS Endpoint (Public Keys)
 

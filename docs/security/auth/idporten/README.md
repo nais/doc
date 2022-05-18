@@ -234,3 +234,33 @@ The following environment variables and files \(under the directory `/var/run/se
     The well-known URL for the [OIDC metadata discovery document](../concepts/actors.md#well-known-url-metadata-document) for ID-porten.
 
     Example value: `https://oidc-ver2.difi.no/idporten-oidc-provider/.well-known/openid-configuration`
+
+---
+
+#### `IDPORTEN_ISSUER`
+
+???+ note
+
+    `issuer` from the [metadata discovery document](../concepts/actors.md#issuer).
+
+    Example value: `https://oidc-ver2.difi.no/idporten-oidc-provider/`
+
+---
+
+#### `IDPORTEN_JWKS_URI`
+
+???+ note
+
+    `jwks_uri` from the [metadata discovery document](../concepts/actors.md#jwks-endpoint-public-keys).
+
+    Example value: `https://oidc-ver2.difi.no/idporten-oidc-provider/jwk`
+
+---
+
+#### `IDPORTEN_TOKEN_ENDPOINT`
+
+???+ note
+
+    `token_endpoint` from the [metadata discovery document](../concepts/actors.md#token-endpoint).
+
+    Example value: `https://oidc-ver2.difi.no/idporten-oidc-provider/token`

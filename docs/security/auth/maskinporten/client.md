@@ -85,16 +85,6 @@ The following environment variables and files (under the directory `/var/run/sec
 
 ---
 
-#### `MASKINPORTEN_WELL_KNOWN_URL`
-
-???+ note
-
-    The well-known URL for the OAuth 2.0 authorization server (in this case, Maskinporten) [metadata document](../concepts/actors.md#well-known-url-metadata-document).
-
-    Example value: `https://ver2.maskinporten.no/.well-known/oauth-authorization-server`
-
----
-
 #### `MASKINPORTEN_CLIENT_JWK`
 
 ???+ note
@@ -117,6 +107,48 @@ The following environment variables and files (under the directory `/var/run/sec
       "qi": "QCW5VQjO..."
     }
     ```
+
+---
+
+#### `MASKINPORTEN_WELL_KNOWN_URL`
+
+???+ note
+
+    The well-known URL for the OAuth 2.0 authorization server (in this case, Maskinporten) [metadata document](../concepts/actors.md#well-known-url-metadata-document).
+
+    Example value: `https://ver2.maskinporten.no/.well-known/oauth-authorization-server`
+
+---
+
+#### `MASKINPORTEN_ISSUER`
+
+???+ note
+
+    `issuer` from the [metadata discovery document](../concepts/actors.md#issuer).
+
+    Example value: `https://ver2.maskinporten.no/`
+
+---
+
+#### `MASKINPORTEN_JWKS_URI`
+
+???+ note
+
+    `jwks_uri` from the [metadata discovery document](../concepts/actors.md#jwks-endpoint-public-keys).
+
+    Example value: `https://ver2.maskinporten.no/jwk`
+
+---
+
+#### `MASKINPORTEN_TOKEN_ENDPOINT`
+
+???+ note
+
+    `token_endpoint` from the [metadata discovery document](../concepts/actors.md#token-endpoint).
+
+    Example value: `https://ver2.maskinporten.no/token`
+
+---
 
 ### Consuming an API
 
