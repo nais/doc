@@ -156,23 +156,23 @@ In other words, you must create a [JWT](concepts/tokens.md#jwt) that is signed b
 
 The assertion **must** contain the following claims:
 
-| Claim | Example Value | Description |
-| :--- | :--- | :--- |
-| **`sub`** | `dev-gcp:aura:app-a` | The _subject_ of the token. Must be set to your application's own [`client_id`](tokenx.md#token_x_client_id). |
-| **`iss`** | `dev-gcp:aura:app-a` | The _issuer_ of the token. Must be set to your application's own [`client_id`](tokenx.md#token_x_client_id). |
+| Claim     | Example Value                              | Description                                                                                                                                                                                                                          |
+|:----------|:-------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **`sub`** | `dev-gcp:aura:app-a`                       | The _subject_ of the token. Must be set to your application's own [`client_id`](tokenx.md#token_x_client_id).                                                                                                                        |
+| **`iss`** | `dev-gcp:aura:app-a`                       | The _issuer_ of the token. Must be set to your application's own [`client_id`](tokenx.md#token_x_client_id).                                                                                                                         |
 | **`aud`** | `https://tokendings.dev-gcp.nais.io/token` | The _audience_ of the token. Must be set to the `token_endpoint` of [Tokendings](https://github.com/nais/tokendings). The value of this exists in the metadata found at the [well-known endpoint](tokenx.md#token_x_well_known_url). |
-| **`jti`** | `83c580a6-b479-426d-876b-267aa9848e2f` | The _JWT ID_ of the token. Used to uniquely identify a token. Set this to a UUID or similar. |
-| **`nbf`** | `1597783152` | `nbf` stands for _not before_. It identifies the time \(seconds after Epoch\) before which the JWT MUST NOT be accepted for processing. |
-| **`iat`** | `1597783152` | `iat` stands for _issued at_. It identifies the time \(seconds after Epoch\) in which the JWT was issued \(or created\). |
-| **`exp`** | `1597783272` | `exp` is the _expiration time_ \(seconds after Epoch\) of the token. This **must** not be more than **120** seconds after `nbf` and `iat`. That is, the maximum lifetime of the token must be no greater than **120 seconds**. |
+| **`jti`** | `83c580a6-b479-426d-876b-267aa9848e2f`     | The _JWT ID_ of the token. Used to uniquely identify a token. Set this to a UUID or similar.                                                                                                                                         |
+| **`nbf`** | `1597783152`                               | `nbf` stands for _not before_. It identifies the time \(seconds after Epoch\) before which the JWT MUST NOT be accepted for processing.                                                                                              |
+| **`iat`** | `1597783152`                               | `iat` stands for _issued at_. It identifies the time \(seconds after Epoch\) in which the JWT was issued \(or created\).                                                                                                             |
+| **`exp`** | `1597783272`                               | `exp` is the _expiration time_ \(seconds after Epoch\) of the token. This **must** not be more than **120** seconds after `nbf` and `iat`. That is, the maximum lifetime of the token must be no greater than **120 seconds**.       |
 
 Additionally, the headers of the assertion must contain the following parameters:
 
-| Parameter | Value | Description |
-| :--- | :--- | :--- |
+| Parameter | Value                                  | Description                                                                                                                                                        |
+|:----------|:---------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **`kid`** | `93ad09a5-70bc-4858-bd26-5ff4a0c5f73f` | The key identifier of the key used to sign the assertion. This identifier is available in the JWK found in [`TOKEN_X_PRIVATE_JWK`](tokenx.md#token_x_private_jwk). |
-| **`typ`** | `JWT` | Represents the type of this JWT. Set this to `JWT`. |
-| **`alg`** | `RS256` | Represents the cryptographic algorithm used to secure the JWT. Set this to `RS256`. |
+| **`typ`** | `JWT`                                  | Represents the type of this JWT. Set this to `JWT`.                                                                                                                |
+| **`alg`** | `RS256`                                | Represents the cryptographic algorithm used to secure the JWT. Set this to `RS256`.                                                                                |
 
 An assertion should be unique and not be reused when authenticating with _Tokendings_ in accordance with the 
 [security considerations in RFC 7521](https://datatracker.ietf.org/doc/html/rfc7521#section-8.2).
@@ -228,14 +228,14 @@ Tokendings will then issue an `access_token` in JWT format, based on the paramet
 
 The following denotes the required parameters needed to perform an exchange request.
 
-| Parameter | Value | Comment |
-| :--- | :--- | :--- |
-| `grant_type` | `urn:ietf:params:oauth:grant-type:token-exchange` | The identifier of the OAuth 2.0 grant to use, in this case the OAuth 2.0 Token Exchange grant. This grants allows applications to exchange one token for a new one containing much of the same information while still being correctly "scoped" in terms of OAuth. |
-| `client_assertion_type` | `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` | Identifies the type of _assertion_ the client/application will use to authenticate itself to Tokendings, in this case a JWT. |
-| `client_assertion` | A serialized JWT identifying the calling app | The [client assertion](tokenx.md#client-authentication); a JWT signed by the calling client/application used to identify said client/application. |
-| `subject_token_type` | `urn:ietf:params:oauth:token-type:jwt` | Identifies the type of token that will be exchanged with a new one, in this case a JWT |
-| `subject_token` | A serialized JWT, the token that should be exchanged | The actual token \(JWT\) containing the signed-in user. Should be an `access_token`. |
-| `audience` | The identifier of the app you wish to use the token for | Identifies the intended audience for the resulting token, i.e. the target app you request a token for. This value shall be the `client_id` of the target app using the naming scheme `<cluster>:<namespace>:<appname>` e.g. `prod-fss:namespace1:app1` |
+| Parameter               | Value                                                    | Comment                                                                                                                                                                                                                                                            |
+|:------------------------|:---------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `grant_type`            | `urn:ietf:params:oauth:grant-type:token-exchange`        | The identifier of the OAuth 2.0 grant to use, in this case the OAuth 2.0 Token Exchange grant. This grants allows applications to exchange one token for a new one containing much of the same information while still being correctly "scoped" in terms of OAuth. |
+| `client_assertion_type` | `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` | Identifies the type of _assertion_ the client/application will use to authenticate itself to Tokendings, in this case a JWT.                                                                                                                                       |
+| `client_assertion`      | A serialized JWT identifying the calling app             | The [client assertion](tokenx.md#client-authentication); a JWT signed by the calling client/application used to identify said client/application.                                                                                                                  |
+| `subject_token_type`    | `urn:ietf:params:oauth:token-type:jwt`                   | Identifies the type of token that will be exchanged with a new one, in this case a JWT                                                                                                                                                                             |
+| `subject_token`         | A serialized JWT, the token that should be exchanged     | The actual token \(JWT\) containing the signed-in user. Should be an `access_token`.                                                                                                                                                                               |
+| `audience`              | The identifier of the app you wish to use the token for  | Identifies the intended audience for the resulting token, i.e. the target app you request a token for. This value shall be the `client_id` of the target app using the naming scheme `<cluster>:<namespace>:<appname>` e.g. `prod-fss:namespace1:app1`             |
 
 The request should then sent to the `token_endpoint` of Tokendings, the value of which exists in the metadata found at the [well-known endpoint](tokenx.md#token_x_well_known_url).
 
