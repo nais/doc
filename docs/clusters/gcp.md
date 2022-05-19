@@ -1,10 +1,10 @@
 # Google Cloud Platform
 
-| cluster | environment | comment |
-| :--- | :--- | :--- |
-| `dev-gcp` | development | selected ingresses publicly accessible |
-| `prod-gcp` | production | publicly accessible |
-| `labs-gcp` | development | publicly accessible |
+| cluster    | environment | comment                                |
+|:-----------|:------------|:---------------------------------------|
+| `dev-gcp`  | development | selected ingresses publicly accessible |
+| `prod-gcp` | production  | publicly accessible                    |
+| `labs-gcp` | development | publicly accessible                    |
 
 In GCP, we do not operate with a zone model like with the on-premise clusters. Instead, we rely on a [zero trust](../appendix/zero-trust.md) model with a service mesh. The only thing we differentiate on a cluster level is development and production.
 
@@ -31,13 +31,13 @@ You can control from where you application is reachable by selecting the appropr
 
 ### dev-gcp ingresses
 
-| domain | accessible from | description |
-| :--- | :--- | :--- |
-| ekstern.dev.nav.no | internet | manually configured, see [instructions below](#eksterndevnavno). URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
-| dev.nav.no | [naisdevice](../device/README.md) | development ingress for nav.no applications |
-| dev.intern.nav.no | [naisdevice](../device/README.md) | development ingress for non-public/internet-facing applications |
-| dev-gcp.nais.io | [naisdevice](../device/README.md) | reserved for platform services |
-| ~~dev.adeo.no~~ |  | _deprecated_ replaced by dev.intern.nav.no |
+| domain             | accessible from                   | description                                                                                                                          |
+|:-------------------|:----------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------|
+| ekstern.dev.nav.no | internet                          | manually configured, see [instructions below](#eksterndevnavno). URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| dev.nav.no         | [naisdevice](../device/README.md) | development ingress for nav.no applications                                                                                          |
+| dev.intern.nav.no  | [naisdevice](../device/README.md) | development ingress for non-public/internet-facing applications                                                                      |
+| dev-gcp.nais.io    | [naisdevice](../device/README.md) | reserved for platform services                                                                                                       |
+| ~~dev.adeo.no~~    |                                   | _deprecated_ replaced by dev.intern.nav.no                                                                                           |
 
 #### ekstern.dev.nav.no
 
@@ -73,19 +73,19 @@ Commit the changes and create a pull request.
 
 ### prod-gcp ingresses
 
-| domain | accessible from | description |
-| :--- | :--- | :--- |
-| nav.no | internet | manually configured, contact at \#tech-sikkerhet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked |
-| intern.nav.no | [naisdevice](../device/README.md) | used by non-public/internet-facing applications \(previously called adeo.no\). |
-| prod-gcp.nais.io | [naisdevice](../device/README.md) | reserved for platform services |
+| domain           | accessible from                   | description                                                                                                          |
+|:-----------------|:----------------------------------|:---------------------------------------------------------------------------------------------------------------------|
+| nav.no           | internet                          | manually configured, contact at \#tech-sikkerhet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked |
+| intern.nav.no    | [naisdevice](../device/README.md) | used by non-public/internet-facing applications \(previously called adeo.no\).                                       |
+| prod-gcp.nais.io | [naisdevice](../device/README.md) | reserved for platform services                                                                                       |
 
 More info about how DNS is configured for these domains can be found [here](../appendix/ingress-dns.md)
 
 ### labs-gcp ingresses
 
-| domain | accessible from | description |
-| :--- | :--- | :--- |
-| labs.nais.io | internet | automatically configured |
+| domain       | accessible from | description              |
+|:-------------|:----------------|:-------------------------|
+| labs.nais.io | internet        | automatically configured |
 
 !!! warning
     Note that the `labs-gcp` cluster is a separate cluster, primarily meant for deploying simple demos with mocks. 
