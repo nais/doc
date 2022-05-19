@@ -148,6 +148,36 @@ Enabling TokenX will expose the following runtime environment variables and file
     }
     ```
 
+#### `TOKEN_X_ISSUER`
+
+???+ note
+
+    `issuer` from the [metadata discovery document](concepts/actors.md#issuer).
+
+    Example value: `https://tokendings.dev-gcp.nais.io`
+
+---
+
+#### `TOKEN_X_JWKS_URI`
+
+???+ note
+
+    `jwks_uri` from the [metadata discovery document](concepts/actors.md#jwks-endpoint-public-keys).
+
+    Example value: `https://tokendings.dev-gcp.nais.io/jwks`
+
+---
+
+#### `TOKEN_X_TOKEN_ENDPOINT`
+
+???+ note
+
+    `token_endpoint` from the [metadata discovery document](concepts/actors.md#token-endpoint).
+
+    Example value: `https://tokendings.dev-gcp.nais.io/token`
+
+---
+
 ### Client Authentication
 
 Your application **must** authenticate itself with [Tokendings](https://github.com/nais/tokendings) when attempting to perform token exchanges. To do so, you must create a [client assertion](concepts/actors.md#client-assertion).
