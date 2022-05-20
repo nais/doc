@@ -153,6 +153,7 @@ nav:
         - Vault: security/secrets/vault.md
       - Anti-virus Scanning: security/antivirus.md
       - Cloud Armor: security/cloud-armor.md
+      - Salsa: security/salsa/salsa.md
     - Addons:
       - Leader Election: addons/leader-election.md
       - Snorlax: addons/snorlax.md

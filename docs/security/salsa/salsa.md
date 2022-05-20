@@ -5,7 +5,7 @@ description: Github action that helps to secure supply chain for software artifa
 # Salsa
 
 !!! info "Status: Beta"
-This feature is only in a beta.
+    This feature is only in a beta.
 
     **Experimental**: users report that this component is working, but it needs a broader audience to be battle-tested properly.
 
