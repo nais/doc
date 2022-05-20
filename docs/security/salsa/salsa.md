@@ -69,7 +69,7 @@ false
       - name: Provenance, upload and sign attestation
         uses: nais/salsa@v0.1
         with:
-          key: ${{ env.KEY }}
+          key: ${{ secrets.SALSA_KMS_KEY }}
           docker_pwd: ${{ secrets.GITHUB_TOKEN }}
           dependencies: false
 ```
