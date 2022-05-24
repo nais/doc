@@ -1,7 +1,7 @@
 # MQ
 
 MQ is supported on the nais platform on-premises and on GCP. 
-We recommend using kafka where possible and sensible. 
+
 
 
 ### Requirements
@@ -39,7 +39,7 @@ From vault you can then mount this secret into your pod to authenticate with MQ.
 
 ### Environments
 
-Dev:
+Nais-Dev (Legacy QA enviroment):
 
 | QueueManager   | Hostname                 | Port |
 | -------------- | ------------------------ | ---- |
@@ -48,14 +48,24 @@ Dev:
 | MQLS03         | b27apvl221.preprod.local | 1413 |
 | MQLS04         | b27apvl222.preprod.local | 1413 |
 
-Production:
+Production :
 
 | QueueManager   | Hostname                 | Port |
 | -------------- | ------------------------ | ---- |
-| MPLS01         | a01apvl247.adeo.no       | 1414 |
+| MPLS01         | a01apvl247.adeo.no       | 1414 | 
 | MPLS02         | a01apvl269.adeo.no       | 1414 |
 | MPLS03         | a01apvl270.adeo.no       | 1414 |
 | MPLS04         | a01apvl271.adeo.no       | 1414 |
+
+Nais-Dev (Legacy Test envirorment)
+
+| QueueManager   | Hostname                 | Port |
+| -------------- | ------------------------ | ---- |
+| MTLS01         | d26apvl298.test.local    | 1412 |
+| MTLS02         | d26apvl299.test.local    | 1412 |
+| MTLS03         | d26apvl300.test.local    | 1412 |
+| MTLS04         | d26apvl300.test.local    | 1412 |
+
 
 These servers are available from on-premises and GCP alike.
 
@@ -74,3 +84,13 @@ Setting this in java:
 ```
 connectionFactory.setBooleanProperty(JmsConstants.USER_AUTHENTICATION_MQCSP, true);
 ```
+
+### MQ HA in Production
+replace existing hostname in produsction with those mentioned below to run against mq high avalibility cluster.
+
+| QueueManager   | Hostname                 | Port |
+| -------------- | ------------------------ | ---- |
+| MPLS01         | mpls01.adeo.no           | 1414 | 
+| MPLS02         | mpls02.adeo.no           | 1414 |
+| MPLS03         | mpls03.adeo.no           | 1414 |
+| MPLS04         | mpls04.adeo.no           | 1414 |
