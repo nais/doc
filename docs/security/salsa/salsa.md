@@ -19,22 +19,19 @@ It’s a security framework, a check-list of standards and controls to prevent t
 packages and infrastructure in our projects.
 
 ## Action
+The [salsa](https://github.com/nais/salsa) action generates signed [provenance](https://slsa.dev/provenance/v0.2) about a build and its
+related artifacts and dependencies. Provenance is an attestation (a signed "software bill of materials") about a software artifact or collection of artifacts, documenting how an artifact was produced - all in a common format.
 
-The [salsa](https://github.com/nais/salsa) action fulfills the requirements
-for [level 2](https://slsa.dev/spec/v0.1/levels) and shows more
-trustworthiness in the build, builders are
-source-aware, and signatures are used to prevent provenance being tampered with.
+The action implements the [level 2](https://slsa.dev/spec/v0.1/levels) requirements of
+the [SLSA Framework](https://slsa.dev), producing a signed software [attestation](https://github.com/slsa-framework/slsa/blob/main/controls/attestations.md) of your build and dependencies. 
 
-salsa:
-
-* creates and signs an [attestation](https://github.com/slsa-framework/slsa/blob/main/controls/attestations.md)
-* verifies the signature
-* uploads attestation to the package registry
+The attestation is signed and uploaded to your container registry using [cosign](https://github.com/sigstore/cosign)
+and can be verified by the salsa cli or using the `cosign verify-attestation` command.
 
 ### Usage
 
 Simply add [google-auth action](https://github.com/google-github-actions/auth)
-and [salsa action](https://github.com/nais/salsa) to your CI.
+and [salsa action](https://github.com/nais/salsa) to your workflow.
 
 ```yaml
       - name: Authenticate to Google Cloud
@@ -56,7 +53,7 @@ their own set.
 
 ### Language support
 
-The action currently [supports](https://github.com/nais/salsa#support) build tools specified.
+The action currently supports til following list of [languages/build tools](https://github.com/nais/salsa#supported-build-tools)
 
 #### Known limitations
 
@@ -73,8 +70,5 @@ false
           docker_pwd: ${{ secrets.GITHUB_TOKEN }}
           dependencies: false
 ```
-
-* No support for digest over [dependencies](https://github.com/nais/salsa#build-tools) for
-  php projects 
 
 
