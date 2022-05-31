@@ -2,6 +2,14 @@
 The postgres command can be used to connect to a cloudsql postgres database with your personal user. It includes subcommands for granting personal access to an instance, 
 setting up a cloudsql proxy, and connecting to the database using a psql shell.
 
+!!! warning
+    
+    Run the following command first before running any of the other commands:
+    
+    ```
+    gcloud auth login --update-adc
+    ```
+
 ## prepare
 Prepare will prepare the postgres instance by connecting using the
 application credentials and modify the permissions on the public schema.
