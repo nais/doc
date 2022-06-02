@@ -24,3 +24,8 @@ Other services needs to be manually removed, such as:
     By only deleting `Deployment`, it will be recreated whenever the parent resource `Application` is synchronized again.
 
     To ensure that an application is completely deleted from the cluster, delete the `Application` as [shown above](#delete-app).
+
+    If you just want to remove all running pods for your application, set the 
+    [`spec.replicas.min`](../nais-application/application.md#replicasmin) and 
+    [`spec.replicas.max`](../nais-application/application.md#replicasmax)
+    values to `0`. Prefer this over deleting the `Deployment`.
