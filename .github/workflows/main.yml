@@ -6,6 +6,7 @@ on:
       - .github/workflows/main.yml
       - mkdocs.yml
       - 'docs/**'
+      - 'custom_theme_overrides/**'
       - pyproject.toml
       - poetry.lock
 
