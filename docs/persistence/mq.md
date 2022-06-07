@@ -86,7 +86,7 @@ connectionFactory.setBooleanProperty(JmsConstants.USER_AUTHENTICATION_MQCSP, tru
 ```
 
 ### MQ HA in Production
-replace existing hostname in produsction with those mentioned below to run against mq high avalibility cluster.
+replace existing hostname in production with those mentioned below to run against mq high availability cluster.
 
 | QueueManager   | Hostname                 | Port |
 | -------------- | ------------------------ | ---- |
