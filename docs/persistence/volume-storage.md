@@ -4,6 +4,9 @@ description: >-
   persistent storage.
 ---
 
+!!! warning
+    on-premises disk with rook/ceph has been discontinued and is not available for general use
+
 # On-premises disk
 
 The volume storage in NAIS is supported using the storage class rook-ceph. Rook handles the ceph cluster which in turn provides persistent voluments and persistent volume claims. This is most commonly used for elasticsearch installations and other solutions that require persistent volumes for databases. This is persistent storage and available in all clusters. The preferred solution is to use GCP for both applications and persistent volumes, but it is supported on-prem as well.

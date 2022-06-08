@@ -4,6 +4,9 @@ description: >-
   persistent storage.
 ---
 
+!!! warning
+    on-premises objectstore has been discontinued and is not available for general use
+
 # S3 object store
 
 objectstore on NAIS stores files in buckets. On-prem uses rook ceph storage nodes as the storage solution. This is persistent storage and available in all clusters. The preferred solution is to use GCP for both applications and buckets, but it is supported on-prem as well.
