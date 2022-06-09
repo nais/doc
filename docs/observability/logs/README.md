@@ -98,7 +98,7 @@ Go to [Porten (service desk)](https://jira.adeo.no/plugins/servlet/desk/portal/5
 
 ### 2 Connect the AD group to your team in Kibana
 
-Ask in the [#atom](https://nav-it.slack.com/archives/C7TQ25L9J) Slack channel to connect AD-group X to Github-team Y.
+Ask in the [#atom](https://nav-it.slack.com/archives/C7TQ25L9J) Slack channel to connect the AD-group X you made in the previous step to your [nais-team](../../basics/teams) Y.
 
 The logs your apps produces are linked with your Github-team. Someone must create a role in Kibana with read rights to those logs. Whoever is in the AD-group will get the Kibana role, and can thus read all logs produced by apps belonging to the Github-team.
 
