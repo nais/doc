@@ -98,11 +98,11 @@ Go to [Porten (service desk)](https://jira.adeo.no/plugins/servlet/desk/portal/5
 
 ### 2 Connect the AD group to your team in Kibana
 
-Ask in the [#atom](https://nav-it.slack.com/archives/C7TQ25L9J) Slack channel to connect the AD-group X you made in the previous step to your [nais-team](../../basics/teams) Y.
-
-The logs your apps produces are linked with your nais-team.
-Administrators of Kibana will create a role your your team with read rights to those logs.
+The logs your apps produces are linked with your [nais-team](../../basics/teams).
+Administrators of Kibana will create a role for your team with read rights to those logs.
 Whoever is in the AD-group (created in step 1) will get the Kibana role, and can thus read all logs produced by apps belonging to the nais-team.
+
+Ask in the [#atom](https://nav-it.slack.com/archives/C7TQ25L9J) Slack channel to connect the AD-group to your nais-team.
 
 ### 3 Put people into the AD-group
 
