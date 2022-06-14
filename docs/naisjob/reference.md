@@ -732,11 +732,11 @@ Required: `false`<br />
     ```
 
 ##### azure.application.claims.groups
-Groups is a list of Azure AD group IDs to be emitted in the 'Groups' claim. This also restricts access to only contain users of the defined groups unless overridden by Spec.AllowAllUsers.
+Groups is a list of Azure AD group IDs to be emitted in the `groups` claim in tokens issued by Azure AD. This also restricts access to only members of the defined groups unless overridden by `allowAllUsers`.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/access-policy#groups](https://doc.nais.io/security/auth/azure-ad/access-policy#groups)
+* [https://doc.nais.io/security/auth/azure-ad/configuration/#groups](https://doc.nais.io/security/auth/azure-ad/configuration/#groups)
 
 Type: `array`<br />
 Required: `false`<br />
