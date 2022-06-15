@@ -136,5 +136,5 @@ You can look at what Ginuudan has done to complete your Naisjob by running `kube
     Run the following command to create a ad-hoc job based on your cronjob:
 
     ```shell
-    kubectl create job --name=<newname> --from=cronjobs/<naisjobname>
+    kubectl create job --namespace=<mynamespace> --from=cronjobs/<naisjobname> <newname>
     ```
