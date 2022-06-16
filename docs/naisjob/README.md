@@ -46,7 +46,7 @@ arbeidsgiver  │ └─Pod/tiltak-okonomi-avstemming-brb7c     True           1
 ```
 
 ## Re-run Naisjob
-If you don't want to run your job at a schedule, but still want to re-run your Naisjob, you either have to delete the old Naisjob first, og run under a different name.
+If you don't want to run your job at a schedule, but still want to re-run your Naisjob, you either have to delete the old Naisjob first, or run under a different name.
 
 ## Applying your Naisjob to Kubernetes
 You can deploy your Naisjob just as you would deploy your Application using [NAIS deploy](../deployment/README.md).
