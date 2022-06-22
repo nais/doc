@@ -35,7 +35,7 @@ jobs:
           poetry run mkdocs build --strict
 
       # Synchronize doctree with Google Cloud Bucket
-      - if: github.ref == 'refs/heads/master'
+      - if: github.ref == 'refs/heads/main'
         uses: actions-hub/gcloud@318.0.0
         env:
           PROJECT_ID: aura-prod-d7e3
@@ -45,7 +45,7 @@ jobs:
           cli: gsutil
 
       # Cache buster
-      - if: github.ref == 'refs/heads/master'
+      - if: github.ref == 'refs/heads/main'
         uses: actions-hub/gcloud@318.0.0
         env:
           PROJECT_ID: aura-prod-d7e3

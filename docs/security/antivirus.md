@@ -38,5 +38,5 @@ If you have any questions about clamAV please contact the nais team on the [nais
 
 ## Examples
 
-Code example can be found here: [foreldrepenger-api](https://github.com/navikt/foreldrepengesoknad-api/tree/master/src/main/java/no/nav/foreldrepenger/selvbetjening/tjeneste/virusscan)
+Code example can be found here: [foreldrepenger-api](https://github.com/navikt/foreldrepengesoknad-api/tree/master/src/main/java/no/nav/foreldrepenger/selvbetjening/vedlegg/virusscan)
 
