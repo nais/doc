@@ -30,14 +30,14 @@ To connect your application to the database, use information from the environmen
 
 The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instance name `myapp` \(defaults to application name\) and `mydb` \(from database spec\). You can customize these environment variable names by setting `.spec.gcp.sqlInstances[].databases[].envVarPrefix`. For instance, setting this to `DB` will give you `DB_HOST`, `DB_USERNAME`, etc. Note that changing or adding `envVarPrefix` requires you to manually delete the `google-sql-<MYAPP>` secret and `SQLUser` with the same name as the application, see below.
 
-| key | environment variable | default |
-| :--- | :--- | :--- |
-| hostname | `NAIS_DATABASE_MYAPP_MYDB_HOST` | 127.0.0.1 |
-| port | `NAIS_DATABASE_MYAPP_MYDB_PORT` | 5432 |
-| database name | `NAIS_DATABASE_MYAPP_MYDB_DATABASE` | `.spec.gcp.sqlInstances[].databases[].name` |
-| database user | `NAIS_DATABASE_MYAPP_MYDB_USERNAME` | `.spec.gcp.sqlInstances[].name` |
-| database password | `NAIS_DATABASE_MYAPP_MYDB_PASSWORD` | \(randomly generated\) |
-| database url with credentials | `NAIS_DATABASE_MYAPP_MYDB_URL` | `postgres://username:password@127.0.0.1:5432/mydb` |
+| key                           | environment variable                | default                                            |
+|:------------------------------|:------------------------------------|:---------------------------------------------------|
+| hostname                      | `NAIS_DATABASE_MYAPP_MYDB_HOST`     | 127.0.0.1                                          |
+| port                          | `NAIS_DATABASE_MYAPP_MYDB_PORT`     | 5432                                               |
+| database name                 | `NAIS_DATABASE_MYAPP_MYDB_DATABASE` | `.spec.gcp.sqlInstances[].databases[].name`        |
+| database user                 | `NAIS_DATABASE_MYAPP_MYDB_USERNAME` | `.spec.gcp.sqlInstances[].name`                    |
+| database password             | `NAIS_DATABASE_MYAPP_MYDB_PASSWORD` | \(randomly generated\)                             |
+| database url with credentials | `NAIS_DATABASE_MYAPP_MYDB_URL`      | `postgres://username:password@127.0.0.1:5432/mydb` |
  
 !!! info
     The application is the only application that can access the database instance. Other applications can not connect. It is not, for instance,
