@@ -36,8 +36,7 @@ brew install naisdevice
 1. [Install Kolide agent](install.md#install-kolide-agent).
 2. Add the nais PPA repo:
 ``` 
-NAIS_GPG_KEY="/usr/local/share/keyrings/nav_nais.gpg"
-sudo mkdir -p "$(dirname "$NAIS_GPG_KEY")"
+NAIS_GPG_KEY="/usr/share/keyrings/nav_nais.gpg"
 curl -sfSL "https://ppa.nais.io/KEY.gpg" | gpg --dearmor | sudo dd of="$NAIS_GPG_KEY"
 echo "deb [signed-by=$NAIS_GPG_KEY] https://ppa.nais.io/ ./" | sudo tee /etc/apt/sources.list.d/nav_nais.list
 sudo apt update # Now you can apt install naisdevice
