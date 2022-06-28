@@ -157,11 +157,15 @@ Log in to the Google [Cloud Console](https://console.cloud.google.com) and set t
 SQL -> <MYDATABASE> -> Users -> <MYAPPUSER> -> Change password
 
 ### Reset database credentials
+!!! info
+    If you have multiple sqlusers their names will be on for form: `<MYAPP>-<MYDB>-<SQLUSERNAME>`
 To reset the database credentials for your application (if application name, database name or envVarPrefix has been changed):
 ```bash
 $ kubectl delete secret google-sql-<MYAPP>
 $ kubectl delete sqluser <MYAPP>
 ```
+Then redeploy your application
+
 ## Cloud SQL Proxy
 
 The application will connect to the database using [Cloud SQL Proxy](https://cloud.google.com/sql/docs/postgres/sql-proxy), ensuring that the database communication happens in secure tunnel, authenticated with automatically rotated credentials.
