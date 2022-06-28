@@ -157,8 +157,9 @@ Log in to the Google [Cloud Console](https://console.cloud.google.com) and set t
 SQL -> <MYDATABASE> -> Users -> <MYAPPUSER> -> Change password
 
 ### Reset database credentials
+
 !!! info
-    If you have multiple sqlusers their names will be on for form: `<MYAPP>-<MYDB>-<SQLUSERNAME>`
+    If you have multiple sql users their names will be on the format: `<MYAPP>-<MYDB>-<SQLUSERNAME>` instead of `<MYAPP>`
 To reset the database credentials for your application (if application name, database name or envVarPrefix has been changed):
 ```bash
 $ kubectl delete secret google-sql-<MYAPP>
