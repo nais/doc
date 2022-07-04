@@ -40,14 +40,13 @@ An identity provider that supports both OpenID Connect and OAuth 2.0 (such as Az
 
 - `https://as.example.com/.well-known/openid-configuration`
 
-A provider that only supports OAuth 2.0 (such as TokenX or Maskinporten) will use the 
+A provider that only supports OAuth 2.0 (such as TokenX or Maskinporten) will use the
 `/oauth-authorization-server` suffix:
 
 - `https://as.example.com/.well-known/oauth-authorization-server`
 
-The platform provides these URLs for you at runtime. Most libraries and frameworks support auto-discovery
-of other relevant endpoints based on the properties this document. We'll take a look at the most essential properties 
-below.
+The platform provides these URLs for you at runtime. Most libraries and frameworks support auto-discovery of other
+relevant endpoints based on the properties this document. We'll take a look at the most essential properties below.
 
 ??? example "Metadata Document"
 
@@ -89,11 +88,11 @@ below.
 
 #### Issuer
 
-The `issuer` property defines the identifier for the provider. This identifier must be a URL that uses the "https" 
-scheme and without query or fragment components. 
+The `issuer` property defines the identifier for the provider. This identifier must be a URL that uses the "https"
+scheme and without query or fragment components.
 
-Any [JWT](tokens.md#jwt) issued by the provider must contain a `iss` claim with a value that is exactly equal to the 
-value found in the `issuer` property of the metadata document. This should be [validated](tokens.md#token-validation) 
+Any [JWT](tokens.md#jwt) issued by the provider must contain a `iss` claim with a value that is exactly equal to the
+value found in the `issuer` property of the metadata document. This should be [validated](tokens.md#token-validation)
 by [OpenID Connect clients](#client) and [resource servers](#resource-server).
 
 Additionally, the `issuer` value should be equal to the well-known URL when appending the appropriate well-known suffix.
@@ -119,11 +118,13 @@ The `jwks_uri` property points to the endpoint where the provider's [public JWKs
 published. These public keys are used by your client in order to
 [validate the signature](tokens.md#signature-validation) for any [JWT](tokens.md#jwt) issued by the provider.
 
-Do note that the set of keys may change (e.g. revoking/rotating or introducing new keys) at any time. Usually, most
-libraries are able to handle such cases by regularly fetching a new set of keys from the endpoint.
+Most clients implement a form of caching for these keys. A reasonable refresh frequency for the cache is usually
+somewhere between 1 hour to 24 hours. Do note that the set of keys may change (e.g. revoking/rotating or introducing new
+keys) at any time. Usually, most libraries are able to handle such cases by regularly fetching a new set of keys from
+the endpoint.
 
-In cases where a client encounters tokens that are signed with a new key, one will usually just force a refresh of
-the locally cached set of keys to find the new, matching key. See also these discussions:
+In cases where a client encounters tokens that are signed with a new key, one should usually just force a refresh of the
+locally cached set of keys to find the new, matching key. See also these discussions:
 
 - <https://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys>
 - <https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-signing-key-rollover>
@@ -167,7 +168,8 @@ identifier is generally not considered to be confidential.
 
 ### Client Authentication
 
-A confidential client must authenticate itself to the identity provider in order to perform [grants](protocols.md#oauth-20)
+A confidential client must authenticate itself to the identity provider in order to
+perform [grants](protocols.md#oauth-20)
 or [flows](protocols.md#openid-connect). There are
 [multiple client authentication methods](https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication),
 however we will only cover the ones used for our identity providers.
@@ -192,16 +194,16 @@ client_id=<some-client-id>
 &grant_type=client_credentials
 ```
 
-As the platform rotates these credentials relatively regularly, using the `client_secret_post` method shouldn't pose as 
-a significant security risk. However, we generally do recommend that [client assertions](#client-assertion) are
-used instead as they're based on [public-key cryptography](cryptography.md).
+As the platform rotates these credentials relatively regularly, using the `client_secret_post` method shouldn't pose as
+a significant security risk. However, we generally do recommend that [client assertions](#client-assertion) are used
+instead as they're based on [public-key cryptography](cryptography.md).
 
 #### Client Assertion
 
 A client assertion is a [JWT](tokens.md#jwt) that can be used to authenticate a client as defined
 in [RFC 7523](https://datatracker.ietf.org/doc/html/rfc7523). Your client must create the assertion and sign it using
-your client's own [private key](cryptography.md#private-keys). The JWT assertion will look something like
-this (in its decoded form):
+your client's own [private key](cryptography.md#private-keys). The JWT assertion will look something like this (in its
+decoded form):
 
 Header:
 
@@ -226,17 +228,17 @@ Payload:
 }
 ```
 
-This method of authentication (also known as the `private_key_jwt` method) is supported by all 
-[identity providers](#identity-provider) we use. It is also mandatory for all our clients across all the providers, 
+This method of authentication (also known as the `private_key_jwt` method) is supported by all
+[identity providers](#identity-provider) we use. It is also mandatory for all our clients across all the providers,
 except Azure AD.
 
 An assertion has several security advantages over a [client secret](#client-secret):
 
 - The client's private key is never exposed or sent as part of a request
-- That the assertion itself is usually only valid for a short duration - meaning that the blast radius is limited if 
-  the assertion is intercepted or stolen during transport
+- That the assertion itself is usually only valid for a short duration - meaning that the blast radius is limited if the
+  assertion is intercepted or stolen during transport
 - The provider only needs a public key (which the platform takes care of generating and registering) in order to verify
-the assertion when receiving an authenticated request from the client.
+  the assertion when receiving an authenticated request from the client.
 
 For example, for the [client credentials grant](protocols.md#client-credentials-grant):
 
