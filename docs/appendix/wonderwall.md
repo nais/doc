@@ -122,12 +122,20 @@ within your own ingress.
 If you want _all_ routes to your application to require an authenticated session, you can enable auto-login by setting
 the `autoLogin` field to `true`:
 
-```yaml
-spec:
-  <idporten|azure>:
-    sidecar:
-      autoLogin: true
-```
+=== "ID-porten"
+    ```yaml hl_lines="4"
+    spec:
+      idporten:
+        sidecar:
+          autoLogin: true
+    ```
+=== "Azure AD"
+    ```yaml hl_lines="4"
+    spec:
+      azure:
+        sidecar:
+          autoLogin: true
+    ```
 
 This will configure the sidecar to automatically redirect any user to login when attempting to browse to **any** path
 for your application. You should still validate and check the`Authorization` header and the token within as specified
@@ -172,18 +180,60 @@ the end-users with a simple error page that allows the user to retry the authent
 If you wish to customize or handle these errors yourselves, set the `errorPath` property to the relative path within
 your ingress that should handle such requests. For example:
 
-```yaml
-spec:
-  <idporten|azure>:
-    sidecar:
-      errorPath: /login/error
-```
+=== "ID-porten"
+    ```yaml hl_lines="4"
+    spec:
+      idporten:
+        sidecar:
+          errorPath: /login/error
+    ```
+=== "Azure AD"
+    ```yaml hl_lines="4"
+    spec:
+      azure:
+        sidecar:
+          errorPath: /login/error
+    ```
 
 The sidecar will now redirect any errors to this path (i.e. `https://<ingress>/<errorPath>`), along with the following
 query parameters:
 
 - `correlation_id` - UUID that uniquely identifies the request, for tracing and log correlation.
 - `status_code` - HTTP status code which indicates the type of error that occurred.
+
+---
+
+### 5. Resource Requirements
+
+The sidecar container is set up with some default [resource requirements](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/). 
+This can be customized to your needs. Defaults shown below:
+
+=== "ID-porten"
+    ```yaml hl_lines="4-10"
+    spec:
+      idporten:
+        sidecar:
+          resources:
+            limits:
+              cpu: 250m
+              memory: 256Mi
+            requests:
+              cpu: 60m
+              memory: 32Mi
+    ```
+=== "Azure AD"
+    ```yaml hl_lines="4-10"
+    spec:
+      azure:
+        sidecar:
+          resources:
+            limits:
+              cpu: 250m
+              memory: 256Mi
+            requests:
+              cpu: 60m
+              memory: 32Mi
+    ```
 
 ## Responsibilities & Guarantees
 

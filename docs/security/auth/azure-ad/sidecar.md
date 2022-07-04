@@ -5,7 +5,7 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 # Azure AD sidecar
 
 !!! warning "Status: Beta"
-    This feature is only available in the [GCP clusters](../../../clusters/gcp.md).
+    This feature is only available in the [GCP clusters](../../../clusters/gcp.md), except `labs-gcp`.
 
     **Experimental**: this is a new feature. Use it in production, but be aware that bugs might arise.
 
