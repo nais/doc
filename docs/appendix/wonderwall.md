@@ -106,7 +106,7 @@ The user will be sent to the [identity provider] for authentication and then bac
 After the callback is handled and the user is successfully authenticated, the user will be redirected according to these
 rules in ascending priority:
 
-1. `/` (default).
+1. The root context path for your application's ingress. E.g. `/` for `https://<app>.nav.no`, or `/path` for `https://nav.no/path`.
 2. The URL set in the `Referer` header.
 3. The URL or relative path set in the query parameter `redirect`, e.g:
 
