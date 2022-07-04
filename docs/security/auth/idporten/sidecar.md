@@ -33,6 +33,7 @@ A reverse proxy that provides functionality to handle ID-porten login and logout
     ```yaml
     spec:
       idporten:
+        enabled: true
         sidecar:
           enabled: true
 
