@@ -43,6 +43,8 @@ plugins:
   - git-revision-date-localized:
       enable_creation_date: true
       type: timeago
+      exclude:
+        - deployment/allowed-registries.md
 markdown_extensions:
   - toc:
       permalink: True
