@@ -8,9 +8,22 @@ theme:
   favicon: assets/logo.png
   custom_dir: custom_theme_overrides
   palette:
-    scheme: preference
-    primary: blue grey
-    accent: deep purple
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue grey
+      accent: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue grey
+      accent: light blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
   features:
     - navigation.instant
     - navigation.tabs
@@ -26,6 +39,9 @@ plugins:
   - build_plantuml:
       output_format: "svg"
       input_extensions: "puml"
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
 markdown_extensions:
   - toc:
       permalink: True
@@ -36,12 +52,15 @@ markdown_extensions:
   - pymdownx.superfences:
       preserve_tabs: true
   - pymdownx.highlight:
-      css_class: codehilite
+      linenums: true
       linenums_style: pymdownx-inline
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
   - pymdownx.tasklist
   - pymdownx.smartsymbols
-  - pymdownx.inlinehilite
-  - pymdownx.tabbed
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.emoji:
       emoji_generator: !!python/name:pymdownx.emoji.to_svg
   - def_list
