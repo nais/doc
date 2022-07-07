@@ -94,6 +94,7 @@ nav:
       - Container security context / kernel capabilities: nais-application/securitycontext.md
       - Good practices: nais-application/good-practices.md
       - Debugging: nais-application/debugging.md
+      - Permissions in GCP: nais-application/permissions-in-gcp.md
     - Naisjob:
       - Overview: naisjob/README.md
       - Full example: naisjob/example.md
