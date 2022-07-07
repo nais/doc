@@ -1,6 +1,7 @@
 site_name: NAIS
 repo_url: https://github.com/nais/doc
 site_url: https://doc.nais.io/
+edit_uri: edit/main/docs/
 theme:
   name: material
   language: 'en'
