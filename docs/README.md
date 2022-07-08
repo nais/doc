@@ -38,10 +38,8 @@ SBS is less restricted than FSS and applications have access to the internet (al
 However - since most of NAVs data reside in FSS, most applications in SBS rely on data from FSS to be able to do anything meaningful.
 In order to get the data they need they have to jump through several burning rings of fire, pray to the almighty DataPower-gods and perform several ancient rites and rituals.
 
-!!! Info
-   "Breaking news!" 
+!!! info "Breaking news!"
     As of april 2022 the SBS clusters are retired. The apps that used to live there have been moved to GCP.
-    
 
 ### NAIS on-premises
 
