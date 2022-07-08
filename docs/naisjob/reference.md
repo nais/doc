@@ -1585,7 +1585,7 @@ List of _additional_ permissions that should be granted to your application for 
 
 Relevant information:
 
-* [https://cloud.google.com/config-connector/docs/reference/resource-docs/iam/iampolicymember#external_organization_level_policy_member](https://cloud.google.com/config-connector/docs/reference/resource-docs/iam/iampolicymember#external_organization_level_policy_member)
+* [https://doc.nais.io/nais-application/permissions-in-gcp/](https://doc.nais.io/nais-application/permissions-in-gcp/)
 
 Type: `array`<br />
 Required: `false`<br />
