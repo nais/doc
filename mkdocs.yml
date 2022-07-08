@@ -210,6 +210,7 @@ nav:
       - Aiven: cli/commands/aiven.md
       - Device: cli/commands/device.md
       - Postgres: cli/commands/postgres.md
+      - Start: cli/commands/start.md
   - Laws and regulations:
     - Roles and responsibilities: legal/roles-responsibilities.md
     - Platform risk assessments (ROS): legal/nais-ros.md
