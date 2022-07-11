@@ -89,12 +89,14 @@ The [NAIS application manifest](application.md#gcppermissions) allows for basic 
 grant roles to your application roles. This can either apply for a specific resource or for the entire project. 
 To do so, you need the following information:
 
-| Field      | Description                                                                                                                                                              | Example value                                                                             |
-|:-----------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------|
-| Kind       | The Config Connector Resource Name. See [the list of supported resources][IAMPolicyMember Supported Resources].                                                          | `KMSCryptoKey`                                                                            |
-| APIVersion | The APIVersion for the Config Connector Resource Name. See the [list of resources][Config Connector resources] and visit the individual resource page for details.       | `kms.cnrm.cloud.google.com/v1beta1` ([source][KMSCryptoKey APIVersion Example])           |
-| Role       | See [predefined roles][Google Cloud Predefined Roles] for a list of available predefined roles for each resource.                                                        | `cloudkms.cryptoKeyEncrypterDecrypter`                                                    |
-| Name       | The resource name or reference in Google Cloud. Not needed for project-wide access. See the table for [external reference formats][IAMPolicyMember Supported Resources]. | `projects/<project-ID>/locations/<location>/keyRings/<key-ring-ID>/cryptoKeys/<key-name>` |
+| Field      | Description                                                                                                                                                                                           | Example value                                                                             |
+|:-----------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------|
+| Kind       | The Config Connector Resource Name. See [the list of supported resources][IAMPolicyMember Supported Resources].                                                                                       | `KMSCryptoKey`                                                                            |
+| APIVersion | The `apiVersion` associated with the above `kind`. See the [list of resources][Config Connector resources], find the matching `kind` and see the sample YAMLs to find the correct `apiVersion` value. | `kms.cnrm.cloud.google.com/v1beta1` ([source][KMSCryptoKey APIVersion Example])           |
+| Role       | See [predefined roles][Google Cloud Predefined Roles] for a list of available predefined roles for each resource.                                                                                     | `cloudkms.cryptoKeyEncrypterDecrypter`                                                    |
+| Name       | The resource name or reference in Google Cloud. Not needed for project-wide access. See the table for [external reference formats][IAMPolicyMember Supported Resources].                              | `projects/<project-ID>/locations/<location>/keyRings/<key-ring-ID>/cryptoKeys/<key-name>` |
+
+See also the [resource reference table](#resource-reference) below for some common combinations.
 
 === "Project-wide access"
 
@@ -132,6 +134,51 @@ To do so, you need the following information:
 
     Note that you can omit the `project/<project ID>/`-prefix from the `name` value, as shown in the example. The prefix 
     is automatically inferred by the NAIS platform.
+
+#### Resource Reference
+
+The table below summarizes the combinations of `apiVersion`, `kind` and `name` formats for a few of
+the most commonly used resources:
+
+| Kind                  | APIVersion                                      | Name                                                                      |
+|:----------------------|:------------------------------------------------|:--------------------------------------------------------------------------|
+| `Project`             | `resourcemanager.cnrm.cloud.google.com/v1beta1` | `<empty>`                                                                 |
+| `KMSCryptoKey`        | `kms.cnrm.cloud.google.com/v1beta1`             | `locations/{{location}}/keyRings/{{key_ring_id}}/cryptoKeys/{{key_name}}` |
+| `KMSKeyRing`          | `kms.cnrm.cloud.google.com/v1beta1`             | `locations/{{location}}/keyRings/{{key_ring_id}}`                         |
+| `PubSubSubscription`  | `pubsub.cnrm.cloud.google.com/v1beta1`          | `subscriptions/{{subscription_name}}`                                     |
+| `PubSubTopic`         | `pubsub.cnrm.cloud.google.com/v1beta1`          | `topics/{{topic_name}}`                                                   |
+| `SecretManagerSecret` | `secretmanager.cnrm.cloud.google.com/v1beta1`   | `secrets/{{secret_id}}`                                                   |
+
+#### Debugging
+
+List the `IAMPolicyMembers` created for your application and check for any errors:
+
+```shell
+kubectl get iampolicymember -l app=my-app
+```
+
+```shell
+NAME                               AGE     READY   STATUS               STATUS AGE
+my-app-17135ea6bddbfb87-0c3df6d4   47h     True    UpToDate             47h
+my-app-2c73ffe043d5bdfb-3afabf2b   46h     False   DependencyNotReady   46h
+my-app-5807c739790a971a-65560940   4d12h   True    UpToDate             4d12h
+```
+
+Inspect the failing `IAMPolicyMember` resource by describing the resource and looking for the events:
+
+```shell
+kubectl describe iampolicymember my-app-2c73ffe043d5bdfb-3afabf2b
+```
+
+```shell
+Name:         my-app-2c73ffe043d5bdfb-3afabf2b
+Kind:         IAMPolicyMember
+...
+Events:
+  Type     Reason              Age                    From                        Message
+  ----     ------              ----                   ----                        -------
+  Warning  DependencyNotReady  2m27s (x2911 over 4d)  iampolicymember-controller  reference StorageBucket my-namespace/my-app-bucket is not ready
+```
 
 ### Cloud Console
 
