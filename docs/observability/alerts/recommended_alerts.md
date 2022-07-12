@@ -31,7 +31,7 @@ spec:
       expr: (100 * sum by (log_app, log_namespace) (rate(logd_messages_total{log_app="<appname>",log_level=~"Warning|Error"}[3m])) / sum by (log_app, log_namespace) (rate(logd_messages_total{log_app="<appname>"}[3m]))) > 10
       for: 3m
       action: "Sjekk loggene til app {{ $labels.log_app }} i namespace {{ $labels.log_namespace }}, for å se hvorfor det er så mye feil"
-    - alert: feil i selftest
+    - alert: feil i selftest # This alert uses a custom metric provided by https://github.com/navikt/common-java-modules
       # Change <appname> to the name of the app you want to monitor
       expr: selftests_aggregate_result_status{app="<appname>"} > 0
       for: 1m
@@ -81,7 +81,7 @@ spec:
       expr: (100 * sum by (log_app, log_namespace) (rate(logd_messages_total{log_app="<appname>",log_level=~"Warning|Error"}[3m])) / sum by (log_app, log_namespace) (rate(logd_messages_total{log_app="<appname>"}[3m]))) > 10
       for: 3m
       action: "Sjekk loggene til app {{ $labels.log_app }} i namespace {{ $labels.log_namespace }}, for å se hvorfor det er så mye feil"
-    - alert: feil i selftest
+    - alert: feil i selftest # This alert uses a custom metric provided by https://github.com/navikt/common-java-modules
       # Change <appname> to the name of the app you want to monitor
       expr: selftests_aggregate_result_status{app="<appname>"} > 0
       for: 1m
