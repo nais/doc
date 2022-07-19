@@ -258,3 +258,8 @@ This can be customized to your needs. Defaults shown below:
   your application receives it.
 
 [identity provider]: ../security/auth/concepts/actors.md#identity-provider
+
+## Development
+
+Wonderwall can be fired up locally if you so desire.
+See the [README on GitHub](https://github.com/nais/wonderwall#docker-compose) for an example setup with Docker Compose.
