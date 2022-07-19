@@ -209,7 +209,7 @@ Databases should always be accessed using a personal account, and the access sho
     This guide assumes that you have the following installed on your local machine:
 
     - [cloudsql-proxy binary](https://cloud.google.com/sql/docs/postgres/sql-proxy#install)
-    - [psql binary](https://blog.timescale.com/tutorials/how-to-install-psql-on-mac-ubuntu-debian-windows/)
+    - [psql binary](https://blog.timescale.com/how-to-install-psql-on-mac-ubuntu-debian-windows/)
 
 ???+ check "Step 2. Allow your user to edit Cloud SQL resources for your project"
     Ensure that you have authenticated `gcloud` by running
