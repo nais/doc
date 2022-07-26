@@ -413,3 +413,12 @@ See [full example](../nais-application/example.md).
 ???+ faq "Answer"
     The synchronization of the password to the database may have failed. 
     See [workaround for password synchronization issues](#workaround-for-password-synchronization-issues).
+
+### Connect to a cloned database-instance
+
+???+ faq "Answer"
+    If you have for some reason cloned a database in the console, you need to do some manually changes on the new database to be allowed to connect to it.
+    First you need to log in to with the old username and password, then run `GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO "cloned-user";` to give the new cloned user access to all the old tables. If you have objects outside of tables those also needs to be changed.
+    Also remember to delete the `google-sql-appname`-secret from the cluster, so new secrets are generated for the cloned database.
+    After this you can update your `nais.yaml`-file to use the instance name of the cloned database instead of the old ones.
+    Remeber to delete the old database when you are finished.
