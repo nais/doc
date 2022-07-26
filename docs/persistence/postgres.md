@@ -370,11 +370,11 @@ Databases should always be accessed using a personal account, and the access sho
 
 ## Upgrading major version
 
-In-place database upgrades through `nais.yaml` is currently not supported. If you attempt to change the version this way, you will get an error message.
+In-place database upgrades through `nais.yaml` is currently not supported. If you attempt to change the version this way, you will not get an error message, but your `sqlinstances`-resource in the cluster will not update and change its status to `UpdateFailed`.
 
 In order to upgrade the database version, you will need to follow the Cloud SQL docs on [upgrading PostgreSQL for an instance](https://cloud.google.com/sql/docs/postgres/upgrade-major-db-version).
-After the upgrade has been done through the Google Cloud Console you need to change your `nais.yaml`-file.
-Since we don't allow changing `spec.gcp.sqlInstances[].type` you need to first delete your application-resource and then redeploy your `nais.yaml` file with the updated `type` field.
+After the upgrade has been done through the Google Cloud Console you need to manually delete the `sqlinstance`-resource from the cluster.
+First then can you change your `nais.yaml`-file and redeploy.
 
 !!! warning
     Upgrading requires the instance to become unavailable for a period of time. Be sure to schedule your upgrade when database activity is low.
