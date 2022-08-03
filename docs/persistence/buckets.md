@@ -50,3 +50,8 @@ kubectl describe storagebucket mybucket
 
 An example application using workflow identity to access a bucket: [testapp](https://github.com/nais/testapp)
 
+## Deleting the bucket
+
+The bucket is not automatically removed when deleting your NAIS application.
+Remove unused buckets to avoid incurring unnecessary costs.
+This is done by setting [cascadingDelete](../nais-application/application.md#gcpbucketscascadingdelete) in your `nais.yaml`-specification.
