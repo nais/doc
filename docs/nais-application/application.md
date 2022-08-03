@@ -2041,7 +2041,7 @@ Required: `false`<br />
     ```
 
 ##### gcp.sqlInstances[].databases[].envVarPrefix
-Prefix to add to environment variables made available for database connection.
+Prefix to add to environment variables made available for database connection. If switching to `EnvVarPrefix` you need to [reset database credentials](https://docs.nais.io/persistence/postgres/#reset-database-credentials).
 
 Type: `string`<br />
 Required: `false`<br />
