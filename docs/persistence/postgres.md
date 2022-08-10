@@ -289,7 +289,7 @@ Databases should always be accessed using a personal account, and the access sho
     Or for a specific user (the given IAM user must exist in the database):
 
     ```sql
-    alter default privileges in schema public grant all on tables to 'user@nav.no';
+    alter default privileges in schema public grant all on tables to "user@nav.no";
     ```
 
     If your application created the tables before you were able to run these commands, then the owner of the tables is set to the application's user. 
