@@ -3982,6 +3982,19 @@ Default value: `3`<br />
       successfulJobsHistoryLimit: 2
     ```
 
+## terminationGracePeriodSeconds
+The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. For most jobs, the default is more than enough. Defaults to 30 seconds.
+
+Type: `integer`<br />
+Required: `false`<br />
+Value range: `0`-`180`<br />
+
+??? example
+    ``` yaml
+    spec:
+      terminationGracePeriodSeconds: 60
+    ```
+
 ## ttlSecondsAfterFinished
 Specify the number of seconds to wait before removing the Job after it has finished (either Completed or Failed). If the field is unset, this Job won't be cleaned up by the TTL controller after it finishes.
 

@@ -228,6 +228,7 @@ spec:
     port: 8080
     timeout: 1
   successfulJobsHistoryLimit: 2
+  terminationGracePeriodSeconds: 60
   ttlSecondsAfterFinished: 60
   vault:
     enabled: true

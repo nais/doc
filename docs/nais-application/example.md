@@ -276,6 +276,7 @@ spec:
     timeout: 1
   strategy:
     type: RollingUpdate
+  terminationGracePeriodSeconds: 60
   tokenx:
     enabled: true
     mountSecretsAsFilesOnly: true

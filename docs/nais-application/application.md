@@ -4752,6 +4752,19 @@ Allowed values: `Recreate`, `RollingUpdate`<br />
         type: RollingUpdate
     ```
 
+## terminationGracePeriodSeconds
+The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. For most applications, the default is more than enough. Defaults to 30 seconds.
+
+Type: `integer`<br />
+Required: `false`<br />
+Value range: `0`-`180`<br />
+
+??? example
+    ``` yaml
+    spec:
+      terminationGracePeriodSeconds: 60
+    ```
+
 ## tokenx
 Provisions and configures a TokenX client for your application.
 
