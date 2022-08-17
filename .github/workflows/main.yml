@@ -38,7 +38,7 @@ jobs:
 
       # Synchronize doctree with Google Cloud Bucket
       - if: github.ref == 'refs/heads/main'
-        uses: actions-hub/gcloud@397.0.0
+        uses: actions-hub/gcloud@398.0.0
         env:
           PROJECT_ID: aura-prod-d7e3
           APPLICATION_CREDENTIALS: ${{ secrets.GCP_SERVICEACCOUNT_KEY_FOR_DOC_NAIS_IO_BUCKET }}
@@ -48,7 +48,7 @@ jobs:
 
       # Cache buster
       - if: github.ref == 'refs/heads/main'
-        uses: actions-hub/gcloud@397.0.0
+        uses: actions-hub/gcloud@398.0.0
         env:
           PROJECT_ID: aura-prod-d7e3
           APPLICATION_CREDENTIALS: ${{ secrets.GCP_SERVICEACCOUNT_KEY_FOR_DOC_NAIS_IO_BUCKET }}
