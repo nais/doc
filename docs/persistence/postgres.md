@@ -8,7 +8,7 @@ When you deploy your application with database config, NAIS will ensure the data
 
 
 !!! info
-    The Database instance takes a few minutes to be created, so your app will not be able to connect to right away, this only applies to the first time deploy
+    The Database instance takes a few minutes to be created, so your app will not be able to connect to right away. This only applies to the first time deploy.
 
 !!! info
     This feature is only available in GCP clusters. If you need on-prem databases, head over to [navikt/database-iac](https://github.com/navikt/database-iac).
