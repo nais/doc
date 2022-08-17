@@ -6,6 +6,10 @@ The database is provisioned into the teams own project in GCP. Here the team has
 
 When you deploy your application with database config, NAIS will ensure the database exists in a [Google Cloud SQL instance](https://cloud.google.com/sql) with the specified [Postgres](https://cloud.google.com/sql/docs/postgres/) version, and configure the application with means to connect to it.
 
+
+!!! info
+    The Database instance takes a few minutes to be created, so your app will not be able to connect to right away. This only applies to the first time deploy.
+
 !!! info
     This feature is only available in GCP clusters. If you need on-prem databases, head over to [navikt/database-iac](https://github.com/navikt/database-iac).
 
