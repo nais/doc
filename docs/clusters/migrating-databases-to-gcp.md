@@ -58,7 +58,7 @@ Use docker container image with psql and cloudsdk: [GCP migration image](https:/
 Deploy the pod into on-premise cluster that can connect to the database
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/navikt/gcp-migrering/main/gcloud.yml
+kubectl apply -f https://raw.githubusercontent.com/navikt/gcp-migrering/main/gcloud.yaml
 ```
 
 `exec` into that pod
