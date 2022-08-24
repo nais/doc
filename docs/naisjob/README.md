@@ -55,20 +55,17 @@ You can deploy your Naisjob just as you would deploy your Application using [NAI
 Due to the nature of NAIS, your Naisjob might end up having a few sidecars.
 Since a sidecar typically has little to no logic to look at sibling containers, these would normally not turn off once your app completes. 
 As a result, the Naisjob would continue running indefinitely unless some entity from above sorts it out.
-To remediate this, an operator named [Ginuudan](https://github.com/nais/ginuudan) has been created to run in every cluster and observe every Naisjob.
-Once the "main" container in a Naisjob completes, Ginuudan will shut down the surrounding sidecars and thus make the Naisjob run to completion.
+To remediate this, an operator named [HAHAHA](https://github.com/nais/hahaha) has been created to run in every cluster and observe every Naisjob.
+Once the "main" container in a Naisjob completes, HAHAHA will shut down the surrounding sidecars and thus make the Naisjob run to completion.
 
-You can look at what Ginuudan has done to complete your Naisjob by running `kubectl describe pod my-naisjob-3f91a0` and viewing the Events section.
+You can look at what HAHAHA has done to complete your Naisjob by running `kubectl describe pod my-naisjob-3f91a0` and viewing the Events section.
 
 !!! info "My Naisjob hasn't completed"
-    If you see no events from Ginuudan in your Naisjob, you might want to redeploy it.
-    Naisjobs deployed before Ginuudan was published will not be observed by Ginuudan.
+    If you see events from HAHAHA but your Naisjob didn't complete, we'd be happy if you could tell us in the #nais channel on Slack.
 
-    If you do see events from Ginuudan but your Naisjob didn't complete, we'd be happy if you could tell us in the #nais channel on Slack.
+??? question "I want to manually shut down the sidecars to make the Naisjob complete"
 
-??? question "My Naisjob deployment is old, and I want to manually shut down the sidecars to make the Naisjob complete"
-
-    Here's some legacy documentation on how to shut down most sidecars.
+    Here's some legacy documentation on how to shut down most sidecars, in case HAHAHA didn't do its job fully.
 
     ### Linkerd
     Linkerd exposes an endpoint to shut itself down.
