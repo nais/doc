@@ -70,6 +70,7 @@ kubectl describe azureapp <app>
 
 ???+ success "Solution / Answer"
 
+    - Ensure that the [scope value](concepts.md#default-scope) follows the correct format - `api://<cluster>.<namespace>.<app-name>/.default>`
     - Ensure that Bob's [access policy](access-policy.md#pre-authorization) includes Alice.
     - Run `kubectl get azureapp bob` to check the current count of assigned and unassigned applications for Bob. 
     - Run `kubectl get azureapp bob -o json | jq '.status.preAuthorizedApps'` to check the detailed statuses for all of Bob's desired pre-authorized applications. 
