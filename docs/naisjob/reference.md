@@ -2969,9 +2969,8 @@ Required: `false`<br />
 ### kafka.pool
 Configures your application to access an Aiven Kafka cluster.
 
-Type: `enum`<br />
+Type: `string`<br />
 Required: `true`<br />
-Allowed values: `nav-dev`, `nav-infrastructure`, `nav-integration-test`, `nav-prod`<br />
 
 ??? example
     ``` yaml
