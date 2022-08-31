@@ -2071,7 +2071,7 @@ Pattern: `^[_a-zA-Z][-_a-zA-Z0-9]+$`<br />
     ```
 
 #### gcp.sqlInstances[].diskAutoresize
-When set to true, GCP will automatically increase storage by XXX for the database when disk usage is above the high water mark.
+When set to true, GCP will automatically increase storage by XXX for the database when disk usage is above the high water mark. Setting this field to true also disables manual control over disk size, i.e. the `diskSize` parameter will be ignored.
 
 Relevant information:
 
@@ -2116,7 +2116,7 @@ Required: `false`<br />
     ```
 
 #### gcp.sqlInstances[].diskSize
-How much hard drive space to allocate for the SQL server, in gigabytes.
+How much hard drive space to allocate for the SQL server, in gigabytes. This parameter is used when first provisioning a server. Disk size can be changed using this field _only when diskAutoresize is set to false_.
 
 Type: `integer`<br />
 Required: `false`<br />
