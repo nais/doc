@@ -85,6 +85,23 @@ Setting this in java:
 connectionFactory.setBooleanProperty(JmsConstants.USER_AUTHENTICATION_MQCSP, true);
 ```
 
+#### Transport Layer Security (TLS)
+Setting this is recommended, so that the information is not send in plain text
+
+Setting this in java:
+
+```
+connectionFactory.setSslSocketFactory(SSLSocketFactory.getDefault());
+connectionFactory.setSslCipherSuite = "*TLS13ORHIGHER"
+```
+ 
+> **Note for GCP**
+> IN GCP you need to use and create the TLS certificates manually, and MQ-Admins need to turn on TLS for the spesific MQ channel
+> Using the TLS certificates can be done by setting these environment variables:   
+> ``` "javax.net.ssl.keyStore" = $YOUR_MQ_TLS_KEYSTORE_PATH  ```
+> ``` "javax.net.ssl.keyStorePassword" = $YOUR_MQ_TLS_KEYSTORE_PASSWORD```
+> ``` "javax.net.ssl.keyStoreType" = "jks" ```
+
 ### MQ HA in Production
 replace existing hostname in production with those mentioned below to run against mq high availability cluster.
 
