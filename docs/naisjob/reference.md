@@ -2200,7 +2200,7 @@ Allowed values: `HDD`, `SSD`<br />
     ```
 
 #### gcp.sqlInstances[].flags
-Set flags to control the behavior of the instance.
+Set flags to control the behavior of the instance. Be aware that NAIS _does not validate_ these flags, so take extra care to make sure the values match against the specification, otherwise your deployment will seemingly work OK, but the database flags will not function as expected.
 
 Relevant information:
 
