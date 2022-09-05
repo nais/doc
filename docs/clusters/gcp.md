@@ -36,7 +36,7 @@ You can control from where you application is reachable by selecting the appropr
 | ekstern.dev.nav.no | internet                          | manually configured, see [instructions below](#eksterndevnavno). URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
 | dev.nav.no         | [naisdevice](../device/README.md) | development ingress for nav.no applications                                                                                          |
 | dev.intern.nav.no  | [naisdevice](../device/README.md) | development ingress for non-public/internet-facing applications                                                                      |
-| ~~dev.adeo.no~~    |                                   | _deprecated_ replaced by dev.intern.nav.no                                                                                           |
+
 
 #### ekstern.dev.nav.no
 
