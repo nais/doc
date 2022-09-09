@@ -119,10 +119,21 @@ within your own ingress.
 
 #### 1.2. Autologin
 
-If you want _all_ routes to your application to require an authenticated session, you can enable auto-login by setting
-the `autoLogin` field to `true`:
+If enabled, the `autoLogin` option will configure Wonderwall to automatically redirect HTTP `GET` requests to the login 
+endpoint if the user does not have a session. 
+
+You should still check the `Authorization` header for a token and validate the token within as specified
+in [the application guidelines](#3-token-validation). This is especially important as auto-logins will **NOT** trigger
+for HTTP requests that are not `GET` requests, such as `POST` or `PUT`.
+
+To ensure smooth end-user experiences whenever their session expires, your application must thus actively validate and
+properly handle such requests. For example, your application might respond with an HTTP 401 to allow frontends to
+cache or store payloads before redirecting them to the login endpoint.
+
+Example configuration:
 
 === "ID-porten"
+
     ```yaml hl_lines="4"
     spec:
       idporten:
@@ -130,6 +141,7 @@ the `autoLogin` field to `true`:
           autoLogin: true
     ```
 === "Azure AD"
+
     ```yaml hl_lines="4"
     spec:
       azure:
@@ -137,9 +149,55 @@ the `autoLogin` field to `true`:
           autoLogin: true
     ```
 
-This will configure the sidecar to automatically redirect any user to login when attempting to browse to **any** path
-for your application. You should still validate and check the`Authorization` header and the token within as specified
-in [the application guidelines](#3-token-validation).
+This will match for all paths for your application's ingresses, except the following:
+
+- `/oauth2/*`
+- [`spec.prometheus.path`](../nais-application/application.md#prometheuspath), if defined
+- [`spec.liveness.path`](../nais-application/application.md#livenesspath), if defined
+- [`spec.readiness.path`](../nais-application/application.md#readinesspath), if defined
+
+You can also define additional paths to be excluded: 
+
+=== "ID-porten"
+
+    ```yaml hl_lines="5-8"
+    spec:
+      idporten:
+        sidecar:
+          autoLogin: true
+          autoLoginIgnorePaths:
+            - /internal/*
+            - /some/public/path
+            - /static/stylesheet.css
+    ```
+
+=== "Azure AD"
+
+    ```yaml hl_lines="5-8"
+    spec:
+      azure:
+        sidecar:
+          autoLogin: true
+          autoLoginIgnorePaths:
+            - /internal/*
+            - /some/public/path
+            - /static/stylesheet.css
+    ```
+
+These use glob-style matching, though only single asterisks are allowed. Examples:
+
+- `/allowed`
+  - ✅ matches `/allowed`
+  - ❌ does not match `/allowed/`
+- `/public/*`
+  - ✅ matches `/public/a` and `/public/a/`
+  - ❌ does not match `/public/a/b`
+- `/any*`
+  - ✅ matches `/anything` and `/anywho`
+  - ❌ does not match `/any/` or `/anywho/mstve`
+- `/a/*/*`
+  - ✅ matches `/a/b/` and `/a/b/c`
+  - ❌ does not match `/a`, `/a/`, `/a/b` or `/a/b/c/d`
 
 ---
 
