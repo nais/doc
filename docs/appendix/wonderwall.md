@@ -12,8 +12,8 @@ as a _sidecar_.
     All HTTP requests to the application will be intercepted by Wonderwall, which is attached to your application's pod as a
     sidecar.
 
-    If the user does _not_ have a valid local session with the sidecar, the request will be proxied as-is without
-    modifications to the application container.
+    If the user does _not_ have a valid local session with the sidecar, the request will be proxied to the application
+    container with the `Authorization` removed.
 
     In order to obtain a local session, the user must be redirected to the `/oauth2/login` endpoint, which performs the
     [OpenID Connect Authorization Code Flow](../security/auth/concepts/protocols.md#openid-connect).
@@ -67,13 +67,12 @@ application's ingress.
 
 The sidecar provides these endpoints under your application's [ingress](../nais-application/application.md#ingresses):
 
-| Path                          | Description                                                                                |
-|-------------------------------|--------------------------------------------------------------------------------------------|
-| `/oauth2/login`               | Initiates the OpenID Connect Authorization Code flow                                       |
-| `/oauth2/callback`            | Handles the callback from the [identity provider]                                          |
-| `/oauth2/logout`              | Initiates local and global/single-logout                                                   |
-| `/oauth2/logout/callback`     | Handles the logout callback from the identity provider                                     |
-| `/oauth2/logout/frontchannel` | Handles global logout request (initiated by identity provider on behalf of another client) |
+| Path                          | Description                                                                | Note              |
+|-------------------------------|----------------------------------------------------------------------------|-------------------|
+| `GET /oauth2/login`           | Initiates the OpenID Connect Authorization Code flow                       |                   |
+| `GET /oauth2/logout`          | Initiates local and global/single-logout                                   |                   |
+| `GET /oauth2/session`         | Returns the current user's session metadata                                |                   |
+| `GET /oauth2/session/refresh` | Refreshes the tokens and returns the session metadata for the current user | Only for Azure AD |
 
 ## Usage
 
@@ -184,20 +183,22 @@ You can also define additional paths to be excluded:
             - /static/stylesheet.css
     ```
 
-These use glob-style matching, though only single asterisks are allowed. Examples:
+These use glob-style matching, though only single asterisks are allowed.
 
-- `/allowed`
-  - ✅ matches `/allowed`
-  - ❌ does not match `/allowed/`
-- `/public/*`
-  - ✅ matches `/public/a` and `/public/a/`
-  - ❌ does not match `/public/a/b`
-- `/any*`
-  - ✅ matches `/anything` and `/anywho`
-  - ❌ does not match `/any/` or `/anywho/mstve`
-- `/a/*/*`
-  - ✅ matches `/a/b/` and `/a/b/c`
-  - ❌ does not match `/a`, `/a/`, `/a/b` or `/a/b/c/d`
+???+ example "Example paths"
+
+    - `/allowed`
+        - ✅ matches `/allowed`
+        - ❌ does not match `/allowed/`
+    - `/public/*`
+        - ✅ matches `/public/`, `/public/a` and `/public/a/`
+        - ❌ does not match `/public/a/b`
+    - `/any*`
+        - ✅ matches `/anything` and `/anywho`
+        - ❌ does not match `/any/` or `/anywho/mstve`
+    - `/a/*/*`
+        - ✅ matches `/a/b/` and `/a/b/c`
+        - ❌ does not match `/a`, `/a/`, `/a/b` or `/a/b/c/d`
 
 ---
 
@@ -235,7 +236,7 @@ Each provider may have some differences in claims and values; see their specific
 Authentication should generally not fail. However, in the event that it does happen; the sidecar automatically presents
 the end-users with a simple error page that allows the user to retry the authentication flow.
 
-If you wish to customize or handle these errors yourselves, set the `errorPath` property to the relative path within
+If you wish to customize or handle these errors yourselves, set the `errorPath` property to the absolute path within
 your ingress that should handle such requests. For example:
 
 === "ID-porten"
@@ -293,6 +294,102 @@ This can be customized to your needs. Defaults shown below:
               memory: 32Mi
     ```
 
+### 6. Sessions
+
+Sessions are stored server-side; we only store a session identifier at the end-user's user agent.
+
+The session lifetime depends on the identity provider:
+
+| Identity Provider | Session Lifetime |
+|-------------------|------------------|
+| Azure AD          | 10 hours         |
+| ID-porten         | 1 hour           |
+
+After the session has expired, the user must be redirected to the `/oauth2/login` endpoint again.
+
+For convenience, we also offer an endpoint that returns metadata about the user's session as a JSON object at `/oauth2/session`. 
+This endpoint will respond with HTTP status codes on errors:
+
+- `HTTP 401 Unauthorized` - no session cookie or matching session found (e.g. user is not authenticated, or has logged out)
+- `HTTP 500 Internal Server Error` - the session store is unavailable, or Wonderwall wasn't able to process the request
+
+Otherwise, an `HTTP 200 OK` is returned with the metadata with the `application/json` as the `Content-Type`, e.g:
+
+```json
+{
+  "session": {
+    "created_at": "2022-08-31T06:58:38.724717899Z", 
+    "ends_at": "2022-08-31T16:58:38.724717899Z",
+    "ends_in_seconds": 14658
+  },
+  "tokens": {
+    "expire_at": "2022-08-31T14:03:47.318251953Z",
+    "refreshed_at": "2022-08-31T12:53:58.318251953Z",
+    "expire_in_seconds": 4166
+  }
+}
+```
+
+Most of these fields should be self-explanatory, but we'll be explicit with their description:
+
+| Field                      | Description                                                                       |
+|----------------------------|-----------------------------------------------------------------------------------|
+| `session.created_at`       | The timestamp that denotes when the session was first created.                    |
+| `session.ends_at`          | The timestamp that denotes when the session will end.                             |
+| `session.ends_in_seconds`  | The number of seconds until the session ends.                                     |
+| `tokens.expire_at`         | The timestamp that denotes when the tokens within the session will expire.        |
+| `tokens.refreshed_at`      | The timestamp that denotes when the tokens within the session was last refreshed. |
+| `tokens.expire_in_seconds` | The number of seconds until the tokens expire.                                    |
+
+#### 6.1. Refresh Tokens
+
+!!! info "Limited Availability"
+    This feature is currently only available for [Azure AD](../security/auth/azure-ad/sidecar.md)
+
+Tokens within the session will usually expire before the session itself. To avoid redirecting end-users to the 
+`/oauth2/login` endpoint whenever the access tokens have expired, we can use refresh tokens to silently get new tokens.
+
+This is **enabled by default** for applications using Wonderwall with Azure AD. 
+
+Tokens will at the earliest be automatically renewed 5 minutes before they expire. This
+happens whenever the end-user visits any path that belongs to the application.
+
+If you want to manually trigger token refreshes, you can make use of a new endpoint:
+
+- `/oauth2/session/refresh` - manually refreshes the tokens for the user's session, and returns the metadata like in
+  `/oauth2/session` described previously
+
+```json
+{
+  "session": {
+    "created_at": "2022-08-31T06:58:38.724717899Z", 
+    "ends_at": "2022-08-31T16:58:38.724717899Z",
+    "ends_in_seconds": 14658
+  },
+  "tokens": {
+    "expire_at": "2022-08-31T14:03:47.318251953Z",
+    "refreshed_at": "2022-08-31T12:53:58.318251953Z",
+    "expire_in_seconds": 4166,
+    "next_auto_refresh_in_seconds": 3866,
+    "refresh_cooldown": true,
+    "refresh_cooldown_seconds": 37
+  }
+}
+```
+
+Additionally, the metadata object returned by both the `/oauth2/session` and `/oauth2/session/refresh` endpoints now
+contain some new fields in addition to the previous fields:
+
+| Field                                 | Description                                                                                     |
+|---------------------------------------|-------------------------------------------------------------------------------------------------|
+| `tokens.next_auto_refresh_in_seconds` | The number of seconds until the earliest time where the tokens will automatically be refreshed. |
+| `tokens.refresh_cooldown`             | A boolean indicating whether or not the refresh operation is on cooldown or not.                |
+| `tokens.refresh_cooldown_seconds`     | The number of seconds until the refresh operation is no longer on cooldown.                     |
+
+Note that the refresh operation has a default cooldown period of 1 minute, which may be shorter depending on the token lifetime
+of the tokens returned by the identity provider. In other words, a request to the `/oauth2/session/refresh` endpoint will
+only trigger a refresh if `tokens.refresh_cooldown` is `false`.
+
 ## Responsibilities & Guarantees
 
 **The sidecar:**
@@ -303,14 +400,12 @@ This can be customized to your needs. Defaults shown below:
 * Owns the `/oauth2` endpoints [defined above](#endpoints) and intercepts all HTTP requests to these. They will never be
   forwarded to your application.
 * Is safe to enable and use with multiple replicas of your application.
-* Stores session data to a highly available Redis service on Aiven, and falls back to using cookies if the former is
-  unavailable.
+* Stores session data to a highly available Redis service on Aiven.
 * Validates the `id_token` acquired from this flow in accordance with the
   [OpenID Connect specifications](https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation).
 
 **The sidecar does _not_:**
 
-* Automatically refresh the user's tokens.
 * Secure your application's endpoints in any way.
 * Validate the user's `access_token` set in the `Authorization` header. The token may be invalid or expired by the time
   your application receives it.
