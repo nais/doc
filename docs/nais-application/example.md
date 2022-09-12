@@ -79,6 +79,9 @@ spec:
       tenant: nav.no
     sidecar:
       autoLogin: true
+      autoLoginIgnorePaths:
+      - /path
+      - /internal/*
       enabled: true
       errorPath: /error
       resources:
@@ -180,6 +183,9 @@ spec:
     sessionLifetime: 7200
     sidecar:
       autoLogin: true
+      autoLoginIgnorePaths:
+      - /path
+      - /internal/*
       enabled: true
       errorPath: /error
       level: Level4

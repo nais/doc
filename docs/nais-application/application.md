@@ -632,6 +632,9 @@ Required: `false`<br />
           tenant: nav.no
         sidecar:
           autoLogin: true
+          autoLoginIgnorePaths:
+            - /path
+            - /internal/*
           enabled: true
           errorPath: /error
           resources:
@@ -856,6 +859,9 @@ Required: `false`<br />
       azure:
         sidecar:
           autoLogin: true
+          autoLoginIgnorePaths:
+            - /path
+            - /internal/*
           enabled: true
           errorPath: /error
           resources:
@@ -868,11 +874,11 @@ Required: `false`<br />
     ```
 
 #### azure.sidecar.autoLogin
-Automatically redirect the user to login for all proxied routes.
+Automatically redirect the user to login for all proxied GET requests.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/sidecar#auto-login](https://doc.nais.io/security/auth/azure-ad/sidecar#auto-login)
+* [https://doc.nais.io/appendix/wonderwall/#12-autologin](https://doc.nais.io/appendix/wonderwall/#12-autologin)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -884,6 +890,26 @@ Default value: `false`<br />
       azure:
         sidecar:
           autoLogin: true
+    ```
+
+#### azure.sidecar.autoLoginIgnorePaths
+Comma separated list of absolute paths to ignore when auto-login is enabled.
+
+Relevant information:
+
+* [https://doc.nais.io/appendix/wonderwall/#12-autologin](https://doc.nais.io/appendix/wonderwall/#12-autologin)
+
+Type: `array`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      azure:
+        sidecar:
+          autoLoginIgnorePaths:
+            - /path
+            - /internal/*
     ```
 
 #### azure.sidecar.enabled
@@ -905,7 +931,7 @@ Absolute path to redirect the user to on authentication errors for custom error 
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/sidecar#error-handling](https://doc.nais.io/security/auth/azure-ad/sidecar#error-handling)
+* [https://doc.nais.io/appendix/wonderwall/#4-error-handling](https://doc.nais.io/appendix/wonderwall/#4-error-handling)
 
 Type: `string`<br />
 Required: `false`<br />
@@ -923,7 +949,7 @@ Resource requirements for the sidecar container.
 
 Relevant information:
 
-* [https://kubernetes.io/docs/concepts/configuration/manage-resources-containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers)
+* [https://doc.nais.io/appendix/wonderwall/#5-resource-requirements](https://doc.nais.io/appendix/wonderwall/#5-resource-requirements)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3072,6 +3098,9 @@ Required: `false`<br />
         sessionLifetime: 7200
         sidecar:
           autoLogin: true
+          autoLoginIgnorePaths:
+            - /path
+            - /internal/*
           enabled: true
           errorPath: /error
           level: Level4
@@ -3258,6 +3287,9 @@ Required: `false`<br />
       idporten:
         sidecar:
           autoLogin: true
+          autoLoginIgnorePaths:
+            - /path
+            - /internal/*
           enabled: true
           errorPath: /error
           level: Level4
@@ -3272,11 +3304,11 @@ Required: `false`<br />
     ```
 
 #### idporten.sidecar.autoLogin
-Automatically redirect the user to login for all proxied routes.
+Automatically redirect the user to login for all proxied GET requests.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/idporten/sidecar#auto-login](https://doc.nais.io/security/auth/idporten/sidecar#auto-login)
+* [https://doc.nais.io/appendix/wonderwall/#12-autologin](https://doc.nais.io/appendix/wonderwall/#12-autologin)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -3288,6 +3320,26 @@ Default value: `false`<br />
       idporten:
         sidecar:
           autoLogin: true
+    ```
+
+#### idporten.sidecar.autoLoginIgnorePaths
+Comma separated list of absolute paths to ignore when auto-login is enabled.
+
+Relevant information:
+
+* [https://doc.nais.io/appendix/wonderwall/#12-autologin](https://doc.nais.io/appendix/wonderwall/#12-autologin)
+
+Type: `array`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      idporten:
+        sidecar:
+          autoLoginIgnorePaths:
+            - /path
+            - /internal/*
     ```
 
 #### idporten.sidecar.enabled
@@ -3309,7 +3361,7 @@ Absolute path to redirect the user to on authentication errors for custom error 
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/idporten/sidecar#error-handling](https://doc.nais.io/security/auth/idporten/sidecar#error-handling)
+* [https://doc.nais.io/appendix/wonderwall/#4-error-handling](https://doc.nais.io/appendix/wonderwall/#4-error-handling)
 
 Type: `string`<br />
 Required: `false`<br />
@@ -3367,7 +3419,7 @@ Resource requirements for the sidecar container.
 
 Relevant information:
 
-* [https://kubernetes.io/docs/concepts/configuration/manage-resources-containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers)
+* [https://doc.nais.io/appendix/wonderwall/#5-resource-requirements](https://doc.nais.io/appendix/wonderwall/#5-resource-requirements)
 
 Type: `object`<br />
 Required: `false`<br />
