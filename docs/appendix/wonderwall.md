@@ -191,8 +191,8 @@ These use glob-style matching, though only single asterisks are allowed.
         - ✅ matches `/allowed`
         - ❌ does not match `/allowed/`
     - `/public/*`
-        - ✅ matches `/public/`, `/public/a` and `/public/a/`
-        - ❌ does not match `/public/a/b`
+        - ✅ matches `/public/`, `/public/a` and `/public/abc`
+        - ❌ does not match `/public/a/` or `/public/a/b`
     - `/any*`
         - ✅ matches `/anything` and `/anywho`
         - ❌ does not match `/any/` or `/anywho/mstve`
