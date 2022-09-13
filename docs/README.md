@@ -15,7 +15,7 @@ At the core of NAIS lies [*Kubernetes*](https://kubernetes.io), which can be des
 
 Our goal is to lift this burden from our developers, and in order to do so we've condensed the essential parts into a single configuration file that we use to generate all the underlying Kubernetes resources. In nais terms this file is most commonly referred to as [nais.yaml](https://doc.nais.io/nais-application/example/)
 
-![](assets/nais_army_knife.png)
+![Lommekniv med flere verktøy](assets/nais_army_knife.png)
 
 The services included are (but not limited to) logging, metrics, alerts, deployment, operators and a runtime environment (across on-premise and Google Cloud Platform).
 
