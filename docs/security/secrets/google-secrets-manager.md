@@ -1,9 +1,5 @@
 # Google Secrets Manager
 
-!!! warning
-    Google Secrets Manager integration with Kubernetes is currently available as an OPEN BETA.
-    Please report any issues to the #nais channel on Slack.
-
 You may store secrets in [Google Secrets Manager](https://cloud.google.com/secret-manager) as an alternative to the
 other offered solutions.
 
