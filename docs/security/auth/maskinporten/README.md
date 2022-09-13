@@ -5,7 +5,7 @@ description: >
 
 # Maskinporten
 
-!!! warning "Status: Opt-In Open Beta"
+!!! warning "Limited Availability"
     This feature is only available in [team namespaces](../../../clusters/team-namespaces.md)
 
 ## Abstract
