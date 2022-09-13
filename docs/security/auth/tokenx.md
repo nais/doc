@@ -4,7 +4,7 @@ description: Enabling zero trust on the application layer
 
 # TokenX
 
-!!! warning "Status: Opt-In Open Beta"
+!!! warning "Limited Availability"
     This feature is only available in [team namespaces](../../clusters/team-namespaces.md).
 
     It currently only supports _self-service/citizen facing applications_ - however other use-cases have been identified.
