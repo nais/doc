@@ -9,8 +9,7 @@ However, Naiserator will copy these parameters from your Application spec.
 
 ## Custom max body size
 
-For nginx, an `413` error will be returned to the client when the size in a
-request exceeds the maximum allowed size of the client request body.
+For nginx, an `413` error will be returned to the client when the size in a request exceeds the maximum allowed size of the client request body.
 
 ```yaml
 metadata:
@@ -20,9 +19,7 @@ metadata:
 
 ## Custom proxy buffer size
 
-Sets the size of the buffer proxy_buffer_size used for reading the first part of
-the response received from the proxied server. By default proxy buffer size is
-set as `4k`
+Sets the size of the buffer proxy_buffer_size used for reading the first part of the response received from the proxied server. By default proxy buffer size is set as `4k`
 
 ```yaml
 metadata:
@@ -32,9 +29,7 @@ metadata:
 
 ## Custom timeouts
 
-In some scenarios is required to have different values for varisous timeouts. To
-allow this we provide parameters that allows this customization:
-
+In some scenarios is required to have different values for various timeouts. To allow this we provide parameters that allows this customization:
 * `nginx.ingress.kubernetes.io/proxy-connect-timeout`
 * `nginx.ingress.kubernetes.io/proxy-send-timeout`
 * `nginx.ingress.kubernetes.io/proxy-read-timeout`
@@ -43,22 +38,17 @@ allow this we provide parameters that allows this customization:
 * `nginx.ingress.kubernetes.io/proxy-next-upstream-tries`
 * `nginx.ingress.kubernetes.io/proxy-request-buffering`
 
-Note: All timeout values are unitless and in seconds e.g.
-`nginx.ingress.kubernetes.io/proxy-read-timeout: "120"` sets a valid 120 seconds
-proxy read timeout.
+Note: All timeout values are unitless and in seconds e.g. `nginx.ingress.kubernetes.io/proxy-read-timeout: "120"` sets a valid 120 seconds proxy read timeout.
 
 ## WebSockets Support
 
-Support for websockets is provided by nginx ingress controller out of the box.
-No special configuration required.
+Support for websockets is provided by nginx ingress controller out of the box. No special configuration required.
 
-The only requirement to avoid the close of connections is the increase of the
-values of `proxy-read-timeout` and `proxy-send-timeout`.
+The only requirement to avoid the close of connections is the increase of the values of `proxy-read-timeout` and `proxy-send-timeout`.
 
 The default value of this settings is `60 seconds`.
 
-A more adequate value to support websockets is a value higher than one hour
-(`3600`).
+A more adequate value to support websockets is a value higher than one hour (`3600`).
 
 ```yaml
 apiVersion: nais.io/v1alpha1
@@ -75,8 +65,7 @@ spec:
 
 ## Ingress access logs
 
-Request access logs from nginx ingress controller are automatically collected
-and stored in Kibana.
+Request access logs from nginx ingress controller are automatically collected and stored in Kibana.
 
 Here are pre-configured queries for the controller logs in the following clusters:
 
@@ -96,9 +85,7 @@ Here are pre-configured queries for the controller logs in the following cluster
 
 ### Some debugging tips
 
-If `response_code` and `x_upstream_status` are the same it means that the
-application returned this response code – not nginx. Look in the logs for the
-corresponding application, this is not a problem with nginx.
+If `response_code` and `x_upstream_status` are the same it means that the application returned this response code – not nginx. Look in the logs for the corresponding application, this is not a problem with nginx.
 
 Here are some suggestions depending on what http status code you might recieve from nginx:
 
