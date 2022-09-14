@@ -83,6 +83,28 @@ Here are pre-configured queries for the controller logs in the following cluster
 | `x_upstream_name` | The application receiving the request on the following format "`namespace`-`app-name`-`port`"
 | `x_upstream_status` | HTTP response code from the application |
 
+### Fid _your_ access logs
+
+In order to find your team's application access logs, you need to filter on the following fields:
+
+* `AND x_upstream_name: my-namespace*` (replace `my-namespace` with your namespace)
+
+If you want to filter on a specific application, you can add the following filter:
+
+* `AND x_upstream_name: my-namespace-my-app*` (replace `my-namespace` with your namespace and `my-app` with your application name)
+
+If you want to filter out specific HTTP response codes, you can add the following filter:
+
+* `NOT response_code: 404` (replace `404` with the HTTP response code you want to filter out)
+
+If you want to filter out multiple HTTP response codes, you can add the following filter:
+
+* `NOT response_code: (404 or 503)` (replace `404` and `503` with the HTTP response codes you want to filter out)
+
+If you want to find specific HTTP methods, you can add the following filter:
+
+* `AND message: GET*` (replace `GET` with the HTTP method you want to filter out)
+
 ### Some debugging tips
 
 If `response_code` and `x_upstream_status` are the same it means that the application returned this response code – not nginx. Look in the logs for the corresponding application, this is not a problem with nginx.
@@ -97,35 +119,37 @@ Here are some suggestions depending on what http status code you might recieve f
 
 ## Full ingress example
 
-```yaml
-apiVersion: nais.io/v1alpha1
-kind: Application
-metadata:
-  name: myapplication
-  namespace: myteam
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "256M"
-    nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
-spec:
-  service:
-    protocol: http
-  ingresses:
-    - https://myapplication.nav.no
-```
+=== "nais.yaml"
 
-This will result in an ingress with:
+    ```yaml
+    apiVersion: nais.io/v1alpha1
+    kind: Application
+    metadata:
+      name: myapplication
+      namespace: myteam
+      annotations:
+        nginx.ingress.kubernetes.io/proxy-body-size: "256M"
+        nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
+        nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    spec:
+      service:
+        protocol: http
+      ingresses:
+        - https://myapplication.nav.no
+    ```
 
-```yaml
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: myapplication-gw-nav-no-abcd1234
-  namespace: myteam
-  annotations:
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"    # from ".service.protocol"
-    nginx.ingress.kubernetes.io/use-regex: "true"           # this is always on
-    nginx.ingress.kubernetes.io/proxy-body-size: "256M"     # copied from annotations
-    nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"     # copied from annotations
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"   # copied from annotations
-```
+=== "ingress.yaml"
+
+    ```yaml
+    apiVersion: extensions/v1beta1
+    kind: Ingress
+    metadata:
+      name: myapplication-gw-nav-no-abcd1234
+      namespace: myteam
+      annotations:
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTP"    # from ".service.protocol"
+        nginx.ingress.kubernetes.io/use-regex: "true"           # this is always on
+        nginx.ingress.kubernetes.io/proxy-body-size: "256M"     # copied from annotations
+        nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"     # copied from annotations
+        nginx.ingress.kubernetes.io/proxy-read-timeout: "300"   # copied from annotations
+    ```
