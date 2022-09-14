@@ -15,7 +15,7 @@ At the core of NAIS lies [*Kubernetes*](https://kubernetes.io), which can be des
 
 Our goal is to lift this burden from our developers, and in order to do so we've condensed the essential parts into a single configuration file that we use to generate all the underlying Kubernetes resources. In nais terms this file is most commonly referred to as [nais.yaml](https://doc.nais.io/nais-application/example/)
 
-![Lommekniv med flere verktøy](assets/nais_army_knife.png)
+![A swiss army knife with the nais logo. All the tools are opened and it looks like a mess.](assets/nais_army_knife.png)
 
 The services included are (but not limited to) logging, metrics, alerts, deployment, operators and a runtime environment (across on-premise and Google Cloud Platform).
 
@@ -54,7 +54,7 @@ When we built NAIS in GCP we wanted the applications to be able to communicate w
 And so the two GCP clusters `dev-gcp` and `prod-gcp` were born.
 There are a couple of additional clusters in GCP as well, though - `ci-gcp` for us to test changes and `labs-gcp` where the teams can experiment.
 
-![clusters](assets/clusters.png)
+![The on-prem zone consist of the two clusters dev-sbs and prod-sbs, that are now retired, and dev-fss and prod-fss. There are two GCP clusters, dev-gcp and prod-gcp. The illustration repeats the text, and uses a horrible, romantic font that makes the designers gasp for air.](assets/clusters.png)
 ## Teams
 
 NAIS is for the development teams.
@@ -65,13 +65,13 @@ This creates better software and happier teams.
 To achieve this, we ensure that each team has their own space where they can experiment, develop and host the stuff they build.
 Here they have the full set of permissions, and are only limited by their own imagination.
 
-Details about the technology to logically group users, their access and permissions is described [here](basics/teams).
+You can also learn about our [user management and permissions](basics/teams).
 
 ## Access from laptop
 
-In the extended NAIS universe we also have a component called naisdevice. This is a cross plattform mechanism that provices access to NAIS services. The product adheres to the same principles as are decribed [here](https://honest.security) and takes aim at securing our operations without getting in our devs way. 
+In the extended NAIS universe we also have a component called naisdevice. This is a cross plattform mechanism that provices access to NAIS services. The product adheres to the [Honest.security principles](https://honest.security) and takes aim at securing our operations without getting in our devs way. 
 
 ## Contact the NAIS team
 The team can be found on [Slack](https://nav-it.slack.com/messages/C5KUST8N6/).
-Also, follow us on Twitter [@nais\_io](https://twitter.com/nais_io)!
+Also, follow us on [Twitter @nais\_io](https://twitter.com/nais_io)!
 
