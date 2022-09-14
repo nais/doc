@@ -9,7 +9,7 @@ However, Naiserator will copy these parameters from your Application spec.
 
 ## Custom max body size
 
-For nginx, an `413` error will be returned to the client when the size in a request exceeds the maximum allowed size of the client request body.
+For nginx, an `413` error will be returned to the client when the size in a request exceeds the maximum allowed size of the client request body. By default, this is set to `1m` (1 megabyte).
 
 ```yaml
 metadata:
@@ -83,6 +83,7 @@ Here are pre-configured queries for the controller logs in the following cluster
 | `response_code` | HTTP response code from nginx |
 | `x_upstream_name` | The application receiving the request on the following format "`namespace`-`app-name`-`port`"
 | `x_upstream_status` | HTTP response code from the application |
+| `x_request_id` | Unique request ID used for correlating further requests from the application to other services |
 
 ### Fid _your_ access logs
 
