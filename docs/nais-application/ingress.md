@@ -14,7 +14,7 @@ For nginx, an `413` error will be returned to the client when the size in a requ
 ```yaml
 metadata:
   annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: 8m
+    nginx.ingress.kubernetes.io/proxy-body-size: "8m"
 ```
 
 ## Custom proxy buffer size
@@ -30,6 +30,7 @@ metadata:
 ## Custom timeouts
 
 In some scenarios is required to have different values for various timeouts. To allow this we provide parameters that allows this customization:
+
 * `nginx.ingress.kubernetes.io/proxy-connect-timeout`
 * `nginx.ingress.kubernetes.io/proxy-send-timeout`
 * `nginx.ingress.kubernetes.io/proxy-read-timeout`
