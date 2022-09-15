@@ -1,23 +1,16 @@
 ## Sunset - tjenester som nais-teamet gradvis bygger ned
 
-Dette er tjenester som ikke videreutvikles av naisteamet, og i noen tilfeller som vil bli avviklet.
-
-
-### nais.adeo.no, dev.adeo.no, preprod.local, oera-q.local (ingresser)
-
-- `nais.adeo.no` erstattes av `intern.nav.no`
-- `dev.adeo.no` erstattes av `dev.intern.nav.no`
-- `preprod.local` erstattes av `dev.intern.nav.no`
-
-For applikasjoner på GCP er kun de nye ingressene mulig å benytte, mens for applikasjoner i FSS er begge mulig å bruke. 
-
-Det er ingen plan om å avvikle de gamle ingressene i FSS, men vi anbefaler en gradvis migrering til de nye, og at nye applikasjoner benytter nye ingresser.
+Dette er tjenester som naisteamet er i prosess med å avvikle.
 
 
 ### Kafka onprem
 
 Kafka er i dag tilgjengelig både som en tjeneste fra Aiven som kjører i GCP og som en tjeneste vi kjører i egne datasentre.
 Begge variantene av kafka kan nås fra alle nais-clustre. 
+
+[ROS for Kafka i NAV](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=252)
+
+#### Bakgrunn for sanering
 
 Kafka onprem driftes og vedlikeholdes av en håndfull personer, hvor ingen har Kafka som sin hovedoppgave.
 Det er også identifisert flere potensielle problemer som ikke lar seg løse:
@@ -30,6 +23,9 @@ Det er også identifisert flere potensielle problemer som ikke lar seg løse:
 - Skjer det noe med on-prem Kafka (sikkerhetshull, uforutsette feilhendelser) så har vi ikke mulighet til å oppgradere.
   - Dersom feilen er sikkerhetshull, så vil eneste løsning være å skru av clusteret umiddelbart med de tap av data det medfører.
 
+**Bruk av Kafka onprem til operative tjenester i produksjon medfører høy risiko for både nedetid og tap av data.**
+
+#### Plan
 Løsningen på disse problemene er å migrere til et nytt cluster, og da har vi valgt å migrere til Aiven Kafka.
 
 Aiven er en leverandør som har Kafka som hovedprodukt, det er et av de første produktene de tilbød, og de har opparbeidet seg høy kompetanse på drift og oppsett av Kafka i sky.
@@ -39,17 +35,17 @@ Det er enkelt for oss å oppgradere til nyere versjoner av Kafka, og vi drar nyt
 Som følge av Aivens gode APIer er det også mulig for NAIS å integrere Kafka tettere i plattformen, og vi har flere muligheter for videreutvikling.
 Kombinasjonen av Aiven Kafka og Kafkarator gjør det betydelig enklere for team å ta i bruk Aiven Kafka sammenlignet med Kafka onprem.
 
-Vi hadde tidligere en ambisjon om at Kafka onprem skulle skrus av før sommeren 2021, men siden vi så at enkelte team ville ha problemer med å migrere før det har vi gått vekk fra en hard deadline for dette. Vi vil likevel oppfordre alle som har mulighet til å migrere til Aiven Kafka så snart som mulig.
+Fra 1. juni 2021 ble det stengt for opprettelse av nye topics i Kafka onprem. 
 
-Vi har allikevel besluttet at vi stenger for å opprette nye topics i Kafka onprem fra 1. juni 2021. 
-Hypotesen er at siden det allikevel er et nytt topic, så er det både enklere og mer fremtidsrettet om det opprettes på Aiven Kafka, og vi ønsker å redusere mengden data som går gjennom Kafka onprem.
+**Alle team anbefales å migrere vekk fra onprem Kafka snarest.** 
 
-[ROS for Kafka i NAV](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=252)
+#### Hvordan migrere vekk
+[Dette er en guide for migrering fra onprem Kafka.](https://doc.nais.io/persistence/kafka/migrate_from_onprem/)
 
 
 ### loginservice
 
-#### Bakgrunn for sunseting
+#### Bakgrunn for sanering
 Loginservice (ved bruk av Azure AD B2C) tilbyr en fellestjeneste for "delegated authentication" for alle borgerrettede apper, dvs mot ID-porten.
 Token fått ved innlogging via Loginservice gir tilgang til en rekke bakenforliggende tjenester, ved at dette tokenet propageres as-is.
 
@@ -77,3 +73,14 @@ Vi anbefaler alle team sterkt å starte migreringen vekk fra loginservice allere
 ### FSS
 
 Vi anbefaler at alle nye applikasjoner på nais deployes til GCP, og ikke til FSS.
+
+
+### nais.adeo.no, dev.adeo.no, preprod.local, oera-q.local (ingresser)
+
+- `nais.adeo.no` erstattes av `intern.nav.no`
+- `dev.adeo.no` erstattes av `dev.intern.nav.no`
+- `preprod.local` erstattes av `dev.intern.nav.no`
+
+For applikasjoner på GCP er kun de nye ingressene mulig å benytte, mens for applikasjoner i FSS er begge mulig å bruke. 
+
+Det er ingen plan om å avvikle de gamle ingressene i FSS, men vi anbefaler en gradvis migrering til de nye, og at nye applikasjoner benytter nye ingresser.
