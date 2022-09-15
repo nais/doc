@@ -71,17 +71,29 @@ Hypotesen er at siden det allikevel er et nytt topic, så er det både enklere o
 
 ### loginservice
 
-Loginservice (ved bruk av Azure AD B2C) tilbyr en fellestjeneste for "delegated authentication" for alle borgerrettede apper, dvs mot ID-porten. Token fått ved innlogging via Loginservice gir tilgang til en rekke bakenforliggende tjenester, ved at dette tokenet propageres as-is.
+#### Bakgrunn for sunseting
+Loginservice (ved bruk av Azure AD B2C) tilbyr en fellestjeneste for "delegated authentication" for alle borgerrettede apper, dvs mot ID-porten.
+Token fått ved innlogging via Loginservice gir tilgang til en rekke bakenforliggende tjenester, ved at dette tokenet propageres as-is.
 
-En sentral fellestjeneste kan utgjøre en risiko, både operasjonelt og sikkerhetsmessig. Dersom Loginservice er utilgjengelig er i praksis alle innloggede tjenester på nav.no nede. Ved bruk av loginservice og propagering av `id_token` as-is så har vi i praksis  "one token to rule them all" mtp tilgang til APIer. Denne arkitekturen gjør at kompromitterte tokens har et stort skadepotensiale, og er heller ikke i tråd med "zero trust"-prinsippene vi designer systemene våre etter. 
+Ved bruk av loginservice og propagering av `id_token` as-is så har vi i praksis "one token to rule them all" med tanke på tilgang til APIer. 
+Denne arkitekturen gjør at kompromitterte tokens har et stort skadepotensiale, og er heller ikke i tråd med "zero trust"-prinsippene vi designer systemene våre etter. 
 
-Som med alle andre fellestjenester skapes det sterke koblinger. Endringer i tjenesten medfører et stort behov for koordinering, og dermed bremses farta til teamene. Det å holde tjenesten oppdatert er også en vedlikeholdsbyrde som stjeler tid fra andre og mere framtidsrettede aktiviteter i plattformteamet. 
+Vi har i NAV hatt mange tjenester som løser behov knyttet til innlogging: loginservice, openAM, og nå også [wonderwall](https://doc.nais.io/appendix/wonderwall/). 
+Fremover er det wonderwall vi vil drive aktiv videreutvikling på, og i tråd med ambisjonen om å redusere vårt teknologiske fotavtrykk ønsker vi derfor å sanere loginservice.
 
-Vi har et ønske om en sikkerhetsarkitektur hvor hvert enkelt token er spesifikt beregnet til det APIet som man skal kalle. Dette kan vi ikke oppnå med en fellestjeneste som Loginservice.
 
-I GCP har teamene nå fått mulighet til å integrere direkte mot ID-porten selv, og NAV ITs strategi sier at teamene skal ta ansvar for alle aspekter ved produktene sine (også autentisering). Vi tilbyr også "TokenX" og andre mekanismer som er i tråd med "zero trust". Vi vil derfor ikke utvikle mer på Loginservice, men kun sørge for "lyset holdes på" fram til den kan skrus av.
+#### Plan
+Loginservice blir ikke videreutviklet, men driftes as-is frem til tjenesten kan slås av.
 
-En gulrot for teamene som integrerer seg direkte med IDPorten er at de da kan benytte seg av `refresh_tokens` for en mer sømløs og brukervennlig opplevelse for brukere på nav.no mtp utløpt token.
+ID-porten endrer arkitektur i 2023, og loginservice vil ikke bli oppdatert for å støtte dette. 
+Det er per nå ikke satt en sunset-dato for loginservice, men det skjer sannsynligvis innen sommeren 2023.
+
+Vi anbefaler alle team sterkt å starte migreringen vekk fra loginservice allerede nå.
+
+
+#### Hvordan migrere vekk
+* Hvis du har en backend som aksepterer tokens fra `loginservice` må du i stedet akseptere tokens fra TokenX
+* Benytt [wonderwall](https://doc.nais.io/appendix/wonderwall/) der hvor du i dag benytter loginservice
 
 
 ### OpenAM (ESSO)
