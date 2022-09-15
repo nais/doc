@@ -3,15 +3,6 @@
 Dette er tjenester som ikke videreutvikles av naisteamet, og i noen tilfeller som vil bli avviklet.
 
 
-### Sentralisert ABAC (Axiomatics)
-
-I kjølvannet av at Team Integrasjon ble oppløst har drift av både den tekniske tjenesten, verktøystøtten, samt forvaltningen av policies i ABAC blitt utført av én person. ABAC er kritisk for tilgangsstyringen i mange tjenester, og inneholder i mange tilfeller domenelogikk. Dette lar seg dårlig forene med de effektene vi ønsker av distribuerte autonome team. Samtidig er policiene som ligger i ABAC implementert i et proprietært språk (Alfa) som gjør terskelen for å ta over denne logikken høyere enn man skulle ønske.
-
-nais-teamet har tatt over ABAC-tjenesten fra Team Integrasjon, og ønsker å desentralisere denne. Det betyr i praksis at teamene som bruker ABAC må ta eierskap til både egne policies og egne instanser av ABAC (alternativt flytte logikken de har i ABAC inn i egne applikasjoner). Se forøvrig [ADR](https://github.com/navikt/pig/blob/master/sikkerhet/adr/003-no-abac.md) her.
-
-Tilnærmingen til avvikling av sentralisert ABAC er først å flytte eksisterende implementasjon ut av stash/nexus og flytte til GitHub. Vi flytter samtidig instansen fra WebSphere til nais. Så tenker vi å splitte ABAC opp i domener, og flytte eierskapet for hver instans til domenet. Om teamene som bruker ABAC det aktuelle domenet ønsker å fortsette å bruke Axiomatics-ABAC eller ønsker å implementere logikken direkte i appene sine eller i en egen app er opp til teamene. Uansett hvilket valg de tar vil nais-teamet være tilgjengelig som støtte i overgangen.
-
-
 ### nais.adeo.no, dev.adeo.no, preprod.local, oera-q.local (ingresser)
 
 - `nais.adeo.no` erstattes av `intern.nav.no`
@@ -21,19 +12,6 @@ Tilnærmingen til avvikling av sentralisert ABAC er først å flytte eksisterend
 For applikasjoner på GCP er kun de nye ingressene mulig å benytte, mens for applikasjoner i FSS er begge mulig å bruke. 
 
 Det er ingen plan om å avvikle de gamle ingressene i FSS, men vi anbefaler en gradvis migrering til de nye, og at nye applikasjoner benytter nye ingresser.
-
-
-### MQ
-
-MQ benyttes i dag kun via on-premises servere som driftes og vedlikeholdes av ATOM og Linux. 
-
-Det er ønskelig at de applikasjonene som har mulighet heller benytter Aiven Kafka. Vi ønsker at man går vekk fra MQ fordi dette vil forenkle overgang til offentlig sky og et eventuelt bytte av leverandør der. Dette vil også forenkle oppsettet for applikasjonene og plattform.
-
-Det er dog støtte for MQ fra nais-klusterne on-premises og i GCP, men da kun med nye MQ-servere som er satt opp med autentisering. 
-
-*Bruk av ikke-autentisert MQ er definert som et alvorlig sikkerhetshull*. 
-Vi ønsker at alle migrerer sine applikasjoner til enten autentisert MQ, eller aller helst Kafka, så fort som mulig. 
-Bruk av ikke-autentisert MQ vil ikke være mulig fra nais-klusterne fra og med 01.12.2021.
 
 
 ### Kafka onprem
@@ -96,23 +74,6 @@ Vi anbefaler alle team sterkt å starte migreringen vekk fra loginservice allere
 * Benytt [wonderwall](https://doc.nais.io/appendix/wonderwall/) der hvor du i dag benytter loginservice
 
 
-### OpenAM (ESSO)
-
-OpenAM ESSO (ESSO - ekstern single-sign-on) er en legacy løsning for single-sign-on (SSO) på tvers av nav.no applikasjoner basert på en reverse-proxy arkitektur. Dette innebærer at applikasjoner som benytter denne løsningen ligger bak en revers-proxy som håndhever autentisering, og applikasjoner henter ut brukerinformasjon ved å gjøre oppslag i OpenAM basert på et sesjonstoken. OpenAM integrerer med IDPorten vha SAML (som er deprekert hos IDPorten til fordel for OpenID Connect).
-
-Det er et ønske om at applikasjoner migrerer seg helt bort fra OpenAM ESSO da dette er en løsning som stammer fra en helt annen tid og som har vært ansett som deprekert i NAV i lang tid. Den holdes i live on-prem til de siste applikasjonene er flyttet over til enten direktebasert integrasjon med IDPorten eller til loginservice (som et midlertidig steg). Ambisjonen er å skru av OpenAM ESSO til sommeren 2021 for å unngå å utløse enda et år med support fra Forgerock.
-
-
-### OpenAM (ISSO)
-
-OpenAM ISSO (intern single-sign-on) en on-prem løsning som tilbyr innlogging for NAV ansatte (f.eks saksbehandlere) ved bruk av OpenID Connect (OIDC) og on-prem AD. Applikasjoner som integrerer med OpenAM får tilbake et `id_token` som benyttes ved kall mot andre APIer. Arkitekturen ved API til API kall for denne løsningen ligner den vi har med loginservice, dvs. "one token to rule them all" - et token gir tilgang til et stort sett APIer. 
-
-OpenAM ISSO driftes on-prem ved ATOM og har en sterk avhengighet til AD. Det ønskelig at flest mulig applikasjoner migrerer seg over til Azure AD som også tilbyr innlogging for NAV ansatte vha OIDC.  I tillegg til fordelen ved at Azure AD er managed skybasert løsning, støtter den også store deler av OAuth 2.0 spesfikasjonene som gjør at vi kan benytte oss av tokens som er spesifikt beregnet på APIet man skal kalle. 
-
-Vi er klar over at en del APIer baserer seg på å motta tokens fra OpenAM ISSO og enda ikke støtter Azure AD som tilbyder. Det er derfor viktig at flest mulig APIer også implementerer støtte for Azure AD tokens, da applikasjoner som benytter OpenAM for innlogging ikke kan switche til Azure AD før avhengighetene deres støtter det. 
-
-
 ### FSS
 
 Vi anbefaler at alle nye applikasjoner på nais deployes til GCP, og ikke til FSS.
-
