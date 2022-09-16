@@ -6,11 +6,11 @@
 | `prod-gcp` | production  | publicly accessible                    |
 | `labs-gcp` | development | publicly accessible                    |
 
-In GCP, we do not operate with a zone model like with the on-premise clusters. Instead, we rely on a [zero trust](../appendix/zero-trust.md) model with a service mesh. The only thing we differentiate on a cluster level is development and production.
+In GCP, we do not operate with a zone model like with the on-premise clusters. Instead, we rely on a [zero trust model](../appendix/zero-trust.md) with a service mesh. The only thing we differentiate on a cluster level is development and production.
 
-The applications running in GCP need [access policy rules defined](../nais-application/access-policy.md) for every other service they receive requests from or sends requests to.
+The applications running in GCP need [access policy rules](../nais-application/access-policy.md) defined for every other service they receive requests from or sends requests to.
 
-To access the GCP clusters, see [Access](../basics/access.md#google-cloud-platform-gcp).
+Make sure you have [access to GCP clusters.](../basics/access.md#google-cloud-platform-gcp).
 
 ## Access to GCP
 In order to use GCP, a team is required to add their team in a PR to [navikt/teams](https://github.com/navikt/teams).
@@ -33,7 +33,7 @@ You can control from where you application is reachable by selecting the appropr
 
 | domain             | accessible from                   | description                                                                                                                          |
 |:-------------------|:----------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------|
-| ekstern.dev.nav.no | internet                          | manually configured, see [instructions below](#eksterndevnavno). URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| ekstern.dev.nav.no | internet                          | [manually configured](#eksterndevnavno). URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
 | dev.nav.no         | [naisdevice](../device/README.md) | development ingress for nav.no applications                                                                                          |
 | dev.intern.nav.no  | [naisdevice](../device/README.md) | development ingress for non-public/internet-facing applications                                                                      |
 
@@ -77,7 +77,7 @@ Commit the changes and create a pull request.
 | nav.no           | internet                          | manually configured, contact at \#tech-sikkerhet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked |
 | intern.nav.no    | [naisdevice](../device/README.md) | used by non-public/internet-facing applications \(previously called adeo.no\).                                       |
 
-More info about how DNS is configured for these domains can be found [here](../appendix/ingress-dns.md)
+You can also learn about [how DNS is configured.](../appendix/ingress-dns.md)
 
 ### labs-gcp ingresses
 
@@ -92,12 +92,12 @@ More info about how DNS is configured for these domains can be found [here](../a
 
 ## ROS and PVK
 
-When establishing an application on GCP, it is a great time to update its [Risikovurdering (*ROS*)](https://navno.sharepoint.com/sites/intranett-it/SitePages/Risikovurderinger.aspx) analysis. It is required to update the application's entry in the [*Behandlingsoversikt*](https://navno.sharepoint.com/sites/intranett-personvern/SitePages/Behandlingskatalog.aspx) when changing platforms. If both of these words are unfamiliar to your team, it's time to sit down and take a look at both of them.
+When establishing an application on GCP, it is a great time to update its [platform privacy impact assessments (*ROS*).](https://navno.sharepoint.com/sites/intranett-it/SitePages/Risikovurderinger.aspx) It is required to update the application's entry in the [*Behandlingsoversikt*](https://navno.sharepoint.com/sites/intranett-personvern/SitePages/Behandlingskatalog.aspx) when changing platforms. If both of these words are unfamiliar to your team, it's time to sit down and take a look at both of them.
 
 Every application needs to have a *ROS* analysis. 
-Applications handling personal information needs a [Personvernkonsekvens (*PVK*)](https://navno.sharepoint.com/sites/intranett-personvern/SitePages/PVK.aspx) analysis and an entry in the *Behandlingsoversikt*.
+Applications handling personal information needs a [data protection impact assessment (*PVK*)](https://navno.sharepoint.com/sites/intranett-personvern/SitePages/PVK.aspx) and an entry in the *Behandlingsoversikt*.
 
-See also additional information about [*ROS*](../legal/app-ros.md) and [*PVK*](../legal/app-pvk.md) under Laws and regulations.
+See also additional information about [*ROS* for applications using nais](../legal/app-ros.md) and [*PVK* for applications using nais](../legal/app-pvk.md) under Laws and regulations.
 
-Questions about ROS can be directed to Leif Tore Løvmo or Line Langlo Spongsveen or posted in [#tryggnok](https://nav-it.slack.com/archives/CQ0D5HLSW). Questions about *Behandling* should be directed to [#behandlinskatalogen](https://nav-it.slack.com/archives/CR1B19E6L).
+Questions about ROS can be directed to Leif Tore Løvmo or Line Langlo Spongsveen or posted in [#tryggnok](https://nav-it.slack.com/archives/CQ0D5HLSW). Questions about *Behandling* should be directed to [#behandlingskatalogen](https://nav-it.slack.com/archives/CR1B19E6L).
 
