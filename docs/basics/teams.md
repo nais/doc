@@ -54,7 +54,7 @@ These projects are managed through [Google Cloud Console](https://console.cloud.
 So, for example, all of your Cloud Storage buckets and objects, along with user permissions for accessing them, reside in a project.
 
 In general every member of the team has the possibility to add the necessary permissions they need via [IAM role managment](https://console.cloud.google.com/iam-admin/iam).
-There is no general limitation as to which features/products that can be used in a project, but everyone needs to conduct [platform risk assessoment (ROS)](https://doc.nais.io/legal/nais-ros/).
+There is no general limitation as to which features/products that can be used in a project, but everyone needs to conduct [platform risk assessment (ROS)](https://doc.nais.io/legal/nais-ros/).
 While we encourage the teams to base their ROS(s) and data protection impact assessments (DPIA / PVK) on the ones done by the NAIS team, each team is responsible to do their own necessary ROS and PVK aimed for their usage/feature not covered by existing ROS.
 
 Remember to clean up after yourself, so that NAV doesn't unnecessarily pay for resources.
