@@ -54,13 +54,13 @@ These projects are managed through [Google Cloud Console](https://console.cloud.
 So, for example, all of your Cloud Storage buckets and objects, along with user permissions for accessing them, reside in a project.
 
 In general every member of the team has the possibility to add the necessary permissions they need via [IAM role managment](https://console.cloud.google.com/iam-admin/iam).
-There is no general limitation as to which features/products that can be used in a project, but everything needs to have been [ROS'd](https://doc.nais.io/legal/nais-ros/).
-While we encourage the teams to base their ROS(s) and PVK(s) on the ones done by the NAIS team, each team is responsible to do their own necessary ROS and PVK aimed for their usage/feature not covered by existing ROS.
+There is no general limitation as to which features/products that can be used in a project, but everyone needs to conduct [platform risk assessoment (ROS)](https://doc.nais.io/legal/nais-ros/).
+While we encourage the teams to base their ROS(s) and data protection impact assessments (DPIA / PVK) on the ones done by the NAIS team, each team is responsible to do their own necessary ROS and PVK aimed for their usage/feature not covered by existing ROS.
 
 Remember to clean up after yourself, so that NAV doesn't unnecessarily pay for resources.
-We have a dashboard showing what each [team](https://datastudio.google.com/u/1/reporting/417b0a1d-b307-4a6d-a699-77a6ab239661/page/mJdmB) is using, plus a dashboard for [everything](https://datastudio.google.com/reporting/fda5f821-caef-4056-9356-9aa4f7082699/page/mJdmB) in GCP.
+Each team has a dashboard where they can visualise and monitor their product performance. [View team dashboards.](https://datastudio.google.com/u/1/reporting/417b0a1d-b307-4a6d-a699-77a6ab239661/page/mJdmB) We also have a [dashboard showing all our GCP projects.](https://datastudio.google.com/reporting/fda5f821-caef-4056-9356-9aa4f7082699/page/mJdmB)
 
-Nais recommends that teams use Terraform, og similar technologies, to control the lifecycle of resources created in team-projects. This is more important in production, for services that will run for a longer period of time, than ad-hoc experimentation in dev. 
+Nais recommends that teams use Terraform, or similar technologies, to control the lifecycle of resources created in team-projects. This is more important in production, for services that will run for a longer period of time, than ad-hoc experimentation in dev. 
 
 ### Access management
 
