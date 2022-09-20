@@ -24,28 +24,13 @@ To make this all happen we leverage open source projects best suited to our need
 ## Clusters
 In ye olde days of yore, NAVs security model was based on network segmentation and zones. (And if we are being honest this still holds true for parts of our operation). Our goal (and strategy) however is to move everything to "Public Cloud". So anything described as on-prem is scheduled to be taken out behind the barn at some point and new apps, services or products are destined to exist in GCP (for now). 
 
-### FSS
+### NAIS on-premises (FSS)
 
 Many of our older systems, and systems with a high degree of sensitive content were placed in a dedicated zone with very strict restrictions: Fagsystemsone (FSS).
 Connectivity to and from this zone is very limited - no connectivity to the internet, inbound connections have to go through security gateways. However - connectivity inside this zone is not restricted in any way, shape or form. Everyone can connect with everyone else - like a true hippie community. (As many of these applications were written in the seventies, it sort of makes sense)
 
-### SBS
-
-There came a day when NAV discovered this thing called "the Internet", and that this was something we could use to provide Norwegian citizens with services directly.
-This created the demand for a separate zone, as allowing traffic from the internet directly in to our hippie commune called FSS seemed unwise.
-Thus Selvbetjeningssonen (SBS) was born.
-SBS is less restricted than FSS and applications have access to the internet (almost) - and can be exposed to the internet as well.
-However - since most of NAVs data reside in FSS, most applications in SBS rely on data from FSS to be able to do anything meaningful.
-In order to get the data they need they have to jump through several burning rings of fire, pray to the almighty DataPower-gods and perform several ancient rites and rituals.
-
-!!! info "Breaking news!"
-    As of april 2022 the SBS clusters are retired. The apps that used to live there have been moved to GCP.
-
-### NAIS on-premises
-
-When we started building NAIS, we built it to exist in this world, and have separate clusters in each of these two zones.
 We further divided our clusters in to development and production clusters to maintain a healthy separation.
-Thus the ~~four~~ two clusters we've got on-premises are: `dev-fss`, ~~`dev-sbs`~~, `prod-fss` and ~~`prod-sbs`~~ (and a fifth called nais-ci, but that's just for us to test stuff)
+Thus the two clusters we've got on-premises are: `dev-fss` and `prod-fss` (and a third called nais-ci, but that's just for us to test stuff)
 
 ### NAIS GCP
 

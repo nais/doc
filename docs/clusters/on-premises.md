@@ -5,9 +5,7 @@ The on-premise Kubernetes clusters are split across two zones and two environmen
 | cluster        | zone                | environment |
 |:---------------|:--------------------|:------------|
 | `dev-fss`      | fagsystemsonen      | development |
-| ~~`dev-sbs`~~  | no longer available | development |
 | `prod-fss`     | fagsystemsonen      | production  |
-| ~~`prod-sbs`~~ | no longer available | production  |
 
 ## Accessing the application
 
@@ -39,5 +37,4 @@ You can control from where you application is reachable by selecting the appropr
 
 
 You can also learn about [how DNS is configured](../appendix/ingress-dns.md) for these domains.
-
 
