@@ -155,7 +155,7 @@ This will match for all paths for your application's ingresses, except the follo
 - [`spec.liveness.path`](../nais-application/application.md#livenesspath), if defined
 - [`spec.readiness.path`](../nais-application/application.md#readinesspath), if defined
 
-You can also define additional paths to be excluded: 
+You can also define additional paths or patterns to be excluded: 
 
 === "ID-porten"
 
@@ -185,20 +185,24 @@ You can also define additional paths to be excluded:
 
 These use glob-style matching, though only single asterisks are allowed.
 
-???+ example "Example paths"
+???+ example "Example patterns"
 
     - `/allowed`
-        - ✅ matches `/allowed`
-        - ❌ does not match `/allowed/`
+        - ✅ matches `/allowed` and `/allowed/`
+        - ❌ does not match `/allowed/nope` or `/allowed/nope/`
     - `/public/*`
-        - ✅ matches `/public/`, `/public/a` and `/public/abc`
-        - ❌ does not match `/public/a/` or `/public/a/b`
+        - ✅ matches `/public/a` and `/public/a/`
+        - ❌ does not match `/public`, `/public/` or `/public/a/b`
     - `/any*`
-        - ✅ matches `/anything` and `/anywho`
-        - ❌ does not match `/any/` or `/anywho/mstve`
+        - ✅ matches `/any`, `/any/`, `/anything`, `/anything/`, `/anywho` and `/anywho/`
+        - ❌ does not match `/any/thing`, `/any/thing/` or `/anywho/mst/ve`
     - `/a/*/*`
-        - ✅ matches `/a/b/` and `/a/b/c`
-        - ❌ does not match `/a`, `/a/`, `/a/b` or `/a/b/c/d`
+        - ✅ matches `/a/b/c`, `/a/b/c/`, `/a/bee/cee` or `/a/bee/cee/`
+        - ❌ does not match `/a`, `/a/`, `/a/b`, `/a/b/`, `/a/b/c/d`, or `/a/b/c/d/`
+    - `/trailing/`
+        - Trailing slashes in patterns are effectively dropped during matching.
+        - ✅ matches `/trailing` and `/trailing/`
+        - ❌ does not match `/trailing/nope` or `/trailing/nope/`
 
 ---
 
