@@ -102,24 +102,23 @@ The user will be sent to the [identity provider] for authentication and then bac
 
 #### 1.1. Redirect after Login
 
-After the callback is handled and the user is successfully authenticated, the user will be redirected according to these
-rules in ascending priority:
+After the callback is handled and the user is successfully authenticated, the user will be redirected in this priority:
 
-1. The root context path for your application's ingress. E.g. `/` for `https://<app>.nav.no`, or `/path` for `https://nav.no/path`.
-2. The URL set in the `Referer` header.
-3. The URL or relative path set in the query parameter `redirect`, e.g:
-
+1. The URL or absolute path set in the query parameter `redirect` in the initial login request, e.g:
 ```
 https://<ingress>/oauth2/login?redirect=/some/path
 ```
-
+If you include query parameters, ensure that they are URL encoded. 
 The host and scheme (if provided) are stripped from the redirect URL, which effectively only allows redirects to paths
 within your own ingress.
+
+2. The root context path for your application's ingress. E.g. `/` for `https://<app>.nav.no`, or `/path` for `https://nav.no/path`.
 
 #### 1.2. Autologin
 
 If enabled, the `autoLogin` option will configure Wonderwall to automatically redirect HTTP `GET` requests to the login 
-endpoint if the user does not have a session. 
+endpoint if the user does not have a session. It will set the `redirect` parameter for logins to the URL for the 
+original request so that the user is redirected back to their intended location after login.
 
 You should still check the `Authorization` header for a token and validate the token within as specified
 in [the application guidelines](#3-token-validation). This is especially important as auto-logins will **NOT** trigger
