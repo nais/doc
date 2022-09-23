@@ -93,6 +93,21 @@ Once everything is configured, your secure logs will be sent to the `tjenestekal
 To make sure you gain access to the proper logs, you need an AD-group connected to the nais-team. So the first thing you do is create this group.
 
 Go to [Porten (service desk)](https://jira.adeo.no/plugins/servlet/desk/portal/542) and click `Melde sak til IT`. The follow the template below.
+For IT to be able to correctly add the group to Remedy you need to specify the four digit department code for those who can be able to ask for permission to the group. E.g 2990 is the four digit code for the department IT-AVDELINGEN. If you are creating secure logs for your team and are unsure about which department your colleagues belong to then you can use [Delve](https://eur.delve.office.com/) to search for their profile. In their profile their department code will also be visible.
+
+You can paste the template below into Jira:
+```
+Ønsker å få opprettet en AD-gruppe for å få tilgang til sikker logg i Kibana for applikasjoner knyttet til <your project here>.
+
+Gruppenavn: 0000-GA-SECURE_LOG_<SOMETHING>
+
+Beskrivelse: Tilgang til secureLog for Team <team name> i Kibana.
+
+Kryss i identrutinen: Ja
+
+Den må inn i Remedy.
+Enheter i Nav som skal ha tilgang: <four digit department code>. E.g (2990 - IT-AVDELINGEN)
+```
 
 ![ticket](../../assets/jira_secure_log.png)
 
