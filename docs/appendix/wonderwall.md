@@ -67,12 +67,12 @@ application's ingress.
 
 The sidecar provides these endpoints under your application's [ingress](../nais-application/application.md#ingresses):
 
-| Path                          | Description                                                                | Note              |
-|-------------------------------|----------------------------------------------------------------------------|-------------------|
-| `GET /oauth2/login`           | Initiates the OpenID Connect Authorization Code flow                       |                   |
-| `GET /oauth2/logout`          | Initiates local and global/single-logout                                   |                   |
-| `GET /oauth2/session`         | Returns the current user's session metadata                                |                   |
-| `GET /oauth2/session/refresh` | Refreshes the tokens and returns the session metadata for the current user | Only for Azure AD |
+| Path                           | Description                                                                | Note              |
+|--------------------------------|----------------------------------------------------------------------------|-------------------|
+| `GET /oauth2/login`            | Initiates the OpenID Connect Authorization Code flow                       |                   |
+| `GET /oauth2/logout`           | Initiates local and global/single-logout                                   |                   |
+| `GET /oauth2/session`          | Returns the current user's session metadata                                |                   |
+| `POST /oauth2/session/refresh` | Refreshes the tokens and returns the session metadata for the current user | Only for Azure AD |
 
 ## Usage
 
@@ -280,7 +280,7 @@ This can be customized to your needs. Defaults shown below:
               cpu: 250m
               memory: 256Mi
             requests:
-              cpu: 60m
+              cpu: 20m
               memory: 32Mi
     ```
 === "Azure AD"
@@ -293,7 +293,7 @@ This can be customized to your needs. Defaults shown below:
               cpu: 250m
               memory: 256Mi
             requests:
-              cpu: 60m
+              cpu: 20m
               memory: 32Mi
     ```
 
@@ -310,28 +310,43 @@ The session lifetime depends on the identity provider:
 
 After the session has expired, the user must be redirected to the `/oauth2/login` endpoint again.
 
-For convenience, we also offer an endpoint that returns metadata about the user's session as a JSON object at `/oauth2/session`. 
+For convenience, we also offer an endpoint that returns metadata about the user's session as a JSON object at `GET /oauth2/session`. 
 This endpoint will respond with HTTP status codes on errors:
 
 - `HTTP 401 Unauthorized` - no session cookie or matching session found (e.g. user is not authenticated, or has logged out)
 - `HTTP 500 Internal Server Error` - the session store is unavailable, or Wonderwall wasn't able to process the request
 
-Otherwise, an `HTTP 200 OK` is returned with the metadata with the `application/json` as the `Content-Type`, e.g:
+Otherwise, an `HTTP 200 OK` is returned with the metadata with the `application/json` as the `Content-Type`.
 
-```json
-{
-  "session": {
-    "created_at": "2022-08-31T06:58:38.724717899Z", 
-    "ends_at": "2022-08-31T16:58:38.724717899Z",
-    "ends_in_seconds": 14658
-  },
-  "tokens": {
-    "expire_at": "2022-08-31T14:03:47.318251953Z",
-    "refreshed_at": "2022-08-31T12:53:58.318251953Z",
-    "expire_in_seconds": 4166
-  }
-}
-```
+???+ example
+
+    Request:
+
+    ```
+    GET /oauth2/session
+    ```
+    
+    Response:
+    
+    ```
+    HTTP/2 200 OK
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "session": {
+        "created_at": "2022-08-31T06:58:38.724717899Z", 
+        "ends_at": "2022-08-31T16:58:38.724717899Z",
+        "ends_in_seconds": 14658
+      },
+      "tokens": {
+        "expire_at": "2022-08-31T14:03:47.318251953Z",
+        "refreshed_at": "2022-08-31T12:53:58.318251953Z",
+        "expire_in_seconds": 4166
+      }
+    }
+    ```
 
 Most of these fields should be self-explanatory, but we'll be explicit with their description:
 
@@ -354,31 +369,47 @@ Tokens within the session will usually expire before the session itself. To avoi
 
 This is **enabled by default** for applications using Wonderwall with Azure AD. 
 
-Tokens will at the earliest be automatically renewed 5 minutes before they expire. This
+Tokens will at the _earliest_ be automatically renewed 5 minutes before they expire. If the token already _has_ expired,
+but the session is still exists and is active, a refresh attempt is automatically triggered. This
 happens whenever the end-user visits any path that belongs to the application.
 
 If you want to manually trigger token refreshes, you can make use of a new endpoint:
 
-- `/oauth2/session/refresh` - manually refreshes the tokens for the user's session, and returns the metadata like in
+- `POST /oauth2/session/refresh` - manually refreshes the tokens for the user's session, and returns the metadata like in
   `/oauth2/session` described previously
 
-```json
-{
-  "session": {
-    "created_at": "2022-08-31T06:58:38.724717899Z", 
-    "ends_at": "2022-08-31T16:58:38.724717899Z",
-    "ends_in_seconds": 14658
-  },
-  "tokens": {
-    "expire_at": "2022-08-31T14:03:47.318251953Z",
-    "refreshed_at": "2022-08-31T12:53:58.318251953Z",
-    "expire_in_seconds": 4166,
-    "next_auto_refresh_in_seconds": 3866,
-    "refresh_cooldown": true,
-    "refresh_cooldown_seconds": 37
-  }
-}
-```
+???+ example
+
+    Request:
+    
+    ```
+    POST /oauth2/session/refresh
+    ```
+    
+    Response:
+    
+    ```
+    HTTP/2 200 OK
+    Content-Type: application/json
+    ```
+
+    ```json
+    {
+      "session": {
+        "created_at": "2022-08-31T06:58:38.724717899Z", 
+        "ends_at": "2022-08-31T16:58:38.724717899Z",
+        "ends_in_seconds": 14658
+      },
+      "tokens": {
+        "expire_at": "2022-08-31T14:03:47.318251953Z",
+        "refreshed_at": "2022-08-31T12:53:58.318251953Z",
+        "expire_in_seconds": 4166,
+        "next_auto_refresh_in_seconds": 3866,
+        "refresh_cooldown": true,
+        "refresh_cooldown_seconds": 37
+      }
+    }
+    ```
 
 Additionally, the metadata object returned by both the `/oauth2/session` and `/oauth2/session/refresh` endpoints now
 contain some new fields in addition to the previous fields:
@@ -390,8 +421,7 @@ contain some new fields in addition to the previous fields:
 | `tokens.refresh_cooldown_seconds`     | The number of seconds until the refresh operation is no longer on cooldown.                     |
 
 Note that the refresh operation has a default cooldown period of 1 minute, which may be shorter depending on the token lifetime
-of the tokens returned by the identity provider. In other words, a request to the `/oauth2/session/refresh` endpoint will
-only trigger a refresh if `tokens.refresh_cooldown` is `false`.
+of the tokens returned by the identity provider. In other words, a refresh is only triggered if `tokens.refresh_cooldown` is `false`.
 
 ## Responsibilities & Guarantees
 
