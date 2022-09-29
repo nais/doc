@@ -59,7 +59,7 @@ spec:
 
 ### Outbound rules
 
-Inbound rules specifies what other applications your application receives traffic from. `spec.accessPolicy.outbound.rules` specifies which applications in the same cluster to open for. To open for external applications, use the field `spec.accessPolicy.outbound.external`.
+`spec.accessPolicy.outbound.rules` specifies which applications _in the same cluster_ you allow your application to send requests to. To open for external applications, use the field `spec.accessPolicy.outbound.external`.
 
 #### Send requests to other app in the same namespace
 
