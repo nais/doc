@@ -3999,7 +3999,6 @@ Specify the number of seconds to wait before removing the Job after it has finis
 
 Type: `integer`<br />
 Required: `false`<br />
-Availability: on-premises<br />
 
 ??? example
     ``` yaml
