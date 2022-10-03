@@ -64,6 +64,41 @@ spec:
   ...
 ```
 
+## Ingress metrics
+
+All requests to your application via ingress will result in metrics being emitted to Prometheus. The metrics are prefixed with `nginx_ingress_controller_requests_` and are tagged with the following labels:
+
+* `status`: HTTP status code
+* `method`: HTTP method
+* `host`: Host header (domain)
+* `path`: Request path
+* `namespace`: Namespace of the ingress
+* `service`: Name of the service (app name)
+
+### Example
+
+Number of requests to the `myapp` application, grouped by status code:
+
+```promql
+sum by (status) (nginx_ingress_controller_requests{service="myapp", namespace="myteam"})
+```
+
+Number of `5xx` errors to the `myapp` application:
+
+```promql
+sum(nginx_ingress_controller_requests{service="myapp", namespace="myteam", status=~"5.."})
+```
+
+Percentage of `5xx` errors to the `myapp` application as a ratio of total requests:
+
+```promql
+100 * (
+  sum by (service) (rate(nginx_ingress_controller_requests{status=~"^5\\d\\d", namespace="myteam", service="myapp"}[3m]))
+  /
+  sum by (service) (rate(nginx_ingress_controller_requests{namespace="myteam", service="myapp"}[3m]))
+)
+```
+
 ## Ingress access logs
 
 Request access logs from nginx ingress controller are automatically collected and stored in Kibana.
