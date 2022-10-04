@@ -1,11 +1,35 @@
-# Ingress parameters
+# Ingress traffic
 
-You can tweak the Ingress configuration by specifying certain Kubernetes annotations in your app spec.
-A list of supported variables are specified in the
-[Nginx ingress documentation](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/).
+Ingress traffic is traffic that is directed to your application from the internet. This is done by configuring the [`ingresses`][nais-ingress] block in your NAIS application yaml manifest with the domains you want your application to receive traffic from.
 
-As the Nginx ingress documentation states, these parameters are set on the Ingress object.
-However, Naiserator will copy these parameters from your Application spec.
+[nais-ingress]: https://doc.nais.io/nais-application/application/#ingresses
+
+```mermaid
+graph LR
+  user[User]
+  user -->|https://myapp.dev.nav.no| ingresscontroller
+  subgraph Kubernetes
+    ingresscontroller[Ingress Controller]
+
+    subgraph Namespace
+      pod1[Pod 1]
+      pod2[Pod 2]
+      svc[Service]
+
+      svc-->pod1
+      svc-->pod2
+    end
+
+    ingresscontroller-->|http://myapp.mynamespace.svc.cluster.local| svc
+  end
+```
+
+You can tweak the Ingress configuration by specifying certain [Kubernetes annotations][kubernetes-annotations] in your app spec. A list of supported variables are specified in the [Nginx ingress documentation][nginx-ingress-annotations].
+
+[kubernetes-annotations]: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+[nginx-ingress-annotations]: https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/
+
+As the Nginx ingress documentation states, these parameters are set on the Ingress object. However, Naiserator will copy these parameters from your Application spec.
 
 ## Custom max body size
 
@@ -62,6 +86,41 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
 spec:
   ...
+```
+
+## Ingress metrics
+
+All requests to your application via ingress will result in metrics being emitted to Prometheus. The metrics are prefixed with `nginx_ingress_controller_requests_` and are tagged with the following labels:
+
+* `status`: HTTP status code
+* `method`: HTTP method
+* `host`: Host header (domain)
+* `path`: Request path
+* `namespace`: Namespace of the ingress
+* `service`: Name of the service (app name)
+
+### Example
+
+Number of requests to the `myapp` application, grouped by status code:
+
+```promql
+sum by (status) (nginx_ingress_controller_requests{service="myapp", namespace="myteam"})
+```
+
+Number of `5xx` errors to the `myapp` application:
+
+```promql
+sum(nginx_ingress_controller_requests{service="myapp", namespace="myteam", status=~"5.."})
+```
+
+Percentage of `5xx` errors to the `myapp` application as a ratio of total requests:
+
+```promql
+100 * (
+  sum by (service) (rate(nginx_ingress_controller_requests{status=~"^5\\d\\d", namespace="myteam", service="myapp"}[3m]))
+  /
+  sum by (service) (rate(nginx_ingress_controller_requests{namespace="myteam", service="myapp"}[3m]))
+)
 ```
 
 ## Ingress access logs
