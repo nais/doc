@@ -1,11 +1,35 @@
-# Ingress parameters
+# Ingress traffic
 
-You can tweak the Ingress configuration by specifying certain Kubernetes annotations in your app spec.
-A list of supported variables are specified in the
-[Nginx ingress documentation](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/).
+Ingress traffic is traffic that is directed to your application from the internet. This is done by configuring the [`ingresses`][nais-ingress] block in your NAIS application yaml manifest with the domains you want your application to receive traffic from.
 
-As the Nginx ingress documentation states, these parameters are set on the Ingress object.
-However, Naiserator will copy these parameters from your Application spec.
+[nais-ingress]: https://doc.nais.io/nais-application/application/#ingresses
+
+```mermaid
+graph LR
+  user[User]
+  user -->|https://myapp.dev.nav.no| ingresscontroller
+  subgraph Kubernetes
+    ingresscontroller[Ingress Controller]
+
+    subgraph Namespace
+      pod1[Pod 1]
+      pod2[Pod 2]
+      svc[Service]
+
+      svc-->pod1
+      svc-->pod2
+    end
+
+    ingresscontroller-->|http://myapp.mynamespace.svc.cluster.local| svc
+  end
+```
+
+You can tweak the Ingress configuration by specifying certain [Kubernetes annotations][kubernetes-annotations] in your app spec. A list of supported variables are specified in the [Nginx ingress documentation][nginx-ingress-annotations].
+
+[kubernetes-annotations]: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+[nginx-ingress-annotations]: https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/
+
+As the Nginx ingress documentation states, these parameters are set on the Ingress object. However, Naiserator will copy these parameters from your Application spec.
 
 ## Custom max body size
 
