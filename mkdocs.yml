@@ -56,7 +56,12 @@ markdown_extensions:
   - pymdownx.tilde
   - pymdownx.superfences:
       preserve_tabs: true
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.highlight:
+      use_pygments: true
       linenums: true
       linenums_style: pymdownx-inline
       anchor_linenums: true
