@@ -3822,7 +3822,7 @@ Allowed values: `Never`, `OnFailure`<br />
     ```
 
 ## schedule
-The [Cron](https://en.wikipedia.org/wiki/Cron) schedule for running the Naisjob. If not specified, the Naisjob will be run as a one-shot Job.
+The [Cron](https://en.wikipedia.org/wiki/Cron) schedule for running the Naisjob. If not specified, the Naisjob will be run as a one-shot Job. Note: Timezone for Naisjobs defaults to UTC.
 
 Type: `string`<br />
 Required: `false`<br />
