@@ -77,7 +77,7 @@ jobs:
           RESOURCE: /path/to/alerts.yaml
 ```
 
-You can also add `/path/to/alerts.yaml` to `RESOURCE` in a previous workflow, just remember to [escape](../../deployment/#escaping-and-raw-resources) your expressive descriptions.
+You can also add `/path/to/alerts.yaml` to `RESOURCE` in a previous workflow, just remember to [escape your expressive descriptions.](../../deployment/#escaping-and-raw-resources) 
 
 ## Different receivers/notifications
 
