@@ -144,7 +144,7 @@ Here are pre-configured queries for the controller logs in the following cluster
 | `x_upstream_status` | HTTP response code from the application |
 | `x_request_id` | Unique request ID used for correlating further requests from the application to other services |
 
-### Fid _your_ access logs
+### Find _your_ access logs
 
 In order to find your team's application access logs, you need to filter on the following fields:
 
