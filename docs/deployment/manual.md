@@ -39,7 +39,7 @@ kubectl rollout undo deployment.v1.apps/<your application>
 
 Note that if your `Deployment` is overridden by the `Application` resource, so if this is [resynced](#resync-your-application) / redeployed, the version and settings specified there will be effectuated.
 
-A more detailed description on how this works can be found [here](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#rolling-back-a-deployment)
+[A more detailed description on how to roll back your deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#rolling-back-a-deployment) is provided by Kubernetes.
 
 ## Resync your application
 
