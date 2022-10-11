@@ -94,7 +94,7 @@ For further reading see [Google Cloud SQL Query Insights](https://cloud.google.c
     Data is available for seven days, increasing this will incur extra cost.
 
 ### Maintenance window
-Google will automatically perform upgrades, fix bugs and apply security patches to prevent exploits. Your application should be able to handle occasional downtime as this maintenance is performed. Read more on maintenance windows [here](https://cloud.google.com/sql/docs/postgres/maintenance). NAIS does not configure the maintenance window, but this can be set up in the application spec: [`nais.yaml`](../nais-application/application.md#gcpsqlinstances).
+Google will automatically perform upgrades, fix bugs and apply security patches to prevent exploits. Your application should be able to handle occasional downtime as this maintenance is performed. [Read more on maintenance windows](https://cloud.google.com/sql/docs/postgres/maintenance). NAIS does not configure the maintenance window, but this can be set up in the application spec: [`nais.yaml`](../nais-application/application.md#gcpsqlinstances).
 If you wish to be notified about upcoming maintenance, you can opt-in for this on the [Communications page](https://console.cloud.google.com/user-preferences/communication) in the GCP console.
 
 ### Sizing your database
@@ -104,7 +104,7 @@ By default, the database server is `db-f1-micro`, has 1 vCPU, 614 MB RAM and 10G
 
 ### Automated backup
 The database is backed up nightly at 3 AM \(GMT+1\) by default, but can be overridden in [`nais.yaml`](../nais-application/application.md#gcpsqlinstancesautobackuptime) by setting `spec.gcp.sqlInstances[].autoBackupTime`.
-By default, seven backups will be kept. More info [here](https://cloud.google.com/sql/docs/postgres/backup-recovery/backups).
+By default, seven backups will be kept. More info [about Cloud SQL backups](https://cloud.google.com/sql/docs/postgres/backup-recovery/backups).
 
 The backups can be found in the [Google Cloud SQL instance](https://cloud.google.com/sql) dashboard.
 
@@ -118,7 +118,7 @@ This feature allows you to recover your database to a specific point in time.
 !!! warning
     Use this feature with automatic storage increase enabled.
 
-See application spec reference [here](https://doc.nais.io/nais-application/application/#gcpsqlinstancespointintimerecovery)
+See [application spec reference.](https://doc.nais.io/nais-application/application/#gcpsqlinstancespointintimerecovery)
 For further reading see [google Cloud SQL PIT recovery](https://cloud.google.com/sql/docs/postgres/backup-recovery/pitr)
 
 #### Disaster backup
@@ -204,7 +204,7 @@ Details about environment variables is specified her: [`configuration`](../persi
 Databases should always be accessed using a personal account, and the access should ideally be temporary.
 
 !!! info
-    Personal database access can also be configured using the nais-cli as described [here](../cli/commands/postgres.md).
+    [Personal database access can also be configured using the nais-cli](../cli/commands/postgres.md).
 
 ### Prerequisites
 
