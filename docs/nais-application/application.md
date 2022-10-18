@@ -1354,6 +1354,7 @@ Availability: GCP<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
         permissions:
@@ -1527,6 +1528,7 @@ Availability: GCP<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
     ```
@@ -1549,6 +1551,7 @@ Required: `false`<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
     ```
@@ -1575,6 +1578,7 @@ Required: `false`<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
     ```
@@ -1597,6 +1601,7 @@ Required: `false`<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
     ```
@@ -1619,6 +1624,7 @@ Required: `false`<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
     ```
@@ -1641,6 +1647,7 @@ Required: `false`<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
     ```
@@ -1664,6 +1671,7 @@ Allowed values: _(empty string)_, `ANY`, `ARCHIVED`, `LIVE`<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
     ```
@@ -1686,6 +1694,35 @@ Required: `true`<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
+            retentionPeriodDays: 30
+            uniformBucketLevelAccess: true
+    ```
+
+#### gcp.buckets[].publicAccessPrevention
+Public access prevention allows you to prevent public access to your bucket.
+
+Relevant information:
+
+* [https://cloud.google.com/storage/docs/public-access-prevention](https://cloud.google.com/storage/docs/public-access-prevention)
+
+Type: `boolean`<br />
+Required: `false`<br />
+Default value: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        buckets:
+          - cascadingDelete: true
+            lifecycleCondition:
+              age: 10
+              createdBefore: "2020-01-01"
+              numNewerVersions: 2
+              withState: ARCHIVED
+            name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
     ```
@@ -1709,6 +1746,7 @@ Value range: `1`-`36500`<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
     ```
@@ -1737,6 +1775,7 @@ Default value: `false`<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
     ```

@@ -131,6 +131,7 @@ spec:
         numNewerVersions: 2
         withState: ARCHIVED
       name: my-cloud-storage-bucket
+      publicAccessPrevention: true
       retentionPeriodDays: 30
       uniformBucketLevelAccess: true
     permissions:
