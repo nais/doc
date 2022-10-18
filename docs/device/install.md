@@ -22,11 +22,29 @@
 
 ### Windows Installation
 
+#### Install using Scoop
+
 1. [install Kolide agent](install.md#install-kolide-agent)
-2. [install WireGuard](https://www.wireguard.com/install/) \(Note: Ignore error message regarding UI only being accessible by the Builtin Administrators group\)
-3. [install naisdevice](https://github.com/nais/device/releases/latest) \(naisdevice.msi\)
-4. Remember to [update your kubeconfig](install.md#connecting-to-nais-clusters)
-5. Start _naisdevice_ from the _Start menu_ 
+2. Install [Scoop](https://scoop.sh) unless you already have it.
+3. Add the nais bucket
+   ```powershell
+   scoop bucket add nais https://github.com/nais/scoop-bucket
+   ```
+4. Install naisdevice
+   ```powershell
+   scoop install naisdevice
+   ```
+   (you will be prompted for administrator access to run the installer)
+5. Remember to [update your kubeconfig](install.md#connecting-to-nais-clusters)
+6. Start _naisdevice_ from the _Start menu_
+
+#### Manual installation
+
+1. [install Kolide agent](install.md#install-kolide-agent)
+2. [install naisdevice](https://github.com/nais/device/releases/latest) \(naisdevice.exe\)
+   (you will be prompted for administrator access when you run the installer)
+3. Remember to [update your kubeconfig](install.md#connecting-to-nais-clusters)
+4. Start _naisdevice_ from the _Start menu_ 
 
 ### Ubuntu Installation
 
