@@ -14,7 +14,8 @@ A `CronJob` runs `Job`s on a time-based schedule, as denoted in `.spec.schedule`
 
 Below you can find a minimal Naisjob example with a `schedule` for running a `Job` every minute.
 If you don't need to have a recurring Naisjob, remove the `schedule` field from the configuration.
-```
+
+```yaml
 apiVersion: nais.io/v1
 kind: Naisjob
 metadata:
@@ -37,8 +38,9 @@ The `Pod` is what actually runs your code.
 If you make a `Naisjob` without `schedule`, Kubernetes will create a `Job`-resource directly, which will create a `Pod`-resource.
 
 Below you can see some of the resources the `Naisjob` `tiltak-okonomi-avstemming` creates.
-```
-➜ k tree naisjob tiltak-okonomi-avstemming
+
+```bash
+$ kubectl tree naisjob tiltak-okonomi-avstemming
 NAMESPACE     NAME                                        READY  REASON  AGE
 arbeidsgiver  Naisjob/tiltak-okonomi-avstemming           -              109d
 arbeidsgiver  ├─Job/tiltak-okonomi-avstemming             -              109d
@@ -68,39 +70,49 @@ You can look at what HAHAHA has done to complete your Naisjob by running `kubect
     Here's some legacy documentation on how to shut down most sidecars, in case HAHAHA didn't do its job fully.
 
     ### Linkerd
+    
     Linkerd exposes an endpoint to shut itself down.
-    ```
+    
+    ```bash
     curl -X POST http://127.0.0.1:4191/shutdown
     ```
+    
     This is done from inside your pod-container.
 
     ### CloudSQL-proxy sidecar
+    
     CloudSQL-proxy sidecar does not support turning off remotely.
 
     It can be shut down by running exec into the container.
-    ```
+    
+    ```bash
     kubectl exec yourpod-12345 -c cloudsql-proxy -- kill -s INT 1
     ```
 
     ### Securelogs
+    
     Securelogs runs on Fluentd, and Fluentd exposes an endpoint to shut itself down.
-    ```
+    
+    ```bash
     curl http://127.0.0.1:24444/api/processes.killWorkers
     ```
+    
     This is done from inside your pod-container.
 
     Additionally, Securelogs runs a second sidecar called `secure-logs-configmap-reload`.
     This can be shut down by running exec into the container.
 
-    ```
+    ```basg
     kubectl exec yourpod-12345 -c secure-logs-configmap-reload -- /bin/killall configmap-reload
     ```
 
     ### Vault sidecar
+    
     Vault sidecar does not support turning off remotely.
 
     It can be shut down by running exec into the container.
-    ```
+    
+    ```bash
     kubectl exec yourpod-12345 -c vks-sidecar -- /bin/kill -s INT 1
     ```
 
@@ -120,7 +132,7 @@ You can look at what HAHAHA has done to complete your Naisjob by running `kubect
 
     Currently, the only way to fix this is to delete the CronJob and NaisJob, and then re-apply or -deploy the NaisJob:
 
-    ```shell
+    ```bash
     kubectl delete cronjob <name>
     kubectl delete naisjob <name>
     kubectl apply -f <path-to-naisjob.yaml>
@@ -132,6 +144,6 @@ You can look at what HAHAHA has done to complete your Naisjob by running `kubect
 
     Run the following command to create a ad-hoc job based on your cronjob:
 
-    ```shell
+    ```bash
     kubectl create job --namespace=<mynamespace> --from=cronjobs/<naisjobname> <newname>
     ```
