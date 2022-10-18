@@ -58,5 +58,5 @@ class Leader {
 ```bash
 $ kubectl exec -it elector-sidecar-755b7c5795-7k2qn -c debug bash
 root@elector-sidecar-755b7c5795-7k2qn:/# curl $ELECTOR_PATH
-{"name":"elector-sidecar-755b7c5795-2kcm7"}
+{"name":"elector-sidecar-755b7c5795-2kcm7","last_update":"2022-10-18T10:59:58Z"}
 ```
