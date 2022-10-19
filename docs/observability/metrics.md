@@ -58,53 +58,55 @@ graph LR
 ### Example
 
 === "naisjob.yaml"
-  ```yaml
-  apiVersion: nais.io/v1
-  kind: Naisjob
-  metadata:
-    labels:
-      team: myteam
-    name: myjob
-    namespace: myteam
-  spec:
-    image: ghcr.io/navikt/myapp:mytag
-    schedule: "*/1 * * * *"
-    env:
-      - name: PUSH_GATEWAY_ADDRESS
-        value: nais-prometheus-pushgateway.nais:9091
-  ```
+
+    ```yaml
+    apiVersion: nais.io/v1
+    kind: Naisjob
+    metadata:
+      labels:
+        team: myteam
+      name: myjob
+      namespace: myteam
+    spec:
+      image: ghcr.io/navikt/myapp:mytag
+      schedule: "*/1 * * * *"
+      env:
+        - name: PUSH_GATEWAY_ADDRESS
+          value: nais-prometheus-pushgateway.nais:9091
+    ```
 
 === "PushMetrics.java"
-  ```java
-  package io.prometheus.client.it.pushgateway;
 
-  import io.prometheus.client.CollectorRegistry;
-  import io.prometheus.client.Gauge;
-  import io.prometheus.client.exporter.BasicAuthHttpConnectionFactory;
-  import io.prometheus.client.exporter.PushGateway;
+    ```java
+    package io.prometheus.client.it.pushgateway;
 
-  public class ExampleBatchJob {
-      public static void main(String[] args) throws Exception {
-          String jobName = "my_batch_job";
-          String pushGatewayAddress = System.getenv("PUSH_GATEWAY_ADDRESS");
+    import io.prometheus.client.CollectorRegistry;
+    import io.prometheus.client.Gauge;
+    import io.prometheus.client.exporter.BasicAuthHttpConnectionFactory;
+    import io.prometheus.client.exporter.PushGateway;
 
-          CollectorRegistry registry = new CollectorRegistry();
-          Gauge duration = Gauge.build()
-                  .name("my_batch_job_duration_seconds")
-                  .help("Duration of my batch job in seconds.")
-                  .register(registry);
-          Gauge.Timer durationTimer = duration.startTimer();
-          try {
-              Gauge lastSuccess = Gauge.build()
-                      .name("my_batch_job_last_success")
-                      .help("Last time my batch job succeeded, in unixtime.")
-                      .register(registry);
-              lastSuccess.setToCurrentTime();
-          } finally {
-              durationTimer.setDuration();
-              PushGateway pg = new PushGateway(pushGatewayAddress);
-              pg.pushAdd(registry, jobName);
-          }
-      }
-  }
-  ```
+    public class ExampleBatchJob {
+        public static void main(String[] args) throws Exception {
+            String jobName = "my_batch_job";
+            String pushGatewayAddress = System.getenv("PUSH_GATEWAY_ADDRESS");
+
+            CollectorRegistry registry = new CollectorRegistry();
+            Gauge duration = Gauge.build()
+                    .name("my_batch_job_duration_seconds")
+                    .help("Duration of my batch job in seconds.")
+                    .register(registry);
+            Gauge.Timer durationTimer = duration.startTimer();
+            try {
+                Gauge lastSuccess = Gauge.build()
+                        .name("my_batch_job_last_success")
+                        .help("Last time my batch job succeeded, in unixtime.")
+                        .register(registry);
+                lastSuccess.setToCurrentTime();
+            } finally {
+                durationTimer.setDuration();
+                PushGateway pg = new PushGateway(pushGatewayAddress);
+                pg.pushAdd(registry, jobName);
+            }
+        }
+    }
+    ```
