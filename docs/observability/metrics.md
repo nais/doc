@@ -29,31 +29,82 @@ When using Prometheus the retention is 16 weeks for prod, and 4 weeks for dev.
 If you need data stored longer then what Prometheus support, we recommend using your own [Aiven Influxdb](/persistence/influxdb).
 Then you have full control of the database and retention.
 
-Data via [push metrics/sensu](#push-metrics) is stored for one year.
-
 ## Push metrics
 
-If you don't want to just rely on pull metrics, you can push data directly to InfluxDB via [Sensu](https://sensu.io/).
+The Pushgateway is an intermediary service which allows you to push metrics from jobs which cannot be scraped. For details, see [Pushing metrics](https://prometheus.io/docs/instrumenting/pushing/).
 
-This is easily done by writing to the Sensu socket.
-
-```text
-sensu.nais:3030
+```mermaid
+graph LR
+  Grafana-->Prometheus
+  Prometheus-->|Fetch metrics|Pushgateway
+  Naisjob-->|Push metrics|Pushgateway
 ```
 
-Example message:
+!!! note
 
-```javascript
-{
-  "name": "myapp_metrics",
-  "type": "metric",
-  "handlers": ["events_nano"],
-  "output": "myapp.event1,tag1=x,tag2=y value=1,value2=2 1571402276000000000\nmyapp.event2,tag1=xx,tag2=yy value=42,value2=69 1571402276000000000"
-}
-```
+    ### Should I be using the Pushgateway?
 
-The format of the data \(The `output` field in the message\) should be formatted as [Influxdb Line Protocol](https://docs.influxdata.com/influxdb/v1.5/write_protocols/line_protocol_tutorial/#syntax).
+    We only recommend using the Pushgateway in certain limited cases such as [Naisjob][naisjob]. There are several pitfalls when blindly using the Pushgateway instead of Prometheus's usual pull model for general metrics collection:
 
-!!! warning
-    Note that each variation of tag values will create a new time series, so avoid using tags for data that varies a lot. Read more about best practices here: [InfluxDB schema design and data layout](https://docs.influxdata.com/influxdb/v1.8/concepts/schema_and_data_layout/)
+    * When monitoring multiple instances through a single Pushgateway, the Pushgateway becomes both a single point of failure and a potential bottleneck.
+    * You lose Prometheus's automatic instance health monitoring via the up metric (generated on every scrape).
+    * You lose Prometheus's automatic instance labelling like `pod_name`, `namespace` and `node`.
+    * The Pushgateway never forgets series pushed to it and will expose them to Prometheus forever unless those series are manually deleted via the Pushgateway's API.
 
+    The latter point is especially relevant when multiple instances of a job differentiate their metrics in the Pushgateway via an instance label or similar. Metrics for an instance will then remain in the Pushgateway even if the originating instance is renamed or removed. This is because the lifecycle of the Pushgateway as a metrics cache is fundamentally separate from the lifecycle of the processes that push metrics to it. Contrast this to Prometheus's usual pull-style monitoring: when an instance disappears (intentional or not), its metrics will automatically disappear along with it. When using the Pushgateway, this is not the case, and you would now have to delete any stale metrics manually or automate this lifecycle synchronization yourself.
+
+    [naisjob]: /naisjob
+
+### Example
+
+=== "naisjob.yaml"
+  ```yaml
+  apiVersion: nais.io/v1
+  kind: Naisjob
+  metadata:
+    labels:
+      team: myteam
+    name: myjob
+    namespace: myteam
+  spec:
+    image: ghcr.io/navikt/myapp:mytag
+    schedule: "*/1 * * * *"
+    env:
+      - name: PUSH_GATEWAY_ADDRESS
+        value: nais-prometheus-pushgateway.nais:9091
+  ```
+
+=== "PushMetrics.java"
+  ```java
+  package io.prometheus.client.it.pushgateway;
+
+  import io.prometheus.client.CollectorRegistry;
+  import io.prometheus.client.Gauge;
+  import io.prometheus.client.exporter.BasicAuthHttpConnectionFactory;
+  import io.prometheus.client.exporter.PushGateway;
+
+  public class ExampleBatchJob {
+      public static void main(String[] args) throws Exception {
+          String jobName = "my_batch_job";
+          String pushGatewayAddress = System.getenv("PUSH_GATEWAY_ADDRESS");
+
+          CollectorRegistry registry = new CollectorRegistry();
+          Gauge duration = Gauge.build()
+                  .name("my_batch_job_duration_seconds")
+                  .help("Duration of my batch job in seconds.")
+                  .register(registry);
+          Gauge.Timer durationTimer = duration.startTimer();
+          try {
+              Gauge lastSuccess = Gauge.build()
+                      .name("my_batch_job_last_success")
+                      .help("Last time my batch job succeeded, in unixtime.")
+                      .register(registry);
+              lastSuccess.setToCurrentTime();
+          } finally {
+              durationTimer.setDuration();
+              PushGateway pg = new PushGateway(pushGatewayAddress);
+              pg.pushAdd(registry, jobName);
+          }
+      }
+  }
+  ```
