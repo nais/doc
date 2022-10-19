@@ -51,12 +51,12 @@ Wonderwall aims to be compliant with OAuth 2.1, and supports the following:
 The image below shows the overall architecture of an application when using Wonderwall as a sidecar:
 
 ???+ "Architecture"
-    ![Wonderwall architecture](../assets/wonderwall-architecture.png)
+    ![The architectural diagram shows the browser sending a request into the Kubernetes container, requesting the ingress https://<app>.nav.no, requesting the service https://<app>.<namespace>, sending it to the pod, which contains the sidecar. The sidecar sends a proxy request to the app, in addition to triggering and handling  the Open ID Connect Auth Code Flow to the identity provider. The identity provider is outside the Kubernetes container. ](../assets/wonderwall-architecture.png)
 
 The sequence diagram below shows the default behavior of the sidecar:
 
 ???+ "Sequence Diagram"
-    ![Wonderwall sequence diagram](../assets/wonderwall-sequence.png)
+    ![The sequence diagram shows the default behaviour of the sidecar, depending on whether the user already has a session or not. If the user does have a session, the sequence is as follows: 1. The user visits a path, that requests the ingress.  2. The request is forwarded to wonderwall 3. Wonderwall checks for a session in session storage. 4. Wonderwall attaches Authorization header and proxies request and sends it to the application. 5. The application returns a response to Wonderwall. 6. Wonderwall returns the response to the user. If the user does not have a session, the sequence is as follows: 1. The user visits a path, that requests the ingress.  2. The request is forwarded to wonderwall 3. Wonderwall checks for a session in session storage.  4. Wonderwall removes Authorization header and proxies request and sends it to the application. 5. The application returns a response to Wonderwall. 6. Wonderwall returns the response to the user.](../assets/wonderwall-sequence.png)
 
 Generally speaking, the recommended approach when using the Wonderwall sidecar is to put it in front of 
 your backend-for-frontend server that serves your frontend. Otherwise, you might run into issues with the cookie 
