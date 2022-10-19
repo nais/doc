@@ -26,7 +26,7 @@
 
     [:octicons-arrow-right-24: Observability](/observability/)
 
--   :octicons-heart-24:{ .lg .middle } **We go your back!**
+-   :octicons-heart-24:{ .lg .middle } **We got your back!**
 
     ---
 
