@@ -57,7 +57,3 @@ The format of the data \(The `output` field in the message\) should be formatted
 !!! warning
     Note that each variation of tag values will create a new time series, so avoid using tags for data that varies a lot. Read more about best practices here: [InfluxDB schema design and data layout](https://docs.influxdata.com/influxdb/v1.8/concepts/schema_and_data_layout/)
 
-## Overview
-
-![From app to Grafana](../assets/metrics_overview.png)
-
