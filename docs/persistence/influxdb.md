@@ -14,7 +14,7 @@ Depending on the situation and use case, it would also be possible to send data 
 
 Once the data is in BigQuery, you can use Metabase to create dashboards or dataproducts.
 
-![diagram of solution](../diagrams/out/persistence/bigquery-metabase.svg)
+![The diagram shows how the data is sent from the producer to Metabase. Producers on a kafka client, uses a kafka rapid, sending it to BigQuery sink ruler (BigQuery client) and BigQuery, that can be read from Metabase. Non-kafka apps can send data directly to BigQuery.](../diagrams/out/persistence/bigquery-metabase.svg)
 
 ## Reference documentation for existing instances of InfluxDB
 
