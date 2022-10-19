@@ -12,7 +12,7 @@ When viewing a group, the mailnick is the value before the `@` in the email fiel
 * The group's owners can manage the group using either [outlook](https://outlook.office365.com/owa) or [AAD](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups)
 * The following resources will be generated for the new team:
 
-![nais-teams](../assets/nais-teams.png)
+![The sequence diagram shows the following sequence: 1. The team adds an entry to teams.yaml in the navikt/teams repository 2. An Azure AD group is created for the team 3. The group is added to the AAD application Google Suit Provisioning and synchronized to Google IAM 4. Google projects gets created for each team (dev and prod), An example shows a project, with name: team-x, access: team-x@nav.no, Resources: bucket, database 5. A namespace is created for each team in each cluster (dev and prod), with ties to the teams Google project. An example shows a namespace, with name: team-x, RBAC: team-x@nav.no, resources; project x, Arrows connects “project-x” to the resources in the example in step 4, which was bucket and database. 6. The team´s group is added to the AAD application GitHub and gets synchronized to GitHub 7. A GitHub team is provisioned for each team 8. A deployment token is generated for each team](../assets/nais-teams.png)
 
 * An Azure AD group is created, and can be viewed in the [My Groups portal](https://account.activedirectory.windowsazure.com/r#/groups)
 * A [GitHub team](https://github.com/orgs/navikt/teams) is created.
