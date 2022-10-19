@@ -82,7 +82,7 @@ See [naudit](https://github.com/navikt/naudit) for how to set up the logging, an
 
 ## Overview
 
-![From app to Kibana](../../assets/logging_overview.png)
+![The flow diagram shows that you can configure your app to log to a file using stdout or stderr, run FluentD inside the cluster to scrape the logs and send it to Elasticsearch. This will make the logs available via Kibana.](../../assets/logging_overview.png)
 
 ## Gaining access in kibana
 
