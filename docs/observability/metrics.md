@@ -10,7 +10,9 @@
     **On-prem**
 
      * [prometheus.dev-fss.nais.io](https://prometheus.dev-fss.nais.io)
-     * [prometheus.prod-fss.nais.io](https://prometheus.prod-fss.nais.io)
+     * [prometheus.prod-fss.nais.io](https://prometheus.prod-fss.nais.io) :octicons-shield-lock-16:
+
+    :octicons-shield-lock-16: requires `onprem-k8s-prod` gateway in `naisdevice`.
 
 Metrics are a way to measure the state of your application from within and something that is built into a microservice architecture from the very beginning. We suggest you start with the basics, that is defining what is fascinating to your team to track in terms of service health and level of service quality.
 
