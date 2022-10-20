@@ -122,7 +122,7 @@ Bellow we have a few samples to get you started. For more in-depth examples and 
 
 ### Default metrics
 
-Most of the client libraries (see list above), includes libraries for generating default metrics. Using these metrics will ensure that your metrics are named in a certain convention, making it more easy to share Grafana dashboards across applications.
+Most of the client libraries (see list above), includes libraries for generating default metrics like garbage collection, memory pools, classloading, and thread counts. Using these metrics will ensure that your metrics are named in a certain convention, making it more easy to compare across applications.
 
 === "JAVA"
 
