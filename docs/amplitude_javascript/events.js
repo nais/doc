@@ -40,38 +40,49 @@
 })(window, document)
 
 const config = {
-   apiEndpoint: "api.eu.amplitude.com",
-   saveEvents: false,
-   includeUtm: true,
-   includeReferrer: true,
-   trackingOptions: {
-     city: false,
-     ip_address: false,
-   },
- }
+  apiEndpoint: "api.eu.amplitude.com",
+  saveEvents: false,
+  includeUtm: true,
+  includeReferrer: true,
+  trackingOptions: {
+    city: false,
+    ip_address: false,
+  },
+}
 
-amplitude.getInstance().init("16d1ee2fd894ca2562eeebb5095dbcf0", undefined, config);
+function amplitudeLogEvent(eventName, eventData) {
+  amplitude.getInstance().init("16d1ee2fd894ca2562eeebb5095dbcf0", undefined, config);
 
-amplitude.getInstance().logEvent("sidevisning", {
+  eventDataDefault = {
    sidetittel: window.location.pathname,
    domene: window.location.host,
    tjeneste: 'nais-docs',
-})
+  };
 
-// logic taken from
-// https://github.com/squidfunk/mkdocs-material/blob/2b6359c5feab1c17772033536efa3274d52db5c2/src/partials/integrations/analytics.html#L38-L49
+  if (!eventData) {
+    eventData = {};
+  }
+
+  amplitude.getInstance().logEvent(eventName, {...eventDataDefault, ...eventData})
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+  // Log initial page load
+  console.log("DOMContentLoaded");
+  amplitudeLogEvent("sidevisning");
+
+  // Log asyncronous page loads
+  location$.subscribe(function(url) {
+    console.log("location.changed");
+    amplitudeLogEvent("sidevisning");
+  })
+
+  // Log search queries
   if (document.forms.search) {
     var query = document.forms.search.query
     query.addEventListener('blur', function() {
       if (this.value) {
-        var path = document.location.pathname;
-        amplitude.getInstance().logEvent('søk', {
-          søkeord: this.value,
-          sidetittel: path,
-          domene: window.location.host,
-          tjeneste: 'nais-docs',
-        })
+        amplitudeLogEvent("søk", { søkeord: this.value });
       }
     })
   }
