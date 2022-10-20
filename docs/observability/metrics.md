@@ -1,5 +1,17 @@
 # Metrics
 
+!!! info inline end "Prometheus Environments"
+
+    **GCP**
+
+     * [prometheus.dev-gcp.nais.io](https://prometheus.dev-gcp.nais.io)
+     * [prometheus.prod-gcp.nais.io](https://prometheus.prod-gcp.nais.io)
+
+    **On-prem**
+
+     * [prometheus.dev-fss.nais.io](https://prometheus.dev-fss.nais.io)
+     * [prometheus.prod-fss.nais.io](https://prometheus.prod-fss.nais.io)
+
 Metrics are a way to measure the state of your application from within and something that is built into a microservice architecture from the very beginning. We suggest you start with the basics, that is defining what is fascinating to your team to track in terms of service health and level of service quality.
 
 We have standardized on the [OpenMetrics][openmetrics] format for metrics. This is a text-based format that is easy to parse and understand. It is also the format used by Prometheus, which is the most popular metrics system.
@@ -13,6 +25,7 @@ graph LR
   nais.yaml -.configure.-> Pod
 ```
 
+[openmetrics]: https://openmetrics.io/
 [nais-manifest-prometheus]: /nais-application/application/#prometheus
 
 All applications that have Prometheus scraping enabled will show up in the [default Grafana dashboard](https://grafana.nais.io/d/000000283/nais-app-dashbord), or create their own.
@@ -21,7 +34,7 @@ All applications that have Prometheus scraping enabled will show up in the [defa
 
 Bellow we have a few samples to get you started. For more in-depth examples and reference, check out the documentation for your specific client.
 
-!!! info "Client libraries"
+??? info "Client libraries"
     There are a number of client libraries available depending on what programming language you are using. You can use these to simplify the communication with Prometheus.
 
     * [Prometheus Java client][prometheus-client-java]
@@ -31,11 +44,11 @@ Bellow we have a few samples to get you started. For more in-depth examples and 
 
     You can find a comprehensive list of [client libraries here][prometheus-clients-all].
 
-[prometheus-client-java]: https://github.com/prometheus/client_java
-[prometheus-client-python]: https://github.com/prometheus/client_python
-[prometheus-client-go]: https://github.com/prometheus/client_golang
-[prometheus-client-node]: https://github.com/siimon/prom-client
-[prometheus-clients-all]: https://prometheus.io/docs/instrumenting/clientlibs/
+    [prometheus-client-java]: https://github.com/prometheus/client_java
+    [prometheus-client-python]: https://github.com/prometheus/client_python
+    [prometheus-client-go]: https://github.com/prometheus/client_golang
+    [prometheus-client-node]: https://github.com/siimon/prom-client
+    [prometheus-clients-all]: https://prometheus.io/docs/instrumenting/clientlibs/
 
 === "nais.yaml"
 
