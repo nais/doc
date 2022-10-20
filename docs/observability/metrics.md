@@ -212,6 +212,18 @@ You should, as a developer, that build metrics into your application have solid 
 - **Summary:** Calculate arbitrary buckets of aggregated textual observations. Example: Response time of 99% of requests or larger buckets etc.
 - **Histogram:** Like Summaries, Histograms can be used to monitor latencies (or other things like request sizes). Unlike Summaries, Histograms have more features, if you want to learn more you can read the [difference between histograms and summaries](https://prometheus.io/docs/practices/histograms/).
 
+## Cluster metrics
+
+NAIS clusters comes with a set of metrics that are available for all applications. Many of these relates to Kubernetes and includes metrics like CPU and memory usage, number of pods, etc. You can find a comprehensive list in the [kube-state-metrics documentation](https://github.com/kubernetes/kube-state-metrics/blob/master/docs/README.md).
+
+Our ingress controller also exposes metrics about the number of requests, response times, etc. You can find a comprehensive list in our [ingress documentation](/nais-application/ingress/#ingress-metrics).
+
+## Debugging metrics
+
+If you are having trouble with your metrics, you can use the [Prometheus expression browser](https://prometheus.io/docs/visualization/browser/) to test your queries. You can find this at `/graph` in the respective Prometheus environment.
+
+If your metrics are not showing up in the expression browser, you can check the target page at `/targets` to see if your application is registered as a target or if Prometheus has encountered any errors when scraping your application.
+
 ## Push metrics
 
 The Pushgateway is an intermediary service which allows you to push metrics from jobs which cannot be scraped. For details, see [Pushing metrics](https://prometheus.io/docs/instrumenting/pushing/).
