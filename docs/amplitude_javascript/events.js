@@ -54,6 +54,8 @@ amplitude.getInstance().init("16d1ee2fd894ca2562eeebb5095dbcf0", undefined, conf
 
 amplitude.getInstance().logEvent("sidevisning", {
    sidetittel: window.location.pathname,
+   domene: window.location.host,
+   tjeneste: 'nais-docs',
 })
 
 // logic taken from
@@ -64,8 +66,12 @@ document.addEventListener('DOMContentLoaded', function() {
     query.addEventListener('blur', function() {
       if (this.value) {
         var path = document.location.pathname;
-        amplitude.getInstance().logEvent(
-            'søk', {'søkeord': this.value, 'pathname': path})
+        amplitude.getInstance().logEvent('søk', {
+          søkeord: this.value,
+          sidetittel: path,
+          domene: window.location.host,
+          tjeneste: 'nais-docs',
+        })
       }
     })
   }
