@@ -44,7 +44,7 @@ When you have a large development organisation, providing the developers with tu
 
 At the core of NAIS lies [*Kubernetes*](https://kubernetes.io), which can be described as a Swiss army knife of tools. Each of these tools comes with its own set of instructions and in sum this adds up and makes for a bit of a mess in terms of choices and considerations.
 
-Our goal is to lift this burden from our developers, and in order to do so we've condensed the essential parts into a single configuration file that we use to generate all the underlying Kubernetes resources. In nais terms this file is most commonly referred to as [`nais.yaml`](./nais-application/example/)
+Our goal is to lift this burden from our developers, and in order to do so we've condensed the essential parts into a single configuration file that we use to generate all the underlying Kubernetes resources. In NAIS terms this file is most commonly referred to as [`nais.yaml`](./nais-application/example/)
 
 ![A swiss army knife with the nais logo. All the tools are opened and it looks like a mess.](assets/nais_army_knife.png)
 
