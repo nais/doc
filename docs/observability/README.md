@@ -58,7 +58,7 @@ graph LR
 
 Logs are a way to understand what is happening in your application. They are usually text-based and are often used for debugging. Since the format of logs is usually not standardized, it can be difficult to query and aggregate logs and thus we recommend using metrics for dashboards and alerting.
 
-Logs are collected automatically by [fluentd][fluentd] and stored in [Elasticsearch][elasticsearch] and accessible via [Kibana][kibana].
+Logs are collected automatically by [fluentd][fluentd], stored in [Elasticsearch][elasticsearch] and made accessible via [Kibana][kibana].
 
 [fluentd]: https://www.fluentd.org/
 [elasticsearch]: https://www.elastic.co/elasticsearch/
