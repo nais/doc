@@ -75,9 +75,11 @@ graph LR
 
 ## Alerts
 
-Alerts are a way to notify you when something is wrong with your application. Alerts are usually triggered when a metric or log entry matches a certain condition. Alerts are often used to notify you when something is wrong with your application.
+Alerts are a way to notify you when something is wrong with your application, and are usually triggered when a metric or log entry matches a certain condition.
 
-Alerts are based on application metrics and use [Prometheus Alertmanager][alertmanager] to send notifications to Slack. Alerts are configured by each team for their applications using the [`alert`](./alerts/) resource.
+Alerts in NAIS are based on application metrics and use [Prometheus Alertmanager][alertmanager] to send notifications to Slack. 
+
+The [`alert`](./alerts/) resource can be used to configure alerts for your applications.
 
 [alertmanager]: https://prometheus.io/docs/alerting/latest/alertmanager/
 
