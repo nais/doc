@@ -89,7 +89,7 @@ You can also learn about our [user management and permissions](basics/teams).
 
 ## Access Your Applications
 
-In the extended NAIS universe we also have a component called [naisdevice][./device]. This is a cross plattform mechanism that provices access to NAIS services. The product adheres to the [Honest.security principles](https://honest.security) and takes aim at securing our operations without getting in our devs way.
+In the extended NAIS universe we also have a component called [naisdevice][./device]. This is a cross-platform mechanism that provices access to NAIS services. The product adheres to the [Honest.security principles](https://honest.security) and takes aim at securing our operations without getting in your way.
 
 ## Contact the NAIS team
 
