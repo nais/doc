@@ -105,32 +105,40 @@ Only a subset of [all the possible topic-level configurations](https://kafka.apa
 
 #### Maximum message size
 
-The `maxMessageBytes` configuration controls the largest record batch size allowed by Kafka. 
-It has a default value of `1048588` (1 MiB). 
+The `maxMessageBytes` configuration controls the largest record batch size allowed by Kafka.
 
-Generally speaking, Kafka is not designed to handle large messages. 
-We recommend that you do not increase this value above the defaults, unless absolutely necessary. 
+It has a default value of `1048588` (1 MiB) and a maximum value of `5242880` (5 MiB). 
 
-To keep your Kafka messages below the size limit, do consider implementing strategies such as:
+!!! danger 
 
-- using an efficient serialization format such as Avro or Protobuf
-- using compression - set the `compression.type` configuration for your producer(s)
-- using patterns such as [claim-checks](https://developer.confluent.io/patterns/event-processing/claim-check/) or [splitting messages into multiple segments](https://developer.confluent.io/patterns/event-processing/event-chunking/)
+    Generally speaking, Kafka is not designed to handle large messages. 
+    **We recommend that you do not increase the `maxMessageBytes` value above the defaults, unless absolutely necessary.** 
 
-If you do increase the `maxMessageBytes` value, you will need to configure all your producers and consumers as well to accommodate this.
+    To keep your Kafka messages below the size limit, do consider implementing strategies such as:
 
-For producers:
+    - using an efficient serialization format such as Avro or Protobuf
+    - using compression - set the `compression.type` configuration for your producer(s)
+    - using patterns such as [claim-checks](https://developer.confluent.io/patterns/event-processing/claim-check/) or [splitting messages into multiple segments](https://developer.confluent.io/patterns/event-processing/event-chunking/)
 
-- set `max.request.size` equal to `maxMessageBytes`
+    If you do increase the `maxMessageBytes` value, you will need to configure all your producers and consumers as well to accommodate this.
 
-For consumers:
+    For producers:
 
-- set `max.partition.fetch.bytes` equal to `maxMessageBytes`
+    - set `max.request.size` equal to `maxMessageBytes`
+
+    For consumers:
+
+    - set `max.partition.fetch.bytes` equal to `maxMessageBytes`
 
 #### Segment rolling
 
-The `segmentHours` configuration controls the period of time after which Kafka will force the log to roll even if the 
-segment file isn't full to ensure that retention can delete or compact old data. This can be useful for GDPR purposes.
+Each topic partition is split into _segments_. The `segmentHours` configuration controls the period of time after which 
+Kafka will commit the segment even if not full to ensure that retention can delete or compact old data.
+
+It has a default value of `168` (1 week) and a minimum value of `1` (1 hour).
+
+Setting this value lower can be useful for GDPR purposes where you need to compact or delete data more regularly than
+the default setting of 1 week.
 
 ### Data catalog metadata
 
