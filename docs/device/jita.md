@@ -11,6 +11,6 @@ When you start naisdevice you will not be automatically connected to all the ava
 
 Once authenticated you will be presented with a form where you have to supply a short reason for why access is needed and for how long. You will then be granted access for the requested amount of time instantly and automatically.
 
-![](../assets/jita_portal.png)
+![A screenshow shows the part of the form, where you supply the short reason for why access is needed and for how long. The label of the input field is "Reason". A slider below allows you to select the duraction.](../assets/jita_portal.png)
 
 
