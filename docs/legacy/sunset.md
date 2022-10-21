@@ -70,6 +70,12 @@ Vi anbefaler alle team sterkt å starte migreringen vekk fra loginservice allere
 * Benytt [wonderwall](https://doc.nais.io/appendix/wonderwall/) der hvor du i dag benytter loginservice
 
 
+### Delte namespaces i kubernetes
+Delte namsepaces (som `default` eller `q0`), altså namespaces hvor mer enn ett team har tilgang til å kjøre applikasjoner, er et mønster vi skal bort fra til fordel for [team namespaces](https://docs.nais.io/clusters/team-namespaces/). Dette er en forutsetning for å flytte applikasjoner til sky, men selv on-prem er det et sikrere og bedre mønster for applikasjonsdrift.
+
+Muligheten til å deploye applikasjoner til delte namespaces kommer til å bli borte, og kort tid etter vil også eksisterende applikasjoner i delte namespaces bli fjernet.
+
+
 ### FSS
 
 Vi anbefaler at alle nye applikasjoner på nais deployes til GCP, og ikke til FSS.
