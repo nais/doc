@@ -1094,7 +1094,7 @@ Availability: team namespaces<br />
           mountPath: /var/run/secrets
           secret: my-secret-file
         - emptyDir:
-            medium: memory
+            medium: Memory
           mountPath: /var/cache
         - emptyDir: {}
           mountPath: /var/run/pvc
@@ -1118,7 +1118,7 @@ Required: `false`<br />
           mountPath: /var/run/secrets
           secret: my-secret-file
         - emptyDir:
-            medium: memory
+            medium: Memory
           mountPath: /var/cache
         - emptyDir: {}
           mountPath: /var/run/pvc
@@ -1142,7 +1142,7 @@ Required: `false`<br />
           mountPath: /var/run/secrets
           secret: my-secret-file
         - emptyDir:
-            medium: memory
+            medium: Memory
           mountPath: /var/cache
         - emptyDir: {}
           mountPath: /var/run/pvc
@@ -1164,7 +1164,7 @@ Required: `false`<br />
           mountPath: /var/run/secrets
           secret: my-secret-file
         - emptyDir:
-            medium: memory
+            medium: Memory
           mountPath: /var/cache
         - emptyDir: {}
           mountPath: /var/run/pvc
@@ -1189,7 +1189,7 @@ Required: `false`<br />
           mountPath: /var/run/secrets
           secret: my-secret-file
         - emptyDir:
-            medium: memory
+            medium: Memory
           mountPath: /var/cache
         - emptyDir: {}
           mountPath: /var/run/pvc
@@ -1213,7 +1213,7 @@ Required: `false`<br />
           mountPath: /var/run/secrets
           secret: my-secret-file
         - emptyDir:
-            medium: memory
+            medium: Memory
           mountPath: /var/cache
         - emptyDir: {}
           mountPath: /var/run/pvc
@@ -1237,7 +1237,7 @@ Required: `false`<br />
           mountPath: /var/run/secrets
           secret: my-secret-file
         - emptyDir:
-            medium: memory
+            medium: Memory
           mountPath: /var/cache
         - emptyDir: {}
           mountPath: /var/run/pvc
