@@ -84,8 +84,7 @@ that you may mount into your applications in the GCP clusters.
 
     If your secret contains a list of environment variables:
 
-    ![A screenshot shows how to fill in the Secret value, if you have secrets formatted as environment variables
-. The heading is “Secret value”, the text is “Input your secret value or import it directly from a file”. There are two options below. Either upload a file, by using the browse button. (Maximum size iis 65 KiB) Or input the secret value in the text field below. When the secret is an environment variable, use the text field. The example used i “FOO=BAR BAR=BAZ”
+    ![A screenshot shows how to fill in the Secret value, if you have secrets formatted as environment variables. The heading is “Secret value”, the text is “Input your secret value or import it directly from a file”. There are two options below. Either upload a file, by using the browse button. (Maximum size iis 65 KiB) Or input the secret value in the text field below. When the secret is an environment variable, use the text field. The example used i “FOO=BAR BAR=BAZ”
 ](../../assets/google-secret-manager-env-value.png)
 
     Then additionally add the label `env=true` to your secret in Google Secret Manager:
@@ -140,8 +139,7 @@ If you need environment variables, see the [other example](#example-with-environ
 
 ??? example "Secret in Google Secret Manager (click to expand)"
     
-    ![A screenshot shows the entire form for “Secret details”, using the example of single value format. It consists of the following sections:
-The heading is “Secret details” followed by an input field for “Name”, a section for “Secret value” where you can upload or enter your secret value. A section for “Replication policy”, where you should select “Manually manage locations for the secret” using the checkbox. In the dropdown below, called “Location(s)”, select “europe-north1”. The section below is called “Labels” and allows you to add labels to organize and categorize your secrets, using input fields for “Key” and “Value”. Below the row is a button “Add label”. Add a label, and in the new input field “Key” enter “env”. In the following input field “Value” enter “true”](../../assets/google-secret-manager-example-single-value.png)
+    ![A screenshot shows the entire form for “Secret details”, using the example of single value format. It consists of the following sections: The heading is “Secret details” followed by an input field for “Name”, a section for “Secret value” where you can upload or enter your secret value. A section for “Replication policy”, where you should select “Manually manage locations for the secret” using the checkbox. In the dropdown below, called “Location(s)”, select “europe-north1”. The section below is called “Labels” and allows you to add labels to organize and categorize your secrets, using input fields for “Key” and “Value”. Below the row is a button “Add label”. Add a label, and in the new input field “Key” enter “env”. In the following input field “Value” enter “true”](../../assets/google-secret-manager-example-single-value.png)
 
 ??? example "Imported Secret in Kubernetes (click to expand)"
     
