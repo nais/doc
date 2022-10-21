@@ -14,7 +14,7 @@ The created AivenApplication has sane default (days-to-live) set to 1 day.
 
 To gain access to a specific topic be sure to update your topic resource and topic ACLs.
 Add `username` to `acl.application` field in your topic.yaml and apply to your namespace.
-The `username` is the one spescified in the [next step](#create).
+The `username` is the one specified in the next step.
 
 ```yaml
 # topic.yml
