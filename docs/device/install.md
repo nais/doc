@@ -24,7 +24,7 @@
 
 #### Install using Scoop
 
-1. [install Kolide agent](install.md#install-kolide-agent)
+1. [Install Kolide agent](install.md#install-kolide-agent)
 2. Install [Scoop](https://scoop.sh) unless you already have it.
 3. Add the nais bucket
    ```powershell
@@ -40,8 +40,8 @@
 
 #### Manual installation
 
-1. [install Kolide agent](install.md#install-kolide-agent)
-2. [install naisdevice](https://github.com/nais/device/releases/latest) \(naisdevice.exe\)
+1. [Install Kolide agent](install.md#install-kolide-agent)
+2. [Install naisdevice](https://github.com/nais/device/releases/latest) \(naisdevice.exe\)
    (you will be prompted for administrator access when you run the installer)
 3. Remember to [update your kubeconfig](install.md#connecting-to-nais-clusters)
 4. Start _naisdevice_ from the _Start menu_ 
@@ -105,8 +105,7 @@ In your Systray (where all your small program icons are located - see above pict
 1. Find your `naisdevice` icon (pictured above - though it should not be red at first attempted connection).
     - Can't find the icon? Make sure it is installed (See [macOS](#macos-installation), [Windows](#windows-installation) or [Ubuntu](#ubuntu-installation))
 2. Left-click it and select `Connect`.
-3. Read and accept the End-User terms and agreement (The `Do's and Don'ts` of `naisdevice`).
-   See the [picture below](#how-to-accept-the-dos-and-donts-of-naisdevice).
+3. Read and accept the End-User terms and agreement ([The `Do's and Don'ts` of `naisdevice`](#how-to-accept-the-dos-and-donts-of-naisdevice)).
 4. Left-click the `naisdevice` icon again and click `Connect`.
    You might need to allow ~20 seconds to pass before clicking `Connect` turns your `naisdevice` icon green.
 5. If `naisdevice` gives a pop-up notification about your device being unhealthy - double check that Kolide still reports your device as healthy.
@@ -124,13 +123,33 @@ In your Systray (where all your small program icons are located - see above pict
     You should be automatically sent here when connecting to `naisdevice` if not you've not yet accepted.
     Can manually be found at the following URL: [https://naisdevice-approval.nais.io/](https://naisdevice-approval.nais.io/).
 
-![An example screenshot of the `naisdevice` Do's and Don'ts](../assets/naisdevice-dos-and-donts.svg)
-
 1. Read through the list of "Do's and don'ts".
 2. If you've got any questions, you may join the [#naisdevice](https://nav-it.slack.com/archives/C013XV66XHB) Slack channel.
    _Which happens to be one of the required "Do's" anyways ;)_.
 3. If you accept the terms (they are non-negotiable); click the green "Accept" button at the botttom of the page!
    The button should turn into a red "Reject" button once your acceptance has been processed!
+
+### The list of "Do's and don'ts" of `naisdevice`
+naisdevice removes the need for full blown management of your device.
+This means that there are some do's and don'ts. You have to agree to the following set of guidelines to be admitted to the "program":
+
+#### Do
+- join [#naisdevice](https://nav-it.slack.com/archives/C013XV66XHB) on Slack as soon as possible 
+- make sure that you have activated your screen lock, especially if running on Linux. And beware of apps that override, i.e. Caffeine/Amphetamne etc.
+- your best to secure your device
+- report any security shortcomings you discover
+- ask the naisdevice team if in doubt
+
+#### Don'ts
+- enroll anything other than NAV owned devices.
+- share your device with oothers. A naisdevice is a personal device.
+- turn on sshd or similar services on your device.
+- set up your device as a proxy. For anything!
+- share network interfaces with virtual machines, meaning set them up as separate nodes on the network.
+- take shortcuts
+- move credentials off your device and transport them elsewhere
+
+And otherwise: Just be nais.
 
 ### Connecting to NAIS clusters
 
