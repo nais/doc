@@ -6,6 +6,14 @@ Ingress traffic is traffic that is directed to your application from the interne
 
 ```mermaid
 graph LR
+  accTitle: Access to application via ingress
+  accDescr {
+    The sequence diagram shows the following steps:
+    1. the user accessing https://myapp.dev.nav.no
+    2. The app sends a request to the ingress controller, within the Kubernetes container. http://myapp.mynamespace.svc.cluster.local
+    3. The request is sent to another container, the namespace, which contains a service.
+    4. The service within the Namespace container can send the request to Pod 1 or Pod 2
+  }
   user[User]
   user -->|https://myapp.dev.nav.no| ingresscontroller
   subgraph Kubernetes
@@ -90,16 +98,20 @@ spec:
 
 ## Ingress metrics
 
-All requests to your application via ingress will result in metrics being emitted to Prometheus. The metrics are prefixed with `nginx_ingress_controller_requests_` and are tagged with the following labels:
+All requests to your application via ingress will result in metrics being emitted to Prometheus. The metrics are prefixed with `nginx_ingress_controller_requests_` and are tagged with the following labels: `status`, `method`, `host`, `path`, `namespace`, `service`.
 
-* `status`: HTTP status code
-* `method`: HTTP method
-* `host`: Host header (domain)
-* `path`: Request path
-* `namespace`: Namespace of the ingress
-* `service`: Name of the service (app name)
+??? info "Ingress metrics label descriptions"
 
-### Example
+    | Label | Description |
+    | ----- | ----------- |
+    | `status` | HTTP status code |
+    | `method` | HTTP method |
+    | `host`   | Host header (domain) |
+    | `path`   | Request path |
+    | `namespace` | Namespace of the ingress |
+    | `service`   | Name of the service (app name) |
+
+### Example PromQL Queries
 
 Number of requests to the `myapp` application, grouped by status code:
 
