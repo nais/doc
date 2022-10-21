@@ -1335,7 +1335,7 @@ Required: `false`<br />
 
 ### filesFrom[].mountPath
 Filesystem path inside the pod where files are mounted. The directory will be created if it does not exist. If the directory exists, any files in the directory will be made unaccessible. 
- Defaults to `/var/run/configmaps/<NAME>`, `/var/run/secrets`, or `/var/run/pvc/<NAME>`, depending on which of them is specified.
+ Defaults to `/var/run/configmaps/<NAME>`, `/var/run/secrets`, or `/var/run/pvc/<NAME>`, depending on which of them is specified. For EmptyDir, MountPath must be set.
 
 Type: `string`<br />
 Required: `false`<br />
