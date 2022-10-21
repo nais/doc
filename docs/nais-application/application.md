@@ -1236,8 +1236,9 @@ Required: `false`<br />
     ```
 
 ## filesFrom
-List of ConfigMap or Secret resources that will have their contents mounted into the containers as files. Either `configMap` or `secret` is required. 
+List of ConfigMap, Secret, or EmptyDir resources that will have their contents mounted into the containers. Either `configMap`, `secret`, or `emptyDir` is required. 
  Files will take the path `<mountPath>/<key>`, where `key` is the ConfigMap or Secret key. You can specify as many keys as you like in a single ConfigMap or Secret, and they will all be mounted to the same directory. 
+ If you reference an emptyDir you will just get an empty directory, backed by your requested memory or the disk on the node where your pod is running. 
  The ConfigMap and Secret resources must live in the same Kubernetes namespace as the Application resource.
 
 Type: `array`<br />
@@ -1249,10 +1250,16 @@ Availability: team namespaces<br />
     spec:
       filesFrom:
         - configmap: example-files-configmap
+          emptyDir: {}
           mountPath: /var/run/configmaps
-        - mountPath: /var/run/secrets
+        - emptyDir: {}
+          mountPath: /var/run/secrets
           secret: my-secret-file
-        - mountPath: /var/run/pvc
+        - emptyDir:
+            medium: memory
+          mountPath: /var/cache
+        - emptyDir: {}
+          mountPath: /var/run/pvc
           persistentVolumeClaim: pvc-name
     ```
 
@@ -1267,10 +1274,62 @@ Required: `false`<br />
     spec:
       filesFrom:
         - configmap: example-files-configmap
+          emptyDir: {}
           mountPath: /var/run/configmaps
-        - mountPath: /var/run/secrets
+        - emptyDir: {}
+          mountPath: /var/run/secrets
           secret: my-secret-file
-        - mountPath: /var/run/pvc
+        - emptyDir:
+            medium: memory
+          mountPath: /var/cache
+        - emptyDir: {}
+          mountPath: /var/run/pvc
+          persistentVolumeClaim: pvc-name
+    ```
+
+### filesFrom[].emptyDir
+Specification of an empty directory
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      filesFrom:
+        - configmap: example-files-configmap
+          emptyDir: {}
+          mountPath: /var/run/configmaps
+        - emptyDir: {}
+          mountPath: /var/run/secrets
+          secret: my-secret-file
+        - emptyDir:
+            medium: memory
+          mountPath: /var/cache
+        - emptyDir: {}
+          mountPath: /var/run/pvc
+          persistentVolumeClaim: pvc-name
+    ```
+
+#### filesFrom[].emptyDir.medium
+Type: `string`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      filesFrom:
+        - configmap: example-files-configmap
+          emptyDir: {}
+          mountPath: /var/run/configmaps
+        - emptyDir: {}
+          mountPath: /var/run/secrets
+          secret: my-secret-file
+        - emptyDir:
+            medium: memory
+          mountPath: /var/cache
+        - emptyDir: {}
+          mountPath: /var/run/pvc
           persistentVolumeClaim: pvc-name
     ```
 
@@ -1286,10 +1345,16 @@ Required: `false`<br />
     spec:
       filesFrom:
         - configmap: example-files-configmap
+          emptyDir: {}
           mountPath: /var/run/configmaps
-        - mountPath: /var/run/secrets
+        - emptyDir: {}
+          mountPath: /var/run/secrets
           secret: my-secret-file
-        - mountPath: /var/run/pvc
+        - emptyDir:
+            medium: memory
+          mountPath: /var/cache
+        - emptyDir: {}
+          mountPath: /var/run/pvc
           persistentVolumeClaim: pvc-name
     ```
 
@@ -1304,10 +1369,16 @@ Required: `false`<br />
     spec:
       filesFrom:
         - configmap: example-files-configmap
+          emptyDir: {}
           mountPath: /var/run/configmaps
-        - mountPath: /var/run/secrets
+        - emptyDir: {}
+          mountPath: /var/run/secrets
           secret: my-secret-file
-        - mountPath: /var/run/pvc
+        - emptyDir:
+            medium: memory
+          mountPath: /var/cache
+        - emptyDir: {}
+          mountPath: /var/run/pvc
           persistentVolumeClaim: pvc-name
     ```
 
@@ -1322,10 +1393,16 @@ Required: `false`<br />
     spec:
       filesFrom:
         - configmap: example-files-configmap
+          emptyDir: {}
           mountPath: /var/run/configmaps
-        - mountPath: /var/run/secrets
+        - emptyDir: {}
+          mountPath: /var/run/secrets
           secret: my-secret-file
-        - mountPath: /var/run/pvc
+        - emptyDir:
+            medium: memory
+          mountPath: /var/cache
+        - emptyDir: {}
+          mountPath: /var/run/pvc
           persistentVolumeClaim: pvc-name
     ```
 

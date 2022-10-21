@@ -109,10 +109,16 @@ spec:
   - configmap: my-configmap-with-envs
   filesFrom:
   - configmap: example-files-configmap
+    emptyDir: {}
     mountPath: /var/run/configmaps
-  - mountPath: /var/run/secrets
+  - emptyDir: {}
+    mountPath: /var/run/secrets
     secret: my-secret-file
-  - mountPath: /var/run/pvc
+  - emptyDir:
+      medium: memory
+    mountPath: /var/cache
+  - emptyDir: {}
+    mountPath: /var/run/pvc
     persistentVolumeClaim: pvc-name
   gcp:
     bigQueryDatasets:
