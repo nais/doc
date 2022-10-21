@@ -51,7 +51,7 @@ const config = {
   },
 }
 
-isLive = document.domain === "doc.nais.io"
+isLive = document.domain === "docs.nais.io"
 
 function amplitudeLogEvent(eventName, eventData) {
   amplitude.getInstance().init(isLive ? "16d1ee2fd894ca2562eeebb5095dbcf0" : "04203d48401492bda4620a74acf85a5b", undefined, config);
