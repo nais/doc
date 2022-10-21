@@ -1,0 +1,16 @@
+{% extends "main.html" %}
+
+<!-- Content -->
+{% block content %}
+  <h1>404 - Not found</h1>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    amplitudeLogEvent("404")
+  });
+  </script>
+{% endblock %}
