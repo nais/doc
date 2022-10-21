@@ -84,8 +84,7 @@ that you may mount into your applications in the GCP clusters.
 
     If your secret contains a list of environment variables:
 
-    ![A screenshot shows how to fill in the Secret value, if you have secrets formatted as environment variables. The heading is “Secret value”, the text is “Input your secret value or import it directly from a file”. There are two options below. Either upload a file, by using the browse button. (Maximum size iis 65 KiB) Or input the secret value in the text field below. When the secret is an environment variable, use the text field. The example used i “FOO=BAR BAR=BAZ”
-](../../assets/google-secret-manager-env-value.png)
+    ![A screenshot shows how to fill in the Secret value, if you have secrets formatted as environment variables. The heading is “Secret value”, the text is “Input your secret value or import it directly from a file”. There are two options below. Either upload a file, by using the browse button. (Maximum size is 65 KiB) Or input the secret value in the text field below. When the secret is an environment variable, use the text field. The example used i “FOO=BAR BAR=BAZ”](../../assets/google-secret-manager-env-value.png)
 
     Then additionally add the label `env=true` to your secret in Google Secret Manager:
 
