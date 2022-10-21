@@ -7,9 +7,9 @@ If this is not the case, head over to the [installation instructions](./install.
 
 ### macOS
 
-If you don't already have naisdevice installed via Homebrew, refer to [install](./install.md).
+If you don't already have naisdevice installed via Homebrew, refer to [installation instructions](./install.md).
 
-Use the [standard mechanisms](https://docs.brew.sh/FAQ#how-do-i-update-my-local-packages) provided by Homebrew to upgrade the `naisdevice` cask
+Use the [standard mechanisms provided by Homebrew](https://docs.brew.sh/FAQ#how-do-i-update-my-local-packages) to upgrade the `naisdevice` cask
 
 ### Windows
 
@@ -17,7 +17,7 @@ Download and run the newest [naisdevice installer](https://github.com/nais/devic
 
 ### Ubuntu \(using Gnome DE - only supported variant atm\)
 
-Use the [standard mechanisms](https://ubuntu.com/server/docs/package-management) provided by APT to upgrade the `naisdevice` package
+Use the [standard mechanisms  provided by APT](https://ubuntu.com/server/docs/package-management) to upgrade the `naisdevice` package
 
 ## Troubleshooting
 
