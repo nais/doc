@@ -1,6 +1,21 @@
 # start command
 
-The `start` command can be used to bootstrap the YAML necessary for building and deploying your app using a [GitHub Workflow](https://docs.github.com/en/actions/using-workflows). The command will attempt to determine the type of project in the current directory by looking for files that are specific for each platform (pom.xml, go.sum et al.). Currently supported platforms are:
+The start command can be used to bootstrap the YAML necessary for building and deploying your app using a [GitHub Workflow](https://docs.github.com/en/actions/using-workflows).
+The command is intended to be run at the root directory of your project.
+
+```bash
+nais start -n appname -t teamname
+```
+
+| Flag     | Required | Short | Description                                                               |
+|----------|----------|-------|---------------------------------------------------------------------------|
+| appname  | Yes      | -n    | application name (as it will be in the cluster)                           |
+| teamname | Yes      | -t    | your team's name (app will be deployed to this namespace)                 |
+| extras   | No       | -e    | comma separated list of desired extras (idporten,openSearch,aad,postgres) |
+| topics   | No       | -c    | comma separated list of desired kafka topic resources                     |
+
+The command will attempt to determine the type of project in the current directory by looking for files that are specific for each platform (pom.xml, go.sum, etc.). 
+Currently supported platforms are:
 
 - JVM with Maven
 - JVM with Gradle
@@ -9,8 +24,6 @@ The `start` command can be used to bootstrap the YAML necessary for building and
 - Golang with Make
 - Python with Pip
 - Python with Poetry
-
-![](../../assets/clistart.gif)
 
 YAML files are then retrieved using [start.nais.io](https://start.nais.io) and written to the current directory in the sub-folders `.github` and `.nais`.
 
