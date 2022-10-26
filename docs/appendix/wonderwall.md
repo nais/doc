@@ -70,7 +70,8 @@ The sidecar provides these endpoints under your application's [ingress](../nais-
 | Path                           | Description                                                                | Note              |
 |--------------------------------|----------------------------------------------------------------------------|-------------------|
 | `GET /oauth2/login`            | Initiates the OpenID Connect Authorization Code flow                       |                   |
-| `GET /oauth2/logout`           | Initiates local and global/single-logout                                   |                   |
+| `GET /oauth2/logout`           | Performs local logout and redirects the user to global/single-logout       |                   |
+| `GET /oauth2/logout/local`     | Performs local logout only                                                 |                   |
 | `GET /oauth2/session`          | Returns the current user's session metadata                                |                   |
 | `POST /oauth2/session/refresh` | Refreshes the tokens and returns the session metadata for the current user | Only for Azure AD |
 
@@ -207,14 +208,30 @@ These use glob-style matching, though only single asterisks are allowed.
 
 ### 2. Initiate Logout
 
-When you must log a user out, redirect to the user to:
+When you must log a user out, **redirect** to the user to:
 
 ```
 https://<ingress>/oauth2/logout
 ```
 
-The user's session with the sidecar will be cleared, and the user will be redirected to the identity provider for global
-logout.
+The user's session with the sidecar will be cleared, and the user will be redirected to the identity provider for 
+global/single-logout, if logged in with SSO (single sign-on) at the identity provider.
+
+#### 2.1 Local Logout
+
+If you only want to perform a _local logout_ for the user, perform a `GET` request from their user-agent to:
+
+```
+https://<ingress>/oauth2/logout/local
+```
+
+This will only clear the user's local session (i.e. remove the cookies) with the sidecar, without performing global logout at the identity provider.
+
+A local logout is useful for scenarios where users frequently switch between multiple accounts. 
+This means that they do not have to re-enter their credentials (e.g. username, password, 2FA) between each local logout, as they still have an SSO-session logged in with the identity provider. 
+If the user is using a shared device with other users, only performing a local logout is thus a security risk.
+
+**Ensure you understand the difference in intentions between the two logout endpoints. If you're unsure, use `/oauth2/logout`.**
 
 ---
 
