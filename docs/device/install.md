@@ -127,11 +127,11 @@ When you have opened naisdevice, you may be concerned that nothing happened. The
 5. If naisdevice gives a pop-up notification about your device being unhealthy, open Slack and find the Kolide app in the bottom left (scroll, scroll, scroll). Check if it still reports your device as healthy, or follow the steps Kolide suggests to make sure your device is secure. (The naisdevice systray-icon should have turned into a yellow color).
 
 !!! tip
-    If Kolide reports your device to be healthy, but still naisdevice won't let you connect, try to disconnect and re-connect `naisdevice`.
+    If Kolide reports your device to be healthy, but naisdevice won't let you connect, try to disconnect and re-connect `naisdevice`.
 
     If naisdevice still won't let you connect, be aware that it may take up to 5 minutes for the `naisdevice` server to register that Kolide now thinks your device is okay.
 
-    If it still does not connect, we are always available to answer your questions in the [Slack channel #naisdevice](https://nav-it.slack.com/archives/C013XV66XHB).
+    If all else fails, we are always available to answer your questions in the [Slack channel #naisdevice](https://nav-it.slack.com/archives/C013XV66XHB).
 
 ### How to accept the "Do's and don'ts" of `naisdevice`
 
