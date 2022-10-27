@@ -10,7 +10,7 @@
 
 1. [Install the Kolide agent](#install-kolide-agent). The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the NAIS team and should be followed to keep your device safe.
 2. [Install Homebrew](https://brew.sh/) unless you already have it. Homebrew makes it possible to install and maintain apps using the terminal app on your Mac.
-3. Open terminal (Use `<Command> + <Space>` to find `Terminal.app`) and add the nais tap by typing or pasting the text below and press `<Enter>`.  Adding the nais tap, lets Homebrew know where to get and update files from. Do not worry about where it will be installed, we got you covered.
+3. Open terminal (Use `<Command> + <Space>` to find `Terminal.app`) and add the nais tap by typing or pasting the text below and press `<Enter>`. Adding the nais tap lets Homebrew know where to get and update files from. Do not worry about where it will be installed, we got you covered.
     ```bash
     brew tap nais/tap
     ```
@@ -30,7 +30,7 @@
 
 #### Install using Scoop
 
-1. [Install Kolide agent](install.md#install-kolide-agent). The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them.  They have been vetted by the NAIS team and should be followed to keep your device safe.
+1. [Install Kolide agent](install.md#install-kolide-agent). The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the NAIS team and should be followed to keep your device safe.
 2. Install [Scoop](https://scoop.sh) unless you already have it. Scoop makes it possible to install and maintain programs from the command line.
 3. Use the following command in the command line to add the nais bucket to let Scoop know where to get and update files from. Do not worry about where it will be installed, we got you covered.
    ```powershell
@@ -46,7 +46,7 @@
 
 #### Manual installation
 
-1. [Install Kolide agent](install.md#install-kolide-agent). The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them.  They have been vetted by the NAIS team and should be followed to keep your device safe.
+1. [Install Kolide agent](install.md#install-kolide-agent). The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the NAIS team and should be followed to keep your device safe.
 2. [Download and install naisdevice.exe](https://github.com/nais/device/releases/latest)
    (you will be asked for administrator access when you run the installer)
 3. If you need to connect to anything running in K8s cluster, remember to [update your kubeconfig](https://docs.nais.io/device/install/#connecting-to-nais-clusters)
@@ -89,9 +89,9 @@ The Kolide agent will be added to your Slack app, and let you know when there ar
 
 You install Kolide by following these steps:
 
-1. Send a message to the Kolide app on Slack, either by:
-   1. Pasting the following command (in any message input field) in Slack: `/msg @Kolide installers` or by,
-   2. Finding the "Kolide" app and directly messaging it the word `installers` (case independent).
+1. Send a message to the Kolide app on Slack. Choose **one** of the two options below:
+   1. Paste the following command (in any message input field) in Slack: `/msg @Kolide installers`.
+   2. Find the "Kolide" app within Slack and directly message it the word `installers` (case independent).
 2. Follow Kolide's walk-through:
 
    1. Select `Enroll a Device`
@@ -103,7 +103,7 @@ You install Kolide by following these steps:
    No error message means that the installation was successful.
 4. Allow a couple of minutes to let Kolide check the state of your device, but if you're stuck at "Waiting for your device to connect" just go to the next step.
 5. Check your devices status: `/msg @Kolide status` on Slack and fix errors if there are any.
-6. Unless Kolide repor
+6. Unless Kolide reports your device as "Ok"/"Healthy", follow the instructions on how to remediate the issues.
 
 Go back to [macOS](#macos-installation), [Windows](#windows-installation) or [Ubuntu](#ubuntu-installation) installations to continue.
 
