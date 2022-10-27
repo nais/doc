@@ -1,6 +1,7 @@
 # A nais'er installation guide
 
 !!! warning
+
     To make sure you are using naisdevice as securely as possible, make sure you are a member of the [Slack channel #naisdevice](https://nav-it.slack.com/archives/C013XV66XHB). Important information will be published there. This also where you find us, if you need any help. 
 
 ## Device-specific installation steps
@@ -127,7 +128,7 @@ This means that there are some do's and don'ts. You have to agree to the followi
 - ask the naisdevice team if in doubt
 
 #### Don'ts
-- enroll anything other than NAV owned devices.
+- enroll anything other than company owned devices.
 - share your device with oothers. A naisdevice is a personal device.
 - turn on sshd or similar services on your device.
 - set up your device as a proxy. For anything!
