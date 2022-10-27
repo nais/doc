@@ -19,11 +19,11 @@
     brew install naisdevice
     ``` 
 5. You will be asked for your local device account's password to finish the installation.
-   1. The password is not accepted unless you have administrator privileges, so you need to get that first. 
-   2. If you're running a NAV Mac: Open your `Privileges.app` (Use `<Command> + <Space>` to find the `Privileges.app` and request privileges. When this is done, you can enter your password in terminal. The privileges last 10 minutes. The limited time is due to security reasons, because we know many of us forget to turn it off afterwards.
+    1. The password is not accepted unless you have administrator privileges, so you need to get that first. 
+    2. If you're running a NAV Mac: Open your `Privileges.app` (Use `<Command> + <Space>` to find the `Privileges.app` and request privileges. When this is done, you can enter your password in terminal. The privileges last 10 minutes. The limited time is due to security reasons, because we know many of us forget to turn it off afterwards.
 6. Turn on your freshly installed `naisdevice` app.
-   1. Use `<Command> + <Space>` to find your `naisdevice.app` and press `<Enter>`.
-   2. Follow the [instructions to connect your _nais_ device](#connect-naisdevice-through-tasksys-tray-icon).
+    1. Use `<Command> + <Space>` to find your `naisdevice.app` and press `<Enter>`.
+    2. Follow the [instructions to connect your _nais_ device](#connect-naisdevice-through-tasksys-tray-icon).
 7. If you need to connect to anything running in K8s cluster, remember to [update your kubeconfig](https://docs.nais.io/device/install/#connecting-to-nais-clusters)
 
 ### Windows Installation
@@ -66,7 +66,7 @@
     echo "deb [signed-by=$NAIS_GPG_KEY] https://ppa.nais.io/ ./" | sudo tee /etc/apt/sources.list.d/nav_nais.list
     sudo apt update # Now you can apt install naisdevice
     ```
-3. Intall the naisdevice package:
+3. Install the naisdevice package:
     ```
     sudo apt install naisdevice
     ```
@@ -90,24 +90,27 @@ The Kolide agent will be added to your Slack app, and let you know when there ar
 You install Kolide by following these steps:
 
 1. Send a message to the Kolide app on Slack. Choose **one** of the two options below:
-   1. Paste the following command (in any message input field) in Slack: `/msg @Kolide installers`.
-   2. Find the "Kolide" app within Slack and directly message it the word `installers` (case independent).
+    1. Paste the following command (in any message input field) in Slack: 
+       ```
+       /msg @Kolide installers
+       ```
+    2. Find the "Kolide" app within Slack and directly message it the word `installers` (case independent)
 2. Follow Kolide's walk-through:
-
-   1. Select `Enroll a Device`
-   2. Select `Enroll your device`
-   3. Select platform and wait for Kolide to create your installer.
-
+    1. Select `Enroll a Device`
+    2. Select `Enroll your device`
+    3. Select platform and wait for Kolide to create your installer.
 3. Install the package created by Kolide in your chat with the app (named `xkxp-*-kolide-launcher.{pkg,msi,deb}`).
-   There is _no_ success feedback given by Kolide in Slack.
-   No error message means that the installation was successful.
+    - There is _no_ success feedback given by Kolide in Slack.
+    - No error message means that the installation was successful.
 4. Allow a couple of minutes to let Kolide check the state of your device, but if you're stuck at "Waiting for your device to connect" just go to the next step.
-5. Check your devices status: `/msg @Kolide status` on Slack and fix errors if there are any.
-6. Unless Kolide reports your device as "Ok"/"Healthy", follow the instructions on how to remediate the issues.
+5. Check your devices status: 
+    1. Paste the following command (in any message input field) in Slack:
+       ```
+       /msg @Kolide status
+       ```
+6. If Kolide reports your any issues, follow the instructions on how to remediate them. If a remediation required by Kolide makes you feel unsafe - feel free to ask in [#naisdevice Slack channel](https://nav-it.slack.com/archives/C013XV66XHB).
 
 Go back to [macOS](#macos-installation), [Windows](#windows-installation) or [Ubuntu](#ubuntu-installation) installations to continue.
-
-If a remediation required by Kolide makes you feel unsafe - feel free to ask in [#naisdevice](https://nav-it.slack.com/archives/C013XV66XHB) Slack channel.
 
 ### Connect naisdevice through task/sys -tray icon
 
@@ -137,7 +140,7 @@ When you have opened naisdevice, you may be concerned that nothing happened. The
 
 1. Read through the list of "Do's and don'ts".
 2. If you've got any questions, you may join the [Slack channel #naisdevice](https://nav-it.slack.com/archives/C013XV66XHB).
-   _Which happens to be one of the required "Do's" anyway :wink:_
+   (_which happens to be one of the required "Do's" anyway :wink:_)
 3. If you accept the terms (they are non-negotiable); click the green "Accept" button at the botttom of the page!
    The button should turn into a red "Reject" button once your acceptance has been processed!
 
