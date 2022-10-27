@@ -1,6 +1,6 @@
 # A nais'er installation guide
 
-!!!warn 
+!!! warning
     To make sure you are using naisdevice as securely as possible, make sure you are a member of the [Slack channel #naisdevice](https://nav-it.slack.com/archives/C013XV66XHB). Important information will be published there. This also where you find us, if you need any help. 
 
 ## Device-specific installation steps
