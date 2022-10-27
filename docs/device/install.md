@@ -108,7 +108,7 @@ You install Kolide by following these steps:
        ```
        /msg @Kolide status
        ```
-6. If Kolide reports your any issues, follow the instructions on how to remediate them. If a remediation required by Kolide makes you feel unsafe - feel free to ask in [#naisdevice Slack channel](https://nav-it.slack.com/archives/C013XV66XHB).
+6. If Kolide reports any issues, follow the instructions on how to remediate them. If a remediation required by Kolide makes you feel unsafe - feel free to ask in [#naisdevice Slack channel](https://nav-it.slack.com/archives/C013XV66XHB).
 
 Go back to [macOS](#macos-installation), [Windows](#windows-installation) or [Ubuntu](#ubuntu-installation) installations to continue.
 
