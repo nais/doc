@@ -1,6 +1,6 @@
 # Installation
 
-!!! tip
+!!! info
     We have made a [nais'er installation guide](naiserinstall.md) if you think you may need a little extra help.
 
 ## OS-specific installation steps
@@ -51,7 +51,7 @@
 
 ### Ubuntu Installation
 
-!!! warn
+!!! warning
     Using Gnome DE on latest Ubuntu LTS - only supported variant atm
 
 1. [Install Kolide agent](install.md#install-kolide-agent).
