@@ -1,6 +1,7 @@
 # A nais'er installation guide
 
-!!!warn 
+!!! warning
+
     To make sure you are using naisdevice as securely as possible, make sure you are a member of the [Slack channel #naisdevice](https://nav-it.slack.com/archives/C013XV66XHB). Important information will be published there. This also where you find us, if you need any help. 
 
 ## Device-specific installation steps
@@ -57,8 +58,8 @@ The password is not accepted unless you have administrator privileges, so you ne
 
 The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. The apps are found in the bottom left of your Slack app (scroll, scroll, scroll). 
 
-!!!warn
-The issues reported by Kolide must be addressed - these remediations have been vetted by the NAIS team and should be followed. Depending on the issue, you might lose naisdevice connectivity if an issue is left unresolved for a sufficient length of time. If you run into problems, you can always ask in the [Slack channel #naisdevice](https://nav-it.slack.com/archives/C013XV66XHB)
+!!! warning
+    The issues reported by Kolide must be addressed - these remediations have been vetted by the NAIS team and should be followed. Depending on the issue, you might lose naisdevice connectivity if an issue is left unresolved for a sufficient length of time. If you run into problems, you can always ask in the [Slack channel #naisdevice](https://nav-it.slack.com/archives/C013XV66XHB)
 
 You install Kolide by following these steps:
 

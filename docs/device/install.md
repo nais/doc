@@ -1,7 +1,7 @@
 # Installation
 
-!!!tip
-We have made a [nais'er installation guide](naiserinstall.md) if you think you may need a little extra help.
+!!! tip
+    We have made a [nais'er installation guide](naiserinstall.md) if you think you may need a little extra help.
 
 ## OS-specific installation steps
 
