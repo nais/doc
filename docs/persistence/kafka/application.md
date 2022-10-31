@@ -27,11 +27,10 @@ These variables are made available inside the pod.
 Aiven has written several articles on how to configure your application.
 We use SSL, so ignore the SASL-SSL examples:
 
-- [Java](https://help.aiven.io/en/articles/5344053-java-examples-for-testing-aiven-for-apache-kafka)
-- [Python](https://help.aiven.io/en/articles/5343895-python-examples-for-testing-aiven-for-apache-kafka)
-- [Node.js](https://help.aiven.io/en/articles/5343954-node-js-examples-for-testing-aiven-for-apache-kafka)
-- [Ruby](https://help.aiven.io/en/articles/5344094-ruby-examples-for-testing-aiven-for-apache-kafka)
-- [Go](https://help.aiven.io/en/articles/5344122-go-examples-for-testing-aiven-for-apache-kafka)
+- [Java](https://docs.aiven.io/docs/products/kafka/howto/connect-with-java.html)
+- [Python](https://docs.aiven.io/docs/products/kafka/howto/connect-with-python.html)
+- [Node.js](https://docs.aiven.io/docs/products/kafka/howto/connect-with-nodejs.html)
+- [Go](https://docs.aiven.io/docs/products/kafka/howto/connect-with-go.html)
 
 ## What happens on deploy?
 
