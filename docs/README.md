@@ -1,4 +1,4 @@
-# It is NAIS to be a developer at NAV
+# It is NAIS t🎃 be a developer at NAV
 
 <div class="grid cards" markdown>
 
