@@ -183,26 +183,61 @@ You can also define additional paths or patterns to be excluded:
             - /static/stylesheet.css
     ```
 
-These use glob-style matching, though only single asterisks are allowed.
+The paths must be absolute paths. The match patterns use glob-style matching.
 
-???+ example "Example patterns"
+???+ example "Example match patterns"
 
-    - `/allowed`
-        - ✅ matches `/allowed` and `/allowed/`
-        - ❌ does not match `/allowed/nope` or `/allowed/nope/`
+    - `/allowed` or `/allowed/`
+        - Trailing slashes in paths and patterns are effectively ignored during matching.
+        - ✅ matches:
+            - `/allowed`
+            - `/allowed/`
+        - ❌ does not match:
+            - `/allowed/nope`
+            - `/allowed/nope/`
     - `/public/*`
-        - ✅ matches `/public/a` and `/public/a/`
-        - ❌ does not match `/public`, `/public/` or `/public/a/b`
+        - A single asterisk after a path means any subpath _directly_ below the path, excluding itself and any nested paths.
+        - ✅ matches:
+            - `/public/a`
+        - ❌ does not match:
+            - `/public`
+            - `/public/a/b`
+    - `/public/**`
+        - Double asterisks means any subpath below the path, including itself and any nested paths.
+        - ✅ matches:
+            - `/public`
+            - `/public/a`
+            - `/public/a/b`
+        - ❌ does not match:
+            - `/not/public`
+            - `/not/public/a`
     - `/any*`
-        - ✅ matches `/any`, `/any/`, `/anything`, `/anything/`, `/anywho` and `/anywho/`
-        - ❌ does not match `/any/thing`, `/any/thing/` or `/anywho/mst/ve`
+        - ✅ matches:
+            - `/any`
+            - `/anything`
+            - `/anywho`
+        - ❌ does not match:
+            - `/any/thing`
+            - `/anywho/mst/ve`
     - `/a/*/*`
-        - ✅ matches `/a/b/c`, `/a/b/c/`, `/a/bee/cee` or `/a/bee/cee/`
-        - ❌ does not match `/a`, `/a/`, `/a/b`, `/a/b/`, `/a/b/c/d`, or `/a/b/c/d/`
-    - `/trailing/`
-        - Trailing slashes in patterns are effectively dropped during matching.
-        - ✅ matches `/trailing` and `/trailing/`
-        - ❌ does not match `/trailing/nope` or `/trailing/nope/`
+        - ✅ matches:
+            - `/a/b/c`
+            - `/a/bee/cee`
+        - ❌ does not match:
+            - `/a`
+            - `/a/b`
+            - `/a/b/c/d`
+    - `/static/**/*.js`
+        - ✅ matches:
+            - `/static/bundle.js`
+            - `/static/min/bundle.js`
+            - `/static/vendor/min/bundle.js`
+        - ❌ does not match:
+            - `/static`
+            - `/static/some.css`
+            - `/static/min`
+            - `/static/min/some.css`
+            - `/static/vendor/min/some.css`
 
 ---
 
@@ -294,7 +329,7 @@ This can be customized to your needs. Defaults shown below:
         sidecar:
           resources:
             limits:
-              cpu: 250m
+              cpu: 2
               memory: 256Mi
             requests:
               cpu: 20m
@@ -307,7 +342,7 @@ This can be customized to your needs. Defaults shown below:
         sidecar:
           resources:
             limits:
-              cpu: 250m
+              cpu: 2
               memory: 256Mi
             requests:
               cpu: 20m
