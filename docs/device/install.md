@@ -11,12 +11,10 @@
 1. [Install the Kolide agent](#install-kolide-agent). 
     
     The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the NAIS team and should be followed to keep your device safe.
-
 2. [Install Homebrew](https://brew.sh/) unless you already have it. 
      
    Homebrew makes it possible to install and maintain apps using the terminal app on your Mac.
-   
-3. Open terminal (Use `<Command> + <Space>` to find `Terminal.app`) and add the nais tap by typing or pasting the text below and press `<Enter>`. 
+   3. Open terminal (Use `<Command> + <Space>` to find `Terminal.app`) and add the nais tap by typing or pasting the text below and press `<Enter>`. 
  
     Adding the nais tap lets Homebrew know where to get and update files from. Do not worry about where it will be installed, we got you covered.
     ```bash
