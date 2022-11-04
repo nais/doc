@@ -8,9 +8,17 @@
 
 ### macOS Installation
 
-1. [Install the Kolide agent](#install-kolide-agent). The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the NAIS team and should be followed to keep your device safe.
-2. [Install Homebrew](https://brew.sh/) unless you already have it. Homebrew makes it possible to install and maintain apps using the terminal app on your Mac.
-3. Open terminal (Use `<Command> + <Space>` to find `Terminal.app`) and add the nais tap by typing or pasting the text below and press `<Enter>`. Adding the nais tap lets Homebrew know where to get and update files from. Do not worry about where it will be installed, we got you covered.
+1. [Install the Kolide agent](#install-kolide-agent). 
+    
+    The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the NAIS team and should be followed to keep your device safe.
+
+2. [Install Homebrew](https://brew.sh/) unless you already have it. 
+     
+   Homebrew makes it possible to install and maintain apps using the terminal app on your Mac.
+   
+3. Open terminal (Use `<Command> + <Space>` to find `Terminal.app`) and add the nais tap by typing or pasting the text below and press `<Enter>`. 
+ 
+    Adding the nais tap lets Homebrew know where to get and update files from. Do not worry about where it will be installed, we got you covered.
     ```bash
     brew tap nais/tap
     ```
@@ -30,9 +38,14 @@
 
 #### Install using Scoop
 
-1. [Install Kolide agent](install.md#install-kolide-agent). The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the NAIS team and should be followed to keep your device safe.
-2. Install [Scoop](https://scoop.sh) unless you already have it. Scoop makes it possible to install and maintain programs from the command line.
-3. Use the following command in the command line to add the nais bucket to let Scoop know where to get and update files from. Do not worry about where it will be installed, we got you covered.
+1. [Install Kolide agent](install.md#install-kolide-agent). 
+ 
+    The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the NAIS team and should be followed to keep your device safe.
+4. Install [Scoop](https://scoop.sh) unless you already have it. 
+
+    Scoop makes it possible to install and maintain programs from the command line.
+    
+6. Use the following command in the command line to add the nais bucket to let Scoop know where to get and update files from. Do not worry about where it will be installed, we got you covered.
    ```powershell
    scoop bucket add nais https://github.com/nais/scoop-bucket
    ```
@@ -46,7 +59,10 @@
 
 #### Manual installation
 
-1. [Install Kolide agent](install.md#install-kolide-agent). The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the NAIS team and should be followed to keep your device safe.
+1. [Install Kolide agent](install.md#install-kolide-agent). 
+ 
+    The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the NAIS team and should be followed to keep your device safe.
+    
 2. [Download and install naisdevice.exe](https://github.com/nais/device/releases/latest)
    (you will be asked for administrator access when you run the installer)
 3. If you need to connect to anything running in K8s cluster, remember to [update your kubeconfig](https://docs.nais.io/device/install/#connecting-to-nais-clusters)
