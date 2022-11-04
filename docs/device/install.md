@@ -11,25 +11,33 @@
 1. [Install the Kolide agent](#install-kolide-agent). 
     
     The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the NAIS team and should be followed to keep your device safe.
+
 2. [Install Homebrew](https://brew.sh/) unless you already have it. 
      
-   Homebrew makes it possible to install and maintain apps using the terminal app on your Mac.
-   3. Open terminal (Use `<Command> + <Space>` to find `Terminal.app`) and add the nais tap by typing or pasting the text below and press `<Enter>`. 
+    Homebrew makes it possible to install and maintain apps using the terminal app on your Mac.
+
+3. Open terminal (Use `<Command> + <Space>` to find `Terminal.app`) and add the nais tap by typing or pasting the text below and press `<Enter>`. 
  
     Adding the nais tap lets Homebrew know where to get and update files from. Do not worry about where it will be installed, we got you covered.
+    
     ```bash
     brew tap nais/tap
     ```
+
 4. When the tap is added, you are ready to install naisdevice, by typing or pasting the following in terminal and press `<Enter>`.
+
     ```bash
     brew install naisdevice
     ``` 
+
 5. You will be asked for your local device account's password to finish the installation.
     1. The password is not accepted unless you have administrator privileges, so you need to get that first. 
     2. If you're running a NAV Mac: Open your `Privileges.app` (Use `<Command> + <Space>` to find the `Privileges.app` and request privileges. When this is done, you can enter your password in terminal. The privileges last 10 minutes. The limited time is due to security reasons, because we know many of us forget to turn it off afterwards.
+
 6. Turn on your freshly installed `naisdevice` app.
     1. Use `<Command> + <Space>` to find your `naisdevice.app` and press `<Enter>`.
     2. Follow the [instructions to connect your _nais_ device](#connect-naisdevice-through-tasksys-tray-icon).
+
 7. If you need to connect to anything running in K8s cluster, remember to [update your kubeconfig](https://docs.nais.io/device/install/#connecting-to-nais-clusters)
 
 ### Windows Installation
