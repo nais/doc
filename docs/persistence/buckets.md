@@ -1,9 +1,10 @@
-# Buckets
+# Google Cloud Storage Buckets
 
-!!! warning
-    There is no automatic backup enabled for buckets.
+Google Cloud Storage is a service that provides object storage. It is a very simple service that is easy to use and provides a lot of flexibility. It is a good choice for storing data that is not relational in nature.
 
-You can request a Google Cloud Storage bucket through the NAIS manifest.
+## Getting started
+
+You can set up a Google Cloud Storage bucket through the NAIS application manifest.
 
 ```yaml
 apiVersion: "nais.io/v1alpha1"
@@ -27,20 +28,29 @@ spec:
 !!! info
     Once a bucket is provisioned, it will not be automatically deleted unless one explicitly sets `spec.gcp.buckets[].cascadingDelete` to `true`. This means that any cleanup must be done manually.
 
-Bucket names must be globally unique across the entire Google infrastructure. This can cause provisioning problems if your bucket name is used by someone else. 
+Bucket names must be globally unique across the entire Google infrastructure. This can cause provisioning problems if your bucket name is used by someone else.
 
-RetentionPeriodDays and lifecycleCondition must be set when creating the bucket as they cannot be changed after the bucket is created.
+## Bucket backup
 
-RetentionPeriodDays is set in number of days, if not set; no retention policy will be set and files can be deleted by application or manually from the point they are created.
+!!! warning
 
-LifecycleCondition can be set to verify which files/objects are subject to permanent deletion based on the conditions set.
+    There is no automatic backup enabled for buckets.
 
-- **age** specifies days it has existed in the bucket before it can be deleted.
-- **createdBefore** specifies a date all files created before this date can be deleted.
-- **numNewerVersions** specifies the number of revisions that must be kept, all older revisions can be deleted.
-- **withState** specifies which state (LIVE, ARCHIVED, ANY) the object must have before being subject to permanent deletion. 
+## Sepcification
 
-The latter two are subject to object versioning being set on objects, as unversioned objects do not have multiple versions and have state value LIVE.
+`retentionPeriodDays` and `lifecycleCondition` must be set when creating the bucket as they cannot be changed after the bucket is created.
+
+ * `retentionPeriodDays` is set in number of days, if not set; no retention policy will be set and files can be deleted by application or manually from the point they are created.
+
+ * `lifecycleCondition` can be set to verify which files/objects are subject to permanent deletion based on the conditions set.
+     * `age` specifies days it has existed in the bucket before it can be deleted.
+     * `createdBefore` specifies a date all files created before this date can be deleted.
+     * `numNewerVersions` specifies the number of revisions that must be kept, all older revisions can be deleted.
+     * `withState` specifies which state (LIVE, ARCHIVED, ANY) the object must have before being subject to permanent deletion.
+
+        The latter two are subject to object versioning being set on objects, as unversioned objects do not have multiple versions and have state value LIVE.
+
+## Problem solving
 
 If you have problems getting your bucket up and running, check errors in the event log:
 
@@ -48,10 +58,12 @@ If you have problems getting your bucket up and running, check errors in the eve
 kubectl describe storagebucket mybucket
 ```
 
+## Example application
+
 An example application using workflow identity to access a bucket: [testapp](https://github.com/nais/testapp)
 
-## Deleting the bucket
+## Deleting a bucket
 
 The bucket is not automatically removed when deleting your NAIS application.
 Remove unused buckets to avoid incurring unnecessary costs.
-This is done by setting [cascadingDelete](../nais-application/application.md#gcpbucketscascadingdelete) in your `nais.yaml`-specification.
+This is done by setting [`cascadingDelete`](../nais-application/application.md#gcpbucketscascadingdelete) in your `nais.yaml`-specification.
