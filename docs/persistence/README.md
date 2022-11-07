@@ -60,7 +60,7 @@ Kafka is a streaming platform that is used for storing and processing data. It
 is a very powerful tool that can be used for a wide variety of use cases. It is
 also a very complex tool that requires a lot of knowledge to use effectively.
 
-[:octicons-arrow-right-24: Getting started with Kafka](./kafka/index.md)
+[:octicons-arrow-right-24: Getting started with Kafka](./kafka/README.md)
 
 ## Cloud Storage
 
