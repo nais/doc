@@ -1,11 +1,28 @@
 # Google Secrets Manager
 
-You may store secrets in [Google Secrets Manager](https://cloud.google.com/secret-manager) as an alternative to the
-other offered solutions.
+[Google Secret Manager][google-secrets-manager] is a managed service for storing secrets in a secure manner. It is a part of the Google Cloud Platform (GCP) and is available to all teams at NAV with applications running on GCP.
 
-As a supplement to [Kubernetes Secrets](kubernetes-secrets.md), we also offer one-way 
-synchronization of secrets from Google Secrets Manager to Kubernetes Secrets
-that you may mount into your applications in the GCP clusters.
+This is offered as a supplement to [Kubernetes Secrets](kubernetes-secrets.md), and our Google Secrets Manager implementation uses Kubernetes Secrets to store the actual secrets within the cluster.
+
+```mermaid
+graph LR
+  accTitle: Syncing Google Cloud Secrets to Kubernetes
+  accDescr: The diagram shows how secrets are added to Google Secrets Manager via Cloud Console and then synced to Kubernetes before it is consumed by a pod.
+
+  U --"Cloud Console"--> GSM
+  GSM--sync-->K
+  K-->A
+
+  U[Developer]
+  GSM[Google Secrets Manager]
+
+  subgraph Kubernetes
+    K[Secret]
+    A[Pod]
+  end
+```
+
+[google-secrets-manager]: https://cloud.google.com/secret-manager
 
 ## Getting started
 
@@ -24,16 +41,16 @@ that you may mount into your applications in the GCP clusters.
 
     !!! warning "Secret Name Restrictions"
         In order to synchronize the secret to Kubernetes, ensure that the secret name adheres to the following restrictions:
-        
+
         - Maximum length of 63 characters.
         - May only contain letters, numbers and hyphens (`-`).
         - Must be lowercase.
         - Must start with a lowercase letter or number.
         - Must end with a lowercase letter or number.
 
-    All secrets must exist in the region `europe-north1`. 
-    
-    This option is found when you click _manually manage locations for this secret_. 
+    All secrets must exist in the region `europe-north1`.
+
+    This option is found when you click _manually manage locations for this secret_.
 
     ![A screenshot shows where to find the checkbox allowing you to select “Manually manage locations for this secret. The heading is “Replication policy”, followed by an explanatory text. Below it, the checkbox that allows you to select “Manually manage locations for this secret”. Selecting it, enables you to use a dropdown called Location(s). Select “europe-north1”](../../assets/google-secret-manager-region.png)
 
@@ -60,10 +77,10 @@ that you may mount into your applications in the GCP clusters.
     #### Enable synchronization
 
     Label your Secret with `sync=true` to enable synchronization to NAIS:
-    
+
     ![A screenshot shows how to label your secret. The heading is “Labels” and contains a help icon for further explanation. The text is “Use labels to organize and categorize your secrets”. There are two input fields. The input field “Key”, in which you should type “sync”. The input field “Value”, in which you should type “true”](../../assets/google-secret-manager-sync-label.png)
 
-    !!! info 
+    !!! info
         Synchronization only occurs when new _secret versions_ are created.
 
         If the secret already existed without this label, you must create a new _secret
@@ -73,7 +90,7 @@ that you may mount into your applications in the GCP clusters.
 
     #### Secret Naming
 
-    The name of the secret in Kubernetes will match the name of the secret in Google Secret Manager. 
+    The name of the secret in Kubernetes will match the name of the secret in Google Secret Manager.
 
     !!! warning "Naming collisions"
         If a secret with the same name already exists in Kubernetes, the secret will not be imported.
@@ -126,26 +143,26 @@ that you may mount into your applications in the GCP clusters.
 
 The Kubernetes secret will automatically have the `reloader.stakater.com/match: "true"` annotation set.
 
-If the value of the secret is changed or updated, any application that refers to this secret will be 
+If the value of the secret is changed or updated, any application that refers to this secret will be
 [automatically restarted](../../nais-application/config-reloading.md) to load the new values.
 
 ## Examples
 
 ### Example secret with single value format
 
-This method is generally used when you need a binary file as a secret mounted to the file system of your pod. 
+This method is generally used when you need a binary file as a secret mounted to the file system of your pod.
 If you need environment variables, see the [other example](#example-with-environment-variable-format).
 
 ??? example "Secret in Google Secret Manager (click to expand)"
-    
+
     ![A screenshot shows the entire form for “Secret details”, using the example of single value format. It consists of the following sections: The heading is “Secret details” followed by an input field for “Name”, a section for “Secret value” where you can upload or enter your secret value. A section for “Replication policy”, where you should select “Manually manage locations for the secret” using the checkbox. In the dropdown below, called “Location(s)”, select “europe-north1”. The section below is called “Labels” and allows you to add labels to organize and categorize your secrets, using input fields for “Key” and “Value”. Below the row is a button “Add label”. Add a label, and in the new input field “Key” enter “env”. In the following input field “Value” enter “true”](../../assets/google-secret-manager-example-single-value.png)
 
 ??? example "Imported Secret in Kubernetes (click to expand)"
-    
+
     ```yaml
     apiVersion: v1
     data:
-      secret: c29tZS1zZWNyZXQtdmFsdWU= 
+      secret: c29tZS1zZWNyZXQtdmFsdWU=
       # key="secret"
       # value="some-secret-value", base64 encoded
     kind: Secret
