@@ -24,7 +24,7 @@ Volume storage has the following limitations:
 
     It also means that if you have only one instance it needs to be completely stopped before a new instance can be started with the same volume resulting in downtime.
 
-Even though you can request very large volumes is not a good solution for storing large amounts of data. We do not recommended storing more than 100GB of data in a single volume.
+Even though you can request very large volumes, it is not a good solution for storing large amounts of data. We do not recommended storing more than 100GB of data in a single volume.
 
 ## Example application
 

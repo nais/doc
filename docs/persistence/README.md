@@ -20,7 +20,7 @@ The team is reponsible for any data that is stored in the various storage
 options that are available through the platform. You can read more in the
 [Data Responsibilities](./responsibilities.md) section.
 
-## Avilability
+## Availability
 
 Some of the storage options are only aviailable from certain environments. Make
 sure to check what storage options are available in your environment in the

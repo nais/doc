@@ -25,12 +25,11 @@ The platform team is **not** responsible for the application itself, not the dat
 
     | Infrastructure | Data processor |
     |----------------|----------------|
-    | On-premis      | NAV (ITIP)     |
+    | On-premise      | NAV (ITIP)     |
     | Cloud Storage  | Google         |
     | Cloud SQL      | Google         |
     | BigQuery       | Google         |
     | Kafka          | Aiven          |
-    | Elasticsearch  | Aiven          |
     | OpenSearch     | Aiven          |
 
 ## The Team
@@ -41,7 +40,7 @@ At the end of the day, the team is responsible for its own data and how it is ma
 
 Here is a simple checklist for what the teams should think about related to how and where the data is stored:
 
-* [x] Update \[Behadlingskatalogen\]&lt;&gt; where data is stored.
+* [x] Update \[Behandlingskatalogen\]&lt;&gt; where data is stored.
 * [x] Is the data storage in compliance with data policies (GDPR, PII, etc.)?
 * [x] What is the SLA for the data storage?
 * [x] What is the backup strategy for the data storage?
