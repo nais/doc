@@ -44,7 +44,7 @@ graph TD
   E --> |No| GCSQL[Cloud SQL]
 
   click GBQ "#bigquery"
-  click GCS "#cloud-storage"
+  click GCS "#cloud-storage-buckets"
   click GCSQL "#cloud-sql"
   click Kafka "#kafka"
   click Opensearch "#opensearch"
