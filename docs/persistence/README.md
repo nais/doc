@@ -43,16 +43,19 @@ Below is a list of the different storage options available to you.
 
 | Name | Type | Availebility |  Environment | Backup |
 | ---- | ---- | ------------ |  ----------- | ------ |
-| [Kafka](#kafka) | Streaming | ✅ | All | No? |
+| [Kafka](#kafka) | Streaming | ✅ | All | Yes* |
 | [Cloud Storage](#cloud-storage) | Object | ✅ | GCP | Yes* |
 | [Cloud SQL](#cloud-sql) | Relational | ✅ | GCP | Yes |
-| [BigQuery](#bigquery) | Relational | ✅ | GCP | No |
-| [Elasticsearch](#elasticsearch) | Document | ⚠️ | All | No? |
-| [OpenSearch](#opensearch) | Document | ✅ | All | No? |
-| [InfluxDB](#influxdb) | Time Series | ⚠️ | All | No? |
+| [BigQuery](#bigquery) | Relational | ✅ | GCP | Yes* |
+| [Elasticsearch](#elasticsearch) | Document | ⚠️ | All | Yes |
+| [OpenSearch](#opensearch) | Document | ✅ | All | Yes |
+| [InfluxDB](#influxdb) | Time Series | ⚠️ | All | Yes |
 | [Redis](#redis) | Key Value | ⚠️ | All | No |
-| [ActiveMQ](#activemq) | Message | ⚠️ | All | No? |
+| [IBM MQ](#ibm-mq) | Message | ⚠️ | All | Yes* |
 | [MongoDB](#mongodb) | Document | ⚠️ | GCP | No |
+
+\* Data is highly aviailable and fault tolerent but not backed up if deleted by
+mistake.
 
 ## Kafka
 
@@ -130,12 +133,11 @@ a good choice for storing data that is not relational in nature.
 
 [:octicons-arrow-right-24: Getting started with Redis](./redis.md)
 
-## ActiveMQ (MQ)
+## IBM MQ
 
 !!! warning "Legacy"
 
-    ActiveMQ is considered legacy technology. Please use [Kafka](#kafka)
-    instead.
+    IBM MQ is considered legacy technology. Please use [Kafka](#kafka) instead.
 
 ActiveMQ is a message broker that is used for storing and processing messages.
 It is a good choice for storing data that is not relational in nature.

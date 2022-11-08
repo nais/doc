@@ -29,7 +29,9 @@ theme:
         - navigation.instant
         - navigation.tabs
         - navigation.indexes
-        - navigation.top
+        - search.suggest
+        - search.highlight
+        - search.share
     icon:
         repo: fontawesome/brands/github
 copyright: Made with ❤️ by NAV
@@ -66,7 +68,8 @@ extra_css:
     - material_theme_stylesheet_overrides/uu.css
     - material_theme_stylesheet_overrides/grid.css
 plugins:
-    - search
+    - search:
+          lang: en
     - git-revision-date-localized:
           enable_creation_date: true
           type: timeago
@@ -173,7 +176,7 @@ nav:
                 - MongoDB in GCP: persistence/mongodb-in-gcp.md
                 - Volume Storage: persistence/volume-storage.md
                 - Legacy:
-                      - ActiveMQ (MQ): persistence/mq.md
+                      - IBM MQ: persistence/mq.md
                       - ElasticSearch: persistence/elastic-search.md
                       - InfluxDB: persistence/influxdb.md
                       - S3 Objectstore: persistence/objectstore.md

@@ -1,6 +1,6 @@
 # Elastic Search
 
-!!! warning
+!!! warning "Deprecated"
     Aiven is migrating to OpenSearch, so new instances of ElasticSearch should be avoided.
     Use [OpenSearch](./open-search.md) instead.
 
@@ -37,7 +37,7 @@ The URL for Kibana is the same as the Elastic instance, but using port 443 (regu
 We do not offer support on Elastic Search as software, but questions about Aiven and provisioning can be directed to [#pig_aiven](https://nav-it.slack.com/archives/C018L1JATBQ) on Slack.
 
 ## Alerts
-We recommend that you set up your own alerts so that you can react to problems in your Elastic instance. 
+We recommend that you set up your own alerts so that you can react to problems in your Elastic instance.
 Aiven uses Telegraf to collect and present metrics, so available metrics can be found in the [Telegraf documentation](https://github.com/influxdata/telegraf).
 
 We have configured our Prometheus instances in GCP to scrape the Elastic clusters in Aiven, so these metrics should be available in Grafana.

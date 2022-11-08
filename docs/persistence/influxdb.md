@@ -1,6 +1,6 @@
 # InfluxDB
 
-!!! info "Aiven discontinues InfluxDB"
+!!! warning "Deprecated"
     Aiven has informed us that they will discontinue support for InfluxDB.
     The timeline is yet to be confirmed, but could be as early as end-of-year 2022.
     We recommend that teams using InfluxDB today find other alternatives suitable for their use case.
