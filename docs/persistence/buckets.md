@@ -1,3 +1,9 @@
+---
+description: >-
+  NAIS provides buckets for objects storage as a managed service throguh Google
+  Cloud Storage. This page describes how to get started with buckets for your
+  applications.
+---
 # Google Cloud Storage Buckets
 
 Google Cloud Storage is a service that provides object storage. It is a very simple service that is easy to use and provides a lot of flexibility. It is a good choice for storing data that is not relational in nature.
@@ -36,7 +42,7 @@ Bucket names must be globally unique across the entire Google infrastructure. Th
 
     There is no automatic backup enabled for buckets.
 
-## Sepcification
+## Specification
 
 `retentionPeriodDays` and `lifecycleCondition` must be set when creating the bucket as they cannot be changed after the bucket is created.
 
@@ -66,4 +72,4 @@ An example application using workflow identity to access a bucket: [testapp](htt
 
 The bucket is not automatically removed when deleting your NAIS application.
 Remove unused buckets to avoid incurring unnecessary costs.
-This is done by setting [`cascadingDelete`](../nais-application/application.md#gcpbucketscascadingdelete) in your `nais.yaml`-specification.
+This is done by setting [`cascadingDelete`](../nais-application/application.md#gcpbucketscascadingdelete) in your `nais.yaml`-specification, and then deleting your application resource.

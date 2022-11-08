@@ -1,3 +1,10 @@
+---
+description: >-
+  NAIS provides BigQuery for storing and working with analytical datasets as a
+  managed service through Google Cloud Platform. This page describes how to get
+  started with BigQuery for your applications.
+---
+
 # Google Cloud BigQuery Dataset
 
 Google Cloud BigQuery is a service that provides a relational database that is optimized for analytical workloads. It is a good choice for storing data that is relational in nature.

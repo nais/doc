@@ -11,7 +11,7 @@ Volume storage is a storage solution based on Kubernetes [PV][k8s-pv] and [PVC][
 [k8s-pv]: https://kubernetes.io/docs/concepts/storage/persistent-volumes/
 [k8s-pvc]: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims
 
-Volume storage is concidered a last resort for storage and only if the existing other storage solutions are not suitable for your use case. Please make sure you have concidered [all other options](./README.md) first.
+Volume storage is considered a last resort for storage and only if the existing other storage solutions are not suitable for your use case. Please make sure you have considered [all other options](./README.md) first.
 
 ## Limitations
 
@@ -20,7 +20,7 @@ Volume storage has the following limitations:
  * Only available in GCP.
  * There is no automatic backup and restore of data.
  * There is no automatic scaling of the volume size.
- * A volume can only be mounted to one pod at a time. Which means that if you have multiple pods they not share a single volume.
+ * A volume can only be mounted to one pod at a time. Which means that if you have multiple pods they can not share a single volume.
 
     It also means that if you have only one instance it needs to be completely stopped before a new instance can be started with the same volume resulting in downtime.
 
@@ -85,7 +85,7 @@ spec:
 
 ## Volume Snapshot
 
-In Kubernetes, a VolumeSnapshot represents a snapshot of a volume on a storage system. It assumes that you are already familiar with Kubernetes persistent volumes.
+In Kubernetes, a VolumeSnapshot represents a snapshot of a volume on a storage system. We recommend you to already be familiar with Kubernetes persistent volumes before using this.
 
 ```yaml
 apiVersion: snapshot.storage.k8s.io/v1

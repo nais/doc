@@ -48,18 +48,16 @@ graph TD
 
 Below is a list of the different storage options available to you.
 
-| Name | Type | Availebility |  Environment | Backup |
-| ---- | ---- | ------------ |  ----------- | ------ |
-| [Kafka](#kafka) | Streaming | ✅ | All | Yes* |
-| [Cloud Storage](#cloud-storage) | Object | ✅ | GCP | Yes* |
-| [Cloud SQL](#cloud-sql) | Relational | ✅ | GCP | Yes |
-| [BigQuery](#bigquery) | Relational | ✅ | GCP | Yes* |
-| [Elasticsearch](#elasticsearch) | Document | ⚠️ | All | Yes |
-| [OpenSearch](#opensearch) | Document | ✅ | All | Yes |
-| [InfluxDB](#influxdb) | Time Series | ⚠️ | All | Yes |
-| [Redis](#redis) | Key Value | ⚠️ | All | No |
-| [IBM MQ](#ibm-mq) | Message | ⚠️ | All | Yes* |
-| [MongoDB](#mongodb) | Document | ⚠️ | GCP | No |
+| Name                            | Type        | Availebility | Environment | Backup |
+|---------------------------------|-------------|--------------|-------------|--------|
+| [Kafka](#kafka)                 | Streaming   | ✅           | All         | Yes*   |
+| [Cloud Storage](#cloud-storage) | Object      | ✅           | GCP         | Yes*   |
+| [Cloud SQL](#cloud-sql)         | Relational  | ✅           | GCP         | Yes    |
+| [BigQuery](#bigquery)           | Relational  | ✅           | GCP         | Yes*   |
+| [Elasticsearch](#elasticsearch) | Document    | ⚠️            | All         | Yes    |
+| [OpenSearch](#opensearch)       | Document    | ✅           | All         | Yes    |
+| [InfluxDB](#influxdb)           | Time Series | ⚠️            | All         | Yes    |
+| [IBM MQ](#ibm-mq)               | Message     | ⚠️            | All         | Yes*   |
 
 \* Data is highly aviailable and fault tolerent but not backed up if deleted by
 mistake.
@@ -72,7 +70,7 @@ also a very complex tool that requires a lot of knowledge to use effectively.
 
 [:octicons-arrow-right-24: Getting started with Kafka](./kafka/README.md)
 
-## Cloud Storage
+## Cloud Storage (Buckets)
 
 Cloud Storage is a service that provides object storage. It is a very simple
 service that is easy to use and provides a lot of flexibility. It is a good
@@ -96,18 +94,6 @@ nature.
 
 [:octicons-arrow-right-24: Getting started with Google BigQuery](./bigquery.md)
 
-## Elasticsearch
-
-!!! warning "Deprecated"
-
-    Elasticsearch is deprecated and will be removed in the future. Please use
-    [OpenSearch](#opensearch) instead.
-
-Elasticsearch is a document database that is used for storing and searching
-data. It is a good choice for storing data that is not relational in nature.
-
-[:octicons-arrow-right-24: Getting started with Elasicsearch](./elastic-search.md)
-
 ## OpenSearch
 
 OpenSearch is a document database that is used for storing and searching data.
@@ -120,8 +106,8 @@ OpenSearch offers a drop-in replacement for Elasticsearch.
 
 !!! warning "Deprecated"
 
-    InfluxDB is deprecated and will be removed in the future. Please find a
-    suitable alternative.
+    InfluxDB is deprecated and will be removed in the future. For many use cases
+    [BigQuery](#bigquery) will be a suitable replacement.
 
 InfluxDB is a time series database that is used for storing and querying data.
 It is a good choice for storing data that is not relational in nature.

@@ -1,6 +1,6 @@
 # Kafka
 
-NAV only uses Aiven hosted Kafka, the on-premis version of Kafka was disabled in 2021. Access to Kafka is granted by defining a `Topic` resource in one of our Kubernetes clusters.
+NAV uses Aiven hosted Kafka, the on-premise version of Kafka has been deprecated since 2021. Start using Kafka by creating a `Topic` resource in one of our Kubernetes clusters.
 
 Upon defining a Topic, [Kafkarator](https://github.com/nais/kafkarator) will create the Topic in one of the Kafka _pools_. A pool is a highly available, replicated Kafka cluster running at Aiven. After the topic is created, Kafkarator will add relevant users to the topic's access control list \(ACL\).
 

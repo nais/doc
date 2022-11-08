@@ -1,11 +1,51 @@
 ---
 description: >-
-  This document aims to clarify the responsibilities as relates to data storage
+  This page aims to clarify the responsibilities as relates to data storage
   using NAIS and GCP. Depending on which infrastructure the data is stored on,
   the responsibilites look slightly different.
 ---
 
 # Responsibilities
+
+It is important to understand the responsibilities of the different parties
+involved when storing data in NAIS and GCP. This page aims to clarify the
+responsibilities as relates to data storage using NAIS and GCP. Depending on
+which infrastructure the data is stored on, the responsibilites look slightly
+different.
+
+## Platform
+
+The platform team is responsible for the following:
+
+* Provisioning and maintaining the infrastructure
+* Automating the provisioning of infrastructure
+* Providing documentation and support for the infrastructure
+
+### Who operates what?
+
+| Infrastructure | Data processor |
+|----------------|----------------|
+| On-premis      | ITIP (NAV)     |
+| Cloud Storage  | Google         |
+| Cloud SQL      | Google         |
+| BigQuery       | Google         |
+| Kafka          | Aiven          |
+| Elasticsearch  | Aiven          |
+| OpenSearch     | Aiven          |
+
+## Teams
+
+The team is responsible for how they use the storage infrastructure and the data
+they store.
+
+### Checklist
+
+Here is a simple checklist for what the teams should think about:
+
+* [x] Update \[Behadlingskatalogen\]&lt;&gt; where data is stored.
+* [x] Is the data storage in compliance with data policies (GDPR, PII, etc.)?
+* [x] What is the SLA for the data storage?
+* [x] What is the backup strategy for the data storage?
 
 ## Operating storage infrastructure
 
