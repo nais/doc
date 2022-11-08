@@ -29,7 +29,9 @@ theme:
         - navigation.instant
         - navigation.tabs
         - navigation.indexes
-        - navigation.top
+        - search.suggest
+        - search.highlight
+        - search.share
     icon:
         repo: fontawesome/brands/github
 copyright: Made with ❤️ by NAV
@@ -66,7 +68,8 @@ extra_css:
     - material_theme_stylesheet_overrides/uu.css
     - material_theme_stylesheet_overrides/grid.css
 plugins:
-    - search
+    - search:
+          lang: en
     - git-revision-date-localized:
           enable_creation_date: true
           type: timeago
@@ -153,10 +156,11 @@ nav:
                 - Logs:
                       - Logs Overview: observability/logs/README.md
                       - Examples: observability/logs/examples.md
-          - Persistence:
+          - Persistent Data:
+                - Persistent Data Overview: persistence/README.md
                 - Responsibilities: persistence/responsibilities.md
                 - Kafka:
-                      - Overview: persistence/kafka/index.md
+                      - Overview: persistence/kafka/README.md
                       - Application: persistence/kafka/application.md
                       - Grafana metrics: persistence/kafka/metrics.md
                       - Manage topics: persistence/kafka/manage_topics.md
@@ -164,17 +168,18 @@ nav:
                       - Avro and REST: persistence/kafka/avro_and_rest.md
                       - Working with Kafka Offsets: persistence/kafka/offsets.md
                       - FAQ: persistence/kafka/faq.md
-                - Google Cloud Storage/Buckets: persistence/buckets.md
-                - Google Cloud SQL (postgres): persistence/postgres.md
-                - Google BigQuery: persistence/bigquery.md
-                - ElasticSearch: persistence/elastic-search.md
+                - Cloud Storage (Buckets): persistence/buckets.md
+                - Cloud SQL (PostgreSQL): persistence/postgres.md
+                - BigQuery: persistence/bigquery.md
                 - OpenSearch: persistence/open-search.md
-                - InfluxDB: persistence/influxdb.md
-                - S3 objectstore: persistence/objectstore.md
                 - Redis: persistence/redis.md
-                - On-premises disk: persistence/volume-storage.md
-                - MQ: persistence/mq.md
                 - MongoDB in GCP: persistence/mongodb-in-gcp.md
+                - Volume Storage: persistence/volume-storage.md
+                - Legacy:
+                      - IBM MQ: persistence/mq.md
+                      - ElasticSearch: persistence/elastic-search.md
+                      - InfluxDB: persistence/influxdb.md
+                      - S3 Objectstore: persistence/objectstore.md
           - Security:
                 - Auth:
                       - Overview:

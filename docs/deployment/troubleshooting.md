@@ -12,7 +12,7 @@
 
 ## First debugging steps
 
-When something is wrong with your application, these [kubectl](../basics/access.md) commands should be the first things 
+When something is wrong with your application, these [kubectl](../basics/access.md) commands should be the first things
 you check out:
 
 ### List the pods for your application for a quick overview of their status
@@ -37,7 +37,7 @@ kubectl logs <podname>
 
 This will output the logs from your application container.
 
-If there are other containers in your pod (which you can see from the `describe` command above), you may view the 
+If there are other containers in your pod (which you can see from the `describe` command above), you may view the
 logs by specifying the exact container:
 
 ```text
@@ -77,7 +77,7 @@ Events:
   Warning  FailedMount  22m (x5 over 22m)  kubelet            MountVolume.SetUp failed for volume "<secret-name>" : secret "<secret-name>" not found
 ```
 
-Some secrets (such as those from [Azure AD](../security/auth/azure-ad/README.md) or [Kafka](../persistence/kafka/index.md)) are _eventually consistent_.
+Some secrets (such as those from [Azure AD](../security/auth/azure-ad/README.md) or [Kafka](../persistence/kafka/README.md)) are _eventually consistent_.
 
 Typically, the message appears on either:
 
@@ -124,7 +124,7 @@ Follow the steps below to verify that the secret exists:
 
 ### Step 2. Verify that the Secret exists
 
-With [kubectl](../basics/access.md#install-kubectlhttpskubernetesiodocstaskstoolsinstall-kubectl), 
+With [kubectl](../basics/access.md#install-kubectlhttpskubernetesiodocstaskstoolsinstall-kubectl),
 run the following command to verify that the secret exists:
 
 ```shell

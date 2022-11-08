@@ -1,15 +1,26 @@
+---
+description: >-
+  NAIS provides managed search index services through OpenSearch as a drop-in
+  replacement for Elasticsearch. This page describes how to get started with
+  OpenSearch for your applications.
+---
+
 # OpenSearch
 
-The NAIS platform offers OpenSearch via [Aiven](https://aiven.io/).
+OpenSearch is a fork of Elasticsearch that is maintained by Amazon. It is a drop-in replacement for Elasticsearch, and is fully compatible with the Elasticsearch API. It is a community-driven project that is open source and free to use.
 
-OpenSearch is a fork of ElasticSearch and Kibana 7.10.2.
+OpenSearch is a distributed, RESTful search and analytics engine capable of solving a growing number of use cases. It is a good choice for storing data that is not relational in nature.
 
-## Get your own
+NAIS offers OpenSearch via [Aiven](https://aiven.io/).
+
+## Getting started
+
 As there are few teams that need an OpenSearch instance we use a IaC-repo to provision each instance.
 Head over to [aiven-iac](https://github.com/navikt/aiven-iac#opensearch) to learn how to get your own instance.
 To make it easier for you, when creating the instance, we will also create four users with read, write, readwrite and admin access.
 
 ## Access from Nais-app
+
 If you need access from an application, use the following [nais.yaml-reference](../nais-application/application.md#openSearch).
 
 When an application requesting an OpenSearch instance is deployed, credentials will be provided as environment variables.
@@ -25,17 +36,21 @@ If not specified, the credentials will be for a user with read access.
 | OPEN_SEARCH_URI      | Service URI |
 
 ## Access from laptop
+
 With Naisdevice you have access to the _aiven-prod_ gateway.
 This is a JITA (just in time access) gateway, so you need to describe why, but the access is automatically given.
 
 ### OpenSearch Dashboards
+
 The URL for OpenSearch Dashboards (similar to Kibana) is the same as the OpenSearch instance, but using port 443 (regular https).
 
 ## Support
+
 We do not offer support on OpenSearch as software, but questions about Aiven and provisioning can be directed to [#pig_aiven](https://nav-it.slack.com/archives/C018L1JATBQ) on Slack.
 
 ## Alerts
-We recommend that you set up your own alerts so that you can react to problems in your OpenSearch instance. 
+
+We recommend that you set up your own alerts so that you can react to problems in your OpenSearch instance.
 Aiven uses Telegraf to collect and present metrics, so available metrics can be found in the [Telegraf documentation](https://github.com/influxdata/telegraf).
 
 We have configured our Prometheus instances in GCP to scrape the OpenSearch clusters in Aiven, so these metrics should be available in Grafana.

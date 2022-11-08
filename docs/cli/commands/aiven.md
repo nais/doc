@@ -48,7 +48,7 @@ nais aiven create kafka username namespace -p nav-prod -s some-unique-secretname
 
 | Flag        | Required | Short | Default                         | Description                                     |
 |-------------|----------|-------|---------------------------------|-------------------------------------------------|
-| pool        | No       | -p    | nav-dev                         | [Kafka pool](../../persistence/kafka/index.md). |
+| pool        | No       | -p    | nav-dev                         | [Kafka pool](../../persistence/kafka/README.md). |
 | secret-name | No       | -s    | namespace-username-randomstring | Preferred secret-name.                          |
 | expire      | No       | -e    | 1                               | Time in days the secret should be valid.        |
 

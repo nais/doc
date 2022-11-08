@@ -1,3 +1,10 @@
+---
+description: >-
+  NAIS offers several methods for monitoring and observing your applications.
+  This page describes the different options and how to use them.
+search:
+  boost: 2
+---
 # Observability
 
 Building and deploying applications is only half the battle. The other half is to be able to observe what's going on in your application. This is where observability comes in.
@@ -77,7 +84,7 @@ graph LR
 
 Alerts are a way to notify you when something is wrong with your application, and are usually triggered when a metric or log entry matches a certain condition.
 
-Alerts in NAIS are based on application metrics and use [Prometheus Alertmanager][alertmanager] to send notifications to Slack. 
+Alerts in NAIS are based on application metrics and use [Prometheus Alertmanager][alertmanager] to send notifications to Slack.
 
 The [`alert`](./alerts/) resource can be used to configure alerts for your applications.
 

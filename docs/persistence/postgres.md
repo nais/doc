@@ -1,4 +1,12 @@
-# Postgres
+---
+description: >-
+  NAIS offers a managed PostgreSQL database as a service through Google Cloud
+  SQL. This page describes how to use it.
+---
+
+# Google Cloud SQL PostgreSQL
+
+PostgreSQL is a relational database service that is provided by Google Cloud Platform. It is a good choice for storing data that is relational in nature.
 
 You can provision and configure [Postgres](https://www.postgresql.org/) through [`nais.yaml`](../nais-application/application.md).
 
@@ -17,10 +25,13 @@ Below is an example of the minimal configuration needed. See all configuration o
 
 ```yaml
 ...
+apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
   name: myapp
+...
 spec:
+  ...
   gcp:
     sqlInstances:
       - type: POSTGRES_14
@@ -42,13 +53,13 @@ The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instan
 | database user                 | `NAIS_DATABASE_MYAPP_MYDB_USERNAME` | `.spec.gcp.sqlInstances[].name`                    |
 | database password             | `NAIS_DATABASE_MYAPP_MYDB_PASSWORD` | \(randomly generated\)                             |
 | database url with credentials | `NAIS_DATABASE_MYAPP_MYDB_URL`      | `postgres://username:password@127.0.0.1:5432/mydb` |
- 
+
 !!! info
     The application is the only application that can access the database instance. Other applications can not connect. It is not, for instance,
     possible to have two applications (e.g. producer and consumer) connecting directly to the database.
-    
-!!! info 
-    Note that if you change your application name, database name or envVarPrefix, and then change it later, 
+
+!!! info
+    Note that if you change your application name, database name or envVarPrefix, and then change it later,
     you have to manually [reset database credentials](#reset-database-credentials).
 
 ### Database flags
@@ -85,12 +96,12 @@ spec:
 ```
 
 ### Query Insights
-Query insights are now enabled by default in GCP. This feature provides query overview and analysis. 
+Query insights are now enabled by default in GCP. This feature provides query overview and analysis.
 The data is available in the Google cloud console.
 
 For further reading see [Google Cloud SQL Query Insights](https://cloud.google.com/sql/docs/postgres/query-insights-overview)
 
-!!! info 
+!!! info
     Data is available for seven days, increasing this will incur extra cost.
 
 ### Maintenance window
@@ -110,11 +121,11 @@ The backups can be found in the [Google Cloud SQL instance](https://cloud.google
 
 #### Point-in-time recovery
 Point-in-time recovery can be enabled by configuring this in the sql instance for your application spec.
-This feature allows you to recover your database to a specific point in time. 
+This feature allows you to recover your database to a specific point in time.
 
 !!! info
     This feature is not enabled by default. When enabled the Postgres instance will be restarted.
-    
+
 !!! warning
     Use this feature with automatic storage increase enabled.
 
@@ -127,13 +138,13 @@ In case of catastrophic failure in GCP we are running a daily complete backup of
 ## Metrics
 Metrics for each Postgres can be found in [Grafana](https://grafana.nais.io/d/AVwFIm0Mz/cloudsql-gcp?orgId=1).
 
-## Cloud SQL credentials 
-Cloud SQL uses ConfigConnector/CNRM to create and manage all relevant resources (sqldatabase, sqlinstance, sqluser, credentials) for postgreSQL. 
+## Cloud SQL credentials
+Cloud SQL uses ConfigConnector/CNRM to create and manage all relevant resources (sqldatabase, sqlinstance, sqluser, credentials) for postgreSQL.
 When creating an application via your nais.yaml the database in your google project, along with other necessary resources, are created.
 The creation of the database takes about ten minutes, and the credential settings will be updated after the database is ready for use.
 
 !!! warning
-    If you delete and recreate your app new credentials will be created and a synchronization is needed. 
+    If you delete and recreate your app new credentials will be created and a synchronization is needed.
     This process can take up to ten minutes. Using the workaround described below you can avoid this synchronization period.
 
 ### Workaround for password synchronization issues
@@ -224,7 +235,7 @@ Databases should always be accessed using a personal account, and the access sho
 
     To be able to perform the gcloud commands mentioned below you need a role with user edit permissions, e.g. `roles/cloudsql.admin`
 
-    To grant yourself this role for a given project, run the following command: 
+    To grant yourself this role for a given project, run the following command:
 
     ```bash
     gcloud projects add-iam-policy-binding <project-id> \
@@ -233,7 +244,7 @@ Databases should always be accessed using a personal account, and the access sho
         --condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
     ```
 
-    where `<project-id>` can be found by running: 
+    where `<project-id>` can be found by running:
 
     ```bash
     gcloud projects list \
@@ -284,8 +295,8 @@ Databases should always be accessed using a personal account, and the access sho
 
 ???+ check "Step 3c. Enable privileges for user(s) in database"
 
-    This can be enabled for all `cloudsqliamusers` (all IAM users are assigned the role `cloudsqliamuser`) with the following command: 
-   
+    This can be enabled for all `cloudsqliamusers` (all IAM users are assigned the role `cloudsqliamuser`) with the following command:
+
     ```sql
     alter default privileges in schema public grant all on tables to cloudsqliamuser;
     ```
@@ -296,8 +307,8 @@ Databases should always be accessed using a personal account, and the access sho
     alter default privileges in schema public grant all on tables to "user@nav.no";
     ```
 
-    If your application created the tables before you were able to run these commands, then the owner of the tables is set to the application's user. 
-    
+    If your application created the tables before you were able to run these commands, then the owner of the tables is set to the application's user.
+
     Thus, your application must run the following command either through your chosen database migration tool (e.g. Flyway) or manually with the application user's credentials:
 
     ```sql
@@ -310,7 +321,7 @@ Databases should always be accessed using a personal account, and the access sho
 
     This is required once per user and requires that you have create user permission in IAM in your project, e.g. Cloud SQL Admin.
 
-    To grant yourself this role for a given project, run the following command: 
+    To grant yourself this role for a given project, run the following command:
 
     ```bash
     gcloud projects add-iam-policy-binding <project-id> \
@@ -330,19 +341,19 @@ Databases should always be accessed using a personal account, and the access sho
 
 ???+ check "Step 2. Create a temporary IAM binding for 1 hour"
 
-    Generally, you should try to keep your personal database access time-limited. 
+    Generally, you should try to keep your personal database access time-limited.
 
     The following command grants your user permission to log into the database for 1 hour.
 
     If your system has GNU utilities installed:
-    
+
     ```bash
     gcloud projects add-iam-policy-binding <PROJECT_ID> \
         --member=user:<FIRSTNAME>.<LASTNAME>@nav.no \
         --role=roles/cloudsql.instanceUser \
         --condition="expression=request.time < timestamp('$(date --iso-8601=seconds -d '+1 hours')'),title=temp_access"
     ```
- 
+
     Otherwise (e.g. MacOS users):
 
     ```bash
@@ -369,7 +380,7 @@ Databases should always be accessed using a personal account, and the access sho
     ```bash
     export PGPASSWORD=$(gcloud auth print-access-token)
 
-    psql -U <FIRSTNAME>.<LASTNAME>@nav.no -h localhost <DATABASE_NAME> 
+    psql -U <FIRSTNAME>.<LASTNAME>@nav.no -h localhost <DATABASE_NAME>
     ```
 
 ## Upgrading major version
@@ -415,7 +426,7 @@ See [full example](../nais-application/example.md).
 ### `FATAL: password authentication failed for user "<user>"`
 
 ???+ faq "Answer"
-    The synchronization of the password to the database may have failed. 
+    The synchronization of the password to the database may have failed.
     See [workaround for password synchronization issues](#workaround-for-password-synchronization-issues).
 
 ### Connect to a cloned database-instance
