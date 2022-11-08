@@ -20,6 +20,12 @@ The team is reponsible for any data that is stored in the various storage
 options that are available through the platform. You can read more in the
 [Data Responsibilities](./responsibilities.md) section.
 
+## Avilability
+
+Some of the storage options are only aviailable from certain environments. Make
+sure to check what storage options are available in your environment in the
+[Storage Comparison](#storage-comparison) section below.
+
 ## What should I choose?
 
 Sequence of questions to ask yourself when choosing the right storage option.
@@ -48,16 +54,16 @@ graph TD
 
 Below is a list of the different storage options available to you.
 
-| Name                            | Type        | Availebility | Environment | Backup |
-|---------------------------------|-------------|--------------|-------------|--------|
-| [Kafka](#kafka)                 | Streaming   | ✅           | All         | Yes*   |
-| [Cloud Storage](#cloud-storage) | Object      | ✅           | GCP         | Yes*   |
-| [Cloud SQL](#cloud-sql)         | Relational  | ✅           | GCP         | Yes    |
-| [BigQuery](#bigquery)           | Relational  | ✅           | GCP         | Yes*   |
-| [Elasticsearch](#elasticsearch) | Document    | ⚠️            | All         | Yes    |
-| [OpenSearch](#opensearch)       | Document    | ✅           | All         | Yes    |
-| [InfluxDB](#influxdb)           | Time Series | ⚠️            | All         | Yes    |
-| [IBM MQ](#ibm-mq)               | Message     | ⚠️            | All         | Yes*   |
+| Name                            | Type        | Recommendation | Avilability | Backup |
+|---------------------------------|-------------|:--------------:|:-----------:|:------:|
+| [Kafka](#kafka)                 | Streaming   | ✅             | All         | Yes*   |
+| [Cloud Storage](#cloud-storage) | Object      | ✅             | GCP         | Yes*   |
+| [Cloud SQL](#cloud-sql)         | Relational  | ✅             | GCP         | Yes    |
+| [BigQuery](#bigquery)           | Relational  | ✅             | GCP         | Yes*   |
+| [Elasticsearch](#elasticsearch) | Document    | ⚠️              | All         | Yes    |
+| [OpenSearch](#opensearch)       | Document    | ✅             | All         | Yes    |
+| [InfluxDB](#influxdb)           | Time Series | ⚠️              | All         | Yes    |
+| [IBM MQ](#ibm-mq)               | Message     | ⚠️              | All         | Yes*   |
 
 \* Data is highly aviailable and fault tolerent but not backed up if deleted by
 mistake.
