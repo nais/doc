@@ -25,10 +25,13 @@ Below is an example of the minimal configuration needed. See all configuration o
 
 ```yaml
 ...
+apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
   name: myapp
+...
 spec:
+  ...
   gcp:
     sqlInstances:
       - type: POSTGRES_14

@@ -13,10 +13,10 @@ Google Cloud Storage is a service that provides object storage. It is a very sim
 You can set up a Google Cloud Storage bucket through the NAIS application manifest.
 
 ```yaml
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
+apiVersion: nais.io/v1alpha1
+kind: Application
 metadata:
-  name: app-a
+  name: myapp
 ...
 spec:
   ...

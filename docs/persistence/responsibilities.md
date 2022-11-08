@@ -7,58 +7,41 @@ description: >-
 
 # Responsibilities
 
-It is important to understand the responsibilities of the different parties
-involved when storing data in NAIS and GCP. This page aims to clarify the
-responsibilities as relates to data storage using NAIS and GCP. Depending on
-which infrastructure the data is stored on, the responsibilites look slightly
-different.
+It is important to understand the responsibilities of the different parties involved when working with data in NAIS. This page aims to clarify the responsibilities as relates to data storage on-prem and in GCP. Depending on which infrastructure the data is stored on, the responsibilites look slightly different.
 
-## Platform
+## The Platform
+
+The platform does not manage the underlying infrastructure or run the data storage service provided by the platform. These are provided by NAV, Google or Aiven. NAIS is responsible for setting up the infrastructure and data storage service according to the specifications provided by the application `sepc`.
 
 The platform team is responsible for the following:
 
-* Provisioning and maintaining the infrastructure
-* Automating the provisioning of infrastructure
-* Providing documentation and support for the infrastructure
+* Provisioning and maintaining underlying infrastructure
+* Tooling and automation to make it easy to use the platform
+* Providing documentation and support for the platform
 
-### Who operates what?
+The platform team is **not** responsible for the application itself, not the data stored in the provided data storage services.
 
-| Infrastructure | Data processor |
-|----------------|----------------|
-| On-premis      | ITIP (NAV)     |
-| Cloud Storage  | Google         |
-| Cloud SQL      | Google         |
-| BigQuery       | Google         |
-| Kafka          | Aiven          |
-| Elasticsearch  | Aiven          |
-| OpenSearch     | Aiven          |
+??? note "List of data processors"
 
-## Teams
+    | Infrastructure | Data processor |
+    |----------------|----------------|
+    | On-premis      | NAV (ITIP)     |
+    | Cloud Storage  | Google         |
+    | Cloud SQL      | Google         |
+    | BigQuery       | Google         |
+    | Kafka          | Aiven          |
+    | Elasticsearch  | Aiven          |
+    | OpenSearch     | Aiven          |
 
-The team is responsible for how they use the storage infrastructure and the data
-they store.
+## The Team
 
-### Checklist
+At the end of the day, the team is responsible for its own data and how it is managed. This includes compliance with data policies (e.g. GDPR or archiving), ensuring disaster recovery (aided by tooling and interfaces supplied by the platform) and daily operations.
 
-Here is a simple checklist for what the teams should think about:
+### Team Checklist for Data Storage
+
+Here is a simple checklist for what the teams should think about related to how and where the data is stored:
 
 * [x] Update \[Behadlingskatalogen\]&lt;&gt; where data is stored.
 * [x] Is the data storage in compliance with data policies (GDPR, PII, etc.)?
 * [x] What is the SLA for the data storage?
 * [x] What is the backup strategy for the data storage?
-
-## Operating storage infrastructure
-
-* For data stored in NAV's on-premises data centers, ITIP is operating the storage infrastructure
-* For data stored in GCP, Google is operating the storage infrastructure. If your team uses data storage in GCP, \[Behandlingskatalogen\]&lt;&gt; should be updated to reflect that Google is a data processor
-* For data stored in Azure, Microsoft is operating the storage infrastructure. If your team uses data storage in Azure, \[Behandlingskatalogen\]&lt;&gt; should be updated to reflect that Microsoft is a data processor
-
-## Operating and maintaing tooling for provisioning and interfacing with storage
-
-* For on-premises storage, either ITIP or the NAIS team is responsible for storage tooling and interfaces depending on the tool/interface
-* For cloud storage, the NAIS team maintains some tooling \(like provisioning for GCP buckets\), while other tools/interfaces are operated by the cloud vendor
-
-## Data contents, operations and compliance with data policies
-
-At the end of the day, the team is responsible for its own data. This includes compliance with data policies \(e.g. GDPR or archiving\), ensuring disaster recovery \(aided by tooling and interfaces supplied by the platform\) and daily operations.
-
