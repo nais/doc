@@ -6,7 +6,7 @@ description: >-
 
 # Persistent Volume Storage
 
-Volume storage is a storage solution based on Kubernetes [PV][k8s-pv] and [PVC][k8s-pvc] used for persistent storage.
+Volume storage is a storage solution based on Kubernetes [PV][k8s-pv] and [PVC][k8s-pvc] used for persistent storage. This creates a disk that is attached to the cluster and can be mounted as a volume in a pod.
 
 [k8s-pv]: https://kubernetes.io/docs/concepts/storage/persistent-volumes/
 [k8s-pvc]: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims

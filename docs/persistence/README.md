@@ -1,3 +1,10 @@
+---
+description: >-
+  NAIS offers several storage solutions for storing data. This page describes
+  the different options and how to use them.
+search:
+  boost: 2
+---
 # Persistent Data
 
 In this section we will discuss how to work with persistent data in your
