@@ -3,24 +3,24 @@ updates:
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     reviewers:
       - "@nais/core-dpendabot-reviewers"
   - package-ecosystem: "github-actions"
     directory: "/" # must be root (ref. docs)
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     reviewers:
       - "@nais/core-dependabot-reviewers"
   - package-ecosystem: "pip" # poetry / pyproject
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     reviewers:
       - "@nais/core-dependabot-reviewers"
   - package-ecosystem: "terraform"
     directory: "/terraform/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     reviewers:
       - "@nais/core-dependabot-reviewers"
