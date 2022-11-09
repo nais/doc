@@ -6,9 +6,9 @@ description: Antivirus scanning of files and urls using ClamAV.
 
 ## Getting started
 
-[ClamAV][clamav] is an open source antivirus engine for detecting trojans, viruses, malware and other malicious threats. It is used in a variety of situations including file scanning, email scanning, web scanning and end point security. It provides a number of utilities including a flexible and scalable multi-threaded daemon, a command line scanner and a tool for automatic database updates.
+[ClamAV][clamav] is an open source antivirus engine for detecting trojans, viruses, malware and other malicious threats. It is used in a variety of situations including file scanning, email scanning, web scanning and end point security.
 
-ClamAV has a REST API applications can use for scanning files and urls. The API is documented [here][clamav-rest-api].
+ClamAV has a REST API applications can use for scanning files and urls.
 
 | Cluster | URL                                             |
 |---------|-------------------------------------------------|
