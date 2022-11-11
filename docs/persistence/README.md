@@ -138,10 +138,10 @@ a good choice for storing data that is not relational in nature.
 
     IBM MQ is considered legacy technology. Please use [Kafka](#kafka) instead.
 
-ActiveMQ is a message broker that is used for storing and processing messages.
+IBM MQ is a message broker that is used for storing and processing messages.
 It is a good choice for storing data that is not relational in nature.
 
-[:octicons-arrow-right-24: Getting started with ActiveMQ](./mq.md)
+[:octicons-arrow-right-24: Getting started with IBM MQ](./mq.md)
 
 ## MongoDB
 
