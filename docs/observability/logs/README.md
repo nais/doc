@@ -6,6 +6,43 @@ Configure your application to log to console \(stdout/stderr\), it will be scrap
 
 If you want more information than just the log message \(loglevel, MDC, etc\), you should log in JSON format; the fields you provide will then be indexed.
 
+## Working with Kibana
+
+When you open Kibana you are prompted to select a workspace, select "Nav Logs" to start viewing your application logs.
+
+Once the page loads you will see an empty page with a search bar. This is the query bar, and it is used to search for logs. You can use the query bar to search for logs by message, by field, or by a combination of both.
+
+The query language is called [Kibana Query Language](https://www.elastic.co/guide/en/kibana/current/kuery-query.html) \(KQL\). KQL is a simplified version of Lucene query syntax. You can use KQL to search for logs by message, by field, or by a combination of both.
+
+There is also a time picker in the upper right corner of the page. You can use the time picker to select a time range to search for logs. The default time range is the last 15 minutes. If no logs shows up, try to increase the time range.
+
+### Common fields
+
+The following fields are common to all logs and can be used in the query bar:
+
+* `@timestamp` - The timestamp of the log event.
+* `application` - The application the log event originated from.
+* `cluster` - The cluster the log event originated from.
+* `container` - The container the log event originated from.
+* `host` - The host the log event originated from.
+* `level` - The log level of the log event.
+* `message` - The log message itself.
+* `namespace` - The namespace the log event originated from.
+* `pod` - The pod the log event originated from.
+* `team` - The team who owns the application the log event originated from.
+
+### Example queries
+
+| Query                                                            | Description                                                                                  |
+|:-----------------------------------------------------------------|:---------------------------------------------------------------------------------------------|
+| `message: "my message"`                                          | Search for logs with the message "my message"                                                |
+| `message: "my message" AND level: "ERROR"`                       | Search for logs with the message "my message" and the level "ERROR"                          |
+| `message: "my message" OR level: "ERROR"`                        | Search for logs with the message "my message" or the level "ERROR"                           |
+| `message: "my message" AND NOT level: "ERROR"`                   | Search for logs with the message "my message" and not the level "ERROR"                      |
+| `message: "my message" AND level: "ERROR" AND NOT level: "WARN"` | Search for logs with the message "my message" and the level "ERROR" and not the level "WARN" |
+| `message: "my message" AND level: "ERROR" OR level: "WARN"`      | Search for logs with the message "my message" and the level "ERROR" or the level "WARN"      |
+
+
 ## Gain access to logs.adeo.no
 
 In order to get access to logs.adeo.no you need to have the correct access rights added to your AD account. This can be requested through your Personnal Manager.
@@ -78,7 +115,7 @@ curl -X POST -d '{"log":"hello world","field1":"value1"}' -H 'Content-Type: appl
 
 Most applications where a user processes data related to another user need to log audit statements, detailing which user did what action on which subject.
 These logs need to follow a specific format and be accessible by ArcSight.
-See [naudit](https://github.com/navikt/naudit) for how to set up the logging, and details on the log format. 
+See [naudit](https://github.com/navikt/naudit) for how to set up the logging, and details on the log format.
 
 ## Overview
 
