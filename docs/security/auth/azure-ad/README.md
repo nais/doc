@@ -4,9 +4,6 @@ description: Enabling authentication and authorization in internal web applicati
 
 # Azure AD
 
-!!! warning
-    This feature is only available in [team namespaces](../../../clusters/team-namespaces.md)
-
 !!! abstract
     The NAIS platform provides support for simple, declarative provisioning of an 
     [Azure AD client](https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals) 

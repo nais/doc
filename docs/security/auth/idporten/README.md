@@ -4,9 +4,6 @@ description: Enabling public-facing authentication using ID-porten.
 
 # ID-porten
 
-!!! warning "Availability"
-    This feature is only available in [team namespaces](../../../clusters/team-namespaces.md)
-
 !!! warning "Forthcoming changes in 2022-2023"
     ID-porten is currently undergoing some [changes](https://docs.digdir.no/oidc_protocol_nye_idporten.html). These changes will roll out in 2022-2023.
     

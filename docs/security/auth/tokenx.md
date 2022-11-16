@@ -4,11 +4,6 @@ description: Enabling zero trust on the application layer
 
 # TokenX
 
-!!! warning "Limited Availability"
-    This feature is only available in [team namespaces](../../clusters/team-namespaces.md).
-
-    It currently only supports _self-service/citizen facing applications_ - however other use-cases have been identified.
-
 ## Abstract 
 
 !!! abstract
