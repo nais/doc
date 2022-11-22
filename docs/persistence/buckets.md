@@ -25,7 +25,7 @@ spec:
 ```
 
 !!! info
-    Once a bucket is provisioned, it will not be automatically deleted unless one explicitly sets `spec.gcp.buckets[].cascadingDelete` to `true`. This means that any cleanup must be done manually.
+    Once a bucket is provisioned, it will not be automatically deleted unless one explicitly sets `spec.gcp.buckets[].cascadingDelete` to `true`. This means that any cleanup must be done manually. If `spec.gcp.buckets[].cascadingDelete` is set to `true` and the bucket contains files, the bucket will not be deleted.
 
 Bucket names must be globally unique across the entire Google infrastructure. This can cause provisioning problems if your bucket name is used by someone else. 
 
