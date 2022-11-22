@@ -8,6 +8,8 @@ description: Antivirus scanning of files and urls using ClamAV.
 
 [ClamAV][clamav] is an open source antivirus engine for detecting trojans, viruses, malware and other malicious threats. It is used in a variety of situations including file scanning, email scanning, web scanning and end point security.
 
+This feature is installed on all nais clusters. clamAV runs in its own pod with a separate pod running the REST api applications use. There is a service set up so all applications will be able to talk to the REST api using [http://clamav.nais-system.svc.nais.local/scan](http://clamav.nais-system.svc.nais.local/scan) on-prem and [http://clamav.clamav.svc.cluster.local](http://clamav.clamav.svc.cluster.local) on GCP. The REST api supports PUT or POST and can be tested using curl as well:
+
 ClamAV has a REST API applications can use for scanning files and urls.
 
 | Cluster | URL                                             |
@@ -19,9 +21,9 @@ The REST API has one endpoint `/scan` that supports PUT or POST with form-data. 
 
 ```bash
 # Examples using the on-prem url
-curl -v -X POST -H "Content-Type: multipart/form-data" -F "file1=@/tmp/file_to_test"  http://clamav.nais.svc.nais.local/scan
-curl -v -X PUT --data-binary @/tmp/file_to_test  http://clamav.nais.svc.nais.local/scan
-curl -v http://clamav.nais.svc.nais.local/scan?url=url_to_file
+curl -v -X POST -H "Content-Type: multipart/form-data" -F "file1=@/tmp/file_to_test"  http://clamav.nais-system.svc.nais.local/scan
+curl -v -X PUT --data-binary @/tmp/file_to_test  http://clamav.nais-system.svc.nais.local/scan
+curl -v http://clamav.nais-system.svc.nais.local/scan?url=url_to_file
 ```
 
 See [ClamAV documentation][clamav-docs] and [ClamAV REST API][clamav-api] for more information.
