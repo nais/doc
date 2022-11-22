@@ -9,7 +9,7 @@ Debugging a NAIS applications resource is done with `kubectl describe applicatio
 
 # Debugging Memory Leaks
 
-If you experience memory leaks you can get heap dumps either automatically on OOM or on-demand.
+If you experience memory leaks in Java processes you can get heap dumps either automatically on OOM or on-demand.
 
 ## Automatically on OOM
 
@@ -21,7 +21,7 @@ The `/tmp` volume is maintained through restarts, so if your app is restarting b
 
 You can use `jmap` to create a heap dump of a running Java process.
 
-Find a pod and exec `jmap` in it (considering PID 1 is the Java process):
+Find a pod and exec `jmap` in it (assuming PID 1 is the Java process):
 ```
 kubectl get pods -l app=[app-name]
 kubectl exec [pod-name] -- jmap -dump:all,file=/tmp/heap.hprof 1
