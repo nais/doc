@@ -52,7 +52,7 @@ name: Deploy alerts to NAIS
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - 'alerts.yaml'
       - '.github/workflows/alerts.yaml'
@@ -77,7 +77,7 @@ jobs:
           RESOURCE: /path/to/alerts.yaml
 ```
 
-You can also add `/path/to/alerts.yaml` to `RESOURCE` in a previous workflow, just remember to [escape](../../deployment/#escaping-and-raw-resources) your expressive descriptions.
+You can also add `/path/to/alerts.yaml` to `RESOURCE` in a previous workflow, just remember to [escape your expressive descriptions.](../../deployment/#escaping-and-raw-resources) 
 
 ## Different receivers/notifications
 
@@ -195,9 +195,9 @@ Slack alerts supports colors.
 The severity field defines the color (`good` is results in a green message, `warning` in a yellow and `danger` in a red).
 If you want to define another color, specify the wanted hex code as severity instead of the pre-defined words.
 
-![Slack colors](../../assets/attachment_color.png)
+![A screenshot of what Slack notifications look like. The notification looks like an indented paragraph with a line to get the user´s attention. The line has different colors depending on the severity. The examples are green color followed by the text “This is good”, yellow and the text “Warning!”, red and the text “DANGER DANGER!” and an example showing a light blue color and the text “This was a hex value”](../../assets/attachment_color.png)
 
 ## Flow
 
-![Prometheus Server --&amp;gt; Prometheus Alertmanager](../../assets/prometheus_alertmanager_overview.png)
+![The flow diagram depicts how Prometheus can be used to collect metrics from Scrape (app metrics), Kubelet (pod metrics), Node exporter (node metrics). Based on the set range of metrics, the prometheus server triggers the Prometheus Alertmanager, which triggers Slack notifications](../../assets/prometheus_alertmanager_overview.png)
 

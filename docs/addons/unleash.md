@@ -5,8 +5,6 @@
 We use [Unleash](https://docs.getunleash.io/) for feature toggling in NAIS and NAV.
 Get started at [unleash.nais.io](https://unleash.nais.io/), and you can look at tips for your [feature toggles available here](https://www.unleash-hosted.com/articles/what-are-the-feature-toggle-best-practices).
 
-We've only got _one_  supported environment - but if you want to test it out you can use [(https://)unleash.dev.intern.nav.no](https://unleash.dev.intern.nav.no/).
-
 ## NAV Recommended best practices
 
 !!! notice

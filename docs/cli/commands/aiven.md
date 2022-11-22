@@ -14,7 +14,7 @@ The created AivenApplication has sane default (days-to-live) set to 1 day.
 
 To gain access to a specific topic be sure to update your topic resource and topic ACLs.
 Add `username` to `acl.application` field in your topic.yaml and apply to your namespace.
-The `username` is the one spescified in the [next step](#create).
+The `username` is the one specified in the next step.
 
 ```yaml
 # topic.yml
@@ -48,7 +48,7 @@ nais aiven create kafka username namespace -p nav-prod -s some-unique-secretname
 
 | Flag        | Required | Short | Default                         | Description                                     |
 |-------------|----------|-------|---------------------------------|-------------------------------------------------|
-| pool        | No       | -p    | nav-dev                         | [Kafka pool](../../persistence/kafka/index.md). |
+| pool        | No       | -p    | nav-dev                         | [Kafka pool](../../persistence/kafka/README.md). |
 | secret-name | No       | -s    | namespace-username-randomstring | Preferred secret-name.                          |
 | expire      | No       | -e    | 1                               | Time in days the secret should be valid.        |
 

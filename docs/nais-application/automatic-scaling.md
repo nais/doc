@@ -2,7 +2,7 @@
 
 !!! warning
     
-    In order to use custom scaling policies and rules, make sure you disable default NAIS HPA by setting spec.replicas.min == spec.replicas.max 
+    In order to use custom scaling policies and rules, make sure you disable default NAIS HPA by setting the [`.spec.replicas.disableAutoScaling`](../nais-application/application.md#replicasdisableautoscaling) field to `true`. 
 
 
 ## Scaling based on custom metrics

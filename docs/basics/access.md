@@ -24,11 +24,11 @@ Install by following the [naisdevice installation guide](../device/install.md).
 
 `kubectl` is a command-line tool used to manage your Kubernetes resources.
 
-Check out the [official documentation](https://kubernetes.io/docs/tasks/tools/install-kubectl) for instructions on how to install the binaries.
+Check out [`kubectl´s` official documentation](https://kubernetes.io/docs/tasks/tools/install-kubectl) for instructions on how to install the binaries.
 
 Remember that `kubectl` is supported within one minor version (older or newer) of `kube-apiserver`.
-This is called [`version skew`](https://kubernetes.io/releases/version-skew-policy/#kubectl).
-You can see our on-prem version over at [naisible/group_vars](https://github.com/nais/naisible/blob/master/group_vars/all#L12).
+This is called [`version skew`](https://kubernetes.io/releases/version-skew-policy/#kubectl). 
+[On-prem version is shown in Grafana - clusters](https://grafana.nais.io/d/NOlZDT7nk/clusters).
 
 Using `brew` to manage `kubectl` will make it troublesome to be within the version skew, as it's hard to downgrade `kubectl` to older versions.
 Therefor we recommend installing `kubectl` manually, or through tools like [asdf](https://asdf-vm.com/).
@@ -36,7 +36,7 @@ Therefor we recommend installing `kubectl` manually, or through tools like [asdf
 ## Setup your [`kubeconfig`](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 
 The `kubectl` tool uses a `kubeconfig` file to get the information it needs in order to connect to a cluster.
-We provide a [pre-made kubeconfig](https://github.com/navikt/kubeconfigs) file with NAV's clusters.
+We provide a [pre-made kubeconfig file](https://github.com/navikt/kubeconfigs) with NAV's clusters.
 
 !!! info
     If you use `utviklerimage` or connect to NAV through BigIP VPN you need to use the kubeconfig under the Git tag `utviklerimage`. Go to the directory where you cloned kubeconfig and run
@@ -61,16 +61,16 @@ The above example can also be added to something like `~/.bash_profile`, or the 
 
 ### Google Cloud Platform \(GCP\)
 
-Before following these steps, make sure your team is enabled for Google Cloud Platform, check out [team access](teams.md) for more information.
+Before following these steps, [make sure your team is enabled for Google Cloud Platform](teams.md).
 
 You will also need to perform a self-service step to synchronize your user from Azure AD to Google Cloud Platform. This can be done by following these steps:
 
-1. Login to [My Apps > Add Application](https://account.activedirectory.windowsazure.com/r#/addApplications)
+1. [Login to My Apps > Add Application](https://account.activedirectory.windowsazure.com/r#/addApplications)
 3. Locate "Google Cloud Platform", and click on the icon
 
 After you have done this your user will be synced to Google Cloud Platform. The sync is not instantaneous, but usually does not take more than a few minutes.
 
-First you need to install `gcloud` following the [instructions](https://cloud.google.com/sdk/docs/install) for your platform.
+First you need to [install `gcloud`](https://cloud.google.com/sdk/docs/install) following the instructions for your platform.
 
 Once installed, you need to authenticate with Google using your NAV e-mail.
 

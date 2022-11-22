@@ -4,11 +4,6 @@ description: Enabling zero trust on the application layer
 
 # TokenX
 
-!!! warning "Status: Opt-In Open Beta"
-    This feature is only available in [team namespaces](../../clusters/team-namespaces.md).
-
-    It currently only supports _self-service/citizen facing applications_ - however other use-cases have been identified.
-
 ## Abstract 
 
 !!! abstract
@@ -40,7 +35,7 @@ description: Enabling zero trust on the application layer
     2. You have an app receiving tokens issued from Tokendings and need to call another app while still propagating the original user context.
 
 ???+ info "Overview of flow"
-    ![Overview of token exchange flow](https://raw.githubusercontent.com/nais/tokendings/master/doc/downstream_example.svg)
+    ![The diagram shows 3 processes. The first one is OpenID Connect login. Logging in as an enduser, the token is collected from the ID provider using API1. Code snippet: { sub: “enduser” aud: “API1” iss: “ID-provider” } The second process is gettinig a tooken for API 2 (OAuth 2.0 Token exchange). AP1 gets a token for API2 based on ID-provider token, using TokenDings to verify token check access policy: Can API1 invoke API 2, issuing a new tokoen for API2. Code snippet: { sub: “enduser” aud: “API2” iss: “TokenDings” } The third process is calling API2 with JWT Bearer token. API1 calls API2 with token from TokenDings. API2 verifies token with access control, based on the enduser and returns information to API 1, which displays the information to the end user.](https://raw.githubusercontent.com/nais/tokendings/master/doc/downstream_example.svg)
 
 ## Configuration
 
@@ -293,7 +288,7 @@ Tokendings will respond with a JSON object
       "access_token" : "eyJraWQiOi..............",
       "issued_token_type" : "urn:ietf:params:oauth:token-type:access_token",
       "token_type" : "Bearer",
-      "expires_in" : 299
+      "expires_in" : 899
     }
     ```
 

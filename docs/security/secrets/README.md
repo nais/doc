@@ -6,7 +6,7 @@ description: Secret Management on NAIS
 
 NAIS provides multiple integrations for secrets management services:
 
-- [Native Kubernetes Secrets](kubernetes-secrets.md) - available in all clusters in [team namespaces](../../clusters/team-namespaces.md)
+- [Native Kubernetes Secrets](kubernetes-secrets.md) - available in all clusters
 - [Google Secrets Manager](google-secrets-manager.md) - only available in [GCP](../../clusters/gcp.md)
 - [Vault](vault.md) - only available [on-premises](../../clusters/on-premises.md)
 

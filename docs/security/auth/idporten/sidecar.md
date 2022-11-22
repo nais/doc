@@ -5,7 +5,7 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 # ID-porten sidecar
 
 !!! warning "Status: Beta"
-    This feature is only available in the [GCP clusters](../../../clusters/gcp.md).
+    This feature is only available in the [GCP clusters](../../../clusters/gcp.md), except `labs-gcp`.
 
     **Experimental**: users report that this component is working, but it needs a broader audience to be battle-tested properly.
 
@@ -33,6 +33,7 @@ A reverse proxy that provides functionality to handle ID-porten login and logout
     ```yaml
     spec:
       idporten:
+        enabled: true
         sidecar:
           enabled: true
 
@@ -75,7 +76,7 @@ This is sent by the sidecar as the `ui_locales` parameter to the [`/authorize` e
 Valid values shown below:
 
 | Value | Description       |
-| :---- | :---------------- |
+|:------|:------------------|
 | `nb`  | Norwegian Bokmål  |
 | `nn`  | Norwegian Nynorsk |
 | `en`  | English           |

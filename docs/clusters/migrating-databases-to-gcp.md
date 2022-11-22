@@ -20,7 +20,7 @@ See database creation in GCP in [Google Cloud Platform persistence](../persisten
 
 Create a simple migration application that supports writing data to the new database. Using requests sent to this application you can populate the new postgreSQL database.
 
-Rewrite the oracle DDL scripts to postgreSQL. If your oracle database contains specific oracle procedures or functions, that do not exist in postgreSQL, they will have to be recreated in some other way. There are tools available to help ease this rewrite, for example ora2pg\([http://ora2pg.darold.net/start.html](http://ora2pg.darold.net/start.html)\). Create the postgreSQL database in GCP and start deploy the application to GCP with the empty database and let flyway \(or other database versioning software\) create the DDLs.
+Rewrite the oracle DDL scripts to postgreSQL. If your oracle database contains specific oracle procedures or functions, that do not exist in postgreSQL, they will have to be recreated in some other way. There are tools available to help ease this rewrite, for example [ora2pg](http://ora2pg.darold.net/start.html). Create the postgreSQL database in GCP and start deploy the application to GCP with the empty database and let flyway \(or other database versioning software\) create the DDLs.
 
 Create migration app as a container in the same pod as the database application \(this is to avoid permission issues using the same database\). This migration application only handles the data transfer from the oracle database to postgreSQL in GCP.
 
@@ -58,7 +58,7 @@ Use docker container image with psql and cloudsdk: [GCP migration image](https:/
 Deploy the pod into on-premise cluster that can connect to the database
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/navikt/gcp-migrering/main/gcloud.yml
+kubectl apply -f https://raw.githubusercontent.com/navikt/gcp-migrering/main/gcloud.yaml
 ```
 
 `exec` into that pod

@@ -732,11 +732,11 @@ Required: `false`<br />
     ```
 
 ##### azure.application.claims.groups
-Groups is a list of Azure AD group IDs to be emitted in the 'Groups' claim. This also restricts access to only contain users of the defined groups unless overridden by Spec.AllowAllUsers.
+Groups is a list of Azure AD group IDs to be emitted in the `groups` claim in tokens issued by Azure AD. This also restricts access to only members of the defined groups unless overridden by `allowAllUsers`.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/access-policy#groups](https://doc.nais.io/security/auth/azure-ad/access-policy#groups)
+* [https://doc.nais.io/security/auth/azure-ad/configuration/#groups](https://doc.nais.io/security/auth/azure-ad/configuration/#groups)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -1088,10 +1088,16 @@ Availability: team namespaces<br />
     spec:
       filesFrom:
         - configmap: example-files-configmap
+          emptyDir: {}
           mountPath: /var/run/configmaps
-        - mountPath: /var/run/secrets
+        - emptyDir: {}
+          mountPath: /var/run/secrets
           secret: my-secret-file
-        - mountPath: /var/run/pvc
+        - emptyDir:
+            medium: Memory
+          mountPath: /var/cache
+        - emptyDir: {}
+          mountPath: /var/run/pvc
           persistentVolumeClaim: pvc-name
     ```
 
@@ -1106,16 +1112,68 @@ Required: `false`<br />
     spec:
       filesFrom:
         - configmap: example-files-configmap
+          emptyDir: {}
           mountPath: /var/run/configmaps
-        - mountPath: /var/run/secrets
+        - emptyDir: {}
+          mountPath: /var/run/secrets
           secret: my-secret-file
-        - mountPath: /var/run/pvc
+        - emptyDir:
+            medium: Memory
+          mountPath: /var/cache
+        - emptyDir: {}
+          mountPath: /var/run/pvc
+          persistentVolumeClaim: pvc-name
+    ```
+
+### filesFrom[].emptyDir
+Specification of an empty directory
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      filesFrom:
+        - configmap: example-files-configmap
+          emptyDir: {}
+          mountPath: /var/run/configmaps
+        - emptyDir: {}
+          mountPath: /var/run/secrets
+          secret: my-secret-file
+        - emptyDir:
+            medium: Memory
+          mountPath: /var/cache
+        - emptyDir: {}
+          mountPath: /var/run/pvc
+          persistentVolumeClaim: pvc-name
+    ```
+
+#### filesFrom[].emptyDir.medium
+Type: `string`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      filesFrom:
+        - configmap: example-files-configmap
+          emptyDir: {}
+          mountPath: /var/run/configmaps
+        - emptyDir: {}
+          mountPath: /var/run/secrets
+          secret: my-secret-file
+        - emptyDir:
+            medium: Memory
+          mountPath: /var/cache
+        - emptyDir: {}
+          mountPath: /var/run/pvc
           persistentVolumeClaim: pvc-name
     ```
 
 ### filesFrom[].mountPath
 Filesystem path inside the pod where files are mounted. The directory will be created if it does not exist. If the directory exists, any files in the directory will be made unaccessible. 
- Defaults to `/var/run/configmaps/<NAME>`, `/var/run/secrets`, or `/var/run/pvc/<NAME>`, depending on which of them is specified.
+ Defaults to `/var/run/configmaps/<NAME>`, `/var/run/secrets`, or `/var/run/pvc/<NAME>`, depending on which of them is specified. For EmptyDir, MountPath must be set.
 
 Type: `string`<br />
 Required: `false`<br />
@@ -1125,10 +1183,16 @@ Required: `false`<br />
     spec:
       filesFrom:
         - configmap: example-files-configmap
+          emptyDir: {}
           mountPath: /var/run/configmaps
-        - mountPath: /var/run/secrets
+        - emptyDir: {}
+          mountPath: /var/run/secrets
           secret: my-secret-file
-        - mountPath: /var/run/pvc
+        - emptyDir:
+            medium: Memory
+          mountPath: /var/cache
+        - emptyDir: {}
+          mountPath: /var/run/pvc
           persistentVolumeClaim: pvc-name
     ```
 
@@ -1143,10 +1207,16 @@ Required: `false`<br />
     spec:
       filesFrom:
         - configmap: example-files-configmap
+          emptyDir: {}
           mountPath: /var/run/configmaps
-        - mountPath: /var/run/secrets
+        - emptyDir: {}
+          mountPath: /var/run/secrets
           secret: my-secret-file
-        - mountPath: /var/run/pvc
+        - emptyDir:
+            medium: Memory
+          mountPath: /var/cache
+        - emptyDir: {}
+          mountPath: /var/run/pvc
           persistentVolumeClaim: pvc-name
     ```
 
@@ -1161,10 +1231,16 @@ Required: `false`<br />
     spec:
       filesFrom:
         - configmap: example-files-configmap
+          emptyDir: {}
           mountPath: /var/run/configmaps
-        - mountPath: /var/run/secrets
+        - emptyDir: {}
+          mountPath: /var/run/secrets
           secret: my-secret-file
-        - mountPath: /var/run/pvc
+        - emptyDir:
+            medium: Memory
+          mountPath: /var/cache
+        - emptyDir: {}
+          mountPath: /var/run/pvc
           persistentVolumeClaim: pvc-name
     ```
 
@@ -1193,6 +1269,7 @@ Availability: GCP<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
         permissions:
@@ -1366,6 +1443,7 @@ Availability: GCP<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
     ```
@@ -1388,6 +1466,7 @@ Required: `false`<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
     ```
@@ -1414,6 +1493,7 @@ Required: `false`<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
     ```
@@ -1436,6 +1516,7 @@ Required: `false`<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
     ```
@@ -1458,6 +1539,7 @@ Required: `false`<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
     ```
@@ -1480,6 +1562,7 @@ Required: `false`<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
     ```
@@ -1503,6 +1586,7 @@ Allowed values: _(empty string)_, `ANY`, `ARCHIVED`, `LIVE`<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
     ```
@@ -1525,6 +1609,35 @@ Required: `true`<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
+            retentionPeriodDays: 30
+            uniformBucketLevelAccess: true
+    ```
+
+#### gcp.buckets[].publicAccessPrevention
+Public access prevention allows you to prevent public access to your bucket.
+
+Relevant information:
+
+* [https://cloud.google.com/storage/docs/public-access-prevention](https://cloud.google.com/storage/docs/public-access-prevention)
+
+Type: `boolean`<br />
+Required: `false`<br />
+Default value: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        buckets:
+          - cascadingDelete: true
+            lifecycleCondition:
+              age: 10
+              createdBefore: "2020-01-01"
+              numNewerVersions: 2
+              withState: ARCHIVED
+            name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
     ```
@@ -1548,6 +1661,7 @@ Value range: `1`-`36500`<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
     ```
@@ -1576,6 +1690,7 @@ Default value: `false`<br />
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
+            publicAccessPrevention: true
             retentionPeriodDays: 30
             uniformBucketLevelAccess: true
     ```
@@ -1585,7 +1700,7 @@ List of _additional_ permissions that should be granted to your application for 
 
 Relevant information:
 
-* [https://cloud.google.com/config-connector/docs/reference/resource-docs/iam/iampolicymember#external_organization_level_policy_member](https://cloud.google.com/config-connector/docs/reference/resource-docs/iam/iampolicymember#external_organization_level_policy_member)
+* [https://doc.nais.io/nais-application/permissions-in-gcp/](https://doc.nais.io/nais-application/permissions-in-gcp/)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -1906,7 +2021,7 @@ Required: `false`<br />
     ```
 
 ##### gcp.sqlInstances[].databases[].envVarPrefix
-Prefix to add to environment variables made available for database connection.
+Prefix to add to environment variables made available for database connection. If switching to `EnvVarPrefix` you need to [reset database credentials](https://docs.nais.io/persistence/postgres/#reset-database-credentials).
 
 Type: `string`<br />
 Required: `false`<br />
@@ -2071,7 +2186,7 @@ Pattern: `^[_a-zA-Z][-_a-zA-Z0-9]+$`<br />
     ```
 
 #### gcp.sqlInstances[].diskAutoresize
-When set to true, GCP will automatically increase storage by XXX for the database when disk usage is above the high water mark.
+When set to true, GCP will automatically increase storage by XXX for the database when disk usage is above the high water mark. Setting this field to true also disables manual control over disk size, i.e. the `diskSize` parameter will be ignored.
 
 Relevant information:
 
@@ -2116,7 +2231,7 @@ Required: `false`<br />
     ```
 
 #### gcp.sqlInstances[].diskSize
-How much hard drive space to allocate for the SQL server, in gigabytes.
+How much hard drive space to allocate for the SQL server, in gigabytes. This parameter is used when first provisioning a server. Disk size can be changed using this field _only when diskAutoresize is set to false_.
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -2200,7 +2315,7 @@ Allowed values: `HDD`, `SSD`<br />
     ```
 
 #### gcp.sqlInstances[].flags
-Set flags to control the behavior of the instance.
+Set flags to control the behavior of the instance. Be aware that NAIS _does not validate_ these flags, so take extra care to make sure the values match against the specification, otherwise your deployment will seemingly work OK, but the database flags will not function as expected.
 
 Relevant information:
 
@@ -2969,9 +3084,8 @@ Required: `false`<br />
 ### kafka.pool
 Configures your application to access an Aiven Kafka cluster.
 
-Type: `enum`<br />
+Type: `string`<br />
 Required: `true`<br />
-Allowed values: `nav-dev`, `nav-infrastructure`, `nav-integration-test`, `nav-prod`<br />
 
 ??? example
     ``` yaml
@@ -3823,7 +3937,7 @@ Allowed values: `Never`, `OnFailure`<br />
     ```
 
 ## schedule
-The [Cron](https://en.wikipedia.org/wiki/Cron) schedule for running the Naisjob. If not specified, the Naisjob will be run as a one-shot Job.
+The [Cron](https://en.wikipedia.org/wiki/Cron) schedule for running the Naisjob. If not specified, the Naisjob will be run as a one-shot Job. The timezone for Naisjobs defaults to UTC.
 
 Type: `string`<br />
 Required: `false`<br />
@@ -3982,12 +4096,24 @@ Default value: `3`<br />
       successfulJobsHistoryLimit: 2
     ```
 
+## terminationGracePeriodSeconds
+The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. For most jobs, the default is more than enough. Defaults to 30 seconds.
+
+Type: `integer`<br />
+Required: `false`<br />
+Value range: `0`-`180`<br />
+
+??? example
+    ``` yaml
+    spec:
+      terminationGracePeriodSeconds: 60
+    ```
+
 ## ttlSecondsAfterFinished
 Specify the number of seconds to wait before removing the Job after it has finished (either Completed or Failed). If the field is unset, this Job won't be cleaned up by the TTL controller after it finishes.
 
 Type: `integer`<br />
 Required: `false`<br />
-Availability: on-premises<br />
 
 ??? example
     ``` yaml

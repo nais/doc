@@ -2,7 +2,7 @@
 
 ### Why migrate our application\(s\)?
 
-* Access to self-service Google-managed [buckets](../persistence/buckets.md) and [Postgres databases](../persistence/postgres.md).
+* Access to self-service [Google-managed buckets](../persistence/buckets.md) and [Postgres databases](../persistence/postgres.md).
 * Access to Google Cloud features.
 * [Zero Trust security model](../appendix/zero-trust.md) instead of FSS/SBS zone model.
 * [Built-in call tracing](https://github.com/linkerd/linkerd-viz) similar to AppDynamics.
@@ -25,7 +25,7 @@ The access policy also enables zone traversal and cross-cluster communication. T
 
 #### Deploy
 
-The same deployment mechanism is leveraged for both on-premise and GCP K8s clusters. See [deployment](../deployment/README.md) section of the documentation for how to leverage the _NAIS deploy tool_.
+The same deployment mechanism is leveraged for both on-premise and GCP K8s clusters. See [deployment section](../deployment/README.md) of the documentation for how to leverage the _NAIS deploy tool_.
 
 #### Ingress
 
@@ -40,7 +40,7 @@ Google is cleared to be a data processor for personally identifiable information
 
 #### ROS
 
-The ROS analysis for the team's applications need to be updated to reflect any changes in platform components used. For example, if your team has any specific measures implemented to mitigate risks related to "Kode 6 / 7 users", you should consider if these measures still apply on the new infrastructure or if you want to initiate any additional measures. When updating the ROS, please be aware that the GCP components you are most likely to use [have already undergone risk assessment by the nais team](../legal/nais-ros.md) and that you can refer to these ROS documents in your own risk assessment process.
+The ROS analysis for the team's applications need to be updated to reflect any changes in platform components used. For example, if your team has any specific measures implemented to mitigate risks related to "Kode 6 / 7 users", you should consider if these measures still apply on the new infrastructure or if you want to initiate any additional measures. When updating the ROS, please be aware that the GCP components you are most likely to use have already undergone [risk assessment by the nais team](../legal/nais-ros.md) and that you can refer to these ROS documents in your own risk assessment process.
 
 #### Roles and responsibilites
 
@@ -65,14 +65,14 @@ If your application stores personally identifiable information in any GCP data s
 
     * PVK: Update your existing PVK to include cloud
 
-    See [this table](migrating-to-gcp.md#gcp-compared-to-on-premises) for the differences between GCP and on-premises, and which that may apply to your application.
+   [GCP compared to on-premises](migrating-to-gcp.md#gcp-compared-to-on-premises) summarizes the differences and how that may apply to your application.
 
 #### What should we change?
 
 ???+ faq "Answer"
 
     - Use [TokenX](../security/auth/tokenx.md) instead of API-GW.
-    - If using automatically configured [buckets](../persistence/buckets.md) or [postgres](../persistence/postgres.md), use [Google APIs](https://cloud.google.com/storage/docs/reference/libraries)
+    - If using automatically configured [Google-managed buckets](../persistence/buckets.md) or [postgres](../persistence/postgres.md), use [Google APIs](https://cloud.google.com/storage/docs/reference/libraries)
 
 #### What do we not need to change?
 
@@ -134,7 +134,8 @@ If your application stores personally identifiable information in any GCP data s
 
 ???+ faq "Answer"
 
-    A minimal application without any external requirements only have to change a single configuration parameter when deploying and have migrated their application in 5 minutes. See [this table](migrating-to-gcp.md#gcp-compared-to-on-premises) for the differences between GCP and on-premises, and which that may apply to your application.
+    A minimal application without any external requirements only have to change a single configuration parameter when deploying and have migrated their application in 5 minutes.  [GCP compared to on-premises](migrating-to-gcp.md#gcp-compared-to-on-premises) summarizes the differences and how that may apply to your application.
+
 
 #### We have personally identifiable and/or sensitive data in our application, and we heard about the Privacy Shield invalidation. Can we still use GCP?
 
@@ -157,7 +158,7 @@ If your application stores personally identifiable information in any GCP data s
         - `https://<app>.dev-fss-pub.nais.io`
         - `https://<app>.prod-fss-pub.nais.io`
 
-    In cases where the application contains unsecured or endpoints secured with other mechanisms, see the "Application Requirements" section in [this document](https://github.com/navikt/bigip-iac/blob/main/pub-fss/security.md#application-requirements).
+    In cases where the application contains unsecured or endpoints secured with other mechanisms, see the ["Application Requirements" section in this document](https://github.com/navikt/bigip-iac/blob/main/pub-fss/security.md#application-requirements).
 
     Create a pull request at <https://github.com/navikt/bigip-iac/tree/main/pub-fss> add these ingresses which allows 
     them be exposed to GCP.

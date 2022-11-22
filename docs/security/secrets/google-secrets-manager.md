@@ -1,9 +1,5 @@
 # Google Secrets Manager
 
-!!! warning
-    Google Secrets Manager integration with Kubernetes is currently available as an OPEN BETA.
-    Please report any issues to the #nais channel on Slack.
-
 You may store secrets in [Google Secrets Manager](https://cloud.google.com/secret-manager) as an alternative to the
 other offered solutions.
 
@@ -22,7 +18,7 @@ that you may mount into your applications in the GCP clusters.
 
     Start at the [GCP Console](https://console.cloud.google.com/security/secret-manager) page.
 
-    ![Google Secret Manager start page](../../assets/google-secret-manager-start.png)
+    ![A screenshot shows how to create a secret. Under the heading, secret manager, there is a descriptive text with a learn more link. Below it a button, called “Create secret”](../../assets/google-secret-manager-start.png)
 
     Click on the `Create Secret` button.
 
@@ -39,13 +35,13 @@ that you may mount into your applications in the GCP clusters.
     
     This option is found when you click _manually manage locations for this secret_. 
 
-    ![Google Secret Manager Region selection](../../assets/google-secret-manager-region.png)
+    ![A screenshot shows where to find the checkbox allowing you to select “Manually manage locations for this secret. The heading is “Replication policy”, followed by an explanatory text. Below it, the checkbox that allows you to select “Manually manage locations for this secret”. Selecting it, enables you to use a dropdown called Location(s). Select “europe-north1”](../../assets/google-secret-manager-region.png)
 
     Unfortunately, we cannot enforce a default value here.
 
     Fill in the `Secret value`.
 
-    ![Google Secret Manager Secret value field](../../assets/google-secret-manager-secret-value.png)
+    ![A screenshot shows how to fill in the Secret value. The heading is “Secret value”, the text is “Input your secret value or import it directly from a file”. There are two options below. Either upload a file, by using the browse button. (Maximum size iis 65 KiB) Or input the secret value in the text field below.](../../assets/google-secret-manager-secret-value.png)
 
 ### Step 2: Import Secret to Kubernetes
 
@@ -65,7 +61,7 @@ that you may mount into your applications in the GCP clusters.
 
     Label your Secret with `sync=true` to enable synchronization to NAIS:
     
-    ![Google Secret Manager Sync label](../../assets/google-secret-manager-sync-label.png)
+    ![A screenshot shows how to label your secret. The heading is “Labels” and contains a help icon for further explanation. The text is “Use labels to organize and categorize your secrets”. There are two input fields. The input field “Key”, in which you should type “sync”. The input field “Value”, in which you should type “true”](../../assets/google-secret-manager-sync-label.png)
 
     !!! info 
         Synchronization only occurs when new _secret versions_ are created.
@@ -88,11 +84,11 @@ that you may mount into your applications in the GCP clusters.
 
     If your secret contains a list of environment variables:
 
-    ![Google Secret Manager environment variables example](../../assets/google-secret-manager-env-value.png)
+    ![A screenshot shows how to fill in the Secret value, if you have secrets formatted as environment variables. The heading is “Secret value”, the text is “Input your secret value or import it directly from a file”. There are two options below. Either upload a file, by using the browse button. (Maximum size is 65 KiB) Or input the secret value in the text field below. When the secret is an environment variable, use the text field. The example used i “FOO=BAR BAR=BAZ”](../../assets/google-secret-manager-env-value.png)
 
     Then additionally add the label `env=true` to your secret in Google Secret Manager:
 
-    ![Google Secret Manager environment variables label](../../assets/google-secret-manager-env-label.png)
+    ![A screenshot shows how to label your secret, if your secret is formatted as environment variables. The heading is “Labels” and contains a help icon for further explanation. The text is “Use labels to organize and categorize your secrets”. There are two input fields in two rows. You can add rows by using the button “Add row” below, but this is cut from the screenshot so the non-alt-text-users will wonder how it is done. The input field “Key”, in which you should type “sync”. The input field “Value”, in which you should type “true”. For environment variables the second row contains the same input fields, but “Key” should contain “env” and “Value” should contain “true”.](../../assets/google-secret-manager-env-label.png)
 
     This tells the synchronization mechanism to parse the secret as environment variables.
 
@@ -142,7 +138,7 @@ If you need environment variables, see the [other example](#example-with-environ
 
 ??? example "Secret in Google Secret Manager (click to expand)"
     
-    ![Google Secret Manager secret with single value](../../assets/google-secret-manager-example-single-value.png)
+    ![A screenshot shows the entire form for “Secret details”, using the example of single value format. It consists of the following sections: The heading is “Secret details” followed by an input field for “Name”, a section for “Secret value” where you can upload or enter your secret value. A section for “Replication policy”, where you should select “Manually manage locations for the secret” using the checkbox. In the dropdown below, called “Location(s)”, select “europe-north1”. The section below is called “Labels” and allows you to add labels to organize and categorize your secrets, using input fields for “Key” and “Value”. Below the row is a button “Add label”. Add a label, and in the new input field “Key” enter “env”. In the following input field “Value” enter “true”](../../assets/google-secret-manager-example-single-value.png)
 
 ??? example "Imported Secret in Kubernetes (click to expand)"
     

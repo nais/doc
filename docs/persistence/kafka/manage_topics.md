@@ -43,13 +43,6 @@ Be aware that due to the way ACLs are generated and length limits, the ends of l
         team: myteam
     spec:
       pool: nav-dev
-      config:  # optional; all fields are optional too; defaults shown
-        cleanupPolicy: delete  # delete, compact, compact,delete
-        minimumInSyncReplicas: 2
-        partitions: 1
-        replication: 3  # see min/max requirements
-        retentionBytes: -1  # -1 means unlimited
-        retentionHours: 72  # -1 means unlimited
       acl:
         - team: myteam
           application: ownerapp
@@ -71,11 +64,81 @@ Be aware that due to the way ACLs are generated and length limits, the ends of l
           access: read     # All applications from this trusted-team has read
         - team: *
           application: aivia
-          access: read     # Applicatios named aivia from any team has read
+          access: read     # Applications named aivia from any team has read
         - team: myteam
           application: rapid-*
           access: readwrite   # Applications from myteam with names starting with `rapid-` has readwrite access
     ```
+
+### Configuration
+
+Topics may be configured beyond the default settings for various use cases. 
+Only a subset of [all the possible topic-level configurations](https://kafka.apache.org/documentation/#topicconfigs) are available.
+
+
+=== "topic.yaml"
+    ```yaml
+    ---
+    apiVersion: kafka.nais.io/v1
+    kind: Topic
+    metadata:
+      name: mytopic
+      namespace: myteam
+      labels:
+        team: myteam
+    spec:
+      pool: nav-dev
+      config:  # optional; all fields are optional too; defaults shown
+        cleanupPolicy: delete  # delete, compact, compact,delete
+        maxMessageBytes: 1048588  # 1 MiB
+        minimumInSyncReplicas: 2
+        partitions: 1
+        replication: 3  # see min/max requirements
+        retentionBytes: -1  # -1 means unlimited
+        retentionHours: 168  # -1 means unlimited
+        segmentHours: 168  # 1 week
+      acl:
+        - team: myteam
+          application: ownerapp
+          access: readwrite
+    ```
+
+#### Maximum message size
+
+The `maxMessageBytes` configuration controls the largest record batch size allowed by Kafka.
+
+It has a default value of `1048588` (1 MiB) and a maximum value of `5242880` (5 MiB). 
+
+!!! danger 
+
+    Generally speaking, Kafka is not designed to handle large messages. 
+    **We recommend that you do not increase the `maxMessageBytes` value above the defaults, unless absolutely necessary.** 
+
+    To keep your Kafka messages below the size limit, do consider implementing strategies such as:
+
+    - using an efficient serialization format such as Avro or Protobuf
+    - using compression - set the `compression.type` configuration for your producer(s)
+    - using patterns such as [claim-checks](https://developer.confluent.io/patterns/event-processing/claim-check/) or [splitting messages into multiple segments](https://developer.confluent.io/patterns/event-processing/event-chunking/)
+
+    If you do increase the `maxMessageBytes` value, you will need to configure all your producers and consumers as well to accommodate this.
+
+    For producers:
+
+    - set `max.request.size` equal to `maxMessageBytes`
+
+    For consumers:
+
+    - set `max.partition.fetch.bytes` equal to `maxMessageBytes`
+
+#### Segment rolling
+
+Each topic partition is split into _segments_. The `segmentHours` configuration controls the period of time after which 
+Kafka will commit the segment even if not full to ensure that retention can delete or compact old data.
+
+It has a default value of `168` (1 week) and a minimum value of `1` (1 hour).
+
+Setting this value lower can be useful for GDPR purposes where you need to compact or delete data more regularly than
+the default setting of 1 week.
 
 ### Data catalog metadata
 

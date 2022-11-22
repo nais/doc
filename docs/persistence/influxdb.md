@@ -1,9 +1,10 @@
 # InfluxDB
 
-!!! info "Aiven discontinues InfluxDB"
-    Aiven has informed us that they will discontinue support for InfluxDB. 
-    The timeline is yet to be confirmed, but could be as early as end-of-year 2022. 
-    We recommend that teams using InfluxDB today find other alternatives suitable for their use case.
+!!! warning "Deprecated"
+    Aiven has informed us that they will discontinue support for InfluxDB. The
+    timeline is yet to be confirmed and we recommend that teams using InfluxDB
+    today find other alternatives. For many teams [BigQuery](./bigquery.md) will
+    be a good alternative.
 
 ## Suggested alternative
 
@@ -14,7 +15,20 @@ Depending on the situation and use case, it would also be possible to send data 
 
 Once the data is in BigQuery, you can use Metabase to create dashboards or dataproducts.
 
-![diagram of solution](../diagrams/out/persistence/bigquery-metabase.svg)
+```mermaid
+graph LR
+    accTitle: From Kafka to Metabase via BigQuery
+    accDescr: The diagram shows how the data is sent from the producer to Metabase. Producers on a kafka client, uses a kafka rapid, sending it to BigQuery sink ruler (BigQuery client) and BigQuery, that can be read from Metabase. Non-kafka apps can send data directly to BigQuery.
+
+    P1[Producer 1<br><small>Kafka Client</small>] --> K
+    P2[Producer 2<br><small>Kafka Client</small>] --> K
+
+    K[Kafka Rapid] --> BQSR
+    BQSR[BigQuery sink river<br><small>BigQuery Client</small>] --> BQ
+    E[Non-Kafka App<br><small>BigQuery Client<small>] --> BQ
+
+    BQ[BigQuery] --> M[Metabase]
+```
 
 ## Reference documentation for existing instances of InfluxDB
 

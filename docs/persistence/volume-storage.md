@@ -4,119 +4,113 @@ description: >-
   persistent storage.
 ---
 
-!!! warning
-    on-premises disk with rook/ceph has been discontinued and is not available for general use
+# Persistent Volume Storage
 
-# On-premises disk
+Volume storage is a storage solution based on Kubernetes [PV][k8s-pv] and [PVC][k8s-pvc] used for persistent storage. This creates a disk that is attached to the cluster and can be mounted as a volume in a pod.
 
-The volume storage in NAIS is supported using the storage class rook-ceph. Rook handles the ceph cluster which in turn provides persistent voluments and persistent volume claims. This is most commonly used for elasticsearch installations and other solutions that require persistent volumes for databases. This is persistent storage and available in all clusters. The preferred solution is to use GCP for both applications and persistent volumes, but it is supported on-prem as well.
+[k8s-pv]: https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+[k8s-pvc]: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims
 
-The installation is done through \[navikt/nais-tpa\] with [helm](https://helm.sh/). This also supports dynamic resizing of the persistent volumes.
+Volume storage is considered a last resort for storage and only if the existing other storage solutions are not suitable for your use case. Please make sure you have considered [all other options](./README.md) first.
 
-!!! info
-    This feature is only available in on-premises clusters.
+## Limitations
 
-## How to
+Volume storage has the following limitations:
 
-### Installation of helm chart
+ * Only available in GCP.
+ * There is no automatic backup and restore of data.
+ * There is no automatic scaling of the volume size.
+ * A volume can only be mounted to one pod at a time. Which means that if you have multiple pods they can not share a single volume.
 
-On NAIS on-prem we use nais-tpa to install helm charts with the defined persistent volume claims. When the chart is installed rook will initiate the persistent volumes required by the chart. Contact the nais team for questions using slack channel [\#nais-tpa](https://nav-it.slack.com/archives/CP8TKNK55).
+    It also means that if you have only one instance it needs to be completely stopped before a new instance can be started with the same volume resulting in downtime.
 
-Example yaml for elasticsearch install:
+Even though you can request very large volumes, it is not a good solution for storing large amounts of data. We do not recommended storing more than 100GB of data in a single volume.
 
-example-opendistro-elasticsearch.yaml
+## Example application
+
+An example app `myapp` with a volume of `1Gi`:
 
 ```yaml
-name: example
-release:
-  chart: nais/opendistro-elasticsearch:0.3
-configuration:
-  odfe:
-    image:
-      repository: amazon/opendistro-for-elasticsearch
-      tag: 1.0.0
-      pullPolicy: IfNotPresent
-    stateful:
-      enabled: true
-      class: "rook-ceph-block"
-    serviceType: ClusterIP
-    env:
-      TEAM: "team"
-      cluster.name: "example"
-    security:
-      enabled: true
-
-  master:
-    replicas: 3
-    resources:
-      limits:
-        cpu: 2
-        memory: 2048Mi
-      requests:
-        cpu: 0.2
-        memory: 1152Mi
-    stateful:
-      size: 4Gi
-    env:
-      ES_JAVA_OPTS: "-Xms1024m -Xmx1024m"
-
-  ingest:
-    replicas: 2
-    resources:
-      limits:
-        cpu: 2
-        memory: 2048Mi
-      requests:
-        cpu: 0.2
-        memory: 1152Mi
-    env:
-      ES_JAVA_OPTS: "-Xms1024m -Xmx1024m"
-
-  data:
-    replicas: 3
-    antiAffinity: "soft"
-    resources:
-      limits:
-        cpu: 2
-        memory: 4096Mi
-      requests:
-        cpu: 0.2
-        memory: 2176Mi
-    stateful:
-      size: 24Gi
-    env:
-      ES_JAVA_OPTS: "-Xms2048m -Xmx2048m"
-
-  kibana:
-    replicas: 1
-    resources:
-      limits:
-        cpu: 1000m
-        memory: 2048Mi
-      requests:
-        cpu: 100m
-    env:
-      ES_JAVA_OPTS: "-Xmx1024m"
-
-  ingress:
-    domain: nais.example.com
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: myapp
+spec:
+  serviceName: myapp
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: myapp:latest
+        volumeMounts:
+        - name: myapp-storage
+          mountPath: /data
+  volumeClaimTemplates:
+  - metadata:
+      name: myapp-storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
 ```
 
-If you are installing elasticsearch and the two client pods does not start as expected, log in to the master-1 pod using kubectl exec and run `/sgadmin.sh`
+## Storage classes
 
-Resizing volumes requires changing the persistent volume claim in kubernetes and then changing the helm chart definitions. Contact the nais team if you need the change the storage parameters.
+By default, dynamically provisioned `PersistentVolumes` use the `default` `StorageClass` and are backed by standard hard disks. If you need faster SSDs, you can use the `ssd-storage` storage class.
 
-## Metrics
+To set the storage class for a volume, add the `storageClassName` field to the `PersistentVolumeClaim`:
 
-General ceph metrics are available from several dashboards in grafana:
+```yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: myapp
+spec:
+  ...
+  volumeClaimTemplates:
+  - metadata:
+      name: myapp-storage
+    spec:
+      storageClassName: ssd-storage
+      ...
+```
 
-[Grafana Ceph Cluster](https://grafana.adeo.no/d/vwcB0Bzml/ceph-cluster?orgId=1&refresh=10s)
+## Volume Snapshot
 
-[Grafana Ceph OSD](https://grafana.adeo.no/d/Fj5fAfzik/ceph-osd?orgId=1&refresh=15m)
+In Kubernetes, a VolumeSnapshot represents a snapshot of a volume on a storage system. We recommend you to already be familiar with Kubernetes persistent volumes before using this.
 
-[Open Distro Elasticsearch metric referencel](https://opendistro.github.io/for-elasticsearch-docs/docs/pa/reference/)
+```yaml
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshot
+metadata:
+  name: new-snapshot-test
+spec:
+  volumeSnapshotClassName: csi-hostpath-snapclass
+  source:
+    persistentVolumeClaimName: pvc-test
+```
 
-## Code examples
+## Volume Resize
 
-Feel free to help us out by adding examples!
+You can resize a volume by editing the `spec.resources.requests.storage` field of the PersistentVolumeClaim object.
+
+```bash
+kubectl patch pvc myapp-storage -p '{"spec":{"resources":{"requests":{"storage":"2Gi"}}}}'
+```
+
+This will resize the volume to `2Gi`. The volume will be resized when the pod is restarted.
+
+## Reference
+
+* [GKE Deploying a stateful application](https://cloud.google.com/kubernetes-engine/docs/tutorials/stateful-application)
+* [GKE StatefulSet](https://cloud.google.com/kubernetes-engine/docs/concepts/statefulset)
+* [Kubernetes StatefulSets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
 

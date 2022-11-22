@@ -72,4 +72,16 @@ Useful resources on the topic:
 * [https://blog.colinbreck.com/kubernetes-liveness-and-readiness-probes-revisited-how-to-avoid-shooting-yourself-in-the-other-foot/#letitcrash](https://blog.colinbreck.com/kubernetes-liveness-and-readiness-probes-revisited-how-to-avoid-shooting-yourself-in-the-other-foot/#letitcrash)
 
 
-## 
+## Run multiple replicas
+
+The way Kubernetes operates relies on the fact that a system should be self-correcting over time.
+In order to facilitate this, the system responds to changes in various ways which will affect applications running on the platform.
+One of those ways is to restart pods, or move pods to other nodes if needed.
+This can also happen when you deploy a new version, if your use the `Recreate` [rollout strategy](https://doc.nais.io/nais-application/application/#strategytype).
+
+If your application only has a single replica, then your users will experience downtime whenever your pod is restarted or moved.
+
+If you wish to avoid unnecessary downtime, your application should run at least 2 replicas.
+
+If your application functions in a way that requires that only a single pod is active, you can employ [leader election](https://doc.nais.io/addons/leader-election/) to select a leader that does the work,
+while keeping a running backup replica ready to step in should the leader be killed.

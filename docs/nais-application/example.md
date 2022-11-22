@@ -79,6 +79,9 @@ spec:
       tenant: nav.no
     sidecar:
       autoLogin: true
+      autoLoginIgnorePaths:
+      - /path
+      - /internal/*
       enabled: true
       errorPath: /error
       resources:
@@ -106,10 +109,16 @@ spec:
   - configmap: my-configmap-with-envs
   filesFrom:
   - configmap: example-files-configmap
+    emptyDir: {}
     mountPath: /var/run/configmaps
-  - mountPath: /var/run/secrets
+  - emptyDir: {}
+    mountPath: /var/run/secrets
     secret: my-secret-file
-  - mountPath: /var/run/pvc
+  - emptyDir:
+      medium: Memory
+    mountPath: /var/cache
+  - emptyDir: {}
+    mountPath: /var/run/pvc
     persistentVolumeClaim: pvc-name
   gcp:
     bigQueryDatasets:
@@ -128,6 +137,7 @@ spec:
         numNewerVersions: 2
         withState: ARCHIVED
       name: my-cloud-storage-bucket
+      publicAccessPrevention: true
       retentionPeriodDays: 30
       uniformBucketLevelAccess: true
     permissions:
@@ -180,6 +190,9 @@ spec:
     sessionLifetime: 7200
     sidecar:
       autoLogin: true
+      autoLoginIgnorePaths:
+      - /path
+      - /internal/*
       enabled: true
       errorPath: /error
       level: Level4
@@ -276,6 +289,7 @@ spec:
     timeout: 1
   strategy:
     type: RollingUpdate
+  terminationGracePeriodSeconds: 60
   tokenx:
     enabled: true
     mountSecretsAsFilesOnly: true

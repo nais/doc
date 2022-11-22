@@ -31,7 +31,7 @@ metadata:
 The annotation supports multiple values separated by comma. 
 Not all capabilities are supported, so if you encounter issues with missing capabilities contact the nais team.
 
-A list of capabilities can be found [here](https://steflan-security.com/linux-privilege-escalation-exploiting-capabilities/)
+They are found in the [list of capabilities](https://steflan-security.com/linux-privilege-escalation-exploiting-capabilities/)
 
 ## Disable read-only file system
 

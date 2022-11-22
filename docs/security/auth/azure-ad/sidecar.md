@@ -5,7 +5,7 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 # Azure AD sidecar
 
 !!! warning "Status: Beta"
-    This feature is only available in the [GCP clusters](../../../clusters/gcp.md).
+    This feature is only available in the [GCP clusters](../../../clusters/gcp.md), except `labs-gcp`.
 
     **Experimental**: this is a new feature. Use it in production, but be aware that bugs might arise.
 
@@ -16,7 +16,7 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 A reverse proxy that provides functionality to handle Azure AD login and logout.
 
 !!! info "Prerequisites"
-    - [x] Ensure that you first [enable Azure AD for your application](README.md).
+    - [x] Ensure that you first [enable Azure AD for your application](configuration.md).
     - [x] Ensure that you also define at least one [ingress](../../../nais-application/application.md#ingresses) for your application.
 
 ## Spec
@@ -30,6 +30,8 @@ A reverse proxy that provides functionality to handle Azure AD login and logout.
     ```yaml
     spec:
       azure:
+        application:
+          enabled: true
         sidecar:
           enabled: true
 

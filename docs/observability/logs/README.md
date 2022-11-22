@@ -6,6 +6,43 @@ Configure your application to log to console \(stdout/stderr\), it will be scrap
 
 If you want more information than just the log message \(loglevel, MDC, etc\), you should log in JSON format; the fields you provide will then be indexed.
 
+## Working with Kibana
+
+When you open Kibana you are prompted to select a workspace, select "Nav Logs" to start viewing your application logs.
+
+Once the page loads you will see an empty page with a search bar. This is the query bar, and it is used to search for logs. You can use the query bar to search for logs by message, by field, or by a combination of both.
+
+The query language is called [Kibana Query Language](https://www.elastic.co/guide/en/kibana/current/kuery-query.html) \(KQL\). KQL is a simplified version of Lucene query syntax. You can use KQL to search for logs by message, by field, or by a combination of both.
+
+There is also a time picker in the upper right corner of the page. You can use the time picker to select a time range to search for logs. The default time range is the last 15 minutes. If no logs shows up, try to increase the time range.
+
+### Common fields
+
+The following fields are common to all logs and can be used in the query bar:
+
+* `@timestamp` - The timestamp of the log event.
+* `application` - The application the log event originated from.
+* `cluster` - The cluster the log event originated from.
+* `container` - The container the log event originated from.
+* `host` - The host the log event originated from.
+* `level` - The log level of the log event.
+* `message` - The log message itself.
+* `namespace` - The namespace the log event originated from.
+* `pod` - The pod the log event originated from.
+* `team` - The team who owns the application the log event originated from.
+
+### Example queries
+
+| Query                                                            | Description                                                                                  |
+|:-----------------------------------------------------------------|:---------------------------------------------------------------------------------------------|
+| `message: "my message"`                                          | Search for logs with the message "my message"                                                |
+| `message: "my message" AND level: "ERROR"`                       | Search for logs with the message "my message" and the level "ERROR"                          |
+| `message: "my message" OR level: "ERROR"`                        | Search for logs with the message "my message" or the level "ERROR"                           |
+| `message: "my message" AND NOT level: "ERROR"`                   | Search for logs with the message "my message" and not the level "ERROR"                      |
+| `message: "my message" AND level: "ERROR" AND NOT level: "WARN"` | Search for logs with the message "my message" and the level "ERROR" and not the level "WARN" |
+| `message: "my message" AND level: "ERROR" OR level: "WARN"`      | Search for logs with the message "my message" and the level "ERROR" or the level "WARN"      |
+
+
 ## Gain access to logs.adeo.no
 
 In order to get access to logs.adeo.no you need to have the correct access rights added to your AD account. This can be requested through your Personnal Manager.
@@ -78,11 +115,11 @@ curl -X POST -d '{"log":"hello world","field1":"value1"}' -H 'Content-Type: appl
 
 Most applications where a user processes data related to another user need to log audit statements, detailing which user did what action on which subject.
 These logs need to follow a specific format and be accessible by ArcSight.
-See [naudit](https://github.com/navikt/naudit) for how to set up the logging, and details on the log format. 
+See [naudit](https://github.com/navikt/naudit) for how to set up the logging, and details on the log format.
 
 ## Overview
 
-![From app to Kibana](../../assets/logging_overview.png)
+![The flow diagram shows that you can configure your app to log to a file using stdout or stderr, run FluentD inside the cluster to scrape the logs and send it to Elasticsearch. This will make the logs available via Kibana.](../../assets/logging_overview.png)
 
 ## Gaining access in kibana
 
@@ -93,14 +130,31 @@ Once everything is configured, your secure logs will be sent to the `tjenestekal
 To make sure you gain access to the proper logs, you need an AD-group connected to the nais-team. So the first thing you do is create this group.
 
 Go to [Porten (service desk)](https://jira.adeo.no/plugins/servlet/desk/portal/542) and click `Melde sak til IT`. The follow the template below.
+For IT to be able to correctly add the group to Remedy you need to specify the four digit department code for those who can be able to ask for permission to the group. E.g 2990 is the four digit code for the department IT-AVDELINGEN. If you are creating secure logs for your team and are unsure about which department your colleagues belong to then you can use [Delve](https://eur.delve.office.com/) to search for their profile. In their profile their department code will also be visible.
+
+You can paste the template below into Jira:
+```
+Ønsker å få opprettet en AD-gruppe for å få tilgang til sikker logg i Kibana for applikasjoner knyttet til <your project here>.
+
+Gruppenavn: 0000-GA-SECURE_LOG_<SOMETHING>
+
+Beskrivelse: Tilgang til secureLog for Team <team name> i Kibana.
+
+Kryss i identrutinen: Ja
+
+Den må inn i Remedy.
+Enheter i Nav som skal ha tilgang: <four digit department code>. E.g (2990 - IT-AVDELINGEN)
+```
 
 ![ticket](../../assets/jira_secure_log.png)
 
 ### 2 Connect the AD group to your team in Kibana
 
-Your app produces logs based on nais-team. So in order for you to get access to the logs, the AD-group must be linked with the nais team, so whoever is in the AD-group can read all logs produced by apps belonging to the nais-team.
+The logs your apps produces are linked with your [nais-team](../../basics/teams).
+Administrators of Kibana will create a role for your team with read rights to those logs.
+Whoever is in the AD-group (created in step 1) will get the Kibana role, and can thus read all logs produced by apps belonging to the nais-team.
 
-The easiest way to achieve this is to ask in the `#atom` slack channel. And ask them to connect AD-group X to team Y.
+Ask in the [#atom](https://nav-it.slack.com/archives/C7TQ25L9J) Slack channel to connect the AD-group (created in step 1) to your nais-team.
 
 ### 3 Put people into the AD-group
 

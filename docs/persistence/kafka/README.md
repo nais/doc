@@ -1,11 +1,6 @@
 # Kafka
 
-!!! warning
-    This feature applies only to _Aiven hosted Kafka_. On-premises Kafka is deprecated, and creating new topics on-premises was disabled summer 2021. For on-premises Kafka, see [on-premises Kafka documentation](https://confluence.adeo.no/display/AURA/Kafka).
-
-## Abstract
-
-NAV uses Aiven hosted Kafka. Access to Kafka is granted by defining a `Topic` resource in one of our Kubernetes clusters.
+NAV uses Aiven hosted Kafka, the on-premise version of Kafka has been deprecated since 2021. Start using Kafka by creating a `Topic` resource in one of our Kubernetes clusters.
 
 Upon defining a Topic, [Kafkarator](https://github.com/nais/kafkarator) will create the Topic in one of the Kafka _pools_. A pool is a highly available, replicated Kafka cluster running at Aiven. After the topic is created, Kafkarator will add relevant users to the topic's access control list \(ACL\).
 

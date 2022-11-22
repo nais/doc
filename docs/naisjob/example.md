@@ -99,10 +99,16 @@ spec:
   failedJobsHistoryLimit: 2
   filesFrom:
   - configmap: example-files-configmap
+    emptyDir: {}
     mountPath: /var/run/configmaps
-  - mountPath: /var/run/secrets
+  - emptyDir: {}
+    mountPath: /var/run/secrets
     secret: my-secret-file
-  - mountPath: /var/run/pvc
+  - emptyDir:
+      medium: Memory
+    mountPath: /var/cache
+  - emptyDir: {}
+    mountPath: /var/run/pvc
     persistentVolumeClaim: pvc-name
   gcp:
     bigQueryDatasets:
@@ -121,6 +127,7 @@ spec:
         numNewerVersions: 2
         withState: ARCHIVED
       name: my-cloud-storage-bucket
+      publicAccessPrevention: true
       retentionPeriodDays: 30
       uniformBucketLevelAccess: true
     permissions:
@@ -228,6 +235,7 @@ spec:
     port: 8080
     timeout: 1
   successfulJobsHistoryLimit: 2
+  terminationGracePeriodSeconds: 60
   ttlSecondsAfterFinished: 60
   vault:
     enabled: true

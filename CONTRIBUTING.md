@@ -16,8 +16,8 @@
 - Update `mkdocs.yml`'s `nav` key's correct category that your page belongs to.
 
 ### Publishing a release
-- Merge PR to master
-- Commit directly to master
+- Merge PR to main
+- Commit directly to main
 
 ## Preview your changes
 Read [README.md](README.md).
