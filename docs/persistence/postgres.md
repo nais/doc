@@ -6,6 +6,9 @@ description: >-
 
 # Google Cloud SQL PostgreSQL
 
+!!! info
+    This feature is only available in GCP clusters. If you need on-prem databases, head over to [navikt/database-iac](https://github.com/navikt/database-iac).
+
 PostgreSQL is a relational database service that is provided by Google Cloud Platform. It is a good choice for storing data that is relational in nature.
 
 You can provision and configure [Postgres](https://www.postgresql.org/) through [`nais.yaml`](../nais-application/application.md).
@@ -14,12 +17,7 @@ The database is provisioned into the teams own project in GCP. Here the team has
 
 When you deploy your application with database config, NAIS will ensure the database exists in a [Google Cloud SQL instance](https://cloud.google.com/sql) with the specified [Postgres](https://cloud.google.com/sql/docs/postgres/) version, and configure the application with means to connect to it.
 
-
-!!! info
-    The Database instance takes a few minutes to be created, so your app will not be able to connect to right away. This only applies to the first time deploy.
-
-!!! info
-    This feature is only available in GCP clusters. If you need on-prem databases, head over to [navikt/database-iac](https://github.com/navikt/database-iac).
+The Database instance takes a few minutes to be created, so your app will not be able to connect to right away. This only applies to the first time deploy.
 
 Below is an example of the minimal configuration needed. See all configuration options in the [nais.yaml reference](../nais-application/application.md#gcpsqlinstances).
 
@@ -38,6 +36,9 @@ spec:
         databases:
           - name: mydb
 ```
+
+!!! important "Choosing the right tier for production"
+    By default, the database server is `db-f1-micro` which has 1 vCPU, 614 MB RAM and 10GB of SSD storage with no automatic storage increase. Shared CPU machine types (`db-f1-micro` and `db-g1-small`) are **NOT** covered by the [Cloud SQL SLA](https://cloud.google.com/sql/sla). Consider [changing](../nais-application/application.md#gcpsqlinstancestier) to the `db-custom-CPU-RAM` tier for your production databases. Please also note that exhausting disk and/or CPU with automatic increase disabled is [not](https://cloud.google.com/sql/docs/mysql/operational-guidelines) covered by the SLA.
 
 ## Configuration
 
@@ -107,11 +108,6 @@ For further reading see [Google Cloud SQL Query Insights](https://cloud.google.c
 ### Maintenance window
 Google will automatically perform upgrades, fix bugs and apply security patches to prevent exploits. Your application should be able to handle occasional downtime as this maintenance is performed. [Read more on maintenance windows](https://cloud.google.com/sql/docs/postgres/maintenance). NAIS does not configure the maintenance window, but this can be set up in the application spec: [`nais.yaml`](../nais-application/application.md#gcpsqlinstances).
 If you wish to be notified about upcoming maintenance, you can opt-in for this on the [Communications page](https://console.cloud.google.com/user-preferences/communication) in the GCP console.
-
-### Sizing your database
-By default, the database server is `db-f1-micro`, has 1 vCPU, 614 MB RAM and 10GB of SSD storage with no automatic storage increase. If you need to change the defaults you can do this in [`nais.yaml`](../nais-application/application.md#gcpsqlinstancesdisksize).
-* Instance settings [https://cloud.google.com/sql/docs/postgres/instance-settings](https://cloud.google.com/sql/docs/postgres/instance-settings)
-* Shared CPU machine types (`db-f1-micro` and `db-g1-small`) are not covered by the [Cloud SQL SLA](https://cloud.google.com/sql/sla).
 
 ### Automated backup
 The database is backed up nightly at 3 AM \(GMT+1\) by default, but can be overridden in [`nais.yaml`](../nais-application/application.md#gcpsqlinstancesautobackuptime) by setting `spec.gcp.sqlInstances[].autoBackupTime`.
