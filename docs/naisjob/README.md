@@ -138,7 +138,7 @@ You can look at what HAHAHA has done to complete your Naisjob by running `kubect
     kubectl apply -f <path-to-naisjob.yaml>
     ```
 
-### How to I force run my scheduled job
+### How do I force run my scheduled job
 
 ???+ "Answer"
 
