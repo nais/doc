@@ -28,23 +28,8 @@ as a _sidecar_.
 
     **Your application is [responsible](#3-token-validation) for validating the `access_token`.**
 
-## Providers
-
-The platform allows for integration with the following providers:
-
-- [Azure AD](../security/auth/azure-ad/sidecar.md)
-- [ID-porten](../security/auth/idporten/sidecar.md)
-
-## Features
-
-Wonderwall aims to be compliant with OAuth 2.1, and supports the following:
-
-- [OpenID Connect Authorization Code Flow](../security/auth/concepts/protocols.md#openid-connect) with mandatory use of
-  PKCE, state and nonce
-- [Client authentication](../security/auth/concepts/actors.md#client-authentication)
-  using [client assertions](../security/auth/concepts/actors.md#client-assertion) (`private_key_jwt`)
-- [RP-initiated logout](https://openid.net/specs/openid-connect-rpinitiated-1_0.html)
-- [Front-channel logout](https://openid.net/specs/openid-connect-frontchannel-1_0.html)
+!!! warning "Availability"
+    This feature is only available in **dev-gcp** and **prod-gcp**.
 
 ## Overview
 
@@ -88,6 +73,13 @@ For any endpoint that requires authentication:
 3. If the JWT `access_token` in the `Authorization` header is invalid or expired, redirect the user to
   the [login endpoint](#1-initiate-login).
 4. If you need to log out a user, redirect the user to the [logout endpoint](#2-initiate-logout).
+
+## Providers
+
+Refer to the specific identity provider documentation for additional details that apply to the given provider:
+
+- [Azure AD](../security/auth/azure-ad/sidecar.md)
+- [ID-porten](../security/auth/idporten/sidecar.md)
 
 ---
 
@@ -422,8 +414,8 @@ Tokens within the session will usually expire before the session itself. To avoi
 This is **enabled by default** for applications using Wonderwall with Azure AD. 
 
 Tokens will at the _earliest_ be automatically renewed 5 minutes before they expire. If the token already _has_ expired,
-but the session is still exists and is active, a refresh attempt is automatically triggered. This
-happens whenever the end-user visits any path that belongs to the application.
+but the session is still exists and is active, a refresh attempt is automatically triggered as long as the session has not ended. 
+This happens whenever the end-user visits any path that belongs to the application.
 
 If you want to manually trigger token refreshes, you can make use of a new endpoint:
 

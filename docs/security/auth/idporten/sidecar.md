@@ -4,12 +4,8 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 
 # ID-porten sidecar
 
-!!! warning "Status: Beta"
-    This feature is only available in the [GCP clusters](../../../clusters/gcp.md), except `labs-gcp`.
-
-    **Experimental**: users report that this component is working, but it needs a broader audience to be battle-tested properly.
-
-    Report any issues to the #nais channel on Slack.
+!!! warning "Availability"
+    This feature is only available in **dev-gcp** and **prod-gcp**.
 
 ## Description
 
