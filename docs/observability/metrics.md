@@ -20,8 +20,9 @@ We have standardized on the [OpenMetrics][openmetrics] format for metrics. This 
 
 We use Prometheus to fetch metric endpoints from your application (in Prometheus terminology we call this scraping), and Grafana for visualizing your application's metrics. You enable Prometheus metrics collection from your application in your [NAIS manifest][nais-manifest-prometheus].
 
-!!! info inline See the current configuration for a prometheus instance in a cluster, e.g. `scrape_interval` and other stuff go to
-`https://prometheus.<cluster>.nais.io/config`
+!!! info "Prometheus configuration" 
+    To see the current configuration for a prometheus instance in your cluster, e.g. `scrape_interval`, go to
+    `https://prometheus.<cluster>.nais.io/config`
 
 ```mermaid
 graph LR
