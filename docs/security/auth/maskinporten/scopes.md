@@ -123,6 +123,12 @@ It is thus the API provider's responsibility to inform any consumers of this exp
 
 See DigDir's documentation on [audience-restricted tokens](https://docs.digdir.no/maskinporten_func_audience_restricted_tokens.html) for more information.
 
+## Delegation of scopes
+
+[Delegation of scopes](https://docs.digdir.no/docs/Maskinporten/maskinporten_func_delegering) is not supported
+in the NAIS-manifest, please see [IaC repository](https://github.com/navikt/nav-maskinporten) for configuration options.
+This will also require you to configure your scope(s) in the IaC repository to match the delegation configuration.
+
 ## Legacy
 
 !!! info
