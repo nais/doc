@@ -125,9 +125,9 @@ See DigDir's documentation on [audience-restricted tokens](https://docs.digdir.n
 
 ## Delegation of scopes
 
-[Delegation of scopes](https://docs.digdir.no/docs/Maskinporten/maskinporten_func_delegering) is currently not supported 
-to be configured in your NAIS-manifest, please see [IaC repository](https://github.com/navikt/nav-maskinporten) for configuration options.
-This will also require you to configure your scope(s) in the IaC repository to match the delegation config.
+[Delegation of scopes](https://docs.digdir.no/docs/Maskinporten/maskinporten_func_delegering) is not supported
+in the NAIS-manifest, please see [IaC repository](https://github.com/navikt/nav-maskinporten) for configuration options.
+This will also require you to configure your scope(s) in the IaC repository to match the delegation configuration.
 
 ## Legacy
 
