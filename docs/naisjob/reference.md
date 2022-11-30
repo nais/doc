@@ -674,7 +674,7 @@ Required: `true`<br />
     ```
 
 #### azure.application.allowAllUsers
-AllowAllUsers denotes whether or not all users within the tenant should be allowed to access this AzureAdApplication. If undefined will default to `true` when Spec.Claims.Groups is undefined, and `false` if Spec.Claims.Groups is defined.
+AllowAllUsers denotes whether all users within the tenant should be allowed to access this AzureAdApplication.
 
 Relevant information:
 
@@ -682,6 +682,7 @@ Relevant information:
 
 Type: `boolean`<br />
 Required: `false`<br />
+Default value: `false`<br />
 
 ??? example
     ``` yaml
@@ -732,7 +733,7 @@ Required: `false`<br />
     ```
 
 ##### azure.application.claims.groups
-Groups is a list of Azure AD group IDs to be emitted in the `groups` claim in tokens issued by Azure AD. This also restricts access to only members of the defined groups unless overridden by `allowAllUsers`.
+Groups is a list of Azure AD group IDs to be emitted in the `groups` claim in tokens issued by Azure AD. This also assigns groups to the application for access control. Only direct members of the groups are granted access.
 
 Relevant information:
 
