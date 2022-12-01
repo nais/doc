@@ -9,7 +9,7 @@ python = "^3.7"
 mkdocs = "^1.4.2"
 Pygments = "^2.13.0"
 pymdown-extensions = "^9.8"
-mkdocs-material = "^8.5.8"
+mkdocs-material = "^8.5.11"
 mkdocs-build-plantuml-plugin = "^1.6.0"
 mkdocs-git-revision-date-localized-plugin = "^1.1.0"
 
