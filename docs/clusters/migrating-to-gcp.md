@@ -1,6 +1,6 @@
 # Migrating to GCP
 
-### Why migrate our application\(s\)?
+## Why migrate our application\(s\)?
 
 * Access to self-service [Google-managed buckets](../persistence/buckets.md) and [Postgres databases](../persistence/postgres.md).
 * Access to Google Cloud features.
@@ -8,49 +8,49 @@
 * [Built-in call tracing](https://github.com/linkerd/linkerd-viz) similar to AppDynamics.
 * Cost efficient and future proof.
 
-### Prerequisites
+## Prerequisites
 
 * The team needs to update their ROS and PVK analysis to migrate to GCP. Refer to [Google Cloud Platform's ROS and PVK section](./gcp.md#ros-and-pvk).
 * Read this [roles and responsibilites](../legal/roles-responsibilities.md)
 
-#### Basic setup
+### Basic setup
 
 Follow the Getting started's [Access from laptop](../basics/access.md) instructions, and make sure to pay attention to the [GCP](../basics/access.md#google-cloud-platform-gcp) section.
 
-#### Security
+### Security
 
 Our GCP clusters use a zero trust security model, implying that the application must specify both incoming and outgoing connections in order to receive or send traffic at all. This is expressed using the [access policy spec](../nais-application/access-policy.md).
 
 The access policy also enables zone traversal and cross-cluster communication. This must be implemented in both applications, by using and accepting tokens from [TokenX](../security/auth/tokenx.md) or [AAD](../security/auth/azure-ad/README.md).
 
-#### Deploy
+### Deploy
 
 The same deployment mechanism is leveraged for both on-premise and GCP K8s clusters. See [deployment section](../deployment/README.md) of the documentation for how to leverage the _NAIS deploy tool_.
 
-#### Ingress
+### Ingress
 
 See [GCP clusters](gcp.md).
 
-#### Privacy
+### Privacy
 
 Google is cleared to be a data processor for personally identifiable information \(PII\) at NAV. However, before your team moves any applications or data to GCP the following steps should be taken:
 
 1. Verify that you have a valid and up-to-date PVK for your application. This document should be [tech stack agnostic](../legal/app-pvk.md) and as such does not need to be changed to reflect the move to GCP.
 2. If the application stores any data in GCP, update [Behandlingskatalogen](https://behandlingskatalog.nais.adeo.no/) to reflect that Google is a data processor.
 
-#### ROS
+### ROS
 
 The ROS analysis for the team's applications need to be updated to reflect any changes in platform components used. For example, if your team has any specific measures implemented to mitigate risks related to "Kode 6 / 7 users", you should consider if these measures still apply on the new infrastructure or if you want to initiate any additional measures. When updating the ROS, please be aware that the GCP components you are most likely to use have already undergone [risk assessment by the nais team](../legal/nais-ros.md) and that you can refer to these ROS documents in your own risk assessment process.
 
-#### Roles and responsibilites
+### Roles and responsibilites
 
 As with applications in our on-premises clusters, the operation, security and integrity of any application is the responsibility of the team that owns that particular application. Conversely, it is the responsiblity of the nais platform team to handle the operation, security and integrity of the nais application platform and associated components. At GCP, Google is responsible for operating infrastructure underlying the nais platform, as well as any cloud services not consumed through the nais abstraction layer. Service exceptions reported by either Google or the nais team will be announced in the \#nais slack channel.
 
 If your application stores personally identifiable information in any GCP data store, Google is effectively a data processor \("databehandler"\) for this data, and your documentation needs to reflect this fact.
 
-### FAQ
+## FAQ
 
-#### What do we have to change?
+### What do we have to change?
 
 ???+ faq "Answer"
 
@@ -67,20 +67,20 @@ If your application stores personally identifiable information in any GCP data s
 
    [GCP compared to on-premises](migrating-to-gcp.md#gcp-compared-to-on-premises) summarizes the differences and how that may apply to your application.
 
-#### What should we change?
+### What should we change?
 
 ???+ faq "Answer"
 
     - Use [TokenX](../security/auth/tokenx.md) instead of API-GW.
     - If using automatically configured [Google-managed buckets](../persistence/buckets.md) or [postgres](../persistence/postgres.md), use [Google APIs](https://cloud.google.com/storage/docs/reference/libraries)
 
-#### What do we not need to change?
+### What do we not need to change?
 
 ???+ faq "Answer"
 
     You do not have to make any changes to your application code. Ingresses work the same way, although some domains overlap and others are exclusive. Logging, secure logging, metrics and alerts work the same way.
 
-#### What can we do now to ease migration to GCP later?
+### What can we do now to ease migration to GCP later?
 
 ???+ faq "Answer"
 
@@ -88,56 +88,56 @@ If your application stores personally identifiable information in any GCP data s
     - Deploy your application to your team's namespace instead of `default`, as this is not available in GCP.
     - Use a token auth flow between your applications. Either [TokenX](../security/auth/tokenx.md), [AAD on-behalf-of or AAD client_credentials flow](../security/auth/azure-ad/README.md) depending on your use case. This allows for a more seamless migration of your applications. E.g. if you have two apps in FSS, you can migrate one without the other.
 
-#### What about PVK?
+### What about PVK?
 
 ???+ faq "Answer"
 
     A PVK is not a unique requirement for GCP, so all applications should already have one. See [about security and privacy when using platform services](../README.md#about-security-and-privacy-when-using-platform-services) for details
 
-#### How do we migrate our database?
+### How do we migrate our database?
 
 ???+ faq "Answer"
 
     See [Migrating databases to GCP](migrating-databases-to-gcp.md).
 
-#### Why is there no Vault in GCP?
+### Why is there no Vault in GCP?
 
 ???+ faq "Answer"
 
     There is native functionality in GCP that overlap with many of the use cases that Vault have covered on-prem. Using these mechanisms removes the need to deal with these secrets at all. Introducing team namespaces allows the teams to manage their own secrets in their own namespaces without the need for IAC and manual routines. For other secrets that are not used by the application during runtime, you can use the [Secret Manager](../security/secrets/google-secrets-manager.md) in each team's GCP project.
 
-#### How do we migrate from Vault to Secrets Manager?
+### How do we migrate from Vault to Secrets Manager?
 
 ???+ faq "Answer"
 
     See the [Secrets Manager documentation](../security/secrets/google-secrets-manager.md).
 
-#### How do we migrate from filestorage to buckets?
+### How do we migrate from filestorage to buckets?
 
 ???+ faq "Answer"
 
     Add a bucket to your application spec Copy the data from the filestore using [s3cmd](https://s3tools.org/s3cmd) to the bucket using [gsutil](https://cloud.google.com/storage/docs/gsutil)
 
-#### What are the plans for cloud migration in NAV?
+### What are the plans for cloud migration in NAV?
 
 ???+ faq "Answer"
     
     Both sbs clusters are now retired. NAVs strategic goal is to shut off all on-prem datacenters by the end of 2023
 
-#### What can we do in our GCP project?
+### What can we do in our GCP project?
 
 ???+ faq "Answer" 
 
     The teams GCP projects are primarily used for automatically generated resources \(buckets and postgres\). We're working on extending the service offering. However, additional access may be granted if required by the team
 
-#### How long does it take to migrate?
+### How long does it take to migrate?
 
 ???+ faq "Answer"
 
     A minimal application without any external requirements only have to change a single configuration parameter when deploying and have migrated their application in 5 minutes.  [GCP compared to on-premises](migrating-to-gcp.md#gcp-compared-to-on-premises) summarizes the differences and how that may apply to your application.
 
 
-#### We have personally identifiable and/or sensitive data in our application, and we heard about the Privacy Shield invalidation. Can we still use GCP?
+### We have personally identifiable and/or sensitive data in our application, and we heard about the Privacy Shield invalidation. Can we still use GCP?
 
 ???+ faq "Answer"
 
@@ -145,7 +145,7 @@ If your application stores personally identifiable information in any GCP data s
 
     See [Laws and regulations/Application PVK](../legal/app-pvk.md) for details.
 
-#### How do I reach an application found on-premises from my application in GCP?
+### How do I reach an application found on-premises from my application in GCP?
 
 ???+ faq "Answer"
 
@@ -185,7 +185,7 @@ If your application stores personally identifiable information in any GCP data s
             - host: <app>.<dev|prod>-fss-pub.nais.io
     ```
 
-#### How do I reach an application found on GCP from my application on-premises?
+### How do I reach an application found on GCP from my application on-premises?
 
 ???+ faq "Answer" 
 
