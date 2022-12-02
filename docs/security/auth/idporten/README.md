@@ -27,9 +27,9 @@ description: Enabling public-facing authentication using ID-porten.
     This is also a critical first step in request chains involving an end-user whose identity and permissions should be propagated through each service/web API when accessing services in NAV using the [OAuth 2.0 Token Exchange](https://www.rfc-editor.org/rfc/rfc8693.html) protocol. See the [TokenX documentation](../tokenx.md) for details.
 
 !!! warning
-    - [ ] Please ensure that you have read the [ID-porten integration guide](https://docs.digdir.no/oidc_guide_idporten.html).
-    - [ ] If you're implementing your own client, you **must** perform the [verification tests](https://docs.digdir.no/docs/idporten/idporten/idporten_verifikasjonstester) to ensure that your integration works as expected.
-    - [ ] We **strongly** recommend that you use the [sidecar](sidecar.md) instead of implementing a client on your own.
+    - Please ensure that you have read the [ID-porten integration guide](https://docs.digdir.no/oidc_guide_idporten.html).
+    - If you're implementing your own client, you **must** perform the [verification tests](https://docs.digdir.no/docs/idporten/idporten/idporten_verifikasjonstester) to ensure that your integration works as expected.
+    - We **strongly** recommend that you use the [sidecar](sidecar.md) instead of implementing a client on your own.
 
 ## Configuration
 
