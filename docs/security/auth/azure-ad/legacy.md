@@ -8,7 +8,7 @@ Communication between legacy clients provisioned through [aad-iac](https://githu
 
 ???+ info "Scenario 1"
 
-    #### Allowing a NAIS client to access an aad-iac client
+    ### Allowing a NAIS client to access an aad-iac client
 
     Prerequisites:
 
@@ -31,7 +31,7 @@ Communication between legacy clients provisioned through [aad-iac](https://githu
 
 ???+ info "Scenario 2"
 
-    #### Allowing an aad-iac client to access a NAIS client
+    ### Allowing an aad-iac client to access a NAIS client
 
     Prerequisites:
 

@@ -16,8 +16,8 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 A reverse proxy that provides functionality to handle Azure AD login and logout.
 
 !!! info "Prerequisites"
-    - [x] Ensure that you first [enable Azure AD for your application](configuration.md).
-    - [x] Ensure that you also define at least one [ingress](../../../nais-application/application.md#ingresses) for your application.
+    - Ensure that you first [enable Azure AD for your application](configuration.md).
+    - Ensure that you also define at least one [ingress](../../../nais-application/application.md#ingresses) for your application.
 
 ## Spec
 

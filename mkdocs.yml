@@ -5,7 +5,7 @@ edit_uri: edit/main/docs/
 theme:
     name: material
     language: "en"
-    logo: assets/logo.png
+    logo: assets/nais_xmas.svg
     favicon: assets/logo.png
     custom_dir: custom_theme_overrides
     palette:
@@ -91,7 +91,7 @@ markdown_extensions:
                 format: !!python/name:pymdownx.superfences.fence_code_format
     - pymdownx.highlight:
           use_pygments: true
-          linenums: true
+          linenums: false
           linenums_style: pymdownx-inline
           anchor_linenums: true
     - pymdownx.inlinehilite
