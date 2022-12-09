@@ -404,7 +404,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "18c63395d204cf168ffa28858f7b88377adc5191e4d374244032116d9f86be7e"
+content-hash = "86b22d59970852c39b2729305ea94e19d1a92b2faa1026c3cbfd5c8bd2715b05"
 
 [metadata.files]
 Babel = [
