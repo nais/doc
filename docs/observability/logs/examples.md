@@ -2,7 +2,7 @@
 
 ## SLF4J
 
-#### pom.xml
+### pom.xml
 
 ```markup
 <dependencies>
@@ -24,7 +24,7 @@
 </dependencies>
 ```
 
-#### logback.xml
+### logback.xml
 
 ```markup
 <configuration>
@@ -63,7 +63,7 @@ The max log message size in Docker is 16KB, so if it will be split into parts if
 
 ## Log4j2
 
-#### pom.xml
+### pom.xml
 
 ```markup
 <dependencies>
@@ -95,7 +95,7 @@ The max log message size in Docker is 16KB, so if it will be split into parts if
 </dependencies>
 ```
 
-#### log4j2.xml
+### log4j2.xml
 
 ```markup
 <?xml version="1.0" encoding="UTF-8"?>

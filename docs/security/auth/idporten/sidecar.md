@@ -16,9 +16,9 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 A reverse proxy that provides functionality to handle ID-porten login and logout.
 
 !!! info "Prerequisites"
-    - [x] Ensure that you first [enable ID-porten for your application](README.md).
-    - [x] Ensure that you define an [ingress](../../../nais-application/application.md#ingresses) for your application.
-    - [x] Ensure that the ingress is on the correct domain:
+    - Ensure that you first [enable ID-porten for your application](README.md).
+    - Ensure that you define an [ingress](../../../nais-application/application.md#ingresses) for your application.
+    - Ensure that the ingress is on the correct domain:
         - `dev.nav.no` for the [_development_ clusters](../../../clusters/gcp.md#dev-gcp-ingresses)
         - `nav.no` for the [_production_ clusters](../../../clusters/gcp.md#prod-gcp-ingresses)
 

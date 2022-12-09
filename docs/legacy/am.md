@@ -4,7 +4,7 @@ Dersom applikasjonen din trenger ForgeRock AM oppsett i FSS, kan dette settes op
 
 Dersom deployregimet til ATOM benyttes kan man angi `skipOpenam` i deploy request for å slippe konfigurasjon av dette.
 
-### Følgende krav må være oppfylt ved kall til nameD
+## Følgende krav må være oppfylt ved kall til nameD
 
 * Innsendte parametere som må settes \(se eksempel nedenfor\):
 

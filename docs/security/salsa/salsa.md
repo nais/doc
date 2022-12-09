@@ -11,7 +11,7 @@ description: Github action that helps to secure supply chain for software artifa
 
     Report any issues to the #nais channel on Slack.
 
-### What is SLSA
+## What is SLSA
 
 [SLSA](https://slsa.dev/) is short for _Supply chain Levels for Software Artifacts_ pronounced `salsa`.
 
