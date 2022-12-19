@@ -26,7 +26,7 @@ Make sure you have [access to GCP clusters.](../basics/access.md#google-cloud-pl
 
 ## Access to GCP
 
-In order to use GCP, a team is required to add their team in a PR to [navikt/teams](https://github.com/navikt/teams).
+In order to use GCP, a team is required to add their team in [NAIS console](https://console.nav.cloud.nais.io).
 This will generate a namespace for the team in each cluster, and dev and prod GCP projects will be created.
 The team's group is initially granted a restricted set of permissions in these projects, but have the ability to grant further permissions on demand using the [GCP console](https://console.cloud.google.com)
 

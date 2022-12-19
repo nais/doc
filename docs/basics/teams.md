@@ -1,20 +1,22 @@
 # Teams
 
-Access to a resource in NAIS is based on a label set on the resource called `team`.
-In the context of [Azure Active Directory](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups) a group is the same as a team, and you may already be part of a team that has applications on NAIS.
+Access to NAIS, including your Kubernetes namespace, GCP projects, or GitHub team, requires a _NAIS team_.
 
-Every group in [AAD](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups) has a so-called mailnick/tag, this is what NAIS generally uses to identify teams.
-When viewing a group, the mailnick is the value before the `@` in the email field.
+NAIS teams are managed using [NAIS console](https://console.nav.cloud.nais.io).
+To access NAIS console, you must log on to NAIS device with the _nav.no_ tenant.
+
+Once you are logged in, you can create a team and add or remove members at will.
+Teams and memberships will be immediately propagated to:
+- Kubernetes clusters
+- GitHub
+- Google Cloud (one project per team/environment combination)
 
 ## Creating a new team
 
-* To create a new team, make a pull request to the [teams repository](https://github.com/navikt/teams) on Github
-* The group's owners can manage the group using either [outlook](https://outlook.office365.com/owa) or [AAD](https://aad.portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups)
-* The following resources will be generated for the new team:
+To create a new team, open NAIS console in your browser, log in, and follow the instructions.
+The following resources will be generated for the new team:
 
-![The sequence diagram shows the following sequence: 1. The team adds an entry to teams.yaml in the navikt/teams repository 2. An Azure AD group is created for the team 3. The group is added to the AAD application Google Suit Provisioning and synchronized to Google IAM 4. Google projects gets created for each team (dev and prod), An example shows a project, with name: team-x, access: team-x@nav.no, Resources: bucket, database 5. A namespace is created for each team in each cluster (dev and prod), with ties to the teams Google project. An example shows a namespace, with name: team-x, RBAC: team-x@nav.no, resources; project x, Arrows connects “project-x” to the resources in the example in step 4, which was bucket and database. 6. The team´s group is added to the AAD application GitHub and gets synchronized to GitHub 7. A GitHub team is provisioned for each team 8. A deployment token is generated for each team](../assets/nais-teams.png)
-
-* An Azure AD group is created, and can be viewed in the [My Groups portal](https://account.activedirectory.windowsazure.com/r#/groups)
+* An Azure AD security group (no Office365 integration, nor e-mail address).
 * A [GitHub team](https://github.com/orgs/navikt/teams) is created.
 * Deploy keys are created, and can be obtained in the [NAIS deploy frontend](https://deploy.nais.io/).
 * GCP users are provisioned, and users can log in to the [Google Cloud Console](https://console.cloud.google.com/) using their NAV e-mail address.
@@ -23,11 +25,10 @@ When viewing a group, the mailnick is the value before the `@` in the email fiel
 
 ## Managing your team
 
-* Team members are managed by managing the group in [My Groups portal](https://account.activedirectory.windowsazure.com/r#/groups)
+Team membership is managed in NAIS console.
 
 !!! warning
     It is the responsibility of each team to keep the group member roster up to date. This includes removing former team members in a timely fashion.
-
 
 ## Access to API keys
 

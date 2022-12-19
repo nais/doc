@@ -4,7 +4,7 @@ This guide will take you through the required tools and permissions that need to
 
 ## Set up a team
 
-The primary unit of access is a _team_, whose origin is a group in Azure AD.
+The primary unit of access is a _team_, whose origin lies in [NAIS console](https://console.nav.cloud.nais.io).
 Each team is given its own namespace with the same name as the team.
 The team will have unrestricted access to all Kubernetes assets in that namespace.
 
@@ -13,7 +13,7 @@ After creating a new team, you should have access to all clusters.
 
 !!! info "You're probably part of an existing team"
     If this is your first time here, chances are that you're already part of a team in the context of NAIS.
-    There is currently no simple way to verify this, though you can look through [the AAD-groups that you are part of](https://account.activedirectory.windowsazure.com/r#/groups) and see if there's any overlap with [navikt/teams](https://github.com/navikt/teams/blob/main/teams.md).
+    Please speak with your colleagues in order to figure this out. You can also log in to NAIS console and check.
 
 ## Install [naisdevice](../device/README.md)
 
