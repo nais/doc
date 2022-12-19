@@ -12,8 +12,7 @@ as a _sidecar_.
     All HTTP requests to the application will be intercepted by Wonderwall, which is attached to your application's pod as a
     sidecar.
 
-    If the user does _not_ have a valid local session with the sidecar, the request will be proxied to the application
-    container with the `Authorization` removed.
+    If the user does _not_ have a valid local session with the sidecar, the request will be proxied as-is without modifications to the application container.
 
     In order to obtain a local session, the user must be redirected to the `/oauth2/login` endpoint, which performs the
     [OpenID Connect Authorization Code Flow](../security/auth/concepts/protocols.md#openid-connect).
@@ -33,15 +32,57 @@ as a _sidecar_.
 
 ## Overview
 
-The image below shows the overall architecture of an application when using Wonderwall as a sidecar:
+The diagram below shows the overall architecture of an application when using Wonderwall as a sidecar:
 
-???+ "Architecture"
-    ![The architectural diagram shows the browser sending a request into the Kubernetes container, requesting the ingress https://<app>.nav.no, requesting the service https://<app>.<namespace>, sending it to the pod, which contains the sidecar. The sidecar sends a proxy request to the app, in addition to triggering and handling  the Open ID Connect Auth Code Flow to the identity provider. The identity provider is outside the Kubernetes container. ](../assets/wonderwall-architecture.png)
+```mermaid
+flowchart TB
+    accTitle: System Architecture
+    accDescr: The architectural diagram shows the browser sending a request into the Kubernetes container, requesting the ingress https://&ltapp&gt.nav.no, requesting the service https://&ltapp&gt.&ltnamespace&gt, sending it to the pod, which contains the sidecar. The sidecar sends a proxy request to the app, in addition to triggering and handling the Open ID Connect Auth Code Flow to the identity provider. The identity provider is outside the Kubernetes environment.
+
+    idp(Identity Provider)
+    Browser -- 1. initial request --> k8s
+    Browser -- 2. redirected by Wonderwall --> idp
+    idp -- 3. performs OpenID Connect Auth Code flow --> Browser
+
+    subgraph k8s [Kubernetes]
+        direction LR
+        Ingress(Ingress<br>https://&ltapp&gt.nav.no) --> Service(Service<br>http://&ltapp&gt.&ltnamespace&gt) --> Wonderwall
+        subgraph Pod
+            direction TB
+            Wonderwall -- 4. proxy request with access token --> Application
+            Application -- 5. return response --> Wonderwall
+        end
+    end
+```
 
 The sequence diagram below shows the default behavior of the sidecar:
 
-???+ "Sequence Diagram"
-    ![The sequence diagram shows the default behaviour of the sidecar, depending on whether the user already has a session or not. If the user does have a session, the sequence is as follows: 1. The user visits a path, that requests the ingress.  2. The request is forwarded to wonderwall 3. Wonderwall checks for a session in session storage. 4. Wonderwall attaches Authorization header and proxies request and sends it to the application. 5. The application returns a response to Wonderwall. 6. Wonderwall returns the response to the user. If the user does not have a session, the sequence is as follows: 1. The user visits a path, that requests the ingress.  2. The request is forwarded to wonderwall 3. Wonderwall checks for a session in session storage.  4. Wonderwall removes Authorization header and proxies request and sends it to the application. 5. The application returns a response to Wonderwall. 6. Wonderwall returns the response to the user.](../assets/wonderwall-sequence.png)
+```mermaid
+sequenceDiagram
+    accTitle: Sequence Diagram
+    accDescr: The sequence diagram shows the default behaviour of the sidecar, depending on whether the user already has a session or not. If the user does have a session, the sequence is as follows: 1. The user visits a path, that requests the ingress.  2. The request is forwarded to wonderwall 3. Wonderwall checks for a session in session storage. 4. Wonderwall attaches Authorization header and proxies request and sends it to the application. 5. The application returns a response to Wonderwall. 6. Wonderwall returns the response to the user. If the user does not have a session, the sequence is as follows: 1. The user visits a path, that requests the ingress.  2. The request is forwarded to wonderwall 3. Wonderwall checks for a session in session storage. 4. Wonderwall proxies the request as-is and sends it to the application. 5. The application returns a response to Wonderwall. 6. Wonderwall returns the response to the user.
+
+    actor User
+    User->>Ingress: visits /path
+    Ingress-->>Wonderwall: forwards request
+    activate Wonderwall
+    Wonderwall-->>Session Storage: checks for session
+    alt has session
+        Session Storage-->>Wonderwall: session found
+        activate Wonderwall
+        Wonderwall-->>Application: attaches Authorization header and proxies request
+        Application-->>Wonderwall: returns response
+        Wonderwall->>User: returns response
+        deactivate Wonderwall
+    else does not have session
+        Session Storage-->>Wonderwall: no session found
+        activate Wonderwall
+        Wonderwall-->>Application: proxies request as-is
+        Application-->>Wonderwall: returns response
+        Wonderwall->>User: returns response
+        deactivate Wonderwall
+    end
+```
 
 Generally speaking, the recommended approach when using the Wonderwall sidecar is to put it in front of 
 your backend-for-frontend server that serves your frontend. Otherwise, you might run into issues with the cookie 
@@ -74,7 +115,7 @@ For any endpoint that requires authentication:
   the [login endpoint](#1-initiate-login).
 4. If you need to log out a user, redirect the user to the [logout endpoint](#2-initiate-logout).
 
-## Providers
+### Providers
 
 Refer to the specific identity provider documentation for additional details that apply to the given provider:
 
@@ -177,7 +218,7 @@ You can also define additional paths or patterns to be excluded:
 
 The paths must be absolute paths. The match patterns use glob-style matching.
 
-???+ example "Example match patterns"
+??? example "Example match patterns"
 
     - `/allowed` or `/allowed/`
         - Trailing slashes in paths and patterns are effectively ignored during matching.
@@ -264,12 +305,14 @@ If the user is using a shared device with other users, only performing a local l
 
 ### 3. Token Validation
 
-!!! danger
-    **Your application should secure its own endpoints.** That is, deny access to sensitive endpoints if the appropriate
-    authentication is not supplied.
+!!! danger "Secure your endpoints"
+    **Your application is responsible for securing its own endpoints.**
+    
+    - If a request does not contain an `Authorization` header, the request should be considered unauthenticated and access should be denied.
+    - If a request has an `Authorization` header that contains a [JWT], the token must be validated before access is granted.
 
-Your application should also [validate the claims and signature](../security/auth/concepts/tokens.md#token-validation)
-for the JWT `access_token` attached by the sidecar.
+Your application should [validate the claims and signature](../security/auth/concepts/tokens.md#token-validation)
+for the JWT Bearer `access_token` attached by the sidecar in the `Authorization` header.
 
 Each provider may have some differences in claims and values; see their specific page for details:
 
@@ -473,7 +516,7 @@ of the tokens returned by the identity provider. In other words, a refresh is on
 
 * Adds the `Authorization` header with the user's JWT access token to the original request if the user has a valid
   session.
-* Removes the `Authorization` header from the original request if the user _does not_ have a valid session.
+* Proxies the original request unmodified to your application, if the user _does not_ have a valid session.
 * Owns the `/oauth2` endpoints [defined above](#endpoints) and intercepts all HTTP requests to these. They will never be
   forwarded to your application.
 * Is safe to enable and use with multiple replicas of your application.
@@ -487,9 +530,21 @@ of the tokens returned by the identity provider. In other words, a refresh is on
 * Validate the user's `access_token` set in the `Authorization` header. The token may be invalid or expired by the time
   your application receives it.
 
-[identity provider]: ../security/auth/concepts/actors.md#identity-provider
-
 ## Development
 
 Wonderwall can be fired up locally if you so desire.
 See the [README on GitHub](https://github.com/nais/wonderwall#docker-compose) for an example setup with Docker Compose.
+
+## Next Steps
+
+The access token that Wonderwall provides should only be accepted and used by your application.
+
+In order to access other applications, you should exchange the token in order to get a new token that is correctly scoped to access a given application.
+
+See the respective identity provider pages for details:
+
+- [ID-porten](../security/auth/idporten/sidecar.md#next-steps)
+- [Azure AD](../security/auth/azure-ad/sidecar.md#next-steps)
+
+[identity provider]: ../security/auth/concepts/actors.md#identity-provider
+[JWT]: ../security/auth/concepts/tokens.md#jwt

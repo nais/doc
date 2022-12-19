@@ -89,10 +89,14 @@ https://<ingress>/oauth2/login?locale=en
 
 ### Token Validation
 
-!!! danger
-    **Your application should secure its own endpoints.** That is, deny access to sensitive endpoints if the appropriate authentication is not supplied.
+!!! danger "Secure your endpoints"
+    **Your application is responsible for securing its own endpoints.**
 
-Your application should also [validate the claims and signature](../concepts/tokens.md#token-validation) for the ID-porten JWT `access_token` attached by the sidecar.
+    - If a request does not contain an `Authorization` header, the request should be considered unauthenticated and access should be denied.
+    - If a request has an `Authorization` header that contains a [JWT], the token must be validated before access is granted.
+
+Your application should [validate the claims and signature](../concepts/tokens.md#token-validation)
+for the JWT Bearer `access_token` attached by the sidecar in the `Authorization` header.
 
 #### Audience
 
@@ -105,3 +109,13 @@ Validate that the `acr` claim exists and that the set level matches the minimum 
 
 * If your endpoint(s) accepts a minimum of `Level3` authentication, you must also accept `Level4`.
 * The inverse should be rejected. That is, applications expecting `Level4` authentication should _NOT_ accept tokens with `acr=Level3`.
+
+## Next Steps
+
+The access token that Wonderwall provides should only be accepted and used by your application.
+
+In order to access other applications, you should exchange the token in order to get a new token that is correctly scoped to access a given application.
+
+For ID-porten, use the [token exchange grant](../concepts/protocols.md#token-exchange-grant) to do this.
+
+[JWT]: ../concepts/tokens.md#jwt

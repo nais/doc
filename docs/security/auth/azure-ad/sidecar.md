@@ -45,9 +45,23 @@ See the [NAIS manifest](../../../nais-application/application.md#azuresidecar) f
 
 ### Token Validation
 
-!!! danger
-    **Your application should secure its own endpoints.** That is, deny access to sensitive endpoints if the appropriate authentication is not supplied.
+!!! danger "Secure your endpoints"
+    **Your application is responsible for securing its own endpoints.**
 
-Your application should also [validate the claims and signature](../concepts/tokens.md#token-validation) for the Azure AD JWT `access_token` attached by the sidecar.
+    - If a request does not contain an `Authorization` header, the request should be considered unauthenticated and access should be denied.
+    - If a request has an `Authorization` header that contains a [JWT], the token must be validated before access is granted.
+
+Your application should [validate the claims and signature](../concepts/tokens.md#token-validation)
+for the JWT Bearer `access_token` attached by the sidecar in the `Authorization` header.
 
 The `aud` (audience) claim must be equal to [your application's client ID](usage.md#azure_app_client_id) in Azure AD.
+
+## Next Steps
+
+The access token that Wonderwall provides should only be accepted and used by your application.
+
+In order to access other applications, you should exchange the token in order to get a new token that is correctly scoped to access a given application.
+
+For Azure AD, use the [on-behalf-of grant](../concepts/protocols.md#on-behalf-of-grant) to do this.
+
+[JWT]: ../concepts/tokens.md#jwt
