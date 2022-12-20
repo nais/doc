@@ -1,11 +1,16 @@
 # Allowed registries
 
 In an effort to minimize risk, we restrict the origin of Docker images to a set of known repositories.
-This ensures that if we get compromised, malicious images can't be pulled directly from an arbitrary source, but must exist at a pre-known location.
+This ensures that if we get compromised, malicious images can't be pulled directly from an arbitrary source, but must
+exist at a pre-known location.
 
 ## How?
-When a resource with a `image` is applied to the cluster, the `image` tag is validated against the [list of allowed sources].
-If the image is not in the list, the resource will not be created, and the user will receive the following error message: 
+
+When a resource with a `image` is applied to the cluster, the `image` tag is validated against
+the [list of allowed sources].
+If the image is not in the list, the resource will not be created, and the user will receive the following error
+message:
+
 ```bash
 Error from server: error when creating "pod.yaml": admission webhook "validate.kyverno.svc-fail" denied the request: 
 
@@ -17,6 +22,7 @@ deny-image-registries:
 ```
 
 ## Images from unlisted registry
+
 Re-tag the image and upload it to Docker Package Registry:
 
 ```bash
@@ -25,6 +31,9 @@ docker tag unlisted/image:tag ghcr.io/orgname/reponame/imagename:tag
 docker push ghcr.io/orgname/reponame/imagename:tag
 ```
 
-Alternatively, in special cases, submit a pull request to the [list of allowed sources] instead.
 
-[list of allowed sources]: https://github.com/nais/kyverno-policies/blob/main/policies/deny-image-registries/resource-allowed-registries-cm.yaml
+Alternatively, in special cases, submit a pull request to the [list of allowed sources for prod gcp] or for all other
+clusters the pull-request goes her [list of allowed sources].
+
+[list of allowed sources for prod gcp]: https://github.com/nais/kyverno-policies/blob/main/policies/deny-image-registries/resource-allowed-registries-cm.yaml
+[list of allowed sources]: https://github.com/nais/helm-charts/blob/main/charts/kyverno-policies/values.yaml
