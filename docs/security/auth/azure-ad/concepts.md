@@ -73,3 +73,36 @@ Your application's Azure AD client ID is available at multiple locations:
 
 1. The environment variable `AZURE_APP_CLIENT_ID`, available inside your application at runtime
 2. In the Kubernetes resource - `kubectl get azureapp <app-name>`
+
+## Groups
+
+A _group_ in Azure AD is a collection of users.
+The group itself can be assigned permissions that allows [access to applications](access-policy.md#groups), data, and resources.
+Members of the group will inherit all permissions that the group has been granted.
+
+### Group Management
+
+There are primarily two ways to create and manage groups in Azure AD:
+
+1. Self-service through Microsoft at <https://mygroups.microsoft.com>, or
+2. "Identrutina" - consult the `#identrutina` Slack channel for assistance. You will also have to ask for the group to be synchronized to Azure AD.
+
+### Group Identifier
+
+Each group is identified by its _object ID_, which is immutable and unique.
+The group _name_ is **not** unique and should **never** be used by itself for authorization purposes.
+
+In other words, two groups within the same tenant with the _exact same name_ will have _different object IDs_.
+Groups with the same name (and "purpose") will also have different IDs across different [tenants](#tenants).
+
+You can find the object ID for a given group in two ways:
+
+1. Visit <https://mygroups.microsoft.com> and find the desired group.
+
+    Browsing the detailed view for the group should reveal the ID in the address bar within the query parameter `objectId`.
+
+2. Visit the Groups view in the Azure AD Portal: <https://aad.portal.azure.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/AllGroups>
+
+    You should be able to search and filter the list of groups.
+
+    Consult the `#tech-azure` Slack channel for assistance if you do not have access to this page. Check the pinned/bookmarked posts first.
