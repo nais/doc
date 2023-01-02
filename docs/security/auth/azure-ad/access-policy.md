@@ -172,9 +172,37 @@ The above configuration grants the application `app-a` the role `custom-role`.
     
     All clients defined in the [access policy](#access-policy) will by default have the role `access_as_application`.
 
+## Groups
+
+Sometimes it is desirable to restrict access to your application to smaller groups of users.
+This can be done by explicitly declaring which [Azure AD groups](concepts.md#groups) are allowed to access the application:
+
+```yaml hl_lines="5-7"
+spec:
+  azure:
+    application:
+      enabled: true
+      claims:
+        groups:
+          - id: "<object ID of group in Azure AD>"
+```
+
+!!! warning
+
+    **Ensure that the [object ID](concepts.md#group-identifier) for the group actually exists in Azure AD for your environment.**
+
+    Non-existing groups will be skipped.
+
+Azure AD will now only allow sign-ins and token exchanges with the on-behalf-of flow if a given user is a _direct_ member of at least _one of_ the groups declared.
+
+This also controls the [`groups` claim](configuration.md#groups) for a user token.
+
 ## Users
 
-By default, all users within the tenant are allowed to log in to your application. This behaviour is toggleable:
+By default, only direct members of [groups that are explicitly assigned](#groups) to your application are allowed to access the application.
+If no groups are assigned, then no end-users will have access to your application.
+
+If you want to allow _all_ users in the Azure AD tenant to access your application, you must explicitly enable this:
 
 ```yaml hl_lines="5"
 spec:
@@ -184,29 +212,7 @@ spec:
       allowAllUsers: true
 ```
 
-## Groups
+This applies for your application if it does at least one of the following:
 
-For some use cases, it is desirable to restrict access to smaller groups of users.
-
-This can be done by disallowing all users and explicitly declaring which groups are allowed to access the application:
-
-```yaml hl_lines="5-8"
-spec:
-  azure:
-    application:
-      enabled: true
-      allowAllUsers: false
-      claims:
-        groups:
-          - id: "<object ID of group in Azure AD>"
-```
-
-!!! warning
-
-    **Ensure that the object ID for the group is valid, and that the group actually exists in Azure AD.**
-
-    Non-existing groups will be skipped.
-
-Azure AD will now only allow sign-ins and token exchanges with the on-behalf-of flow if a given user is a _direct_ member of at least _one of_ the groups declared.
-
-This also controls the [`groups` claim](configuration.md#groups) for a user token.
+- Performs sign-ins of end-users using the [OpenID Connect Auth Code flow](usage.md#openid-connect-authorization-code-flow)
+- Has consumers that performs exchanges of end-user tokens using the [OAuth 2 On-behalf-of flow](usage.md#oauth-20-on-behalf-of-grant)

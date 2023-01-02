@@ -29,10 +29,8 @@ See the complete specification in the [NAIS manifest](../../../nais-application/
             groups:
               - id: "<object ID of Azure AD group>"
 
-          # optional; if omitted:
-          # - false if claims.groups is defined
-          # - true otherwise
-          allowAllUsers: true
+          # optional, defaults shown:
+          allowAllUsers: false
 
           # optional, defaults shown
           singlePageApplication: false
@@ -177,14 +175,13 @@ These additional claims only affect tokens that are acquired where your applicat
 The `groups` claim in user tokens is by default omitted due to potential issues with the token's size when used in cookies.
 
 Sometimes however, it is desirable to check for group membership for a given user's token.
-Start by defining all Azure AD group IDs that should appear in user tokens:
+Start by defining all [Azure AD group](concepts.md#groups) IDs that should appear in user tokens:
 
 ```yaml hl_lines="5-8"
 spec:
   azure:
     application:
       enabled: true
-      allowAllUsers: true
       claims:
         groups:
           - id: "<object ID of group in Azure AD>"
@@ -192,21 +189,9 @@ spec:
 
 !!! warning
 
-    **Ensure that you include the `allowAllUsers` field and set the value to your desired behaviour.**
+    **Ensure that the [object ID](concepts.md#group-identifier) for the group actually exists in Azure AD for your environment.**
 
-    If undefined, `allowAllUsers` will default to `false` if the list of `groups` is not empty. 
-    This means that Azure AD only allows access to [users in the defined groups](access-policy.md#groups).
-
-    Conversely, `allowAllUsers` defaults to `true` if `groups` is undefined or empty.
-
-!!! warning
-
-    **Ensure that the object ID for the group actually exists in Azure AD for your environment.**
-
-    Beware that the AAD tenant for dev is not the same as for prod, so even if both contain the same group name there may be two different object IDs.
-    
     Non-existing groups (object IDs) will be skipped.
-    
 
 Now all user tokens acquired for your application will include the `groups` claim.
 
