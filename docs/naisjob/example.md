@@ -99,16 +99,13 @@ spec:
   failedJobsHistoryLimit: 2
   filesFrom:
   - configmap: example-files-configmap
-    emptyDir: {}
     mountPath: /var/run/configmaps
-  - emptyDir: {}
-    mountPath: /var/run/secrets
+  - mountPath: /var/run/secrets
     secret: my-secret-file
   - emptyDir:
       medium: Memory
     mountPath: /var/cache
-  - emptyDir: {}
-    mountPath: /var/run/pvc
+  - mountPath: /var/run/pvc
     persistentVolumeClaim: pvc-name
   gcp:
     bigQueryDatasets:
