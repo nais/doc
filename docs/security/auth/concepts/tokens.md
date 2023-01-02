@@ -227,37 +227,64 @@ the request should be rejected.
 
 ID Tokens have a defined set of standard claims and steps required for validation of these in the
 [OIDC Core specification, Section 3.1.3.7](https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation).
+Validation of JWT Access Tokens is specified in [RFC 9068](https://datatracker.ietf.org/doc/html/rfc9068).
+As the specification is relatively new however, it is not fully supported by many of our providers.
 
-Access Tokens has an equivalent specification for validation in
-[RFC 9068](https://datatracker.ietf.org/doc/html/rfc9068). However, many of our providers do not fully support this
-specification as it is relatively new.
-
-The most important claims to validate are the following:
+Generally speaking, the most important JWT claims to validate are the following:
 
 - `iss` (**issuer**)
     - The issuer of the token. This should be exactly equal to the [issuer](actors.md#issuer) property declared by the
       provider's [metadata document](actors.md#well-known-url-metadata-document)
-- `sub` (**subject**)
-    - The principal that is the subject of the token. Usually an identifier for the end-user or client that requests a
-      resource.
 - `aud` (**audience**)
     - The expected recipient of the token.
     - The value of this is usually a unique identifier such as a [client ID](actors.md#client-id) that belongs to either
-      a [client](actors.md#client) or [resource server](actors.md#resource-server) that the token is intended for.
+      the [client](actors.md#client) or [resource server](actors.md#resource-server) that the token is intended for.
     - This claim is unspecified for access tokens from [ID-porten](../idporten/README.md). The `client_id` claim is used
       in this case.
 - `exp` (**expiration time**)
     - The timestamp for which the token expires, in unix time (seconds since epoch). The token is invalid if it is used
-      afer this time.
-- `nbf` (**not before time**)
-    - The timestamp for which the token is considered valid, in unix time (seconds since epoch). The token is invalid if
-      it is used before this time.
+      after this time.
 - `iat` (**issued at time**)
     - The timestamp for which the token was issued, in unix time (seconds since epoch). This can be used to determine
       the age of the token.
+- `nbf` (**not before time**)
+    - The timestamp for which the token is considered valid, in unix time (seconds since epoch). The token is invalid if
+      it is used before this time.
+    - This is an optional claim, but it is often included.
 
-If any of these claims are missing or contain unexpected values, validation should fail and the token should be
-rejected.
+If any of the above claims are missing or contain unexpected values, validation should fail and the token should be
+rejected. Most libraries will have implementations to validate these claims as they're fairly standard.
+
+#### Azure AD
+
+List of notable claims for access tokens from Azure AD that might be useful:
+
+- `azp` (**authorized party**)
+    - The [client ID](actors.md#client-id) of the application that requested the token.
+- `groups` (**groups**)
+    - JSON array of object IDs for Azure AD groups.
+    - In order for a group to appear in the claim, all the following conditions must be true:
+      - The given user is a direct member of the group.
+      - The group is [assigned to the client](../azure-ad/configuration.md#groups).
+- `oid` (**object ID**)
+    - The unique identifier for the _principal_ (either a user or an application) within Azure AD.
+    - For machine-to-machine tokens (from the [client credentials flow](../azure-ad/usage.md#oauth-20-client-credentials-grant)), the value of `oid` is equal to the value of `sub`.
+- [Extra NAV-specific claims](../azure-ad/configuration.md#extra) that can be added to tokens for your client.
+
+See <https://learn.microsoft.com/en-us/azure/active-directory/develop/access-tokens#claims-in-access-tokens> for a complete list of claims.
+Tokens in NAV are v2.0 tokens.
+
+#### ID-porten
+
+List of notable claims for access tokens from ID-porten that might be useful:
+
+- `acr` (**Authentication Context Class Reference**)
+    - The security level used for authenticating the end-user.
+    - Valid values are `Level3` (MinID) or `Level4` (BankID, Buypass, Commfides, etc.)
+- `pid` (**personidentifikator**)
+    - The Norwegian national ID number (fødselsnummer/d-nummer) of the authenticated end user.
+
+See <https://docs.digdir.no/docs/idporten/oidc/oidc_protocol_access_token> for the complete list of claims.
 
 ### Best Practices
 
