@@ -164,7 +164,14 @@ Unless specified otherwise, all clients we use are confidential clients.
 ### Client ID
 
 A client ID is a unique identifier associated with your client for a given identity provider. The value of the
-identifier is generally not considered to be confidential.
+identifier is generally not considered to be confidential. 
+
+The client ID for your client is injected at runtime as an environment variable. 
+See the respective identity provider page for details:
+
+- [Azure AD](../azure-ad/usage.md#azure_app_client_id)
+- [ID-porten](../idporten/README.md#idporten_client_id)
+- [TokenX](../tokenx.md#token_x_client_id)
 
 ### Client Authentication
 
