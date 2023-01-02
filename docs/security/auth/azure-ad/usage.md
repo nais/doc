@@ -34,8 +34,9 @@ permissions should be propagated through each service/web API.
      - The `scope` parameter in the request should thus be `api://<cluster>.<namespace>.<app-name>/.default`
      - The token returned from Azure AD will have an `aud` claim with a value equal to the client ID of the downstream API. Your resource server does not need to validate this token.
 3. Your resource server performs the request to the downstream API by using the token as a [Bearer token](../concepts/tokens.md#bearer-token).
-4. Repeat step 2 and 3 for each unique API that your application consumes.
-5. The downstream API(s) may continue the call chain starting from step 1.
+4. The downstream API [validates the token](../concepts/tokens.md#token-validation) and returns a response.
+5. Repeat step 2 and 3 for each unique API that your application consumes.
+6. The downstream API(s) may continue the call chain starting from step 1.
 
 See [Microsoft identity platform and OAuth 2.0 On-Behalf-Of flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow).
 
@@ -55,8 +56,9 @@ This grant is used for pure machine-to-machine authentication, i.e. interactions
      - The `scope` parameter in the request should thus be `api://<cluster>.<namespace>.<app-name>/.default`
      - The token returned from Azure AD will have an `aud` (audience) [claim](../concepts/tokens.md#claims-validation) with a value equal to the client ID of the downstream API. Your client does not need to validate this token.
 2. Your resource server performs the request to the downstream API by using the token as a [Bearer token](../concepts/tokens.md#bearer-token).
-3. Repeat step 1 and 2 for each unique API that your application consumes.
-4. The downstream API(s) may continue the call chain by starting from step 1.
+3. The downstream API [validates the token](../concepts/tokens.md#token-validation) and returns a response.
+4. Repeat step 1 and 2 for each unique API that your application consumes.
+5. The downstream API(s) may continue the call chain by starting from step 1.
 
 See [Microsoft identity platform and the OAuth 2.0 client credentials flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow).
 
