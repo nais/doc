@@ -25,10 +25,11 @@ nais postgres prepare appname
 |-------------|-----------|-------------------------------------------------------------|
 | appname     | Yes       | Name of application owning the database                     |
 
-| Flag      | Required | Short |Default                       |Description                                  |
-|-----------|----------|-------|------------------------------|---------------------------------------------|
-| namespace | No       | -n    | namespace set in kubeconfig  | Kubernetes namespace where app is deployed  |
-| cluster   | No       | -c    | context set in kubeconfig    | Kubernetes context where app is deployed    |
+| Flag      | Required | Short |Default                       |Description                                              |
+|-----------|----------|-------|------------------------------|---------------------------------------------------------|
+| namespace | No       | -n    | namespace set in kubeconfig  | Kubernetes namespace where app is deployed              |
+| cluster   | No       | -c    | context set in kubeconfig    | Kubernetes context where app is deployed                |
+| all-privs | No       |       | false                        | If true `ALL` is granted, else only `SELECT` is granted |
 
 ## grant
 Grant yourself access to a Postgres database.
