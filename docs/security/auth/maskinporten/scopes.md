@@ -163,6 +163,7 @@ The following describes the steps needed to migrate a scope registered in [IaC r
 ??? info 
     `clutser, metadata.namespace and metadata.name` containing `-` should be joined with `` instead. 
     `subscope` is described her [subscope](#subscope) without the `nav:` prefix.
+    Example: `mycluster:mynamespace:myapp.my/scope.read`
 
 #### Step 2 - IaC repository provisioning the scope client to Digdir.
 
