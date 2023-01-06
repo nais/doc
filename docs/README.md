@@ -1,5 +1,5 @@
 ---
-ᴴₒᴴₒᴴₒ: true
+ᴴₒᴴₒᴴₒ: false
 ---
 # It is NAIS to be a developer at NAV
 
