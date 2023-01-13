@@ -32,11 +32,11 @@ Team membership is managed in NAIS console.
 
 ## Access to API keys
 
-In order to access _team API keys_, go to [deploy.nais.io](https://deploy.nais.io/). Here you will find API keys for all teams you are a member of.
+In order to access _team API keys_, go to [deploy.nav.cloud.nais.io](https://deploy.nav.cloud.nais.io/). Here you will find API keys for all teams you are a member of.
 
 ### Rotate API key
 
-Go to [deploy.nais.io](https://deploy.nais.io/) and click on the "Rotate key" button, a pop-up will ask you to confirm the rotation.
+Go to [deploy.nav.cloud.nais.io](https://deploy.nav.cloud.nais.io/) and click on the "Rotate key" button, a pop-up will ask you to confirm the rotation.
 
 ## Team namespaces
 
