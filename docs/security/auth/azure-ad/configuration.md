@@ -201,9 +201,12 @@ spec:
 
 !!! warning
 
-    **Ensure that the object ID for the group is valid, and that the group actually exists in Azure AD.**
+    **Ensure that the object ID for the group actually exists in Azure AD for your environment.**
 
-    Non-existing groups will be skipped.
+    Beware that the AAD tenant for dev is not the same as for prod, so even if both contain the same group name there may be two different object IDs.
+    
+    Non-existing groups (object IDs) will be skipped.
+    
 
 Now all user tokens acquired for your application will include the `groups` claim.
 
