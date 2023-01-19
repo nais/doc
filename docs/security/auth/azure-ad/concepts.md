@@ -90,22 +90,24 @@ There are primarily two ways to create and manage groups in Azure AD:
 ### Group Identifier
 
 Each group is identified by its _object ID_, which is immutable and unique.
+
 The group _name_ is **not** unique and should **never** be used by itself for authorization purposes.
 
 In other words, two groups within the same tenant with the _exact same name_ will have _different object IDs_.
 Groups with the same name will also have different IDs across different [tenants](#tenants).
 
+### Finding the group identifier
+
 You can find the object ID for a given group in two ways.
 
 First, make sure that you're logged in with an account with a domain that matches one of the [tenants](#tenants).
+Then, do one of the following:
 
-Then, you can do one of the following:
-
-1. Visit <https://mygroups.microsoft.com> and find the desired group.
+1. If you either own or are a direct member of the group, visit <https://mygroups.microsoft.com> and find the desired group.
 
     Browsing the detailed view for the group should reveal the ID in the address bar within the query parameter `objectId`.
 
-2. Visit the Groups view in the Azure AD Portal: <https://aad.portal.azure.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/AllGroups>
+2. Otherwise, visit the Groups view in the Azure AD Portal: <https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/AllGroups>
 
     You should be able to search and filter the list of groups.
 
