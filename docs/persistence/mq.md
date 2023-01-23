@@ -58,12 +58,24 @@ We have three environments for MQ: `QA`, `TEST`, and `PROD`.
 
 === "PROD"
 
-    | QueueManager   | Hostname                 | Port |
+For production environment there is a high availability solution in place that
+offers higher availability than the standard MQ solution. Assumes that the app
+reconnects in the event of an error such as "connection broken"
+Replace the hostname with the one from the table below. 
+
+    | QueueManager   | Hostname                 | Port |  
     | -------------- | ------------------------ | ---- |
-    | MPLS01         | a01apvl247.adeo.no       | 1414 |
-    | MPLS02         | a01apvl269.adeo.no       | 1414 |
-    | MPLS03         | a01apvl270.adeo.no       | 1414 |
-    | MPLS04         | a01apvl271.adeo.no       | 1414 |
+    | MPLS01         | mpls01.adeo.no           | 1414 |
+    | MPLS02         | mpls02.adeo.no           | 1414 |
+    | MPLS03         | mpls03.adeo.no           | 1414 |
+    | MPLS04         | mpls04.adeo.no           | 1414 |
+
+ ~~ | QueueManager   | Hostname                 | Port | ~~
+ ~~ | -------------- | ------------------------ | ---- | ~~
+ ~~ | MPLS01         | a01apvl247.adeo.no       | 1414 | ~~
+ ~~ | MPLS02         | a01apvl269.adeo.no       | 1414 | ~~
+ ~~ | MPLS03         | a01apvl270.adeo.no       | 1414 | ~~
+ ~~ | MPLS04         | a01apvl271.adeo.no       | 1414 | ~~
 
 
 These servers are available from on-premises and GCP alike.
@@ -103,15 +115,3 @@ Using the TLS certificates can be done by setting these environment variables:
 * ``` "javax.net.ssl.keyStorePassword" = $YOUR_MQ_TLS_KEYSTORE_PASSWORD```
 * ``` "javax.net.ssl.keyStoreType" = "jks" ```
 
-## High availability
-
-For production environment there is a high availability solution in place that
-offers higher availability than the standard MQ solution. Replace the hostname
-with the one from the table below.
-
-| QueueManager   | Hostname                 | Port |
-| -------------- | ------------------------ | ---- |
-| MPLS01         | mpls01.adeo.no           | 1414 |
-| MPLS02         | mpls02.adeo.no           | 1414 |
-| MPLS03         | mpls03.adeo.no           | 1414 |
-| MPLS04         | mpls04.adeo.no           | 1414 |
