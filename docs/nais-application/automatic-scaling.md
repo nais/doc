@@ -47,10 +47,6 @@ spec:
         averageValue: 150
 ```
 
-!!! info 
-    The platform provides metrics from the LinkerD sidecar by default: `linkerd_request_total`.
-    This metric contains the rate of inbound requests.
-
 ## Scaling based on external metrics
 External metrics are provided by the platform for services external to the application, i.e. Kafka lag.
 If you want your application to scale based on external metrics, replace the metrics section of the previous example with the one below.
