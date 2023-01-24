@@ -9,7 +9,8 @@ If this is not the case, head over to the [installation instructions](./install.
 
 If you don't already have naisdevice installed via Homebrew, refer to [installation instructions](./install.md).
 
-Use the [standard mechanisms provided by Homebrew](https://docs.brew.sh/FAQ#how-do-i-update-my-local-packages) to upgrade the `naisdevice` cask
+To update run Privileges.app before opening a Terminal window.
+In the window paste the following code: "brew update && brew upgrade naisdevice"
 
 ### Windows
 
