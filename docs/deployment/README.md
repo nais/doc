@@ -130,7 +130,7 @@ You can still use NAIS deploy even if not using GitHub Actions. Our deployment c
 
 === "Docker usage"
     ```text
-    docker run -it --rm -v $(pwd):/nais /navikt/deployment:v1 \
+    docker run -it --rm -v $(pwd):/nais ghcr.io/nais/deploy/deploy:v1 \
       /app/deploy \
         --apikey="$NAIS_DEPLOY_APIKEY" \
         --cluster="$CLUSTER" \
