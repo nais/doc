@@ -58,10 +58,8 @@ We have three environments for MQ: `QA`, `TEST`, and `PROD`.
 
 === "PROD"
 
-For production environment there is a high availability solution in place that
-offers higher availability than the standard MQ solution. Assumes that the app
-reconnects in the event of an error such as "connection broken"
-Replace the hostname with the one from the table below. 
+For production environment there is a high availability solution in place that offers higher availability than the standard MQ solution.
+Assumes that the app reconnects in the event of an error such as "connection broken".
 
     | QueueManager   | Hostname                 | Port |  
     | -------------- | ------------------------ | ---- |
