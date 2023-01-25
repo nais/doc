@@ -262,10 +262,10 @@ List of notable claims for access tokens from Azure AD that might be useful:
 - `azp` (**authorized party**)
     - The [client ID](actors.md#client-id) of the application that requested the token.
 - `groups` (**groups**)
-    - JSON array of object IDs for Azure AD groups.
+    - JSON array of object IDs for [Azure AD groups](../azure-ad/concepts.md#groups).
     - In order for a group to appear in the claim, all the following conditions must be true:
-      - The given user is a direct member of the group.
-      - The group is [assigned to the client](../azure-ad/configuration.md#groups).
+        - The given user is a direct member of the group.
+        - The group is [assigned to the client](../azure-ad/configuration.md#groups).
 - `oid` (**object ID**)
     - The unique identifier for the _principal_ (either a user or an application) within Azure AD.
     - For machine-to-machine tokens (from the [client credentials flow](../azure-ad/usage.md#oauth-20-client-credentials-grant)), the value of `oid` is equal to the value of `sub`.
