@@ -42,3 +42,6 @@ spec:
 The secret is then exposed under the path specified by `spec.filesFrom[].mountPath` \(default `/var/run/secrets`\). For this example it is available at `/var/run/secrets/key1`.
 
 See the official [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/secret) or by running `kubectl create secret generic --help` for more details on creating and managing your secrets.
+
+## Relevant information
+[Secret reloading](https://docs.nais.io/nais-application/config-reloading/?h=config)
