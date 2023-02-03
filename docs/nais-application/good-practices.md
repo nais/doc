@@ -1,5 +1,26 @@
 This document describes the different properties a NAIS application should have.
 
+In general, NAIS applications should be inspired by the [Twelve Factor App](https://12factor.net) manifesto.
+
+## Use environment variables for configuration
+
+Configuration is all the things that is likely to change when you deploy the application in a different environment.
+
+Putting these things in the application itself makes it harder to adjust for a new environment.
+Instead, the application should read these from the environment variables available and behave accordingly.
+
+By putting configuration in environment variables, it is easier to reason about the configuration for a running application.
+
+One could be tempted to put configuration in files, with separate files for each environment, but the risk is that these files now needs to be managed for each environment.
+Another common pitfall is to define the environments in your application and provide a single configuration to select environment.
+This has the downfall of increasing the maintenance burden if you ever decide to add additional environments.
+
+Note that in this definition, secrets (database credentials, certificates, API tokens etc.) are configuration, and should be read from environment variables.
+
+Both ConfigMap and Secret are Kubernetes resources that can be exposed to an application as environment variables.
+See [envFrom ConfigMap](https://doc.nais.io/nais-application/application/#envfromconfigmap), and [envFrom Secret](https://doc.nais.io/nais-application/application/#envfromsecret) for more details.
+
+
 ## Set reasonable resource requests and limits
 
 Setting reasonable resource `requests` and `limits` helps keep the clusters healthy, while not wasting resources.
