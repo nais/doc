@@ -32,8 +32,6 @@ docker push ghcr.io/orgname/reponame/imagename:tag
 ```
 
 
-Alternatively, in special cases, submit a pull request to the [list of allowed sources for prod gcp] or for all other
-clusters the pull-request goes her [list of allowed sources].
+Alternatively, in special cases, submit a pull request to the [list of allowed sources].
 
-[list of allowed sources for prod gcp]: https://github.com/nais/kyverno-policies/blob/main/policies/deny-image-registries/resource-allowed-registries-cm.yaml
 [list of allowed sources]: https://github.com/nais/helm-charts/blob/main/charts/kyverno-policies/values.yaml
