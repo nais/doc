@@ -8,7 +8,7 @@
 
 ### macOS Installation
 
-1. [Install the Kolide agent](#install-kolide-agent). 
+1. [Install the Kolide agent](install.md#install-kolide-agent). 
     
     The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the NAIS team and should be followed to keep your device safe.
 
