@@ -1,24 +1,57 @@
-
 # Avro and schema
 
 !!! warning
     This feature applies only to _Aiven hosted Kafka_. On-premises Kafka is deprecated, and creating new topics on-premises was disabled summer 2021. For on-premises Kafka, see [on-premises Kafka documentation](https://confluence.adeo.no/display/AURA/Kafka).
 
-## Delete schema
+The easiest way to communicate with the API is to use `curl` from one of your Kafka-pods, so that you have easy access to both the schema registry URL and the username/password.
 
-You can delete schemaes (or versions) using the REST-API for the schema registry.
-The easiest way to communicate with the API is to use curl from one of your Kafka-pods, so that you have easy access to both the schema registry URL and the username/password.
+## Register schema
 
-In order to delete version 10 of the schema registered under subject "test-key" (if it exists):
+To register the first version of a schema under the subject "team.test-key" using **Avro schema**:
 
 ```
-$ curl -X DELETE -u brukernavn:passord http://$KAFKA_SCHEMA_REGISTRY/subjects/test-key/versions/10
+$ curl -X POST -u $KAFKA_SCHEMA_REGISTRY_USER:$KAFKA_SCHEMA_REGISTRY_PASSWORD -H "Content-Type: application/vnd.schemaregistry.v1+json" \
+  --data '{"schema": "{\"type\": \"record\", \"name\": \"Obj\", \"fields\":[{\"name\": \"age\", \"type\": \"int\"}]}"}' \
+  $KAFKA_SCHEMA_REGISTRY/subjects/team.test-key/versions
+```
+
+To register a version of a schema using **JSON Schema**, one needs to use schemaType property:
+
+```
+$ curl -X POST -u $KAFKA_SCHEMA_REGISTRY_USER:$KAFKA_SCHEMA_REGISTRY_PASSWORD -H "Content-Type: application/vnd.schemaregistry.v1+json" \
+  --data '{"schemaType": "JSON", "schema": "{\"type\": \"object\",\"properties\":{\"age\":{\"type\": \"number\"}},\"additionalProperties\":true}"}' \
+  $KAFKA_SCHEMA_REGISTRY/subjects/team.test-key/versions
+```
+
+## List versions of a schema
+
+To list all the versions of a given schema (including the one just created above):
+
+```
+$ curl -u $KAFKA_SCHEMA_REGISTRY_USER:$KAFKA_SCHEMA_REGISTRY_PASSWORD $KAFKA_SCHEMA_REGISTRY/subjects/team.test-key/versions
+```
+
+## Fetch specific version of a schema
+
+To get the specific version 1 of the schema just registered run:
+
+```
+$ curl -u $KAFKA_SCHEMA_REGISTRY_USER:$KAFKA_SCHEMA_REGISTRY_PASSWORD $KAFKA_SCHEMA_REGISTRY/subjects/team.test-key/versions/1
+```
+
+## Delete schema
+
+In order to delete version 10 of the schema registered under subject "team.test-key" (if it exists):
+
+```
+$ curl -X DELETE -u $KAFKA_SCHEMA_REGISTRY_USER:$KAFKA_SCHEMA_REGISTRY_PASSWORD $KAFKA_SCHEMA_REGISTRY/subjects/team.test-key/versions/10
   10
 ```
 
-To delete all versions of the schema registered under subject "test-key":
+To delete all versions of the schema registered under subject "team.test-key":
+
 ```
-$ curl -X DELETE -u brukernavn:passord http://$KAFKA_SCHEMA_REGISTRY/subjects/test-key
+$ curl -X DELETE -u $KAFKA_SCHEMA_REGISTRY_USER:$KAFKA_SCHEMA_REGISTRY_PASSWORD $KAFKA_SCHEMA_REGISTRY/subjects/team.test-key
   [1]
 ```
 
