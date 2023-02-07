@@ -1,6 +1,7 @@
 # IBM MQ
 
-[IBM MQ][ibm-mq] is a message broker that is used for storing and querying data. It is a good choice for storing data that is not relational in nature. MQ is considered legacy technology and we suggest using [Kafka](./kafka/README.md) for all new applications
+[IBM MQ][ibm-mq] IBM MQ supports the exchange of information between applications, systems, services and files by sending and receiving message data via messaging queues. This simplifies the creation and maintenance of business applications. IBM MQ works with a broad range of computing platforms, and can be deployed across a range of different environments including on-premise, in cloud, and hybrid cloud deployments. IBM MQ supports a number of different APIs including Message Queue Interface (MQI), Java Message Service (JMS), REST, .NET, IBM MQ Light and MQTT.
+We recommend using kafka where possible and sensible [Kafka](./kafka/README.md) for all new applications
 
 [ibm-mq]: https://www.ibm.com/docs/en/ibm-mq/9.0
 
@@ -51,10 +52,10 @@ We have three environments for MQ: `QA`, `TEST`, and `PROD`.
 
     | QueueManager   | Hostname                 | Port |
     | -------------- | ------------------------ | ---- |
-    | MQLS01         | b27apvl219.preprod.local | 1413 |
-    | MQLS02         | b27apvl220.preprod.local | 1413 |
-    | MQLS03         | b27apvl221.preprod.local | 1413 |
-    | MQLS04         | b27apvl222.preprod.local | 1413 |
+    | MQLS01         | mqls01.preprod.local     | 1413 |
+    | MQLS02         | mqls02.preprod.local     | 1413 |
+    | MQLS03         | mqls03.preprod.local     | 1413 |
+    | MQLS04         | mqls04.preprod.local     | 1413 |
 
 === "PROD"
 
@@ -68,13 +69,7 @@ Assumes that the app reconnects in the event of an error such as "connection bro
     | MPLS03         | mpls03.adeo.no           | 1414 |
     | MPLS04         | mpls04.adeo.no           | 1414 |
 
- ~~ | QueueManager   | Hostname                 | Port | ~~
- ~~ | -------------- | ------------------------ | ---- | ~~
- ~~ | MPLS01         | a01apvl247.adeo.no       | 1414 | ~~
- ~~ | MPLS02         | a01apvl269.adeo.no       | 1414 | ~~
- ~~ | MPLS03         | a01apvl270.adeo.no       | 1414 | ~~
- ~~ | MPLS04         | a01apvl271.adeo.no       | 1414 | ~~
-
+ 
 
 These servers are available from on-premises and GCP alike.
 
