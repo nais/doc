@@ -149,7 +149,7 @@ nav:
           - Observability:
                 - Observability Overview: observability/README.md
                 - Metrics: observability/metrics.md
-                - Alerts: observability/metrics.md
+                - Alerts: observability/alerts.md
                 - Logs:
                       - Logs Overview: observability/logs/README.md
                       - Examples: observability/logs/examples.md
