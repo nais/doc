@@ -1,6 +1,6 @@
 # Alerts
 
-If your application is [serving metrics](./metrics.md), you can create alerts to notify your team when something happens. The team is notified in the Slack channel specified in `Console` `https://console.nav.cloud.nais.io`
+If your application is [serving metrics](./metrics.md), you can create alerts to notify your team when something happens. The team is notified in the Slack channel specified in [Console](https://console.nav.cloud.nais.io)
 
 You can define alerts by using Kubernetes resources (`PrometheusRule`), as well as directly in Grafana (GUI based).
 
