@@ -86,8 +86,6 @@ Alerts are a way to notify you when something is wrong with your application, an
 
 Alerts in NAIS are based on application metrics and use [Prometheus Alertmanager][alertmanager] to send notifications to Slack.
 
-The [`alert`](./alerts/) resource can be used to configure alerts for your applications.
-
 [alertmanager]: https://prometheus.io/docs/alerting/latest/alertmanager/
 
 ```mermaid
@@ -97,7 +95,7 @@ graph LR
   Alertmanager --> Slack
 ```
 
-[:octicons-arrow-right-24: Configure your alerts](./alerts/)
+[:octicons-arrow-right-24: Read more about alerts](./alerts.md)
 
 ## Learning more
 
