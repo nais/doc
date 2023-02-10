@@ -1,6 +1,6 @@
 # Alerts
 
-If your application is [serving metrics](./metrics.md), you can create alerts to notify your team when something happens. The team is notified in the Slack channel specified in `Console` `https://console.nav.cloud.nais.io`
+If your application is [serving metrics](../metrics.md), you can create alerts to notify your team when something happens. The team is notified in the Slack channel specified in `Console` `https://console.nav.cloud.nais.io`
 
 You can define alerts by using Kubernetes resources (`PrometheusRule`), as well as directly in Grafana (GUI based).
 
@@ -64,17 +64,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: deploy to dev
+      - name: deploy to dev-gcp
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: dev
+          CLUSTER: dev-gcp
           RESOURCE: /path/to/alerts.yaml
-      - name: deploy to prod
+      - name: deploy to prod-gcp
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: prod
+          CLUSTER: prod-gcp
           RESOURCE: /path/to/alerts.yaml
 ```
 
@@ -83,9 +83,9 @@ jobs:
 ### Writing the `expr`
 
 In order to minimize the feedback loop we suggest experimenting on the Prometheus server to find the right metric for your alert and the notification threshold.
-The Prometheus server can be found in each cluster, at `https://prometheus.{env}.nav.cloud.nais.io` (e.g. https://prometheus.dev.nav.cloud.nais.io).
+The Prometheus server can be found in each cluster, at `https://prometheus.{env}.nav.cloud.nais.io` (e.g. [https://prometheus.dev-gcp.nav.cloud.nais.io](https://prometheus.dev-gcp.nav.cloud.nais.io)).
 
-You can also visit the Alertmanager at `https://alertmanager.{env}.nav.cloud.nais.io` (e.g. https://alertmanager.dev.nav.cloud.nais.io) to see which alerts are triggered now (you can also silence already triggered alerts).
+You can also visit the Alertmanager at `https://alertmanager.{env}.nav.cloud.nais.io` (e.g. [https://alertmanager.dev-gcp.nav.cloud.nais.io](https://alertmanager.dev-gcp.nav.cloud.nais.io)) to see which alerts are triggered now (you can also silence already triggered alerts).
 
 ### `for`
 
