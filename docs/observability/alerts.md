@@ -18,6 +18,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: my-alert
+  namespace: <team namespace>
 spec:
   groups:
   - name: my-alert
