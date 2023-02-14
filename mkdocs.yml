@@ -161,6 +161,8 @@ nav:
                       - Application: persistence/kafka/application.md
                       - Grafana metrics: persistence/kafka/metrics.md
                       - Manage topics: persistence/kafka/manage_topics.md
+                      - Topic reference: persistence/kafka/topic.md
+                      - Topic example: persistence/kafka/topic_example.md
                       - Migrate from onprem: persistence/kafka/migrate_from_onprem.md
                       - Avro and REST: persistence/kafka/avro_and_rest.md
                       - Working with Kafka Offsets: persistence/kafka/offsets.md

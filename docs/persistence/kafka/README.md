@@ -12,5 +12,3 @@ For a list of variables, see [accessing topics from an application](manage_topic
 
 * Release status: Generally Available
 * Availability: NAIS GCP, NAIS on-premises, legacy infrastructure on-premises
-
-Follow development on the [PIG-Aiven Trello board](https://trello.com/b/O0EvBshY/pig-aiven).
