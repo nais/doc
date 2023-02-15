@@ -269,7 +269,7 @@ graph LR
       schedule: "*/1 * * * *"
       env:
         - name: PUSH_GATEWAY_ADDRESS
-          value: nais-prometheus-pushgateway.nais:9091
+          value: prometheus-pushgateway.nais-system:9091
       accessPolicy:
         outbound:
           rules:
