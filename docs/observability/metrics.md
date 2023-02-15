@@ -273,8 +273,8 @@ graph LR
       accessPolicy:
         outbound:
           rules:
-            - application: prometheus
-              namespace: nais
+            - application: prometheus-pushgateway
+              namespace: nais-system
     ```
 
 === "PushMetrics.java"
