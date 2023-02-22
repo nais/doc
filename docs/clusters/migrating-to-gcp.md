@@ -221,7 +221,6 @@ If your application stores personally identifiable information in any GCP data s
 | Laptop access | ✔️ | ✔️ |  |
 | domain: dev.intern.nav.no |  | ✔️ \(Automatic\) | Wildcard DNS points to GCP load balancer |
 | Access to FSS services  |  | ✔️ | Identical \(either API-gw or [TokenX](../security/auth/tokenx.md). May require a proxy app, see [FAQ](#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp) for details. |
-| OpenAM (ESSO) | ✔️ | ✔️ | OpenAM is available for existing application, but it is EOL. We recommend migrating to [TokenX](../security/auth/tokenx.md) |
 | NAV truststore | ✔️ | ✔️ |  |
 | PVK required | ✔️ | ✔️ | amend to cover storage in cloud |
 | Security | Zone Model | [zero-trust](../appendix/zero-trust.md) |  |
