@@ -19,6 +19,8 @@ kind: PrometheusRule
 metadata:
   name: my-alert
   namespace: <team namespace>
+  labels:
+    team: <team>
 spec:
   groups:
   - name: my-alert
