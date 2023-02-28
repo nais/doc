@@ -224,7 +224,6 @@ nav:
                 - Velero backup and restore: addons/velero-backup-and-restore.md
           - Legacy:
                 - Sunset: legacy/sunset.md
-                - AM/OpenAM: legacy/am.md
           - Appendix:
                 - Zero-Trust Network Architecture: appendix/zero-trust.md
                 - Ingress DNS setup: appendix/ingress-dns.md
