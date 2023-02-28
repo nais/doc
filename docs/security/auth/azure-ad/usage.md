@@ -216,7 +216,7 @@ The following environment variables and files \(under the directory `/var/run/se
 
 ???+ note
 
-   The well-known URL for the [OIDC metadata discovery document](../concepts/actors.md#well-known-url-metadata-document) for the Azure AD tenant that the client is registered in.
+    The well-known URL for the [OIDC metadata discovery document](../concepts/actors.md#well-known-url-metadata-document) for the Azure AD tenant that the client is registered in.
 
     Example value: `https://login.microsoftonline.com/77678b69-1daf-47b6-9072-771d270ac800/v2.0/.well-known/openid-configuration`
 
