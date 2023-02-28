@@ -28,7 +28,7 @@ Maskinporten is a third-party service outside of our clusters, which is not reac
 
 The following [outbound external hosts](../../../nais-application/access-policy.md#external-services) are automatically added when enabling this feature:
 
-- `ver2.maskinporten.no` in development
+- `test.maskinporten.no` in development
 - `maskinporten.no` in production
 
 You do not need to specify these explicitly.
@@ -116,7 +116,7 @@ The following environment variables and files (under the directory `/var/run/sec
 
     The well-known URL for the OAuth 2.0 authorization server (in this case, Maskinporten) [metadata document](../concepts/actors.md#well-known-url-metadata-document).
 
-    Example value: `https://ver2.maskinporten.no/.well-known/oauth-authorization-server`
+    Example value: `https://test.maskinporten.no/.well-known/oauth-authorization-server`
 
 ---
 
@@ -126,7 +126,7 @@ The following environment variables and files (under the directory `/var/run/sec
 
     `issuer` from the [metadata discovery document](../concepts/actors.md#issuer).
 
-    Example value: `https://ver2.maskinporten.no/`
+    Example value: `https://test.maskinporten.no/`
 
 ---
 
@@ -136,7 +136,7 @@ The following environment variables and files (under the directory `/var/run/sec
 
     `jwks_uri` from the [metadata discovery document](../concepts/actors.md#jwks-endpoint-public-keys).
 
-    Example value: `https://ver2.maskinporten.no/jwk`
+    Example value: `https://test.maskinporten.no/jwk`
 
 ---
 
@@ -146,7 +146,7 @@ The following environment variables and files (under the directory `/var/run/sec
 
     `token_endpoint` from the [metadata discovery document](../concepts/actors.md#token-endpoint).
 
-    Example value: `https://ver2.maskinporten.no/token`
+    Example value: `https://test.maskinporten.no/token`
 
 ---
 
