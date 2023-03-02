@@ -4,13 +4,13 @@
 
     **GCP**
 
-     * [prometheus.dev-gcp.nais.io](https://prometheus.dev-gcp.nais.io)
-     * [prometheus.prod-gcp.nais.io](https://prometheus.prod-gcp.nais.io)
+     * [prometheus.dev-gcp.nav.cloud.nais.io](https://prometheus.dev-gcp.nav.cloud.nais.io)
+     * [prometheus.prod-gcp.nav.cloud.nais.io](https://prometheus.prod-gcp.nav.cloud.nais.io)
 
     **On-prem**
 
-     * [prometheus.dev-fss.nais.io](https://prometheus.dev-fss.nais.io)
-     * [prometheus.prod-fss.nais.io](https://prometheus.prod-fss.nais.io) :octicons-shield-lock-16:
+     * [prometheus.dev-fss.nav.cloud.nais.io](https://prometheus.dev-fss.nav.cloud.nais.io)
+     * [prometheus.prod-fss.nav.cloud.nais.io](https://prometheus.prod-fss.nav.cloud.nais.io) :octicons-shield-lock-16:
 
     :octicons-shield-lock-16: requires `onprem-k8s-prod` gateway in `naisdevice`.
 
@@ -22,7 +22,7 @@ We use Prometheus to fetch metric endpoints from your application (in Prometheus
 
 ??? info "Prometheus cluster configuration" 
     To see the current configuration for a prometheus instance in your cluster, e.g. `scrape_interval`, go to
-    `https://prometheus.<cluster>.nais.io/config`
+    `https://prometheus.<cluster>.nav.cloud.nais.io/config`
 
 ```mermaid
 graph LR
