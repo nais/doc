@@ -1304,8 +1304,9 @@ Required: `false`<br />
     ```
 
 #### filesFrom[].emptyDir.medium
-Type: `string`<br />
+Type: `enum`<br />
 Required: `false`<br />
+Allowed values: `Disk`, `Memory`<br />
 
 ??? example
     ``` yaml
