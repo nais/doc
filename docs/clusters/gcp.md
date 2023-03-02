@@ -45,44 +45,11 @@ You can control from where you application is reachable by selecting the appropr
 
 ### dev-gcp ingresses
 
-| domain             | accessible from                   | description                                                                                                                          |
-|:-------------------|:----------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------|
-| ekstern.dev.nav.no | internet                          | [manually configured](#eksterndevnavno). URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
-| dev.nav.no         | [naisdevice](../device/README.md) | development ingress for nav.no applications                                                                                          |
-| dev.intern.nav.no  | [naisdevice](../device/README.md) | development ingress for non-public/internet-facing applications                                                                      |
-
-
-#### ekstern.dev.nav.no
-
-In order to allow an ingress `<app>.ekstern.dev.nav.no` to resolve, it must be configured in our loadbalancer config found on [GitHub](https://github.com/nais/gcp/blob/master/infrastructure/dev.tfvars).
-
-You might see a `404 Page not found` error when visiting the [GitHub repository](https://github.com/nais/gcp/blob/master/infrastructure/dev.tfvars) for the load balancer config.
-To gain access, do the following:
-
-1. Go to [myapps.microsoft.com](https://account.activedirectory.windowsazure.com/r#/addApplications).
-2. Find the `GitHub.com (nais)` app and add it to your account.
-
-Add a new entry to `external_domains` under `rules` for `"gw-ekstern-dev-nav-no"`:
-
-```terraform
-external_domains = {
-  ...
-  "gw-ekstern-dev-nav-no" = {
-    rules = [
-      ...
-      {
-        description = "allow access to <app>.ekstern.dev.nav.no"
-        priority    = "<previous value, incremented by 1>"
-        action      = "allow"
-        expr        = "request.headers['Host'] == '<app>.ekstern.dev.nav.no'"
-        preview     = false
-      },
-    ]
-  }
-}
-```
-
-Commit the changes and create a pull request.
+| domain             | accessible from                   | description                                                                                                                   |
+|:-------------------|:----------------------------------|:------------------------------------------------------------------------------------------------------------------------------|
+| ekstern.dev.nav.no | internet                          | development ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| dev.nav.no         | [naisdevice](../device/README.md) | development ingress for nav.no applications                                                                                   |
+| dev.intern.nav.no  | [naisdevice](../device/README.md) | development ingress for non-public/internet-facing applications                                                               |
 
 ### prod-gcp ingresses
 
