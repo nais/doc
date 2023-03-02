@@ -84,10 +84,6 @@ You do not need to specify these explicitly.
 
 You must enable and use [`webproxy`](../../../nais-application/application.md#webproxy) for external communication.
 
-### Ingresses
-
-!!! danger
-    You may only specify **one** ingress when this feature is enabled.
 
 ### Redirect URI
 
