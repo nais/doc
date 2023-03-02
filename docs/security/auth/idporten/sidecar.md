@@ -13,9 +13,9 @@ A reverse proxy that provides functionality to handle ID-porten login and logout
 
 !!! info "Prerequisites"
     - Ensure that you first [enable ID-porten for your application](README.md).
-    - Ensure that you define an [ingress](../../../nais-application/application.md#ingresses) for your application.
-    - Ensure that the ingress is on the correct domain:
-        - `dev.nav.no` for the [_development_ clusters](../../../clusters/gcp.md#dev-gcp-ingresses)
+    - Ensure that you define at least one [ingress](../../../nais-application/application.md#ingresses) for your application.
+    - Ensure that the _first_ ingress is on the correct domain:
+        - `[ekstern.]dev.nav.no` for the [_development_ clusters](../../../clusters/gcp.md#dev-gcp-ingresses)
         - `nav.no` for the [_production_ clusters](../../../clusters/gcp.md#prod-gcp-ingresses)
 
 ## Spec

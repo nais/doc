@@ -87,7 +87,11 @@ You must enable and use [`webproxy`](../../../nais-application/application.md#we
 ### Ingresses
 
 !!! danger
-    You may only specify **one** ingress when this feature is enabled.
+
+    The `IDPORTEN_REDIRECT_URI` will point to the _first_ [ingress](../../../nais-application/application.md#ingresses) defined if the application has multiple ingresses.
+    
+    In order for [front-channel logout](#front-channel-logout) to be registered and triggered correctly, the _first_ 
+    ingress should **not** be an interal ingress.
 
 ### Redirect URI
 
@@ -95,7 +99,7 @@ The redirect URI is the fully qualified URI that ID-porten redirects back to aft
 
 NAIS will automatically infer the complete redirect URI to be registered at ID-porten using the scheme:
 ```
-spec.ingresses[0] + spec.idporten.redirectPath
+spec.ingresses[i] + spec.idporten.redirectPath
 ```
 
 where `spec.idporten.redirectPath` has a default value of `/oauth2/callback`.
