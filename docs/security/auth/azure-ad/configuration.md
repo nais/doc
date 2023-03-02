@@ -53,6 +53,9 @@ See the complete specification in the [NAIS manifest](../../../nais-application/
       webproxy: true 
     ```
 
+No users are granted access by default.
+You must explicitly grant user access either for [specific groups](access-policy.md#groups) or for [all users](access-policy.md#users).
+
 ## Accessing external hosts
 
 Azure AD is a third-party service outside of our clusters, which is not reachable by default like most third-party services.
