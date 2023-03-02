@@ -117,7 +117,7 @@ This tracks various offset-related metrics, one of which is the last seen offset
 
 You can use this query to get offsets for a consumer group:
 
-[max(kafka_consumergroup_group_offset{group="spedisjon-v1"}) by (topic, partition)](https://prometheus.dev-gcp.nais.io/graph?g0.expr=max(kafka_consumergroup_group_offset%7Bgroup%3D%22spedisjon-v1%22%7D)%20by%20(topic%2C%20partition)&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h)
+[max(kafka_consumergroup_group_offset{group="spedisjon-v1"}) by (topic, partition)](https://prometheus.dev-gcp.nav.cloud.nais.io/graph?g0.expr=max(kafka_consumergroup_group_offset%7Bgroup%3D%22spedisjon-v1%22%7D)%20by%20(topic%2C%20partition)&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h)
 
 
 <!-- Long links moved here for better text flow -->
