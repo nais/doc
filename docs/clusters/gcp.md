@@ -53,10 +53,10 @@ You can control from where you application is reachable by selecting the appropr
 
 ### prod-gcp ingresses
 
-| domain           | accessible from                   | description                                                                                                          |
-|:-----------------|:----------------------------------|:---------------------------------------------------------------------------------------------------------------------|
-| nav.no           | internet                          | manually configured, contact at \#tech-sikkerhet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked |
-| intern.nav.no    | [naisdevice](../device/README.md) | used by non-public/internet-facing applications \(previously called adeo.no\).                                       |
+| domain        | accessible from                   | description                                                                                                                                                                              |
+| :------------ | :-------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| nav.no        | internet                          | subdomains are manually configured, contact at \#tech-sikkerhet. Ingresses on `nav.no/*` are automatically available. URLs containing `/metrics`, `/actuator` or `/internal` are blocked |
+| intern.nav.no | [naisdevice](../device/README.md) | used by non-public/internet-facing applications \(previously called adeo.no\).                                                                                                           |
 
 You can also learn about [how DNS is configured.](../appendix/ingress-dns.md)
 
