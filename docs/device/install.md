@@ -88,6 +88,11 @@
     echo "deb [signed-by=$NAIS_GPG_KEY] https://ppa.nais.io/ ./" | sudo tee /etc/apt/sources.list.d/nav_nais.list
     sudo apt update # Now you can apt install naisdevice
     ```
+   **NOTE**  curl is not installed in a "fresh" ubuntu:
+   ```
+   sudo apt install curl
+   ``` 
+
 3. Install the naisdevice package:
     ```
     sudo apt install naisdevice
