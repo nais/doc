@@ -48,8 +48,7 @@ You can control from where you application is reachable by selecting the appropr
 | domain             | accessible from                   | description                                                                                                                   |
 |:-------------------|:----------------------------------|:------------------------------------------------------------------------------------------------------------------------------|
 | ekstern.dev.nav.no | internet                          | development ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
-| dev.nav.no         | [naisdevice](../device/README.md) | development ingress for nav.no applications                                                                                   |
-| dev.intern.nav.no  | [naisdevice](../device/README.md) | development ingress for non-public/internet-facing applications                                                               |
+| intern.dev.nav.no  | [naisdevice](../device/README.md) and NAV internal networks | development ingress for non-public/internet-facing applications                                                               |
 
 ### prod-gcp ingresses
 
