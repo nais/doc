@@ -20,7 +20,7 @@ permissions should be propagated through each service/web API.
 
 #### Prerequisites
 
-1. Your [resource server](../concepts/actors.md#resource-server) / API and any downstream API that your API consumes are registered in Azure AD.
+1. Your [resource server](../concepts/actors.md#resource-server) / API and any downstream API that your API consumes have [enabled Azure AD](configuration.md).
 2. Your resource server has been [pre-authorized](access-policy.md#pre-authorization) by the downstream API.
 
 #### Steps
@@ -46,7 +46,7 @@ This grant is used for pure machine-to-machine authentication, i.e. interactions
 
 #### Prerequisites
 
-1. Your [client](../concepts/actors.md#client) and any [downstream API](../concepts/actors.md#resource-server) that your client consumes are registered in Azure AD.
+1. Your [client](../concepts/actors.md#client) and any [downstream API](../concepts/actors.md#resource-server) that your client consumes have [enabled Azure AD](configuration.md).
 2. Your client has been [pre-authorized](access-policy.md#pre-authorization) by the downstream API.
 
 #### Steps

@@ -12,7 +12,7 @@ Below is a list of some well-known and widely used libraries for handling OAuth,
 ### JVM
 
 - <https://github.com/navikt/token-support>
-- <https://ktor.io/docs/oauth.html>
+- <https://ktor.io/docs/jwt.html>
 - <https://spring.io/projects/spring-security-oauth>
 - <https://github.com/pac4j/pac4j>
 - <https://connect2id.com/products/nimbus-oauth-openid-connect-sdk>

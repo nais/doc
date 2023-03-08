@@ -77,3 +77,23 @@ kubectl describe azureapp <app>
     - If Bob added Alice to its access policy before Alice existed in Azure AD, try to [resynchronize](operations.md#forcing-resynchronization) Bob:
         - `kubectl annotate azureapp bob azure.nais.io/resync=true`
     - If all else fails, ask an adult in the `#nais` channel on Slack.
+
+## "The signed in user is blocked because they are not a direct member of a group with access"
+
+???+ quote "Example"
+
+    An application may receive the following `400 Bad Request` response error when requesting a token from Azure AD:
+
+    ```json
+    {
+      "error": "invalid_grant",
+      "error_description": "AADSTS50105: Your administrator has configured the application <cluster>:<namespace>:<alice> ('<client id>') to block users unless they are specifically granted ('assigned') access to the application. The signed in user '{EmailHidden}' is blocked because they are not a direct member of a group with access, nor had access directly assigned by an administrator. Please contact your administrator to assign access to this application",
+      ...
+    }
+    ```
+
+???+ success "Solution / Answer"
+
+    - Ensure that the Alice application has configured [user access](access-policy.md#users).
+    - Ensure that the given user is a _direct_ member of any configured [group](access-policy.md#groups).
+    - If all else fails, ask an adult in the `#nais` channel on Slack.
