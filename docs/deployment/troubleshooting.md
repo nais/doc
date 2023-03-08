@@ -2,13 +2,13 @@
 
 ## Don't panic!
 
-| Deployment status | Description |
-| :--- | :--- |
-| success | Everything is fine, your application has been deployed, and is up and running. |
-| queued | Deployment request accepted, waiting to be deployed. |
-| in\_progress | Application deployed to Kubernetes, waiting for new version to start. |
-| failure | Your application failed to start. Check state with `kubectl describe app <APP>`. |
-| error | Either an error in your request, or the deployment system has issues. Check the logs. |
+| Deployment status | Description                                                                           |
+|:------------------|:--------------------------------------------------------------------------------------|
+| success           | Everything is fine, your application has been deployed, and is up and running.        |
+| queued            | Deployment request accepted, waiting to be deployed.                                  |
+| in\_progress      | Application deployed to Kubernetes, waiting for new version to start.                 |
+| failure           | Your application failed to start. Check state with `kubectl describe app <APP>`.      |
+| error             | Either an error in your request, or the deployment system has issues. Check the logs. |
 
 ## First debugging steps
 
@@ -52,18 +52,18 @@ This link is also printed in the console output. It looks like `https://deployme
 
 ## Error messages
 
-| Message | Action |
-| :--- | :--- |
-| You don't have access to apikey/. | See _Access to Vault_ in the [Teams documentation](../basics/teams.md) |
-| 403 authentication failed | Either you're using the wrong _team API key_, or if using the old version of NAIS deploy, your team is not [registered in the team portal](../basics/teams.md). |
-| 502 bad gateway | There is some transient error with GitHub or Vault. Please try again later. If the problem persists, ask _@nais-team_ for help. |
-| deployment failed: failed authentication | Wrong _team API key_, please check [https://deploy.nais.io/](https://deploy.nais.io/) for the correct key. |
-| applications.nais.io is forbidden: User "..." cannot create resource "applications" in API group "nais.io" at the cluster scope | You forgot to specify the `.namespace` attribute in `nais.yaml`. |
-| failed authentication: HMAC signature error | See above. |
-| "tobac.nais.io" denied the request: user 'system:serviceaccount:default:serviceuser-FOO' has no access to team 'BAR' | The application is already deployed, and team names differ. See [changing teams](change-team.md). |
-| “tobac.nais.io” denied the request: team 'FOO' on existing resource does not exist | The team owning the resource may have been deleted or renamed. Ask _@nais-team_ for help. |
-| the server could not find the requested resource \(total of 1 errors\) | The resource is not specifying its namespace. |
-| MountVolume.SetUp failed for volume "<some-secret>" : secret "<some-secret>" not found | See [secret not found](#secret-not-found). |
+| Message                                                                                                                         | Action                                                                                                                                                          |
+|:--------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| You don't have access to apikey/.                                                                                               | See _Access to Vault_ in the [Teams documentation](../basics/teams.md)                                                                                          |
+| 403 authentication failed                                                                                                       | Either you're using the wrong _team API key_, or if using the old version of NAIS deploy, your team is not [registered in the team portal](../basics/teams.md). |
+| 502 bad gateway                                                                                                                 | There is some transient error with GitHub or Vault. Please try again later. If the problem persists, ask _@nais-team_ for help.                                 |
+| deployment failed: failed authentication                                                                                        | Wrong _team API key_, please check [https://deploy.nais.io/](https://deploy.nais.io/) for the correct key.                                                      |
+| applications.nais.io is forbidden: User "..." cannot create resource "applications" in API group "nais.io" at the cluster scope | You forgot to specify the `.namespace` attribute in `nais.yaml`.                                                                                                |
+| failed authentication: HMAC signature error                                                                                     | See above.                                                                                                                                                      |
+| "tobac.nais.io" denied the request: user 'system:serviceaccount:default:serviceuser-FOO' has no access to team 'BAR'            | The application is already deployed, and team names differ. See [changing teams](change-team.md).                                                               |
+| “tobac.nais.io” denied the request: team 'FOO' on existing resource does not exist                                              | The team owning the resource may have been deleted or renamed. Ask _@nais-team_ for help.                                                                       |
+| the server could not find the requested resource \(total of 1 errors\)                                                          | The resource is not specifying its namespace.                                                                                                                   |
+| MountVolume.SetUp failed for volume "<some-secret>" : secret "<some-secret>" not found                                          | See [secret not found](#secret-not-found).                                                                                                                      |
 
 ## Secret not found
 
@@ -146,7 +146,26 @@ kubectl get secret <secret-name>
     Error from server (NotFound): secrets "my-secret" not found
     ```
 
-If you have followed the above checklist and verified that the secret does not exist, please contact [#nais](#asking-on-slack) for further assistance.
+### Step 3. Check related resources
+
+Depending on which system provides the secret, there are other resources that could contain information about your problem.
+By looking at these resources, you can often find the direct cause of the problem.
+See the following table for information about which resources you can look at for various kinds of secrets.
+Once you know the type of resource, use `kubectl describe <resource> <app name>` to look at it.
+Typically, you should inspect the `Status` parts of the output.
+
+| Type of secret | Resource to check  |
+|----------------|--------------------|
+| Kafka          | aivenapp           |
+| OpenSearch     | aivenapp           |
+| Influx         | aivenapp           |
+| Azure AD       | azureapp           |
+| TokenX         | jwker              | 
+| ID porten      | idportenclient     |
+| Maskinporten   | maskinportenclient |
+
+
+If you have followed the above checklist, verified that the secret does not exist, and can't see a reason for that, please contact [#nais](#asking-on-slack) for further assistance.
 
 ## Asking on Slack
 
