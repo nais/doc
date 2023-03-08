@@ -14,7 +14,7 @@ A reverse proxy that provides functionality to handle Azure AD login and logout.
 !!! info "Prerequisites"
     - Ensure that you first [enable Azure AD for your application](configuration.md).
     - Ensure that you define at least one [ingress](../../../nais-application/application.md#ingresses) for your application.
-    - No users are granted access by default. You must explicitly grant user access either for [specific groups](access-policy.md#groups) or for [all users](access-policy.md#users).
+    - Ensure that you configure [user access](access-policy.md#users) for your application. **Users are not granted access by default**. 
 
 ## Spec
 

@@ -4,8 +4,6 @@
 
 See the complete specification in the [NAIS manifest](../../../nais-application/application.md#azure).
 
-## Getting started
-
 === "nais.yaml"
     ```yaml
     spec:
@@ -35,7 +33,7 @@ See the complete specification in the [NAIS manifest](../../../nais-application/
           # optional, defaults shown
           singlePageApplication: false
 
-      # optional, only relevant if your application should receive requests from consumers
+      # optional, only relevant if your application receives requests from consumers
       accessPolicy:
         inbound:
           rules:
@@ -53,8 +51,17 @@ See the complete specification in the [NAIS manifest](../../../nais-application/
       webproxy: true 
     ```
 
-No users are granted access by default.
-You must explicitly grant user access either for [specific groups](access-policy.md#groups) or for [all users](access-policy.md#users).
+## Access Policy
+
+!!! warning
+
+    Users are not granted access by default.
+    You must explicitly [grant access to users](access-policy.md#users).
+
+    Applications are also not granted access by default.
+    You must explicitly grant applications access by [pre-authorizing](access-policy.md#pre-authorization) them.
+
+See [access policy](access-policy.md) for further details.
 
 ## Accessing external hosts
 
@@ -323,7 +330,3 @@ spec:
         "azp_name": "dev-gcp:some-team:some-consumer"
     }
     ```
-
-## Access Policy
-
-See [access policy](access-policy.md).
