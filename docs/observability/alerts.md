@@ -85,9 +85,9 @@ jobs:
 
 ### Writing the `expr`
 
-I order to figure out what is a valid expression we suggest using [Grafana > Explore](https://grafana.nais.io/explore). It has a graphical user interface with a "builder" mode where you can select from from drop-down lists of valid values.
+In order to figure out what is a valid expression we suggest using [Grafana > Explore](https://grafana.nais.io/explore). It has a graphical user interface with a "builder" mode where you can select from from drop-down lists of valid values.
 
-In order to furhter minimize the feedback loop we suggest experimenting on the Prometheus server to find the right metric for your alert and the notification threshold.
+In order to further minimize the feedback loop we suggest experimenting on the Prometheus server to find the right metric for your alert and the notification threshold.
 The Prometheus server can be found in each cluster, at `https://prometheus.{env}.nav.cloud.nais.io` (e.g. [https://prometheus.dev-gcp.nav.cloud.nais.io](https://prometheus.dev-gcp.nav.cloud.nais.io)).
 
 You can also visit the Alertmanager at `https://alertmanager.{env}.nav.cloud.nais.io` (e.g. [https://alertmanager.dev-gcp.nav.cloud.nais.io](https://alertmanager.dev-gcp.nav.cloud.nais.io)) to see which alerts are triggered now (you can also silence already triggered alerts).
