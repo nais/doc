@@ -167,23 +167,27 @@ If your application stores personally identifiable information in any GCP data s
 
     1. Add the ingress created above to the list of ingresses:
     
-    ```yaml
-    spec:
-      ingresses:
-        - https://<app>.<dev|prod>-fss-pub.nais.io
-    ```
+        ```yaml
+        spec:
+          ingresses:
+            - https://<app>.<dev|prod>-fss-pub.nais.io
+        ```
+
+    2. If secured with OAuth 2.0, ensure that the application also has set up inbound access policies:
+        - a. [Access Policies for TokenX](../security/auth/tokenx.md#access-policies)
+        - b. [Access Policies for Azure AD](../security/auth/azure-ad/access-policy.md#pre-authorization)
 
     The application _in GCP_ must then:
 
     1. Add the above hosts to their [outbound external access policies](../nais-application/access-policy.md#external-services):
 
-    ```yaml
-    spec:
-      accessPolicy:
-        outbound:
-          external:
-            - host: <app>.<dev|prod>-fss-pub.nais.io
-    ```
+        ```yaml
+        spec:
+          accessPolicy:
+            outbound:
+              external:
+                - host: <app>.<dev|prod>-fss-pub.nais.io
+        ```
 
 ### How do I reach an application found on GCP from my application on-premises?
 
