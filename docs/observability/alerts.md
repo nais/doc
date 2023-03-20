@@ -187,3 +187,113 @@ spec:
           annotations:
             description: 'This alert fires during quiet hours. It should be blackholed by Alertmanager.'
 ```
+
+### Custom AlertmanagerConfig
+
+You can use an `AlertmanagerConfig` if you need to change the default slack layout, 
+need another channel than the default channel, need another set of colors etc.
+Here is a basic example with a single alert (that always trigger to make this easy to use in testing).
+
+```yaml
+
+apiVersion: "monitoring.coreos.com/v1"
+kind: PrometheusRule
+metadata:
+  labels:
+    team: myteam
+  name: myteam-testing-alerts
+  namespace: myteam
+  # test alerts, will always trigger
+  # used only to experiment with formatting etc
+spec:
+  groups:
+    - name: myteam-testing-alerts
+      rules:
+        - alert: test alert will always trigger
+          expr: container_memory_working_set_bytes{namespace="myteam", container="myteam-myapp"} > 99
+          for: 1m
+          annotations:
+            consequence: "_*{{ $labels.container }}*_ has a working set of {{ $value }} bytes, there is no consequence"
+            action: "no need to do _anything_"
+            documentation: "https://prometheus.io/docs/prometheus/latest/querying/basics/"
+            summary: "Container _*{{ $labels.container }}*_ has a working set of {{ $value }} bytes."
+            sla: "no need to respond"
+          labels:
+            severity: "info"
+            special_type_to_use_in_alertmanager_config: myteam-testing
+            alert_type: custom
+
+
+---
+
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: myteam-testing-slack
+  namespace: myteam
+  labels:
+    alertmanagerConfig: myteam-testing-slack
+spec:
+  receivers:
+    - name: myteam-testing-receiver
+      slackConfigs:
+        - apiURL:
+            key: apiUrl
+            name: slack-webhook
+          channel: 'myteam-special-channel'
+          iconEmoji: ':test:'
+          username: 'Testing Alert'
+          sendResolved: true
+          httpConfig:
+            proxyURL: http://webproxy.nais:8088
+          title: |-
+            [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }}
+          text: >-
+            {{ range .Alerts -}}
+            *Alert:* {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
+            *Description:* {{ .Annotations.description }}
+            *Details:*
+            {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+            {{ end }}
+            {{ end }}
+          color: |-
+            {{ if eq .Status "firing" -}}
+              {{ if eq .CommonLabels.severity "warning" -}}
+                warning
+              {{- else if eq .CommonLabels.severity "fatal" -}}
+                #611f69
+              {{- else if eq .CommonLabels.severity "critical" -}}
+                #611f69
+              {{- else if eq .CommonLabels.severity "danger" -}}
+                danger
+              {{- else if eq .CommonLabels.severity "error" -}}
+                danger
+              {{- else if eq .CommonLabels.severity "notice" -}}
+                good
+              {{- else if eq .CommonLabels.severity "info" -}}
+                #36c5f0
+              {{- else -}}
+                .CommonLabels.severity
+              {{- end -}}
+            {{ else -}}
+            good
+            {{- end }}
+  route:
+    groupBy:
+      - alertname
+    matchers:
+      - name: "special_type_to_use_in_alertmanager_config"
+        matchType: "="
+        value: "myteam-testing"
+    groupInterval: 10s
+    groupWait: 5s
+    receiver: myteam-testing-receiver
+    repeatInterval: 2m
+
+
+```
+
+The label `special_type_to_use_in_alertmanager_config` is used to pair the alerts with the corresponding route.
+To prevent the default nais `AlertmanagerConfig` route to include the alerts you need to 
+set the label `alert_type` to `custom`. If you don't set the label `alert_type` to `custom` you will get 2 
+slack messages for each alert, one from your custom `AlertmanagerConfig` and one from the nais default `AlertmanagerConfig`.  
