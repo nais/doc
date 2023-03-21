@@ -52,12 +52,12 @@ All the canary topics receives a message on a fixed interval, containing a RFC33
 The only difference between each, is where the producer is located.
 The available canary topics are:
 
-| Pool     | Topic name                      |
-| :------- | :------------------------------ |
-| nav-dev  | aura.kafkarator-canary-dev-gcp  |
-| nav-dev  | aura.kafkarator-canary-dev-fss  |
-| nav-prod | aura.kafkarator-canary-prod-gcp |
-| nav-prod | aura.kafkarator-canary-prod-fss |
+| Pool     | Topic name                              |
+|:---------|:----------------------------------------|
+| nav-dev  | nais-verification.kafka-canary-dev-gcp  |
+| nav-dev  | nais-verification.kafka-canary-dev-fss  |
+| nav-prod | nais-verification.kafka-canary-prod-gcp |
+| nav-prod | nais-verification.kafka-canary-prod-fss |
 
 ## Using Kafka Streams with internal topics
 
