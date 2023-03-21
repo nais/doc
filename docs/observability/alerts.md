@@ -26,7 +26,7 @@ spec:
   - name: my-alert
     rules:
     - alert: InstanceDown
-      expr: count(up) == 0
+      expr: kube_deployment_status_replicas_available{namespace="<namespace>", deployment="<application name>"} == 0
       for: 5m
       annotations:
         consequence: Application is unavailable
