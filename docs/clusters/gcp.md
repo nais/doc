@@ -8,7 +8,6 @@ Google Cloud Platform (GCP) is a cloud computing platform and infrastructure pro
     |:-----------|:------------|:---------------------------------------|
     | `dev-gcp`  | development | selected ingresses publicly accessible |
     | `prod-gcp` | production  | publicly accessible                    |
-    | `labs-gcp` | development | publicly accessible                    |
 
 In GCP, we do not operate with a zone model like with the on-premise clusters. Instead, we rely on a [zero trust model](../appendix/zero-trust.md) with a service mesh. The only thing we differentiate on a cluster level is development and production.
 
@@ -58,17 +57,6 @@ You can control from where you application is reachable by selecting the appropr
 | intern.nav.no | [naisdevice](../device/README.md) | used by non-public/internet-facing applications \(previously called adeo.no\).                                                                                                           |
 
 You can also learn about [how DNS is configured.](../appendix/ingress-dns.md)
-
-### labs-gcp ingresses
-
-| domain       | accessible from | description              |
-|:-------------|:----------------|:-------------------------|
-| labs.nais.io | internet        | automatically configured |
-
-!!! warning
-    Note that the `labs-gcp` cluster is a separate cluster, primarily meant for deploying simple demos with mocks.
-
-    It does **not** provide any features or integrations that are present in the normal clusters (e.g. Kafka, Azure, etc.)
 
 ## ROS and PVK
 

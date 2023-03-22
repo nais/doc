@@ -72,7 +72,6 @@ Thus the two clusters we've got on-premises are: `dev-fss` and `prod-fss` (and a
 Luckily the world has moved on from zones and segmentation.
 When we built NAIS in GCP we wanted the applications to be able to communicate without jumping over hurdles and figured we'd adopt a [zero-trust-model](https://doc.nais.io/appendix/zero-trust/), where applications specify with whom they want to communicate, and who is allowed to communicate with them in their application manifest.
 And so the two GCP clusters `dev-gcp` and `prod-gcp` were born.
-There are a couple of additional clusters in GCP as well, though - `ci-gcp` for us to test changes and `labs-gcp` where the teams can experiment.
 
 [:octicons-arrow-right-24: Get started with Google Cloud](/clusters/gcp/)
 
