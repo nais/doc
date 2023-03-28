@@ -321,38 +321,7 @@ Each provider may have some differences in claims and values; see their specific
 
 ---
 
-### 4. Error Handling
-
-Authentication should generally not fail. However, in the event that it does happen; the sidecar automatically presents
-the end-users with a simple error page that allows the user to retry the authentication flow.
-
-If you wish to customize or handle these errors yourselves, set the `errorPath` property to the absolute path within
-your ingress that should handle such requests. For example:
-
-=== "ID-porten"
-    ```yaml hl_lines="4"
-    spec:
-      idporten:
-        sidecar:
-          errorPath: /login/error
-    ```
-=== "Azure AD"
-    ```yaml hl_lines="4"
-    spec:
-      azure:
-        sidecar:
-          errorPath: /login/error
-    ```
-
-The sidecar will now redirect any errors to this path (i.e. `https://<ingress>/<errorPath>`), along with the following
-query parameters:
-
-- `correlation_id` - UUID that uniquely identifies the request, for tracing and log correlation.
-- `status_code` - HTTP status code which indicates the type of error that occurred.
-
----
-
-### 5. Resource Requirements
+### 4. Resource Requirements
 
 The sidecar container is set up with some default [resource requirements](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/). 
 This can be customized to your needs. Defaults shown below:
@@ -384,7 +353,7 @@ This can be customized to your needs. Defaults shown below:
               memory: 32Mi
     ```
 
-### 6. Sessions
+### 5. Sessions
 
 Sessions are stored server-side; we only store a session identifier at the end-user's user agent.
 
@@ -446,7 +415,7 @@ Most of these fields should be self-explanatory, but we'll be explicit with thei
 | `tokens.refreshed_at`      | The timestamp that denotes when the tokens within the session was last refreshed. |
 | `tokens.expire_in_seconds` | The number of seconds until the tokens expire.                                    |
 
-#### 6.1. Refresh Tokens
+#### 5.1. Refresh Tokens
 
 !!! info "Limited Availability"
     This feature is currently only available for [Azure AD](../security/auth/azure-ad/sidecar.md)

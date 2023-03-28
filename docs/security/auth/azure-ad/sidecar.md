@@ -34,7 +34,6 @@ A reverse proxy that provides functionality to handle Azure AD login and logout.
 
           # everything below is optional, defaults shown
           autoLogin: false
-          errorPath: ""
     ```
 
 See the [NAIS manifest](../../../nais-application/application.md#azuresidecar) for details.

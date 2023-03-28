@@ -37,7 +37,6 @@ A reverse proxy that provides functionality to handle ID-porten login and logout
           level: Level4
           locale: nb
           autoLogin: false
-          errorPath: ""
     ```
 
 See the [NAIS manifest](../../../nais-application/application.md#idportensidecar) for details.
