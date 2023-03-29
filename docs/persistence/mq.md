@@ -108,3 +108,9 @@ Using the TLS certificates can be done by setting these environment variables:
 * ``` "javax.net.ssl.keyStorePassword" = $YOUR_MQ_TLS_KEYSTORE_PASSWORD```
 * ``` "javax.net.ssl.keyStoreType" = "jks" ```
 
+##### Creating TLS certificates manually
+First you need to create your application in [fasit](https://fasit.adeo.no), 
+example app: https://fasit.adeo.no/applications/smtss
+This is disabled, so you need some admins to do it for you. 
+Ask if someone can create it for you in one of the following slack channels #nais or #atom
+Then you need to order a certificate for that applications service user that you use to connect to MQ in [basta](https://basta.intern.nav.no)
