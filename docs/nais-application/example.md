@@ -285,6 +285,9 @@ spec:
     port: 8080
     timeout: 1
   strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 0
     type: RollingUpdate
   terminationGracePeriodSeconds: 60
   tokenx:
