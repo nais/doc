@@ -4934,7 +4934,7 @@ Required: `false`<br />
 Specifies the strategy used to replace old Pods by new ones. `RollingUpdate` is the default value.
 
 Type: `enum`<br />
-Required: `true`<br />
+Required: `false`<br />
 Default value: `RollingUpdate`<br />
 Allowed values: `Recreate`, `RollingUpdate`<br />
 
