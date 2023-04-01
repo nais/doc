@@ -1,4 +1,4 @@
-FROM library/python:3.12.0a4-slim as builder
+FROM library/python:3.12.0a6-slim as builder
 # Inspired by: https://medium.com/@harpalsahota/dockerizing-python-poetry-applications-1aa3acb76287
 
 RUN useradd mkdocs \
