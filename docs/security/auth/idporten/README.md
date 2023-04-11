@@ -224,7 +224,7 @@ The following environment variables and files \(under the directory `/var/run/se
 
     The redirect URI registered for the client at ID-porten. This must be a valid URI for the application where the user is redirected back to after successful authentication and authorization.
     
-    Example value: `https://my.application.dev.nav.no/callback` 
+    Example value: `https://my.application.intern.dev.nav.no/callback` 
 
 ---
 

@@ -242,6 +242,18 @@ In order to send requests to services outside of the cluster, `external.host` co
       end
     ```
 
+Default hosts that are added and accessible for every application:
+- kube-dns (53)
+- metadata.google.internal (80)
+- private.googleapis.com (443)
+- login.microsoftonline.com (443)
+- oidc.difi.no (443)
+- ver2.maskinporten.no (443)
+- maskinporten.no (443)
+- oidc-ver2.difi.no (443)
+- aivencloud.com (443)
+- unleash.nais.io (443)
+
 #### Global Service Entries
 
 There are some services that are automatically added to the mesh in [dev-gcp](https://github.com/navikt/nais-yaml/blob/master/vars/dev-gcp.yaml) and [prod-gcp](https://github.com/navikt/nais-yaml/blob/master/vars/prod-gcp.yaml) (search for `global_serviceentries`).

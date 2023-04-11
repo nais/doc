@@ -197,8 +197,7 @@ If your application stores personally identifiable information in any GCP data s
 
     | ingress | reachable from zone |
     | :--- | :--- |
-    | `<app>.dev.intern.nav.no` | `dev-fss` |
-    | `<app>.dev.nav.no` | `dev-fss` |
+    | `<app>.intern.dev.nav.no` | `dev-fss` |
     | `<app>.intern.nav.no` | `prod-fss` |
     | `<app>.nav.no` | internet, i.e. all clusters |
 

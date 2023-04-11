@@ -5,7 +5,7 @@
 See the complete specification in the [NAIS manifest](../../../nais-application/application.md#azure).
 
 === "nais.yaml"
-    ```yaml
+   ```yaml
     spec:
       azure:
         application:
@@ -17,7 +17,7 @@ See the complete specification in the [NAIS manifest](../../../nais-application/
 
           # optional, generated defaults shown
           replyURLs: 
-            - "https://my-app.dev.nav.no/oauth2/callback"
+            - "https://my-app.intern.dev.nav.no/oauth2/callback"
 
           # optional
           claims:
@@ -100,8 +100,8 @@ spec.ingresses[n] + "/oauth2/callback"
     ```yaml hl_lines="2-4"
     spec:
       ingresses:
-        - "https://my.application.dev.nav.no"
-        - "https://my.application.dev.nav.no/subpath"
+        - "https://my.application.intern.dev.nav.no"
+        - "https://my.application.intern.dev.nav.no/subpath"
       azure:
         application:
           enabled: true
@@ -112,14 +112,14 @@ spec.ingresses[n] + "/oauth2/callback"
     ```yaml  hl_lines="2-4 7-10"
     spec:
       ingresses:
-        - "https://my.application.dev.nav.no"
-        - "https://my.application.dev.nav.no/subpath"
+        - "https://my.application.intern.dev.nav.no"
+        - "https://my.application.intern.dev.nav.no/subpath"
       azure:
         application:
           enabled: true
           replyURLs:
-            - "https://my.application.dev.nav.no/oauth2/callback"
-            - "https://my.application.dev.nav.no/subpath/oauth2/callback"
+            - "https://my.application.intern.dev.nav.no/oauth2/callback"
+            - "https://my.application.intern.dev.nav.no/subpath/oauth2/callback"
     ```
 
 ### Overriding explicitly
@@ -133,8 +133,8 @@ You may set reply URLs manually by specifying `spec.azure.application.replyURLs[
         application:
           enabled: true
           replyURLs:
-            - "https://my.application.dev.nav.no/oauth2/callback"
-            - "https://my.application.dev.nav.no/subpath/oauth2/callback"
+            - "https://my.application.intern.dev.nav.no/oauth2/callback"
+            - "https://my.application.intern.dev.nav.no/subpath/oauth2/callback"
     ```
 
 Doing so will **replace** all of the [default auto-generated reply URLs](#defaults).

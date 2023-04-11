@@ -9,13 +9,13 @@ graph LR
   accTitle: Access to application via ingress
   accDescr {
     The sequence diagram shows the following steps:
-    1. the user accessing https://myapp.dev.nav.no
+    1. the user accessing https://myapp.intern.dev.nav.no
     2. The app sends a request to the ingress controller, within the Kubernetes container. http://myapp.mynamespace.svc.cluster.local
     3. The request is sent to another container, the namespace, which contains a service.
     4. The service within the Namespace container can send the request to Pod 1 or Pod 2
   }
   user[User]
-  user -->|https://myapp.dev.nav.no| ingresscontroller
+  user -->|https://myapp.intern.dev.nav.no| ingresscontroller
   subgraph Kubernetes
     ingresscontroller[Ingress Controller]
 
