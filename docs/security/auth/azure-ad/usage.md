@@ -64,12 +64,12 @@ See [Microsoft identity platform and the OAuth 2.0 client credentials flow](http
 
 ## Client Authentication
 
-In order to fetch tokens from Azure AD, your application should [authenticate itself](../concepts/actors.md#client-authentication).
+In order to fetch tokens from Azure AD, your application must [authenticate itself](../concepts/actors.md#client-authentication).
 This can be done using either a client secret or a client assertion.
 
 ### Client Secret
 
-See [client secret](../concepts/actors.md#client-secret) for general information.
+See [client secret](../concepts/actors.md#client-secret) for details.
 
 For Azure AD specifics, consult their documentation:
 
@@ -79,7 +79,7 @@ For Azure AD specifics, consult their documentation:
 
 ### Client Assertion
 
-See [client assertion](../concepts/actors.md#client-assertion) for general information.
+See [client assertion](../concepts/actors.md#client-assertion) for details.
 
 For Azure AD specifics, consult their documentation:
 

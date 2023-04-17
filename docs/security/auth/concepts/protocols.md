@@ -6,8 +6,8 @@
 order to acquire
 [security tokens](tokens.md) that can be used to secure and assert requests between applications.
 
-The framework is extensible and has a [number of associated specifications](https://oauth.net/specs/). However, we will
-only describe the relevant parts.
+The framework is extensible and has a [number of associated specifications](https://oauth.net/specs/). We will however 
+attempt to only describe the parts relevant to us.
 
 In order to obtain an [access token](tokens.md#access-token), we need an _authorization grant_. The grant represents a
 delegated authorization. The client is granted authorization by a resource owner (such as an end user or the client

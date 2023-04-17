@@ -177,9 +177,7 @@ See the respective identity provider page for details:
 
 A confidential client must authenticate itself to the identity provider in order to
 perform [grants](protocols.md#oauth-20)
-or [flows](protocols.md#openid-connect). There are
-[multiple client authentication methods](https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication),
-however we will only cover the ones used for our identity providers.
+or [flows](protocols.md#openid-connect).
 
 #### Client Secret
 
@@ -242,9 +240,9 @@ except Azure AD.
 An assertion has several security advantages over a [client secret](#client-secret):
 
 - The client's private key is never exposed or sent as part of a request
-- That the assertion itself is usually only valid for a short duration - meaning that the blast radius is limited if the
+- The assertion itself is usually only valid for a short duration - meaning that the blast radius is limited if the
   assertion is intercepted or stolen during transport
-- The provider only needs a public key (which the platform takes care of generating and registering) in order to verify
+- The provider only needs to possess the public key (which the platform takes care of generating and registering) in order to verify
   the assertion when receiving an authenticated request from the client.
 
 For example, for the [client credentials grant](protocols.md#client-credentials-grant):
