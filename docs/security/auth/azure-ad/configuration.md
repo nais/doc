@@ -2,36 +2,16 @@
 
 ## Spec
 
+Minimal example below. 
+
 See the complete specification in the [NAIS manifest](../../../nais-application/application.md#azure).
 
 === "nais.yaml"
-   ```yaml
+    ```yaml
     spec:
       azure:
         application:
           enabled: true
-
-          # optional, enum of {trygdeetaten.no, nav.no}
-          # defaults to trygdeetaten.no in dev-* clusters, nav.no in production
-          tenant: nav.no
-
-          # optional, generated defaults shown
-          replyURLs: 
-            - "https://my-app.intern.dev.nav.no/oauth2/callback"
-
-          # optional
-          claims:
-            extra:
-              - "NAVident"
-              - "azp_name"
-            groups:
-              - id: "<object ID of Azure AD group>"
-
-          # optional, defaults shown:
-          allowAllUsers: false
-
-          # optional, defaults shown
-          singlePageApplication: false
 
       # optional, only relevant if your application receives requests from consumers
       accessPolicy:
@@ -40,12 +20,6 @@ See the complete specification in the [NAIS manifest](../../../nais-application/
             - application: app-a
               namespace: othernamespace
               cluster: dev-fss
-              permissions:
-                roles:
-                  - "custom-role"
-                scopes:
-                  - "custom-scope"
-            - application: app-b
 
       # required for on-premises only
       webproxy: true 
