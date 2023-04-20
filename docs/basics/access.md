@@ -89,6 +89,12 @@ Kubernetes master is running at https://127.0.0.1:14131
 ...
 ```
 
+If you get an error message from `cluster-info` you might need to install "gke-gcloud-auth-plugin" as well.  
+
+```bash
+gcloud components install gke-gcloud-auth-plugin
+```
+
 ### On-premise
 
 When connecting to on-premise clusters, you need to authenticate with Azure AD.
