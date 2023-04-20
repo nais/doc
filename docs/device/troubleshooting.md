@@ -10,7 +10,7 @@
     - Try using hotspot to eliminate router config problems (remember to disconnect from WiFi on your hotspot device and make sure you use 4G/5G by checking https://www.ipaddress.my/)
 - Fresh start
     - Stop naisdevice
-        - Mac: `rm -r "~/Library/Application Support/naisdevice/"`
+        - Mac: `rm -r ~/Library/Application\ Support/naisdevice/`
         - Linux: `rm -r "~/.config/naisdevice/"`
         - Windows: `rmdir /s "C:\ProgramData\NAV\naisdevice\"`
     - Start naisdevice
