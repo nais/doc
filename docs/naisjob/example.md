@@ -50,9 +50,7 @@ spec:
       - host: external-application.example.com
       - host: non-http-service.example.com
         ports:
-        - name: kafka
-          port: 9200
-          protocol: TCP
+        - port: 9200
       rules:
       - application: app1
       - application: app2

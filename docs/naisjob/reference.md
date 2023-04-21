@@ -54,9 +54,7 @@ Required: `false`<br />
             - host: external-application.example.com
             - host: non-http-service.example.com
               ports:
-                - name: kafka
-                  port: 9200
-                  protocol: TCP
+                - port: 9200
           rules:
             - application: app1
             - application: app2
@@ -383,9 +381,7 @@ Required: `false`<br />
             - host: external-application.example.com
             - host: non-http-service.example.com
               ports:
-                - name: kafka
-                  port: 9200
-                  protocol: TCP
+                - port: 9200
           rules:
             - application: app1
             - application: app2
@@ -413,9 +409,7 @@ Availability: GCP<br />
             - host: external-application.example.com
             - host: non-http-service.example.com
               ports:
-                - name: kafka
-                  port: 9200
-                  protocol: TCP
+                - port: 9200
     ```
 
 ##### accessPolicy.outbound.external[].host
@@ -433,9 +427,7 @@ Required: `true`<br />
             - host: external-application.example.com
             - host: non-http-service.example.com
               ports:
-                - name: kafka
-                  port: 9200
-                  protocol: TCP
+                - port: 9200
     ```
 
 ##### accessPolicy.outbound.external[].ports
@@ -453,29 +445,7 @@ Required: `false`<br />
             - host: external-application.example.com
             - host: non-http-service.example.com
               ports:
-                - name: kafka
-                  port: 9200
-                  protocol: TCP
-    ```
-
-###### accessPolicy.outbound.external[].ports[].name
-Human-readable identifier for this rule.
-
-Type: `string`<br />
-Required: `true`<br />
-
-??? example
-    ``` yaml
-    spec:
-      accessPolicy:
-        outbound:
-          external:
-            - host: external-application.example.com
-            - host: non-http-service.example.com
-              ports:
-                - name: kafka
-                  port: 9200
-                  protocol: TCP
+                - port: 9200
     ```
 
 ###### accessPolicy.outbound.external[].ports[].port
@@ -493,30 +463,7 @@ Required: `true`<br />
             - host: external-application.example.com
             - host: non-http-service.example.com
               ports:
-                - name: kafka
-                  port: 9200
-                  protocol: TCP
-    ```
-
-###### accessPolicy.outbound.external[].ports[].protocol
-The protocol used for communication.
-
-Type: `enum`<br />
-Required: `true`<br />
-Allowed values: `GRPC`, `HTTP`, `HTTP2`, `HTTPS`, `MONGO`, `TCP`, `TLS`<br />
-
-??? example
-    ``` yaml
-    spec:
-      accessPolicy:
-        outbound:
-          external:
-            - host: external-application.example.com
-            - host: non-http-service.example.com
-              ports:
-                - name: kafka
-                  port: 9200
-                  protocol: TCP
+                - port: 9200
     ```
 
 #### accessPolicy.outbound.rules

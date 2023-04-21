@@ -54,9 +54,7 @@ Required: `false`<br />
             - host: external-application.example.com
             - host: non-http-service.example.com
               ports:
-                - name: kafka
-                  port: 9200
-                  protocol: TCP
+                - port: 9200
           rules:
             - application: app1
             - application: app2
@@ -383,9 +381,7 @@ Required: `false`<br />
             - host: external-application.example.com
             - host: non-http-service.example.com
               ports:
-                - name: kafka
-                  port: 9200
-                  protocol: TCP
+                - port: 9200
           rules:
             - application: app1
             - application: app2
@@ -413,9 +409,7 @@ Availability: GCP<br />
             - host: external-application.example.com
             - host: non-http-service.example.com
               ports:
-                - name: kafka
-                  port: 9200
-                  protocol: TCP
+                - port: 9200
     ```
 
 ##### accessPolicy.outbound.external[].host
@@ -433,9 +427,7 @@ Required: `true`<br />
             - host: external-application.example.com
             - host: non-http-service.example.com
               ports:
-                - name: kafka
-                  port: 9200
-                  protocol: TCP
+                - port: 9200
     ```
 
 ##### accessPolicy.outbound.external[].ports
@@ -453,29 +445,7 @@ Required: `false`<br />
             - host: external-application.example.com
             - host: non-http-service.example.com
               ports:
-                - name: kafka
-                  port: 9200
-                  protocol: TCP
-    ```
-
-###### accessPolicy.outbound.external[].ports[].name
-Human-readable identifier for this rule.
-
-Type: `string`<br />
-Required: `true`<br />
-
-??? example
-    ``` yaml
-    spec:
-      accessPolicy:
-        outbound:
-          external:
-            - host: external-application.example.com
-            - host: non-http-service.example.com
-              ports:
-                - name: kafka
-                  port: 9200
-                  protocol: TCP
+                - port: 9200
     ```
 
 ###### accessPolicy.outbound.external[].ports[].port
@@ -493,30 +463,7 @@ Required: `true`<br />
             - host: external-application.example.com
             - host: non-http-service.example.com
               ports:
-                - name: kafka
-                  port: 9200
-                  protocol: TCP
-    ```
-
-###### accessPolicy.outbound.external[].ports[].protocol
-The protocol used for communication.
-
-Type: `enum`<br />
-Required: `true`<br />
-Allowed values: `GRPC`, `HTTP`, `HTTP2`, `HTTPS`, `MONGO`, `TCP`, `TLS`<br />
-
-??? example
-    ``` yaml
-    spec:
-      accessPolicy:
-        outbound:
-          external:
-            - host: external-application.example.com
-            - host: non-http-service.example.com
-              ports:
-                - name: kafka
-                  port: 9200
-                  protocol: TCP
+                - port: 9200
     ```
 
 #### accessPolicy.outbound.rules
@@ -636,7 +583,6 @@ Required: `false`<br />
             - /path
             - /internal/*
           enabled: true
-          errorPath: /error
           resources:
             limits:
               cpu: 250m
@@ -864,7 +810,6 @@ Required: `false`<br />
             - /path
             - /internal/*
           enabled: true
-          errorPath: /error
           resources:
             limits:
               cpu: 250m
@@ -927,30 +872,12 @@ Required: `true`<br />
           enabled: true
     ```
 
-#### azure.sidecar.errorPath
-Absolute path to redirect the user to on authentication errors for custom error handling.
-
-Relevant information:
-
-* [https://doc.nais.io/appendix/wonderwall/#4-error-handling](https://doc.nais.io/appendix/wonderwall/#4-error-handling)
-
-Type: `string`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      azure:
-        sidecar:
-          errorPath: /error
-    ```
-
 #### azure.sidecar.resources
 Resource requirements for the sidecar container.
 
 Relevant information:
 
-* [https://doc.nais.io/appendix/wonderwall/#5-resource-requirements](https://doc.nais.io/appendix/wonderwall/#5-resource-requirements)
+* [https://doc.nais.io/appendix/wonderwall/#4-resource-requirements](https://doc.nais.io/appendix/wonderwall/#4-resource-requirements)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3199,7 +3126,6 @@ Required: `false`<br />
             - /path
             - /internal/*
           enabled: true
-          errorPath: /error
           level: Level4
           locale: nb
           resources:
@@ -3388,7 +3314,6 @@ Required: `false`<br />
             - /path
             - /internal/*
           enabled: true
-          errorPath: /error
           level: Level4
           locale: nb
           resources:
@@ -3453,24 +3378,6 @@ Required: `true`<br />
           enabled: true
     ```
 
-#### idporten.sidecar.errorPath
-Absolute path to redirect the user to on authentication errors for custom error handling.
-
-Relevant information:
-
-* [https://doc.nais.io/appendix/wonderwall/#4-error-handling](https://doc.nais.io/appendix/wonderwall/#4-error-handling)
-
-Type: `string`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      idporten:
-        sidecar:
-          errorPath: /error
-    ```
-
 #### idporten.sidecar.level
 Default security level for all authentication requests.
 
@@ -3516,7 +3423,7 @@ Resource requirements for the sidecar container.
 
 Relevant information:
 
-* [https://doc.nais.io/appendix/wonderwall/#5-resource-requirements](https://doc.nais.io/appendix/wonderwall/#5-resource-requirements)
+* [https://doc.nais.io/appendix/wonderwall/#4-resource-requirements](https://doc.nais.io/appendix/wonderwall/#4-resource-requirements)
 
 Type: `object`<br />
 Required: `false`<br />
