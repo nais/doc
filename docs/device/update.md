@@ -9,8 +9,15 @@ If this is not the case, head over to the [installation instructions](./install.
 
 If you don't already have naisdevice installed via Homebrew, refer to [installation instructions](./install.md).
 
-To update run Privileges.app before opening a Terminal window.
-In the window paste the following code: "brew update && brew upgrade naisdevice"
+To update:
+
+1. Request privileges by running `Privileges.app` 
+2. Open a Terminal window.
+3. Run the following command:
+
+```bash
+brew update && brew upgrade naisdevice
+```
 
 ### Windows
 
