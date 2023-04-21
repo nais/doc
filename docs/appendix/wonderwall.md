@@ -290,16 +290,14 @@ global/single-logout, if logged in with SSO (single sign-on) at the identity pro
 !!! info "Limited Availability"
     This feature is only available for [Azure AD](../security/auth/azure-ad/sidecar.md)
 
-If you only want to perform a _local logout_ for the user, redirect the user to:
+If you only want to perform a _local logout_ for the user, perform a `GET` request from the user's browser / user agent:
 
 ```
 https://<ingress>/oauth2/logout/local
 ```
 
-This will only clear the user's local session (i.e. remove the cookies) with the sidecar, without performing global logout at the identity provider.
-
-The user will be redirected back to the application's ingress at the matching context root after logout.
-This means that you **must not** automatically redirect the user to login again, as they'll instantly be logged in due to having an active SSO session.
+This will only clear the user's local session (i.e. remove the cookies) with the sidecar, without performing global logout at the identity provider. 
+The endpoint responds with a HTTP 204 after successful logout. It will **not** respond with a redirect.
 
 A local logout is useful for scenarios where users frequently switch between multiple accounts. 
 This means that they do not have to re-enter their credentials (e.g. username, password, 2FA) between each local logout, as they still have an SSO-session logged in with the identity provider.
