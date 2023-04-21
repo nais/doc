@@ -78,14 +78,26 @@ Once installed, you need to authenticate with Google using your NAV e-mail.
 $ gcloud auth login
 ```
 
-Make sure you are connected to the right cluster, and verify that it works.
+You will also need to install a plugin in order to authenticate to the Kubernetes clusters:
+
+```bash
+$ gcloud components install gke-gcloud-auth-plugin
+```
+
+Then, select a cluster:
 
 ```bash
 $ kubectl config use-context prod-gcp
+
 Switched to context "prod-gcp".
+```
+
+And verify that you're connected:
+
+```bash
 $ kubectl cluster-info
-gcp-terraform $ k cluster-info
-Kubernetes master is running at https://127.0.0.1:14131
+
+Kubernetes control plane is running at https://[...]
 ...
 ```
 
