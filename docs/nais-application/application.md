@@ -4165,7 +4165,7 @@ PreStopHook is called immediately before a container is terminated due to an API
 
 Relevant information:
 
-* [https://doc.nais.io/naisjob/#handles-termination-gracefully](https://doc.nais.io/naisjob/#handles-termination-gracefully)
+* [https://docs.nais.io/nais-application/good-practices/#handles-termination-gracefully](https://docs.nais.io/nais-application/good-practices/#handles-termination-gracefully)
 * [https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks)
 
 Type: `object`<br />
@@ -4269,7 +4269,7 @@ A HTTP GET will be issued to this endpoint at least once before the pod is termi
 
 Relevant information:
 
-* [https://doc.nais.io/nais-application/#handles-termination-gracefully](https://doc.nais.io/nais-application/#handles-termination-gracefully)
+* [https://docs.nais.io/nais-application/good-practices/#handles-termination-gracefully](https://docs.nais.io/nais-application/good-practices/#handles-termination-gracefully)
 
 Type: `string`<br />
 Required: `false`<br />
