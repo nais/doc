@@ -120,7 +120,7 @@ For any endpoint that requires authentication:
 Refer to the specific identity provider documentation for additional details that apply to the given provider:
 
 - [Azure AD](../security/auth/azure-ad/sidecar.md)
-- [ID-porten](../security/auth/idporten/sidecar.md)
+- [ID-porten](../security/auth/idporten.md)
 
 ---
 
@@ -321,7 +321,7 @@ for the JWT Bearer `access_token` attached by the sidecar in the `Authorization`
 Each provider may have some differences in claims and values; see their specific page for details:
 
 - [Azure AD](../security/auth/azure-ad/sidecar.md#token-validation)
-- [ID-porten](../security/auth/idporten/sidecar.md#token-validation)
+- [ID-porten](../security/auth/idporten.md#token-validation)
 
 ---
 
@@ -516,7 +516,7 @@ In order to access other applications, you should exchange the token in order to
 
 See the respective identity provider pages for details:
 
-- [ID-porten](../security/auth/idporten/sidecar.md#next-steps)
+- [ID-porten](../security/auth/idporten.md#next-steps)
 - [Azure AD](../security/auth/azure-ad/sidecar.md#next-steps)
 
 [identity provider]: ../security/auth/concepts/actors.md#identity-provider

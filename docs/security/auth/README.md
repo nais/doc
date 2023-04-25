@@ -21,7 +21,7 @@ manages the users' sessions.
 
 #### 1.1. Citizen-facing applications
 
-Use the [OpenID Connect Authorization Code Flow in ID-porten](idporten/README.md).
+Use the [OpenID Connect Authorization Code Flow in ID-porten](idporten.md).
 
 #### 1.2. Employee-facing applications
 

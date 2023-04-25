@@ -239,8 +239,6 @@ Generally speaking, the most important JWT claims to validate are the following:
     - The expected recipient of the token.
     - The value of this is usually a unique identifier such as a [client ID](actors.md#client-id) that belongs to either
       the [client](actors.md#client) or [resource server](actors.md#resource-server) that the token is intended for.
-    - This claim is unspecified for access tokens from [ID-porten](../idporten/README.md). The `client_id` claim is used
-      in this case.
 - `exp` (**expiration time**)
     - The timestamp for which the token expires, in unix time (seconds since epoch). The token is invalid if it is used
       after this time.

@@ -31,7 +31,7 @@ description: Enabling zero trust on the application layer
 
     There are primarily two distinct cases where one must use TokenX:
 
-    1. You have a user facing app using [ID-porten](idporten/README.md) that should perform calls to another app on behalf of a user.
+    1. You have a user facing app using [ID-porten](idporten.md) that should perform calls to another app on behalf of a user.
     2. You have an app receiving tokens issued from Tokendings and need to call another app while still propagating the original user context.
 
 ???+ info "Overview of flow"
@@ -244,7 +244,7 @@ Tokendings will then issue an `access_token` in JWT format, based on the paramet
 #### Prerequisites
 
 * You have a _subject token_ in the form of an `access_token` issued by one of the following providers:
-    - [ID-porten](idporten/README.md)
+    - [ID-porten](idporten.md)
     - Tokendings
     - [Loginservice](../../legacy/sunset.md#loginservice) (Remember that loginservice is a deprecated legacy system. TokenX currently accepts these tokens during the grace period for migration.)
 * You have a [client assertion](tokenx.md#client-authentication) that _authenticates_ your application.
@@ -340,7 +340,7 @@ To extract such non-standard information from tokens, first use the `idp` claim 
 
 #### Example Token \(exchanged from ID-porten\)
 
-The following example shows the claims of a token issued by Tokendings, where the exchanged subject token is issued by [ID-porten](idporten/README.md):
+The following example shows the claims of a token issued by Tokendings, where the exchanged subject token is issued by [ID-porten](idporten.md):
 
 ???+ example 
     ```json
