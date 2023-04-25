@@ -21,7 +21,15 @@ brew update && brew upgrade naisdevice
 
 ### Windows
 
-Download and run the newest [naisdevice installer](https://github.com/nais/device/releases/latest) \(naisdevice.msi\).
+#### If you installed using scoop
+
+```powershell
+scoop update naisdevice
+```
+
+#### Manual installation
+
+Download and run the newest [naisdevice installer](https://github.com/nais/device/releases/latest) \(naisdevice.exe\).
 
 ### Ubuntu \(using Gnome DE - only supported variant atm\)
 
