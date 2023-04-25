@@ -3551,7 +3551,7 @@ PreStopHook is called immediately before a container is terminated due to an API
 
 Relevant information:
 
-* [https://doc.nais.io/naisjob/#handles-termination-gracefully](https://doc.nais.io/naisjob/#handles-termination-gracefully)
+* [https://doc.nais.io/nais-application/good-practices/#handles-termination-gracefully](https://doc.nais.io/nais-application/good-practices/#handles-termination-gracefully)
 * [https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks)
 
 Type: `object`<br />
