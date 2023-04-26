@@ -2,8 +2,6 @@
 description: >-
     NAIS offers solutions for observability for frontend applications.
     This page describes how to use these offerings.
-search:
-  boost: 2
 ---
 
 # Observability on the frontend
@@ -53,7 +51,7 @@ For nextjs you can use [local environment variables](https://nextjs.org/docs/bas
 
 ## Inspecting logs and traces
 
-Navigate your web browser to the appropriate grafana deployment, e.g https://grafana.nav.cloud.nais.io and choose
+Navigate your web browser to the appropriate grafana deployment, e.g https://grafana.nav.cloud.nais.io and choose your app.
 
 ### core web vitals
 [web vitals on the demo app](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals)
@@ -68,8 +66,8 @@ Usage of the Grafana Faro Web SDK is described in [Grafan docs](https://grafana.
 ### Otel
 ### grafana Dashboards
 
+
 ## Logs
-import { getWebInstrumentations, initializeFaro } from '@grafana/faro-web-sdk'; web vitals
 
 ## Metrics
 
