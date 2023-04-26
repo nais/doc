@@ -20,33 +20,35 @@ By using the Grafana Faro Web SDK you get
 - events
 - and traces
 
+## Usage
+
+It is very easy to get started, you install and configure the SDK. There is no requirment for any extra
+code elsewhere.
+
+See the [official documentation](https://grafana.com/docs/grafana-cloud/frontend-observability/) for installation
+instructions.
+
+For configuration, the initialization call looks as follows
+```js
+initializeFaro({
+  url: <Url to the grafana collector>,
+
+  app: {
+    name: <The name of your app>,
+    version: [A version]
+  },
+});
+
+```
+
+where the url to the grafana collector is either `https://telemetry.prod-gcp.nav.cloud.nais.io/collect`
+or `https://telemetry.dev-gcp.nav.cloud.nais.io/collect` depending on your environment. You are responsible for choosing the correct environment for your deployment.
 
 ### core web vitals
 [web vitals on the demo app](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals)
 
 ### tracing-demo
 
-
-## Usage
-initializeFaro({
-  // Mandatory, the URL of the Grafana Cloud collector with embedded application key.
-  // Copy from the configuration page of your application in Grafana.
-  url: 'http://faro-collector-us-central-0.grafana.net/collect/{app-key}',
-
-  // Mandatory, the identification label(s) of your application
-  app: {
-    name: 'my-app',
-    version: '1.0.0', // Optional, but recommended
-  },
-
-  instrumentations: [
-    // Mandatory, overwriting the instrumentations array would cause the default instrumentations to be omitted
-    ...getWebInstrumentations(),
-
-    // Mandatory, initialization of the tracing package
-    new TracingInstrumentation(),
-  ],
-});
 ### Faro-sdk
 Usage of the Grafana Faro Web SDK is described in [Grafan docs](https://grafana.com/docs/grafana-cloud/frontend-observability/). This is a runtime dependency and as such there will be an increase in bundle size, about 500kb.
 
