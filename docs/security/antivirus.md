@@ -43,7 +43,7 @@ spec:
     outbound:
       rules:
         - application: clamav
-          namespace: clamav
+          namespace: nais-system
 ```
 
 ## Support
