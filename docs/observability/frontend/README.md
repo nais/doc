@@ -22,13 +22,14 @@ By using the Grafana Faro Web SDK you get
 
 ## Usage
 
-It is very easy to get started, you install and configure the SDK. There is no requirment for any extra
+It is easy to get started, you install and configure the SDK. There is no requirment for any extra
 code elsewhere.
 
 See the [official documentation](https://grafana.com/docs/grafana-cloud/frontend-observability/) for installation
 instructions.
 
 For configuration, the initialization call looks as follows
+
 ```js
 initializeFaro({
   url: <Url to the grafana collector>,
