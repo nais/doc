@@ -26,7 +26,7 @@ It is easy to get started, you install and configure the SDK. There is no requir
 code elsewhere.
 
 See the [official documentation](https://grafana.com/docs/grafana-cloud/frontend-observability/) for installation
-instructions.
+instructions. There is also an [FAQ](https://grafana.com/docs/grafana-cloud/frontend-observability/faro-web-sdk/faq/)
 
 For configuration, the initialization call looks as follows
 
@@ -46,6 +46,9 @@ where the url to the grafana collector is
 - `https://telemetry.prod-gcp.nav.cloud.nais.io/collect` for prod environments
 - `https://telemetry.dev-gcp.nav.cloud.nais.io/collect` for dev environments.
 You are responsible for choosing the correct environment for your deployment.
+For local development we recommend using a docker [docker compose](https://github.com/nais/tracing-demo/blob/main/docker-compose.yml) or the dev environment
+
+For nextjs you can use [local environment variables](https://nextjs.org/docs/basic-features/environment-variables)
 
 
 ## Inspecting logs and traces
