@@ -42,8 +42,15 @@ initializeFaro({
 
 ```
 
-where the url to the grafana collector is either `https://telemetry.prod-gcp.nav.cloud.nais.io/collect`
-or `https://telemetry.dev-gcp.nav.cloud.nais.io/collect` depending on your environment. You are responsible for choosing the correct environment for your deployment.
+where the url to the grafana collector is
+- `https://telemetry.prod-gcp.nav.cloud.nais.io/collect` for prod environments
+- `https://telemetry.dev-gcp.nav.cloud.nais.io/collect` for dev environments.
+You are responsible for choosing the correct environment for your deployment.
+
+
+## Inspecting logs and traces
+
+Navigate your web browser to the appropriate grafana deployment, e.g https://grafana.nav.cloud.nais.io and choose
 
 ### core web vitals
 [web vitals on the demo app](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals)
@@ -64,5 +71,3 @@ import { getWebInstrumentations, initializeFaro } from '@grafana/faro-web-sdk'; 
 ## Metrics
 
 ## Traces
-
-import { TracingInstrumentation } from '@grafana/faro-web-tracing'; 500kb
