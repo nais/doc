@@ -20,7 +20,7 @@ By using the Grafana Faro Web SDK you get
 
 ## Usage
 
-It is easy to get started, you install and configure the SDK. There is no requirment for any extra
+It is easy to get started, you install and configure the SDK. There is no requirment for extra
 code elsewhere.
 
 See the [official documentation](https://grafana.com/docs/grafana-cloud/frontend-observability/) for installation
@@ -47,6 +47,15 @@ You are responsible for choosing the correct environment for your deployment.
 For local development we recommend using a docker [docker compose](https://github.com/nais/tracing-demo/blob/main/docker-compose.yml) or the dev environment
 
 For nextjs you can use [local environment variables](https://nextjs.org/docs/basic-features/environment-variables)
+
+### using opentelemetry
+
+Faro re-exports the opentelemtry javascript library for creating spans to put logs in a span
+
+### React
+
+There is a pre-release(2023-04-27) package https://github.com/grafana/faro-web-sdk/tree/main/packages/react
+
 
 
 ## Inspecting logs and traces
