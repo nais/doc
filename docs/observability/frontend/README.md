@@ -50,11 +50,13 @@ For nextjs you can use [local environment variables](https://nextjs.org/docs/bas
 
 ### using opentelemetry
 
-Faro re-exports the opentelemtry javascript library for creating spans to put logs in a span
+Faro re-exports the opentelemtry javascript library for tracing. Usage instructions can be found at
+<https://grafana.com/docs/grafana-cloud/frontend-observability/faro-web-sdk/opentelemetry-js/>
+
 
 ### React
 
-There is a pre-release(2023-04-27) package https://github.com/grafana/faro-web-sdk/tree/main/packages/react
+There is a pre-release(2023-04-27) package <https://github.com/grafana/faro-web-sdk/tree/main/packages/react>
 
 
 
