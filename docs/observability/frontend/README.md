@@ -4,6 +4,8 @@ description: >-
     This page describes how to use these offerings.
 ---
 
+TODO: Add external dns for https://telemetry...
+
 # Observability on the frontend
 
 When developing solutions for the frontend there is a variety of different tools for capturing information about
@@ -42,6 +44,9 @@ initializeFaro({
   },
 });
 ```
+^-TODO-- Document console.log etc. also beforesend
+
+-- TODO -- TAGGING and best practices
 
 Deploy to production. You should start to receive some metrics and logs already.
 
@@ -67,7 +72,9 @@ For NextJS you can use [local environment variables](https://nextjs.org/docs/bas
 Faro re-exports the opentelemtry javascript library for tracing. Usage instructions can be found at
 <https://grafana.com/docs/grafana-cloud/frontend-observability/faro-web-sdk/opentelemetry-js/>
 
+-- Todo Setting up tracing --
 
+-- TODO Section on backend (distributed tracing in practice)---
 ### React
 
 There is a pre-release(2023-04-27) package <https://github.com/grafana/faro-web-sdk/tree/main/packages/react>
