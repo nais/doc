@@ -98,8 +98,8 @@ when authenticating users.
 
 Valid values are `Level3` or `Level4`.
 
-You can set a default value for _all_ requests by specifying [`spec.idporten.sidecar.level`](../../nais-application/application.md#idportensidecarlevel).
-**If unspecified, the sidecar will use `Level4` as the default value.**
+You can set a default value for _all_ login requests by specifying [`spec.idporten.sidecar.level`](../../nais-application/application.md#idportensidecarlevel).
+**If unspecified, the sidecar will use `Level4` as the default value when redirecting to login.**
 
 For runtime control of the value, set the query parameter `level` when redirecting the user to login:
 
