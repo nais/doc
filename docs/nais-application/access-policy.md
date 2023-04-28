@@ -243,16 +243,19 @@ In order to send requests to services outside of the cluster, `external.host` co
     ```
 
 Default hosts that are added and accessible for every application:
-- kube-dns (53)
-- metadata.google.internal (80)
-- private.googleapis.com (443)
-- login.microsoftonline.com (443)
-- oidc.difi.no (443)
-- ver2.maskinporten.no (443)
-- maskinporten.no (443)
-- oidc-ver2.difi.no (443)
-- aivencloud.com (443)
-- unleash.nais.io (443)
+
+| Host / service              | Port | Protocol  |
+|-----------------------------|------|-----------|
+| `kube-dns`                  | 53   | UDP / TCP |
+| `metadata.google.internal`  | 80   | TCP       |
+| `private.googleapis.com`    | 443  | TCP       |
+| `login.microsoftonline.com` | 443  | TCP       |
+| `oidc.difi.no`              | 443  | TCP       |
+| `ver2.maskinporten.no`      | 443  | TCP       |
+| `maskinporten.no`           | 443  | TCP       |
+| `oidc-ver2.difi.no`         | 443  | TCP       |
+| `aivencloud.com`            | 443  | TCP       |
+| `unleash.nais.io`           | 443  | TCP       |
 
 #### Global Service Entries
 
