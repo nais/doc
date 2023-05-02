@@ -43,6 +43,11 @@ initializeFaro({
 });
 ```
 
+Deploy to production. You should start to receive some metrics and logs already.
+
+Use our pre-defined [web vitals dashboard](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals) to start visualizing and gain insights.
+
+
 ## Configuration
 
 The URL points to a Grafana Agent collector, and should be set to:
