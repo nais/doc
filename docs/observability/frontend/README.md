@@ -47,7 +47,7 @@ initializeFaro({
 
 The URL points to a Grafana Agent collector, and should be set to:
 - `https://telemetry.nav.no/collect` if running in `prod-gcp`.
-- `https://telemetry.ekstern.dev.nav.no` if running in `dev-gcp`.
+- `https://telemetry.ekstern.dev.nav.no/collect` if running in `dev-gcp`.
 
 On-premises clusters are not supported.
 
