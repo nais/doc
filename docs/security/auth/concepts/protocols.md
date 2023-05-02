@@ -91,12 +91,12 @@ server-side.
 This flow is supported by the following identity providers:
 
 - [Azure AD](../azure-ad/usage.md#openid-connect-authorization-code-flow) (employee-facing applications)
-- [ID-porten](../idporten/README.md) (citizen-facing applications)
+- [ID-porten](../idporten.md) (citizen-facing applications)
 
 The platform provides opt-in sidecars that implement such clients:
 
 - [Sidecar for Azure AD](../azure-ad/sidecar.md) (employee-facing applications)
-- [Sidecar for ID-porten](../idporten/sidecar.md) (citizen-facing applications)
+- [Sidecar for ID-porten](../idporten.md) (citizen-facing applications)
 
 Due to the complexity involved in implementing and maintaining such clients, we recommend that your applications use 
 these sidecars when possible. 

@@ -13,7 +13,7 @@ The following is a list of the providers that the platform supports provisioning
 OpenID Connect:
 
 - [Azure AD](../azure-ad/README.md)
-- [ID-porten](../idporten/README.md)
+- [ID-porten](../idporten.md)
 
 OAuth 2.0:
 
@@ -169,9 +169,9 @@ identifier is generally not considered to be confidential.
 The client ID for your client is injected at runtime as an environment variable. 
 See the respective identity provider page for details:
 
-- [Azure AD](../azure-ad/usage.md#azure_app_client_id)
-- [ID-porten](../idporten/README.md#idporten_client_id)
-- [TokenX](../tokenx.md#token_x_client_id)
+- [Azure AD](../azure-ad/usage.md#runtime-variables-credentials)
+- [ID-porten](../idporten.md#runtime-variables-credentials)
+- [TokenX](../tokenx.md#runtime-variables-credentials)
 
 ### Client Authentication
 

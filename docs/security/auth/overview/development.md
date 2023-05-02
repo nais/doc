@@ -41,7 +41,7 @@ The client is configured with the following redirect URIs:
 
 - `http://localhost:3000/oauth2/callback`
 
-It is otherwise equal to a [default client](../idporten/README.md).
+It is otherwise equal to a [default client](../idporten.md).
 
 ### Azure AD
 
