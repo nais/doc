@@ -1,6 +1,6 @@
 ---
 description: >-
-    NAIS offers solutions for observability for frontend applications.
+    NAIS offers observability tooling for frontend applications.
     This page describes how to use these offerings.
 ---
 
@@ -10,43 +10,52 @@ When developing solutions for the frontend there is a variety of different tools
 usage, logs, exceptions and performance. NAIS offers a unified solution for full stack frontend observability in
 the form of Loki-Grafana-Tempo.
 
-By using the Grafana Faro Web SDK you get
+By using the Grafana Faro Web SDK you get:
 - user monitoring
-- performance metrics in the form of [web vitals](https://web.dev/vitals/)
+- performance metrics a.k.a. [core web vitals](https://web.dev/vitals/)
 - logging
 - exceptions with stack traces
 - events
-- and traces
+- traces
 
 ## Usage
 
-It is easy to get started, you install and configure the SDK. There is no requirment for extra
-code elsewhere.
+The following instructions are for frontend applications only, running in the browser of the end user.
+It is easy to get started, you install and configure the SDK. There is no requirement for extra code elsewhere.
 
-See the [official documentation](https://grafana.com/docs/grafana-cloud/frontend-observability/) for installation
-instructions. There is also an [FAQ](https://grafana.com/docs/grafana-cloud/frontend-observability/faro-web-sdk/faq/)
+```sh
+npm i -S @grafana/faro-web-sdk      # required
+npm i -S @grafana/faro-web-tracing  # required for tracing
+```
 
-For configuration, the initialization call looks as follows
+There are also [official documentation](https://grafana.com/docs/grafana-cloud/frontend-observability/) for installation
+instructions. There is also an [FAQ](https://grafana.com/docs/grafana-cloud/frontend-observability/faro-web-sdk/faq/).
+
+Inside your application, initialize Faro as follows:
 
 ```js
 initializeFaro({
-  url: <Url to the grafana collector>,
-
+  url: "http://...",  // required
   app: {
-    name: <The name of your app>,
-    version: [A version]
+    name: "app-name", // required
+    version: "1.2.3"  // optional
   },
 });
-
 ```
 
-where the url to the grafana collector is
-- `https://telemetry.prod-gcp.nav.cloud.nais.io/collect` for prod environments
-- `https://telemetry.dev-gcp.nav.cloud.nais.io/collect` for dev environments.
-You are responsible for choosing the correct environment for your deployment.
-For local development we recommend using a docker [docker compose](https://github.com/nais/tracing-demo/blob/main/docker-compose.yml) or the dev environment
+## Configuration
 
-For nextjs you can use [local environment variables](https://nextjs.org/docs/basic-features/environment-variables)
+The URL points to a Grafana Agent collector, and should be set to:
+- `https://telemetry.nav.no/collect` if running in `prod-gcp`.
+- `https://telemetry.ekstern.dev.nav.no` if running in `dev-gcp`.
+
+On-premises clusters are not supported.
+
+For local development, we recommend checking out our [tracing demo repository](https://github.com/nais/tracing-demo)
+and running `docker-compose up`, this will give you local services you can test against. See the README in that repository
+for further details.
+
+For NextJS you can use [local environment variables](https://nextjs.org/docs/basic-features/environment-variables).
 
 ### using opentelemetry
 
