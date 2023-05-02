@@ -42,11 +42,14 @@ initializeFaro({
     name: "app-name", // required
     version: "1.2.3"  // optional
   },
+  instrumentations: [...getWebInstrumentations(), new TracingInstrumentation()],
 });
 ```
-^-TODO-- Document console.log etc. also beforesend
 
--- TODO -- TAGGING and best practices
+Note that instrumenting an application like this will yield a lot of data. There could be
+performance considerations and you may want to put the instrumentation call behind a feature flag
+for production environments.
+
 
 Deploy to production. You should start to receive some metrics and logs already.
 
@@ -69,16 +72,29 @@ For NextJS you can use [local environment variables](https://nextjs.org/docs/bas
 
 ### using opentelemetry
 
-Faro re-exports the opentelemtry javascript library for tracing. Usage instructions can be found at
+In practice, most instrumentation happens behind the scenes and manually adding traces is not necesarry. If you want to add manual traces Faro re-exports the opentelemtry javascript library. Usage instructions can be found at
 <https://grafana.com/docs/grafana-cloud/frontend-observability/faro-web-sdk/opentelemetry-js/>
 
--- Todo Setting up tracing --
+To start a new trace, you can
+```js
+const { trace, context } = faro.api.getOTEL();
 
--- TODO Section on backend (distributed tracing in practice)---
+const tracer = trace.getTracer('default');
+const span = tracer.startSpan('my-cool-span-name');
+
+context.with(trace.setSpan(context.active(), span), () => {
+  doSomething();
+  span.end();
+});
+
+```
+
 ### React
 
 There is a pre-release(2023-04-27) package <https://github.com/grafana/faro-web-sdk/tree/main/packages/react>
 
+It offers instrumentation over error boundaries, mounts, unmounts and react router.
+Instrumenting mounts and unmounts can be quite data intensive, take due care.
 
 
 ## Inspecting logs and traces
@@ -89,18 +105,4 @@ Navigate your web browser to the appropriate grafana deployment, e.g https://gra
 [web vitals on the demo app](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals)
 
 ### tracing-demo
-
-### Faro-sdk
-Usage of the Grafana Faro Web SDK is described in [Grafan docs](https://grafana.com/docs/grafana-cloud/frontend-observability/). This is a runtime dependency and as such there will be an increase in bundle size, about 500kb.
-
-
-
-### Otel
-### grafana Dashboards
-
-
-## Logs
-
-## Metrics
-
-## Traces
+Choose Tempo as a datasource and select a label matching your app.
