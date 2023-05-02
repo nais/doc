@@ -4,7 +4,7 @@ description: >-
     This page describes how to use these offerings.
 ---
 
-TODO: Add external dns for https://telemetry...
+TODO: Add external DNS for https://telemetry...
 
 # Observability on the frontend
 
@@ -54,7 +54,7 @@ out what you need and think is useful.
 
 Deploy to production. You should start to receive some metrics and logs already.
 
-Use our pre-defined [web vitals dashboard](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals) to start visualizing and gain insights.
+Use our predefined [web vitals dashboard](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals) to start visualizing and gain insights.
 
 
 ## Configuration
@@ -71,9 +71,9 @@ for further details.
 
 For NextJS you can use [local environment variables](https://nextjs.org/docs/basic-features/environment-variables).
 
-### using opentelemetry
+### using OpenTelemetry
 
-In practice, most instrumentation happens behind the scenes and manually adding traces is not necesarry. If you want to add manual traces Faro re-exports the opentelemtry javascript library. Usage instructions can be found at
+In practice, most instrumentation happens behind the scenes and manually adding traces is not necessary. If you want to add manual traces Faro re-exports the OpenTelemetry JavaScript library. Usage instructions can be found at
 <https://grafana.com/docs/grafana-cloud/frontend-observability/faro-web-sdk/opentelemetry-js/>
 
 To start a new trace, you can
@@ -92,7 +92,7 @@ context.with(trace.setSpan(context.active(), span), () => {
 
 ### React
 
-There is a pre-release(2023-04-27) package <https://github.com/grafana/faro-web-sdk/tree/main/packages/react>
+There is a prerelease(2023-04-27) package <https://github.com/grafana/faro-web-sdk/tree/main/packages/react>
 
 It offers instrumentation over error boundaries, mounts, unmounts and react router.
 Instrumenting mounts and unmounts can be quite data intensive, take due care.
@@ -100,10 +100,14 @@ Instrumenting mounts and unmounts can be quite data intensive, take due care.
 
 ## Inspecting logs and traces
 
-Navigate your web browser to the appropriate grafana deployment, e.g https://grafana.nav.cloud.nais.io and choose your app.
+Navigate your web browser to the appropriate Grafana deployment, e.g https://grafana.nav.cloud.nais.io and choose your app.
 
 ### core web vitals
 [web vitals on the demo app](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals)
 
 ### tracing-demo
-Choose Tempo as a datasource and select a label matching your app.
+Choose Tempo as a data source and select a label matching your app.
+
+<!-- Local Variables: -->
+<!-- jinx-languages: "en_US" -->
+<!-- End: -->
