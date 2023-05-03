@@ -11,6 +11,7 @@ usage, logs, exceptions and performance. NAIS offers a unified solution for full
 the form of Loki-Grafana-Tempo.
 
 By using the Grafana Faro Web SDK you get:
+
 - user monitoring
 - performance metrics a.k.a. [core web vitals](https://web.dev/vitals/)
 - logging
@@ -49,7 +50,6 @@ performance considerations and you may want to put the instrumentation call behi
 for production environments or scale down the amount of automatic instrumentation as you find
 out what you need and think is useful.
 
-
 Deploy to production. You should start to receive some metrics and logs already.
 
 Use our predefined [web vitals dashboard](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals) to start visualizing and gain insights.
@@ -69,7 +69,7 @@ for further details.
 
 For NextJS you can use [local environment variables](https://nextjs.org/docs/basic-features/environment-variables).
 
-### using OpenTelemetry
+### Using OpenTelemetry
 
 In practice, most instrumentation happens behind the scenes and manually adding traces is not necessary. If you want to add manual traces Faro re-exports the OpenTelemetry JavaScript library. Usage instructions can be found at
 <https://grafana.com/docs/grafana-cloud/frontend-observability/faro-web-sdk/opentelemetry-js/>
@@ -98,13 +98,11 @@ Instrumenting mounts and unmounts can be quite data intensive, take due care.
 
 ## Inspecting logs and traces
 
-Navigate your web browser to the appropriate Grafana deployment, e.g https://grafana.nav.cloud.nais.io and choose your app.
+Navigate your web browser to the appropriate Grafana deployment, e.g https://grafana.nav.cloud.nais.io and choose your app in, for example, "Explore" under either the Loki or Tempo tab and run queries.
 
-### core web vitals
-[web vitals on the demo app](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals)
+### Core web vitals
 
-### tracing-demo
-Choose Tempo as a data source and select a label matching your app.
+There's a dashboard for [web vitals on the demo app](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals)
 
 <!-- Local Variables: -->
 <!-- jinx-languages: "en_US" -->
