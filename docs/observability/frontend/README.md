@@ -100,10 +100,6 @@ Instrumenting mounts and unmounts can be quite data intensive, take due care.
 
 Navigate your web browser to the appropriate Grafana deployment, e.g https://grafana.nav.cloud.nais.io and choose your app in, for example, "Explore" under either the Loki or Tempo tab and run queries.
 
-### Core web vitals
-
-There's a dashboard for [web vitals on the demo app](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals)
-
 <!-- Local Variables: -->
 <!-- jinx-languages: "en_US" -->
 <!-- End: -->
