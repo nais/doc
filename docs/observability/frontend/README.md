@@ -4,22 +4,24 @@ description: >-
   This page describes how to use these offerings.
 ---
 
-# Observability on the frontend
+# Frontend application observability
 
 When developing solutions for the frontend there is a variety of different tools for capturing information about
-usage, logs, exceptions and performance. NAIS offers a unified solution for full stack frontend observability in
-the form of Loki-Grafana-Tempo.
+usage, logs, exceptions and performance. NAIS offers a unified solution for full stack frontend observability
+through Grafana Faro Web SDK.
 
-By using the Grafana Faro Web SDK you get:
+Our frontend observability stack offers:
 
 - user monitoring
-- performance metrics a.k.a. [core web vitals](https://web.dev/vitals/)
+- [core web vitals](https://web.dev/vitals/) performance metrics
 - logging
 - exceptions with stack traces
-- events
-- traces
+- custom events
+- tracing
 
 ## Usage
+
+### Metrics and logs
 
 The following instructions are for frontend applications only, running in the browser of the end user.
 It is easy to get started, you install and configure the SDK. There is no requirement for extra code elsewhere.
@@ -35,13 +37,14 @@ instructions. There is also an [FAQ](https://grafana.com/docs/grafana-cloud/fron
 Inside your application, initialize Faro as follows:
 
 ```js
+import { initializeFaro } from '@grafana/faro-web-sdk';
+
 initializeFaro({
-    url: "http://...",  // required
+    url: "http://...",  // required, see below
     app: {
         name: "app-name", // required
         version: "1.2.3"  // optional
-    },
-    instrumentations: [...getWebInstrumentations(), new TracingInstrumentation()],
+    }
 });
 ```
 
@@ -54,10 +57,6 @@ Deploy to production. You should start to receive some metrics and logs already.
 
 Use our predefined [web vitals dashboard](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals) to start
 visualizing and gain insights.
-
-## Usage
-
-### Metrics and logs
 
 The URL points to a Grafana Agent collector, and should be set to:
 
@@ -85,29 +84,59 @@ Note that adding tracing will add around 500kB to your JavaScript payload.
 To start a new trace, you can:
 
 ```js
+import { faro, initializeFaro } from '@grafana/faro-web-sdk';
+import { TracingInstrumentation } from '@grafana/faro-web-tracing';
+
+initializeFaro({
+  url: "http://...",  // required, see below
+  app: {
+    name: "app-name", // required
+    version: "1.2.3"  // optional
+  },
+  instrumentations: [
+    ...getWebInstrumentations(),
+    new TracingInstrumentation()
+  ]
+});
+
 const {trace, context} = faro.api.getOTEL();
 
 const tracer = trace.getTracer('default');
-const span = tracer.startSpan('my-cool-span-name');
+const span = tracer.startSpan('some business process');
+
+const someBusinessProcess = () => {};
 
 context.with(trace.setSpan(context.active(), span), () => {
-    doSomething();
+    someBusinessProcess();
     span.end();
 });
 
 ```
 
+## Framework integrations
+
+### Next.js
+
+Example integration: https://github.com/navikt/sykmeldinger/commit/d61fdfac72289e716fa9c4f667869c5a2ab7f603
+
 ### React
 
-There is a prerelease(2023-04-27) package <https://github.com/grafana/faro-web-sdk/tree/main/packages/react>
+As of 2023-04-27, there is a prerelease package at <https://github.com/grafana/faro-web-sdk/tree/main/packages/react>.
 
-It offers instrumentation over error boundaries, mounts, unmounts and react router.
+It offers instrumentation over error boundaries, mounts, unmounts and React router.
 Instrumenting mounts and unmounts can be quite data intensive, take due care.
 
 ## Inspecting logs and traces
 
-Navigate your web browser to the appropriate Grafana deployment, e.g https://grafana.nav.cloud.nais.io and choose your
-app in, for example, "Explore" under either the Loki or Tempo tab and run queries.
+Navigate your web browser to the new Grafana at <https://grafana.nav.cloud.nais.io>.
+
+Traces are available from the `dev-gcp-tempo` and `prod-gcp-tempo` data sources, whereas
+logs and metrics are available from the `dev-gcp-loki` and `prod-gcp-loki` data sources.
+
+Use the "Explore" tab under either the Loki or Tempo tab and run queries.
+
+For a quick start, use our predefined [web vitals dashboard](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals) to start
+visualizing and gain insights.
 
 <!-- Local Variables: -->
 <!-- jinx-languages: "en_US" -->
