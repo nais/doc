@@ -154,7 +154,8 @@ nav:
           - Manual deploy: deployment/manual.md
       - Observability:
           - Observability Overview: observability/README.md
-          - Frontend observability: observability/frontend/README.md
+          - Frontend: observability/frontend/README.md
+          # - Tracing: TODO: write this
           - Metrics: observability/metrics.md
           - Alerts: observability/alerts.md
           - Logs:

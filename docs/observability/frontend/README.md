@@ -117,7 +117,7 @@ context.with(trace.setSpan(context.active(), span), () => {
 
 ### Next.js
 
-Example integration: https://github.com/navikt/sykmeldinger/commit/d61fdfac72289e716fa9c4f667869c5a2ab7f603
+Example integration: <https://github.com/navikt/sykmeldinger/commit/d61fdfac72289e716fa9c4f667869c5a2ab7f603>
 
 ### React
 
