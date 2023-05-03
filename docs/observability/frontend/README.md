@@ -46,7 +46,7 @@ initializeFaro({
 
 Note that instrumenting an application like this will yield a lot of data. There could be
 performance considerations and you may want to put the instrumentation call behind a feature flag
-for production environments or scaled down the amount of automatic instrumentation as you find
+for production environments or scale down the amount of automatic instrumentation as you find
 out what you need and think is useful.
 
 
