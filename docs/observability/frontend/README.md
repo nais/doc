@@ -4,8 +4,6 @@ description: >-
     This page describes how to use these offerings.
 ---
 
-TODO: Add external DNS for https://telemetry...
-
 # Observability on the frontend
 
 When developing solutions for the frontend there is a variety of different tools for capturing information about
