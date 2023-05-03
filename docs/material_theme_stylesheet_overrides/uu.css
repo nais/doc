@@ -2,6 +2,10 @@
   text-decoration: none;
 }
 
+[data-md-color-primary="blue-grey"] a {
+  --md-typeset-a-color: #6c9fff; /* This is a small tweak to bump the contrast on links up to 4.6 */
+}
+
 .md-footer-copyright {
   color: #ffffff;
 }
@@ -33,7 +37,7 @@
   color: hsla(0, 0%, 0%, 0.87);
 }
 
-[data-md-toggle=search]:checked~.md-header .md-search__input {
+[data-md-toggle="search"]:checked ~ .md-header .md-search__input {
   color: hsla(0, 0%, 0%, 0.87);
   background-color: hsla(0, 0%, 100%, 1);
 }
