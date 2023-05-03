@@ -1,7 +1,7 @@
 ---
 description: >-
-    NAIS offers observability tooling for frontend applications.
-    This page describes how to use these offerings.
+  NAIS offers observability tooling for frontend applications.
+  This page describes how to use these offerings.
 ---
 
 # Observability on the frontend
@@ -36,12 +36,12 @@ Inside your application, initialize Faro as follows:
 
 ```js
 initializeFaro({
-  url: "http://...",  // required
-  app: {
-    name: "app-name", // required
-    version: "1.2.3"  // optional
-  },
-  instrumentations: [...getWebInstrumentations(), new TracingInstrumentation()],
+    url: "http://...",  // required
+    app: {
+        name: "app-name", // required
+        version: "1.2.3"  // optional
+    },
+    instrumentations: [...getWebInstrumentations(), new TracingInstrumentation()],
 });
 ```
 
@@ -52,38 +52,47 @@ out what you need and think is useful.
 
 Deploy to production. You should start to receive some metrics and logs already.
 
-Use our predefined [web vitals dashboard](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals) to start visualizing and gain insights.
+Use our predefined [web vitals dashboard](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals) to start
+visualizing and gain insights.
 
+## Usage
 
-## Configuration
+### Metrics and logs
 
 The URL points to a Grafana Agent collector, and should be set to:
-- `https://telemetry.nav.no/collect` if running in `prod-gcp`.
-- `https://telemetry.ekstern.dev.nav.no/collect` if running in `dev-gcp`.
+
+| Collector endpoint                             | Cluster    |
+|------------------------------------------------|------------|
+| `https://telemetry.nav.no/collect`             | `prod-gcp` |
+| `https://telemetry.ekstern.dev.nav.no/collect` | `dev-gcp`  |
 
 On-premises clusters are not supported.
 
 For local development, we recommend checking out our [tracing demo repository](https://github.com/nais/tracing-demo)
-and running `docker-compose up`, this will give you local services you can test against. See the README in that repository
-for further details.
+and running `docker-compose up`, this will give you local services you can test against. See the README in that
+repository for further details.
 
 For NextJS you can use [local environment variables](https://nextjs.org/docs/basic-features/environment-variables).
 
-### Using OpenTelemetry
+### Tracing (OpenTelemetry)
 
-In practice, most instrumentation happens behind the scenes and manually adding traces is not necessary. If you want to add manual traces Faro re-exports the OpenTelemetry JavaScript library. Usage instructions can be found at
-<https://grafana.com/docs/grafana-cloud/frontend-observability/faro-web-sdk/opentelemetry-js/>
+In practice, most instrumentation happens behind the scenes and manually adding traces is not necessary. If you want to
+add manual traces, Faro re-exports the OpenTelemetry JavaScript library. Usage instructions can be found at
+<https://grafana.com/docs/grafana-cloud/frontend-observability/faro-web-sdk/opentelemetry-js/>.
 
-To start a new trace, you can
+Note that adding tracing will add around 500kB to your JavaScript payload.
+
+To start a new trace, you can:
+
 ```js
-const { trace, context } = faro.api.getOTEL();
+const {trace, context} = faro.api.getOTEL();
 
 const tracer = trace.getTracer('default');
 const span = tracer.startSpan('my-cool-span-name');
 
 context.with(trace.setSpan(context.active(), span), () => {
-  doSomething();
-  span.end();
+    doSomething();
+    span.end();
 });
 
 ```
@@ -95,10 +104,10 @@ There is a prerelease(2023-04-27) package <https://github.com/grafana/faro-web-s
 It offers instrumentation over error boundaries, mounts, unmounts and react router.
 Instrumenting mounts and unmounts can be quite data intensive, take due care.
 
-
 ## Inspecting logs and traces
 
-Navigate your web browser to the appropriate Grafana deployment, e.g https://grafana.nav.cloud.nais.io and choose your app in, for example, "Explore" under either the Loki or Tempo tab and run queries.
+Navigate your web browser to the appropriate Grafana deployment, e.g https://grafana.nav.cloud.nais.io and choose your
+app in, for example, "Explore" under either the Loki or Tempo tab and run queries.
 
 <!-- Local Variables: -->
 <!-- jinx-languages: "en_US" -->
