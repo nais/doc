@@ -13,11 +13,12 @@ through Grafana Faro Web SDK.
 Our frontend observability stack offers:
 
 - user monitoring
-- [core web vitals](https://web.dev/vitals/) performance metrics
-- logging
+- [core web vitals](https://web.dev/vitals/) performance metrics (TTFB, FCP, CLS, LCP, FID)
+- logging, defaulting to messages from `console.info`, `console.warn`, and `console.error`
 - exceptions with stack traces
 - custom events
-- tracing
+- custom metrics
+- tracing (separate section below)
 
 ## Usage
 
@@ -26,15 +27,14 @@ Our frontend observability stack offers:
 The following instructions are for frontend applications only, running in the browser of the end user.
 It is easy to get started, you install and configure the SDK. There is no requirement for extra code elsewhere.
 
+Install dependencies:
+
 ```sh
 npm i -S @grafana/faro-web-sdk      # required
-npm i -S @grafana/faro-web-tracing  # required for tracing
+npm i -S @grafana/faro-web-tracing  # required for tracing, see below
 ```
 
-There are also [official documentation](https://grafana.com/docs/grafana-cloud/frontend-observability/) for installation
-instructions. There is also an [FAQ](https://grafana.com/docs/grafana-cloud/frontend-observability/faro-web-sdk/faq/).
-
-Inside your application, initialize Faro as follows:
+Inside your application, initialize Faro as follows. You must initialize Faro as early as possible.
 
 ```js
 import { initializeFaro } from '@grafana/faro-web-sdk';
@@ -43,20 +43,10 @@ initializeFaro({
     url: "http://...",  // required, see below
     app: {
         name: "app-name", // required
-        version: "1.2.3"  // optional
+        version: "1.2.3"  // optional; useful in Grafana to get diff between versions
     }
 });
 ```
-
-Note that instrumenting an application like this will yield a lot of data. There could be
-performance considerations and you may want to put the instrumentation call behind a feature flag
-for production environments or scale down the amount of automatic instrumentation as you find
-out what you need and think is useful.
-
-Deploy to production. You should start to receive some metrics and logs already.
-
-Use our predefined [web vitals dashboard](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals) to start
-visualizing and gain insights.
 
 The URL points to a Grafana Agent collector, and should be set to:
 
@@ -72,7 +62,19 @@ For local development, we recommend checking out our [tracing demo repository](h
 and running `docker-compose up`, this will give you local services you can test against. See the README in that
 repository for further details.
 
-For NextJS you can use [local environment variables](https://nextjs.org/docs/basic-features/environment-variables).
+Note that instrumenting an application like this will yield a lot of data. There could be
+performance considerations and you may want to put the instrumentation call behind a feature flag
+for production environments or scale down the amount of automatic instrumentation as you find
+out what you need and think is useful.
+
+Deploy to production. You should start to receive some metrics and logs already.
+Use our predefined [web vitals dashboard](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals) to start
+visualizing and gain insights.
+
+You can easily add more logging, custom events, and custom metrics.
+How to do this is out of scope of this documentation.
+Please see the [official documentation](https://grafana.com/docs/grafana-cloud/frontend-observability/).
+There is also an [FAQ](https://grafana.com/docs/grafana-cloud/frontend-observability/faro-web-sdk/faq/).
 
 ### Tracing (OpenTelemetry)
 
@@ -117,6 +119,8 @@ context.with(trace.setSpan(context.active(), span), () => {
 ## Framework integrations
 
 ### Next.js
+
+For NextJS you can use [local environment variables](https://nextjs.org/docs/basic-features/environment-variables).
 
 Example integration: <https://github.com/navikt/sykmeldinger/commit/d61fdfac72289e716fa9c4f667869c5a2ab7f603>
 
