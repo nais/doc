@@ -64,6 +64,7 @@ The URL points to a Grafana Agent collector, and should be set to:
 |------------------------------------------------|------------|
 | `https://telemetry.nav.no/collect`             | `prod-gcp` |
 | `https://telemetry.ekstern.dev.nav.no/collect` | `dev-gcp`  |
+| `http://localhost:12347/collect`               | N/A        |
 
 On-premises clusters are not supported.
 
