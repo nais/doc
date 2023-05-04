@@ -143,6 +143,12 @@ Use the "Explore" tab under either the Loki or Tempo tab and run queries.
 For a quick start, use our predefined [web vitals dashboard](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals) to start
 visualizing and gain insights.
 
+## Troubleshooting
+
+### Content Security Policy
+
+If CSP is enabled for your application, you need to add the telemetry collector endpoint to `connect-src`.
+
 <!-- Local Variables: -->
 <!-- jinx-languages: "en_US" -->
 <!-- End: -->
