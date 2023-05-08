@@ -136,14 +136,6 @@ In your `PrometheusRule` also include the label `alert_type: custom` to be sure 
 
 For more information about `slackConfigs` and other posibilites see the [Prometheus alerting documentation](https://prometheus.io/docs/alerting/latest/configuration/#slack_config).
 
-### Onprem
-
-For alerts in the onprem clusters, calling external webhooks like Slack will require you to configure the webhook to use proxy:
-
-```
-httpConfig:
-  proxyURL: http://webproxy.nais:8088
-```
 
 ### Recording rules
 
@@ -187,6 +179,16 @@ spec:
           annotations:
             description: 'This alert fires during quiet hours. It should be blackholed by Alertmanager.'
 ```
+
+### Onprem
+
+For Custom AlertmanagerConfig in the onprem clusters, calling external webhooks like Slack will require you to configure the webhook to use proxy:
+
+```
+httpConfig:
+  proxyURL: http://webproxy.nais:8088
+```
+
 
 ### Custom AlertmanagerConfig
 
