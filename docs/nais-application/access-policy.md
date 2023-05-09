@@ -250,6 +250,7 @@ Default hosts that are added and accessible for every application:
 | `metadata.google.internal`  | 80   | TCP       |
 | `private.googleapis.com`    | 443  | TCP       |
 | `login.microsoftonline.com` | 443  | TCP       |
+| `graph.microsoft.com`       | 443  | TCP       |
 | `oidc.difi.no`              | 443  | TCP       |
 | `ver2.maskinporten.no`      | 443  | TCP       |
 | `maskinporten.no`           | 443  | TCP       |
