@@ -751,7 +751,7 @@ Required: `false`<br />
     ```
 
 #### azure.application.singlePageApplication
-SinglePageApplication denotes whether or not this Azure AD application should be registered as a single-page-application for usage in client-side applications without access to secrets.
+SinglePageApplication denotes whether this Azure AD application should be registered as a single-page-application for usage in client-side applications without access to secrets.
 
 Relevant information:
 
@@ -1312,6 +1312,47 @@ Required: `false`<br />
           mountPath: /var/cache
         - mountPath: /var/run/pvc
           persistentVolumeClaim: pvc-name
+    ```
+
+## frontend
+Configuration options specifically for frontend applications.
+
+Type: `object`<br />
+Required: `false`<br />
+Availability: GCP<br />
+
+??? example
+    ``` yaml
+    spec:
+      frontend:
+        generatedConfig:
+          mountPath: /usr/share/nginx/html/js/nais.js
+    ```
+
+### frontend.generatedConfig
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      frontend:
+        generatedConfig:
+          mountPath: /usr/share/nginx/html/js/nais.js
+    ```
+
+#### frontend.generatedConfig.mountPath
+If specified, a Javascript file with application specific frontend configuration variables will be generated and mounted into the pod file system at the specified path. You can import this file directly from your Javascript application.
+
+Type: `string`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      frontend:
+        generatedConfig:
+          mountPath: /usr/share/nginx/html/js/nais.js
     ```
 
 ## gcp

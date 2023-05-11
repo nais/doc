@@ -114,6 +114,9 @@ spec:
     mountPath: /var/cache
   - mountPath: /var/run/pvc
     persistentVolumeClaim: pvc-name
+  frontend:
+    generatedConfig:
+      mountPath: /usr/share/nginx/html/js/nais.js
   gcp:
     bigQueryDatasets:
     - cascadingDelete: true

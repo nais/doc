@@ -750,7 +750,7 @@ Required: `false`<br />
     ```
 
 #### azure.application.singlePageApplication
-SinglePageApplication denotes whether or not this Azure AD application should be registered as a single-page-application for usage in client-side applications without access to secrets.
+SinglePageApplication denotes whether this Azure AD application should be registered as a single-page-application for usage in client-side applications without access to secrets.
 
 Relevant information:
 
