@@ -116,6 +116,28 @@ context.with(trace.setSpan(context.active(), span), () => {
 
 ```
 
+## Nais integrations
+
+The nais.yaml file has a field that allows for configuring the telemetry collector url automatically.
+If the `spec.frontend.generatedConfig.mountPath` is set you will get two things.
+
+A file at the specified path in your pod file system that contains the appropriate telemetry endpoint url configuration
+
+```js
+// mountPath: /src/app/static/example.js
+
+const vars = {
+	telemetryCollectorURL: '%s';
+};
+export default {vars};
+```
+this is the only value and it will point to the correct url depending on the environment.
+if you depend in this you should exclude it from your build system.
+
+An environment variable, `NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL` containing the same information, for use cases
+where you are able to use an environment variable directly, this will also contain the correct url on a per dev/prod environment basis.
+
+
 ## Framework integrations
 
 ### Next.js
