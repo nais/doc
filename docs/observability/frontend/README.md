@@ -156,7 +156,9 @@ so that the `nais.js` file doesn't end up in your minified bundle. How to do it 
 ### Rollup (using Vite)
 
 ```js
+// vite.config.js
 export default {
+  // Other Vite configuration options...
   build: {
     manifest: true,
     rollupOptions: {
@@ -175,11 +177,12 @@ export default {
 module.exports = {
   // Other webpack configuration options...
   externals: {
-    // Specify the module name and the global variable it expects at runtime
     './nais.js': 'excludedFile',
   },
 };
 ```
+
+
 ## Framework integrations
 
 ### Next.js
