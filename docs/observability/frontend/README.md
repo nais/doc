@@ -6,6 +6,14 @@ description: >-
 
 # Frontend application observability
 
+!!! info "Status: Alpha"
+    This feature is undergoing heavy development. APIs may change or break at any time.
+    Keep in touch with the NAIS frontend team while we are developing it!
+
+    **Experimental**: users report that this component is working, but it needs a broader audience to be battle-tested properly.
+
+    Report any issues to the #nais channel on Slack.
+
 When developing solutions for the frontend there is a variety of different tools for capturing information about
 usage, logs, exceptions and performance. NAIS offers a unified solution for full stack frontend observability
 through Grafana Faro Web SDK.
