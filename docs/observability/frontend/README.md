@@ -130,7 +130,7 @@ context.with(trace.setSpan(context.active(), span), () => {
 When you deploy your frontend as a NAIS application, the telemetry collector URL can be automatically configured.
 
 To use this feature, you must specify `.spec.frontend.generatedConfig.mountPath` in your `nais.yaml`.
-A Javascript file will be created at the specified path in your pod file system, and contains the appropriate configuration.
+A Javascript file will be created at the specified path in your pod file system, and will contain the appropriate configuration.
 Additionally, the environment variable `NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL` will be set in your pod.
 
 First, create a `nais.js` file with the following contents. This file will be replaced by NAIS
@@ -158,8 +158,9 @@ const faro = initializeFaro({
 });
 ```
 
-If you use Webpack, Rollup, or some other bundler, you must exclude that file from the build,
-so that the `nais.js` file doesn't end up in your minified bundle. How to do it depends on your bundler.
+If you use Webpack, Rollup, or some other bundler, you must exclude `nais.js` from the build,
+so that the mock configuration doesn't end up in your minified bundle. How to do this depends on your bundler;
+here are some example configurations.
 
 ### Rollup (using Vite)
 
