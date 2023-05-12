@@ -170,9 +170,16 @@ export default {
 
 ### Webpack
 
-TBD
-
-
+```js
+// webpack.config.js
+module.exports = {
+  // Other webpack configuration options...
+  externals: {
+    // Specify the module name and the global variable it expects at runtime
+    './nais.js': 'excludedFile',
+  },
+};
+```
 ## Framework integrations
 
 ### Next.js
