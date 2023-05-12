@@ -132,7 +132,7 @@ const vars = {
 export default {vars};
 ```
 this is the only value and it will point to the correct url depending on the environment.
-if you depend in this you should exclude it from your build system.
+If you depend on this, you should exclude it from your build system.
 
 An environment variable, `NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL` containing the same information, for use cases
 where you are able to use an environment variable directly, this will also contain the correct url on a per dev/prod environment basis.
