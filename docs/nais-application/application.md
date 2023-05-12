@@ -1345,6 +1345,10 @@ Required: `false`<br />
 #### frontend.generatedConfig.mountPath
 If specified, a Javascript file with application specific frontend configuration variables will be generated and mounted into the pod file system at the specified path. You can import this file directly from your Javascript application.
 
+Relevant information:
+
+* [https://doc.nais.io/observability/frontend/#auto-configuration](https://doc.nais.io/observability/frontend/#auto-configuration)
+
 Type: `string`<br />
 Required: `true`<br />
 
