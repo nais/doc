@@ -6,6 +6,14 @@ description: >-
 
 # Frontend application observability
 
+!!! info "Status: Alpha"
+    This feature is undergoing heavy development. APIs may change or break at any time.
+    Keep in touch with the NAIS frontend team while we are developing it!
+
+    **Experimental**: users report that this component is working, but it needs a broader audience to be battle-tested properly.
+
+    Report any issues to the #nais channel on Slack.
+
 When developing solutions for the frontend there is a variety of different tools for capturing information about
 usage, logs, exceptions and performance. NAIS offers a unified solution for full stack frontend observability
 through Grafana Faro Web SDK.
@@ -48,7 +56,8 @@ initializeFaro({
 });
 ```
 
-The URL points to a Grafana Agent collector, and should be set to:
+The URL points to a Grafana Agent collector, and should be set to one of the following values.
+See below for auto-configuration instructions for when your app is a NAIS application.
 
 | Collector endpoint                             | Cluster    |
 |------------------------------------------------|------------|
@@ -115,6 +124,73 @@ context.with(trace.setSpan(context.active(), span), () => {
 });
 
 ```
+
+## Auto-configuration
+
+When you deploy your frontend as a NAIS application, the telemetry collector URL can be automatically configured.
+
+To use this feature, you must specify `.spec.frontend.generatedConfig.mountPath` in your `nais.yaml`.
+A Javascript file will be created at the specified path in your pod file system, and will contain the appropriate configuration.
+Additionally, the environment variable `NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL` will be set in your pod.
+
+First, create a `nais.js` file with the following contents. This file will be replaced by NAIS
+when deployed, and will contain the correct values for your application and environment.
+
+```js
+export default {
+    telemetryCollectorURL: 'http://localhost:12347/collect',
+    app: {
+        name: 'myapplication',
+        version: 'dev'
+    }
+};
+```
+
+Then, import it from wherever you initialize Faro:
+
+```js
+import { initializeFaro } from '@grafana/faro-web-sdk';
+import nais from './nais.js';
+
+const faro = initializeFaro({
+    url: nais.telemetryCollectorURL,
+    app: nais.app
+});
+```
+
+If you use Webpack, Rollup, or some other bundler, you must exclude `nais.js` from the build,
+so that the mock configuration doesn't end up in your minified bundle. How to do this depends on your bundler;
+here are some example configurations.
+
+### Rollup (using Vite)
+
+```js
+// vite.config.js
+export default {
+  // Other Vite configuration options...
+  build: {
+    manifest: true,
+    rollupOptions: {
+      external: [
+        "./nais.js",
+      ],
+    },
+  },
+};
+```
+
+### Webpack
+
+```js
+// webpack.config.js
+module.exports = {
+  // Other webpack configuration options...
+  externals: {
+    './nais.js': 'excludedFile',
+  },
+};
+```
+
 
 ## Framework integrations
 
