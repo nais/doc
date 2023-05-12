@@ -48,7 +48,8 @@ initializeFaro({
 });
 ```
 
-The URL points to a Grafana Agent collector, and should be set to:
+The URL points to a Grafana Agent collector, and should be set to one of the following values.
+See below for auto-configuration instructions for when your app is a NAIS application.
 
 | Collector endpoint                             | Cluster    |
 |------------------------------------------------|------------|
@@ -116,26 +117,60 @@ context.with(trace.setSpan(context.active(), span), () => {
 
 ```
 
-## Nais integrations
+## Auto-configuration
 
-The nais.yaml file has a field that allows for configuring the telemetry collector url automatically.
-If the `spec.frontend.generatedConfig.mountPath` is set you will get two things.
+When you deploy your frontend as a NAIS application, the telemetry collector URL can be automatically configured.
 
-A file at the specified path in your pod file system that contains the appropriate telemetry endpoint url configuration
+To use this feature, you must specify `.spec.frontend.generatedConfig.mountPath` in your `nais.yaml`.
+A Javascript file will be created at the specified path in your pod file system, and contains the appropriate configuration.
+Additionally, the environment variable `NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL` will be set in your pod.
+
+First, create a `nais.js` file with the following contents. This file will be replaced by NAIS
+when deployed, and will contain the correct values for your application and environment.
 
 ```js
-// mountPath: /src/app/static/example.js
-
-const vars = {
-	telemetryCollectorURL: '%s';
+export default {
+    telemetryCollectorURL: 'http://localhost:12347/collect',
+    app: {
+        name: 'myapplication',
+        version: 'dev'
+    }
 };
-export default {vars};
 ```
-This is the only value and it will point to the correct url depending on the environment.
-If you depend on this, you should exclude it from your build system.
 
-An environment variable, `NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL` containing the same information, for use cases
-where you are able to use an environment variable directly, will also contain the correct url on a per environment basis.
+Then, import it from wherever you initialize Faro:
+
+```js
+import { initializeFaro } from '@grafana/faro-web-sdk';
+import nais from './nais.js';
+
+const faro = initializeFaro({
+    url: nais.telemetryCollectorURL,
+    app: nais.app
+});
+```
+
+If you use Webpack, Rollup, or some other bundler, you must exclude that file from the build,
+so that the `nais.js` file doesn't end up in your minified bundle. How to do it depends on your bundler.
+
+### Rollup (using Vite)
+
+```js
+export default {
+  build: {
+    manifest: true,
+    rollupOptions: {
+      external: [
+        "./nais.js",
+      ],
+    },
+  },
+};
+```
+
+### Webpack
+
+TBD
 
 
 ## Framework integrations
