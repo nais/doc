@@ -130,6 +130,10 @@ spec:
       kind: RemoteUnleash
       name: my-team
     secretName: my-application-unleash-api-token
+
+    # Specify which environment the API token should be created for.
+    # Can be one of: development, or production.
+    environment: development
 ```
 
 This will create a new API token in your Unleash instance, and create a Kubernetes secret in your namespace named `my-application-unleash-api-token` that contains two environment variables:
