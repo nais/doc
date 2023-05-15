@@ -27,7 +27,7 @@ Unleash v4 is a major rewrite of Unleash, and has a lot of new features as well 
 - Better support for frontend applications.
 - Better integration with Kubernetes and nais applications (work in progress).
 
-Starting from Unleash Next since all teams will have their own instance of Unleash, you will need to add `accessPolicy` to your nais application to allow access to your Unleash instance. Read more about [accessing Unleash from backend applications](#access-from-backend-applications).
+To connect to your team's instance of Unleash, you'll need to add an `accessPolicy` to your nais application. Read more about [accessing Unleash from backend applications](#access-from-backend-applications).
 
 ### What is the status of Unleash Next?
 
