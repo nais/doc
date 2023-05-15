@@ -19,10 +19,10 @@ metadata:
   labels:
     team: teamname
 spec:
-  image: ghcr.io/navikt/imagename:tag
+  image: europe-north1-docker.pkg.dev/[mgmt-id]/[team-name]/[image-name]:tag
 ```
 
-See https://github.com/features/packages for more info on how to publish packages to ghcr.io.
+See https://github.com/nais/docker-build-push for more info on how to publish packages to Google Artifact Registry (GAR).
 
 For more information about the `nais.yaml` specification, see [Manifest](../nais-application/application.md).
 
