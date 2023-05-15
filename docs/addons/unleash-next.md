@@ -23,19 +23,28 @@ The most notable difference is the version of Unleash. Unleash Next is based on 
 
 Unleash v4 is a major rewrite of Unleash, and has a lot of new features as well as some breaking changes. You can read more about the changes in the [Unleash v4 migration guide](https://docs.getunleash.io/reference/deploy/migration-guide#upgrading-from-v3x-to-v4x) but the most notable changes are:
 
-- All API calls now requires token.
+- All API calls now requires token authentication.
 - Better support for frontend applications.
 - Better integration with Kubernetes and nais applications (work in progress).
+
+To connect to your team's instance of Unleash, you'll need to add an `accessPolicy` to your nais application. Read more about [accessing Unleash from backend applications](#access-from-backend-applications).
 
 ### What is the status of Unleash Next?
 
 Unleash Next is currently in pilot, and is not yet generally available for all users. We are currently working on getting it ready for prime time.
+
+### Will my feature toggles be migrated to Unleash Next?
+
+No, you will need to recreate your feature toggles in Unleash Next and then re-deploy your applications with a newer Unleash SDK version and reference your new Unleash Next instance.
 
 ### Can I get access to Unleash Next?
 
 Yes! If you want to help out testing Unleash Next, please contact us in [#unleash](https://nav-it.slack.com/archives/C9BPTSULS)!
 
 ## Using Unleash Next
+
+!!! note
+    We are working on better integrations with nais applications to make it easier to get access to Unleash from backend and frontend applications with less configuration. Stay tuned!
 
 ### Accessing Unleash Next
 
@@ -50,13 +59,33 @@ Each team has their own instance of Unleash Next. Each Unleash Next instance has
 
 The web UI is used for viewing and managing feature toggles. The API is used by your application to fetch feature toggles.
 
+#### Access from backend applications
+
+To access the Unleash API from your backend application, you need to add the following to your `nais.yaml`:
+
+```yaml
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: "my-application"
+  namespace: "<team>"
+spec:
+  ...
+  accessPolicy:
+    outbound:
+      external:
+        - host: <team>-unleash-api.nav.cloud.nais.io
+```
+
+If you don't do this you will see a similar error in your application logs:
+
+```text
+ECONNRESET", host: "<team>-unleash-api.nav.cloud.nais.io", port: 443
+```
+
 #### Access from frontend applications
 
 The Unleash API is not not accessible directly from a browser, hence CORS is not enabled. If you need to access the Unleash API from a frontend application, you need to a proxy to the API.
-
-!!! note
-    We are working on better integrations with nais applications to make it
-    easier to get access to Unleash from frontend applications. Stay tuned!
 
 ##### Unleash Edge
 
