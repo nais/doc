@@ -11,7 +11,7 @@ Your application is assumed to be present in the form of a Docker image when usi
 ## Set it up
 
 1. Your application must have a repository on GitHub containing a `nais.yaml` and `Dockerfile`.
-2. Your GitHub team must have _admin_ access on that repository.
+2. Your GitHub team must have _write_ access on that repository.
 3. Your GitHub team's identifier must match the _Kubernetes team label_ in your `nais.yaml`. There is an example file below.
 4. Retrieve your [team API key](https://deploy.nais.io). Save the key as a secret named `NAIS_DEPLOY_APIKEY` in your GitHub repository.
 5. Follow the guide below.
@@ -44,37 +44,30 @@ Add the example files below, then commit and push. This will trigger the workflo
 
     on: [push]
 
-    env:
-      docker_image: ghcr.io/${{ github.repository }}:${{ github.sha }}
-
     jobs:
       build:
         name: Build and push Docker container
         runs-on: ubuntu-latest
         steps:
         - uses: actions/checkout@v3
-        - uses: docker/login-action@v2
+        - name: Push docker image to GAR
+          uses: nais/docker-build-push@v0
+          id: docker-build-push
           with:
-            registry: ghcr.io
-            username: ${{ github.actor }}
-            password: ${{ secrets.GITHUB_TOKEN }}
-        - uses: docker/build-push-action@v3
-          with:
-            context: .
-            push: true
-            tags: ${{ env.docker_image }}
+            team: myteam # Replace
+            identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # Provided as Organization Secret
+            project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # Provided as Organization Variable
 
       deploy:
         name: Deploy to NAIS
         needs: build
-        if: github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
         steps:
         - uses: actions/checkout@v3
         - uses: nais/deploy/actions/deploy@v1
           env:
             APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-            CLUSTER: dev-gcp
+            CLUSTER: target-cluster # Replace
             RESOURCE: nais.yaml
             VAR: image=${{ env.docker_image }}
     ```
@@ -89,7 +82,7 @@ Add the example files below, then commit and push. This will trigger the workflo
         team: myteam
     spec:
       image: {{ image }}
-      #image: ghcr.io/navikt/myapplication:417dcaa2c839b9da72e0189e2cfdd4e90e9cc6fd
+      #image: europe-north1-docker.pkg.dev/nais-management-id/myteam/myapplication:2023.05.10-06.50-sha
       #       ^--- interpolated from the ${{ env.docker_image }} variable in the action
     ```
 
@@ -227,7 +220,7 @@ Now, create a `vars.yaml` file containing variables for your deployment:
 app: myapplication
 namespace: myteam
 team: myteam
-image: ghcr.io/navikt/myapplication:latest
+image: europe-north1-docker.pkg.dev/nais-management-id/myteam/myapplication:latest
 ingresses:
   - https://myapplication.nav.no
   - https://tjenester.nav.no/myapplication
@@ -248,7 +241,7 @@ $ deploy --dry-run --print-payload --resource nais.yaml --vars vars.yaml | jq ".
     "namespace": "default"
   },
   "spec": {
-    "image": "ghcr.io/navikt/myapplication:417dcaa2c839b9da72e0189e2cfdd4e90e9cc6fd",
+    "image": "europe-north1-docker.pkg.dev/nais-management-id/myteam/myapplication:417dcaa2c839b9da72e0189e2cfdd4e90e9cc6fd",
     "ingresses": [
       "https://myapplication.nav.no",
       "https://tjenester.nav.no/myapplication"

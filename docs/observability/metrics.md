@@ -265,7 +265,7 @@ graph LR
       name: myjob
       namespace: myteam
     spec:
-      image: ghcr.io/navikt/myapp:mytag
+      image: europe-north1-docker.pkg.dev/[mgmt-id]/[team-name]/[image-name]:tag
       schedule: "*/1 * * * *"
       env:
         - name: PUSH_GATEWAY_ADDRESS
