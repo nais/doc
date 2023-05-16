@@ -108,9 +108,13 @@ The Unleash API is not not accessible directly from a browser, hence CORS is not
 
 The easiest way to enable access to Unleash from your frontend application is to make a proxy on your backend to forward requests to Unleash and add API token.
 
-Here you can see a good example for how `teamsykemelding` has solved it for their Next.js application:
+You can find an example over at [unleash/unleash-client-nextjs](https://github.com/Unleash/unleash-client-nextjs/blob/ebb59d0dfabf37e2a24d1153ea09de688868cb76/example/src/pages/api/proxy-definitions.ts) but keep in mind that you will want to add CORS or preferably user authentication in front to prevent unintended access to your Unleash data.
 
-- [navikt/sykemelding#369](https://github.com/navikt/sykmeldinger/pull/369/files).
+#### Server Side Rendering (SSR)
+
+You can load feature toggles from Unleash in your server side rendered pages without adding additional dependencies to your client JavaScript bundle. This is a quick an easy way to get started with Unleash in your frontend application.
+
+You can find a good example for how `teamsykmelding` have solved this in their Next.js application over at [navikt/sykemelding#369](https://github.com/navikt/sykmeldinger/pull/369/files).
 
 ### Creating a new API token
 
