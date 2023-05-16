@@ -41,14 +41,17 @@ No, you will need to recreate your feature toggles in Unleash Next and then re-d
 
 Yes, there are some limitations and known issues with Unleash Next:
 
-- Unleash Next is currently in pilot, and is not yet generally available for all users.
-- Unleash Next is only available from GCP, and is not yet available from on-prem.
-- We only have Open Source license for Unleash Next, so we are not able to use the Unleash Enterprise features like multiple projects, and custom environments.
+- Unleash Next is currently in pilot, and is not yet generally available for all teams.
+- Unleash Next is available from all clusters, but dynamic `ApiToken` is currently only available in GCP.
+- Unleash Next is based on Unleash OSS, which means that some Enterprise features may not be available.
 - Unleash Next is not yet fully integrated with nais applications, so you need to add an `accessPolicy` to your nais application to access Unleash Next and deploy an `ApiToken`. Read more about [accessing Unleash from backend applications](#access-from-backend-applications) and [creating a new API token](#creating-a-new-api-token).
-- Do not create users manually in Unleash Next. All members of your team will automatically get access to your team's Unleash Next instance.
-- Do not create api tokens manually in Unleash Next. API tokens are automatically created when you deploy an `ApiToken` resource in your Kubernetes namespace. Read more about [creating a new API token](#creating-a-new-api-token).
-- Do not delete the API token named `admin` in Unleash Next instance. This will break the integration with Kubernetes, and you will need to contact us in [#unleash](https://nav-it.slack.com/archives/C9BPTSULS) to get it fixed.
-- Do not delete the `RemoteUnleash` resource in your Kubernetes namespace. This will break the integration with Kubernetes, and you will need to contact us in [#unleash](https://nav-it.slack.com/archives/C9BPTSULS) to get it fixed.
+
+We also have som do's and don'ts:
+
+- *Do not* create users manually in Unleash Next. All members of your team will automatically get access to your team's Unleash Next instance.
+- *Do not* create api tokens manually in Unleash Next. API tokens are automatically created when you deploy an `ApiToken` resource in your Kubernetes namespace. Read more about [creating a new API token](#creating-a-new-api-token).
+- *Do not* delete the API token named `admin` in Unleash Next instance. This will break the integration with Kubernetes, and you will need to contact us in [#unleash](https://nav-it.slack.com/archives/C9BPTSULS) to get it fixed.
+- *Do not* delete the `RemoteUnleash` resource in your Kubernetes namespace. This will break the integration with Kubernetes, and you will need to contact us in [#unleash](https://nav-it.slack.com/archives/C9BPTSULS) to get it fixed.
 
 ### Can I get access to Unleash Next?
 
