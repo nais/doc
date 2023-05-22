@@ -238,7 +238,8 @@ nav:
       - Support: support.md
   - naisdevice:
       - naisdevice Overview: device/README.md
-      - Installation: device/install.md
+      - Installation (NAV): device/install.md
+      - Installation (Tenant): device/install-tenant.md
       - Updating: device/update.md
       - Unenrolling: device/unenroll.md
       - naisdevice Troubleshooting: device/troubleshooting.md
