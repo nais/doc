@@ -10,6 +10,7 @@ NAV has two tenants in Azure AD:
 
 - `nav.no` - available in all clusters, default tenant for production clusters
 - `trygdeetaten.no` - only available in `dev-*`-clusters, default tenant for development clusters
+    - See <https://github.com/navikt/devuser-check/blob/main/README.md#faq> for instructions on acquiring a user and logging into this tenant. Otherwise, consult the `#tech-azure` Slack channel.
 
 !!! warning
     If your use case requires you to use `nav.no` in the `dev-*`-clusters, then you must [explicitly configure this](configuration.md#tenants).
