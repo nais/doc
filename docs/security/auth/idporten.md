@@ -57,8 +57,8 @@ Try out a basic user flow:
 
 The following environment variables and files (under the directory `/var/run/secrets/nais.io/idporten/`) are available at runtime:
 
-| Name                      | Description                                                                                                         |
-|:--------------------------|:--------------------------------------------------------------------------------------------------------------------|
+| Name                      | Description                                                                                                      |
+|:--------------------------|:-----------------------------------------------------------------------------------------------------------------|
 | `IDPORTEN_AUDIENCE`       | The expected [audience](concepts/tokens.md#token-validation) for access tokens from ID-porten.                   |
 | `IDPORTEN_CLIENT_ID`      | [Client ID](concepts/actors.md#client-id) that uniquely identifies the application in ID-porten.                 |
 | `IDPORTEN_WELL_KNOWN_URL` | The URL for ID-porten's [OIDC metadata discovery document](concepts/actors.md#well-known-url-metadata-document). |
@@ -67,39 +67,42 @@ The following environment variables and files (under the directory `/var/run/sec
 
 These variables are needed for token validation.
 
-### Token Validation
-
-!!! danger "Secure your endpoints"
-    **Your application is responsible for securing its own endpoints.**
-
-    - If a request does not contain an `Authorization` header, the request should be considered unauthenticated and access should be denied.
-    - If a request has an `Authorization` header that contains a [JWT], the token must be validated before access is granted.
-
-Your application should [validate the claims and signature](concepts/tokens.md#token-validation)
-for the JWT Bearer `access_token` attached by the sidecar in the `Authorization` header.
-
-#### Audience
-
-Note that the `aud` claim should be equal to the `IDPORTEN_AUDIENCE` environment variable mentioned earlier.
-
-You should also validate that the `client_id` claim has a value equal to the value of the `IDPORTEN_CLIENT_ID` environment variable.
-
-#### Security Level
-
-Validate that the `acr` claim exists and that the set level matches the minimum [security level](#security-levels) for your endpoints:
-
-* If your endpoint(s) accepts a minimum of `Level3` authentication, you must also accept `Level4`.
-* The inverse should be rejected. That is, applications expecting `Level4` authentication should _NOT_ accept tokens with `acr=Level3`.
-
 ### Security Levels
 
-ID-porten supports [different levels of security](https://eid.difi.no/en/security-and-cookies/different-levels-security)
-when authenticating users.
+ID-porten classifies different user authentication methods into [security levels of assurance](https://docs.digdir.no/docs/idporten/oidc/oidc_protocol_id_token#acr-values).
+This is reflected in the `acr` claim for the user's JWTs issued by ID-porten.
 
-Valid values are `Level3` or `Level4`.
+!!! warning "2023: New `acr` values for ID-porten"
+
+    ID-porten has a new platform and architecture, which we will be required to migrate to.
+    Tentative dates:
+
+    - **August 7, 2023** for the development environments
+    - By the end of **Q4 2023** for the production environments
+
+    The most substantial change is the **new values for the `acr` claim**, shown in the table below.
+
+    The sidecar accepts both the old and new values to ease migration, though you should use the newer values when possible.
+
+    The sidecar __cannot__ modify the `acr` value within the token itself. If your application validates or uses the `acr` claim found in the JWT in any way, it **must** allow both the old and new values until after migration.
+
+Valid values, in increasing order of assurance levels:
+
+| Value (deprecated, old ID-porten) | Value (new ID-porten)      | Description                                                      |
+|:----------------------------------|----------------------------|:-----------------------------------------------------------------|
+| `Level3`                          | `idporten-loa-substantial` | a substantial level of assurance, e.g. MinID                     |
+| `Level4`                          | `idporten-loa-high`        | a high level of assurance, e.g. BankID, Buypass, Commfides, etc. |
 
 You can set a default value for _all_ login requests by specifying [`spec.idporten.sidecar.level`](../../nais-application/application.md#idportensidecarlevel).
-**If unspecified, the sidecar will use `Level4` as the default value when redirecting to login.**
+**If unspecified, the sidecar will use `Level4` as the default value.**
+
+The sidecar will also validate and enforce that the user's current authenticated session has a level that **matches or exceeds** the application's configured level.
+The user's session is marked as unauthenticated if the level is _lower_ than the configured level.
+
+Example:
+
+* If the application requires `Level3` authentication, the sidecar will allow sessions with `Level4`.
+* The inverse is rejected. That is, applications expecting `Level4` authentication will have the sidecar mark sessions at `acr=Level3` as unauthenticated.
 
 For runtime control of the value, set the query parameter `level` when redirecting the user to login:
 
@@ -128,6 +131,23 @@ For runtime control of the value, set the query parameter `locale` when redirect
 ```
 https://<ingress>/oauth2/login?locale=en
 ```
+
+### Token Validation
+
+!!! danger "Secure your endpoints"
+    **Your application is responsible for securing its own endpoints.**
+
+    - If a request does not contain an `Authorization` header, the request should be considered unauthenticated and access should be denied.
+    - If a request has an `Authorization` header that contains a [JWT], the token must be validated before access is granted.
+
+Your application should [validate the claims and signature](concepts/tokens.md#token-validation)
+for the JWT Bearer `access_token` attached by the sidecar in the `Authorization` header.
+
+#### Audience
+
+Note that the `aud` claim should be equal to the `IDPORTEN_AUDIENCE` environment variable mentioned earlier.
+
+You should also validate that the `client_id` claim has a value equal to the value of the `IDPORTEN_CLIENT_ID` environment variable.
 
 ## Next Steps
 
