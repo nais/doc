@@ -3345,7 +3345,7 @@ Sidecar configures a sidecar that intercepts every HTTP request, and performs th
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/idporten/sidecar/](https://doc.nais.io/security/auth/idporten/sidecar/)
+* [https://doc.nais.io/security/auth/idporten/](https://doc.nais.io/security/auth/idporten/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3429,12 +3429,12 @@ Default security level for all authentication requests.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/idporten/sidecar#security-levels](https://doc.nais.io/security/auth/idporten/sidecar#security-levels)
+* [https://doc.nais.io/security/auth/idporten#security-levels](https://doc.nais.io/security/auth/idporten#security-levels)
 
 Type: `enum`<br />
 Required: `false`<br />
 Default value: `Level4`<br />
-Allowed values: `Level3`, `Level4`<br />
+Allowed values: `Level3`, `Level4`, `idporten-loa-high`, `idporten-loa-substantial`<br />
 
 ??? example
     ``` yaml
@@ -3449,7 +3449,7 @@ Default user interface locale for all authentication requests.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/idporten/sidecar#locales](https://doc.nais.io/security/auth/idporten/sidecar#locales)
+* [https://doc.nais.io/security/auth/idporten#locales](https://doc.nais.io/security/auth/idporten#locales)
 
 Type: `enum`<br />
 Required: `false`<br />
