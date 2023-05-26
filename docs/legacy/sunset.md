@@ -37,6 +37,8 @@ Kombinasjonen av Aiven Kafka og Kafkarator gjør det betydelig enklere for team 
 
 Fra 1. juni 2021 ble det stengt for opprettelse av nye topics i Kafka onprem. 
 
+**Kafka onprem vil stenges ned 2. oktober 2023.**
+
 **Alle team anbefales å migrere vekk fra onprem Kafka snarest.** 
 
 #### Hvordan migrere vekk
