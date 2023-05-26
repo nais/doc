@@ -4544,7 +4544,11 @@ Default value: `2`<br />
     ```
 
 ## resources
-When Containers have [resource requests](http://kubernetes.io/docs/user-guide/compute-resources/) specified, the Kubernetes scheduler can make better decisions about which nodes to place pods on.
+When Containers have [resource requests](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) specified, the Kubernetes scheduler can make better decisions about which nodes to place pods on.
+
+Relevant information:
+
+* [https://doc.nais.io/nais-application/good-practices/#set-reasonable-resource-requests-and-limits](https://doc.nais.io/nais-application/good-practices/#set-reasonable-resource-requests-and-limits)
 
 Type: `object`<br />
 Required: `false`<br />
