@@ -65,6 +65,8 @@ You can access the Dependency-Track UI at the following URL:
 
 **Example**: [https://salsa.prod-gcp.nav.cloud.nais.io](https://salsa.prod-gcp.nav.cloud.nais.io)
 
+You must login using the **OpenID** button which will redirect you to your organizations identity provider.
+
 Each container in a deployment will have its own project in Dependency-Track. The project name consist of the team name, application name and the container image name.
 You can search in projects with the following tags:
 
