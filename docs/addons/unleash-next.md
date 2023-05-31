@@ -1,4 +1,4 @@
-# Unleash Next (pilot)
+# Unleash Next (beta)
 
 !!! note
     This is a work in progress, and is not yet available for use. If you want to help out, please contact us in [#unleash](https://nav-it.slack.com/archives/C9BPTSULS)!
@@ -31,7 +31,7 @@ To connect to your team's instance of Unleash, you'll need to add an `accessPoli
 
 ### What is the status of Unleash Next?
 
-Unleash Next is currently in pilot, and is not yet generally available for all users. We are currently working on getting it ready for prime time.
+Unleash Next is currently in beta, and is not yet generally available for all users. We are currently working on getting it ready for prime time.
 
 ### Will my feature toggles be migrated to Unleash Next?
 
@@ -41,8 +41,7 @@ No, you will need to recreate your feature toggles in Unleash Next and then re-d
 
 Yes, there are some limitations and known issues with Unleash Next:
 
-- Unleash Next is currently in pilot, and is not yet generally available for all teams.
-- Unleash Next is available from all clusters, but dynamic `ApiToken` is currently only available in GCP.
+- Unleash Next is currently in beta, and is not yet generally available for all teams.
 - Unleash Next is based on Unleash OSS, which means that some Enterprise features may not be available.
 - Unleash Next is not yet fully integrated with nais applications, so you need to add an `accessPolicy` to your nais application to access Unleash Next and deploy an `ApiToken`. Read more about [accessing Unleash from backend applications](#access-from-backend-applications) and [creating a new API token](#creating-a-new-api-token).
 
@@ -66,10 +65,10 @@ Yes! If you want to help out testing Unleash Next, please contact us in [#unleas
 
 Each team has their own instance of Unleash Next. Each Unleash Next instance has two addresses:
 
-| Address | Description | Authentication |
-|---------|-------------| ------ |
-| `https://<team>-unleash-web.nav.cloud.nais.io/` | Web UI address | Requires @nav.no user |
-| `https://<team>-unleash-api.nav.cloud.nais.io/api` | API address | Requires API token |
+| Address | Description | Access from | Authentication |
+|---------|-------------| ----------- | -------------- |
+| `https://<team>-unleash-web.nav.cloud.nais.io/` | Web UI address | Internet | @nav.no user |
+| `https://<team>-unleash-api.nav.cloud.nais.io/api` | API address | nais and naisdevice | API token |
 
 <sub>*replace `<team>` with your team name.</sub>
 
@@ -121,45 +120,47 @@ You can find a good example for how `teamsykmelding` have solved this in their N
 
 ### Creating a new API token
 
-You should not create API tokens manually from the Web UI – instead you should create them as a part of deploying your application like so:
+You should not create API tokens manually from the Web UI – instead you should create them as a part of deploying your application.
 
-Create a new file named `unleash-api-token.yaml` with the following content:
+Deploy an `ApiToken` resource to dynamically create a new Unleash API token and add it to you existing nais application as a secret:
 
-```yaml
-apiVersion: unleash.nais.io/v1
-kind: ApiToken
-metadata:
-  name: my-application
-  namespace: my-team
-spec:
-    unleashInstance:
-      apiVersion: unleash.nais.io/v1
-      kind: RemoteUnleash
-      name: my-team
-    secretName: my-application-unleash-api-token
+=== "unleash-apitoken.yaml"
 
-    # Specify which environment the API token should be created for.
-    # Can be one of: development, or production.
-    environment: development
-```
+    ```yaml
+    apiVersion: unleash.nais.io/v1
+    kind: ApiToken
+    metadata:
+      name: my-application
+      namespace: my-team
+    spec:
+        unleashInstance:
+          apiVersion: unleash.nais.io/v1
+          kind: RemoteUnleash
+          name: my-team
+        secretName: my-application-unleash-api-token
+
+        # Specify which environment the API token should be created for.
+        # Can be one of: development, or production.
+        environment: development
+    ```
+
+=== "nais.yaml"
+
+    ```yaml
+    apiVersion: "nais.io/v1alpha1"
+    kind: "Application"
+    metadata:
+      name: "my-application"
+      namespace: "my-team"
+    spec:
+        ...
+        envFrom:
+          - secret: my-application-unleash-api-token
+    ```
 
 This will create a new API token in your Unleash instance, and create a Kubernetes secret in your namespace named `my-application-unleash-api-token` that contains two environment variables:
 
 - `UNLEASH_SERVER_API_URL` (the API address)
 - `UNLEASH_SERVER_API_TOKEN` (the API token)
-
-To use the secret in your nais application, you can add the following to your `nais.yaml`:
-
-```yaml
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
-metadata:
-  name: "my-application"
-  namespace: "my-team"
-spec:
-    ...
-    envFrom:
-      - secret: my-application-unleash-api-token
-```
 
 In the future we will add support for automatically creating API tokens when deploying your application.
