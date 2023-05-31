@@ -71,7 +71,7 @@ nais postgres proxy appname
 
 > **Note**
 > When using proxy to connect to the database, the auth method is username and password. 
-> The username is your NAV email: <FIRSTNAME>.<LASTNAME>@nav.no, and password is blank
+> The username is your full Google account email: e.g. `ola.bruker@nais.io`, and password is blank.
 
 ## psql
 Create a shell to the postgres instance by opening a proxy on a random port (see the proxy command for more info) and opening a psql shell.
