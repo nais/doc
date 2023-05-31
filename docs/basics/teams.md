@@ -2,8 +2,8 @@
 
 Access to NAIS, including your Kubernetes namespace, GCP projects, or GitHub team, requires a _NAIS team_.
 
-NAIS teams are managed using [NAIS console](https://console.nav.cloud.nais.io).
-To access NAIS console, you must log on to NAIS device with the _nav.no_ tenant.
+NAIS teams are managed using [NAIS teams](https://teams.nav.cloud.nais.io).
+To access NAIS teams, you must log on to NAIS device with the _nav.no_ tenant.
 
 Once you are logged in, you can create a team and add or remove members at will.
 Teams and memberships will be immediately propagated to:
@@ -13,7 +13,7 @@ Teams and memberships will be immediately propagated to:
 
 ## Creating a new team
 
-To create a new team, open NAIS console in your browser, log in, and follow the instructions.
+To create a new team, open NAIS teams in your browser, log in, and follow the instructions.
 The following resources will be generated for the new team:
 
 * An Azure AD security group (no Office365 integration, nor e-mail address).
@@ -25,7 +25,7 @@ The following resources will be generated for the new team:
 
 ## Managing your team
 
-Team membership is managed in NAIS console.
+Team membership is managed in NAIS teams.
 
 !!! warning
     It is the responsibility of each team to keep the group member roster up to date. This includes removing former team members in a timely fashion.
