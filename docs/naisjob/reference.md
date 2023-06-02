@@ -417,7 +417,7 @@ The _host_ that your application should be able to reach, i.e. without the proto
 
 Type: `string`<br />
 Required: `true`<br />
-Pattern: `(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9]\.)+[a-zA-Z]{2,63}$)`<br />
+Pattern: `^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9]))*$`<br />
 
 ??? example
     ``` yaml
