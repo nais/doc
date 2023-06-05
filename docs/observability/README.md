@@ -95,7 +95,7 @@ using the _prod-gcp-tempo_ and _dev-gcp-tempo_ data sources.
 
 ```mermaid
 graph LR
-  Application --gRPC/HTTP-- --> Tempo
+  Application --gRPC-- --> Tempo
   Tempo --> Grafana
 ```
 

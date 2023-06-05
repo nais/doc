@@ -42,9 +42,10 @@ Next, you must select the appropriate [OTLP exporter](https://opentelemetry.io/e
 for your specific application. Ready-made libraries can be found for Java, Rust, Python, Go, and most other popular languages.
 Detailed instructions on how to configure specific tracing libraries are out of scope for this documentation.
 
-Finally, configure your OTLP exporter to send data to the NAIS collector. You must use the gRPC protocol.
-The endpoint is automatically configured using the `$OTEL_EXPORTER_OTLP_ENDPOINT` environment variable.
-This variable should be automatically detected and used by any OpenTelemetry library.
+Finally, the OTLP exporter must be configured to send data to the NAIS collector.
+That configuration is provided by NAIS through the `$OTEL_EXPORTER_OTLP_ENDPOINT` environment variable,
+which in turn is supposed to be automatically detected and used by your OpenTelemetry library.
+All data must be sent using the gRPC protocol.
 
 
 ## Visualizing application performance
