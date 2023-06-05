@@ -36,6 +36,20 @@ nais postgres prepare appname
 |-----------|----------|-------|------------------------------|---------------------------------------------------------|
 | all-privs | No       |       | false                        | If true `ALL` is granted, else only `SELECT` is granted |
 
+## revoke
+Revokes the privileges given to the role cloudsqliamuser.
+Does not remove access for users to log in to the database or the `roles/cloudsql.admin` given to the user in GCP console.
+
+This operation is only required to run once for each postgresql instance.
+
+```bash
+nais postgres revoke appname
+```
+
+| Argument    | Required  | Description                                                 |
+|-------------|-----------|-------------------------------------------------------------|
+| appname     | Yes       | Name of application owning the database                     |
+
 ## grant
 Grant yourself access to a Postgres database.
 
