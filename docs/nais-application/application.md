@@ -4152,6 +4152,55 @@ Pattern: `^[a-z0-9]+$`<br />
               product: arbeid
     ```
 
+## observability
+Configuration options related to application observability.
+
+Relevant information:
+
+* [https://doc.nais.io/observability/](https://doc.nais.io/observability/)
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        tracing:
+          enabled: true
+    ```
+
+### observability.tracing
+Enable application performance monitoring with traces collected using OpenTelemetry and the OTLP exporter.
+
+Relevant information:
+
+* [https://doc.nais.io/observability/tracing/](https://doc.nais.io/observability/tracing/)
+
+Type: `object`<br />
+Required: `false`<br />
+Availability: GCP<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        tracing:
+          enabled: true
+    ```
+
+#### observability.tracing.enabled
+Type: `boolean`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        tracing:
+          enabled: true
+    ```
+
 ## openSearch
 To get your own OpenSearch instance head over to the IaC-repo to provision each instance. See [navikt/aiven-iac](https://github.com/navikt/aiven-iac) repository.
 
