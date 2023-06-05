@@ -80,6 +80,27 @@ graph LR
 
 [:octicons-arrow-right-24: Configure your logs](./logs/README.md)
 
+## Traces
+
+With tracing, we can get application performance monitoring (APM).
+Tracing gives deep insight into the execution of your application.
+For instance, you can use tracing to see if parallel function are actually run in paralell,
+or what amount of time your application spends in a given function.
+
+Traces from NAIS applications are collected using the [OpenTelemetry](https://opentelemetry.io/) standard.
+Performance metrics are stored and queried from the [Tempo](https://grafana.com/oss/tempo/) component.
+
+Visualization of traces can be done in [Grafana](https://grafana.nav.cloud.nais.io),
+using the _prod-gcp-tempo_ and _dev-gcp-tempo_ data sources.
+
+```mermaid
+graph LR
+  Application --gRPC/HTTP-- --> Tempo
+  Tempo --> Grafana
+```
+
+[:octicons-arrow-right-24: Read more about tracing](./tracing.md)
+
 ## Alerts
 
 Alerts are a way to notify you when something is wrong with your application, and are usually triggered when a metric or log entry matches a certain condition.

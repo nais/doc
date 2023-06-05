@@ -155,7 +155,7 @@ nav:
       - Observability:
           - Observability Overview: observability/README.md
           - Frontend: observability/frontend/README.md
-          # - Tracing: TODO: write this
+          - Tracing: observability/tracing.md
           - Metrics: observability/metrics.md
           - Alerts: observability/alerts.md
           - Logs:
