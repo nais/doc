@@ -23,6 +23,8 @@ the tracing library to send it to the correct place.
 Traces from NAIS applications are collected using the [OpenTelemetry](https://opentelemetry.io/) standard.
 Performance metrics are stored and queried from the [Tempo](https://grafana.com/oss/tempo/) component.
 
+This documentation applies to backend applications. If you need to enable
+tracing for end users in their browser, see [frontend observability](https://doc.nais.io/observability/frontend/).
 
 ## Enabling trace collection
 
@@ -41,9 +43,8 @@ for your specific application. Ready-made libraries can be found for Java, Rust,
 Detailed instructions on how to configure specific tracing libraries are out of scope for this documentation.
 
 Finally, configure your OTLP exporter to send data to the NAIS collector. You must use the gRPC protocol.
-The endpoint is automatically configured using the `$NAIS_TRACING_COLLECTOR_ENDPOINT` environment variable.
-This variable contains the `HOST:PORT` of the collector, and can only be reached from backend applications.
-If you need to enable tracing for end users in their browser, see [frontend observability](https://doc.nais.io/observability/frontend/).
+The endpoint is automatically configured using the `$OTEL_EXPORTER_OTLP_ENDPOINT` environment variable.
+This variable should be automatically detected and used by any OpenTelemetry library.
 
 
 ## Visualizing application performance
