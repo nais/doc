@@ -77,7 +77,7 @@ This is reflected in the `acr` claim for the user's JWTs issued by ID-porten.
     ID-porten has a new platform and architecture, which we will be required to migrate to.
     Tentative dates:
 
-    - **August 7, 2023** for the development environments
+    - **August 14, 2023** for the development environments
     - By the end of **Q4 2023** for the production environments
 
     The most substantial change is the **new values for the `acr` claim**, shown in the table below.
