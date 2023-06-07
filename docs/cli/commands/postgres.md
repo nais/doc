@@ -127,3 +127,14 @@ nais postgres users list appname
 | Argument    | Required  | Description                                                 |
 |-------------|-----------|-------------------------------------------------------------|
 | appname     | Yes       | Name of application owning the database                     |
+
+## password rotate
+Rotate the Postgres database password, both in GCP and in the Kubernetes secret.
+
+```bash
+nais postgres password rotate appname
+```
+
+| Argument    | Required  | Description                                                 |
+|-------------|-----------|-------------------------------------------------------------|
+| appname     | Yes       | Name of application owning the database                     |
