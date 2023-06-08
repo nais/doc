@@ -421,17 +421,23 @@ Most of these fields should be self-explanatory, but we'll be explicit with thei
 
 #### 5.1. Refresh Tokens
 
-!!! info "Limited Availability"
-    This feature is currently only available for [Azure AD](../security/auth/azure-ad/sidecar.md)
-
 Tokens within the session will usually expire before the session itself. To avoid redirecting end-users to the 
 `/oauth2/login` endpoint whenever the access tokens have expired, we can use refresh tokens to silently get new tokens.
 
-This is **enabled by default** for applications using Wonderwall with Azure AD. 
+!!! info "Azure AD"
 
-Tokens will at the _earliest_ be automatically renewed 5 minutes before they expire. If the token already _has_ expired,
-but the session is still exists and is active, a refresh attempt is automatically triggered as long as the session has not ended. 
-This happens whenever the end-user visits any path that belongs to the application.
+    Automatic renewal is only available for [Azure AD](../security/auth/azure-ad/sidecar.md).
+
+    The tokens will at the _earliest_ be automatically renewed 5 minutes before they expire.
+    
+    If the token already _has_ expired, but the session is still exists and is active, a refresh attempt is automatically triggered as long as the session has not ended.
+    This happens whenever the end-user visits any path that belongs to the application.
+
+!!! info "ID-porten"
+
+    For ID-porten, renewal must be handled manually.
+    
+    Automatic support for this through [nav-dekoratoren](https://github.com/navikt/nav-dekoratoren) should be available by Q3/Q4 2023.
 
 If you want to manually trigger token refreshes, you can make use of a new endpoint:
 
