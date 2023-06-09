@@ -32,10 +32,13 @@ graph LR
   end
 ```
 
+If you do not need to expose your application outside the cluster, you can rely on [service discovery][service-discovery] instead.
+
 You can tweak the Ingress configuration by specifying certain [Kubernetes annotations][kubernetes-annotations] in your app spec. A list of supported variables are specified in the [Nginx ingress documentation][nginx-ingress-annotations].
 
 [kubernetes-annotations]: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 [nginx-ingress-annotations]: https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/
+[service-discovery]: https://doc.nais.io/clusters/service-discovery/
 
 As the Nginx ingress documentation states, these parameters are set on the Ingress object. However, Naiserator will copy these parameters from your Application spec.
 
