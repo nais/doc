@@ -363,20 +363,26 @@ Sessions are stored server-side; we only store a session identifier at the end-u
 
 The session lifetime depends on the identity provider:
 
-| Identity Provider | Session Lifetime |
-|-------------------|------------------|
-| Azure AD          | 10 hours         |
-| ID-porten         | 1 hour           |
+| Identity Provider | Session Lifetime            | Inactivity Timeout |
+|-------------------|-----------------------------|--------------------|
+| Azure AD          | 10 hours                    | None               |
+| ID-porten         | 6 hours (subject to change) | 1 hour             |
 
-After the session has expired, the user must be redirected to the `/oauth2/login` endpoint again.
+A session is marked as _inactive_ before it _expires_ (reaches the maximum lifetime) if the time since the last [_refresh_](#51-refresh-tokens) exceeds the given _inactivity timeout_.
 
-For convenience, we also offer an endpoint that returns metadata about the user's session as a JSON object at `GET /oauth2/session`. 
-This endpoint will respond with HTTP status codes on errors:
+After the session has expired or it is marked as inactive, the user must be redirected to the `/oauth2/login` endpoint again.
 
-- `HTTP 401 Unauthorized` - no session cookie or matching session found (e.g. user is not authenticated, or has logged out)
+`GET /oauth2/session` is an endpoint that returns metadata about the user's session as a JSON object.
+
+This endpoint will respond with the following HTTP status codes on errors:
+
+- `HTTP 401 Unauthorized` - no session cookie or matching session found
 - `HTTP 500 Internal Server Error` - the session store is unavailable, or Wonderwall wasn't able to process the request
 
 Otherwise, an `HTTP 200 OK` is returned with the metadata with the `application/json` as the `Content-Type`.
+
+Note that this endpoint will return `HTTP 200 OK` for _inactive_ sessions. This allows applications to display errors before redirecting the user to login on timeouts.
+This also means that you should not use the HTTP response status codes alone as an indication of whether the user is authenticated or not.
 
 ???+ example
 
@@ -398,7 +404,10 @@ Otherwise, an `HTTP 200 OK` is returned with the metadata with the `application/
       "session": {
         "created_at": "2022-08-31T06:58:38.724717899Z", 
         "ends_at": "2022-08-31T16:58:38.724717899Z",
-        "ends_in_seconds": 14658
+        "timeout_at": "0001-01-01T00:00:00Z",
+        "ends_in_seconds": 14658,
+        "active": true,
+        "timeout_in_seconds": -1
       },
       "tokens": {
         "expire_at": "2022-08-31T14:03:47.318251953Z",
@@ -410,19 +419,24 @@ Otherwise, an `HTTP 200 OK` is returned with the metadata with the `application/
 
 Most of these fields should be self-explanatory, but we'll be explicit with their description:
 
-| Field                      | Description                                                                       |
-|----------------------------|-----------------------------------------------------------------------------------|
-| `session.created_at`       | The timestamp that denotes when the session was first created.                    |
-| `session.ends_at`          | The timestamp that denotes when the session will end.                             |
-| `session.ends_in_seconds`  | The number of seconds until the session ends.                                     |
-| `tokens.expire_at`         | The timestamp that denotes when the tokens within the session will expire.        |
-| `tokens.refreshed_at`      | The timestamp that denotes when the tokens within the session was last refreshed. |
-| `tokens.expire_in_seconds` | The number of seconds until the tokens expire.                                    |
+| Field                        | Description                                                                                                          |
+|------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| `session.created_at`         | The timestamp that denotes when the session was first created.                                                       |
+| `session.ends_at`            | The timestamp that denotes when the session will end.                                                                |
+| `session.timeout_at`         | The timestamp that denotes when the session will time out. The zero-value, `0001-01-01T00:00:00Z`, means no timeout. |
+| `session.ends_in_seconds`    | The number of seconds until the session ends.                                                                        |
+| `session.active`             | Whether or not the session is marked as active.                                                                      |
+| `session.timeout_in_seconds` | The number of seconds until the session times out. A value of `-1` means no timeout.                                 |
+| `tokens.expire_at`           | The timestamp that denotes when the tokens within the session will expire.                                           |
+| `tokens.refreshed_at`        | The timestamp that denotes when the tokens within the session was last refreshed.                                    |
+| `tokens.expire_in_seconds`   | The number of seconds until the tokens expire.                                                                       |
 
 #### 5.1. Refresh Tokens
 
 Tokens within the session will usually expire before the session itself. To avoid redirecting end-users to the 
 `/oauth2/login` endpoint whenever the access tokens have expired, we can use refresh tokens to silently get new tokens.
+
+An inactive session _cannot_ be refreshed; the user must be redirected to the `/oauth2/login` endpoint again.
 
 !!! info "Azure AD"
 
@@ -464,7 +478,10 @@ If you want to manually trigger token refreshes, you can make use of a new endpo
       "session": {
         "created_at": "2022-08-31T06:58:38.724717899Z", 
         "ends_at": "2022-08-31T16:58:38.724717899Z",
-        "ends_in_seconds": 14658
+        "timeout_at": "0001-01-01T00:00:00Z",
+        "ends_in_seconds": 14658,
+        "active": true,
+        "timeout_in_seconds": -1
       },
       "tokens": {
         "expire_at": "2022-08-31T14:03:47.318251953Z",
@@ -480,11 +497,11 @@ If you want to manually trigger token refreshes, you can make use of a new endpo
 Additionally, the metadata object returned by both the `/oauth2/session` and `/oauth2/session/refresh` endpoints now
 contain some new fields in addition to the previous fields:
 
-| Field                                 | Description                                                                                     |
-|---------------------------------------|-------------------------------------------------------------------------------------------------|
-| `tokens.next_auto_refresh_in_seconds` | The number of seconds until the earliest time where the tokens will automatically be refreshed. |
-| `tokens.refresh_cooldown`             | A boolean indicating whether or not the refresh operation is on cooldown or not.                |
-| `tokens.refresh_cooldown_seconds`     | The number of seconds until the refresh operation is no longer on cooldown.                     |
+| Field                                 | Description                                                                                                                                                   |
+|---------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `tokens.next_auto_refresh_in_seconds` | The number of seconds until the earliest time where the tokens will automatically be refreshed. A value of -1 means that automatic refreshing is not enabled. |
+| `tokens.refresh_cooldown`             | A boolean indicating whether or not the refresh operation is on cooldown or not.                                                                              |
+| `tokens.refresh_cooldown_seconds`     | The number of seconds until the refresh operation is no longer on cooldown.                                                                                   |
 
 Note that the refresh operation has a default cooldown period of 1 minute, which may be shorter depending on the token lifetime
 of the tokens returned by the identity provider. In other words, a refresh is only triggered if `tokens.refresh_cooldown` is `false`.
