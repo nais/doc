@@ -363,10 +363,10 @@ Sessions are stored server-side; we only store a session identifier at the end-u
 
 The session lifetime depends on the identity provider:
 
-| Identity Provider | Session Lifetime            | Inactivity Timeout |
-|-------------------|-----------------------------|--------------------|
-| Azure AD          | 10 hours                    | None               |
-| ID-porten         | 6 hours (subject to change) | 1 hour             |
+| Identity Provider | Session Lifetime            | Inactivity Timeout         |
+|-------------------|-----------------------------|----------------------------|
+| Azure AD          | 10 hours                    | None                       |
+| ID-porten         | 6 hours (subject to change) | 1 hour (subject to change) |
 
 A session is marked as _inactive_ before it _expires_ (reaches the maximum lifetime) if the time since the last [_refresh_](#51-refresh-tokens) exceeds the given _inactivity timeout_.
 
