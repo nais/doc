@@ -1,10 +1,12 @@
 # A Basic Guide
 
-Your very first NAIS application is just a few steps away. This guide will take you through the process of setting up your first application.
+Welcome to NAIS! This guide will take you through the process of getting up your first NAIS application up and running and is intended for people without any previous experience with NAIS and the tools we use.
 
 ## Introduction
 
-This guide will take you through the process of getting up your first NAIS application up and running and is intended for people without any previous experience with Docker, Containers, NAIS or Cloud. This guide will cover the following topics:
+NAIS is a platform for running applications in the cloud. It is built on top of [Kubernetes](https://kubernetes.io/) and provides a set of tools and services that makes it easy to build, deploy and operate applications in a secure and scalable way. We often say "It is like Heroku, but for the Norwegian public sector".
+
+In this guide, we will show you how to build a simple web application and deploy it to NAIS. You will learn how to:
 
 - Dockerizing your application
 - Configuring your application for NAIS
@@ -12,6 +14,8 @@ This guide will take you through the process of getting up your first NAIS appli
 - Deploying your application to NAIS
 
 ### Prerequisites
+
+Before you get started, you need to make sure you have the following:
 
 - [x] You have a GitHub account
 - [x] You have a GCP account
@@ -21,9 +25,12 @@ This guide will take you through the process of getting up your first NAIS appli
 
 ### Tools used in this guide
 
+You will need the following tools installed on your computer:
+
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - Kubernetes command-line tool
 - [docker](https://docs.docker.com/get-docker/) - Docker command-line tool
 - [nais-cli](https://doc.nais.io/cli/installation/) - NAIS command-line tool
+- |[gh-cli](https://cli.github.com/) - GitHub command-line tool
 
 ### Conventions
 
@@ -71,9 +78,17 @@ For programming related code you have the option to choose between different lan
 
 Create a new repository on GitHub. This will be the home of your application.
 
-In your new repository; Go to `Settings` -> `Secrets and variables` -> `Actions` and add the following secrets:
+```bash
+gh repo create <my-repo> --add-readme --clone
+```
 
-- `NAIS_DEPLOY_APIKEY` - Your NAIS API key
+For your new repository add the following secret:
+
+```bash
+gh secret set NAIS_DEPLOY_APIKEY --app actions
+```
+
+Paste in your NAIS API key as the value when asked.
 
 ## Create a new application
 
@@ -89,6 +104,18 @@ In your repository, initialize a new application depending on the language you w
 
     ```bash
     npx create-next-app
+    ```
+
+=== "Java (Maven)"
+
+    ```bash
+    mvn archetype:generate -DgroupId=com.example -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+    ```
+
+=== "Kotlin (Gradle)"
+
+    ```bash
+    gradle init --type kotlin-application
     ```
 
 ## Create a Dockerfile
@@ -215,10 +242,52 @@ Visit [http://localhost:3000](http://localhost:3000) to see your application run
 
 ## Create nais.yaml
 
-In your repository, run the following command:
+Now you are ready to deploy your application to NAIS. To do this, you need to create a `nais.yaml` file in your repository. This file contains the configuration for your application. The easiest way to create this file is to use the `nais` CLI tool.
 
 ```bash
-nais start --appname <my-app> --teamname <my-team>
+nais start --appname <my-app> --teamname <my-team> --appListenPort 3000
 ```
 
-This will create the required files for your application.
+??? note "What does this command do?"
+
+    * `--appname <my-app>`: The name of your application. This will be the name of the application in NAIS and should be something unique to you.
+    * `--teamname <my-team>`: The name of your team. This will be used as the name of the team in NAIS.
+    * `--appListenPort 3000`: The port that your application listens on. This will be used for the exposed port and liveness checks in NAIS.
+
+This will create the required files for your application to run on NAIS. This will create the following files in your repository:
+
+| File | Description |
+| -----| ----------- |
+| `.github/workflows/main.yaml` | The GitHub Actions workflow that will build and deploy your application. |
+| `./nais/nais.yaml` | The configuration for your application. |
+| `./nais/dev.yaml` | The configuration overrides for your application in the `dev` environment. |
+
+Check out the files in your repository to see what they contain.
+
+`nais.yaml` is the configuration for your application. This file contains the configuration for your application, such as the name of the application, the team that owns the application, and the port that the application listens on. You can read more about the configuration options in the [NAIS documentation](https://doc.nais.io/application/).
+
+`dev.yaml` is the configuration overrides for your application in the `dev` environment. This file contains the configuration for your application in the `dev` environment, such as ingress domain, number of replicas, and the amount of memory and CPU.
+
+`.github/workflows/main.yaml` is the GitHub Actions workflow that will build and deploy your application. This file contains the steps that will build your application and deploy it to NAIS. You can read more about the GitHub Actions workflow in the [GitHub Actions documentation](https://docs.github.com/en/actions).
+
+## Deploy to NAIS
+
+Now you are ready to deploy your application to NAIS. To do this, you need to push your code to GitHub. This will trigger the GitHub Actions workflow that will build and deploy your application to NAIS.
+
+```bash
+git add .
+git commit -m "Initial commit"
+git push
+```
+
+GitHub will automatically start the GitHub Actions workflow. You can follow the progress of the workflow by running the following command:
+
+```bash
+gh run watch
+```
+
+When the workflow is finished, you can visit the application in the `dev` environment by running the following command:
+
+```bash
+nais open
+```
