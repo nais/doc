@@ -11,6 +11,20 @@ This guide will take you through the process of getting up your first NAIS appli
 - Building your application on GitHub Actions
 - Deploying your application to NAIS
 
+### Prerequisites
+
+- [x] You have a GitHub account
+- [x] You have a GCP account
+- [x] You have a working nais device
+- [x] [You have a NAIS team](../basics/teams.md#creating-a-new-team)
+- [x] [You have a NAIS API key](../basics/teams.md#access-to-api-keys)
+
+### Tools used in this guide
+
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - Kubernetes command-line tool
+- [docker](https://docs.docker.com/get-docker/) - Docker command-line tool
+- [nais-cli](https://doc.nais.io/cli/installation/) - NAIS command-line tool
+
 ### Conventions
 
 Throughout this guide, we will use the following conventions:
@@ -43,7 +57,7 @@ For programming related code you have the option to choose between different lan
     print *, "Hello world!"
     ```
 
-=== "Coobol"
+=== "Cobol"
 
     ```cobol
     IDENTIFICATION DIVISION.
@@ -52,20 +66,6 @@ For programming related code you have the option to choose between different lan
         DISPLAY "Hello world!".
         STOP RUN.
     ```
-
-### Prerequisites
-
-- [x] You have a GitHub account
-- [x] You have a GCP account
-- [x] You have a working nais device
-- [x] [You have a NAIS team](../basics/teams.md#creating-a-new-team)
-- [x] [You have a NAIS API key](../basics/teams.md#access-to-api-keys)
-
-### Tools used in this guide
-
-- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - Kubernetes command-line tool
-- [docker](https://docs.docker.com/get-docker/) - Docker command-line tool
-- [nais-cli](https://doc.nais.io/cli/installation/) - NAIS command-line tool
 
 ## Create a new repository
 
@@ -202,15 +202,23 @@ The `Dockerfile` above are based on [Chainguard images](https://www.chainguard.d
 To test that your Dockerfile works, run the following command:
 
 ```bash
-docker build -t <your-app-name> .
+docker build -t <my-app> .
 ```
+
+You can run this container image locally by running the following command:
+
+```bash
+docker run -p 3000:3000 <my-app>
+```
+
+Visit [http://localhost:3000](http://localhost:3000) to see your application running.
 
 ## Create nais.yaml
 
 In your repository, run the following command:
 
 ```bash
-nais start --appname <your-app-name> --teamname <your-team-name>
+nais start --appname <my-app> --teamname <my-team>
 ```
 
 This will create the required files for your application.
