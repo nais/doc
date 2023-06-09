@@ -1,0 +1,216 @@
+# A Basic Guide
+
+Your very first NAIS application is just a few steps away. This guide will take you through the process of setting up your first application.
+
+## Introduction
+
+This guide will take you through the process of getting up your first NAIS application up and running and is intended for people without any previous experience with Docker, Containers, NAIS or Cloud. This guide will cover the following topics:
+
+- Dockerizing your application
+- Configuring your application for NAIS
+- Building your application on GitHub Actions
+- Deploying your application to NAIS
+
+### Conventions
+
+Throughout this guide, we will use the following conventions:
+
+- `my-repo` - The name of your GitHub repository (e.g. `my-org/my-repo`)
+- `my-app` - The name of your NAIS application (e.g. `my-app`)
+- `my-team` - The name of your NAIS team (e.g. `my-team`)
+
+### Code examples
+
+We will provide all the commands and code examples you need to get started. You can copy and paste these examples into your terminal or editor.
+
+For programming related code you have the option to choose between different languages. In these cases, we will provide the examples in the following format:
+
+=== "Node.js"
+
+    ```javascript
+    console.log('Hello world!')
+    ```
+
+=== "Java"
+
+    ```java
+    System.out.println("Hello world!");
+    ```
+
+=== "Fortran"
+
+    ```fortran
+    print *, "Hello world!"
+    ```
+
+=== "Coobol"
+
+    ```cobol
+    IDENTIFICATION DIVISION.
+    PROGRAM-ID. HELLO-WORLD.
+    PROCEDURE DIVISION.
+        DISPLAY "Hello world!".
+        STOP RUN.
+    ```
+
+### Prerequisites
+
+- [x] You have a GitHub account
+- [x] You have a GCP account
+- [x] You have a working nais device
+- [x] [You have a NAIS team](../basics/teams.md#creating-a-new-team)
+- [x] [You have a NAIS API key](../basics/teams.md#access-to-api-keys)
+
+### Tools used in this guide
+
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - Kubernetes command-line tool
+- [docker](https://docs.docker.com/get-docker/) - Docker command-line tool
+- [nais-cli](https://doc.nais.io/cli/installation/) - NAIS command-line tool
+
+## Create a new repository
+
+Create a new repository on GitHub. This will be the home of your application.
+
+In your new repository; Go to `Settings` -> `Secrets and variables` -> `Actions` and add the following secrets:
+
+- `NAIS_DEPLOY_APIKEY` - Your NAIS API key
+
+## Create a new application
+
+In your repository, initialize a new application depending on the language you want to use.
+
+=== "Node.js"
+
+    ```bash
+    npx express-generator
+    ```
+
+=== "Next.js"
+
+    ```bash
+    npx create-next-app
+    ```
+
+## Create a Dockerfile
+
+In order to run your application on NAIS, you need to package it in a [Container image](https://www.docker.com/resources/what-container/) also often referred to as a [Docker image](https://docs.docker.com/get-started/overview/). Throughout this guide, we will use the terms interchangeably.
+
+There are several ways to build a container image, but the easiest way is to use a [`Dockerfile`](https://docs.docker.com/engine/reference/builder/). In your repository, create a new file with the name `Dockerfile` and the following content:
+
+=== "Node.js"
+
+    ```dockerfile
+    FROM cgr.dev/chainguard/node:18 AS base
+    LABEL org.opencontainers.image.source="https://github.com/<my-repo>"
+    RUN npm config set update-notifier false && \
+        npm config set fund false && \
+        npm config set progress true && \
+        npm config set loglevel error
+
+    # -----------------------------------------------------------------------------
+    # Build the application
+    # -----------------------------------------------------------------------------
+    FROM base AS builder
+    COPY --chown=node:node . .
+    RUN npm install --no-audit
+    # RUN npm install --no-audit && npm run build
+
+    # -----------------------------------------------------------------------------
+    # Production dependencies
+    # -----------------------------------------------------------------------------
+    FROM base AS deps
+    COPY --from=builder /app/package.json ./package.json
+    COPY --from=builder /app/package-lock.json ./package-lock.json
+    RUN npm install --no-audit --omit=dev
+
+    # -----------------------------------------------------------------------------
+    # Production image, copy all the files and run the application
+    # -----------------------------------------------------------------------------
+    FROM base AS runner
+
+    ENV NODE_ENV production
+    ENV PORT 3000
+
+    # Copy dependencies from deps stage
+    COPY --from=deps --chown=node:node /app/package.json ./package.json
+    COPY --from=deps --chown=node:node /app/package-lock.json ./package-lock.json
+    COPY --from=deps --chown=node:node /app/node_modules ./node_modules
+    # Automatically leverage output traces to reduce image size (https://s.id/1Gplb)
+    COPY --from=builder --chown=node:node /app/app.js ./app.js
+    COPY --from=builder --chown=node:node /app/bin/www ./bin/www
+    COPY --from=builder --chown=node:node /app/public ./public
+    COPY --from=builder --chown=node:node /app/routes ./routes
+    COPY --from=builder --chown=node:node /app/views ./views
+
+    EXPOSE $PORT
+
+    CMD ["/usr/bin/npm", "run", "start"]
+    ```
+
+=== "Next.js"
+
+    ```dockerfile
+    FROM cgr.dev/chainguard/node:18 AS base
+    LABEL org.opencontainers.image.source="https://github.com/<my-repo>"
+    ENV NEXT_TELEMETRY_DISABLED 1
+    RUN npm config set update-notifier false && \
+        npm config set fund false && \
+        npm config set progress true && \
+        npm config set loglevel error
+
+    # -----------------------------------------------------------------------------
+    # Build the application
+    # -----------------------------------------------------------------------------
+    FROM base AS builder
+    COPY --chown=node:node . .
+    RUN npm install --no-audit && npm run build
+
+    # -----------------------------------------------------------------------------
+    # Production dependencies
+    # -----------------------------------------------------------------------------
+    FROM base AS deps
+    COPY --from=builder /app/package.json ./package.json
+    COPY --from=builder /app/package-lock.json ./package-lock.json
+    RUN npm install --no-audit --omit=dev
+
+    # -----------------------------------------------------------------------------
+    # Production image, copy all the files and run the application
+    # -----------------------------------------------------------------------------
+    FROM base AS runner
+
+    ENV NODE_ENV production
+    ENV PORT 3000
+
+    # Copy dependencies from deps stage
+    COPY --from=deps --chown=node:node /app/package.json ./package.json
+    COPY --from=deps --chown=node:node /app/package-lock.json ./package-lock.json
+    COPY --from=deps --chown=node:node /app/node_modules ./node_modules
+    # Automatically leverage output traces to reduce image size (https://s.id/1Gplb)
+    COPY --from=builder --chown=node:node /app/next.config.js ./next.config.js
+    COPY --from=builder --chown=node:node /app/public ./public
+    COPY --from=builder --chown=node:node /app/.next ./.next
+
+    EXPOSE $PORT
+
+    CMD ["/usr/bin/npm", "run", "start"]
+    ```
+
+This `Dockerfile` will build your application and package it in a container image. Make sure you choose the correct `Dockerfile` for your programming language or framework. The `Dockerfile` above is a good starting point for most applications, but you might need to modify it depending on your application.
+
+The `Dockerfile` above are based on [Chainguard images](https://www.chainguard.dev/chainguard-images) a light weight and secure base for your applications, and use a [multi-stage build](https://docs.docker.com/develop/develop-images/multistage-build/) to reduce the size of the final container image. The final container image will only contain the files needed to run your application.
+
+To test that your Dockerfile works, run the following command:
+
+```bash
+docker build -t <your-app-name> .
+```
+
+## Create nais.yaml
+
+In your repository, run the following command:
+
+```bash
+nais start --appname <your-app-name> --teamname <your-team-name>
+```
+
+This will create the required files for your application.
