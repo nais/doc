@@ -167,21 +167,18 @@ SQL -> `DB_INSTANCE` -> Users -> `USERNAME` -> Change password
 !!! info
     If you have multiple sql users their names will be on the format: `<MYAPP>-<MYDB>-<SQLUSERNAME>` instead of `<MYAPP>`
 
-To reset the database credentials for your application (if application name, database name or envVarPrefix has been changed):
+To reset the database credentials for your application (if application name, database name or envVarPrefix has been changed), you need to first delete the secret and sqluser for the database:
 
-#### Default user
-
-```bash
-nais postgres password rotate <MYAPP>
-```
-
-#### Multiple users
 ```bash
 $ kubectl delete secret google-sql-<MYAPP>
 $ kubectl delete sqluser <MYAPP>
 ```
 
-Then redeploy your application
+Then either redeploy your application or force a synchronization of your application:
+
+```bash
+kubectl patch application <MYAPP> -p '[{"op": "remove", "path": "/status/synchronizationHash"}]' --type=json
+```
 
 ## Cloud SQL Proxy
 
