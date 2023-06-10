@@ -93,32 +93,33 @@ As an alternative you can use the CycloneDx plugins directly to get a deep graph
 * **Gradle**:
 
 !!! Gradle Plugin
-  
-  Add the following to your `build.gradle*` file.
+    Add the following to your `build.gradle*` file.
 
     ```groovy
         id("org.cyclonedx.bom") version "1.7.4"
     ```
 
-  In your workflow you can generate a SBOM with the following gradle task command:
+    In your workflow you can generate a SBOM with the following gradle task command:
 
     ```bash
         - name: Generate and output SBOM
           run: ./gradlew cyclonedxBom
     ```
 
-  The SBOM will be default located at `build/reports/bom.json`. Pass the SBOM to the `nais/docker-build-push` action with the following input:
+    The SBOM will be default located at `build/reports/bom.json`. Pass the SBOM to the `nais/docker-build-push` action with the following input:
 
     ```yaml
         uses: nais/docker-build-push@v0
         with:
           byosbom: build/reports/bom.json
     ```
+  
+    For more info about settings check out the [CycloneDx Gradle Plugin](https://github.com/CycloneDX/cyclonedx-gradle-plugin)
+
 * **Maven**:
 
 !!! Maven Plugin
-
-  Add the following to your `pom.xml` file.
+    Add the following to your `pom.xml` file.
 
     ```xml
         <plugins>
@@ -130,17 +131,18 @@ As an alternative you can use the CycloneDx plugins directly to get a deep graph
         </plugins>
     ```
 
-  In your workflow you can generate a SBOM with the following maven command:
+    In your workflow you can generate a SBOM with the following maven command:
 
     ```bash
         - name: Generate and output SBOM
           run: ./mvnw makeAggregateBom
     ```
 
-  The SBOM will be default located at `target/bom.json`. Pass the SBOM to the `nais/docker-build-push` action with the following input:
+    The SBOM will be default located at `target/bom.json`. Pass the SBOM to the `nais/docker-build-push` action with the following input:
 
     ```yaml
         uses: nais/docker-build-push@v0
         with:
           byosbom: target/bom.json
     ```
+    For more info about settings check out the [CycloneDx Maven Plugin](https://github.com/CycloneDX/cyclonedx-maven-plugin)
