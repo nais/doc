@@ -426,18 +426,18 @@ Most of these fields should be self-explanatory, but we'll be explicit with thei
 
 | Field                                 | Description                                                                                                                                                   |
 |---------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `session.active`                      | Whether or not the session is marked as active. If `false`, the session cannot be extended and the user must be redirected to login.                          |
 | `session.created_at`                  | The timestamp that denotes when the session was first created.                                                                                                |
-| `session.ends_at`                     | The timestamp that denotes when the session will end.                                                                                                         |
+| `session.ends_at`                     | The timestamp that denotes when the session will end. After this point, the session cannot be extended and the user must be redirected to login.              |
+| `session.ends_in_seconds`             | The number of seconds until `session.ends_at`.                                                                                                                |
 | `session.timeout_at`                  | The timestamp that denotes when the session will time out. The zero-value, `0001-01-01T00:00:00Z`, means no timeout.                                          |
-| `session.ends_in_seconds`             | The number of seconds until the session ends.                                                                                                                 |
-| `session.active`                      | Whether or not the session is marked as active.                                                                                                               |
-| `session.timeout_in_seconds`          | The number of seconds until the session times out. A value of `-1` means no timeout.                                                                          |
+| `session.timeout_in_seconds`          | The number of seconds until `session.timeout_at`. A value of `-1` means no timeout.                                                                           |
 | `tokens.expire_at`                    | The timestamp that denotes when the tokens within the session will expire.                                                                                    |
-| `tokens.refreshed_at`                 | The timestamp that denotes when the tokens within the session was last refreshed.                                                                             |
-| `tokens.expire_in_seconds`            | The number of seconds until the tokens expire.                                                                                                                |
+| `tokens.expire_in_seconds`            | The number of seconds until `tokens.expire_at`.                                                                                                               |
 | `tokens.next_auto_refresh_in_seconds` | The number of seconds until the earliest time where the tokens will automatically be refreshed. A value of -1 means that automatic refreshing is not enabled. |
 | `tokens.refresh_cooldown`             | A boolean indicating whether or not the refresh operation is on cooldown or not.                                                                              |
 | `tokens.refresh_cooldown_seconds`     | The number of seconds until the refresh operation is no longer on cooldown.                                                                                   |
+| `tokens.refreshed_at`                 | The timestamp that denotes when the tokens within the session was last refreshed.                                                                             |
 
 #### 5.1. Refresh Tokens
 
@@ -460,6 +460,31 @@ An inactive session _cannot_ be refreshed; the user must be redirected to the `/
     For ID-porten, renewal must be handled manually.
     
     Automatic support for this through [nav-dekoratoren](https://github.com/navikt/nav-dekoratoren) should be available by Q3/Q4 2023.
+
+    If you're not using `nav-dekoratoren` and wish to implement token refreshing yourselves, these are the cases (with suggested solutions) you should handle in descending priority:
+
+    1. _The `/oauth2/session` endpoint returns 401; the user is either not authenticated or their previous session has ended._
+
+        The user should either automatically be redirected to login, or be presented with a message stating that they are not authenticated with an option to either be redirected to log in or return to another page.
+
+    2. _The session is inactive (or timed out)._
+
+        The user should be presented with a message explaining that they've been inactive for too long and were logged out for security reasons.
+        They should then be given the option to either be redirected to login or return to another page.
+
+    3. _The session is active, but will end in around 5-10 minutes._
+
+        The user should be presented with a message that explains that the session is about to end (perhaps with a countdown), and be encouraged to save or complete their work. If the session ends while the user is still present, transition to case 1.
+
+    4. _The session is active, but will time out in around 5-10 minutes._
+
+        The user should be presented with a message explaining that they've been inactive for a while and will be logged out within x time (perhaps with a countdown) if no action is taken.
+
+        They should be given an option to either extend the session or log out. If no action is taken and the session eventually times out, transition to case 2.
+
+    5. _The session is active, and the tokens within the session have either expired or are 5-10 minutes away from expiring._
+
+        At this point, if the user is still present and active, it is reasonable to just automatically perform the refresh in the background without prompting the user.
 
 If you want to manually trigger token refreshes, you can make use of a new endpoint:
 
