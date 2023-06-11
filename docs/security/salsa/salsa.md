@@ -114,8 +114,6 @@ As an alternative you can use the CycloneDx plugins directly to get a deep graph
   
     For more info about settings check out the [CycloneDx Gradle Plugin](https://github.com/CycloneDX/cyclonedx-gradle-plugin)
 
-* **Maven**:
-
 !!! Maven Plugin
     Add the following to your `pom.xml` file.
 
@@ -124,7 +122,14 @@ As an alternative you can use the CycloneDx plugins directly to get a deep graph
             <plugin>
                 <groupId>org.cyclonedx</groupId>
                 <artifactId>cyclonedx-maven-plugin</artifactId>
-                <version>2.7.9</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>makeAggregateBom</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     ```
@@ -133,7 +138,7 @@ As an alternative you can use the CycloneDx plugins directly to get a deep graph
 
     ```yaml
         - name: Generate and output SBOM
-          run: ./mvnw makeAggregateBom
+          run: ./mvnw package
     ```
 
     The SBOM will be default located at `target/bom.json`. Pass the SBOM to the `nais/docker-build-push` action with the following input:
