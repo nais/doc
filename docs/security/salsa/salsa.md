@@ -90,10 +90,8 @@ Due to Trivy, you will get a flat graph of dependencies. This is because Trivy d
 Trivy parses the .jar files directly and does not have access to the dependency resolution information.
 As an alternative you can use the CycloneDx plugins directly to get a deep graph of nested transitive dependencies.
 
-* **Gradle**:
-
 !!! Gradle Plugin
-    Add the following to your `build.gradle*` file.
+    Add the following plugin to your `build.gradle*` file.
 
     ```groovy
         id("org.cyclonedx.bom") version "1.7.4"
@@ -101,7 +99,7 @@ As an alternative you can use the CycloneDx plugins directly to get a deep graph
 
     In your workflow you can generate a SBOM with the following gradle task command:
 
-    ```bash
+    ```yaml
         - name: Generate and output SBOM
           run: ./gradlew cyclonedxBom
     ```
@@ -133,7 +131,7 @@ As an alternative you can use the CycloneDx plugins directly to get a deep graph
 
     In your workflow you can generate a SBOM with the following maven command:
 
-    ```bash
+    ```yaml
         - name: Generate and output SBOM
           run: ./mvnw makeAggregateBom
     ```
