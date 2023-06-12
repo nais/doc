@@ -413,11 +413,30 @@ Availability: GCP<br />
     ```
 
 ##### accessPolicy.outbound.external[].host
-The _host_ that your application should be able to reach, i.e. without the protocol (e.g. `https://`).
+The _host_ that your application should be able to reach, i.e. without the protocol (e.g. `https://`). "Host" and "IPv4" are mutually exclusive
 
 Type: `string`<br />
-Required: `true`<br />
+Required: `false`<br />
 Pattern: `^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9]))*$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      accessPolicy:
+        outbound:
+          external:
+            - host: external-application.example.com
+            - host: non-http-service.example.com
+              ports:
+                - port: 9200
+    ```
+
+##### accessPolicy.outbound.external[].ipv4
+The IPv4 address that your application should be able to reach. "IPv4" and "Host" are mutually exclusive
+
+Type: `string`<br />
+Required: `false`<br />
+Pattern: `^(([0-9])|([1-9][0-9])|(1([0-9]{2}))|(2[0-4][0-9])|(25[0-5]))((\.(([0-9])|([1-9][0-9])|(1([0-9]{2}))|(2[0-4][0-9])|(25[0-5]))){3})$`<br />
 
 ??? example
     ``` yaml

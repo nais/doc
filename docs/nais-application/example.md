@@ -52,6 +52,10 @@ spec:
       - host: non-http-service.example.com
         ports:
         - port: 9200
+      - ipv4: 1.2.3.4
+      - host: non-http-service.example.com
+        ports:
+        - port: 9200
       rules:
       - application: app1
       - application: app2
