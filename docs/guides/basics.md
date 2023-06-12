@@ -30,7 +30,7 @@ You will need the following tools installed on your computer:
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - Kubernetes command-line tool
 - [docker](https://docs.docker.com/get-docker/) - Docker command-line tool
 - [nais-cli](https://doc.nais.io/cli/installation/) - NAIS command-line tool
-- |[gh-cli](https://cli.github.com/) - GitHub command-line tool
+- [gh-cli](https://cli.github.com/) - GitHub command-line tool
 
 ### Conventions
 
@@ -118,16 +118,54 @@ In your repository, initialize a new application depending on the language you w
     gradle init --type kotlin-application
     ```
 
+## Create nais.yaml
+
+Now you are ready to deploy your application to NAIS. To do this, you need to create a `nais.yaml` file in your repository. This file contains the configuration for your application. The easiest way to create this file is to use the `nais` CLI tool.
+
+```bash
+nais start --appname <my-app> --teamname <my-team> --appListenPort 3000
+```
+
+??? note "What does this command do?"
+
+    * `--appname <my-app>`: The name of your application. This will be the name of the application in NAIS and should be something unique to you.
+    * `--teamname <my-team>`: The name of your team. This will be used as the name of the team in NAIS.
+    * `--appListenPort 3000`: The port that your application listens on. This will be used for the exposed port and liveness checks in NAIS.
+
+This will create the required files for your application to run on NAIS. This will create the following files in your repository:
+
+| File | Description |
+| -----| ----------- |
+| `.github/workflows/main.yaml` | The GitHub Actions workflow that will build and deploy your application. |
+| `./nais/nais.yaml` | The configuration for your application. |
+| `./nais/dev.yaml` | The configuration overrides for your application in the `dev` environment. |
+
+Check out the files in your repository to see what they contain.
+
+`nais.yaml` is the configuration for your application. This file contains the configuration for your application, such as the name of the application, the team that owns the application, and the port that the application listens on. You can read more about the configuration options in the [NAIS documentation](https://doc.nais.io/application/).
+
+`dev.yaml` is the configuration overrides for your application in the `dev` environment. This file contains the configuration for your application in the `dev` environment, such as ingress domain, number of replicas, and the amount of memory and CPU.
+
+`.github/workflows/main.yaml` is the GitHub Actions workflow that will build and deploy your application. This file contains the steps that will build your application and deploy it to NAIS. You can read more about the GitHub Actions workflow in the [GitHub Actions documentation](https://docs.github.com/en/actions).
+
+Open `.github/workflows/main.yaml` in your repository and remove everything below this line (around 40):
+
+```yaml
+  "deployAppToProd":
+```
+
+This will remove the step that deploys your application to the `prod` environment as we will not be deploying to `prod` in this guide.
+
 ## Create a Dockerfile
 
 In order to run your application on NAIS, you need to package it in a [Container image](https://www.docker.com/resources/what-container/) also often referred to as a [Docker image](https://docs.docker.com/get-started/overview/). Throughout this guide, we will use the terms interchangeably.
 
-There are several ways to build a container image, but the easiest way is to use a [`Dockerfile`](https://docs.docker.com/engine/reference/builder/). In your repository, create a new file with the name `Dockerfile` and the following content:
+There are several ways to build a container image, but the easiest way is to use a [`Dockerfile`](https://docs.docker.com/engine/reference/builder/). `nais start` will create a minimal Dockerfile for you, but we can improve it for our example application. In your repository, open the file named `Dockerfile` and add the following content:
 
 === "Node.js"
 
     ```dockerfile
-    FROM cgr.dev/chainguard/node:18 AS base
+    FROM cgr.dev/chainguard/node:20 AS base
     LABEL org.opencontainers.image.source="https://github.com/<my-repo>"
     RUN npm config set update-notifier false && \
         npm config set fund false && \
@@ -177,7 +215,7 @@ There are several ways to build a container image, but the easiest way is to use
 === "Next.js"
 
     ```dockerfile
-    FROM cgr.dev/chainguard/node:18 AS base
+    FROM cgr.dev/chainguard/node:20 AS base
     LABEL org.opencontainers.image.source="https://github.com/<my-repo>"
     ENV NEXT_TELEMETRY_DISABLED 1
     RUN npm config set update-notifier false && \
@@ -240,43 +278,12 @@ docker run -p 3000:3000 <my-app>
 
 Visit [http://localhost:3000](http://localhost:3000) to see your application running.
 
-## Create nais.yaml
-
-Now you are ready to deploy your application to NAIS. To do this, you need to create a `nais.yaml` file in your repository. This file contains the configuration for your application. The easiest way to create this file is to use the `nais` CLI tool.
-
-```bash
-nais start --appname <my-app> --teamname <my-team> --appListenPort 3000
-```
-
-??? note "What does this command do?"
-
-    * `--appname <my-app>`: The name of your application. This will be the name of the application in NAIS and should be something unique to you.
-    * `--teamname <my-team>`: The name of your team. This will be used as the name of the team in NAIS.
-    * `--appListenPort 3000`: The port that your application listens on. This will be used for the exposed port and liveness checks in NAIS.
-
-This will create the required files for your application to run on NAIS. This will create the following files in your repository:
-
-| File | Description |
-| -----| ----------- |
-| `.github/workflows/main.yaml` | The GitHub Actions workflow that will build and deploy your application. |
-| `./nais/nais.yaml` | The configuration for your application. |
-| `./nais/dev.yaml` | The configuration overrides for your application in the `dev` environment. |
-
-Check out the files in your repository to see what they contain.
-
-`nais.yaml` is the configuration for your application. This file contains the configuration for your application, such as the name of the application, the team that owns the application, and the port that the application listens on. You can read more about the configuration options in the [NAIS documentation](https://doc.nais.io/application/).
-
-`dev.yaml` is the configuration overrides for your application in the `dev` environment. This file contains the configuration for your application in the `dev` environment, such as ingress domain, number of replicas, and the amount of memory and CPU.
-
-`.github/workflows/main.yaml` is the GitHub Actions workflow that will build and deploy your application. This file contains the steps that will build your application and deploy it to NAIS. You can read more about the GitHub Actions workflow in the [GitHub Actions documentation](https://docs.github.com/en/actions).
-
 ## Deploy to NAIS
 
 Now you are ready to deploy your application to NAIS. To do this, you need to push your code to GitHub. This will trigger the GitHub Actions workflow that will build and deploy your application to NAIS.
 
 ```bash
-git add .
-git commit -m "Initial commit"
+git commit -m "Build and deploy application to NAIS" .
 git push
 ```
 
@@ -286,8 +293,58 @@ GitHub will automatically start the GitHub Actions workflow. You can follow the 
 gh run watch
 ```
 
-When the workflow is finished, you can visit the application in the `dev` environment by running the following command:
+When the workflow is finished, you can visit the application in the `dev` environment by going to the following URL:
 
 ```bash
-nais open
+https://<my-app>.intern.dev.nav.no
+```
+
+## Inspecting the application
+
+Your new application is now running in nais. Under the hood, nais is using Kubernetes to run your application. You can inspect your application by running the following commands.
+
+Select the correct Kubernetes context:
+
+```bash
+kubectl config use-context dev-gcp
+```
+
+Select the correct Kubernetes namespace:
+
+```bash
+kubectl config set-context --current --namespace=<my-team>
+```
+
+List the pods running in the namespace:
+
+```bash
+kubectl get pods
+```
+
+??? note "Example output"
+    ```bash
+    NAME                         READY   STATUS    RESTARTS   AGE
+    my-app-6b4dd85578-2hk8d      1/1     Running   0          2m
+    ```
+
+You should see a pod with the name `<my-app>-<random-string>`. You can inspect the logs from this pod by running the following command:
+
+```bash
+kubectl logs -f <my-app>-<random-string>
+```
+
+## Cleaning up
+
+When you are done with this tutorial, you can delete the application by running the following command:
+
+```bash
+kubectl delete app <my-app>
+```
+
+**NB!** Remember to do this for all environments you have deployed to.
+
+You can also archive the GitHub repository by running the following command:
+
+```bash
+gh repo archive <my-repo>
 ```
