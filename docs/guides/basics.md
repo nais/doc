@@ -1,6 +1,10 @@
-# A Basic Guide
+# A NAIS Guide
 
 Welcome to NAIS! This guide will take you through the process of getting up your first NAIS application up and running and is intended for people without any previous experience with NAIS and the tools we use.
+
+!!! note "Questions or feedback?"
+
+    If you have any questions or feedback, please reach out to us on [Slack](https://nav-it.slack.com/archives/C5KUST8N6) or [GitHub Issues](https://github.com/nais/doc/issues/new/choose). We are happy to help!
 
 ## Introduction
 
@@ -17,20 +21,20 @@ In this guide, we will show you how to build a simple web application and deploy
 
 Before you get started, you need to make sure you have the following:
 
-- [x] You have a GitHub account
-- [x] You have a GCP account
-- [x] You have a working nais device
-- [x] [You have a NAIS team](../basics/teams.md#creating-a-new-team)
-- [x] [You have a NAIS API key](../basics/teams.md#access-to-api-keys)
+- [ ] You have a GitHub account
+- [ ] You have a GCP account
+- [ ] You have a working nais device
+- [ ] [You have a NAIS team](../basics/teams.md#creating-a-new-team)
+- [ ] [You have a NAIS API key](../basics/teams.md#access-to-api-keys)
 
-### Tools used in this guide
+### Tools required
 
 You will need the following tools installed on your computer:
 
-- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - Kubernetes command-line tool
-- [docker](https://docs.docker.com/get-docker/) - Docker command-line tool
-- [nais-cli](https://doc.nais.io/cli/installation/) - NAIS command-line tool
-- [gh-cli](https://cli.github.com/) - GitHub command-line tool
+- [ ] [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - Kubernetes command-line tool
+- [ ] [docker](https://docs.docker.com/get-docker/) - Docker command-line tool
+- [ ] [nais-cli](https://doc.nais.io/cli/installation/) - NAIS command-line tool
+- [ ] [gh-cli](https://cli.github.com/) - GitHub command-line tool
 
 ### Conventions
 
@@ -74,7 +78,7 @@ For programming related code you have the option to choose between different lan
         STOP RUN.
     ```
 
-## Create a new repository
+## Step 1: Create a new repository
 
 Create a new repository on GitHub. This will be the home of your application.
 
@@ -88,9 +92,9 @@ For your new repository add the following secret:
 gh secret set NAIS_DEPLOY_APIKEY --app actions
 ```
 
-Paste in your NAIS API key as the value when asked.
+Paste in your NAIS Deploy API key as the value when asked.
 
-## Create a new application
+## Step 2: Create a new application
 
 In your repository, initialize a new application depending on the language you want to use.
 
@@ -118,7 +122,7 @@ In your repository, initialize a new application depending on the language you w
     gradle init --type kotlin-application
     ```
 
-## Create nais.yaml
+## Step 3: Create a nais config
 
 Now you are ready to deploy your application to NAIS. To do this, you need to create a `nais.yaml` file in your repository. This file contains the configuration for your application. The easiest way to create this file is to use the `nais` CLI tool.
 
@@ -156,7 +160,7 @@ Open `.github/workflows/main.yaml` in your repository and remove everything belo
 
 This will remove the step that deploys your application to the `prod` environment as we will not be deploying to `prod` in this guide.
 
-## Create a Dockerfile
+## Step 4: Create a Dockerfile
 
 In order to run your application on NAIS, you need to package it in a [Container image](https://www.docker.com/resources/what-container/) also often referred to as a [Docker image](https://docs.docker.com/get-started/overview/). Throughout this guide, we will use the terms interchangeably.
 
@@ -278,7 +282,7 @@ docker run -p 3000:3000 <my-app>
 
 Visit [http://localhost:3000](http://localhost:3000) to see your application running.
 
-## Deploy to NAIS
+## Step 5: Deploy to NAIS
 
 Now you are ready to deploy your application to NAIS. To do this, you need to push your code to GitHub. This will trigger the GitHub Actions workflow that will build and deploy your application to NAIS.
 
@@ -299,7 +303,7 @@ When the workflow is finished, you can visit the application in the `dev` enviro
 https://<my-app>.intern.dev.nav.no
 ```
 
-## Inspecting the application
+## Step 6: Inspect the application
 
 Your new application is now running in nais. Under the hood, nais is using Kubernetes to run your application. You can inspect your application by running the following commands.
 
@@ -333,17 +337,17 @@ You should see a pod with the name `<my-app>-<random-string>`. You can inspect t
 kubectl logs -f <my-app>-<random-string>
 ```
 
-## Cleaning up
+## Epilogue
 
-When you are done with this tutorial, you can delete the application by running the following command:
+Congratulations! You have now deployed your first application to NAIS. Play around with the application and make some changes to the code. Push the changes to GitHub and see how the application is automatically deployed to NAIS.
+
+When you are done; delete the application by running the following command:
 
 ```bash
 kubectl delete app <my-app>
 ```
 
-**NB!** Remember to do this for all environments you have deployed to.
-
-You can also archive the GitHub repository by running the following command:
+You can also archive the GitHub repository to prevent the application from being deployed again by running the following command:
 
 ```bash
 gh repo archive <my-repo>
