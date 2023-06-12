@@ -149,3 +149,12 @@ As an alternative you can use the CycloneDx plugins directly to get a deep graph
           byosbom: target/bom.json
     ```
     For more info about settings check out the [CycloneDx Maven Plugin](https://github.com/CycloneDX/cyclonedx-maven-plugin)
+
+!!! nais/attest-sign
+    When using the `nais/attest-sign` action directly you can pass the SBOM to the `nais/attest-sign` action with the following input:
+
+    ```yaml
+        uses: nais/attest-sign@v1.x.x
+        with:
+          sbom: path/to/bom.json
+    ```
