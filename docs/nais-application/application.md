@@ -1365,6 +1365,9 @@ Required: `false`<br />
 ## frontend
 Configuration options specifically for frontend applications.
 
+!!! warning "Experimental feature"
+    This feature has not undergone much testing, and is subject to API change, instability, or removal.
+
 Type: `object`<br />
 Required: `false`<br />
 Availability: GCP<br />
@@ -2479,6 +2482,9 @@ Allowed values: `HDD`, `SSD`<br />
 
 #### gcp.sqlInstances[].flags
 Set flags to control the behavior of the instance. Be aware that NAIS _does not validate_ these flags, so take extra care to make sure the values match against the specification, otherwise your deployment will seemingly work OK, but the database flags will not function as expected.
+
+!!! warning "Experimental feature"
+    This feature has not undergone much testing, and is subject to API change, instability, or removal.
 
 Relevant information:
 
@@ -4219,6 +4225,9 @@ Required: `false`<br />
 
 ### observability.tracing
 Enable application performance monitoring with traces collected using OpenTelemetry and the OTLP exporter.
+
+!!! warning "Experimental feature"
+    This feature has not undergone much testing, and is subject to API change, instability, or removal.
 
 Relevant information:
 
