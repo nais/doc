@@ -171,6 +171,10 @@ In the future we will add support for automatically creating API tokens when dep
 
 If you have created a new API token, but you don't see the secret in your namespace, you can try to delete the `ApiToken` resource and deploy it again.
 
+```bash
+kubectl delete apitoken <my-token> -n <my-team>
+```
+
 Alternatively, check the status field for the `ApiToken` resource to see if there are any errors.
 
 ```bash
