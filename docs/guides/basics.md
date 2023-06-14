@@ -12,10 +12,10 @@ NAIS is a platform for running applications in the cloud. It is built on top of 
 
 In this guide, we will show you how to build a simple web application and deploy it to NAIS. You will learn how to:
 
-- Dockerizing your application
-- Configuring your application for NAIS
-- Building your application on GitHub Actions
-- Deploying your application to NAIS
+- Dockerize your application
+- Configure your application for NAIS
+- Build your application on GitHub Actions
+- Deploy your application to NAIS
 
 ### Prerequisites
 
@@ -23,7 +23,7 @@ Before you get started, you need to make sure you have the following:
 
 - [ ] You have a GitHub account
 - [ ] You have a GCP account
-- [ ] You have a working nais device
+- [ ] [You have a working nais device](../device/install.md)
 - [ ] [You have a NAIS team](../basics/teams.md#creating-a-new-team)
 - [ ] [You have a NAIS API key](../basics/teams.md#access-to-api-keys)
 
@@ -33,7 +33,7 @@ You will need the following tools installed on your computer:
 
 - [ ] [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - Kubernetes command-line tool
 - [ ] [docker](https://docs.docker.com/get-docker/) - Docker command-line tool
-- [ ] [nais-cli](https://doc.nais.io/cli/installation/) - NAIS command-line tool
+- [ ] [nais-cli](../cli/install.md) - NAIS command-line tool
 - [ ] [gh-cli](https://cli.github.com/) - GitHub command-line tool
 
 ### Conventions
