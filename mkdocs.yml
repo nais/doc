@@ -28,6 +28,7 @@ theme:
   features:
     - content.action.edit
     - content.code.copy
+    - content.code.annotate
     - navigation.footer
     - navigation.instant
     - navigation.tabs
