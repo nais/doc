@@ -24,7 +24,7 @@ Before you get started, you need to make sure you have the following:
 - [ ] You have a GitHub account
 - [ ] You have a GCP account
 - [ ] [You have a working nais device](../device/install.md)
-- [ ] [You have a NAIS team](../basics/teams.md#creating-a-new-team)
+- [ ] [You are part of a NAIS team](../basics/teams.md#managing-your-team)
 - [ ] [You have a NAIS API key](../basics/teams.md#access-to-api-keys)
 
 ### Tools required
