@@ -285,7 +285,7 @@ docker build -t <my-app> .
 You can run this container image locally by running the following command:
 
 ```bash
-docker run -p 3000:3000 <my-app>
+docker run --rm -p 3000:3000 <my-app>
 ```
 
 Visit [http://localhost:3000](http://localhost:3000) to see your application running.
