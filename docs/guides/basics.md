@@ -32,9 +32,14 @@ Before you get started, you need to make sure you have the following:
 You will need the following tools installed on your computer:
 
 - [ ] [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - Kubernetes command-line tool
-- [ ] [docker](https://docs.docker.com/get-docker/) - Docker command-line tool
 - [ ] [nais-cli](../cli/install.md) - NAIS command-line tool
 - [ ] [gh-cli](https://cli.github.com/) - GitHub command-line tool
+- [ ] Docker via one of these alternatives
+    - [ ] (recommended) [colima](https://github.com/abiosoft/colima) - Colima command-line tool
+    - [ ] [docker](https://docs.docker.com/get-docker/) - Docker desktop
+    - [ ] [rancher](https://rancherdesktop.io) - Rancher desktop
+    - [ ] [podman](https://podman-desktop.io) - Podman desktop
+    - [ ] [minikube](https://github.com/kubernetes/minikube) - Kubernetes minkube
 
 ### Conventions
 
