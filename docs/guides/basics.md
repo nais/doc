@@ -12,7 +12,7 @@ NAIS is a platform for running applications in the cloud. It is built on top of 
 
 In this guide, we will show you how to build a simple web application and deploy it to NAIS. You will learn how to:
 
-- Dockerize your application
+- Containerize your application
 - Configure your application for NAIS
 - Build your application on GitHub Actions
 - Deploy your application to NAIS
@@ -34,12 +34,21 @@ You will need the following tools installed on your computer:
 - [ ] [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - Kubernetes command-line tool
 - [ ] [nais-cli](../cli/install.md) - NAIS command-line tool
 - [ ] [gh-cli](https://cli.github.com/) - GitHub command-line tool
-- [ ] Docker via one of these alternatives
-    - [ ] (recommended) [colima](https://github.com/abiosoft/colima) - Colima command-line tool
-    - [ ] [docker](https://docs.docker.com/get-docker/) - Docker desktop
-    - [ ] [rancher](https://rancherdesktop.io) - Rancher desktop
-    - [ ] [podman](https://podman-desktop.io) - Podman desktop
-    - [ ] [minikube](https://github.com/kubernetes/minikube) - Kubernetes minikube
+- [ ] Docker-cli via one of these alternatives
+    - [ ] (recommended) [Colima](https://github.com/abiosoft/colima) - Colima command-line tool
+    - [ ] [Docker](https://docs.docker.com/get-docker/) - Docker desktop
+    - [ ] [Rancher](https://rancherdesktop.io) - Rancher desktop
+    - [ ] [Podman](https://podman-desktop.io) - Podman desktop
+
+#### A little bit about Docker
+
+As you can see above there is a bunch of different tools to run Docker.
+The main reason for this is that Docker descided to stop their free version for non-private usage, so a bunch of alternatives started to pop up.
+The most used one in NAV (at least for Mac users) is *Colima*, while *Docker Desktop* is the most used for Windows users.
+
+If you want to use Docker Desktop you need give yourself access do Docker hub using [MyApps](https://account.activedirectory.windowsazure.com/r#/addApplications).
+For Colima you can follow the [Getting started](installation guide)-guide.
+Remember to run `colima start` before using the Docker-cli.
 
 ### Conventions
 
