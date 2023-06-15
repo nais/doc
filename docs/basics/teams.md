@@ -34,9 +34,9 @@ Team membership is managed in NAIS teams.
 
 In order to access _team API keys_, go to [deploy.nais.io](https://deploy.nais.io/). Here you will find API keys for all teams you are a member of.
 
-### Rotate API key
+## Rotate API key
 
-Go to [deploy.nais.io](https://deploy.nais.io/) and click on the "Rotate key" button, a pop-up will ask you to confirm the rotation.
+If you need to rotate the api keys then you can go to [deploy.nais.io](https://deploy.nais.io/) and click on the "Rotate key" button, a pop-up will ask you to confirm the rotation.
 
 ## Team namespaces
 
@@ -51,7 +51,7 @@ Each team has their own [Google Cloud Platform project](https://cloud.google.com
 * in addition to authentication and monitoring settings of those APIs.
 
 These projects are managed through [Google Cloud Console](https://console.cloud.google.com/).
-   
+
 So, for example, all of your Cloud Storage buckets and objects, along with user permissions for accessing them, reside in a project.
 
 In general every member of the team has the possibility to add the necessary permissions they need via [IAM role managment](https://console.cloud.google.com/iam-admin/iam).
@@ -61,7 +61,7 @@ While we encourage the teams to base their ROS(s) and data protection impact ass
 Remember to clean up after yourself, so that NAV doesn't unnecessarily pay for resources.
 Each team has a dashboard where they can visualise and monitor their product performance. [View team dashboards.](https://datastudio.google.com/u/1/reporting/417b0a1d-b307-4a6d-a699-77a6ab239661/page/mJdmB) We also have a [dashboard showing all our GCP projects.](https://datastudio.google.com/reporting/fda5f821-caef-4056-9356-9aa4f7082699/page/mJdmB)
 
-Nais recommends that teams use Terraform, or similar technologies, to control the lifecycle of resources created in team-projects. This is more important in production, for services that will run for a longer period of time, than ad-hoc experimentation in dev. 
+Nais recommends that teams use Terraform, or similar technologies, to control the lifecycle of resources created in team-projects. This is more important in production, for services that will run for a longer period of time, than ad-hoc experimentation in dev.
 
 ### Access management
 

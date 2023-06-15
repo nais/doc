@@ -164,3 +164,44 @@ This will create a new API token in your Unleash instance, and create a Kubernet
 - `UNLEASH_SERVER_API_TOKEN` (the API token)
 
 In the future we will add support for automatically creating API tokens when deploying your application.
+
+## Problems and solutions
+
+### Token secret not found
+
+If you have created a new API token, but you don't see the secret in your namespace, you can try to delete the `ApiToken` resource and deploy it again.
+
+```bash
+kubectl delete apitoken <my-token> -n <my-team>
+```
+
+Alternatively, check the status field for the `ApiToken` resource to see if there are any errors.
+
+```bash
+kubectl describe apitoken <my-token> -n <my-team>
+```
+
+??? note "Example output"
+    ```text
+    ...
+    Status:
+      Conditions:
+        Last Transition Time:  2023-05-30T17:28:44Z
+        Message:               API token successfully created
+        Reason:                Reconciling
+        Status:                True
+        Type:                  Created
+      Created:                 true
+      Failed:                  false
+    ```
+
+### RemoteUnleash not found
+
+If you see an error like this in your `ApiToken` status:
+
+```text
+    Message:               RemoteUnleash resource with name <my-name> not found in namespace <my-namespace>
+    Reason:                UnleashNotFound
+```
+
+This means that the Unleash connection configuration for your team namespace is missing. This can happen if you deploy to a different namespace than your team name. To fix this, you need to contact us in [#unleash](https://nav-it.slack.com/archives/C9BPTSULS) to get the namespace connected to your team's Unleash instance.

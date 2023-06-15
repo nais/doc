@@ -2,6 +2,13 @@
 The postgres command can be used to connect to a cloudsql postgres database with your personal user. It includes subcommands for granting personal access to an instance, 
 setting up a cloudsql proxy, and connecting to the database using a psql shell.
 
+All command have the following global flags avaiable:
+
+| Flag      | Required | Short |Default                       |Description                                              |
+|-----------|----------|-------|------------------------------|---------------------------------------------------------|
+| namespace | No       | -n    | namespace set in kubeconfig  | Kubernetes namespace where app is deployed              |
+| cluster   | No       | -c    | context set in kubeconfig    | Kubernetes context where app is deployed                |
+
 !!! warning
     
     Run the following command first before running any of the other commands:
@@ -27,9 +34,21 @@ nais postgres prepare appname
 
 | Flag      | Required | Short |Default                       |Description                                              |
 |-----------|----------|-------|------------------------------|---------------------------------------------------------|
-| namespace | No       | -n    | namespace set in kubeconfig  | Kubernetes namespace where app is deployed              |
-| cluster   | No       | -c    | context set in kubeconfig    | Kubernetes context where app is deployed                |
 | all-privs | No       |       | false                        | If true `ALL` is granted, else only `SELECT` is granted |
+
+## revoke
+Revokes the privileges given to the role cloudsqliamuser.
+Does not remove access for users to log in to the database or the `roles/cloudsql.admin` given to the user in GCP console.
+
+This operation is only required to run once for each postgresql instance.
+
+```bash
+nais postgres revoke appname
+```
+
+| Argument    | Required  | Description                                                 |
+|-------------|-----------|-------------------------------------------------------------|
+| appname     | Yes       | Name of application owning the database                     |
 
 ## grant
 Grant yourself access to a Postgres database.
@@ -46,11 +65,6 @@ nais postgres grant appname
 |-------------|-----------|-------------------------------------------------------------|
 | appname     | Yes       | Name of application owning the database                     |
 
-| Flag      | Required | Short |Default                       |Description                                  |
-|-----------|----------|-------|------------------------------|---------------------------------------------|
-| namespace | No       | -n    | namespace set in kubeconfig  | Kubernetes namespace where app is deployed  |
-| cluster   | No       | -c    | context set in kubeconfig    | Kubernetes context where app is deployed    |
-
 ## proxy
 Update IAM policies by giving your user a timed sql.cloudsql.instanceUser role, then start a proxy to the instance.
 
@@ -64,8 +78,6 @@ nais postgres proxy appname
 
 | Flag      | Required | Short |Default                       |Description                                  |
 |-----------|----------|-------|------------------------------|---------------------------------------------|
-| namespace | No       | -n    | namespace set in kubeconfig  | Kubernetes namespace where app is deployed  |
-| cluster   | No       | -c    | context set in kubeconfig    | Kubernetes context where app is deployed    |
 | port      | No       | -p    | 5432                         | Local port for cloudsql proxy to listen on  |
 | host      | No       | -H    | localhost                    | Host for the proxy                          |
 
@@ -86,8 +98,6 @@ nais postgres psql appname
 
 | Flag      | Required | Short |Default                       |Description                                  |
 |-----------|----------|-------|------------------------------|---------------------------------------------|
-| namespace | No       | -n    | namespace set in kubeconfig  | Kubernetes namespace where app is deployed  |
-| cluster   | No       | -c    | context set in kubeconfig    | Kubernetes context where app is deployed    |
 | verbose   | No       | -V    | false                        | Verbose will print proxy log                |
 
 ## users add
@@ -105,8 +115,6 @@ nais postgres users add username password appname
 
 | Flag      | Required | Short |Default                       |Description                                  |
 |-----------|----------|-------|------------------------------|---------------------------------------------|
-| namespace | No       | -n    | namespace set in kubeconfig  | Kubernetes namespace where app is deployed  |
-| cluster   | No       | -c    | context set in kubeconfig    | Kubernetes context where app is deployed    |
 | privilege | No       |       | select                       | The privilege level the user is granted     |
 
 ## users list
@@ -120,7 +128,13 @@ nais postgres users list appname
 |-------------|-----------|-------------------------------------------------------------|
 | appname     | Yes       | Name of application owning the database                     |
 
-| Flag      | Required | Short |Default                       |Description                                  |
-|-----------|----------|-------|------------------------------|---------------------------------------------|
-| namespace | No       | -n    | namespace set in kubeconfig  | Kubernetes namespace where app is deployed  |
-| cluster   | No       | -c    | context set in kubeconfig    | Kubernetes context where app is deployed    |
+## password rotate
+Rotate the Postgres database password, both in GCP and in the Kubernetes secret.
+
+```bash
+nais postgres password rotate appname
+```
+
+| Argument    | Required  | Description                                                 |
+|-------------|-----------|-------------------------------------------------------------|
+| appname     | Yes       | Name of application owning the database                     |
