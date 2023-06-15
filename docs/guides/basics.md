@@ -89,12 +89,14 @@ Create a new repository on GitHub. This will be the home of your application.
 
 ```bash
 gh repo create navikt/<my-repo> --add-readme --public --clone
+cd <my newly created repo>
+git pull --set-upstream origin main
 ```
 
 For your new repository add the following secret:
 
 ```bash
-cd <my newly created repo>
+cd <my newly created repo> # Ensure you're inside of the repo you want to add the secret to
 gh secret set NAIS_DEPLOY_APIKEY --app actions
 ```
 
