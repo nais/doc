@@ -148,7 +148,6 @@ nav:
           - Reference: naisjob/reference.md
       - Deploy:
           - NAIS deploy: deployment/README.md
-          - Changing teams: deployment/change-team.md
           - Delete app: deployment/delete-app.md
           - Troubleshooting: deployment/troubleshooting.md
           - Allowed registries: deployment/allowed-registries.md
