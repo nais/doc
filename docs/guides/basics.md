@@ -88,7 +88,7 @@ For programming related code you have the option to choose between different lan
 Create a new repository on GitHub. This will be the home of your application.
 
 ```bash
-gh repo create navikt/<my-repo> --add-readme --public --clone
+gh repo create navikt/<my-repo> --add-readme --public --clone --public
 ```
 
 For your new repository add the following secret:
