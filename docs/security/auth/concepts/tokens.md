@@ -277,8 +277,7 @@ Tokens in NAV are v2.0 tokens.
 List of notable claims for access tokens from ID-porten that might be useful:
 
 - `acr` (**Authentication Context Class Reference**)
-    - The security level used for authenticating the end-user.
-    - Valid values are `Level3` (MinID) or `Level4` (BankID, Buypass, Commfides, etc.)
+    - The [security level](../idporten.md#security-levels) used for authenticating the end-user.
 - `pid` (**personidentifikator**)
     - The Norwegian national ID number (fødselsnummer/d-nummer) of the authenticated end user.
 

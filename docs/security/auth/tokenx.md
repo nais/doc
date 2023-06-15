@@ -246,7 +246,6 @@ Tokendings will then issue an `access_token` in JWT format, based on the paramet
 * You have a _subject token_ in the form of an `access_token` issued by one of the following providers:
     - [ID-porten](idporten.md)
     - Tokendings
-    - [Loginservice](../../legacy/sunset.md#loginservice) (Remember that loginservice is a deprecated legacy system. TokenX currently accepts these tokens during the grace period for migration.)
 * You have a [client assertion](tokenx.md#client-authentication) that _authenticates_ your application.
 
 #### Exchange Request
@@ -336,7 +335,24 @@ The following claims are by default provided in the issued token and should expl
 Other non-standard claims in the token are copied verbatim from the original token issued by `idp`.
 For example, the claim used for the national identity number (_fødselsnummer_) for tokens issued by ID-porten is `pid`.
 
-To extract such non-standard information from tokens, first use the `idp` claim to find the original token issuer. You can then map the original issuer's preferred claims to the claims in tokens issued by TokenX.
+!!! warning "2023: New `acr` and `idp` values for ID-porten tokens"
+
+    ID-porten has a new platform and architecture, which we will be required to migrate to by the end of 2023.
+
+    The most substantial change is the **new values for the `acr` claim**.
+    See the ["security levels" section in our ID-porten documentation](idporten.md#security-levels) for details.
+
+    In order to ease migration, TokenX will automatically map the `acr` claim from new values to the old values for exchanged ID-porten tokens.
+    This is however a **temporary** solution, which we will remove some time later in 2024 after the migration is complete.
+
+    **If your application validates or otherwise uses the value found in the `acr` claim, you should ensure that both new and old values are accepted until the temporary mapping is removed.**
+
+    The value in the `idp` claim for tokens from ID-porten will also change:
+
+    | Old value                                           | New value                  |
+    |:----------------------------------------------------|----------------------------|
+    | `https://oidc-ver2.difi.no/idporten-oidc-provider/` | `https://test.idporten.no` |
+    | `https://oidc.difi.no/idporten-oidc-provider/`      | `https://idporten.no`      |
 
 #### Example Token \(exchanged from ID-porten\)
 

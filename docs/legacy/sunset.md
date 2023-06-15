@@ -37,38 +37,12 @@ Kombinasjonen av Aiven Kafka og Kafkarator gjør det betydelig enklere for team 
 
 Fra 1. juni 2021 ble det stengt for opprettelse av nye topics i Kafka onprem. 
 
+**Kafka onprem vil stenges ned 2. oktober 2023.**
+
 **Alle team anbefales å migrere vekk fra onprem Kafka snarest.** 
 
 #### Hvordan migrere vekk
 [Dette er en guide for migrering fra onprem Kafka.](https://doc.nais.io/persistence/kafka/migrate_from_onprem/)
-
-
-### loginservice
-
-#### Bakgrunn for sanering
-Loginservice (ved bruk av Azure AD B2C) tilbyr en fellestjeneste for "delegated authentication" for alle borgerrettede apper, dvs mot ID-porten.
-Token fått ved innlogging via Loginservice gir tilgang til en rekke bakenforliggende tjenester, ved at dette tokenet propageres as-is.
-
-Ved bruk av loginservice og propagering av `id_token` as-is så har vi i praksis "one token to rule them all" med tanke på tilgang til APIer. 
-Denne arkitekturen gjør at kompromitterte tokens har et stort skadepotensiale, og er heller ikke i tråd med "zero trust"-prinsippene vi designer systemene våre etter. 
-
-Vi har i NAV hatt mange tjenester som løser behov knyttet til innlogging: loginservice, openAM, og nå også [wonderwall](https://doc.nais.io/appendix/wonderwall/). 
-Fremover er det wonderwall vi vil drive aktiv videreutvikling på, og i tråd med ambisjonen om å redusere vårt teknologiske fotavtrykk ønsker vi derfor å sanere loginservice.
-
-
-#### Plan
-Loginservice blir ikke videreutviklet, men driftes as-is frem til tjenesten kan slås av.
-
-ID-porten endrer arkitektur i 2023, og loginservice vil ikke bli oppdatert for å støtte dette. 
-Det er per nå ikke satt en sunset-dato for loginservice, men det skjer sannsynligvis innen sommeren 2023.
-
-Vi anbefaler alle team sterkt å starte migreringen vekk fra loginservice allerede nå.
-
-
-#### Hvordan migrere vekk
-* Hvis du har en backend som aksepterer tokens fra `loginservice` må du i stedet akseptere tokens fra TokenX
-* Benytt [wonderwall](https://doc.nais.io/appendix/wonderwall/) der hvor du i dag benytter loginservice
-
 
 ### FSS
 

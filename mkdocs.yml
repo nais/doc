@@ -28,6 +28,7 @@ theme:
   features:
     - content.action.edit
     - content.code.copy
+    - content.code.annotate
     - navigation.footer
     - navigation.instant
     - navigation.tabs
@@ -147,7 +148,6 @@ nav:
           - Reference: naisjob/reference.md
       - Deploy:
           - NAIS deploy: deployment/README.md
-          - Changing teams: deployment/change-team.md
           - Delete app: deployment/delete-app.md
           - Troubleshooting: deployment/troubleshooting.md
           - Allowed registries: deployment/allowed-registries.md
@@ -155,7 +155,7 @@ nav:
       - Observability:
           - Observability Overview: observability/README.md
           - Frontend: observability/frontend/README.md
-          # - Tracing: TODO: write this
+          - Tracing: observability/tracing.md
           - Metrics: observability/metrics.md
           - Alerts: observability/alerts.md
           - Logs:
@@ -238,7 +238,8 @@ nav:
       - Support: support.md
   - naisdevice:
       - naisdevice Overview: device/README.md
-      - Installation: device/install.md
+      - Installation (NAV): device/install.md
+      - Installation (Tenant): device/install-tenant.md
       - Updating: device/update.md
       - Unenrolling: device/unenroll.md
       - naisdevice Troubleshooting: device/troubleshooting.md

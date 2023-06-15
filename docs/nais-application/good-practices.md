@@ -35,6 +35,9 @@ If you request too little, you run the risk of your application being starved in
 `limits` is mostly a mechanism to protect the cluster when something goes wrong.
 A memory leak that results in your application using all available memory on the node is inconvenient.
 
+`limits.cpu` is usually not needed, because your application will never be allowed to impact other processes running on the same CPU.
+If you need to do performance testing or similar activities, then setting `limits.cpu` might be useful to test how your application behaves when CPU constrained.
+
 ## Handles termination gracefully
 
 The application should make sure it listens to the `SIGTERM` signal, and prepare for shutdown \(closing connections etc.\) upon receival.

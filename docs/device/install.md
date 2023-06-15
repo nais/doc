@@ -1,8 +1,13 @@
 # Installation
 
+!!! info
+
+    This install guide is for NAV employees only. If you are not a NAV employee, install a [different version of naisdevice as described here](install-tenant.md).
+
 !!! warning
 
     To make sure you are using naisdevice as securely as possible, make sure you are a member of the [Slack channel #naisdevice](https://nav-it.slack.com/archives/C013XV66XHB). Important information will be published there. This also where you find us, if you need any help. 
+
 
 ## Device-specific installation steps
 
@@ -187,7 +192,7 @@ This means that there are some do's and don'ts. You have to agree to the followi
 #### Don't
 
 - enroll anything other than NAV owned devices.
-- share your device with oothers. A naisdevice is a personal device.
+- share your device with others. A naisdevice is a personal device.
 - turn on sshd or similar services on your device.
 - set up your device as a proxy. For anything!
 - share network interfaces with virtual machines, meaning set them up as separate nodes on the network.

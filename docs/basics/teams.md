@@ -2,8 +2,8 @@
 
 Access to NAIS, including your Kubernetes namespace, GCP projects, or GitHub team, requires a _NAIS team_.
 
-NAIS teams are managed using [NAIS console](https://console.nav.cloud.nais.io).
-To access NAIS console, you must log on to NAIS device with the _nav.no_ tenant.
+NAIS teams are managed using [NAIS teams](https://teams.nav.cloud.nais.io).
+To access NAIS teams, you must log on to NAIS device with the _nav.no_ tenant.
 
 Once you are logged in, you can create a team and add or remove members at will.
 Teams and memberships will be immediately propagated to:
@@ -13,7 +13,7 @@ Teams and memberships will be immediately propagated to:
 
 ## Creating a new team
 
-To create a new team, open NAIS console in your browser, log in, and follow the instructions.
+To create a new team, open NAIS teams in your browser, log in, and follow the instructions.
 The following resources will be generated for the new team:
 
 * An Azure AD security group (no Office365 integration, nor e-mail address).
@@ -25,7 +25,7 @@ The following resources will be generated for the new team:
 
 ## Managing your team
 
-Team membership is managed in NAIS console.
+Team membership is managed in NAIS teams.
 
 !!! warning
     It is the responsibility of each team to keep the group member roster up to date. This includes removing former team members in a timely fashion.
@@ -34,9 +34,9 @@ Team membership is managed in NAIS console.
 
 In order to access _team API keys_, go to [deploy.nais.io](https://deploy.nais.io/). Here you will find API keys for all teams you are a member of.
 
-### Rotate API key
+## Rotate API key
 
-Go to [deploy.nais.io](https://deploy.nais.io/) and click on the "Rotate key" button, a pop-up will ask you to confirm the rotation.
+If you need to rotate the api keys then you can go to [deploy.nais.io](https://deploy.nais.io/) and click on the "Rotate key" button, a pop-up will ask you to confirm the rotation.
 
 ## Team namespaces
 
@@ -51,7 +51,7 @@ Each team has their own [Google Cloud Platform project](https://cloud.google.com
 * in addition to authentication and monitoring settings of those APIs.
 
 These projects are managed through [Google Cloud Console](https://console.cloud.google.com/).
-   
+
 So, for example, all of your Cloud Storage buckets and objects, along with user permissions for accessing them, reside in a project.
 
 In general every member of the team has the possibility to add the necessary permissions they need via [IAM role managment](https://console.cloud.google.com/iam-admin/iam).
@@ -61,7 +61,7 @@ While we encourage the teams to base their ROS(s) and data protection impact ass
 Remember to clean up after yourself, so that NAV doesn't unnecessarily pay for resources.
 Each team has a dashboard where they can visualise and monitor their product performance. [View team dashboards.](https://datastudio.google.com/u/1/reporting/417b0a1d-b307-4a6d-a699-77a6ab239661/page/mJdmB) We also have a [dashboard showing all our GCP projects.](https://datastudio.google.com/reporting/fda5f821-caef-4056-9356-9aa4f7082699/page/mJdmB)
 
-Nais recommends that teams use Terraform, or similar technologies, to control the lifecycle of resources created in team-projects. This is more important in production, for services that will run for a longer period of time, than ad-hoc experimentation in dev. 
+Nais recommends that teams use Terraform, or similar technologies, to control the lifecycle of resources created in team-projects. This is more important in production, for services that will run for a longer period of time, than ad-hoc experimentation in dev.
 
 ### Access management
 

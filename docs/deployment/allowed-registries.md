@@ -12,7 +12,7 @@ If the image is not in the list, the resource will not be created, and the user 
 message:
 
 ```bash
-Error from server: error when creating "pod.yaml": admission webhook "validate.kyverno.svc-fail" denied the request: 
+Error from server: error when creating "pod.yaml": admission webhook "validate.kyverno.svc-fail" denied the request:
 
 resource Pod/nada/good-pod was blocked due to the following policies
 
@@ -27,10 +27,9 @@ Re-tag the image and upload it to Docker Package Registry:
 
 ```bash
 docker pull unlisted/image:tag
-docker tag unlisted/image:tag ghcr.io/orgname/reponame/imagename:tag
-docker push ghcr.io/orgname/reponame/imagename:tag
+docker tag unlisted/image:tag europe-north1-docker.pkg.dev/mgtm-id/teamname/imagename:tag
+docker push europe-north1-docker.pkg.dev/mgtm-id/teamname/imagename:tag
 ```
-
 
 Alternatively, in special cases, submit a pull request to the [list of allowed sources].
 

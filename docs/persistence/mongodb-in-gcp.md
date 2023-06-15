@@ -220,7 +220,7 @@ spec:
       - cascadingDelete: false
         name: my-backup-bucket
         retentionPeriodDays: 30
-  image: ghcr.io/navikt/my-backup:1.0
+  image: europe-north1-docker.pkg.dev/[mgmt-id]/[team-name]/[image-name]:tag
   resources:
     limits:
       cpu: 200m

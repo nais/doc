@@ -253,6 +253,7 @@ Default hosts that are added and accessible for every application:
 | `graph.microsoft.com`       | 443  | TCP       |
 | `oidc.difi.no`              | 443  | TCP       |
 | `ver2.maskinporten.no`      | 443  | TCP       |
+| `test.maskinporten.no`      | 443  | TCP       |
 | `maskinporten.no`           | 443  | TCP       |
 | `oidc-ver2.difi.no`         | 443  | TCP       |
 | `aivencloud.com`            | 443  | TCP       |
