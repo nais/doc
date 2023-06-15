@@ -88,12 +88,13 @@ For programming related code you have the option to choose between different lan
 Create a new repository on GitHub. This will be the home of your application.
 
 ```bash
-gh repo create <my-repo> --add-readme --clone
+gh repo create navikt/<my-repo> --add-readme --public --clone
 ```
 
 For your new repository add the following secret:
 
 ```bash
+cd <my newly created repo>
 gh secret set NAIS_DEPLOY_APIKEY --app actions
 ```
 
