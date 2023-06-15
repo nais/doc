@@ -2,6 +2,8 @@
 
 Applications deployed to Kubernetes are exposed through what is known as a [`Service`][k8s-service-discovery]. This is an address that allows for direct communication within a Kubernetes cluster without having to go through an external ingress, load balancer, or proxy.
 
+This is the recommended way to communicate between applications in the same Kubernetes cluster. This avoids having to expose your application to the outside world, and allows for direct communication between applications.
+
 A `Service` in Kubernetes has some interesting properties:
 
 1. It provides a single, stable address for a set of pods. This mens that if a pod dies, moves or is upgraded, the `Service` will continue to point to the remaining pods.

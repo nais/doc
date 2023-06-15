@@ -335,7 +335,7 @@ The following claims are by default provided in the issued token and should expl
 Other non-standard claims in the token are copied verbatim from the original token issued by `idp`.
 For example, the claim used for the national identity number (_fødselsnummer_) for tokens issued by ID-porten is `pid`.
 
-!!! warning "2023: New `acr` values for ID-porten tokens"
+!!! warning "2023: New `acr` and `idp` values for ID-porten tokens"
 
     ID-porten has a new platform and architecture, which we will be required to migrate to by the end of 2023.
 
@@ -346,6 +346,13 @@ For example, the claim used for the national identity number (_fødselsnummer_) 
     This is however a **temporary** solution, which we will remove some time later in 2024 after the migration is complete.
 
     **If your application validates or otherwise uses the value found in the `acr` claim, you should ensure that both new and old values are accepted until the temporary mapping is removed.**
+
+    The value in the `idp` claim for tokens from ID-porten will also change:
+
+    | Old value                                           | New value                  |
+    |:----------------------------------------------------|----------------------------|
+    | `https://oidc-ver2.difi.no/idporten-oidc-provider/` | `https://test.idporten.no` |
+    | `https://oidc.difi.no/idporten-oidc-provider/`      | `https://idporten.no`      |
 
 #### Example Token \(exchanged from ID-porten\)
 

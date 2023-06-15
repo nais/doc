@@ -86,6 +86,76 @@ SBOM generation for different [languages/build tools are dictated by Trivy](http
 
 #### Known limitations
 
-* **Gradle**: Due to Trivy, we can only generate SBOMs from gradle projects if you use [dependency locking](https://docs.gradle.org/current/userguide/dependency_locking.html)
+Due to Trivy, you will get a flat graph of dependencies. This is because Trivy does not support Gradle's or Maven dependency resolution.
+Trivy parses the .jar files directly and does not have access to the dependency resolution information.
+As an alternative you can use the CycloneDx plugins directly to get a deep graph of nested transitive dependencies.
 
+!!! Gradle Plugin
+    Add the following plugin to your `build.gradle*` file.
 
+    ```groovy
+        id("org.cyclonedx.bom") version "1.7.4"
+    ```
+
+    In your workflow you can generate a SBOM with the following gradle task command:
+
+    ```yaml
+        - name: Generate and output SBOM
+          run: ./gradlew cyclonedxBom
+    ```
+
+    The SBOM will be default located at `build/reports/bom.json`. Pass the SBOM to the `nais/docker-build-push` action with the following input:
+
+    ```yaml
+        uses: nais/docker-build-push@v0
+        with:
+          byosbom: build/reports/bom.json
+    ```
+  
+    For more info about settings check out the [CycloneDx Gradle Plugin](https://github.com/CycloneDX/cyclonedx-gradle-plugin)
+
+!!! Maven Plugin
+    Add the following to your `pom.xml` file.
+
+    ```xml
+        <plugins>
+            <plugin>
+                <groupId>org.cyclonedx</groupId>
+                <artifactId>cyclonedx-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>makeAggregateBom</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    ```
+
+    In your workflow you can generate a SBOM with the following maven command:
+
+    ```yaml
+        - name: Generate and output SBOM
+          run: ./mvnw package
+    ```
+
+    The SBOM will be default located at `target/bom.json`. Pass the SBOM to the `nais/docker-build-push` action with the following input:
+
+    ```yaml
+        uses: nais/docker-build-push@v0
+        with:
+          byosbom: target/bom.json
+    ```
+    For more info about settings check out the [CycloneDx Maven Plugin](https://github.com/CycloneDX/cyclonedx-maven-plugin)
+
+##### Use nais/attest-sign directly
+
+When using the `nais/attest-sign` action. You can pass the SBOM to the action with the following input:
+
+```yaml
+    uses: nais/attest-sign@v1.x.x
+    with:
+      sbom: path/to/bom.json
+```

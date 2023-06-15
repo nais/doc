@@ -8,12 +8,21 @@ All _documentation_ content resides inside the [docs](docs/) folder, with the ge
 
 _**NB**_: Due to [limitations in the built-in](https://github.com/mkdocs/mkdocs/issues/2108) `mkdocs serve`'s hot-reload feature, the described set-up relies on dodgy Docker networking.
 
-### Requirements
+### Poetry
+
+```bash
+poetry install
+poetry run mkdocs serve
+```
+
+### Docker
+
+#### Requirements
 
 - `docker`
 - `docker-compose`
 
-### How to set-up local preview environment
+#### How to set-up local preview environment
 
 ```shell
 docker-compose up --detach --build && open localhost:8080

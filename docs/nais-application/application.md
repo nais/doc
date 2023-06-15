@@ -55,6 +55,10 @@ Required: `false`<br />
             - host: non-http-service.example.com
               ports:
                 - port: 9200
+            - ipv4: 1.2.3.4
+            - host: non-http-service.example.com
+              ports:
+                - port: 9200
           rules:
             - application: app1
             - application: app2
@@ -382,6 +386,10 @@ Required: `false`<br />
             - host: non-http-service.example.com
               ports:
                 - port: 9200
+            - ipv4: 1.2.3.4
+            - host: non-http-service.example.com
+              ports:
+                - port: 9200
           rules:
             - application: app1
             - application: app2
@@ -410,14 +418,18 @@ Availability: GCP<br />
             - host: non-http-service.example.com
               ports:
                 - port: 9200
+            - ipv4: 1.2.3.4
+            - host: non-http-service.example.com
+              ports:
+                - port: 9200
     ```
 
 ##### accessPolicy.outbound.external[].host
-The _host_ that your application should be able to reach, i.e. without the protocol (e.g. `https://`).
+The _host_ that your application should be able to reach, i.e. without the protocol (e.g. `https://`). "Host" and "IPv4" are mutually exclusive
 
 Type: `string`<br />
-Required: `true`<br />
-Pattern: `(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9]\.)+[a-zA-Z]{2,63}$)`<br />
+Required: `false`<br />
+Pattern: `^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9]))*$`<br />
 
 ??? example
     ``` yaml
@@ -426,6 +438,33 @@ Pattern: `(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9]\.)+[a-zA-Z]{2,63}$
         outbound:
           external:
             - host: external-application.example.com
+            - host: non-http-service.example.com
+              ports:
+                - port: 9200
+            - ipv4: 1.2.3.4
+            - host: non-http-service.example.com
+              ports:
+                - port: 9200
+    ```
+
+##### accessPolicy.outbound.external[].ipv4
+The IPv4 address that your application should be able to reach. "IPv4" and "Host" are mutually exclusive
+
+Type: `string`<br />
+Required: `false`<br />
+Pattern: `^(([0-9])|([1-9][0-9])|(1([0-9]{2}))|(2[0-4][0-9])|(25[0-5]))((\.(([0-9])|([1-9][0-9])|(1([0-9]{2}))|(2[0-4][0-9])|(25[0-5]))){3})$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      accessPolicy:
+        outbound:
+          external:
+            - host: external-application.example.com
+            - host: non-http-service.example.com
+              ports:
+                - port: 9200
+            - ipv4: 1.2.3.4
             - host: non-http-service.example.com
               ports:
                 - port: 9200
@@ -447,6 +486,10 @@ Required: `false`<br />
             - host: non-http-service.example.com
               ports:
                 - port: 9200
+            - ipv4: 1.2.3.4
+            - host: non-http-service.example.com
+              ports:
+                - port: 9200
     ```
 
 ###### accessPolicy.outbound.external[].ports[].port
@@ -462,6 +505,10 @@ Required: `true`<br />
         outbound:
           external:
             - host: external-application.example.com
+            - host: non-http-service.example.com
+              ports:
+                - port: 9200
+            - ipv4: 1.2.3.4
             - host: non-http-service.example.com
               ports:
                 - port: 9200
@@ -1317,6 +1364,9 @@ Required: `false`<br />
 
 ## frontend
 Configuration options specifically for frontend applications.
+
+!!! warning "Experimental feature"
+    This feature has not undergone much testing, and is subject to API change, instability, or removal.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -2433,6 +2483,9 @@ Allowed values: `HDD`, `SSD`<br />
 #### gcp.sqlInstances[].flags
 Set flags to control the behavior of the instance. Be aware that NAIS _does not validate_ these flags, so take extra care to make sure the values match against the specification, otherwise your deployment will seemingly work OK, but the database flags will not function as expected.
 
+!!! warning "Experimental feature"
+    This feature has not undergone much testing, and is subject to API change, instability, or removal.
+
 Relevant information:
 
 * [https://cloud.google.com/sql/docs/postgres/flags#list-flags-postgres](https://cloud.google.com/sql/docs/postgres/flags#list-flags-postgres)
@@ -3107,7 +3160,7 @@ Relevant information:
 
 Type: `enum`<br />
 Required: `true`<br />
-Allowed values: `POSTGRES_11`, `POSTGRES_12`, `POSTGRES_13`, `POSTGRES_14`<br />
+Allowed values: `POSTGRES_11`, `POSTGRES_12`, `POSTGRES_13`, `POSTGRES_14`, `POSTGRES_15`<br />
 
 ??? example
     ``` yaml
@@ -4150,6 +4203,58 @@ Pattern: `^[a-z0-9]+$`<br />
               enabled: true
               name: scope.read
               product: arbeid
+    ```
+
+## observability
+Configuration options related to application observability.
+
+Relevant information:
+
+* [https://doc.nais.io/observability/](https://doc.nais.io/observability/)
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        tracing:
+          enabled: true
+    ```
+
+### observability.tracing
+Enable application performance monitoring with traces collected using OpenTelemetry and the OTLP exporter.
+
+!!! warning "Experimental feature"
+    This feature has not undergone much testing, and is subject to API change, instability, or removal.
+
+Relevant information:
+
+* [https://doc.nais.io/observability/tracing/](https://doc.nais.io/observability/tracing/)
+
+Type: `object`<br />
+Required: `false`<br />
+Availability: GCP<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        tracing:
+          enabled: true
+    ```
+
+#### observability.tracing.enabled
+Type: `boolean`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        tracing:
+          enabled: true
     ```
 
 ## openSearch
