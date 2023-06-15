@@ -39,7 +39,7 @@ You will need the following tools installed on your computer:
     - [ ] [docker](https://docs.docker.com/get-docker/) - Docker desktop
     - [ ] [rancher](https://rancherdesktop.io) - Rancher desktop
     - [ ] [podman](https://podman-desktop.io) - Podman desktop
-    - [ ] [minikube](https://github.com/kubernetes/minikube) - Kubernetes minkube
+    - [ ] [minikube](https://github.com/kubernetes/minikube) - Kubernetes minikube
 
 ### Conventions
 
