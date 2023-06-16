@@ -364,6 +364,12 @@ When you are done; delete the application by running the following command:
 kubectl delete app <my-app>
 ```
 
+If you feel you are finished with this guide you can delete your repository:
+
+```bash
+gh repo delete <my-repo>
+
+
 You can also archive the GitHub repository to prevent the application from being deployed again by running the following command:
 
 ```bash
