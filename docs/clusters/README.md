@@ -40,7 +40,7 @@ NAIS recommends that you deploy your applications to the GCP cluster for improve
 
 ### Migrate to GCP
 
-For teams with existing applications on-prem, we recommend that you migrate to GCP. This will give you access to new features and improved performance. We have a [migration guide](./migrate-to-gcp.md) to help you get started.
+For teams with existing applications on-prem, we recommend that you migrate to GCP. This will give you access to new features and improved performance. We have a [migration guide](./migrating-to-gcp.md) to help you get started.
 
 [:octicons-arrow-right-24: Read more about migrating to GCP](./migrating-to-gcp.md)
 
