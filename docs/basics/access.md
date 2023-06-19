@@ -4,7 +4,7 @@ This guide will take you through the required tools and permissions that need to
 
 ## Set up a team
 
-The primary unit of access is a _team_, whose origin lies in [NAIS console](https://console.nav.cloud.nais.io).
+The primary unit of access is a _team_, whose origin lies in [NAIS teams](https://teams.nav.cloud.nais.io).
 Each team is given its own namespace with the same name as the team.
 The team will have unrestricted access to all Kubernetes assets in that namespace.
 
