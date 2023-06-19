@@ -18,9 +18,10 @@ The `--profile=restricted` flag is required to run the Ephemeral debug container
 Supported images are listed in [debug images list](https://github.com/nais/helm-charts/blob/35957de55ce6538993b22ec979d70c8cba519599/charts/kyverno-policies/values.yaml#L295).
 
 !!! info
-The -i flag causes kubectl debug to attach to the container by default.
-You can prevent this by specifying --attach=false.
-If your session becomes disconnected you can reattach using `kubectl attach`
+    The -i flag causes kubectl debug to attach to the container by default.
+    You can prevent this by specifying --attach=false.
+    If your session becomes disconnected you can reattach using `kubectl attach`
+    'kubectl attach my-pod-name -c debugger-dx4dr -i -t`
 
 Don't forget to clean up after yourself:
 
