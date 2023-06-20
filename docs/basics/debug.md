@@ -17,7 +17,7 @@ kubectl debug -it my-pod-name --image="cgr.dev/chainguard/busybox:latest" --prof
 ```
 
 The `--profile=restricted` flag is required to run the ephemeral debug container as a non-root user and without any
-capabilities. Supported images are listed in [debug images list](https://github.com/nais/helm-charts/blob/35957de55ce6538993b22ec979d70c8cba519599/charts/kyverno-policies/values.yaml#L295).
+capabilities. Supported images are listed in [debug images list](../deployment/allowed-registries).
 
 ## Attach `kubectl`
 
