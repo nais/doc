@@ -1,5 +1,9 @@
 # Debugging
 
+!!! note "kubectl version"
+
+    This feature requires `kubectl` version [1.27](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.27.md) or later.
+
 ## Debug `kubectl`
 
 Ephemeral container is a temporary container that can be added to an existing pod to perform a specific task, such as
@@ -17,7 +21,7 @@ kubectl debug -it my-pod-name --image="cgr.dev/chainguard/busybox:latest" --prof
 ```
 
 The `--profile=restricted` flag is required to run the ephemeral debug container as a non-root user and without any
-capabilities. Supported images are listed in [debug images list](../deployment/allowed-registries).
+capabilities. Supported images are listed in [allowed images list](../deployment/allowed-registries).
 
 ## Attach `kubectl`
 
