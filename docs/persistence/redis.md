@@ -6,10 +6,13 @@ description: >-
 
 # Redis
 
-!!! Availability
+!!! warning "Availability"
     Using Aiven Redis is only available in GCP clusters.
 
-Redis is available as an add-on to your application or naisjob.
+!!! info "Legacy documentation"
+    The documentation for the old way of running Redis can be found at the bottom of the [page](#legacy-redis-documentation).
+
+Redis is available as an add-on to your Application or Naisjob.
 Applications/Naisjobs owned by a team may share a Redis instance, and an Application/Naisjob may use multiple Redis instances at the same time.
 In the rest of this documentation, we use Application, but everything holds true for Naisjob as well.
 
@@ -30,6 +33,9 @@ The above snippet will allow your application to use the `sessions` Redis instan
 In addition, the application will get credentials for a read-only user for the `lookup` instance.
 See the reference for other options for `access`.
 
+If all you need is a Redis instance for one application using just the default settings, this is all you need.
+If you want to share a Redis instance across applications, or want to change configuration away from the defaults, read the next section.
+
 For each instance added to this list, your application will receive three environment variables.
 The environment variables use a fixed prefix, and the instance name uppercased as a suffix.
 
@@ -42,16 +48,19 @@ Example for the sessions instance used above:
 | REDIS_PASSWORD_SESSIONS | The password to use when connecting.                                                                                                         |
 
 So far we have used `sessions` as the instance name, but you can name your redis instance what you want with some restrictions.
-In reality, the actual name of the redis instance will be `redis-<team name>-<instance name>` (where `team name` is the same as the namespace your application resides in).
 
 When you refer to redis in your `Application`, nais will look for a redis instance with the given name, or attempt to create one with default settings if it doesn't exist.
 
 ## Creating a Redis instance explicitly
 
-We recommend creating your Redis instances in their own workflow for more control over configuration, especially if you intend for multiple applications using the same Redis instance.
+We recommend creating your Redis instances in their own workflow for more control over configuration, especially if you intend for multiple applications using the same Redis instance, or if you need to change configuration.
 
-Creating a Redis instance is done by adding a Redis instance to your namespace with detailed configuration.
+Creating a Redis instance is done by adding a Redis resource to your namespace with detailed configuration.
 Some configuration is enforced by the nais platform, while the rest is up to the users.
+
+Earlier we talked about the "instance name". 
+In reality, the actual name of the redis instance will be `redis-<team name>-<instance name>` (where `team name` is the same as the namespace your application resides in).
+The resource needs to have this full name in order to be accepted.
 
 The default Redis created by nais looks like this:
 
@@ -69,10 +78,16 @@ spec:
   project: nav-dev
 ```
 
-A minimal Redis instance only requires `plan` and `project`.
+A minimal Redis resource only requires `plan` and `project`.
 
  * `project` should match your nais tenant (`nav`, `mtpilot`, `ssb` or `fhi`) and the environment you are running in (ex. `dev`, `prod`), with a dash (`-`) in between.
- * `plan` is the Aiven plan for your Redis instance. [Possible values](https://aiven.io/pricing?product=redis) are lowercased. Examples: `startup-4`, `startup-56`, `business-4`, `premium-14`.
+ * `plan` is the Aiven plan for your Redis instance. 
+   See Aivens list of [possible plan values](https://aiven.io/pricing?product=redis). 
+   The values are lowercased.
+   Examples: `startup-4`, `startup-56`, `business-4`, `premium-14`.
+
+We use Aivens operator, so the Redis resource is [documented in detail](https://aiven.github.io/aiven-operator/api-reference/redis.html) in the Aiven documentation.
+You should look at the reference for any other fields that might be of interest.
 
 Probably the most important value to consider is which plan to use.
 
@@ -84,7 +99,7 @@ If you require HA, the Business plans provide for one failover node that takes o
 When using business plans, a second node is always available with continuous replication, so it is able to start serving data immediately should the primary node fail.
 Business plans are backed up every 12 hours, keeping 3 days of backups available.
 
-Once added to the cluster, some additional fields are filled in by the platform and should be left alone unless you have a good reason:
+Once the resource is added to the cluster, some additional fields are filled in by the platform and should be left alone unless you have a good reason:
 
 | field                   |                                                                                                       | 
 |-------------------------|-------------------------------------------------------------------------------------------------------|
@@ -93,8 +108,6 @@ Once added to the cluster, some additional fields are filled in by the platform 
 | `cloudName`             | Where the Redis instance should run.                                                                  |  
 | `terminationProtection` | Protects the instance against unintended termination. Must be set to `false` before deletion.         |
 
-We use Aivens operator, so the Redis resource is [documented in detail](https://aiven.github.io/aiven-operator/api-reference/redis.html) in the Aiven documentation.
-
 There are some fields available that should not be used:
 
 | field                  |                                                                                                 |
@@ -102,7 +115,7 @@ There are some fields available that should not be used:
 | `authSecretRef`        | Reference to a secret containing an Aiven API token. Provided via other mechanisms.             |
 | `connInfoSecretTarget` | Name of secret to put connection info in, not used as nais provides these via other mechanisms. |
 | `projectVPCRef`        | Not used since we use `projectVpcId`.                                                           |
-| `serviceIntegrations`  | Not use at this time.                                                                           |
+| `serviceIntegrations`  | Not used at this time.                                                                          |
 
 
 # Legacy Redis documentation
