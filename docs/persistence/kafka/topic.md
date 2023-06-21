@@ -113,6 +113,10 @@ Required: `false`<br />
 ### config.cleanupPolicy
 CleanupPolicy is either "delete" or "compact" or both. This designates the retention policy to use on old log segments.
 
+Relevant information:
+
+* [https://kafka.apache.org/33/documentation.html#topicconfigs_cleanup.policy](https://kafka.apache.org/33/documentation.html#topicconfigs_cleanup.policy)
+
 Type: `enum`<br />
 Required: `false`<br />
 Default value: `delete`<br />
@@ -125,8 +129,24 @@ Allowed values: `compact`, `compact,delete`, `delete`<br />
         cleanupPolicy: delete
     ```
 
+### config.maxCompactionLagMs
+MaxCompactionLagMs indicates the maximum time a message will remain ineligible for compaction in the log
+
+Relevant information:
+
+* [https://kafka.apache.org/33/documentation.html#topicconfigs_max.compaction.lag.ms](https://kafka.apache.org/33/documentation.html#topicconfigs_max.compaction.lag.ms)
+
+Type: `integer`<br />
+Required: `false`<br />
+Default value: `Inf`<br />
+Minimum value: `0`<br />
+
 ### config.maxMessageBytes
 The largest record batch size allowed by Kafka (after compression if compression is enabled). If this is increased and there are consumers older than 0.10.2, the consumers' fetch size must also be increased so that they can fetch record batches this large. In the latest message format version, records are always grouped into batches for efficiency. In previous message format versions, uncompressed records are not grouped into batches and this limit only applies to a single record in that case.
+
+Relevant information:
+
+* [https://kafka.apache.org/33/documentation.html#topicconfigs_max.message.bytes](https://kafka.apache.org/33/documentation.html#topicconfigs_max.message.bytes)
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -140,8 +160,35 @@ Value range: `1`-`5242880`<br />
         maxMessageBytes: 1.048588e+06
     ```
 
+### config.minCleanableDirtyRatioPercent
+MinCleanableDirtyRatio indicates the minimum ratio of dirty log to retention size to initiate log compaction
+
+Relevant information:
+
+* [https://kafka.apache.org/33/documentation.html#topicconfigs_min.cleanable.dirty.ratio](https://kafka.apache.org/33/documentation.html#topicconfigs_min.cleanable.dirty.ratio)
+
+Type: `object`<br />
+Required: `false`<br />
+Default value: `50%`<br />
+
+### config.minCompactionLagMs
+MinCompactionLagMs indicates the minimum time a message will remain uncompacted in the log
+
+Relevant information:
+
+* [https://kafka.apache.org/33/documentation.html#topicconfigs_min.compaction.lag.ms](https://kafka.apache.org/33/documentation.html#topicconfigs_min.compaction.lag.ms)
+
+Type: `integer`<br />
+Required: `false`<br />
+Default value: `0`<br />
+Minimum value: `0`<br />
+
 ### config.minimumInSyncReplicas
 When a producer sets acks to "all" (or "-1"), `min.insync.replicas` specifies the minimum number of replicas that must acknowledge a write for the write to be considered successful.
+
+Relevant information:
+
+* [https://kafka.apache.org/33/documentation.html#topicconfigs_min.insync.replicas](https://kafka.apache.org/33/documentation.html#topicconfigs_min.insync.replicas)
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -173,6 +220,10 @@ Value range: `1`-`1000000`<br />
 ### config.replication
 The default replication factor for created topics.
 
+Relevant information:
+
+* [https://kafka.apache.org/33/documentation.html#replication](https://kafka.apache.org/33/documentation.html#replication)
+
 Type: `integer`<br />
 Required: `false`<br />
 Default value: `3`<br />
@@ -188,6 +239,10 @@ Minimum value: `2`<br />
 ### config.retentionBytes
 Configuration controls the maximum size a partition can grow to before we will discard old log segments to free up space if we are using the "delete" retention policy. By default there is no size limit only a time limit. Since this limit is enforced at the partition level, multiply it by the number of partitions to compute the topic retention in bytes.
 
+Relevant information:
+
+* [https://kafka.apache.org/33/documentation.html#topicconfigs_retention.bytes](https://kafka.apache.org/33/documentation.html#topicconfigs_retention.bytes)
+
 Type: `integer`<br />
 Required: `false`<br />
 Default value: `-1`<br />
@@ -201,6 +256,10 @@ Default value: `-1`<br />
 
 ### config.retentionHours
 The number of hours to keep a log file before deleting it.
+
+Relevant information:
+
+* [https://kafka.apache.org/33/documentation.html#topicconfigs_retention.ms](https://kafka.apache.org/33/documentation.html#topicconfigs_retention.ms)
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -216,6 +275,10 @@ Maximum value: `2562047788015`<br />
 
 ### config.segmentHours
 The number of hours after which Kafka will force the log to roll even if the segment file isn't full to ensure that retention can delete or compact old data.
+
+Relevant information:
+
+* [https://kafka.apache.org/33/documentation.html#topicconfigs_segment.ms](https://kafka.apache.org/33/documentation.html#topicconfigs_segment.ms)
 
 Type: `integer`<br />
 Required: `false`<br />
