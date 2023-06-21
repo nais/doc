@@ -4576,6 +4576,29 @@ Required: `false`<br />
         timeout: 1
     ```
 
+## redis
+List of redis instances this job needs credentials for. Must be owned by same team.
+
+Relevant information:
+
+* [https://doc.nais.io/persistence/redis/](https://doc.nais.io/persistence/redis/)
+
+Type: `array`<br />
+Required: `false`<br />
+
+### redis[].access
+Access level for redis user
+
+Type: `enum`<br />
+Required: `false`<br />
+Allowed values: `admin`, `read`, `readwrite`, `write`<br />
+
+### redis[].instance
+The last part of the name used when creating the instance (ie. redis-<team>-<instance>)
+
+Type: `string`<br />
+Required: `false`<br />
+
 ## replicas
 The numbers of pods to run in parallel.
 
