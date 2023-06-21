@@ -36,7 +36,6 @@ You will need the following tools installed on your computer:
 - [ ] [gh-cli](https://cli.github.com/) - GitHub command-line tool
 - [ ] Docker-cli via one of these alternatives
   - [ ] (recommended) [Colima](https://github.com/abiosoft/colima) - Colima command-line tool
-    cccckevjlbcfihelkejrvbvuun
   - [ ] [Rancher](https://rancherdesktop.io) - Rancher desktop
   - [ ] [Podman](https://podman-desktop.io) - Podman desktop
 
