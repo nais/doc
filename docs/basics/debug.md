@@ -12,7 +12,7 @@
     Unexpected behavior may occur if you use a version of kubectl that is not within one minor version of your cluster.
 
     We we recommend installing `kubectl` manually, or through tools like [asdf](https://asdf-vm.com/). 
-    When using `brew` to manage `kubectl`, brew can make it troublesome to managed the version skew, as it's hard to downgrade kubectl to older versions.
+    Other installers like `brew`, can make it troublesome to managed the version skew, as it's hard to downgrade kubectl to older versions.
 
 ## Debug `kubectl`
 
@@ -30,7 +30,17 @@ The following example starts a shell in a new ephemeral container named `debugge
 kubectl debug -it my-pod-name --image="cgr.dev/chainguard/busybox:latest" --profile=restricted -- sh
 ```
 
-The `--profile=restricted` flag is required to run the ephemeral debug container as a non-root user and without any
+Once the ephemeral container is created, you will be presented with a shell prompt. Then run some diagnostic commands
+and inspect the container’s environment, or modify the container’s configuration to debug the issue.
+
+```text
+kubectl debug -it my-pod-name --image="cgr.dev/chainguard/busybox:latest" --profile=restricted -- sh
+Defaulting debug container name to debugger-lrmqq.
+If you don't see a command prompt, try pressing enter.
+~ $ 
+```
+
+The `--profile=restricted` flag is required to run the ephemeral container as a non-root user and without any
 capabilities. Supported images are listed in [allowed images list](../deployment/allowed-registries).
 
 ## Attach `kubectl`
@@ -42,16 +52,6 @@ capabilities. Supported images are listed in [allowed images list](../deployment
     The -i flag causes kubectl debug to attach to the container by default.
     You can prevent this by specifying --attach=false.
     If your session becomes disconnected you can reattach using `kubectl attach`
-
-Once the ephemeral container is created, you will be presented with a shell prompt. Then run some diagnostic commands
-and inspect the container’s environment, or modify the container’s configuration to debug the issue.
-
-```text
-kubectl debug -it my-pod-name --image="cgr.dev/chainguard/busybox:latest" --profile=restricted -- sh
-Defaulting debug container name to debugger-lrmqq.
-If you don't see a command prompt, try pressing enter.
-~ $ 
-```
 
 Don't forget to clean up after yourself:
 
