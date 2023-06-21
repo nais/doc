@@ -41,7 +41,7 @@ If you don't see a command prompt, try pressing enter.
 ```
 
 The `--profile=restricted` flag is required to run the ephemeral container as a non-root user and without any
-capabilities. Supported images are listed in [allowed images list](../deployment/allowed-registries).
+capabilities. Supported images are listed in [allowed images list](../deployment/allowed-registries.md).
 
 ## Attach `kubectl`
 
