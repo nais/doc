@@ -35,14 +35,14 @@ You will need the following tools installed on your computer:
 - [ ] [nais-cli](../cli/install.md) - NAIS command-line tool
 - [ ] [gh-cli](https://cli.github.com/) - GitHub command-line tool
 - [ ] Docker-cli via one of these alternatives
-  - [ ] (recommended) [Colima](https://github.com/abiosoft/colima) - Colima command-line tool
-  - [ ] [Rancher](https://rancherdesktop.io) - Rancher desktop
-  - [ ] [Podman](https://podman-desktop.io) - Podman desktop
+    - [ ] [Colima](https://github.com/abiosoft/colima) - Colima command-line tool (recommended)
+    - [ ] [Rancher](https://rancherdesktop.io) - Rancher desktop
+    - [ ] [Podman](https://podman-desktop.io) - Podman desktop
 
 #### A little bit about Docker
 
 As you can see above there is a bunch of different tools to run Docker.
-The main reason for this is that Docker descided to stop their free version for non-private usage, so a bunch of alternatives started to pop up.
+The main reason for this is that Docker decided to stop their free version for non-private usage, so a bunch of alternatives started to pop up.
 The most used one in NAV (at least for Mac users) is *Colima*, while *Docker Desktop* is the most used for Windows users.
 
 If you want to use Docker Desktop you need give yourself access do Docker hub using [MyApps](https://account.activedirectory.windowsazure.com/r#/addApplications).
@@ -365,7 +365,7 @@ kubectl get pods
     ```bash
     NAME                         READY   STATUS    RESTARTS   AGE
     my-app-6b4dd85578-2hk8d      1/1     Running   0          2m
-```
+    ```
 
 You should see a pod with the name `<my-app>-<random-string>`. You can inspect the logs from this pod by running the following command:
 
@@ -387,7 +387,7 @@ If you feel you are finished with this guide you can delete your repository:
 
 ```bash
 gh repo delete <my-repo>
-
+```
 
 You can also archive the GitHub repository to prevent the application from being deployed again by running the following command:
 
