@@ -62,6 +62,13 @@ kubectl delete po my-pod-name
 You can read more about
 the `kubectl debug` [command](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container).
 
+## Exec Logs and Describe `kubectl`
+
+With ephemeral containers, you can temporarily add another container to a running pod without having to create a new pod. 
+`kubectl debug` can be used as an additional [debug tool](https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/) 
+for running pods alongside `kubectl describe` and to some extent `kubectl logs` and `kubectl exec`
+Unlike `exec` and `logs`, `debug` can also be used when your pod is in crashLoopBackOff or for some other reason dont start.
+
 ## Security hardened images
 
 The support for restricted ephemeral debug containers also gives your team ability to take advantage of distroless and
