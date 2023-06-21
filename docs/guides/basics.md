@@ -35,10 +35,10 @@ You will need the following tools installed on your computer:
 - [ ] [nais-cli](../cli/install.md) - NAIS command-line tool
 - [ ] [gh-cli](https://cli.github.com/) - GitHub command-line tool
 - [ ] Docker-cli via one of these alternatives
-    - [ ] (recommended) [Colima](https://github.com/abiosoft/colima) - Colima command-line tool
-    - [ ] [Docker](https://docs.docker.com/get-docker/) - Docker desktop
-    - [ ] [Rancher](https://rancherdesktop.io) - Rancher desktop
-    - [ ] [Podman](https://podman-desktop.io) - Podman desktop
+  - [ ] (recommended) [Colima](https://github.com/abiosoft/colima) - Colima command-line tool
+    cccckevjlbcfihelkejrvbvuun
+  - [ ] [Rancher](https://rancherdesktop.io) - Rancher desktop
+  - [ ] [Podman](https://podman-desktop.io) - Podman desktop
 
 #### A little bit about Docker
 
@@ -102,6 +102,14 @@ cd <my newly created repo>
 git pull --set-upstream origin main
 ```
 
+**NB!** Replace `<my-repo>` with the name of your repository with *lowercase* letters, numbers and dashes only.
+
+??? note "What does this command do?"
+
+    * `gh repo create navikt/<my-repo>`: Creates a new repository on GitHub under the `navikt` organization.
+    * `cd <my newly created repo>`: Changes the current directory to the newly created repository.
+    * `git pull --set-upstream origin main`: Pulls the latest changes from GitHub and sets the upstream branch to `main`.
+
 For your new repository add the following secret:
 
 ```bash
@@ -119,6 +127,7 @@ In your repository, initialize a new application depending on the language you w
 
     ```bash
     npx express-generator
+    npm install
     ```
 
 === "Next.js"
@@ -169,7 +178,7 @@ Check out the files in your repository to see what they contain.
 
 `.github/workflows/main.yaml` is the GitHub Actions workflow that will build and deploy your application. This file contains the steps that will build your application and deploy it to NAIS. You can read more about the GitHub Actions workflow in the [GitHub Actions documentation](https://docs.github.com/en/actions).
 
-Open `.github/workflows/main.yaml` in your repository and remove everything below this line (around 40):
+Open `.github/workflows/main.yaml` in your repository and remove everything from this line (around 40) and down:
 
 ```yaml
   "deployAppToProd":
@@ -291,22 +300,33 @@ To test that your Dockerfile works, run the following command:
 docker build -t <my-app> .
 ```
 
+**NB!** Replace `<my-app>` with the name of your application and make sure you are in the root directory of your application and include the `.` at the end of the command.
+
 You can run this container image locally by running the following command:
 
 ```bash
-docker run --rm -p 3000:3000 <my-app>
+docker run -it --rm -p 3000:3000 <my-app>
 ```
 
 Visit [http://localhost:3000](http://localhost:3000) to see your application running.
+
+When you are done testing your application, you can stop the container by pressing `CTRL+C` to stop the container.
 
 ## Step 5: Deploy to NAIS
 
 Now you are ready to deploy your application to NAIS. To do this, you need to push your code to GitHub. This will trigger the GitHub Actions workflow that will build and deploy your application to NAIS.
 
 ```bash
-git commit -m "Build and deploy application to NAIS" .
-git push
+git add .
+git commit -m "Build and deploy application to NAIS"
+git push origin main
 ```
+
+??? note "What does this command do?"
+
+    * `git add .`: Adds all the files in the current directory to the git index.
+    * `git commit -m "Build and deploy application to NAIS"`: Commits the changes to the git repository with the message `Build and deploy application to NAIS`.
+    * `git push`: Pushes the changes to the remote git repository.
 
 GitHub will automatically start the GitHub Actions workflow. You can follow the progress of the workflow by running the following command:
 
@@ -346,7 +366,7 @@ kubectl get pods
     ```bash
     NAME                         READY   STATUS    RESTARTS   AGE
     my-app-6b4dd85578-2hk8d      1/1     Running   0          2m
-    ```
+```
 
 You should see a pod with the name `<my-app>-<random-string>`. You can inspect the logs from this pod by running the following command:
 
