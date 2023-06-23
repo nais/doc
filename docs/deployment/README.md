@@ -13,7 +13,7 @@ Your application is assumed to be present in the form of a Docker image when usi
 1. Your application must have a repository on GitHub containing a `nais.yaml` and `Dockerfile`.
 2. Your GitHub team must have _write_ access on that repository.
 3. Your GitHub team's identifier must match the _Kubernetes team label_ in your `nais.yaml`. There is an example file below.
-4. Retrieve your [team API key](https://deploy.nais.io). Save the key as a secret named `NAIS_DEPLOY_APIKEY` in your GitHub repository.
+4. Retrieve your [team API key](https://console.nav.cloud.nais). Save the key as a secret named `NAIS_DEPLOY_APIKEY` in your GitHub repository.
 5. Follow the guide below.
 6. When things break, see the [help page](troubleshooting.md).
 
@@ -98,7 +98,7 @@ Add the example files below, then commit and push. This will trigger the workflo
 
 | Environment variable | Default | Description |
 | :--- | :--- | :--- |
-| APIKEY | \(required\) | NAIS deploy API key. Obtained from [https://deploy.nais.io](https://deploy.nais.io). |
+| APIKEY | \(required\) | NAIS deploy API key. Obtained from [console](https://console.nav.cloud.nais). |
 | CLUSTER | \(required\) | Which NAIS cluster ([On-premises](../clusters/on-premises.md) or [GCP](../clusters/gcp.md)) to deploy into. |
 | DRY\_RUN | `false` | If `true`, run templating and validate input, but do not actually make any requests. |
 | ENVIRONMENT | \(auto-detect\) | The environment to be shown in GitHub Deployments. Defaults to `CLUSTER:NAMESPACE` for the resource to be deployed if not specified, otherwise falls back to `CLUSTER` if multiple namespaces exist in the given resources. |
@@ -174,7 +174,7 @@ All of these options can be set using environment variables, such as `$APIKEY` a
 
 ### Proxy server
 
-If you are running NAIS deploy from an internal Jenkins server you need to set up an HTTP proxy as deploy.nais.io is a public address.
+If you are running NAIS deploy from an internal Jenkins server you need to set up an HTTP proxy as the deploy things run on public addresses.
 
 When using the CLI binary you can wrap steps in your pipeline with injected environment variables.
 

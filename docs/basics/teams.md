@@ -18,7 +18,7 @@ The following resources will be generated for the new team:
 
 * An Azure AD security group (no Office365 integration, nor e-mail address).
 * A [GitHub team](https://github.com/orgs/navikt/teams) is created.
-* Deploy keys are created, and can be obtained in the [NAIS deploy frontend](https://deploy.nais.io/).
+* Deploy keys are created, and can be obtained in the teams settings part of [console](https://console.nav.cloud.nais).
 * GCP users are provisioned, and users can log in to the [Google Cloud Console](https://console.cloud.google.com/) using their NAV e-mail address.
 * Two GCP projects are provisioned, one for development and one for production. See `https://console.cloud.google.com/home/dashboard?project=<(dev|prod)-yourteamname>`.
 * Namespaces are provisioned in all Kubernetes clusters.
@@ -32,11 +32,11 @@ Team membership is managed in NAIS teams.
 
 ## Access to API keys
 
-In order to access _team API keys_, go to [deploy.nais.io](https://deploy.nais.io/). Here you will find API keys for all teams you are a member of.
+In order to access _team API keys_, go to [console](https://console.nav.cloud.nais). Here you will find API keys for all teams you are a member of.
 
 ## Rotate API key
 
-If you need to rotate the api keys then you can go to [deploy.nais.io](https://deploy.nais.io/) and click on the "Rotate key" button, a pop-up will ask you to confirm the rotation.
+If you need to rotate the api keys then you can go to [console](https://console.nav.cloud.nais) and click on the "Rotate key" button, a pop-up will ask you to confirm the rotation.
 
 ## Team namespaces
 
