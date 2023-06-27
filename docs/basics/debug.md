@@ -14,7 +14,7 @@
     We we recommend installing `kubectl` manually, or through tools like [asdf](https://asdf-vm.com/). 
     Other installers like `brew`, can make it troublesome to managed the version skew, as it's hard to downgrade kubectl to older versions.
 
-## Debug `kubectl`
+## `kubectl` debug
 
 Ephemeral container is a temporary container that can be added to an existing pod to perform a specific task, such as
 debugging, monitoring, or troubleshooting. Unlike regular containers, ephemeral containers do not persist beyond their
@@ -41,7 +41,7 @@ If you don't see a command prompt, try pressing enter.
 ```
 
 The `--profile=restricted` flag is required to run the ephemeral container as a non-root user and without any
-capabilities. Supported images are listed in [allowed images list](../deployment/allowed-registries.md).
+capabilities. 
 
 ## Attach `kubectl`
 
