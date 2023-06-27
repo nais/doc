@@ -78,8 +78,6 @@ plugins:
       enabled: !ENV [CI, false]
       enable_creation_date: true
       type: timeago
-      exclude:
-        - deployment/allowed-registries.md
   - redirects:
       redirect_maps:
         "security/auth/idporten/sidecar.md": "security/auth/idporten.md"
@@ -151,7 +149,7 @@ nav:
           - NAIS deploy: deployment/README.md
           - Delete app: deployment/delete-app.md
           - Troubleshooting: deployment/troubleshooting.md
-          - Allowed registries: deployment/allowed-registries.md
+          - Image repository: deployment/image-repository.md
           - Manual deploy: deployment/manual.md
       - Observability:
           - Observability Overview: observability/README.md
