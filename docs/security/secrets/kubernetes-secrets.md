@@ -40,6 +40,7 @@ spec:
 ```
 
 The secret is then exposed under the path specified by `spec.filesFrom[].mountPath` \(default `/var/run/secrets`\). For this example it is available at `/var/run/secrets/key1`.
+Note that if you want to mount multiple secrets, you need to specify a different `mountPath` on each one to avoid collisions. 
 
 See the official [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/secret) or by running `kubectl create secret generic --help` for more details on creating and managing your secrets.
 
