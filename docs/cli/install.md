@@ -32,6 +32,10 @@ Download the archive for windows and unpack the tool to a directory on your `$PA
 
 [Install nais-cli](https://github.com/nais/nais-cli/releases/latest)
 
+#### Troubleshooting
+
+If unable to run after installing, read [here](troubleshooting.md).
+
 ### Ubuntu Installation
 
 1. Add the nais PPA repo:
