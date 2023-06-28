@@ -248,6 +248,7 @@ nav:
   - nais-cli:
       - Overview: cli/README.md
       - Installation: cli/install.md
+      - Troubleshooting: cli/troubleshooting.md
       - Commands:
           - Aiven: cli/commands/aiven.md
           - Device: cli/commands/device.md
