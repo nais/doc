@@ -1,5 +1,7 @@
 # Unenrolling
 
+To prevent Kolide from automatically enrolling your device, you first need to [uninstall](uninstall.md).
+
 When you're switching devices, you might want to unenroll your previously used device from the naisdevice ecosystem.
 This procedure is currently a manual operation done by one of the assigned admins within the Nav organization at Kolide.
 The list of admins is available for viewing at [k2.kolide.com](https://k2.kolide.com/) (sign in with your Slack account), under *Who can access my data?*
