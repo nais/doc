@@ -1,3 +1,9 @@
+---
+description: >-
+    NAIS is a platform for building, deploying and operating applications in a
+    secure manner. This document describes on a high level how NAIS achieves this and what is expected of those who use NAIS.
+---
+
 # Security in NAIS
 
 NAIS is a platform for building, deploying and operating applications in a
@@ -140,15 +146,15 @@ by NAIS and our service providers to ensure that they stay secure over time.
 
 NAIS provides the following external dependencies:
 
-| Service                                    | Description          | Provider                                                 |
-| ------------------------------------------ | -------------------- | -------------------------------------------------------- |
-| [PostgreSQL](../persistence/postgres.md)   | Relational database  | [Google Cloud SQL](https://cloud.google.com/sql)         |
-| [Buckets](../persistence/bigquery.md)      | Object storage       | [Google Cloud Storage](https://cloud.google.com/storage) |
-| [BigQuery](../persistence/bigquery.md)     | Data warehouse       | [Google BigQuery](https://cloud.google.com/bigquery)     |
-| [InfluxDB](../persistence/influxdb.md)     | Time series database | [Aiven Influx](https://aiven.io/influxdb)                |
-| [Redis](../persistence/redis.md)           | In-memory database   | [Aiven Redis](https://aiven.io/redis)                    |
-| [OpenSearch](../persistence/opensearch.md) | Search engine        | [Aiven OpenSearch](https://aiven.io/opensearch)          |
-| [Kafka](../persistence/kafka/README.md)    | Message queues       | [Aiven Kafka](https://aiven.io/kafka)                    |
+| Service                                     | Description          | Provider                                                 |
+| ------------------------------------------- | -------------------- | -------------------------------------------------------- |
+| [PostgreSQL](../persistence/postgres.md)    | Relational database  | [Google Cloud SQL](https://cloud.google.com/sql)         |
+| [Buckets](../persistence/bigquery.md)       | Object storage       | [Google Cloud Storage](https://cloud.google.com/storage) |
+| [BigQuery](../persistence/bigquery.md)      | Data warehouse       | [Google BigQuery](https://cloud.google.com/bigquery)     |
+| [InfluxDB](../persistence/influxdb.md)      | Time series database | [Aiven Influx](https://aiven.io/influxdb)                |
+| [Redis](../persistence/redis.md)            | In-memory database   | [Aiven Redis](https://aiven.io/redis)                    |
+| [OpenSearch](../persistence/open-search.md) | Search engine        | [Aiven OpenSearch](https://aiven.io/opensearch)          |
+| [Kafka](../persistence/kafka/README.md)     | Message queues       | [Aiven Kafka](https://aiven.io/kafka)                    |
 
 Read more about [external dependencies](../persistence/README.md) and [responsibilities](../persistence/responsibilities.md).
 
