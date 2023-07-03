@@ -5,16 +5,17 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 # Azure AD sidecar
 
 !!! warning "Availability"
-    This feature is only available in **dev-gcp** and **prod-gcp**.
+
+    This feature is only available in [Google Cloud Platform](../../../clusters/gcp.md).
 
 ## Description
 
 A reverse proxy that provides functionality to handle Azure AD login and logout.
 
 !!! info "Prerequisites"
-    - Ensure that you first [enable Azure AD for your application](configuration.md).
+    - If you're not familiar with Azure AD, review the [core concepts](concepts.md).
     - Ensure that you define at least one [ingress](../../../nais-application/application.md#ingresses) for your application.
-    - Ensure that you configure [user access](access-policy.md#users) for your application. **Users are not granted access by default**. 
+    - Ensure that you configure [user access](access-policy.md#users) for your application. **Users are not granted access by default**.
 
 ## Spec
 
@@ -22,6 +23,8 @@ A reverse proxy that provides functionality to handle Azure AD login and logout.
     The sidecar will occupy and use the ports `7564` and `7565`.
 
     Ensure that you do **not** bind to these ports from your application as they will be overridden.
+
+Minimal example below. See the complete specification in the [NAIS manifest](../../../nais-application/application.md#azuresidecar).
 
 === "nais.yaml"
     ```yaml
@@ -36,17 +39,16 @@ A reverse proxy that provides functionality to handle Azure AD login and logout.
           autoLogin: false
     ```
 
-See the [NAIS manifest](../../../nais-application/application.md#azuresidecar) for details.
+The above example will provision a unique Azure AD application, as well as enabling a sidecar that uses said application.
+For configuration of the Azure AD application itself, see [the Configuration page](configuration.md).
 
 ## Usage
 
-!!! tip
-    See the [Wonderwall](../../../appendix/wonderwall.md) appendix for usage details.
+See the [Wonderwall](../../../appendix/wonderwall.md) appendix for usage details.
 
 ### Token Validation
 
-!!! danger "Secure your endpoints"
-    **Your application is responsible for securing its own endpoints.**
+!!! danger "Your application is responsible for securing its own endpoints"
 
     - If a request does not contain an `Authorization` header, the request should be considered unauthenticated and access should be denied.
     - If a request has an `Authorization` header that contains a [JWT], the token must be validated before access is granted.
