@@ -8,18 +8,35 @@ A tenant represents an organization in Azure AD. Each tenant will have their own
 
 NAV has two tenants in Azure AD:
 
-- `nav.no` - available in all clusters, default tenant for production clusters
-- `trygdeetaten.no` - only available in `dev-*`-clusters, default tenant for development clusters
-    - See <https://github.com/navikt/devuser-check/blob/main/README.md#faq> for instructions on acquiring a user and logging into this tenant. Otherwise, consult the `#tech-azure` Slack channel.
+| Tenant            | Tenant Alias  | Cluster Availability                         |
+|-------------------|---------------|----------------------------------------------|
+| `nav.no`          | `NAV`         | `prod-gcp`, `prod-fss`, `dev-gcp`, `dev-fss` |                                                                                                                                                                                              |
+| `trygdeetaten.no` | `NAV Preprod` | `dev-gcp`, `dev-fss`                         |
 
-!!! warning
-    If your use case requires you to use `nav.no` in the `dev-*`-clusters, then you must [explicitly configure this](configuration.md#tenants).
-    Note that you _cannot_ interact with clients or applications across different tenants.
+!!! info "Logging into the `trygdeetaten.no` tenant"
 
-The same application in different clusters will result in unique Azure AD clients, with each having their own client IDs and access policies. For instance, the following applications in the same `nav.no` tenant will result in separate, unique clients in Azure AD:
+    See <https://github.com/navikt/devuser-check/blob/main/README.md#faq> for instructions on acquiring a user and logging into this tenant. Otherwise, consult the `#tech-azure` Slack channel.
+
+The table below shows the default tenant value for each cluster:
+
+| Clusters               | Default Tenant    | 
+|------------------------|-------------------|
+| `prod-gcp`, `prod-fss` | `nav.no`          | 
+| `dev-gcp`, `dev-fss`   | `trygdeetaten.no` |
+
+!!! info "Using the `nav.no` tenant in the `dev-*` clusters"
+
+    If you want to use the `nav.no` tenant in the `dev-*`-clusters, then you must [explicitly configure this](configuration.md#tenants).
+    Note that you _cannot_ interact with other clients or applications across different tenants.
+
+    If you're consuming services from other teams, you will very likely have to stick to the default values. If you control all the services in the call-chain in a closed ecosystem, you may choose to use `nav.no` in the `dev-*`-clusters.
+
+The same application in different clusters will result in unique Azure AD clients, with each having their own client IDs and access policies. For instance, the following applications in the same `nav.no` tenant:
 
 * `app-a` in `dev-gcp`
 * `app-a` in `prod-gcp`
+
+will result in two unique clients being registered in Azure AD.
 
 ## Naming format
 
@@ -31,7 +48,7 @@ All clients provisioned through NAIS will be registered in Azure AD using the fo
 <cluster>:<namespace>:<app-name>
 ```
 
-???+ example
+??? example
     ```text 
     dev-gcp:aura:nais-testapp
     ```
