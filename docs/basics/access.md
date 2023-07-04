@@ -24,7 +24,7 @@ Install by following the [naisdevice installation guide](../device/install.md).
 ## Install [nais-cli](../cli/README.md)
 
 nais-cli is a simple CLI application that developers in NAV can use.
-Install by following the [nais-cli installation guide](../nais/install.md).
+Install by following the [nais-cli installation guide](../cli/install.md).
 
 ## Install [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl)
 
