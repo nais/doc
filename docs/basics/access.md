@@ -20,6 +20,11 @@ After creating a new team, you should have access to all clusters.
 naisdevice ensures that your laptop meets NAVs requirements before allowing access to internal resources such as our NAIS clusters. 
 Install by following the [naisdevice installation guide](../device/install.md).
 
+## Install [nais-cli](../cli/README.md)
+
+nais-cli is a simple CLI application that developers in NAV can use.
+Install by following the [nais-cli installation guide](../nais/install.md).
+
 ## Install [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl)
 
 `kubectl` is a command-line tool used to manage your Kubernetes resources.
@@ -36,26 +41,8 @@ Therefor we recommend installing `kubectl` manually, or through tools like [asdf
 ## Setup your [`kubeconfig`](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 
 The `kubectl` tool uses a `kubeconfig` file to get the information it needs in order to connect to a cluster.
-We provide a [pre-made kubeconfig file](https://github.com/navikt/kubeconfigs) with NAV's clusters.
-
-!!! info
-    If you use `utviklerimage` or connect to NAV through BigIP VPN you need to use the kubeconfig under the Git tag `utviklerimage`. Go to the directory where you cloned kubeconfig and run
-
-    ```bash
-    git fetch --all --tags --prune
-    git checkout tags/utviklerimage
-    ```
-
-`kubectl` will by default look for a file named `config` in the `$HOME/.kube/` folder. This can be overriden by having the absolute path of the file in the environment variable `KUBECONFIG`.
-
-```bash
-export KUBECONFIG="<path to your navikt/kubeconfigs repo>/config"
-```
-
-The above example can also be added to something like `~/.bash_profile`, or the equivalent in your preferred shell.
-
-!!! warning
-    If you use cygwin, you need the `KUBECONFIG` to be in Windows style paths rather than unix style paths \(e.g. `C:\dev\kubeconfigs\config` instead of `/cygdrive/c/dev/kubeconfigs/config`\)
+We provide the command [nais kubeconfig](../cli/commands/kubeconfig.md) to set up the necessary clusters.
+`kubectl` will by default look for a file named `config` in the `$HOME/.kube/` folder.
 
 ## Authenticate `kubectl`
 

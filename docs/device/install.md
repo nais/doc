@@ -43,7 +43,7 @@
     1. Use `<Command> + <Space>` to find your `naisdevice.app` and press `<Enter>`.
     2. Follow the [instructions to connect your _nais_ device](#connect-naisdevice-through-tasksys-tray-icon).
 
-7. If you need to connect to anything running in K8s cluster, remember to [update your kubeconfig](https://docs.nais.io/device/install/#connecting-to-nais-clusters)
+7. If you need to connect to anything running in K8s cluster, remember to [update your kubeconfig](#connecting-to-nais-clusters)
 
 ### Windows Installation
 
@@ -65,7 +65,7 @@
    scoop install naisdevice
    ```
    (you will be asked for administrator access to run the installer)
-5. If you need to connect to anything running in K8s cluster, remember to [update your kubeconfig](https://docs.nais.io/device/install/#connecting-to-nais-clusters)
+5. If you need to connect to anything running in K8s cluster, remember to [update your kubeconfig](install/#connecting-to-nais-clusters)
 6. Start _naisdevice_ from the _Start menu_
 
 #### Manual installation
@@ -76,7 +76,7 @@
     
 2. [Download and install naisdevice.exe](https://github.com/nais/device/releases/latest)
    (you will be asked for administrator access when you run the installer)
-3. If you need to connect to anything running in K8s cluster, remember to [update your kubeconfig](https://docs.nais.io/device/install/#connecting-to-nais-clusters)
+3. If you need to connect to anything running in K8s cluster, remember to [update your kubeconfig](#connecting-to-nais-clusters)
 4. Start _naisdevice_ from the _Start menu_
 
 ### Ubuntu Installation
@@ -203,10 +203,8 @@ And otherwise: Just be nais.
 
 ### Connecting to NAIS clusters
 
-1. In a terminal/shell of your choice, navigate to [kubeconfigs repo](https://github.com/navikt/kubeconfigs).
-    1. If you haven't downloaded repo already: `git clone https://github.com/navikt/kubeconfigs.git`
-    2. If you are using SSH keys, use this command instead: `git clone git@github.com:navikt/kubeconfigs.git`
-2. `cd kubeconfigs` To navigate to the repository.
-3. `git pull` To ensure you've got latest & greatest.
-4. Make and set the `KUBECONFIG` environment variable to the path of the `config`-file.
-    1. You can do this from the terminal with: `export KUBECONFIG="<path-to>/kubeconfigs/config"`
+In a terminal/shell of your choice run `nais kubeconfig`
+
+- If you haven't installed nais-cli: [cli/install](../cli/install.md)
+- If you are using onprem clusters run: `nais kubeconfig --include-onprem`
+- Add `--clear` to clear old config, or use `--overwrite` to overwrite same names
