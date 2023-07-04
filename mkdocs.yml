@@ -252,6 +252,7 @@ nav:
       - Commands:
           - Aiven: cli/commands/aiven.md
           - Device: cli/commands/device.md
+          - Kubeconfig: cli/commands/kubeconfig.md
           - Postgres: cli/commands/postgres.md
           - Start: cli/commands/start.md
   - Laws and regulations:
