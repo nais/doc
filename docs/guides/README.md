@@ -4,7 +4,7 @@ NAIS developer guides are practical guides for developers who want to get starte
 
 <div class="grid cards" markdown>
 
--   :octicons-repo-24:{ .lg .middle } **Your first application**
+-   :octicons-repo-24:{ .lg .middle } **101: Your first application**
 
     ---
 
@@ -12,11 +12,11 @@ NAIS developer guides are practical guides for developers who want to get starte
 
     [:octicons-arrow-right-24: Getting started](./basics.md)
 
--   :octicons-hourglass-24:{ .lg .middle } **TBA**
+-   :octicons-hourglass-24:{ .lg .middle } **102: Your first job**
 
     ---
 
-    TBA
+    To be written
 
     [:octicons-arrow-right-24: TBA](#)
 

@@ -123,6 +123,7 @@ nav:
           - Access from laptop: basics/access.md
           - Debugging: basics/debug.md
       - Clusters:
+          - Overview: clusters/README.md
           - Google Cloud Platform: clusters/gcp.md
           - On-premises: clusters/on-premises.md
           - Migrating to GCP: clusters/migrating-to-gcp.md
@@ -268,3 +269,6 @@ nav:
           - Aiven Data Processor Agreement: legal/dpa/aiven-dpa.md
       - Arkivloven: legal/arkivloven.md
       - Sikkerhetsloven: legal/sikkerhetsloven.md
+  - Guides:
+    - Overview: guides/README.md
+    - "101: Your first application": guides/basics.md
