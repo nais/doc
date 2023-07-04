@@ -35,7 +35,7 @@ version control or expose them to publicly accessible services.
 
 ### ID-porten
 
-Credentials are found in Vault under [/secrets/secret/.common/idporten](https://vault.adeo.no/ui/vault/secrets/secret/show/.common/idporten) 
+Credentials are found in Vault under [/secrets/secret/.common/idporten](https://vault.adeo.no/ui/vault/secrets/secret/list/.common/idporten) 
 
 The client is configured with the following redirect URIs:
 
