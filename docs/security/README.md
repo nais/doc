@@ -199,6 +199,18 @@ The following security policies are enforced by NAIS:
 
 [kyverno]: https://kyverno.io/
 
+### Operate
+
+#### Authentication and authorization
+
+Authentication and authorization ("authnz") is the responsibility of each application running on the plattform. Authorization (i.e. "who is allowed to see and do what under which circumstances") is part of the business logic for each domain, so it makes sense that it is handled by the teams in their apps. Doing authnz right is complicated, so the plattform offers a few tools and services to assist. 
+
+We recommend using OIDC to authenticate humans. The platform will (given a few lines of configuration) automatically provision clients at our main identity providers [Azure AD](auth/azure-ad/README.md) (for employees) and [ID-porten](auth/idporten.md) (for the public). The secrets associated with these clients are handled behind the scenes and rotated regularly. To ease validating the OIDC tokens we offer our "OIDC as a sidecar" named [Wonderwall](../appendix/wonderwall.md).
+
+For service to service-communication further down in the call chain we offer our own implementation of the "OAuth2 Token Exchange" standard named [TokenX](auth/tokenx.md). Using TokenX eliminates the need for shared "service users" with long-lived credentials and wide permissions.
+
+For machine to machine-communication between government agencies "Maskinporten" is widely used. The platform offers [the same type of support](auth/maskinporten/README.md) for integrating with Maskinporten as we do for the other OIDC/OAuth uses cases mentioned above.
+
 ## References
 
 * [Google Cloud Architecture Framework: Security, privacy, and compliance](https://cloud.google.com/architecture/framework/security)
