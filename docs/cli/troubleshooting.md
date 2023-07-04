@@ -1,10 +1,8 @@
 # Troubleshooting
 
-## Windows
+## `Could not create process with command`
 
-### Scoop installation
-
-If you get an error message like this:
+If you get an error message like this (the path may vary):
 ```
 > nais
 Could not create process with command '"C:\Users\<YOU>\scoop\apps\nais-cli\current\nais.exe" '.
@@ -28,7 +26,3 @@ Alternatively, from an elevated PowerShell:
 ```
 > Add-MpPreference -ExclusionPath %USERPROFILE%\scoop\apps\nais-cli
 ```
-
-### Manual installation
-
-The above text is valid here, the only difference will be the path to the nais-cli binary.

@@ -2,7 +2,7 @@
 
 ## macOS Installation
 
-1. Install [Homebrew](https://brew.sh/) unless you already have it
+1. Install [Homebrew](https://brew.sh/) (unless you already have it)
 2. Add the nais tap
     ```bash
     brew tap nais/tap
@@ -28,13 +28,8 @@
 
 #### Manual installation
 
-Download the archive for windows and unpack the tool to a directory on your `$PATH`.
-
-[Install nais-cli](https://github.com/nais/nais-cli/releases/latest)
-
-#### Troubleshooting
-
-If unable to run after installing, read [here](troubleshooting.md).
+Download the archive for windows from [nais/cli](https://github.com/nais/cli/releases/latest) and unpack the tool to a directory on your `$PATH`.
+If you are unable to run nais after installing, check out our [troubleshooting guide](troubleshooting.md).
 
 ### Ubuntu Installation
 

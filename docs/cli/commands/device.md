@@ -31,10 +31,10 @@ This includes connection status, as well as gateways and their current statuses.
 nais device status
 ```
 
-| Flag     | Required | Short |Default |Description                            |
-|----------|----------|--- ---|--------|---------------------------------------|
-| quiet    | No       | -q    | false  | Only print connection status.         |
-| output   | No       | -o    | ''     | Specify output format. (yaml|json)    |
+| Flag   | Required | Short | Default | Description                                  |
+|--------|----------|-------|---------|----------------------------------------------|
+| quiet  | No       | -q    | false   | Only print connection status.                |
+| output | No       | -o    | yaml    | Specify one of yaml or json as output format |
 
 
 !!! note "output format"

@@ -1,5 +1,7 @@
 # postgres command
-The postgres command can be used to connect to a cloudsql postgres database with your personal user. It includes subcommands for granting personal access to an instance, 
+
+The postgres command can be used to connect to a cloudsql postgres database with your personal user
+It includes subcommands for granting personal access to an instance, 
 setting up a cloudsql proxy, and connecting to the database using a psql shell.
 
 All command have the following global flags avaiable:
@@ -82,7 +84,7 @@ nais postgres proxy appname
 | host      | No       | -H    | localhost                    | Host for the proxy                          |
 
 > **Note**
-> When using proxy to connect to the database, the auth method is username and password. 
+> When using proxy to connect to the database, the auth method is username and password.
 > The username is your full Google account email: e.g. `ola.bruker@nais.io`, and password is blank.
 
 ## psql
@@ -101,7 +103,9 @@ nais postgres psql appname
 | verbose   | No       | -V    | false                        | Verbose will print proxy log                |
 
 ## users add
-Adds a user to the database. By default the user is granted select privileges to the database public schema. The privilege level can be altered with the `--privilege` flag.
+Adds a user to the database
+By default the user is granted select privileges to the database public schema
+The privilege level can be altered with the `--privilege` flag.
 
 ```bash
 nais postgres users add username password appname
