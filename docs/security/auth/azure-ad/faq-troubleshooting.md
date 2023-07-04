@@ -97,3 +97,15 @@ kubectl describe azureapp <app>
     - Ensure that the Alice application has configured [user access](access-policy.md#users).
     - Ensure that the given user is a _direct_ member of any configured [group](access-policy.md#groups).
     - If all else fails, ask an adult in the `#nais` channel on Slack.
+
+
+## "Selected user account does not exist in tenant 'some-tenant' and cannot access the application 'some-client-id' in that tenant. The account needs to be added as an external user in the tenant first. Please use a different account."
+
+???+ quote "Problem"
+
+    A user may receive the above message from Azure AD when attempting to log in.
+
+???+ success "Solution / Answer"
+
+    - Ensure that the user uses an account that matches your application's [tenant](concepts.md#tenants) when logging in.
+    - If all else fails, ask an adult in the `#nais` channel on Slack.
