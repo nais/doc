@@ -13,7 +13,7 @@ Your application is assumed to be present in the form of a Docker image when usi
 1. Your application must have a repository on GitHub containing a `nais.yaml` and `Dockerfile`.
 2. Your GitHub team must have _write_ access on that repository.
 3. Your GitHub team's identifier must match the _Kubernetes team label_ in your `nais.yaml`. There is an example file below.
-4. Retrieve your [team API key](https://console.nav.cloud.nais). Save the key as a secret named `NAIS_DEPLOY_APIKEY` in your GitHub repository.
+4. Retrieve your [team API key](https://console.nav.cloud.nais.io). Save the key as a secret named `NAIS_DEPLOY_APIKEY` in your GitHub repository.
 5. Follow the guide below.
 6. When things break, see the [help page](troubleshooting.md).
 
