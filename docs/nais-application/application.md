@@ -5088,6 +5088,18 @@ Required: `false`<br />
         mountSecretsAsFilesOnly: true
     ```
 
+## ttl
+After the specified TTL, the application will be deleted.
+
+Type: `string`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      ttl: 1h
+    ```
+
 ## vault
 Provides secrets management, identity-based access, and encrypting application data for auditing of secrets for applications, systems, and users.
 

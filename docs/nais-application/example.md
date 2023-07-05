@@ -299,6 +299,7 @@ spec:
   tokenx:
     enabled: true
     mountSecretsAsFilesOnly: true
+  ttl: 1h
   vault:
     enabled: true
     paths:
