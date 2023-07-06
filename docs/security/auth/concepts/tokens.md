@@ -266,7 +266,7 @@ List of notable claims for access tokens from Azure AD that might be useful:
         - The group is [assigned to the client](../azure-ad/configuration.md#groups).
 - `idtyp` (**identity type**)
     - This is a special claim used to determine whether a token is a [machine-to-machine](../azure-ad/usage.md#oauth-20-client-credentials-grant) (app-only) token or a user/[on-behalf-of](../azure-ad/usage.md#oauth-20-on-behalf-of-grant) token.
-    - The claim currently only appears in machine-to-machine tokens. The value of the claim is `app`.
+    - The claim currently only appears in machine-to-machine tokens. The value is `app` when the token is a machine-to-machine token.
     - In short: if the `idtyp` claim exists and it has the value `app`, then it is a machine-to-machine token. Otherwise, it is a user/on-behalf-of token.
 - [Extra NAV-specific claims](../azure-ad/configuration.md#extra) that can be added to tokens for your client.
 
