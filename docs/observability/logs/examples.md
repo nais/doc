@@ -62,6 +62,7 @@ The max log message size in Docker is 16KB, so if it will be split into parts if
 ```
 
 ### Secure logs using Marker
+How to decide which logging events go to secure logs vs. the ordinary, non-secure app logs? Here is one idea.
 
 Using the Logback config below you can log to secure logs by writing Kotlin-code like this:
 ```
@@ -72,7 +73,8 @@ import org.slf4j.MarkerFactory
 val log: Logger = ...
 val SECURE: Marker= MarkerFactory.getMarker("SECURE_LOG")
 ...
-log.info(SECURE, "Sensitive data here")
+log.info(SECURE, "Sensitive data here") // Logging to secure logs
+log.info("Non-sensitive data here") // Logging to non-secure app logs
 ```
 
 logback.xml:
