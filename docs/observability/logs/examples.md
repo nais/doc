@@ -62,7 +62,7 @@ The max log message size in Docker is 16KB, so if it will be split into parts if
 ```
 
 ### Secure logs using Marker
-How to decide which logging events go to secure logs vs. the ordinary, non-secure app logs? Here is one idea.
+How to decide which logging events go to [secure logs](https://doc.nais.io/observability/logs/#secure-logs) vs. the ordinary, non-secure app logs? Here is one idea.
 
 Using the Logback config below you can log to secure logs by writing Kotlin-code like this:
 ```
