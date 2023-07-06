@@ -25,7 +25,7 @@ Refer to the [Kubernetes documentation](https://kubernetes.io/docs/tasks/run-app
 In the example below, the amount of replicas will be increased once the average of `active_sessions` exceeds 150 across all currently running pods.
 
 ```yaml
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: hpa-example
