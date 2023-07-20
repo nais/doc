@@ -48,6 +48,9 @@ Add the example files below, then commit and push. This will trigger the workflo
       build:
         name: Build and push Docker container
         runs-on: ubuntu-latest
+        permissions:
+          contents: read
+          id-token: write
         steps:
         - uses: actions/checkout@v3
         - name: Push docker image to GAR
