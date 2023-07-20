@@ -5,9 +5,11 @@ All NAIS teams has their own repository where they store their images, as NAIS w
 When using the [NAIS Github Action](https://github.com/nais/docker-build-push), the process of tagging and pushing the image to the registry is handled automatically.
 Combining this with the [NAIS deploy action](https://doc.nais.io/deployment/) you can also get the newly produced image tag set automatically during deployment.
 
+For NAV the address is https://console.cloud.google.com/artifacts/docker/nais-management-233d/europe-north1/.
+
 ## DIY
 
-If you want to handle the image process yourself, you can find the URL to your teams repository on your teams page in NAIS Teams (https://teams.<tenant>.cloud.nais.io) 
+If you want to handle the image process yourself, you can find the URL to your teams repository on your teams page in NAIS Teams (https://teams.$tenant.cloud.nais.io).
 
 ## Images from unlisted registry
 
