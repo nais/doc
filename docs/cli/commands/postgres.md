@@ -12,7 +12,17 @@ All command have the following global flags avaiable:
 | cluster   | No       | -c    | context set in kubeconfig    | Kubernetes context where app is deployed                |
 
 Note all flags has to appear before arguments (otherwise the flags will be interpreted as arguments).
+So global flags for Postgres needs to be positioned after `nais postgres`:
 
+OK:
+```
+nais postgres --context dev-gcp --namespace dreamteam proxy
+```
+
+Not OK:
+```
+nais postgres proxy --context dev-gcp --namespace dreamteam
+```
 
 !!! warning
     

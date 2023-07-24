@@ -15,10 +15,10 @@ Note that NAIS-cli requires all flags to appear before arguments (otherwise the 
 
 OK:
 ```
-nais postgres --context dev-gcp --namespace dreamteam proxy
+nais start --topics events appname teamname
 ```
 
 Not OK:
 ```
-nais postgres proxy --context dev-gcp --namespace dreamteam
+nais start appname teamname --topics events
 ```
