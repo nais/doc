@@ -11,6 +11,9 @@ All command have the following global flags avaiable:
 | namespace | No       | -n    | namespace set in kubeconfig  | Kubernetes namespace where app is deployed              |
 | cluster   | No       | -c    | context set in kubeconfig    | Kubernetes context where app is deployed                |
 
+Note all flags has to appear before arguments (otherwise the flags will be interpreted as arguments).
+
+
 !!! warning
     
     Run the following command first before running any of the other commands:
