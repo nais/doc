@@ -132,6 +132,8 @@ Deploy an `ApiToken` resource to dynamically create a new Unleash API token and 
     metadata:
       name: my-application
       namespace: my-team
+      labels:
+        team: my-team
     spec:
         unleashInstance:
           apiVersion: unleash.nais.io/v1
