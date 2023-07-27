@@ -160,7 +160,7 @@ Deploy an `ApiToken` resource to dynamically create a new Unleash API token and 
 
 This will create a new API token in your Unleash instance, and create a Kubernetes secret in your namespace named `my-application-unleash-api-token` that contains two environment variables:
 
-- `UNLEASH_SERVER_API_URL` (the API address)
+- `UNLEASH_SERVER_API_URL` (the API address, remember to add `/api` at the end to authenticate to the API server)
 - `UNLEASH_SERVER_API_TOKEN` (the API token)
 
 In the future we will add support for automatically creating API tokens when deploying your application.
