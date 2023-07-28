@@ -51,6 +51,8 @@ Add the example files below, then commit and push. This will trigger the workflo
         permissions:
           contents: read
           id-token: write
+        outputs:
+          image: ${{ steps.build-push-sign.outputs.image }}
         steps:
         - uses: actions/checkout@v3
         - name: Push docker image to GAR
@@ -72,7 +74,7 @@ Add the example files below, then commit and push. This will trigger the workflo
             APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
             CLUSTER: target-cluster # Replace
             RESOURCE: nais.yaml
-            VAR: image=${{ env.docker_image }}
+            VAR: image=${{ needs.build.outputs.image }}
     ```
 === "nais.yaml"
     ```yaml
