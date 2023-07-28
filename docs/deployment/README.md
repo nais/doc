@@ -52,7 +52,7 @@ Add the example files below, then commit and push. This will trigger the workflo
           contents: read
           id-token: write
         outputs:
-          image: ${{ steps.build-push-sign.outputs.image }}
+          image: ${{ steps.docker-build-push.outputs.image }}
         steps:
         - uses: actions/checkout@v3
         - name: Push docker image to GAR
