@@ -12,7 +12,7 @@ pymdown-extensions = "^10.0"
 mkdocs-material = "^9.1.17"
 mkdocs-build-plantuml-plugin = "^1.6.0"
 mkdocs-git-revision-date-localized-plugin = "^1.2.0"
-mkdocs-redirects = "^1.2.0"
+mkdocs-redirects = "^1.2.1"
 
 [tool.poetry.dev-dependencies]
 
