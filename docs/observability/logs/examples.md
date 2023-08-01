@@ -61,6 +61,66 @@ The max log message size in Docker is 16KB, so if it will be split into parts if
 </configuration>
 ```
 
+### Secure logs using Marker
+How to decide which logging events go to [secure logs](https://doc.nais.io/observability/logs/#secure-logs) vs. the ordinary, non-secure app logs? Here is one idea.
+
+Using the Logback config below you can log to secure logs by writing Kotlin-code like this:
+```
+import org.slf4j.Logger
+import org.slf4j.Marker
+import org.slf4j.MarkerFactory
+...
+val log: Logger = ...
+val SECURE: Marker= MarkerFactory.getMarker("SECURE_LOG")
+...
+log.info(SECURE, "Sensitive data here") // Logging to secure logs
+log.info("Non-sensitive data here") // Logging to non-secure app logs
+```
+
+logback.xml:
+```
+<configuration>
+    <appender name="appLog" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+                <marker>SECURE_LOG</marker>
+            </evaluator>
+            <OnMismatch>NEUTRAL</OnMismatch>
+            <OnMatch>DENY</OnMatch>
+        </filter>
+    </appender>
+
+    <appender name="secureLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/secure-logs/secure.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>/secure-logs/secure.log.%i</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>1</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>128MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+                <marker>SECURE_LOG</marker>
+            </evaluator>
+            <OnMismatch>DENY</OnMismatch>
+            <OnMatch>NEUTRAL</OnMatch>
+        </filter>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="appLog"/>
+        <appender-ref ref="secureLog"/>
+    </root>
+</configuration>
+```
+
+See doc on [Logback filters](https://logback.qos.ch/manual/filters.html#evaluatorFilter) and [markers](https://www.slf4j.org/api/org/slf4j/MarkerFactory.html)
+
+
 ## Log4j2
 
 ### pom.xml
