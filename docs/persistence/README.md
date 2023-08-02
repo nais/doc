@@ -16,7 +16,7 @@ and is lost when the application is restarted.
 
 ## Responsibilities
 
-The team is reponsible for any data that is stored in the various storage
+The team is responsible for any data that is stored in the various storage
 options that are available through the platform. You can read more in the
 [Data Responsibilities](./responsibilities.md) section.
 
@@ -55,15 +55,16 @@ graph TD
 Below is a list of the different storage options available to you.
 
 | Name                            | Type        | Recommendation | Availability | Backup |
-|---------------------------------|-------------|:--------------:|:-----------:|:------:|
-| [Kafka](#kafka)                 | Streaming   | ✅             | All         | Yes*   |
-| [Cloud Storage](#cloud-storage) | Object      | ✅             | GCP         | Yes*   |
-| [Cloud SQL](#cloud-sql)         | Relational  | ✅             | GCP         | Yes    |
-| [BigQuery](#bigquery)           | Relational  | ✅             | GCP         | Yes*   |
-| [Elasticsearch](#elasticsearch) | Document    | ⚠️              | All         | Yes    |
-| [OpenSearch](#opensearch)       | Document    | ✅             | All         | Yes    |
-| [InfluxDB](#influxdb)           | Time Series | ⚠️              | All         | Yes    |
-| [IBM MQ](#ibm-mq)               | Message     | ⚠️              | All         | Yes*   |
+|---------------------------------|-------------|:--------------:|:------------:|:------:|
+| [Kafka](#kafka)                 | Streaming   |       ✅        |     All      |  Yes*  |
+| [Cloud Storage](#cloud-storage) | Object      |       ✅        |     GCP      |  Yes*  |
+| [Cloud SQL](#cloud-sql)         | Relational  |       ✅        |     GCP      |  Yes   |
+| [BigQuery](#bigquery)           | Relational  |       ✅        |     GCP      |  Yes*  |
+| [Elasticsearch](#elasticsearch) | Document    |       ⚠️       |     All      |  Yes   |
+| [OpenSearch](#opensearch)       | Document    |       ✅        |     All      |  Yes   |
+| [Redis](#redis)                 | Key/Value   |       ✅        |     All      |  Yes   |
+| [InfluxDB](#influxdb)           | Time Series |       ⚠️       |     All      |  Yes   |
+| [IBM MQ](#ibm-mq)               | Message     |       ⚠️       |     All      |  Yes*  |
 
 \* Data is highly available and fault-tolerant but not backed up if deleted by
 mistake.
@@ -108,6 +109,13 @@ OpenSearch offers a drop-in replacement for Elasticsearch.
 
 [:octicons-arrow-right-24: Getting started with OpenSearch](./open-search.md)
 
+## Redis
+
+Redis is a key value database that is used for storing and querying data. It is
+a good choice for storing data that is not relational in nature.
+
+[:octicons-arrow-right-24: Getting started with Redis](./redis.md)
+
 ## InfluxDB
 
 !!! warning "Deprecated"
@@ -119,18 +127,6 @@ InfluxDB is a time series database that is used for storing and querying data.
 It is a good choice for storing data that is not relational in nature.
 
 [:octicons-arrow-right-24: Getting started with InfluxDB](./influxdb.md)
-
-## Redis
-
-!!! warning "Unsupported"
-
-    Redis is not officially supported by the platform. It is provided as a
-    reference and operated by the application team.
-
-Redis is a key value database that is used for storing and querying data. It is
-a good choice for storing data that is not relational in nature.
-
-[:octicons-arrow-right-24: Getting started with Redis](./redis.md)
 
 ## IBM MQ
 
