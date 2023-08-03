@@ -20,6 +20,11 @@ Note that in this definition, secrets (database credentials, certificates, API t
 Both ConfigMap and Secret are Kubernetes resources that can be exposed to an application as environment variables.
 See [envFrom ConfigMap](https://doc.nais.io/nais-application/application/#envfromconfigmap), and [envFrom Secret](https://doc.nais.io/nais-application/application/#envfromsecret) for more details.
 
+## Use enviroment variables exposed by the platform
+
+Some environment variables are made available to the pods by default when deployed on the NAIS platform, depending on which features are enabled. Examples of such features are tokenx, azurerator and aivenator. Avoid setting your own environment variables for these values and use pre-defined variables instead. 
+
+This will ease or eliminate the need for configuration when the platform changes.  
 
 ## Set reasonable resource requests and limits
 
