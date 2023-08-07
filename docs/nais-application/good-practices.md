@@ -24,7 +24,7 @@ See [envFrom ConfigMap](https://doc.nais.io/nais-application/application/#envfro
 
 Some environment variables are made available to the pods by default when deployed on the NAIS platform, depending on which features are enabled. Examples of such features are tokenx, azurerator and aivenator. Avoid setting your own environment variables for these values and use pre-defined variables instead. 
 
-This will ease or eliminate the need for configuration when the platform changes.  
+This will ease or eliminate the need for configuration when the platform changes. Such changes in the platform will not necessarily be announced or communicated, as we expect the applications to use these variables and not create their own.
 
 ## Set reasonable resource requests and limits
 
