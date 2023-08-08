@@ -18,7 +18,7 @@ The following resources will be generated for the new team:
 
 * An Azure AD security group (no Office365 integration, nor e-mail address).
 * A [GitHub team](https://github.com/orgs/navikt/teams) is created.
-* Deploy keys are created, and can be obtained in the teams settings part of [console](https://console.nav.cloud.nais).
+* Deploy keys are created, and can be obtained in the teams settings part of [console](https://console.nav.cloud.nais.io).
 * GCP users are provisioned, and users can log in to the [Google Cloud Console](https://console.cloud.google.com/) using their NAV e-mail address.
 * Two GCP projects are provisioned, one for development and one for production. See `https://console.cloud.google.com/home/dashboard?project=<(dev|prod)-yourteamname>`.
 * Namespaces are provisioned in all Kubernetes clusters.
