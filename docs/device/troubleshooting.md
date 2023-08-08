@@ -18,9 +18,9 @@
 - Agent log contains 'Failed to parse address book: proto: (line 2:3): unknown field "CertRenewal"'
     - Stop naisdevice 
     - Edit agent config and remove `CertRenewal` field
-        - Mac: `rm -r "~/Library/Application Support/naisdevice/agent-config.json"`
-        - Linux: `rm -r "~/.config/naisdevice/agent-config.json"`
-        - Windows: `rmdir /s "C:\ProgramData\NAV\naisdevice\agent-config.json"`
+        - Mac: `~/Library/Application Support/naisdevice/agent-config.json`
+        - Linux: `~/.config/naisdevice/agent-config.json`
+        - Windows: `C:\ProgramData\NAV\naisdevice\agent-config.json`
     - Start naisdevice
 - Some internal services (eg. Jira, Confluence, GCP/gcloud) redirect you to a page asking you to enroll your device in Microsoft Intune
     - Check if you have IPv6 addresses and disable if possible. naisdevice doesn't support IPv6 [yet](https://github.com/nais/device/issues/279). 
