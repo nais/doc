@@ -52,11 +52,12 @@
 1. [Install Kolide agent](install.md#install-kolide-agent). 
  
     The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the NAIS team and should be followed to keep your device safe.
-4. Install [Scoop](https://scoop.sh) unless you already have it. 
+
+2. Install [Scoop](https://scoop.sh) unless you already have it. 
 
     Scoop makes it possible to install and maintain programs from the command line.
     
-6. Use the following command in the command line to add the nais bucket to let Scoop know where to get and update files from. Do not worry about where it will be installed, we got you covered.
+3. Use the following command in the command line to add the nais bucket to let Scoop know where to get and update files from. Do not worry about where it will be installed, we got you covered.
    ```powershell
    scoop bucket add nais https://github.com/nais/scoop-bucket
    ```
@@ -93,10 +94,10 @@
     echo "deb [signed-by=$NAIS_GPG_KEY] https://ppa.nais.io/ ./" | sudo tee /etc/apt/sources.list.d/nav_nais.list
     sudo apt update # Now you can apt install naisdevice
     ```
-   **NOTE**  curl is not installed in a "fresh" ubuntu:
-   ```
-   sudo apt install curl
-   ``` 
+    **NOTE**  curl is not installed in a "fresh" ubuntu:
+    ```
+    sudo apt install curl
+    ``` 
 
 3. Install the naisdevice package:
     ```
