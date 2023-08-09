@@ -46,7 +46,7 @@ The URL for OpenSearch Dashboards (similar to Kibana) is the same as the OpenSea
 
 ## Support
 
-We do not offer support on OpenSearch as software, but questions about Aiven and provisioning can be directed to [#pig_aiven](https://nav-it.slack.com/archives/C018L1JATBQ) on Slack.
+We do not offer support on OpenSearch as software, but questions about Aiven and provisioning can be directed to [#nais](https://nav-it.slack.com/archives/C5KUST8N6) on Slack.
 
 ## Alerts
 
