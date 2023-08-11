@@ -99,7 +99,7 @@ The sidecar provides these endpoints under your application's [ingress](../nais-
 | `GET /oauth2/logout`           | Performs local logout and redirects the user to global/single-logout       |                   |
 | `GET /oauth2/logout/local`     | Performs local logout only                                                 | Only for Azure AD |
 | `GET /oauth2/session`          | Returns the current user's session metadata                                |                   |
-| `POST /oauth2/session/refresh` | Refreshes the tokens and returns the session metadata for the current user | Only for Azure AD |
+| `POST /oauth2/session/refresh` | Refreshes the tokens and returns the session metadata for the current user |                   |
 
 ## Usage
 
