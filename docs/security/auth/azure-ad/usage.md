@@ -314,12 +314,12 @@ Choose your use case:
 === "trygdeetaten.no"
 
       1. For _on-behalf-of_: visit <https://azure-token-generator.intern.dev.nav.no/api/obo?aud=&lt;audience&gt;> in your browser.
-      2. For _client credentials_: visit <https://azure-token-generator.intern.dev.nav.no/api/obo?aud=&lt;audience&gt;> in your browser.
+      2. For _client credentials_: visit <https://azure-token-generator.intern.dev.nav.no/api/m2m?aud=&lt;audience&gt;> in your browser.
 
 === "nav.no"
 
       1. For _on-behalf-of_: visit <https://azure-token-generator-nav.intern.dev.nav.no/api/obo?aud=&lt;audience&gt;> in your browser.
-      2. For _client credentials_: visit <https://azure-token-generator-nav.intern.dev.nav.no/api/obo?aud=&lt;audience&gt;> in your browser.
+      2. For _client credentials_: visit <https://azure-token-generator-nav.intern.dev.nav.no/api/m2m?aud=&lt;audience&gt;> in your browser.
 
 Then:
 
