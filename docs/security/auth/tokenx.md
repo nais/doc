@@ -381,3 +381,56 @@ The following example shows the claims of a token issued by Tokendings, where th
       "jti": "97f580a6-b479-426d-876b-267aa9848e2e"
     }
     ```
+
+## Local Development
+
+See also the [development overview](overview/development.md) page.
+
+### Token Generator
+
+In many cases, you want to locally develop and test against a secured API (or [resource server](concepts/actors.md#resource-server)) in the development environments.
+To do so, you need a [token](concepts/tokens.md#bearer-token) in order to access said API.
+
+The service <https://tokenx-token-generator.intern.dev.nav.no> can be used in order to generate tokens in the development environments.
+
+#### Prerequisites
+
+1. The API application must be configured with [TokenX enabled](#configuration).
+2. Pre-authorize the token generator service by adding it to the API application's [access policy](#access-policies):
+    ```yaml
+    spec:
+      accessPolicy:
+        inbound:
+          rules:
+            - application: tokenx-token-generator
+              namespace: aura
+              cluster: dev-gcp
+    ```
+
+#### Getting a token
+
+1. Visit <https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=&lt;audience&gt;> in your browser.
+    - Replace `<audience>` with the intended _audience_ of the token, in this case the API application.
+    - The audience value must be on the form of `<cluster>:<namespace>:<application>`
+    - For example: `dev-gcp:aura:my-app`
+2. You will be redirected to log in at ID-porten (if not already logged in).
+3. After logging in, you should be redirected back to the token generator and presented with a JSON response containing an `access_token`.
+4. Use the `access_token` as a [Bearer token](concepts/tokens.md#bearer-token) for calls to your API application.
+5. Success!
+
+### Test Clients
+
+If mocking isn't sufficient, we also maintain some test clients for use in local development environments.
+
+Note that the associated credentials may be rotated at any time.
+
+As developers, you're responsible for treating these credentials as secrets. Never commit or distribute these to
+version control or expose them to publicly accessible services.
+
+Credentials are found in Vault under [/secrets/secret/.common/tokenx](https://vault.adeo.no/ui/vault/secrets/secret/list/.common/tokenx/)
+
+The clients are [pre-authorized](#access-policies) as follows:
+
+- `app-1` is pre-authorized for `app-2`
+
+They are otherwise equal to a [default client](#configuration).
