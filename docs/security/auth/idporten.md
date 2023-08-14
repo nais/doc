@@ -59,7 +59,6 @@ The following environment variables and files (under the directory `/var/run/sec
 
 | Name                      | Description                                                                                                      |
 |:--------------------------|:-----------------------------------------------------------------------------------------------------------------|
-| `IDPORTEN_AUDIENCE`       | The expected [audience](concepts/tokens.md#token-validation) for access tokens from ID-porten.                   |
 | `IDPORTEN_CLIENT_ID`      | [Client ID](concepts/actors.md#client-id) that uniquely identifies the application in ID-porten.                 |
 | `IDPORTEN_WELL_KNOWN_URL` | The URL for ID-porten's [OIDC metadata discovery document](concepts/actors.md#well-known-url-metadata-document). |
 | `IDPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](concepts/actors.md#issuer).                                      |
@@ -145,7 +144,8 @@ for the JWT Bearer `access_token` attached by the sidecar in the `Authorization`
 
 #### Audience
 
-Note that the `aud` claim should be equal to the `IDPORTEN_AUDIENCE` environment variable mentioned earlier.
+Note that the `aud` claim is an optional claim and may not be included in tokens from ID-porten.
+You should configure your token validators to _not_ require this claim.
 
 You should also validate that the `client_id` claim has a value equal to the value of the `IDPORTEN_CLIENT_ID` environment variable.
 
