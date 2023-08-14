@@ -183,10 +183,10 @@ nav:
           - Redis: persistence/redis.md
           - MongoDB in GCP: persistence/mongodb-in-gcp.md
           - Volume Storage: persistence/volume-storage.md
+          - InfluxDB: persistence/influxdb.md
           - Legacy:
               - IBM MQ: persistence/mq.md
               - ElasticSearch: persistence/elastic-search.md
-              - InfluxDB: persistence/influxdb.md
               - S3 Objectstore: persistence/objectstore.md
       - Security:
           - Auth:
