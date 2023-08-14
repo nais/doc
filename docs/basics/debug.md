@@ -27,14 +27,14 @@ To run an ephemeral container in a pod, use the `kubectl debug` command.
 The following example starts a shell in a new ephemeral container named `debugger-id` in the `my-pod-name` pod:
 
 ```bash
-kubectl debug -it my-pod-name --image="cgr.dev/chainguard/busybox:latest" --profile=restricted -- sh
+kubectl debug -it my-pod-name --image="busybox:latest" --profile=restricted -- sh
 ```
 
 Once the ephemeral container is created, you will be presented with a shell prompt. Then run some diagnostic commands
 and inspect the container’s environment, or modify the container’s configuration to debug the issue.
 
 ```text
-kubectl debug -it my-pod-name --image="cgr.dev/chainguard/busybox:latest" --profile=restricted -- sh
+kubectl debug -it my-pod-name --image="busybox:latest" --profile=restricted -- sh
 Defaulting debug container name to debugger-lrmqq.
 If you don't see a command prompt, try pressing enter.
 ~ $ 
@@ -72,6 +72,6 @@ Unlike `exec` and `logs`, `debug` can also be used when your pod is in crashLoop
 ## Security hardened images
 
 The support for restricted ephemeral debug containers also gives your team ability to take advantage of distroless and
-other security hardened images such as [distroless](https://github.com/GoogleContainerTools/distroless) or [chainguard](https://github.com/chainguard-images/images#chainguard-images).
+other security hardened images such as [distroless](https://github.com/GoogleContainerTools/distroless).
 
 This is a great way to reduce the attack surface of your application and improve security.

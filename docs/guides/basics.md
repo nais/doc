@@ -194,7 +194,7 @@ There are several ways to build a container image, but the easiest way is to use
 === "Node.js"
 
     ```dockerfile
-    FROM cgr.dev/chainguard/node:20 AS base
+    FROM node:20 AS base
     LABEL org.opencontainers.image.source="https://github.com/<my-repo>"
     RUN npm config set update-notifier false && \
         npm config set fund false && \
@@ -220,31 +220,33 @@ There are several ways to build a container image, but the easiest way is to use
     # -----------------------------------------------------------------------------
     # Production image, copy all the files and run the application
     # -----------------------------------------------------------------------------
-    FROM base AS runner
+    FROM gcr.io/distroless/nodejs20-debian11 AS runner
+
+    WORKDIR /app
 
     ENV NODE_ENV production
     ENV PORT 3000
 
     # Copy dependencies from deps stage
-    COPY --from=deps --chown=node:node /app/package.json ./package.json
-    COPY --from=deps --chown=node:node /app/package-lock.json ./package-lock.json
-    COPY --from=deps --chown=node:node /app/node_modules ./node_modules
+    COPY --from=deps /app/package.json ./package.json
+    COPY --from=deps /app/package-lock.json ./package-lock.json
+    COPY --from=deps /app/node_modules ./node_modules
     # Automatically leverage output traces to reduce image size (https://s.id/1Gplb)
-    COPY --from=builder --chown=node:node /app/app.js ./app.js
-    COPY --from=builder --chown=node:node /app/bin/www ./bin/www
-    COPY --from=builder --chown=node:node /app/public ./public
-    COPY --from=builder --chown=node:node /app/routes ./routes
-    COPY --from=builder --chown=node:node /app/views ./views
+    COPY --from=builder /app/app.js ./app.js
+    COPY --from=builder /app/bin/www ./bin/www
+    COPY --from=builder /app/public ./public
+    COPY --from=builder /app/routes ./routes
+    COPY --from=builder /app/views ./views
 
     EXPOSE $PORT
 
-    CMD ["/usr/bin/npm", "run", "start"]
+    CMD ["./app.js"]
     ```
 
 === "Next.js"
 
     ```dockerfile
-    FROM cgr.dev/chainguard/node:20 AS base
+    FROM node:20 AS base
     LABEL org.opencontainers.image.source="https://github.com/<my-repo>"
     ENV NEXT_TELEMETRY_DISABLED 1
     RUN npm config set update-notifier false && \
@@ -270,28 +272,28 @@ There are several ways to build a container image, but the easiest way is to use
     # -----------------------------------------------------------------------------
     # Production image, copy all the files and run the application
     # -----------------------------------------------------------------------------
-    FROM base AS runner
+    FROM gcr.io/distroless/nodejs20-debian11 AS runner
 
     ENV NODE_ENV production
     ENV PORT 3000
 
     # Copy dependencies from deps stage
-    COPY --from=deps --chown=node:node /app/package.json ./package.json
-    COPY --from=deps --chown=node:node /app/package-lock.json ./package-lock.json
-    COPY --from=deps --chown=node:node /app/node_modules ./node_modules
+    COPY --from=deps /app/package.json ./package.json
+    COPY --from=deps /app/package-lock.json ./package-lock.json
+    COPY --from=deps /app/node_modules ./node_modules
     # Automatically leverage output traces to reduce image size (https://s.id/1Gplb)
-    COPY --from=builder --chown=node:node /app/next.config.js ./next.config.js
-    COPY --from=builder --chown=node:node /app/public ./public
-    COPY --from=builder --chown=node:node /app/.next ./.next
+    COPY --from=builder /app/next.config.js ./next.config.js
+    COPY --from=builder /app/public ./public
+    COPY --from=builder /app/.next ./.next
 
     EXPOSE $PORT
 
-    CMD ["/usr/bin/npm", "run", "start"]
+    CMD ["./node_modules/next/dist/bin/next", "start"]
     ```
 
 This `Dockerfile` will build your application and package it in a container image. Make sure you choose the correct `Dockerfile` for your programming language or framework. The `Dockerfile` above is a good starting point for most applications, but you might need to modify it depending on your application.
 
-The `Dockerfile` above are based on [Chainguard images](https://www.chainguard.dev/chainguard-images) a light weight and secure base for your applications, and use a [multi-stage build](https://docs.docker.com/develop/develop-images/multistage-build/) to reduce the size of the final container image. The final container image will only contain the files needed to run your application.
+The `Dockerfile`s above are based on [distroless images](https://github.com/GoogleContainerTools/distroless) a lightweight and secure base for your applications, and use a [multi-stage build](https://docs.docker.com/develop/develop-images/multistage-build/) to reduce the size of the final container image. The final container image will only contain the files needed to run your application.
 
 To test that your Dockerfile works, run the following command:
 
