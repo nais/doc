@@ -1,4 +1,7 @@
-# Unleash
+# Unleash Classic (Deprecated)
+
+!!! warning
+    This is the old version of Unleash, and is deprecated. Please use [Unleash Next](./unleash-next.md) instead.
 
 > Unleash is a feature toggle system, that gives you a great overview of all feature toggles across all your applications and services. It comes with official client implementations for Java, Node.js, Go, Ruby, Python and .Net.
 
