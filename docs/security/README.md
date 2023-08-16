@@ -141,8 +141,10 @@ message queues. These external dependencies are created as a part of the
 application deployment process and are only accessible by the application that
 they are associated with and nothing else.
 
-External dependencies are created with secure defaults and continuously updated
-by NAIS and our service providers to ensure that they stay secure over time.
+External dependencies are created with secure defaults like encryption intransit
+and encryption at rest. They are continuously updated by the platform the
+respective service providers to ensure that they stay up to date with the latest
+secure features over time.
 
 NAIS provides the following external dependencies:
 
