@@ -2,7 +2,7 @@
 
 !!! info
 
-    This install guide is for NAV employees only. If you are not a NAV employee, install a [different version of naisdevice as described here](install-tenant.md).
+    This install guide is for connectivity to NAV systems. If you are not a NAV employee or a consultant hired by NAV, install a [different version of naisdevice as described here](install-tenant.md).
 
 !!! warning
 
