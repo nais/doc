@@ -2,7 +2,7 @@
 
 !!! info
 
-    This install guide is for non-NAV employees only. If you are a NAV employee, install a [different version of naisdevice as described here](install.md).
+    This install guide is for non-NAV employees only. If you are a NAV employee, or a consultant hired by NAV, install a [different version of naisdevice as described here](install.md).
 
 ## Device-specific installation steps
 
