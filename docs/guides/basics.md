@@ -168,7 +168,7 @@ kubectl logs -f <my-app>-<random-string>
 
 When the application is running, you can visit the application on the following URL:
 
-https://<my-app>.intern.dev.nav.no
+`https://<my-app>.intern.dev.nav.no`
 
 Congratulations! You have now deployed an application to NAIS. The next step is to automate this process using GitHub Actions.
 
@@ -198,7 +198,7 @@ gh run watch
 
 When the workflow is finished, you can visit the application on the following URL:
 
-https://<my-app>.intern.dev.nav.no
+`https://<my-app>.intern.dev.nav.no`
 
 
 ## Step 11: Epilogue / Cleanup
