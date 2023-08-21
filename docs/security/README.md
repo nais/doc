@@ -10,7 +10,7 @@ NAIS is a platform for building, deploying and operating applications in a
 secure manner. This document describes on a high level how NAIS achieves this
 and what is expected of those who use NAIS.
 
-## Shared responsibility
+## Responsibility Segregation
 
 NAIS is a shared responsibility between the application team and the NAIS
 platform team. The platform team is responsible for providing securing the
@@ -35,24 +35,14 @@ role-based access control (RBAC) and by using the principle of separation of
 duties.
 
 1. **Secure by default** - NAIS is built on the principle of secure by default.
-This means that every component of the platform is configured to be secure by
-default. This is achieved by using secure defaults and by using the principle of
-least privilege.
-
-1. **Secure by design** - NAIS is built on the principle of secure by design.
-This means that every component of the platform is designed to be secure by
-design. This is achieved by using secure design patterns and by using the
-principle of least privilege.
+This means that unless explicitly allowed, everything is denied. Workloads are
+not allowed to communicate with each other unless explicitly allowed by network
+policies.
 
 ## Team isolation
 
-NAIS is built on the principle of team isolation. This means that every team has
-its own isolated environment, which is only accessible by the team members. This
-is achieved by using the principle of least privilege and by using the principle
-of separation of duties.
-
-Each team has its own isolated environment, which is only accessible by the
-members of the team. This is achieved by creating a separate Kubernetes
+Each team in NAIS has its own isolated environment, which is only accessible by
+the members of the team. This is achieved by creating a separate Kubernetes
 namespace and Google Cloud project that is only accessible by the members of the
 team.
 
@@ -182,7 +172,7 @@ The following security policies are enforced by NAIS:
 
 | Policy                           | Description                                                                                                                                                                                                                                                                                                                                                            |
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `deny-image-registries`          | Deny images from registries not on the list of allowed registries. See documentation: https://docs.nais.io/deployment/allowed-registries                                                                                                                                                                                                                               |
+| `deny-image-registries`          | Deny images from registries not on the list of allowed registries. See documentation: <https://docs.nais.io/deployment/allowed-registries>                                                                                                                                                                                                                             |
 | `deny-specific-service-types`    | This policy denies the creation of services with types other than `ClusterIP` and `ExternalName`.                                                                                                                                                                                                                                                                      |
 | `disallow-host-namespaces`       | Host namespaces (Process ID namespace, Inter-Process Communication namespace, and network namespace) allow access to shared information and can be used to elevate privileges. Pods should not be allowed access to host namespaces. This policy ensures fields which make use of these host namespaces are unset or set to `false`.                                   |
 | `disallow-host-path`             | HostPath volumes let Pods use host directories and volumes in containers. Using host resources can be used to access shared data or escalate privileges and should not be allowed. This policy ensures no hostPath volumes are in use.                                                                                                                                 |
@@ -203,7 +193,7 @@ The following security policies are enforced by NAIS:
 
 #### Authentication and authorization
 
-Authentication and authorization ("authnz") is the responsibility of each application running on the plattform. Authorization (i.e. "who is allowed to see and do what under which circumstances") is part of the business logic for each domain, so it makes sense that it is handled by the teams in their apps. Doing authnz right is complicated, so the plattform offers a few tools and services to assist. 
+Authentication and authorization ("authnz") is the responsibility of each application running on the plattform. Authorization (i.e. "who is allowed to see and do what under which circumstances") is part of the business logic for each domain, so it makes sense that it is handled by the teams in their apps. Doing authnz right is complicated, so the plattform offers a few tools and services to assist.
 
 We recommend using OIDC to authenticate humans. The platform will (given a few lines of configuration) automatically provision clients at our main identity providers [Azure AD](auth/azure-ad/README.md) (for employees) and [ID-porten](auth/idporten.md) (for the public). The secrets associated with these clients are handled behind the scenes and rotated regularly. To ease validating the OIDC tokens we offer our "OIDC as a sidecar" named [Wonderwall](../appendix/wonderwall.md).
 
