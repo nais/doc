@@ -199,7 +199,7 @@ When this annotation is in place, deleting the topic resource from Kubernetes wi
 
 ## Accessing topics from an application
 
-Adding `.kafka.pool` to your `Application` spec will inject Kafka credentials into your pod. Your application needs to follow some design guidelines; see the next section on [application design guidelines](application.md#application-design-guidelines). Make sure that the topic name matches the `fullyQualifiedName` found in the Topic resource, e.g. `myteam.mytopic`.
+Adding `.kafka.pool` to your `Application` spec will inject Kafka credentials into your pod. Your application needs to follow some design guidelines; please read the entire next section on [application configuration](application.md). Make sure that the topic name matches the `fullyQualifiedName` found in the Topic resource, e.g. `myteam.mytopic`.
 
 === "nais.yaml"
     ```yaml
