@@ -39,7 +39,7 @@ This means that unless explicitly allowed, everything is denied. Workloads are
 not allowed to communicate with each other unless explicitly allowed by network
 policies.
 
-## Team isolation
+## Team Isolation
 
 Each team in NAIS has its own isolated environment, which is only accessible by
 the members of the team. This is achieved by creating a separate Kubernetes
@@ -191,15 +191,79 @@ The following security policies are enforced by NAIS:
 
 ### Operate
 
-#### Authentication and authorization
+#### Developer access
 
-Authentication and authorization ("authnz") is the responsibility of each application running on the plattform. Authorization (i.e. "who is allowed to see and do what under which circumstances") is part of the business logic for each domain, so it makes sense that it is handled by the teams in their apps. Doing authnz right is complicated, so the plattform offers a few tools and services to assist.
+Developer access control in NAIS is backed by [Google Cloud IAM][google-iam] and
+[Kubernetes RBAC][kubernetes-rbac]. The platform is responsible for setting up
+the necessary roles and permissions in Google Cloud IAM and Kubernetes RBAC
+according to the teams registered in [NAIS Teams](../basics/teams.md) by the
+developers.
 
-We recommend using OIDC to authenticate humans. The platform will (given a few lines of configuration) automatically provision clients at our main identity providers [Azure AD](auth/azure-ad/README.md) (for employees) and [ID-porten](auth/idporten.md) (for the public). The secrets associated with these clients are handled behind the scenes and rotated regularly. To ease validating the OIDC tokens we offer our "OIDC as a sidecar" named [Wonderwall](../appendix/wonderwall.md).
+Tools and services provided by the platform to the developers are exposed
+securely in two ways:
 
-For service to service-communication further down in the call chain we offer our own implementation of the "OAuth2 Token Exchange" standard named [TokenX](auth/tokenx.md). Using TokenX eliminates the need for shared "service users" with long-lived credentials and wide permissions.
+1. On a private network only accessible to authenticated users over
+[naisdevice](../device/README.md) to trusted devices using secure
+[WireGuard][wireguard] VPN tunnels.
 
-For machine to machine-communication between government agencies "Maskinporten" is widely used. The platform offers [the same type of support](auth/maskinporten/README.md) for integrating with Maskinporten as we do for the other OIDC/OAuth uses cases mentioned above.
+1. On a public network behind [Identity Aware Proxy (IAP)][google-iap] which
+ensures that all developers are authenticated with their personal user accounts.
+
+[kubernetes-rbac]: https://kubernetes.io/docs/reference/access-authn-authz/rbac/
+[google-iam]: https://cloud.google.com/iam/
+[google-iap]: https://cloud.google.com/iap/
+[wireguard]: https://www.wireguard.com/
+
+#### User authentication
+
+User authentication and authorization ("authnz") is the responsibility of each
+application running on the plattform. Authorization (i.e. "who is allowed to see
+and do what under which circumstances") is part of the business logic for each
+domain, so it makes sense that it is handled by the teams in their apps. Doing
+authnz right is complicated, so the plattform offers a few tools and services to
+assist.
+
+We recommend using OIDC to authenticate humans. The platform will (given a few
+lines of configuration) automatically provision clients at our main identity
+providers [Azure AD](auth/azure-ad/README.md) (for employees) and
+[ID-porten](auth/idporten.md) (for the public). The secrets associated with
+these clients are handled behind the scenes and rotated regularly. To ease
+validating the OIDC tokens we offer our "OIDC as a sidecar" named
+[Wonderwall](../appendix/wonderwall.md).
+
+For service to service-communication further down in the call chain we offer our
+own implementation of the "OAuth2 Token Exchange" standard named
+[TokenX](auth/tokenx.md). Using TokenX eliminates the need for shared "service
+users" with long-lived credentials and wide permissions.
+
+For machine to machine-communication between government agencies "Maskinporten"
+is widely used. The platform offers [the same type of
+support](auth/maskinporten/README.md) for integrating with Maskinporten as we do
+for the other OIDC/OAuth uses cases mentioned above.
+
+#### Network security
+
+Network security in NAIS is achieved by [Access
+Policy](../nais-application/access-policy.md) that is backed by [Kubernetes
+Network Policies][kubernetes-network-policies]. This controls traffic between
+pods in the same cluster as well as outgoing traffic from the cluster.
+
+Pod-to-pod traffic is also protected by [mTLS with
+Linkerd](../nais-application/linkerd.md) that attaches a sidecar to every pod
+that handles the encryption and decryption of traffic between pods and authenticates
+the identity of the pods.
+
+In addition to this, NAIS provides integration with [Google Cloud
+Armor][google-cloud-armour] for enhanced network security. This controls
+incoming traffic to the cluster and adds Web Application Firewall (WAF) and
+Distributed Denial of Service (DDoS) protection.
+
+[kubernetes-network-policies]: https://kubernetes.io/docs/concepts/services-networking/network-policies/
+[google-cloud-armour]: https://cloud.google.com/armor
+
+#### Application logs
+
+
 
 ## References
 
