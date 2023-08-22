@@ -99,14 +99,14 @@ provided by NAIS:
     1. [External dependencies](#external-dependencies)
 
 1. Deploy-phase
-    1. [Supply-chain Levels for Software Artifacts (SLSA)](#slsa)
+    1. [Supply Chain](#supply-chain)
     1. [Security Policies](#security-policies)
 
 1. Operate-phase
-    1. Access control
-    1. User authentication
-    1. Network security
-    1. Logging
+    1. [Developer access](#developer-access)
+    1. [User authentication](#user-authentication)
+    1. [Network security](#network-security)
+    1. [Logging and monitoring](#logging-and-monitoring)
 
 ### Build
 
@@ -152,7 +152,7 @@ Read more about [external dependencies](../persistence/README.md) and [responsib
 
 ### Deploy
 
-#### SLSA
+#### Supply Chain
 
 NAIS provides a secure way to deploy applications using [Supply-chain Levels for
 Software Artifacts (SLSA)][slsa]. This means that every application is deployed
