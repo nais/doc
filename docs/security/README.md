@@ -261,9 +261,20 @@ Distributed Denial of Service (DDoS) protection.
 [kubernetes-network-policies]: https://kubernetes.io/docs/concepts/services-networking/network-policies/
 [google-cloud-armour]: https://cloud.google.com/armor
 
-#### Application logs
+#### Logging and monitoring
 
+Application logs are collected and stored in
+[Kibana](../observability/logs/README.md) together with infrastructure
+components running in the cluster.
 
+Application metrics are collected and stored in
+[Prometheus](../observability/metrics.md) together with infrastructure
+components running in the cluster.
+
+Infrastructure, network flow logs and IAM audit logs are available from
+[Google Cloud Monitoring][google-cloud-monitoring].
+
+[google-cloud-monitoring]: https://cloud.google.com/monitoring
 
 ## References
 
