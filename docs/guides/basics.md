@@ -1,21 +1,14 @@
-# A NAIS Guide
+# Deploying an application
 
-Welcome to NAIS! This guide will take you through the process of getting up your first NAIS application up and running and is intended for people without any previous experience with NAIS and the tools we use.
+This guide will take you through the process of getting a simple NAIS application up and running and is intended for people without any previous experience with NAIS and the tools we use.
 
 !!! note "Questions or feedback?"
 
-    If you have any questions or feedback, please reach out to us on [Slack](https://nav-it.slack.com/archives/C5KUST8N6) or [GitHub Issues](https://github.com/nais/doc/issues/new/choose). We are happy to help!
+    If you have any questions or feedback, please reach out to us on Slack or [GitHub Issues](https://github.com/nais/doc/issues/new/choose). We are happy to help!
 
 ## Introduction
 
 NAIS is a platform for running applications in the cloud. It is built on top of [Kubernetes](https://kubernetes.io/) and provides a set of tools and services that makes it easy to build, deploy and operate applications in a secure and scalable way. We often say "It is like Heroku, but for the Norwegian public sector".
-
-In this guide, we will show you how to build a simple web application and deploy it to NAIS. You will learn how to:
-
-- Containerize your application
-- Configure your application for NAIS
-- Build your application on GitHub Actions
-- Deploy your application to NAIS
 
 ### Prerequisites
 
@@ -53,314 +46,110 @@ Remember to run `colima start` before using the Docker-cli.
 
 Throughout this guide, we will use the following conventions:
 
-- `my-repo` - The name of your GitHub repository (e.g. `my-org/my-repo`)
-- `my-app` - The name of your NAIS application (e.g. `my-app`)
-- `my-team` - The name of your NAIS team (e.g. `my-team`)
+- `<my-app>` - The name of your NAIS application (e.g. `joannas-first`)
+- `<my-org>` - Your GitHub organization (e.g. `navikt`)
+- `<my-team>` - The name of your NAIS team (e.g. `onboarding`)
 
-### Code examples
+**NB!** Choose names with *lowercase* letters, numbers and dashes only. 
 
-We will provide all the commands and code examples you need to get started. You can copy and paste these examples into your terminal or editor.
+## Step 1: Create your own GitHub repository
 
-For programming related code you have the option to choose between different languages. In these cases, we will provide the examples in the following format:
-
-=== "Node.js"
-
-    ```javascript
-    console.log('Hello world!')
-    ```
-
-=== "Java"
-
-    ```java
-    System.out.println("Hello world!");
-    ```
-
-=== "Fortran"
-
-    ```fortran
-    print *, "Hello world!"
-    ```
-
-=== "Cobol"
-
-    ```cobol
-    IDENTIFICATION DIVISION.
-    PROGRAM-ID. HELLO-WORLD.
-    PROCEDURE DIVISION.
-        DISPLAY "Hello world!".
-        STOP RUN.
-    ```
-
-## Step 1: Create a new repository
-
-Create a new repository on GitHub. This will be the home of your application.
+Create your own repo using the `nais/getting-started` as a template.
 
 ```bash
-gh repo create navikt/<my-repo> --add-readme --public --clone
-cd <my newly created repo>
-git pull --set-upstream origin main
+gh repo create <my-org>/<my-repo> --template nais/getting-started --private --clone
+cd <my-app>
 ```
 
-**NB!** Replace `<my-repo>` with the name of your repository with *lowercase* letters, numbers and dashes only.
+## Step 2: Grant the onboarding team access to your repository
 
-??? note "What does this command do?"
+This has to be done in the GitHub UI. 
+Go to your repository and click on `Settings` -> `Collaborators and teams` -> `Add teams`. Select the onboarding team, and grant `write` permission. 
 
-    * `gh repo create navikt/<my-repo>`: Creates a new repository on GitHub under the `navikt` organization.
-    * `cd <my newly created repo>`: Changes the current directory to the newly created repository.
-    * `git pull --set-upstream origin main`: Pulls the latest changes from GitHub and sets the upstream branch to `main`.
-
-For your new repository add the following secret:
-
-```bash
-cd <my newly created repo> # Ensure you're inside of the repo you want to add the secret to
-gh secret set NAIS_DEPLOY_APIKEY --app actions
-```
-
-Paste in your NAIS Deploy API key as the value when asked.
-
-## Step 2: Create a new application
-
-In your repository, initialize a new application depending on the language you want to use.
-
-=== "Node.js"
-
-    ```bash
-    npx express-generator
-    npm install
-    ```
-
-=== "Next.js"
-
-    ```bash
-    npx create-next-app
-    ```
-
-=== "Java (Maven)"
-
-    ```bash
-    mvn archetype:generate -DgroupId=com.example -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
-    ```
-
-=== "Kotlin (Gradle)"
-
-    ```bash
-    gradle init --type kotlin-application
-    ```
-
-## Step 3: Create a nais config
-
-Now you are ready to deploy your application to NAIS. To do this, you need to create a `nais.yaml` file in your repository. This file contains the configuration for your application. The easiest way to create this file is to use the `nais` CLI tool.
-
-```bash
-nais start --appname <my-app> --teamname <my-team> --appListenPort 3000
-```
-
-??? note "What does this command do?"
-
-    * `--appname <my-app>`: The name of your application. This will be the name of the application in NAIS and should be something unique to you.
-    * `--teamname <my-team>`: The name of your team. This will be used as the name of the team in NAIS.
-    * `--appListenPort 3000`: The port that your application listens on. This will be used for the exposed port and liveness checks in NAIS.
-
-This will create the required files for your application to run on NAIS. This will create the following files in your repository:
-
-| File | Description |
-| -----| ----------- |
-| `.github/workflows/main.yaml` | The GitHub Actions workflow that will build and deploy your application. |
-| `./nais/nais.yaml` | The configuration for your application. |
-| `./nais/dev.yaml` | The configuration overrides for your application in the `dev` environment. |
+## Step 2: Familiarize yourself with the files used
 
 Check out the files in your repository to see what they contain.
 
 `nais.yaml` is the configuration for your application. This file contains the configuration for your application, such as the name of the application, the team that owns the application, and the port that the application listens on. You can read more about the configuration options in the [NAIS documentation](https://doc.nais.io/application/).
 
-`dev.yaml` is the configuration overrides for your application in the `dev` environment. This file contains the configuration for your application in the `dev` environment, such as ingress domain, number of replicas, and the amount of memory and CPU.
+`Dockerfile` describes the steps needed to build your docker image.
 
 `.github/workflows/main.yaml` is the GitHub Actions workflow that will build and deploy your application. This file contains the steps that will build your application and deploy it to NAIS. You can read more about the GitHub Actions workflow in the [GitHub Actions documentation](https://docs.github.com/en/actions).
 
-Open `.github/workflows/main.yaml` in your repository and remove everything from this line (around 40) and down:
 
-```yaml
-  "deployAppToProd":
-```
+## Step 3: Check that your application is working
 
-This will remove the step that deploys your application to the `prod` environment as we will not be deploying to `prod` in this guide.
-
-## Step 4: Create a Dockerfile
-
-In order to run your application on NAIS, you need to package it in a [Container image](https://www.docker.com/resources/what-container/) also often referred to as a [Docker image](https://docs.docker.com/get-started/overview/). Throughout this guide, we will use the terms interchangeably.
-
-There are several ways to build a container image, but the easiest way is to use a [`Dockerfile`](https://docs.docker.com/engine/reference/builder/). `nais start` will create a minimal Dockerfile for you, but we can improve it for our example application. In your repository, open the file named `Dockerfile` and add the following content:
-
-=== "Node.js"
-
-    ```dockerfile
-    FROM node:20 AS base
-    LABEL org.opencontainers.image.source="https://github.com/<my-repo>"
-    RUN npm config set update-notifier false && \
-        npm config set fund false && \
-        npm config set progress true && \
-        npm config set loglevel error
-
-    # -----------------------------------------------------------------------------
-    # Build the application
-    # -----------------------------------------------------------------------------
-    FROM base AS builder
-    COPY --chown=node:node . .
-    RUN npm install --no-audit
-    # RUN npm install --no-audit && npm run build
-
-    # -----------------------------------------------------------------------------
-    # Production dependencies
-    # -----------------------------------------------------------------------------
-    FROM base AS deps
-    COPY --from=builder /app/package.json ./package.json
-    COPY --from=builder /app/package-lock.json ./package-lock.json
-    RUN npm install --no-audit --omit=dev
-
-    # -----------------------------------------------------------------------------
-    # Production image, copy all the files and run the application
-    # -----------------------------------------------------------------------------
-    FROM gcr.io/distroless/nodejs20-debian11 AS runner
-
-    WORKDIR /app
-
-    ENV NODE_ENV production
-    ENV PORT 3000
-
-    # Copy dependencies from deps stage
-    COPY --from=deps /app/package.json ./package.json
-    COPY --from=deps /app/package-lock.json ./package-lock.json
-    COPY --from=deps /app/node_modules ./node_modules
-    # Automatically leverage output traces to reduce image size (https://s.id/1Gplb)
-    COPY --from=builder /app/app.js ./app.js
-    COPY --from=builder /app/bin/www ./bin/www
-    COPY --from=builder /app/public ./public
-    COPY --from=builder /app/routes ./routes
-    COPY --from=builder /app/views ./views
-
-    EXPOSE $PORT
-
-    CMD ["./app.js"]
-    ```
-
-=== "Next.js"
-
-    ```dockerfile
-    FROM node:20 AS base
-    LABEL org.opencontainers.image.source="https://github.com/<my-repo>"
-    ENV NEXT_TELEMETRY_DISABLED 1
-    RUN npm config set update-notifier false && \
-        npm config set fund false && \
-        npm config set progress true && \
-        npm config set loglevel error
-
-    # -----------------------------------------------------------------------------
-    # Build the application
-    # -----------------------------------------------------------------------------
-    FROM base AS builder
-    COPY --chown=node:node . .
-    RUN npm install --no-audit && npm run build
-
-    # -----------------------------------------------------------------------------
-    # Production dependencies
-    # -----------------------------------------------------------------------------
-    FROM base AS deps
-    COPY --from=builder /app/package.json ./package.json
-    COPY --from=builder /app/package-lock.json ./package-lock.json
-    RUN npm install --no-audit --omit=dev
-
-    # -----------------------------------------------------------------------------
-    # Production image, copy all the files and run the application
-    # -----------------------------------------------------------------------------
-    FROM gcr.io/distroless/nodejs20-debian11 AS runner
-
-    ENV NODE_ENV production
-    ENV PORT 3000
-
-    # Copy dependencies from deps stage
-    COPY --from=deps /app/package.json ./package.json
-    COPY --from=deps /app/package-lock.json ./package-lock.json
-    COPY --from=deps /app/node_modules ./node_modules
-    # Automatically leverage output traces to reduce image size (https://s.id/1Gplb)
-    COPY --from=builder /app/next.config.js ./next.config.js
-    COPY --from=builder /app/public ./public
-    COPY --from=builder /app/.next ./.next
-
-    EXPOSE $PORT
-
-    CMD ["./node_modules/next/dist/bin/next", "start"]
-    ```
-
-This `Dockerfile` will build your application and package it in a container image. Make sure you choose the correct `Dockerfile` for your programming language or framework. The `Dockerfile` above is a good starting point for most applications, but you might need to modify it depending on your application.
-
-The `Dockerfile`s above are based on [distroless images](https://github.com/GoogleContainerTools/distroless) a lightweight and secure base for your applications, and use a [multi-stage build](https://docs.docker.com/develop/develop-images/multistage-build/) to reduce the size of the final container image. The final container image will only contain the files needed to run your application.
-
-To test that your Dockerfile works, run the following command:
+Before proceeding, let's make sure that your application is working. Run the following command to start your application:
 
 ```bash
-docker build -t <my-app> .
+./gradlew run
 ```
 
-**NB!** Replace `<my-app>` with the name of your application and make sure you are in the root directory of your application and include the `.` at the end of the command.
+Visit [http://localhost:8080](http://localhost:8080) to see your application running.
 
-You can run this container image locally by running the following command:
+## Step 4: Build a docker image with your application
+
+Run the following command to build a docker image with your application:
 
 ```bash
-docker run -it --rm -p 3000:3000 <my-app>
+docker image build --platform=linux/amd64 --tag=<my-app> .
 ```
 
-Visit [http://localhost:3000](http://localhost:3000) to see your application running.
+The `--platform=linux/amd64` flag is to instruct Docker to build a image for Linux. The default might not work.
 
-When you are done testing your application, you can stop the container by pressing `CTRL+C` to stop the container.
+## Step 5: Push your image to our image registry
 
-## Step 5: Deploy to NAIS
-
-Now you are ready to deploy your application to NAIS. To do this, you need to push your code to GitHub. This will trigger the GitHub Actions workflow that will build and deploy your application to NAIS.
+### Step 5.1: Configure how Docker authenticates to our image registry
 
 ```bash
-git add .
-git commit -m "Build and deploy application to NAIS"
-git push origin main
+gcloud auth configure-docker europe-north1-docker.pkg.dev
 ```
 
-??? note "What does this command do?"
-
-    * `git add .`: Adds all the files in the current directory to the git index.
-    * `git commit -m "Build and deploy application to NAIS"`: Commits the changes to the git repository with the message `Build and deploy application to NAIS`.
-    * `git push`: Pushes the changes to the remote git repository.
-
-GitHub will automatically start the GitHub Actions workflow. You can follow the progress of the workflow by running the following command:
+### Step 5.2: Google login
 
 ```bash
-gh run watch
+gcloud auth login --update-adc
 ```
 
-When the workflow is finished, you can visit the application in the `dev` environment by going to the following URL:
+### Step 5.3: Tag your image
 
 ```bash
-https://<my-app>.intern.dev.nav.no
+docker tag <my-app> europe-north1-docker.pkg.dev/nais-management-233d/onboarding/<my-app>:1
 ```
 
-## Step 6: Inspect the application
+### Step 5.4: Push your image
 
-Your new application is now running in nais. Under the hood, nais is using Kubernetes to run your application. You can inspect your application by running the following commands.
+```bash
+docker push europe-north1-docker.pkg.dev/nais-management-233d/onboarding/<my-app>:1
+```
+    
+## Step 6: Manually deploy your application to NAIS
 
-Select the correct Kubernetes context:
+Open the `nais.yaml` file and change the `<my-app>` occurences to the name of your application.
+Also, change the `{{image}}` under `spec.image` to point to the image your just pushed.
+
+Ensure you are connected to the correct cluster (dev-gcp):
 
 ```bash
 kubectl config use-context dev-gcp
 ```
 
-Select the correct Kubernetes namespace:
+And that you are in the correct namespace:
 
 ```bash
-kubectl config set-context --current --namespace=<my-team>
+kubectl config set-context --current --namespace=onboarding
 ```
 
-List the pods running in the namespace:
+Now you can deploy your application to NAIS by running the following command:
 
 ```bash
-kubectl get pods
+kubectl apply -f nais.yaml
+```
+
+Ensure that your application is running by running the following command:
+
+```bash
+kubectl get pods -l app=<my-app>
 ```
 
 ??? note "Example output"
@@ -375,9 +164,54 @@ You should see a pod with the name `<my-app>-<random-string>`. You can inspect t
 kubectl logs -f <my-app>-<random-string>
 ```
 
-## Epilogue
+When the application is running, you can visit the application on the following URL:
 
-Congratulations! You have now deployed your first application to NAIS. Play around with the application and make some changes to the code. Push the changes to GitHub and see how the application is automatically deployed to NAIS.
+`https://<my-app>.intern.dev.nav.no`
+
+Congratulations! You have now deployed an application to NAIS. The next step is to automate this process using GitHub Actions.
+
+## Step 7: Configure deployment API key
+
+```bash
+gh secret set NAIS_DEPLOY_APIKEY --app actions
+```
+
+Paste in your NAIS Deploy API key as the value when asked.
+
+## Step 8: Make some changes to your application
+
+Open the `src/main/kotlin/Main.kt` file and change the `Hello, world!` message to something else.
+
+## Step 8.5: Reset image reference
+
+Previously we changed the `{{image}}` to point to the image we pushed to our image registry. Now we need to change it back to `{{image}}` so that the GitHub Actions workflow can replace this for us.
+
+## Step 9: Commit and push your changes
+
+```bash
+git add .
+git commit -m "Change message"
+git push origin main
+```
+
+## Step 10: Observe the GitHub Actions workflow
+
+Once you have pushed your changes to GitHub, you can observe the GitHub Actions workflow by running the following command:
+
+```bash
+gh run watch
+```
+
+...or open the Actions tab on GitHub.
+
+## Step 11: Visit your application
+
+When the workflow is finished, you can visit the application on the following URL:
+
+`https://<my-app>.intern.dev.nav.no`
+
+
+## Step 12: Epilogue / Cleanup
 
 When you are done; delete the application by running the following command:
 
@@ -385,14 +219,8 @@ When you are done; delete the application by running the following command:
 kubectl delete app <my-app>
 ```
 
-If you feel you are finished with this guide you can delete your repository:
+When you are finished with this guide you can delete your repository:
 
 ```bash
 gh repo delete <my-repo>
-```
-
-You can also archive the GitHub repository to prevent the application from being deployed again by running the following command:
-
-```bash
-gh repo archive <my-repo>
 ```
