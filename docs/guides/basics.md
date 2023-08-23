@@ -61,13 +61,10 @@ gh repo create <my-org>/<my-repo> --template nais/getting-started --private --cl
 cd <my-app>
 ```
 
-## Step 1.5: Configure the NAIS deployment key for your repository
+## Step 2: Grant the onboarding team access to your repository
 
-```bash
-gh secret set NAIS_DEPLOY_APIKEY --app actions
-```
-
-Paste in your NAIS Deploy API key as the value when asked.
+This has to be done in the GitHub UI. 
+Go to your repository and click on `Settings` -> `Collaborators and teams` -> `Add teams`. Select the onboarding team, and grant `write` permission. 
 
 ## Step 2: Familiarize yourself with the files used
 
@@ -129,6 +126,7 @@ docker push europe-north1-docker.pkg.dev/nais-management-233d/onboarding/<my-app
 ## Step 6: Manually deploy your application to NAIS
 
 Open the `nais.yaml` file and change the `<my-app>` occurences to the name of your application.
+Also, change the `{{image}}` under `spec.image` to point to the image your just pushed.
 
 Ensure you are connected to the correct cluster (dev-gcp):
 
@@ -172,11 +170,23 @@ When the application is running, you can visit the application on the following 
 
 Congratulations! You have now deployed an application to NAIS. The next step is to automate this process using GitHub Actions.
 
-## Step 7: Make some changes to your application
+## Step 7: Configure deployment API key
+
+```bash
+gh secret set NAIS_DEPLOY_APIKEY --app actions
+```
+
+Paste in your NAIS Deploy API key as the value when asked.
+
+## Step 8: Make some changes to your application
 
 Open the `src/main/kotlin/Main.kt` file and change the `Hello, world!` message to something else.
 
-## Step 8: Commit and push your changes
+## Step 8.5: Reset image reference
+
+Previously we changed the `{{image}}` to point to the image we pushed to our image registry. Now we need to change it back to `{{image}}` so that the GitHub Actions workflow can replace this for us.
+
+## Step 9: Commit and push your changes
 
 ```bash
 git add .
@@ -184,7 +194,7 @@ git commit -m "Change message"
 git push origin main
 ```
 
-## Step 9: Observe the GitHub Actions workflow
+## Step 10: Observe the GitHub Actions workflow
 
 Once you have pushed your changes to GitHub, you can observe the GitHub Actions workflow by running the following command:
 
@@ -194,14 +204,14 @@ gh run watch
 
 ...or open the Actions tab on GitHub.
 
-## Step 10: Visit your application
+## Step 11: Visit your application
 
 When the workflow is finished, you can visit the application on the following URL:
 
 `https://<my-app>.intern.dev.nav.no`
 
 
-## Step 11: Epilogue / Cleanup
+## Step 12: Epilogue / Cleanup
 
 When you are done; delete the application by running the following command:
 
