@@ -178,6 +178,8 @@ Congratulations! You have now deployed an application to NAIS. The next step is 
 
 ## Step 7: Configure deployment API key
 
+For the GitHub Actions workflow to be able to deploy your application to NAIS, it needs to be able to authenticate with the NAIS Deploy API. Add our team's API key as a secret in the repository.
+
 ```bash
 gh secret set NAIS_DEPLOY_APIKEY --app actions
 ```
@@ -188,7 +190,7 @@ Paste in your NAIS Deploy API key as the value when asked.
 
 Open the `src/main/kotlin/Main.kt` file and change the `Hello, world!` message to something else.
 
-## Step 8.5: Reset image reference
+## Step 8.5: Reset image reference in `nais.yaml`
 
 Previously we changed the `{{image}}` to point to the image we pushed to our image registry. Now we need to change it back to `{{image}}` so that the GitHub Actions workflow can replace this for us.
 
@@ -222,11 +224,11 @@ When the workflow is finished, you can visit the application on the following UR
 When you are done; delete the application by running the following command:
 
 ```bash
-kubectl delete app <my-app>
+kubectl delete -f nais.yaml
 ```
 
 When you are finished with this guide you can delete your repository:
 
 ```bash
-gh repo delete <my-repo>
+gh repo delete <my-org>/<my-app>
 ```
