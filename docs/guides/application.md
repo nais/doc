@@ -58,6 +58,8 @@ Create your own repo using the `nais/getting-started` as a template.
 
 ```bash
 gh repo create <my-org>/<my-repo> --template nais/getting-started --private --clone
+```
+```bash
 cd <my-app>
 ```
 

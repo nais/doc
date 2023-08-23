@@ -273,4 +273,4 @@ nav:
       - Sikkerhetsloven: legal/sikkerhetsloven.md
   - Guides:
     - Overview: guides/README.md
-    - "101: Your first application": guides/basics.md
+    - "101: Deploying an application": guides/application.md
