@@ -91,6 +91,8 @@ Visit [http://localhost:8080](http://localhost:8080) to see your application run
 
 ## Step 4: Build a docker image with your application
 
+Now that we have a working application, we need to build a docker image with our application in order to run it on NAIS.
+
 Run the following command to build a docker image with your application:
 
 ```bash
@@ -100,6 +102,8 @@ docker image build --platform=linux/amd64 --tag=<my-app> .
 The `--platform=linux/amd64` flag is to instruct Docker to build a image for Linux. The default might not work.
 
 ## Step 5: Push your image to our image registry
+
+To make the image available to NAIS, we need to push it to our image registry. We will use the Google Cloud Container Registry for this.
 
 ### Step 5.1: Configure how Docker authenticates to our image registry
 
