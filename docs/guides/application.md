@@ -33,6 +33,7 @@ You will need the following tools installed on your computer:
 - [ ] [nais-cli](../cli/install.md) - NAIS command-line tool
 - [ ] [gh-cli](https://cli.github.com/) - GitHub command-line tool
 - [ ] [gcloud](https://cloud.google.com/sdk/docs/install) - Google Cloud command-line tool
+- [ ] [JDK](https://adoptium.net) - Java Development Kit - version 17 or higher is recommended
 - [ ] Docker-cli via one of these alternatives
     - [ ] [Colima](https://github.com/abiosoft/colima) - Colima command-line tool (recommended)
     - [ ] [Rancher](https://rancherdesktop.io) - Rancher desktop
