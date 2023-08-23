@@ -15,7 +15,12 @@ NAIS is a platform for running applications in the cloud. It is built on top of 
 Before you get started, you need to make sure you have the following:
 
 - [ ] You have a GitHub account
-- [ ] You have a GCP account
+    - The account should be connected to your GitHub organization (e.g. `navikt`)
+- [ ] You have a Google Cloud Platform account
+    - In most cases this should already be set up so that you can log in with single sign-on
+    - You can check your access by attempting to log in to the [Google Cloud Console](https://console.cloud.google.com). Use the same email address as your work email
+    - If you do not have access, try to request the "Google Cloud Platform" app through [MyApps](https://account.activedirectory.windowsazure.com/r#/addApplications)
+    - If all else fails, please reach out for further assistance
 - [ ] [You have a working nais device](../device/install.md)
 - [ ] [You are part of a NAIS team](../basics/teams.md#managing-your-team)
 - [ ] [You have a NAIS API key](../basics/teams.md#access-to-api-keys)
@@ -27,6 +32,7 @@ You will need the following tools installed on your computer:
 - [ ] [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - Kubernetes command-line tool
 - [ ] [nais-cli](../cli/install.md) - NAIS command-line tool
 - [ ] [gh-cli](https://cli.github.com/) - GitHub command-line tool
+- [ ] [gcloud](https://cloud.google.com/sdk/docs/install) - Google Cloud command-line tool
 - [ ] Docker-cli via one of these alternatives
     - [ ] [Colima](https://github.com/abiosoft/colima) - Colima command-line tool (recommended)
     - [ ] [Rancher](https://rancherdesktop.io) - Rancher desktop
@@ -39,7 +45,7 @@ The main reason for this is that Docker decided to stop their free version for n
 The most used one in NAV (at least for Mac users) is *Colima*, while *Docker Desktop* is the most used for Windows users.
 
 If you want to use Docker Desktop you need give yourself access do Docker hub using [MyApps](https://account.activedirectory.windowsazure.com/r#/addApplications).
-For Colima you can follow the [Getting started](installation guide)-guide.
+For Colima you can follow the [Getting started](https://github.com/abiosoft/colima#getting-started)-guide.
 Remember to run `colima start` before using the Docker-cli.
 
 ### Conventions
@@ -65,8 +71,11 @@ cd <my-app>
 
 ## Step 2: Grant the onboarding team access to your repository
 
-This has to be done in the GitHub UI. 
-Go to your repository and click on `Settings` -> `Collaborators and teams` -> `Add teams`. Select the onboarding team, and grant `write` permission. 
+This has to be done in the GitHub UI.
+
+Go to your repository and click on `Settings` -> `Collaborators and teams` -> `Add teams`.
+
+Select the team named `onboarding`, and grant them the `Write` role.
 
 ## Step 2: Familiarize yourself with the files used
 
@@ -89,11 +98,17 @@ Before proceeding, let's make sure that your application is working. Run the fol
 
 Visit [http://localhost:8080](http://localhost:8080) to see your application running.
 
-## Step 4: Build a docker image with your application
+## Step 4: Build a Docker image with your application
 
-Now that we have a working application, we need to build a docker image with our application in order to run it on NAIS.
+Now that we have a working application, we need to build a Docker image with our application in order to run it on NAIS.
 
-Run the following command to build a docker image with your application:
+First, we need to prepare and package the application so that it can be distributed:
+
+```bash
+./gradlew clean installDist
+```
+
+Then, run the following command to build a Docker image with your application:
 
 ```bash
 docker image build --platform=linux/amd64 --tag=<my-app> .
@@ -131,8 +146,48 @@ docker push europe-north1-docker.pkg.dev/nais-management-233d/onboarding/<my-app
     
 ## Step 6: Manually deploy your application to NAIS
 
-Open the `nais.yaml` file and change the `<my-app>` occurences to the name of your application.
-Also, change the `{{image}}` under `spec.image` to point to the image your just pushed.
+Open the `nais.yaml` file. It should look something like this:
+
+=== "nais.yaml"
+
+    ```yaml hl_lines="6 10-11"
+    apiVersion: nais.io/v1alpha1
+    kind: Application
+    metadata:
+      labels:
+        team: onboarding
+      name: <my-app>
+      namespace: onboarding
+    spec:
+      ingresses:
+        - https://<my-app>.intern.dev.nav.no
+      image: {{image}}
+      port: 8080
+      ttl: 3h
+      replicas:
+        max: 1
+        min: 1
+      resources:
+        requests:
+          cpu: 50m
+          memory: 32Mi
+    ```
+
+For the highlighted lines:
+
+1. Replace all occurrences of `<my-app>` with the name of your application, for example:
+    ```yaml
+    metadata:
+      name: joannas-first
+    spec:
+      ingresses:
+        - https://joannas-first.intern.dev.nav.no
+    ```
+2. Replace the `{{image}}` under `spec.image` to point to the image you just pushed, for example:
+    ```yaml
+    spec:
+      image: europe-north1-docker.pkg.dev/nais-management-233d/onboarding/joannas-first:1
+    ```
 
 Ensure you are connected to the correct cluster (dev-gcp):
 
@@ -172,7 +227,9 @@ kubectl logs -f <my-app>-<random-string>
 
 When the application is running, you can visit the application on the following URL:
 
-`https://<my-app>.intern.dev.nav.no`
+```
+https://<my-app>.intern.dev.nav.no
+```
 
 Congratulations! You have now deployed an application to NAIS. The next step is to automate this process using GitHub Actions.
 
@@ -216,8 +273,9 @@ gh run watch
 
 When the workflow is finished, you can visit the application on the following URL:
 
-`https://<my-app>.intern.dev.nav.no`
-
+```
+https://<my-app>.intern.dev.nav.no
+```
 
 ## Step 12: Epilogue / Cleanup
 
