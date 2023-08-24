@@ -12,6 +12,7 @@ NAIS is a platform for running applications in the cloud. It is built on top of 
 
 ### Prerequisites
 
+#### Access
 Before you get started, you need to make sure you have the following:
 
 - [ ] You have a GitHub account
@@ -25,7 +26,7 @@ Before you get started, you need to make sure you have the following:
 - [ ] [You are part of a NAIS team](../basics/teams.md#managing-your-team)
 - [ ] [You have a NAIS API key](../basics/teams.md#access-to-api-keys)
 
-### Tools required
+#### Tools
 
 You will need the following tools installed on your computer:
 
