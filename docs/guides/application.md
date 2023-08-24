@@ -157,32 +157,30 @@ docker push europe-north1-docker.pkg.dev/nais-management-233d/onboarding/<my-app
 
 Open the `nais.yaml` file. It should look something like this:
 
-=== "nais.yaml"
+```yaml title="nais.yaml" hl_lines="6 10-11" linenums="1"
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  labels:
+    team: onboarding
+  name: <my-app>
+  namespace: onboarding
+spec:
+  ingresses:
+    - https://<my-app>.intern.dev.nav.no
+  image: {{image}}
+  port: 8080
+  ttl: 3h
+  replicas:
+    max: 1
+    min: 1
+  resources:
+    requests:
+      cpu: 50m
+      memory: 32Mi
+```
 
-    ```yaml hl_lines="6 10-11"
-    apiVersion: nais.io/v1alpha1
-    kind: Application
-    metadata:
-      labels:
-        team: onboarding
-      name: <my-app>
-      namespace: onboarding
-    spec:
-      ingresses:
-        - https://<my-app>.intern.dev.nav.no
-      image: {{image}}
-      port: 8080
-      ttl: 3h
-      replicas:
-        max: 1
-        min: 1
-      resources:
-        requests:
-          cpu: 50m
-          memory: 32Mi
-    ```
-
-For the highlighted lines:
+For the highlighted lines (line 6, 10 and 11):
 
 1. Replace all occurrences of `<my-app>` with the name of your application, for example:
     ```yaml
