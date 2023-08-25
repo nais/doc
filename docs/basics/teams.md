@@ -1,15 +1,49 @@
 # Teams
 
-Access to NAIS, including your Kubernetes namespace, GCP projects, or GitHub team, requires a _NAIS team_.
+Access to NAIS is handled by [nais teams][nais-teams] (not to be confused by the video meeting tool Microsoft Teams).
+This is a self service portal to create and manage teams and team members and creates corresponding resources in Kubernetes, GitHub and Google Cloud.
 
-NAIS teams are managed using [NAIS teams](https://teams.nav.cloud.nais.io).
-To access NAIS teams, you must log on to NAIS device with the _nav.no_ tenant.
+```mermaid
+graph LR
+subgraph NAIS
+  subgraph Kubernetes
+    subgraph team-a-ns[Team A\nNamespace]
+    end
 
-Once you are logged in, you can create a team and add or remove members at will.
-Teams and memberships will be immediately propagated to:
-- Kubernetes clusters
-- GitHub
-- Google Cloud (one project per team/environment combination)
+    subgraph team-b-ns[Team B\nNamespace]
+    end
+
+    subgraph team-c-ns[Team C\nNamepsace]
+    end
+  end
+
+  subgraph GCP[Google Cloud]
+    subgraph team-a-project[Team A\n<small>Project</small>]
+    end
+
+    subgraph team-b-project[Team B\n<small>Project<\small>]
+    end
+
+    subgraph team-c-project[Team C\n<small>Project<\small>]
+    end
+  end
+end
+
+team-a-ns --> team-a-project
+team-b-ns --> team-b-project
+team-c-ns --> team-c-project
+```
+
+[nais-teams]: https://teams.nav.cloud.nais.io
+
+To access NAIS teams, you must be using a [naisdevice](../device/README.md) and logging on with your `@nav.no` user account.
+
+Nais teams will create the following resources for each team:
+
+- Namespaces in all Kubernetes cluster environments
+- Google Cloud projects (one project per team/environment combination)
+- Azure AD group (eg. `my-team-name@nav.no`)
+- GitHub team (eg. `@my-team-name`)
 
 ## Creating a new team
 
@@ -23,12 +57,27 @@ The following resources will be generated for the new team:
 * Two GCP projects are provisioned, one for development and one for production. See `https://console.cloud.google.com/home/dashboard?project=<(dev|prod)-yourteamname>`.
 * Namespaces are provisioned in all Kubernetes clusters.
 
-## Managing your team
+## Adding a team member
 
-Team membership is managed in NAIS teams.
+Team membership is managed in NAIS teams. To add a new team member, open NAIS teams in your browser, log in, find the team you want to add a member to, scroll down to the members list and click the "Edit" button.
+
+A new butt
 
 !!! warning
     It is the responsibility of each team to keep the group member roster up to date. This includes removing former team members in a timely fashion.
+
+## Deleting a team
+
+!!! danger
+    Deleting a team is a destructive operation. All resources associated with the team will be deleted, including all data in databases and storage buckets and requires a second owner to confirm the deletion.
+
+To delete a team, open NAIS teams in your browser, log in, find the team you want to delete, and click the "Delete" button.
+You will then be shown a list of resources that will be deleted, and asked to request the deletion of the team.
+
+The team is not deleted yet, a second owner of the team log in to NAIS teams and confirm the deletion of the team using a special link that is shown after the deletion request is made.
+
+Once the second owner has confirmed the deletion all resources associated with the team, as outlined in the [Creating a new team](#creating-a-new-team) section, will be permanently deleted.
+
 
 ## Access to API keys
 
