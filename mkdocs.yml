@@ -121,7 +121,6 @@ nav:
           - Your first NAIS application: basics/application.md
           - Teams: basics/teams.md
           - Access from laptop: basics/access.md
-          - Debugging: basics/debug.md
       - Clusters:
           - Overview: clusters/README.md
           - Google Cloud Platform: clusters/gcp.md
