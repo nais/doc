@@ -8,7 +8,7 @@ NAIS developer guides are practical guides for developers who want to get starte
 
     ---
 
-    Set up your very first NAIS application with a simple `nais.yaml` file.
+    Learn the steps involved in deploying an application to NAIS.
 
     [:octicons-arrow-right-24: Getting started](./application.md)
 
