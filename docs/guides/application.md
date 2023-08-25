@@ -32,6 +32,7 @@ You will need the following tools installed on your computer:
 
 - [ ] [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - Kubernetes command-line tool
 - [ ] [nais-cli](../cli/install.md) - NAIS command-line tool
+    - Run `nais kubeconfig` after installation to generate the configuration that `kubectl` needs.
 - [ ] [gh-cli](https://cli.github.com/) - GitHub command-line tool
 - [ ] [gcloud](https://cloud.google.com/sdk/docs/install) - Google Cloud command-line tool
 - [ ] [JDK](https://adoptium.net) - Java Development Kit
