@@ -90,7 +90,11 @@ Go to your repository and click on `Settings` -> `Collaborators and teams` -> `A
 
 Select the team named `onboarding`, and grant them the `Write` role.
 
-## Step 2: Familiarize yourself with the files used
+Visit [the NAIS Teams page](https://teams.nav.cloud.nais.io/teams/onboarding) for the `onboarding` team and press the `Syncrhonize` button.
+This ensures that the proper permissions are set up by the time you're doing the steps that require them.
+Normally, these are automatically synchronized every 15 minutes.
+
+## Step 3: Familiarize yourself with the files used
 
 Check out the files in your repository to see what they contain.
 
@@ -101,7 +105,7 @@ Check out the files in your repository to see what they contain.
 `.github/workflows/main.yaml` is the GitHub Actions workflow that will build and deploy your application. This file contains the steps that will build your application and deploy it to NAIS. You can read more about the GitHub Actions workflow in the [GitHub Actions documentation](https://docs.github.com/en/actions).
 
 
-## Step 3: Check that your application is working
+## Step 4: Check that your application is working
 
 Before proceeding, let's make sure that your application is working. Run the following command to start your application:
 
@@ -111,7 +115,7 @@ Before proceeding, let's make sure that your application is working. Run the fol
 
 Visit [http://localhost:8080](http://localhost:8080) to see your application running.
 
-## Step 4: Build a Docker image with your application
+## Step 5: Build a Docker image with your application
 
 Now that we have a working application, we need to build a Docker image with our application in order to run it on NAIS.
 
@@ -129,35 +133,35 @@ docker image build --platform=linux/amd64 --tag=<my-app> .
 
 The `--platform=linux/amd64` flag is to instruct Docker to build a image for Linux. The default might not work.
 
-## Step 5: Push your image to our image registry
+## Step 6: Push your image to our image registry
 
 To make the image available to NAIS, we need to push it to our image registry. We will use the Google Cloud Container Registry for this.
 
-### Step 5.1: Configure how Docker authenticates to our image registry
+### Step 6.1: Configure how Docker authenticates to our image registry
 
 ```bash
 gcloud auth configure-docker europe-north1-docker.pkg.dev
 ```
 
-### Step 5.2: Google login
+### Step 6.2: Google login
 
 ```bash
 gcloud auth login --update-adc
 ```
 
-### Step 5.3: Tag your image
+### Step 6.3: Tag your image
 
 ```bash
 docker tag <my-app> europe-north1-docker.pkg.dev/nais-management-233d/onboarding/<my-app>:1
 ```
 
-### Step 5.4: Push your image
+### Step 6.4: Push your image
 
 ```bash
 docker push europe-north1-docker.pkg.dev/nais-management-233d/onboarding/<my-app>:1
 ```
     
-## Step 6: Manually deploy your application to NAIS
+## Step 7: Manually deploy your application to NAIS
 
 Open the `nais.yaml` file. It should look something like this:
 
@@ -244,7 +248,7 @@ https://<my-app>.intern.dev.nav.no
 
 Congratulations! You have now deployed an application to NAIS. The next step is to automate this process using GitHub Actions.
 
-## Step 7: Configure deployment API key
+## Step 8: Configure deployment API key
 
 For the GitHub Actions workflow to be able to deploy your application to NAIS, it needs to be able to authenticate with the NAIS Deploy API. Add our team's API key as a secret in the repository.
 
@@ -254,15 +258,15 @@ gh secret set NAIS_DEPLOY_APIKEY --app actions
 
 Paste in your NAIS Deploy API key as the value when asked.
 
-## Step 8: Make some changes to your application
+## Step 9: Make some changes to your application
 
 Open the `src/main/kotlin/Main.kt` file and change the `Hello, world!` message to something else.
 
-## Step 8.5: Reset image reference in `nais.yaml`
+## Step 9.5: Reset image reference in `nais.yaml`
 
 Previously we changed the `{{image}}` to point to the image we pushed to our image registry. Now we need to change it back to `{{image}}` so that the GitHub Actions workflow can replace this for us.
 
-## Step 9: Commit and push your changes
+## Step 10: Commit and push your changes
 
 ```bash
 git add .
@@ -270,7 +274,7 @@ git commit -m "Change message"
 git push origin main
 ```
 
-## Step 10: Observe the GitHub Actions workflow
+## Step 11: Observe the GitHub Actions workflow
 
 Once you have pushed your changes to GitHub, you can observe the GitHub Actions workflow by running the following command:
 
@@ -280,7 +284,7 @@ gh run watch
 
 ...or open the Actions tab on GitHub.
 
-## Step 11: Visit your application
+## Step 12: Visit your application
 
 When the workflow is finished, you can visit the application on the following URL:
 
@@ -288,7 +292,7 @@ When the workflow is finished, you can visit the application on the following UR
 https://<my-app>.intern.dev.nav.no
 ```
 
-## Step 12: Epilogue / Cleanup
+## Step 13: Epilogue / Cleanup
 
 When you are done; delete the application by running the following command:
 
