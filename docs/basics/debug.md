@@ -1,18 +1,10 @@
 # Debugging
 
-!!! warning "kubectl: version skew"
+!!! info "kubectl: version"
     This feature requires `kubectl` version [1.27](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.27.md) or later.
     
     We require the flag --profile=restricted when using `kubectl debug` and the flag is only supported in `kubectl` 1.27+. 
     At this time, this is the only way to run the ephemeral containers as [non-root and without any capabilities](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/).
-    
-    Currently, our clusters are running on 1.24+.
-    `kubectl` is supported within one minor version (older or newer) of kube-apiserver. 
-    This is called [version skew](https://kubernetes.io/releases/version-skew-policy/#kubectl).
-    Unexpected behavior may occur if you use a version of kubectl that is not within one minor version of your cluster.
-
-    We we recommend installing `kubectl` manually, or through tools like [asdf](https://asdf-vm.com/). 
-    Other installers like `brew`, can make it troublesome to managed the version skew, as it's hard to downgrade kubectl to older versions.
 
 ## `kubectl` debug
 
