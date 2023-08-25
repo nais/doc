@@ -84,11 +84,34 @@ Here is a screenshot of a project using the dependency graph in Dependency-Track
 
 SBOM generation for different [languages/build tools are dictated by Trivy](https://aquasecurity.github.io/trivy/v0.40/docs/scanner/vulnerability/language/)
 
-#### Known limitations
+#### Known limitations and alternatives
 
 Due to Trivy, you will get a flat graph of dependencies. This is because Trivy does not support Gradle's or Maven dependency resolution.
 Trivy parses the .jar files directly and does not have access to the dependency resolution information.
-As an alternative you can use the CycloneDx plugins directly to get a deep graph of nested transitive dependencies.
+We have 2 alternative you can use:
+
+1. Alternative 1 for Gradle users. With this alternative you do not need to add any plugins to your build file. You will get a deep graph of nested transitive dependencies.
+
+!!! Gradle Action
+    Generate a SBOM with the gradle build action.
+
+    ```yaml
+        - uses: gradle/gradle-build-action@v2.6.1
+          with:
+            dependency-graph: generate-and-submit
+            arguments: build
+    ```
+The generated sbom will be located in the ` dependency-graph-reports` directory.
+Then pass the following to your `nais/docker-build-push` action:
+
+    ```yaml
+        -uses: nais/docker-build-push@v0
+         with:
+           byosbom: dependency-graph-reports/deploy-build.json
+    ```
+
+2. Add CycloneDx plugins for a deep graph of nested transitive dependencies for both Gradle and Maven.
+
 
 !!! Gradle Plugin
     Add the following plugin to your `build.gradle*` file.
