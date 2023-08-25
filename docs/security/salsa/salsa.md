@@ -90,9 +90,10 @@ Due to Trivy, you will get a flat graph of dependencies. This is because Trivy d
 Trivy parses the .jar files directly and does not have access to the dependency resolution information.
 Here is 2 alternatives:
 
-1. Alternative 1 for Gradle users. 
+Alternative 1, GitHub workflow for Gradle users. 
 
 No need to add any plugins to your build file. You will get a deep graph of nested transitive dependencies.
+The generated sbom will be located in the ` dependency-graph-reports` directory.
 
 !!! Gradle Action
     Generate a SBOM with the gradle build action.
@@ -110,10 +111,7 @@ No need to add any plugins to your build file. You will get a deep graph of nest
            byosbom: dependency-graph-reports/deploy-build.json
     ```
 
-The generated sbom will be located in the ` dependency-graph-reports` directory.
-
-2. Add CycloneDx plugins for a deep graph of nested transitive dependencies for both Gradle and Maven.
-
+Alternative 2, Gradle and Maven plugins for a deep graph of nested transitive dependencies.
 
 !!! Gradle Plugin
     Add the following plugin to your `build.gradle*` file.
