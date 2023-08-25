@@ -55,6 +55,7 @@ The main reason for this is that Docker decided to stop their free version for n
 The most used one in NAV (at least for Mac users) is *Colima*, while *Docker Desktop* is the most used for Windows users.
 
 If you want to use Docker Desktop you need give yourself access do Docker hub using [MyApps](https://account.activedirectory.windowsazure.com/r#/addApplications).
+
 For Colima you can follow the [Getting started](https://github.com/abiosoft/colima#getting-started)-guide.
 Remember to run `colima start` before using the Docker-cli.
 
@@ -70,7 +71,9 @@ Throughout this guide, we will use the following conventions:
 
 ## Step 1: Create your own GitHub repository
 
-Create your own repo using the `nais/getting-started` as a template.
+Create your own repo using the [nais/getting-started](https://github.com/nais/getting-started/) as a template.
+
+You create a new repository through either the [GitHub UI](https://github.com/new?template_name=getting-started&template_owner=nais) or through the GitHub CLI:
 
 ```bash
 gh repo create <my-org>/<my-repo> --template nais/getting-started --private --clone
