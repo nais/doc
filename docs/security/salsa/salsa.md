@@ -88,9 +88,11 @@ SBOM generation for different [languages/build tools are dictated by Trivy](http
 
 Due to Trivy, you will get a flat graph of dependencies. This is because Trivy does not support Gradle's or Maven dependency resolution.
 Trivy parses the .jar files directly and does not have access to the dependency resolution information.
-We have 2 alternative you can use:
+Here is 2 alternatives:
 
-1. Alternative 1 for Gradle users. With this alternative you do not need to add any plugins to your build file. You will get a deep graph of nested transitive dependencies.
+1. Alternative 1 for Gradle users. 
+
+No need to add any plugins to your build file. You will get a deep graph of nested transitive dependencies.
 
 !!! Gradle Action
     Generate a SBOM with the gradle build action.
@@ -101,14 +103,14 @@ We have 2 alternative you can use:
             dependency-graph: generate-and-submit
             arguments: build
     ```
-The generated sbom will be located in the ` dependency-graph-reports` directory.
-Then pass the following to your `nais/docker-build-push` action:
 
     ```yaml
         -uses: nais/docker-build-push@v0
          with:
            byosbom: dependency-graph-reports/deploy-build.json
     ```
+
+The generated sbom will be located in the ` dependency-graph-reports` directory.
 
 2. Add CycloneDx plugins for a deep graph of nested transitive dependencies for both Gradle and Maven.
 
@@ -173,7 +175,7 @@ Then pass the following to your `nais/docker-build-push` action:
     ```
     For more info about settings check out the [CycloneDx Maven Plugin](https://github.com/CycloneDX/cyclonedx-maven-plugin)
 
-##### Use nais/attest-sign directly
+#### Use nais/attest-sign directly
 
 When using the `nais/attest-sign` action. You can pass the SBOM to the action with the following input:
 
