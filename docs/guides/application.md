@@ -290,7 +290,7 @@ https://<my-app>.intern.dev.nav.no
 When you are done; delete the application by running the following command:
 
 ```bash
-kubectl delete -f nais.yaml
+kubectl delete app <my-app>
 ```
 
 When you are finished with this guide you can delete your repository:
