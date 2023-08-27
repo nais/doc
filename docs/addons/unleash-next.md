@@ -1,8 +1,5 @@
 # Unleash Next
 
-!!! note
-    This is a work in progress, and is not yet available for use. If you want to help out, please contact us in [#unleash](https://nav-it.slack.com/archives/C9BPTSULS)!
-
 ## What is Unleash?
 
 Unleash is a feature toggle system, that gives you a great overview of all feature toggles across all your applications and services. It comes with official client implementations for Java, Node.js, Go, Ruby, Python and .Net.
