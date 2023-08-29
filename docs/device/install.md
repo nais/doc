@@ -89,12 +89,14 @@
 1. [Install Kolide agent](install.md#install-kolide-agent).
 2. Add the nais PPA repo:
     ``` 
-    NAIS_GPG_KEY="/usr/share/keyrings/nav_nais.gpg"
-    curl -sfSL "https://ppa.nais.io/KEY.gpg" | gpg --dearmor | sudo dd of="$NAIS_GPG_KEY"
-    echo "deb [signed-by=$NAIS_GPG_KEY] https://ppa.nais.io/ ./" | sudo tee /etc/apt/sources.list.d/nav_nais.list
-    sudo apt update # Now you can apt install naisdevice
+    NAIS_GPG_KEY="/etc/apt/keyrings/nav_nais_gar.gpg"
+    curl -sfSL "https://europe-north1-apt.pkg.dev/doc/repo-signing-key.gpg" | sudo dd of="$NAIS_GPG_KEY"
+    echo "deb [signed-by=$NAIS_GPG_KEY] https://europe-north1-apt.pkg.dev/projects/nais-io nais-ppa main" | sudo tee /etc/apt/sources.list.d/nav_nais_gar.list
+    sudo apt update
     ```
+
     **NOTE**  curl is not installed in a "fresh" ubuntu:
+   
     ```
     sudo apt install curl
     ``` 
