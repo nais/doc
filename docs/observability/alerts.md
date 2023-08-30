@@ -51,7 +51,6 @@ You can see the alerts in the Alertmanager at `https://alertmanager.<environment
 A message will be automatically sent when the alert is resolved. In some cases this message may be unnecessary and can be disabled by adding the label `send_resolved: "false"`:
 
 ```yaml
-      ...
       labels:
         namespace: <team namespace> # required
         severity: info
