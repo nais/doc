@@ -46,6 +46,17 @@ This file should be added to your application repository, alongside `nais.yaml` 
 
 You can see the alerts in the Alertmanager at `https://alertmanager.<environment>.nav.cloud.nais.io/` and the defined rules in Prometheus at `https://prometheus.<environment>.nav.cloud.nais.io/rules`
 
+### Send resolved
+
+A message will be automatically sent when the alert is resolved. In some cases this message may be unnecessary and can be disabled by adding the label `send_resolved: "false"`:
+
+```
+      ...
+      labels:
+        namespace: <team namespace> # required
+        severity: info
+        send_resolved: "false"
+```
 
 ### Deployment
 
