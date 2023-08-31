@@ -41,9 +41,9 @@ You can inspect the heap dumps with tools like JProfiler, VisualVM or IntelliJ.
 
 !!! info "kubectl: version"
     
-    This feature requires `kubectl` version [1.27](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.27.md) or later.
+    This feature requires `kubectl` version [1.28](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.28.md) or later.
 
-    We require the flag --profile=restricted when using `kubectl debug` and the flag is only supported in `kubectl` 1.27+. 
+    Nais requires the flag --profile=restricted when using `kubectl debug` and the flag is only supported in `kubectl` 1.28+. 
     At this time, this is the only way to run the ephemeral containers as [non-root and without any capabilities](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/).
 
 Ephemeral container is a temporary container that can be added to an existing pod to perform a specific task, such as
@@ -69,9 +69,6 @@ Defaulting debug container name to debugger-lrmqq.
 If you don't see a command prompt, try pressing enter.
 ~ $ 
 ```
-
-The `--profile=restricted` flag is required to run the ephemeral container as a non-root user and without any
-capabilities.
 
 ## Attach `kubectl`
 
