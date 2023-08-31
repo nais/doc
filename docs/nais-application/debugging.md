@@ -54,17 +54,22 @@ container is useful when `kubectl exec` is insufficient because a container
 has crashed or a container image doesn't include debugging utilities.
 
 To run an ephemeral container in a pod, use the `kubectl debug` command.
+
+!!! info "kubectl: --image"
+
+    The specified --image cant have more capabilities than the pod it is attached to and must be able to run as non-root.
+
 The following example starts a shell in a new ephemeral container named `debugger-id` in the `my-pod-name` pod:
 
 ```bash
-kubectl debug -it my-pod-name --image="busybox:latest" --profile=restricted -- sh
+kubectl debug -it my-pod-name --image="cgr.dev/chainguard/busybox:latest" --profile=restricted -- sh
 ```
 
 Once the ephemeral container is created, you will be presented with a shell prompt. Then run some diagnostic commands
 and inspect the container’s environment, or modify the container’s configuration to debug the issue.
 
 ```text
-kubectl debug -it my-pod-name --image="busybox:latest" --profile=restricted -- sh
+kubectl debug -it my-pod-name --image="cgr.dev/chainguard/busybox:latest" --profile=restricted -- sh
 Defaulting debug container name to debugger-lrmqq.
 If you don't see a command prompt, try pressing enter.
 ~ $ 
