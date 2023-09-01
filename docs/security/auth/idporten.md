@@ -81,9 +81,12 @@ This is reflected in the `acr` claim for the user's JWTs issued by ID-porten.
 
     The most substantial change is the **new values for the `acr` claim**, shown in the table below.
 
-    The sidecar accepts both the old and new values to ease migration, though you should use the newer values when possible.
+    The sidecar accepts both the old and new values in `nais.yaml` and in the `level` query parameter to ease migration, though you should use the newer values when possible.
 
-    The sidecar __cannot__ modify the `acr` value within the token itself. If your application validates or uses the `acr` claim found in the JWT in any way, it **must** allow both the old and new values until after migration.
+    The sidecar __cannot__ modify the `acr` value within the token itself. This means:
+
+    - If your application validates or uses the `acr` claim found in the JWT, it should accept both old and new values until the migration is complete.
+    - It is recommended to accept both old and new values _before_ the migration takes place to ensure that nothing breaks.
 
 Valid values, in increasing order of assurance levels:
 

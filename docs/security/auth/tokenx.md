@@ -343,9 +343,9 @@ For example, the claim used for the national identity number (_fødselsnummer_) 
     See the ["security levels" section in our ID-porten documentation](idporten.md#security-levels) for details.
 
     In order to ease migration, TokenX will automatically map the `acr` claim from new values to the old values for exchanged ID-porten tokens.
-    This is however a **temporary** solution, which we will remove some time later in 2024 after the migration is complete.
+    This is however a **temporary** solution, which we will remove some time down the line.
 
-    **If your application validates or otherwise uses the value found in the `acr` claim, you should ensure that both new and old values are accepted until the temporary mapping is removed.**
+    **If your application validates or otherwise uses the value found in the `acr` claim, we recommend your application is configured to allow both the old and new values already now.**
 
     The value in the `idp` claim for tokens from ID-porten will also change:
 
