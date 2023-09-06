@@ -104,7 +104,7 @@ Enabling TokenX will expose the following runtime environment variables and file
 
     The well-known URL for the OAuth 2.0 Token Exchange authorization server (in this case, Tokendings) [metadata document](concepts/actors.md#well-known-url-metadata-document).
 
-    Example value: `https://tokendings.dev-gcp.nais.io/.well-known/oauth-authorization-server`
+    Example value: `https://tokenx.dev-gcp.nav.cloud.nais.io/.well-known/oauth-authorization-server`
 ---
 
 #### `TOKEN_X_CLIENT_ID`
@@ -149,7 +149,7 @@ Enabling TokenX will expose the following runtime environment variables and file
 
     `issuer` from the [metadata discovery document](concepts/actors.md#issuer).
 
-    Example value: `https://tokendings.dev-gcp.nais.io`
+    Example value: `https://tokenx.dev-gcp.nav.cloud.nais.io`
 
 ---
 
@@ -159,7 +159,7 @@ Enabling TokenX will expose the following runtime environment variables and file
 
     `jwks_uri` from the [metadata discovery document](concepts/actors.md#jwks-endpoint-public-keys).
 
-    Example value: `https://tokendings.dev-gcp.nais.io/jwks`
+    Example value: `https://tokenx.dev-gcp.nav.cloud.nais.io/jwks`
 
 ---
 
@@ -169,7 +169,7 @@ Enabling TokenX will expose the following runtime environment variables and file
 
     `token_endpoint` from the [metadata discovery document](concepts/actors.md#token-endpoint).
 
-    Example value: `https://tokendings.dev-gcp.nais.io/token`
+    Example value: `https://tokenx.dev-gcp.nav.cloud.nais.io/token`
 
 ---
 
@@ -181,15 +181,15 @@ In other words, you must create a [JWT](concepts/tokens.md#jwt) that is signed b
 
 The assertion **must** contain the following claims:
 
-| Claim     | Example Value                              | Description                                                                                                                                                                                                                          |
-|:----------|:-------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **`sub`** | `dev-gcp:aura:app-a`                       | The _subject_ of the token. Must be set to your application's own [`client_id`](tokenx.md#token_x_client_id).                                                                                                                        |
-| **`iss`** | `dev-gcp:aura:app-a`                       | The _issuer_ of the token. Must be set to your application's own [`client_id`](tokenx.md#token_x_client_id).                                                                                                                         |
-| **`aud`** | `https://tokendings.dev-gcp.nais.io/token` | The _audience_ of the token. Must be set to the `token_endpoint` of [Tokendings](https://github.com/nais/tokendings). The value of this exists in the metadata found at the [well-known endpoint](tokenx.md#token_x_well_known_url). |
-| **`jti`** | `83c580a6-b479-426d-876b-267aa9848e2f`     | The _JWT ID_ of the token. Used to uniquely identify a token. Set this to a UUID or similar.                                                                                                                                         |
-| **`nbf`** | `1597783152`                               | `nbf` stands for _not before_. It identifies the time \(seconds after Epoch\) before which the JWT MUST NOT be accepted for processing.                                                                                              |
-| **`iat`** | `1597783152`                               | `iat` stands for _issued at_. It identifies the time \(seconds after Epoch\) in which the JWT was issued \(or created\).                                                                                                             |
-| **`exp`** | `1597783272`                               | `exp` is the _expiration time_ \(seconds after Epoch\) of the token. This **must** not be more than **120** seconds after `nbf` and `iat`. That is, the maximum lifetime of the token must be no greater than **120 seconds**.       |
+| Claim     | Example Value                                    | Description                                                                                                                                                                                                                          |
+|:----------|:-------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **`sub`** | `dev-gcp:aura:app-a`                             | The _subject_ of the token. Must be set to your application's own [`client_id`](tokenx.md#token_x_client_id).                                                                                                                        |
+| **`iss`** | `dev-gcp:aura:app-a`                             | The _issuer_ of the token. Must be set to your application's own [`client_id`](tokenx.md#token_x_client_id).                                                                                                                         |
+| **`aud`** | `https://tokenx.dev-gcp.nav.cloud.nais.io/token` | The _audience_ of the token. Must be set to the `token_endpoint` of [Tokendings](https://github.com/nais/tokendings). The value of this exists in the metadata found at the [well-known endpoint](tokenx.md#token_x_well_known_url). |
+| **`jti`** | `83c580a6-b479-426d-876b-267aa9848e2f`           | The _JWT ID_ of the token. Used to uniquely identify a token. Set this to a UUID or similar.                                                                                                                                         |
+| **`nbf`** | `1597783152`                                     | `nbf` stands for _not before_. It identifies the time \(seconds after Epoch\) before which the JWT MUST NOT be accepted for processing.                                                                                              |
+| **`iat`** | `1597783152`                                     | `iat` stands for _issued at_. It identifies the time \(seconds after Epoch\) in which the JWT was issued \(or created\).                                                                                                             |
+| **`exp`** | `1597783272`                                     | `exp` is the _expiration time_ \(seconds after Epoch\) of the token. This **must** not be more than **120** seconds after `nbf` and `iat`. That is, the maximum lifetime of the token must be no greater than **120 seconds**.       |
 
 Additionally, the headers of the assertion must contain the following parameters:
 
