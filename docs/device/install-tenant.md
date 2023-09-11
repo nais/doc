@@ -132,6 +132,6 @@ And otherwise: Just be nais.
 1. Install `nais-cli` by following the [installation instructions](/cli/install.md).
 1. Install `gcloud` by following the [installation instructions](https://cloud.google.com/sdk/docs/install).
 1. Install `kubectl` by following the [installation instructions](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
-1. Login to gcloud by running `gcloud auth login --update-adc`.
+1. Login to gcloud by running `gcloud auth application-default login`.
 1. Run `nais naas kubeconfig` to generate a kubeconfig for all NAIS clusters in the default directory (`~/.kube/config`).
    - If you want to generate the kubeconfig in a different directory, you can specify the environment variable `KUBECONFIG` to point to the desired location.

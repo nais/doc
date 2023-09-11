@@ -146,7 +146,7 @@ gcloud auth configure-docker europe-north1-docker.pkg.dev
 ### Step 6.2: Google login
 
 ```bash
-gcloud auth login --update-adc
+gcloud auth application-default login
 ```
 
 ### Step 6.3: Tag your image

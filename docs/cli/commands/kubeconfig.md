@@ -2,7 +2,7 @@
 
 Create a kubeconfig file for connecting to available clusters for you.
 This requires that you have the gcloud command line tool installed, configured and logged in.
-You can log in with `gcloud auth login --update-adc`.
+You can log in with `gcloud auth application-default login`.
 
 ```bash
 nais kubeconfig

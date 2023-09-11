@@ -33,7 +33,7 @@ docker-compose up --detach --build && open localhost:8080
 ### First, ensure you're logged into GCP
 
 ```shell
-gcloud auth login --update-adc
+gcloud auth application-default login
 ```
 
 #### Then, run `terraform`

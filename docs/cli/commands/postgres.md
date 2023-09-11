@@ -29,7 +29,7 @@ nais postgres proxy --context dev-gcp --namespace dreamteam
     Run the following command first before running any of the other commands:
     
     ```
-    gcloud auth login --update-adc
+    gcloud auth application-default login
     ```
 
 ## prepare
