@@ -78,8 +78,8 @@ Note: All timeout values are unitless and in seconds e.g. `nginx.ingress.kuberne
 
 ## WebSockets Support
 
-!!! note "Not supported in NAV"
-    The combination of Linkerd sidecars and nginx ingress controller, makes WebSockets unsupported in NAV.
+!!! note "Not supported in NAV GCP"
+    The combination of Linkerd sidecars and nginx ingress controller, makes WebSockets unsupported in NAVs GCP-clusters.
 
 Support for websockets is provided by nginx ingress controller out of the box. No special configuration required.
 
