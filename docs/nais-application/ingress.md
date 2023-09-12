@@ -203,7 +203,7 @@ spec:
   ...
 ```
 
-To keep personal identifiable information out of access logs use POST data instead or switch to unique identifiers such as universally unique identifier (UUID).
+To keep personal identifiable information out of access logs use POST data instead or switch to user identifiers that are unique to your application or domain.
 
 ### Some debugging tips
 
