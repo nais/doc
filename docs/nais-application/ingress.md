@@ -78,6 +78,9 @@ Note: All timeout values are unitless and in seconds e.g. `nginx.ingress.kuberne
 
 ## WebSockets Support
 
+!!! note "Not supported in NAV"
+    The combination of Linkerd sidecars and nginx ingress controller, makes WebSockets unsupported in NAV.
+
 Support for websockets is provided by nginx ingress controller out of the box. No special configuration required.
 
 The only requirement to avoid the close of connections is the increase of the values of `proxy-read-timeout` and `proxy-send-timeout`.
