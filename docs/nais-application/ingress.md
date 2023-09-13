@@ -184,6 +184,27 @@ If you want to find specific HTTP methods, you can add the following filter:
 
 * `AND message: GET*` (replace `GET` with the HTTP method you want to filter out)
 
+### Disable _your_ access logs
+
+!!! note "Not reccomended"
+    Running without access logs is not reccomended and will limit your ability to audit or debug connection problems with your application.
+
+In some cases (such as legcay applications that are using personally identifiable information as URL parameters) you might want to disable access logs for a given application. This can be done by setting the following annotation in your nais yaml:
+
+```yaml
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: myapplication
+  namespace: myteam
+  annotations:
+    nginx.ingress.kubernetes.io/enable-access-log: "false"
+spec:
+  ...
+```
+
+To keep personal identifiable information out of access logs use POST data instead or switch to user identifiers that are unique to your application or domain.
+
 ### Some debugging tips
 
 If `response_code` and `x_upstream_status` are the same it means that the application returned this response code – not nginx. Look in the logs for the corresponding application, this is not a problem with nginx.
