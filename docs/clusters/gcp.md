@@ -49,6 +49,7 @@ You can control from where you application is reachable by selecting the appropr
 | ekstern.dev.nav.no | internet                          | development ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
 | intern.dev.nav.no  | [naisdevice](../device/README.md) and NAV internal networks | development ingress for non-public/internet-facing applications                                                               |
 
+
 ### prod-gcp ingresses
 
 | domain        | accessible from                   | description                                                                                                                                                                              |
@@ -56,7 +57,22 @@ You can control from where you application is reachable by selecting the appropr
 | nav.no        | internet                          | subdomains are manually configured, contact at \#tech-sikkerhet. Ingresses on `nav.no/*` are automatically available. URLs containing `/metrics`, `/actuator` or `/internal` are blocked |
 | intern.nav.no | [naisdevice](../device/README.md) | used by non-public/internet-facing applications \(previously called adeo.no\).                                                                                                           |
 
+
 You can also learn about [how DNS is configured.](../appendix/ingress-dns.md)
+
+## Outbound addresses
+If you communicate with a third party that allows traffic based on IP, these are the addresses your application will come from.
+
+### dev-gcp egress
+35.228.4.248
+34.88.219.93
+35.228.165.176
+
+### prod-gcp egress
+35.228.235.189
+35.228.12.134
+35.228.189.194
+
 
 ## ROS and PVK
 
