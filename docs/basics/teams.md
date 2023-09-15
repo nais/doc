@@ -61,7 +61,7 @@ The following resources will be generated for the new team:
 
 Team membership is managed in NAIS teams. To add a new team member, open NAIS teams in your browser, log in, find the team you want to add a member to, scroll down to the members list and click the "Edit" button.
 
-A new butt
+A new button 'Add member' will appear, click it to add a new member.
 
 !!! warning
     It is the responsibility of each team to keep the group member roster up to date. This includes removing former team members in a timely fashion.

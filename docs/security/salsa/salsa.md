@@ -93,22 +93,27 @@ Here is 2 alternatives:
 Alternative 1, GitHub workflow for Gradle users. 
 
 No need to add any plugins to your build file. You will get a deep graph of nested transitive dependencies.
-The generated sbom will be located in the ` dependency-graph-reports` directory.
+The generated sbom will be located in the ` dependency-graph-reports` directory. 
+The action requires `contents: write` permission.
 
 !!! Gradle Action
     Generate a SBOM with the gradle build action.
 
     ```yaml
-        - uses: gradle/gradle-build-action@v2.6.1
-          with:
-            dependency-graph: generate-and-submit
-            arguments: build
+     permissions:
+        contents: write
     ```
 
     ```yaml
-        -uses: nais/docker-build-push@v0
-         with:
-           byosbom: dependency-graph-reports/deploy-build.json
+        ...
+        - uses: gradle/gradle-build-action@v2.x.x
+          with:
+            dependency-graph: generate-and-submit
+            arguments: build
+        - uses: nais/docker-build-push@v0
+          with:
+            byosbom: dependency-graph-reports/deploy-build.json
+            ....
     ```
 
 Alternative 2, Gradle and Maven plugins for a deep graph of nested transitive dependencies.
