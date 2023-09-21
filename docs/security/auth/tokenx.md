@@ -117,7 +117,6 @@ These variables are used for [token validation](tokenx.md#token-validation):
 | `TOKEN_X_CLIENT_ID`      | [Client ID](concepts/actors.md#client-id) that uniquely identifies the application in TokenX.               |
 | `TOKEN_X_WELL_KNOWN_URL` | The URL for Tokendings' [metadata discovery document](concepts/actors.md#well-known-url-metadata-document). |
 | `TOKEN_X_ISSUER`         | `issuer` from the [metadata discovery document](concepts/actors.md#issuer).                                 |
-| `TOKEN_X_TOKEN_ENDPOINT` | `token_endpoint` from the [metadata discovery document](concepts/actors.md#token-endpoint).                 |
 | `TOKEN_X_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](concepts/actors.md#jwks-endpoint-public-keys).            |
 
 ### Client Authentication
@@ -258,7 +257,6 @@ Configure your app with the OAuth 2.0 Authorization Server Metadata found at the
 Alternatively, use the resolved values from said endpoint for convenience:
 
 - [`TOKEN_X_ISSUER`](tokenx.md#variables-for-validating-tokens)
-- [`TOKEN_X_TOKEN_ENDPOINT`](tokenx.md#variables-for-validating-tokens)
 - [`TOKEN_X_JWKS_URI`](tokenx.md#variables-for-validating-tokens)
 
 #### Signature Verification
@@ -276,7 +274,7 @@ The following claims are by default provided in the issued token and should expl
 * `iss` \(**issuer**\): The issuer of the token **must match exactly** with the Tokendings issuer URI ([`TOKEN_X_ISSUER`](tokenx.md#variables-for-validating-tokens)).
 * `aud` \(**audience**\): The intended audience for the token, **must match** your application's `client_id` ([`TOKEN_X_CLIENT_ID`](tokenx.md#variables-for-validating-tokens)).
 * `exp` \(**expiration time**\): Expiration time, i.e. tokens received after this date **must be rejected**.
-* `nbf` \(**not before time**\): The token cannot be used before this time, i.e. if the token is issued in the "future" \(outside "reasonable" clock skew\) it **must be rejected**.
+* `nbf` \(**not before time**\): The token cannot be used before this time, i.e. if the token is issued in the "future" (outside "reasonable" clock skew) it **must be rejected**.
 * `iat` \(**issued at time**\): The time at which the token has been issued. **Must be before `exp`**.
 * `sub` \(**subject**\): If applicable, used in user centric access control. This represents a unique identifier for the user.
 
@@ -302,7 +300,7 @@ For example, the claim used for the personal identifier (_personidentifikator_) 
     | `https://oidc-ver2.difi.no/idporten-oidc-provider/` | `https://test.idporten.no` |
     | `https://oidc.difi.no/idporten-oidc-provider/`      | `https://idporten.no`      |
 
-#### Example Token \(exchanged from ID-porten\)
+#### Example Token (exchanged from ID-porten)
 
 The following example shows the claims of a token issued by Tokendings, where the exchanged subject token is issued by [ID-porten](idporten.md):
 
