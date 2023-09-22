@@ -63,7 +63,7 @@ Below is a list of the different storage options available to you.
 | [Elasticsearch](#elasticsearch) | Document    |       ⚠️       |     All      |  Yes   |
 | [OpenSearch](#opensearch)       | Document    |       ✅        |     All      |  Yes   |
 | [Redis](#redis)                 | Key/Value   |       ✅        |     All      |  Yes   |
-| [InfluxDB](#influxdb)           | Time Series |       ⚠️       |     All      |  Yes   |
+| [InfluxDB](#influxdb)           | Time Series |       ✅        |     All      |  Yes   |
 | [IBM MQ](#ibm-mq)               | Message     |       ⚠️       |     All      |  Yes*  |
 
 \* Data is highly available and fault-tolerant but not backed up if deleted by
@@ -91,7 +91,7 @@ Cloud SQL is a PostgreSQL relational database service that is provided by Google
 Cloud Platform. It is a good choice for storing data that is relational in
 nature.
 
-[:octicons-arrow-right-24: Getting started with Cloud Storage](./postgres.md)
+[:octicons-arrow-right-24: Getting started with Cloud SQL](./postgres.md)
 
 ## BigQuery
 
@@ -117,11 +117,6 @@ a good choice for storing data that is not relational in nature.
 [:octicons-arrow-right-24: Getting started with Redis](./redis.md)
 
 ## InfluxDB
-
-!!! warning "Deprecated"
-
-    InfluxDB is deprecated and will be removed in the future. For many use cases
-    [BigQuery](#bigquery) will be a suitable replacement.
 
 InfluxDB is a time series database that is used for storing and querying data.
 It is a good choice for storing data that is not relational in nature.

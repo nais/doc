@@ -174,8 +174,8 @@ Most of the client libraries (see list above), includes libraries for generating
 
 ## Retention
 
-When using Prometheus the retention is 16 weeks for prod, and 4 weeks for dev.
-If you need data stored longer then what Prometheus support, we recommend using your own [Aiven Influxdb](/persistence/influxdb).
+When using Prometheus the retention is 4 weeks.
+If you need data stored longer than what Prometheus support, we recommend using [BigQuery](/persistence/bigquery) or your own [Aiven Influxdb](/persistence/influxdb).
 Then you have full control of the database and retention.
 
 ## Metric naming

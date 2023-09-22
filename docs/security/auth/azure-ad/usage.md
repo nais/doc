@@ -249,3 +249,106 @@ The following environment variables and files \(under the directory `/var/run/se
     `token_endpoint` from the [metadata discovery document](../concepts/actors.md#token-endpoint).
 
     Example value: `https://login.microsoftonline.com/77678b69-1daf-47b6-9072-771d270ac800/oauth2/v2.0/token`
+
+
+## Local Development
+
+See also the [development overview](../overview/development.md) page.
+
+### Token Generator
+
+In many cases, you want to locally develop and test against a secured API (or [resource server](../concepts/actors.md#resource-server)) in the development environments.
+To do so, you need a [token](../concepts/tokens.md#bearer-token) in order to access said API.
+
+The services below can be used in order to generate tokens in the development environments.
+
+=== "trygdeetaten.no"
+
+      The service is available at <https://azure-token-generator.intern.dev.nav.no>.
+
+=== "nav.no"
+
+      The service is available at <https://azure-token-generator-nav.intern.dev.nav.no>.
+
+#### Prerequisites
+
+=== "trygdeetaten.no"
+
+      1. You will need a [trygdeetaten.no](../azure-ad/concepts.md#tenants) user in order to access the service.
+      2. The API application must be configured with [Azure enabled](../azure-ad/configuration.md) in the matching `trygdeetaten.no` tenant.
+      3. Pre-authorize the token generator service by adding it to the API application's [access policy](../azure-ad/access-policy.md#pre-authorization):
+       ```yaml
+       spec:
+         accessPolicy:
+           inbound:
+             rules:
+               - application: azure-token-generator
+                 namespace: aura
+                 cluster: dev-gcp
+       ```
+
+=== "nav.no"
+
+      1. You will need a [nav.no](../azure-ad/concepts.md#tenants) user in order to access the service.
+      2. The API application must be configured with [Azure enabled](../azure-ad/configuration.md) in the matching `nav.no` tenant.
+      3. Pre-authorize the token generator service by adding it to the API application's [access policy](../azure-ad/access-policy.md#pre-authorization):
+       ```yaml
+       spec:
+         accessPolicy:
+           inbound:
+             rules:
+               - application: azure-token-generator-nav
+                 namespace: aura
+                 cluster: dev-gcp
+       ```
+
+#### Getting a token
+
+The Azure AD token generator supports two use cases:
+
+1. The [on-behalf-of grant](../azure-ad/usage.md#oauth-20-on-behalf-of-grant) - for getting a token on-behalf-of a logged in end-user.
+2. The [client credentials grant](../azure-ad/usage.md#oauth-20-client-credentials-grant) - for getting a machine-to-machine token.
+
+Choose your use case:
+
+=== "trygdeetaten.no"
+
+      1. For _on-behalf-of_: visit <https://azure-token-generator.intern.dev.nav.no/api/obo?aud=&lt;audience&gt;> in your browser.
+      2. For _client credentials_: visit <https://azure-token-generator.intern.dev.nav.no/api/m2m?aud=&lt;audience&gt;> in your browser.
+
+=== "nav.no"
+
+      1. For _on-behalf-of_: visit <https://azure-token-generator-nav.intern.dev.nav.no/api/obo?aud=&lt;audience&gt;> in your browser.
+      2. For _client credentials_: visit <https://azure-token-generator-nav.intern.dev.nav.no/api/m2m?aud=&lt;audience&gt;> in your browser.
+
+Then:
+
+1. Replace `<audience>` with the intended _audience_ of the token, in this case the API application.
+    - The audience value must be on the form of `<cluster>:<namespace>:<application>`
+    - For example: `dev-gcp:aura:my-app`
+2. You will be redirected to log in at Azure AD (if not already logged in).
+3. After logging in, you should be redirected back to the token generator and presented with a JSON response containing an `access_token`.
+4. Use the `access_token` as a [Bearer token](../concepts/tokens.md#bearer-token) for calls to your API application.
+5. Success!
+
+### Test Clients
+
+If mocking isn't sufficient, we also maintain some test clients for use in local development environments.
+
+Note that the associated credentials may be rotated at any time.
+
+As developers, you're responsible for treating these credentials as secrets. Never commit or distribute these to
+version control or expose them to publicly accessible services.
+
+Credentials are found in Vault under [/secrets/secret/.common/azure](https://vault.adeo.no/ui/vault/secrets/secret/list/.common/azure/)
+
+The clients are configured with the following redirect URIs:
+
+- `http://localhost:3000/oauth2/callback`
+
+The clients are [pre-authorized](../azure-ad/access-policy.md#pre-authorization) as follows:
+
+- `test-app-1` is pre-authorized for `test-app-2`
+- `test-app-2` is pre-authorized for `test-app-3`
+
+They are otherwise equal to a [default client](../azure-ad/configuration.md).

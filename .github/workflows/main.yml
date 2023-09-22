@@ -1,5 +1,9 @@
 name: CI
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
     paths:
@@ -14,7 +18,7 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -41,7 +45,7 @@ jobs:
 
       # Synchronize doctree with Google Cloud Bucket
       - if: github.ref == 'refs/heads/main'
-        uses: actions-hub/gcloud@437.0.1
+        uses: actions-hub/gcloud@445.0.0
         env:
           PROJECT_ID: aura-prod-d7e3
           APPLICATION_CREDENTIALS: ${{ secrets.GCP_SERVICEACCOUNT_KEY_FOR_DOC_NAIS_IO_BUCKET }}
@@ -51,7 +55,7 @@ jobs:
 
       # Cache buster
       - if: github.ref == 'refs/heads/main'
-        uses: actions-hub/gcloud@437.0.1
+        uses: actions-hub/gcloud@445.0.0
         env:
           PROJECT_ID: aura-prod-d7e3
           APPLICATION_CREDENTIALS: ${{ secrets.GCP_SERVICEACCOUNT_KEY_FOR_DOC_NAIS_IO_BUCKET }}

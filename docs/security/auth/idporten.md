@@ -60,7 +60,6 @@ The following environment variables and files (under the directory `/var/run/sec
 | Name                      | Description                                                                                                      |
 |:--------------------------|:-----------------------------------------------------------------------------------------------------------------|
 | `IDPORTEN_AUDIENCE`       | The expected [audience](concepts/tokens.md#token-validation) for access tokens from ID-porten.                   |
-| `IDPORTEN_CLIENT_ID`      | [Client ID](concepts/actors.md#client-id) that uniquely identifies the application in ID-porten.                 |
 | `IDPORTEN_WELL_KNOWN_URL` | The URL for ID-porten's [OIDC metadata discovery document](concepts/actors.md#well-known-url-metadata-document). |
 | `IDPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](concepts/actors.md#issuer).                                      |
 | `IDPORTEN_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](concepts/actors.md#jwks-endpoint-public-keys).                 |
@@ -82,9 +81,12 @@ This is reflected in the `acr` claim for the user's JWTs issued by ID-porten.
 
     The most substantial change is the **new values for the `acr` claim**, shown in the table below.
 
-    The sidecar accepts both the old and new values to ease migration, though you should use the newer values when possible.
+    The sidecar accepts both the old and new values in `nais.yaml` and in the `level` query parameter to ease migration, though you should use the newer values when possible.
 
-    The sidecar __cannot__ modify the `acr` value within the token itself. If your application validates or uses the `acr` claim found in the JWT in any way, it **must** allow both the old and new values until after migration.
+    The sidecar __cannot__ modify the `acr` value within the token itself. This means:
+
+    - If your application validates or uses the `acr` claim found in the JWT, it should accept both old and new values until the migration is complete.
+    - It is recommended to accept both old and new values _before_ the migration takes place to ensure that nothing breaks.
 
 Valid values, in increasing order of assurance levels:
 
@@ -145,9 +147,7 @@ for the JWT Bearer `access_token` attached by the sidecar in the `Authorization`
 
 #### Audience
 
-Note that the `aud` claim should be equal to the `IDPORTEN_AUDIENCE` environment variable mentioned earlier.
-
-You should also validate that the `client_id` claim has a value equal to the value of the `IDPORTEN_CLIENT_ID` environment variable.
+Validate that the `aud` claim is equal to the `IDPORTEN_AUDIENCE` environment variable.
 
 ## Next Steps
 

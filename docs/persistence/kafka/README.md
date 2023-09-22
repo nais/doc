@@ -6,7 +6,7 @@ Upon defining a Topic, [Kafkarator](https://github.com/nais/kafkarator) will cre
 
 When an application that uses Kafka is deployed, [Aivenator](https://github.com/nais/aivenator) will orchestrate generation of users and credentials. These credentials are made available to applications through a _Secret_ in the relevant team namespace. This secret is automatically mounted by Naiserator into application pods as environment variables and files.
 
-For a list of variables, see [accessing topics from an application](manage_topics.md#accessing-topics-from-an-application).
+To get started, see [accessing topics from an application](manage_topics.md#accessing-topics-from-an-application).
 
 ## Status and roadmap
 

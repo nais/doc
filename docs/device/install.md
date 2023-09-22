@@ -2,7 +2,7 @@
 
 !!! info
 
-    This install guide is for NAV employees only. If you are not a NAV employee, install a [different version of naisdevice as described here](install-tenant.md).
+    This install guide is for connectivity to NAV systems. If you are not a NAV employee or a consultant hired by NAV, install a [different version of naisdevice as described here](install-tenant.md).
 
 !!! warning
 
@@ -52,11 +52,12 @@
 1. [Install Kolide agent](install.md#install-kolide-agent). 
  
     The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the NAIS team and should be followed to keep your device safe.
-4. Install [Scoop](https://scoop.sh) unless you already have it. 
+
+2. Install [Scoop](https://scoop.sh) unless you already have it. 
 
     Scoop makes it possible to install and maintain programs from the command line.
     
-6. Use the following command in the command line to add the nais bucket to let Scoop know where to get and update files from. Do not worry about where it will be installed, we got you covered.
+3. Use the following command in the command line to add the nais bucket to let Scoop know where to get and update files from. Do not worry about where it will be installed, we got you covered.
    ```powershell
    scoop bucket add nais https://github.com/nais/scoop-bucket
    ```
@@ -88,15 +89,17 @@
 1. [Install Kolide agent](install.md#install-kolide-agent).
 2. Add the nais PPA repo:
     ``` 
-    NAIS_GPG_KEY="/usr/share/keyrings/nav_nais.gpg"
-    curl -sfSL "https://ppa.nais.io/KEY.gpg" | gpg --dearmor | sudo dd of="$NAIS_GPG_KEY"
-    echo "deb [signed-by=$NAIS_GPG_KEY] https://ppa.nais.io/ ./" | sudo tee /etc/apt/sources.list.d/nav_nais.list
-    sudo apt update # Now you can apt install naisdevice
+    NAIS_GPG_KEY="/etc/apt/keyrings/nav_nais_gar.asc"
+    curl -sfSL "https://europe-north1-apt.pkg.dev/doc/repo-signing-key.gpg" | sudo dd of="$NAIS_GPG_KEY"
+    echo "deb [arch=amd64 signed-by=$NAIS_GPG_KEY] https://europe-north1-apt.pkg.dev/projects/nais-io nais-ppa main" | sudo tee /etc/apt/sources.list.d/nav_nais_gar.list
+    sudo apt update
     ```
-   **NOTE**  curl is not installed in a "fresh" ubuntu:
-   ```
-   sudo apt install curl
-   ``` 
+
+    **NOTE**  curl is not installed in a "fresh" ubuntu:
+   
+    ```
+    sudo apt install curl
+    ``` 
 
 3. Install the naisdevice package:
     ```

@@ -99,7 +99,7 @@ The sidecar provides these endpoints under your application's [ingress](../nais-
 | `GET /oauth2/logout`           | Performs local logout and redirects the user to global/single-logout       |                   |
 | `GET /oauth2/logout/local`     | Performs local logout only                                                 | Only for Azure AD |
 | `GET /oauth2/session`          | Returns the current user's session metadata                                |                   |
-| `POST /oauth2/session/refresh` | Refreshes the tokens and returns the session metadata for the current user | Only for Azure AD |
+| `POST /oauth2/session/refresh` | Refreshes the tokens and returns the session metadata for the current user |                   |
 
 ## Usage
 
@@ -150,17 +150,9 @@ within your own ingress.
 
 #### 1.2. Autologin
 
-If enabled, the `autoLogin` option will configure Wonderwall to automatically redirect HTTP `GET` requests to the login 
-endpoint if the user does not have a session. It will set the `redirect` parameter for logins to the URL for the 
-original request so that the user is redirected back to their intended location after login.
+If enabled, the `autoLogin` option will configure Wonderwall to intercept all HTTP `GET` requests.
 
-You should still check the `Authorization` header for a token and validate the token within as specified
-in [the application guidelines](#3-token-validation). This is especially important as auto-logins will **NOT** trigger
-for HTTP requests that are not `GET` requests, such as `POST` or `PUT`.
-
-To ensure smooth end-user experiences whenever their session expires, your application must thus actively validate and
-properly handle such requests. For example, your application might respond with an HTTP 401 to allow frontends to
-cache or store payloads before redirecting them to the login endpoint.
+If the user does not have a valid session, the request will short-circuit and the response code will be set to `302 Found` with the `Location` header set to the login endpoint.
 
 Example configuration:
 
@@ -181,7 +173,38 @@ Example configuration:
           autoLogin: true
     ```
 
-This will match for all paths for your application's ingresses, except the following:
+!!! danger "Auto-login does not guarantee that requests are authenticated"
+
+    You should always check the `Authorization` header for a token and validate the token within as specified in [the application guidelines](#3-token-validation).
+    This is especially important as auto-logins will **only trigger for `GET` requests**. Requests such as `POST` or `PUT` are ignored by auto-login.
+
+    To ensure smooth end-user experiences whenever their session expires, your application must thus actively validate and properly handle such requests.
+    The server-side application may respond with a `401 Unauthorized` to allow frontends to cache or store payloads before doing a client-side redirect to the login endpoint.
+
+!!! warning "Auto-login and client-side requests"
+
+    Using auto-login with client-side requests (e.g. `fetch`, `XMLHttpRequest`/`XHR`, `AJAX`) is generally **not** recommended.
+
+    If the request is performed with an expired or unauthenticated session, the browser will receive a `302 Found` response with a `Location` header set to the login endpoint.
+    
+    You want the browser to _navigate_ to the login endpoint.
+    Instead, client-side requests will usually _follow_ the redirect to the URL found in the `Location` header; a _new request_ is thus performed in an attempt to retrieve the original requested resource.
+    This ends with a CORS error as request is redirected to an external identity provider.
+
+    Common strategies for handling client-side requests. Either:
+
+    1. Exclude paths that are used for client-side requests from auto-login, or
+        - See [autologin exclusions](#121-autologin-exclusions) below
+    2. Disable auto-login entirely, or
+        - Respond with a `401 Unauthorized` from the server
+        - Implement client-side logic to _navigate_ to the login endpoint (e.g. using `window.location.href` or `location.assign()`)
+    3. Manually handle the `302 Found` response at the client-side
+        - If the `Location` header is set to the login endpoint, _navigate_ the browser to the new page (e.g. using `window.location.href` or `location.assign()`)
+        - Otherwise, follow the redirect to the URL found in the `Location` header
+
+##### 1.2.1. Autologin Exclusions
+
+Autologin will by default match all paths for your application's ingresses, except the following:
 
 - `/oauth2/*`
 - [`spec.prometheus.path`](../nais-application/application.md#prometheuspath), if defined

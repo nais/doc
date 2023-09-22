@@ -29,6 +29,7 @@ theme:
     - content.action.edit
     - content.code.copy
     - content.code.annotate
+    - content.tabs.link
     - navigation.footer
     - navigation.instant
     - navigation.tabs
@@ -96,7 +97,6 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.highlight:
       use_pygments: true
-      linenums: false
       linenums_style: pymdownx-inline
       anchor_linenums: true
   - pymdownx.inlinehilite
@@ -121,7 +121,6 @@ nav:
           - Your first NAIS application: basics/application.md
           - Teams: basics/teams.md
           - Access from laptop: basics/access.md
-          - Debugging: basics/debug.md
       - Clusters:
           - Overview: clusters/README.md
           - Google Cloud Platform: clusters/gcp.md
@@ -182,12 +181,13 @@ nav:
           - Redis: persistence/redis.md
           - MongoDB in GCP: persistence/mongodb-in-gcp.md
           - Volume Storage: persistence/volume-storage.md
+          - InfluxDB: persistence/influxdb.md
           - Legacy:
               - IBM MQ: persistence/mq.md
               - ElasticSearch: persistence/elastic-search.md
-              - InfluxDB: persistence/influxdb.md
               - S3 Objectstore: persistence/objectstore.md
       - Security:
+          - Overview: security/README.md
           - Auth:
               - Overview:
                   - Intro: security/auth/README.md
@@ -226,7 +226,7 @@ nav:
       - Addons:
           - Leader Election: addons/leader-election.md
           - Snorlax: addons/snorlax.md
-          - Unleash (feature toggling): addons/unleash.md
+          - Unleash (feature toggling): addons/unleash-next.md
           - Velero backup and restore: addons/velero-backup-and-restore.md
       - Legacy:
           - Sunset: legacy/sunset.md
@@ -271,4 +271,4 @@ nav:
       - Sikkerhetsloven: legal/sikkerhetsloven.md
   - Guides:
     - Overview: guides/README.md
-    - "101: Your first application": guides/basics.md
+    - "101: Deploying an application": guides/application.md

@@ -1,7 +1,4 @@
-# Unleash Next (beta)
-
-!!! note
-    This is a work in progress, and is not yet available for use. If you want to help out, please contact us in [#unleash](https://nav-it.slack.com/archives/C9BPTSULS)!
+# Unleash Next
 
 ## What is Unleash?
 
@@ -31,7 +28,7 @@ To connect to your team's instance of Unleash, you'll need to add an `accessPoli
 
 ### What is the status of Unleash Next?
 
-Unleash Next is currently in beta, and is not yet generally available for all users. We are currently working on getting it ready for prime time.
+Unleash Next is currently in the process of being rolled out to all teams.
 
 ### Will my feature toggles be migrated to Unleash Next?
 
@@ -132,6 +129,8 @@ Deploy an `ApiToken` resource to dynamically create a new Unleash API token and 
     metadata:
       name: my-application
       namespace: my-team
+      labels:
+        team: my-team
     spec:
         unleashInstance:
           apiVersion: unleash.nais.io/v1

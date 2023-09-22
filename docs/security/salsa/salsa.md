@@ -84,11 +84,39 @@ Here is a screenshot of a project using the dependency graph in Dependency-Track
 
 SBOM generation for different [languages/build tools are dictated by Trivy](https://aquasecurity.github.io/trivy/v0.40/docs/scanner/vulnerability/language/)
 
-#### Known limitations
+#### Known limitations and alternatives
 
 Due to Trivy, you will get a flat graph of dependencies. This is because Trivy does not support Gradle's or Maven dependency resolution.
 Trivy parses the .jar files directly and does not have access to the dependency resolution information.
-As an alternative you can use the CycloneDx plugins directly to get a deep graph of nested transitive dependencies.
+Here is 2 alternatives:
+
+Alternative 1, GitHub workflow for Gradle users. 
+
+No need to add any plugins to your build file. You will get a deep graph of nested transitive dependencies.
+The generated sbom will be located in the ` dependency-graph-reports` directory. 
+The action requires `contents: write` permission.
+
+!!! Gradle Action
+    Generate a SBOM with the gradle build action.
+
+    ```yaml
+     permissions:
+        contents: write
+    ```
+
+    ```yaml
+        ...
+        - uses: gradle/gradle-build-action@v2.x.x
+          with:
+            dependency-graph: generate-and-submit
+            arguments: build
+        - uses: nais/docker-build-push@v0
+          with:
+            byosbom: dependency-graph-reports/deploy-build.json
+            ....
+    ```
+
+Alternative 2, Gradle and Maven plugins for a deep graph of nested transitive dependencies.
 
 !!! Gradle Plugin
     Add the following plugin to your `build.gradle*` file.
@@ -150,7 +178,7 @@ As an alternative you can use the CycloneDx plugins directly to get a deep graph
     ```
     For more info about settings check out the [CycloneDx Maven Plugin](https://github.com/CycloneDX/cyclonedx-maven-plugin)
 
-##### Use nais/attest-sign directly
+#### Use nais/attest-sign directly
 
 When using the `nais/attest-sign` action. You can pass the SBOM to the action with the following input:
 

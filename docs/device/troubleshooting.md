@@ -10,7 +10,17 @@
     - Try using hotspot to eliminate router config problems (remember to disconnect from WiFi on your hotspot device and make sure you use 4G/5G by checking https://www.ipaddress.my/)
 - Fresh start
     - Stop naisdevice
+    - Remove configuration directory
         - Mac: `rm -r "~/Library/Application Support/naisdevice/"`
         - Linux: `rm -r "~/.config/naisdevice/"`
         - Windows: `rmdir /s "C:\ProgramData\NAV\naisdevice\"`
     - Start naisdevice
+- Agent log contains 'Failed to parse address book: proto: (line 2:3): unknown field "CertRenewal"'
+    - Stop naisdevice 
+    - Edit agent config and remove `CertRenewal` field
+        - Mac: `~/Library/Application Support/naisdevice/agent-config.json`
+        - Linux: `~/.config/naisdevice/agent-config.json`
+        - Windows: `C:\ProgramData\NAV\naisdevice\agent-config.json`
+    - Start naisdevice
+- Some internal services (eg. Jira, Confluence, GCP/gcloud) redirect you to a page asking you to enroll your device in Microsoft Intune
+    - Check if you have IPv6 addresses and disable if possible. naisdevice doesn't support IPv6 [yet](https://github.com/nais/device/issues/279). 
