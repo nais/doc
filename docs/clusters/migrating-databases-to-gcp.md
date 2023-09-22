@@ -53,7 +53,9 @@ Cons:
 
 This method is suitable for applications that can have the database in read-only or application that allow for some downtime. It requires that the database instance and DDLs are created up front \(i.e. deploy your application in GCP and let flyway create DDLs\):
 
-Use docker container image with psql and cloudsdk: [GCP migration image](https://github.com/navikt/gcp-migrering). This image let you do all the following actions from one place.
+Use docker container image with psql and cloudsdk: [GCP migration image](https://github.com/navikt/gcp-migrering). This image let you do all the following actions from one place. You can either use the manual described below or the migration_data.sh script in the repository.
+
+In any case you need to create a secret in your namespace containing the Google SA you want to use to do the migration. Add the token to the secret.yaml file and apply it in your namespace.
 
 Deploy the pod into on-premise cluster that can connect to the database
 
