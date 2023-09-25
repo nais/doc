@@ -7,7 +7,7 @@ authors = []
 [tool.poetry.dependencies]
 python = "^3.7"
 mkdocs = "^1.5.3"
-Pygments = "^2.15.1"
+Pygments = "^2.16.1"
 pymdown-extensions = "^10.0"
 mkdocs-material = "^9.1.20"
 mkdocs-build-plantuml-plugin = "^1.6.0"
