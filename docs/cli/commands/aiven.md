@@ -7,7 +7,7 @@ For instance, credentials for nav-prod can only be generated in the prod cluster
 
 This command will give access to personal but time limited credentials.
 These credentials can be used to debug an Aiven kafka topic, or Opensearch instance.
-The `aiven get` command extracts the credentials and puts them in `/tmp` folder.
+The `aiven get` command extracts the credentials and puts them in a folder in the default location for temporary files[^1].
 The created AivenApplication has sane default (days-to-live) set to 1 day.
 
 ## Kafka
@@ -79,11 +79,11 @@ nais aiven get service secret-name namespace
 
 For Kafka we will create a Java properties file, KCat config file, and an .env file.
 For OpenSearch only .env file will be created.
-All files will ble placed in `/tmp/aiven-secret-`.
+All files will ble placed in a folder named `aiven-secret-...` in the default location for temporary files[^1].
 
 ## tidy
 
-Removes folders in `/tmp` ($TMPDIR) directory that starts with `aiven-secret-`.
+Removes folders in temporary files directory that starts with `aiven-secret-`[^1].
 
 ```bash
 nais aiven tidy
@@ -200,3 +200,5 @@ OPEN_SEARCH_URI_="<uri>"
 OPEN_SEARCH_PASSWORD="<password>"
 OPEN_SEARCH_USER="<username>"
 ```
+
+[^1]: See https://pkg.go.dev/os#TempDir
