@@ -201,4 +201,4 @@ OPEN_SEARCH_PASSWORD="<password>"
 OPEN_SEARCH_USER="<username>"
 ```
 
-[^1]: See https://pkg.go.dev/os#TempDir
+[^1]: See [https://pkg.go.dev/os#TempDir](https://pkg.go.dev/os#TempDir)
