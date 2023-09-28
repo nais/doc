@@ -221,165 +221,86 @@ Databases should always be accessed using a personal account, and the access sho
 
     This guide assumes that you have the following installed on your local machine:
 
-    - [cloudsql-proxy binary](https://cloud.google.com/sql/docs/postgres/sql-proxy#install)
-    - [psql binary](https://blog.timescale.com/how-to-install-psql-on-mac-ubuntu-debian-windows/)
+    - [nais-cli](../cli/install.md)
+    - [kubectl](../basics/access.md) with access to your application
+    - (Optionally for cli access) [psql binary](https://blog.timescale.com/how-to-install-psql-on-mac-ubuntu-debian-windows/)
+
+    We will use the `nais postgres` command to set up the database access.
+    Read [more about the `nais postgres` command](../cli/commands/postgres.md).
 
 ???+ check "Step 2. Allow your user to edit Cloud SQL resources for your project"
     Ensure that you have authenticated `gcloud` by running
 
     ```bash
-    gcloud auth login
+    nais login
     ```
 
-    To be able to perform the gcloud commands mentioned below you need a role with user edit permissions, e.g. `roles/cloudsql.admin`
-
-    To grant yourself this role for a given project, run the following command:
+???+ check "Step 3. Select the context and namespace of your application"
+    If you have installed [kubectx](https://github.com/ahmetb/kubectx) you can use the following command to select the context and namespace of your application:
 
     ```bash
-    gcloud projects add-iam-policy-binding <project-id> \
-        --member user:<your-email> \
-        --role roles/cloudsql.admin \
-        --condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
+    kubectx <CLUSTER>
+    kubens <TEAM>
     ```
 
-    where `<project-id>` can be found by running:
+    If you do not have kubectx installed, you can use the following command to select the context and namespace of your application:
 
     ```bash
-    gcloud projects list \
-        --filter=<team>
+    kubectl config use-context <CLUSTER>
+    kubectl config set-context --current --namespace=<TEAM>
     ```
 
 ???+ check "Step 3. One-time setup of privileges to SQL IAM users"
 
-    This is only required once per database instance and should be done before DDL scripts are run in the database in order to ensure the objects have the right permissions.
+    This is only required once per database instance.
 
     Once the database instance is created, we need to grant the IAM users access to the `public` schema.
 
-    This can either be done by using the default application database user during database creation/migration with scripts (e.g. Flyway), or as a one-time setup by using the default `postgres` user.
+    ```bash
+    nais postgres prepare <MYAPP>
+    ```
 
-???+ check "Step 3a. Set password for `postgres` user"
+    Prepare will prepare the postgres instance by connecting using the
+    application credentials and modify the permissions on the public schema.
+    All IAM users with correct permissions in your GCP project will be able to connect to the instance.
 
-    In order to use the `postgres` user, you have to set a password first:
+    The default is to allow only `SELECT` statements. If you need to allow all privileges, you can use the `--all-privs` flag.
 
     ```bash
-    gcloud sql users set-password postgres \
-        --instance=<INSTANCE_NAME> \
-        --prompt-for-password \
-        --project <PROJECT_ID>
-    ```
-
-???+ check "Step 3b. Log in to the database with the `postgres` user"
-
-    Set up the `cloudsql-proxy`:
-
-    ```bash
-    CONNECTION_NAME=$(gcloud sql instances describe <INSTANCE_NAME> \
-        --format="get(connectionName)" \
-        --project <PROJECT_ID>);
-
-    cloud_sql_proxy -instances=${CONNECTION_NAME}=tcp:5432
-    ```
-
-    Log in to the database (you will be prompted for the password you set in the previous step):
-
-    ```bash
-    psql -U postgres -h localhost <DATABASE_NAME> -W
-    ```
-
-    If you are using Cloud SQL Auth proxy v1.21.0 or newer you can get the token in the cloud_sql_proxy command so you can run the psql-command without the -W parameter:
-    ```bash
-    cloud_sql_proxy -enable_iam_login -instances=${CONNECTION_NAME}=tcp:5432
-    ```
-
-???+ check "Step 3c. Enable privileges for user(s) in database"
-
-    This can be enabled for all `cloudsqliamusers` (all IAM users are assigned the role `cloudsqliamuser`) with the following command:
-
-    ```sql
-    alter default privileges in schema public grant all on tables to cloudsqliamuser;
-    ```
-
-    Or for a specific user (the given IAM user must exist in the database):
-
-    ```sql
-    alter default privileges in schema public grant all on tables to "user@nav.no";
-    ```
-
-    If your application created the tables before you were able to run these commands, then the owner of the tables is set to the application's user.
-
-    Thus, your application must run the following command either through your chosen database migration tool (e.g. Flyway) or manually with the application user's credentials:
-
-    ```sql
-    grant all on all tables in schema public to cloudsqliamuser;
+    nais postgres prepare --all-privs <MYAPP> 
     ```
 
 ### Granting temporary personal access
 
 ???+ check "Step 1. Create database IAM user"
 
-    This is required once per user and requires that you have create user permission in IAM in your project, e.g. Cloud SQL Admin.
-
-    To grant yourself this role for a given project, run the following command:
+    This is required once per user and requires that you have access to the team's GCP project.
 
     ```bash
-    gcloud projects add-iam-policy-binding <project-id> \
-        --member user:<your-email> \
-        --role roles/cloudsql.admin \
-        --condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
+    nais postgres grant <MYAPP>
     ```
 
-    Then, to create the database IAM user:
-
-    ```bash
-    gcloud beta sql users create <FIRSTNAME>.<LASTNAME>@nav.no \
-        --instance=<INSTANCE_NAME> \
-        --type=cloud_iam_user \
-        --project <PROJECT_ID>
-    ```
-
-???+ check "Step 2. Create a temporary IAM binding for 1 hour"
-
-    Generally, you should try to keep your personal database access time-limited.
-
-    The following command grants your user permission to log into the database for 1 hour.
-
-    If your system has GNU utilities installed:
-
-    ```bash
-    gcloud projects add-iam-policy-binding <PROJECT_ID> \
-        --member=user:<FIRSTNAME>.<LASTNAME>@nav.no \
-        --role=roles/cloudsql.instanceUser \
-        --condition="expression=request.time < timestamp('$(date --iso-8601=seconds -d '+1 hours')'),title=temp_access"
-    ```
-
-    Otherwise (e.g. MacOS users):
-
-    ```bash
-    gcloud projects add-iam-policy-binding <PROJECT_ID> \
-        --member=user:<FIRSTNAME>.<LASTNAME>@nav.no \
-        --role=roles/cloudsql.instanceUser \
-        --condition="expression=request.time < timestamp('$(date -v '+1H' -u +'%Y-%m-%dT%H:%M:%SZ')'),title=temp_access"
-    ```
+    This will give you a limited time access to the database unless there's already an existing permission for your user.
 
 ???+ check "Step 3. Log in with personal user"
 
-    Ensure that the `cloudsql-proxy` is up and running, if not then:
+    Use `nais postgres proxy` to create a secure tunnel to the database.
 
     ```bash
-    CONNECTION_NAME=$(gcloud sql instances describe <INSTANCE_NAME> \
-      --format="get(connectionName)" \
-      --project <PROJECT_ID>);
-
-    cloud_sql_proxy -instances=${CONNECTION_NAME}=tcp:5432
+    nais postgres proxy <MYAPP>
     ```
 
-    Then, connect to the database:
+    This will start a proxy client in the background and print the connection string to the database.
+
+    Authenticate using your personal Google account email as username and leave the password empty.
+
+    If you'd like to use the psql binary, you can use the following command to connect to the database:
 
     ```bash
-    export PGPASSWORD=$(gcloud auth print-access-token)
-
-    psql -U <FIRSTNAME>.<LASTNAME>@nav.no -h localhost <DATABASE_NAME>
+    nais postgres psql <MYAPP>
     ```
+
+    This will create a proxy on a random port and execute the psql binary with the correct connection string.
 
 ## Upgrading major version
 
