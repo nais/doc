@@ -177,18 +177,7 @@ spec:
       tier: db-f1-micro
       type: POSTGRES_12
   idporten:
-    accessTokenLifetime: 3600
-    clientURI: https://www.nav.no
     enabled: true
-    frontchannelLogoutPath: /oauth2/logout
-    integrationType: idporten
-    postLogoutRedirectURIs:
-    - https://www.nav.no
-    redirectPath: /oauth2/callback
-    scopes:
-    - openid
-    - profile
-    sessionLifetime: 7200
     sidecar:
       autoLogin: true
       autoLoginIgnorePaths:

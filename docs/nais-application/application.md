@@ -3198,7 +3198,7 @@ Allowed values: `POSTGRES_11`, `POSTGRES_12`, `POSTGRES_13`, `POSTGRES_14`, `POS
     ```
 
 ## idporten
-Configures an ID-porten client for this application. See [ID-porten](https://doc.nais.io/security/auth/idporten/) for more details.
+Configures ID-porten authentication for this application. See [ID-porten](https://doc.nais.io/security/auth/idporten/) for more details.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3207,18 +3207,7 @@ Required: `false`<br />
     ``` yaml
     spec:
       idporten:
-        accessTokenLifetime: 3600
-        clientURI: https://www.nav.no
         enabled: true
-        frontchannelLogoutPath: /oauth2/logout
-        integrationType: idporten
-        postLogoutRedirectURIs:
-          - https://www.nav.no
-        redirectPath: /oauth2/callback
-        scopes:
-          - openid
-          - profile
-        sessionLifetime: 7200
         sidecar:
           autoLogin: true
           autoLoginIgnorePaths:
@@ -3236,160 +3225,18 @@ Required: `false`<br />
               memory: 32Mi
     ```
 
-### idporten.accessTokenLifetime
-AccessTokenLifetime is the lifetime in seconds for any issued access token from ID-porten. 
- If unspecified, defaults to `3600` seconds (1 hour).
-
-Type: `integer`<br />
-Required: `false`<br />
-Default value: `3600`<br />
-Value range: `1`-`3600`<br />
-
-??? example
-    ``` yaml
-    spec:
-      idporten:
-        accessTokenLifetime: 3600
-    ```
-
-### idporten.clientURI
-ClientURI is the URL shown to the user at ID-porten when displaying a 'back' button or on errors.
-
-Type: `string`<br />
-Required: `false`<br />
-Pattern: `^https:\/\/.+$`<br />
-
-??? example
-    ``` yaml
-    spec:
-      idporten:
-        clientURI: https://www.nav.no
-    ```
-
 ### idporten.enabled
-Whether to enable provisioning of an ID-porten client. If enabled, an ID-porten client be provisioned.
+Enable ID-porten authentication. Requires `.spec.idporten.sidecar.enabled=true`.
 
 Type: `boolean`<br />
 Required: `true`<br />
-Availability: team namespaces<br />
+Availability: GCP<br />
 
 ??? example
     ``` yaml
     spec:
       idporten:
         enabled: true
-    ```
-
-### idporten.frontchannelLogoutPath
-FrontchannelLogoutPath is a valid path for your application where ID-porten sends a request to whenever the user has initiated a logout elsewhere as part of a single logout (front channel logout) process.
-
-Relevant information:
-
-* [https://doc.nais.io/security/auth/idporten/#front-channel-logout](https://doc.nais.io/security/auth/idporten/#front-channel-logout)
-* [https://docs.digdir.no/oidc_func_sso.html#2-h%C3%A5ndtere-utlogging-fra-id-porten](https://docs.digdir.no/oidc_func_sso.html#2-h%C3%A5ndtere-utlogging-fra-id-porten)
-
-Type: `string`<br />
-Required: `false`<br />
-Default value: `/oauth2/logout`<br />
-Pattern: `^\/.*$`<br />
-
-??? example
-    ``` yaml
-    spec:
-      idporten:
-        frontchannelLogoutPath: /oauth2/logout
-    ```
-
-### idporten.integrationType
-IntegrationType is used to make sensible choices for your client. Which type of integration you choose will provide guidance on which scopes you can use with the client. A client can only have one integration type. 
- NB! It is not possible to change the integration type after creation.
-
-Relevant information:
-
-* [https://docs.digdir.no/oidc_protocol_scope.html#scope-limitations](https://docs.digdir.no/oidc_protocol_scope.html#scope-limitations)
-
-Type: `enum`<br />
-Required: `false`<br />
-Immutable: `true`<br />
-Default value: `idporten`<br />
-Allowed values: `api_klient`, `idporten`, `krr`<br />
-
-??? example
-    ``` yaml
-    spec:
-      idporten:
-        integrationType: idporten
-    ```
-
-### idporten.postLogoutRedirectURIs
-PostLogoutRedirectURIs are valid URIs that ID-porten will allow redirecting the end-user to after a single logout has been initiated and performed by the application.
-
-Relevant information:
-
-* [https://doc.nais.io/security/auth/idporten/#self-initiated-logout](https://doc.nais.io/security/auth/idporten/#self-initiated-logout)
-* [https://docs.digdir.no/oidc_func_sso.html#1-utlogging-fra-egen-tjeneste](https://docs.digdir.no/oidc_func_sso.html#1-utlogging-fra-egen-tjeneste)
-
-Type: `array`<br />
-Required: `false`<br />
-Default value: `https://www.nav.no`<br />
-
-??? example
-    ``` yaml
-    spec:
-      idporten:
-        postLogoutRedirectURIs:
-          - https://www.nav.no
-    ```
-
-### idporten.redirectPath
-RedirectPath is a valid path that ID-porten redirects back to after a successful authorization request.
-
-Type: `string`<br />
-Required: `false`<br />
-Default value: `/oauth2/callback`<br />
-Pattern: `^\/.*$`<br />
-
-??? example
-    ``` yaml
-    spec:
-      idporten:
-        redirectPath: /oauth2/callback
-    ```
-
-### idporten.scopes
-Register different oauth2 Scopes on your client. You will not be able to add a scope to your client that conflicts with the client's IntegrationType. For example, you can not add a scope that is limited to the IntegrationType `krr` of IntegrationType `idporten`, and vice versa. 
- Default for IntegrationType `krr` = ("krr:global/kontaktinformasjon.read", "krr:global/digitalpost.read") Default for IntegrationType `idporten` = ("openid", "profile") IntegrationType `api_klient` have no Default, checkout Digdir documentation.
-
-Relevant information:
-
-* [https://docs.digdir.no/oidc_func_clientreg.html?h=api_klient#scopes](https://docs.digdir.no/oidc_func_clientreg.html?h=api_klient#scopes)
-
-Type: `array`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      idporten:
-        scopes:
-          - openid
-          - profile
-    ```
-
-### idporten.sessionLifetime
-SessionLifetime is the maximum lifetime in seconds for any given user's session in your application. The timeout starts whenever the user is redirected from the `authorization_endpoint` at ID-porten. 
- If unspecified, defaults to `7200` seconds (2 hours). Note: Attempting to refresh the user's `access_token` beyond this timeout will yield an error.
-
-Type: `integer`<br />
-Required: `false`<br />
-Default value: `7200`<br />
-Value range: `3600`-`7200`<br />
-
-??? example
-    ``` yaml
-    spec:
-      idporten:
-        sessionLifetime: 7200
     ```
 
 ### idporten.sidecar
