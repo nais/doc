@@ -96,7 +96,7 @@ Note that adding tracing will add around 500kB to your JavaScript payload.
 To start a new trace, you can:
 
 ```js
-import { faro, initializeFaro } from '@grafana/faro-web-sdk';
+import { faro, getWebInstrumentations, initializeFaro } from '@grafana/faro-web-sdk';
 import { TracingInstrumentation } from '@grafana/faro-web-tracing';
 
 initializeFaro({
