@@ -97,14 +97,14 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              name: nais
+              kubernetes.io/metadata.name: nais
           podSelector:
             matchLabels:
               app: prometheus
     - from:
         - namespaceSelector:
             matchLabels:
-              name: myteam
+              kubernetes.io/metadata.name: myteam
           podSelector:
             matchLabels:
               app: myapp

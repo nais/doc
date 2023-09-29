@@ -342,7 +342,7 @@ spec:
     ...
     - namespaceSelector:
         matchLabels:
-          name: othernamespace
+          kubernetes.io/metadata.name: othernamespace
       podSelector:
         matchLabels:
           app: app-b
@@ -352,7 +352,7 @@ spec:
   - from:
     - namespaceSelector:
         matchLabels:
-          name: othernamespace
+          kubernetes.io/metadata.name: othernamespace
       podSelector:
         matchLabels:
           app: app-b
@@ -366,10 +366,5 @@ spec:
   - Egress
   - Ingress
 ```
-
-!!! info
-    Note that for namespace match labels to work, the namespaces must be labeled with `name: namespacename`.
-
-    `kube-system` should be labeled accordingly for the default rule that allows traffic to `kube-dns`, but in GCP, the label is removed by some job in regular intervals...
 
 If you are working directly with Kubernetes Network Policies, we are recommending the Cilium Policy Editor which can be found at [editor.cilium.io](https://editor.cilium.io/).
