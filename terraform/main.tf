@@ -6,7 +6,7 @@ terraform {
     }
     google = {
       source  = "hashicorp/google"
-      version = "4.83.0"
+      version = "4.84.0"
     }
   }
   backend "gcs" {
