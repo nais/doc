@@ -81,7 +81,7 @@ Once the second owner has confirmed the deletion all resources associated with t
 
 ## Access to API keys
 
-In order to access _team API keys_, go to [console](https://console.nav.cloud.nais.io). Here you will find API keys for all teams you are a member of.
+In order to access _team API keys_, go to [console](https://console.nav.cloud.nais.io), then go to _settings_ under the specific team.
 
 ## Rotate API key
 
