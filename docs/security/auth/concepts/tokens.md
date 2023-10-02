@@ -253,36 +253,11 @@ Generally speaking, the most important JWT claims to validate are the following:
 If any of the above claims are missing or contain unexpected values, validation should fail and the token should be
 rejected. Most libraries will have implementations to validate these claims as they're fairly standard.
 
-#### Azure AD
+See the individual identity provider pages for specific validation related to each provider:
 
-List of notable claims for access tokens from Azure AD that might be useful:
-
-- `azp` (**authorized party**)
-    - The [client ID](actors.md#client-id) of the application that requested the token.
-- `groups` (**groups**)
-    - JSON array of object IDs for [Azure AD groups](../azure-ad/concepts.md#groups).
-    - In order for a group to appear in the claim, all the following conditions must be true:
-        - The given user is a direct member of the group.
-        - The group is [assigned to the client](../azure-ad/configuration.md#groups).
-- `idtyp` (**identity type**)
-    - This is a special claim used to determine whether a token is a [machine-to-machine](../azure-ad/usage.md#oauth-20-client-credentials-grant) (app-only) token or a user/[on-behalf-of](../azure-ad/usage.md#oauth-20-on-behalf-of-grant) token.
-    - The claim currently only appears in machine-to-machine tokens. The value is `app` when the token is a machine-to-machine token.
-    - In short: if the `idtyp` claim exists and it has the value `app`, then it is a machine-to-machine token. Otherwise, it is a user/on-behalf-of token.
-- [Extra NAV-specific claims](../azure-ad/configuration.md#extra) that can be added to tokens for your client.
-
-See <https://learn.microsoft.com/en-us/azure/active-directory/develop/access-token-claims-reference> for a complete list of claims.
-Tokens in NAV are v2.0 tokens.
-
-#### ID-porten
-
-List of notable claims for access tokens from ID-porten that might be useful:
-
-- `acr` (**Authentication Context Class Reference**)
-    - The [security level](../idporten.md#security-levels) used for authenticating the end-user.
-- `pid` (**personidentifikator**)
-    - The Norwegian national ID number (fødselsnummer/d-nummer) of the authenticated end user.
-
-See <https://docs.digdir.no/docs/idporten/oidc/oidc_protocol_access_token> for the complete list of claims.
+- [Azure AD](../azure-ad/usage.md#token-validation)
+- [ID-porten](../idporten.md#token-validation)
+- [TokenX](../tokenx.md#token-validation)
 
 ### Best Practices
 

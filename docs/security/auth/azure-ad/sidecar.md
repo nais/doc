@@ -53,10 +53,7 @@ See the [Wonderwall](../../../appendix/wonderwall.md) appendix for usage details
     - If a request does not contain an `Authorization` header, the request should be considered unauthenticated and access should be denied.
     - If a request has an `Authorization` header that contains a [JWT], the token must be validated before access is granted.
 
-Your application should [validate the claims and signature](../concepts/tokens.md#token-validation)
-for the JWT Bearer `access_token` attached by the sidecar in the `Authorization` header.
-
-The `aud` (audience) claim must be equal to [your application's client ID](usage.md#azure_app_client_id) in Azure AD.
+Your application should [validate the claims and signature](usage.md#token-validation) for the JWT Bearer `access_token` attached by the sidecar in the `Authorization` header.
 
 ## Next Steps
 
@@ -64,6 +61,6 @@ The access token that Wonderwall provides should only be accepted and used by yo
 
 In order to access other applications, you should exchange the token in order to get a new token that is correctly scoped to access a given application.
 
-For Azure AD, use the [on-behalf-of grant](../concepts/protocols.md#on-behalf-of-grant) to do this.
+For Azure AD, use the [on-behalf-of grant](usage.md#oauth-20-on-behalf-of-grant) to do this.
 
 [JWT]: ../concepts/tokens.md#jwt

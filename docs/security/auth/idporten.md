@@ -134,7 +134,7 @@ For runtime control of the value, set the query parameter `locale` when redirect
 https://<ingress>/oauth2/login?locale=en
 ```
 
-### Token Validation
+## Token Validation
 
 !!! danger "Secure your endpoints"
     **Your application is responsible for securing its own endpoints.**
@@ -142,12 +142,42 @@ https://<ingress>/oauth2/login?locale=en
     - If a request does not contain an `Authorization` header, the request should be considered unauthenticated and access should be denied.
     - If a request has an `Authorization` header that contains a [JWT], the token must be validated before access is granted.
 
-Your application should [validate the claims and signature](concepts/tokens.md#token-validation)
+Your application should [validate the standard claims and signature](concepts/tokens.md#token-validation)
 for the JWT Bearer `access_token` attached by the sidecar in the `Authorization` header.
 
-#### Audience
+Other than the time and expiry checks, the following validations should be performed:
+
+#### Issuer Validation
+
+Validate that the `iss` claim has a value that is equal to either:
+
+1. the `IDPORTEN_ISSUER` [environment variable](#runtime-variables-credentials), or
+2. the `issuer` property from the [metadata discovery document](concepts/actors.md#well-known-url-metadata-document).
+    The document is found at the endpoint pointed to by the `IDPORTEN_WELL_KNOWN_URL` environment variable.
+
+#### Audience Validation
 
 Validate that the `aud` claim is equal to the `IDPORTEN_AUDIENCE` environment variable.
+
+#### Signature Validation
+
+Validate that the token is signed with a public key published at the JWKS endpoint.
+This endpoint URI can be found in one of two ways:
+
+1. the `IDPORTEN_JWKS_URI` environment variable, or
+2. the `jwks_uri` property from the metadata discovery document.
+    The document is found at the endpoint pointed to by the `IDPORTEN_WELL_KNOWN_URL` environment variable.
+
+### Other Token Claims
+
+List of other notable claims for access tokens from ID-porten that can optionally be used or validated:
+
+- `acr` (**Authentication Context Class Reference**)
+    - The [security level](#security-levels) used for authenticating the end-user.
+- `pid` (**personidentifikator**)
+    - The Norwegian national ID number (fødselsnummer/d-nummer) of the authenticated end user.
+
+For a complete list of claims, see <https://docs.digdir.no/docs/idporten/oidc/oidc_protocol_access_token>.
 
 ## Next Steps
 
@@ -155,7 +185,7 @@ The access token provided by the sidecar should only be accepted and used by you
 
 In order to access other applications, you should exchange the token in order to get a new token that is correctly scoped to access a given application.
 
-For ID-porten, use the [token exchange grant (TokenX)](concepts/protocols.md#token-exchange-grant) to do this.
+For ID-porten, use the [token exchange grant (TokenX)](tokenx.md#exchanging-a-token) to do this.
 
 [JWT]: concepts/tokens.md#jwt
 [^1]: A sidecar is an additional container that runs alongside your application in the same Kubernetes [_Pod_](https://kubernetes.io/docs/concepts/workloads/pods/).

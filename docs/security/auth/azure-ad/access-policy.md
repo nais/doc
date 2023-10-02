@@ -63,8 +63,8 @@ This also controls the [`groups` claim](configuration.md#groups) for a user toke
 
 For proper scoping of tokens when performing calls between clients, one must either:
 
-1. Request a token for a specific client ID using the client using the [OAuth 2.0 client credentials flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow) \(service-to-service calls\).
-2. Exchange a token containing an end-user context using the [OAuth 2.0 On-Behalf-Of flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow) \(service-to-service calls on behalf of an end-user\).
+1. Request a token for a specific client ID using the client using the [OAuth 2.0 client credentials flow](usage.md#oauth-20-client-credentials-grant) (service-to-service calls).
+2. Exchange a token containing an end-user context using the [OAuth 2.0 On-Behalf-Of flow](usage.md#oauth-20-on-behalf-of-grant) (service-to-service calls on behalf of an end-user).
 
 Azure AD will enforce authorization for both flows. In other words, you **must** pre-authorize any consumer clients for your application.
 
@@ -123,7 +123,7 @@ responsibility to authorize or reject requests based on the permissions present 
 #### Custom Scopes
 
 A _scope_ only applies to tokens acquired using the
-[OAuth 2.0 On-Behalf-Of flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow)
+[OAuth 2.0 On-Behalf-Of flow](usage.md#oauth-20-on-behalf-of-grant)
 (service-to-service calls on behalf of an end-user).
 
 Applications defined in the access policy are always assigned the default scope named `defaultaccess`.
@@ -176,7 +176,7 @@ Scopes will appear as a _space separated string_ in the `scp` claim within the u
 #### Custom Roles
 
 A _role_ only applies to tokens acquired using the
-using the [OAuth 2.0 client credentials flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow)
+using the [OAuth 2.0 client credentials flow](usage.md#oauth-20-client-credentials-grant)
 (service-to-service calls).
 
 Applications defined in the access policy are always assigned the default role named `access_as_application`.
