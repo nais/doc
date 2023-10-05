@@ -599,9 +599,6 @@ Required: `false`<br />
         application:
           allowAllUsers: true
           claims:
-            extra:
-              - NAVident
-              - azp_name
             groups:
               - id: 00000000-0000-0000-0000-000000000000
           enabled: true
@@ -628,9 +625,6 @@ Required: `true`<br />
         application:
           allowAllUsers: true
           claims:
-            extra:
-              - NAVident
-              - azp_name
             groups:
               - id: 00000000-0000-0000-0000-000000000000
           enabled: true
@@ -671,32 +665,8 @@ Required: `false`<br />
       azure:
         application:
           claims:
-            extra:
-              - NAVident
-              - azp_name
             groups:
               - id: 00000000-0000-0000-0000-000000000000
-    ```
-
-##### azure.application.claims.extra
-Extra is a list of additional claims to be mapped from an associated claim-mapping policy. Currently, the only supported values are `NAVident` and `azp_name`.
-
-Relevant information:
-
-* [https://doc.nais.io/security/auth/azure-ad/configuration#extra](https://doc.nais.io/security/auth/azure-ad/configuration#extra)
-
-Type: `array`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      azure:
-        application:
-          claims:
-            extra:
-              - NAVident
-              - azp_name
     ```
 
 ##### azure.application.claims.groups

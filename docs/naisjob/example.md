@@ -65,9 +65,6 @@ spec:
     application:
       allowAllUsers: true
       claims:
-        extra:
-        - NAVident
-        - azp_name
         groups:
         - id: 00000000-0000-0000-0000-000000000000
       enabled: true
