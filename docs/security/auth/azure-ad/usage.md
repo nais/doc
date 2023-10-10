@@ -222,47 +222,22 @@ See also the [development overview](../overview/development.md) page.
 In many cases, you want to locally develop and test against a secured API (or [resource server](../concepts/actors.md#resource-server)) in the development environments.
 To do so, you need a [token](../concepts/tokens.md#bearer-token) in order to access said API.
 
-The services below can be used in order to generate tokens in the development environments.
-
-=== "trygdeetaten.no"
-
-      The service is available at <https://azure-token-generator.intern.dev.nav.no>.
-
-=== "nav.no"
-
-      The service is available at <https://azure-token-generator-nav.intern.dev.nav.no>.
+The service <https://azure-token-generator.intern.dev.nav.no> can be used in order to generate tokens in the development environments.
 
 #### Prerequisites
 
-=== "trygdeetaten.no"
-
-      1. You will need a [trygdeetaten.no](../azure-ad/concepts.md#tenants) user in order to access the service.
-      2. The API application must be configured with [Azure enabled](../azure-ad/configuration.md) in the matching `trygdeetaten.no` tenant.
-      3. Pre-authorize the token generator service by adding it to the API application's [access policy](../azure-ad/access-policy.md#pre-authorization):
-       ```yaml
-       spec:
-         accessPolicy:
-           inbound:
-             rules:
-               - application: azure-token-generator
-                 namespace: aura
-                 cluster: dev-gcp
-       ```
-
-=== "nav.no"
-
-      1. You will need a [nav.no](../azure-ad/concepts.md#tenants) user in order to access the service.
-      2. The API application must be configured with [Azure enabled](../azure-ad/configuration.md) in the matching `nav.no` tenant.
-      3. Pre-authorize the token generator service by adding it to the API application's [access policy](../azure-ad/access-policy.md#pre-authorization):
-       ```yaml
-       spec:
-         accessPolicy:
-           inbound:
-             rules:
-               - application: azure-token-generator-nav
-                 namespace: aura
-                 cluster: dev-gcp
-       ```
+1. The API application must be configured with [Azure enabled](../azure-ad/configuration.md). Using the [`nav.no` tenant](../azure-ad/concepts.md#tenants) is not supported.
+2. You will need a [trygdeetaten.no user](../azure-ad/concepts.md#tenants) in order to access the service.
+3. Pre-authorize the token generator service by adding it to the API application's [access policy](../azure-ad/access-policy.md#pre-authorization):
+    ```yaml
+    spec:
+      accessPolicy:
+        inbound:
+          rules:
+            - application: azure-token-generator
+              namespace: aura
+              cluster: dev-gcp
+    ```
 
 #### Getting a token
 
@@ -273,15 +248,8 @@ The Azure AD token generator supports two use cases:
 
 Choose your use case:
 
-=== "trygdeetaten.no"
-
-      1. For _on-behalf-of_: visit <https://azure-token-generator.intern.dev.nav.no/api/obo?aud=&lt;audience&gt;> in your browser.
-      2. For _client credentials_: visit <https://azure-token-generator.intern.dev.nav.no/api/m2m?aud=&lt;audience&gt;> in your browser.
-
-=== "nav.no"
-
-      1. For _on-behalf-of_: visit <https://azure-token-generator-nav.intern.dev.nav.no/api/obo?aud=&lt;audience&gt;> in your browser.
-      2. For _client credentials_: visit <https://azure-token-generator-nav.intern.dev.nav.no/api/m2m?aud=&lt;audience&gt;> in your browser.
+1. For _on-behalf-of_: visit <https://azure-token-generator.intern.dev.nav.no/api/obo?aud=&lt;audience&gt;> in your browser.
+2. For _client credentials_: visit <https://azure-token-generator.intern.dev.nav.no/api/m2m?aud=&lt;audience&gt;> in your browser.
 
 Then:
 
