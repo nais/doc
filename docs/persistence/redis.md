@@ -84,6 +84,7 @@ A minimal Redis resource only requires `plan` and `project`.
  * `plan` is the Aiven plan for your Redis instance. 
    See Aivens list of [possible plan values](https://aiven.io/pricing?product=redis). 
    The values are lowercased.
+   Make sure you understand the differences between the plans before selecting the one you need.
    Examples: `startup-4`, `startup-56`, `business-4`, `premium-14`.
 
 We use Aivens operator, so the Redis resource is [documented in detail](https://aiven.github.io/aiven-operator/api-reference/redis.html) in the Aiven documentation.
