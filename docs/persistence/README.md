@@ -60,7 +60,6 @@ Below is a list of the different storage options available to you.
 | [Cloud Storage](#cloud-storage) | Object      |       ✅        |     GCP      |  Yes*  |
 | [Cloud SQL](#cloud-sql)         | Relational  |       ✅        |     GCP      |  Yes   |
 | [BigQuery](#bigquery)           | Relational  |       ✅        |     GCP      |  Yes*  |
-| [Elasticsearch](#elasticsearch) | Document    |       ⚠️       |     All      |  Yes   |
 | [OpenSearch](#opensearch)       | Document    |       ✅        |     All      |  Yes   |
 | [Redis](#redis)                 | Key/Value   |       ✅        |     All      |  Yes   |
 | [InfluxDB](#influxdb)           | Time Series |       ✅        |     All      |  Yes   |

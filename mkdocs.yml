@@ -184,7 +184,6 @@ nav:
           - InfluxDB: persistence/influxdb.md
           - Legacy:
               - IBM MQ: persistence/mq.md
-              - ElasticSearch: persistence/elastic-search.md
               - S3 Objectstore: persistence/objectstore.md
       - Security:
           - Overview: security/README.md
