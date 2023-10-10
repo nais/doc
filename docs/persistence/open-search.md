@@ -5,6 +5,10 @@ description: >-
   OpenSearch for your applications.
 ---
 
+!!! warning "Availability"
+    Aiven OpenSearch can be used by applications in all environments, but must be *defined* in a GCP cluster.
+
+
 # OpenSearch
 
 OpenSearch is a fork of Elasticsearch that is maintained by Amazon. It is a drop-in replacement for Elasticsearch, and is fully compatible with the Elasticsearch API. It is a community-driven project that is open source and free to use.
@@ -13,11 +17,109 @@ OpenSearch is a distributed, RESTful search and analytics engine capable of solv
 
 NAIS offers OpenSearch via [Aiven](https://aiven.io/).
 
-## Getting started
+## Creating a OpenSearch instance
 
-As there are few teams that need an OpenSearch instance we use a IaC-repo to provision each instance.
-Head over to [aiven-iac](https://github.com/navikt/aiven-iac#opensearch) to learn how to get your own instance.
-To make it easier for you, when creating the instance, we will also create four users with read, write, readwrite and admin access.
+We recommend creating your OpenSearch instances in their own workflow for more control over configuration, especially if you intend for multiple applications using the same OpenSearch instance.
+
+Creating a OpenSearch instance is done by adding a OpenSearch resource to your namespace with detailed configuration in a GCP cluster.
+Some configuration is enforced by the nais platform, while the rest is up to the users.
+OpenSearch instances created when we used Terraform have metrics integration already in place.
+If you require metrics for a newly created OpenSearch instance, you also need to define a [ServiceIntegration](#ServiceIntegration) along with your OpenSearch instance.
+
+In your `Application` or `Naisjob` specifications, you specify an instance and access.
+In reality, the actual name of the opensearch instance will be `opensearch-<team name>-<instance name>` (where `team name` is the same as the namespace your application resides in).
+The resource needs to have this full name in order to be accepted.
+
+The minimal OpenSearch resource looks like this:
+
+```yaml
+apiVersion: aiven.io/v1alpha1
+kind: OpenSearch
+metadata:
+  labels:
+    team: myteam
+  name: opensearch-myteam-sessions
+  namespace: myteam
+spec:
+  plan: hobbyist
+  project: nav-dev
+```
+
+A minimal OpenSearch resource only requires `plan` and `project`.
+
+* `project` should match your nais tenant (`nav`, `mtpilot`, `ssb` or `fhi`) and the environment you are running in (ex. `dev`, `prod`), with a dash (`-`) in between.
+* `plan` is the Aiven plan for your OpenSearch instance.
+  See Aivens list of [possible plan values](https://aiven.io/pricing?product=opensearch).
+  The values are lowercased.
+  Make sure you understand the differences between the plans before selecting the one you need.
+  Examples: `hobbyist`, `startup-4`, `startup-56`, `business-4`, `premium-14`.
+
+We use Aivens operator, so the OpenSearch resource is [documented in detail](https://aiven.github.io/aiven-operator/api-reference/opensearch.html) in the Aiven documentation.
+You should look at the reference for any other fields that might be of interest.
+
+Probably the most important value to consider is which plan to use.
+
+The Startup plans are good for things like sessions or cache usage, where High Availability in case of failures is not important.
+Upgrades and regular maintenance is handled without noticeable downtime, by adding a new upgraded node and replicating data over to it before switching over DNS and shutting down the old node.
+Startup plans are backed up every 12 hours, keeping 1 backup available.
+
+If you require HA, the Business plans provide for one failover node that takes over should your primary instance fail for any reason.
+When using business plans, a second node is always available with continuous replication, so it is able to start serving data immediately should the primary node fail.
+Business plans are backed up every 12 hours, keeping 3 days of backups available.
+
+Once the resource is added to the cluster, some additional fields are filled in by the platform and should be left alone unless you have a good reason:
+
+| field                   |                                                                                                       | 
+|-------------------------|-------------------------------------------------------------------------------------------------------|
+| `projectVpcId`          | Ensures the instance is connected to the correct project VPC and is not available on public internet. |
+| `tags`                  | Adds tags to the instance used for tracking billing in Aiven.                                         |
+| `cloudName`             | Where the OpenSearch instance should run.                                                             |  
+| `terminationProtection` | Protects the instance against unintended termination. Must be set to `false` before deletion.         |
+
+There are some fields available that should not be used:
+
+| field                  |                                                                                                 |
+|------------------------|-------------------------------------------------------------------------------------------------|
+| `authSecretRef`        | Reference to a secret containing an Aiven API token. Provided via other mechanisms.             |
+| `connInfoSecretTarget` | Name of secret to put connection info in, not used as nais provides these via other mechanisms. |
+| `projectVPCRef`        | Not used since we use `projectVpcId`.                                                           |
+| `serviceIntegrations`  | Not used at this time.                                                                          |
+
+### ServiceIntegration
+
+A ServiceIntegration is used to integrate the OpenSearch instance with Prometheus.
+It is pretty straight forward, with little to no configuration needed.
+
+Simple 5 steps procedure:
+1. Copy the below yaml into a file (it can be the same file as your OpenSearch instance)
+2. Replace `nav-dev` with your project name (in field `project`)
+   `project` should match your nais tenant (`nav`, `mtpilot`, `ssb` or `fhi`) and the environment you are running in (ex. `dev`, `prod`), with a dash (`-`) in between.
+3. Replace `myteam` with your team name (in `labels`, `namespace` and `sourceServiceName`)
+4. Replace `sessions` with the name of your OpenSearch instance (in `name` and `sourceServiceName`)
+5. Deploy the resource using the same pipeline as you use for your OpenSearch instance
+
+
+```yaml
+---
+apiVersion: aiven.io/v1alpha1
+kind: ServiceIntegration
+metadata:
+  labels:
+    team: myteam
+  name: opensearch-myteam-sessions
+  namespace: myteam
+spec:
+  project: nav-dev
+  integrationType: prometheus
+  destinationEndpointId: prometheus
+  sourceServiceName: opensearch-myteam-sessions
+```
+
+
+### Previous usage
+
+Previously, we defined the OpenSearch instances using terraform in the [aiven-iac](https://github.com/navikt/aiven-iac) IaC-repo.
+As we are moving away from terraform for self-service services on Aiven, we will not be using this method anymore.
 
 ## Access from Nais-app
 
@@ -30,7 +132,7 @@ The available access levels are: 'admin', 'read', 'write', 'readwrite'
 If not specified, the credentials will be for a user with read access.
 
 | Environment variable | Description |
-|----------------------| ----------- |
+|----------------------|-------------|
 | OPEN_SEARCH_USERNAME | Username    |
 | OPEN_SEARCH_PASSWORD | Password    |
 | OPEN_SEARCH_URI      | Service URI |
@@ -53,7 +155,7 @@ We do not offer support on OpenSearch as software, but questions about Aiven and
 We recommend that you set up your own alerts so that you can react to problems in your OpenSearch instance.
 Aiven uses Telegraf to collect and present metrics, so available metrics can be found in the [Telegraf documentation](https://github.com/influxdata/telegraf).
 
-We have configured our Prometheus instances in GCP to scrape the OpenSearch clusters in Aiven, so these metrics should be available in Grafana.
+In order to receive metrics in Grafana, you need to configure a [ServiceIntegration](#ServiceIntegration) for your OpenSearch instance.
 
 Particularly relevant input plugins are:
 
