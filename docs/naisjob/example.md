@@ -68,10 +68,6 @@ spec:
         groups:
         - id: 00000000-0000-0000-0000-000000000000
       enabled: true
-      replyURLs:
-      - https://myapplication.nav.no/oauth2/callback
-      singlePageApplication: true
-      tenant: nav.no
   backoffLimit: 5
   command:
   - /app/myapplication

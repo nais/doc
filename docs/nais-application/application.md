@@ -15,7 +15,7 @@ By default, no traffic is allowed between applications inside the cluster. Confi
 Relevant information:
 
 * [https://doc.nais.io/appendix/zero-trust/](https://doc.nais.io/appendix/zero-trust/)
-* [https://doc.nais.io/security/auth/azure-ad/access-policy](https://doc.nais.io/security/auth/azure-ad/access-policy)
+* [https://doc.nais.io/security/auth/azure-ad/configuration/#access-policy](https://doc.nais.io/security/auth/azure-ad/configuration/#access-policy)
 * [https://doc.nais.io/security/auth/tokenx/#access-policies](https://doc.nais.io/security/auth/tokenx/#access-policies)
 
 Type: `object`<br />
@@ -255,7 +255,7 @@ Permissions contains a set of permissions that are granted to the given applicat
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/access-policy#fine-grained-access-control](https://doc.nais.io/security/auth/azure-ad/access-policy#fine-grained-access-control)
+* [https://doc.nais.io/security/auth/azure-ad/configuration#fine-grained-access-control](https://doc.nais.io/security/auth/azure-ad/configuration#fine-grained-access-control)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -295,7 +295,7 @@ Roles is a set of custom permission roles that are granted to a given applicatio
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/access-policy#custom-roles](https://doc.nais.io/security/auth/azure-ad/access-policy#custom-roles)
+* [https://doc.nais.io/security/auth/azure-ad/configuration#custom-roles](https://doc.nais.io/security/auth/azure-ad/configuration#custom-roles)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -335,7 +335,7 @@ Scopes is a set of custom permission scopes that are granted to a given applicat
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/access-policy#custom-scopes](https://doc.nais.io/security/auth/azure-ad/access-policy#custom-scopes)
+* [https://doc.nais.io/security/auth/azure-ad/configuration#custom-scopes](https://doc.nais.io/security/auth/azure-ad/configuration#custom-scopes)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -618,10 +618,6 @@ Required: `false`<br />
             groups:
               - id: 00000000-0000-0000-0000-000000000000
           enabled: true
-          replyURLs:
-            - https://myapplication.nav.no/oauth2/callback
-          singlePageApplication: true
-          tenant: nav.no
         sidecar:
           autoLogin: true
           autoLoginIgnorePaths:
@@ -657,10 +653,6 @@ Required: `true`<br />
             groups:
               - id: 00000000-0000-0000-0000-000000000000
           enabled: true
-          replyURLs:
-            - https://myapplication.nav.no/oauth2/callback
-          singlePageApplication: true
-          tenant: nav.no
     ```
 
 #### azure.application.allowAllUsers
@@ -668,7 +660,7 @@ AllowAllUsers denotes whether all users within the tenant should be allowed to a
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/access-policy#users](https://doc.nais.io/security/auth/azure-ad/access-policy#users)
+* [https://doc.nais.io/security/auth/azure-ad/configuration#all-users](https://doc.nais.io/security/auth/azure-ad/configuration#all-users)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -747,64 +739,6 @@ Default value: `false`<br />
       azure:
         application:
           enabled: true
-    ```
-
-#### azure.application.replyURLs
-ReplyURLs is a list of allowed redirect URLs used when performing OpenID Connect flows for authenticating end-users.
-
-Relevant information:
-
-* [https://doc.nais.io/security/auth/azure-ad/configuration#reply-urls](https://doc.nais.io/security/auth/azure-ad/configuration#reply-urls)
-
-Type: `array`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      azure:
-        application:
-          replyURLs:
-            - https://myapplication.nav.no/oauth2/callback
-    ```
-
-#### azure.application.singlePageApplication
-SinglePageApplication denotes whether this Azure AD application should be registered as a single-page-application for usage in client-side applications without access to secrets.
-
-Relevant information:
-
-* [https://doc.nais.io/security/auth/azure-ad/configuration#single-page-application](https://doc.nais.io/security/auth/azure-ad/configuration#single-page-application)
-
-Type: `boolean`<br />
-Required: `false`<br />
-Default value: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      azure:
-        application:
-          singlePageApplication: true
-    ```
-
-#### azure.application.tenant
-A Tenant represents an organization in Azure AD. 
- If unspecified, will default to `trygdeetaten.no` for development clusters and `nav.no` for production clusters.
-
-Relevant information:
-
-* [https://doc.nais.io/security/auth/azure-ad/concepts#tenants](https://doc.nais.io/security/auth/azure-ad/concepts#tenants)
-
-Type: `enum`<br />
-Required: `false`<br />
-Allowed values: `nav.no`, `trygdeetaten.no`<br />
-
-??? example
-    ``` yaml
-    spec:
-      azure:
-        application:
-          tenant: nav.no
     ```
 
 ### azure.sidecar
