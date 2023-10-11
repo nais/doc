@@ -175,7 +175,7 @@ If your application stores personally identifiable information in any GCP data s
 
     2. If secured with OAuth 2.0, ensure that the application also has set up inbound access policies:
         - a. [Access Policies for TokenX](../security/auth/tokenx.md#access-policies)
-        - b. [Access Policies for Azure AD](../security/auth/azure-ad/access-policy.md#pre-authorization)
+        - b. [Access Policies for Azure AD](../security/auth/azure-ad/configuration.md#pre-authorization)
 
     The application _in GCP_ must then:
 

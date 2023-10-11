@@ -82,6 +82,8 @@ plugins:
   - redirects:
       redirect_maps:
         "security/auth/idporten/sidecar.md": "security/auth/idporten.md"
+        "security/auth/azure-ad/access-policy.md": "security/auth/azure-ad/configuration.md#access-policy"
+        "security/auth/azure-ad/concepts.md": "security/auth/azure-ad/README.md#concepts"
 markdown_extensions:
   - toc:
       permalink: True
@@ -200,13 +202,10 @@ nav:
                   - Cryptography: security/auth/concepts/cryptography.md
               - Azure AD:
                   - Intro: security/auth/azure-ad/README.md
-                  - Concepts: security/auth/azure-ad/concepts.md
                   - Configuration: security/auth/azure-ad/configuration.md
-                  - Access Policy: security/auth/azure-ad/access-policy.md
                   - Usage: security/auth/azure-ad/usage.md
                   - Sidecar: security/auth/azure-ad/sidecar.md
                   - FAQ / Troubleshooting: security/auth/azure-ad/faq-troubleshooting.md
-                  - Operations: security/auth/azure-ad/operations.md
                   - Legacy: security/auth/azure-ad/legacy.md
               - ID-porten: security/auth/idporten.md
               - Maskinporten:

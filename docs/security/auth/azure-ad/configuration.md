@@ -27,141 +27,53 @@ See the complete specification in the [NAIS manifest](../../../nais-application/
 
 ## Access Policy
 
+Access to applications should generally follow the _principle of least privilege_.
+That is, any user or application should only have the minimum access required that is required for their legitimate purpose.
+
+Access is granted by configuring access policies. We'll guide you through it below.
+
 !!! warning
 
     Users are not granted access by default.
-    You must explicitly [grant access to users](access-policy.md#users).
+    You must explicitly [grant access to users](#users).
 
     Applications are also not granted access by default.
-    You must explicitly grant applications access by [pre-authorizing](access-policy.md#pre-authorization) them.
+    You must explicitly grant applications access by [pre-authorizing](#pre-authorization) them.
 
-See [access policy](access-policy.md) for further details.
+### Users
 
-## Accessing external hosts
+**Users are not granted access by default.**
+You must explicitly grant user access either for [specific groups](#groups) or for [all users](#users).
 
-Azure AD is a third-party service outside of our clusters, which is not reachable by default like most third-party services.
+If _no groups are assigned_ and _all-user access is disabled_, then **end-users will not have access** to authenticate with your application.
 
-### Google Cloud Platform \(GCP\)
+This applies for your application if it does at least one of the following:
 
-The following [outbound external hosts](../../../nais-application/access-policy.md#external-services) are automatically added when enabling this feature:
+- Performs sign-ins of end-users using the [OpenID Connect Auth Code flow](usage.md#openid-connect-authorization-code-flow)
+- Has consumers that performs exchanges of end-user tokens using the [OAuth 2 On-behalf-of flow](usage.md#oauth-20-on-behalf-of-grant)
 
-* `login.microsoftonline.com`
-* `graph.microsoft.com`
+#### All Users
 
-You do not need to specify these explicitly.
+If you want to allow _all_ users in the Azure AD tenant to access your application, you must explicitly enable this:
 
-### On-premises
-
-You must enable and use [`webproxy`](../../../nais-application/application.md#webproxy) for external communication.
-
-## Reply URLs
-
-> A redirect URI, or reply URL, is the location that the authorization server will send the user to once the app has been successfully authorized, and granted an authorization code or access token. The code or token is contained in the redirect URI or reply token so it's important that you register the correct location as part of the app registration process.
->
-> -- Microsoft's documentation on [reply URLs](https://docs.microsoft.com/en-us/azure/active-directory/develop/reply-url)
-
-### Defaults
-
-If you have _not_ specified any reply URLs, we will automatically generate a reply URL for each ingress specified using this formula:
-
-```text
-spec.ingresses[n] + "/oauth2/callback"
-```
-
-???+ example
-    In other words, this:
-
-    ```yaml hl_lines="2-4"
-    spec:
-      ingresses:
-        - "https://my.application.intern.dev.nav.no"
-        - "https://my.application.intern.dev.nav.no/subpath"
-      azure:
-        application:
-          enabled: true
-    ```
-
-    will generate a spec equivalent to this:
-
-    ```yaml  hl_lines="2-4 7-10"
-    spec:
-      ingresses:
-        - "https://my.application.intern.dev.nav.no"
-        - "https://my.application.intern.dev.nav.no/subpath"
-      azure:
-        application:
-          enabled: true
-          replyURLs:
-            - "https://my.application.intern.dev.nav.no/oauth2/callback"
-            - "https://my.application.intern.dev.nav.no/subpath/oauth2/callback"
-    ```
-
-### Overriding explicitly
-
-You may set reply URLs manually by specifying `spec.azure.application.replyURLs[]`:
-
-???+ example
-    ```yaml hl_lines="5-7"
-    spec:
-      azure:
-        application:
-          enabled: true
-          replyURLs:
-            - "https://my.application.intern.dev.nav.no/oauth2/callback"
-            - "https://my.application.intern.dev.nav.no/subpath/oauth2/callback"
-    ```
-
-Doing so will **replace** all of the [default auto-generated reply URLs](#defaults).
-
-!!! danger
-    If you do override the reply URLs, make sure that you specify **all** the URLs that should be registered for the Azure AD client.
-
-    **Ensure that these URLs conform to the restrictions and limitations of** [**reply URLs**](https://docs.microsoft.com/en-us/azure/active-directory/develop/reply-url) **as specified by Microsoft.**
-
-## Tenants
-
-To explicitly target a specific [tenant](concepts.md#tenants), add a `spec.azure.application.tenant` to your `nais.yaml`:
-
-```yaml
+```yaml hl_lines="5"
 spec:
   azure:
     application:
       enabled: true
-      
-      # enum of {trygdeetaten.no, nav.no}
-      tenant: trygdeetaten.no 
+      allowAllUsers: true
 ```
 
-## Single-Page Application
+#### Groups
 
-Azure AD supports the [OAuth 2.0 Auth Code Flow with PKCE](https://docs.microsoft.com/en-us/azure/active-directory/develop/scenario-spa-overview) for logins from client-side/browser single-page-applications.
+In many cases, you want to only allow certain groups of users to have access to your application.
 
-However, the support for this must be explicitly enabled to avoid issues with CORS:
+The user must be a _direct_ member of the group.
+Nested groups are not supported, i.e. membership of a group within a group does not propagate to the parent group.
 
-```yaml
-spec:
-  azure:
-    application:
-      enabled: true
-      singlePageApplication: true
-```
+First, declare which groups that should be assigned and granted access to the application:
 
-## Claims
-
-[JWTs](../concepts/tokens.md#jwt) contain claims about the principal that the token represents.
-
-The claims below are _additional_ claims that are specific to Azure AD. They are opt-in and not included by default.
-These additional claims only affect tokens that are acquired where your application is the intended audience (i.e. 
-[scoped](concepts.md#scopes) to your application).
-
-### Groups
-
-The `groups` claim in user tokens is by default omitted due to potential issues with the token's size when used in cookies.
-
-Sometimes however, it is desirable to check for group membership for a given user's token.
-Start by defining all [Azure AD group](concepts.md#groups) IDs that should appear in user tokens:
-
-```yaml hl_lines="5-8"
+```yaml hl_lines="5-7"
 spec:
   azure:
     application:
@@ -173,15 +85,55 @@ spec:
 
 !!! warning
 
-    **Ensure that the [object ID](concepts.md#group-identifier) for the group actually exists in Azure AD for your environment.**
+    **Ensure that the [object ID](README.md#group-identifier) for the group actually exists in Azure AD for your environment.**
 
     Non-existing groups (object IDs) will be skipped.
 
-Now all user tokens acquired for your application will include the `groups` claim.
+Then, explicitly disable all-user access:
 
-The claim will only contain groups that are **both explicitly assigned to the application _and_ which the user is a direct member of**.
+```yaml hl_lines="5"
+spec:
+  azure:
+    application:
+      enabled: true
+      allowAllUsers: false
+      claims:
+        groups:
+          - id: "<object ID of group in Azure AD>"
+```
 
-???+ example "Example decoded on-behalf-of token"
+If a user is not a _direct_ member of any of the configured groups, Azure AD will now return an error if the user attempts to sign in to your application.
+
+Consumers using the [on-behalf-of flow](usage.md#oauth-20-on-behalf-of-grant) will also receive failures if the user is not a member of any of the configured groups.
+
+#### Fine-Grained Group-Based Access Control
+
+If you need more fine-grained access controls, you will need to handle authorization in your application by using the `groups` claim found in the user's [JWT](../concepts/tokens.md#jwt).
+
+The `groups` claim in user tokens contains a list of [group object IDs](README.md#group-identifier) if and only if:
+
+1. The group is explicitly assigned to the application, and
+2. The user is a _direct_ member of the group
+
+Because no groups are assigned to the application by default, the claim is also omitted by default.
+
+You can assign groups to your application by specifying the following:
+
+```yaml hl_lines="5-8"
+spec:
+  azure:
+    application:
+      enabled: true
+      claims:
+        groups:
+          - id: "<object ID of group in Azure AD>"
+```
+
+This configuration only affects tokens that are acquired where your application is the intended audience (i.e. [scoped](README.md#scopes) to your application).
+
+All user tokens acquired for your application will now include the `groups` claim.
+
+??? example "Example decoded on-behalf-of token (click to expand)"
 
     ```json hl_lines="10-12"
     {
@@ -208,5 +160,185 @@ The claim will only contain groups that are **both explicitly assigned to the ap
     }
     ```
 
-If you wish to also restrict sign-ins and token exchanges with the on-behalf-of flow to users in these groups, 
-see the [groups section in access policy](access-policy.md#groups).
+Your application can then use this claim to implement custom user authorization logic.
+
+### Applications
+
+**Applications are not granted access by default.**
+You must explicitly grant consumer applications access by [pre-authorizing](#pre-authorization) them.
+
+This applies if your application has consumers that use either the [client credentials](usage.md#oauth-20-client-credentials-grant) or the [on-behalf-of](usage.md#oauth-20-on-behalf-of-grant) flows. 
+
+#### Pre-authorization
+
+Pre-authorize consumers by specifying the following:
+
+```yaml
+spec:
+  accessPolicy:
+    inbound:
+      rules:
+        - application: app-a
+
+        - application: app-b
+          namespace: other-namespace
+
+        - application: app-c
+          namespace: other-namespace
+          cluster: other-cluster
+```
+
+The above configuration will pre-authorize the Azure AD clients belonging to:
+
+* application `app-a` running in the **same namespace** and **same cluster** as your application
+* application `app-b` running in the namespace `other-namespace` in the **same cluster**
+* application `app-c` running in the namespace `other-namespace` in the cluster `other-cluster`
+
+!!! warning
+
+    - These rules are _eventually consistent_, which means it might take a few minutes to propagate.
+    - If you're pre-authorizing a client provisioned through `aad-iac`, see the [legacy](legacy.md#pre-authorization) section.
+
+If you require more fine-grained access control, continue reading below.
+
+#### Fine-Grained Access Control
+
+You may define custom permissions for your client in Azure AD. These can be granted to consumer clients individually as an
+extension of the [access policy](#pre-authorization) definitions described above.
+
+When granted to a consumer, the permissions will appear in their respective claims in tokens targeted to your application.
+Your application can then use these claims to implement custom authorization logic. Note that it is your application's
+responsibility to authorize or reject requests based on the permissions present in the token.
+
+!!! warning
+
+    Custom permissions only apply in the context of _your own application_ as an API provider.
+    **They are _not_ global permissions.**
+
+    These permissions only appear in tokens when all the following conditions are met:
+    
+    1. The token is acquired by a consumer of your application.
+    2. The consumer has been granted a custom permission in your access policy definition.
+    3. The target _audience_ is your application.
+
+##### Custom Scopes
+
+A _scope_ only applies to tokens acquired using the
+[OAuth 2.0 On-Behalf-Of flow](usage.md#oauth-20-on-behalf-of-grant)
+(service-to-service calls on behalf of an end-user).
+
+Applications defined in the access policy are always assigned the default scope named `defaultaccess`.
+
+Grant scopes to consumers by specifying the following:
+
+```yaml hl_lines="8-10"
+spec:
+  accessPolicy:
+    inbound:
+      rules:
+        - application: app-a
+          namespace: other-namespace
+          cluster: other-cluster
+          permissions:
+            scopes:
+              - "custom-scope"
+```
+
+The above configuration grants the application `app-a` the scope `custom-scope`.
+
+Scopes will appear as a _space separated string_ in the `scp` claim within the user's token.
+
+??? example "Example decoded on-behalf-of token (click to expand)"
+    ```json hl_lines="17"
+    {
+        "aud": "8a5...",
+        "iss": "https://login.microsoftonline.com/.../v2.0",
+        "iat": 1624957183,
+        "nbf": 1624957183,
+        "exp": 1624961081,
+        "aio": "AXQ...",
+        "azp": "e37...",
+        "azpacr": "1",
+        "groups": [
+            "2d7..."
+        ],
+        "name": "Navnesen, Navn",
+        "oid": "15c...",
+        "preferred_username": "Navn.Navnesen@nav.no",
+        "rh": "0.AS...",
+        "scp": "custom-scope defaultaccess",
+        "sub": "6OC...",
+        "tid": "623...",
+        "uti": "i03...",
+        "ver": "2.0"
+    }
+    ```
+
+##### Custom Roles
+
+A _role_ only applies to tokens acquired using the
+using the [OAuth 2.0 client credentials flow](usage.md#oauth-20-client-credentials-grant)
+(service-to-service calls).
+
+Applications defined in the access policy are always assigned the default role named `access_as_application`.
+
+Grant roles to consumers by specifying the following:
+
+```yaml hl_lines="8-10"
+spec:
+  accessPolicy:
+    inbound:
+      rules:
+        - application: app-a
+          namespace: other-namespace
+          cluster: other-cluster
+          permissions:
+            roles:
+              - "custom-role"
+```
+
+The above configuration grants the application `app-a` the role `custom-role`.
+
+Roles will appear in the `roles` claim as an _array of strings_ within the application's token.
+
+??? example "Example decoded client credentials token (click to expand)"
+
+    ```json hl_lines="12-15"
+    {
+      "aud": "8a5...",
+      "iss": "https://login.microsoftonline.com/.../v2.0",
+      "iat": 1624957347,
+      "nbf": 1624957347,
+      "exp": 1624961247,
+      "aio": "E2Z...",
+      "azp": "e37...",
+      "azpacr": "1",
+      "oid": "933...",
+      "rh": "0.AS...",
+      "roles": [
+        "access_as_application",
+        "custom-role"
+      ],
+      "sub": "933...",
+      "tid": "623...",
+      "uti": "kbG...",
+      "ver": "2.0"
+    }
+    ```
+
+## Accessing external hosts
+
+Azure AD is a third-party service outside of our clusters, which is not reachable by default like most third-party services.
+
+### Google Cloud Platform \(GCP\)
+
+The following [outbound external hosts](../../../nais-application/access-policy.md#external-services) are automatically added when enabling this feature:
+
+* `login.microsoftonline.com`
+* `graph.microsoft.com`
+
+You do not need to specify these explicitly.
+
+### On-premises
+
+You must enable and use [`webproxy`](../../../nais-application/application.md#webproxy) for external communication.
