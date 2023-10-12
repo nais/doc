@@ -618,6 +618,7 @@ Required: `false`<br />
             groups:
               - id: 00000000-0000-0000-0000-000000000000
           enabled: true
+          tenant: nav.no
         sidecar:
           autoLogin: true
           autoLoginIgnorePaths:
@@ -653,6 +654,7 @@ Required: `true`<br />
             groups:
               - id: 00000000-0000-0000-0000-000000000000
           enabled: true
+          tenant: nav.no
     ```
 
 #### azure.application.allowAllUsers
@@ -751,6 +753,14 @@ Relevant information:
 Type: `enum`<br />
 Required: `false`<br />
 Allowed values: `nav.no`, `trygdeetaten.no`<br />
+
+??? example
+    ``` yaml
+    spec:
+      azure:
+        application:
+          tenant: nav.no
+    ```
 
 ### azure.sidecar
 Sidecar configures a sidecar that intercepts every HTTP request, and performs the OIDC flow if necessary. All requests to ingress + `/oauth2` will be processed only by the sidecar, whereas all other requests will be proxied to the application. 

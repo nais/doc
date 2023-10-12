@@ -72,6 +72,7 @@ spec:
         groups:
         - id: 00000000-0000-0000-0000-000000000000
       enabled: true
+      tenant: nav.no
     sidecar:
       autoLogin: true
       autoLoginIgnorePaths:
