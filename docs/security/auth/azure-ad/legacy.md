@@ -13,11 +13,11 @@ Communication between legacy clients provisioned through [aad-iac](https://githu
     Prerequisites:
 
     * You have a legacy client registered in the [`aad-iac`](https://github.com/navikt/aad-iac) repository.
-    * You would like to [pre-authorize](access-policy.md#pre-authorization) client provisioned through NAIS.
+    * You would like to [pre-authorize](configuration.md#pre-authorization) a client provisioned through NAIS.
 
     Steps:
 
-    * Refer to the NAIS client in aad-iac using its _fully qualified name_ \(see [naming format](concepts.md#naming-format)\):
+    * Refer to the NAIS client in aad-iac using its _fully qualified name_ \(see [client name](README.md#client-name)\):
     
     ```
     <cluster>:<namespace>:<app-name>
@@ -36,12 +36,12 @@ Communication between legacy clients provisioned through [aad-iac](https://githu
     Prerequisites:
 
     * You have a client provisioned through NAIS.
-    * You would like to [pre-authorize](access-policy.md#pre-authorization) a legacy client registered in the [`aad-iac`](https://github.com/navikt/aad-iac) repository.
+    * You would like to [pre-authorize](configuration.md#pre-authorization) a legacy client registered in the [`aad-iac`](https://github.com/navikt/aad-iac) repository.
 
     Steps:
 
-    * The legacy client **must** follow the expected [naming format](concepts.md#naming-format). Follow step 1 and step 2 in the [migration guide](#migration-guide-step-by-step).
-    * Refer to the legacy client [analogously to a NAIS application](access-policy.md#pre-authorization)
+    * The legacy client **must** follow the expected [naming format](README.md#client-name).
+    * Refer to the legacy client [analogously to a NAIS application](configuration.md#pre-authorization)
     
     Example:
     
@@ -62,4 +62,4 @@ Communication between legacy clients provisioned through [aad-iac](https://githu
 
 If you have an existing legacy client in [aad-iac](https://github.com/navikt/aad-iac) and wish to keep the current client ID and configuration when moving to NAIS, [contact us](../../../support.md) on Slack for assistance.
 
-If keeping the existing client ID and configuration is not important, it should be much easier to just [provision new clients](configuration.md#getting-started) instead.
+If keeping the existing client ID and configuration is not important, it should be much easier to just [provision new clients](configuration.md) instead.

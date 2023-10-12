@@ -21,13 +21,13 @@ permissions should be propagated through each service/web API.
 #### Prerequisites
 
 1. Your [resource server](../concepts/actors.md#resource-server) / API and any downstream API that your API consumes have [enabled Azure AD](configuration.md).
-2. Your resource server has been [pre-authorized](access-policy.md#pre-authorization) by the downstream API.
+2. Your resource server has been [pre-authorized](configuration.md#pre-authorization) by the downstream API.
 
 #### Steps
 
 1. Your resource server receives an [access token](../concepts/tokens.md#access-token) in a request from a consumer with `aud` (audience) [claim](../concepts/tokens.md#claims-validation) equal to your own client ID.
     - This token is a _subject token_ and contains the end user context, e.g. from the [Authorization Code Flow](#openid-connect-authorization-code-flow) or from a previous resource server that has also performed the On-Behalf-Of grant.
-2. Your resource server requests a new token from Azure AD that is [scoped](concepts.md#scopes) to the downstream API that should be consumed:
+2. Your resource server requests a new token from Azure AD that is [scoped](README.md#scopes) to the downstream API that should be consumed:
     - The `scope` parameter in the request should thus be `api://<cluster>.<namespace>.<outbound-app-name>/.default`
     - Request:
     ```http
@@ -35,7 +35,7 @@ permissions should be propagated through each service/web API.
     Content-Type: application/x-www-form-urlencoded
 
     grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
-    client_id=${AZURE_APP_CLIENT_ID}
+    &client_id=${AZURE_APP_CLIENT_ID}
     &client_secret=${AZURE_APP_CLIENT_SECRET}
     &assertion=<subject_token>
     &scope=api://<cluster>.<namespace>.<outbound-app-name>/.default
@@ -67,11 +67,11 @@ This grant is used for pure machine-to-machine authentication, i.e. interactions
 #### Prerequisites
 
 1. Your [client](../concepts/actors.md#client) and any [downstream API](../concepts/actors.md#resource-server) that your client consumes have [enabled Azure AD](configuration.md).
-2. Your client has been [pre-authorized](access-policy.md#pre-authorization) by the downstream API.
+2. Your client has been [pre-authorized](configuration.md#pre-authorization) by the downstream API.
 
 #### Steps
 
-1. Your resource server requests a new token from Azure AD that is [scoped](concepts.md#scopes) to the downstream API that should be consumed.
+1. Your resource server requests a new token from Azure AD that is [scoped](README.md#scopes) to the downstream API that should be consumed.
     - The `scope` parameter in the request should thus be `api://<cluster>.<namespace>.<outbound-app-name>/.default`
     - Request:
     ```http
@@ -172,9 +172,9 @@ List of other notable claims for access tokens from Azure AD that can optionally
 - `azp` (**authorized party**)
     - The [client ID](../concepts/actors.md#client-id) of the application that requested the token (this would be your consumer).
 - `azp_name` (**authorized party name**)
-    - The value of this claim is the (human-readable) [name](concepts.md#naming-format) of the consumer application that requested the token.
+    - The value of this claim is the (human-readable) [name](README.md#client-name) of the consumer application that requested the token.
 - `groups` (**groups**)
-    - JSON array of object IDs for [Azure AD groups](concepts.md#groups).
+    - JSON array of object IDs for [Azure AD groups](README.md#groups).
     - In order for a group to appear in the claim, all the following conditions must be true:
         - The given user is a direct member of the group.
         - The group is [assigned to the client](configuration.md#groups).
@@ -197,8 +197,8 @@ List of other notable claims for access tokens from Azure AD that can optionally
     }
     ```
     - This claim **only** applies to [machine-to-machine](#oauth-20-client-credentials-grant) tokens.
-    - Consumers defined in the [access policy](access-policy.md#applications) are always assigned the default role named `access_as_application`.
-    - You can optionally define and grant additional [custom roles](access-policy.md#custom-roles) to consumers.
+    - Consumers defined in the [access policy](configuration.md#applications) are always assigned the default role named `access_as_application`.
+    - You can optionally define and grant additional [custom roles](configuration.md#custom-roles) to consumers.
 - `scp` (**scope**)
     - The value of this claim is a _space-separated string_ that lists the scopes that the application has access to:
     ```json
@@ -207,8 +207,8 @@ List of other notable claims for access tokens from Azure AD that can optionally
     }
     ```
     - This claim **only** applies to user or [on-behalf-of](#oauth-20-on-behalf-of-grant) tokens.
-    - Consumers defined in the [access policy](access-policy.md#applications) are always assigned the default scope named `defaultaccess`.
-    - You can optionally define and grant additional [custom scopes](access-policy.md#custom-scopes) to consumers.
+    - Consumers defined in the [access policy](configuration.md#applications) are always assigned the default scope named `defaultaccess`.
+    - You can optionally define and grant additional [custom scopes](configuration.md#custom-scopes) to consumers.
 
 For a complete list of claims, see <https://learn.microsoft.com/en-us/azure/active-directory/develop/access-token-claims-reference>.
 Tokens in NAV are v2.0 tokens.
@@ -226,9 +226,9 @@ The service <https://azure-token-generator.intern.dev.nav.no> can be used in ord
 
 #### Prerequisites
 
-1. The API application must be configured with [Azure enabled](../azure-ad/configuration.md). Using the [`nav.no` tenant](../azure-ad/concepts.md#tenants) is not supported.
-2. You will need a [trygdeetaten.no user](../azure-ad/concepts.md#tenants) in order to access the service.
-3. Pre-authorize the token generator service by adding it to the API application's [access policy](../azure-ad/access-policy.md#pre-authorization):
+1. The API application must be configured with [Azure enabled](../azure-ad/configuration.md). Using the [`nav.no` tenant](../azure-ad/README.md#tenants) is not supported.
+2. You will need a [trygdeetaten.no user](../azure-ad/README.md#tenants) in order to access the service.
+3. Pre-authorize the token generator service by adding it to the API application's [access policy](../azure-ad/configuration.md#pre-authorization):
     ```yaml
     spec:
       accessPolicy:
@@ -276,7 +276,7 @@ The clients are configured with the following redirect URIs:
 
 - `http://localhost:3000/oauth2/callback`
 
-The clients are [pre-authorized](../azure-ad/access-policy.md#pre-authorization) as follows:
+The clients are [pre-authorized](../azure-ad/configuration.md#pre-authorization) as follows:
 
 - `test-app-1` is pre-authorized for `test-app-2`
 - `test-app-2` is pre-authorized for `test-app-3`
