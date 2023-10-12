@@ -1,9 +1,6 @@
 
 # FAQ/Troubleshooting
 
-!!! warning
-    This feature applies only to _Aiven hosted Kafka_. On-premises Kafka is deprecated, and creating new topics on-premises was disabled summer 2021. For on-premises Kafka, see [on-premises Kafka documentation](https://confluence.adeo.no/display/AURA/Kafka).
-
 ## Why do I have to specify a pool name if there is only `nav-dev` and `nav-prod`?
 
 Custom pools might be added in the future, so this is done to avoid changing that part of the API.
@@ -19,3 +16,8 @@ Make sure you added the application to `.spec.acl` in your `topic.yaml`.
 ## I get the error _MountVolume.SetUp failed for volume "kafka-credentials" : secret ... not found_
 
 Check the status of the `AivenApplication` resource created by Naiserator to look for errors.
+
+## Are Schemas backed up?
+
+Aiven makes backups of configuration and schemas every 3 hours, but no topic data is backed up by default.
+See the [Aiven documentation](https://docs.aiven.io/docs/products/kafka/concepts/configuration-backup) for more details.
