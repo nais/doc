@@ -741,6 +741,17 @@ Default value: `false`<br />
           enabled: true
     ```
 
+#### azure.application.tenant
+Tenant targets a specific tenant for the Azure AD application. Only works in the development clusters. Only use this if you have a specific reason to do so. Using this will _isolate_ your application from all other applications that are not using the same tenant.
+
+Relevant information:
+
+* [https://doc.nais.io/security/auth/azure-ad#tenants](https://doc.nais.io/security/auth/azure-ad#tenants)
+
+Type: `enum`<br />
+Required: `false`<br />
+Allowed values: `nav.no`, `trygdeetaten.no`<br />
+
 ### azure.sidecar
 Sidecar configures a sidecar that intercepts every HTTP request, and performs the OIDC flow if necessary. All requests to ingress + `/oauth2` will be processed only by the sidecar, whereas all other requests will be proxied to the application. 
  If the client is authenticated with Azure AD, the `Authorization` header will be set to `Bearer <JWT>`.
