@@ -94,7 +94,7 @@ kubectl delete po my-pod-name
 You can read more about
 the `kubectl debug` [command](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container).
 
-## Exec Logs and Describe `kubectl`
+## `kubectl` exec, logs and describe
 
 With ephemeral containers, you can temporarily add another container to a running pod without having to create a new pod.
 `kubectl debug` can be used as an additional [debug tool](https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/)
