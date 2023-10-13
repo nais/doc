@@ -75,7 +75,7 @@ If you don't see a command prompt, try pressing enter.
 ~ $ 
 ```
 
-## Attach `kubectl`
+## `kubectl` attach
 
 !!! note "kubectl attach"
 
