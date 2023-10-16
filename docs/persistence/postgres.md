@@ -6,6 +6,9 @@ description: >-
 
 # Google Cloud SQL PostgreSQL
 
+!!! warning
+    Do not create new Postgres 15 databases unless you know how to deal with the changes to default permissions in the public schema.
+
 !!! info
     This feature is only available in GCP clusters. If you need on-prem databases, head over to [navikt/database-iac](https://github.com/navikt/database-iac).
 
