@@ -1,6 +1,6 @@
 # Kafka
 
-NAV uses Aiven hosted Kafka, the on-premise version of Kafka has been deprecated since 2021 and decommisioned in october 2023.
+NAV uses Aiven hosted Kafka.
 Start using Kafka by creating a `Topic` resource in one of our Kubernetes clusters.
 
 Upon defining a Topic, [Kafkarator](https://github.com/nais/kafkarator) will create the Topic in one of the Kafka _pools_.
