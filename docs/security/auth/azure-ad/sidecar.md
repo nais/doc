@@ -6,14 +6,14 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 
 !!! warning "Availability"
 
-    This feature is only available in [Google Cloud Platform](../../../clusters/gcp.md).
+    The sidecar is only available in the [Google Cloud Platform](../../../clusters/gcp.md) clusters.
 
 ## Description
 
-A reverse proxy that provides functionality to handle Azure AD login and logout.
+The sidecar is a reverse proxy that provides functionality to perform Azure AD login and logout for end-users.
 
 !!! info "Prerequisites"
-    - If you're not familiar with Azure AD, review the [core concepts](README.md#concepts).
+    - If you're unfamiliar with Azure AD, review the [core concepts](README.md#concepts).
     - Ensure that you define at least one [ingress](../../../nais-application/application.md#ingresses) for your application.
     - Ensure that you configure [user access](configuration.md#users) for your application. **Users are not granted access by default**.
 
@@ -24,7 +24,7 @@ A reverse proxy that provides functionality to handle Azure AD login and logout.
 
     Ensure that you do **not** bind to these ports from your application as they will be overridden.
 
-Minimal example below. See the complete specification in the [NAIS manifest](../../../nais-application/application.md#azuresidecar).
+Minimal example below.
 
 === "nais.yaml"
     ```yaml
@@ -34,17 +34,26 @@ Minimal example below. See the complete specification in the [NAIS manifest](../
           enabled: true
         sidecar:
           enabled: true
-
-          # everything below is optional, defaults shown
-          autoLogin: false
     ```
 
+See the [NAIS manifest reference](../../../nais-application/application.md#azuresidecar) for the complete specification.
+
 The above example will provision a unique Azure AD application, as well as enabling a sidecar that uses said application.
+
 For configuration of the Azure AD application itself, see [the Configuration page](configuration.md).
 
 ## Usage
 
-See the [Wonderwall](../../../appendix/wonderwall.md) appendix for usage details.
+Try out a basic user flow:
+
+1. Visit your application's login endpoint (`https://<ingress>/oauth2/login`) to trigger a login.
+2. After logging in, you should be redirected back to your application.
+3. All further requests to your application should now have an `Authorization` header with the user's access token as a [Bearer token](../concepts/tokens.md#bearer-token)
+4. Visit your application's logout endpoint (`https://<ingress>/oauth2/logout`) to trigger a logout.
+5. You will be redirected to Azure AD for logout, and then back to your application's ingress.
+6. Success!
+
+**See [Wonderwall](../../../addons/wonderwall.md#usage) for further usage details.**
 
 ### Token Validation
 

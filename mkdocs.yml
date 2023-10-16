@@ -84,6 +84,7 @@ plugins:
         "security/auth/idporten/sidecar.md": "security/auth/idporten.md"
         "security/auth/azure-ad/access-policy.md": "security/auth/azure-ad/configuration.md#access-policy"
         "security/auth/azure-ad/concepts.md": "security/auth/azure-ad/README.md#concepts"
+        "appendix/wonderwall.md": "addons/wonderwall.md"
 markdown_extensions:
   - toc:
       permalink: True
@@ -227,13 +228,13 @@ nav:
           - Snorlax: addons/snorlax.md
           - Unleash (feature toggling): addons/unleash-next.md
           - Velero backup and restore: addons/velero-backup-and-restore.md
+          - Wonderwall: addons/wonderwall.md
       - Legacy:
           - Sunset: legacy/sunset.md
       - Appendix:
           - Zero-Trust Network Architecture: appendix/zero-trust.md
           - Ingress DNS setup: appendix/ingress-dns.md
           - Validation and autocompletion: appendix/json-schema.md
-          - Wonderwall: appendix/wonderwall.md
       - Support: support.md
   - naisdevice:
       - naisdevice Overview: device/README.md

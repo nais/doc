@@ -228,8 +228,8 @@ lines of configuration) automatically provision clients at our main identity
 providers [Azure AD](auth/azure-ad/README.md) (for employees) and
 [ID-porten](auth/idporten.md) (for the public). The secrets associated with
 these clients are handled behind the scenes and rotated regularly. To ease
-validating the OIDC tokens we offer our "OIDC as a sidecar" named
-[Wonderwall](../appendix/wonderwall.md).
+handling the OIDC flows we offer our "OIDC as a sidecar" named
+[Wonderwall](../addons/wonderwall.md).
 
 For service to service-communication further down in the call chain we offer our
 own implementation of the "OAuth2 Token Exchange" standard named

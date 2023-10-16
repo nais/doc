@@ -9,7 +9,7 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 NAIS provides a _sidecar_[^1] that integrates with ID-porten, so that you can easily and securely log in and authenticate citizen end-users.
 
 !!! warning "Availability"
-    This feature is only available in **dev-gcp** and **prod-gcp**.
+    The sidecar is only available in the [Google Cloud Platform](../../clusters/gcp.md) clusters.
 
 ## Spec
 
@@ -27,6 +27,8 @@ Minimal example:
         enabled: true
         sidecar:
           enabled: true
+          level: Level4  # optional, default value shown
+          locale: nb     # optional, default value shown
     ```
 
 See the [NAIS manifest reference](../../nais-application/application.md#idportensidecar) for the complete specification.
@@ -35,10 +37,10 @@ Ensure that you also define at least one [ingress](../../nais-application/applic
 
 ### Access Policies
 
-ID-porten is an external service.
-[External services are not reachable by default](../../nais-application/access-policy.md#external-services), unless explicitly defined through an access policy.
+ID-porten is an [external service](../../nais-application/access-policy.md#external-services).
+Outbound access to the ID-porten hosts is automatically configured by the platform.
 
-Any host needed to reach ID-porten is automatically set up, so you do **not** need to explicitly configure these.
+You do _not_ have to explicitly configure outbound access to ID-porten yourselves when using the sidecar.
 
 ## Usage
 
@@ -51,7 +53,7 @@ Try out a basic user flow:
 5. You will be redirected to ID-porten for logout, and then back to a preconfigured logout page.
 6. Success!
 
-**See [Wonderwall](../../appendix/wonderwall.md) for further details.**
+**See [Wonderwall](../../addons/wonderwall.md#usage) for further usage details.**
 
 ### Runtime Variables & Credentials
 
@@ -71,6 +73,27 @@ These variables are needed for token validation.
 ID-porten classifies different user authentication methods into [security levels of assurance](https://docs.digdir.no/docs/idporten/oidc/oidc_protocol_id_token#acr-values).
 This is reflected in the `acr` claim for the user's JWTs issued by ID-porten.
 
+Valid values, in increasing order of assurance levels:
+
+| Value (deprecated, old ID-porten) | Value (new ID-porten)      | Description                                                      |
+|:----------------------------------|----------------------------|:-----------------------------------------------------------------|
+| `Level3`                          | `idporten-loa-substantial` | a substantial level of assurance, e.g. MinID                     |
+| `Level4`                          | `idporten-loa-high`        | a high level of assurance, e.g. BankID, Buypass, Commfides, etc. |
+
+To configure a default value for _all_ login requests:
+
+=== "nais.yaml"
+    ```yaml hl_lines="6"
+    spec:
+      idporten:
+        enabled: true
+        sidecar:
+          enabled: true
+          level: Level4
+    ```
+
+**If unspecified, the sidecar will use `Level4` as the default value.**
+
 !!! warning "2023: New `acr` values for ID-porten"
 
     ID-porten has a new platform and architecture, which we will be required to migrate to.
@@ -87,16 +110,6 @@ This is reflected in the `acr` claim for the user's JWTs issued by ID-porten.
 
     - If your application validates or uses the `acr` claim found in the JWT, it should accept both old and new values until the migration is complete.
     - It is recommended to accept both old and new values _before_ the migration takes place to ensure that nothing breaks.
-
-Valid values, in increasing order of assurance levels:
-
-| Value (deprecated, old ID-porten) | Value (new ID-porten)      | Description                                                      |
-|:----------------------------------|----------------------------|:-----------------------------------------------------------------|
-| `Level3`                          | `idporten-loa-substantial` | a substantial level of assurance, e.g. MinID                     |
-| `Level4`                          | `idporten-loa-high`        | a high level of assurance, e.g. BankID, Buypass, Commfides, etc. |
-
-You can set a default value for _all_ login requests by specifying [`spec.idporten.sidecar.level`](../../nais-application/application.md#idportensidecarlevel).
-**If unspecified, the sidecar will use `Level4` as the default value.**
 
 The sidecar will also validate and enforce that the user's current authenticated session has a level that **matches or exceeds** the application's configured level.
 The user's session is marked as unauthenticated if the level is _lower_ than the configured level.
@@ -125,7 +138,18 @@ Valid values shown below:
 | `en`  | English           |
 | `se`  | Sámi              |
 
-You can set a default value for _all_ requests by specifying [`spec.idporten.sidecar.locale`](../../nais-application/application.md#idportensidecarlocale).
+To configure a default value for _all_ requests:
+
+=== "nais.yaml"
+    ```yaml hl_lines="6"
+    spec:
+      idporten:
+        enabled: true
+        sidecar:
+          enabled: true
+          locale: en
+    ```
+
 **If unspecified, the sidecar will use `nb` as the default value.**
 
 For runtime control of the value, set the query parameter `locale` when redirecting the user to login:
