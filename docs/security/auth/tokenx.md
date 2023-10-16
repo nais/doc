@@ -234,7 +234,11 @@ Tokendings will respond with a JSON object
     }
     ```
 
-If performance is a concern, the token can be cached for reuse within the validity period indicated by the `expires_in` field.
+The `expires_in` field denotes the lifetime of the token in seconds.
+
+Cache and reuse the token until it expires to minimize network latency impact.
+
+A safe cache key is `key = sha256($subject_token + $audience)`.
 
 #### Exchange Error Response
 

@@ -20,7 +20,7 @@ permissions should be propagated through each service/web API.
 
 #### Prerequisites
 
-1. Your [resource server](../concepts/actors.md#resource-server) / API and any downstream API that your API consumes have [enabled Azure AD](configuration.md).
+1. Your [resource server](../concepts/actors.md#resource-server) and the downstream API that you want to consume both have [enabled Azure AD](configuration.md).
 2. Your resource server has been [pre-authorized](configuration.md#pre-authorization) by the downstream API.
 
 #### Steps
@@ -51,6 +51,14 @@ permissions should be propagated through each service/web API.
     }
     ```
 
+        !!! tip "Token Caching"
+
+            The `expires_in` field denotes the lifetime of the token in seconds.
+        
+            **Cache and reuse the token until it expires** to minimize network latency impact.
+        
+            A safe cache key for on-behalf-of tokens is `key = sha256($subject_token + $scope)`.
+
     - The token returned from Azure AD will have an `aud` claim with a value equal to the client ID of the downstream API. Your resource server does not need to validate this token.
 
 3. Your resource server performs the request to the downstream API by using the token as a [Bearer token](../concepts/tokens.md#bearer-token).
@@ -66,8 +74,8 @@ This grant is used for pure machine-to-machine authentication, i.e. interactions
 
 #### Prerequisites
 
-1. Your [client](../concepts/actors.md#client) and any [downstream API](../concepts/actors.md#resource-server) that your client consumes have [enabled Azure AD](configuration.md).
-2. Your client has been [pre-authorized](configuration.md#pre-authorization) by the downstream API.
+1. Your [resource server](../concepts/actors.md#resource-server) and the downstream API that you want to consume both have [enabled Azure AD](configuration.md).
+2. Your resource server has been [granted access](configuration.md#pre-authorization) by the downstream API.
 
 #### Steps
 
@@ -92,6 +100,15 @@ This grant is used for pure machine-to-machine authentication, i.e. interactions
       "token_type" : "Bearer"
     }
     ```
+
+        !!! tip "Token Caching"
+
+            The `expires_in` field denotes the lifetime of the token in seconds.
+        
+            **Cache and reuse the token until it expires** to minimize network latency impact.
+        
+            A safe cache key for client credentials tokens is `key = $scope`.
+
     - The token returned from Azure AD will have an `aud` claim with a value equal to the client ID of the downstream API. Your resource server does not need to validate this token.
 
 2. Your resource server performs the request to the downstream API by using the token as a [Bearer token](../concepts/tokens.md#bearer-token).
