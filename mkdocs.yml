@@ -131,6 +131,7 @@ nav:
           - Migrating databases to GCP: clusters/migrating-databases-to-gcp.md
           - Team namespaces: clusters/team-namespaces.md
           - Service discovery: clusters/service-discovery.md
+          - Config-connector: clusters/config-connector.md
       - NAIS Application:
           - Full example: nais-application/example.md
           - Reference: nais-application/application.md
