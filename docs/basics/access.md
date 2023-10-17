@@ -44,6 +44,9 @@ The `kubectl` tool uses a `kubeconfig` file to get the information it needs in o
 We provide the command [nais kubeconfig](../cli/commands/kubeconfig.md) to set up the necessary clusters.
 `kubectl` will by default look for a file named `config` in the `$HOME/.kube/` folder.
 
+!!! info "If you have configured `kubectl` before"
+    If you have configured `kubectl` before, ensure you have updated `nais-cli` and run `nais kubeconfig --clean`.
+
 ## Authenticate `kubectl`
 
 ### Google Cloud Platform \(GCP\)
@@ -91,6 +94,8 @@ Kubernetes control plane is running at https://[...]
 ```
 
 ### On-premise
+
+Before accessing on-premise clusters, you need to [install `kubelogin`](https://azure.github.io/kubelogin/install.html).
 
 When connecting to on-premise clusters, you need to authenticate with Azure AD.
 
