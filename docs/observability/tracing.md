@@ -13,7 +13,7 @@ description: >-
 !!! info "New Grafana URL"
     When visualizing traces, you must use the new Grafana instance at https://grafana.nav.cloud.nais.io.
 
-Traces are a record of the path a request takes through your application. They
+[Traces](https://en.wikipedia.org/wiki/Observability_(software)#Distributed_traces) are a record of the path a request takes through your application. They
 are useful for understanding how a request is processed in your application.
 
 NAIS does not collect trace data automatically. If you want tracing integration,
