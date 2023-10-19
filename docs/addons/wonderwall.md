@@ -220,12 +220,12 @@ The short-circuited response depends on whether the request is a _top-level navi
 
 !!! info "What is a _top-level navigation request_?"
 
-    A _top-level navigation_ request is a `GET` request that fullfills at least one of the following properties:
+    A _top-level navigation_ request is a `GET` request that fulfills at least one of the following properties:
 
     1. Has the [Fetch metadata request headers](https://developer.mozilla.org/en-US/docs/Glossary/Fetch_metadata_request_header) `Sec-Fetch-Dest=document` and `Sec-Fetch-Mode=navigate`, or
     2. Has an `Accept` header that includes `text/html`
 
-    All major modern browsers sends at least one of these for navigational requests, with IE8 being the only known exception.
+    All major modern browsers sends at least one of these for navigational requests, with Internet Explorer 8 being the only known exception.
     Hopefully you're not in a position that requires supporting that browser.
 
 A top-level navigation request results in a `HTTP 302 Found` response with the `Location` header pointing to the [login endpoint](#1-initiate-login).
@@ -233,7 +233,7 @@ A top-level navigation request results in a `HTTP 302 Found` response with the `
 To ensure that the user is redirected back to their intended location after login, the `redirect` parameter in the login URL is set to the value found in the `Referer` header.
 If the `Referer` header is empty, we use the matching ingress context path for the original request.
 
-All other requests (such as `POST` or `PUT` requests, or `fetch`, `XMLHttpRequest`/`XHR` or `AJAX` from browsers) are _not_ considered as navigational requests.
+All other requests (such as `POST` or `PUT` requests, or `fetch`, `XMLHttpRequest`/`XHR` or `AJAX` from browsers) are _not_ considered navigational requests.
 These requests result in a `HTTP 401 Unauthorized` response with the `Location` header set as described above.
 
 Ensure that your frontend handles the `HTTP 401` response and redirects the user to the login endpoint.
