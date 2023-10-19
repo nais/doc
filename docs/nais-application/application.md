@@ -797,7 +797,7 @@ Automatically redirect the user to login for all proxied GET requests.
 
 Relevant information:
 
-* [https://doc.nais.io/appendix/wonderwall/#12-autologin](https://doc.nais.io/appendix/wonderwall/#12-autologin)
+* [https://doc.nais.io/addons/wonderwall/#12-autologin](https://doc.nais.io/addons/wonderwall/#12-autologin)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -816,7 +816,7 @@ Comma separated list of absolute paths to ignore when auto-login is enabled.
 
 Relevant information:
 
-* [https://doc.nais.io/appendix/wonderwall/#12-autologin](https://doc.nais.io/appendix/wonderwall/#12-autologin)
+* [https://doc.nais.io/addons/wonderwall/#12-autologin](https://doc.nais.io/addons/wonderwall/#12-autologin)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -850,7 +850,7 @@ Resource requirements for the sidecar container.
 
 Relevant information:
 
-* [https://doc.nais.io/appendix/wonderwall/#4-resource-requirements](https://doc.nais.io/appendix/wonderwall/#4-resource-requirements)
+* [https://doc.nais.io/addons/wonderwall/#4-resource-requirements](https://doc.nais.io/addons/wonderwall/#4-resource-requirements)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3201,7 +3201,7 @@ Automatically redirect the user to login for all proxied GET requests.
 
 Relevant information:
 
-* [https://doc.nais.io/appendix/wonderwall/#12-autologin](https://doc.nais.io/appendix/wonderwall/#12-autologin)
+* [https://doc.nais.io/addons/wonderwall/#12-autologin](https://doc.nais.io/addons/wonderwall/#12-autologin)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -3220,7 +3220,7 @@ Comma separated list of absolute paths to ignore when auto-login is enabled.
 
 Relevant information:
 
-* [https://doc.nais.io/appendix/wonderwall/#12-autologin](https://doc.nais.io/appendix/wonderwall/#12-autologin)
+* [https://doc.nais.io/addons/wonderwall/#12-autologin](https://doc.nais.io/addons/wonderwall/#12-autologin)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -3294,7 +3294,7 @@ Resource requirements for the sidecar container.
 
 Relevant information:
 
-* [https://doc.nais.io/appendix/wonderwall/#4-resource-requirements](https://doc.nais.io/appendix/wonderwall/#4-resource-requirements)
+* [https://doc.nais.io/addons/wonderwall/#4-resource-requirements](https://doc.nais.io/addons/wonderwall/#4-resource-requirements)
 
 Type: `object`<br />
 Required: `false`<br />
