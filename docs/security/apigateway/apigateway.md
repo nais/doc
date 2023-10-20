@@ -34,12 +34,12 @@ After beta testing, we will add more automation to this process.
 When KrakenD is installed in your namespace you will get an ingress for your KrakenD instance at:
 
 GCP: 
-  * `https://<namespace>-gw.ekstern.dev.nav.no`
-  * `https://<namespace>-gw.nav.no`
+* `https://<namespace>-gw.ekstern.dev.nav.no`
+* `https://<namespace>-gw.nav.no`
 
 On-prem: 
-  * `https://<namespace>-gw.dev-fss-pub.nais.io`
-  * `https://<namespace>-gw.prod-fss-pub.nais.io`
+* `https://<namespace>-gw.dev-fss-pub.nais.io`
+* `https://<namespace>-gw.prod-fss-pub.nais.io`
 
 !!! info "Note for on-prem"
     You have to add the KrakenD ingress for your namespace in a PR to [bigip-iac](https://github.com/navikt/bigip-iac/) in order to reach your KrakenD instance from GCP.
