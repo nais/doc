@@ -33,10 +33,11 @@ After beta testing, we will add more automation to this process.
 
 When KrakenD is installed in your namespace you will get an ingress for your KrakenD instance at:
 
-* GCP: 
+GCP: 
   * `https://<namespace>-gw.ekstern.dev.nav.no`
   * `https://<namespace>-gw.nav.no`
-* On-prem: 
+
+On-prem: 
   * `https://<namespace>-gw.dev-fss-pub.nais.io`
   * `https://<namespace>-gw.prod-fss-pub.nais.io`
 
