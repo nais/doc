@@ -24,37 +24,42 @@ in a declarative manner using the [ApiEndpoints custom resource](https://github.
 
 The KrakenD instances and config for exposing APIs are managed by the [krakend-operator](https://github.com/nais/krakend).
 
-### Usage
+## Usage
 
-To get KrakenD installed in your namespace - the namespace must have a label `krakend.nais.io/enabled: "true"`. If you do not have permissions to add this label, please contact the NAIS team and we will add it for you.
+To get KrakenD installed in your namespace - the namespace must have a label `krakend.nais.io/enabled: "true"`. 
 
+If you do not have permissions to add this label, please contact the NAIS team and we will add it for you.
 After beta testing, we will add more automation to this process.
 
 When KrakenD is installed in your namespace you will get an ingress for your KrakenD instance at:
 
-* GCP: `https://<namespace>-gw.ekstern.dev.nav.no` and `https://<namespace>-gw.nav.no`
-* On-prem: `https://<namespace>-gw.dev-fss-pub.nais.io` and `https://<namespace>-gw.prod-fss-pub.nais.io`
+* GCP: 
+  * `https://<namespace>-gw.ekstern.dev.nav.no`
+  * `https://<namespace>-gw.nav.no`
+* On-prem: 
+  * `https://<namespace>-gw.dev-fss-pub.nais.io`
+  * `https://<namespace>-gw.prod-fss-pub.nais.io`
 
 !!! info "Note for on-prem"
-    You have to add the KrakenD ingress for your namespace to https://github.com/navikt/bigip-iac/ in order to reach your KrakenD instance from GCP.
-   
-    Also see [Use Cases](#Use cases) below for more details on how to expose your API to external consumers from on-prem via GCP.
+    You have to add the KrakenD ingress for your namespace in a PR to [bigip-iac](https://github.com/navikt/bigip-iac/) in order to reach your KrakenD instance from GCP.
+    Also see [Use Cases](#use-cases) below for more details on how to expose your API to external consumers from on-prem via GCP.
     If you already have a special "pub" ingress for your app and you do maskintoken validation already you can expose that directly to KrakenD in GCP instead.
 
 You can then add API endpoints to your KrakenD instance by creating one or more `ApiEndpoints` custom resources in your namespace.
 
-#### Adding API endpoints
+### Adding API endpoints
 
 To add API endpoints to your KrakenD instance, you need to create an `ApiEndpoints` custom resource in your namespace.
 
 The `ApiEndpoints` resource splits the configuration of an app's API endpoints into two parts:
 
 * `endpoints` - secure API endpoints requiring authentication
-* `openEndpoints` - open API endpoints not requiring authentication, .e.g. documentation or OpenAPI specs
+* `openEndpoints` - open API endpoints not requiring authentication, e.g. documentation or OpenAPI specs
 
 Currently we support the following KrakenD features:
-* [JWT validation](https://www.krakend.io/docs/authorization/jwt-validation/): authentication for a secured endpoint is defined by specifying the name of an authentication provider - in nais this is `maskinporten`.
-* [Rate-limiting](https://www.krakend.io/docs/endpoints/rate-limit/): if rate-limiting is defined it is applied to all `endpoints` and `openEndpoints` defined in the `ApiEndpoints` resource.
+
+* [JWT validation](https://www.krakend.io/docs/authorization/jwt-validation/): authentication for a secured endpoint is defined by specifying the name of an authentication provider - in nais this is `maskinporten`
+* [Rate-limiting](https://www.krakend.io/docs/endpoints/rate-limit/): if rate-limiting is defined it is applied to all `endpoints` and `openEndpoints` defined in the `ApiEndpoints` resource
 
 
 === "apiendpoints.yaml"
@@ -109,7 +114,7 @@ Enable KrakenD in your namespace in GCP and add API endpoints to your KrakenD in
 If your app already have a special "pub" ingress, ref [explanation here](https://doc.nais.io/clusters/migrating-to-gcp/#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp), 
 you can enable KrakenD in your namespace in GCP and add API endpoints to your KrakenD instance there, i.e. point to your pub ingress.
 
-=== apiendpoints-gcp.yaml
+=== "apiendpoints-gcp.yaml"
 ```yaml
   apiVersion: krakend.nais.io/v1
   kind: ApiEndpoints
