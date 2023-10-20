@@ -95,7 +95,7 @@ spec:
 ```
 
 !!! info "KrakenD requirements on paths, query params and headers"
-    There are some strict requirements on specifying paths, query params and headers in KrakenD, see the [ApiEndpoints CRD](./config/crd/bases/krakend.nais.io_apiendpoints.yaml) and corresponding [Krakend Doc](https://www.krakend.io/docs/endpoints/) for details.
+    There are some strict requirements on specifying paths, query params and headers in KrakenD, see the [ApiEndpoints CRD](https://github.com/nais/krakend/blob/main/config/crd/bases/krakend.nais.io_apiendpoints.yaml) and corresponding [Krakend Doc](https://www.krakend.io/docs/endpoints/) for details.
 
 
 ## Use cases
