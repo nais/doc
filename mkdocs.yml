@@ -223,6 +223,7 @@ nav:
           - Anti-virus Scanning: security/antivirus.md
           - Cloud Armor: security/cloud-armor.md
           - Salsa: security/salsa/salsa.md
+          - API Gateway: security/apigateway/apigateway.md
       - Addons:
           - Leader Election: addons/leader-election.md
           - Snorlax: addons/snorlax.md
