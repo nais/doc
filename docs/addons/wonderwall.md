@@ -669,5 +669,9 @@ In order to access other applications, you should exchange the token in order to
 
     For Azure AD, use the [on-behalf-of grant](../security/auth/azure-ad/usage.md#oauth-20-on-behalf-of-grant) to do this.
 
+!!! tip "Next.js Library"
+
+    See <https://github.com/navikt/next-auth-wonderwall> for a Next.js library that provides Wonderwall integrations and token exchange utilities.
+
 [identity provider]: ../security/auth/concepts/actors.md#identity-provider
 [JWT]: ../security/auth/concepts/tokens.md#jwt
