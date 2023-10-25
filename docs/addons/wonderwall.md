@@ -461,7 +461,7 @@ The maximum lifetime and inactivity timeout (if enabled) durations are subject t
 #### 5.1. Session Metadata
 
 `GET /oauth2/session` is an endpoint that returns metadata about the user's session as a JSON object.
-Requests to this endpoint must be triggered from the user's browser, as the session is stored in a cookie.
+Requests to this endpoint must be triggered from the user's browser.
 
 ???+ example "Session Metadata Example"
 
@@ -499,22 +499,24 @@ Requests to this endpoint must be triggered from the user's browser, as the sess
     }
     ```
 
-The table below describes the different fields in the JSON response:
+The table below describes the different fields in the JSON response.
 
-| Field                                 | Description                                                                                                                                                   |
-|---------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `session.active`                      | Whether or not the session is marked as active. If `false`, the session cannot be extended and the user must be redirected to login.                          |
-| `session.created_at`                  | The timestamp that denotes when the session was first created.                                                                                                |
-| `session.ends_at`                     | The timestamp that denotes when the session will end. After this point, the session cannot be extended and the user must be redirected to login.              |
-| `session.ends_in_seconds`             | The number of seconds until `session.ends_at`.                                                                                                                |
-| `session.timeout_at`                  | The timestamp that denotes when the session will time out. The zero-value, `0001-01-01T00:00:00Z`, means no timeout.                                          |
-| `session.timeout_in_seconds`          | The number of seconds until `session.timeout_at`. A value of `-1` means no timeout.                                                                           |
-| `tokens.expire_at`                    | The timestamp that denotes when the tokens within the session will expire.                                                                                    |
-| `tokens.expire_in_seconds`            | The number of seconds until `tokens.expire_at`.                                                                                                               |
-| `tokens.refreshed_at`                 | The timestamp that denotes when the tokens within the session was last refreshed.                                                                             |
-| `tokens.next_auto_refresh_in_seconds` | The number of seconds until the earliest time where the tokens will automatically be refreshed. A value of -1 means that automatic refreshing is not enabled. |
-| `tokens.refresh_cooldown`             | A boolean indicating whether or not the refresh operation is on cooldown or not.                                                                              |
-| `tokens.refresh_cooldown_seconds`     | The number of seconds until the refresh operation is no longer on cooldown.                                                                                   |
+??? note "Session Metadata Field Descriptions (click to expand)"
+
+    | Field                                 | Description                                                                                                                                                   |
+    |---------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    | `session.active`                      | Whether or not the session is marked as active. If `false`, the session cannot be extended and the user must be redirected to login.                          |
+    | `session.created_at`                  | The timestamp that denotes when the session was first created.                                                                                                |
+    | `session.ends_at`                     | The timestamp that denotes when the session will end. After this point, the session cannot be extended and the user must be redirected to login.              |
+    | `session.ends_in_seconds`             | The number of seconds until `session.ends_at`.                                                                                                                |
+    | `session.timeout_at`                  | The timestamp that denotes when the session will time out. The zero-value, `0001-01-01T00:00:00Z`, means no timeout.                                          |
+    | `session.timeout_in_seconds`          | The number of seconds until `session.timeout_at`. A value of `-1` means no timeout.                                                                           |
+    | `tokens.expire_at`                    | The timestamp that denotes when the tokens within the session will expire.                                                                                    |
+    | `tokens.expire_in_seconds`            | The number of seconds until `tokens.expire_at`.                                                                                                               |
+    | `tokens.refreshed_at`                 | The timestamp that denotes when the tokens within the session was last refreshed.                                                                             |
+    | `tokens.next_auto_refresh_in_seconds` | The number of seconds until the earliest time where the tokens will automatically be refreshed. A value of -1 means that automatic refreshing is not enabled. |
+    | `tokens.refresh_cooldown`             | A boolean indicating whether or not the refresh operation is on cooldown or not.                                                                              |
+    | `tokens.refresh_cooldown_seconds`     | The number of seconds until the refresh operation is no longer on cooldown.                                                                                   |
 
 This endpoint will respond with the following HTTP status codes on errors:
 
@@ -536,15 +538,15 @@ To avoid redirecting end-users to the `/oauth2/login` endpoint whenever the acce
 
 An _inactive_ or _expired_ session **cannot** be refreshed.
 
-!!! note "Automatic vs Manual Refreshing"
+=== "ID-porten"
 
-    === "ID-porten"
+    For ID-porten, session refreshes must be triggered manually.
+    [nav-dekoratoren](https://github.com/navikt/nav-dekoratoren#utloggingsvarsel) implements automatic support for user-triggered refreshes as well as displaying logout warnings.
+    Refer to their documentation for further details.
 
-        For ID-porten, renewal must be triggered manually.
-        [nav-dekoratoren](https://github.com/navikt/nav-dekoratoren#utloggingsvarsel) implements automatic support for user-triggered refreshing as well as displaying logout warnings.
-        Refer to their documentation for further details.
+    If you're **not** using `nav-dekoratoren` and wish to implement refreshes yourselves, these are the cases (with suggested solutions) you should handle in descending priority:
 
-        If you're **not** using `nav-dekoratoren` and wish to implement token refreshing yourselves, these are the cases (with suggested solutions) you should handle in descending priority:
+    ??? note "Cases for Manual Session Refreshes (click to expand)"
 
         1. _The `/oauth2/session` endpoint returns 401; the user is either not authenticated or their previous session has ended._
 
@@ -573,19 +575,19 @@ An _inactive_ or _expired_ session **cannot** be refreshed.
 
             First, determine whether the user is still present and active.
             This should be done with some heuristic specific to your frontend (e.g. using the Idle Detection API, time since last request, and so on).
-            If you deem the user to still be present and active, it should be reasonable to just perform the want to automatically perform the refresh in the background.
+            If you deem the user to still be present and active, it should be reasonable to just perform automatically perform the refresh in the background.
 
-    === "Azure AD"
+=== "Azure AD"
 
-        For Azure AD, tokens are automatically refreshed for all sessions until the session itself [expires (reaches the maximum lifetime)](#5-sessions).
-        
-        The tokens will at the _earliest_ be automatically renewed 5 minutes before they expire.
-        If the token already has expired for an _active_ session, a refresh attempt is automatically triggered on the next request on any path that belongs to the application.
+    For Azure AD, tokens are automatically refreshed for all sessions until the session itself [expires](#5-sessions) reaches the maximum lifetime.
+    
+    The tokens will at the _earliest_ be automatically refreshed 5 minutes before they expire.
+    If the token already has expired for an _active_ session, a refresh attempt is automatically triggered on the next request on any path that belongs to the application.
 
-        This means that you do **not** need to implement any token refreshing logic yourself.
+    This means that you do **not** need to implement any token refreshing logic yourself.
 
 `POST /oauth2/session/refresh` is an endpoint that manually refreshes the tokens for the user's session.
-Requests to this endpoint must be triggered from the user's browser, as the session is stored in a cookie.
+Requests to this endpoint must be triggered from the user's browser.
 
 The endpoint will respond with a `HTTP 401 Unauthorized` if the session is _inactive_.
 It is otherwise equivalent to [the `/oauth2/session` endpoint](#51-session-metadata) described previously.
@@ -629,31 +631,6 @@ It is otherwise equivalent to [the `/oauth2/session` endpoint](#51-session-metad
 Note that the refresh operation has a cooldown period.
 A refresh is only triggered if `tokens.refresh_cooldown` is `false`.
 Requests to the endpoint are idempotent while the cooldown is active.
-
-## Responsibilities & Guarantees
-
-**The sidecar:**
-
-* Adds the `Authorization` header with the user's JWT access token to the original request if the user has a valid
-  session.
-* Proxies the original request unmodified to your application, if the user _does not_ have a valid session.
-* Owns the `/oauth2` endpoints [defined above](#endpoints) and intercepts all HTTP requests to these. They will never be
-  forwarded to your application.
-* Is safe to enable and use with multiple replicas of your application.
-* Stores session data to a highly available Redis service on Aiven.
-* Validates the `id_token` acquired from this flow in accordance with the
-  [OpenID Connect specifications](https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation).
-
-**The sidecar does _not_:**
-
-* Secure your application's endpoints in any way.
-* Validate the user's `access_token` set in the `Authorization` header. The token may be invalid or expired by the time
-  your application receives it.
-
-## Development
-
-Wonderwall can be fired up locally if you so desire.
-See the [README on GitHub](https://github.com/nais/wonderwall#docker-compose) for an example setup with Docker Compose.
 
 ## Next Steps
 
