@@ -170,18 +170,20 @@ The user will be sent to the identity provider for authentication and then back 
 
 #### 1.1. Redirect after Login
 
-After the callback is handled and the user is successfully authenticated, the user will be redirected in this priority:
+After the callback is handled and the user is successfully authenticated, the user will by default be redirected to the matching root context path for your application's ingress, e.g:
 
-1. The URL or absolute path set in the query parameter `redirect` in the initial login request, e.g:
-    ```
-    https://<ingress>/oauth2/login?redirect=/some/path
-    ```
-    If you include query parameters, ensure that they are URL encoded.
+- `/` for `https://<app>.nav.no`, or
+- `/path` for `https://nav.no/path`
 
-    The host and scheme (if provided) are stripped from the redirect URL, which effectively only allows redirects to paths
-    within your own ingress.
+To override this, use the `redirect` parameter to specify an URL or absolute path:
 
-2. The root context path for your application's ingress. E.g. `/` for `https://<app>.nav.no`, or `/path` for `https://nav.no/path`.
+```
+https://<ingress>/oauth2/login?redirect=/some/path
+```
+If you include query parameters, ensure that they are URL encoded.
+
+The host and scheme (if provided) are stripped from the redirect URL, which effectively only allows redirects to paths
+within your own ingress.
 
 #### 1.2. Autologin
 
@@ -342,6 +344,15 @@ https://<ingress>/oauth2/logout
 ```
 
 The user's session with the sidecar will be cleared, and the user will be redirected to the identity provider for global/single-logout, if logged in with SSO (single sign-on) at the identity provider.
+They will then be redirected back to the sidecar's callback endpoint.
+
+#### 2.1. Redirect after Logout
+
+After the callback is handled, the user will receive a final redirect to a preconfigured URL.
+Depending on the provider, this will either be a common logout page or your application's ingress.
+
+To override this, use the `redirect` parameter as described in [1.1. Redirect after Login](#11-redirect-after-login).
+The same restrictions and caveats apply here.
 
 ---
 
