@@ -25,6 +25,15 @@ See the complete specification in the [NAIS manifest](../../../nais-application/
       webproxy: true 
     ```
 
+## Network Connectivity
+
+Azure AD is an [external service](../../../nais-application/access-policy.md#external-services).
+Outbound access to the Azure AD hosts is automatically configured by the platform.
+
+You do _not_ have to explicitly configure outbound access to Azure AD yourselves in GCP.
+
+If you're on-premises however, you must enable and use [`webproxy`](../../../nais-application/application.md#webproxy).
+
 ## Access Policy
 
 Access to applications should generally follow the _principle of least privilege_.
@@ -325,20 +334,3 @@ Roles will appear in the `roles` claim as an _array of strings_ within the appli
       "ver": "2.0"
     }
     ```
-
-## Accessing external hosts
-
-Azure AD is a third-party service outside of our clusters, which is not reachable by default like most third-party services.
-
-### Google Cloud Platform \(GCP\)
-
-The following [outbound external hosts](../../../nais-application/access-policy.md#external-services) are automatically added when enabling this feature:
-
-* `login.microsoftonline.com`
-* `graph.microsoft.com`
-
-You do not need to specify these explicitly.
-
-### On-premises
-
-You must enable and use [`webproxy`](../../../nais-application/application.md#webproxy) for external communication.

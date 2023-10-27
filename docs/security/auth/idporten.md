@@ -35,7 +35,7 @@ See the [NAIS manifest reference](../../nais-application/application.md#idporten
 
 Ensure that you also define at least one [ingress](../../nais-application/application.md#ingresses) for your application.
 
-### Access Policies
+## Network Connectivity
 
 ID-porten is an [external service](../../nais-application/access-policy.md#external-services).
 Outbound access to the ID-porten hosts is automatically configured by the platform.
