@@ -70,7 +70,7 @@ If you want your application to scale based on external metrics, replace the met
 
 Use this command to see a list of available external metrics:
 
-```kubectl --raw "/apis/external.metrics.k8s.io/v1beta1" | jq .```
+```kubectl get --raw "/apis/external.metrics.k8s.io/v1beta1" | jq .```
 
 ## Scaling behaviour
 You can also override the default behaviour of the autoscaler by configuring the HPA
