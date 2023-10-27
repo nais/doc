@@ -209,5 +209,4 @@ And otherwise: Just be nais.
 In a terminal/shell of your choice run `nais kubeconfig`
 
 - If you haven't installed nais-cli: [cli/install](../cli/install.md)
-- If you are using onprem clusters run: `nais kubeconfig --include-onprem`
 - Add `--clear` to clear old config, or use `--overwrite` to overwrite same names
