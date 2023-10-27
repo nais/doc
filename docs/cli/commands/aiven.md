@@ -58,7 +58,7 @@ nais aiven create -p nav-prod -s some-unique-secretname -e 10 kafka username nam
 nais aiven create -i instance -a read -s some-unique-secretname -e 10 opensearch ignored namespace
 ```
 
-In OpenSearch, the username is ignored, but still required.
+In OpenSearch, the username in the command is not related to the actual OpenSearch username, but used for internal purposes to identify the request.
 This is because the usernames on OpenSearch instances are pre-defined as of now, one for each possible access level. 
 
 | Flag        | Required | Short | Default                         | Description                                                          |
