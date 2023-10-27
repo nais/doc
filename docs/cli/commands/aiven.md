@@ -55,15 +55,18 @@ nais aiven create -p nav-prod -s some-unique-secretname -e 10 kafka username nam
 ### OpenSearch
 
 ```bash
-nais aiven create -i instance -a read -s some-unique-secretname -e 10 opensearch username namespace
+nais aiven create -i instance -a read -s some-unique-secretname -e 10 opensearch ignored namespace
 ```
 
-| Flag        | Required | Short | Default                         | Description                                                         |
-|-------------|----------|-------|---------------------------------|---------------------------------------------------------------------|
-| access      | No       | -a    | read                            | One of: admin, read, write, readwrite.                              |
+In OpenSearch, the username is ignored, but still required.
+This is because the usernames on OpenSearch instances are pre-defined as of now, one for each possible access level. 
+
+| Flag        | Required | Short | Default                         | Description                                                          |
+|-------------|----------|-------|---------------------------------|----------------------------------------------------------------------|
+| access      | No       | -a    | read                            | One of: admin, read, write, readwrite.                               |
 | instance    | Yes      | -i    |                                 | Name of the [instance](../../persistence/open-search/#get-your-own). |
-| secret-name | No       | -s    | namespace-username-randomstring | Preferred secret-name.                                              |
-| expire      | No       | -e    | 1                               | Time in days the secret should be valid.                            |
+| secret-name | No       | -s    | namespace-username-randomstring | Preferred secret-name.                                               |
+| expire      | No       | -e    | 1                               | Time in days the secret should be valid.                             |
 
 ## get
 
