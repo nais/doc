@@ -43,7 +43,7 @@ nais aiven create service username namespace
 ### Kafka
 
 ```bash
-nais aiven create kafka username namespace -p nav-prod -s some-unique-secretname -e 10
+nais aiven create -p nav-prod -s some-unique-secretname -e 10 kafka username namespace
 ```
 
 | Flag        | Required | Short | Default                         | Description                                     |
@@ -55,7 +55,7 @@ nais aiven create kafka username namespace -p nav-prod -s some-unique-secretname
 ### OpenSearch
 
 ```bash
-nais aiven create opensearch username namespace -i instance -a read -s some-unique-secretname -e 10
+nais aiven create -i instance -a read -s some-unique-secretname -e 10 opensearch username namespace
 ```
 
 | Flag        | Required | Short | Default                         | Description                                                         |
