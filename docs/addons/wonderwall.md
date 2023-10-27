@@ -24,7 +24,7 @@ graph LR
   style Application stroke:#f00
     
   U((User)) -- "request" ---> Wonderwall
-  Wonderwall -. "proxies request as-is" -..-> Application
+  Wonderwall -. "proxy request\n as-is" -..-> Application
 ```
 
 In order to obtain a local session, the user must be redirected to the `/oauth2/login` endpoint.
@@ -36,10 +36,10 @@ graph LR
   style Wonderwall stroke:#0f0,stroke-dasharray: 5
   style IDP stroke:#f00
 
-  U((User)) -- "redirected to /oauth2/login" --> Wonderwall
+  U((User)) -- "/oauth2/login" --> Wonderwall
 
   subgraph OIDC["OpenID Connect Authorization Code Flow"]
-    IDP == "redirect back after login" ====> Wonderwall
+    IDP == "redirect callback" ====> Wonderwall
     Wonderwall == "redirect to log in" ====> IDP
   end
 ```
@@ -52,13 +52,13 @@ graph LR
   style Wonderwall stroke:#0f0,stroke-dasharray: 5
   style IDP stroke:#f00
   
-  IDP[Identity Provider] -- "redirects user back after login" ---> Wonderwall
+  IDP[Identity Provider] -- "redirect after login" ---> Wonderwall
   
   subgraph Wonderwall
-    Server -- "manages sessions in" --> Store[Session Store]
+    Server -- "manage sessions" --> Store[Session Store]
   end
   
-  Wonderwall -- "establishes session" ----> U((User))
+  Wonderwall -- "establish session" ----> U((User))
 ```
 
 All authenticated requests that are forwarded to the application will now contain the user's `access_token`.
@@ -73,7 +73,7 @@ graph LR
   subgraph Session["Authenticated Session"]
     direction LR
     U((User)) -- "request" ---> Wonderwall
-    Wonderwall -. "proxies request with User's token" -..-> Application
+    Wonderwall -. "proxies request\n with token" -..-> Application
   end
 ```
 
