@@ -52,6 +52,8 @@ graph LR
   Prometheus --GET /metrics--> Application
 ```
 
+[:octicons-arrow-right-24: Access Prometheus here](./metrics.md#prometheus-environments)
+
 ### Grafana
 
 [Grafana][grafana] is a tool for visualizing metrics. It is used to create dashboards that can be used to monitor your application. Grafana is used by many open source projects and is the de facto standard for metrics in the cloud native world.
