@@ -8,12 +8,12 @@ You can log in with `gcloud auth login --update-adc`.
 nais kubeconfig
 ```
 
-| Flag           | Short | Description                                        |
-|----------------|-------|----------------------------------------------------|
-| overwrite      | -o    | Overwrite config already in the kubeconfig-file    |
-| clear          | -c    | Delete config before retrieving new one            |
-| include-onprem | -io   | Include legacy onprem clusters                     |
-| verbose        | -v    | More output, mostly useful combined with overwrite |
+| Flag      | Short | Description                                                             |
+| --------- | ----- | ----------------------------------------------------------------------- |
+| overwrite | -o    | Overwrite config already in the kubeconfig-file                         |
+| clear     | -c    | Delete config before retrieving new one                                 |
+| exclude   | -e    | Exclude clusters from the config, comma separated list of cluster names |
+| verbose   | -v    | More output, mostly useful combined with overwrite                      |
 
 !!! info "hello"
     You don't have to use the environment variable `KUBECONFIG`, instead you can use the default kubectl-folder `~/.kube`.
