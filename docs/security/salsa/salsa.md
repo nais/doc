@@ -43,7 +43,7 @@ Simply add [nais/docker-build-push](https://github.com/nais/docker-build-push) t
 ```
 
 !!! Opt-out
-Opt-out from salsa
+    Opt-out from salsa
 
     If you want to opt-out from salsa you can set the salsa input to false
 
@@ -57,9 +57,7 @@ See [nais/docker-build-push](https://github.com/nais/docker-build-push) for more
 
 [Dependency-Track](https://dependencytrack.org/) has a single instance that controls all clusters, and it contains both
 attestations and vulnerabilities for all signed attestations deployed, except those that have chosen to opt out
-from salsa.
-
-You can access the Dependency-Track user interface through the following URL:
+from salsa. You can access the Dependency-Track user interface through the following URL:
 
 https://salsa.[tenantname].cloud.nais.io
 For instance, you can visit [nav-salsa](https://salsa.nav.cloud.nais.io) as an example.
@@ -102,7 +100,7 @@ The action requires `contents: write` permission.
 Gradle and Maven plugins for a deep graph of nested transitive dependencies.
 
 !!! Gradle Plugin
-Add the following plugin to your `build.gradle*` file.
+    Add the following plugin to your `build.gradle*` file.
 
     ```groovy
         id("org.cyclonedx.bom") version "1.7.4"
@@ -126,7 +124,7 @@ Add the following plugin to your `build.gradle*` file.
     For more info about settings check out the [CycloneDx Gradle Plugin](https://github.com/CycloneDX/cyclonedx-gradle-plugin)
 
 !!! Maven Plugin
-Add the following to your `pom.xml` file.
+    Add the following to your `pom.xml` file.
 
     ```xml
         <plugins>
