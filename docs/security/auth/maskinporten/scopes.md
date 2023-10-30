@@ -1,104 +1,235 @@
-# Scopes
+# Maskinporten Scopes
 
-A _scope_ in Maskinporten terminology is equivalent to a distinct API. As an API provider, you will:
+A _scope_ represents a permission that a given consumer has access to.
+In Maskinporten, you can define scopes and grant other organizations access to these scopes. 
 
-- define scopes to be registered in Maskinporten
-- grant access to other organizations for your defined scopes
-  
-The notion of scope is loosely defined to allow semantic freedom in terms of API providers' own definition and granularity of access and authorization.
+As an API provider, you are fully responsible for defining the granularity of access and authorization associated with a given scope.
 
-An external consumer that has been granted access to your scopes may then acquire an `access_token` with their own Maskinporten client, which they will need to acquire from DigDir on their own. 
-[Our NAIS clients](client.md) are registered as part of the NAV organization and may only be used by NAV.
+An external consumer that has been granted access to your scopes may then acquire an `access_token` using a Maskinporten client that belongs to their organization.
+[Clients registered via NAIS](client.md) belong to NAV and may only be used by NAV.
 
 ## Spec
 
-See the [NAIS manifest](../../../nais-application/application.md#maskinporten).
+Example configuration:
 
-## Configuration
+```yaml title="nais.yaml"
+spec:
+  maskinporten:
+    enabled: true
+    scopes:
+      exposes:
+        - name: "some.scope.read"
+          enabled: true
+          product: "arbeid"
+          consumers:
+            - orgno: "123456789"
+```
 
-=== "nais.yaml"
-  ```yaml
-  spec:
-    maskinporten:
-      enabled: true
-      scopes:
-        exposes:
-          - name: "some.scope.read"
-            enabled: true
-            product: "arbeid"
-            allowedIntegrations:
-              - maskinporten
-            atMaxAge: 120
-            consumers:
-              - orgno: "123456789"
+See the [NAIS manifest](../../../nais-application/application.md#maskinporten) for the complete specification.
 
-    # required for on-premises only
-    webproxy: true
-  ```
+## Network Connectivity
 
-## Scope Naming Format
+Maskinporten is an [external service](../../../nais-application/access-policy.md#external-services).
+Outbound access to the Maskinporten hosts is automatically configured by the platform.
 
-All scopes within Maskinporten are defined using the following syntax:
+You do _not_ have to explicitly configure outbound access to Maskinporten yourselves in GCP.
+
+## Runtime Variables & Credentials
+
+Your application will automatically be injected with both environment variables and files at runtime.
+You can use whichever is most convenient for your application.
+
+The files are available at the following path: `/var/run/secrets/nais.io/maskinporten/`
+
+| Name                          | Description                                                                                                     |
+|:------------------------------|:----------------------------------------------------------------------------------------------------------------|
+| `MASKINPORTEN_WELL_KNOWN_URL` | The well-known URL for the [metadata discovery documet](../concepts/actors.md#well-known-url-metadata-document) |
+| `MASKINPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](../concepts/actors.md#issuer).                                  |
+| `MASKINPORTEN_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](../concepts/actors.md#jwks-endpoint-public-keys).             |
+
+These variables are used when validating tokens issued by Maskinporten.
+
+## Getting Started
+
+As an API provider, you will need to do three things:
+
+1. Define the scopes that you want to expose to other organizations
+2. Expose your application to the external consumers
+3. Validate tokens in requests from external consumers
+
+### 1. Define Scopes
+
+Declare all the scopes that you want to expose in your application's NAIS manifest:
+
+```yaml title="nais.yaml" hl_lines="5-11"
+spec:
+  maskinporten:
+    enabled: true
+    scopes:
+      exposes:
+        - name: "some.scope.read"
+          enabled: true
+          product: "arbeid"
+        - name: "some.scope.write"
+          enabled: true
+          product: "arbeid"
+```
+
+Grant the external consumer access to the scopes by specifying their organization number:
+
+```yaml title="nais.yaml" hl_lines="8-9"
+spec:
+  maskinporten:
+    enabled: true
+    scopes:
+      exposes:
+        - name: "some.scope.read"
+          ...
+          consumers:
+            - orgno: "123456789"
+```
+
+### 2. Expose Application
+
+Expose your application to the consumer(s) at a publicly accessible [ingress](../../../nais-application/ingress.md).
+
+### 3. Validate Tokens
+
+Validate incoming requests from the external consumer(s) by verifying the `access_token` in the `Authorization` header.
+
+Always [validate the standard claims and signatures](../concepts/tokens.md#token-validation).
+Additionally, the following validations should be performed:
+
+**Issuer Validation**
+
+Validate that the `iss` claim has a value that is equal to either:
+
+1. the `MASKINPORTEN_ISSUER` [environment variable](#runtime-variables-credentials), or
+2. the `issuer` property from the [metadata discovery document](../concepts/actors.md#well-known-url-metadata-document).
+   The document is found at the endpoint pointed to by the `MASKINPORTEN_WELL_KNOWN_URL` environment variable.
+
+**Scope Validation**
+
+Validate that the `scope` claim contains the expected scope(s).
+The `scope` claim is a string that contains a whitespace-separated list of scopes.
+
+Continuing from the previous examples, you would validate that the `scope` claim contains at least one of:
+
+- `nav:arbeid:some.scope.read` or
+- `nav:arbeid:some.scope.write`
+
+**Audience Validation**
+
+If using [audience-restricted tokens](https://docs.digdir.no/maskinporten_func_audience_restricted_tokens.html), validate that the `aud` claim equals the expected value.
+
+**Signature Validation**
+
+Validate that the token is signed with a public key published at the JWKS endpoint.
+This endpoint URI can be found in one of two ways:
+
+1. the `MASKINPORTEN_JWKS_URI` environment variable, or
+2. the `jwks_uri` property from the metadata discovery document.
+   The document is found at the endpoint pointed to by the `MASKINPORTEN_WELL_KNOWN_URL` environment variable.
+
+**Other Token Claims**
+
+For a complete list of claims, see <https://docs.digdir.no/docs/Maskinporten/maskinporten_protocol_token#the-access-token>.
+
+## Scope Naming
+
+All scopes within Maskinporten consist of a **prefix** and a **subscope**:
 
 ```text
 scope := <prefix>:<subscope>
 ```
 
-???+ example "Example scope"
-    ```text
-    scope := nav:trygdeopplysninger
-    ```
-### Prefix
+For example:
 
-The _prefix_ for all scopes provisioned through NAIS will **always** be `nav`.
+```text
+scope := nav:trygdeopplysninger
+```
 
-### Subscope
+**Scope Prefix**
 
-A _subscope_ should describe the resource to be exposed as accurately as possible (e.g. `trygdeopplysninger` or `helseopplysninger`).
+The **prefix** for all scopes provisioned through NAIS will always be `nav`.
 
-The subscope may also be _postfixed_ to separate between access levels, for instance `read` and/or `write` access (e.g. `nav:trygdeopplysninger.write`). 
+**Scope Subscope**
 
-Absence of a postfix should generally be treated as strictly `read` access.
-  
-All _subscopes_ for NAIS clients will have the following form:
+A **subscope** should describe the resource to be exposed as accurately as possible.
+It consists of three parts; **product**, **separator** and **name**:
 
 ```text
 subscope := <product><separator><name>
 ```
 
-where `separator` is:
+The **name** may also be _postfixed_ to separate between access levels.
+For instance, you could separate between `write` access:
 
-- `/` if and only if `name` contains `/`.
-- `:` otherwise.
+```text
+name := trygdeopplysninger.write
+```
 
-???+ example "Subscope example"
-    For the [example configuration](#configuration) above where
-    
-    - `product := arbeid`
-    - `name := some.scope.read`
+...and `read` access:
 
-    the subscope will be the following:
+```text
+name := trygdeopplysninger.read
+```
+
+Absence of a postfix should generally be treated as strictly `read` access.
+
+=== "Example scope"
+
+    If **name** does not contain any `/` (forward slash), the **separator** is set to `:` (colon).
+
+    For the following scope:
+
+    ```yaml title="nais.yaml" hl_lines="5-11"
+    spec:
+      maskinporten:
+        enabled: true
+        scopes:
+          exposes:
+            - name: "some.scope.read"
+              enabled: true
+              product: "arbeid"
+    ```
+
+    - **product** is set to `arbeid`
+    - **name** is set to `some.scope.read`
+
+    The subscope is then:
 
     ```text
     subscope := arbeid:some.scope.read
     ```
-  
+
     which results in the scope:
 
     ```text
     scope := nav:arbeid:some.scope.read
     ```
 
-???+ example "Subscope example with different separator"
-    If the `name` instead contains the `/` character, e.g:
+=== "Example scope with forward slash"
     
-    - `name := some/scope.read`
+    If **name** contains a `/` (forward slash), the **separator** is set to `/` (forward slash).
 
-    and the product is the same as before:
-    
-    - `product := arbeid`
+    For the following scope:
 
-    the resulting subscope will be:
+    ```yaml title="nais.yaml" hl_lines="5-11"
+    spec:
+      maskinporten:
+        enabled: true
+        scopes:
+          exposes:
+            - name: "some/scope.read"
+              enabled: true
+              product: "arbeid"
+    ```
+
+    - **product** is set to `arbeid`
+    - **name** is set to `some/scope.read`
+
+    The subscope is then:
 
     ```text
     subscope := arbeid/some/scope.read
@@ -110,72 +241,8 @@ where `separator` is:
     scope := nav:arbeid/some/scope.read
     ```
 
-## Audience Restrictions
-
-If there are multiple APIs that are protected by the same _scope_, one might be susceptible to replay attacks.
-
-One way to mitigate this is to require that tokens contain an `aud` claim with a unique value for each unique API. 
-The API should reject requests with tokens that do not have this claim and expected value. 
-This ensures that an `access_token` may only be used for a specific API.
-
-The value of this must be defined by the API provider out-of-band from Maskinporten. 
-It is thus the API provider's responsibility to inform any consumers of this expected value so that they can modify their requests accordingly.
-
-See DigDir's documentation on [audience-restricted tokens](https://docs.digdir.no/maskinporten_func_audience_restricted_tokens.html) for more information.
-
 ## Delegation of scopes
 
-[Delegation of scopes](https://docs.digdir.no/docs/Maskinporten/maskinporten_func_delegering) is not supported
-in the NAIS-manifest, please see [IaC repository](https://github.com/navikt/nav-maskinporten) for configuration options.
-This will also require you to configure your scope(s) in the IaC repository to match the delegation configuration.
+[Delegation of scopes](https://docs.digdir.no/docs/Maskinporten/maskinporten_func_delegering) is not supported.
 
-## Legacy
-
-!!! info
-    This section only applies if you have an existing scope registered at the [IaC repository](https://github.com/navikt/nav-maskinporten) 
-    or use the scope in on-prem clusters today.
-
-### Application do not use the IaC repo and is migrating from on-prem to gcp
-
-The scope is assigned your application in your current cluster;
-
-```text
-<cluster>:<metadata.namespace>:<metadata.name>.<subscope>
-```
-
-so when migrating from on-prem nais to gcp, the scope belongs to that cluster. If you already migrated your app, there
-is no reason to panic, scope still exists and works as before, but you are not able to make changes eg. add/remove
-consumers until cluster is updated. Right now the cluster need to be changed manually so please take contact in channel
-\#nais.
-
-### Migration guide to keep existing Maskinporten scope (IaC -> nais.yml) (NAIS application only)
-
-The following describes the steps needed to migrate a scope registered in [IaC repository](https://github.com/navikt/nav-maskinporten/scopes).
-
-#### Step 1 - Update your scope description in the IaC repository
-
-- Ensure the **`description`** of the scope registered in the `IaC` repository follows the naming scheme:
-
-```text
-<cluster>:<metadata.namespace>:<metadata.name>.<subscope>
-```
-
-??? info 
-    clutser, metadata.namespace and metadata.name containing `-` should be joined instead. 
-    `subscope` is described her [subscope](#subscope). Describes the scope without the `nav:` prefix.
-    Example: `mycluster:mynamespace:myapp.my/scope.read`
-
-#### Step 2 - IaC repository provisioning the scope client to Digdir.
-
-- Wait for IaC repo actions to finish. [maskinporten IaC actions](https://github.com/navikt/nav-maskinporten/actions)
-
-#### Step 3 - Deploy your NAIS application with Maskinporten provisioning enabled.
-
-- Ensure exposed scopes enabled and name matches the already exposed `subscope`
-
-- See [configuration](#configuration).
-
-#### Step 4 - Delete your scope from the IaC repository
-
-- Verify that everything works after the migration
-- Delete the scope from the [IaC repository](https://github.com/navikt/nav-maskinporten/scopes) in order to maintain a single source of truth.
+If you need a scope with delegation, please see [IaC repository](https://github.com/navikt/nav-maskinporten).

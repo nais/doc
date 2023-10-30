@@ -248,6 +248,7 @@ See the individual identity provider pages for specific validation related to ea
 
 - [Azure AD](../azure-ad/usage.md#token-validation)
 - [ID-porten](../idporten.md#token-validation)
+- [Maskinporten](../maskinporten/scopes.md#3-validate-tokens)
 - [TokenX](../tokenx.md#token-validation)
 
 ### Best Practices

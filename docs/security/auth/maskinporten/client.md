@@ -1,183 +1,253 @@
-# Client
+# Maskinporten Client
 
-The NAIS platform provides support for simple declarative provisioning of a _client_ that your application may use to integrate with Maskinporten, and in turn consume services and APIs served by external agencies.
+The NAIS platform provides support for declarative provisioning of Maskinporten clients.
 
-The client allows your application to leverage Maskinporten for authentication and authorization when performing service-to-service requests to external agencies.
-To achieve this, your application must:
+A [client](../concepts/actors.md#client) allows your application to integrate with Maskinporten to acquire access tokens.
+These tokens authenticate your application when consuming external APIs whom require Maskinporten tokens.
 
-- implement [JWT grants](https://docs.digdir.no/maskinporten_protocol_jwtgrant.html)
-- request tokens from [the `/token`-endpoint](https://docs.digdir.no/maskinporten_protocol_token.html) with the above JWT grants
+## Spec
 
-When a client requests a token from Maskinporten:
+```yaml title="nais.yaml"
+spec:
+  maskinporten:
+    enabled: true 
+    scopes:
+      consumes:
+        - name: "skatt:some.scope"
+        - name: "nav:some/other/scope"
 
-- Maskinporten validates the validity of the JWT and its signature ([Runtime JWK Secret](#runtime-variables-and-credentials) used to sign the JWT).
-- If the client has access to the requested list of `scopes`, an `access_token` will be returned to the client. The token can be used for authentication to the intended external service.
+  # required for on-premises only
+  webproxy: true
+```
 
-!!! danger
-    Make sure that the relevant service providers have pre-registered **NAV**'s organization (number: `889640782`) as a valid consumer of any scopes that you define. Provisioning of client will fail otherwise.
+See the [NAIS manifest reference](../../../nais-application/application.md#maskinporten) for the complete specification.
 
-    NAV´s `pre-registered` scopes can be found with proper access rights in [Digdir selvbetjening](https://selvbetjening-samarbeid-ver2.difi.no/auth/login).
+## Network Connectivity
+
+Maskinporten is an [external service](../../../nais-application/access-policy.md#external-services).
+Outbound access to the Maskinporten hosts is automatically configured by the platform.
+
+You do _not_ have to explicitly configure outbound access to Maskinporten yourselves in GCP.
+
+If you're on-premises however, you must enable and use [`webproxy`](../../../nais-application/application.md#webproxy).
+
+## Runtime Variables & Credentials
+
+Your application will automatically be injected with both environment variables and files at runtime.
+You can use whichever is most convenient for your application.
+
+The files are available at the following path: `/var/run/secrets/nais.io/maskinporten/`
+
+| Name                          | Description                                                                                                     |
+|:------------------------------|:----------------------------------------------------------------------------------------------------------------|
+| `MASKINPORTEN_CLIENT_ID`      | [Client ID](../concepts/actors.md#client-id) that uniquely identifies the client in Maskinporten.               |
+| `MASKINPORTEN_CLIENT_JWK`     | [Private JWK](../concepts/cryptography.md#private-keys) (RSA) for the client.                                   |
+| `MASKINPORTEN_SCOPES`         | Whitespace-separated string of scopes registered for the client.                                                |
+| `MASKINPORTEN_WELL_KNOWN_URL` | The well-known URL for the [metadata discovery documet](../concepts/actors.md#well-known-url-metadata-document) |
+| `MASKINPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](../concepts/actors.md#issuer).                                  |
+| `MASKINPORTEN_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](../concepts/actors.md#jwks-endpoint-public-keys).             |
+| `MASKINPORTEN_TOKEN_ENDPOINT` | `token_endpoint` from the [metadata discovery document](../concepts/actors.md#token-endpoint).                  |
+
+These variables are used when acquiring tokens.
 
 ## Getting Started
 
-### Access Policies
+In order to consume external APIs, you will need to do three things:
 
-Maskinporten is a third-party service outside of our clusters, which is not reachable by default like most third-party services.
+1. Declare the scopes that you want to consume
+2. Acquire tokens from Maskinporten
+3. Consume the API using the token
 
-#### Google Cloud Platform \(GCP\)
+### 1. Declare Consumer Scopes
 
-The following [outbound external hosts](../../../nais-application/access-policy.md#external-services) are automatically added when enabling this feature:
+Declare all the scopes that you want to consume in your application's NAIS manifest so that the client is granted access to them:
 
-- `test.maskinporten.no` in development
-- `maskinporten.no` in production
-
-You do not need to specify these explicitly.
-
-#### On-premises
-
-You must enable and use [`webproxy`](../../../nais-application/application.md#webproxy) for external communication.
-
-### Spec
-
-See the [NAIS manifest](../../../nais-application/application.md#maskinporten).
-
-### Configuration
-
-=== "nais.yaml"
-    ```yaml
-    spec:
-      maskinporten:
-        enabled: true 
-        scopes:
-          consumes:
-            - name: "skatt:some.scope"
-            - name: "nav:some/other/scope"
-
-      # required for on-premises only
-      webproxy: true
-    ```
-
-## Usage
-
-### Runtime Variables and Credentials
-
-The following environment variables and files (under the directory `/var/run/secrets/nais.io/maskinporten`) are available at runtime:
-
----
-
-#### `MASKINPORTEN_CLIENT_ID`
-
-???+ note
-
-    [Client ID](../concepts/actors.md#client-id) that uniquely identifies the application in Maskinporten.
-
-    Example value: `e89006c5-7193-4ca3-8e26-d0990d9d981f`
-
----
-
-#### `MASKINPORTEN_SCOPES`
-
-???+ note
-
-    The scopes registered for the client at Maskinporten as a whitepace-separated string. See [JWT grants](https://docs.digdir.no/maskinporten_protocol_token.html) for more information.
-
-    Example value: `nav:first/scope nav:another/scope`
-
----
-
-#### `MASKINPORTEN_CLIENT_JWK`
-
-???+ note
-
-    [Private JWK](../concepts/cryptography.md#private-keys) containing an RSA key belonging to your client. Used to sign client assertions during [client authentication](../concepts/actors.md#client-assertion).
-
-    ```javascript
-    {
-      "use": "sig",
-      "kty": "RSA",
-      "kid": "jXDxKRE6a4jogcc4HgkDq3uVgQ0",
-      "alg": "RS256",
-      "n": "xQ3chFsz...",
-      "e": "AQAB",
-      "d": "C0BVXQFQ...",
-      "p": "9TGEF_Vk...",
-      "q": "zb0yTkgqO...",
-      "dp": "7YcKcCtJ...",
-      "dq": "sXxLHp9A...",
-      "qi": "QCW5VQjO..."
-    }
-    ```
-
----
-
-#### `MASKINPORTEN_WELL_KNOWN_URL`
-
-???+ note
-
-    The well-known URL for the OAuth 2.0 authorization server (in this case, Maskinporten) [metadata document](../concepts/actors.md#well-known-url-metadata-document).
-
-    Example value: `https://test.maskinporten.no/.well-known/oauth-authorization-server`
-
----
-
-#### `MASKINPORTEN_ISSUER`
-
-???+ note
-
-    `issuer` from the [metadata discovery document](../concepts/actors.md#issuer).
-
-    Example value: `https://test.maskinporten.no/`
-
----
-
-#### `MASKINPORTEN_JWKS_URI`
-
-???+ note
-
-    `jwks_uri` from the [metadata discovery document](../concepts/actors.md#jwks-endpoint-public-keys).
-
-    Example value: `https://test.maskinporten.no/jwk`
-
----
-
-#### `MASKINPORTEN_TOKEN_ENDPOINT`
-
-???+ note
-
-    `token_endpoint` from the [metadata discovery document](../concepts/actors.md#token-endpoint).
-
-    Example value: `https://test.maskinporten.no/token`
-
----
-
-### Consuming an API
-
-Refer to the [documentation at DigDir](https://docs.digdir.no/docs/Maskinporten/maskinporten_guide_apikonsument.html#5-be-om-token).
-
-You may skip any step involving client registration as this is automatically handled when [enabling this feature](#configuration).
-
-## Legacy
-
-!!! info
-    This section only applies if you have an existing client registered at the [IaC repository](https://github.com/navikt/nav-maskinporten)
-
-### Migration guide to keep existing Maskinporten client (NAIS application only)
-
-The following describes the steps needed to migrate a client registered in [IaC repository](https://github.com/navikt/nav-maskinporten).
-
-#### Step 1 - Update your client description in the IaC repository
-
-- Ensure the **`description`** of the client registered in the `IaC` repository follows the naming scheme:
-
-```text
-<cluster>:<metadata.namespace>:<metadata.name>
+```yaml hl_lines="5-7" title="nais.yaml"
+spec:
+  maskinporten:
+    enabled: true
+    scopes:
+      consumes:
+        - name: "skatt:some.scope"
+        - name: "nav:some/other/scope"
 ```
 
-#### Step 3 - Deploy your NAIS application with Maskinporten provisioning enabled
+The scopes themselves are defined and owned by the external API provider. The exact scope values must thus be exchanged out-of-band.
 
-- See [configuration](#consumes-configuration).
+Make sure that the provider has granted **NAV** (organization number `889640782`) consumer access to any scopes that you wish to consume.
+Provisioning of client will fail otherwise.
 
-#### Step 4 - Delete your application from the IaC repository
+### 2. Acquire Token
 
-- Verify that everything works after the migration
-- Delete the application from the [IaC repository](https://github.com/navikt/nav-maskinporten) in order to maintain a single source of truth.
+In order to acquire a token from Maskinporten, you will need to create a JWT grant.
+
+A JWT grant is a [JWT](../concepts/tokens.md#jwt) that is used to [authenticate your client](../concepts/actors.md#client-assertion) with Maskinporten.
+The token is signed using a [private key](../concepts/cryptography.md#private-keys) belonging to your client.
+
+#### 2.1. Create JWT Grant
+
+The JWT consists of a **header**, a **payload** and a **signature**.
+
+The **header** should consist of the following parameters:
+
+| Parameter | Value            | Description                                                                                                                                                                                                                                                 |
+|:----------|:-----------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **`kid`** | `<kid-from-JWK>` | The key identifier of the [private JWK](../concepts/cryptography.md#private-keys) used to sign the assertion. The private key is found in the `MASKINPORTEN_CLIENT_JWK` [environment variable](#runtime-variables-credentials).                             |
+| **`typ`** | `JWT`            | Represents the type of this JWT. Set this to `JWT`.                                                                                                                                                                                                         |
+| **`alg`** | `RS256`          | Represents the cryptographic algorithm used to secure the JWT. Set this to `RS256`.                                                                                                                                                                         |
+
+The **payload** should have the following claims:
+
+| Claim       | Example Value                          | Description                                                                                                                                                                                                                                                    |
+|:------------|:---------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **`aud`**   | `https://test.maskinporten.no/`        | The _audience_ of the token. Set this to the Maskinporten `issuer`, i.e. [`MASKINPORTEN_ISSUER`](#runtime-variables-credentials).                                                                                                                              |
+| **`iss`**   | `60dea49a-255b-48b5-b0c0-0974ac1c0b53` | The _issuer_ of the token. Set this to your `client_id`, i.e. [`MASKINPORTEN_CLIENT_ID`](#runtime-variables-credentials).                                                                                                                                      |
+| **`scope`** | `nav:test/api`                         | `scope` is a whitespace-separated list of scopes that you want in the issued token from Maskinporten.                                                                                                                                                          |
+| **`iat`**   | `1698435010`                           | `iat` stands for _issued at_. Timestamp (seconds after Epoch) for when the JWT was issued or created.                                                                                                                                                          |
+| **`exp`**   | `1698435070`                           | `exp` is the _expiration time_. Timestamp (seconds after Epoch) for when the JWT is no longer valid. This **must** not be more than **120** seconds after `nbf` and `iat`. That is, the maximum lifetime of the token must be no greater than **120 seconds**. |
+| **`jti`**   | `2d1a343c-6e7d-4ace-ae47-4e77bcb52db9` | The _JWT ID_ of the token. Used to uniquely identify a token. Set this to a UUID or similar.                                                                                                                                                                   |
+
+The JWT grant should be unique and only used once. That is, every token request to Maskinporten should have a unique JWT grant:
+
+- Set the JWT ID (`jti`) claim to a unique value, such as an UUID.
+- Set the JWT expiry (`exp`) claim so that the lifetime of the token is reasonably low:
+    - The _maximum_ lifetime allowed is 120 seconds.
+    - A lifetime between 10-30 seconds should be fine for most situations.
+
+Finally, a **signature** is created by hashing the header and payload, and then signing the hash using your client's private key.
+
+??? example "Example Code"
+
+    The sample code below shows how to create and sign a JWT grant in a few different languages:
+
+    === "Kotlin"
+
+        Minimal example code for creating a JWT grant in Kotlin, using [Nimbus JOSE + JWT](https://connect2id.com/products/nimbus-jose-jwt).
+
+        ```kotlin linenums="1"
+        import com.nimbusds.jose.*
+        import com.nimbusds.jose.crypto.*
+        import com.nimbusds.jose.jwk.*
+        import com.nimbusds.jwt.*
+        import java.time.Instant
+        import java.util.Date
+        import java.util.UUID
+
+        val clientId: String = System.getenv("MASKINPORTEN_CLIENT_ID")
+        val clientJwk: String = System.getenv("MASKINPORTEN_CLIENT_JWK")
+        val issuer: String = System.getenv("MASKINPORTEN_ISSUER")
+        val scope: String = "nav:test/api"
+        val rsaKey: RSAKey = RSAKey.parse(clientJwk)
+        val signer: RSASSASigner = RSASSASigner(rsaKey.toPrivateKey())
+
+        val header: JWSHeader = JWSHeader.Builder(JWSAlgorithm.RS256)
+            .keyID(rsaKey.keyID)
+            .type(JOSEObjectType.JWT)
+            .build()
+
+        val now: Date = Date.from(Instant.now())
+        val expiration: Date = Date.from(Instant.now().plusSeconds(60))
+        val claims: JWTClaimsSet = JWTClaimsSet.Builder()
+            .issuer(clientId)
+            .audience(issuer)
+            .issueTime(now)
+            .claim("scope", scope)
+            .expirationTime(expiration)
+            .jwtID(UUID.randomUUID().toString())
+            .build()
+
+        val jwtGrant: String = SignedJWT(header, claims)
+            .apply { sign(signer) }
+            .serialize()
+        ```
+
+    === "Python"
+        
+        Minimal example code for creating a JWT grant in Python, using [PyJWT](https://github.com/jpadilla/pyjwt).
+
+        ```python linenums="1"
+        import json, jwt, os, uuid
+        from datetime import datetime, timezone, timedelta
+        from jwt.algorithms import RSAAlgorithm
+
+        issuer = os.getenv('MASKINPORTEN_ISSUER')
+        jwk = os.getenv('MASKINPORTEN_CLIENT_JWK')
+        client_id = os.getenv('MASKINPORTEN_CLIENT_ID')
+
+        header = {
+            "kid": json.loads(jwk)['kid']
+        }
+        
+        payload = {
+            "aud": issuer,
+            "iss": client_id,
+            "scope": "nav:test/api",
+            "iat": datetime.now(tz=timezone.utc),
+            "exp": datetime.now(tz=timezone.utc)+timedelta(minutes=1),
+            "jti": str(uuid.uuid4())
+        }
+
+        private_key = RSAAlgorithm.from_jwk(jwk)
+        grant = jwt.encode(payload, private_key, "RS256", header)
+        ```
+
+#### 2.2. Request Token from Maskinporten
+
+**Request**
+
+The token request is an HTTP POST request.
+It should have the `Content-Type` set to `application/x-www-form-urlencoded`
+
+The body of the request should contain the following parameters:
+
+| Parameter    | Value                                         | Description                                                                                |
+|:-------------|:----------------------------------------------|:-------------------------------------------------------------------------------------------|
+| `grant_type` | `urn:ietf:params:oauth:grant-type:jwt-bearer` | Type of grant the client is sending. Always `urn:ietf:params:oauth:grant-type:jwt-bearer`. |
+| `assertion`  | `eyJraWQ...`                                  | The JWT grant itself.                                                                      |
+
+Send the request to the `token_endpoint`, i.e. [`MASKINPORTEN_TOKEN_ENDPOINT`](#runtime-variables-credentials):
+
+```http
+POST ${MASKINPORTEN_TOKEN_ENDPOINT} HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&
+assertion=eY...
+```
+
+**Response**
+
+Maskinporten will respond with a JSON object.
+
+```json
+{
+    "access_token": "eyJraWQ...",
+    "token_type": "Bearer",
+    "expires_in": 3599,
+    "scope": "nav:test/api"
+}
+```
+
+| Parameter               | Description                                                                                                          |
+|:------------------------|:---------------------------------------------------------------------------------------------------------------------|
+| `access_token`          | The access token that you may use to consume an external API.                                                        |
+| `token_type`            | The token type. Should always be `Bearer`.                                                                           |
+| `expires_in`            | The lifetime of the token in seconds. Cache and reuse the token until it expires to minimize network latency impact. |
+| `scope`                 | A list of scopes issued in the access token.                                                                         |
+
+See the [Maskinporten token documentation](https://docs.digdir.no/docs/Maskinporten/maskinporten_protocol_token) for more details.
+
+### 3. Consume API
+
+Once you have acquired the token, you can finally consume the external API.
+
+Use the token in the `Authorization` header as a [Bearer token](../concepts/tokens.md#bearer-token):
+
+```http
+GET /resource HTTP/1.1
+
+Host: api.example.com
+Authorization: Bearer eyJraWQ...
+```
+
+Success!
