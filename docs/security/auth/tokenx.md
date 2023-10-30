@@ -282,27 +282,23 @@ The following claims are by default provided in the issued token and should expl
 * `iat` \(**issued at time**\): The time at which the token has been issued. **Must be before `exp`**.
 * `sub` \(**subject**\): If applicable, used in user centric access control. This represents a unique identifier for the user.
 
-Other non-standard claims in the token are copied verbatim from the original token issued by `idp` (the original issuer of the subject token).
+Other non-standard claims (with some exceptions, see the [claim mappings](#claim-mappings) section) in the token are copied verbatim from the original token issued by `idp` (the original issuer of the subject token).
 For example, the claim used for the personal identifier (_personidentifikator_) for tokens issued by ID-porten is `pid`.
 
-!!! warning "2023: New `acr` and `idp` values for ID-porten tokens"
+#### Claim Mappings
 
-    ID-porten has a new platform and architecture, which we will be required to migrate to by the end of 2023.
+Some claims are mapped to a different value for legacy/compatibility reasons, depending on the original issuer (`idp`).
 
-    The most substantial change is the **new values for the `acr` claim**.
-    See the ["security levels" section in our ID-porten documentation](idporten.md#security-levels) for details.
+The table below shows the claim mappings:
 
-    In order to ease migration, TokenX will automatically map the `acr` claim from new values to the old values for exchanged ID-porten tokens.
-    This is however a **temporary** solution, which we will remove some time down the line.
+| Claim | `idp`                      | Original Value             | Mapped Value  |
+|:------|:---------------------------|:---------------------------|:--------------|
+| `acr` | `https://test.idporten.no` | `idporten-loa-substantial` | `Level3`      |
+| `acr` | `https://idporten.no`      | `idporten-loa-high`        | `Level4`      |
 
-    **If your application validates or otherwise uses the value found in the `acr` claim, we recommend your application is configured to allow both the old and new values already now.**
+This currently only affects tokens from the new ID-porten.
 
-    The value in the `idp` claim for tokens from ID-porten will also change:
-
-    | Old value                                           | New value                  |
-    |:----------------------------------------------------|----------------------------|
-    | `https://oidc-ver2.difi.no/idporten-oidc-provider/` | `https://test.idporten.no` |
-    | `https://oidc.difi.no/idporten-oidc-provider/`      | `https://idporten.no`      |
+If you're using the `acr` claim in any way, check for both the original and mapped values.
 
 #### Example Token (exchanged from ID-porten)
 
@@ -370,7 +366,7 @@ The service <https://tokenx-token-generator.intern.dev.nav.no> can be used in or
 
 ### Test Clients
 
-If mocking isn't sufficient, we also maintain some test clients for use in local development environments.
+If [mocking](overview/development.md#mocking) isn't sufficient, we also maintain some test clients for use in local development environments.
 
 Note that the associated credentials may be rotated at any time.
 

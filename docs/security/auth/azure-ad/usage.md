@@ -120,7 +120,10 @@ For further details, see [Microsoft identity platform and the OAuth 2.0 client c
 
 ## Runtime Variables & Credentials
 
-The following environment variables and files (under the directory `/var/run/secrets/nais.io/azure`) are available at runtime:
+Your application will automatically be injected with both environment variables and files at runtime.
+You can use whichever is most convenient for your application.
+
+The files are available at the following path: `/var/run/secrets/nais.io/azure/`
 
 #### Variables for Acquiring Tokens
 
@@ -159,7 +162,7 @@ These variables are used for [token validation](#token-validation):
 When receiving an authenticated request, your application should [validate the standard claims and signature](../concepts/tokens.md#token-validation)
 for the JWT Bearer `access_token` found in the `Authorization` header.
 
-Other than the time and expiry checks, the following validations should be performed:
+In addition to the standard time and expiry claim validations, the following validations should be performed:
 
 #### Issuer Validation
 
@@ -280,7 +283,7 @@ Then:
 
 ### Test Clients
 
-If mocking isn't sufficient, we also maintain some test clients for use in local development environments.
+If [mocking](../overview/development.md#mocking) isn't sufficient, we also maintain some test clients for use in local development environments.
 
 Note that the associated credentials may be rotated at any time.
 

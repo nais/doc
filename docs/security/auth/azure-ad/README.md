@@ -4,7 +4,7 @@ description: Enabling authentication and authorization in internal web applicati
 
 # Azure AD
 
-The NAIS platform provides support declarative provisioning of an [Azure AD application](https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals).
+The NAIS platform provides support for declarative provisioning of an [Azure AD application](https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals).
 
 Azure AD is our primary identity provider for internal applications.
 It is used for authenticating and authorizing both users (employees) and applications.

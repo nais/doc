@@ -57,7 +57,10 @@ Try out a basic user flow:
 
 ### Runtime Variables & Credentials
 
-The following environment variables and files (under the directory `/var/run/secrets/nais.io/idporten/`) are available at runtime:
+Your application will automatically be injected with both environment variables and files at runtime.
+You can use whichever is most convenient for your application.
+
+The files are available at the following path: `/var/run/secrets/nais.io/idporten/`
 
 | Name                      | Description                                                                                                      |
 |:--------------------------|:-----------------------------------------------------------------------------------------------------------------|
@@ -66,7 +69,7 @@ The following environment variables and files (under the directory `/var/run/sec
 | `IDPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](concepts/actors.md#issuer).                                      |
 | `IDPORTEN_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](concepts/actors.md#jwks-endpoint-public-keys).                 |
 
-These variables are needed for token validation.
+These variables are used for [token validation](#token-validation).
 
 ### Security Levels
 
@@ -75,10 +78,18 @@ This is reflected in the `acr` claim for the user's JWTs issued by ID-porten.
 
 Valid values, in increasing order of assurance levels:
 
-| Value (deprecated, old ID-porten) | Value (new ID-porten)      | Description                                                      |
-|:----------------------------------|----------------------------|:-----------------------------------------------------------------|
-| `Level3`                          | `idporten-loa-substantial` | a substantial level of assurance, e.g. MinID                     |
-| `Level4`                          | `idporten-loa-high`        | a high level of assurance, e.g. BankID, Buypass, Commfides, etc. |
+| Old Value (deprecated) | New Value                  | Description                                                      |
+|:-----------------------|----------------------------|:-----------------------------------------------------------------|
+| `Level3`               | `idporten-loa-substantial` | a substantial level of assurance, e.g. MinID                     |
+| `Level4`               | `idporten-loa-high`        | a high level of assurance, e.g. BankID, Buypass, Commfides, etc. |
+
+!!! warning "2023: New `acr` values for ID-porten"
+
+    ID-porten is changing the values for the `acr` claim in 2023, as seen in the table above.
+
+    The sidecar accepts both the old and new values to ease migration, though you should use the newer values when possible.
+
+    If your application uses the `acr` claim found in the JWT in any way, ensure that it accepts both old and new values.
 
 To configure a default value for _all_ login requests:
 
@@ -93,23 +104,6 @@ To configure a default value for _all_ login requests:
     ```
 
 **If unspecified, the sidecar will use `Level4` as the default value.**
-
-!!! warning "2023: New `acr` values for ID-porten"
-
-    ID-porten has a new platform and architecture, which we will be required to migrate to.
-    Tentative dates:
-
-    - **August 14, 2023** for the development environments
-    - By the end of **Q4 2023** for the production environments
-
-    The most substantial change is the **new values for the `acr` claim**, shown in the table below.
-
-    The sidecar accepts both the old and new values in `nais.yaml` and in the `level` query parameter to ease migration, though you should use the newer values when possible.
-
-    The sidecar __cannot__ modify the `acr` value within the token itself. This means:
-
-    - If your application validates or uses the `acr` claim found in the JWT, it should accept both old and new values until the migration is complete.
-    - It is recommended to accept both old and new values _before_ the migration takes place to ensure that nothing breaks.
 
 The sidecar will also validate and enforce that the user's current authenticated session has a level that **matches or exceeds** the application's configured level.
 The user's session is marked as unauthenticated if the level is _lower_ than the configured level.
@@ -169,7 +163,7 @@ https://<ingress>/oauth2/login?locale=en
 Your application should [validate the standard claims and signature](concepts/tokens.md#token-validation)
 for the JWT Bearer `access_token` attached by the sidecar in the `Authorization` header.
 
-Other than the time and expiry checks, the following validations should be performed:
+In addition to the standard time and expiry claim validations, the following validations should be performed:
 
 #### Issuer Validation
 

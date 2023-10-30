@@ -38,7 +38,7 @@ Minimal example below.
 
 See the [NAIS manifest reference](../../../nais-application/application.md#azuresidecar) for the complete specification.
 
-The above example will provision a unique Azure AD application, as well as enabling a sidecar that uses said application.
+The above example will provision a unique Azure AD application and enable a sidecar that uses said application.
 
 For configuration of the Azure AD application itself, see [the Configuration page](configuration.md).
 
@@ -62,7 +62,9 @@ Try out a basic user flow:
     - If a request does not contain an `Authorization` header, the request should be considered unauthenticated and access should be denied.
     - If a request has an `Authorization` header that contains a [JWT], the token must be validated before access is granted.
 
-Your application should [validate the claims and signature](usage.md#token-validation) for the JWT Bearer `access_token` attached by the sidecar in the `Authorization` header.
+Your application should validate the claims and signature for the JWT Bearer `access_token` attached by the sidecar in the `Authorization` header.
+
+[:octicons-arrow-right-24: Read more about Token Validation](usage.md#token-validation)
 
 ## Next Steps
 

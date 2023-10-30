@@ -205,7 +205,7 @@ The above configuration will pre-authorize the Azure AD clients belonging to:
 
 !!! warning
 
-    - These rules are _eventually consistent_, which means it might take a few minutes to propagate.
+    - These rules are _eventually consistent_, which means they might take a few minutes to fully propagate.
     - If you're pre-authorizing a client provisioned through `aad-iac`, see the [legacy](legacy.md#pre-authorization) section.
 
 If you require more fine-grained access control, continue reading below.
