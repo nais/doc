@@ -45,7 +45,6 @@ The files are available at the following path: `/var/run/secrets/nais.io/maskinp
 | `MASKINPORTEN_SCOPES`         | Whitespace-separated string of scopes registered for the client.                                                |
 | `MASKINPORTEN_WELL_KNOWN_URL` | The well-known URL for the [metadata discovery documet](../concepts/actors.md#well-known-url-metadata-document) |
 | `MASKINPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](../concepts/actors.md#issuer).                                  |
-| `MASKINPORTEN_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](../concepts/actors.md#jwks-endpoint-public-keys).             |
 | `MASKINPORTEN_TOKEN_ENDPOINT` | `token_endpoint` from the [metadata discovery document](../concepts/actors.md#token-endpoint).                  |
 
 These variables are used when acquiring tokens.
