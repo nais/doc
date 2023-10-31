@@ -115,7 +115,7 @@ The JWT grant should be unique and only used once. That is, every token request 
 
 Finally, a **signature** is created by hashing the header and payload, and then signing the hash using your client's private key.
 
-??? example "Example Code"
+??? example "Example Code for Creating a JWT Grant"
 
     The sample code below shows how to create and sign a JWT grant in a few different languages:
 

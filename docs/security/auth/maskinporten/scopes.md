@@ -95,10 +95,10 @@ Expose your application to the consumer(s) at a publicly accessible [ingress](..
 
 ### 3. Validate Tokens
 
-Validate incoming requests from the external consumer(s) by verifying the `access_token` in the `Authorization` header.
+Verify incoming requests from the external consumer(s) by validating the [Bearer token](../concepts/tokens.md#bearer-token) in the `Authorization` header.
 
-Always [validate the standard claims and signatures](../concepts/tokens.md#token-validation).
-Additionally, the following validations should be performed:
+Always validate the [signature and standard time-related claims](../concepts/tokens.md#token-validation).
+Additionally, perform the following validations:
 
 **Issuer Validation**
 
@@ -131,9 +131,12 @@ This endpoint URI can be found in one of two ways:
 2. the `jwks_uri` property from the metadata discovery document.
    The document is found at the endpoint pointed to by the `MASKINPORTEN_WELL_KNOWN_URL` environment variable.
 
-**Other Token Claims**
+## Other Token Claims
 
-For a complete list of claims, see <https://docs.digdir.no/docs/Maskinporten/maskinporten_protocol_token#the-access-token>.
+Other claims may be present in the token.
+Validation of these claims is optional.
+
+See the [Access Token Reference in Maskinporten](https://docs.digdir.no/docs/Maskinporten/maskinporten_protocol_token#the-access-token) for a list of all claims.
 
 ## Scope Naming
 
@@ -149,11 +152,7 @@ For example:
 scope := nav:trygdeopplysninger
 ```
 
-**Scope Prefix**
-
 The **prefix** for all scopes provisioned through NAIS will always be `nav`.
-
-**Scope Subscope**
 
 A **subscope** should describe the resource to be exposed as accurately as possible.
 It consists of three parts; **product**, **separator** and **name**:

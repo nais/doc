@@ -159,12 +159,12 @@ These variables are used for [token validation](#token-validation):
 
 ## Token Validation
 
-When receiving an authenticated request, your application should [validate the standard claims and signature](../concepts/tokens.md#token-validation)
-for the JWT Bearer `access_token` found in the `Authorization` header.
+Verify incoming requests by validating the [Bearer token](../concepts/tokens.md#bearer-token) in the `Authorization` header.
 
-In addition to the standard time and expiry claim validations, the following validations should be performed:
+Always validate the [signature and standard time-related claims](../concepts/tokens.md#token-validation).
+Additionally, perform the following validations:
 
-#### Issuer Validation
+**Issuer Validation**
 
 Validate that the `iss` claim has a value that is equal to either:
 
@@ -172,11 +172,11 @@ Validate that the `iss` claim has a value that is equal to either:
 2. the `issuer` property from the [metadata discovery document](../concepts/actors.md#well-known-url-metadata-document).
     The document is found at the endpoint pointed to by the `AZURE_APP_WELL_KNOWN_URL` environment variable.
 
-#### Audience Validation
+**Audience Validation**
 
 Validate that the `aud` claim is equal to the `AZURE_APP_CLIENT_ID` environment variable.
 
-#### Signature Validation
+**Signature Validation**
 
 Validate that the token is signed with a public key published at the JWKS endpoint.
 This endpoint URI can be found in one of two ways:
@@ -187,7 +187,10 @@ This endpoint URI can be found in one of two ways:
 
 ### Other Token Claims
 
-List of other notable claims for access tokens from Azure AD that can optionally be used or validated:
+Other claims may be present in the token.
+Validation of these claims is optional.
+
+Notable claims:
 
 - `azp` (**authorized party**)
     - The [client ID](../concepts/actors.md#client-id) of the application that requested the token (this would be your consumer).
@@ -195,6 +198,7 @@ List of other notable claims for access tokens from Azure AD that can optionally
     - The value of this claim is the (human-readable) [name](README.md#client-name) of the consumer application that requested the token.
 - `groups` (**groups**)
     - JSON array of object IDs for [Azure AD groups](README.md#groups).
+    - This claim only applies in flows where a user is involved i.e., either the [sign-in](#openid-connect-authorization-code-flow) or [on-behalf-of](#oauth-20-on-behalf-of-grant) flows.
     - In order for a group to appear in the claim, all the following conditions must be true:
         - The given user is a direct member of the group.
         - The group is [assigned to the client](configuration.md#groups).
@@ -230,7 +234,7 @@ List of other notable claims for access tokens from Azure AD that can optionally
     - Consumers defined in the [access policy](configuration.md#applications) are always assigned the default scope named `defaultaccess`.
     - You can optionally define and grant additional [custom scopes](configuration.md#custom-scopes) to consumers.
 
-For a complete list of claims, see <https://learn.microsoft.com/en-us/azure/active-directory/develop/access-token-claims-reference>.
+For a complete list of claims, see the [Access Token Claims Reference in Azure AD](https://learn.microsoft.com/en-us/azure/active-directory/develop/access-token-claims-reference).
 Tokens in NAV are v2.0 tokens.
 
 ## Local Development

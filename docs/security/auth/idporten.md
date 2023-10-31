@@ -154,18 +154,16 @@ https://<ingress>/oauth2/login?locale=en
 
 ## Token Validation
 
-!!! danger "Secure your endpoints"
-    **Your application is responsible for securing its own endpoints.**
+The sidecar attaches an `Authorization` header with the user's `access_token` as a [Bearer token](concepts/tokens.md#bearer-token), as long as the user is authenticated.
 
-    - If a request does not contain an `Authorization` header, the request should be considered unauthenticated and access should be denied.
-    - If a request has an `Authorization` header that contains a [JWT], the token must be validated before access is granted.
+It is your responsibility to **validate the token** before granting access to resources.
 
-Your application should [validate the standard claims and signature](concepts/tokens.md#token-validation)
-for the JWT Bearer `access_token` attached by the sidecar in the `Authorization` header.
+For any endpoint that requires authentication; **deny access** if the request does not contain a valid Bearer token.
 
-In addition to the standard time and expiry claim validations, the following validations should be performed:
+Always validate the [signature and standard time-related claims](concepts/tokens.md#token-validation).
+Additionally, perform the following validations:
 
-#### Issuer Validation
+**Issuer Validation**
 
 Validate that the `iss` claim has a value that is equal to either:
 
@@ -173,11 +171,11 @@ Validate that the `iss` claim has a value that is equal to either:
 2. the `issuer` property from the [metadata discovery document](concepts/actors.md#well-known-url-metadata-document).
     The document is found at the endpoint pointed to by the `IDPORTEN_WELL_KNOWN_URL` environment variable.
 
-#### Audience Validation
+**Audience Validation**
 
 Validate that the `aud` claim is equal to the `IDPORTEN_AUDIENCE` environment variable.
 
-#### Signature Validation
+**Signature Validation**
 
 Validate that the token is signed with a public key published at the JWKS endpoint.
 This endpoint URI can be found in one of two ways:
@@ -188,14 +186,17 @@ This endpoint URI can be found in one of two ways:
 
 ### Other Token Claims
 
-List of other notable claims for access tokens from ID-porten that can optionally be used or validated:
+Other claims may be present in the token.
+Validation of these claims is optional.
+
+Notable claims:
 
 - `acr` (**Authentication Context Class Reference**)
     - The [security level](#security-levels) used for authenticating the end-user.
 - `pid` (**personidentifikator**)
     - The Norwegian national ID number (fødselsnummer/d-nummer) of the authenticated end user.
 
-For a complete list of claims, see <https://docs.digdir.no/docs/idporten/oidc/oidc_protocol_access_token>.
+For a complete list of claims, see the [Access Token Reference in ID-porten](https://docs.digdir.no/docs/idporten/oidc/oidc_protocol_access_token#by-value--self-contained-access-token).
 
 ## Next Steps
 
@@ -205,5 +206,4 @@ In order to access other applications, you should exchange the token in order to
 
 For ID-porten, use the [token exchange grant (TokenX)](tokenx.md#exchanging-a-token) to do this.
 
-[JWT]: concepts/tokens.md#jwt
 [^1]: A sidecar is an additional container that runs alongside your application in the same Kubernetes [_Pod_](https://kubernetes.io/docs/concepts/workloads/pods/).

@@ -39,8 +39,8 @@ graph LR
   U((User)) -- "/oauth2/login" --> Wonderwall
 
   subgraph OIDC["OpenID Connect Authorization Code Flow"]
-    IDP == "redirect callback" ====> Wonderwall
-    Wonderwall == "redirect to log in" ====> IDP
+    IDP -- "redirect callback" ---> Wonderwall
+    Wonderwall -- "redirect to log in" ---> IDP
   end
 ```
 
@@ -52,13 +52,13 @@ graph LR
   style Wonderwall stroke:#0f0,stroke-dasharray: 5
   style IDP stroke:#f00
   
-  IDP[Identity Provider] -- "redirect after login" ---> Wonderwall
+  IDP[Identity Provider] -- "redirect after login" --> Wonderwall
   
   subgraph Wonderwall
     Server -- "manage sessions" --> Store[Session Store]
   end
   
-  Wonderwall -- "establish session" ----> U((User))
+  Wonderwall -- "establish session" --> U((User))
 ```
 
 All authenticated requests that are forwarded to the application will now contain the user's `access_token`.
@@ -73,7 +73,7 @@ graph LR
   subgraph Session["Authenticated Session"]
     direction LR
     U((User)) -- "request" ---> Wonderwall
-    Wonderwall -. "proxies request\n with token" -..-> Application
+    Wonderwall -. "proxy request\n with token" -..-> Application
   end
 ```
 
@@ -187,13 +187,15 @@ within your own ingress.
 
 #### 1.2. Autologin
 
+!!! danger inline end "Autologin vs. Token Validation"
+
+    Autologin does **not** perform nor is it a replacement for [token validation](#3-token-validation).
+
+    Always validate the token for any endpoint that requires authentication.
+
+    Validation is especially important for requests that access sensitive data or otherwise performs operations that modify state.
+
 The `autoLogin` option will configure Wonderwall to enforce authentication for **all** requests, except for the paths that are explicitly [excluded](#13-autologin-exclusions).
-
-!!! danger "Autologin is not a replacement for token validation"
-
-    You should always check the `Authorization` header for a token and [validate the token](#3-token-validation) - even when using autologin.
-
-    This is especially important for requests that accesses or performs sensitive operations, modifies state on the server, and so on.
 
 Autologin must be explicitly enabled. It is not enabled by default.
 
@@ -220,7 +222,7 @@ If the user is _unauthenticated_ or has an [_inactive_ or _expired_ session](#5-
 
 The short-circuited response depends on whether the request is a _top-level navigation_ request or not.
 
-!!! info "What is a _top-level navigation request_?"
+??? info "What is a _top-level navigation request_?"
 
     A _top-level navigation_ request is a `GET` request that fulfills at least one of the following properties:
 
@@ -231,8 +233,7 @@ The short-circuited response depends on whether the request is a _top-level navi
     Hopefully you're not in a position that requires supporting that browser.
 
 A top-level navigation request results in a `HTTP 302 Found` response with the `Location` header pointing to the [login endpoint](#1-initiate-login).
-
-To ensure that the user is redirected back to their intended location after login, the `redirect` parameter in the login URL is set to the value found in the `Referer` header.
+In order to preserve the user's original location, the `redirect` parameter is set to the original request's `Referer` header.
 If the `Referer` header is empty, we use the matching ingress context path for the original request.
 
 All other requests (such as `POST` or `PUT` requests, or `fetch`, `XMLHttpRequest`/`XHR` or `AJAX` from browsers) are _not_ considered navigational requests.
@@ -358,23 +359,20 @@ The same restrictions and caveats apply here.
 
 ### 3. Token Validation
 
-The sidecar attaches an `Authorization` header with the user's `access_token` as a Bearer token, as long as the user has an [_active_ session](#5-sessions):
+The sidecar attaches an `Authorization` header with the user's `access_token` as a [Bearer token](../security/auth/concepts/tokens.md#bearer-token), as long as the user has an [_active_ session](#5-sessions):
 
 ```
 GET /resource
 
 Host: some-app.nav.no
-Authorization: Bearer <JWT_ACCESS_TOKEN>
+Authorization: Bearer <ACCESS_TOKEN>
 ```
 
-!!! danger "Your application is responsible for securing its own endpoints"
+It is your responsibility to **validate the token** before granting access to resources.
 
-    - If a request does not contain an `Authorization` header, the request should be considered unauthenticated and access should be denied.
-    - If a request has an `Authorization` header that contains a [JWT], the token must be validated before access is granted.
+For any endpoint that requires authentication; **deny access** if the request does not contain a valid Bearer token.
 
-Your application should [validate the claims and signature](../security/auth/concepts/tokens.md#token-validation) for the JWT `access_token`.
-
-Each provider may have some differences in claims and values; see their specific page for details:
+See the specific identity provider pages for further details on token validation:
 
 === "ID-porten"
 
@@ -651,4 +649,3 @@ In order to access other applications, you should exchange the token in order to
     See <https://github.com/navikt/next-auth-wonderwall> for a Next.js library that provides Wonderwall integrations and token exchange utilities.
 
 [identity provider]: ../security/auth/concepts/actors.md#identity-provider
-[JWT]: ../security/auth/concepts/tokens.md#jwt

@@ -4,18 +4,11 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 
 # Azure AD sidecar
 
+The Azure AD sidecar is a reverse proxy that provides functionality to perform Azure AD login and logout for end-users.
+
 !!! warning "Availability"
 
     The sidecar is only available in the [Google Cloud Platform](../../../clusters/gcp.md) clusters.
-
-## Description
-
-The sidecar is a reverse proxy that provides functionality to perform Azure AD login and logout for end-users.
-
-!!! info "Prerequisites"
-    - If you're unfamiliar with Azure AD, review the [core concepts](README.md#concepts).
-    - Ensure that you define at least one [ingress](../../../nais-application/application.md#ingresses) for your application.
-    - Ensure that you configure [user access](configuration.md#users) for your application. **Users are not granted access by default**.
 
 ## Spec
 
@@ -44,6 +37,12 @@ For configuration of the Azure AD application itself, see [the Configuration pag
 
 ## Usage
 
+!!! info "Prerequisites"
+
+    - If you're unfamiliar with Azure AD, review the [core concepts](README.md#concepts).
+    - Ensure that you define at least one [ingress](../../../nais-application/application.md#ingresses) for your application.
+    - Ensure that you configure [user access](configuration.md#users) for your application. **Users are not granted access by default**.
+
 Try out a basic user flow:
 
 1. Visit your application's login endpoint (`https://<ingress>/oauth2/login`) to trigger a login.
@@ -57,12 +56,11 @@ Try out a basic user flow:
 
 ### Token Validation
 
-!!! danger "Your application is responsible for securing its own endpoints"
+The sidecar attaches an `Authorization` header with the user's `access_token` as a [Bearer token](../concepts/tokens.md#bearer-token), as long as the user is authenticated.
 
-    - If a request does not contain an `Authorization` header, the request should be considered unauthenticated and access should be denied.
-    - If a request has an `Authorization` header that contains a [JWT], the token must be validated before access is granted.
+It is your responsibility to **validate the token** before granting access to resources.
 
-Your application should validate the claims and signature for the JWT Bearer `access_token` attached by the sidecar in the `Authorization` header.
+For any endpoint that requires authentication; **deny access** if the request does not contain a valid Bearer token.
 
 [:octicons-arrow-right-24: Read more about Token Validation](usage.md#token-validation)
 
