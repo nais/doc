@@ -4,7 +4,6 @@
 
 On Aiven Kafka, we retain consumer offsets for a period of 7 days.
 This is the period recommended by Aiven and the default for Kafka.
-This is in contrast to On-Prem Kafka, where we have retained consumer offsets for several months.
 Due to how longer offset retention affects other parts of Kafka, we do not want to increase this period.
 
 When a consumer group stops consuming messages, its offsets will be retained for the mentioned period.
