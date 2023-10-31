@@ -7,7 +7,14 @@ sections will describe the recommended flows and grants to be used for applicati
 
 ### OpenID Connect Authorization Code Flow
 
-This flow is used for sign-in and authentication of end users (NAV employees only) with single-sign on (SSO).
+This flow is used for signing in and authenticating end-users (NAV employees only) with single-sign on (SSO).
+
+```mermaid
+graph LR
+  User --authenticate---> Application
+  Application --1. redirect to login---> AAD["Azure AD"]
+  AAD --2. redirect after login---> Application
+```
 
 We generally recommend that you use the [sidecar](sidecar.md) instead of implementing this yourselves.
 
@@ -15,20 +22,37 @@ If you don't want to use the sidecar, see [Microsoft identity platform and OAuth
 
 ### OAuth 2.0 On-Behalf-Of Grant
 
-This grant is used for machine-to-machine requests chains initiated by an end user. The end user's identity and 
-permissions should be propagated through each service/web API.
+This grant is used for machine-to-machine requests chains initiated by an end user. The end user's identity and
+permissions should be propagated through each application.
 
-#### Prerequisites
+```mermaid
+graph LR
+  User --"request with subject token\n aud=Application"---> Application
+  Application --1. exchange subject token---> AAD["Azure AD"]
+  AAD --2. issue new token\n aud=Downstream API---> Application
+  Application --3. consume with new token\n aud=Downstream API---> Downstream["Downstream API"]
+```
 
-1. Your [resource server](../concepts/actors.md#resource-server) and the downstream API that you want to consume both have [enabled Azure AD](configuration.md).
-2. Your resource server has been [pre-authorized](configuration.md#pre-authorization) by the downstream API.
+Your application receives requests from a user.
+These requests contain the user's token, known as the _subject token_.
+The token has an audience (`aud`) [claim](../concepts/tokens.md#claims-validation) equal to _your own_ client ID.
 
-#### Steps
+In order to access a downstream API _on-behalf-of_ the user, we need a token that is [scoped](README.md#scopes) to the downstream API.
+That is, the token's audience must be equal to the _downstream API's_ client ID.
+We achieve this by exchanging the subject token for a new token.
 
-1. Your resource server receives an [access token](../concepts/tokens.md#access-token) in a request from a consumer with `aud` (audience) [claim](../concepts/tokens.md#claims-validation) equal to your own client ID.
-    - This token is a _subject token_ and contains the end user context, e.g. from the [Authorization Code Flow](#openid-connect-authorization-code-flow) or from a previous resource server that has also performed the On-Behalf-Of grant.
-2. Your resource server requests a new token from Azure AD that is [scoped](README.md#scopes) to the downstream API that should be consumed:
-    - The `scope` parameter in the request should thus be `api://<cluster>.<namespace>.<outbound-app-name>/.default`
+The same principles apply if your application is a downstream API itself and needs to access another downstream API on-behalf-of the user.
+
+**Prerequisites**
+
+1. Your application (also known as a [resource server](../concepts/actors.md#resource-server)) and the downstream API that you want to consume both have [enabled Azure AD](configuration.md).
+2. Your application has been [granted access](configuration.md#pre-authorization) to the downstream API.
+
+**Steps**
+
+1. [Validate the subject token](#token-validation) from the incoming request.
+2. Request a new token that is scoped to the downstream API.
+    - Set the `scope` parameter to `api://<cluster>.<namespace>.<outbound-app-name>/.default`
     - Request:
     ```http
     POST ${AZURE_OPENID_CONFIG_TOKEN_ENDPOINT} HTTP/1.1
@@ -59,12 +83,11 @@ permissions should be propagated through each service/web API.
         
             A safe cache key for on-behalf-of tokens is `key = sha256($subject_token + $scope)`.
 
-    - The token returned from Azure AD will have an `aud` claim with a value equal to the client ID of the downstream API. Your resource server does not need to validate this token.
+    - The new token has an audience equal to the downstream API. Your application does not need to validate this token.
 
-3. Your resource server performs the request to the downstream API by using the token as a [Bearer token](../concepts/tokens.md#bearer-token).
-4. The downstream API [validates the token](#token-validation) and returns a response.
-5. Repeat step 2 and 3 for each unique API that your application consumes.
-6. The downstream API(s) may continue the call chain starting from step 1.
+3. Consume the downstream API by using the new token as a [Bearer token](../concepts/tokens.md#bearer-token). The downstream API [validates the token](#token-validation) and returns a response.
+4. Repeat step 2 and 3 for each unique API that your application consumes.
+5. The downstream API(s) may continue the call chain starting from step 1.
 
 For further details, see [Microsoft identity platform and OAuth 2.0 On-Behalf-Of flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-on-behalf-of-flow).
 
@@ -72,15 +95,25 @@ For further details, see [Microsoft identity platform and OAuth 2.0 On-Behalf-Of
 
 This grant is used for pure machine-to-machine authentication, i.e. interactions without an end user involved.
 
-#### Prerequisites
+```mermaid
+graph LR
+  Application --1. request token---> AAD["Azure AD"]
+  AAD --2. issue token\n aud=Downstream API---> Application
+  Application --3. consume with token\n aud=Downstream API---> Downstream["Downstream API"]
+```
 
-1. Your [resource server](../concepts/actors.md#resource-server) and the downstream API that you want to consume both have [enabled Azure AD](configuration.md).
-2. Your resource server has been [granted access](configuration.md#pre-authorization) by the downstream API.
+In order to access a downstream API, we need a token that is [scoped](README.md#scopes) to the downstream API.
+That is, the token's audience must be equal to the _downstream API's_ client ID.
 
-#### Steps
+**Prerequisites**
 
-1. Your resource server requests a new token from Azure AD that is [scoped](README.md#scopes) to the downstream API that should be consumed.
-    - The `scope` parameter in the request should thus be `api://<cluster>.<namespace>.<outbound-app-name>/.default`
+1. Your application (also known as a [resource server](../concepts/actors.md#resource-server)) and the downstream API that you want to consume both have [enabled Azure AD](configuration.md).
+2. Your application has been [granted access](configuration.md#pre-authorization) to the downstream API.
+
+**Steps**
+
+1. Request a new token that is scoped to the downstream API.
+    - Set the `scope` parameter to `api://<cluster>.<namespace>.<outbound-app-name>/.default`
     - Request:
     ```http
     POST ${AZURE_OPENID_CONFIG_TOKEN_ENDPOINT} HTTP/1.1
@@ -109,12 +142,11 @@ This grant is used for pure machine-to-machine authentication, i.e. interactions
         
             A safe cache key for client credentials tokens is `key = $scope`.
 
-    - The token returned from Azure AD will have an `aud` claim with a value equal to the client ID of the downstream API. Your resource server does not need to validate this token.
+    - The new token has an audience equal to the downstream API. Your application does not need to validate this token.
 
-2. Your resource server performs the request to the downstream API by using the token as a [Bearer token](../concepts/tokens.md#bearer-token).
-3. The downstream API [validates the token](#token-validation) and returns a response.
-4. Repeat step 1 and 2 for each unique API that your application consumes.
-5. The downstream API(s) may continue the call chain by starting from step 1.
+2. Consume downstream API by using the token as a [Bearer token](../concepts/tokens.md#bearer-token). The downstream API [validates the token](#token-validation) and returns a response.
+3. Repeat step 1 and 2 for each unique API that your application consumes.
+4. The downstream API(s) may continue the call chain by starting from step 1.
 
 For further details, see [Microsoft identity platform and the OAuth 2.0 client credentials flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow).
 
@@ -248,7 +280,7 @@ To do so, you need a [token](../concepts/tokens.md#bearer-token) in order to acc
 
 The service <https://azure-token-generator.intern.dev.nav.no> can be used in order to generate tokens in the development environments.
 
-#### Prerequisites
+**Prerequisites**
 
 1. The API application must be configured with [Azure enabled](../azure-ad/configuration.md). Using the [`nav.no` tenant](../azure-ad/README.md#tenants) is not supported.
 2. You will need a [trygdeetaten.no user](../azure-ad/README.md#tenants) in order to access the service.
@@ -263,7 +295,7 @@ The service <https://azure-token-generator.intern.dev.nav.no> can be used in ord
               cluster: dev-gcp
     ```
 
-#### Getting a token
+**Getting a token**
 
 The Azure AD token generator supports two use cases:
 
