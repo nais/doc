@@ -102,6 +102,7 @@ Since Aivenator automatically deletes secrets that are not in use by any pod, yo
 This ensures that the secret will not be deleted by any automated process.
 
 After the `AivenApplication` resources has been created, Aivenator will create the secret, using the name specified.
+The secretName must be a valid [DNS label](https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-label-names), and must be unique within the namespace.
 Using `kubectl`, extract the secret and make the values available to your legacy application.
 
 When you no longer have a need for the credentials created in this way, delete the `AivenApplication` resource, and make sure the secret is also deleted.
