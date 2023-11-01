@@ -47,6 +47,21 @@ arbeidsgiver  ├─Job/tiltak-okonomi-avstemming             -              109
 arbeidsgiver  │ └─Pod/tiltak-okonomi-avstemming-brb7c     True           12d
 ```
 
+## When will my NaisJob run?
+
+If the `schedule` field is set, the Naisjob will run at the specified schedule.
+By default, the timezone used to determine when to run the Naisjob is based on the timezone of the cluster, which is `UTC`.
+
+If you want to run your Naisjob at a specific time in a specific timezone, you can set the `timeZone` field in the Naisjob spec.
+
+```yaml
+# [...]
+spec:
+  # [...]
+  schedule: "0 0 * * *" # Run every day at midnight
+  timeZone: "Europe/Oslo"
+```
+
 ## Re-run Naisjob
 
 If you don't want to run your job at a schedule, but still want to re-run your Naisjob:
