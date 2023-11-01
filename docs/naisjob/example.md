@@ -224,6 +224,7 @@ spec:
     timeout: 1
   successfulJobsHistoryLimit: 2
   terminationGracePeriodSeconds: 60
+  timeZone: Europe/Oslo
   ttlSecondsAfterFinished: 60
   vault:
     enabled: true
