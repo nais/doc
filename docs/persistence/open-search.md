@@ -1,4 +1,5 @@
 ---
+---
 description: >-
   NAIS provides managed search index services through OpenSearch as a drop-in
   replacement for Elasticsearch. This page describes how to get started with
@@ -47,7 +48,7 @@ spec:
 
 A minimal OpenSearch resource only requires `plan` and `project`.
 
-* `project` should match your nais tenant (`nav`, `mtpilot`, `ssb` or `fhi`) and the environment you are running in (ex. `dev`, `prod`), with a dash (`-`) in between.
+* `project` should match your nais tenant (`nav`, `ssb` or `fhi`) and the environment you are running in (ex. `dev`, `prod`), with a dash (`-`) in between.
 * `plan` is the Aiven plan for your OpenSearch instance.
   See Aivens list of [possible plan values](https://aiven.io/pricing?product=opensearch).
   The values are lowercased.
@@ -63,8 +64,7 @@ The Startup plans are good for things like sessions or cache usage, where High A
 Upgrades and regular maintenance is handled without noticeable downtime, by adding a new upgraded node and replicating data over to it before switching over DNS and shutting down the old node.
 Startup plans are backed up every 12 hours, keeping 1 backup available.
 
-If you require HA, the Business plans provide for one failover node that takes over should your primary instance fail for any reason.
-When using business plans, a second node is always available with continuous replication, so it is able to start serving data immediately should the primary node fail.
+If you require HA, the Business plans provide for a 3-node cluster with reads and writes distributed across the cluster.
 Business plans are backed up every 12 hours, keeping 3 days of backups available.
 
 Once the resource is added to the cluster, some additional fields are filled in by the platform and should be left alone unless you have a good reason:
@@ -93,10 +93,11 @@ It is pretty straight forward, with little to no configuration needed.
 Simple 5 steps procedure:
 1. Copy the below yaml into a file (it can be the same file as your OpenSearch instance)
 2. Replace `nav-dev` with your project name (in field `project`)
-   `project` should match your nais tenant (`nav`, `mtpilot`, `ssb` or `fhi`) and the environment you are running in (ex. `dev`, `prod`), with a dash (`-`) in between.
+   `project` should match your nais tenant (`nav`, `ssb` or `fhi`) and the environment you are running in (ex. `dev`, `prod`), with a dash (`-`) in between.
 3. Replace `myteam` with your team name (in `labels`, `namespace` and `sourceServiceName`)
 4. Replace `sessions` with the name of your OpenSearch instance (in `name` and `sourceServiceName`)
-5. Deploy the resource using the same pipeline as you use for your OpenSearch instance
+5. Replace `00000000-0000-0000-0000-000000000000` with the endpoint ID from the table below (in `destinationEndpointId`)
+6. Deploy the resource using the same pipeline as you use for your OpenSearch instance
 
 
 ```yaml
@@ -111,9 +112,17 @@ metadata:
 spec:
   project: nav-dev
   integrationType: prometheus
-  destinationEndpointId: prometheus
+  destinationEndpointId: 00000000-0000-0000-0000-000000000000
   sourceServiceName: opensearch-myteam-sessions
 ```
+
+#### Prometheus Endpoint IDs
+
+| Environment | Endpoint ID                          |
+|-------------|--------------------------------------|
+| nav-dev     | f20f5b48-18f4-4e2a-8e5f-4ab3edb19733 |
+| nav-prod    | 76685598-1048-4f56-b34a-9769ef747a92 |
+
 
 
 ### Previous usage
