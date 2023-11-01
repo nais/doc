@@ -47,7 +47,7 @@ arbeidsgiver  ├─Job/tiltak-okonomi-avstemming             -              109
 arbeidsgiver  │ └─Pod/tiltak-okonomi-avstemming-brb7c     True           12d
 ```
 
-## When will my NaisJob run?
+## When will my Naisjob run?
 
 If the `schedule` field is set, the Naisjob will run at the specified schedule.
 By default, the timezone used to determine when to run the Naisjob is based on the timezone of the cluster, which is `UTC`.
