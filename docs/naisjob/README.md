@@ -52,6 +52,13 @@ arbeidsgiver  │ └─Pod/tiltak-okonomi-avstemming-brb7c     True           1
 If the `schedule` field is set, the Naisjob will run at the specified schedule.
 By default, the timezone used to determine when to run the Naisjob is based on the timezone of the cluster, which is `UTC`.
 
+
+!!! warning "Daylight saving time"
+    If you specify a `timeZone` which observes daylight saving time, your job might run twice or not at all on the day of the daylight saving time change if you schedule it to run at or between the time of the daylight saving time change.
+    
+    E.g. if you specify `Europe/Oslo` as your `timeZone`, and schedule your job to run at or between `02:00:00` and `02:59:59`, it will run twice on the day of the daylight saving time change from summer to winter time and not at all on the day of the daylight saving time change from winter to summer time.
+    
+
 If you want to run your Naisjob at a specific time in a specific timezone, you can set the `timeZone` field in the Naisjob spec.
 
 ```yaml
