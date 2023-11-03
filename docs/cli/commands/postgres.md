@@ -4,24 +4,25 @@ The postgres command can be used to connect to a cloudsql postgres database with
 It includes subcommands for granting personal access to an instance, 
 setting up a cloudsql proxy, and connecting to the database using a psql shell.
 
-All command have the following global flags avaiable:
+All commands have the following common flags available:
 
-| Flag      | Required | Short |Default                       |Description                                              |
-|-----------|----------|-------|------------------------------|---------------------------------------------------------|
-| namespace | No       | -n    | namespace set in kubeconfig  | Kubernetes namespace where app is deployed              |
-| cluster   | No       | -c    | context set in kubeconfig    | Kubernetes context where app is deployed                |
+| Flag      | Required | Short | Default                          | Description                                                                     |
+|-----------|----------|-------|----------------------------------|---------------------------------------------------------------------------------|
+| namespace | No       | -n    | namespace set in kubeconfig      | Kubernetes namespace where app is deployed                                      |
+| cluster   | No       | -c    | context set in kubeconfig        | Kubernetes context where app is deployed                                        |
+| database  | No       | -d    | the database in the app manifest | The database to interact with, needs to be set if the app has several databases |
 
 Note all flags has to appear before arguments (otherwise the flags will be interpreted as arguments).
-So global flags for Postgres needs to be positioned after `nais postgres`:
+So the common flags for Postgres needs to be positioned after `nais postgres <cmd>`, but before arguments:
 
 OK:
 ```
-nais postgres --context dev-gcp --namespace dreamteam proxy
+nais postgres prepare --context dev-gcp --namespace dreamteam appname
 ```
 
 Not OK:
 ```
-nais postgres proxy --context dev-gcp --namespace dreamteam
+nais postgres prepare appnem --context dev-gcp --namespace dreamteam
 ```
 
 !!! warning
