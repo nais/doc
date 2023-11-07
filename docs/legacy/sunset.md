@@ -2,6 +2,10 @@
 
 Dette er tjenester som naisteamet er i prosess med å avvikle.
 
+### unleash.nais.io
+
+Felles Unleash instans (`unleash.nais.io`) avvikles, og blir slått av 31. desember 2023. Det anbefales at teamene tar i bruk [Unleash Next](../addons/unleash-next.md).
+
 ### FSS
 
 Vi anbefaler at alle nye applikasjoner på nais deployes til GCP, og ikke til FSS.
