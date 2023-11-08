@@ -91,6 +91,7 @@ A ServiceIntegration is used to integrate the OpenSearch instance with Prometheu
 It is pretty straight forward, with little to no configuration needed.
 
 Simple 5 steps procedure:
+
 1. Copy the below yaml into a file (it can be the same file as your OpenSearch instance)
 2. Replace `nav-dev` with your project name (in field `project`)
    `project` should match your nais tenant (`nav`, `ssb` or `fhi`) and the environment you are running in (ex. `dev`, `prod`), with a dash (`-`) in between.
