@@ -44,8 +44,8 @@ On-prem:
 * `https://<namespace>-gw.prod-fss-pub.nais.io`
 
 !!! info "Note for on-prem"
-    You have to add the KrakenD ingress for your namespace in a PR to [bigip-iac](https://github.com/navikt/bigip-iac/) in order to reach your KrakenD instance from GCP.
-    Also see [Use Cases](#use-cases) below for more details on how to expose your API to external consumers from on-prem via GCP.
+
+    See [Use Cases](#use-cases) below for more details on how to expose your API to external consumers from on-prem via GCP.
     If you already have a special "pub" ingress for your app and you do maskintoken validation already you can expose that directly to KrakenD in GCP instead.
 
 You can then add API endpoints to your KrakenD instance by creating one or more `ApiEndpoints` custom resources in your namespace.

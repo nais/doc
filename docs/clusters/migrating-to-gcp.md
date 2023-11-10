@@ -158,11 +158,6 @@ If your application stores personally identifiable information in any GCP data s
         - `https://<app>.dev-fss-pub.nais.io`
         - `https://<app>.prod-fss-pub.nais.io`
 
-    In cases where the application contains unsecured or endpoints secured with other mechanisms, see the ["Application Requirements" section in this document](https://github.com/navikt/bigip-iac/blob/main/pub-fss/security.md#application-requirements).
-
-    Create a pull request at <https://github.com/navikt/bigip-iac/tree/main/pub-fss> add these ingresses which allows 
-    them be exposed to GCP.
-
     The application _on-premises_ must then:
 
     1. Add the ingress created above to the list of ingresses:
