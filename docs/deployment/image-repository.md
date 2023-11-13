@@ -11,6 +11,16 @@ For NAV the address is https://console.cloud.google.com/artifacts/docker/nais-ma
 
 If you want to handle the image process yourself, you can find the URL to your teams repository on your teams page in NAIS Teams (https://teams.$tenant.cloud.nais.io).
 
+Authenticate with the registry:
+
+```bash
+# Log in
+gcloud auth login
+
+# Configure authentication for docker
+gcloud auth configure-docker europe-north1-docker.pkg.dev
+```
+
 ## Images from unlisted registry
 
 Re-tag the image and upload it to your teams repository.
