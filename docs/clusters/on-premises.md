@@ -21,11 +21,12 @@ You can control from where you application is reachable by selecting the appropr
 
 | domain              | accessible from          | description                                                                                                                                                                       |
 |:--------------------|:-------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dev.intern.nav.no   | [naisdevice](../device/) | development ingress for dev internal applications (supersedes dev.adeo.no). Also available in dev-gcp, use this to ease migration                                                 |
-| dev.adeo.no         | [naisdevice](../device/) | **deprecated** development ingress for adeo.no applications (superceded by dev.intern.nav.no)                                                                                     |
-| intern.dev.adeo.no  | internal network only    | development ingress for adeo.no applications that should not be reached from naisdevice                                                                                           |
+| intern.dev.nav.no   | [naisdevice](../device/) | development ingress for internal applications. Also available in dev-gcp, use this to ease migration                                                                              |
+| dev.intern.nav.no   | [naisdevice](../device/) | **deprecated** development ingress for internal applications (use intern.dev.nav.no instead)                                                                                      |
+| dev.adeo.no         | [naisdevice](../device/) | **deprecated** development ingress for adeo.no applications (use intern.dev.nav.no instead)                                                                                       |
+| intern.dev.adeo.no  | internal network only    | **deprecated** development ingress for adeo.no applications that should not be reached from naisdevice                                                                            |
+| nais.preprod.local  | VDI                      | **deprecated**, use .intern.dev.nav.no instead                                                                                                                                    |
 | dev-fss-pub.nais.io | GCP                      | See [How do I reach an application found on-premises from my application in GCP?](migrating-to-gcp.md#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp) |
-| nais.preprod.local  | vdi                      | **deprecated**, use .dev.intern.nav.no instead                                                                                                                                    |
 
 ### prod-fss
 
