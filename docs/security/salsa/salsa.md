@@ -26,6 +26,10 @@ uploaded to an SBOM analysis platform known as [Dependency-Track](https://depend
 you can examine the attestation as
 well as the vulnerabilities present in your image and its dependencies.
 
+### Team management of Vulnerabilities
+
+Teams can monitor there Application vulnerabilities in the [Nais Console](https://console.[tenant].cloud.nais.io/) under the tab `Vulnerabilities`. 
+
 ### Usage
 
 Simply add [nais/docker-build-push](https://github.com/nais/docker-build-push) to your workflow.
@@ -62,11 +66,11 @@ from salsa. You can access the Dependency-Track user interface through the follo
 https://salsa.[tenantname].cloud.nais.io
 For instance, you can visit [nav-salsa](https://salsa.nav.cloud.nais.io) as an example.
 
-To log in, use the OpenID button, which will redirect you to your organization's identity provider.
+To sign in, utilize the OpenID button, which will redirect you to your organization's identity provider.
 
-In Dependency-Track, each container in a deployment will have its own project. The project's name is a combination of
-the cluster, team name, application name, and the container image name. You can search within projects using the
-following tags:
+Within Dependency-Track, each container in a deployment is associated with its own project. 
+The project's name is composed of the cluster, team name, application name, and/or the container name. 
+You can conduct searches within projects using the following tags:
 
 * Team
 * Application
@@ -86,16 +90,13 @@ different [languages/build tools are dictated by Trivy](https://aquasecurity.git
 
 #### Known limitations and alternatives
 
-Due to Trivy, you will get a flat graph of dependencies. This is because Trivy does not support Gradle's or Maven
-dependency resolution.
-Trivy parses the .jar files directly and does not have access to the dependency resolution information.
-Here is 2 alternatives:
+Due to Trivy, you'll receive a streamlined graph of dependencies. 
+This is attributed to Trivy lacking support for Gradle's or Maven's dependency resolution. 
+However, the advantage lies in obtaining both the image dependencies and their associated vulnerabilities.
 
-Alternative 1, GitHub workflow for Gradle users.
+Trivy directly parses the .jar files, lacking access to the dependency resolution information. Here are two alternative approaches:
 
-No need to add any plugins to your build file. You will get a deep graph of nested transitive dependencies.
-The generated sbom will be located in the ` dependency-graph-reports` directory.
-The action requires `contents: write` permission.
+Alternative 2, Generate your own Gradle dependencies.
 
 Gradle and Maven plugins for a deep graph of nested transitive dependencies.
 
@@ -161,10 +162,18 @@ Gradle and Maven plugins for a deep graph of nested transitive dependencies.
 
 #### Use nais/attest-sign directly
 
-When using the `nais/attest-sign` action. You can pass the SBOM to the action with the following input:
+When employing the `nais/attest-sign action`, you can provide the SBOM to the action using the following input:
 
 ```yaml
     uses: nais/attest-sign@v1.x.x
     with:
       sbom: path/to/bom.json
 ```
+
+## FAQ
+
+### My project exists in Dependency-Track, but I can't see any attestations or vulnerabilities
+
+This issue likely arises from using the GitHub dependencies graph resolution output JSON as an input for `byosbom`. 
+The format of this JSON is incompatible with Dependency-Track, please use the SBOM generated `nais/docker-build-push` action instead or
+any of the alternatives mentioned above.
