@@ -28,21 +28,21 @@ well as the vulnerabilities present in your image and its dependencies.
 
 ### Team management of Vulnerabilities
 
-Teams can monitor there Application vulnerabilities in the [Nais Console](https://console.[tenant].cloud.nais.io/) under the tab `Vulnerabilities`. 
+Teams can visit the Console to view their Application vulnerabilities, for example: https://console.[tenant].cloud.nais.io/vulnerabilities.
 
 ### Usage
 
 Simply add [nais/docker-build-push](https://github.com/nais/docker-build-push) to your workflow.
 
 ```yaml
-          - uses: nais/docker-build-push@v0
-            id: docker-push
-            with:
-              team: myteam # required
-              salsa: true # optional, defaults to true
-              project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # required, but is defined as an organization variable
-              identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # required, but is defined as an organization secret
-              # ... other options removed for readability
+    - uses: nais/docker-build-push@v0
+      id: docker-push
+      with:
+        team: myteam # required
+        salsa: true # optional, defaults to true
+        project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # required, but is defined as an organization variable
+        identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # required, but is defined as an organization secret
+        # ... other options removed for readability
 
 ```
 
@@ -52,7 +52,7 @@ Simply add [nais/docker-build-push](https://github.com/nais/docker-build-push) t
     If you want to opt-out from salsa you can set the salsa input to false
 
     ```yaml
-              salsa: false
+    salsa: false
     ```
 
 See [nais/docker-build-push](https://github.com/nais/docker-build-push) for more options.
