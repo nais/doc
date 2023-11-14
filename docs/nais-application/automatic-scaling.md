@@ -72,6 +72,6 @@ Use this command to see a list of available external metrics:
 
 ```kubectl get --raw "/apis/external.metrics.k8s.io/v1beta1" | jq .```
 
-## Scaling behaviour
-You can also override the default behaviour of the autoscaler by configuring the HPA
+## Scaling behavior
+You can also override the default behavior of the autoscaler by configuring the HPA
 See [Kubernetes documentation](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/) for details
