@@ -26,23 +26,19 @@ uploaded to an SBOM analysis platform known as [Dependency-Track](https://depend
 you can examine the attestation as
 well as the vulnerabilities present in your image and its dependencies.
 
-### Team management of Vulnerabilities
-
-Teams can visit the Console to view their Application vulnerabilities, for example: https://console.[tenant].cloud.nais.io/vulnerabilities.
-
 ### Usage
 
 Simply add [nais/docker-build-push](https://github.com/nais/docker-build-push) to your workflow.
 
 ```yaml
-    - uses: nais/docker-build-push@v0
-      id: docker-push
-      with:
-        team: myteam # required
-        salsa: true # optional, defaults to true
-        project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # required, but is defined as an organization variable
-        identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # required, but is defined as an organization secret
-        # ... other options removed for readability
+ - uses: nais/docker-build-push@v0
+   id: docker-push
+   with:
+     team: myteam # required
+     salsa: true # optional, defaults to true
+     project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # required, but is defined as an organization variable
+     identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # required, but is defined as an organization secret
+     # ... other options removed for readability
 
 ```
 
@@ -57,7 +53,13 @@ Simply add [nais/docker-build-push](https://github.com/nais/docker-build-push) t
 
 See [nais/docker-build-push](https://github.com/nais/docker-build-push) for more options.
 
-### View and analyze dependencies
+### Console and Team management of Vulnerabilities
+
+Vulnerabilities is aggregated to the team level, and can be viewed in the Console.
+Teams can visit the Console to view their Application vulnerabilities, for example:  
+https://console.[tenant].cloud.nais.io/team/[team]/vulnerabilities
+
+### View and analyze dependencies in Dependency-Track
 
 [Dependency-Track](https://dependencytrack.org/) has a single instance that controls all clusters, and it contains both
 attestations and vulnerabilities for all signed attestations deployed, except those that have chosen to opt out
@@ -172,7 +174,7 @@ When employing the `nais/attest-sign action`, you can provide the SBOM to the ac
 
 ## FAQ
 
-### My project exists in Dependency-Track, but I can't see any attestations or vulnerabilities
+### Project exists in Dependency-Track, but I can't see the SBOM or vulnerabilities
 
 This issue likely arises from using the GitHub dependencies graph resolution output JSON as an input for `byosbom`. 
 The format of this JSON is incompatible with Dependency-Track, please use the SBOM generated `nais/docker-build-push` action instead or
