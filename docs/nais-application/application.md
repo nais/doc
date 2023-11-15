@@ -4416,13 +4416,11 @@ Required: `false`<br />
     ```
 
 ### replicas.cpuThresholdPercentage
-Deprecated: Use ScalingStrategy.Cpu.ThresholdPercentage instead. Amount of CPU usage before the autoscaler kicks in. Can't be set if anything under ScalingStrategy is set.
-
-!!! failure "Deprecated"
-    This feature is deprecated, preserved only for backwards compatibility.
+Amount of CPU usage before the autoscaler kicks in.
 
 Type: `integer`<br />
 Required: `false`<br />
+Default value: `50`<br />
 
 ??? example
     ``` yaml
