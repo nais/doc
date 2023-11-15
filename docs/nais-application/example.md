@@ -248,6 +248,9 @@ spec:
     periodSeconds: 5
     port: 8080
     timeout: 1
+  redis:
+  - access: readwrite
+    instance: cache
   replicas:
     cpuThresholdPercentage: 50
     disableAutoScaling: true

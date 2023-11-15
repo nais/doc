@@ -4362,6 +4362,14 @@ Relevant information:
 Type: `array`<br />
 Required: `false`<br />
 
+??? example
+    ``` yaml
+    spec:
+      redis:
+        - access: readwrite
+          instance: cache
+    ```
+
 ### redis[].access
 Access level for redis user
 
@@ -4369,11 +4377,27 @@ Type: `enum`<br />
 Required: `false`<br />
 Allowed values: `admin`, `read`, `readwrite`, `write`<br />
 
+??? example
+    ``` yaml
+    spec:
+      redis:
+        - access: readwrite
+          instance: cache
+    ```
+
 ### redis[].instance
 The last part of the name used when creating the instance (ie. redis-{team}-{instance})
 
 Type: `string`<br />
 Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      redis:
+        - access: readwrite
+          instance: cache
+    ```
 
 ## replicas
 The numbers of pods to run in parallel.
