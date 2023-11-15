@@ -3455,7 +3455,7 @@ Allowed values: `admin`, `read`, `readwrite`, `write`<br />
     ```
 
 ### openSearch.instance
-Configure your application to access your OpenSearch instance. Use the `instance_name` that you specified in the [navikt/aiven-iac](https://github.com/navikt/aiven-iac) repository.
+Configure your application to access your OpenSearch instance. The last part of the name used when creating the instance (ie. opensearch-<team>-<instance>)
 
 Type: `string`<br />
 Required: `true`<br />
