@@ -3455,7 +3455,7 @@ Allowed values: `admin`, `read`, `readwrite`, `write`<br />
     ```
 
 ### openSearch.instance
-Configure your application to access your OpenSearch instance. The last part of the name used when creating the instance (ie. opensearch-<team>-<instance>)
+Configure your application to access your OpenSearch instance. The last part of the name used when creating the instance (ie. opensearch-{team}-{instance})
 
 Type: `string`<br />
 Required: `true`<br />
@@ -3702,7 +3702,7 @@ Required: `false`<br />
 Allowed values: `admin`, `read`, `readwrite`, `write`<br />
 
 ### redis[].instance
-The last part of the name used when creating the instance (ie. redis-<team>-<instance>)
+The last part of the name used when creating the instance (ie. redis-{team}-{instance})
 
 Type: `string`<br />
 Required: `false`<br />
