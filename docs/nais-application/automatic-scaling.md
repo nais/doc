@@ -1,11 +1,49 @@
 # Automatic Scaling
 
+
+## Application scaling
+
+As part of the nais platform, the Application resource supports two types of scaling:
+
+* CPU based scaling
+* Scaling based on Kafka Consumer Lag
+
+### CPU based scaling
+
+If you specify a minimum and maximum number of replicas in your Application resource, the default behavior is to scale up when your CPU usage exceeds 50% of your requested usage.
+To change the threshold, set `replicas.scalingStrategy.cpu.thresholdPercentage` to a different value.
+
+### Scaling based on Kafka Consumer Lag
+
+If you want to use Kafka Consumer Lag as a scaling metric, you have to specify the following fields in your Application resource:
+
+```yaml
+replicas:
+  min: <minimum-number-of-replicas>
+  max: <maximum-number-of-replicas>
+  scalingStrategy:
+    kafka:
+      topic: <topic-name>
+      consumerGroup: <consumer-group-name>
+      threshold: <threshold>
+```
+
+The threshold is the maximum offset lag before scaling up.
+
+### Combining scaling strategies
+
+If you define both a CPU threshold and a Kafka Consumer Lag threshold, the application will scale up if either of the thresholds are exceeded.
+
+
+## Custom scaling
+
 !!! warning
     
     In order to use custom scaling policies and rules, make sure you disable default NAIS HPA by setting the [`.spec.replicas.disableAutoScaling`](../nais-application/application.md#replicasdisableautoscaling) field to `true`. 
 
 
-## Scaling based on custom metrics
+### Scaling based on custom metrics
+
 A custom metric is based on a direct value or a rate over time.
 To make the custom metric available for scaling, you have to label it with either hpa="value" or hpa="rate"
 
@@ -44,34 +82,38 @@ spec:
         name: active_sessions
       target:
         type: AverageValue
-        averageValue: 150
+        averageValue: "150"
 ```
 
-## Scaling based on external metrics
+### Scaling based on external metrics
+
 External metrics are provided by the platform for services external to the application, i.e. Kafka lag.
 If you want your application to scale based on external metrics, replace the metrics section of the previous example with the one below.
+
+This example will scale up your application if the maximum lag of your consumer group exceeds 120 seconds.
 
 ```yaml
  metrics:
   - type: External
     external:
       metric:
-        name: kafka_consumergroup_group_lag
+        name: kafka_consumergroup_group_max_lag_seconds
         selector:
           matchLabels:
             topic: your-topic
             group: your-consumer-group
       target:
         type: AverageValue
-        averageValue: 10000
+        averageValue: "120"
 ```
 
-### Available metrics
+#### Available metrics
 
 Use this command to see a list of available external metrics:
 
 ```kubectl get --raw "/apis/external.metrics.k8s.io/v1beta1" | jq .```
 
-## Scaling behavior
+### Scaling behavior
+
 You can also override the default behavior of the autoscaler by configuring the HPA
 See [Kubernetes documentation](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/) for details
