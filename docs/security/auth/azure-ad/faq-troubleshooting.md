@@ -1,63 +1,63 @@
 # FAQ / Troubleshooting
 
-## "Application `Alice` is not assigned to a role for the application `Bob`"
+This page lists common problems and solutions when authenticating with Azure AD.
 
-???+ quote "Example"
+## Missing Application Access Policy
 
-    An application may receive the following `400 Bad Request` response error when requesting a token from Azure AD:
+Your application (named `A` in the examples below) attempts to consume another application (named `B`).
 
-    ```json
-    {
-      "error": "invalid_grant",
-      "error_description": "AADSTS501051: Application '<client ID>'(<cluster>:<namespace>:<alice>) is not assigned to a role for the application 'api://<cluster>.<namespace>.<bob>'(<cluster>:<namespace>:<bob>)",
-      ...
-    }
-    ```
+When requesting a token from Azure AD, your application may receive a `400 Bad Request` with an `invalid_grant` error response and the following message:
 
-    Or the other variant:
+> **AADSTS501051**:
+> 
+> Application `'<client ID>'` (`<cluster>:<namespace>:<A>`) is not assigned to a role for the application '`api://<cluster>.<namespace>.<B>`' (`<cluster>:<namespace>:<B>`)"
 
-    ```json
-    {
-      "error": "invalid_grant",
-      "error_description": "AADSTS65001: The user or administrator has not consented to use the application with ID '<client ID>' named '<cluster>:<namespace>:<alice>'. Send an interactive authorization request for this user and resource.",
-      ...
-    }
-    ```
+Or the other variant:
+
+> **AADSTS65001**:
+>
+> The user or administrator has not consented to use the application with ID '`<client ID>`' named '`<cluster>:<namespace>:<A>`'.
+> 
+> Send an interactive authorization request for this user and resource.
 
 ???+ success "Solution / Answer"
 
-    - Ensure that the [scope value](README.md#scopes) follows the correct format - `api://<cluster>.<namespace>.<app-name>/.default>`
-    - Ensure that Bob's [access policy](configuration.md#pre-authorization) includes Alice.
-    - If all else fails, ask an adult in the `#nais` channel on Slack.
+    - Ensure that the [scope value](README.md#scopes) in your application's request follows the correct format:
 
-## "The signed in user is blocked because they are not a direct member of a group with access"
+        `api://<cluster>.<namespace>.<application>/.default>`
 
-???+ quote "Example"
+    - Ensure that application `B`'s [access policy](configuration.md#pre-authorization) includes application `A`.
+    - If all else fails, request assistance in the `#nais` channel on Slack.
 
-    An application may receive the following `400 Bad Request` response error when requesting a token from Azure AD:
+## Missing User Access Policy
 
-    ```json
-    {
-      "error": "invalid_grant",
-      "error_description": "AADSTS50105: Your administrator has configured the application <cluster>:<namespace>:<alice> ('<client id>') to block users unless they are specifically granted ('assigned') access to the application. The signed in user '{EmailHidden}' is blocked because they are not a direct member of a group with access, nor had access directly assigned by an administrator. Please contact your administrator to assign access to this application",
-      ...
-    }
-    ```
+When attempting to sign-in or perform the on-behalf-of flow, an application may receive a `400 Bad Request` with an `invalid_grant` error response and the following message:
+
+> **AADSTS50105**:
+> 
+> Your administrator has configured the application `<cluster>:<namespace>:<A>` ('`<client id>`') to block users unless they are specifically granted ('assigned') access to the application.
+> 
+> The signed in user '{EmailHidden}' is blocked because they are not a direct member of a group with access, nor had access directly assigned by an administrator.
+>
+> Please contact your administrator to assign access to this application
 
 ???+ success "Solution / Answer"
 
-    - Ensure that the Alice application has configured [user access](configuration.md#users).
+    - Ensure that application `A` has configured [user access](configuration.md#users).
     - Ensure that the given user is a _direct_ member of any configured [group](configuration.md#groups).
-    - If all else fails, ask an adult in the `#nais` channel on Slack.
+    - If all else fails, request assistance in the `#nais` channel on Slack.
 
+## Tenant Mismatch for Signed-in User
 
-## "Selected user account does not exist in tenant 'some-tenant' and cannot access the application 'some-client-id' in that tenant. The account needs to be added as an external user in the tenant first. Please use a different account."
+While attempting to log in, you may receive the following error message from Azure AD:
 
-???+ quote "Problem"
-
-    A user may receive the above message from Azure AD when attempting to log in.
+> Selected user account does not exist in tenant '`some-tenant`' and cannot access the application '`<client-id>`' in that tenant.
+>
+> The account needs to be added as an external user in the tenant first.
+>
+> Please use a different account.
 
 ???+ success "Solution / Answer"
 
     - Ensure that the user uses an account that matches your application's [tenant](README.md#tenants) when logging in.
-    - If all else fails, ask an adult in the `#nais` channel on Slack.
+    - If all else fails, request assistance in the `#nais` channel on Slack.

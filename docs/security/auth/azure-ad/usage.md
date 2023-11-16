@@ -294,6 +294,7 @@ The service <https://azure-token-generator.intern.dev.nav.no> can be used in ord
               namespace: aura
               cluster: dev-gcp
     ```
+4. Ensure that the API application has configured the appropriate [user access policies](../azure-ad/configuration.md#users) that grant your user access.
 
 **Getting a token**
 
