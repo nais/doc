@@ -29,6 +29,8 @@ replicas:
 ```
 
 The threshold is the maximum offset lag before scaling up.
+Keep in mind that for Kafka, the maximum number of replicas is limited by the number of partitions in the topic.
+If you have a topic with 10 partitions, you can only scale up to 10 replicas.
 
 ### Combining scaling strategies
 
