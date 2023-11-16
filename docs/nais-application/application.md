@@ -4416,11 +4416,13 @@ Required: `false`<br />
     ```
 
 ### replicas.cpuThresholdPercentage
-Amount of CPU usage before the autoscaler kicks in.
+Deprecated: Use ScalingStrategy.Cpu.ThresholdPercentage instead. Amount of CPU usage before the autoscaler kicks in. If anything under ScalingStrategy is set, that takes precedence.
+
+!!! failure "Deprecated"
+    This feature is deprecated, preserved only for backwards compatibility.
 
 Type: `integer`<br />
 Required: `false`<br />
-Default value: `50`<br />
 
 ??? example
     ``` yaml
@@ -4470,6 +4472,48 @@ Default value: `2`<br />
       replicas:
         min: 2
     ```
+
+### replicas.scalingStrategy
+ScalingStrategy configures how automatic scaling is performed.
+
+Type: `object`<br />
+Required: `false`<br />
+
+#### replicas.scalingStrategy.cpu
+Configures HPA based on CPU usage.
+
+Type: `object`<br />
+Required: `false`<br />
+
+##### replicas.scalingStrategy.cpu.thresholdPercentage
+Amount of CPU usage before the autoscaler kicks in.
+
+Type: `integer`<br />
+Required: `false`<br />
+
+#### replicas.scalingStrategy.kafka
+Configures HPA based on Kafka lag.
+
+Type: `object`<br />
+Required: `false`<br />
+
+##### replicas.scalingStrategy.kafka.consumerGroup
+ConsumerGroup your application uses when consuming
+
+Type: `string`<br />
+Required: `true`<br />
+
+##### replicas.scalingStrategy.kafka.threshold
+Threshold is the amount of lag allowed before the application should scale up
+
+Type: `integer`<br />
+Required: `true`<br />
+
+##### replicas.scalingStrategy.kafka.topic
+Topic your application is consuming
+
+Type: `string`<br />
+Required: `true`<br />
 
 ## resources
 When Containers have [resource requests](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) specified, the Kubernetes scheduler can make better decisions about which nodes to place pods on.
