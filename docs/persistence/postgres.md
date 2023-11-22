@@ -148,7 +148,7 @@ The creation of the database takes about ten minutes, and the credential setting
 
 ### Workaround for password synchronization issues
 
-We recommend using [nais-cli](../cli) for rotating password for your Postgres database user.
+We recommend using [nais-cli](../cli/README.md) for rotating password for your Postgres database user.
 
 ```bash
 nais postgres password rotate appname
