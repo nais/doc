@@ -62,8 +62,8 @@ The `ApiEndpoints` resource splits the configuration of an app's API endpoints i
 Currently we support the following KrakenD features:
 
 * [JWT validation](https://www.krakend.io/docs/authorization/jwt-validation/): authentication for a secured endpoint is defined by specifying the name of an authentication provider - in nais we support the following providers:
-  * `maskinporten`
-  * `azuread`
+    * `maskinporten`
+    * `azuread`
   
 * [Rate-limiting](https://www.krakend.io/docs/endpoints/rate-limit/): if rate-limiting is defined it is applied to all `endpoints` and `openEndpoints` defined in the `ApiEndpoints` resource
 
