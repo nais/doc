@@ -64,6 +64,7 @@ Currently we support the following KrakenD features:
 * [JWT validation](https://www.krakend.io/docs/authorization/jwt-validation/): authentication for a secured endpoint is defined by specifying the name of an authentication provider - in nais we support the following providers:
   * `maskinporten`
   * `azuread`
+  
 * [Rate-limiting](https://www.krakend.io/docs/endpoints/rate-limit/): if rate-limiting is defined it is applied to all `endpoints` and `openEndpoints` defined in the `ApiEndpoints` resource
 
 
@@ -76,9 +77,8 @@ Currently we support the following KrakenD features:
     spec:
       appName: app1
       auth:
-        name: maskinporten            # specify the name of the authentication provider to use, currently supported: maskinporten, azuread
+        name: maskinporten            
         cache: true
-        debug: true
         scope:                        # specify the scopes or audience your app requires here, by using the keys audience or scope. can also be omitted
           - "nav:some/other/scope"
       rateLimit:                      # optionally specify rate-limiting for your app, see https://www.krakend.io/docs/endpoints/rate-limit/#configuration for details
@@ -113,11 +113,10 @@ Currently we support the following KrakenD features:
     spec:
       appName: app1
       auth:
-        name: maskinporten            # specify the name of the authentication provider to use, currently supported: maskinporten, azuread
+        name: azuread                
         cache: true
-        debug: true
-        scope:                        # specify the scopes or audience your app requires here, by using the keys audience or scope. can also be omitted
-          - "nav:some/other/scope"
+        audience:                        # specify the scopes or audience your app requires here, by using the keys audience or scope. can also be omitted
+          - "the_value_of_aud"
       rateLimit:                      # optionally specify rate-limiting for your app, see https://www.krakend.io/docs/endpoints/rate-limit/#configuration for details
         maxRate: 10                   
         clientMaxRate: 0
@@ -167,7 +166,6 @@ you can enable KrakenD in your namespace in GCP and add API endpoints to your Kr
         auth:
           name: maskinporten
           cache: true
-          debug: true
           scope:
             - "nav:some/other/scope"
         endpoints:                      # specify your API endpoints requiring auth here
@@ -188,11 +186,10 @@ you can enable KrakenD in your namespace in GCP and add API endpoints to your Kr
       spec:
         appName: does-not-matter
         auth:
-          name: maskinporten
+          name: azuread
           cache: true
-          debug: true
-          scope:
-            - "nav:some/other/scope"
+          audience:
+            - "the_value_of_aud"
         endpoints:                      # specify your API endpoints requiring auth here
           - path: /app1/somepath        # path for your API endpoint in KrakenD - must be unique within your namespace
             method: GET
