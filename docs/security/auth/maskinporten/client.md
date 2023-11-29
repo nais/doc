@@ -113,6 +113,12 @@ The JWT grant should be unique and only used once. That is, every token request 
     - The _maximum_ lifetime allowed is 120 seconds.
     - A lifetime between 10-30 seconds should be fine for most situations.
 
+If the API provider requires the use of an [audience-restricted token](https://docs.digdir.no/maskinporten_func_audience_restricted_tokens.html), you must also include the following claim:
+
+| Claim          | Example Value                   | Description                                                                                                                       |
+|:---------------|:--------------------------------|:----------------------------------------------------------------------------------------------------------------------------------|
+| **`resource`** | `https://api.some-provider.no/` | Target audience for the token returned by Maskinporten. The exact value is defined by the API provider and exchanged out-of-band. |
+
 Finally, a **signature** is created by hashing the header and payload, and then signing the hash using your client's private key.
 
 ??? example "Example Code for Creating a JWT Grant"

@@ -120,7 +120,12 @@ Continuing from the previous examples, you would validate that the `scope` claim
 
 **Audience Validation**
 
-If using [audience-restricted tokens](https://docs.digdir.no/maskinporten_func_audience_restricted_tokens.html), validate that the `aud` claim equals the expected value.
+The `aud` claim is not included by default in Maskinporten tokens and does not need to be validated.
+It is only included if the consumer has requested an [audience-restricted token](https://docs.digdir.no/maskinporten_func_audience_restricted_tokens.html).
+
+Only validate the `aud` claim if you want to require your consumers to use audience-restricted tokens.
+The expected audience value is up to you to define and must be communicated to your consumers.
+The value must be an absolute URI (such as `https://some-provider.no` or `https://some-provider.no/api`).
 
 **Signature Validation**
 
