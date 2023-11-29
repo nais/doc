@@ -211,8 +211,8 @@ nav:
               - ID-porten: security/auth/idporten.md
               - Maskinporten:
                   - Intro: security/auth/maskinporten/README.md
-                  - Client: security/auth/maskinporten/client.md
-                  - Scopes: security/auth/maskinporten/scopes.md
+                  - API Consumers: security/auth/maskinporten/client.md
+                  - API Providers: security/auth/maskinporten/scopes.md
               - TokenX: security/auth/tokenx.md
           - Secrets:
               - Overview: security/secrets/README.md
