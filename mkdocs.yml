@@ -85,6 +85,7 @@ plugins:
         "security/auth/azure-ad/access-policy.md": "security/auth/azure-ad/configuration.md#access-policy"
         "security/auth/azure-ad/concepts.md": "security/auth/azure-ad/README.md#concepts"
         "appendix/wonderwall.md": "addons/wonderwall.md"
+        "security/apigateway/apigateway.md": "security/apigateway/README.md"
 markdown_extensions:
   - toc:
       permalink: True
@@ -222,7 +223,7 @@ nav:
           - Anti-virus Scanning: security/antivirus.md
           - Cloud Armor: security/cloud-armor.md
           - Salsa: security/salsa/salsa.md
-          - API Gateway: security/apigateway/apigateway.md
+          - API Gateway: security/apigateway/README.md
       - Addons:
           - Leader Election: addons/leader-election.md
           - Snorlax: addons/snorlax.md
