@@ -62,10 +62,10 @@ Yes! If you want to help out testing Unleash Next, please contact us in [#unleas
 
 Each team has their own instance of Unleash Next. Each Unleash Next instance has two addresses:
 
-| Address | Description | Access from | Authentication |
-|---------|-------------| ----------- | -------------- |
-| `https://<team>-unleash-web.nav.cloud.nais.io/` | Web UI address | Internet | @nav.no user |
-| `https://<team>-unleash-api.nav.cloud.nais.io/api` | API address | nais and naisdevice | API token |
+| Address                                            | Description    | Access from         | Authentication |
+| -------------------------------------------------- | -------------- | ------------------- | -------------- |
+| `https://<team>-unleash-web.nav.cloud.nais.io/`    | Web UI address | Internet            | @nav.no user   |
+| `https://<team>-unleash-api.nav.cloud.nais.io/api` | API address    | nais and naisdevice | API token      |
 
 <sub>*replace `<team>` with your team name.</sub>
 
@@ -161,8 +161,13 @@ This will create a new API token in your Unleash instance, and create a Kubernet
 
 - `UNLEASH_SERVER_API_URL` (the API address, remember to add `/api` at the end to authenticate to the API server)
 - `UNLEASH_SERVER_API_TOKEN` (the API token)
+- `UNLEASH_SERVER_API_ENV` (the environment, either `development` or `production`)
 
 In the future we will add support for automatically creating API tokens when deploying your application.
+
+#### Known issues
+
+- The `ApiToken` resource does not support updating the API token. If you need to update the API token, you need to delete the `ApiToken` resource using `kubectl delete apitoken <my-token> -n <my-namespace>` and deploy it again.
 
 ## Problems and solutions
 
