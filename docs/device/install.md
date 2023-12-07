@@ -194,7 +194,7 @@ This means that there are some do's and don'ts. You have to agree to the followi
 
 #### Don't
 
-- enroll devices that are privatly owned.
+- enroll devices that are privatley owned.
 - share your device with others. A naisdevice is a personal device.
 - turn on sshd or similar services on your device.
 - set up your device as a proxy. For anything!
