@@ -27,8 +27,8 @@ Minimal example:
         enabled: true
         sidecar:
           enabled: true
-          level: Level4  # optional, default value shown
-          locale: nb     # optional, default value shown
+          level: idporten-loa-high  # optional, default value shown
+          locale: nb                # optional, default value shown
     ```
 
 See the [NAIS manifest reference](../../nais-application/application.md#idportensidecar) for the complete specification.
@@ -78,18 +78,10 @@ This is reflected in the `acr` claim for the user's JWTs issued by ID-porten.
 
 Valid values, in increasing order of assurance levels:
 
-| Old Value (deprecated) | New Value                  | Description                                                      |
-|:-----------------------|----------------------------|:-----------------------------------------------------------------|
-| `Level3`               | `idporten-loa-substantial` | a substantial level of assurance, e.g. MinID                     |
-| `Level4`               | `idporten-loa-high`        | a high level of assurance, e.g. BankID, Buypass, Commfides, etc. |
-
-!!! warning "2023: New `acr` values for ID-porten"
-
-    ID-porten is changing the values for the `acr` claim in 2023, as seen in the table above.
-
-    The sidecar accepts both the old and new values to ease migration, though you should use the newer values when possible.
-
-    If your application uses the `acr` claim found in the JWT in any way, ensure that it accepts both old and new values.
+| Value                      | Description                                                      | Notes                  |
+|:---------------------------|:-----------------------------------------------------------------|:-----------------------|
+| `idporten-loa-substantial` | a substantial level of assurance, e.g. MinID                     | Also known as `Level3` |
+| `idporten-loa-high`        | a high level of assurance, e.g. BankID, Buypass, Commfides, etc. | Also known as `Level4` |
 
 To configure a default value for _all_ login requests:
 
@@ -100,23 +92,23 @@ To configure a default value for _all_ login requests:
         enabled: true
         sidecar:
           enabled: true
-          level: Level4
+          level: idporten-loa-high
     ```
 
-**If unspecified, the sidecar will use `Level4` as the default value.**
+**If unspecified, the sidecar will use `idporten-loa-high` as the default value.**
 
 The sidecar will also validate and enforce that the user's current authenticated session has a level that **matches or exceeds** the application's configured level.
 The user's session is marked as unauthenticated if the level is _lower_ than the configured level.
 
 Example:
 
-* If the application requires `Level3` authentication, the sidecar will allow sessions with `Level4`.
-* The inverse is rejected. That is, applications expecting `Level4` authentication will have the sidecar mark sessions at `acr=Level3` as unauthenticated.
+* If the application requires authentication on the `idporten-loa-substantial` level, the sidecar will allow sessions with a level of `idporten-loa-high`.
+* The inverse is rejected. That is, applications expecting `idporten-loa-high` authentication will have the sidecar mark sessions at `acr=idporten-loa-substantial` as unauthenticated.
 
 For runtime control of the value, set the query parameter `level` when redirecting the user to login:
 
 ```
-https://<ingress>/oauth2/login?level=Level4
+https://<ingress>/oauth2/login?level=idporten-loa-high
 ```
 
 ### Locales

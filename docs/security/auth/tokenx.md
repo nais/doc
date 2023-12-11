@@ -320,7 +320,7 @@ The following example shows the claims of a token issued by Tokendings, where th
       "aud": "prod-fss:team-b:app-b",
       "acr": "Level4",
       "nbf": 1597783152,
-      "idp": "https://oidc.difi.no/idporten-oidc-provider/",
+      "idp": "https://idporten.no",
       "auth_time": 1611926877,
       "exp": 1597783452,
       "iat": 1597783152,
