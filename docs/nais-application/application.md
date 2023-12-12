@@ -3139,7 +3139,7 @@ Required: `false`<br />
             - /path
             - /internal/*
           enabled: true
-          level: Level4
+          level: idporten-loa-high
           locale: nb
           resources:
             limits:
@@ -3185,7 +3185,7 @@ Required: `false`<br />
             - /path
             - /internal/*
           enabled: true
-          level: Level4
+          level: idporten-loa-high
           locale: nb
           resources:
             limits:
@@ -3258,7 +3258,7 @@ Relevant information:
 
 Type: `enum`<br />
 Required: `false`<br />
-Default value: `Level4`<br />
+Default value: `idporten-loa-high`<br />
 Allowed values: `Level3`, `Level4`, `idporten-loa-high`, `idporten-loa-substantial`<br />
 
 ??? example
@@ -3266,7 +3266,7 @@ Allowed values: `Level3`, `Level4`, `idporten-loa-high`, `idporten-loa-substanti
     spec:
       idporten:
         sidecar:
-          level: Level4
+          level: idporten-loa-high
     ```
 
 #### idporten.sidecar.locale

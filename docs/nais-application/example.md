@@ -178,7 +178,7 @@ spec:
       - /path
       - /internal/*
       enabled: true
-      level: Level4
+      level: idporten-loa-high
       locale: nb
       resources:
         limits:
