@@ -367,12 +367,13 @@ min-versions = ["babel (==2.9.0)", "click (==7.0)", "colorama (==0.4)", "ghp-imp
 
 [[package]]
 name = "mkdocs-build-plantuml-plugin"
-version = "1.8.0"
+version = "1.9.0"
 description = "An MkDocs plugin to call plantuml locally or remote"
 optional = false
 python-versions = ">=3.2"
 files = [
-    {file = "mkdocs-build-plantuml-plugin-1.8.0.tar.gz", hash = "sha256:4b31372054e7e6f21503d253a8a20a31b95b760e60318e9f9f0da16dd8902fb1"},
+    {file = "mkdocs-build-plantuml-plugin-1.9.0.tar.gz", hash = "sha256:b0468a2024741ff5c39d5307e34e54e11225ee0da378ef2bc35ed0e0f1cfc99d"},
+    {file = "mkdocs_build_plantuml_plugin-1.9.0-py3-none-any.whl", hash = "sha256:ba738b698b69dfba8fbd49f92336a17cbe9df16c7b4d384b85528058301ec0c3"},
 ]
 
 [package.dependencies]
@@ -859,4 +860,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.7"
-content-hash = "e10a7b68c37cc4ceea1f4b3537b8f7622d76879240677f60b3d61dfb34d63d39"
+content-hash = "0c5d3277c9b54306d22ede0eb8b60cdaf596da109b286670872d62a7fc931626"
