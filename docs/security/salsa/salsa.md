@@ -175,7 +175,12 @@ When employing the `nais/attest-sign action`, you can provide the SBOM to the ac
 ## FAQ
 
 ### Project exists in Dependency-Track, but I can't see the SBOM or vulnerabilities
-
 This issue likely arises from using the GitHub dependencies graph resolution output JSON as an input for `byosbom`. 
 The format of this JSON is incompatible with Dependency-Track, please use the SBOM generated `nais/docker-build-push` action instead or
 any of the alternatives mentioned above.
+
+This can be fixed by removing from your workflow the similar input:
+
+```yaml
+    byosbom: dependency-graph-reports/deploy-build.json
+```
