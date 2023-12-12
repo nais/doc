@@ -251,8 +251,6 @@ Default hosts that are added and accessible for every application:
 | `private.googleapis.com`    | 443  | TCP       |
 | `login.microsoftonline.com` | 443  | TCP       |
 | `graph.microsoft.com`       | 443  | TCP       |
-| `test.maskinporten.no`      | 443  | TCP       |
-| `maskinporten.no`           | 443  | TCP       |
 | `aivencloud.com`            | 443  | TCP       |
 | `unleash.nais.io`           | 443  | TCP       |
 
