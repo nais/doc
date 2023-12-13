@@ -14,10 +14,10 @@ nais validate path/to/nais.yaml path/to/another/nais.yaml
 
 Available flags:
 
-| Flag | Required | Description                                                                                              |
-|------|----------|----------------------------------------------------------------------------------------------------------|
-| var  | No       | path to `FILE` containing template variables, must be JSON or YAML format                                |
-| vars | No       | template variable in KEY=VALUE form, can either be a comma separated list or specified multiple times.   |
+| Flag | Required | Description                                                                                            |
+|------|----------|--------------------------------------------------------------------------------------------------------|
+| vars | No       | path to `FILE` containing template variables, must be JSON or YAML format                              |
+| var  | No       | template variable in KEY=VALUE form, can either be a comma separated list or specified multiple times. |
 
 All flags must be specified _before_ arguments:
 
@@ -75,7 +75,7 @@ The file must be in either JSON or YAML format:
     image: some-image
     ```
 
-Provide variables to the template resource with the `--var` flag:
+Provide variables to the template resource with the `--vars` flag:
 
 ```bash
 ➜ nais validate --vars vars.yaml nais.yaml
