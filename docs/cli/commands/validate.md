@@ -19,7 +19,7 @@ Available flags:
 | var  | No       | path to `FILE` containing template variables, must be JSON or YAML format                                |
 | vars | No       | template variable in KEY=VALUE form, can either be a comma separated list or specified multiple times.   |
 
-[nais-cli](../README.md#usage) requires that flags are be specified _before_ arguments:
+All flags must be specified _before_ arguments:
 
 ```bash
 nais validate [--vars path/to/vars.(yaml|json)] [--var app=app] path/to/nais.yaml 
@@ -53,7 +53,7 @@ spec:
   image: {{image}}
 ```
 
-To validate a templated file, you must either provide a [variable file](#variable-file) or specify the [variables as flags](#variable-flags).
+To validate a templated file, provide a [variable file](#variable-file) or specify the [variables as flags](#variable-flags).
 
 ### Variable File
 
@@ -108,7 +108,7 @@ Setting template variable 'image' to 'image'
 nais.yaml is valid
 ```
 
-If both a variable file and variables are specified, the variables specified as flags will override any matching variables set by the variable file:
+Variable flags take precedence over matching variables provided by the variable file:
 
 ```bash
 ➜ nais validate --vars vars.yaml --var image=some-other-image nais.yaml
