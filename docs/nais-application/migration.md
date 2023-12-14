@@ -1,9 +1,4 @@
 # How to migrate from GitHub Container Registry (GHCR) to Google Artifact Registry (GAR)
-
-## Introduction
-
-This document describes how to migrate from GHCR (GitHub Container Registry) to GAR (Google Artifact Registry).
-
 ## Why migrate?
 
 GHCR serves as a container registry hosted by GitHub, but it has certain limitations, such as imposing strict rate
