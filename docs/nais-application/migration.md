@@ -12,9 +12,10 @@ enhances its appeal as a beneficial option for our operations.
 
 ### Migrate
 
-If you currently have a workflow utilizing GHCR, transitioning to GAR can be achieved by updating the workflow with the
-following steps, to illustrate the migration process, let's consider an example of a workflow that currently relies on
-GHCR. We will use the example as a case study to demonstrate how to migrate to GAR.
+You can switch from GHCR to GAR by following these steps
+to update your current workflow. Let's simplify this by taking an
+example of a workflow using GHCR and show you exactly how to change it
+to GAR.
 
 The [docker-build-action](https://github.com/nais/docker-build-push) is employed for building and publishing the
 Docker image to GHCR.
