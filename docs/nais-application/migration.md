@@ -1,4 +1,5 @@
 # How to migrate from GitHub Container Registry (GHCR) to Google Artifact Registry (GAR)
+
 ## Why migrate?
 
 GHCR serves as a container registry hosted by GitHub, but it has certain limitations, such as imposing strict rate
@@ -18,7 +19,7 @@ example of a workflow using GHCR and show you exactly how to change it
 to GAR.
 
 The [docker-build-action](https://github.com/nais/docker-build-push) is employed for building and publishing the
-Docker image to GHCR.
+Docker image to GAR.
 Subsequently, the [deploy-action](https://github.com/nais/deploy/tree/master/actions/deploy) facilitates the
 deployment of the application to a cluster.
 
@@ -85,7 +86,6 @@ on [Image registry](https://doc.nais.io/guides/application/#step-6-push-your-ima
 
 ```yaml
   - name: Build and publish Docker image
-    if: github.ref_name == 'main'
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     run: |
@@ -107,11 +107,7 @@ on [Image registry](https://doc.nais.io/guides/application/#step-6-push-your-ima
 
 * In the "deploy" step, substitute the given image reference, with the output of the previous step. The output of the
   previous step is the `image` variable, given the example over it can be referenced as
-  follows; `${{ steps.docker-build-push.outputs.image }}`. The id `docker-build-push` is the id of the previous step,
-  there is where your new image will be outputted. In this example we devided our workflow into two jobs, `build`
-  and `deploy`. The `deploy` job depends on the `build` job, and will not run unless the `build` job is successful.
-  The `build` job outputs the image reference as `image`, and the `deploy` job can reference this output
-  as `needs.build.outputs.image`.
+  follows; `${{ steps.docker-build-push.outputs.image }}`.
 
 ```yaml
     env:
@@ -140,6 +136,16 @@ on [Image registry](https://doc.nais.io/guides/application/#step-6-push-your-ima
     contents: read
     id-token: write
 ```
+
+The reason why you only should set explicit permissions for workflow steps that require it, is because it
+brings us into a more 'fine-grained' access model, and makes us a bit less vulnerable to attacks through things like
+malicious actions and NPM packages or other elements that can execute code in the workflows.
+
+The `nais/docker-build-push` action requires the `id-token` permission to be able to
+authenticate with the Google Cloud Platform. The `contents` permission is required to be able to read.
+
+For more information about permissions, please refer
+to [The Github Blog Post](https://github.blog/changelog/2021-04-20-github-actions-control-permissions-for-github_token/)
 
 * The finalized workflow should resemble the following:
 
@@ -180,6 +186,12 @@ jobs:
           RESOURCE: nais.yaml
           VAR: image=${{ needs.build.outputs.image }}
 ```
+
+The id `docker-build-push` is the id of the previous step,
+there is where your new image will be outputted. In this example we divided our workflow into two jobs, `build`
+and `deploy`. The `deploy` job depends on the `build` job, and will not run unless the `build` job is successful.
+The `build` job outputs the image reference as `image`, and the `deploy` job can reference this output
+as `needs.build.outputs.image`.
 
 ## Related documentation
 
