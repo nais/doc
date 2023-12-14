@@ -58,7 +58,7 @@ jobs:
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: target-cluster
-          RESOURCE: my-resource/.nais/nais-cluster.yaml
+          RESOURCE: nais.yaml
           VAR: image=${{ env.IMAGE }}
 ```
 
@@ -112,16 +112,16 @@ on [Image registry](https://doc.nais.io/guides/application/#step-6-push-your-ima
 ```yaml
     env:
       APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-      CLUSTER: dev-gcp
-      RESOURCE: my-resource/.nais/nais-prod.yaml
+      CLUSTER: target-cluster # Replace
+      RESOURCE: nais.yaml
       VAR: image=${{ env.IMAGE }}
 ```
 
 ```yaml
     env:
       APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-      CLUSTER: dev-gcp
-      RESOURCE: my-resource/.nais/nais-prod.yaml
+      CLUSTER: target-cluster # Replace 
+      RESOURCE: nais.yaml
       VAR: image=${{ needs.build.outputs.image }}
 ```
 
@@ -164,6 +164,9 @@ jobs:
     outputs:
       image: ${{ steps.docker-build-push.outputs.image }}
     steps:
+      - uses: actions/checkout@v4
+      - name: Build and test my-app
+        run: some build steps..
       - uses: actions/checkout@v4
       - name: Push docker image to GAR
         uses: nais/docker-build-push@v0
