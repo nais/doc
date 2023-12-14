@@ -84,7 +84,7 @@ on [Image registry](https://doc.nais.io/guides/application/#step-6-push-your-ima
 
 ```yaml
   - name: Build and publish Docker image
-    if: ithub.ref_name == 'main'
+    if: github.ref_name == 'main'
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     run: |
