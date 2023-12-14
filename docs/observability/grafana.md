@@ -4,7 +4,7 @@ Grafana is an open source analytics and monitoring solution most known for its f
 
 ## Accessing Grafana
 
-Grafana is available at `https://grafana.<tenant>.cloud.nais.io`. You can log in with your personal user account as long as you have a
+Grafana is available at `https://grafana.<tenant>.cloud.nais.io`. You can log in with your personal user account as long as you have a Google Cloud account assosicated for your user.
 
 ### Running Grafana from a big screen
 
