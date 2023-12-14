@@ -1,4 +1,4 @@
-# Migrate from GHCR to GAR
+# How to migrate from GitHub Container Registry (GHCR) to Google Artifact Registry (GAR)
 
 ## Introduction
 
