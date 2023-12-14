@@ -145,6 +145,7 @@ nav:
           - Container security context / kernel capabilities: nais-application/securitycontext.md
           - Good practices: nais-application/good-practices.md
           - Debugging: nais-application/debugging.md
+          - OCI Registry migration: nais-application/oci-migration.md
           - Permissions in GCP: nais-application/permissions-in-gcp.md
       - Naisjob:
           - Overview: naisjob/README.md
