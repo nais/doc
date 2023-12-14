@@ -105,7 +105,7 @@ on [Image registry](https://doc.nais.io/guides/application/#step-6-push-your-ima
       project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # Provided as Organization Variable
 ```
 
-* In the "deploy" step, substitute the given image reference, with the output of the previous step. The output of the
+* In the "deploy" job, substitute the given image reference, with the output of the previous step. The output of the
   previous step is the `image` variable, given the example over it can be referenced as
   follows; `${{ steps.docker-build-push.outputs.image }}`.
 
@@ -137,15 +137,15 @@ on [Image registry](https://doc.nais.io/guides/application/#step-6-push-your-ima
     id-token: write
 ```
 
-The reason why you only should set explicit permissions for workflow steps that require it, is because it
+The reason why you only should set explicit permissions for a workflow `job`, is because it
 brings us into a more 'fine-grained' access model, and makes us a bit less vulnerable to attacks through things like
 malicious actions and NPM packages or other elements that can execute code in the workflows.
 
-The `nais/docker-build-push` action requires the `id-token` permission to be able to
-authenticate with the Google Cloud Platform. The `contents` permission is required to be able to read.
+The `nais/docker-build-push` action requires the `id-token:write` permission to be able to
+authenticate with the Google Cloud Platform. The `contents:read` permission is required to be able to clone and build.
 
 For more information about permissions, please refer
-to [The Github Blog Post](https://github.blog/changelog/2021-04-20-github-actions-control-permissions-for-github_token/)
+to [The GitHub Blog Post](https://github.blog/changelog/2021-04-20-github-actions-control-permissions-for-github_token/)
 
 * The finalized workflow should resemble the following:
 
@@ -187,7 +187,7 @@ jobs:
           VAR: image=${{ needs.build.outputs.image }}
 ```
 
-The id `docker-build-push` is the id of the previous step,
+The id `docker-build-push` is the id of the previous job step,
 there is where your new image will be outputted. In this example we divided our workflow into two jobs, `build`
 and `deploy`. The `deploy` job depends on the `build` job, and will not run unless the `build` job is successful.
 The `build` job outputs the image reference as `image`, and the `deploy` job can reference this output
