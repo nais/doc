@@ -152,6 +152,7 @@ nav:
           - Reference: naisjob/reference.md
       - Deploy:
           - NAIS deploy: deployment/README.md
+          - Github Action: deployment/github-action.md
           - Delete app: deployment/delete-app.md
           - Troubleshooting: deployment/troubleshooting.md
           - Image repository: deployment/image-repository.md
