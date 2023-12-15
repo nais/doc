@@ -11,17 +11,18 @@ On the other hand, GAR is a OCI registry hosted by Google, and we find it to be 
 needs. Additionally, as we transition to the cloud, the seamless integration with the Google Cloud Platform further
 enhances its appeal as a beneficial option for our operations.
 
-### Migrate
+## Migrate
 
 You can switch from GHCR to GAR by following these steps
-to update your current workflow. Let's simplify this by taking an
-example of a workflow using GHCR and show you exactly how to change it
-to GAR.
+to update your current GitHub workflow. Let's simplify this by taking an
+example of a workflow using GHCR and show how you can to change it to GAR.
 
 The [docker-build-action](https://github.com/nais/docker-build-push) is employed for building and publishing the
 Docker image to GAR.
 Subsequently, the [deploy-action](https://github.com/nais/deploy/tree/master/actions/deploy) facilitates the
 deployment of the application to a cluster.
+
+### Example workflow
 
 ```yaml
 name: Build, push, and deploy
@@ -62,6 +63,8 @@ jobs:
           VAR: image=${{ env.IMAGE }}
 ```
 
+### Modify workflow
+
 Initially, eliminate the environment variable: `IMAGE: ghcr.io/navikt/my-team/my-app:${{ github.sha }}`, as
 the `nais/docker-build-action`, automatically generates this value and outputs it as the `image` variable.
 
@@ -81,8 +84,6 @@ the [action](https://github.com/nais/docker-build-push).
 
 If you wish to refer to the image later, please consult the guide
 on [Image registry](https://doc.nais.io/guides/application/#step-6-push-your-image-to-our-image-registry).
-
-* Substitute the preceding code block and replace it with the following:
 
 ```yaml
   - name: Build and publish Docker image
@@ -105,9 +106,15 @@ on [Image registry](https://doc.nais.io/guides/application/#step-6-push-your-ima
       project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # Provided as Organization Variable
 ```
 
-* In the "deploy" job, substitute the given image reference, with the output of the previous step. The output of the
-  previous step is the `image` variable, given the example over it can be referenced as
-  follows; `${{ steps.docker-build-push.outputs.image }}`.
+* The id `docker-build-push` is a named id of the job step.
+
+* `identity_provider` and `project_id` are provided as Organization Secrets and Variables, respectively. Please refer
+  to [GitHub Secrets](https://docs.github.com/en/actions/reference/encrypted-secrets) for more information.
+
+* `team` is the name of your team, and must be provided as input to the action.
+
+The `build` job outputs the image reference as `image`, and the `deploy` job can reference this output
+as `needs.build.outputs.image`
 
 ```yaml
     env:
@@ -147,7 +154,7 @@ authenticate with the Google Cloud Platform. The `contents:read` permission is r
 For more information about permissions, please refer
 to [The GitHub Blog Post](https://github.blog/changelog/2021-04-20-github-actions-control-permissions-for-github_token/)
 
-* The finalized workflow should resemble the following:
+### Finalized workflow
 
 ```yaml
 name: Build, push, and deploy
@@ -190,11 +197,10 @@ jobs:
           VAR: image=${{ needs.build.outputs.image }}
 ```
 
-The id `docker-build-push` is the id of the previous job step,
-there is where your new image will be outputted. In this example we divided our workflow into two jobs, `build`
-and `deploy`. The `deploy` job depends on the `build` job, and will not run unless the `build` job is successful.
-The `build` job outputs the image reference as `image`, and the `deploy` job can reference this output
-as `needs.build.outputs.image`.
+The id `docker-build-push` is the id of the previous job step, there is where your new image will be outputted. In this
+example we divided our workflow into two jobs, `build` and `deploy`. The `deploy` job depends on the `build` job, and
+will not run unless the `build` job is successful. That is why we can reference the output of the `build` job as
+`needs.build.outputs.image`.
 
 ## Related documentation
 
