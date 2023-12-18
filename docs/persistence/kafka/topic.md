@@ -167,7 +167,7 @@ Relevant information:
 
 * [https://kafka.apache.org/33/documentation.html#topicconfigs_min.cleanable.dirty.ratio](https://kafka.apache.org/33/documentation.html#topicconfigs_min.cleanable.dirty.ratio)
 
-Type: `object`<br />
+Type: `integer` or `string`<br />
 Required: `false`<br />
 Default value: `50%`<br />
 
