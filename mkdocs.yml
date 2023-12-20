@@ -273,5 +273,6 @@ nav:
       - Arkivloven: legal/arkivloven.md
       - Sikkerhetsloven: legal/sikkerhetsloven.md
   - Guides:
-    - Overview: guides/README.md
-    - "101: Deploying an application": guides/application.md
+      - Overview: guides/README.md
+      - "101: Deploying an application": guides/application.md
+      - OCI registry migration: guides/oci-migration.md
