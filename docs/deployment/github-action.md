@@ -30,7 +30,7 @@ jobs:
       contents: read
       id-token: write
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Push docker image to GAR
       uses: nais/docker-build-push@v0
       id: docker-build-push
