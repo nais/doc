@@ -76,7 +76,7 @@ plugins:
   - search:
       lang: en
   - git-revision-date-localized:
-      enabled: !ENV [CI, false]
+      enabled: !ENV [ CI, false ]
       enable_creation_date: true
       type: timeago
   - redirects:
@@ -145,7 +145,6 @@ nav:
           - Container security context / kernel capabilities: nais-application/securitycontext.md
           - Good practices: nais-application/good-practices.md
           - Debugging: nais-application/debugging.md
-          - OCI Registry migration: nais-application/oci-migration.md
           - Permissions in GCP: nais-application/permissions-in-gcp.md
       - Naisjob:
           - Overview: naisjob/README.md
@@ -274,5 +273,6 @@ nav:
       - Arkivloven: legal/arkivloven.md
       - Sikkerhetsloven: legal/sikkerhetsloven.md
   - Guides:
-    - Overview: guides/README.md
-    - "101: Deploying an application": guides/application.md
+      - Overview: guides/README.md
+      - "101: Deploying an application": guides/application.md
+      - OCI registry migration: guides/oci-migration.md
