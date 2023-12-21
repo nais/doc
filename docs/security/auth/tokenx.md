@@ -291,13 +291,14 @@ Some claims are mapped to a different value for legacy/compatibility reasons, de
 
 The table below shows the claim mappings:
 
-| Claim | `idp`                      | Original Value             | Mapped Value  |
-|:------|:---------------------------|:---------------------------|:--------------|
-| `acr` | `https://test.idporten.no` | `idporten-loa-substantial` | `Level3`      |
-| `acr` | `https://idporten.no`      | `idporten-loa-high`        | `Level4`      |
+| Claim | Original Value             | Mapped Value  |
+|:------|:---------------------------|:--------------|
+| `acr` | `idporten-loa-substantial` | `Level3`      |
+| `acr` | `idporten-loa-high`        | `Level4`      |
 
-This currently only affects tokens from the new ID-porten.
+This currently only affects tokens from ID-porten, i.e. `idp=https://test.idporten.no` or `idp=https://idporten.no`.
 
+The mappings will be removed at some point in the future.
 If you're using the `acr` claim in any way, check for both the original and mapped values.
 
 #### Example Token (exchanged from ID-porten)
