@@ -86,6 +86,7 @@ plugins:
         "security/auth/azure-ad/concepts.md": "security/auth/azure-ad/README.md#concepts"
         "appendix/wonderwall.md": "addons/wonderwall.md"
         "security/apigateway/apigateway.md": "security/apigateway/README.md"
+        "addons/unleash-next.md": "addons/unleash.md"
 markdown_extensions:
   - toc:
       permalink: True
