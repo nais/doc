@@ -5,7 +5,7 @@ description = "nais developer documentation"
 authors = []
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.11"
 mkdocs = "^1.5.3"
 Pygments = "^2.17.2"
 pymdown-extensions = "^10.2"
