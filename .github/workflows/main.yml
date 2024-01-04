@@ -44,7 +44,7 @@ jobs:
           --remove-untracked
 
       - name: Restore build cache
-        uses: actions/cache@v3
+        uses: actions/cache/restore@v3
         with:
           path: .cache
           key: ${{ runner.os }}-build-cache
@@ -54,7 +54,7 @@ jobs:
           poetry run mkdocs build --strict
 
       - name: Save build cache
-        uses: actions/cache@v3
+        uses: actions/cache/save@v3
         with:
           path: .cache
           key: ${{ runner.os }}-build-cache
