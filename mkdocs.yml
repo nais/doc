@@ -228,7 +228,6 @@ nav:
           - API Gateway: security/apigateway/README.md
       - Addons:
           - Leader Election: addons/leader-election.md
-          - Snorlax: addons/snorlax.md
           - Unleash (feature toggling): addons/unleash.md
           - Velero backup and restore: addons/velero-backup-and-restore.md
           - Wonderwall: addons/wonderwall.md
