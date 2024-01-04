@@ -25,11 +25,18 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Restore cache
+        uses: actions/cache@v3
+        with:
+          path: .cache
+          key: ${{ runner.os }}-cache
+
       - name: Setup Python
-        uses: actions/setup-python@v4.7.1
+        uses: actions/setup-python@v4
         with:
           python-version: 3.11
           architecture: x64
+          cache: poetry
 
       - name: Setup Poetry
         uses: Gr1N/setup-poetry@v8
@@ -45,6 +52,12 @@ jobs:
       - name: Build documentation
         run: |
           poetry run mkdocs build --strict
+
+      - name: Save cache
+        uses: actions/cache@v3
+        with:
+          path: .cache
+          key: ${{ runner.os }}-cache
 
       # Synchronize doctree with Google Cloud Bucket
       - if: github.ref == 'refs/heads/main'
