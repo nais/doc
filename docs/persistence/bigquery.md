@@ -11,7 +11,7 @@ Google Cloud BigQuery is a service that provides a relational database that is o
 
 ## NAIS Application yaml manifest options
 
-Full documentation of all available options can be found over at: [`spec.gcp.bigQueryDatasets[]`](../../nais-application/application#gcpbigquerydatasets).
+Full documentation of all available options can be found over at: [`spec.gcp.bigQueryDatasets[]`](../nais-application/application.md#gcpbigquerydatasets).
 
 Example of an application using a `nais.yaml` provisioned BigQuery Dataset can be found here: [testapp](https://github.com/nais/testapp/blob/master/pkg/bigquery/bigquery.go).
 
@@ -46,10 +46,10 @@ val bigQueryClient = BigQueryClient.create(projectId, datasetId)
 ## Caveats to be aware of
 
 === "Automatic Deletion"
-    Once a BigQuery Dataset is provisioned, it will not be automatically deleted - unless one explicitly sets [`spec.gcp.bigQueryDatasets[].cascadingDelete`](../../nais-application/application#gcpbigquerydatasetscascadingdelete) to `true`.
+    Once a BigQuery Dataset is provisioned, it will not be automatically deleted - unless one explicitly sets [`spec.gcp.bigQueryDatasets[].cascadingDelete`](../nais-application/application.md#gcpbigquerydatasetscascadingdelete) to `true`.
     Clean up is done by deleting application resource and deleting the BigQuery instance directly in [console.cloud.google.com](https://console.cloud.google.com/bigquery).
     <br/>
-    When there exist no tables in the specified BigQuery Dataset, deleting the "nais application" will delete the whole BigQuery Dataset, even if [`spec.gcp.bigQueryDatasets[].cascadingDelete`](../../nais-application/application#gcpbigquerydatasetscascadingdelete) is set to `false`.
+    When there exist no tables in the specified BigQuery Dataset, deleting the "nais application" will delete the whole BigQuery Dataset, even if [`spec.gcp.bigQueryDatasets[].cascadingDelete`](../nais-application/application.md#gcpbigquerydatasetscascadingdelete) is set to `false`.
 === "Unique names"
     The name of your Dataset must be unique within your team's GCP project.
 === "Updates/Immutability"

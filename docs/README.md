@@ -11,7 +11,7 @@
 
     Set up your very first NAIS application with a simple `nais.yaml` file.
 
-    [:octicons-arrow-right-24: Getting started](/basics/application)
+    [:octicons-arrow-right-24: Getting started](basics/application.md)
 
 -   :octicons-rocket-24:{ .lg .middle } **Deploy in minutes**
 
@@ -19,7 +19,7 @@
 
     Get your application up and running in minutes with GitHub Actions.
 
-    [:octicons-arrow-right-24: Deployment](/deployment/)
+    [:octicons-arrow-right-24: Deployment](deployment/README.md)
 
 -   :octicons-graph-24:{ .lg .middle } **Know what's going on**
 
@@ -27,7 +27,7 @@
 
     Observe everything that happens in your application with Prometheus and Grafana.
 
-    [:octicons-arrow-right-24: Observability](/observability/)
+    [:octicons-arrow-right-24: Observability](observability/README.md)
 
 -   :octicons-heart-24:{ .lg .middle } **We got your back!**
 
@@ -35,7 +35,7 @@
 
     We have assembled the best tips and tricks to help you succeed.
 
-    [:octicons-arrow-right-24: Good practices](/nais-application/good-practices)
+    [:octicons-arrow-right-24: Good practices](nais-application/good-practices.md)
 
 </div>
 
@@ -47,7 +47,7 @@ When you have a large development organisation, providing the developers with tu
 
 At the core of NAIS lies [*Kubernetes*](https://kubernetes.io), which can be described as a Swiss army knife of tools. Each of these tools comes with its own set of instructions and in sum this adds up and makes for a bit of a mess in terms of choices and considerations.
 
-Our goal is to lift this burden from our developers, and in order to do so we've condensed the essential parts into a single configuration file that we use to generate all the underlying Kubernetes resources. In NAIS terms this file is most commonly referred to as [`nais.yaml`](./nais-application/example/)
+Our goal is to lift this burden from our developers, and in order to do so we've condensed the essential parts into a single configuration file that we use to generate all the underlying Kubernetes resources. In NAIS terms this file is most commonly referred to as [`nais.yaml`](nais-application/example.md)
 
 ![A swiss army knife with the nais logo. All the tools are opened and it looks like a mess.](assets/nais_army_knife.png)
 
@@ -62,6 +62,7 @@ In ye olde days of yore, NAVs security model was based on network segmentation a
 ### NAIS on-premises (FSS)
 
 Many of our older systems, and systems with a high degree of sensitive content were placed in a dedicated zone with very strict restrictions: Fagsystemsone (FSS).
+
 Connectivity to and from this zone is very limited - no connectivity to the internet, inbound connections have to go through security gateways. However - connectivity inside this zone is not restricted in any way, shape or form. Everyone can connect with everyone else - like a true hippie community. (As many of these applications were written in the seventies, it sort of makes sense)
 
 We further divided our clusters in to development and production clusters to maintain a healthy separation.
@@ -73,7 +74,7 @@ Luckily the world has moved on from zones and segmentation.
 When we built NAIS in GCP we wanted the applications to be able to communicate without jumping over hurdles and figured we'd adopt a [zero-trust-model](https://doc.nais.io/appendix/zero-trust/), where applications specify with whom they want to communicate, and who is allowed to communicate with them in their application manifest.
 And so the two GCP clusters `dev-gcp` and `prod-gcp` were born.
 
-[:octicons-arrow-right-24: Get started with Google Cloud](/clusters/gcp/)
+[:octicons-arrow-right-24: Get started with Google Cloud](clusters/gcp.md)
 
 ![The on-prem zone consist of the two clusters dev-sbs and prod-sbs, that are now retired, and dev-fss and prod-fss. There are two GCP clusters, dev-gcp and prod-gcp. The illustration repeats the text, and uses a horrible, romantic font that makes the designers gasp for air.](assets/clusters.png)
 
@@ -87,11 +88,11 @@ This creates better software and happier teams.
 To achieve this, we ensure that each team has their own space where they can experiment, develop and host the stuff they build.
 Here they have the full set of permissions, and are only limited by their own imagination.
 
-You can also learn about our [user management and permissions](basics/teams).
+You can also learn about our [user management and permissions](basics/teams.md).
 
 ## Access Your Applications
 
-In the extended NAIS universe we also have a component called [naisdevice][./device]. This is a cross-platform mechanism that provices access to NAIS services. The product adheres to the [Honest.security principles](https://honest.security) and takes aim at securing our operations without getting in your way.
+In the extended NAIS universe we also have a component called [naisdevice](device/README.md). This is a cross-platform mechanism that provides access to NAIS services. The product adheres to the [Honest.security principles](https://honest.security) and takes aim at securing our operations without getting in your way.
 
 ## Contact the NAIS team
 

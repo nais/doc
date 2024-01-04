@@ -17,7 +17,7 @@ description: API Gateway for securing your APIs
 
 ## KrakenD in NAIS
 
-KrakendD in NAIS is meant as an extra feature for teams using [Maskinporten](../auth/maskinporten) or [AzureAD](../auth/azure-ad) to expose their APIs to external consumers/partners.
+KrakendD in NAIS is meant as an extra feature for teams using [Maskinporten](../auth/maskinporten/README.md) or [AzureAD](../auth/azure-ad/README.md) to expose their APIs to external consumers/partners.
 
 Each team can get their own instance of KrakenD deployed in their namespace. The KrakenD instance will be configured to require JWT tokens, and API endpoints can be added
 in a declarative manner using the [ApiEndpoints custom resource](https://github.com/nais/krakend/blob/main/config/samples/apiendpoints_max.yaml)
@@ -26,7 +26,7 @@ The KrakenD instances and config for exposing APIs are managed by the [krakend-o
 
 ## Usage
 
-To get KrakenD installed in your namespace - the namespace must have a label `krakend.nais.io/enabled: "true"`. 
+To get KrakenD installed in your namespace - the namespace must have a label `krakend.nais.io/enabled: "true"`.
 
 If you do not have permissions to add this label, please contact the NAIS team and we will add it for you.
 After beta testing, we will add more automation to this process.
@@ -64,7 +64,7 @@ Currently we support the following KrakenD features:
 * [JWT validation](https://www.krakend.io/docs/authorization/jwt-validation/): authentication for a secured endpoint is defined by specifying the name of an authentication provider - in nais we support the following providers:
     * `maskinporten`
     * `azuread`
-  
+
 * [Rate-limiting](https://www.krakend.io/docs/endpoints/rate-limit/): if rate-limiting is defined it is applied to all `endpoints` and `openEndpoints` defined in the `ApiEndpoints` resource
 
 
@@ -77,12 +77,12 @@ Currently we support the following KrakenD features:
     spec:
       appName: app1
       auth:
-        name: maskinporten            
+        name: maskinporten
         cache: true
         scope:                        # specify the scopes or audience your app requires here, by using the keys audience or scope. can also be omitted
           - "nav:some/other/scope"
       rateLimit:                      # optionally specify rate-limiting for your app, see https://www.krakend.io/docs/endpoints/rate-limit/#configuration for details
-        maxRate: 10                   
+        maxRate: 10
         clientMaxRate: 0
         strategy: ip
         capacity: 0
@@ -113,12 +113,12 @@ Currently we support the following KrakenD features:
     spec:
       appName: app1
       auth:
-        name: azuread                
+        name: azuread
         cache: true
         audience:                        # specify the scopes or audience your app requires here, by using the keys audience or scope. can also be omitted
           - "the_value_of_aud"
       rateLimit:                      # optionally specify rate-limiting for your app, see https://www.krakend.io/docs/endpoints/rate-limit/#configuration for details
-        maxRate: 10                   
+        maxRate: 10
         clientMaxRate: 0
         strategy: ip
         capacity: 0
@@ -152,7 +152,7 @@ Enable KrakenD in your namespace in GCP and add API endpoints to your KrakenD in
 
 ### Expose an API to external consumers from on-prem via GCP
 
-If your app already have a special "pub" ingress, ref [explanation here](https://doc.nais.io/clusters/migrating-to-gcp/#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp), 
+If your app already have a special "pub" ingress, ref [explanation here](https://doc.nais.io/clusters/migrating-to-gcp/#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp),
 you can enable KrakenD in your namespace in GCP and add API endpoints to your KrakenD instance there, i.e. point to your pub ingress.
 
 === "Maskinporten"
@@ -173,7 +173,7 @@ you can enable KrakenD in your namespace in GCP and add API endpoints to your Kr
             method: GET
             forwardHeaders:             # if your backend validates tokens, you need to forward the Authorization header
               - Authorization
-            backendHost: https://app1.dev-fss-pub.nais.io    
+            backendHost: https://app1.dev-fss-pub.nais.io
             backendPath: /api/somepath  # the path to your API endpoint in your app
     ```
 
@@ -195,7 +195,7 @@ you can enable KrakenD in your namespace in GCP and add API endpoints to your Kr
             method: GET
             forwardHeaders:             # if your backend validates tokens, you need to forward the Authorization header
               - Authorization
-            backendHost: https://app1.dev-fss-pub.nais.io    
+            backendHost: https://app1.dev-fss-pub.nais.io
             backendPath: /api/somepath  # the path to your API endpoint in your app
     ```
 ### Expose a legacy API to external consumers from on-prem via GCP

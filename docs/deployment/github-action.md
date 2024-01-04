@@ -1,11 +1,12 @@
 # Build and deploy with Github Actions
 
-This how-to guide describes how to build and deploy your application using [Github Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions) and the NAIS deploy action. 
+This how-to guide describes how to build and deploy your application using [Github Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions) and the NAIS deploy action.
 
 ## Prerequisites
+
 - You're part of a NAIS team
 - A Github repository where the NAIS team has access
-- The repository contains a valid [nais.yaml](/docs/manifest.md)
+- The repository contains a valid [nais.yaml](../basics/application.md)
 
 ### 1. Authorize your Github repository for deployment
 
@@ -14,6 +15,7 @@ This how-to guide describes how to build and deploy your application using [Gith
 3. Find the repository you want to deploy from, and click `Authorize`
 
 ### 2. Create a Github workflow
+
 Create a new file in your repository under `.github/workflows/` called `main.yml` with the following content:
 
 ```yaml
@@ -52,4 +54,4 @@ It then deploys the `nais.yaml`, injecting the image tag from the previous step.
 
 If you already have a workflow and/or require more advanced configuration - just copy the relevant parts from the example above.
 
-When this file is pushed to the `main` branch, the workflow will be triggered and you are all set. 
+When this file is pushed to the `main` branch, the workflow will be triggered and you are all set.
