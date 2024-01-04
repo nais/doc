@@ -229,7 +229,7 @@ nav:
       - Addons:
           - Leader Election: addons/leader-election.md
           - Snorlax: addons/snorlax.md
-          - Unleash (feature toggling): addons/unleash-next.md
+          - Unleash (feature toggling): addons/unleash.md
           - Velero backup and restore: addons/velero-backup-and-restore.md
           - Wonderwall: addons/wonderwall.md
       - Legacy:
