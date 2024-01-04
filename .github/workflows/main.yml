@@ -14,6 +14,9 @@ on:
       - pyproject.toml
       - poetry.lock
 
+env:
+  MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
