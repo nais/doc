@@ -66,7 +66,7 @@ kubectl apply -f https://raw.githubusercontent.com/navikt/gcp-migrering/main/gcl
 `exec` into that pod
 
 ```shell
-kubectl exec -it gcloud /bin/bash
+kubectl exec -it gcloud -- /bin/bash
 ```
 
 Log in to gcloud with your own NAV-account
