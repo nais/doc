@@ -380,20 +380,6 @@ httplib2 = "*"
 mkdocs = ">=1.0.4"
 
 [[package]]
-name = "mkdocs-git-authors-plugin"
-version = "0.7.2"
-description = "Mkdocs plugin to display git authors of a page"
-optional = false
-python-versions = ">=3.7"
-files = [
-    {file = "mkdocs-git-authors-plugin-0.7.2.tar.gz", hash = "sha256:f541730e4cabdafa0ac758c94d28ba5e8ddca4c859e5de4c89f1226cb6ccd0ad"},
-    {file = "mkdocs_git_authors_plugin-0.7.2-py3-none-any.whl", hash = "sha256:c8a2784a867db79ad3b477a96ee96875d17b09192b6d3be71f08df25afff76c4"},
-]
-
-[package.dependencies]
-mkdocs = ">=1.0"
-
-[[package]]
 name = "mkdocs-git-committers-plugin-2"
 version = "2.2.2"
 description = "An MkDocs plugin to create a list of contributors on the page. The git-committers plugin will seed the template context with a list of GitHub or GitLab committers and other useful GIT info such as last modified date"
@@ -879,4 +865,4 @@ watchmedo = ["PyYAML (>=3.10)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "c481d93a4e0015caeb099100d1d3c0f725d15b82913ef1fb4352eb13c88e81b2"
+content-hash = "5bf3a126bc2c6059f068325ae902f5e983ba8731eeedad606b28eaaca55f9f05"

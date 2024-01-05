@@ -14,7 +14,6 @@ mkdocs-build-plantuml-plugin = "^1.9.0"
 mkdocs-git-revision-date-localized-plugin = "^1.2.1"
 mkdocs-redirects = "^1.2.1"
 mkdocs-git-committers-plugin-2 = "^2.2.2"
-mkdocs-git-authors-plugin = "^0.7.2"
 
 [tool.poetry.dev-dependencies]
 
