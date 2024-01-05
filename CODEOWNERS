@@ -1,1 +1,24 @@
 *.md @nais/nais
+
+docs/clusters/* @Muni10
+
+docs/deployment/* @kimtore
+docs/basics/application.md @kimtore
+docs/nais-application/* @kimtore
+docs/naisjob/* @kimtore
+
+docs/basics/teams.md @christeredvartsen
+
+docs/device/* @toby1knby
+
+docs/legal/* @frodesundby @jhrv
+
+docs/observability/* @Starefossen
+docs/addons/unleash.md @Starefossen
+
+docs/persistence/* @mortenlj
+
+docs/security/* @tommytroen
+docs/security/salsa/* @ybelMekk
+docs/security/auth/* @tronghn
+docs/addons/wonderwall.md @tronghn
