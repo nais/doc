@@ -53,7 +53,7 @@ A minimal OpenSearch resource only requires `plan` and `project`.
   See Aivens list of [possible plan values](https://aiven.io/pricing?product=opensearch).
   The values are lowercased.
   Make sure you understand the differences between the plans before selecting the one you need.
-  Examples: `hobbyist`, `startup-4`, `startup-56`, `business-4`, `premium-14`.
+  Examples: `hobbyist`, `startup-4`, `startup-16`, `business-4`, `premium-6x-8`.
 
 We use Aivens operator, so the OpenSearch resource is [documented in detail](https://aiven.github.io/aiven-operator/api-reference/opensearch.html) in the Aiven documentation.
 You should look at the reference for any other fields that might be of interest.
