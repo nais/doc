@@ -6,8 +6,9 @@ description: >-
 
 # Google Cloud SQL PostgreSQL
 
-!!! warning
-    Do not create new Postgres 15 databases unless you know how to deal with the changes to default permissions in the public schema.
+!!! info
+    Postgres 15 has changed the security model around the public schema and it is no longer world writeable. If you and your team
+    make use of the public schema for interactive sessions and experimentation you will have to create separate schemas for separate users and share these role or user grants. Normal app usage will function normally.
 
 !!! info
     This feature is only available in GCP clusters. If you need on-prem databases, head over to [navikt/database-iac](https://github.com/navikt/database-iac).
@@ -270,7 +271,7 @@ Databases should always be accessed using a personal account, and the access sho
     The default is to allow only `SELECT` statements. If you need to allow all privileges, you can use the `--all-privs` flag.
 
     ```bash
-    nais postgres prepare --all-privs <MYAPP> 
+    nais postgres prepare --all-privs <MYAPP>
     ```
 
 ### Granting temporary personal access

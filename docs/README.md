@@ -90,9 +90,11 @@ Here they have the full set of permissions, and are only limited by their own im
 
 You can also learn about our [user management and permissions](basics/teams.md).
 
-## Access Your Applications
+## Access Your Applications with naisdevice
 
-In the extended NAIS universe we also have a component called [naisdevice](device/README.md). This is a cross-platform mechanism that provides access to NAIS services. The product adheres to the [Honest.security principles](https://honest.security) and takes aim at securing our operations without getting in your way.
+![naisdevice logo](assets/naisdevice-logo.svg){ align=right width=128 }
+
+[naisdevice](device/README.md) allows NAV developers to connect easily and securely to internal resources. This application, installed on your device, uses WireGuard for connectivity and Kolide to maintain device health. It provides a direct and efficient way to access NAIS clusters, along with various development tools and data.
 
 ## Contact the NAIS team
 
