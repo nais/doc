@@ -76,7 +76,7 @@ plugins:
   - search:
       lang: en
   - git-committers:
-      enabled: !ENV [CI, false]
+      enabled: false # !ENV [CI, false]
       repository: nais/doc
       branch: main
   - git-revision-date-localized:
