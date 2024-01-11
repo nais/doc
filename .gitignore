@@ -10,9 +10,11 @@
 
 # mkdocs output folder (which contains all the HTML)
 site/
+.cache
 
 # Terraform
 .terraform/
 
 # Git folder - for .dockerignore purposes
 .git/
+

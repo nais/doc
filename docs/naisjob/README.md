@@ -10,7 +10,7 @@ A `CronJob` runs `Job`s on a time-based schedule, as denoted in `.spec.schedule`
 
 !!! info "Restart policies"
     Naisjobs have restart policies set to "Never", and it is currently not possible to set the restart policy of a Naisjob directly.
-    It is possible to achieve automatic restarts on failure by using [startup probes](reference/#startup) however, though this requires the Pod to expose an HTTP endpoint to answer the probe.
+    It is possible to achieve automatic restarts on failure by using [startup probes](reference.md#startup) however, though this requires the Pod to expose an HTTP endpoint to answer the probe.
 
 Below you can find a minimal Naisjob example with a `schedule` for running a `Job` every minute.
 If you don't need to have a recurring Naisjob, remove the `schedule` field from the configuration.
@@ -80,7 +80,7 @@ You can deploy your Naisjob just as you would deploy your Application using [NAI
 
 ## Shutting down extra containers
 Due to the nature of NAIS, your Naisjob might end up having a few sidecars.
-Since a sidecar typically has little to no logic to look at sibling containers, these would normally not turn off once your app completes. 
+Since a sidecar typically has little to no logic to look at sibling containers, these would normally not turn off once your app completes.
 As a result, the Naisjob would continue running indefinitely unless some entity from above sorts it out.
 To remediate this, an operator named [HAHAHA](https://github.com/nais/hahaha) has been created to run in every cluster and observe every Naisjob.
 Once the "main" container in a Naisjob completes, HAHAHA will shut down the surrounding sidecars and thus make the Naisjob run to completion.
@@ -95,33 +95,33 @@ You can look at what HAHAHA has done to complete your Naisjob by running `kubect
     Here's some legacy documentation on how to shut down most sidecars, in case HAHAHA didn't do its job fully.
 
     ### Linkerd
-    
+
     Linkerd exposes an endpoint to shut itself down.
-    
+
     ```bash
     curl -X POST http://127.0.0.1:4191/shutdown
     ```
-    
+
     This is done from inside your pod-container.
 
     ### CloudSQL-proxy sidecar
-    
+
     CloudSQL-proxy sidecar does not support turning off remotely.
 
     It can be shut down by running exec into the container.
-    
+
     ```bash
     kubectl exec yourpod-12345 -c cloudsql-proxy -- kill -s INT 1
     ```
 
     ### Securelogs
-    
+
     Securelogs runs on Fluentd, and Fluentd exposes an endpoint to shut itself down.
-    
+
     ```bash
     curl http://127.0.0.1:24444/api/processes.killWorkers
     ```
-    
+
     This is done from inside your pod-container.
 
     Additionally, Securelogs runs a second sidecar called `secure-logs-configmap-reload`.
@@ -132,11 +132,11 @@ You can look at what HAHAHA has done to complete your Naisjob by running `kubect
     ```
 
     ### Vault sidecar
-    
+
     Vault sidecar does not support turning off remotely.
 
     It can be shut down by running exec into the container.
-    
+
     ```bash
     kubectl exec yourpod-12345 -c vks-sidecar -- /bin/kill -s INT 1
     ```

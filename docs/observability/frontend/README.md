@@ -60,7 +60,7 @@ The URL points to a Grafana Agent collector, and should be set to one of the fol
 See below for auto-configuration instructions for when your app is a NAIS application.
 
 | Collector endpoint                             | Cluster    |
-|------------------------------------------------|------------|
+| ---------------------------------------------- | ---------- |
 | `https://telemetry.nav.no/collect`             | `prod-gcp` |
 | `https://telemetry.ekstern.dev.nav.no/collect` | `dev-gcp`  |
 | `http://localhost:12347/collect`               | N/A        |
@@ -129,7 +129,7 @@ context.with(trace.setSpan(context.active(), span), () => {
 
 When you deploy your frontend as a NAIS application, the telemetry collector URL can be automatically configured.
 
-To use this feature, you must specify [frontend.mountPath.generatedConfig](/nais-application/application/#frontendgeneratedconfigmountpath) in your `nais.yaml`.
+To use this feature, you must specify [frontend.mountPath.generatedConfig](../../nais-application/application.md#frontendgeneratedconfigmountpath) in your `nais.yaml`.
 A Javascript file will be created at the specified path in your pod file system, and contains the appropriate configuration.
 Additionally, the environment variable `NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL` will be set in your pod.
 

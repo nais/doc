@@ -6,7 +6,7 @@ We have standardized on the [OpenMetrics][openmetrics] format for metrics. This 
 
 We use Prometheus to fetch metric endpoints from your application (in Prometheus terminology we call this scraping), and Grafana for visualizing your application's metrics. You enable Prometheus metrics collection from your application in your [NAIS manifest][nais-manifest-prometheus].
 
-??? info "Prometheus cluster configuration" 
+??? info "Prometheus cluster configuration"
     To see the current configuration for a prometheus instance in your cluster, e.g. `scrape_interval`, go to
     `https://prometheus.<cluster>.nav.cloud.nais.io/config`
 
@@ -18,7 +18,7 @@ graph LR
 ```
 
 [openmetrics]: https://openmetrics.io/
-[nais-manifest-prometheus]: /nais-application/application/#prometheus
+[nais-manifest-prometheus]: ../nais-application/application.md#prometheus
 
 All applications that have Prometheus scraping enabled will show up in the [default Grafana dashboard](https://grafana.nais.io/d/000000283/nais-app-dashbord), or create their own.
 
@@ -175,7 +175,7 @@ Most of the client libraries (see list above), includes libraries for generating
 ## Retention
 
 When using Prometheus the retention is 4 weeks.
-If you need data stored longer than what Prometheus support, we recommend using [BigQuery](/persistence/bigquery) or your own [Aiven Influxdb](/persistence/influxdb).
+If you need data stored longer than what Prometheus support, we recommend using [BigQuery](../persistence/bigquery.md) or your own [Aiven Influxdb](../persistence/influxdb.md).
 Then you have full control of the database and retention.
 
 ## Metric naming
@@ -220,7 +220,7 @@ You should, as a developer, that build metrics into your application have solid 
 
 NAIS clusters comes with a set of metrics that are available for all applications. Many of these relates to Kubernetes and includes metrics like CPU and memory usage, number of pods, etc. You can find a comprehensive list in the [kube-state-metrics documentation](https://github.com/kubernetes/kube-state-metrics/blob/master/docs/README.md).
 
-Our ingress controller also exposes metrics about the number of requests, response times, etc. You can find a comprehensive list in our [ingress documentation](/nais-application/ingress/#ingress-metrics).
+Our ingress controller also exposes metrics about the number of requests, response times, etc. You can find a comprehensive list in our [ingress documentation](../nais-application/ingress.md#ingress-metrics).
 
 ## Debugging metrics
 
@@ -250,7 +250,7 @@ graph LR
 
     The latter point is especially relevant when multiple instances of a job differentiate their metrics in the Pushgateway via an instance label or similar. Metrics for an instance will then remain in the Pushgateway even if the originating instance is renamed or removed. This is because the lifecycle of the Pushgateway as a metrics cache is fundamentally separate from the lifecycle of the processes that push metrics to it. Contrast this to Prometheus's usual pull-style monitoring: when an instance disappears (intentional or not), its metrics will automatically disappear along with it. When using the Pushgateway, this is not the case, and you would now have to delete any stale metrics manually or automate this lifecycle synchronization yourself.
 
-    [naisjob]: /naisjob
+    [naisjob]: ../naisjob/README.md
 
 ### Example
 
