@@ -12,6 +12,10 @@ In order to run Grafana from a big screen, you will need a Grafana service accou
 
 Once you have a Grafana service account, you can use the following URL to access Grafana: `https://grafana-infoskjerm.<tenant>.cloud.nais.io`. You will need to add your service account credentials to the `Authorization` header of your requests like so `Authorization: Bearer <service-account-token>`.
 
+!!! note
+
+    Maske sure you spell the `Authorization` header name correctly and that the value needs to be `Bearer` with a capital B and then replace `<service-account-token>` with the actual service account token value otherwise Grafana will reload constantly0.
+
 To add the service account credentials to the header of your requests, you can use the [Modify Header Value](https://mybrowseraddon.com/modify-header-value.html) browser extension available for Chrome and Firefox.
 
 Set the following configuration in the extension:
