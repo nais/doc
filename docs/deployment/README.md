@@ -54,7 +54,7 @@ Add the example files below, then commit and push. This will trigger the workflo
         outputs:
           image: ${{ steps.docker-build-push.outputs.image }}
         steps:
-        - uses: actions/checkout@v3
+        - uses: actions/checkout@v4
         - name: Push docker image to GAR
           uses: nais/docker-build-push@v0
           id: docker-build-push
@@ -67,8 +67,11 @@ Add the example files below, then commit and push. This will trigger the workflo
         name: Deploy to NAIS
         needs: build
         runs-on: ubuntu-latest
+        permissions:
+          contents: read
+          id-token: write
         steps:
-        - uses: actions/checkout@v3
+        - uses: actions/checkout@v4
         - uses: nais/deploy/actions/deploy@v2
           env:
             CLUSTER: target-cluster # Replace
