@@ -14,6 +14,9 @@ on:
       - pyproject.toml
       - poetry.lock
 
+env:
+  MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
@@ -22,14 +25,15 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install poetry
+        run: pipx install poetry
+
       - name: Setup Python
-        uses: actions/setup-python@v5.0.0
+        uses: actions/setup-python@v5
         with:
           python-version: 3.11
           architecture: x64
-
-      - name: Setup Poetry
-        uses: Gr1N/setup-poetry@v8
+          cache: poetry
 
       - name: Install all dependencies
         run: |
@@ -39,9 +43,27 @@ jobs:
           --ansi \
           --remove-untracked
 
+      - name: Get Date
+        id: get-date
+        run: |
+          echo "date=$(/bin/date -u "+%Y%m%d")" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Restore build cache
+        uses: actions/cache/restore@v3
+        with:
+          path: .cache
+          key: ${{ runner.os }}-build-cache-${{ steps.get-date.outputs.date }}
+
       - name: Build documentation
         run: |
           poetry run mkdocs build --strict
+
+      - name: Save build cache
+        uses: actions/cache/save@v3
+        with:
+          path: .cache
+          key: ${{ runner.os }}-build-cache-${{ steps.get-date.outputs.date }}
 
       # Synchronize doctree with Google Cloud Bucket
       - if: github.ref == 'refs/heads/main'

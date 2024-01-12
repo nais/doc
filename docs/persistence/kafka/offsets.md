@@ -59,13 +59,13 @@ The KafkaConsumer exposes two APIs for committing offsets.
 From the [Confluent documentation][offset-management]:
 
 > Each call to the commit API results in an offset commit request being sent to the broker. Using the synchronous API, the consumer is blocked until that request returns successfully. This may reduce overall throughput since the consumer might otherwise be able to process records while that commit is pending.
-> 
+>
 > ---
-> 
+>
 > A second option is to use asynchronous commits. Instead of waiting for the request to complete, the consumer can send the request and return immediately by using asynchronous commits.
-> 
+>
 > ---
-> 
+>
 > In general, asynchronous commits should be considered less safe than synchronous commits.
 
 
@@ -99,9 +99,9 @@ Trying to recover from lost offsets are considerably more complicated after your
 
 If you don't want to start at either end, but have a reasonable estimate of where your consumer stopped, you can use the [`seek`][seek] API to jump to the wanted offset before starting your consumer.
 
-You can also update consumer offsets using the Kafka command-line tool `kafka-consumer-groups.sh`. 
+You can also update consumer offsets using the Kafka command-line tool `kafka-consumer-groups.sh`.
 Aiven has written a short [article][aiven-offset-help] about its usage, that is a great place to start.
-In order to use it you need credentials giving you access to the topic, which you can get using the [nais cli](/cli/commands/aiven/).
+In order to use it you need credentials giving you access to the topic, which you can get using the [nais cli](../../cli/commands/aiven.md).
 
 For other strategies, post a message in [#kafka](https://nav-it.slack.com/archives/C73B9LC86) on slack, and ask for help.
 Several teams have plans and tools for recovery that they can share.

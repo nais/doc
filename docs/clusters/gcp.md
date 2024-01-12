@@ -5,7 +5,7 @@ Google Cloud Platform (GCP) is a cloud computing platform and infrastructure pro
 ??? info "List of NAIS clusters in GCP"
 
     | cluster    | environment | comment                                |
-    |:-----------|:------------|:---------------------------------------|
+    | :--------- | :---------- | :------------------------------------- |
     | `dev-gcp`  | development | selected ingresses publicly accessible |
     | `prod-gcp` | production  | publicly accessible                    |
 
@@ -17,11 +17,11 @@ Make sure you have [access to GCP clusters.](../basics/access.md#google-cloud-pl
 
 ## Supported features
 
-* [BigQuery](/persistence/bigquery)
-* [Cloud Storage](/persistence/buckets)
-* [Cloud SQL](/persistence/postgres)
-* [Cloud Armor](/security/cloud-armor)
-* [Secret Manager](/security/secrets/google-secrets-manager)
+* [BigQuery](../persistence/bigquery.md)
+* [Cloud Storage](../persistence/buckets.md)
+* [Cloud SQL](../persistence/postgres.md)
+* [Cloud Armor](../security/cloud-armor.md)
+* [Secret Manager](../security/secrets/google-secrets-manager.md)
 
 ## Access to GCP
 
@@ -44,9 +44,9 @@ You can control from where you application is reachable by selecting the appropr
 
 ### dev-gcp ingresses
 
-| domain             | accessible from                   | description                                                                                                                   |
-|:-------------------|:----------------------------------|:------------------------------------------------------------------------------------------------------------------------------|
-| ekstern.dev.nav.no | internet                          | development ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| domain             | accessible from                                             | description                                                                                                                   |
+| :----------------- | :---------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| ekstern.dev.nav.no | internet                                                    | development ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
 | intern.dev.nav.no  | [naisdevice](../device/README.md) and NAV internal networks | development ingress for non-public/internet-facing applications                                                               |
 
 

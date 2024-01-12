@@ -34,7 +34,7 @@ The following fields are common to all logs and can be used in the query bar:
 ### Example queries
 
 | Query                                                            | Description                                                                                  |
-|:-----------------------------------------------------------------|:---------------------------------------------------------------------------------------------|
+| :--------------------------------------------------------------- | :------------------------------------------------------------------------------------------- |
 | `message: "my message"`                                          | Search for logs with the message "my message"                                                |
 | `message: "my message" AND level: "ERROR"`                       | Search for logs with the message "my message" and the level "ERROR"                          |
 | `message: "my message" OR level: "ERROR"`                        | Search for logs with the message "my message" or the level "ERROR"                           |
@@ -150,7 +150,7 @@ Enheter i Nav som skal ha tilgang: <four digit department code>. E.g (2990 - IT-
 
 ### 2 Connect the AD group to your team in Kibana
 
-The logs your apps produces are linked with your [nais-team](../../basics/teams).
+The logs your apps produces are linked with your [nais-team](../../basics/teams.md).
 Administrators of Kibana will create a role for your team with read rights to those logs.
 Whoever is in the AD-group (created in step 1) will get the Kibana role, and can thus read all logs produced by apps belonging to the nais-team.
 

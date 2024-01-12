@@ -75,6 +75,10 @@ extra_css:
 plugins:
   - search:
       lang: en
+  - git-committers:
+      enabled: false # !ENV [CI, false]
+      repository: nais/doc
+      branch: main
   - git-revision-date-localized:
       enabled: !ENV [CI, false]
       enable_creation_date: true
@@ -163,10 +167,12 @@ nav:
           - Frontend: observability/frontend/README.md
           - Tracing: observability/tracing.md
           - Metrics: observability/metrics.md
+
           - Alerts: observability/alerts.md
           - Logs:
               - Logs Overview: observability/logs/README.md
               - Examples: observability/logs/examples.md
+          - Grafana: observability/grafana.md
       - Persistent Data:
           - Persistent Data Overview: persistence/README.md
           - Responsibilities: persistence/responsibilities.md

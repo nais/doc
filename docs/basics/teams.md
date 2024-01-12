@@ -139,7 +139,7 @@ There is more information over at [Google Cloud Docs](https://cloud.google.com/i
 #### Examples
 
 !!! Info "Access to Postgres"
-    We have a separate guide for how to give your self temporary access to a Postgres database. Head on over to [persistence/postgres](../../persistence/postgres/#granting-temporary-personal-access).
+    We have a separate guide for how to give your self temporary access to a Postgres database. Head on over to [persistence/postgres](../persistence/postgres.md#granting-temporary-personal-access).
 
 Underneath we have outlined two typical use cases for when you need to give your self or someone else access.
 Do get a better understanding of how to give and revoke access with `gcloud`, you should read [Granting, changing, and revoking access to resources
