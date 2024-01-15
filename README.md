@@ -6,42 +6,15 @@ All _documentation_ content resides inside the [docs](docs/) folder, with the ge
 
 ## Local preview-environment set-up
 
-_**NB**_: Due to [limitations in the built-in](https://github.com/mkdocs/mkdocs/issues/2108) `mkdocs serve`'s hot-reload feature, the described set-up relies on dodgy Docker networking.
+### install Poetry
 
-### Poetry
 
 ```bash
-poetry install
-poetry run mkdocs serve
+asdf plugin add poetry
+asdf install poetry latest
 ```
-
-### Docker
-
-#### Requirements
-
-- `docker`
-- `docker-compose`
-
-#### How to set-up local preview environment
-
-```shell
-docker-compose up --detach --build && open localhost:8080
+### run docs
+```bash
+make install
+make local
 ```
-
-## GCP set-up
-
-### First, ensure you're logged into GCP
-
-```shell
-gcloud auth login --update-adc
-```
-
-#### Then, run `terraform`
-
-```shell
-cd terraform/
-&& terraform init -backend-config="bucket=terraform-prod-235011" \
-&& terraform apply
-```
-
-Et voilá! Presto!
