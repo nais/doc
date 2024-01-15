@@ -209,6 +209,9 @@ jobs:
     name: Deploy to NAIS
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - uses: nais/deploy/actions/deploy@v1
