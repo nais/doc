@@ -256,6 +256,13 @@ spec:
     disableAutoScaling: true
     max: 4
     min: 2
+    scalingStrategy:
+      cpu:
+        thresholdPercentage: 50
+      kafka:
+        consumerGroup: dev-gcp
+        threshold: 10
+        topic: nais-verification.kafka-canary-dev-gcp
   resources:
     limits:
       cpu: 500m
