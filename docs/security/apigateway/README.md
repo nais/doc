@@ -84,6 +84,7 @@ Currently we support the following KrakenD features:
       rateLimit:                      # optionally specify rate-limiting for your app, see https://www.krakend.io/docs/endpoints/rate-limit/#configuration for details
         maxRate: 10
         clientMaxRate: 0
+        every: 1s
         strategy: ip
         capacity: 0
         clientCapacity: 0
@@ -120,6 +121,7 @@ Currently we support the following KrakenD features:
       rateLimit:                      # optionally specify rate-limiting for your app, see https://www.krakend.io/docs/endpoints/rate-limit/#configuration for details
         maxRate: 10
         clientMaxRate: 0
+        every: 1s
         strategy: ip
         capacity: 0
         clientCapacity: 0
