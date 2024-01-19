@@ -2,6 +2,13 @@
 
 Applications deployed to Kubernetes are exposed through what is known as a [`Service`][k8s-service-discovery]. This is an address that allows for direct communication within a Kubernetes cluster without having to go through an external ingress, load balancer, or proxy.
 
+```mermaid
+graph LR
+  accTitle: Service Discovery
+  accDescr: The diagram below how App A can communicate with App B directly.
+  app-a[App A] --http://app-b --> app-b[App B]
+```
+
 This is the recommended way to communicate between applications in the same Kubernetes cluster. This avoids having to expose your application to the outside world, and allows for direct communication between applications.
 
 A `Service` in Kubernetes has some interesting properties:
