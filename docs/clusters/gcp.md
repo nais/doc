@@ -54,7 +54,7 @@ You can control from where you application is reachable by selecting the appropr
 
 | domain        | accessible from                   | description                                                                                                                                                                              |
 | :------------ | :-------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| nav.no        | internet                          | subdomains are manually configured, contact at \#tech-sikkerhet. Ingresses on `nav.no/*` are automatically available. URLs containing `/metrics`, `/actuator` or `/internal` are blocked |
+| nav.no        | internet                          | URLs containing `/metrics`, `/actuator` or `/internal` are blocked |
 | intern.nav.no | [naisdevice](../device/README.md) | used by non-public/internet-facing applications \(previously called adeo.no\).                                                                                                           |
 
 
