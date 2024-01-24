@@ -221,6 +221,10 @@ spec:
         name: scope.read
         product: arbeid
   observability:
+    logging:
+      destinations:
+      - id: my-destination
+      enabled: true
     tracing:
       enabled: true
   openSearch:

@@ -3991,7 +3991,78 @@ Required: `false`<br />
     ``` yaml
     spec:
       observability:
+        logging:
+          destinations:
+            - id: my-destination
+          enabled: true
         tracing:
+          enabled: true
+    ```
+
+### observability.logging
+Configure logging for your application.
+
+Relevant information:
+
+* [https://doc.nais.io/observability/logging/](https://doc.nais.io/observability/logging/)
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        logging:
+          destinations:
+            - id: my-destination
+          enabled: true
+    ```
+
+#### observability.logging.destinations
+Log destinations for where to forward application logs for persistent storage. Leave empty to use default destinations.
+
+Relevant information:
+
+* [https://doc.nais.io/observability/logging/#log-destinations](https://doc.nais.io/observability/logging/#log-destinations)
+
+Type: `array`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        logging:
+          destinations:
+            - id: my-destination
+    ```
+
+##### observability.logging.destinations[].id
+Type: `string`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        logging:
+          destinations:
+            - id: my-destination
+    ```
+
+#### observability.logging.enabled
+Enable forwarding of application logs to persistent storage.
+
+Type: `boolean`<br />
+Required: `false`<br />
+Default value: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        logging:
           enabled: true
     ```
 
