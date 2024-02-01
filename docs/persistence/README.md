@@ -33,6 +33,7 @@ Choose wisely.
 
 ```mermaid
 graph TD
+  F[I need caching!] --> REDIS[Redis]
   A[I got data!] --> B[Is it structured?]
   B --> |Yes| C[Is it events?]
   B --> |No| D[Is it files?]
@@ -43,6 +44,7 @@ graph TD
   E --> |Yes| GBQ[BigQuery]
   E --> |No| GCSQL[Cloud SQL]
 
+  click REDIS "#redis"
   click GBQ "#bigquery"
   click GCS "#cloud-storage-buckets"
   click GCSQL "#cloud-sql"
@@ -55,15 +57,15 @@ graph TD
 Below is a list of the different storage options available to you.
 
 | Name                            | Type        | Recommendation | Availability | Backup |
-|---------------------------------|-------------|:--------------:|:------------:|:------:|
+| ------------------------------- | ----------- | :------------: | :----------: | :----: |
 | [Kafka](#kafka)                 | Streaming   |       ✅        |     All      |  Yes*  |
 | [Cloud Storage](#cloud-storage) | Object      |       ✅        |     GCP      |  Yes*  |
 | [Cloud SQL](#cloud-sql)         | Relational  |       ✅        |     GCP      |  Yes   |
 | [BigQuery](#bigquery)           | Relational  |       ✅        |     GCP      |  Yes*  |
-| [OpenSearch](#opensearch)       | Document    |       ✅        |     All      |  Yes   |
-| [Redis](#redis)                 | Key/Value   |       ✅        |     All      |  Yes   |
-| [InfluxDB](#influxdb)           | Time Series |       ✅        |     All      |  Yes   |
-| [IBM MQ](#ibm-mq)               | Message     |       ⚠️       |     All      |  Yes*  |
+| [OpenSearch](#opensearch)       | Document    |       ✅        |     GCP      |  Yes   |
+| [Redis](#redis)                 | Key/Value   |       ✅        |     GCP      |  Yes   |
+| [InfluxDB](#influxdb)           | Time Series |       ⚠️        |     All      |  Yes   |
+| [IBM MQ](#ibm-mq)               | Message     |       ⚠️        |     All      |  Yes*  |
 
 \* Data is highly available and fault-tolerant but not backed up if deleted by
 mistake.
@@ -111,11 +113,16 @@ OpenSearch offers a drop-in replacement for Elasticsearch.
 ## Redis
 
 Redis is a key value database that is used for storing and querying data. It is
-a good choice for storing data that is not relational in nature.
+a good choice for storing data that is not relational in nature and often used
+for caching.
 
 [:octicons-arrow-right-24: Getting started with Redis](./redis.md)
 
 ## InfluxDB
+
+!!! warning "Outdated"
+
+    Aiven has informed us that they will no longer support InfluxDB in the future. We are currently looking into alternatives.
 
 InfluxDB is a time series database that is used for storing and querying data.
 It is a good choice for storing data that is not relational in nature.
