@@ -42,7 +42,7 @@ The environment variables use a fixed prefix, and the instance name uppercased a
 Example for the sessions instance used above:
 
 | Key                     | Value                                                                                                                                        |
-|-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | REDIS_URI_SESSIONS      | The URI for the Redis instance, typically with a `rediss` scheme. <br/>Example:  `rediss://redis-team-sessions-nav-dev.aivencloud.com:26483` |
 | REDIS_USERNAME_SESSIONS | The username to use when connecting.                                                                                                         |
 | REDIS_PASSWORD_SESSIONS | The password to use when connecting.                                                                                                         |
@@ -58,7 +58,7 @@ We recommend creating your Redis instances in their own workflow for more contro
 Creating a Redis instance is done by adding a Redis resource to your namespace with detailed configuration.
 Some configuration is enforced by the nais platform, while the rest is up to the users.
 
-Earlier we talked about the "instance name". 
+Earlier we talked about the "instance name".
 In reality, the actual name of the redis instance will be `redis-<team name>-<instance name>` (where `team name` is the same as the namespace your application resides in).
 The resource needs to have this full name in order to be accepted.
 
@@ -81,8 +81,8 @@ spec:
 A minimal Redis resource only requires `plan` and `project`.
 
  * `project` should match your nais tenant (`nav`, `mtpilot`, `ssb` or `fhi`) and the environment you are running in (ex. `dev`, `prod`), with a dash (`-`) in between.
- * `plan` is the Aiven plan for your Redis instance. 
-   See Aivens list of [possible plan values](https://aiven.io/pricing?product=redis). 
+ * `plan` is the Aiven plan for your Redis instance.
+   See Aivens list of [possible plan values](https://aiven.io/pricing?product=redis).
    The values are lowercased.
    Make sure you understand the differences between the plans before selecting the one you need.
    Examples: `startup-4`, `startup-56`, `business-4`, `premium-14`.
@@ -102,22 +102,21 @@ Business plans are backed up every 12 hours, keeping 3 days of backups available
 
 Once the resource is added to the cluster, some additional fields are filled in by the platform and should be left alone unless you have a good reason:
 
-| field                   |                                                                                                       | 
-|-------------------------|-------------------------------------------------------------------------------------------------------|
+| field                   |                                                                                                       |
+| ----------------------- | ----------------------------------------------------------------------------------------------------- |
 | `projectVpcId`          | Ensures the instance is connected to the correct project VPC and is not available on public internet. |
 | `tags`                  | Adds tags to the instance used for tracking billing in Aiven.                                         |
-| `cloudName`             | Where the Redis instance should run.                                                                  |  
+| `cloudName`             | Where the Redis instance should run.                                                                  |
 | `terminationProtection` | Protects the instance against unintended termination. Must be set to `false` before deletion.         |
 
 There are some fields available that should not be used:
 
 | field                  |                                                                                                 |
-|------------------------|-------------------------------------------------------------------------------------------------|
+| ---------------------- | ----------------------------------------------------------------------------------------------- |
 | `authSecretRef`        | Reference to a secret containing an Aiven API token. Provided via other mechanisms.             |
 | `connInfoSecretTarget` | Name of secret to put connection info in, not used as nais provides these via other mechanisms. |
 | `projectVPCRef`        | Not used since we use `projectVpcId`.                                                           |
 | `serviceIntegrations`  | Not used at this time.                                                                          |
-
 
 # Legacy Redis documentation
 
@@ -272,7 +271,7 @@ An example Redis setup looks like this:
           rules:
             - application: ${appname}-redisexporter
       envFrom:
-        - secret: ${secret-name} 
+        - secret: ${secret-name}
     ---
     apiVersion: "nais.io/v1alpha1"
     kind: "Application"

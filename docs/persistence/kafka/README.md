@@ -1,3 +1,9 @@
+---
+description: >-
+    Kafka is a distributed streaming platform that can be used to publish and
+    subscribe to streams of records. It is a good alternative to synchronous
+    communication between services if you need to decouple services.
+---
 # Kafka
 
 NAV uses Aiven hosted Kafka.
@@ -17,7 +23,7 @@ To get started, see [accessing topics from an application](manage_topics.md#acce
     Kafka as a system is highly durable, and is designed to be able to keep your data safe in the event of a failure.
     This requires a properly configured replication factor for your topic, and that your clients use the appropriate strategy when sending messages and committing offsets.
     Even so, our recommendation is that Kafka should not be the master of your data, and you should have the ability to restore your data from some other system.
-    
+
 
 ## Status and roadmap
 
