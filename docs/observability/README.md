@@ -67,17 +67,14 @@ graph LR
 
 Logs are a way to understand what is happening in your application. They are usually text-based and are often used for debugging. Since the format of logs is usually not standardized, it can be difficult to query and aggregate logs and thus we recommend using metrics for dashboards and alerting.
 
-Logs are collected automatically by [fluentd][fluentd], stored in [Elasticsearch][elasticsearch] and made accessible via [Kibana][kibana].
-
-[fluentd]: https://www.fluentd.org/
-[elasticsearch]: https://www.elastic.co/elasticsearch/
-[kibana]: https://www.elastic.co/kibana/
+Logs that are sent to console (`stdout`) are collected automatically and can be configured for persistent storage and querying in several ways.
 
 ```mermaid
 graph LR
-  Application --stdout/stderr--> Fluentbit
-  Fluentbit --> Elasticsearch
-  Elasticsearch --> Kibana
+  Application --stdout/stderr--> Router
+  Router --> A[Secure Logs]
+  Router --> B[Grafana Loki]
+  Router --> C[Elastic / Kibana]
 ```
 
 [:octicons-arrow-right-24: Configure your logs](./logs/README.md)
