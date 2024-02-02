@@ -23,9 +23,13 @@ The tree pillars of observability are:
 
 ```mermaid
 graph
-A[Application] --> B((Logs))
-A --> C((Metrics))
-A --> D((Traces))
+  A[Application] --> B((Logs))
+  A --> C((Metrics))
+  A --> D((Traces))
+
+  click B "#logs"
+  click C "#metrics"
+  click D "#traces"
 ```
 
 ## Metrics
@@ -61,7 +65,7 @@ graph LR
 [:octicons-arrow-right-24: Access Grafana here][nais-grafana]
 
 [grafana]: https://grafana.com/
-[nais-grafana]: https://grafana.nais.io/
+[nais-grafana]: https://grafana.nav.cloud.nais.io/
 
 ## Logs
 

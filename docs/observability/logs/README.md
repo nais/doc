@@ -1,6 +1,11 @@
+---
+description: >-
+  NAIS offers several mechanisms for collecting and storing logs from your
+  applications. This page describes the different options and how to use them.
+---
 # Application Logs
 
-## Purpose
+## Purpose of logs
 
 Logs are a way to understand what is happening in your application. They are usually text-based and are often used for debugging. Since the format of logs is usually not standardized, it can be difficult to query and aggregate logs and thus we recommend using metrics for dashboards and alerting.
 
@@ -8,7 +13,17 @@ There are many types of logs, and they can be used for different purposes. Some 
 
 Application logs in nais is first and foremost a tool for developers to debug their applications. It is not intended to be used for auditing or security purposes. We do not condone writing sensitive information to application logs.
 
-## Overview
+## Good practice
+
+- [x] **Establish a clear logging strategy** for your application. What do you want to log? What do you not want to log? What is the purpose of your logs?
+- [x] **Use log levels** to different- [x] **Use log levels** to differentiate between different types of logs. We recommend using the following log levels: `INFO`, `WARN`, `ERROR`, and `FATAL`.
+- [x] **Use structured logging**. This means that your logs must be written in a JSON format. This makes it easier to query and aggregate logs.
+- [x] **Write meaningful log messages** and attach relevant metadata to your logs. This makes it easier to understand what is happening in your application.
+- [ ] **Do not log sensitive information**. This includes personal information, passwords, and secrets. If you need to log sensitive information, use [secure logs](#secure-logs) or [audit logs](#audit-logs).
+- [ ] **Do not underestimate the cost and performance** of logging. Logging is a trade-off between observability, performance, and cost. Logging can be computational and financial expensive, so make sure you log only what you actually need.
+- [ ] **Do not use rely on logs for monitoring**. Use metrics for monitoring, visualization, and alerting as your first line of defense and use logs for debugging when something goes wrong.
+
+## Technical overview
 
 Logs that are sent to console (also known as `stdout`) are collected automatically by an agent inside the cluster. This agent can be configured to send logs for persistent storage and querying based on team- and application specific configuration.
 
@@ -24,11 +39,16 @@ graph LR
 
 [FluentD]: https://www.fluentd.org/
 
-## Configuration
+## Log collection
 
+Log collection is automatically configured for persistent storage, but can be changed in the following two ways:
 
+1. By changing the default logging destination for all applications in your team namespace (not yet fully implemented)
+2. By changing the logging destination for a single application using the `spec.observability.logging.destinations` field in the [nais manifest](../../nais-application/application.md).
 
-## Destinations
+The most recent log will always be available in nais console and using the `kubectl logs` command.
+
+#### Log destinations
 
 | Destination                 | ID            | Description                        | Availability |
 | :-------------------------- | :------------ | :--------------------------------- | :----------- |
