@@ -48,7 +48,7 @@ Log collection is automatically configured for persistent storage, but can be ch
 
 The most recent log will always be available in nais console and using the `kubectl logs` command.
 
-#### Log destinations
+### Log destinations
 
 | Destination                 | ID            | Description                        | Availability |
 | :-------------------------- | :------------ | :--------------------------------- | :----------- |
@@ -58,6 +58,8 @@ The most recent log will always be available in nais console and using the `kube
 | [Secure Logs](#secure-logs) | `secure_logs` | Logs are stored in a secret place. | NAV-only     |
 
 ## Grafana Loki
+
+![Screen shot of Grafana Loki user interface](../../assets/grafana-loki-poster.png)
 
 Grafana Loki is a log aggregation system inspired by Prometheus and integrated with Grafana. It is designed to be cost effective and easy to operate, as it does not index the contents of the logs, but rather a set of predefined labels for each log stream.
 
@@ -75,6 +77,14 @@ spec:
       destinations:
         - id: loki
 ```
+
+### Working with Loki
+
+Grafana Loki is integrated directly with Grafana, and you can access your logs either by adding a Logs Panel to your dashboard or by clicking on the "Explore" link on the left-hand side of the Grafana UI and selecting one of the Loki data sources (one for each environment).
+
+Grafana Loki has a query language called [LogQL](https://grafana.com/docs/loki/latest/logql/) that you can use to search for logs. LogQL is a simplified version of PromQL, and you can use LogQL to search for logs by message, by field, or by a combination of both.
+
+The main difference between LogQL and PromQL is the use of the pipe `|` operator. The pipe operator is used to chain together multiple LogQL expressions. This allows you to filter, aggregate, and transform logs in a single query.
 
 ## Elastic Kibana
 
