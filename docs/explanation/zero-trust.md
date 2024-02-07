@@ -5,7 +5,7 @@ NAIS embraces the [zero trust](https://en.wikipedia.org/wiki/Zero_trust_security
 In NAIS every [workload](./workloads/README.md) is isolated by default - which means that it is not able to make _any_ outbound requests or receive _any_ incoming traffic unless explicitly defined. This includes traffic inside your namespace, in the same environment as well as to and from the Internet.
 In order to control traffic to and from your workload, you need to define [access policies](../how-to-guides/access-policies.md).
 
-For the native NAIS services - the platform takes care of this for you. For example, when you have a [database](../how-to-guides/persistence/postgres/README.md), the access policies required to reach the database will be created automatically.
+For the native NAIS services - the platform takes care of this for you. For example, when you have a [database](../how-to-guides/persistence/postgres.md), the access policies required to reach the database will be created automatically.
 
 ## Example
 
