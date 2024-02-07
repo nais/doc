@@ -18,3 +18,4 @@ site/
 # Git folder - for .dockerignore purposes
 .git/
 
+__pycache__/

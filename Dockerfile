@@ -1,24 +1,18 @@
-FROM python:3.12-slim as builder
-# Inspired by: https://medium.com/@harpalsahota/dockerizing-python-poetry-applications-1aa3acb76287
+FROM python:3.11-buster as builder
+WORKDIR /src
+RUN pip install poetry
+COPY pyproject.toml poetry.lock main.py mkdocs.yml ./
+COPY custom_theme_overrides ./custom_theme_overrides
+COPY docs ./docs-base
+COPY .git ./.git
+COPY tenants ./tenants
+RUN poetry install --no-dev --no-interaction --ansi --remove-untracked
+RUN for TENANT in nav dev-nais ci-nais ssb tenant; do rm -rf ./docs; mkdir -p ./docs; cp -rf ./docs-base/* ./docs/; cp -rf ./tenants/$TENANT/* ./docs;TENANT=$TENANT poetry run mkdocs build -d out/$TENANT; done
 
-RUN useradd mkdocs \
-    --shell /bin/bash \
-    --create-home
-RUN pip3 install --upgrade pip
-RUN pip3 --no-input install \
-    --no-cache-dir \
-    poetry
-
-USER mkdocs
-WORKDIR /app
-
-COPY pyproject.toml poetry.lock ./
-RUN poetry install
-
-
-ARG PORT=8080
-ENV PORT=$PORT
-EXPOSE "$PORT"
-CMD poetry run mkdocs serve \
-    --config-file mkdocs.yml \
-    --dev-addr "127.0.0.1:$PORT"
+FROM busybox:latest
+ENV PORT=8080
+COPY --from=builder ./src/out /www
+HEALTHCHECK CMD nc -z localhost $PORT
+ENV TENANT=tenant
+# Create a basic webserver and run it until the container is stopped
+CMD echo "httpd started" && trap "exit 0;" TERM INT; if [ -d "/www/$TENANT" ]; then  DIR=$TENANT; else DIR="tenant"; fi; httpd -v -p $PORT -h /www/$DIR -f & wait
