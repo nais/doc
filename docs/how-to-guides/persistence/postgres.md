@@ -211,12 +211,11 @@ Databases should always be accessed using a personal account, and the access sho
 
     This guide assumes that you have the following installed on your local machine:
 
-    - [nais-cli](../cli/install.md)
-    - [kubectl](../basics/access.md) with access to your application
+    - [nais-cli](../nais-cli/install.md)
+    - kubectl
     - (Optionally for cli access) [psql binary](https://blog.timescale.com/how-to-install-psql-on-mac-ubuntu-debian-windows/)
 
-    We will use the `nais postgres` command to set up the database access.
-    Read [more about the `nais postgres` command](../cli/commands/postgres.md).
+    We will use the `nais postgres` command from the CLI to set up the database access.
 
 ???+ check "Step 2. Allow your user to edit Cloud SQL resources for your project"
     Ensure that you have authenticated `gcloud` by running

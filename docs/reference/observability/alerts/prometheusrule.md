@@ -62,7 +62,7 @@ The name of the alert. This is used to identify the alert in the Alertmanager. T
 
 ##### `groups[].rules[].expr`
 
-The expression that defines when the alert should fire. This is a [PromQL](../metrics/promql.md) expression that should evaluate to `true` when the alert should fire.
+The expression that defines when the alert should fire. This is a PromQL expression that should evaluate to `true` when the alert should fire.
 
 We suggest using the Explore page in Grafana to build and test your PromQL expressions before creating a `PrometheusRule`.
 

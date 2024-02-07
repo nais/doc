@@ -12,7 +12,7 @@ The fundamental building block provided by NAIS is a robust and secure runtime e
 
 When your workload is up and running, it’s crucial to be able to observe how it’s doing. Here the platform provides you with the tooling you need to log, emit metrics and run traces. 
 
-Furthermore NAIS provides a variety of different ways to [persist data](./persistence.md), [authenticate users](./auth.md) and most of the other things you typically need. 
+Furthermore NAIS provides a variety of different ways to persist data, authenticate users and most of the other things you typically need. 
 
 Simply put; our job is to make the operations side of things NAIS - allowing you to focus more on building great products. 
 
