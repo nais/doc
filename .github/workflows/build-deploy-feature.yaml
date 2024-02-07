@@ -2,7 +2,7 @@ name: Build and push image and chart
 on:
   push:
     branches:
-      - diataxis
+      - main
 env:
   NAME: doc
   IMAGE_REPOSITORY: oci://europe-north1-docker.pkg.dev/nais-io/nais
