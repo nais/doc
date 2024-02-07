@@ -1,0 +1,14 @@
+environmentKinds:
+  - management
+values:
+  host:
+    displayName: override hostname during testing
+    computed:
+      template: '{{ subdomain . "doc" }}'
+    config:
+      type: string
+  tenant.name:
+    displayName: Tenant name
+    computed:
+      template: '"{{.Tenant.Name}}"'
+

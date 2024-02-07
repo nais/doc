@@ -20,7 +20,7 @@
 - Commit directly to main
 
 ## Preview your changes
-Read [README.md](README.md).
+Read [README.md](./README.md).
 
 ### Leveraging `mkdocs`'s `--strict` flag
 `mkdocs` comes with a `--strict` flag for building (read: compiling HTML) and serving (read local-dev preview) the documentation.

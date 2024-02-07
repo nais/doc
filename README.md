@@ -1,20 +1,24 @@
-# Welcome to the NAIS documentation repo
+# Welcome to the NAIS documentation
 
-This repository is used to build a [mkdocs](https://www.mkdocs.org/) site hosted on <https://doc.nais.io>!
+See the [NAIS handbook](https://handbook.nais.io/technical/write-the-doc/) for a more detailed explanation of the documentation structure and how to contribute.
 
-All _documentation_ content resides inside the [docs](docs/) folder, with the general structure of the website defined in [mkdocs.yml](mkdocs.yml)'s `nav`-yaml key.
+## Local development
 
-## Local preview-environment set-up
-
-### install Poetry
-
+## 1. Install Poetry
 
 ```bash
 asdf plugin add poetry
 asdf install poetry latest
 ```
-### run docs
+
+## 2. Install dependencies
+
 ```bash
 make install
+```
+## 3. Serve the documentation locally
+
+```bash
 make local
 ```
+
