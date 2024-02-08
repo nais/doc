@@ -108,7 +108,7 @@ Useful resources on the topic:
 The way Kubernetes operates relies on the fact that a system should be self-correcting over time.
 In order to facilitate this, the system responds to changes in various ways which will affect applications running on the platform.
 One of those ways is to restart pods, or move pods to other nodes if needed.
-This can also happen when you deploy a new version, if your use the `Recreate` [rollout strategy](../reference/application-spec/#strategytype).
+This can also happen when you deploy a new version, if your use the `Recreate` rollout strategy.
 
 If your application only has a single replica, then your users will experience downtime whenever your pod is restarted or moved.
 
