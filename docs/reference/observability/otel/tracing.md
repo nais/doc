@@ -1,4 +1,4 @@
-# Tracing reference documentation
+# OpenTelemetry Tracing
 
 ## Environment variables
 
@@ -11,7 +11,7 @@ The following environment variables are available for configuring the tracing li
 | `OTEL_EXPORTER_OTLP_ENDPOINT` | The endpoint to send trace data to.                                               | `http://tempo-distributor.nais-system:4317`               |
 | `OTEL_EXPORTER_PROTOCOL`      | The protocol to use when sending trace data. Must be `grpc`.                      | `grpc`                                                    |
 
-## Instrumenting your application
+## Instrumentation libraries
 
 The following libraries are available for instrumenting your application:
 
