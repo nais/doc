@@ -1,6 +1,6 @@
 ---
 description: Create a dashboard in Grafana for your application
-tags: [guide]
+tags: [guide, grafana]
 ---
 # Create a dashboard in Grafana
 

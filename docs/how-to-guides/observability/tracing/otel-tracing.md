@@ -1,8 +1,8 @@
 ---
 description: How to enable tracing in your application
-tags: [guide]
+tags: [guide, otel]
 ---
-# Enabling trace collection
+# Enable trace collection
 
 This guide will show you how to get started collecting distributed trace data from your application.
 

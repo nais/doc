@@ -1,6 +1,6 @@
 ---
 description: `PrometheusRule` resource specification for defining alerts.
-tags: [reference]
+tags: [reference, prometheus]
 ---
 # Prometheus Alerting Rule Reference
 

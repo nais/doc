@@ -1,6 +1,6 @@
 ---
 description: This guide will help you get started with Kibana.
-tags: [guide]
+tags: [guide, kibana]
 ---
 # Get started with Elastic Kibana
 

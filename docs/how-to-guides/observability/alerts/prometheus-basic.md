@@ -1,6 +1,6 @@
 ---
 description: Create alerts for your application using Prometheus.
-tags: [guide]
+tags: [guide, prometheus]
 ---
 # Create alert with Prometheus
 

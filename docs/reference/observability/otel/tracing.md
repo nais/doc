@@ -1,6 +1,6 @@
 ---
 description: OpenTelemetry Tracing reference documentation
-tags: [reference]
+tags: [reference, otel]
 ---
 # OpenTelemetry Tracing Reference
 

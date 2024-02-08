@@ -1,3 +1,6 @@
+---
+tags: [tutorial]
+---
 # Part 1 - Create application
 
 This tutorial will take you through the process of getting a simple application up and running on NAIS.

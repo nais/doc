@@ -1,6 +1,6 @@
 ---
 description: PromQL reference documentation for querying metrics in Prometheus.
-tags: [reference]
+tags: [reference, prometheus]
 ---
 # PromQL Reference
 

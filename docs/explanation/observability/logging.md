@@ -25,7 +25,7 @@ Application logs in nais is first and foremost a tool for developers to debug th
 
 ## Log destinations
 
-Logs can be sent to different destinations. The most common destinations are:
+Logs can be sent to different destinations for persistent storage and querying. Logs can even be sent to multiple destinations at the same time.
 
 ### Grafana Loki
 
@@ -38,9 +38,12 @@ Loki is designed to be used in conjunction with metrics and tracing to provide a
 [:octicons-arrow-right-24: Get started with Grafana Loki](../../how-to-guides/observability/logs/loki.md)
 
 {% if tenant() == "nav" %}
+
 ### Elastic Kibana
+
+![Elastic Kibana](../../assets/elastic-kibana-banner.png)
 
 Kibana is a tool for visualizing and analyzing logs. It is part of the Elastic Stack and is widely used for log analysis and visualization in NAV. Kibana Elastic is supported by atom.
 
-[:octicons-arrow-right-24: Get started with Kibana](../../how-to-guides/observability/logs/kibana.md
+[:octicons-arrow-right-24: Get started with Kibana](../../how-to-guides/observability/logs/kibana.md)
 {% endif %}

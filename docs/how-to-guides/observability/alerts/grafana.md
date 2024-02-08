@@ -1,6 +1,6 @@
 ---
 description: Learn how to create an alert for your application in Grafana.
-tags: [guide]
+tags: [guide, grafana]
 ---
 # Create alert in Grafana
 

@@ -1,3 +1,6 @@
+---
+tags: [tutorial]
+---
 # Part 4 - Clean up
 
 During this tutorial we have

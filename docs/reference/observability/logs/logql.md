@@ -1,6 +1,6 @@
 ---
 description: LogQL reference documentation for querying logs in Grafana Loki.
-tags: [reference]
+tags: [reference, loki]
 ---
 # LogQL Reference
 
