@@ -4,7 +4,7 @@
 
 This guide shows you how to create an alert for your application in Grafana. While we recommend [creating alerts in Prometheus][howto-prometheus-alert], Grafana can in some cases be a more user-friendly alternative.
 
-[howto-prometheus-alert]: ./prometheus.md
+[howto-prometheus-alert]: ./prometheus-basic.md
 
 ## 0. Prerequisites
 

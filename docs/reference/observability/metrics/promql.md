@@ -3,7 +3,7 @@
 PromQL is a query language for Prometheus monitoring system. It allows you to select and aggregate time series data in real time. PromQL is used to [create dashboards in Grafana][howto-grafana-dashboard], and to [create alerts with Alertmanager][howto-alertmanager-alerts].
 
 [howto-grafana-dashboard]: ../../../how-to-guides/observability/metrics/dashboard.md
-[howto-alertmanager-alerts]: ../../../how-to-guides/observability/alerts/prometheus.md
+[howto-alertmanager-alerts]: ../../../how-to-guides/observability/alerts/prometheus-basic.md
 
 ## Basic Syntax
 
