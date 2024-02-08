@@ -1,3 +1,5 @@
+# Good practices
+
 This document describes the different properties a NAIS application should have.
 
 In general, NAIS applications should be inspired by the [Twelve Factor App](https://12factor.net) manifesto.
