@@ -3,7 +3,7 @@
       ; n.type = "text/javascript"
       ; n.integrity = "sha384-6T8z7Vvm13muXGhlR32onvIziA0TswSKafDQHgmkf6zD2ALZZeFokLI4rPVlAFyK"
       ; n.crossOrigin = "anonymous"; n.async = true
-      ; n.src = "/amplitude_javascript/amplitude.min.js"
+      ; n.src = "/javascript/amplitude.min.js"
       ; n.onload = function () {
          if (!e.amplitude.runQueuedFunctions) {
             console.log("[Amplitude] Error: could not load SDK")
