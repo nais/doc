@@ -1,3 +1,7 @@
+---
+description: Learn how to create an alert for your application in Grafana.
+tags: [guide, grafana]
+---
 # Create alert in Grafana
 
 <iframe title="vimeo-player" src="https://player.vimeo.com/video/720001934?h=b3e8e3257b" width="100%" height="360" frameborder="0" allowfullscreen></iframe>
@@ -16,7 +20,7 @@ You will need some basic knowledge of [PromQL](../../../reference/observability/
 
 ## 1. Create a new Alert rule
 
-1. Open your Grafana and navigate to Alerts > Alert rules in the left-hand menu.
+1. Open [Grafana](<<tenant_url("grafana")>>) and navigate to "Alerting" > "[Alert rules](<<tenant_url("grafana", "alerting/list")>>)" in the left-hand menu.
 2. Click on "+ New alert rule" button.
 3. Give your alert a descriptive name, you will choose a folder for it later.
 

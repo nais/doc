@@ -1,3 +1,6 @@
+---
+tags: [guide]
+---
 # Enable secure logs
 
 This guide will show you how to enable shipping of secure logs for your application
@@ -10,9 +13,8 @@ Some applications have logs with information that should not be stored with the 
 
     ```yaml hl_lines="2-3"
     spec:
-    secureLogs:
-        enabled: true
-
+        secureLogs:
+            enabled: true
     ```
 
 ## 2. Set log rotation

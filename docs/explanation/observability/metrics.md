@@ -1,3 +1,7 @@
+---
+description: Metrics are a way to measure the state of your application and can be used to create alerts in Prometheus and dashboards in Grafana.
+tags: [explanation]
+---
 # Metrics
 
 See [how to](../../how-to-guides/observability/metrics/expose.md) set up metrics.
@@ -9,8 +13,8 @@ We have standardized on the [OpenMetrics][openmetrics] format for metrics. This 
 We use Prometheus to fetch metric endpoints from your application (in Prometheus terminology we call this scraping), and Grafana for visualizing your application's metrics. You enable Prometheus metrics collection from your application in your [NAIS manifest][nais-manifest-prometheus].
 
 ??? info "Prometheus cluster configuration"
-To see the current configuration for a prometheus instance in your cluster, e.g. `scrape_interval`, go to
-`https://prometheus.<MY-ENV>.<<tenant()>>.cloud.nais.io/config`
+    To see the current configuration for a prometheus instance in your cluster, e.g. `scrape_interval`, go to
+    `https://prometheus.<MY-ENV>.<<tenant()>>.cloud.nais.io/config`
 
 ```mermaid
 graph LR
@@ -43,7 +47,7 @@ Use labels to differentiate the characteristics of the thing that is being measu
 Do not put the label names in the metric name, as this introduces redundancy and will cause confusion if the respective labels are aggregated away.
 
 !!! warning
-CAUTION: Remember that every unique combination of key-value label pairs represents a new time series, which can dramatically increase the amount of data stored. Do not use labels to store dimensions with high cardinality (many different label values), such as user IDs, email addresses, or other unbounded sets of values.
+    CAUTION: Remember that every unique combination of key-value label pairs represents a new time series, which can dramatically increase the amount of data stored. Do not use labels to store dimensions with high cardinality (many different label values), such as user IDs, email addresses, or other unbounded sets of values.
 
 ## Metric types
 
@@ -73,3 +77,17 @@ Our ingress controller also exposes metrics about the number of requests, respon
 If you are having trouble with your metrics, you can use the [Prometheus expression browser](https://prometheus.io/docs/visualization/browser/) to test your queries. You can find this at `/graph` in the respective Prometheus environment.
 
 If your metrics are not showing up in the expression browser, you can check the target page at `/targets` to see if your application is registered as a target or if Prometheus has encountered any errors when scraping your application.
+
+## Environments
+
+List of Prometheus environments:
+
+{% if tenant() == "nav" %}
+* <<tenant_url("prometheus.dev-fss")>>
+* <<tenant_url("prometheus.prod-fss")>>
+* <<tenant_url("prometheus.dev-gcp")>>
+* <<tenant_url("prometheus.prod-gcp")>>
+{% else %}
+* <<tenant_url("prometheus.dev")>>
+* <<tenant_url("prometheus.prod")>>
+{% endif %}

@@ -1,4 +1,8 @@
-# PromQL
+---
+description: PromQL reference documentation for querying metrics in Prometheus.
+tags: [reference, prometheus]
+---
+# PromQL Reference
 
 PromQL is a query language for Prometheus monitoring system. It allows you to select and aggregate time series data in real time. PromQL is used to [create dashboards in Grafana][howto-grafana-dashboard], and to [create alerts with Alertmanager][howto-alertmanager-alerts].
 

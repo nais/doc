@@ -1,3 +1,6 @@
+---
+tags: [guide]
+---
 # Access secure logs
 
 Once everything is configured, your secure logs will be sent to the `tjenestekall-*` index in kibana. To gain access to these logs, you need to do the following:
