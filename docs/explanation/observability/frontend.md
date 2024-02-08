@@ -4,7 +4,7 @@ description: >-
   This page describes how to use these offerings.
 ---
 
-# Frontend application observability
+# Frontend apps
 
 !!! info "Status: Alpha"
     This feature is undergoing heavy development. APIs may change or break at any time.
