@@ -1,4 +1,4 @@
-# Create Grafana alert
+# Create alert in Grafana
 
 <iframe title="vimeo-player" src="https://player.vimeo.com/video/720001934?h=b3e8e3257b" width="100%" height="360" frameborder="0" allowfullscreen></iframe>
 

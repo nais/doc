@@ -1,4 +1,4 @@
-# Create Prometheus alerts
+# Create alert with Prometheus
 
 This guide shows you how to create alerts for your application.
 
