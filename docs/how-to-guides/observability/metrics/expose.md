@@ -8,7 +8,7 @@ See further [explanations on metrics](../../../explanation/observability/metrics
 
 Most languages have a Prometheus client library available. See [Prometheus client libraries](https://prometheus.io/docs/instrumenting/clientlibs/) for a list of available libraries. These libraries provides examples as to how to instrument your application using the correct metric types.
 
-Once instrumented, your application must serve these metrics using HTTP on a given `path` (e.g. `/metrics`). 
+Once instrumented, your application must serve these metrics using HTTP on a given `path` (e.g. `/metrics`).
 
 ## 2. Enable metrics in [manifest](../../../reference/application-spec.md)
 
