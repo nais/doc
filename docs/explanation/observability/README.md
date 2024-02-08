@@ -65,7 +65,7 @@ graph LR
 [:octicons-arrow-right-24: Access Grafana here][nais-grafana]
 
 [grafana]: https://grafana.com/
-[nais-grafana]: https://grafana.nav.cloud.nais.io/
+[nais-grafana]: <<tenant_url("grafana")>>
 
 ## Logs
 
@@ -93,7 +93,7 @@ or what amount of time your application spends in a given function.
 Traces from NAIS applications are collected using the [OpenTelemetry](https://opentelemetry.io/) standard.
 Performance metrics are stored and queried from the [Tempo](https://grafana.com/oss/tempo/) component.
 
-Visualization of traces can be done in [Grafana](https://grafana.nav.cloud.nais.io),
+Visualization of traces can be done in [Grafana](https://grafana.<<tenant()>>.cloud.nais.io),
 using the _prod-gcp-tempo_ and _dev-gcp-tempo_ data sources.
 
 ```mermaid

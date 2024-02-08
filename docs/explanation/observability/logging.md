@@ -15,7 +15,7 @@ Application logs in nais is first and foremost a tool for developers to debug th
 ## Good practice
 
 - [x] **Establish a clear logging strategy** for your application. What do you want to log? What do you not want to log? What is the purpose of your logs?
-- [x] **Use log levels** to different- [x] **Use log levels** to differentiate between different types of logs. We recommend using the following log levels: `INFO`, `WARN`, `ERROR`, and `FATAL`.
+- [x] **Use log levels** to differentiate between different types of logs. We recommend using the following log levels: `INFO`, `WARN`, `ERROR`, and `FATAL`.
 - [x] **Use structured logging**. This means that your logs must be written in a JSON format. This makes it easier to query and aggregate logs.
 - [x] **Write meaningful log messages** and attach relevant metadata to your logs. This makes it easier to understand what is happening in your application.
 - [ ] **Do not log sensitive information**. This includes personal information, passwords, and secrets. If you need to log sensitive information, use [secure logs](#secure-logs) or [audit logs](#audit-logs).
@@ -24,3 +24,21 @@ Application logs in nais is first and foremost a tool for developers to debug th
 
 ## Log destinations
 
+Logs can be sent to different destinations. The most common destinations are:
+
+### Grafana Loki
+
+![Grafana Loki](../../assets/grafana-loki-banner.png)
+
+Grafana Loki is a log aggregation system inspired by Prometheus and integrated with Grafana. It is designed to be cost effective and easy to operate, as it does not index the contents of the logs, but rather a set of predefined labels for each log stream.
+
+Loki is designed to be used in conjunction with metrics and tracing to provide a complete picture of an application's performance. Without the other two, it can be perceived as more cumbersome to use than a traditional logging system.
+
+[:octicons-arrow-right-24: Get started with Grafana Loki](../../how-to-guides/observability/logs/loki.md)
+
+{% if tenant() == "nav" %}
+
+### Kibana
+
+Kibana is a tool for visualizing and analyzing logs. It is part of the Elastic Stack and is used for log analysis and monitoring. Kibana is not available in the nais platform, but it is available in the [nais cloud](https://doc.nais.io/nais-cloud/observability/logging/kibana).
+{% endif %}

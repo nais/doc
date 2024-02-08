@@ -18,7 +18,7 @@ Performance metrics are stored and queried from the [Tempo](https://grafana.com/
 
 ## Visualizing application performance
 
-Visualization of traces can be done in [the new Grafana installation](https://grafana.nav.cloud.nais.io).
+Visualization of traces can be done in [the new Grafana installation](https://grafana.<<tenant()>>.cloud.nais.io).
 
 You can use the **Explore** feature of Grafana with the _prod-gcp-tempo_ and _dev-gcp-tempo_ data sources.
 

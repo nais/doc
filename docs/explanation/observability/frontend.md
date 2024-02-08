@@ -77,7 +77,7 @@ for production environments or scale down the amount of automatic instrumentatio
 out what you need and think is useful.
 
 Deploy to production. You should start to receive some metrics and logs already.
-Use our predefined [web vitals dashboard](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals) to start
+Use our predefined [web vitals dashboard](https://grafana.<<tenant()>>.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals) to start
 visualizing and gain insights.
 
 You can easily add more logging, custom events, and custom metrics.
@@ -209,14 +209,14 @@ Instrumenting mounts and unmounts can be quite data intensive, take due care.
 
 ## Inspecting logs and traces
 
-Navigate your web browser to the new Grafana at <https://grafana.nav.cloud.nais.io>.
+Navigate your web browser to the new Grafana at <https://grafana.<<tenant()>>.cloud.nais.io>.
 
 Traces are available from the `dev-gcp-tempo` and `prod-gcp-tempo` data sources, whereas
 logs and metrics are available from the `dev-gcp-loki` and `prod-gcp-loki` data sources.
 
 Use the "Explore" tab under either the Loki or Tempo tab and run queries.
 
-For a quick start, use our predefined [web vitals dashboard](https://grafana.nav.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals) to start
+For a quick start, use our predefined [web vitals dashboard](https://grafana.<<tenant()>>.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals) to start
 visualizing and gain insights.
 
 ## Troubleshooting
