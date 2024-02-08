@@ -14,9 +14,7 @@ By default, no traffic is allowed between naisjobs inside the cluster. Configure
 
 Relevant information:
 
-* [https://doc.nais.io/appendix/zero-trust/](https://doc.nais.io/appendix/zero-trust/)
-* [https://doc.nais.io/security/auth/azure-ad/configuration/#access-policy](https://doc.nais.io/security/auth/azure-ad/configuration/#access-policy)
-* [https://doc.nais.io/security/auth/tokenx/#access-policies](https://doc.nais.io/security/auth/tokenx/#access-policies)
+* [https://doc.nais.io/explanation/zero-trust/](https://doc.nais.io/explanation/zero-trust/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3105,7 +3103,7 @@ Allowed values: `dns_loglevel`, `http_loglevel`<br />
     ```
 
 ## maskinporten
-Configures a Maskinporten client for this Naisjob. See [Maskinporten](https://doc.nais.io/security/auth/maskinporten/) for more details.
+Configures a Maskinporten client for this Naisjob. See [Maskinporten](https://doc.nais.io/explanation/auth/maskinporten/) for more details.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3489,7 +3487,7 @@ PreStopHook is called immediately before a container is terminated due to an API
 
 Relevant information:
 
-* [https://doc.nais.io/nais-application/good-practices/#handles-termination-gracefully](https://doc.nais.io/nais-application/good-practices/#handles-termination-gracefully)
+* [https://doc.nais.io/reference/good-practices/#handles-termination-gracefully](https://doc.nais.io/reference/good-practices/#handles-termination-gracefully)
 * [https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks)
 
 Type: `object`<br />
@@ -3689,7 +3687,7 @@ List of redis instances this job needs credentials for. Must be owned by same te
 
 Relevant information:
 
-* [https://doc.nais.io/persistence/redis/](https://doc.nais.io/persistence/redis/)
+* [https://doc.nais.io/explanation/persistence/redis/](https://doc.nais.io/explanation/persistence/redis/)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -3712,7 +3710,7 @@ When Containers have [resource requests](https://kubernetes.io/docs/concepts/con
 
 Relevant information:
 
-* [https://doc.nais.io/nais-application/good-practices/#set-reasonable-resource-requests-and-limits](https://doc.nais.io/nais-application/good-practices/#set-reasonable-resource-requests-and-limits)
+* [https://doc.nais.io/reference/good-practices/#set-reasonable-resource-requests-and-limits](https://doc.nais.io/reference/good-practices/#set-reasonable-resource-requests-and-limits)
 
 Type: `object`<br />
 Required: `false`<br />
