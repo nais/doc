@@ -2,11 +2,11 @@
 description: This guide will help you get started with Kibana.
 tags: [guide]
 ---
-# Get started with Kibana
+# Get started with Elastic Kibana
 
-## Enable logging to Kibana
+## Enable logging to Elastic Kibana
 
-Kibana can be enabled by setting the list of logging destinations in your nais application manifest.
+Elastic Kibana can be enabled by setting the list of logging destinations in your nais application manifest.
 
 ???+ note ".nais/application.yaml"
     ```yaml hl_lines="6"
@@ -15,7 +15,7 @@ Kibana can be enabled by setting the list of logging destinations in your nais a
       observability:
         logging:
           destinations:
-            - id: loki
+            - id: elastic
     ```
 
 ## Get access to Kibana

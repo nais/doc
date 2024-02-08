@@ -38,8 +38,9 @@ Loki is designed to be used in conjunction with metrics and tracing to provide a
 [:octicons-arrow-right-24: Get started with Grafana Loki](../../how-to-guides/observability/logs/loki.md)
 
 {% if tenant() == "nav" %}
+### Elastic Kibana
 
-### Kibana
+Kibana is a tool for visualizing and analyzing logs. It is part of the Elastic Stack and is widely used for log analysis and visualization in NAV. Kibana Elastic is supported by atom.
 
-Kibana is a tool for visualizing and analyzing logs. It is part of the Elastic Stack and is used for log analysis and monitoring. Kibana is not available in the nais platform, but it is available in the [nais cloud](https://doc.nais.io/nais-cloud/observability/logging/kibana).
+[:octicons-arrow-right-24: Get started with Kibana](../../how-to-guides/observability/logs/kibana.md
 {% endif %}
