@@ -1,3 +1,7 @@
+---
+description: Expose metrics from your application
+tags: [guide, basic, observability, metrics, prometheus]
+---
 # Expose metrics from your application
 
 This guide will show you how to expose metrics from your application, and how to configure Prometheus to scrape them.

@@ -1,4 +1,8 @@
-# OpenTelemetry Tracing
+---
+description: OpenTelemetry Tracing reference documentation
+tags: [reference, observability, tracing, opentelemetry]
+---
+# OpenTelemetry Tracing Reference
 
 ## Environment variables
 

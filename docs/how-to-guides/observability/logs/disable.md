@@ -1,6 +1,6 @@
 ---
 description: Disable log storage for a specific application
-tags: [observability, logs]
+tags: [guide, observability, logs]
 ---
 # Disable persistent application logs
 

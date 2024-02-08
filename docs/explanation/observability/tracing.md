@@ -1,6 +1,7 @@
 ---
 description: >-
   Application Performance Monitoring or tracing using Grafana Tempo on NAIS.
+tags: [explanation, observability, tracing]
 ---
 
 # Tracing
