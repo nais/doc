@@ -9,8 +9,7 @@
 
 This is a complete example of an `Application` resource, commonly known as the `nais.yaml` file.
 
-For an in-depth explanation of each field, head over to the [reference documentation](application.md).
-
+For an in-depth explanation of each field, head over to the [reference documentation](./application-spec.md).
 ``` yaml
 apiVersion: nais.io/v1alpha1
 kind: Application

@@ -9,8 +9,7 @@
 
 This is a complete example of an `Topic` resource, commonly known as the `topic.yaml` file.
 
-For an in-depth explanation of each field, head over to the [reference documentation](topic.md).
-
+For an in-depth explanation of each field, head over to the [reference documentation](./kafka-topic-spec.md).
 ``` yaml
 apiVersion: kafka.nais.io/v1
 kind: Topic
