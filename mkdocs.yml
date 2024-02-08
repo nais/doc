@@ -77,6 +77,18 @@ plugins:
       enable_creation_date: true
       type: timeago
       strict: false
+  - redirects:
+      redirect_maps:
+          'addons/unleash-next.md': 'explanation/feature-toggling.md'
+          'addons/unleash.md': 'explanation/feature-toggling.md'
+          'observability/README.md': 'explanation/observability/README.md'
+          'observability/alerts.md': 'explanation/observability/alerting.md'
+          'observability/frontend/README.md': 'explanation/observability/frontend.md'
+          'observability/grafana.md': 'explanation/observability/README.md'
+          'observability/logs/README.md': 'explanation/observability/logging.md'
+          'observability/logs/examples.md': 'explanation/observability/logging.md'
+          'observability/metrics.md': 'explanation/observability/metrics.md'
+          'observability/tracing.md': 'explanation/observability/tracing.md'
 markdown_extensions:
   - toc:
       permalink: True
