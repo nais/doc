@@ -44,3 +44,5 @@
 
     Download the archive for windows from [nais/cli](https://github.com/nais/cli/releases/latest) and unpack the tool to a directory on your `$PATH`.
     If you are unable to run nais after installing, check out our [troubleshooting guide](troubleshooting.md).
+
+See the [NAIS cli reference](../../reference/cli/README.md) for more information on how to use the cli.
