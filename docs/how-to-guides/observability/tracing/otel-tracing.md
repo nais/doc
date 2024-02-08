@@ -1,6 +1,6 @@
 ---
 description: How to enable tracing in your application
-tags: [guide, intermediate, observability, tracing, opentelemetry]
+tags: [guide]
 ---
 # Enabling trace collection
 

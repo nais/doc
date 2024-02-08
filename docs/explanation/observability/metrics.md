@@ -1,6 +1,6 @@
 ---
 description: Metrics are a way to measure the state of your application and can be used to create alerts in Prometheus and dashboards in Grafana.
-tags: [explanation, observability, metrics]
+tags: [explanation]
 ---
 # Metrics
 

@@ -1,6 +1,6 @@
 ---
 description: Advanced guide to customized Promethues alerts
-tags: [guide, advanced, observability, alerts, prometheus]
+tags: [guide]
 ---
 # Customize Prometheus alerts
 

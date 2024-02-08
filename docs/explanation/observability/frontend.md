@@ -2,9 +2,8 @@
 description: >-
   NAIS offers observability tooling for frontend applications.
   This page describes how to use these offerings.
-tags: [explanation, observability, frontend]
+tags: [explanation]
 ---
-
 # Frontend apps
 
 !!! info "Status: Alpha"

@@ -4,7 +4,7 @@ description: >-
   This page describes the different options and how to use them.
 search:
   boost: 1
-tags: [explanation, observability]
+tags: [explanation]
 ---
 # Observability
 

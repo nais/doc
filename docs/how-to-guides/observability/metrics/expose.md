@@ -1,6 +1,6 @@
 ---
 description: Expose metrics from your application
-tags: [guide, basic, observability, metrics, prometheus]
+tags: [guide]
 ---
 # Expose metrics from your application
 

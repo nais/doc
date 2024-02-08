@@ -1,6 +1,6 @@
 ---
 description: View logs from the command line using kubectl.
-tags: [guide, observability, logs, kubectl]
+tags: [guide]
 ---
 # View logs from the command line
 

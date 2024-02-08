@@ -1,7 +1,7 @@
 ---
 description: >-
   Alerting is a crucial part of observability, and it's the first step in knowing when something is wrong with your application.
-tags: [explanation, observability]
+tags: [explanation]
 ---
 # Alerting
 

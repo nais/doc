@@ -1,6 +1,6 @@
 ---
 description: OpenTelemetry Tracing reference documentation
-tags: [reference, observability, tracing, opentelemetry]
+tags: [reference]
 ---
 # OpenTelemetry Tracing Reference
 

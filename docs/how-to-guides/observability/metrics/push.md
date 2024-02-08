@@ -1,6 +1,6 @@
 ---
 description: Push metrics to Prometheus
-tags: [guide, basic, observability, metrics, prometheus]
+tags: [guide]
 ---
 # Push metrics to Prometheus
 

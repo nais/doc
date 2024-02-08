@@ -1,6 +1,6 @@
 ---
 description: This guide will help you get started with Kibana.
-tags: [observability, logs]
+tags: [guide]
 ---
 # Get started with Kibana
 

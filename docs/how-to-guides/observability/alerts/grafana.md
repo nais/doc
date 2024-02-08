@@ -1,6 +1,6 @@
 ---
 description: Learn how to create an alert for your application in Grafana.
-tags: [guide, basic, observability, alerts]
+tags: [guide]
 ---
 # Create alert in Grafana
 

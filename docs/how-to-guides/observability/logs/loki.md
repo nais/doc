@@ -1,6 +1,6 @@
 ---
 description: Get started with Grafana Loki, a log aggregation system that is integrated with Grafana and inspired by Prometheus.
-tags: [guide, basic, observability, logs, loki]
+tags: [guide]
 ---
 # Get started with Grafana Loki
 
