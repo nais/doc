@@ -9,8 +9,8 @@ on:
     paths:
       - .github/workflows/build_tenant_doc.yml
       - mkdocs.yml
-      - 'docs/**'
-      - 'custom_theme_overrides/**'
+      - "docs/**"
+      - "custom_theme_overrides/**"
       - pyproject.toml
       - poetry.lock
     branches: [main]
@@ -19,12 +19,18 @@ on:
 #   MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  build_and_deploy:
+  build_output:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Create cache for doc
+        uses: actions/cache@v4
+        with:
+          path: out
+          key: doc-key
 
       - name: Install poetry
         run: pipx install poetry
@@ -54,20 +60,33 @@ jobs:
         run: |
           ./build.sh nav ssb ci-nais dev-nais
 
+  copy_to_buckets:
+    needs: build_output
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        tenant: [{ name: ssb, project: nais-management-b3a7 }]
+    steps:
+      - name: Restore cached doc build
+        uses: actions/cache/restore@v4
+        with:
+          path: out
+          key: doc-key
+
       # Synchronize doctree with Google Cloud Bucket
       - uses: actions-hub/gcloud@463.0.0
         env:
-          PROJECT_ID: nais-management-b3a7
+          PROJECT_ID: ${{ matrix.tenant.project}}
           APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
         with:
-          args: -m rsync -r -c -d out/ssb gs://doc.ssb.cloud.nais.io
+          args: -m rsync -r -c -d out/${{matrix.tenant.name}} gs://doc.${{matrix.tenant.name}}.cloud.nais.io
           cli: gsutil
 
       # Cache buster
       - uses: actions-hub/gcloud@463.0.0
         env:
-          PROJECT_ID: nais-management-b3a7
+          PROJECT_ID: ${{ matrix.tenant.project}}
           APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
         with:
-          args: -m setmeta -r -h 'Cache-Control:public, max-age=180' 'gs://doc.ssb.cloud.nais.io/*'
+          args: -m setmeta -r -h 'Cache-Control:public, max-age=180' 'gs://doc.${{matrix.tenant.name}}.cloud.nais.io/*'
           cli: gsutil
