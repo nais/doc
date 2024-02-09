@@ -65,7 +65,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        tenant: [{name: tenant, bucket: docs.nais.io, project: nais-io },{name: ssb, bucket: doc.ssb.cloud.nais.io, project: nais-management-b3a7 }, {name: ci-nais, bucket: doc.ci-nais.cloud.nais.io, project:nais-management-4203 }, {name: dev-nais, bucket: doc.dev-nais.cloud.nais.io, project: nais-management-7178 }, {name: nav, bucket: doc.nav.cloud.nais.io, project: nais-management-233d}]
+        tenant: [{name: tenant, bucket: docs.nais.io, project: nais-io },{name: ssb, bucket: doc.ssb.cloud.nais.io, project: nais-management-b3a7 }, {name: ci-nais, bucket: doc.ci-nais.cloud.nais.io, project: nais-management-4203 }, {name: dev-nais, bucket: doc.dev-nais.cloud.nais.io, project: nais-management-7178 }, {name: nav, bucket: doc.nav.cloud.nais.io, project: nais-management-233d}]
     steps:
       - name: Restore cached doc build
         uses: actions/cache/restore@v4
