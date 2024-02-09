@@ -1,4 +1,4 @@
-name: CI
+name: Build tenant doc
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
