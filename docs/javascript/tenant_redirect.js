@@ -25,7 +25,7 @@ const redirectTemplate = `
   <h2>Redirecting</h2>
   <p>
     You are soon being redirected to the custom documentation for <code>TENANT</code>.<br>
-    <a href="https://doc.TENANT.cloud.nais.io">Click here to skip waiting</a>.
+    <a href="URL">Click here to skip waiting</a>.
   </p>
   <p>
     To cancel the redirect, click <code>ESC</code> on your keyboard or the button below.
@@ -83,28 +83,33 @@ function noRedirectMode() {
   };
 }
 
+function targetURL(tenant) {
+  return (
+    "https://doc." +
+    tenant +
+    ".cloud.nais.io" +
+    window.location.pathname +
+    window.location.search +
+    window.location.hash
+  );
+}
+
 function doRedirect() {
   const tenant = localStorage.getItem("redirect-tenant");
   if (tenant) {
     // Redirect to tenant, but keep path, query params and hash
-    window.location.href =
-      "https://doc." +
-      tenant +
-      ".cloud.nais.io" +
-      window.location.pathname +
-      window.location.search +
-      window.location.hash;
+    window.location.href = targetURL(tenant);
   }
 }
 
 function handleRedirect() {
+  const tenant = localStorage.getItem("redirect-tenant");
   const dialog = document.createElement("dialog");
   dialog.id = "tenant-redirect-dialog";
   dialog.style = "background-color: var(--md-default-bg-color);";
-  dialog.innerHTML = redirectTemplate.replaceAll(
-    "TENANT",
-    localStorage.getItem("redirect-tenant")
-  );
+  dialog.innerHTML = redirectTemplate
+    .replaceAll("TENANT", tenant)
+    .replaceAll("URL", targetURL(tenant));
   document.body.appendChild(dialog);
   dialog.showModal();
 
