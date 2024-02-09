@@ -7,6 +7,10 @@ This guide will show you how to enable shipping of secure logs for your applicat
 
 Some applications have logs with information that should not be stored with the normal application logs. To support this a directory for these logs can be mounted in the application, and the content of logs written here will be transferred to separate indices in Elasticsearch.
 
+!!! warning "Deprecated syntax"
+
+    This is guide contains a deprecated syntax for enabling secure logs. With the new syntax all logs will be sent to secure logs when enabled and will not require any special log configuration.
+
 ## 1. Enabling secure logs [manifest](../../../reference/application-spec.md)
 
 ???+ note ".nais/app.yaml"
