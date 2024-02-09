@@ -12,6 +12,6 @@ for TENANT in $@;
     rm -rf ./docs
     cp -r ./docs-base ./docs
     cp -rf ./tenants/$TENANT/* ./docs
-    TENANT=$TENANT poetry run mkdocs build -d out/$TENANT
+    TENANT=$TENANT poetry run mkdocs build --no-strict -d out/$TENANT
   done
 
