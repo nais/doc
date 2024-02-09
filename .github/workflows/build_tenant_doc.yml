@@ -76,7 +76,7 @@ jobs:
       # Synchronize doctree with Google Cloud Bucket
       - uses: actions-hub/gcloud@463.0.0
         env:
-          # PROJECT_ID: ${{ matrix.tenant.project}}
+          PROJECT_ID: ${{ matrix.tenant.project}}
           APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
         with:
           args: -m rsync -r -c -d out/${{matrix.tenant.name}} gs://${{matrix.tenant.bucket}}
