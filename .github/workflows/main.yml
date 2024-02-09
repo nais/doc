@@ -1,29 +1,21 @@
-name: CI
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+name: Build and publish doc
 
 on:
   push:
-    paths:
-      - .github/workflows/main.yml
-      - mkdocs.yml
-      - 'docs/**'
-      - 'custom_theme_overrides/**'
-      - pyproject.toml
-      - poetry.lock
-
-env:
-  MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.GITHUB_TOKEN }}
+    branches: 
+      - main
 
 jobs:
-  build_and_deploy:
+  build_output:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Create cache for doc
+        uses: actions/cache@v4
         with:
-          fetch-depth: 0
+          path: out
+          key: ${{ github.sha }}
 
       - name: Install poetry
         run: pipx install poetry
@@ -43,44 +35,52 @@ jobs:
           --ansi \
           --remove-untracked
 
-      - name: Get Date
-        id: get-date
+      - name: Build tenant documentation
         run: |
-          echo "date=$(/bin/date -u "+%Y%m%d")" >> $GITHUB_OUTPUT
-        shell: bash
+          ./build.sh nav ssb ci-nais dev-nais tenant
 
-      - name: Restore build cache
+  copy_to_buckets:
+    needs: build_output
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        tenant:
+          - name: ci-nais
+            bucket: doc.ci-nais.cloud.nais.io
+            project: nais-management-4203
+          - name: dev-nais
+            bucket: doc.dev-nais.cloud.nais.io
+            project: nais-management-7178
+          - name: nav
+            bucket: doc.nav.cloud.nais.io
+            project: nais-management-233d
+          - name: ssb
+            bucket: doc.ssb.cloud.nais.io
+            project: nais-management-b3a7
+          - name: tenant
+            bucket: docs.nais.io
+            project: nais-io
+    steps:
+      - name: Restore cached doc build
         uses: actions/cache/restore@v4
         with:
-          path: .cache
-          key: ${{ runner.os }}-build-cache-${{ steps.get-date.outputs.date }}
+          path: out
+          key: ${{ github.sha }}
 
-      - name: Build documentation
-        run: |
-          TENANT=tenant poetry run mkdocs build
-      
-      - name: Save build cache
-        uses: actions/cache/save@v4
-        with:
-          path: .cache
-          key: ${{ runner.os }}-build-cache-${{ steps.get-date.outputs.date }}
-
-      # Synchronize doctree with Google Cloud Bucket
-      - if: github.ref == 'refs/heads/main'
-        uses: actions-hub/gcloud@462.0.0
+      - name: Sync documentation to bucket
+        uses: actions-hub/gcloud@463.0.0
         env:
-          PROJECT_ID: aura-prod-d7e3
-          APPLICATION_CREDENTIALS: ${{ secrets.GCP_SERVICEACCOUNT_KEY_FOR_DOC_NAIS_IO_BUCKET }}
+          PROJECT_ID: ${{ matrix.tenant.project}}
+          APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
         with:
-          args: -m rsync -r -c -d site/ gs://doc.nais.io
+          args: -m rsync -r -c -d out/${{matrix.tenant.name}}/ gs://${{matrix.tenant.bucket}}
           cli: gsutil
 
-      # Cache buster
-      - if: github.ref == 'refs/heads/main'
-        uses: actions-hub/gcloud@462.0.0
+      - name: Invalidate cache
+        uses: actions-hub/gcloud@463.0.0
         env:
-          PROJECT_ID: aura-prod-d7e3
-          APPLICATION_CREDENTIALS: ${{ secrets.GCP_SERVICEACCOUNT_KEY_FOR_DOC_NAIS_IO_BUCKET }}
+          PROJECT_ID: ${{ matrix.tenant.project}}
+          APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
         with:
-          args: -m setmeta -r -h 'Cache-Control:public, max-age=180' 'gs://doc.nais.io/*'
+          args: -m setmeta -r -h 'Cache-Control:public, max-age=180' 'gs://${{matrix.tenant.bucket}}/*'
           cli: gsutil

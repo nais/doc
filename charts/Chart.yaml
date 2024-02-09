@@ -1,7 +1,0 @@
-apiVersion: v2
-name: doc
-description: NAIS doc
-type: application
-version: 1.0.0
-sources:
-  - https://github.com/nais/doc/tree/diataxis/charts
