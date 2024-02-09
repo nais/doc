@@ -85,6 +85,9 @@ jobs:
           path: out
           key: doc-key
 
+      - name: ls 
+        run: ls -l out/${{matrix.tenant.name}}
+
       - name: Sync documentation to bucket
         uses: actions-hub/gcloud@463.0.0
         env:
@@ -97,7 +100,7 @@ jobs:
       - name: Invalidate cache
         uses: actions-hub/gcloud@463.0.0
         env:
-          # PROJECT_ID: ${{ matrix.tenant.project}}
+          PROJECT_ID: ${{ matrix.tenant.project}}
           APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
         with:
           args: -m setmeta -r -h 'Cache-Control:public, max-age=180' 'gs://${{matrix.tenant.bucket}}/*'
