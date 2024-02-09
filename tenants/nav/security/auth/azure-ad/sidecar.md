@@ -8,7 +8,7 @@ The Azure AD sidecar is a reverse proxy that provides functionality to perform A
 
 !!! warning "Availability"
 
-    The sidecar is only available in the [Google Cloud Platform](../../../clusters/gcp.md) clusters.
+    The sidecar is only available in the [Google Cloud Platform](../../../reference/environments.md#google-cloud-platform-gcp) clusters.
 
 ## Spec
 
@@ -29,7 +29,7 @@ Minimal example below.
           enabled: true
     ```
 
-See the [NAIS manifest reference](../../../nais-application/application.md#azuresidecar) for the complete specification.
+See the [NAIS manifest reference](../../../reference/application-spec.md#azuresidecar) for the complete specification.
 
 The above example will provision a unique Azure AD application and enable a sidecar that uses said application.
 
@@ -52,7 +52,7 @@ Try out a basic user flow:
 5. You will be redirected to Azure AD for logout, and then back to your application's ingress.
 6. Success!
 
-**See [Wonderwall](../../../addons/wonderwall.md#usage) for further usage details.**
+**See [Wonderwall](../wonderwall.md#usage) for further usage details.**
 
 ### Token Validation
 

@@ -41,11 +41,11 @@ You can use whichever is most convenient for your application.
 
 The files are available at the following path: `/var/run/secrets/nais.io/maskinporten/`
 
-| Name                          | Description                                                                                                     |
-|:------------------------------|:----------------------------------------------------------------------------------------------------------------|
-| `MASKINPORTEN_WELL_KNOWN_URL` | The well-known URL for the [metadata discovery documet](../concepts/actors.md#well-known-url-metadata-document) |
-| `MASKINPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](../concepts/actors.md#issuer).                                  |
-| `MASKINPORTEN_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](../concepts/actors.md#jwks-endpoint-public-keys).             |
+| Name                          | Description                                                                                                      |
+|:------------------------------|:-----------------------------------------------------------------------------------------------------------------|
+| `MASKINPORTEN_WELL_KNOWN_URL` | The well-known URL for the [metadata discovery document](../concepts/actors.md#well-known-url-metadata-document) |
+| `MASKINPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](../concepts/actors.md#issuer).                                   |
+| `MASKINPORTEN_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](../concepts/actors.md#jwks-endpoint-public-keys).              |
 
 These variables are used when validating tokens issued by Maskinporten.
 

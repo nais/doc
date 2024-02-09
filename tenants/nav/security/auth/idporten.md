@@ -9,7 +9,7 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 NAIS provides a _sidecar_[^1] that integrates with ID-porten, so that you can easily and securely log in and authenticate citizen end-users.
 
 !!! warning "Availability"
-    The sidecar is only available in the [Google Cloud Platform](../../clusters/gcp.md) clusters.
+    The sidecar is only available in the [Google Cloud Platform](../../reference/environments.md#google-cloud-platform-gcp) clusters.
 
 ## Spec
 
@@ -31,13 +31,13 @@ Minimal example:
           locale: nb                # optional, default value shown
     ```
 
-See the [NAIS manifest reference](../../nais-application/application.md#idportensidecar) for the complete specification.
+See the [NAIS manifest reference](../../reference/application-spec.md#idportensidecar) for the complete specification.
 
-Ensure that you also define at least one [ingress](../../nais-application/application.md#ingresses) for your application.
+Ensure that you also define at least one [ingress](../../reference/application-spec.md#ingresses) for your application.
 
 ## Network Connectivity
 
-ID-porten is an [external service](../../nais-application/access-policy.md#external-services).
+ID-porten is an external service.
 Outbound access to the ID-porten hosts is automatically configured by the platform.
 
 You do _not_ have to explicitly configure outbound access to ID-porten yourselves when using the sidecar.
@@ -53,7 +53,7 @@ Try out a basic user flow:
 5. You will be redirected to ID-porten for logout, and then back to a preconfigured logout page.
 6. Success!
 
-**See [Wonderwall](../../addons/wonderwall.md#usage) for further usage details.**
+**See [Wonderwall](wonderwall.md#usage) for further usage details.**
 
 ### Runtime Variables & Credentials
 
