@@ -27,7 +27,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: out
-          key: doc-key
+          key: ${{ github.sha }}
 
       - name: Install poetry
         run: pipx install poetry
@@ -65,7 +65,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        tenant: 
+        tenant:
           - name: ci-nais
             bucket: doc.ci-nais.cloud.nais.io
             project: nais-management-4203
@@ -75,10 +75,10 @@ jobs:
           - name: nav
             bucket: doc.nav.cloud.nais.io
             project: nais-management-233d
-          - name: ssb 
+          - name: ssb
             bucket: doc.ssb.cloud.nais.io
-            project: nais-management-b3a7 
-          - name: tenant 
+            project: nais-management-b3a7
+          - name: tenant
             bucket: docs.nais.io
             project: nais-io
     steps:
@@ -86,9 +86,9 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: out
-          key: doc-key
+          key: ${{ github.sha }}
 
-      - name: ls 
+      - name: ls
         run: ls -l out/
 
       - name: Sync documentation to bucket
