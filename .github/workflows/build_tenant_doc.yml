@@ -1,4 +1,4 @@
-name: Build tenant doc
+name: Build and publish doc
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
