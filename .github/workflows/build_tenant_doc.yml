@@ -58,7 +58,7 @@ jobs:
 
       - name: Build tenant documentation
         run: |
-          ./build.sh nav ssb ci-nais dev-nais
+          ./build.sh nav ssb ci-nais dev-nais tenant
 
   copy_to_buckets:
     needs: build_output
