@@ -47,19 +47,14 @@ jobs:
         tenant:
           - name: ci-nais
             bucket: doc.ci-nais.cloud.nais.io
-            project: nais-management-4203
           - name: dev-nais
             bucket: doc.dev-nais.cloud.nais.io
-            project: nais-management-7178
           - name: nav
             bucket: doc.nav.cloud.nais.io
-            project: nais-management-233d
           - name: ssb
             bucket: doc.ssb.cloud.nais.io
-            project: nais-management-b3a7
           - name: tenant
             bucket: docs.nais.io
-            project: nais-io
     steps:
       - name: Restore cache folder
         uses: actions/cache/restore@v4
@@ -70,7 +65,6 @@ jobs:
       - name: Sync documentation to bucket
         uses: actions-hub/gcloud@463.0.0
         env:
-          # PROJECT_ID: ${{ matrix.tenant.project}}
           PROJECT_ID: not-used
           APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
         with:
@@ -80,7 +74,6 @@ jobs:
       - name: Invalidate cache
         uses: actions-hub/gcloud@463.0.0
         env:
-          # PROJECT_ID: ${{ matrix.tenant.project}}
           PROJECT_ID: not-used
           APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
         with:
