@@ -7,7 +7,7 @@ concurrency:
 on:
   push:
     paths:
-      - .github/workflows/main.yml
+      - .github/workflows/build_tenant_doc.yml
       - mkdocs.yml
       - 'docs/**'
       - 'custom_theme_overrides/**'
