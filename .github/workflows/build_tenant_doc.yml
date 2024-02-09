@@ -57,6 +57,9 @@ jobs:
         run: |
           ./build.sh nav ssb ci-nais dev-nais tenant
 
+      - name: ls
+        run: ls -l out
+
   copy_to_buckets:
     needs: build_output
     runs-on: ubuntu-latest
@@ -86,7 +89,7 @@ jobs:
           key: doc-key
 
       - name: ls 
-        run: ls -l out/${{matrix.tenant.name}}
+        run: ls -l out/
 
       - name: Sync documentation to bucket
         uses: actions-hub/gcloud@463.0.0
