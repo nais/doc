@@ -101,7 +101,7 @@ function handleRedirect() {
   const dialog = document.createElement("dialog");
   dialog.id = "tenant-redirect-dialog";
   dialog.style = "background-color: var(--md-default-bg-color);";
-  dialog.innerHTML = redirectTemplate.replace(
+  dialog.innerHTML = redirectTemplate.replaceAll(
     "TENANT",
     localStorage.getItem("redirect-tenant")
   );
