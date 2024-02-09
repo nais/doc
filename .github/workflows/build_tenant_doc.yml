@@ -15,9 +15,6 @@ on:
       - poetry.lock
     branches: [main]
 
-# env:
-#   MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.GITHUB_TOKEN }}
-
 jobs:
   build_output:
     runs-on: ubuntu-latest
@@ -65,7 +62,22 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        tenant: [{name: tenant, bucket: docs.nais.io, project: nais-io },{name: ssb, bucket: doc.ssb.cloud.nais.io, project: nais-management-b3a7 }, {name: ci-nais, bucket: doc.ci-nais.cloud.nais.io, project: nais-management-4203 }, {name: dev-nais, bucket: doc.dev-nais.cloud.nais.io, project: nais-management-7178 }, {name: nav, bucket: doc.nav.cloud.nais.io, project: nais-management-233d}]
+        tenant: 
+          - name: ci-nais
+            bucket: doc.ci-nais.cloud.nais.io
+            project: nais-management-4203
+          - name: dev-nais
+            bucket: doc.dev-nais.cloud.nais.io
+            project: nais-management-7178
+          - name: nav
+            bucket: doc.nav.cloud.nais.io
+            project: nais-management-233d
+          - name: ssb 
+            bucket: doc.ssb.cloud.nais.io
+            project: nais-management-b3a7 
+          - name: tenant 
+            bucket: docs.nais.io
+            project: nais-io
     steps:
       - name: Restore cached doc build
         uses: actions/cache/restore@v4
@@ -73,17 +85,17 @@ jobs:
           path: out
           key: doc-key
 
-      # Synchronize doctree with Google Cloud Bucket
-      - uses: actions-hub/gcloud@463.0.0
+      - name: Sync documentation to bucket
+        uses: actions-hub/gcloud@463.0.0
         env:
           PROJECT_ID: ${{ matrix.tenant.project}}
           APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
         with:
-          args: -m rsync -r -c -d out/${{matrix.tenant.name}} gs://${{matrix.tenant.bucket}}
+          args: -m rsync -r -c -d out/${{matrix.tenant.name}} gs://${{matrix.tenant.bucket}}/
           cli: gsutil
 
-      # Cache buster
-      - uses: actions-hub/gcloud@463.0.0
+      - name: Invalidate cache
+        uses: actions-hub/gcloud@463.0.0
         env:
           # PROJECT_ID: ${{ matrix.tenant.project}}
           APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
