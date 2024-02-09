@@ -35,9 +35,9 @@ graph LR
 
 Your application receives requests from a user.
 These requests contain the user's token, known as the _subject token_.
-The token has an audience (`aud`) [claim](../concepts/tokens.md#claims-validation) equal to _your own_ client ID.
+The token has an audience (`aud`) [claim](../concepts.md#claims-validation) equal to _your own_ client ID.
 
-In order to access a downstream API _on-behalf-of_ the user, we need a token that is [scoped](README.md#scopes) to the downstream API.
+To access a downstream API _on-behalf-of_ the user, we need a token [scoped](README.md#scopes) to the downstream API.
 That is, the token's audience must be equal to the _downstream API's_ client ID.
 We achieve this by exchanging the subject token for a new token.
 
@@ -45,7 +45,7 @@ The same principles apply if your application is a downstream API itself and nee
 
 **Prerequisites**
 
-1. Your application (also known as a [resource server](../concepts/actors.md#resource-server)) and the downstream API that you want to consume both have [enabled Azure AD](configuration.md).
+1. Your application and the downstream API that you want to consume both have [enabled Azure AD](configuration.md).
 2. Your application has been [granted access](configuration.md#pre-authorization) to the downstream API.
 
 **Steps**
@@ -85,7 +85,7 @@ The same principles apply if your application is a downstream API itself and nee
 
     - The new token has an audience equal to the downstream API. Your application does not need to validate this token.
 
-3. Consume the downstream API by using the new token as a [Bearer token](../concepts/tokens.md#bearer-token). The downstream API [validates the token](#token-validation) and returns a response.
+3. Consume the downstream API by using the new token as a [Bearer token](../concepts.md#bearer-token). The downstream API [validates the token](#token-validation) and returns a response.
 4. Repeat step 2 and 3 for each unique API that your application consumes.
 5. The downstream API(s) may continue the call chain starting from step 1.
 
@@ -102,12 +102,12 @@ graph LR
   Application --3. consume with token\n aud=Downstream API---> Downstream["Downstream API"]
 ```
 
-In order to access a downstream API, we need a token that is [scoped](README.md#scopes) to the downstream API.
+To access a downstream API, we need a token [scoped](README.md#scopes) to the downstream API.
 That is, the token's audience must be equal to the _downstream API's_ client ID.
 
 **Prerequisites**
 
-1. Your application (also known as a [resource server](../concepts/actors.md#resource-server)) and the downstream API that you want to consume both have [enabled Azure AD](configuration.md).
+1. Your application and the downstream API that you want to consume both have [enabled Azure AD](configuration.md).
 2. Your application has been [granted access](configuration.md#pre-authorization) to the downstream API.
 
 **Steps**
@@ -144,7 +144,7 @@ That is, the token's audience must be equal to the _downstream API's_ client ID.
 
     - The new token has an audience equal to the downstream API. Your application does not need to validate this token.
 
-2. Consume downstream API by using the token as a [Bearer token](../concepts/tokens.md#bearer-token). The downstream API [validates the token](#token-validation) and returns a response.
+2. Consume downstream API by using the token as a [Bearer token](../concepts.md#bearer-token). The downstream API [validates the token](#token-validation) and returns a response.
 3. Repeat step 1 and 2 for each unique API that your application consumes.
 4. The downstream API(s) may continue the call chain by starting from step 1.
 
@@ -161,17 +161,17 @@ The files are available at the following path: `/var/run/secrets/nais.io/azure/`
 
 These variables are used for acquiring tokens using the [client credentials grant](#oauth-20-client-credentials-grant) or the [on-behalf-of grant](#oauth-20-on-behalf-of-grant):
 
-| Name                                 | Description                                                                                                       |
-|:-------------------------------------|:------------------------------------------------------------------------------------------------------------------|
-| `AZURE_APP_CLIENT_ID`                | [Client ID](../concepts/actors.md#client-id) that uniquely identifies the application in Azure AD.                |
-| `AZURE_APP_CLIENT_SECRET`            | [Client secret](../concepts/actors.md#client-secret) for the application in Azure AD.                             |
-| `AZURE_APP_JWK`                      | Optional. [Private JWK](../concepts/cryptography.md#private-keys) (RSA) for the application.                      |
-| `AZURE_OPENID_CONFIG_TOKEN_ENDPOINT` | `token_endpoint` from the [metadata discovery document](../concepts/actors.md#token-endpoint).                    |
-| `AZURE_APP_WELL_KNOWN_URL`           | The well-known URL for the [metadata discovery document](../concepts/actors.md#well-known-url-metadata-document). |
+| Name                                 | Description                                                                                                      |
+|:-------------------------------------|:-----------------------------------------------------------------------------------------------------------------|
+| `AZURE_APP_CLIENT_ID`                | [Client ID](../concepts.md#client-id) that uniquely identifies the application in Azure AD.                      |
+| `AZURE_APP_CLIENT_SECRET`            | [Client secret](../concepts.md#client-secret) for the application in Azure AD.                                   |
+| `AZURE_APP_JWK`                      | Optional. [Private JWK](../concepts.md#private-keys) (RSA) for the application.                                  |
+| `AZURE_OPENID_CONFIG_TOKEN_ENDPOINT` | `token_endpoint` from the [metadata discovery document](../concepts.md#token-endpoint).                          |
+| `AZURE_APP_WELL_KNOWN_URL`           | The well-known URL for the [metadata discovery document](../concepts.md#well-known-url-metadata-document).       |
 
 `AZURE_APP_WELL_KNOWN_URL` is optional if you're using `AZURE_OPENID_CONFIG_TOKEN_ENDPOINT` directly.
 
-`AZURE_APP_JWK` contains a private key that can be used to sign JWT [_client assertions_](../concepts/actors.md#client-assertion). 
+`AZURE_APP_JWK` contains a private key that can be used to sign JWT [_client assertions_](../concepts.md#client-assertion). 
 This is an alternative client authentication method that can be used instead of _client secrets_.
 For further details, see Microsoft's documentation on [certificate credentials](https://learn.microsoft.com/en-us/azure/active-directory/develop/certificate-credentials).
 The `aud` claim in the JWT assertions should be set to the value of the `AZURE_OPENID_CONFIG_TOKEN_ENDPOINT` environment variable. 
@@ -180,20 +180,20 @@ The `aud` claim in the JWT assertions should be set to the value of the `AZURE_O
 
 These variables are used for [token validation](#token-validation):
 
-| Name                           | Description                                                                                                       |
-|:-------------------------------|:------------------------------------------------------------------------------------------------------------------|
-| `AZURE_APP_CLIENT_ID`          | [Client ID](../concepts/actors.md#client-id) that uniquely identifies the application in Azure AD.                |
-| `AZURE_OPENID_CONFIG_ISSUER`   | `issuer` from the [metadata discovery document](../concepts/actors.md#issuer).                                    |
-| `AZURE_OPENID_CONFIG_JWKS_URI` | `jwks_uri` from the [metadata discovery document](../concepts/actors.md#jwks-endpoint-public-keys).               |
-| `AZURE_APP_WELL_KNOWN_URL`     | The well-known URL for the [metadata discovery document](../concepts/actors.md#well-known-url-metadata-document). |
+| Name                           | Description                                                                                                     |
+|:-------------------------------|:----------------------------------------------------------------------------------------------------------------|
+| `AZURE_APP_CLIENT_ID`          | [Client ID](../concepts.md#client-id) that uniquely identifies the application in Azure AD.                     |
+| `AZURE_OPENID_CONFIG_ISSUER`   | `issuer` from the [metadata discovery document](../concepts.md#issuer).                                         |
+| `AZURE_OPENID_CONFIG_JWKS_URI` | `jwks_uri` from the [metadata discovery document](../concepts.md#jwks-endpoint-public-keys).                    |
+| `AZURE_APP_WELL_KNOWN_URL`     | The well-known URL for the [metadata discovery document](../concepts.md#well-known-url-metadata-document).      |
 
 `AZURE_APP_WELL_KNOWN_URL` is optional if you're using `AZURE_OPENID_CONFIG_ISSUER` and `AZURE_OPENID_CONFIG_JWKS_URI` directly.
 
 ## Token Validation
 
-Verify incoming requests by validating the [Bearer token](../concepts/tokens.md#bearer-token) in the `Authorization` header.
+Verify incoming requests by validating the [Bearer token](../concepts.md#bearer-token) in the `Authorization` header.
 
-Always validate the [signature and standard time-related claims](../concepts/tokens.md#token-validation).
+Always validate the [signature and standard time-related claims](../concepts.md#token-validation).
 Additionally, perform the following validations:
 
 **Issuer Validation**
@@ -201,7 +201,7 @@ Additionally, perform the following validations:
 Validate that the `iss` claim has a value that is equal to either:
 
 1. the `AZURE_OPENID_CONFIG_ISSUER` [environment variable](#variables-for-validating-tokens), or 
-2. the `issuer` property from the [metadata discovery document](../concepts/actors.md#well-known-url-metadata-document).
+2. the `issuer` property from the [metadata discovery document](../concepts.md#well-known-url-metadata-document).
     The document is found at the endpoint pointed to by the `AZURE_APP_WELL_KNOWN_URL` environment variable.
 
 **Audience Validation**
@@ -225,7 +225,7 @@ Validation of these claims is optional.
 Notable claims:
 
 - `azp` (**authorized party**)
-    - The [client ID](../concepts/actors.md#client-id) of the application that requested the token (this would be your consumer).
+    - The [client ID](../concepts.md#client-id) of the application that requested the token (this would be your consumer).
 - `azp_name` (**authorized party name**)
     - The value of this claim is the (human-readable) [name](README.md#client-name) of the consumer application that requested the token.
 - `groups` (**groups**)
@@ -271,19 +271,19 @@ Tokens in NAV are v2.0 tokens.
 
 ## Local Development
 
-See also the [development overview](../overview/development.md) page.
+See also the [development overview](../development.md) page.
 
 ### Token Generator
 
-In many cases, you want to locally develop and test against a secured API (or [resource server](../concepts/actors.md#resource-server)) in the development environments.
-To do so, you need a [token](../concepts/tokens.md#bearer-token) in order to access said API.
+In many cases, you want to locally develop and test against a secured API in the development environments.
+To do so, you need a [token](../concepts.md#bearer-token) to access said API.
 
-The service <https://azure-token-generator.intern.dev.nav.no> can be used in order to generate tokens in the development environments.
+Use <https://azure-token-generator.intern.dev.nav.no> to generate tokens in the development environments.
 
 **Prerequisites**
 
 1. The API application must be configured with [Azure enabled](../azure-ad/configuration.md). Using the [`nav.no` tenant](../azure-ad/README.md#tenants) is not supported.
-2. You will need a [trygdeetaten.no user](../azure-ad/README.md#tenants) in order to access the service.
+2. You will need a [trygdeetaten.no user](../azure-ad/README.md#tenants) to access the service.
 3. Pre-authorize the token generator service by adding it to the API application's [access policy](../azure-ad/configuration.md#pre-authorization):
     ```yaml
     spec:
@@ -315,27 +315,5 @@ Then:
     - For example: `dev-gcp:aura:my-app`
 2. You will be redirected to log in at Azure AD (if not already logged in).
 3. After logging in, you should be redirected back to the token generator and presented with a JSON response containing an `access_token`.
-4. Use the `access_token` as a [Bearer token](../concepts/tokens.md#bearer-token) for calls to your API application.
+4. Use the `access_token` as a [Bearer token](../concepts.md#bearer-token) for calls to your API application.
 5. Success!
-
-### Test Clients
-
-If [mocking](../overview/development.md#mocking) isn't sufficient, we also maintain some test clients for use in local development environments.
-
-Note that the associated credentials may be rotated at any time.
-
-As developers, you're responsible for treating these credentials as secrets. Never commit or distribute these to
-version control or expose them to publicly accessible services.
-
-Credentials are found in Vault under [/secrets/secret/.common/azure](https://vault.adeo.no/ui/vault/secrets/secret/list/.common/azure/)
-
-The clients are configured with the following redirect URIs:
-
-- `http://localhost:3000/oauth2/callback`
-
-The clients are [pre-authorized](../azure-ad/configuration.md#pre-authorization) as follows:
-
-- `test-app-1` is pre-authorized for `test-app-2`
-- `test-app-2` is pre-authorized for `test-app-3`
-
-They are otherwise equal to a [default client](../azure-ad/configuration.md).

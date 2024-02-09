@@ -159,7 +159,7 @@ Software Artifacts (SLSA)][slsa]. This means that every application is deployed
 using a secure supply chain that ensures that the application is deployed in a
 secure manner.
 
-[slsa]: ./salsa/salsa.md
+[slsa]: ./salsa/README
 
 #### Security Policies
 

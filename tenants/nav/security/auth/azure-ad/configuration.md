@@ -4,7 +4,7 @@
 
 Minimal example below. 
 
-See the complete specification in the [NAIS manifest](../../../nais-application/application.md#azure).
+See the complete specification in the [NAIS manifest](../../../reference/application-spec.md#azure).
 
 === "nais.yaml"
     ```yaml
@@ -27,12 +27,11 @@ See the complete specification in the [NAIS manifest](../../../nais-application/
 
 ## Network Connectivity
 
-Azure AD is an [external service](../../../nais-application/access-policy.md#external-services).
-Outbound access to the Azure AD hosts is automatically configured by the platform.
+Azure AD is an external service. The platform automatically configures outbound access to the Azure AD hosts.
 
 You do _not_ have to explicitly configure outbound access to Azure AD yourselves in GCP.
 
-If you're on-premises however, you must enable and use [`webproxy`](../../../nais-application/application.md#webproxy).
+If you're on-premises however, you must enable and use [`webproxy`](../../../reference/application-spec.md#webproxy).
 
 ## Access Policy
 
@@ -117,7 +116,7 @@ Consumers using the [on-behalf-of flow](usage.md#oauth-20-on-behalf-of-grant) wi
 
 #### Fine-Grained Group-Based Access Control
 
-If you need more fine-grained access controls, you will need to handle authorization in your application by using the `groups` claim found in the user's [JWT](../concepts/tokens.md#jwt).
+If you need more fine-grained access controls, you will need to handle authorization in your application by using the `groups` claim found in the user's [JWT](../concepts.md#jwt).
 
 The `groups` claim in user tokens contains a list of [group object IDs](README.md#group-identifier) if and only if:
 
@@ -206,7 +205,6 @@ The above configuration will pre-authorize the Azure AD clients belonging to:
 !!! warning
 
     - These rules are _eventually consistent_, which means they might take a few minutes to fully propagate.
-    - If you're pre-authorizing a client provisioned through `aad-iac`, see the [legacy](legacy.md#pre-authorization) section.
 
 If you require more fine-grained access control, continue reading below.
 

@@ -6,7 +6,7 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 
 [ID-porten](https://docs.digdir.no/docs/idporten/) is a common log-in system used for logging into Norwegian public e-services for citizens.
 
-NAIS provides a _sidecar_[^1] that integrates with ID-porten, so that you can easily and securely log in and authenticate citizen end-users.
+NAIS provides a _sidecar_ that integrates with ID-porten, so that you can easily and securely log in and authenticate citizen end-users.
 
 !!! warning "Availability"
     The sidecar is only available in the [Google Cloud Platform](../../reference/environments.md#google-cloud-platform-gcp) clusters.
@@ -48,7 +48,7 @@ Try out a basic user flow:
 
 1. Visit your application's login endpoint (`https://<ingress>/oauth2/login`) to trigger a login.
 2. After logging in, you should be redirected back to your application.
-3. All further requests to your application should now have an `Authorization` header with the user's access token as a [Bearer token](concepts/tokens.md#bearer-token)
+3. All further requests to your application should now have an `Authorization` header with the user's access token as a [Bearer token](concepts.md#bearer-token)
 4. Visit your application's logout endpoint (`https://<ingress>/oauth2/logout`) to trigger a logout.
 5. You will be redirected to ID-porten for logout, and then back to a preconfigured logout page.
 6. Success!
@@ -62,12 +62,12 @@ You can use whichever is most convenient for your application.
 
 The files are available at the following path: `/var/run/secrets/nais.io/idporten/`
 
-| Name                      | Description                                                                                                      |
-|:--------------------------|:-----------------------------------------------------------------------------------------------------------------|
-| `IDPORTEN_AUDIENCE`       | The expected [audience](concepts/tokens.md#token-validation) for access tokens from ID-porten.                   |
-| `IDPORTEN_WELL_KNOWN_URL` | The URL for ID-porten's [OIDC metadata discovery document](concepts/actors.md#well-known-url-metadata-document). |
-| `IDPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](concepts/actors.md#issuer).                                      |
-| `IDPORTEN_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](concepts/actors.md#jwks-endpoint-public-keys).                 |
+| Name                      | Description                                                                                                   |
+|:--------------------------|:--------------------------------------------------------------------------------------------------------------|
+| `IDPORTEN_AUDIENCE`       | The expected [audience](concepts.md#token-validation) for access tokens from ID-porten.                       |
+| `IDPORTEN_WELL_KNOWN_URL` | The URL for ID-porten's [OIDC metadata discovery document](concepts.md#well-known-url-metadata-document).     |
+| `IDPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](concepts.md#issuer).                                          |
+| `IDPORTEN_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](concepts.md#jwks-endpoint-public-keys).                     |
 
 These variables are used for [token validation](#token-validation).
 
@@ -97,7 +97,7 @@ To configure a default value for _all_ login requests:
 
 **If unspecified, the sidecar will use `idporten-loa-high` as the default value.**
 
-The sidecar will also validate and enforce that the user's current authenticated session has a level that **matches or exceeds** the application's configured level.
+The sidecar automatically validates and enforces the user's authentication level **matches or exceeds** the application's configured level.
 The user's session is marked as unauthenticated if the level is _lower_ than the configured level.
 
 Example:
@@ -146,13 +146,13 @@ https://<ingress>/oauth2/login?locale=en
 
 ## Token Validation
 
-The sidecar attaches an `Authorization` header with the user's `access_token` as a [Bearer token](concepts/tokens.md#bearer-token), as long as the user is authenticated.
+The sidecar attaches an `Authorization` header with the user's `access_token` as a [Bearer token](concepts.md#bearer-token), as long as the user is authenticated.
 
 It is your responsibility to **validate the token** before granting access to resources.
 
 For any endpoint that requires authentication; **deny access** if the request does not contain a valid Bearer token.
 
-Always validate the [signature and standard time-related claims](concepts/tokens.md#token-validation).
+Always validate the [signature and standard time-related claims](concepts.md#token-validation).
 Additionally, perform the following validations:
 
 **Issuer Validation**
@@ -160,7 +160,7 @@ Additionally, perform the following validations:
 Validate that the `iss` claim has a value that is equal to either:
 
 1. the `IDPORTEN_ISSUER` [environment variable](#runtime-variables-credentials), or
-2. the `issuer` property from the [metadata discovery document](concepts/actors.md#well-known-url-metadata-document).
+2. the `issuer` property from the [metadata discovery document](concepts.md#well-known-url-metadata-document).
     The document is found at the endpoint pointed to by the `IDPORTEN_WELL_KNOWN_URL` environment variable.
 
 **Audience Validation**
@@ -194,8 +194,10 @@ For a complete list of claims, see the [Access Token Reference in ID-porten](htt
 
 The access token provided by the sidecar should only be accepted and used by your application.
 
-In order to access other applications, you should exchange the token in order to get a new token that is correctly scoped to access a given application.
+To access other applications, you need a token scoped to the target application.
 
-For ID-porten, use the [token exchange grant (TokenX)](tokenx.md#exchanging-a-token) to do this.
+For ID-porten, use the [token exchange grant (TokenX)](tokenx.md#exchanging-a-token) to exchange the token for a new token.
 
-[^1]: A sidecar is an additional container that runs alongside your application in the same Kubernetes [_Pod_](https://kubernetes.io/docs/concepts/workloads/pods/).
+!!! tip "Recommended: JavaScript Library"
+
+    See <https://github.com/navikt/oasis> for an opinionated JavaScript library for token validation and exchange.

@@ -1,4 +1,5 @@
 ---
+title: Sidecar
 description: Reverse-proxy that handles automatic authentication and login/logout flows for Azure AD.
 ---
 
@@ -40,14 +41,14 @@ For configuration of the Azure AD application itself, see [the Configuration pag
 !!! info "Prerequisites"
 
     - If you're unfamiliar with Azure AD, review the [core concepts](README.md#concepts).
-    - Ensure that you define at least one [ingress](../../../nais-application/application.md#ingresses) for your application.
+    - Ensure that you define at least one [ingress](../../../reference/application-spec.md#ingresses) for your application.
     - Ensure that you configure [user access](configuration.md#users) for your application. **Users are not granted access by default**.
 
 Try out a basic user flow:
 
 1. Visit your application's login endpoint (`https://<ingress>/oauth2/login`) to trigger a login.
 2. After logging in, you should be redirected back to your application.
-3. All further requests to your application should now have an `Authorization` header with the user's access token as a [Bearer token](../concepts/tokens.md#bearer-token)
+3. All further requests to your application should now have an `Authorization` header with the user's access token as a [Bearer token](../concepts.md#bearer-token)
 4. Visit your application's logout endpoint (`https://<ingress>/oauth2/logout`) to trigger a logout.
 5. You will be redirected to Azure AD for logout, and then back to your application's ingress.
 6. Success!
@@ -56,7 +57,7 @@ Try out a basic user flow:
 
 ### Token Validation
 
-The sidecar attaches an `Authorization` header with the user's `access_token` as a [Bearer token](../concepts/tokens.md#bearer-token), as long as the user is authenticated.
+The sidecar attaches an `Authorization` header with the user's `access_token` as a [Bearer token](../concepts.md#bearer-token), as long as the user is authenticated.
 
 It is your responsibility to **validate the token** before granting access to resources.
 
@@ -68,8 +69,10 @@ For any endpoint that requires authentication; **deny access** if the request do
 
 The access token that Wonderwall provides should only be accepted and used by your application.
 
-In order to access other applications, you should exchange the token in order to get a new token that is correctly scoped to access a given application.
+To access other applications, you need a token scoped to the target application.
 
-For Azure AD, use the [on-behalf-of grant](usage.md#oauth-20-on-behalf-of-grant) to do this.
+For Azure AD, use the [on-behalf-of grant](usage.md#oauth-20-on-behalf-of-grant) to exchange the token for a new token.
 
-[JWT]: ../concepts/tokens.md#jwt
+!!! tip "Recommended: JavaScript Library"
+
+    See <https://github.com/navikt/oasis> for an opinionated JavaScript library for token validation and exchange.

@@ -1,4 +1,5 @@
 ---
+title: Azure AD
 description: Enabling authentication and authorization in internal web applications.
 ---
 
@@ -53,7 +54,7 @@ A tenant represents an organization in Azure AD. Each tenant has their own separ
 
 An application in one tenant _cannot_ interact with other applications in _other_ tenants.
 
-In order to log in to a tenant, you must use an account specific to that tenant.
+To log in to a tenant, you must use an account specific to that tenant.
 This is indicated by the domain name of the account, which is the part after the `@` symbol.
 
 NAV has two tenants in Azure AD:
@@ -102,7 +103,7 @@ Generally, we will use it to indicate the intended _audience_ (or target, or rec
 The audience is found in the `aud` claim in the JWT returned from Azure AD.
 Its value should be equal to the recipient's unique client ID.
 
-If you're requesting a token in order to consume another application, you must use the `/.default` scope.
+If you're requesting a token to consume another application, you must use the `/.default` scope.
 The scope has the following format:
 
 ```text

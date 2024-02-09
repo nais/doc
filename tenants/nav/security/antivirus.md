@@ -2,7 +2,7 @@
 description: Antivirus scanning of files and urls using ClamAV.
 ---
 
-# Anti-virus Scanning
+# Anti-Virus Scanning
 
 ## Getting started
 

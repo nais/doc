@@ -4,44 +4,20 @@ description: Enabling zero trust on the application layer
 
 # TokenX
 
-## Abstract 
+TokenX is our implementation of OAuth 2.0 Token Exchange.
 
-!!! abstract
-    ### What is TokenX?
+For each hop in a request chain, a token is exchanged for a new token. The new token is scoped to a single target application and contains the original end-user identity.
 
-    **TokenX** is the short term for [OAuth 2.0 Token Exchange](https://github.com/nais/tokendings) implemented in the context of Kubernetes.
+There are primarily two distinct cases where one must use TokenX:
 
-    It consists of mainly 3 components:
-
-    * [Tokendings](https://github.com/nais/tokendings) - an OAuth 2.0 Authorization Server implementing the OAuth 2.0 Token Exchange specification
-    * [Jwker](https://github.com/nais/jwker/) - a Kubernetes operator responsible for registering applications as OAuth 2.0 clients in Tokendings
-    * [Naiserator](https://github.com/nais/naiserator/) - a Kubernetes operator that handles the lifecycle of applications on the [NAIS platform](https://nais.io/)
-
-    In short, TokenX is a OAuth 2.0 compliant add-on that enables and allows your application to maintain the [zero trust](../../appendix/zero-trust.md) _networking_ principles (together with components such as [**LinkerD**](https://linkerd.io/)). It does this by allowing applications to exchange and acquire properly scoped security tokens in order to securely communicate with each other.
-
-    Interested readers may find more technical details in the [Tokendings documentation](https://github.com/nais/tokendings).
-
-    ### Why do I need TokenX?
-
-    In a [zero trust](../../appendix/zero-trust.md) architecture, one cannot rely on traditional boundaries such as **security zones** and **security gateways**. Such security measures are no longer required for applications that leverage TokenX correctly as each application is self-contained within its own zone; requiring specific tokens in order to communicate with other applications.
-
-    Using TokenX correctly throughout a call-chain also ensures that the identity of the original caller or subject \(e.g. an end-user\) is propagated while still maintaining proper scoping and security between each application.
-
-    ### When do I need TokenX?
-
-    There are primarily two distinct cases where one must use TokenX:
-
-    1. You have a user facing app using [ID-porten](idporten.md) that should perform calls to another app on behalf of a user.
-    2. You have an app receiving tokens issued from Tokendings and need to call another app while still propagating the original user context.
-
-???+ info "Overview of flow"
-    ![The diagram shows 3 processes. The first one is OpenID Connect login. Logging in as an enduser, the token is collected from the ID provider using API1. Code snippet: { sub: “enduser” aud: “API1” iss: “ID-provider” } The second process is gettinig a tooken for API 2 (OAuth 2.0 Token exchange). AP1 gets a token for API2 based on ID-provider token, using TokenDings to verify token check access policy: Can API1 invoke API 2, issuing a new tokoen for API2. Code snippet: { sub: “enduser” aud: “API2” iss: “TokenDings” } The third process is calling API2 with JWT Bearer token. API1 calls API2 with token from TokenDings. API2 verifies token with access control, based on the enduser and returns information to API 1, which displays the information to the end user.](https://raw.githubusercontent.com/nais/tokendings/master/doc/downstream_example.svg)
+1. You have a user facing app using [ID-porten](idporten.md) that should perform calls to another app on behalf of a user.
+2. You have an app receiving tokens issued from TokenX and need to call another app while still propagating the original user context.
 
 ## Configuration
 
 ### Spec
 
-See the [NAIS manifest](../../nais-application/application.md#tokenxenabled).
+See the [NAIS manifest](../../reference/application-spec.md#tokenxenabled).
 
 ### Getting Started
 
@@ -102,28 +78,28 @@ The files are available at the following path: `/var/run/secrets/nais.io/jwker/`
 
 These variables are used for [client authentication](tokenx.md#client-authentication) and [exchanging tokens](tokenx.md#exchanging-a-token):
 
-| Name                     | Description                                                                                                 |
-|:-------------------------|:------------------------------------------------------------------------------------------------------------|
-| `TOKEN_X_CLIENT_ID`      | [Client ID](concepts/actors.md#client-id) that uniquely identifies the application in TokenX.               |
-| `TOKEN_X_PRIVATE_JWK`    | [Private JWK](concepts/cryptography.md#private-keys) containing an RSA key belonging to client.             |
-| `TOKEN_X_TOKEN_ENDPOINT` | `token_endpoint` from the [metadata discovery document](concepts/actors.md#token-endpoint).                 |
+| Name                     | Description                                                                                              |
+|:-------------------------|:---------------------------------------------------------------------------------------------------------|
+| `TOKEN_X_CLIENT_ID`      | [Client ID](concepts.md#client-id) that uniquely identifies the application in TokenX.                   |
+| `TOKEN_X_PRIVATE_JWK`    | [Private JWK](concepts.md#private-keys) containing an RSA key belonging to client.                       |
+| `TOKEN_X_TOKEN_ENDPOINT` | `token_endpoint` from the [metadata discovery document](concepts.md#token-endpoint).                     |
 
 #### Variables for Validating Tokens
 
 These variables are used for [token validation](tokenx.md#token-validation):
 
-| Name                     | Description                                                                                                 |
-|:-------------------------|:------------------------------------------------------------------------------------------------------------|
-| `TOKEN_X_CLIENT_ID`      | [Client ID](concepts/actors.md#client-id) that uniquely identifies the application in TokenX.               |
-| `TOKEN_X_WELL_KNOWN_URL` | The URL for Tokendings' [metadata discovery document](concepts/actors.md#well-known-url-metadata-document). |
-| `TOKEN_X_ISSUER`         | `issuer` from the [metadata discovery document](concepts/actors.md#issuer).                                 |
-| `TOKEN_X_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](concepts/actors.md#jwks-endpoint-public-keys).            |
+| Name                     | Description                                                                                          |
+|:-------------------------|:-----------------------------------------------------------------------------------------------------|
+| `TOKEN_X_CLIENT_ID`      | [Client ID](concepts.md#client-id) that uniquely identifies the application in TokenX.               |
+| `TOKEN_X_WELL_KNOWN_URL` | The URL for Tokendings' [metadata discovery document](concepts.md#well-known-url-metadata-document). |
+| `TOKEN_X_ISSUER`         | `issuer` from the [metadata discovery document](concepts.md#issuer).                                 |
+| `TOKEN_X_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](concepts.md#jwks-endpoint-public-keys).            |
 
 ### Client Authentication
 
-Your application **must** authenticate itself with Tokendings when attempting to perform token exchanges. To do so, you must create a [client assertion](concepts/actors.md#client-assertion).
+Your application **must** authenticate itself with Tokendings when attempting to perform token exchanges. To do so, you must create a [client assertion](concepts.md#client-assertion).
 
-Create a [JWT](concepts/tokens.md#jwt) that is signed by your application using the [private key](concepts/cryptography.md#private-keys) contained within [`TOKEN_X_PRIVATE_JWK`](tokenx.md#variables-for-exchanging-tokens).
+Create a [JWT](concepts.md#jwt) that is signed by your application using the [private key](concepts.md#private-keys) contained within [`TOKEN_X_PRIVATE_JWK`](tokenx.md#variables-for-exchanging-tokens).
 
 The assertion **must** contain the following claims:
 
@@ -180,9 +156,9 @@ The assertion should be unique and only used once. That is, every request to Tok
 
 ### Exchanging a token
 
-In order to acquire a token that is properly scoped to a given target application, you must exchange an existing _subject token_ (i.e. a token that contains a subject, in this case a citizen end-user).
+To acquire a properly scoped token for a given target application, you must exchange an existing _subject token_ (i.e. a token that contains a subject, in this case a citizen end-user).
 
-Tokendings will then issue an `access_token` in JWT format, based on the parameters set in the token request. The token can then be used as a [**Bearer token**](concepts/tokens.md#bearer-token) in the Authorization header when calling your target API on behalf of the aforementioned subject.
+Tokendings will then issue an `access_token` in JWT format, based on the parameters set in the token request. The token can then be used as a [**Bearer token**](concepts.md#bearer-token) in the Authorization header when calling your target API on behalf of the aforementioned subject.
 
 #### Prerequisites
 
@@ -255,7 +231,7 @@ If the exchange request is invalid, Tokendings will respond with a structured er
 
 ### Token Validation
 
-If your app is a [resource server / API](concepts/actors.md#resource-server) and receives a token from another application, it is **your responsibility** to [validate the token](concepts/tokens.md#token-validation) intended for your application.
+If your app is a [resource server / API](concepts.md#resource-server) and receives a token from another application, it is **your responsibility** to [validate the token](concepts.md#token-validation) intended for your application.
 
 Configure your app with the OAuth 2.0 Authorization Server Metadata found at the well-known endpoint, [`TOKEN_X_WELL_KNOWN_URL`](tokenx.md#variables-for-validating-tokens).
 Alternatively, use the resolved values from said endpoint for convenience:
@@ -331,14 +307,14 @@ The following example shows the claims of a token issued by Tokendings, where th
 
 ## Local Development
 
-See also the [development overview](overview/development.md) page.
+See also the [development overview](development.md) page.
 
 ### Token Generator
 
-In many cases, you want to locally develop and test against a secured API (or [resource server](concepts/actors.md#resource-server)) in the development environments.
-To do so, you need a [token](concepts/tokens.md#bearer-token) in order to access said API.
+In many cases, you want to locally develop and test against a secured API in the development environments.
+To do so, you need a [token](concepts.md#bearer-token) to access said API.
 
-The service <https://tokenx-token-generator.intern.dev.nav.no> can be used in order to generate tokens in the development environments.
+Use <https://tokenx-token-generator.intern.dev.nav.no> to generate tokens in the development environments.
 
 #### Prerequisites
 
@@ -362,22 +338,5 @@ The service <https://tokenx-token-generator.intern.dev.nav.no> can be used in or
     - For example: `dev-gcp:aura:my-app`
 2. You will be redirected to log in at ID-porten (if not already logged in).
 3. After logging in, you should be redirected back to the token generator and presented with a JSON response containing an `access_token`.
-4. Use the `access_token` as a [Bearer token](concepts/tokens.md#bearer-token) for calls to your API application.
+4. Use the `access_token` as a [Bearer token](concepts.md#bearer-token) for calls to your API application.
 5. Success!
-
-### Test Clients
-
-If [mocking](overview/development.md#mocking) isn't sufficient, we also maintain some test clients for use in local development environments.
-
-Note that the associated credentials may be rotated at any time.
-
-As developers, you're responsible for treating these credentials as secrets. Never commit or distribute these to
-version control or expose them to publicly accessible services.
-
-Credentials are found in Vault under [/secrets/secret/.common/tokenx](https://vault.adeo.no/ui/vault/secrets/secret/list/.common/tokenx/)
-
-The clients are [pre-authorized](#access-policies) as follows:
-
-- `app-1` is pre-authorized for `app-2`
-
-They are otherwise equal to a [default client](#configuration).

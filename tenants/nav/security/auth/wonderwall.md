@@ -1,7 +1,7 @@
 # Wonderwall (sidecar for authentication)
 
 [Wonderwall](https://github.com/nais/wonderwall) is an application that implements an OpenID Connect (OIDC)
-[Relying Party (client)](concepts/actors.md#client) in a way that makes it easy to plug into Kubernetes
+[Relying Party](concepts.md#client) in a way that makes it easy to plug into Kubernetes
 as a _sidecar_.
 
 As such, this is OIDC as a sidecar, or OaaS, or to explain the joke:
@@ -27,8 +27,8 @@ graph LR
   Wonderwall -. "proxy request\n as-is" -..-> Application
 ```
 
-In order to obtain a local session, the user must be redirected to the `/oauth2/login` endpoint.
-This will initiate the [OpenID Connect Authorization Code Flow](concepts/protocols.md#openid-connect):
+To obtain a local session, the user must be redirected to the `/oauth2/login` endpoint.
+This will initiate the [OpenID Connect Authorization Code Flow](concepts.md#openid-connect):
 
 ```mermaid
 graph LR
@@ -62,7 +62,7 @@ graph LR
 ```
 
 All authenticated requests that are forwarded to the application will now contain the user's `access_token`.
-The token is sent as a [Bearer token](concepts/tokens.md#bearer-token) in the `Authorization` header.
+The token is sent as a [Bearer token](concepts.md#bearer-token) in the `Authorization` header.
 This applies as long as the [session is not _expired_ or _inactive_](#5-sessions):
 
 ```mermaid
@@ -233,7 +233,7 @@ The short-circuited response depends on whether the request is a _top-level navi
     Hopefully you're not in a position that requires supporting that browser.
 
 A top-level navigation request results in a `HTTP 302 Found` response with the `Location` header pointing to the [login endpoint](#1-initiate-login).
-In order to preserve the user's original location, the `redirect` parameter is set to the original request's `Referer` header.
+The `redirect` parameter is set to the original request's `Referer` header to preserve the user's original location.
 If the `Referer` header is empty, we use the matching ingress context path for the original request.
 
 All other requests (such as `POST` or `PUT` requests, or `fetch`, `XMLHttpRequest`/`XHR` or `AJAX` from browsers) are _not_ considered navigational requests.
@@ -359,7 +359,7 @@ The same restrictions and caveats apply here.
 
 ### 3. Token Validation
 
-The sidecar attaches an `Authorization` header with the user's `access_token` as a [Bearer token](concepts/tokens.md#bearer-token), as long as the user has an [_active_ session](#5-sessions):
+The sidecar attaches an `Authorization` header with the user's `access_token` as a [Bearer token](concepts.md#bearer-token), as long as the user has an [_active_ session](#5-sessions):
 
 ```
 GET /resource
@@ -634,18 +634,18 @@ Requests to the endpoint are idempotent while the cooldown is active.
 
 The access token that Wonderwall provides should only be accepted and used by your application.
 
-In order to access other applications, you should exchange the token in order to get a new token that is correctly scoped to access a given application.
+To access other applications, you exchange the token to a new token that is correctly scoped to the target application.
 
 === "ID-porten"
     
-    For ID-porten, use the [token exchange grant (TokenX)](tokenx.md#exchanging-a-token) to do this.
+    For ID-porten, use the [token exchange grant (TokenX)](tokenx.md#exchanging-a-token) to exchange the token.
     
 === "Azure AD"
 
-    For Azure AD, use the [on-behalf-of grant](azure-ad/usage.md#oauth-20-on-behalf-of-grant) to do this.
+    For Azure AD, use the [on-behalf-of grant](azure-ad/usage.md#oauth-20-on-behalf-of-grant) to exchange the token.
 
-!!! tip "Next.js Library"
+!!! tip "Recommended: JavaScript Library"
 
-See <https://github.com/navikt/next-auth-wonderwall> for a Next.js library that provides Wonderwall integrations and token exchange utilities.
+    See <https://github.com/navikt/oasis> for an opinionated JavaScript library for token validation and exchange.
 
-[identity provider]: concepts/actors.md#identity-provider
+[identity provider]: concepts.md#identity-provider

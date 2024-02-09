@@ -25,12 +25,12 @@ spec:
             - orgno: "123456789"
 ```
 
-See the [NAIS manifest](../../../nais-application/application.md#maskinporten) for the complete specification.
+See the [NAIS manifest](../../../reference/application-spec.md#maskinporten) for the complete specification.
 
 ## Network Connectivity
 
-Maskinporten is an [external service](../../../nais-application/access-policy.md#external-services).
-Outbound access to the Maskinporten hosts is automatically configured by the platform.
+Maskinporten is an external service.
+The platform automatically configures outbound access to the Maskinporten hosts.
 
 You do _not_ have to explicitly configure outbound access to Maskinporten yourselves in GCP.
 
@@ -41,11 +41,11 @@ You can use whichever is most convenient for your application.
 
 The files are available at the following path: `/var/run/secrets/nais.io/maskinporten/`
 
-| Name                          | Description                                                                                                      |
-|:------------------------------|:-----------------------------------------------------------------------------------------------------------------|
-| `MASKINPORTEN_WELL_KNOWN_URL` | The well-known URL for the [metadata discovery document](../concepts/actors.md#well-known-url-metadata-document) |
-| `MASKINPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](../concepts/actors.md#issuer).                                   |
-| `MASKINPORTEN_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](../concepts/actors.md#jwks-endpoint-public-keys).              |
+| Name                          | Description                                                                                                   |
+|:------------------------------|:--------------------------------------------------------------------------------------------------------------|
+| `MASKINPORTEN_WELL_KNOWN_URL` | The well-known URL for the [metadata discovery document](../concepts.md#well-known-url-metadata-document)     |
+| `MASKINPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](../concepts.md#issuer).                                       |
+| `MASKINPORTEN_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](../concepts.md#jwks-endpoint-public-keys).                  |
 
 These variables are used when validating tokens issued by Maskinporten.
 
@@ -91,13 +91,13 @@ spec:
 
 ### 2. Expose Application
 
-Expose your application to the consumer(s) at a publicly accessible [ingress](../../../nais-application/ingress.md).
+Expose your application to the consumer(s) at a publicly accessible ingress.
 
 ### 3. Validate Tokens
 
-Verify incoming requests from the external consumer(s) by validating the [Bearer token](../concepts/tokens.md#bearer-token) in the `Authorization` header.
+Verify incoming requests from the external consumer(s) by validating the [Bearer token](../concepts.md#bearer-token) in the `Authorization` header.
 
-Always validate the [signature and standard time-related claims](../concepts/tokens.md#token-validation).
+Always validate the [signature and standard time-related claims](../concepts.md#token-validation).
 Additionally, perform the following validations:
 
 **Issuer Validation**
@@ -105,7 +105,7 @@ Additionally, perform the following validations:
 Validate that the `iss` claim has a value that is equal to either:
 
 1. the `MASKINPORTEN_ISSUER` [environment variable](#runtime-variables-credentials), or
-2. the `issuer` property from the [metadata discovery document](../concepts/actors.md#well-known-url-metadata-document).
+2. the `issuer` property from the [metadata discovery document](../concepts.md#well-known-url-metadata-document).
    The document is found at the endpoint pointed to by the `MASKINPORTEN_WELL_KNOWN_URL` environment variable.
 
 **Scope Validation**

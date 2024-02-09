@@ -1,4 +1,5 @@
 ---
+title: API Gateway
 description: API Gateway for securing your APIs
 ---
 

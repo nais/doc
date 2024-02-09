@@ -1,0 +1,9 @@
+title: Auth
+nav:
+    - concepts.md
+    - development.md
+    - azure-ad
+    - idporten
+    - tokenx.md
+    - maskinporten
+    - ...
