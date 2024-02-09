@@ -6,12 +6,12 @@ on:
       - main
 
 jobs:
-  build_output:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Create cache for doc
+      - name: Create cached folder
         uses: actions/cache@v4
         with:
           path: out
@@ -39,8 +39,8 @@ jobs:
         run: |
           ./build.sh nav ssb ci-nais dev-nais tenant
 
-  copy_to_buckets:
-    needs: build_output
+  publish:
+    needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -61,7 +61,7 @@ jobs:
             bucket: docs.nais.io
             project: nais-io
     steps:
-      - name: Restore cached doc build
+      - name: Restore cache folder
         uses: actions/cache/restore@v4
         with:
           path: out
