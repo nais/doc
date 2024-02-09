@@ -91,7 +91,7 @@ jobs:
           PROJECT_ID: ${{ matrix.tenant.project}}
           APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
         with:
-          args: -m rsync -r -c -d out/${{matrix.tenant.name}} gs://${{matrix.tenant.bucket}}/
+          args: -m rsync -r -c -d out/${{matrix.tenant.name}}/ gs://${{matrix.tenant.bucket}}
           cli: gsutil
 
       - name: Invalidate cache
