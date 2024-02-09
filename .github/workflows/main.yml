@@ -70,7 +70,8 @@ jobs:
       - name: Sync documentation to bucket
         uses: actions-hub/gcloud@463.0.0
         env:
-          PROJECT_ID: ${{ matrix.tenant.project}}
+          # PROJECT_ID: ${{ matrix.tenant.project}}
+          PROJECT_ID: not-used
           APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
         with:
           args: -m rsync -r -c -d out/${{matrix.tenant.name}}/ gs://${{matrix.tenant.bucket}}
@@ -79,7 +80,8 @@ jobs:
       - name: Invalidate cache
         uses: actions-hub/gcloud@463.0.0
         env:
-          PROJECT_ID: ${{ matrix.tenant.project}}
+          # PROJECT_ID: ${{ matrix.tenant.project}}
+          PROJECT_ID: not-used
           APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
         with:
           args: -m setmeta -r -h 'Cache-Control:public, max-age=180' 'gs://${{matrix.tenant.bucket}}/*'
