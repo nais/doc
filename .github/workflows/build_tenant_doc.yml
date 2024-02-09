@@ -65,7 +65,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        tenant: [{ name: ssb, project: nais-management-b3a7 }, { name: ci-nais, project:nais-management-4203 }, { name: dev-nais, project: nais-management-7178 }, { name: nav, project: nais-management-233d}]
+        tenant: [{ name: ssb, project: nais-management-b3a7 }, { name: ci-nais, project: nais-management-4203 }, { name: dev-nais, project: nais-management-7178 }, { name: nav, project: nais-management-233d}]
     steps:
       - name: Restore cached doc build
         uses: actions/cache/restore@v4
