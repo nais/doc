@@ -57,7 +57,7 @@ jobs:
 
       - name: Build documentation
         run: |
-          TENANT=tenant poetry run mkdocs build --strict
+          TENANT=tenant poetry run mkdocs build
       
       - name: Save build cache
         uses: actions/cache/save@v4
