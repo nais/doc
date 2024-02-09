@@ -1,0 +1,73 @@
+name: CI
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    paths:
+      - .github/workflows/main.yml
+      - mkdocs.yml
+      - 'docs/**'
+      - 'custom_theme_overrides/**'
+      - pyproject.toml
+      - poetry.lock
+    branches: [main]
+
+# env:
+#   MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+          architecture: x64
+          cache: poetry
+
+      - name: Install all dependencies
+        run: |
+          poetry install \
+          --no-dev \
+          --no-interaction \
+          --ansi \
+          --remove-untracked
+
+      - name: Get Date
+        id: get-date
+        run: |
+          echo "date=$(/bin/date -u "+%Y%m%d")" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Build tenant documentation
+        run: |
+          ./build.sh nav ssb ci-nais dev-nais
+
+      # Synchronize doctree with Google Cloud Bucket
+      - uses: actions-hub/gcloud@463.0.0
+        env:
+          PROJECT_ID: nais-management-b3a7
+          APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
+        with:
+          args: -m rsync -r -c -d out/ssb gs://doc.ssb.cloud.nais.io
+          cli: gsutil
+
+      # Cache buster
+      - uses: actions-hub/gcloud@463.0.0
+        env:
+          PROJECT_ID: nais-management-b3a7
+          APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
+        with:
+          args: -m setmeta -r -h 'Cache-Control:public, max-age=180' 'gs://doc.ssb.cloud.nais.io/*'
+          cli: gsutil
