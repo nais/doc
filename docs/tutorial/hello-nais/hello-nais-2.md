@@ -43,7 +43,6 @@ Add the following content to the file, and insert the appropriate values in the 
       ingresses:
         - https://<MY-APP>.<MY-ENV>.<<tenant()>>.cloud.nais.io
       image: {{image}}
-      image: {{image}}
       port: 8080
       ttl: 3h
       replicas:
