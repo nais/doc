@@ -1,4 +1,5 @@
 ---
+title: KQL Reference
 description: Kibana Query Language (KQL) Reference for filtering data in Kibana.
 tags: [reference, kibana]
 ---

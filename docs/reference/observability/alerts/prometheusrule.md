@@ -1,5 +1,5 @@
 ---
-description: `PrometheusRule` resource specification for defining alerts.
+description: PrometheusRule resource specification for defining alerts in Prometheus.
 tags: [reference, prometheus]
 ---
 # Prometheus Alerting Rule Reference
