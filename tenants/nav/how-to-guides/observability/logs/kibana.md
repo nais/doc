@@ -4,6 +4,8 @@ tags: [guide, kibana]
 ---
 # Get started with Elastic Kibana
 
+This guide will help you get stared sending application logs to Elastic Kibana and writing queries to search for logs.
+
 ## Enable logging to Elastic Kibana
 
 Elastic Kibana can be enabled by setting the list of logging destinations in your nais application manifest.
