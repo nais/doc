@@ -41,3 +41,7 @@
   color: hsla(0, 0%, 0%, 0.87);
   background-color: hsla(0, 0%, 100%, 1);
 }
+
+::backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+}

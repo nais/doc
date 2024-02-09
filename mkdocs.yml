@@ -62,7 +62,8 @@ extra:
             Thanks for your feedback! Help us improve this page by
             using our <a href="https://github.com/nais/doc/issues/new">feedback form</a> or contact us on Slack</a>.
 extra_javascript:
-  - amplitude_javascript/events.js
+  - javascript/amplitude_events.js
+  - javascript/tenant_redirect.js
 extra_css:
   - material_theme_stylesheet_overrides/uu.css
   - material_theme_stylesheet_overrides/grid.css
