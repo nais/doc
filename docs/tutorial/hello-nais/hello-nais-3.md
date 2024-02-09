@@ -1,3 +1,6 @@
+---
+tags: [tutorial]
+---
 # Part 3 - Ship it
 
 Previously we've made our application and created the required files for deployment.

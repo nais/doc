@@ -1,6 +1,10 @@
-# Enabling trace collection
+---
+description: How to enable tracing in your application
+tags: [guide, otel]
+---
+# Enable trace collection
 
-This how-to will show you how to collect trace data from your application.
+This guide will show you how to get started collecting distributed trace data from your application.
 
 ## 1. Enable tracing in application manifest
 
@@ -29,3 +33,5 @@ Finally, the OTLP exporter must be configured to send data to the NAIS collector
 That configuration is provided by NAIS through the `$OTEL_EXPORTER_OTLP_ENDPOINT` environment variable,
 which in turn is supposed to be automatically detected and used by your OpenTelemetry library.
 All data must be sent using the gRPC protocol.
+
+You can find all the environment variables provided by NAIS in the [OpenTelemetry Tracing Reference](../../../reference/observability/otel/tracing.md).

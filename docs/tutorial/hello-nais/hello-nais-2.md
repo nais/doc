@@ -1,3 +1,6 @@
+---
+tags: [tutorial]
+---
 # Part 2 - Make it NAIS
 
 In the previous step, we created a repository for our application.

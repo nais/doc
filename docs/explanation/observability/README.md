@@ -3,7 +3,8 @@ description: >-
   NAIS offers several methods for monitoring and observing your applications.
   This page describes the different options and how to use them.
 search:
-  boost: 2
+  boost: 1
+tags: [explanation]
 ---
 # Observability
 
@@ -65,7 +66,7 @@ graph LR
 [:octicons-arrow-right-24: Access Grafana here][nais-grafana]
 
 [grafana]: https://grafana.com/
-[nais-grafana]: https://grafana.nav.cloud.nais.io/
+[nais-grafana]: <<tenant_url("grafana")>>
 
 ## Logs
 
@@ -85,16 +86,13 @@ graph LR
 
 ## Traces
 
-With tracing, we can get application performance monitoring (APM).
-Tracing gives deep insight into the execution of your application.
-For instance, you can use tracing to see if parallel function are actually run in paralell,
+With tracing, we can get application performance monitoring (APM). Tracing gives deep insight into the execution of your application. For instance, you can use tracing to see if parallel function are actually run in parallel,
 or what amount of time your application spends in a given function.
 
-Traces from NAIS applications are collected using the [OpenTelemetry](https://opentelemetry.io/) standard.
-Performance metrics are stored and queried from the [Tempo](https://grafana.com/oss/tempo/) component.
+Traces from NAIS applications are collected using the [OpenTelemetry](https://opentelemetry.io/) standard.  Performance metrics are stored and queried from the [Tempo](https://grafana.com/oss/tempo/) component.
 
-Visualization of traces can be done in [Grafana](https://grafana.nav.cloud.nais.io),
-using the _prod-gcp-tempo_ and _dev-gcp-tempo_ data sources.
+Visualization of traces can be done in [Grafana](https://grafana.<<tenant()>>.cloud.nais.io),
+using the `*-tempo` data sources (one for each environment).
 
 ```mermaid
 graph LR

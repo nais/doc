@@ -1,4 +1,4 @@
-# Grafana metrics
+# Kafka metrics
 This guide will show you how to monitor your Kafka topics with Grafana.
 
 This is a user-generated list of metrics that can be used with Grafana to monitor your Kafka topics.

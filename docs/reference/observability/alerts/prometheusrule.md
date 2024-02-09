@@ -1,4 +1,8 @@
-# Prometheus Alerting Rule
+---
+description: `PrometheusRule` resource specification for defining alerts.
+tags: [reference, prometheus]
+---
+# Prometheus Alerting Rule Reference
 
 [Prometheus alerts][prometheus-alerting-rule] are defined in a `PrometheusRule` resource. This resource is part of the [Prometheus Operator][prometheus-operator] and is used to define alerts that should be sent to the Alertmanager.
 

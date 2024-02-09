@@ -1,3 +1,7 @@
+---
+description: Create alerts for your application using Prometheus.
+tags: [guide, prometheus]
+---
 # Create alert with Prometheus
 
 This guide shows you how to create alerts for your application.

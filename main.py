@@ -1,9 +1,15 @@
 import os
 
+
 def define_env(env):
     @env.macro
     def tenant():
         return os.getenv('TENANT', 'tenant')
+
+    @env.macro
+    def tenant_url(app: str, path: str = ''):
+        return f'https://{app}.{tenant()}.cloud.nais.io/{path}'
+
     @env.macro
     def if_tenant():
         if tenant() == 'tenant':
@@ -12,6 +18,5 @@ def define_env(env):
             'If you are currently using NAIS, go to the documentation tailored for your organization.<br> '+ \
             'https://doc.&lt;org&gt;.cloud.nais.io<br>'+ \
             '<button data-action="configure-redirect" class="md-button md-button--primary">Configure automatic redirect</button>'
-
         else:
             return ''
