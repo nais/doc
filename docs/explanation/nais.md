@@ -16,3 +16,8 @@ Furthermore NAIS provides a variety of different ways to persist data, authentic
 
 Simply put; our job is to make the operations side of things NAIS - allowing you to focus more on building great products.
 
+## What does NAIS stand for?
+
+It's original meaning of the abbreviation is: **N**AVs **A**pplication **I**nfrastructure **S**ervices. As you might suspect, we found the abbreviation first.
+
+We're working on making the 'N' mean 'Norwegian' instead of 'NAVs'.

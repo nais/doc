@@ -30,7 +30,7 @@ Create your own repo using the [nais/hello-nais](https://github.com/nais/hello-n
 You create a new repository through either the [GitHub UI](https://github.com/new?template_name=hello-nais&template_owner=nais) or through the GitHub CLI:
 
 ```bash
-gh repo create <GITHUB-ORG>/<MY-REPO> --template nais/hello-nais --private --clone
+gh repo create <GITHUB-ORG>/<MY-APP> --template nais/hello-nais --private --clone
 ```
 
 ```bash

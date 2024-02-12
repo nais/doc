@@ -10,7 +10,7 @@ In this part of the tutorial we will deploy our application to NAIS.
 
 This is required for the GitHub Actions workflow to be able to deploy your application.
 
-Visit [Console](https://console.@@TENANT@@.cloud.nais.io). Select your team, and visit the `Repositories` tab.
+Visit [Console](https://console.<<tenant()>>.cloud.nais.io). Select your team, and visit the `Repositories` tab.
 Find your repository and click `Authorize`.
 
 ??? note "Repository not visible?"
@@ -34,7 +34,7 @@ When pushed, the GitHub Actions workflow will automatically start. You can obser
     ```bash
     gh run watch
     ```
-=== "Github Web"
+=== "GitHub Web"
     ```bash
     gh repo view --web # click the "actions" tab when redirected to github.com
     ```

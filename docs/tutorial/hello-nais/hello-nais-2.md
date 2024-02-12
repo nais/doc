@@ -13,7 +13,7 @@ For this to happen, we need three files.
 This describes the system your application will be running on.
 It includes the base image, and the commands needed to build your application.
 This is the payload you are requesting NAIS to run.
-We have created this file for you, as there are no changes needed for this tutorial.
+We have created this file for you, as there are no changes needed for this tutorial. Check it out. 
 
 ### 2. Application manifest
 
@@ -42,7 +42,6 @@ Add the following content to the file, and insert the appropriate values in the 
     spec:
       ingresses:
         - https://<MY-APP>.<MY-ENV>.<<tenant()>>.cloud.nais.io
-      image: {{image}}
       image: {{image}}
       port: 8080
       ttl: 3h
