@@ -29,7 +29,7 @@ See [ClamAV documentation][clamav-docs] and [ClamAV REST API][clamav-api] for mo
 
 ## Access Policy
 
-When using ClamAV on GCP, remember to add an [outbound access policy](../nais-application/access-policy.md):
+When using ClamAV on GCP, remember to add an [outbound access policy](../how-to-guides/access-policies.md):
 
 ```yaml
 apiVersion: "nais.io/v1alpha1"

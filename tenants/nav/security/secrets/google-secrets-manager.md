@@ -104,8 +104,8 @@ Now that the Secret exists in your Kubernetes namespace, your application may re
 
 There are two ways of mounting/exposing a Kubernetes Secret to your application:
 
-- [as environment variables](../../nais-application/application.md#envfromsecret)
-- [as files](../../nais-application/application.md#filesfromsecret), or
+- [as environment variables](../../reference/application-spec.md#envfromsecret)
+- [as files](../../reference/application-spec.md#filesfromsecret), or
 
 #### Environment variables
 

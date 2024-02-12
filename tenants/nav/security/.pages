@@ -4,5 +4,4 @@ nav:
     - apigateway
     - auth
     - salsa
-    - secrets
     - ...

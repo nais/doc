@@ -92,10 +92,6 @@ plugins:
           'observability/tracing.md': 'explanation/observability/tracing.md'
           'security/salsa/salsa.md': 'security/salsa/README.md'
           'addons/wonderwall.md': 'security/auth/wonderwall.md'
-          'https://doc.nais.io/security/auth/azure-ad/README.md': 'https://doc.nav.cloud.nais.io/security/auth/azure-ad'
-          'https://doc.nais.io/security/auth/idporten/README.md': 'https://doc.nav.cloud.nais.io/security/auth/idporten'
-          'https://doc.nais.io/security/auth/maskinporten/README.md': 'https://doc.nav.cloud.nais.io/security/auth/maskinporten'
-          'https://doc.nais.io/security/auth/tokenx/README.md': 'https://doc.nav.cloud.nais.io/security/auth/tokenx'
 markdown_extensions:
   - toc:
       permalink: True

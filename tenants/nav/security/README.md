@@ -83,7 +83,7 @@ team-b-app --> team-b-db
 team-c-app --> team-c-db
 ```
 
-Teams are managed in [NAIS Teams](../basics/teams.md).
+Teams are managed in [NAIS Teams](../explanation/team.md).
 
 ## Secure Software Development Lifecycle (Secure SDLC)
 
@@ -131,24 +131,10 @@ message queues. These external dependencies are created as a part of the
 application deployment process and are only accessible by the application that
 they are associated with and nothing else.
 
-External dependencies are created with secure defaults like encryption intransit
+External dependencies are created with secure defaults like encryption in-transit
 and encryption at rest. They are continuously updated by the platform the
 respective service providers to ensure that they stay up to date with the latest
 secure features over time.
-
-NAIS provides the following external dependencies:
-
-| Service                                     | Description          | Provider                                                 |
-| ------------------------------------------- | -------------------- | -------------------------------------------------------- |
-| [PostgreSQL](../persistence/postgres.md)    | Relational database  | [Google Cloud SQL](https://cloud.google.com/sql)         |
-| [Buckets](../persistence/bigquery.md)       | Object storage       | [Google Cloud Storage](https://cloud.google.com/storage) |
-| [BigQuery](../persistence/bigquery.md)      | Data warehouse       | [Google BigQuery](https://cloud.google.com/bigquery)     |
-| [InfluxDB](../persistence/influxdb.md)      | Time series database | [Aiven Influx](https://aiven.io/influxdb)                |
-| [Redis](../persistence/redis.md)            | In-memory database   | [Aiven Redis](https://aiven.io/redis)                    |
-| [OpenSearch](../persistence/open-search.md) | Search engine        | [Aiven OpenSearch](https://aiven.io/opensearch)          |
-| [Kafka](../persistence/kafka/README.md)     | Message queues       | [Aiven Kafka](https://aiven.io/kafka)                    |
-
-Read more about [external dependencies](../persistence/README.md) and [responsibilities](../persistence/responsibilities.md).
 
 ### Deploy
 
@@ -159,7 +145,7 @@ Software Artifacts (SLSA)][slsa]. This means that every application is deployed
 using a secure supply chain that ensures that the application is deployed in a
 secure manner.
 
-[slsa]: ./salsa/README
+[slsa]: salsa/README.md
 
 #### Security Policies
 
@@ -196,14 +182,14 @@ The following security policies are enforced by NAIS:
 Developer access control in NAIS is backed by [Google Cloud IAM][google-iam] and
 [Kubernetes RBAC][kubernetes-rbac]. The platform is responsible for setting up
 the necessary roles and permissions in Google Cloud IAM and Kubernetes RBAC
-according to the teams registered in [NAIS Teams](../basics/teams.md) by the
+according to the teams registered in [NAIS Teams](../explanation/team.md) by the
 developers.
 
 Tools and services provided by the platform to the developers are exposed
 securely in two ways:
 
 1. On a private network only accessible to authenticated users over
-[naisdevice](../device/README.md) to trusted devices using secure
+[naisdevice](../explanation/naisdevice.md) to trusted devices using secure
 [WireGuard][wireguard] VPN tunnels.
 
 1. On a public network behind [Identity Aware Proxy (IAP)][google-iap] which
@@ -229,7 +215,7 @@ providers [Azure AD](auth/azure-ad/README.md) (for employees) and
 [ID-porten](auth/idporten.md) (for the public). The secrets associated with
 these clients are handled behind the scenes and rotated regularly. To ease
 handling the OIDC flows we offer our "OIDC as a sidecar" named
-[Wonderwall](../addons/wonderwall.md).
+[Wonderwall](auth/wonderwall.md).
 
 For service to service-communication further down in the call chain we offer our
 own implementation of the "OAuth2 Token Exchange" standard named
@@ -244,12 +230,12 @@ for the other OIDC/OAuth uses cases mentioned above.
 #### Network security
 
 Network security in NAIS is achieved by [Access
-Policy](../nais-application/access-policy.md) that is backed by [Kubernetes
+Policy](../how-to-guides/access-policies.md) that is backed by [Kubernetes
 Network Policies][kubernetes-network-policies]. This controls traffic between
 pods in the same cluster as well as outgoing traffic from the cluster.
 
-Pod-to-pod traffic is also protected by [mTLS with
-Linkerd](../nais-application/linkerd.md) that attaches a sidecar to every pod
+Pod-to-pod traffic is also protected by mTLS with
+Linkerd that attaches a sidecar to every pod
 that handles the encryption and decryption of traffic between pods and authenticates
 the identity of the pods.
 
@@ -264,11 +250,11 @@ Distributed Denial of Service (DDoS) protection.
 #### Logging and monitoring
 
 Application logs are collected and stored in
-[Kibana](../observability/logs/README.md) together with infrastructure
+[Kibana](../explanation/observability/logging.md) together with infrastructure
 components running in the cluster.
 
 Application metrics are collected and stored in
-[Prometheus](../observability/metrics.md) together with infrastructure
+[Prometheus](../explanation/observability/metrics.md) together with infrastructure
 components running in the cluster.
 
 Infrastructure, network flow logs and IAM audit logs are available from

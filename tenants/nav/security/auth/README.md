@@ -70,4 +70,4 @@ The application receives requests from other clients, authenticated with [Bearer
 The tokens contain information about the application that performed the request. The tokens will also contain 
 information about the original end user, if any.
 
-[Validate the tokens](concepts#token-validation) before granting access to the API resource.
+[Validate the tokens](concepts.md#token-validation) before granting access to the API resource.
