@@ -2,15 +2,14 @@
 
 ## Why migrate our application\(s\)?
 
-* Access to self-service [Google-managed buckets](../persistence/buckets.md) and [Postgres databases](../persistence/postgres.md).
+* Access to self-service [Google-managed buckets](../how-to-guides/persistence/buckets/create.md) and [Postgres databases](../how-to-guides/persistence/postgres.md).
 * Access to Google Cloud features.
-* [Zero Trust security model](../appendix/zero-trust.md) instead of FSS/SBS zone model.
-* [Built-in call tracing](https://github.com/linkerd/linkerd-viz) similar to AppDynamics.
+* [Zero Trust security model](zero-trust.md) instead of FSS/SBS zone model.
 * Cost efficient and future proof.
 
 ## Prerequisites
 
-* The team needs to update their ROS and PVK analysis to migrate to GCP. Refer to [Google Cloud Platform's ROS and PVK section](./gcp.md#ros-and-pvk).
+* The team needs to update their ROS and PVK analysis to migrate to GCP.
 * Read this [roles and responsibilites](../legal/roles-responsibilities.md)
 
 ### Security
@@ -180,26 +179,26 @@ The ROS analysis for the team's applications need to be updated to reflect any c
 
 ## GCP compared to on-premises
 
-| Feature | on-prem | gcp | Comment |
-| :--- | :--- | :--- | :--- |
-| Deploy | ✔️ | ✔️ | different clustername when deploying |
-| Logging | ✔️ | ✔️ | different clustername in logs.adeo.no |
-| Metrics | ✔️ | ✔️ | same mechanism, different datasource |
-| Nais app dashboard | ✔️ | ✔️ | new and improved in GCP |
-| Alerts | ✔️ | ✔️ | identical |
-| Secure logs | ✔️ | ✔️ | different clustername in logs.adeo.no |
-| Kafka | ✔️ | ✔️ | identical |
-| Secrets | Vault | Secret manager |  |
-| Team namespaces | ✔️ | ✔️ |  |
-| Shared namespaces | ✔️ | ✖️ | Default namespace not available for teams in GCP |
-| Health checks | ✔️ | ✔️ | identical |
-| Ingress | ✔️ | ✔️ | see [GCP](gcp.md) and [on-premises](on-premises.md) for available domains |
-| Storage | Ceph | Buckets |  |
-| Postgres | ✔️ \(IAC\) | ✔️ \(self-service\) |  |
-| Laptop access | ✔️ | ✔️ |  |
-| domain: dev.intern.nav.no |  | ✔️ \(Automatic\) | Wildcard DNS points to GCP load balancer |
-| Access to FSS services  |  | ✔️ | Identical \(either API-gw or [TokenX](../security/auth/tokenx.md). May require a proxy app, see [FAQ](#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp) for details. |
-| NAV truststore | ✔️ | ✔️ |  |
-| PVK required | ✔️ | ✔️ | amend to cover storage in cloud |
-| Security | Zone Model | [zero-trust](../appendix/zero-trust.md) |  |
+| Feature                   | on-prem    | gcp                                     | Comment                                                                                                                                                                                         |
+|:--------------------------|:-----------|:----------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Deploy                    | ✔️         | ✔️                                      | different clustername when deploying                                                                                                                                                            |
+| Logging                   | ✔️         | ✔️                                      | different clustername in logs.adeo.no                                                                                                                                                           |
+| Metrics                   | ✔️         | ✔️                                      | same mechanism, different datasource                                                                                                                                                            |
+| Nais app dashboard        | ✔️         | ✔️                                      | new and improved in GCP                                                                                                                                                                         |
+| Alerts                    | ✔️         | ✔️                                      | identical                                                                                                                                                                                       |
+| Secure logs               | ✔️         | ✔️                                      | different clustername in logs.adeo.no                                                                                                                                                           |
+| Kafka                     | ✔️         | ✔️                                      | identical                                                                                                                                                                                       |
+| Secrets                   | Vault      | Secret manager                          |                                                                                                                                                                                                 |
+| Team namespaces           | ✔️         | ✔️                                      |                                                                                                                                                                                                 |
+| Shared namespaces         | ✔️         | ✖️                                      | Default namespace not available for teams in GCP                                                                                                                                                |
+| Health checks             | ✔️         | ✔️                                      | identical                                                                                                                                                                                       |
+| Ingress                   | ✔️         | ✔️                                      | see [GCP](gcp.md) and [on-premises](on-premises.md) for available domains                                                                                                                       |
+| Storage                   | Ceph       | Buckets                                 |                                                                                                                                                                                                 |
+| Postgres                  | ✔️ \(IAC\) | ✔️ \(self-service\)                     |                                                                                                                                                                                                 |
+| Laptop access             | ✔️         | ✔️                                      |                                                                                                                                                                                                 |
+| domain: dev.intern.nav.no |            | ✔️ \(Automatic\)                        | Wildcard DNS points to GCP load balancer                                                                                                                                                        |
+| Access to FSS services    |            | ✔️                                      | Identical \(either API-gw or [TokenX](../security/auth/tokenx.md). May require a proxy app, see [FAQ](#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp) for details. |
+| NAV truststore            | ✔️         | ✔️                                      |                                                                                                                                                                                                 |
+| PVK required              | ✔️         | ✔️                                      | amend to cover storage in cloud                                                                                                                                                                 |
+| Security                  | Zone Model | [zero-trust](../appendix/zero-trust.md) |                                                                                                                                                                                                 |
 
