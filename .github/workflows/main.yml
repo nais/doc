@@ -35,7 +35,7 @@ jobs:
           --ansi \
           --remove-untracked
 
-      - name: Build tenant documentation
+      - name: Build documentation
         run: |
           ./build.sh nav ssb ci-nais dev-nais tenant
 
