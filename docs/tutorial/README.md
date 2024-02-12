@@ -6,6 +6,7 @@ hide:
 ---
 
 # NAIS Documentation
+Learning-oriented lessons that take you through a series of steps to complete a project. Most useful when you want to get started with NAIS.
 
 <div class="grid cards" markdown>
 -   :octicons-rocket-24:{ .lg .middle } **1. Hello NAIS**
