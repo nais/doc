@@ -7,7 +7,7 @@ This guide will show you hwo to install and use redis in your application
 - [Member of a NAIS team](../../explanation/team.md)
 
 !!! warning
-  It is not possible to share Redis instances between teams.
+    It is not possible to share Redis instances between teams.
 
 ## 1. Enable redis in your [manifest](../../reference/application-spec.md#redis)
 
@@ -34,6 +34,7 @@ The environment variables use a fixed prefix, and the instance name uppercased a
 
 Example for the sessions instance used above:
 (TODO: how do we fix this for non-nav=)
+
 | Key                     | Value                                                                                                                                        |
 |-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
 | REDIS_URI_SESSIONS      | The URI for the Redis instance, typically with a `rediss` scheme. <br/>Example:  `rediss://redis-team-sessions-nav-dev.aivencloud.com:26483` |
