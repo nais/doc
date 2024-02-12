@@ -1,4 +1,4 @@
-# Accessing topics from an application outside NAIS (TODO: NAV only)
+# Accessing topics from an application outside NAIS
 
 This guide will show you how to access a [Kafka topic](create.md) from an application outside NAIS clusters.
 
