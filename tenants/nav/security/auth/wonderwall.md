@@ -1,3 +1,8 @@
+---
+title: Wonderwall
+description: Sidecar for authentication
+---
+
 # Wonderwall (sidecar for authentication)
 
 [Wonderwall](https://github.com/nais/wonderwall) is an application that implements an OpenID Connect (OIDC)
