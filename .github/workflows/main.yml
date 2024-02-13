@@ -53,10 +53,10 @@ jobs:
             bucket: doc.dev-nais.cloud.nais.io
           - name: nav
             bucket: doc.nav.cloud.nais.io
+          - name: nav
+            bucket: docs.nais.io
           - name: ssb
             bucket: doc.ssb.cloud.nais.io
-          - name: tenant
-            bucket: docs.nais.io
     steps:
       - name: Restore cache folder
         uses: actions/cache/restore@v4

@@ -13,8 +13,6 @@ hide:
 
 # NAIS Documentation
 
-<<if_tenant()>>
-
 <div class="grid cards" markdown>
 -   :seedling: **Getting Started?**
 
