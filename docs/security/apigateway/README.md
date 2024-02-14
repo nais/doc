@@ -18,7 +18,7 @@ description: API Gateway for securing your APIs
 
 ## KrakenD in NAIS
 
-KrakendD in NAIS is meant as an extra feature for teams using [Maskinporten](../auth/maskinporten/README.md) or [AzureAD](../auth/azure-ad/README.md) to expose their APIs to external consumers/partners.
+KrakendD in NAIS is meant as an extra feature for teams using [Maskinporten](../auth/maskinporten/README.md) to expose their APIs on-prem to external consumers/partners.
 
 Each team can get their own instance of KrakenD deployed in their namespace. The KrakenD instance will be configured to require JWT tokens, and API endpoints can be added
 in a declarative manner using the [ApiEndpoints custom resource](https://github.com/nais/krakend/blob/main/config/samples/apiendpoints_max.yaml)
@@ -148,10 +148,6 @@ Currently we support the following KrakenD features:
 
 
 ## Use cases
-
-### Expose an API to external consumers from GCP
-
-Enable KrakenD in your namespace in GCP and add API endpoints to your KrakenD instance.
 
 ### Expose an API to external consumers from on-prem via GCP
 
