@@ -1,5 +1,9 @@
 # Troubleshooting
 
+- _naisdevice cannot connect, yet `/msg @Kolide status` is happy!_
+    - Disconnect and re-connect `naisdevice` =\)!
+- Kolide is reporting that your device has not been seen "in a long time"
+    - Reinstall ([uninstall](uninstall.md) -> [install](install.md))
 - Browser does not open after you click connect and naisdevice
     - Restart your default browser.
 - Outgoing UDP connections to 51820/UDP must be open in your firewall and or modem provided by your ISP.
