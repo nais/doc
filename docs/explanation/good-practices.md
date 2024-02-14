@@ -24,7 +24,7 @@ See [envFrom ConfigMap](https://doc.nais.io/reference/application-spec/#envfromc
 
 ## Use enviroment variables exposed by the platform
 
-Some environment variables are made available to the pods by default when deployed on the NAIS platform, depending on which features are enabled. Examples of such features are tokenx, azurerator and aivenator. Avoid setting your own environment variables for these values and use pre-defined variables instead. 
+Some environment variables are made available to the pods by default when deployed on the NAIS platform, depending on which features are enabled. Examples of such features are tokenx, azurerator and aivenator. Avoid setting your own environment variables for these values and use pre-defined variables instead.
 
 This will ease or eliminate the need for configuration when the platform changes. Such changes in the platform will not necessarily be announced or communicated, as we expect the applications to use these variables and not create their own.
 
@@ -44,6 +44,17 @@ A memory leak that results in your application using all available memory on the
 
 `limits.cpu` is usually not needed, because your application will never be allowed to impact other processes running on the same CPU.
 If you need to do performance testing or similar activities, then setting `limits.cpu` might be useful to test how your application behaves when CPU constrained.
+
+??? info "nais.yaml example"
+    ```yaml
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "100m"
+      limits:
+        memory: "128Mi"
+        # cpu limits are usually not needed
+    ```
 
 ## Handles termination gracefully
 
