@@ -57,7 +57,7 @@ See [nais/docker-build-push](https://github.com/nais/docker-build-push) for more
 
 Vulnerabilities is aggregated to the team level, and can be viewed in the Console.
 Teams can visit the Console to view their Application vulnerabilities, for example:  
-https://console.[tenant].cloud.nais.io/team/[team]/vulnerabilities
+https://console.<<teanant()>>.cloud.nais.io/team/[team]/vulnerabilities
 
 ### View and analyze dependencies in Dependency-Track
 
@@ -65,8 +65,7 @@ https://console.[tenant].cloud.nais.io/team/[team]/vulnerabilities
 attestations and vulnerabilities for all signed attestations deployed, except those that have chosen to opt out
 from salsa. You can access the Dependency-Track user interface through the following URL:
 
-https://salsa.[tenantname].cloud.nais.io
-For instance, you can visit [nav-salsa](https://salsa.nav.cloud.nais.io) as an example.
+https://salsa.<<tenant()>>.cloud.nais.io
 
 To sign in, utilize the OpenID button, which will redirect you to your organization's identity provider.
 
