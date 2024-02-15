@@ -29,7 +29,7 @@ The actual name of the OpenSearch instance will be `opensearch-<TEAM NAME>-<INST
 As we use Aiven's operator, [the OpenSearch resource is documented in detail](https://aiven.github.io/aiven-operator/api-reference/opensearch.html) in the Aiven documentation. Check the reference for any other fields that might be of interest.
 
 
-{% if tenant() == "nav" %}
+{% if tenant() in ("nav", "dev-nais") %}
 
 ### ServiceIntegration
 
@@ -67,8 +67,12 @@ Simple 5 steps procedure:
 
 | Environment | Endpoint ID                          |
 |-------------|--------------------------------------|
+{% if tenant() == "nav" %}
 | nav-dev     | f20f5b48-18f4-4e2a-8e5f-4ab3edb19733 |
 | nav-prod    | 76685598-1048-4f56-b34a-9769ef747a92 |
+{% elif tenant() == "dev-nais" %}
+| dev-nais-dev | cc2fd0ad-9e62-492e-b836-86aa9654fd9b |
+{% endif %}
 
 ### Previous usage
 
