@@ -71,10 +71,10 @@ spec:
   plan: startup-4
   project: nav-dev
 ```
-(TODO: nav only)
+
 A minimal Redis resource only requires `plan` and `project`.
 
- * `project` should match your nais tenant (`nav`, `mtpilot`, `ssb` or `fhi`) and the environment you are running in (ex. `dev`, `prod`), with a dash (`-`) in between.
+ * `project` should match your nais tenant (`<<tenant()>>`) and the environment you are running in (ex. `dev`, `prod`), with a dash (`-`) in between.
  * `plan` is the Aiven plan for your Redis instance. 
    See Aivens list of [possible plan values](https://aiven.io/pricing?product=redis). 
    The values are lowercased.
@@ -111,3 +111,56 @@ There are some fields available that should not be used:
 | `connInfoSecretTarget` | Name of secret to put connection info in, not used as nais provides these via other mechanisms. |
 | `projectVPCRef`        | Not used since we use `projectVpcId`.                                                           |
 | `serviceIntegrations`  | Not used at this time.                                                                          |
+
+{% if tenant() in ("nav", "dev-nais") %}
+
+### ServiceIntegration
+
+A ServiceIntegration is used to integrate the Redis instance with Prometheus.
+It is pretty straight forward, with little to no configuration needed.
+
+Simple 5 steps procedure:
+
+1. Copy the below yaml into a file (it can be the same file as your Redis instance)
+2. Replace `<ENV>` with the environment you are running in (ex. `dev`, `prod`) (in field `project`)
+3. Replace `<MYTEAM>` with your team name (in `labels`, `namespace` and `sourceServiceName`)
+4. Replace `<INSTANCE>` with the last part of the name of your Redis instance (in `name` and `sourceServiceName`)
+5. Replace `<ENDPONT-ID>` with the endpoint ID from the table below (in `destinationEndpointId`)
+6. Deploy the resource using the same pipeline as you use for your Redis instance
+
+
+???+ note "redis.yaml"
+    ```yaml
+    ---
+    apiVersion: aiven.io/v1alpha1
+    kind: ServiceIntegration
+    metadata:
+        labels:
+            team: <MYTEAM>
+        name: redis-<MYTEAM>-<INSTANCE>
+        namespace: <MYTEAM>
+    spec:
+        project: <<tenant()>>-<ENV>
+        integrationType: prometheus
+        destinationEndpointId: <ENDPONT-ID>
+        sourceServiceName: redis-<MYTEAM>-<INSTANCE>
+    ```
+
+#### Prometheus Endpoint IDs
+
+{% if tenant() == "nav" %}
+
+| Environment | Endpoint ID                          |
+|-------------|--------------------------------------|
+| nav-dev     | f20f5b48-18f4-4e2a-8e5f-4ab3edb19733 |
+| nav-prod    | 76685598-1048-4f56-b34a-9769ef747a92 |
+
+{% elif tenant() == "dev-nais" %}
+
+| Environment  | Endpoint ID                          |
+|--------------|--------------------------------------|
+| dev-nais-dev | cc2fd0ad-9e62-492e-b836-86aa9654fd9b |
+
+{% endif %}
+
+{% endif %}
