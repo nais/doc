@@ -1,9 +1,9 @@
----
-title: API Gateway
-description: API Gateway for securing your APIs
----
+# Exposing FSS apps with Maskinporten authentication
 
-# API Gateway - KrakenD
+!!! warning "FSS apps only"
+
+    KrakendD in NAIS is meant as an extra feature for teams using [Maskinporten](../auth/maskinporten/README.md) to expose their APIs on-prem (FSS / Fagsystemsonen) to external consumers/partners. Applications that run in GCP should use the [Maskinporten](./auth/maskinporten/README.md) functionality directly. 
+
 
 !!! info "Status: Beta"
     This feature is only in a beta.
@@ -12,13 +12,12 @@ description: API Gateway for securing your APIs
 
     Please report any issues and feedback to the #eksponere-eksterne-apier-fra-gcp or #nais channel on Slack.
 
+
 ## What is KrakenD
 
-[KrakenD](https://www.krakend.io/) is an open-source API Gateway that sits in front of your APIs and provides a single point of entry for API clients.
+[KrakenD](https://www.krakend.io/) is an open-source API Gateway that sits in front of your Maskinporten APIs and provides a single point of entry for API clients.
 
 ## KrakenD in NAIS
-
-KrakendD in NAIS is meant as an extra feature for teams using [Maskinporten](../auth/maskinporten/README.md) to expose their APIs on-prem to external consumers/partners.
 
 Each team can get their own instance of KrakenD deployed in their namespace. The KrakenD instance will be configured to require JWT tokens, and API endpoints can be added
 in a declarative manner using the [ApiEndpoints custom resource](https://github.com/nais/krakend/blob/main/config/samples/apiendpoints_max.yaml)
@@ -36,13 +35,13 @@ When KrakenD is installed in your namespace you will get an ingress for your Kra
 
 GCP:
 
-* `https://<namespace>-gw.ekstern.dev.nav.no`
-* `https://<namespace>-gw.nav.no`
+* `https://<MY-TEAM>-gw.ekstern.dev.nav.no`
+* `https://<MY-TEAM>-gw.nav.no`
 
 On-prem:
 
-* `https://<namespace>-gw.dev-fss-pub.nais.io`
-* `https://<namespace>-gw.prod-fss-pub.nais.io`
+* `https://<MY-TEAM>-gw.dev-fss-pub.nais.io`
+* `https://<MY-TEAM>-gw.prod-fss-pub.nais.io`
 
 !!! info "Note for on-prem"
 

@@ -1,7 +1,6 @@
 title: Security
 nav:
     - antivirus.md
-    - apigateway
     - auth
     - salsa
     - ...

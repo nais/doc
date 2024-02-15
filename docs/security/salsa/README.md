@@ -57,7 +57,7 @@ See [nais/docker-build-push](https://github.com/nais/docker-build-push) for more
 
 Vulnerabilities is aggregated to the team level, and can be viewed in the Console.
 Teams can visit the Console to view their Application vulnerabilities, for example:  
-https://console.<<teanant()>>.cloud.nais.io/team/[team]/vulnerabilities
+https://console.<<tenant()>>.cloud.nais.io/team/[team]/vulnerabilities
 
 ### View and analyze dependencies in Dependency-Track
 
