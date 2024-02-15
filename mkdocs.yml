@@ -92,6 +92,7 @@ plugins:
           'observability/tracing.md': 'explanation/observability/tracing.md'
           'security/salsa/salsa.md': 'security/salsa/README.md'
           'addons/wonderwall.md': 'security/auth/wonderwall.md'
+          'device/update.md': 'how-to-guides/naisdevice/update.md'
 markdown_extensions:
   - toc:
       permalink: True
