@@ -65,13 +65,19 @@ Simple 5 steps procedure:
 
 #### Prometheus Endpoint IDs
 
+{% if tenant() == "nav" %}
+
 | Environment | Endpoint ID                          |
 |-------------|--------------------------------------|
-{% if tenant() == "nav" %}
 | nav-dev     | f20f5b48-18f4-4e2a-8e5f-4ab3edb19733 |
 | nav-prod    | 76685598-1048-4f56-b34a-9769ef747a92 |
+
 {% elif tenant() == "dev-nais" %}
+
+| Environment  | Endpoint ID                          |
+|--------------|--------------------------------------|
 | dev-nais-dev | cc2fd0ad-9e62-492e-b836-86aa9654fd9b |
+
 {% endif %}
 
 ### Previous usage
