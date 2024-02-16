@@ -1,6 +1,6 @@
-# Renew credentials in legacy
+# Renew credentials for non-NAIS applications
 
-Eventually the credentials created in [Accessing topics from an application outside NAIS](access-from-legacy.md) will expire.
+Eventually the credentials created in [Accessing topics from an application outside NAIS](access-from-non-nais.md) will expire.
 Well in advance of this, Aiven will issue a notification to the technical contacts, and we route those to the slack channel [#aiven-driftsmeldinger](https://nav-it.slack.com/archives/C01TT8SS4LA).
 
 When it is time to renew the credentials, follow these steps:
