@@ -91,6 +91,7 @@ Currently we support the following KrakenD features:
       endpoints:                      # specify your API endpoints requiring auth here
         - path: /app1/somepath        # path for your API endpoint in KrakenD - must be unique within your namespace
           method: GET
+          timeout: 5s                 # optionally specify a timeout for the entire roundtrip to your backend, see https://www.krakend.io/docs/endpoints/#timeout
           forwardHeaders:             # if your backend validates tokens, you need to forward the Authorization header
             - Authorization
           queryParams:                # if your api uses query params, you need to specify the names here
@@ -128,6 +129,7 @@ Currently we support the following KrakenD features:
       endpoints:                      # specify your API endpoints requiring auth here
         - path: /app1/somepath        # path for your API endpoint in KrakenD - must be unique within your namespace
           method: GET
+          timeout: 5s                 # optionally specify a timeout for the entire roundtrip to your backend, see https://www.krakend.io/docs/endpoints/#timeout
           forwardHeaders:             # if your backend validates tokens, you need to forward the Authorization header
             - Authorization
           queryParams:                # if your api uses query params, you need to specify the names here
@@ -169,6 +171,7 @@ you can enable KrakenD in your namespace in GCP and add API endpoints to your Kr
         endpoints:                      # specify your API endpoints requiring auth here
           - path: /app1/somepath        # path for your API endpoint in KrakenD - must be unique within your namespace
             method: GET
+            timeout: 5s                 # optionally specify a timeout for the entire roundtrip to your backend, see https://www.krakend.io/docs/endpoints/#timeout
             forwardHeaders:             # if your backend validates tokens, you need to forward the Authorization header
               - Authorization
             backendHost: https://app1.dev-fss-pub.nais.io
