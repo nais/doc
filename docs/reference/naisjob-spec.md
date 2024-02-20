@@ -1923,7 +1923,7 @@ Required: `false`<br />
     ```
 
 ##### gcp.sqlInstances[].databases[].name
-Database name.
+Database name. *Be aware that only one database with this name is allowed in a namespace, regardless of which SQLInstance it belongs to*
 
 Type: `string`<br />
 Required: `true`<br />
