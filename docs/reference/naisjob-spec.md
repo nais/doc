@@ -3424,6 +3424,129 @@ Pattern: `^[a-z0-9]+$`<br />
               product: arbeid
     ```
 
+## observability
+Configuration options related to application observability.
+
+Relevant information:
+
+* [https://doc.nais.io/explanation/observability/](https://doc.nais.io/explanation/observability/)
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        logging:
+          destinations:
+            - id: my-destination
+          enabled: true
+        tracing:
+          enabled: true
+    ```
+
+### observability.logging
+Configure logging for your application.
+
+Relevant information:
+
+* [https://doc.nais.io/explanation/observability/logging/](https://doc.nais.io/explanation/observability/logging/)
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        logging:
+          destinations:
+            - id: my-destination
+          enabled: true
+    ```
+
+#### observability.logging.destinations
+Log destinations for where to forward application logs for persistent storage. Leave empty to use default destinations.
+
+Relevant information:
+
+* [https://doc.nais.io/explanation/observability/logging/#log-destinations](https://doc.nais.io/explanation/observability/logging/#log-destinations)
+
+Type: `array`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        logging:
+          destinations:
+            - id: my-destination
+    ```
+
+##### observability.logging.destinations[].id
+Type: `string`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        logging:
+          destinations:
+            - id: my-destination
+    ```
+
+#### observability.logging.enabled
+Enable forwarding of application logs to persistent storage.
+
+Type: `boolean`<br />
+Required: `false`<br />
+Default value: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        logging:
+          enabled: true
+    ```
+
+### observability.tracing
+Enable application performance monitoring with traces collected using OpenTelemetry and the OTLP exporter.
+
+!!! warning "Experimental feature"
+    This feature has not undergone much testing, and is subject to API change, instability, or removal.
+
+Relevant information:
+
+* [https://doc.nais.io/explanation/observability/tracing/](https://doc.nais.io/explanation/observability/tracing/)
+
+Type: `object`<br />
+Required: `false`<br />
+Availability: GCP<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        tracing:
+          enabled: true
+    ```
+
+#### observability.tracing.enabled
+Type: `boolean`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        tracing:
+          enabled: true
+    ```
+
 ## openSearch
 To get your own OpenSearch instance head over to the IaC-repo to provision each instance. See [navikt/aiven-iac](https://github.com/navikt/aiven-iac) repository.
 

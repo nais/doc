@@ -183,6 +183,13 @@ spec:
         enabled: true
         name: scope.read
         product: arbeid
+  observability:
+    logging:
+      destinations:
+      - id: my-destination
+      enabled: true
+    tracing:
+      enabled: true
   openSearch:
     access: readwrite
     instance: my-open-search-instance
