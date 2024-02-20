@@ -14,3 +14,7 @@ The cdn deploy action accepts a few different inputs
 | cache-invalidation            | Optionally invalidate cached content after upload       | false    | false        |
 | cache-invalidation-background | Run cache invalidation in the background                | false    | true         |
 | no-cache-paths                | Comma separated list of paths that should not be cached | false    | ""           |
+
+## Action outputs
+
+After running, the actions outputs the uploaded files as `outputs.uploaded`
