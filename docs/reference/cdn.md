@@ -1,20 +1,39 @@
+---
+tags:
+  - CDN
+---
+
 # CDN
 
-The cdn deploy action accepts a few different inputs
+Reference documentation for the [CDN](../explanation/workloads/cdn.md) deploy action.
 
-## Action Inputs
+## Inputs
 
-| input                         | description                                             | required | default      |
-|-------------------------------|---------------------------------------------------------|----------|--------------|
-| team-name                     | CDN team name                                           | true     | X            |
-| destination                   | Destination directory                                   | true     | x            |
-| source                        | Source Directory                                        | true     | x            |
-| environment                   | CDN environment name (cdn.dev.nav.no or cdn.nav.no)     | false    | "cdn.nav.no" |
-| source-keep-parent-name       | Keep parent directory name when uploading               | false    | true         |
-| cache-invalidation            | Optionally invalidate cached content after upload       | false    | false        |
-| cache-invalidation-background | Run cache invalidation in the background                | false    | true         |
-| no-cache-paths                | Comma separated list of paths that should not be cached | false    | ""           |
+The action accepts the following inputs:
 
-## Action outputs
+| input              | description                                             | default | required |
+|--------------------|---------------------------------------------------------|---------|----------|
+| team-name          | Team name                                               | ❌       | true     |
+| destination        | Destination directory                                   | ❌       | true     |
+| source             | Source directory                                        | ❌       | true     |
+| cache-invalidation | Invalidate cached content after upload                  | `false` | false    |
+| no-cache-paths     | Comma separated list of paths that should not be cached | `""`    | false    |
 
-After running, the actions outputs the uploaded files as `outputs.uploaded`
+## Outputs
+
+### `uploaded`
+
+List of successfully uploaded files.
+
+Available as `${{ steps.<job-id>.outputs.uploaded }}`
+
+For example:
+
+```yaml
+- id: 'upload-cdn'
+  name: Upload static files to NAV CDN
+  uses: navikt/frontend/actions/cdn-upload/v2
+  ...
+```
+
+will be available in future steps as `${{ steps.upload-cdn.outputs.uploaded }}`
