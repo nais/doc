@@ -10,10 +10,11 @@ The following environment variables are available for configuring the tracing li
 
 | Name                          | Description                                                                       | Default value                                             |
 | ----------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| `OTEL_SERVICE_NAME`           | The name of the service.                                                          | `$APP_NAME`                                               |
-| `OTEL_RESOURCE_ATTRIBUTES`    | A comma-separated list of key-value pairs to be added to the resource attributes. | `service.name=$APP_NAME,service.namespace=$APP_NAMESPACE` |
-| `OTEL_EXPORTER_OTLP_ENDPOINT` | The endpoint to send trace data to.                                               | `http://tempo-distributor.nais-system:4317`               |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | The endpoint to send trace data to.                                               | `http://opentelemetry-collector.nais-system:4317`         |
+| `OTEL_EXPORTER_OTLP_INSECURE` | Whether to use an insecure connection when sending trace data.                    | `true`                                                    |
 | `OTEL_EXPORTER_PROTOCOL`      | The protocol to use when sending trace data. Must be `grpc`.                      | `grpc`                                                    |
+| `OTEL_RESOURCE_ATTRIBUTES`    | A comma-separated list of key-value pairs to be added to the resource attributes. | `service.name=$APP_NAME,service.namespace=$APP_NAMESPACE` |
+| `OTEL_SERVICE_NAME`           | The name of the service.                                                          | `$APP_NAME`                                               |
 
 ## Instrumentation libraries
 
