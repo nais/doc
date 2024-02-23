@@ -3438,12 +3438,67 @@ Required: `false`<br />
     ``` yaml
     spec:
       observability:
+        autoInstrumentation:
+          enabled: true
+          runtime: java
         logging:
           destinations:
             - id: my-destination
           enabled: true
         tracing:
           enabled: true
+    ```
+
+### observability.autoInstrumentation
+Enable auto-instrumenting your application using the OpenTelemetry Agent.
+
+!!! warning "Experimental feature"
+    This feature has not undergone much testing, and is subject to API change, instability, or removal.
+
+Relevant information:
+
+* [https://doc.nais.io/observability/auto-instrumentation/](https://doc.nais.io/observability/auto-instrumentation/)
+
+Type: `object`<br />
+Required: `false`<br />
+Availability: GCP<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        autoInstrumentation:
+          enabled: true
+          runtime: java
+    ```
+
+#### observability.autoInstrumentation.enabled
+Enable automatic instrumentation of your application using OpenTelemetry Agent.
+
+Type: `boolean`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        autoInstrumentation:
+          enabled: true
+    ```
+
+#### observability.autoInstrumentation.runtime
+Application runtime. Supported runtimes are `java`, `nodejs`, `python`, `sdk`.
+
+Type: `enum`<br />
+Required: `false`<br />
+Allowed values: `java`, `nodejs`, `python`, `sdk`<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        autoInstrumentation:
+          runtime: java
     ```
 
 ### observability.logging

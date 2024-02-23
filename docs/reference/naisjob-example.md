@@ -184,6 +184,9 @@ spec:
         name: scope.read
         product: arbeid
   observability:
+    autoInstrumentation:
+      enabled: true
+      runtime: java
     logging:
       destinations:
       - id: my-destination
