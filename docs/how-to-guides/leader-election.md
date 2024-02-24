@@ -1,6 +1,6 @@
 # Enable Leader Election
 
-This guide will show you how to enable leader election for your appliaction
+This guide will show you how to enable leader election for your application.
 
 ## 0. Enable leader election in [manifest](../reference/application-spec.md#leaderelection)
 
