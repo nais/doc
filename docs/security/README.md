@@ -112,17 +112,10 @@ provided by NAIS:
 
 #### Secrets
 
-NAIS provides a secure way to store secrets in the form of [Kubernetes
-secrets][kubernetes-secrets]. These secrets are encrypted at rest and are only
-accessible by the application that they are associated with.
+NAIS provides a secure way to store [secrets] for use by applications.
+These secrets are encrypted at rest and are only accessible by applications and members of a given team.
 
-In addition to Kubernetes secrets NAIS provides integration with [Google Secrets
-Manager][google-secrets-manager] and [Hashicorp Vault][hashicorp-vault] for
-enhanced secret management.
-
-[kubernetes-secrets]: ./secrets/kubernetes-secrets.md
-[google-secrets-manager]: ./secrets/google-secrets-manager.md
-[hashicorp-vault]: ./secrets/vault.md
+[secrets]: ../explanation/secrets.md
 
 #### External dependencies
 
