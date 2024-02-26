@@ -37,3 +37,7 @@ See the workload references for more information:
 
 - [Application](../reference/application-spec.md#filesfromsecret)
 - [NaisJob](../reference/naisjob-spec.md#filesfromsecret)
+
+## How-Tos
+
+- [Create a secret and use it in your workload](../how-to-guides/secrets.md)
