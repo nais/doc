@@ -26,3 +26,16 @@ Alternatively, from an elevated PowerShell:
 ```
 > Add-MpPreference -ExclusionPath %USERPROFILE%\scoop\apps\nais-cli
 ```
+
+## Mac: User xxx does not exists 
+If you get an error message like this when running `brew install nais`
+
+clear the envvariable USER
+```
+export USER=
+```
+verify that USER is empty;
+```
+echo $USER
+```
+run `brew install nais` again
