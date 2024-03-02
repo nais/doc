@@ -92,6 +92,7 @@ plugins:
           'security/salsa/salsa.md': 'security/salsa/README.md'
           'addons/wonderwall.md': 'security/auth/wonderwall.md'
           'device/update.md': 'how-to-guides/naisdevice/update.md'
+          'how-to-guides/observability/tracing/otel-tracing.md': 'explanation/observability/auto-instrumentation.md'
 markdown_extensions:
   - toc:
       permalink: True
