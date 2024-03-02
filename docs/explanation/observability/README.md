@@ -22,16 +22,20 @@ The tree pillars of observability are:
 2. **Metrics** - Metrics are a numerical measurement of something in your application. They are useful for understanding the performance of your application and is generally more scalable than logs both in terms of storage and querying since they are structured data.
 3. **Traces** - Traces are a record of the path a request takes through your application. They are useful for understanding how a request is processed in your application.
 
+<center>
+
 ```mermaid
 graph
-  A[Application] --> B((Logs))
-  A --> C((Metrics))
-  A --> D((Traces))
+  A[Application] --> B(Logs)
+  A --> C(Metrics)
+  A --> D(Traces)
 
   click B "#logs"
   click C "#metrics"
   click D "#traces"
 ```
+
+</center>
 
 ## Metrics
 
@@ -89,10 +93,9 @@ graph LR
 With tracing, we can get application performance monitoring (APM). Tracing gives deep insight into the execution of your application. For instance, you can use tracing to see if parallel function are actually run in parallel,
 or what amount of time your application spends in a given function.
 
-Traces from NAIS applications are collected using the [OpenTelemetry](https://opentelemetry.io/) standard.  Performance metrics are stored and queried from the [Tempo](https://grafana.com/oss/tempo/) component.
+Traces from NAIS applications can be collected using the [OpenTelemetry](https://opentelemetry.io/) standard. Performance metrics are stored and queried from the [Tempo](https://grafana.com/oss/tempo/) component.
 
-Visualization of traces can be done in [Grafana](https://grafana.<<tenant()>>.cloud.nais.io),
-using the `*-tempo` data sources (one for each environment).
+Visualization of traces can be done in [Grafana](https://grafana.<<tenant()>>.cloud.nais.io), using the `*-tempo` data sources (one for each environment).
 
 ```mermaid
 graph LR
