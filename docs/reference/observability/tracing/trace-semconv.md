@@ -1,0 +1,1 @@
+* https://opentelemetry.io/docs/specs/semconv/general/trace/
