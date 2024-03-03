@@ -28,6 +28,10 @@ Traces are a record of the path a request takes through your application. They a
 
 A span represents a single unit of work in a trace, like a SQL query or an HTTP call to an external service.
 
+### Context
+
+Each Span carries a Context that includes metadata about the trace (like a unique trace identifier and span identifier) and any other data you choose to include. This context is propagated across process boundaries, allowing all the work that's part of a single trace to be linked together, even if it spans multiple services.
+
 ### Grafa Tempo
 
 [Grafana Tempo](https://grafana.com/oss/tempo/) is an open-source, easy-to-use, high-scale, and cost-effective distributed tracing backend that stores and queries traces in a way that is easy to understand and use. It is fully integrated with Grafana, allowing you to visualize and query traces in the same interface as your metrics, and logs.
