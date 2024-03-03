@@ -1,4 +1,4 @@
-# Available environments
+# Environments
 
 NAIS provides environments both on-prem and running in Google Cloud Platform (GCP).
 
@@ -15,7 +15,7 @@ We also enumerate the external IPs used by the environments, so that you can pro
 
 ### dev-gcp
 
-#### Domains
+#### Ingress domains
 
 | domain | accessible from | description |
 | :--- | :--- | :--- |
@@ -30,7 +30,7 @@ We also enumerate the external IPs used by the environments, so that you can pro
 
 ### prod-gcp
 
-#### Domains
+#### Ingress domains
 
 | domain | accessible from | description |
 | :--- | :--- | :--- |
@@ -52,7 +52,7 @@ We also enumerate the external IPs used by the environments, so that you can pro
 
 ### dev-fss
 
-#### Domains
+#### Ingress domains
 
 | domain              | accessible from                   | description                                                                                                                                                                       |
 | :------------------ | :-------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -61,7 +61,7 @@ We also enumerate the external IPs used by the environments, so that you can pro
 
 ### prod-fss
 
-#### Domains
+#### Ingress domains
 
 | domain               | accessible from                   | description                                                                                                                                                                       |
 | :------------------- | :-------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
