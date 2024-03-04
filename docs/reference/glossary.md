@@ -34,15 +34,19 @@ Each Span carries a Context that includes metadata about the trace (like a uniqu
 
 ### Grafana Tempo
 
-[Grafana Tempo](https://grafana.com/oss/tempo/) is an open-source, easy-to-use, high-scale, and cost-effective distributed tracing backend that stores and queries traces in a way that is easy to understand and use. It is fully integrated with Grafana, allowing you to visualize and query traces in the same interface as your metrics, and logs.
+[Grafana Tempo](https://grafana.com/oss/tempo/) is a storage and query system for traces in Grafana.
 
 ### OpenTelemetry
 
-[OpenTelemetry](https://opentelemetry.io) is a set of APIs, libraries, agents, and instrumentation to provide observability for cloud-native software. It is a project under the Cloud Native Computing Foundation (CNCF) and is the merger of the OpenTracing and OpenCensus projects.
+[OpenTelemetry](https://opentelemetry.io) is the standard for instrumenting your application for observability. It provides APIs, libraries, agents, and instrumentation to capture distributed traces, metrics and logs from your application.
 
 ### Logs
 
-Logs are a record of what has happened in your application. They are useful for debugging, but due to their unstructured format they generally do not scale very well.
+Logs are a record of what has happened in your application. They are useful for debugging, but due to their unstructured format they generally do not scale very well. Use metrics for dashboards and alerts and traces for understanding how a request is processed across multiple services.
+
+### Grafana Loki
+
+[Grafana Loki](https://grafana.com/oss/loki/) is a storage and query system for logs in Grafana.
 
 ### Kibana
 
@@ -50,8 +54,4 @@ Logs are a record of what has happened in your application. They are useful for 
 
 ### Elasticsearch
 
-[Elasticsearch](https://www.elastic.co/elasticsearch/) is a search engine that is used to store logs. It is a very powerful tool that can be used to create alerts and dashboards. Elasticsearch is used by many open source projects and is the de facto standard for logs in the cloud native world.
-
-### Grafana Loki
-
-[Grafana Loki](https://grafana.com/oss/loki/) is a horizontally-scalable, highly-available, multi-tenant log aggregation system inspired by Prometheus. It is designed to be very cost-effective and easy to operate, as it does not index the contents of the logs, but rather a set of labels for each log stream.
+[Elasticsearch](https://www.elastic.co/elasticsearch/) is a search engine that is used to store logs.
