@@ -13,7 +13,7 @@ mkdocs-material = "^9.5.12"
 mkdocs-build-plantuml-plugin = "^1.9.0"
 mkdocs-git-revision-date-localized-plugin = "^1.2.1"
 mkdocs-redirects = "^1.2.1"
-mkdocs-git-committers-plugin-2 = "^2.2.2"
+mkdocs-git-committers-plugin-2 = "^2.3.0"
 mkdocs-macros-plugin = "^1.0.5"
 mkdocs-awesome-pages-plugin = "^2.9.2"
 
