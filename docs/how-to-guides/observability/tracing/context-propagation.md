@@ -10,5 +10,5 @@ This guide explains how to propagate trace context across process boundaries in 
 
 When a service makes an HTTP request to another service, it should include the trace context in the request headers. The receiving service can then use this context to create a new Span that's part of the same trace. OpenTelemetry provides a standard for how trace context should be propagated in HTTP requests, called the [W3C Trace Context](https://www.w3.org/TR/trace-context/) standard.
 
-* [OpenTelemetry Setup in Spring Boot Application](https://www.baeldung.com/spring-boot-opentelemetry-setup)
+* [OpenTelemetry Setup in Spring Boot Application](https://opentelemetry.io/docs/languages/java/automatic/spring-boot)
 * [OpenTelemetry Setup in Ktor Application](https://github.com/open-telemetry/opentelemetry-java-instrumentation/tree/main/instrumentation/ktor/ktor-2.0/library)
