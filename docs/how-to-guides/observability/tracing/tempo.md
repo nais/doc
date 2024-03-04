@@ -14,7 +14,7 @@ Once you have traces being collected, you can visualize and query them in Grafan
 
 The easiest way to get started with querying traces in Grafana Tempo is to use the query builder mode. The query builder mode is a graphical interface that helps you build LogQL queries by selecting labels and fields from your logs.
 
-Start by selecting the `*-tempo` data source for the environment you want to query traces for. Then select the Search query type to open the query builder mode.
+Start by selecting the tempo data source for the environment you want to query traces for (one ending with `-tempo`). Then select the Search query type to open the query builder mode.
 
 ![Grafana Tempo Query Builder](../../../assets/grafana-tempo-query-builder.png)
 
@@ -24,7 +24,17 @@ Bellow the query builder you will see the TraceQL query that is being built as y
 
 Click the `Run query` button to run the query and see the results. You can also add the query to a dashboard by clicking the `Add to dashboard` button.
 
-[:octicons-link-external-24: Learn more about Grafana Tempo query editor](https://grafana.com/docs/grafana/latest/datasources/tempo/query-editor/)
+[:octicons-link-external-24: Learn more about Grafana Tempo query editor on grafana.com](https://grafana.com/docs/grafana/latest/datasources/tempo/query-editor/)
+
+### TraceQL query language
+
+Grafana Tempo uses the TraceQL query language to query traces. TraceQL is a query language for querying trace data, and it is based on the LogQL query language used by Grafana Loki for querying logs and the PromQL query language used by Prometheus for querying metrics.
+
+TraceQL provides a powerful and flexible way to query trace data, and it is designed to be easy to use and understand. You can use TraceQL to filter and aggregate trace data, and to create visualizations and alerts based on trace data.
+
+<iframe title="vimeo-player" src="https://player.vimeo.com/video/796408188?h=b3e8e3257b" width="100%" height="360" frameborder="0" allowfullscreen></iframe>
+
+[:bulb: Learn more about TraceQL query language](../../../reference/observability/tracing/traceql.md)
 
 ## Understanding trace data
 
