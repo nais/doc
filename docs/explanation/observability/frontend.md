@@ -211,8 +211,8 @@ Instrumenting mounts and unmounts can be quite data intensive, take due care.
 
 Navigate your web browser to the new Grafana at <https://grafana.<<tenant()>>.cloud.nais.io>.
 
-Traces are available from the `dev-gcp-tempo` and `prod-gcp-tempo` data sources, whereas
-logs and metrics are available from the `dev-gcp-loki` and `prod-gcp-loki` data sources.
+Traces are available from the data sources ending with `-tempo`, whereas
+logs and metrics are available from data sources sources ending with `-loki`.
 
 Use the "Explore" tab under either the Loki or Tempo tab and run queries.
 

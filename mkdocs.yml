@@ -63,7 +63,6 @@ extra:
             using our <a href="https://github.com/nais/doc/issues/new">feedback form</a> or contact us on Slack</a>.
 extra_javascript:
   - javascript/amplitude_events.js
-  - javascript/tenant_redirect.js
 extra_css:
   - material_theme_stylesheet_overrides/uu.css
   - material_theme_stylesheet_overrides/grid.css
@@ -93,6 +92,8 @@ plugins:
           'security/salsa/salsa.md': 'security/salsa/README.md'
           'addons/wonderwall.md': 'security/auth/wonderwall.md'
           'device/update.md': 'how-to-guides/naisdevice/update.md'
+          'how-to-guides/observability/tracing/otel-tracing.md': 'how-to-guides/observability/auto-instrumentation.md'
+          'reference/observability/otel/tracing.md': 'reference/observability/auto-config.md'
 markdown_extensions:
   - toc:
       permalink: True

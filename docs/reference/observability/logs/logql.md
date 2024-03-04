@@ -4,11 +4,9 @@ tags: [reference, loki]
 ---
 # LogQL Reference
 
-[LogQL][logql] is the query language used in Grafana Loki to query logs. It is a powerful query language that allows you to filter, aggregate, and search for logs and should be familiar to anyone who has used SQL or [PromQL](../metrics/promql.md).
+LogQL is the query language used in Grafana Loki to query logs. It is a powerful query language that allows you to filter, aggregate, and search for logs and should be familiar to anyone who has used SQL or [PromQL](../metrics/promql.md).
 
 Where LogQL differs from PromQL is it's trailing pipeline syntax, or log pipeline. A log pipeline is a set of stage expressions that are chained together and applied to the selected log streams. Each expression can filter out, parse, or mutate log lines and their respective labels.
-
-[logql]: https://grafana.com/docs/loki/latest/query/
 
 ## Syntax
 
