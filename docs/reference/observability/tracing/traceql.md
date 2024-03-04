@@ -43,7 +43,7 @@ Similar to PromQL, TraceQL supports a set of operators for comparing span attrib
 
 Since a trace can be composed of multiple spans, multiple selectors can be used together to filter spans based on different attributes.
 
-TraceQL supports two types of combining spansets: logical (`&&` and `||`) and structural relations (`>`, `>>`, `<<` `<`, and `~`).
+TraceQL supports two types of combining spansets: logical (`&&` and `||`) and structural relations (`>`, `>\>`, `<\<` `<`, and `~`).
 
 ##### Logical
 
@@ -60,8 +60,8 @@ The above query will return traces where a span with the service name `server` a
 Structural relations are used to filter spans based on their structural relationships. The structural relations are:
 
 - `>` - Direct parent of
-- `>>` - Ancestor of
-- `<<` - Descendant of
+- `>\>` - Ancestor of
+- `<\<` - Descendant of
 - `<` - Direct child of
 - `~` - Sibling of
 

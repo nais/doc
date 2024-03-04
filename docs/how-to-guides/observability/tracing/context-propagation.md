@@ -1,3 +1,7 @@
+---
+description: Learn how to propagate trace context across process boundaries in a few common scenarios.
+tags: [guide, tracing]
+---
 # Trace context propagation
 
 Each Span carries a Context that includes metadata about the trace (like a unique trace identifier and span identifier) and any other data you choose to include. This context is propagated across process boundaries, allowing all the work that's part of a single trace to be linked together, even if it spans multiple services.

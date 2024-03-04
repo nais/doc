@@ -57,3 +57,7 @@ spec:
       enabled: true
       runtime: sdk
 ```
+
+## Resources
+
+[:bulb: OpenTelemetry Auto-Instrumentation Configuration Reference](../../reference/observability/auto-config.md)

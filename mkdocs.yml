@@ -93,6 +93,7 @@ plugins:
           'addons/wonderwall.md': 'security/auth/wonderwall.md'
           'device/update.md': 'how-to-guides/naisdevice/update.md'
           'how-to-guides/observability/tracing/otel-tracing.md': 'how-to-guides/observability/auto-instrumentation.md'
+          'reference/observability/otel/tracing.md': 'reference/observability/auto-config.md'
 markdown_extensions:
   - toc:
       permalink: True
