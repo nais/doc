@@ -37,6 +37,12 @@ graph
 
 </center>
 
+## Automatic observability
+
+NAIS provides a new way to get started with observability. By enabling auto-instrumentation, you can get started with observability without having to write any code. This is the easiest way to get started with observability, as it requires little to no effort on the part of the team developing the application.
+
+[:bulb: Get started with auto-instrumentation](../../how-to-guides/observability/auto-instrumentation.md)
+
 ## Metrics
 
 Metrics are a way to measure the state of your application. Metrics are usually numerical values that can be aggregated and visualized. Metrics are often used to create alerts and dashboards.
@@ -45,7 +51,7 @@ We use the [OpenMetrics][openmetrics] format for metrics. This is a text-based f
 
 [openmetrics]: https://openmetrics.io/
 
-[:octicons-arrow-right-24: Get started with metrics](./metrics.md)
+[:bulb: Get started with metrics](./metrics.md)
 
 ### Prometheus
 
@@ -61,13 +67,13 @@ graph LR
   Prometheus --GET /metrics--> Application
 ```
 
-[:octicons-arrow-right-24: Access Prometheus here](./metrics.md#prometheus-environments)
+[:simple-prometheus: Access Prometheus here](./metrics.md#prometheus-environments)
 
 ### Grafana
 
 [Grafana][grafana] is a tool for visualizing metrics. It is used to create dashboards that can be used to monitor your application. Grafana is used by many open source projects and is the de facto standard for metrics in the cloud native world.
 
-[:octicons-arrow-right-24: Access Grafana here][nais-grafana]
+[:simple-grafana: Access Grafana here][nais-grafana]
 
 [grafana]: https://grafana.com/
 [nais-grafana]: <<tenant_url("grafana")>>
@@ -86,7 +92,7 @@ graph LR
   Router --> C[Elastic / Kibana]
 ```
 
-[:octicons-arrow-right-24: Configure your logs](./logging.md)
+[:bulb: Configure your logs](./logging.md)
 
 ## Traces
 
@@ -103,7 +109,7 @@ graph LR
   Tempo --> Grafana
 ```
 
-[:octicons-arrow-right-24: Read more about tracing](./tracing.md)
+[:bulb: Read more about tracing](./tracing.md)
 
 ## Alerts
 
@@ -120,16 +126,19 @@ graph LR
   Alertmanager --> Slack
 ```
 
-[:octicons-arrow-right-24: Read more about alerts](./alerting.md)
+[:bulb: Read more about alerts](./alerting.md)
 
 ## Learning more
 
 Observability is a very broad topic and there is a lot more to learn. Here are some resources that you can use to learn more about observability:
 
-- [:octicons-video-24: Monitoring, the Prometheus Way][youtube-prometheus]
-- [:octicons-book-24: SRE Book - Monitoring distributed systems][sre-book-monitoring]
-- [:octicons-book-24: SRE Workbook - Monitoring][sre-workbook-monitoring]
-- [:octicons-book-24: SRE Workbook - Alerting][sre-workbook-alerting]
+[:octicons-video-24: Monitoring, the Prometheus Way][youtube-prometheus]
+
+[:octicons-book-24: SRE Book - Monitoring distributed systems][sre-book-monitoring]
+
+[:octicons-book-24: SRE Workbook - Monitoring][sre-workbook-monitoring]
+
+[:octicons-book-24: SRE Workbook - Alerting][sre-workbook-alerting]
 
 [sre-book-monitoring]: https://sre.google/sre-book/monitoring-distributed-systems/
 [sre-workbook-monitoring]: https://sre.google/workbook/monitoring/
