@@ -57,7 +57,7 @@ We also enumerate the external IPs used by the environments, so that you can pro
 | domain              | accessible from                   | description                                                                                                                                                                       |
 | :------------------ | :-------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | intern.dev.nav.no   | [naisdevice](../explanation/naisdevice.md) | development ingress for internal applications. Also available in dev-gcp, use this to ease migration                                                                              |
-| dev-fss-pub.nais.io | GCP                               | See [How do I reach an application found on-premises from my application in GCP?](migrating-to-gcp.md#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp) |
+| dev-fss-pub.nais.io | GCP                               | See [How do I reach an application found on-premises from my application in GCP?](../explanation/migrating-to-gcp.md#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp) |
 
 ### prod-fss
 
