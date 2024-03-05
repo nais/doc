@@ -67,6 +67,29 @@ OpenTelemetry provides SDKs for a wide range of programming languages:
 * [:fontawesome-brands-python: OpenTelemetry Python][otel-python]
 * [:fontawesome-brands-golang: OpenTelemetry Go][otel-go]
 
+### Sensitive data
+
+While tracing is only concerned about request/response metadata there are some edge-cases where user data can become available in the data collected such as HTTP URL path or Kafka resource key. Request and response body is never collected.
+
+Bellow is a list of known fields you should check for your application.
+
+| Trace type | Known fields                                        |
+| ---------- | --------------------------------------------------- |
+| HTTP       | `url.path`, `target.path`, `route.path`, `url.full` |
+| Redis      | `db.statement`                                      |
+| Postgres   | `db.statement`                                      |
+| Kafka      | `messaging.kafka.message.key`                       |
+
+We have some rules to mask personal numbers `db.statement` and `messaging.kafka.message.key` but you should always check your application traces to make sure no sensitive data is collected when using auto-instrumentation.
+
+For more information about what metadata is collected for different trace types please see the relevant OpenTelemetry Semantic Conventions specification:
+
+* [Database Client Calls](https://opentelemetry.io/docs/specs/semconv/database/database-spans/)
+* [HTTP Client Calls](https://opentelemetry.io/docs/specs/semconv/http/http-spans/#http-client)
+* [HTTP Server Requests](https://opentelemetry.io/docs/specs/semconv/http/http-spans/#http-server)
+* [Messaging Client Calls](https://opentelemetry.io/docs/specs/semconv/messaging/messaging-spans/)
+* [Object Store Calls](https://opentelemetry.io/docs/specs/semconv/object-stores/)
+
 ## Visualizing traces in Grafana Tempo
 
 Visualizing and querying traces is done in Grafana using the Grafana Tempo. Tempo is an open-source, easy-to-use, high-scale, and cost-effective distributed tracing backend that stores and queries traces.
