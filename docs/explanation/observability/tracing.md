@@ -88,7 +88,23 @@ For more information about what metadata is collected for different trace types 
 * [HTTP Client Calls](https://opentelemetry.io/docs/specs/semconv/http/http-spans/#http-client)
 * [HTTP Server Requests](https://opentelemetry.io/docs/specs/semconv/http/http-spans/#http-server)
 * [Messaging Client Calls](https://opentelemetry.io/docs/specs/semconv/messaging/messaging-spans/)
-* [Object Store Calls](https://opentelemetry.io/docs/specs/semconv/object-stores/)
+* [Object Store Client Calls](https://opentelemetry.io/docs/specs/semconv/object-stores/)
+
+### Noisy traces
+
+Tracing can be noisy, especially health checks and other internal requests (such as metrics collection). In an attempt to reduce noise, we have added a filter to the OpenTelemetry endpoint that will drop traces matching the following URL path glob pattern:
+
+* `*/isAlive`
+* `*/isReady`
+* `*/prometheus`
+* `*/metrics`
+* `*/actuator/*`
+* `*/internal/health*`
+* `*/internal/status*`
+
+!!! info
+
+    We are currently looking into better ways for teams to specify paths, or patterns, they would like to exempt from tracing.
 
 ## Visualizing traces in Grafana Tempo
 
