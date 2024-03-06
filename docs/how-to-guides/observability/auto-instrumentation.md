@@ -33,7 +33,7 @@ spec:
   observability:
     autoInstrumentation:
       enabled: true
-      runtime: node
+      runtime: nodejs
 ```
 
 ## Enable auto-instrumentation for Python applications
