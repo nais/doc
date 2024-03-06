@@ -79,7 +79,7 @@ Currently we support the following KrakenD features:
       auth:
         name: maskinporten
         cache: true
-        scope:                        # specify the scopes or audience your app requires here, by using the keys audience or scope. can also be omitted
+        scopes:                        # specify the scopes or audience your app requires here, by using the keys audience or scope. can also be omitted
           - "nav:some/other/scope"
       rateLimit:                      # optionally specify rate-limiting for your app, see https://www.krakend.io/docs/endpoints/rate-limit/#configuration for details
         maxRate: 10
@@ -166,7 +166,7 @@ you can enable KrakenD in your namespace in GCP and add API endpoints to your Kr
         auth:
           name: maskinporten
           cache: true
-          scope:
+          scopes:
             - "nav:some/other/scope"
         endpoints:                      # specify your API endpoints requiring auth here
           - path: /app1/somepath        # path for your API endpoint in KrakenD - must be unique within your namespace
