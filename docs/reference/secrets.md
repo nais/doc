@@ -4,12 +4,18 @@ This is the reference documentation for [secrets](../explanation/secrets.md) on 
 
 ## Console
 
-Find and manage your team's user-defined secrets in the [NAIS Console](https://console.<<tenant()>>.cloud.nais.io).
+Visit [NAIS Console :octicons-link-external-16:](https://console.<<tenant()>>.cloud.nais.io) to find and manage your team's user-defined secrets.
+
+## How-To Guides
+
+- :bulb: [Get started with secrets in Console](../how-to-guides/secrets/console.md)
+- :bulb: [Use a secret in your workloads](../how-to-guides/secrets/workloads.md)
 
 ## Workloads
 
 Use a secret in your [workload](../explanation/workloads/README.md) by referencing them in your `nais.yaml` manifest.
-The secret can be made available as environment variables, files, or both.
+
+The secret can be made available as environment variables or files.
 
 ### Environment Variables
 
@@ -19,10 +25,10 @@ spec:
     - secret: <secret-name>
 ```
 
-See the workload references for more information:
+See also:
 
-- [Application](../reference/application-spec.md#envfromsecret)
-- [NaisJob](../reference/naisjob-spec.md#envfromsecret)
+- :clipboard: [Application reference](../reference/application-spec.md#envfromsecret)
+- :clipboard: [NaisJob reference](../reference/naisjob-spec.md#envfromsecret)
 
 ### Files
 
@@ -33,11 +39,7 @@ spec:
       mountPath: /var/run/secrets/<secret-name>
 ```
 
-See the workload references for more information:
+See also:
 
-- [Application](../reference/application-spec.md#filesfromsecret)
-- [NaisJob](../reference/naisjob-spec.md#filesfromsecret)
-
-## How-Tos
-
-- [Create a secret and use it in your workload](../how-to-guides/secrets.md)
+- :clipboard: [Application reference](../reference/application-spec.md#filesfromsecret)
+- :clipboard: [NaisJob reference](../reference/naisjob-spec.md#filesfromsecret)

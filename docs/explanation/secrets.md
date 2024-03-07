@@ -7,19 +7,29 @@ Secrets are kept separate from the codebase and configuration files that are usu
 
 There are two types of secrets on the NAIS platform:
 
-- **Platform-provided secrets** are provisioned and managed by the platform.
+<div class="grid cards" markdown>
+-   :construction_worker: **Platform-provided secrets**
 
-    These typically contain credentials used for integrating with services that NAIS supports, such as databases, Kafka and so on.
+    ---
+    _Platform-provided secrets_ are provisioned and managed by the platform.
 
-    You will generally not deal with these secrets as their values are automatically made available to your workloads at runtime.
+    - These typically contain credentials used for integrating with services that NAIS supports, such as databases, Kafka and so on.
+    - You will generally not deal with these secrets as their values are automatically made available to your workloads at runtime.
+</div>
 
-- **User-defined secrets** are managed by you and your [team](team.md).
+<div class="grid cards" markdown>
+- :technologist: **User-defined secrets**
 
-    These are typically used for integrating with third-party services or APIs that are not provided by NAIS, such as Slack or GitHub.
+    ---
+    _User-defined secrets_ are managed by you and your [team](team.md).
 
-    User-defined secrets can also be used to store sensitive information specific to your application, such as encryption keys or other private configuration.
+    - These are typically used for integrating with third-party services or APIs that are not provided by NAIS, such as Slack or GitHub. 
+    - User-defined secrets can also be used to store sensitive information specific to your application, such as encryption keys or other private configuration.
+</div>
 
 ## What's next?
 
-- Create a secret and use it in your workload in the [how-to guide](../how-to-guides/secrets.md)
-- Find more technical information on the [reference page](../reference/secrets.md)
+- :bulb: Learn how to [create and manage a secret in Console](../how-to-guides/secrets/console.md)
+- :bulb: Learn how to [use a secret in your workloads](../how-to-guides/secrets/workloads.md)
+
+:clipboard: See also the [reference](../reference/secrets.md) for more technical details
