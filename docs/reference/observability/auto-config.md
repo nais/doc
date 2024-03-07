@@ -21,7 +21,7 @@ When you enable [auto-instrumentation](../../how-to-guides/observability/auto-in
 
 A full list of environment variables that can be used to configure the OpenTelemetry SDK can be found here:
 
-* [:simple-opentelemetry: General SDK Configuration](https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/#general-sdk-configuration)
-* [:simple-opentelemetry: OTLP Exporter Configuration](https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/)
+* [:octicons-link-external-24: General SDK Configuration](https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/#general-sdk-configuration)
+* [:octicons-link-external-24: OTLP Exporter Configuration](https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/)
 
 [OTLP is the OpenTelemetry Protocol](https://opentelemetry.io/docs/specs/otel/protocol/exporter/), and is the protocol used to send telemetry data to Prometheus, Grafana Tempo, and Grafana Loki.
