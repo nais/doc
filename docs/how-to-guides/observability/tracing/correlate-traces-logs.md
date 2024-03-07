@@ -4,18 +4,23 @@ tags: [guide, tracing]
 ---
 # Correlate traces and logs
 
-This guide will explain how to correlate traces with logs in Grafana Tempo.
+This guide will explain how to correlate traces with logs in Grafana Tempo. This is only necessary if you are not using auto-instrumentation with OpenTelemetry Agent. If you are using auto-instrumentation, logs are automatically correlated with traces.
 
 ## Step 1: Configure Tracing
 
-First you need to configure OpenTelemetry tracing in your application. The easiest way to get started with tracing is to enable auto-instrumentation for your application. This will automatically collect traces and send them to the correct place using the OpenTelemetry Agent.
+First you need to configure OpenTelemetry tracing in your application. The easiest way to get started with tracing is to enable auto-instrumentation for your application. This will automatically collect traces and send them to the correct place using the OpenTelemetry Agent or you can use the OpenTelemetry SDK to manually instrument your application.
 
 [:bulb: Get started with auto-instrumentation](../auto-instrumentation.md)
 
-## Step 2: Configure Logging
+## Step 2: Enable logging to Grafana Loki
 
-If you are using auto-instrumentation for logs they are automatically correlated with traces. If you are not using auto-instrumentation for logs, you need to configure your log output to include trace information.
+In order to use the Grafana Tempo log correlation feature, you need to send your logs to Grafana Loki.
 
+[:bulb: Enable logging to Grafana Loki](../logs/loki.md#enable-logging-to-grafana-loki)
+
+## Step 3: Include trace information in your logs
+
+The final step is to include trace information in your logs. This will allow Grafana Tempo to look up logs that are associated with a trace.
 
 === "log4j"
 
@@ -74,7 +79,7 @@ If you are using auto-instrumentation for logs they are automatically correlated
     </configuration>
     ```
 
-## 3. Profit
+## 4. Profit
 
 Now that you have tracing and logging set up, you can use Grafana Tempo to correlate traces and logs. When you view a trace in Grafana Tempo, you can see the logs that are associated with that trace. This makes it easy to understand what happened in your application and troubleshoot issues.
 
