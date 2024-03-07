@@ -1,5 +1,7 @@
 # Deploy action configuration
 
+This document describes the available configuration options for the NAIS deploy GitHub action.
+
 | Environment variable | Default                  | Description                                                                                                                                                                                                                 |
 |:---------------------|:-------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | APIKEY               | \(required\)             | NAIS deploy API key. Obtained from [console](https://console.nav.cloud.nais.io).                                                                                                                                            |
