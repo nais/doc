@@ -10,7 +10,7 @@
 ## Prerequisites
 
 * The team needs to update their ROS and PVK analysis to migrate to GCP.
-* Read this [roles and responsibilites](../legal/roles-responsibilities.md)
+* Read this [roles and responsibilites](../reference/legal/roles-responsibilities.md)
 
 ### Security
 
@@ -20,12 +20,12 @@ Our GCP clusters use a zero trust security model, implying that the application 
 
 Google is cleared to be a data processor for personally identifiable information \(PII\) at NAV. However, before your team moves any applications or data to GCP the following steps should be taken:
 
-1. Verify that you have a valid and up-to-date PVK for your application. This document should be [tech stack agnostic](../legal/app-pvk.md) and as such does not need to be changed to reflect the move to GCP.
+1. Verify that you have a valid and up-to-date PVK for your application. This document should be [tech stack agnostic](../reference/legal/app-pvk.md) and as such does not need to be changed to reflect the move to GCP.
 2. If the application stores any data in GCP, update [Behandlingskatalogen](https://behandlingskatalog.nais.adeo.no/) to reflect that Google is a data processor.
 
 ### ROS
 
-The ROS analysis for the team's applications need to be updated to reflect any changes in platform components used. For example, if your team has any specific measures implemented to mitigate risks related to "Kode 6 / 7 users", you should consider if these measures still apply on the new infrastructure or if you want to initiate any additional measures. When updating the ROS, please be aware that the GCP components you are most likely to use have already undergone [risk assessment by the nais team](../legal/nais-ros.md) and that you can refer to these ROS documents in your own risk assessment process.
+The ROS analysis for the team's applications need to be updated to reflect any changes in platform components used. For example, if your team has any specific measures implemented to mitigate risks related to "Kode 6 / 7 users", you should consider if these measures still apply on the new infrastructure or if you want to initiate any additional measures. When updating the ROS, please be aware that the GCP components you are most likely to use have already undergone [risk assessment by the nais team](../reference/legal/nais-ros.md) and that you can refer to these ROS documents in your own risk assessment process.
 
 ## FAQ
 
@@ -77,7 +77,7 @@ The ROS analysis for the team's applications need to be updated to reflect any c
 
 ???+ faq "Answer"
 
-    See [Migrating databases to GCP](migrating-databases-to-gcp.md).
+    See [Migrating databases to GCP](./migrating-databases-to-gcp.md).
 
 ### Why is there no Vault in GCP?
 
@@ -192,13 +192,13 @@ The ROS analysis for the team's applications need to be updated to reflect any c
 | Team namespaces           | ✔️         | ✔️                                      |                                                                                                                                                                                                 |
 | Shared namespaces         | ✔️         | ✖️                                      | Default namespace not available for teams in GCP                                                                                                                                                |
 | Health checks             | ✔️         | ✔️                                      | identical                                                                                                                                                                                       |
-| Ingress                   | ✔️         | ✔️                                      | see [GCP](gcp.md) and [on-premises](on-premises.md) for available domains                                                                                                                       |
+| Ingress                   | ✔️         | ✔️                                      | seSee environments overview for available domains                                                                                                                     |
 | Storage                   | Ceph       | Buckets                                 |                                                                                                                                                                                                 |
 | Postgres                  | ✔️ \(IAC\) | ✔️ \(self-service\)                     |                                                                                                                                                                                                 |
 | Laptop access             | ✔️         | ✔️                                      |                                                                                                                                                                                                 |
 | domain: dev.intern.nav.no |            | ✔️ \(Automatic\)                        | Wildcard DNS points to GCP load balancer                                                                                                                                                        |
-| Access to FSS services    |            | ✔️                                      | Identical \(either API-gw or [TokenX](../security/auth/tokenx.md). May require a proxy app, see [FAQ](#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp) for details. |
+| Access to FSS services    |            | ✔️                                      | Identical \(either API-gw or  TokenX)
 | NAV truststore            | ✔️         | ✔️                                      |                                                                                                                                                                                                 |
 | PVK required              | ✔️         | ✔️                                      | amend to cover storage in cloud                                                                                                                                                                 |
-| Security                  | Zone Model | [zero-trust](../appendix/zero-trust.md) |                                                                                                                                                                                                 |
+| Security                  | Zone Model | [zero-trust](./zero-trust.md) |                                                                                                                                                                                                 |
 

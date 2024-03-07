@@ -8,7 +8,7 @@ Disclaimer: These are options for migrations to GCP postgreSQL. Others may work 
 
 ## Prerequisites
 
-The team needs to update their ROS and PVK analysis to migrate to GCP. Refer to the ROS and PVK section under [Google Cloud Platform clusters](gcp.md).
+The team needs to update their ROS and PVK analysis to migrate to GCP. Refer to the [ROS](../reference/legal/app-ros.md) and [PVK](../reference/legal/app-pvk.md).
 
 See database creation in GCP in [Google Cloud Platform persistence](../persistence/postgres.md).
 
