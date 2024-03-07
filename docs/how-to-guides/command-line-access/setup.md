@@ -5,8 +5,8 @@ This guide shows you how to set up command line tools for accessing NAIS cluster
 ## Setup
 ### 0. Prerequisites
 
-- [naisdevice](./naisdevice/install.md) installed
-- [nais-cli](./nais-cli/install.md) installed
+- [naisdevice](../naisdevice/install.md) installed
+- [nais-cli](../nais-cli/install.md) installed
 
 ### 1. Install gcloud
 
@@ -48,3 +48,5 @@ If you are unsure about which clusters are available, you can list them with:
 ```shell
 kubectl config get-clusters
 ```
+
+If you experience any issues, please refer to the [troubleshooting](./troubleshooting.md) guide.

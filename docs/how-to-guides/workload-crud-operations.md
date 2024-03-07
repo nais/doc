@@ -3,7 +3,7 @@
 This guide shows you how to perform CRUD-operations on your workload.
 
 ## 0. Prerequisites
-- [Command-line access to the cluster](./command-line-access.md)
+- [Command-line access to the cluster](./command-line-access/setup.md)
 - [Member of a NAIS team](../explanation/team.md)
 - [Workload spec](../explanation/workloads/README.md)
 
