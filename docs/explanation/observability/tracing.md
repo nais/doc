@@ -84,11 +84,11 @@ We have some rules to mask personal numbers `db.statement` and `messaging.kafka.
 
 For more information about what metadata is collected for different trace types please see the relevant OpenTelemetry Semantic Conventions specification:
 
-* [Database Client Calls](https://opentelemetry.io/docs/specs/semconv/database/database-spans/)
-* [HTTP Client Calls](https://opentelemetry.io/docs/specs/semconv/http/http-spans/#http-client)
-* [HTTP Server Requests](https://opentelemetry.io/docs/specs/semconv/http/http-spans/#http-server)
-* [Messaging Client Calls](https://opentelemetry.io/docs/specs/semconv/messaging/messaging-spans/)
-* [Object Store Client Calls](https://opentelemetry.io/docs/specs/semconv/object-stores/)
+* [:simple-opentelemetry: Database Client Calls](https://opentelemetry.io/docs/specs/semconv/database/database-spans/)
+* [:simple-opentelemetry: HTTP Client Calls](https://opentelemetry.io/docs/specs/semconv/http/http-spans/#http-client)
+* [:simple-opentelemetry: HTTP Server Requests](https://opentelemetry.io/docs/specs/semconv/http/http-spans/#http-server)
+* [:simple-opentelemetry: Messaging Client Calls](https://opentelemetry.io/docs/specs/semconv/messaging/messaging-spans/)
+* [:simple-opentelemetry: Object Store Client Calls](https://opentelemetry.io/docs/specs/semconv/object-stores/)
 
 ### Noisy traces
 
@@ -110,7 +110,7 @@ Tracing can be noisy, especially health checks and other internal requests (such
 
 Visualizing and querying traces is done in Grafana using the Grafana Tempo. Tempo is an open-source, easy-to-use, high-scale, and cost-effective distributed tracing backend that stores and queries traces.
 
-The easiest way to get started with Tempo is to use the [Explore view in Grafana][grafana-explore], which provides a user-friendly interface for querying and visualizing traces.
+The easiest way to get started with Tempo is to use the *Explore view* in Grafana, which provides a user-friendly interface for querying and visualizing traces.
 
 [:simple-grafana: Open Grafana Explore][grafana-explore]
 
