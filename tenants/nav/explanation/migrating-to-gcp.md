@@ -14,7 +14,7 @@
 
 ### Security
 
-Our GCP clusters use a zero trust security model, implying that the application must specify both incoming and outgoing connections in order to receive or send traffic at all. This is expressed using the [access policy spec](../nais-application/access-policy.md).
+Our GCP clusters use a zero trust security model, implying that the application must specify both incoming and outgoing connections in order to receive or send traffic at all. This is expressed using [access policies](../how-to-guides/access-policies.md).
 
 ### Privacy
 
