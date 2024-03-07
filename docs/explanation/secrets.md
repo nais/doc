@@ -23,13 +23,13 @@ There are two types of secrets on the NAIS platform:
     ---
     _User-defined secrets_ are managed by you and your [team](team.md).
 
-    - These are typically used for integrating with third-party services or APIs that are not provided by NAIS, such as Slack or GitHub. 
+    - These are typically used for integrating with third-party services or APIs that are not provided by NAIS, such as Slack or GitHub.
     - User-defined secrets can also be used to store sensitive information specific to your application, such as encryption keys or other private configuration.
 </div>
 
 ## What's next?
 
-- :bulb: Learn how to [create and manage a secret in Console](../how-to-guides/secrets/console.md)
-- :bulb: Learn how to [use a secret in your workloads](../how-to-guides/secrets/workloads.md)
+- :dart: Learn how to [create and manage a secret in Console](../how-to-guides/secrets/console.md)
+- :dart: Learn how to [use a secret in your workloads](../how-to-guides/secrets/workloads.md)
 
 :clipboard: See also the [reference](../reference/secrets.md) for more technical details

@@ -41,7 +41,7 @@ graph
 
 NAIS provides a new way to get started with observability. By enabling auto-instrumentation, you can get started with observability without having to write any code. This is the easiest way to get started with observability, as it requires little to no effort on the part of the team developing the application.
 
-[:bulb: Get started with auto-instrumentation](../../how-to-guides/observability/auto-instrumentation.md)
+[:dart: Get started with auto-instrumentation](../../how-to-guides/observability/auto-instrumentation.md)
 
 ## Metrics
 
@@ -51,7 +51,7 @@ We use the [OpenMetrics][openmetrics] format for metrics. This is a text-based f
 
 [openmetrics]: https://openmetrics.io/
 
-[:bulb: Get started with metrics](./metrics.md)
+[:bulb: Learn more about metrics](./metrics.md)
 
 ### Prometheus
 
@@ -92,7 +92,7 @@ graph LR
   Router --> C[Elastic / Kibana]
 ```
 
-[:bulb: Configure your logs](./logging.md)
+[:bulb: Learn more about logs](./logging.md)
 
 ## Traces
 
@@ -109,7 +109,7 @@ graph LR
   Tempo --> Grafana
 ```
 
-[:bulb: Read more about tracing](./tracing.md)
+[:bulb: Learn more about tracing](./tracing.md)
 
 ## Alerts
 
@@ -126,7 +126,7 @@ graph LR
   Alertmanager --> Slack
 ```
 
-[:bulb: Read more about alerts](./alerting.md)
+[:bulb: Learn more about alerts](./alerting.md)
 
 ## Learning more
 

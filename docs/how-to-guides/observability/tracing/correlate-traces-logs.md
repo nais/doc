@@ -10,13 +10,13 @@ This guide will explain how to correlate traces with logs in Grafana Tempo. This
 
 First you need to configure OpenTelemetry tracing in your application. The easiest way to get started with tracing is to enable auto-instrumentation for your application. This will automatically collect traces and send them to the correct place using the OpenTelemetry Agent or you can use the OpenTelemetry SDK to manually instrument your application.
 
-[:bulb: Get started with auto-instrumentation](../auto-instrumentation.md)
+[:dart: Get started with auto-instrumentation](../auto-instrumentation.md)
 
 ## Step 2: Enable logging to Grafana Loki
 
 In order to use the Grafana Tempo log correlation feature, you need to send your logs to Grafana Loki.
 
-[:bulb: Enable logging to Grafana Loki](../logs/loki.md#enable-logging-to-grafana-loki)
+[:dart: Enable logging to Grafana Loki](../logs/loki.md#enable-logging-to-grafana-loki)
 
 ## Step 3: Include trace information in your logs
 

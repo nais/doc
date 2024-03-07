@@ -8,7 +8,7 @@ Each Span carries a Context that includes metadata about the trace (like a uniqu
 
 This guide explains how to propagate trace context across process boundaries in a few common scenarios. If you are using [auto-instrumentation](../auto-instrumentation.md), trace context propagation is already handled for you.
 
-[:octicons-link-external-24: OpenTelemetry Context Propagation](https://opentelemetry.io/docs/concepts/context-propagation/)
+[:octicons-link-external-24: OpenTelemetry Context Propagation on opentelemetry.io](https://opentelemetry.io/docs/concepts/context-propagation/)
 
 ## Propagate trace context in HTTP requests
 

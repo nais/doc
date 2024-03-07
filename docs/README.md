@@ -31,7 +31,7 @@ hide:
 
     [:octicons-arrow-right-24: Tutorials](tutorial/README.md)
 
-- :bookmark_tabs: **How-to guides**
+- :dart: **How-to guides**
 
     ---
 

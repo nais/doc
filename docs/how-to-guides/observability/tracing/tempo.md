@@ -4,7 +4,7 @@ Grafana Tempo is an open-source, easy-to-use, high-scale, and cost-effective dis
 
 Since NAIS does not collect application trace data automatically, you need to enable tracing in your application. The preferred way to get started with tracing is to enable auto-instrumentation for your application. This will automatically collect traces and send them to the correct place using the OpenTelemetry Agent.
 
-[:bulb: Get started with auto-instrumentation](../auto-instrumentation.md)
+[:dart: Get started with auto-instrumentation](../auto-instrumentation.md)
 
 Once you have traces being collected, you can visualize and query them in Grafana using the Grafana Tempo data source. To get started with Tempo, you can use the Explore view in Grafana, which provides a user-friendly interface for querying and visualizing traces.
 
@@ -34,7 +34,7 @@ TraceQL provides a powerful and flexible way to query trace data, and it is desi
 
 <iframe title="vimeo-player" src="https://player.vimeo.com/video/796408188?h=b3e8e3257b" width="100%" height="360" frameborder="0" allowfullscreen></iframe>
 
-[:bulb: Learn more about TraceQL query language](../../../reference/observability/tracing/traceql.md)
+[:computer: Learn more about TraceQL query language](../../../reference/observability/tracing/traceql.md)
 
 ## Understanding trace data
 
@@ -48,5 +48,5 @@ A red circle next to a span indicates that the span has an error. You can click 
 
 Traces in nais follows the OpenTelemetry Semantic Conventions, which provides a standard for naming and structuring trace data. This makes it easier to understand and use trace data, as you can rely on a consistent structure across all traces.
 
-[:bulb: Learn more about OpenTelemetry Trace Semantic Conventions](../../../reference/observability/tracing/trace-semconv.md)
+[:computer: Learn more about OpenTelemetry Trace Semantic Conventions](../../../reference/observability/tracing/trace-semconv.md)
 

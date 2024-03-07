@@ -36,7 +36,7 @@ OpenTelemetry also provides automatic instrumentation for popular frameworks and
 
 It's vendor-neutral, allowing telemetry data export to any backend, providing the flexibility to switch between different analysis tools as needs change. Backed by leading companies in the cloud and software industry, and with a vibrant community, OpenTelemetry ensures project longevity and continuous improvement.
 
-[:octicons-link-external-24: Learn more about OpenTelemetry][open-telemetry]
+[:octicons-link-external-24: Learn more about OpenTelemetry on opentelemetry.io][open-telemetry]
 
 ## Tracing in NAIS
 
@@ -48,7 +48,7 @@ The preferred way to get started with tracing is to enable auto-instrumentation 
 
 This is the easiest way to get started with tracing, as it requires little to no effort on the part of the team developing the application and provides instrumentation for popular libraries, frameworks and external services such as PostgreSQL, Redis, Kafka and HTTP clients.
 
-[:bulb: Get started with auto-instrumentation](../../how-to-guides/observability/auto-instrumentation.md)
+[:dart: Get started with auto-instrumentation](../../how-to-guides/observability/auto-instrumentation.md)
 
 ### The hard way: Manual instrumentation
 
@@ -56,7 +56,7 @@ If you want more control over how your application is instrumented, you can manu
 
 To get the correct configuration for you can still use the auto-instrumentation configuration, but set the `runtime` to `sdk` as this will only set up the OpenTelemetry configuration, without injecting the OpenTelemetry Agent.
 
-[:bulb: Get started with manual-instrumentation](../../how-to-guides/observability/auto-instrumentation.md#enable-auto-instrumentation-for-other-applications)
+[:dart: Get started with manual-instrumentation](../../how-to-guides/observability/auto-instrumentation.md#enable-auto-instrumentation-for-other-applications)
 
 ### OpenTelemetry SDKs
 
@@ -112,9 +112,9 @@ Visualizing and querying traces is done in Grafana using the Grafana Tempo. Temp
 
 The easiest way to get started with Tempo is to use the [Explore view in Grafana][grafana-explore], which provides a user-friendly interface for querying and visualizing traces.
 
-[:octicons-link-external-24: Open Grafana Explore][grafana-explore]
+[:simple-grafana: Open Grafana Explore][grafana-explore]
 
-[:bulb: Get started with Grafana Tempo](../../how-to-guides/observability/tracing/tempo.md)
+[:dart: Get started with Grafana Tempo](../../how-to-guides/observability/tracing/tempo.md)
 
 ![Grafana Tempo](../../assets/grafana-tempo.png)
 

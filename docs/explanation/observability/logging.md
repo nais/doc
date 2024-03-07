@@ -35,7 +35,7 @@ Grafana Loki is a log aggregation system inspired by Prometheus and integrated w
 
 Loki is designed to be used in conjunction with metrics and tracing to provide a complete picture of an application's performance. Without the other two, it can be perceived as more cumbersome to use than a traditional logging system.
 
-[:octicons-arrow-right-24: Get started with Grafana Loki](../../how-to-guides/observability/logs/loki.md)
+[:dart: Get started with Grafana Loki](../../how-to-guides/observability/logs/loki.md)
 
 {% if tenant() == "nav" %}
 
@@ -45,5 +45,5 @@ Loki is designed to be used in conjunction with metrics and tracing to provide a
 
 Kibana is a tool for visualizing and analyzing logs. It is part of the Elastic Stack and is widely used for log analysis and visualization in NAV. Kibana Elastic is supported by atom.
 
-[:octicons-arrow-right-24: Get started with Kibana](../../how-to-guides/observability/logs/kibana.md)
+[:dart: Get started with Kibana](../../how-to-guides/observability/logs/kibana.md)
 {% endif %}

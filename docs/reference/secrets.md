@@ -8,8 +8,8 @@ Visit [NAIS Console :octicons-link-external-16:](https://console.<<tenant()>>.cl
 
 ## How-To Guides
 
-- :bulb: [Get started with secrets in Console](../how-to-guides/secrets/console.md)
-- :bulb: [Use a secret in your workloads](../how-to-guides/secrets/workloads.md)
+- :dart: [Get started with secrets in Console](../how-to-guides/secrets/console.md)
+- :dart: [Use a secret in your workloads](../how-to-guides/secrets/workloads.md)
 
 ## Workloads
 

@@ -22,7 +22,7 @@ This how-to guide shows you how to create and manage a [secret](../../explanatio
 
 ## Edit a secret
 
-1. Select the secret you want to edit 
+1. Select the secret you want to edit
 2. Add, edit, or delete key-value pairs for the secret as desired
 3. Click `Save` when you're satisfied with the changes
 
