@@ -81,7 +81,7 @@ Otherwise, the workflow above might not work as expected.
 
 ```bash
 #!/bin/bash
-# source: https://github.com/navikt/dagpenger/blob/master/bin/enforce_branch_protection.sh
+# adapted from https://github.com/navikt/dagpenger/blob/master/bin/enforce_branch_protection.sh
 
 # Get the current repository information
 repo_url=$(git remote get-url origin)
@@ -92,11 +92,12 @@ owner=$(echo "$repo_url" | awk -F"(/|:)" '{print $2}')
 main_branch=$(git symbolic-ref --short HEAD 2>/dev/null || git branch -l --no-color | grep -E '^[*]' | sed 's/^[* ] //')
 
 # Configure branch protection
+echo '{ "required_status_checks": { "strict": true, "checks": [ { "context": "test" } ] }, "enforce_admins": false, "required_pull_request_reviews": null, "required_conversation_resolution": true, "restrictions": null }' | \
 gh api repos/"$owner"/"$repo_name"/branches/"$main_branch"/protection \
   --method PUT \
   --silent \
   --header "Accept: application/vnd.github.v3+json" \
-  --input ../.protection_settings.json
+  --input -
 
 # Enable auto-merge on repository
 echo '{ "allow_auto_merge": true, "delete_branch_on_merge": true }' | gh api repos/"$owner"/"$repo_name" \
