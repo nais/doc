@@ -3,12 +3,17 @@
 [working-with-dependabot]: https://docs.github.com/en/code-security/dependabot/working-with-dependabot
 [automating-dependabot]: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/automating-dependabot-with-github-actions
 [configure-dependabot-yaml]: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+[github-cli]: https://cli.github.com/
 
 [Dependabot][working-with-dependabot] is a security tool offered by GitHub.
 Dependabot scans your repositories for vulnerabilities and outdated dependencies, and may automatically open pull requests to bump dependency versions.
 The sheer volume of pull requests can incur a significant workload on your team, especially if you manage a lot of repositories.
 
-By completing this guide, Dependabot's pull requests on your repository will automatically get merged.
+By completing this guide, Dependabot will automatically fix your insecure or outdated dependencies, and the changes will automatically get merged into your main branch.
+
+## Prerequisites
+
+* [GitHub command-line interface][github-cli] installed.
 
 ## Enable Dependabot
 
