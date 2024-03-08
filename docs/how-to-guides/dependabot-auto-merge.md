@@ -1,0 +1,108 @@
+# Dependabot with auto-merge
+
+[working-with-dependabot]: https://docs.github.com/en/code-security/dependabot/working-with-dependabot
+[automating-dependabot]: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/automating-dependabot-with-github-actions
+[configure-dependabot-yaml]: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+[Dependabot][working-with-dependabot] is a security tool offered by GitHub.
+Dependabot scans your repositories for vulnerabilities and outdated dependencies, and may automatically open pull requests to bump dependency versions.
+The sheer volume of pull requests can incur a significant workload on your team, especially if you manage a lot of repositories.
+
+By completing this guide, Dependabot's pull requests on your repository will automatically get merged.
+
+## Enable Dependabot
+
+The contents of this file will depend on your project requirements. Do not use this file as-is.
+Please see [dependabot.yaml configuration syntax][configure-dependabot-yaml] for detailed instructions on how to configure Dependabot.
+
+```yaml
+# .github/dependabot.yaml
+
+version: 2
+updates:
+  - die: &I didn't edit my config file
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "10:05"
+      timezone: "Europe/Oslo"
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "10:05"
+      timezone: "Europe/Oslo"
+```
+
+## GitHub workflow for auto-merging Dependabot pull requests
+
+This workflow will trigger when dependabot opens a pull request.
+All changes are automatically merged.
+See also [Automating Dependabot with GitHub Actions][automating-dependabot].
+
+```yaml
+# .github/workflows/dependabot-auto-merge.yaml
+
+name: Dependabot auto-merge
+on: pull_request
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v1
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Auto-merge changes from Dependabot
+        if: steps.metadata.outputs.update-type != 'version-update:semver-major' || steps.metadata.outputs.package-ecosystem == 'github_actions'
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+```
+
+## Enable branch protection and auto-merge on repository
+
+Change working directory to your git repository, then run this script.
+Otherwise, the workflow above might not work as expected.
+
+```bash
+#!/bin/bash
+# source: https://github.com/navikt/dagpenger/blob/master/bin/enforce_branch_protection.sh
+
+# Get the current repository information
+repo_url=$(git remote get-url origin)
+repo_name=$(basename -s .git "$repo_url")
+owner=$(echo "$repo_url" | awk -F"(/|:)" '{print $2}')
+
+# Determine the name of the main branch
+main_branch=$(git symbolic-ref --short HEAD 2>/dev/null || git branch -l --no-color | grep -E '^[*]' | sed 's/^[* ] //')
+
+# Configure branch protection
+gh api repos/"$owner"/"$repo_name"/branches/"$main_branch"/protection \
+  --method PUT \
+  --silent \
+  --header "Accept: application/vnd.github.v3+json" \
+  --input ../.protection_settings.json
+
+# Enable auto-merge on repository
+echo '{ "allow_auto_merge": true, "delete_branch_on_merge": true }' | gh api repos/"$owner"/"$repo_name" \
+  --method PATCH \
+  --silent \
+  --header "Accept: application/vnd.github.v3+json" \
+  --input -
+
+if [ $? -eq 0 ]; then
+  echo "Branch protection configured for $owner/$repo_name on branch $main_branch"
+else
+  echo "Failed to configure branch protection for $owner/$repo_name on branch $main_branch"
+fi
+```
