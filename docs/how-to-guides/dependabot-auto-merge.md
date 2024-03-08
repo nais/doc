@@ -43,7 +43,8 @@ updates:
 ## GitHub workflow for auto-merging Dependabot pull requests
 
 This workflow will trigger when dependabot opens a pull request.
-All changes are automatically merged.
+All minor and patch-level changes are automatically merged.
+Major version bumps needs manual merging.
 See also [Automating Dependabot with GitHub Actions][automating-dependabot].
 
 ```yaml
