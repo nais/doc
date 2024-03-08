@@ -30,6 +30,5 @@ There are two types of secrets on the NAIS platform:
 ## What's next?
 
 - :dart: Learn how to [create and manage a secret in Console](../how-to-guides/secrets/console.md)
-- :dart: Learn how to [use a secret in your workloads](../how-to-guides/secrets/workloads.md)
-
-:clipboard: See also the [reference](../reference/secrets.md) for more technical details
+- :dart: Learn how to [use a secret in your workload](../how-to-guides/secrets/workload.md)
+- :computer: See the [reference for secrets](../reference/secrets.md) for more technical details

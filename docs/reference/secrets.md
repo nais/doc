@@ -9,7 +9,7 @@ Visit [NAIS Console :octicons-link-external-16:](https://console.<<tenant()>>.cl
 ## How-To Guides
 
 - :dart: [Get started with secrets in Console](../how-to-guides/secrets/console.md)
-- :dart: [Use a secret in your workloads](../how-to-guides/secrets/workloads.md)
+- :dart: [Use a secret in your workload](../how-to-guides/secrets/workload.md)
 
 ## Workloads
 
@@ -27,8 +27,8 @@ spec:
 
 See also:
 
-- :clipboard: [Application reference](../reference/application-spec.md#envfromsecret)
-- :clipboard: [NaisJob reference](../reference/naisjob-spec.md#envfromsecret)
+- :computer: [Application reference](../reference/application-spec.md#envfromsecret)
+- :computer: [NaisJob reference](../reference/naisjob-spec.md#envfromsecret)
 
 ### Files
 
@@ -41,5 +41,5 @@ spec:
 
 See also:
 
-- :clipboard: [Application reference](../reference/application-spec.md#filesfromsecret)
-- :clipboard: [NaisJob reference](../reference/naisjob-spec.md#filesfromsecret)
+- :computer: [Application reference](../reference/application-spec.md#filesfromsecret)
+- :computer: [NaisJob reference](../reference/naisjob-spec.md#filesfromsecret)

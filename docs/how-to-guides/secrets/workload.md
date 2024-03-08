@@ -1,4 +1,4 @@
-# Use a secret in your workloads
+# Use a secret in your workload
 
 This how-to guide shows you how to reference and use a [secret](../../explanation/secrets.md)
 in your [workload](../../explanation/workloads/README.md).
