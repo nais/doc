@@ -3,25 +3,37 @@ tags:
   - CDN
 ---
 
-# CDN
+# Content Delivery Network (CDN)
 
-Reference documentation for the [CDN](../explanation/workloads/cdn.md) deploy action.
+This is the reference documentation for the [CDN](../explanation/cdn.md) service.
 
-## Inputs
+## How-to guides
+
+- :dart: [Upload assets to the CDN](../how-to-guides/cdn.md)
+
+## CDN Deploy Action
+
+Reference documentation for the CDN GitHub action.
+
+### Inputs
 
 The action accepts the following inputs:
 
-| input              | description                                             | default | required |
-|--------------------|---------------------------------------------------------|---------|----------|
-| team-name          | Team name                                               | ❌       | true     |
-| destination        | Destination directory                                   | ❌       | true     |
-| source             | Source directory                                        | ❌       | true     |
-| cache-invalidation | Invalidate cached content after upload                  | `false` | false    |
-| no-cache-paths     | Comma separated list of paths that should not be cached | `""`    | false    |
+| input                   | description                                                | default | required |
+|-------------------------|------------------------------------------------------------|---------|----------|
+| team                    | Team name                                                  | ❌       | true     |
+| tenant                  | Tenant name                                                | `"nav"` | false    |
+| source                  | Source directory                                           | ❌       | true     |
+| destination             | Destination directory                                      | ❌       | true     |
+| source_keep_parent_name | Keep parent directory name when uploading                  | `true`  | false    |
+| cache_invalidation      | Invalidate cached content after upload                     | `false` | false    |
+| no_cache_paths          | Comma separated list of paths that should not be cached    | `""`    | false    |
+| project_id              | Should be `${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}`         | `""`    | true     |
+| identity_provider       | Should be `${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}` | `""`    | true     |
 
-## Outputs
+### Outputs
 
-### `uploaded`
+#### `uploaded`
 
 List of successfully uploaded files.
 
@@ -32,7 +44,7 @@ For example:
 ```yaml
 - id: 'upload-cdn'
   name: Upload static files to NAV CDN
-  uses: navikt/frontend/actions/cdn-upload/v2
+  uses: nais/deploy/actions/cdn-upload/v2@master
   ...
 ```
 
