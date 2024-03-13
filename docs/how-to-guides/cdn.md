@@ -28,7 +28,9 @@ In your Github Workflow, add the following step to upload your assets to the CDN
   uses: nais/deploy/actions/cdn-upload/v2@master
   with:
     team: <team slug> # Required, e.g. "team-name"
-    tenant: <<tenant()>> # Optional, defaults to "nav"
+{%- if tenant() != "nav" %}
+    tenant: <<tenant()>> # Required, e.g. "nav"
+{%- endif %}
     source: <The path to your build folder or assets>
     destination: <A destination you pick, like /my-app/dist>
     project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # Provided as Organization Secret
