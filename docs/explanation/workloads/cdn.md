@@ -1,3 +1,0 @@
-# NAIS CDN
-
-Coming soon
