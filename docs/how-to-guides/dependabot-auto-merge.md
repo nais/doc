@@ -45,6 +45,8 @@ Please see [dependabot.yaml configuration syntax][configure-dependabot-yaml] for
 This workflow will trigger when dependabot opens a pull request.
 All minor and patch-level changes are automatically merged.
 Major version bumps needs manual merging.
+Additionally, all GitHub Actions workflow version bumps will be merged automatically, even if they are major bumps.
+
 See also [Automating Dependabot with GitHub Actions][automating-dependabot].
 
 !!! note ".github/workflows/dependabot-auto-merge.yaml"
@@ -99,7 +101,8 @@ and
 	# Determine the name of the main branch
 	main_branch=$(git symbolic-ref --short HEAD 2>/dev/null || git branch -l --no-color | grep -E '^[*]' | sed 's/^[* ] //')
 
-	# Configure branch protection
+	# Configure branch protection, and require tests to pass before merging.
+    # Match the list of checks up against repository workflows.
 	echo '{ "required_status_checks": { "strict": true, "checks": [ { "context": "test" } ] }, "enforce_admins": false, "required_pull_request_reviews": null, "required_conversation_resolution": true, "restrictions": null }' | \
 	gh api repos/"$owner"/"$repo_name"/branches/"$main_branch"/protection \
 	  --method PUT \
