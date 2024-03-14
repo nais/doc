@@ -80,6 +80,11 @@ See also [Automating Dependabot with GitHub Actions][automating-dependabot].
 Change working directory to your git repository, then run this script.
 Otherwise, the workflow above might not work as expected.
 
+If you prefer, you can instead use GitHub's web frontend to configure auto-merge and branch protection. See GitHub docs for
+[enable auto-merge](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-auto-merge-for-pull-requests-in-your-repository)
+and
+[branch protection rules](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule).
+
 !!! note "enforce_branch_protection.sh"
 
 	```bash
