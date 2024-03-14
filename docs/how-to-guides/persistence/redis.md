@@ -1,7 +1,5 @@
 # Redis
-This guide will show you hwo to install and use redis in your application
-
-(TODO: split this howto into explantion and howtos for creating and using redis)
+This guide will show you how to install and use redis in your application
 
 ## 0. Prerequisites
 - [Member of a NAIS team](../../explanation/team.md)
