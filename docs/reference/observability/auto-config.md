@@ -17,6 +17,17 @@ When you enable [auto-instrumentation](../../how-to-guides/observability/auto-in
 !!! tip
     Do not hardcode these values in your application. OpenTelemetry SDKs and auto-instrumentation libraries will automatically pick up these environment variables and use them to configure the SDK.
 
+## Java Specific Configurations
+
+When using the OpenTelemetry Java SDK and Agent (auto-instrumentation), the following additional environment variables are available:
+
+| Variable                         | Description                                                                                       | Example Value                      |
+| -------------------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| `OTEL_JAVAAGENT_EXCLUDE_CLASSES` | Suppresses all instrumentation for specific classes, format is "my.package.MyClass,my.package2.*" | `my.package.MyClass,my.package2.*` |
+
+* [:octicons-link-external-24: Advanced Java configuration options](https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/docs/advanced-configuration-options.md)
+
+
 ## More OpenTelemetry Configuration
 
 A full list of environment variables that can be used to configure the OpenTelemetry SDK can be found here:
