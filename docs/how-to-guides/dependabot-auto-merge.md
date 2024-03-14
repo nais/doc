@@ -22,23 +22,23 @@ Please see [dependabot.yaml configuration syntax][configure-dependabot-yaml] for
 
 !!! note ".github/dependabot.yaml"
 
-	```yaml
-	version: 2
-	updates:
-	  - die: &I didn't edit my config file
-	  - package-ecosystem: "github-actions"
-		directory: "/"
-		schedule:
-		  interval: "daily"
-		  time: "10:05"
-		  timezone: "Europe/Oslo"
-	  - package-ecosystem: "docker"
-		directory: "/"
-		schedule:
-		  interval: "daily"
-		  time: "10:05"
-		  timezone: "Europe/Oslo"
-	```
+    ```yaml
+    version: 2
+    updates:
+      - die: &I didn't edit my config file
+      - package-ecosystem: "github-actions"
+        directory: "/"
+        schedule:
+          interval: "daily"
+          time: "10:05"
+          timezone: "Europe/Oslo"
+      - package-ecosystem: "docker"
+        directory: "/"
+        schedule:
+          interval: "daily"
+          time: "10:05"
+          timezone: "Europe/Oslo"
+    ```
 
 ## GitHub workflow for auto-merging Dependabot pull requests
 
@@ -51,31 +51,31 @@ See also [Automating Dependabot with GitHub Actions][automating-dependabot].
 
 !!! note ".github/workflows/dependabot-auto-merge.yaml"
 
-	```yaml
-	name: Dependabot auto-merge
-	on: pull_request
+    ```yaml
+    name: Dependabot auto-merge
+    on: pull_request
 
-	permissions:
-	  contents: write
-	  pull-requests: write
+    permissions:
+      contents: write
+      pull-requests: write
 
-	jobs:
-	  dependabot:
-		runs-on: ubuntu-latest
-		if: ${{ github.actor == 'dependabot[bot]' }}
-		steps:
-		  - name: Dependabot metadata
-			id: metadata
-			uses: dependabot/fetch-metadata@v1
-			with:
-			  github-token: "${{ secrets.GITHUB_TOKEN }}"
-		  - name: Auto-merge changes from Dependabot
-			if: steps.metadata.outputs.update-type != 'version-update:semver-major' || steps.metadata.outputs.package-ecosystem == 'github_actions'
-			run: gh pr merge --auto --squash "$PR_URL"
-			env:
-			  PR_URL: ${{github.event.pull_request.html_url}}
-			  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-	```
+    jobs:
+      dependabot:
+        runs-on: ubuntu-latest
+        if: ${{ github.actor == 'dependabot[bot]' }}
+        steps:
+          - name: Dependabot metadata
+            id: metadata
+            uses: dependabot/fetch-metadata@v1
+            with:
+              github-token: "${{ secrets.GITHUB_TOKEN }}"
+          - name: Auto-merge changes from Dependabot
+            if: steps.metadata.outputs.update-type != 'version-update:semver-major' || steps.metadata.outputs.package-ecosystem == 'github_actions'
+            run: gh pr merge --auto --squash "$PR_URL"
+            env:
+              PR_URL: ${{github.event.pull_request.html_url}}
+              GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    ```
 
 ## Enable branch protection and auto-merge on repository
 
@@ -89,37 +89,37 @@ and
 
 !!! note "enforce_branch_protection.sh"
 
-	```bash
-	#!/bin/bash
-	# adapted from https://github.com/navikt/dagpenger/blob/master/bin/enforce_branch_protection.sh
+    ```bash
+    #!/bin/bash
+    # adapted from https://github.com/navikt/dagpenger/blob/master/bin/enforce_branch_protection.sh
 
-	# Get the current repository information
-	repo_url=$(git remote get-url origin)
-	repo_name=$(basename -s .git "$repo_url")
-	owner=$(echo "$repo_url" | awk -F"(/|:)" '{print $2}')
+    # Get the current repository information
+    repo_url=$(git remote get-url origin)
+    repo_name=$(basename -s .git "$repo_url")
+    owner=$(echo "$repo_url" | awk -F"(/|:)" '{print $2}')
 
-	# Determine the name of the main branch
-	main_branch=$(git symbolic-ref --short HEAD 2>/dev/null || git branch -l --no-color | grep -E '^[*]' | sed 's/^[* ] //')
+    # Determine the name of the main branch
+    main_branch=$(git symbolic-ref --short HEAD 2>/dev/null || git branch -l --no-color | grep -E '^[*]' | sed 's/^[* ] //')
 
-	# Configure branch protection, and require tests to pass before merging.
+    # Configure branch protection, and require tests to pass before merging.
     # Match the list of checks up against repository workflows.
-	echo '{ "required_status_checks": { "strict": true, "checks": [ { "context": "test" } ] }, "enforce_admins": false, "required_pull_request_reviews": null, "required_conversation_resolution": true, "restrictions": null }' | \
-	gh api repos/"$owner"/"$repo_name"/branches/"$main_branch"/protection \
-	  --method PUT \
-	  --silent \
-	  --header "Accept: application/vnd.github.v3+json" \
-	  --input -
+    echo '{ "required_status_checks": { "strict": true, "checks": [ { "context": "test" } ] }, "enforce_admins": false, "required_pull_request_reviews": null, "required_conversation_resolution": true, "restrictions": null }' | \
+    gh api repos/"$owner"/"$repo_name"/branches/"$main_branch"/protection \
+      --method PUT \
+      --silent \
+      --header "Accept: application/vnd.github.v3+json" \
+      --input -
 
-	# Enable auto-merge on repository
-	echo '{ "allow_auto_merge": true, "delete_branch_on_merge": true }' | gh api repos/"$owner"/"$repo_name" \
-	  --method PATCH \
-	  --silent \
-	  --header "Accept: application/vnd.github.v3+json" \
-	  --input -
+    # Enable auto-merge on repository
+    echo '{ "allow_auto_merge": true, "delete_branch_on_merge": true }' | gh api repos/"$owner"/"$repo_name" \
+      --method PATCH \
+      --silent \
+      --header "Accept: application/vnd.github.v3+json" \
+      --input -
 
-	if [ $? -eq 0 ]; then
-	  echo "Branch protection configured for $owner/$repo_name on branch $main_branch"
-	else
-	  echo "Failed to configure branch protection for $owner/$repo_name on branch $main_branch"
-	fi
-	```
+    if [ $? -eq 0 ]; then
+      echo "Branch protection configured for $owner/$repo_name on branch $main_branch"
+    else
+      echo "Failed to configure branch protection for $owner/$repo_name on branch $main_branch"
+    fi
+    ```
