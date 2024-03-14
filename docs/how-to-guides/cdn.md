@@ -23,8 +23,8 @@ This how-to guide shows you how to upload assets to the [CDN](../explanation/cdn
 
 {% if tenant() == "nav" %}
 ???+ note "SPA deploy"
-    We also provide an action for swift deployment of single page applications (SPA):
-    https://github.com/navikt/frontend/tree/main/actions/spa-deploy
+    We also provide an action for swift deployment of single page applications (SPA),
+    [spa-deploy](https://github.com/navikt/frontend/blob/main/actions/spa-deploy/README.md).
 {% endif %}
 
 In your Github Workflow, add the following step to upload your assets to the CDN.
