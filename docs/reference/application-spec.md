@@ -10,7 +10,9 @@
 This document describes all possible configuration values in the `Application` spec, commonly known as the `nais.yaml` file.
 
 ## accessPolicy
-By default, no traffic is allowed between applications inside the cluster. Configure access policies to explicitly allow communication between applications. This is also used for granting inbound access in the context of Azure AD and TokenX clients.
+By default, no traffic is allowed between applications inside the cluster.
+Configure access policies to explicitly allow communication between applications.
+This is also used for granting inbound access in the context of Azure AD and TokenX clients.
 
 Relevant information:
 
@@ -105,7 +107,8 @@ Required: `false`<br />
     ```
 
 #### accessPolicy.inbound.rules
-List of NAIS applications that may access your application. These settings apply both to Zero Trust network connectivity and token validity for Azure AD and TokenX tokens.
+List of NAIS applications that may access your application.
+These settings apply both to Zero Trust network connectivity and token validity for Azure AD and TokenX tokens.
 
 Type: `array`<br />
 Required: `true`<br />
@@ -249,7 +252,8 @@ Required: `false`<br />
     ```
 
 ##### accessPolicy.inbound.rules[].permissions
-Permissions contains a set of permissions that are granted to the given application. Currently only applicable for Azure AD clients.
+Permissions contains a set of permissions that are granted to the given application.
+Currently only applicable for Azure AD clients.
 
 Relevant information:
 
@@ -513,7 +517,8 @@ Required: `true`<br />
     ```
 
 #### accessPolicy.outbound.rules
-List of NAIS applications that your application needs to access. These settings apply to Zero Trust network connectivity.
+List of NAIS applications that your application needs to access.
+These settings apply to Zero Trust network connectivity.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -691,7 +696,8 @@ Required: `false`<br />
     ```
 
 ##### azure.application.claims.groups
-Groups is a list of Azure AD group IDs to be emitted in the `groups` claim in tokens issued by Azure AD. This also assigns groups to the application for access control. Only direct members of the groups are granted access.
+Groups is a list of Azure AD group IDs to be emitted in the `groups` claim in tokens issued by Azure AD.
+This also assigns groups to the application for access control. Only direct members of the groups are granted access.
 
 Relevant information:
 
@@ -727,7 +733,8 @@ Required: `false`<br />
     ```
 
 #### azure.application.enabled
-Whether to enable provisioning of an Azure AD application. If enabled, an Azure AD application will be provisioned.
+Whether to enable provisioning of an Azure AD application.
+If enabled, an Azure AD application will be provisioned.
 
 Type: `boolean`<br />
 Required: `true`<br />
@@ -742,7 +749,9 @@ Default value: `false`<br />
     ```
 
 #### azure.application.tenant
-Tenant targets a specific tenant for the Azure AD application. Only works in the development clusters. Only use this if you have a specific reason to do so. Using this will _isolate_ your application from all other applications that are not using the same tenant.
+Tenant targets a specific tenant for the Azure AD application.
+Only works in the development clusters. Only use this if you have a specific reason to do so.
+Using this will _isolate_ your application from all other applications that are not using the same tenant.
 
 Relevant information:
 
@@ -761,8 +770,12 @@ Allowed values: `nav.no`, `trygdeetaten.no`<br />
     ```
 
 ### azure.sidecar
-Sidecar configures a sidecar that intercepts every HTTP request, and performs the OIDC flow if necessary. All requests to ingress + `/oauth2` will be processed only by the sidecar, whereas all other requests will be proxied to the application. 
- If the client is authenticated with Azure AD, the `Authorization` header will be set to `Bearer <JWT>`.
+Sidecar configures a sidecar that intercepts every HTTP request, and performs the OIDC flow if necessary.
+All requests to ingress + `/oauth2` will be processed only by the sidecar, whereas all other requests
+will be proxied to the application.
+
+
+If the client is authenticated with Azure AD, the `Authorization` header will be set to `Bearer <JWT>`.
 
 Relevant information:
 
@@ -979,7 +992,8 @@ Required: `false`<br />
     ```
 
 ## env
-Custom environment variables injected into your container. Specify either `value` or `valueFrom`, but not both.
+Custom environment variables injected into your container.
+Specify either `value` or `valueFrom`, but not both.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -1015,7 +1029,8 @@ Required: `true`<br />
     ```
 
 ### env[].value
-Environment variable value. Numbers and boolean values must be quoted. Required unless `valueFrom` is specified.
+Environment variable value. Numbers and boolean values must be quoted.
+Required unless `valueFrom` is specified.
 
 Type: `string`<br />
 Required: `false`<br />
@@ -1090,9 +1105,15 @@ Allowed values: _(empty string)_, `metadata.annotations`, `metadata.labels`, `me
     ```
 
 ## envFrom
-EnvFrom exposes all variables in the ConfigMap or Secret resources as environment variables. One of `configMap` or `secret` is required. 
- Environment variables will take the form `KEY=VALUE`, where `key` is the ConfigMap or Secret key. You can specify as many keys as you like in a single ConfigMap or Secret. 
- The ConfigMap and Secret resources must live in the same Kubernetes namespace as the Application resource.
+EnvFrom exposes all variables in the ConfigMap or Secret resources as environment variables.
+One of `configMap` or `secret` is required.
+
+
+Environment variables will take the form `KEY=VALUE`, where `key` is the ConfigMap or Secret key.
+You can specify as many keys as you like in a single ConfigMap or Secret.
+
+
+The ConfigMap and Secret resources must live in the same Kubernetes namespace as the Application resource.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -1107,7 +1128,8 @@ Availability: team namespaces<br />
     ```
 
 ### envFrom[].configmap
-Name of the `ConfigMap` where environment variables are specified. Required unless `secret` is set.
+Name of the `ConfigMap` where environment variables are specified.
+Required unless `secret` is set.
 
 Type: `string`<br />
 Required: `false`<br />
@@ -1121,7 +1143,8 @@ Required: `false`<br />
     ```
 
 ### envFrom[].secret
-Name of the `Secret` where environment variables are specified. Required unless `configMap` is set.
+Name of the `Secret` where environment variables are specified.
+Required unless `configMap` is set.
 
 Type: `string`<br />
 Required: `false`<br />
@@ -1135,10 +1158,21 @@ Required: `false`<br />
     ```
 
 ## filesFrom
-List of ConfigMap, Secret, or EmptyDir resources that will have their contents mounted into the containers. Either `configMap`, `secret`, or `emptyDir` is required. 
- Files will take the path `<mountPath>/<key>`, where `key` is the ConfigMap or Secret key. You can specify as many keys as you like in a single ConfigMap or Secret, and they will all be mounted to the same directory. 
- If you reference an emptyDir you will just get an empty directory, backed by your requested memory or the disk on the node where your pod is running. 
- The ConfigMap and Secret resources must live in the same Kubernetes namespace as the Application resource.
+List of ConfigMap, Secret, or EmptyDir resources that will have their contents mounted into the containers.
+Either `configMap`, `secret`, or `emptyDir` is required.
+
+
+Files will take the path `<mountPath>/<key>`, where `key` is the ConfigMap or Secret key.
+You can specify as many keys as you like in a single ConfigMap or Secret, and they will all
+be mounted to the same directory.
+
+
+If you reference an emptyDir you will just get an empty directory, backed
+by your requested memory or the disk on the node where your pod is
+running.
+
+
+The ConfigMap and Secret resources must live in the same Kubernetes namespace as the Application resource.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -1160,7 +1194,8 @@ Availability: team namespaces<br />
     ```
 
 ### filesFrom[].configmap
-Name of the `ConfigMap` that contains files that should be mounted into the container. Required unless `secret` or `persistentVolumeClaim` is set.
+Name of the `ConfigMap` that contains files that should be mounted into the container.
+Required unless `secret` or `persistentVolumeClaim` is set.
 
 Type: `string`<br />
 Required: `false`<br />
@@ -1222,8 +1257,13 @@ Allowed values: `Disk`, `Memory`<br />
     ```
 
 ### filesFrom[].mountPath
-Filesystem path inside the pod where files are mounted. The directory will be created if it does not exist. If the directory exists, any files in the directory will be made unaccessible. 
- Defaults to `/var/run/configmaps/<NAME>`, `/var/run/secrets`, or `/var/run/pvc/<NAME>`, depending on which of them is specified. For EmptyDir, MountPath must be set.
+Filesystem path inside the pod where files are mounted.
+The directory will be created if it does not exist. If the directory exists,
+any files in the directory will be made unaccessible.
+
+
+Defaults to `/var/run/configmaps/<NAME>`, `/var/run/secrets`, or `/var/run/pvc/<NAME>`, depending on which of them is specified.
+For EmptyDir, MountPath must be set.
 
 Type: `string`<br />
 Required: `false`<br />
@@ -1244,7 +1284,9 @@ Required: `false`<br />
     ```
 
 ### filesFrom[].persistentVolumeClaim
-Name of the `PersistentVolumeClaim` that should be mounted into the container. Required unless `configMap` or `secret` is set. This feature requires coordination with the NAIS team.
+Name of the `PersistentVolumeClaim` that should be mounted into the container.
+Required unless `configMap` or `secret` is set.
+This feature requires coordination with the NAIS team.
 
 Type: `string`<br />
 Required: `false`<br />
@@ -1265,7 +1307,9 @@ Required: `false`<br />
     ```
 
 ### filesFrom[].secret
-Name of the `Secret` that contains files that should be mounted into the container. Required unless `configMap` or `persistentVolumeClaim` is set. If mounting multiple secrets, `mountPath` *MUST* be set to avoid collisions.
+Name of the `Secret` that contains files that should be mounted into the container.
+Required unless `configMap` or `persistentVolumeClaim` is set.
+If mounting multiple secrets, `mountPath` *MUST* be set to avoid collisions.
 
 Type: `string`<br />
 Required: `false`<br />
@@ -1316,7 +1360,9 @@ Required: `false`<br />
     ```
 
 #### frontend.generatedConfig.mountPath
-If specified, a Javascript file with application specific frontend configuration variables will be generated and mounted into the pod file system at the specified path. You can import this file directly from your Javascript application.
+If specified, a Javascript file with application specific frontend configuration variables
+will be generated and mounted into the pod file system at the specified path.
+You can import this file directly from your Javascript application.
 
 Relevant information:
 
@@ -1399,7 +1445,8 @@ Availability: GCP<br />
     ```
 
 ### gcp.bigQueryDatasets
-Provision BigQuery datasets and give your application's pod mountable secrets for connecting to each dataset. Datasets are immutable and cannot be changed.
+Provision BigQuery datasets and give your application's pod mountable secrets for connecting to each dataset.
+Datasets are immutable and cannot be changed.
 
 Relevant information:
 
@@ -1424,7 +1471,9 @@ Availability: GCP<br />
     ```
 
 #### gcp.bigQueryDatasets[].cascadingDelete
-When set to true will delete the dataset, when the application resource is deleted. NB: If no tables exist in the bigquery dataset, it _will_ delete the dataset even if this value is set/defaulted to `false`. Default value is `false`.
+When set to true will delete the dataset, when the application resource is deleted.
+NB: If no tables exist in the bigquery dataset, it _will_ delete the dataset even if this value is set/defaulted to `false`.
+Default value is `false`.
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -1445,7 +1494,8 @@ Immutable: `true`<br />
     ```
 
 #### gcp.bigQueryDatasets[].description
-Human-readable description of what this BigQuery dataset contains, or is used for. Will be visible in the GCP Console.
+Human-readable description of what this BigQuery dataset contains, or is used for.
+Will be visible in the GCP Console.
 
 Type: `string`<br />
 Required: `false`<br />
@@ -1466,7 +1516,8 @@ Immutable: `true`<br />
     ```
 
 #### gcp.bigQueryDatasets[].name
-Name of the BigQuery Dataset. The canonical name of the dataset will be `<TEAM_PROJECT_ID>:<NAME>`.
+Name of the BigQuery Dataset.
+The canonical name of the dataset will be `<TEAM_PROJECT_ID>:<NAME>`.
 
 Type: `string`<br />
 Required: `true`<br />
@@ -1634,7 +1685,8 @@ Required: `false`<br />
     ```
 
 ##### gcp.buckets[].lifecycleCondition.numNewerVersions
-Condition is satisfied when the object has the specified number of newer versions. The older versions will be deleted.
+Condition is satisfied when the object has the specified number of newer versions.
+The older versions will be deleted.
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -1756,8 +1808,12 @@ Value range: `1`-`36500`<br />
     ```
 
 #### gcp.buckets[].uniformBucketLevelAccess
-Allows you to uniformly control access to your Cloud Storage resources. When you enable uniform bucket-level access on a bucket, Access Control Lists (ACLs) are disabled, and only bucket-level Identity and Access Management (IAM) permissions grant access to that bucket and the objects it contains. 
- Uniform access control can not be reversed after 90 days! This is controlled by Google.
+Allows you to uniformly control access to your Cloud Storage resources.
+When you enable uniform bucket-level access on a bucket, Access Control Lists (ACLs) are disabled, and only bucket-level Identity
+and Access Management (IAM) permissions grant access to that bucket and the objects it contains.
+
+
+Uniform access control can not be reversed after 90 days! This is controlled by Google.
 
 Relevant information:
 
@@ -1945,7 +2001,9 @@ Availability: GCP<br />
     ```
 
 #### gcp.sqlInstances[].autoBackupHour
-If specified, run automatic backups of the SQL database at the given hour. Note that this will backup the whole SQL instance, and not separate databases. Restores are done using the Google Cloud Console.
+If specified, run automatic backups of the SQL database at the given hour.
+Note that this will backup the whole SQL instance, and not separate databases.
+Restores are done using the Google Cloud Console.
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -1987,7 +2045,8 @@ Value range: `0`-`23`<br />
     ```
 
 #### gcp.sqlInstances[].cascadingDelete
-Remove the entire Postgres server including all data when the Kubernetes resource is deleted. *THIS IS A DESTRUCTIVE OPERATION*! Set cascading delete only when you want to remove data forever.
+Remove the entire Postgres server including all data when the Kubernetes resource is deleted.
+*THIS IS A DESTRUCTIVE OPERATION*! Set cascading delete only when you want to remove data forever.
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -2110,7 +2169,8 @@ Required: `false`<br />
     ```
 
 ##### gcp.sqlInstances[].databases[].envVarPrefix
-Prefix to add to environment variables made available for database connection. If switching to `EnvVarPrefix` you need to [reset database credentials](https://docs.nais.io/persistence/postgres/#reset-database-credentials).
+Prefix to add to environment variables made available for database connection.
+If switching to `EnvVarPrefix` you need to [reset database credentials](https://docs.nais.io/persistence/postgres/#reset-database-credentials).
 
 Type: `string`<br />
 Required: `false`<br />
@@ -2151,7 +2211,8 @@ Required: `false`<br />
     ```
 
 ##### gcp.sqlInstances[].databases[].name
-Database name. *Be aware that only one database with this name is allowed in a namespace, regardless of which SQLInstance it belongs to*
+Database name.
+*Be aware that only one database with this name is allowed in a namespace, regardless of which SQLInstance it belongs to*
 
 Type: `string`<br />
 Required: `true`<br />
@@ -2275,7 +2336,9 @@ Pattern: `^[_a-zA-Z][-_a-zA-Z0-9]+$`<br />
     ```
 
 #### gcp.sqlInstances[].diskAutoresize
-When set to true, GCP will automatically increase storage by XXX for the database when disk usage is above the high water mark. Setting this field to true also disables manual control over disk size, i.e. the `diskSize` parameter will be ignored.
+When set to true, GCP will automatically increase storage by XXX for the database when
+disk usage is above the high water mark. Setting this field to true also disables
+manual control over disk size, i.e. the `diskSize` parameter will be ignored.
 
 Relevant information:
 
@@ -2320,7 +2383,9 @@ Required: `false`<br />
     ```
 
 #### gcp.sqlInstances[].diskSize
-How much hard drive space to allocate for the SQL server, in gigabytes. This parameter is used when first provisioning a server. Disk size can be changed using this field _only when diskAutoresize is set to false_.
+How much hard drive space to allocate for the SQL server, in gigabytes.
+This parameter is used when first provisioning a server.
+Disk size can be changed using this field _only when diskAutoresize is set to false_.
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -2404,7 +2469,10 @@ Allowed values: `HDD`, `SSD`<br />
     ```
 
 #### gcp.sqlInstances[].flags
-Set flags to control the behavior of the instance. Be aware that NAIS _does not validate_ these flags, so take extra care to make sure the values match against the specification, otherwise your deployment will seemingly work OK, but the database flags will not function as expected.
+Set flags to control the behavior of the instance.
+Be aware that NAIS _does not validate_ these flags, so take extra care
+to make sure the values match against the specification, otherwise your deployment
+will seemingly work OK, but the database flags will not function as expected.
 
 !!! warning "Experimental feature"
     This feature has not undergone much testing, and is subject to API change, instability, or removal.
@@ -3032,7 +3100,9 @@ Value range: `1`-`365`<br />
     ```
 
 #### gcp.sqlInstances[].tier
-Server tier, i.e. how much CPU and memory allocated. Available tiers are `db-f1-micro`, `db-g1-small` and custom `db-custom-CPU-RAM`. Custom memory must be mulitple of 256 MB and at least 3.75 GB (e.g. `db-custom-1-3840` for 1 cpu, 3840 MB ram)
+Server tier, i.e. how much CPU and memory allocated.
+Available tiers are `db-f1-micro`, `db-g1-small` and custom `db-custom-CPU-RAM`.
+Custom memory must be mulitple of 256 MB and at least 3.75 GB (e.g. `db-custom-1-3840` for 1 cpu, 3840 MB ram)
 
 Type: `string`<br />
 Required: `false`<br />
@@ -3121,7 +3191,8 @@ Allowed values: `POSTGRES_11`, `POSTGRES_12`, `POSTGRES_13`, `POSTGRES_14`, `POS
     ```
 
 ## idporten
-Configures ID-porten authentication for this application. See [ID-porten](https://doc.nais.io/explanation/auth/idporten/) for more details.
+Configures ID-porten authentication for this application.
+See [ID-porten](https://doc.nais.io/explanation/auth/idporten/) for more details.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3163,8 +3234,12 @@ Availability: GCP<br />
     ```
 
 ### idporten.sidecar
-Sidecar configures a sidecar that intercepts every HTTP request, and performs the OIDC flow if necessary. All requests to ingress + `/oauth2` will be processed only by the sidecar, whereas all other requests will be proxied to the application. 
- If the client is authenticated with IDPorten, the `Authorization` header will be set to `Bearer <JWT>`.
+Sidecar configures a sidecar that intercepts every HTTP request, and performs the OIDC flow if necessary.
+All requests to ingress + `/oauth2` will be processed only by the sidecar, whereas all other requests
+will be proxied to the application.
+
+
+If the client is authenticated with IDPorten, the `Authorization` header will be set to `Bearer <JWT>`.
 
 Relevant information:
 
@@ -3432,7 +3507,8 @@ Availability: GCP<br />
     ```
 
 ### influx.instance
-Provisions an InfluxDB instance and configures your application to access it. Use the prefix: `influx-` + `team` that you specified in the [navikt/aiven-iac](https://github.com/navikt/aiven-iac) repository.
+Provisions an InfluxDB instance and configures your application to access it.
+Use the prefix: `influx-` + `team` that you specified in the [navikt/aiven-iac](https://github.com/navikt/aiven-iac) repository.
 
 Type: `string`<br />
 Required: `true`<br />
@@ -3445,7 +3521,9 @@ Required: `true`<br />
     ```
 
 ## ingresses
-List of URLs that will route HTTPS traffic to the application. All URLs must start with `https://`. Domain availability differs according to which environment your application is running in. Check the available environments in the reference documentation.
+List of URLs that will route HTTPS traffic to the application.
+All URLs must start with `https://`. Domain availability differs according to which environment your application is running in.
+Check the available environments in the reference documentation.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -3524,7 +3602,10 @@ Required: `false`<br />
     ```
 
 ## liveness
-Many applications running for long periods of time eventually transition to broken states, and cannot recover except by being restarted. Kubernetes provides liveness probes to detect and remedy such situations. Read more about this over at the [Kubernetes probes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
+Many applications running for long periods of time eventually transition to broken states,
+and cannot recover except by being restarted. Kubernetes provides liveness probes to detect
+and remedy such situations. Read more about this over at the
+[Kubernetes probes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3542,7 +3623,8 @@ Required: `false`<br />
     ```
 
 ### liveness.failureThreshold
-When a Pod starts, and the probe fails, Kubernetes will try _failureThreshold_ times before giving up. Giving up in case of a startup probe means restarting the Pod.
+When a Pod starts, and the probe fails, Kubernetes will try _failureThreshold_ times before giving up.
+Giving up in case of a startup probe means restarting the Pod.
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -3623,7 +3705,8 @@ Default value: `1`<br />
     ```
 
 ## logformat
-Format of the logs from the container. Use this if the container doesn't support JSON logging and the log is in a special format that need to be parsed.
+Format of the logs from the container. Use this if the container doesn't support
+JSON logging and the log is in a special format that need to be parsed.
 
 Type: `enum`<br />
 Required: `false`<br />
@@ -3649,7 +3732,8 @@ Allowed values: `dns_loglevel`, `http_loglevel`<br />
     ```
 
 ## maskinporten
-Configures a Maskinporten client for this application. See [Maskinporten](https://doc.nais.io/explanation/auth/maskinporten/) for more details.
+Configures a Maskinporten client for this application.
+See [Maskinporten](https://doc.nais.io/explanation/auth/maskinporten/) for more details.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3715,7 +3799,8 @@ Required: `false`<br />
     ```
 
 #### maskinporten.scopes.consumes
-This is the Schema for the consumes and exposes API. `consumes` is a list of scopes that your client can request access to.
+This is the Schema for the consumes and exposes API.
+`consumes` is a list of scopes that your client can request access to.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -3730,7 +3815,8 @@ Required: `false`<br />
     ```
 
 ##### maskinporten.scopes.consumes[].name
-The scope consumed by the application to gain access to an external organization API. Ensure that the NAV organization has been granted access to the scope prior to requesting access.
+The scope consumed by the application to gain access to an external organization API.
+Ensure that the NAV organization has been granted access to the scope prior to requesting access.
 
 Relevant information:
 
@@ -3772,7 +3858,8 @@ Required: `false`<br />
     ```
 
 ##### maskinporten.scopes.exposes[].allowedIntegrations
-Whitelisting of integration's allowed. Default is `maskinporten`
+Whitelisting of integration's allowed.
+Default is `maskinporten`
 
 Relevant information:
 
@@ -3800,7 +3887,8 @@ Default value: `maskinporten`<br />
     ```
 
 ##### maskinporten.scopes.exposes[].atMaxAge
-Max time in seconds for a issued access_token. Default is `30` sec.
+Max time in seconds for a issued access_token.
+Default is `30` sec.
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -3922,7 +4010,8 @@ Required: `true`<br />
     ```
 
 ##### maskinporten.scopes.exposes[].name
-The actual subscope combined with `Product`. Ensure that `<Product><Name>` matches `Pattern`.
+The actual subscope combined with `Product`.
+Ensure that `<Product><Name>` matches `Pattern`.
 
 Type: `string`<br />
 Required: `true`<br />
@@ -3947,7 +4036,8 @@ Pattern: `^([a-zæøå0-9]+\/?)+(\:[a-zæøå0-9]+)*[a-zæøå0-9]+(\.[a-zæøå
     ```
 
 ##### maskinporten.scopes.exposes[].product
-The product-area your application belongs to e.g. arbeid, helse ... This will be included in the final scope `nav:<Product><Name>`.
+The product-area your application belongs to e.g. arbeid, helse ...
+This will be included in the final scope `nav:<Product><Name>`.
 
 Type: `string`<br />
 Required: `true`<br />
@@ -4149,7 +4239,8 @@ Required: `false`<br />
     ```
 
 ## openSearch
-OpenSearch instance to get credentials for. Must be owned by same team.
+OpenSearch instance to get credentials for.
+Must be owned by same team.
 
 Relevant information:
 
@@ -4181,7 +4272,8 @@ Allowed values: `admin`, `read`, `readwrite`, `write`<br />
     ```
 
 ### openSearch.instance
-Configure your application to access your OpenSearch instance. The last part of the name used when creating the instance (ie. opensearch-{team}-{instance})
+Configure your application to access your OpenSearch instance.
+The last part of the name used when creating the instance (ie. opensearch-{team}-{instance})
 
 Type: `string`<br />
 Required: `true`<br />
@@ -4194,7 +4286,8 @@ Required: `true`<br />
     ```
 
 ## port
-The port number which is exposed by the container and should receive traffic. Note that ports under 1024 are unavailable.
+The port number which is exposed by the container and should receive traffic.
+Note that ports under 1024 are unavailable.
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -4207,7 +4300,9 @@ Default value: `8080`<br />
     ```
 
 ## preStopHook
-PreStopHook is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits by itself. The reason for termination is passed to the handler.
+PreStopHook is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc.
+The handler is not called if the container crashes or exits by itself.
+The reason for termination is passed to the handler.
 
 Relevant information:
 
@@ -4249,8 +4344,12 @@ Required: `false`<br />
     ```
 
 #### preStopHook.exec.command
-Command is the command line to execute inside the container before the pod is shut down. The command is not run inside a shell, so traditional shell instructions (pipes, redirects, etc.) won't work. To use a shell, you need to explicitly call out to that shell. 
- If the exit status is non-zero, the pod will still be shut down, and marked as `Failed`.
+Command is the command line to execute inside the container before the pod is shut down.
+The command is not run inside a shell, so traditional shell instructions (pipes, redirects, etc.) won't work.
+To use a shell, you need to explicitly call out to that shell.
+
+
+If the exit status is non-zero, the pod will still be shut down, and marked as `Failed`.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -4296,7 +4395,8 @@ Required: `true`<br />
     ```
 
 #### preStopHook.http.port
-Port to access on the container. Defaults to application port, as defined in `.spec.port`.
+Port to access on the container.
+Defaults to application port, as defined in `.spec.port`.
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -4311,7 +4411,8 @@ Value range: `1`-`65535`<br />
     ```
 
 ## preStopHookPath
-A HTTP GET will be issued to this endpoint at least once before the pod is terminated. This feature is deprecated and will be removed in the next major version (nais.io/v1).
+A HTTP GET will be issued to this endpoint at least once before the pod is terminated.
+This feature is deprecated and will be removed in the next major version (nais.io/v1).
 
 Relevant information:
 
@@ -4327,7 +4428,8 @@ Required: `false`<br />
     ```
 
 ## prometheus
-Prometheus is used to [scrape metrics from the pod](https://doc.nais.io/explanation/observability/metrics/). Use this configuration to override the default values.
+Prometheus is used to [scrape metrics from the pod](https://doc.nais.io/explanation/observability/metrics/).
+Use this configuration to override the default values.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -4376,7 +4478,12 @@ Required: `false`<br />
     ```
 
 ## readiness
-Sometimes, applications are temporarily unable to serve traffic. For example, an application might need to load large data or configuration files during startup, or depend on external services after startup. In such cases, you don't want to kill the application, but you don’t want to send it requests either. Kubernetes provides readiness probes to detect and mitigate these situations. A pod with containers reporting that they are not ready does not receive traffic through Kubernetes Services. Read more about this over at the [Kubernetes readiness documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
+Sometimes, applications are temporarily unable to serve traffic. For example, an application might need
+to load large data or configuration files during startup, or depend on external services after startup.
+In such cases, you don't want to kill the application, but you don’t want to send it requests either.
+Kubernetes provides readiness probes to detect and mitigate these situations. A pod with containers
+reporting that they are not ready does not receive traffic through Kubernetes Services.
+Read more about this over at the [Kubernetes readiness documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 Type: `object`<br />
 Required: `false`<br />
@@ -4394,7 +4501,8 @@ Required: `false`<br />
     ```
 
 ### readiness.failureThreshold
-When a Pod starts, and the probe fails, Kubernetes will try _failureThreshold_ times before giving up. Giving up in case of a startup probe means restarting the Pod.
+When a Pod starts, and the probe fails, Kubernetes will try _failureThreshold_ times before giving up.
+Giving up in case of a startup probe means restarting the Pod.
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -4472,7 +4580,8 @@ Required: `false`<br />
     ```
 
 ## redis
-List of redis instances this job needs credentials for. Must be owned by same team.
+List of redis instances this job needs credentials for.
+Must be owned by same team.
 
 Relevant information:
 
@@ -4542,7 +4651,9 @@ Required: `false`<br />
     ```
 
 ### replicas.cpuThresholdPercentage
-Deprecated: Use `spec.scalingStrategy.cpu.thresholdPercentage` instead. Amount of CPU usage before the autoscaler kicks in. If anything under ScalingStrategy is set, that takes precedence.
+Deprecated: Use `spec.scalingStrategy.cpu.thresholdPercentage` instead.
+Amount of CPU usage before the autoscaler kicks in.
+If anything under ScalingStrategy is set, that takes precedence.
 
 !!! failure "Deprecated"
     This feature is deprecated, preserved only for backwards compatibility.
@@ -4711,7 +4822,8 @@ Required: `true`<br />
     ```
 
 ## resources
-When Containers have [resource requests](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) specified, the Kubernetes scheduler can make better decisions about which nodes to place pods on.
+When Containers have [resource requests](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) specified,
+the Kubernetes scheduler can make better decisions about which nodes to place pods on.
 
 Relevant information:
 
@@ -4831,7 +4943,8 @@ Required: `false`<br />
     ```
 
 ### secureLogs.enabled
-Whether to enable a sidecar container for secure logging. If enabled, a volume is mounted in the pods where secure logs can be saved.
+Whether to enable a sidecar container for secure logging.
+If enabled, a volume is mounted in the pods where secure logs can be saved.
 
 Type: `boolean`<br />
 Required: `true`<br />
@@ -4845,7 +4958,8 @@ Default value: `false`<br />
     ```
 
 ## service
-Specify which port and protocol is used to connect to the application in the container. Defaults to HTTP on port 80.
+Specify which port and protocol is used to connect to the application in the container.
+Defaults to HTTP on port 80.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -4900,7 +5014,10 @@ Required: `false`<br />
     ```
 
 ## startup
-Kubernetes uses startup probes to know when a container application has started. If such a probe is configured, it disables liveness and readiness checks until it succeeds, making sure those probes don't interfere with the application startup. This can be used to adopt liveness checks on slow starting containers, avoiding them getting killed by Kubernetes before they are up and running.
+Kubernetes uses startup probes to know when a container application has started. If such a probe is configured,
+it disables liveness and readiness checks until it succeeds, making sure those probes don't interfere with the
+application startup. This can be used to adopt liveness checks on slow starting containers, avoiding them getting
+killed by Kubernetes before they are up and running.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -4918,7 +5035,8 @@ Required: `false`<br />
     ```
 
 ### startup.failureThreshold
-When a Pod starts, and the probe fails, Kubernetes will try _failureThreshold_ times before giving up. Giving up in case of a startup probe means restarting the Pod.
+When a Pod starts, and the probe fails, Kubernetes will try _failureThreshold_ times before giving up.
+Giving up in case of a startup probe means restarting the Pod.
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -5027,7 +5145,17 @@ Required: `false`<br />
     ```
 
 #### strategy.rollingUpdate.maxSurge
-The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
+The maximum number of pods that can be scheduled above the desired number of
+pods.
+Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%).
+This can not be 0 if MaxUnavailable is 0.
+Absolute number is calculated from percentage by rounding up.
+Defaults to 25%.
+Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when
+the rolling update starts, such that the total number of old and new pods do not exceed
+130% of desired pods. Once old pods have been killed,
+new ReplicaSet can be scaled up further, ensuring that total number of pods running
+at any time during the update is at most 130% of desired pods.
 
 Type: `integer` or `string`<br />
 Required: `false`<br />
@@ -5041,7 +5169,16 @@ Required: `false`<br />
     ```
 
 #### strategy.rollingUpdate.maxUnavailable
-The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
+The maximum number of pods that can be unavailable during the update.
+Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%).
+Absolute number is calculated from percentage by rounding down.
+This can not be 0 if MaxSurge is 0.
+Defaults to 25%.
+Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods
+immediately when the rolling update starts. Once new pods are ready, old ReplicaSet
+can be scaled down further, followed by scaling up the new ReplicaSet, ensuring
+that the total number of pods available at all times during the update is at
+least 70% of desired pods.
 
 Type: `integer` or `string`<br />
 Required: `false`<br />
@@ -5055,7 +5192,8 @@ Required: `false`<br />
     ```
 
 ### strategy.type
-Specifies the strategy used to replace old Pods by new ones. `RollingUpdate` is the default value.
+Specifies the strategy used to replace old Pods by new ones.
+`RollingUpdate` is the default value.
 
 Type: `enum`<br />
 Required: `false`<br />
@@ -5070,7 +5208,9 @@ Allowed values: `Recreate`, `RollingUpdate`<br />
     ```
 
 ## terminationGracePeriodSeconds
-The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. For most applications, the default is more than enough. Defaults to 30 seconds.
+The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal.
+Set this value longer than the expected cleanup time for your process.
+For most applications, the default is more than enough. Defaults to 30 seconds.
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -5140,7 +5280,8 @@ Required: `false`<br />
     ```
 
 ## vault
-Provides secrets management, identity-based access, and encrypting application data for auditing of secrets for applications, systems, and users.
+Provides secrets management, identity-based access, and encrypting application data for auditing of secrets
+for applications, systems, and users.
 
 Relevant information:
 
@@ -5176,10 +5317,18 @@ Required: `false`<br />
     ```
 
 ### vault.paths
-List of secret paths to be read from Vault and injected into the pod's filesystem. Overriding the `paths` array is optional, and will give you fine-grained control over which Vault paths that will be mounted on the file system. 
- By default, the list will contain an entry with 
- `kvPath: /kv/<environment>/<zone>/<application>/<namespace>` `mountPath: /var/run/secrets/nais.io/vault` 
- that will always be attempted to be mounted.
+List of secret paths to be read from Vault and injected into the pod's filesystem.
+Overriding the `paths` array is optional, and will give you fine-grained control over which Vault paths that will be mounted on the file system.
+
+
+By default, the list will contain an entry with
+
+
+`kvPath: /kv/<environment>/<zone>/<application>/<namespace>`
+`mountPath: /var/run/secrets/nais.io/vault`
+
+
+that will always be attempted to be mounted.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -5257,7 +5406,9 @@ Required: `false`<br />
     ```
 
 ## webproxy
-Inject on-premises web proxy configuration into the application pod. Most Linux applications should auto-detect these settings from the `$HTTP_PROXY`, `$HTTPS_PROXY` and `$NO_PROXY` environment variables (and their lowercase counterparts). Java applications can start the JVM using parameters from the `$JAVA_PROXY_OPTIONS` environment variable.
+Inject on-premises web proxy configuration into the application pod.
+Most Linux applications should auto-detect these settings from the `$HTTP_PROXY`, `$HTTPS_PROXY` and `$NO_PROXY` environment variables (and their lowercase counterparts).
+Java applications can start the JVM using parameters from the `$JAVA_PROXY_OPTIONS` environment variable.
 
 Type: `boolean`<br />
 Required: `false`<br />

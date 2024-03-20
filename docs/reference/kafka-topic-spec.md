@@ -29,7 +29,8 @@ Required: `true`<br />
     ```
 
 ### acl[].access
-Access type granted for a application. Defaults to `readwrite`.
+Access type granted for a application.
+Defaults to `readwrite`.
 
 Type: `enum`<br />
 Required: `true`<br />
@@ -111,7 +112,8 @@ Required: `false`<br />
     ```
 
 ### config.cleanupPolicy
-CleanupPolicy is either "delete" or "compact" or both. This designates the retention policy to use on old log segments.
+CleanupPolicy is either "delete" or "compact" or both.
+This designates the retention policy to use on old log segments.
 
 Relevant information:
 
@@ -142,7 +144,11 @@ Default value: `Inf`<br />
 Minimum value: `0`<br />
 
 ### config.maxMessageBytes
-The largest record batch size allowed by Kafka (after compression if compression is enabled). If this is increased and there are consumers older than 0.10.2, the consumers' fetch size must also be increased so that they can fetch record batches this large. In the latest message format version, records are always grouped into batches for efficiency. In previous message format versions, uncompressed records are not grouped into batches and this limit only applies to a single record in that case.
+The largest record batch size allowed by Kafka (after compression if compression is enabled).
+If this is increased and there are consumers older than 0.10.2, the consumers' fetch size must also be increased
+so that they can fetch record batches this large. In the latest message format version, records are always grouped
+into batches for efficiency. In previous message format versions, uncompressed records are not grouped into
+batches and this limit only applies to a single record in that case.
 
 Relevant information:
 
@@ -184,7 +190,8 @@ Default value: `0`<br />
 Minimum value: `0`<br />
 
 ### config.minimumInSyncReplicas
-When a producer sets acks to "all" (or "-1"), `min.insync.replicas` specifies the minimum number of replicas that must acknowledge a write for the write to be considered successful.
+When a producer sets acks to "all" (or "-1"), `min.insync.replicas` specifies the minimum number of replicas
+that must acknowledge a write for the write to be considered successful.
 
 Relevant information:
 
@@ -237,7 +244,9 @@ Minimum value: `2`<br />
     ```
 
 ### config.retentionBytes
-Configuration controls the maximum size a partition can grow to before we will discard old log segments to free up space if we are using the "delete" retention policy. By default there is no size limit only a time limit. Since this limit is enforced at the partition level, multiply it by the number of partitions to compute the topic retention in bytes.
+Configuration controls the maximum size a partition can grow to before we will discard old log segments
+to free up space if we are using the "delete" retention policy. By default there is no size limit only a time limit.
+Since this limit is enforced at the partition level, multiply it by the number of partitions to compute the topic retention in bytes.
 
 Relevant information:
 
@@ -274,7 +283,8 @@ Maximum value: `2562047788015`<br />
     ```
 
 ### config.segmentHours
-The number of hours after which Kafka will force the log to roll even if the segment file isn't full to ensure that retention can delete or compact old data.
+The number of hours after which Kafka will force the log to roll even if the segment file isn't full to ensure
+that retention can delete or compact old data.
 
 Relevant information:
 
