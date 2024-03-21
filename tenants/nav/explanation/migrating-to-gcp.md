@@ -83,13 +83,13 @@ The ROS analysis for the team's applications need to be updated to reflect any c
 
 ???+ faq "Answer"
 
-    There is native functionality in GCP that overlap with many of the use cases that Vault have covered on-prem. Using these mechanisms removes the need to deal with these secrets at all. Introducing team namespaces allows the teams to manage their own secrets in their own namespaces without the need for IAC and manual routines. For other secrets that are not used by the application during runtime, you can use the [Secret Manager](../security/secrets/google-secrets-manager.md) in each team's GCP project.
+    There is native functionality in GCP that overlap with many of the use cases that Vault have covered on-prem. Using these mechanisms removes the need to deal with these secrets at all. Introducing team namespaces allows the teams to manage their own secrets in their own namespaces without the need for IAC and manual routines. For other secrets that are not used by the application during runtime, you can use the Secrets in Console.
 
-### How do we migrate from Vault to Secrets Manager?
+### How do we migrate from Vault to NAIS Secrets?
 
 ???+ faq "Answer"
 
-    See the [Secrets Manager documentation](../security/secrets/google-secrets-manager.md).
+    See the [Secrets documentation](../explanations/secrets/).
 
 ### How do we migrate from filestorage to buckets?
 
@@ -188,7 +188,7 @@ The ROS analysis for the team's applications need to be updated to reflect any c
 | Alerts                    | yes         | yes                                      | identical                                                                                                                                                                                       |
 | Secure logs               | yes         | yes                                      | different clustername in logs.adeo.no                                                                                                                                                           |
 | Kafka                     | yes         | yes                                      | identical                                                                                                                                                                                       |
-| Secrets                   | Vault      | Secret manager                        |                                                                                                                                                                                                 |
+| Secrets                   | Vault      | Console secrets                        |                                                                                                                                                                                                 |
 | Team namespaces           | yes         | yes                                      |                                                                                                                                                                                                 |
 | Shared namespaces         | yes         | no                                      | Default namespace not available for teams in GCP                                                                                                                                                |
 | Health checks             | yes         | yes                                      | identical                                                                                                                                                                                       |
