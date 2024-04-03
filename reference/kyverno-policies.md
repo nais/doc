@@ -19,10 +19,18 @@ This policy denies images from registries not on the list of allowed
 registries. See documentation:
 https://docs.nais.io/deployment/allowed-registries # TODO: fix link
 
+### Message
+
+ Image not from an approved registry.\nSee documentation: https://docs.nais.io/deployment/image-repository/ TODO: fix link
+
 ## 004 - Deny creation of Kafka Topics
 
 This policy Denies the creation of Kafka Topics. Documentation:
 https://docs.nais.io/persistence/kafka/manage_topics # TODO: fix link
+
+### Message
+
+Kafka Topic resource is not supported in this cluster\nDocumentation: https://docs.nais.io/persistence/kafka/manage_topics TODO: fix link
 
 ## 005 - Deny delete of Kafka topics
 
@@ -31,11 +39,20 @@ kafka.nais.io/removeDataWhenResourceIsDeleted annotation.
 Documentation:
 https://docs.nais.io/persistence/kafka/manage_topics/#permanently-deleting-topic-and-data.
 
+### Message
+
+Deleting Topic is not allowed without the kafka.nais.io/removeDataWhenResourceIsDeleted annotation.\nDocumentation: https://docs.nais.io/persistence/kafka/manage_topics/#permanently-deleting-topic-and-data.
+
+
 ## 006 - Deny specific service types
 
 This policy denies the creation of services with types other than ClusterIP and ExternalName.
 This policy is based on the example policy from the Kyverno documentation.
 https://kyverno.io/docs/writing-policies/deny-service-types/
+
+### Message
+
+Service type must be one of ClusterIP or ExternalName in this namespace.
 
 ## 007 - Replace legacy GitHub registry
 
@@ -55,3 +72,12 @@ your own values.
 This policies ensures that ephemeral containers use allowed images and have limited capabilities.
 When using 'kubectl debug' please set flag `--profile=restricted`.
 For-example: `kubectl debug -it --image=cgr.dev/chainguard/busybox:latest --profile=restricted`
+
+### Message
+
+The fields spec.ephemeralContainers[*].image requires to be set for allowed image
+see `https://docs.nais.io/basics/debug`.
+Running as root is not allowed. The fields spec.ephemeralContainers[*].securityContext.runAsNonRoot
+must be `true`, and spec.ephemeralContainers[*].securityContext.capabilities.drop
+must be set to `- ALL` to reduce capabilities.
+The use of `kubectl debug` requires to set `--profile=restricted`.
