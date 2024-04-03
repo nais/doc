@@ -1,5 +1,7 @@
 # Kyverno policies
 
+Nais uses kyverno to enforce policies on kubernetes resources.
+
 ## 001 - Add spot toleration
 
 This policy adds a toleration for pods to be deployed to nodes on spot
@@ -81,3 +83,23 @@ Running as root is not allowed. The fields spec.ephemeralContainers[*].securityC
 must be `true`, and spec.ephemeralContainers[*].securityContext.capabilities.drop
 must be set to `- ALL` to reduce capabilities.
 The use of `kubectl debug` requires to set `--profile=restricted`.
+
+## 010 - Aiven operator
+
+This policy denies invalid names and projects, and missing project vpcs. See documentation at https://doc.nais.io/persistence/redis/ See documentation at https://doc.nais.io/persistence/open-search/ TODO: fix link
+
+### message
+
+Invalid name. See documentation at https://doc.nais.io  TODO: fix link
+
+
+## 011 - Validate fields for Kafka resources.
+
+Validates that the fields for the given resources has allowed values.
+Currently only validates the pool field.
+
+### Message
+Kafka pool {{ "{{ request.object.spec.pool }}" | quote }} is not supported in this cluster.
+Allowed values: [{{ $valid | join ", " }}]
+
+See documentation: https://doc.nais.io/persistence/kafka/manage_topics/#creating-topics-and-defining-access ## TODO: fix link
