@@ -1,3 +1,8 @@
+---
+tags:
+  - Kyverno
+---
+
 # Kyverno policies
 
 Nais enforces certain cluster policies using kyverno, in addition to different baseline security
@@ -86,11 +91,12 @@ The use of `kubectl debug` requires to set `--profile=restricted`.
 
 ## 010 - Aiven operator
 
-This policy denies invalid names and projects, and missing project vpcs. See documentation at https://doc.nais.io/persistence/redis/ See documentation at https://doc.nais.io/persistence/open-search/ TODO: fix link
+This policy denies invalid names and projects, and missing project vpcs. See documentation at https://docs.nais.io/how-to-guides/persistence/redis
+See documentation at https://docs.nais.io/how-to-guides/persistence/opensearch
 
 ### message
 
-Invalid name. See documentation at https://doc.nais.io  TODO: fix link
+Invalid name.  https://docs.nais.io/how-to-guides/persistence/redis or https://docs.nais.io/how-to-guides/persistence/opensearch"
 
 
 ## 011 - Validate fields for Kafka resources.
@@ -102,7 +108,7 @@ Currently only validates the pool field.
 Kafka pool {{ "{{ request.object.spec.pool }}" | quote }} is not supported in this cluster.
 Allowed values: [{{ $valid | join ", " }}]
 
-See documentation: https://doc.nais.io/persistence/kafka/manage_topics/#creating-topics-and-defining-access ## TODO: fix link
+See documentation: https://docs.nais.io/how-to-guides/persistence/kafka/create/
 
 
 ## 012 - Validate fields for Azure AD resources
@@ -112,4 +118,4 @@ This policy validates that Azure AD fields for the given resource has allowed va
 ### Message
 
 Azure AD tenant "{{ request.object.spec.tenant }}" is not supported in this cluster. Allowed values: [nav.no]
-See documentation: https://doc.nais.io/nais-application/application/#azureapplicationtenant # TODO: fix link
+See documentation: https://doc.nais.io/security/auth/azure-ad/
