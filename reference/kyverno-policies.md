@@ -14,37 +14,36 @@ This policy generates a default allow egress NetworkPolicy for all
 Namespaces. It allows all egress traffic except for RFC 1918 private
 address space. This policy is based on the following Kubernetes
 NetworkPolicy:
-https://kubernetes.io/docs/concepts/services-networking/network-policies/#default-allow-all-egress TODO: fix link
+https://kubernetes.io/docs/concepts/services-networking/network-policies/#default-allow-all-egress
 
 ## 003 - Deny image registries
 
 This policy denies images from registries not on the list of allowed
-registries. See documentation:
-https://docs.nais.io/deployment/allowed-registries # TODO: fix link
+registries.
 
 ### Message
 
- Image not from an approved registry.\nSee documentation: https://docs.nais.io/deployment/image-repository/ TODO: fix link
+ Image not from an approved registry. Upload the image to an approved registry and try again.
 
 ## 004 - Deny creation of Kafka Topics
 
 This policy Denies the creation of Kafka Topics. Documentation:
-https://docs.nais.io/persistence/kafka/manage_topics # TODO: fix link
+https://docs.nais.io/how-to-guides/persistence/kafka/create/
 
 ### Message
 
-Kafka Topic resource is not supported in this cluster\nDocumentation: https://docs.nais.io/persistence/kafka/manage_topics TODO: fix link
+Kafka Topic resource is not supported in this cluster\nDocumentation: https://docs.nais.io/how-to-guides/persistence/kafka/create/
 
-## 005 - Deny delete of Kafka topics
+## 005 - Deny deletion of Kafka topics
 
 This policy Denies the deletion of Kafka topics without the
 kafka.nais.io/removeDataWhenResourceIsDeleted annotation.
 Documentation:
-https://docs.nais.io/persistence/kafka/manage_topics/#permanently-deleting-topic-and-data.
+https://docs.nais.io/how-to-guides/persistence/kafka/delete/
 
 ### Message
 
-Deleting Topic is not allowed without the kafka.nais.io/removeDataWhenResourceIsDeleted annotation.\nDocumentation: https://docs.nais.io/persistence/kafka/manage_topics/#permanently-deleting-topic-and-data.
+Deleting Topic is not allowed without the kafka.nais.io/removeDataWhenResourceIsDeleted annotation.\nDocumentation: https://docs.nais.io/how-to-guides/persistence/kafka/delete/
 
 
 ## 006 - Deny specific service types
