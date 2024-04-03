@@ -55,3 +55,12 @@ This example workflow is a minimal example that builds, signs, and pushes your c
 It then deploys the [app.yaml](../reference/application-spec.md), injecting the image tag from the previous step.
 
 When this file is pushed to the `main` branch, the workflow will be triggered and you are all set.
+
+!!! info "Google Artifact Registry (GAR)"
+    
+    The [nais/docker-build-push action](https://github.com/nais/docker-build-push) builds and pushes images to the _Google Artifact Registry_ (GAR).
+    
+    This is a registry managed by NAIS and is the recommended way to store your container images for use in workloads on NAIS.
+
+    You don't have to worry about cleaning up old images; images older than 90 days are automatically deleted.
+    We keep the last 10 images for each image, regardless of age.
