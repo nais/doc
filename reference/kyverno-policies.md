@@ -1,6 +1,7 @@
 # Kyverno policies
 
-Nais uses kyverno to enforce policies on kubernetes resources.
+Nais enforces certain cluster policies using kyverno, in addition to different baseline security
+policies you will also find some custom policies for the nais platform.
 
 ## 001 - Add spot toleration
 
@@ -95,7 +96,7 @@ Invalid name. See documentation at https://doc.nais.io  TODO: fix link
 
 ## 011 - Validate fields for Kafka resources.
 
-Validates that the fields for the given resources has allowed values.
+This policy validates that the fields for the given resources has allowed values.
 Currently only validates the pool field.
 
 ### Message
@@ -103,3 +104,13 @@ Kafka pool {{ "{{ request.object.spec.pool }}" | quote }} is not supported in th
 Allowed values: [{{ $valid | join ", " }}]
 
 See documentation: https://doc.nais.io/persistence/kafka/manage_topics/#creating-topics-and-defining-access ## TODO: fix link
+
+
+## 012 - Validate fields for Azure AD resources
+
+This policy validates that Azure AD fields for the given resource has allowed values. Currently only validates the tenant field.
+
+### Message
+
+Azure AD tenant "{{ request.object.spec.tenant }}" is not supported in this cluster. Allowed values: [nav.no]
+See documentation: https://doc.nais.io/nais-application/application/#azureapplicationtenant # TODO: fix link
