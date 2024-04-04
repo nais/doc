@@ -91,12 +91,11 @@ The use of `kubectl debug` requires to set `--profile=restricted`.
 
 ## 010 - Aiven operator
 
-This policy denies invalid names and projects, and missing project vpcs. See documentation at https://docs.nais.io/how-to-guides/persistence/redis
-See documentation at https://docs.nais.io/how-to-guides/persistence/opensearch
+This policy denies invalid names and projects, and missing project vpcs. Please see the documentation at https://docs.nais.io/how-to-guides/persistence/redis#creating-a-redis-instance-explicitly or https://docs.nais.io/how-to-guides/persistence/opensearch/create depending on your usecase.
 
 ### message
 
-Invalid name.  https://docs.nais.io/how-to-guides/persistence/redis or https://docs.nais.io/how-to-guides/persistence/opensearch"
+Invalid name.  https://docs.nais.io/how-to-guides/persistence/redis#creating-a-redis-instance-explicitly or https://docs.nais.io/how-to-guides/persistence/opensearch/create"
 
 
 ## 011 - Validate fields for Kafka resources.
