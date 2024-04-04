@@ -95,7 +95,7 @@ This policy denies invalid names and projects, and missing project vpcs. Please 
 
 ### message
 
-Invalid name.  https://docs.nais.io/how-to-guides/persistence/redis#creating-a-redis-instance-explicitly or https://docs.nais.io/how-to-guides/persistence/opensearch/create"
+Invalid name. Please see https://docs.nais.io/how-to-guides/persistence/redis#creating-a-redis-instance-explicitly or https://docs.nais.io/how-to-guides/persistence/opensearch/create"
 
 
 ## 011 - Validate fields for Kafka resources.
@@ -107,7 +107,7 @@ Currently only validates the pool field.
 Kafka pool {{ "{{ request.object.spec.pool }}" | quote }} is not supported in this cluster.
 Allowed values: [{{ $valid | join ", " }}]
 
-See documentation: https://docs.nais.io/how-to-guides/persistence/kafka/create/
+Please see the documentation at https://docs.nais.io/how-to-guides/persistence/kafka/create/
 
 
 ## 012 - Validate fields for Azure AD resources
@@ -117,4 +117,4 @@ This policy validates that Azure AD fields for the given resource has allowed va
 ### Message
 
 Azure AD tenant "{{ request.object.spec.tenant }}" is not supported in this cluster. Allowed values: [nav.no]
-See documentation: https://doc.nais.io/security/auth/azure-ad/
+Please see the documentation at https://doc.nais.io/security/auth/azure-ad/
