@@ -95,7 +95,7 @@ spec:
 Query insights are now enabled by default in GCP. This feature provides query overview and analysis.
 The data is available in the Google cloud console.
 
-For further reading see [Google Cloud SQL Query Insights](https://cloud.google.com/sql/docs/postgres/query-insights-overview)
+For further reading see [Google Cloud SQL Query Insights](https://cloud.google.com/sql/docs/postgres/using-query-insights#introduction)
 
 !!! info
     Data is available for seven days, increasing this will incur extra cost.
