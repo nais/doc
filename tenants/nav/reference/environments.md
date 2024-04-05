@@ -2,25 +2,23 @@
 
 NAIS provides environments both on-prem and running in Google Cloud Platform (GCP).
 
-This is a overview over the different environments and their capabilities and available domains.
+This is a overview over the different environments and their available domains.
 
 We also enumerate the external IPs used by the environments, so that you can provide them to services that require IP allow-listing.
 
 ## Google Cloud Platform (GCP)
 
-!!! info
-
-    The environments in GCP is the recommended place to run your workloads. 
-    Compared to the on-prem environments, the GCP environments are more stable and have more and better features.
-
 ### dev-gcp
 
 #### Ingress domains
 
-| domain | accessible from | description |
+| domain | accessible from | 
 | :--- | :--- | :--- |
-| ekstern.dev.nav.no | internet | development ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
-| intern.dev.nav.no  | [naisdevice](../explanation/naisdevice.md) and NAV internal networks | development ingress for non-public/internet-facing applications |
+| ekstern.dev.nav.no | internet | 
+| intern.dev.nav.no  | [naisdevice](../explanation/naisdevice.md) and NAV internal networks | 
+| ansatt.dev.nav.no  | internet, but only accessible by authenticated humans on compliant devices | 
+
+See [explanation](../explanation/exposing-application.md) for more information.
 
 #### External IPs
 
@@ -32,10 +30,13 @@ We also enumerate the external IPs used by the environments, so that you can pro
 
 #### Ingress domains
 
-| domain | accessible from | description |
+| domain | accessible from |
 | :--- | :--- | :--- |
-| nav.no | internet | subdomains are manually configured, contact at \#tech-sikkerhet. Ingresses on `nav.no/*` are automatically available. URLs containing `/metrics`, `/actuator` or `/internal` are blocked |
-| intern.nav.no | [naisdevice](../explanation/naisdevice.md) | used by non-public/internet-facing applications \(previously called adeo.no\). |
+| nav.no | internet |
+| intern.nav.no | [naisdevice](../explanation/naisdevice.md) |
+| ansatt.nav.no  | internet, but only accessible by authenticated humans on compliant devices | 
+
+See [explanation](../explanation/exposing-application.md) for more information.
 
 #### External IPs
 
@@ -48,7 +49,7 @@ We also enumerate the external IPs used by the environments, so that you can pro
 
 !!! warning
 
-    This is a legacy environment, and is not recommended for new workloads.
+    This is a legacy environment, and is not recommended for new workloads. 
 
 ### dev-fss
 
