@@ -13,7 +13,7 @@ We also enumerate the external IPs used by the environments, so that you can pro
 #### Ingress domains
 
 | domain | accessible from | 
-| :--- | :--- | :--- |
+| :--- | :--- |
 | ekstern.dev.nav.no | internet | 
 | intern.dev.nav.no  | [naisdevice](../explanation/naisdevice.md) and NAV internal networks | 
 | ansatt.dev.nav.no  | internet, but only accessible by authenticated humans on compliant devices | 
@@ -31,7 +31,7 @@ See [explanation](../explanation/exposing-application.md) for more information.
 #### Ingress domains
 
 | domain | accessible from |
-| :--- | :--- | :--- |
+| :--- | :--- |
 | nav.no | internet |
 | intern.nav.no | [naisdevice](../explanation/naisdevice.md) |
 | ansatt.nav.no  | internet, but only accessible by authenticated humans on compliant devices | 
