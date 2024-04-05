@@ -5,7 +5,7 @@ tags:
 
 # Redis
 
-We provide Redis by way of Aiven, via their Aiven Operator.
+Nais provides Redis by way of Aiven via their Aiven Operator.
 
 ## Configuration options
 
