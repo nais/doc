@@ -22,7 +22,7 @@ one OpenSearch instance.
           access: readwrite
         - instance: lookup
           access: read
-      openSearch:
+      opensearch:
         - instance: search
           access: readwrite
     ```
