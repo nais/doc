@@ -2,19 +2,19 @@
 
 This how-to guide shows you how to build and deploy your application using [Github Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions) and the NAIS deploy action.
 
-## 0. Prerequisites
+## Prerequisites
 
 - You're part of a [NAIS team](./team.md)
 - A Github repository where the NAIS team has access
 - The repository contains a valid [workload manifest](../explanation/workloads/README.md)
 
-## 1. Authorize your Github repository for deployment
+## Authorize your Github repository for deployment
 
 1. Open [NAIS console](https://console.<<tenant()>>.cloud.nais.io) in your browser and select your team.
 2. Select the `Repositories` tab
 3. Find the repository you want to deploy from, and click `Authorize`
 
-## 2. Create a Github workflow
+## Create a Github workflow
 
 !!! note 
     If you require a more advanced workflow, or already have one. Just copy the relevant parts from the example below.

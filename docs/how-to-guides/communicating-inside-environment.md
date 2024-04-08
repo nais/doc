@@ -2,10 +2,10 @@
 
 This guide will show you how to communicate with other applications inside the same environment.
 
-## 0. Prerequisites
+## Prerequisites
 - Working [access policies](./access-policies.md) for the applications you want to communicate with.
 
-## 1. Identify the endpoint you want to communicate with
+## Identify the endpoint you want to communicate with
 
 To identity the endpoint of the workload we are communicating with, we need to know it's `name` and what `namespace` it's running in.
 
