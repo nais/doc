@@ -17,6 +17,16 @@ When you enable [auto-instrumentation](../../how-to-guides/observability/auto-in
 !!! tip
     Do not hardcode these values in your application. OpenTelemetry SDKs and auto-instrumentation libraries will automatically pick up these environment variables and use them to configure the SDK.
 
+## Agent Versions
+
+The OpenTelemetry Agent is used to automatically instrument your application. The agent is responsible for collecting telemetry data and sending it to the OpenTelemetry Collector.
+
+| Language | Agent Version | SDK Version |
+| -------- | ------------- | ----------- |
+| Java     | 2.2.0         | 1.3.6       |
+| Node.js  | 0.49.1        | 0.49.1      |
+| Python   | 0.44b0        | 1.23.0      |
+
 ## Java Specific Configurations
 
 When using the OpenTelemetry Java SDK and Agent (auto-instrumentation), the following additional environment variables are available:
@@ -26,7 +36,6 @@ When using the OpenTelemetry Java SDK and Agent (auto-instrumentation), the foll
 | `OTEL_JAVAAGENT_EXCLUDE_CLASSES` | Suppresses all instrumentation for specific classes, format is "my.package.MyClass,my.package2.*" | `my.package.MyClass,my.package2.*` |
 
 * [:octicons-link-external-24: Advanced Java configuration options](https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/docs/advanced-configuration-options.md)
-
 
 ## More OpenTelemetry Configuration
 
