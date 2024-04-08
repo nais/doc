@@ -15,10 +15,10 @@ We also enumerate the external IPs used by the environments, so that you can pro
 | domain | accessible from | 
 | :--- | :--- |
 | ekstern.dev.nav.no | internet | 
-| intern.dev.nav.no  | [naisdevice](../explanation/naisdevice.md) and NAV internal networks | 
+| intern.dev.nav.no  | NAV internal networks (including [naisdevice](../explanation/naisdevice.md))| 
 | ansatt.dev.nav.no  | internet, but only accessible by authenticated humans on compliant devices | 
 
-See [explanation](../explanation/exposing-application.md) for more information.
+See [explanation for exposing application](../explanation/exposing-application.md) for more information.
 
 #### External IPs
 
@@ -33,10 +33,10 @@ See [explanation](../explanation/exposing-application.md) for more information.
 | domain | accessible from |
 | :--- | :--- |
 | nav.no | internet |
-| intern.nav.no | [naisdevice](../explanation/naisdevice.md) |
+| intern.nav.no  | NAV internal networks (including [naisdevice](../explanation/naisdevice.md))| 
 | ansatt.nav.no  | internet, but only accessible by authenticated humans on compliant devices | 
 
-See [explanation](../explanation/exposing-application.md) for more information.
+See [explanation for exposing application](../explanation/exposing-application.md) for more information.
 
 #### External IPs
 
