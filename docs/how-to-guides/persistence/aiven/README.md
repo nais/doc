@@ -50,7 +50,8 @@ provide other defaults or customizations.
 
 For each redis or opensearch instance, your application will receive
 three environment variables. The environment variables use a fixed
-prefix, and the instance name uppercased as a suffix.
+prefix, and the instance name uppercased as a suffix,
+e.g `OPEN_SEARCH_URI_MYINSTANCENAME`.
 
 | Key    | Value                                |                                      |
 |--------|--------------------------------------|--------------------------------------|
