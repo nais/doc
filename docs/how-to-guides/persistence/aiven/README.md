@@ -53,8 +53,8 @@ three environment variables. The environment variables use a fixed
 prefix, and the instance name uppercased as a suffix,
 e.g `OPEN_SEARCH_URI_MYINSTANCENAME`.
 
-| Key    | Value                                |                                      |
-|--------|--------------------------------------|--------------------------------------|
-| <REDIS | OPEN_SEARCH>_URI_<InstanceName>      | The URI for the instance             |
-| <REDIS | OPEN_SEARCH>_USERNAME_<InstanceName> | The username to use when connecting. |
-| <REDIS | OPEN_SEARCH>_PASSWORD_<InstanceName> | The password to use when connecting. |
+| Key                                           | Value                                |   |
+|-----------------------------------------------|--------------------------------------|---|
+| `<REDIS/OPEN_SEARCH>_URI_<InstanceName>`      | The URI for the instance             |   |
+| `<REDIS/OPEN_SEARCH>_USERNAME_<InstanceName>` | The username to use when connecting. |   |
+| `<REDIS/OPEN_SEARCH>_PASSWORD_<InstanceName>` | The password to use when connecting. |   |

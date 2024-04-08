@@ -21,8 +21,8 @@ The `spec.opensearch` configuration has two fields as you get exactly one OpenSe
 
 Specifying an OpenSearch instance will yield three environment variables in the Application
 
-| Key                                           | Value                                |
-|-----------------------------------------------|--------------------------------------|
-| OPEN_SEARCH_URI_<Open_SearchInstanceName>     | The URI for the OpenSearch instance. |
-| OPEN_SEARCH_USERNAME_<OpenSearchInstanceName> | The username to use when connecting. |
-| OPEN_SEARCH_PASSWORD_<OpenSearchInstanceName> | The password to use when connecting. |
+| Key                                             | Value                                |
+|-------------------------------------------------|--------------------------------------|
+| `OPEN_SEARCH_URI_<Open_SearchInstanceName>`     | The URI for the OpenSearch instance. |
+| `OPEN_SEARCH_USERNAME_<OpenSearchInstanceName>` | The username to use when connecting. |
+| `OPEN_SEARCH_PASSWORD_<OpenSearchInstanceName>` | The password to use when connecting. |
