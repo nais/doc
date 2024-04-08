@@ -1,4 +1,4 @@
-# Aiven Resources
+# OpenSearch and Redis
 
 Nais provides Redis and OpenSearch through Aiven via their Aiven
 Operator.

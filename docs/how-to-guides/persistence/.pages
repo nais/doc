@@ -1,4 +1,4 @@
 nav:
   - buckets
   - kafka
-  - ...
+  - opensearch-and-redis
