@@ -2,14 +2,14 @@
 
 This guide shows you how to perform CRUD-operations on your workload.
 
-## 0. Prerequisites
+## Prerequisites
 - [Command-line access to the cluster](./command-line-access/setup.md)
 - [Member of a NAIS team](../explanation/team.md)
 - [Workload spec](../explanation/workloads/README.md)
 
 === "Application"
 
-    ## 1. Create/apply the application spec
+    ## Create/apply the application spec
     
     ```shell
     kubectl apply -f nais.yaml --namespace=<MY-TEAM> --context=<MY-ENV>
@@ -24,19 +24,19 @@ This guide shows you how to perform CRUD-operations on your workload.
     The events will tell you if the application was successfully created or not.
 
 
-    ## 2. Read/list your applications
+    ## Read/list your applications
 
     ```shell
     kubectl get application --namespace=<MY-TEAM> --context=<MY-ENV>
     ```
 
-    ## 3. Update/edit your application
+    ## Update/edit your application
     
     ```shell
     kubectl edit application <MY-APP> --namespace=<MY-TEAM> --context=<MY-ENV>
     ```
     
-    ## 4. Delete your application
+    ## Delete your application
     
     ```shell
     kubectl delete application <MY-APP> --namespace=<MY-TEAM> --context=<MY-ENV>
@@ -44,7 +44,7 @@ This guide shows you how to perform CRUD-operations on your workload.
 
 === "Naisjob"
 
-    ## 1. Create/apply the naisjob spec
+    ## Create/apply the naisjob spec
     
     ```shell
     kubectl apply -f nais.yaml --namespace=<MY-TEAM> --context=<MY-ENV>
@@ -58,19 +58,19 @@ This guide shows you how to perform CRUD-operations on your workload.
 
     The events will tell you if the naisjob was successfully created or not.
 
-    ## 2. Read/list your naisjobs
+    ## Read/list your naisjobs
 
     ```shell
     kubectl get naisjob --namespace=<MY-TEAM> --context=<MY-ENV>
     ```
 
-    ## 3. Update/edit your naisjob
+    ## Update/edit your naisjob
     
     ```shell
     kubectl edit naisjob <MY-NAISJOB> --namespace=<MY-TEAM> --context=<MY-ENV>
     ```
 
-    ## 4. Delete your naisjob
+    ## Delete your naisjob
     
     ```shell
     kubectl delete naisjob <MY-NAISJOB> --namespace=<MY-TEAM> --context=<MY-ENV>
