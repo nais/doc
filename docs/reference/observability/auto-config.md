@@ -23,7 +23,7 @@ The OpenTelemetry Agent is used to automatically instrument your application. Th
 
 | Language | Agent Version | SDK Version |
 | -------- | ------------- | ----------- |
-| Java     | 2.2.0         | 1.3.6       |
+| Java     | 2.2.0         | 1.36.0      |
 | Node.js  | 0.49.1        | 0.49.1      |
 | Python   | 0.44b0        | 1.23.0      |
 
