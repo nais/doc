@@ -27,7 +27,15 @@ The OpenTelemetry Agent is used to automatically instrument your application. Th
 | Node.js  | 0.49.1        | 0.49.1      |
 | Python   | 0.44b0        | 1.23.0      |
 
-## Java Specific Configurations
+## Java Agent
+
+### Supported libraries, frameworks, application servers, and JVMs
+
+The OpenTelemetry Java Agent supports many popular libraries, frameworks, application servers, and JVMs. A full list of supported libraries and frameworks can be found on the open-telemetry/opentelemetry-java-instrumentation repository.
+
+* [:octicons-link-external-24: OpenTelemetry Instrumentation for Java Supported Libraries and Frameworks](https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/docs/supported-libraries.md)
+
+### Advanced Configuration
 
 When using the OpenTelemetry Java SDK and Agent (auto-instrumentation), the following additional environment variables are available:
 
