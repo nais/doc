@@ -174,12 +174,14 @@ spec:
       consumes:
       - name: skatt:scope.read
       exposes:
-      - allowedIntegrations:
+      - accessibleForAll: true
+        allowedIntegrations:
         - maskinporten
         atMaxAge: 30
         consumers:
         - name: KST
           orgno: "123456789"
+        delegationSource: delegation-source
         enabled: true
         name: scope.read
         product: arbeid

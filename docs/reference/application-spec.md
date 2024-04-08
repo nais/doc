@@ -3747,12 +3747,14 @@ Required: `false`<br />
           consumes:
             - name: skatt:scope.read
           exposes:
-            - allowedIntegrations:
+            - accessibleForAll: true
+              allowedIntegrations:
                 - maskinporten
               atMaxAge: 30
               consumers:
                 - name: KST
                   orgno: "123456789"
+              delegationSource: delegation-source
               enabled: true
               name: scope.read
               product: arbeid
@@ -3787,12 +3789,14 @@ Required: `false`<br />
           consumes:
             - name: skatt:scope.read
           exposes:
-            - allowedIntegrations:
+            - accessibleForAll: true
+              allowedIntegrations:
                 - maskinporten
               atMaxAge: 30
               consumers:
                 - name: KST
                   orgno: "123456789"
+              delegationSource: delegation-source
               enabled: true
               name: scope.read
               product: arbeid
@@ -3846,12 +3850,40 @@ Required: `false`<br />
       maskinporten:
         scopes:
           exposes:
-            - allowedIntegrations:
+            - accessibleForAll: true
+              allowedIntegrations:
                 - maskinporten
               atMaxAge: 30
               consumers:
                 - name: KST
                   orgno: "123456789"
+              delegationSource: delegation-source
+              enabled: true
+              name: scope.read
+              product: arbeid
+    ```
+
+##### maskinporten.scopes.exposes[].accessibleForAll
+Allow any organization to access the scope.
+
+Type: `boolean`<br />
+Required: `false`<br />
+Default value: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      maskinporten:
+        scopes:
+          exposes:
+            - accessibleForAll: true
+              allowedIntegrations:
+                - maskinporten
+              atMaxAge: 30
+              consumers:
+                - name: KST
+                  orgno: "123456789"
+              delegationSource: delegation-source
               enabled: true
               name: scope.read
               product: arbeid
@@ -3875,12 +3907,14 @@ Default value: `maskinporten`<br />
       maskinporten:
         scopes:
           exposes:
-            - allowedIntegrations:
+            - accessibleForAll: true
+              allowedIntegrations:
                 - maskinporten
               atMaxAge: 30
               consumers:
                 - name: KST
                   orgno: "123456789"
+              delegationSource: delegation-source
               enabled: true
               name: scope.read
               product: arbeid
@@ -3901,12 +3935,14 @@ Value range: `30`-`680`<br />
       maskinporten:
         scopes:
           exposes:
-            - allowedIntegrations:
+            - accessibleForAll: true
+              allowedIntegrations:
                 - maskinporten
               atMaxAge: 30
               consumers:
                 - name: KST
                   orgno: "123456789"
+              delegationSource: delegation-source
               enabled: true
               name: scope.read
               product: arbeid
@@ -3924,12 +3960,14 @@ Required: `false`<br />
       maskinporten:
         scopes:
           exposes:
-            - allowedIntegrations:
+            - accessibleForAll: true
+              allowedIntegrations:
                 - maskinporten
               atMaxAge: 30
               consumers:
                 - name: KST
                   orgno: "123456789"
+              delegationSource: delegation-source
               enabled: true
               name: scope.read
               product: arbeid
@@ -3947,12 +3985,14 @@ Required: `false`<br />
       maskinporten:
         scopes:
           exposes:
-            - allowedIntegrations:
+            - accessibleForAll: true
+              allowedIntegrations:
                 - maskinporten
               atMaxAge: 30
               consumers:
                 - name: KST
                   orgno: "123456789"
+              delegationSource: delegation-source
               enabled: true
               name: scope.read
               product: arbeid
@@ -3971,12 +4011,44 @@ Pattern: `^\d{9}$`<br />
       maskinporten:
         scopes:
           exposes:
-            - allowedIntegrations:
+            - accessibleForAll: true
+              allowedIntegrations:
                 - maskinporten
               atMaxAge: 30
               consumers:
                 - name: KST
                   orgno: "123456789"
+              delegationSource: delegation-source
+              enabled: true
+              name: scope.read
+              product: arbeid
+    ```
+
+##### maskinporten.scopes.exposes[].delegationSource
+Delegation source for the scope. Default is empty, which means no delegation is allowed.
+
+Relevant information:
+
+* [https://docs.digdir.no/docs/Maskinporten/maskinporten_func_delegering](https://docs.digdir.no/docs/Maskinporten/maskinporten_func_delegering)
+
+Type: `enum`<br />
+Required: `false`<br />
+Allowed values: `altinn`<br />
+
+??? example
+    ``` yaml
+    spec:
+      maskinporten:
+        scopes:
+          exposes:
+            - accessibleForAll: true
+              allowedIntegrations:
+                - maskinporten
+              atMaxAge: 30
+              consumers:
+                - name: KST
+                  orgno: "123456789"
+              delegationSource: delegation-source
               enabled: true
               name: scope.read
               product: arbeid
@@ -3998,12 +4070,14 @@ Required: `true`<br />
       maskinporten:
         scopes:
           exposes:
-            - allowedIntegrations:
+            - accessibleForAll: true
+              allowedIntegrations:
                 - maskinporten
               atMaxAge: 30
               consumers:
                 - name: KST
                   orgno: "123456789"
+              delegationSource: delegation-source
               enabled: true
               name: scope.read
               product: arbeid
@@ -4024,12 +4098,14 @@ Pattern: `^([a-zæøå0-9]+\/?)+(\:[a-zæøå0-9]+)*[a-zæøå0-9]+(\.[a-zæøå
       maskinporten:
         scopes:
           exposes:
-            - allowedIntegrations:
+            - accessibleForAll: true
+              allowedIntegrations:
                 - maskinporten
               atMaxAge: 30
               consumers:
                 - name: KST
                   orgno: "123456789"
+              delegationSource: delegation-source
               enabled: true
               name: scope.read
               product: arbeid
@@ -4049,12 +4125,14 @@ Pattern: `^[a-z0-9]+$`<br />
       maskinporten:
         scopes:
           exposes:
-            - allowedIntegrations:
+            - accessibleForAll: true
+              allowedIntegrations:
                 - maskinporten
               atMaxAge: 30
               consumers:
                 - name: KST
                   orgno: "123456789"
+              delegationSource: delegation-source
               enabled: true
               name: scope.read
               product: arbeid
