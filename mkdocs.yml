@@ -68,7 +68,8 @@ extra_css:
   - material_theme_stylesheet_overrides/grid.css
 plugins:
   - awesome-pages
-  - tags
+  - tags:
+      tags_file: reference/tags.md
   - macros:
       j2_variable_start_string: "<<"
       j2_variable_end_string: ">>"
