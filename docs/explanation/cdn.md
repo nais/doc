@@ -1,6 +1,7 @@
 ---
 tags:
-- CDN
+- cdn
+- explanation
 ---
 
 # Content Delivery Network (CDN)
@@ -11,9 +12,6 @@ applications (SPA) in a fast and reliable manner.
 NAIS offers CDN as a service through Google Cloud CDN. The CDN is used for
 serving static content such as HTML files, JavaScript libraries and files,
 stylesheets, and images.
-
-Assets are deployed by uploading them to a bucket using a GitHub
-action.
 
 ```mermaid
   graph LR
@@ -28,7 +26,8 @@ action.
     LB-->|/team3/*|BucketC
 ```
 
-CDN publish workflow:
+Assets are deployed by uploading them to a bucket using a GitHub
+action:
 
 ```mermaid
   graph LR
@@ -77,9 +76,6 @@ Among many others:
 - Min Side ([example](https://github.com/navikt/tms-min-side-varslinger/blob/main/.github/workflows/push-to-cdn.yaml))
 
 {% endif %}
-
-
-
 
 ## What's next?
 

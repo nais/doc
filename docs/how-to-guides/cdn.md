@@ -1,6 +1,7 @@
 ---
 tags:
-- CDN
+- cdn
+- guide
 ---
 
 # Upload assets to the CDN
