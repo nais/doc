@@ -10,6 +10,18 @@ The OpenTelemetry SDKs and auto-instrumentation libraries export the following g
 | ------------- | ------------------------------------------------------------------------------------------------------ |
 | `target_info` | Information about the target service, such as the service name, service namespace, and container name. |
 
+Target information is exported as a set of labels, including:
+
+| Label Name                | Description                                      | Example Value                                                 |
+| ------------------------- | ------------------------------------------------ | ------------------------------------------------------------- |
+| `os_description`          | The operating system description.                | `Linux 6.1.58+`                                               |
+| `os_type`                 | The operating system type.                       | `Linux`                                                       |
+| `process_command_args`    | The command arguments used to start the process. | `["/usr/lib/jvm/java-21-openjdk/bin/java","-jar","/app.jar"]` |
+| `process_runtime_name`    | The runtime name.                                | `OpenJDK Runtime Environment`                                 |
+| `process_runtime_version` | The runtime version.                             | `21.0.2+13-LTS`                                               |
+| `telemetry_sdk_language`  | The telemetry SDK language.                      | `java`                                                        |
+| `telemetry_sdk_version`   | The telemetry SDK version.                       | `1.36.0`                                                      |
+
 ## HTTP Server Metrics
 
 The OpenTelemetry SDKs and auto-instrumentation libraries export the following metrics for HTTP servers:
