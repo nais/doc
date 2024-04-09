@@ -1,9 +1,10 @@
 ---
 tags:
-  - CDN
+- cdn
+- reference
 ---
 
-# Content Delivery Network (CDN)
+# Content Delivery Network Reference
 
 This is the reference documentation for the [CDN](../explanation/cdn.md) service.
 
