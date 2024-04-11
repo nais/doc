@@ -1,6 +1,6 @@
-# naisdevice
+# Naisdevice
 
-naisdevice is a mechanism provided by NAIS, that lets you connect to services not available on the public internet from your machine.
+Naisdevice is a mechanism provided by NAIS, that lets you connect to services not available on the public internet from your machine.
 
 Examples of such services are:
 
