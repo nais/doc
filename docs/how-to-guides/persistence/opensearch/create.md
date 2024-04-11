@@ -2,11 +2,10 @@
 ---
 description: >-
   NAIS provides managed search index services through OpenSearch as a drop-in
-  replacement for Elasticsearch. This page describes how to get started with
-  OpenSearch for your applications.
+  replacement for Elasticsearch.
 ---
 
-Creating a OpenSearch instance is done by adding a OpenSearch resource to your namespace with detailed configuration in a GCP cluster. In your `Application` or `Naisjob` specifications, you specify an instance and access.
+Explicitly creating a OpenSearch instance is done by adding a OpenSearch resource to your namespace with detailed configuration in a GCP cluster. In your `Application` or `Naisjob` specifications, you specify an instance and access.
 
 The minimal OpenSearch resource looks like this:
 
