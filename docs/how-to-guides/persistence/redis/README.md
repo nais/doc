@@ -43,4 +43,4 @@ prefix, and the instance name uppercased as a suffix.
 |----------------------------------|--------------------------------------|---|
 | `REDIS_URI_<InstanceName>`       | The URI for the instance             |   |
 | `REDIS_USERNAME_<InstanceName>`  | The username to use when connecting. |   |
-| `xREDIS_PASSWORD_<InstanceName>` | The password to use when connecting. |   |
+| `REDIS_PASSWORD_<InstanceName>` | The password to use when connecting. |   |
