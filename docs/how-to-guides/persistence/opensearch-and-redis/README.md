@@ -1,18 +1,16 @@
-# OpenSearch and Redis
+# Redis
 
-Nais provides Redis and OpenSearch through Aiven via their Aiven
+Nais provides Redis through Aiven via their Aiven
 Operator.
 
-You can create many Redis instances for your `Application` and exactly
-one OpenSearch instance.
-
+You can create many Redis instances for your `Application`.
 
 ## 0. Prerequisites
 - [Member of a NAIS team](../../explanation/team.md)
 
 !!! warning It is not possible to share Redis instances between teams.
 
-## 1. Enable Redis and/or OpenSearch in your [manifest](../../reference/application-spec.md)
+## 1. Enable Redis in your [manifest](../../reference/application-spec.md)
 
 ???+ note ".nais/app.yaml"
     ```yaml
@@ -22,9 +20,6 @@ one OpenSearch instance.
           access: readwrite
         - instance: lookup
           access: read
-      opensearch:
-        - instance: search
-          access: readwrite
     ```
 
 
@@ -35,26 +30,17 @@ a read-only user for the `lookup` instance. See the [manifest
 reference](../../reference/application-spec.md#redis) for other
 options for `access`.
 
-Similarly, your application will also have access to an OpenSearch
-instance named `search` with `readwrite` access.
-
 If all you need is a Redis instance for one application using just the
 default settings, this is all you need. If you want to share a Redis
 instance across applications, or want to change configuration away
 from the defaults, please read the [section on explicitly creating
 redis instances](./create-redis-instance-explicitly.md).
 
-You can also [create an OpenSearch instance
-manually](./create-opensearch-instance-explicitly.md) in order to
-provide other defaults or customizations.
-
-For each redis or opensearch instance, your application will receive
+For each edis instance, your application will receive
 three environment variables. The environment variables use a fixed
-prefix, and the instance name uppercased as a suffix,
-e.g `OPEN_SEARCH_URI_MYINSTANCENAME`.
-
-| Key                                           | Value                                |   |
-|-----------------------------------------------|--------------------------------------|---|
-| `<REDIS/OPEN_SEARCH>_URI_<InstanceName>`      | The URI for the instance             |   |
-| `<REDIS/OPEN_SEARCH>_USERNAME_<InstanceName>` | The username to use when connecting. |   |
-| `<REDIS/OPEN_SEARCH>_PASSWORD_<InstanceName>` | The password to use when connecting. |   |
+prefix, and the instance name uppercased as a suffix.
+| Key                              | Value                                |   |
+|----------------------------------|--------------------------------------|---|
+| `REDIS_URI_<InstanceName>`       | The URI for the instance             |   |
+| `REDIS_USERNAME_<InstanceName>`  | The username to use when connecting. |   |
+| `xREDIS_PASSWORD_<InstanceName>` | The password to use when connecting. |   |
