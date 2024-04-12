@@ -8,7 +8,7 @@ This guide will show you how to view logs from the command line using `kubectl`.
 
 ## 0. Prerequisites
 
-- You have installed the [kubectl](../../command-line-access.md) command-line tool.
+- You have installed the [kubectl](../../command-line-access/setup.md) command-line tool.
 - You have access to the [team](../../team.md) where the application is running.
 
 ## 1. Find the pod name
