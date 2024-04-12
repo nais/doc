@@ -1,10 +1,5 @@
 name: Build and publish doc
-
-on:
-  push:
-    branches: 
-      - main
-
+on: push
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -42,6 +37,7 @@ jobs:
           ./build.sh nav ssb ci-nais dev-nais tenant
 
   publish:
+    if: github.ref == 'refs/heads/master'
     needs: build
     runs-on: ubuntu-latest
     strategy:
