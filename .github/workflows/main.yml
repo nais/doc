@@ -37,7 +37,7 @@ jobs:
           ./build.sh nav ssb ci-nais dev-nais tenant
 
   publish:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     strategy:
