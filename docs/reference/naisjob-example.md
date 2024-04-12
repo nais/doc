@@ -185,6 +185,7 @@ spec:
         enabled: true
         name: scope.read
         product: arbeid
+        separator: ':'
   observability:
     autoInstrumentation:
       enabled: true
