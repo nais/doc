@@ -3197,6 +3197,7 @@ Required: `false`<br />
               enabled: true
               name: scope.read
               product: arbeid
+              separator: ':'
     ```
 
 ### maskinporten.enabled
@@ -3239,6 +3240,7 @@ Required: `false`<br />
               enabled: true
               name: scope.read
               product: arbeid
+              separator: ':'
     ```
 
 #### maskinporten.scopes.consumes
@@ -3300,6 +3302,7 @@ Required: `false`<br />
               enabled: true
               name: scope.read
               product: arbeid
+              separator: ':'
     ```
 
 ##### maskinporten.scopes.exposes[].accessibleForAll
@@ -3326,6 +3329,7 @@ Default value: `false`<br />
               enabled: true
               name: scope.read
               product: arbeid
+              separator: ':'
     ```
 
 ##### maskinporten.scopes.exposes[].allowedIntegrations
@@ -3357,6 +3361,7 @@ Default value: `maskinporten`<br />
               enabled: true
               name: scope.read
               product: arbeid
+              separator: ':'
     ```
 
 ##### maskinporten.scopes.exposes[].atMaxAge
@@ -3385,6 +3390,7 @@ Value range: `30`-`680`<br />
               enabled: true
               name: scope.read
               product: arbeid
+              separator: ':'
     ```
 
 ##### maskinporten.scopes.exposes[].consumers
@@ -3410,6 +3416,7 @@ Required: `false`<br />
               enabled: true
               name: scope.read
               product: arbeid
+              separator: ':'
     ```
 
 ###### maskinporten.scopes.exposes[].consumers[].name
@@ -3435,6 +3442,7 @@ Required: `false`<br />
               enabled: true
               name: scope.read
               product: arbeid
+              separator: ':'
     ```
 
 ###### maskinporten.scopes.exposes[].consumers[].orgno
@@ -3461,6 +3469,7 @@ Pattern: `^\d{9}$`<br />
               enabled: true
               name: scope.read
               product: arbeid
+              separator: ':'
     ```
 
 ##### maskinporten.scopes.exposes[].delegationSource
@@ -3491,6 +3500,7 @@ Allowed values: `altinn`<br />
               enabled: true
               name: scope.read
               product: arbeid
+              separator: ':'
     ```
 
 ##### maskinporten.scopes.exposes[].enabled
@@ -3520,6 +3530,7 @@ Required: `true`<br />
               enabled: true
               name: scope.read
               product: arbeid
+              separator: ':'
     ```
 
 ##### maskinporten.scopes.exposes[].name
@@ -3548,6 +3559,7 @@ Pattern: `^([a-zæøå0-9]+\/?)+(\:[a-zæøå0-9]+)*[a-zæøå0-9]+(\.[a-zæøå
               enabled: true
               name: scope.read
               product: arbeid
+              separator: ':'
     ```
 
 ##### maskinporten.scopes.exposes[].product
@@ -3575,6 +3587,37 @@ Pattern: `^[a-z0-9]+$`<br />
               enabled: true
               name: scope.read
               product: arbeid
+              separator: ':'
+    ```
+
+##### maskinporten.scopes.exposes[].separator
+Separator is the character that separates `product` and `name` in the final scope:
+`scope := <prefix>:<product><separator><name>`
+This overrides the default separator.
+The default separator is `:`. If `name` contains `/`, the default separator is instead `/`.
+
+Type: `string`<br />
+Required: `false`<br />
+Pattern: `^[\/:]$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      maskinporten:
+        scopes:
+          exposes:
+            - accessibleForAll: true
+              allowedIntegrations:
+                - maskinporten
+              atMaxAge: 30
+              consumers:
+                - name: KST
+                  orgno: "123456789"
+              delegationSource: delegation-source
+              enabled: true
+              name: scope.read
+              product: arbeid
+              separator: ':'
     ```
 
 ## observability
