@@ -91,7 +91,7 @@
 
     ### Connect naisdevice through task/sys -tray icon
 
-    ![A macOS systray exemplifying a red-colored `naisdevice` icon.](../assets/naisdevice-systray-icon.svg)
+    ![A macOS systray exemplifying a red-colored `naisdevice` icon.](../../assets/naisdevice-systray-icon.svg)
 
     When you have opened naisdevice, you may be concerned that nothing happened. The little naisdevice icon has appeared in your Systray (where all your small program icons are located - see above picture for how it looks on Mac):
 
