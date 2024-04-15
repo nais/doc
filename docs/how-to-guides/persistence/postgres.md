@@ -345,3 +345,14 @@ See [full example](../../reference/application-example.md).
     Also remember to delete the `google-sql-appname`-secret from the cluster, so new secrets are generated for the cloned database.
     After this you can update your `nais.yaml`-file to use the instance name of the cloned database instead of the old ones.
     Remeber to delete the old database when you are finished.
+
+### Cloud Sql Conditions messages
+
+#### Invalid request: backup retention should be >= transaction log retention
+
+???+ faq "Answer"
+    This error occurs when the backup retention is set to a value lower than the transaction log retention. 
+    The backup retention should be equal to or greater than the transaction log retention. 
+    You can fix this by setting the `retainedBackups` to a value equal to or greater than the transaction log retention or 
+    by setting the `transactionLogRetentionDays` to a value lower than the backup retention.
+    This can be configured in the [NAIS manifest](../../reference/application-spec.md#gcpsqlinstances). 
