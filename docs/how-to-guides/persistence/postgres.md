@@ -354,5 +354,5 @@ See [full example](../../reference/application-example.md).
     This error occurs when the backup retention is set to a value lower than the transaction log retention. 
     The backup retention should be equal to or greater than the transaction log retention. 
     You can fix this by setting the `retainedBackups` to a value equal to or greater than the transaction log retention or 
-    by setting the `transactionLogRetentionDays` to a value lower than the backup retention.
+    by setting the `transactionLogRetentionDays` to a value equal to or less than the backup retention.
     This can be configured in the [NAIS manifest](../../reference/application-spec.md#gcpsqlinstances). 
