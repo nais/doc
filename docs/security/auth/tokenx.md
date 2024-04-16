@@ -334,8 +334,8 @@ Use <https://tokenx-token-generator.intern.dev.nav.no> to generate tokens in the
 
 1. Visit <https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=&lt;audience&gt;> in your browser.
     - Replace `<audience>` with the intended _audience_ of the token, in this case the API application.
-    - The audience value must be on the form of `<cluster>:<namespace>:<application>`
-    - For example: `dev-gcp:aura:my-app`
+    - The audience value must be on the form of `<cluster>.<namespace>.<application>`
+    - For example: `dev-gcp.aura.my-app`
 2. You will be redirected to log in at ID-porten (if not already logged in).
 3. After logging in, you should be redirected back to the token generator and presented with a JSON response containing an `access_token`.
 4. Use the `access_token` as a [Bearer token](concepts.md#bearer-token) for calls to your API application.
