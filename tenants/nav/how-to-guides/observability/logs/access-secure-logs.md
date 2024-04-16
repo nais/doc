@@ -33,9 +33,7 @@ Enheter i Nav som skal ha tilgang: <four digit department code>. E.g (2990 - IT-
 
 The logs your apps produces are linked with your [nais-team](../../team.md).
 Administrators of Kibana will create a role for your team with read rights to those logs.
-Whoever is in the AD-group (created in step 1) will get the Kibana role, and can thus read all logs produced by apps belonging to the nais-team.
-
-Ask in the [#atom](https://nav-it.slack.com/archives/C7TQ25L9J) Slack channel to connect the AD-group (created in step 1) to your nais-team.
+Whoever is in the AD-group (created in step 1) will get the Kibana role, and can thus read all logs produced by apps belonging to the nais-team. Ask for this in the [#kibana](https://nav-it.slack.com/archives/C7T8QHXD3) Slack channel; provide the name of the AD-group and the name of your team in the message.
 
 ## 3 Put people into the AD-group
 
