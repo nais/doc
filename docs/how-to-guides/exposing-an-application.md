@@ -18,3 +18,9 @@ Specify the desired hostname for your application in the [application manifest](
         ingresses:
             - https://<MY-SUBDOMAIN>.<ENVIRONMENT-DOMAIN>
     ```
+
+!!! tip "Specific paths"
+
+    You can optionally specify a path for each individual ingress to only expose a subset of your application.
+    
+    
