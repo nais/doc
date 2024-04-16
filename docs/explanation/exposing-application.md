@@ -11,4 +11,8 @@ If you want to present your application to someone or something outside the envi
 An ingress is simply an entrypoint into your application, defined by a URL. The domain of the URL controls from where your application can be reached.
 There are different domains available in each environment, see the full [list of available domains for each cluster](../reference/environments.md).
 
+You can have multiple ingresses for the same application, using the same or different domains.
+
+If you only want to expose a subset of your application, or you are on a shared domain, you can specify a path for each individual ingress. 
+
 For practical instructions, see the [how-to guide for exposing an application](../how-to-guides/exposing-an-application.md).
