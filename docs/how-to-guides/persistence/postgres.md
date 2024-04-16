@@ -356,3 +356,10 @@ See [full example](../../reference/application-example.md).
     You can fix this by setting the `retainedBackups` to a value equal to or greater than the transaction log retention or 
     by setting the `transactionLogRetentionDays` to a value equal to or less than the backup retention.
     This can be configured in the [NAIS manifest](../../reference/application-spec.md#gcpsqlinstances). 
+    Read more about [automated backups with cloud sql](https://cloud.google.com/sql/docs/mysql/backup-recovery/backups#automated-backups).
+
+#### Cannot disable cloudsql.logical_decoding while there are logical replication slots
+
+???+ faq "Answer"
+    This error occurs when you try to disable logical decoding while there are logical replication slots.
+    [Notes and limitations](https://cloud.google.com/sql/docs/postgres/replication/configure-logical-replication#limitations-general) on disabling logical decoding.
