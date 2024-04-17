@@ -11,7 +11,13 @@ Some applications have logs with information that should not be stored with the 
 
     This is guide contains a deprecated syntax for enabling secure logs. With the new syntax all logs will be sent to secure logs when enabled and will not require any special log configuration.
 
-## 1. Enabling secure logs [manifest](../../../reference/application-spec.md)
+## 1. Prerequisites
+
+If your NAIS team has already at any point produced secure logs, you can skip this step.
+
+If your team has yet never produced secure logs, before enabling them for the first time, give a warning in [#kibana](https://nav-it.slack.com/archives/C7T8QHXD3) Slack channel. There are some things that need to be adjusted before a new team can start sending.
+
+## 2. Enabling secure logs [manifest](../../../reference/application-spec.md)
 
 ???+ note ".nais/app.yaml"
 
@@ -21,7 +27,7 @@ Some applications have logs with information that should not be stored with the 
             enabled: true
     ```
 
-## 2. Set log rotation
+## 3. Set log rotation
 
 With secure logs enabled a directory `/secure-logs/` will be mounted in the application container. Every `*.log` file in this directory will be monitored and the content transferred to Elasticsearch. Make sure that these files are readable for the log shipper \(the process runs as uid/gid 1065\).
 
@@ -50,7 +56,7 @@ Log files should be in JSON format as the normal application logs. Here is an ex
   </appender>
 ```
 
-## 3. Configure log shipping
+## 4. Configure log shipping
 
 Example configuration selecting which logs go to secure logs
 
@@ -96,7 +102,7 @@ Example configuration selecting which logs go to secure logs
     </configuration>
     ```
 
-## 4. Use secure logs in application
+## 5. Use secure logs in application
 
 Using the Logback config below you can log to secure logs by writing Kotlin-code like this:
 
