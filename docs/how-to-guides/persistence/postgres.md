@@ -41,14 +41,17 @@ To connect your application to the database, use information from the environmen
 
 The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instance name `myapp` \(defaults to application name\) and `mydb` \(from database spec\). You can customize these environment variable names by setting `.spec.gcp.sqlInstances[].databases[].envVarPrefix`. For instance, setting this to `DB` will give you `DB_HOST`, `DB_USERNAME`, etc. Note that changing or adding `envVarPrefix` requires you to manually delete the `google-sql-<MYAPP>` secret and `SQLUser` with the same name as the application, see below.
 
-| key                           | environment variable                | default                                            |
-|:------------------------------|:------------------------------------|:---------------------------------------------------|
-| hostname                      | `NAIS_DATABASE_MYAPP_MYDB_HOST`     | 127.0.0.1                                          |
-| port                          | `NAIS_DATABASE_MYAPP_MYDB_PORT`     | 5432                                               |
-| database name                 | `NAIS_DATABASE_MYAPP_MYDB_DATABASE` | `.spec.gcp.sqlInstances[].databases[].name`        |
-| database user                 | `NAIS_DATABASE_MYAPP_MYDB_USERNAME` | `.spec.gcp.sqlInstances[].name`                    |
-| database password             | `NAIS_DATABASE_MYAPP_MYDB_PASSWORD` | \(randomly generated\)                             |
-| database url with credentials | `NAIS_DATABASE_MYAPP_MYDB_URL`      | `postgres://username:password@127.0.0.1:5432/mydb` |
+| key                           | environment variable                          | default                                                      |
+|:------------------------------|:----------------------------------------------|:-------------------------------------------------------------|
+| hostname                      | `NAIS_DATABASE_MYAPP_MYDB_HOST`               | 127.0.0.1                                                    |
+| port                          | `NAIS_DATABASE_MYAPP_MYDB_PORT`               | 5432                                                         |
+| database name                 | `NAIS_DATABASE_MYAPP_MYDB_DATABASE`           | `.spec.gcp.sqlInstances[].databases[].name`                  |
+| database user                 | `NAIS_DATABASE_MYAPP_MYDB_USERNAME`           | `.spec.gcp.sqlInstances[].name`                              |
+| database password             | `NAIS_DATABASE_MYAPP_MYDB_PASSWORD`           | \(randomly generated\)                                       |
+| database url with credentials | `NAIS_DATABASE_MYAPP_MYDB_URL`                | `postgres://username:password@127.0.0.1:5432/mydb`           |
+| path to root cert             | `NAIS_DATABASE_MYAPP_MYDB_SSL_ROOT_CERT_PATH` | `/var/run/secrets/nais.io/sqlcertificate/server-ca-cert.pem` |
+| path to client cert           | `NAIS_DATABASE_MYAPP_MYDB_SSL_CERT_PATH`      | `/var/run/secrets/nais.io/sqlcertificate/cert.pem`           |
+| path to client key            | `NAIS_DATABASE_MYAPP_MYDB_SSL_KEY_PATH`       | `/var/run/secrets/nais.io/sqlcertificate/private-key.pem`    |
 
 !!! info
     The application is the only application that can access the database instance. Other applications can not connect. It is not, for instance,
@@ -172,7 +175,7 @@ Then either redeploy your application or force a synchronization of your applica
 kubectl patch application <MYAPP> -p '[{"op": "remove", "path": "/status/synchronizationHash"}]' --type=json
 ```
 
-## Cloud SQL Proxy
+## Cloud SQL Proxy (instances created before 2024-04-18)
 
 The application will connect to the database using [Cloud SQL Proxy](https://cloud.google.com/sql/docs/postgres/sql-proxy), ensuring that the database communication happens in secure tunnel, authenticated with automatically rotated credentials.
 
