@@ -6,7 +6,7 @@
 
 PostgreSQL is a relational database service that is provided by Google Cloud Platform. It is a good choice for storing data that is relational in nature.
 
-You can provision and configure [Postgres](https://www.postgresql.org/) through your [`application manifest`](../../reference/application-spec.md).
+You can provision and configure [Postgres](https://www.postgresql.org/) through your [`application manifest`](../../../reference/application-spec.md).
 
 The database is provisioned into the teams own project in GCP. Here the team has full access to view logs, create and restore backups and other administrative database tasks.
 
@@ -14,7 +14,7 @@ When you deploy your application with database config, NAIS will ensure the data
 
 The Database instance takes a few minutes to be created, so your app will not be able to connect to right away. This only applies to the first time deploy.
 
-Below is an example of the minimal configuration needed. See all configuration options in the [application manifest reference](../../reference/application-spec.md#gcpsqlinstances).
+Below is an example of the minimal configuration needed. See all configuration options in the [application manifest reference](../../../reference/application-spec.md#gcpsqlinstances).
 
 ```yaml
 ...
@@ -33,7 +33,7 @@ spec:
 ```
 
 !!! important "Choosing the right tier for production"
-    By default, the database server is `db-f1-micro` which has 1 vCPU, 614 MB RAM and 10GB of SSD storage with no automatic storage increase. Shared CPU machine types (`db-f1-micro` and `db-g1-small`) are **NOT** covered by the [Cloud SQL SLA](https://cloud.google.com/sql/sla). Consider [changing](../../reference/application-spec.md#gcpsqlinstancestier) to the `db-custom-CPU-RAM` tier for your production databases. Please also note that exhausting disk and/or CPU with automatic increase disabled is [not](https://cloud.google.com/sql/docs/postgres/operational-guidelines) covered by the SLA.
+    By default, the database server is `db-f1-micro` which has 1 vCPU, 614 MB RAM and 10GB of SSD storage with no automatic storage increase. Shared CPU machine types (`db-f1-micro` and `db-g1-small`) are **NOT** covered by the [Cloud SQL SLA](https://cloud.google.com/sql/sla). Consider [changing](../../../reference/application-spec.md#gcpsqlinstancestier) to the `db-custom-CPU-RAM` tier for your production databases. Please also note that exhausting disk and/or CPU with automatic increase disabled is [not](https://cloud.google.com/sql/docs/postgres/operational-guidelines) covered by the SLA.
 
 ## Configuration
 
@@ -71,7 +71,7 @@ the flags available are listed here: [Google Cloud SQL supported flags](https://
 This listing specifies what value types are expected, which ranges are allowed and if a restart is required.
 
 !!! info
-    The value is always required to be a string in [`nais.yaml`](../../reference/application-spec.md).
+    The value is always required to be a string in [`nais.yaml`](../../../reference/application-spec.md).
 
 Example of setting database flags:
 ```yaml
@@ -104,11 +104,11 @@ For further reading see [Google Cloud SQL Query Insights](https://cloud.google.c
     Data is available for seven days, increasing this will incur extra cost.
 
 ### Maintenance window
-Google will automatically perform upgrades, fix bugs and apply security patches to prevent exploits. Your application should be able to handle occasional downtime as this maintenance is performed. [Read more on maintenance windows](https://cloud.google.com/sql/docs/postgres/maintenance). NAIS does not configure the maintenance window, but this can be set up in the application spec: [`nais.yaml`](../../reference/application-spec.md#gcpsqlinstances).
+Google will automatically perform upgrades, fix bugs and apply security patches to prevent exploits. Your application should be able to handle occasional downtime as this maintenance is performed. [Read more on maintenance windows](https://cloud.google.com/sql/docs/postgres/maintenance). NAIS does not configure the maintenance window, but this can be set up in the application spec: [`nais.yaml`](../../../reference/application-spec.md#gcpsqlinstances).
 If you wish to be notified about upcoming maintenance, you can opt-in for this on the [Communications page](https://console.cloud.google.com/user-preferences/communication) in the GCP console.
 
 ### Automated backup
-The database is backed up nightly at 3 AM \(GMT+1\) by default, but can be overridden in [`nais.yaml`](../../reference/application-spec.md#gcpsqlinstancesautobackuptime) by setting `spec.gcp.sqlInstances[].autoBackupTime`.
+The database is backed up nightly at 3 AM \(GMT+1\) by default, but can be overridden in [`nais.yaml`](../../../reference/application-spec.md#gcpsqlinstancesautobackuptime) by setting `spec.gcp.sqlInstances[].autoBackupTime`.
 By default, seven backups will be kept. More info [about Cloud SQL backups](https://cloud.google.com/sql/docs/postgres/backup-recovery/backups).
 
 The backups can be found in the [Google Cloud SQL instance](https://cloud.google.com/sql) dashboard.
@@ -181,7 +181,7 @@ The application will connect to the database using [Cloud SQL Proxy](https://clo
 
 NAIS will add and configure the proxy client container as a sidecar in the pod, making it available on `localhost` for the application. The application will then connect to the proxy using standard database protocol just as if it was the actual database.
 
-![The diagram shows how the application connects to the database using Cloud SQL Proxy. Cloud SQL connects to an instance, the proxy server communicates with the proxy client using a TCP secure tunnel. The proxy client is a sidecar in the pod,  available on the localhost for the application on the client machine.](../../assets/sqlproxy.svg)
+![The diagram shows how the application connects to the database using Cloud SQL Proxy. Cloud SQL connects to an instance, the proxy server communicates with the proxy client using a TCP secure tunnel. The proxy client is a sidecar in the pod,  available on the localhost for the application on the client machine.](../../../assets/sqlproxy.svg)
 
 For more detailed information, check out the [Cloud SQL Proxy documentation](https://cloud.google.com/sql/docs/postgres/sql-proxy)
 
@@ -307,7 +307,7 @@ For safe upgrades, it is recommended to only do one major version at a time.
 
 ## Deleting the database
 
-The database is not automatically removed when deleting your NAIS application. Remove unused databases to avoid incurring unnecessary costs. This is done by setting [cascadingDelete](../../reference/application-spec.md#gcpsqlinstancescascadingdelete) in your `nais.yaml`-specification.
+The database is not automatically removed when deleting your NAIS application. Remove unused databases to avoid incurring unnecessary costs. This is done by setting [cascadingDelete](../../../reference/application-spec.md#gcpsqlinstancescascadingdelete) in your `nais.yaml`-specification.
 
 !!! danger
     When you delete an Cloud SQL instance, you cannot reuse the name of the deleted instance until one week from the deletion date.
@@ -330,7 +330,7 @@ $ kubectl logs <pod> -c cloudsql-proxy
 
 ## Example with all configuration options
 
-See [full example](../../reference/application-example.md).
+See [full example](../../../reference/application-example.md).
 
 ## FAQ
 
@@ -358,7 +358,7 @@ See [full example](../../reference/application-example.md).
     The backup retention should be equal to or greater than the transaction log retention. 
     You can fix this by setting the `retainedBackups` to a value equal to or greater than the transaction log retention or 
     by setting the `transactionLogRetentionDays` to a value equal to or less than the backup retention.
-    This can be configured in the [NAIS manifest](../../reference/application-spec.md#gcpsqlinstances). 
+    This can be configured in the [NAIS manifest](../../../reference/application-spec.md#gcpsqlinstances). 
     Read more about [automated backups with cloud sql](https://cloud.google.com/sql/docs/mysql/backup-recovery/backups#automated-backups).
 
 #### Cannot disable cloudsql.logical_decoding while there are logical replication slots
