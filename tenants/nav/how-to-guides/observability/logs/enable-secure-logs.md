@@ -15,7 +15,7 @@ Some applications have logs with information that should not be stored with the 
 
 If your NAIS team has already at any point produced secure logs, you can skip this step.
 
-If your team has never before produced secure logs, before enabling them for the first time, give a warning in [#kibana](https://nav-it.slack.com/archives/C7T8QHXD3) Slack channel. There are some things that need to be adjusted before a new team can start sending.
+If your team has never before produced secure logs, before enabling them for the first time, give a warning in [#kibana](https://nav-it.slack.com/archives/C7T8QHXD3) Slack channel. There are some things that need to be adjusted before a new team can start sending. Remember to include the name of your NAIS team in the message.
 
 ## 2. Enabling secure logs [manifest](../../../reference/application-spec.md)
 
