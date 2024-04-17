@@ -140,7 +140,7 @@ The creation of the database takes about ten minutes, and the credential setting
 
 ### Workaround for password synchronization issues
 
-We recommend using [nais-cli](../nais-cli/install.md) for rotating password for your Postgres database user.
+We recommend using [nais-cli](../../nais-cli/install.md) for rotating password for your Postgres database user.
 
 ```bash
 nais postgres password rotate appname
@@ -206,7 +206,7 @@ With `.spec.gcp.sqlInstances[].databases[].envVarPrefix` set to `DB` and additio
 Databases should always be accessed using a personal account, and the access should ideally be temporary.
 
 !!! info
-    [Personal database access can also be configured using the nais-cli](../nais-cli/install.md).
+    [Personal database access can also be configured using the nais-cli](../../nais-cli/install.md).
 
 ### Prerequisites
 
@@ -214,7 +214,7 @@ Databases should always be accessed using a personal account, and the access sho
 
     This guide assumes that you have the following installed on your local machine:
 
-    - [nais-cli](../nais-cli/install.md)
+    - [nais-cli](../../nais-cli/install.md)
     - kubectl
     - (Optionally for cli access) [psql binary](https://blog.timescale.com/how-to-install-psql-on-mac-ubuntu-debian-windows/)
 
