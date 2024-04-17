@@ -2,7 +2,7 @@
 
 ## Why migrate our application\(s\)?
 
-* Access to self-service [Google-managed buckets](../how-to-guides/persistence/buckets/create.md) and [Postgres databases](../how-to-guides/persistence/postgres.md).
+* Access to self-service [Google-managed buckets](../how-to-guides/persistence/buckets/create.md) and [Postgres databases](../how-to-guides/persistence/postgres/README.md).
 * Access to Google Cloud features.
 * [Zero Trust security model](zero-trust.md) instead of FSS/SBS zone model.
 * Cost efficient and future proof.
@@ -51,7 +51,7 @@ The ROS analysis for the team's applications need to be updated to reflect any c
 ???+ faq "Answer"
 
     - Use [TokenX](../security/auth/tokenx.md) instead of API-GW.
-    - If using automatically configured [Google-managed buckets](../persistence/buckets.md) or [postgres](../persistence/postgres.md), use [Google APIs](https://cloud.google.com/storage/docs/reference/libraries)
+    - If using automatically configured [Google-managed buckets](../persistence/buckets.md) or [postgres](../how-to-guides/persistence/postgres/README.md), use [Google APIs](https://cloud.google.com/storage/docs/reference/libraries)
 
 ### What do we not need to change?
 
