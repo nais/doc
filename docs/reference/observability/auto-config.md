@@ -10,12 +10,27 @@ When you enable [auto-instrumentation](../../how-to-guides/observability/auto-in
 | `OTEL_EXPORTER_OTLP_INSECURE`        | `true`                                                                                        |
 | `OTEL_PROPAGATORS`                   | `tracecontext,baggage`                                                                        |
 | `OTEL_TRACES_SAMPLER`                | `parentbased_always_on`                                                                       |
+| `OTLE_LOGS_EXPORTER`                 | `none`                                                                                        |
 | `OTEL_RESOURCE_ATTRIBUTES_POD_NAME`  | `my-application-777787df6d-pw9mq`                                                             |
 | `OTEL_RESOURCE_ATTRIBUTES_NODE_NAME` | `gke-node-abc123`                                                                             |
 | `OTEL_RESOURCE_ATTRIBUTES`           | `service.name=my-application,service.namespace=my-team,k8s.container.name=my-application,...` |
 
 !!! tip
     Do not hardcode these values in your application. OpenTelemetry SDKs and auto-instrumentation libraries will automatically pick up these environment variables and use them to configure the SDK.
+
+## Agent Logs
+
+You can enable logging for the OpenTelemetry Auto-Instrumentation by setting the `OTEL_LOGS_EXPORTER` environment variable to `otlp`. This will intercept all logs produced by the application and send them to the OpenTelemetry Collector.
+
+```shell
+spec:
+  env:
+    - name: OTEL_LOGS_EXPORTER
+      value: otlp
+```
+
+!!! warning
+    Enabling logging for the OpenTelemetry Auto-Instrumentation will send all logs to the OpenTelemetry Collector including logs from other libraries and frameworks such as log4j, logback, and slf4j. This should not be enabled if you are using Secure Logs.
 
 ## Agent Versions
 
