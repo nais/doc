@@ -52,6 +52,7 @@ The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instan
 | path to root cert             | `NAIS_DATABASE_MYAPP_MYDB_SSLROOTCERT` | `/var/run/secrets/nais.io/sqlcertificate/root-cert.pem`         |
 | path to client cert           | `NAIS_DATABASE_MYAPP_MYDB_SSLCERT`     | `/var/run/secrets/nais.io/sqlcertificate/cert.pem`              |
 | path to client key            | `NAIS_DATABASE_MYAPP_MYDB_SSLKEY`      | `/var/run/secrets/nais.io/sqlcertificate/key.pem`               |
+| ssl mode                      | `NAIS_DATABASE_MYAPP_MYDB_SSLMODE`     | `verify-ca`                                                     |
 
 !!! info
     The application is the only application that can access the database instance. Other applications can not connect. It is not, for instance,
