@@ -41,18 +41,21 @@ To connect your application to the database, use information from the environmen
 
 The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instance name `myapp` \(defaults to application name\) and `mydb` \(from database spec\). You can customize these environment variable names by setting `.spec.gcp.sqlInstances[].databases[].envVarPrefix`. For instance, setting this to `DB` will give you `DB_HOST`, `DB_USERNAME`, etc. Note that changing or adding `envVarPrefix` requires you to manually delete the `google-sql-<MYAPP>` secret and `SQLUser` with the same name as the application, see below.
 
-| description                   | environment variable                   | example                                                         |
-|:------------------------------|:---------------------------------------|:----------------------------------------------------------------|
-| ip                            | `NAIS_DATABASE_MYAPP_MYDB_HOST`        | 100.10.1.0                                                      |
-| port                          | `NAIS_DATABASE_MYAPP_MYDB_PORT`        | 5432                                                            |
-| database name                 | `NAIS_DATABASE_MYAPP_MYDB_DATABASE`    | `.spec.gcp.sqlInstances[].databases[].name`                     |
-| database user                 | `NAIS_DATABASE_MYAPP_MYDB_USERNAME`    | `.spec.gcp.sqlInstances[].name`                                 |
-| database password             | `NAIS_DATABASE_MYAPP_MYDB_PASSWORD`    | \(randomly generated\)                                          |
-| database url with credentials | `NAIS_DATABASE_MYAPP_MYDB_URL`         | `postgres://username:password@100.10.1.0:5432/mydb?sslcert=...` |
-| path to root cert             | `NAIS_DATABASE_MYAPP_MYDB_SSLROOTCERT` | `/var/run/secrets/nais.io/sqlcertificate/root-cert.pem`         |
-| path to client cert           | `NAIS_DATABASE_MYAPP_MYDB_SSLCERT`     | `/var/run/secrets/nais.io/sqlcertificate/cert.pem`              |
-| path to client key            | `NAIS_DATABASE_MYAPP_MYDB_SSLKEY`      | `/var/run/secrets/nais.io/sqlcertificate/key.pem`               |
-| ssl mode                      | `NAIS_DATABASE_MYAPP_MYDB_SSLMODE`     | `verify-ca`                                                     |
+| description                                                    | environment variable                   | example                                                                    |
+|:---------------------------------------------------------------|:---------------------------------------|:---------------------------------------------------------------------------|
+| ip                                                             | `NAIS_DATABASE_MYAPP_MYDB_HOST`        | 100.10.1.0                                                                 |
+| port                                                           | `NAIS_DATABASE_MYAPP_MYDB_PORT`        | 5432                                                                       |
+| database name                                                  | `NAIS_DATABASE_MYAPP_MYDB_DATABASE`    | `.spec.gcp.sqlInstances[].databases[].name`                                |
+| database user                                                  | `NAIS_DATABASE_MYAPP_MYDB_USERNAME`    | `.spec.gcp.sqlInstances[].name`                                            |
+| database password                                              | `NAIS_DATABASE_MYAPP_MYDB_PASSWORD`    | \(randomly generated\)                                                     |
+| database url with credentials                                  | `NAIS_DATABASE_MYAPP_MYDB_URL`         | `postgresql://username:password@100.10.1.0:5432/mydb?sslcert=...`          |
+| *Below variables only available for instances with private IP* |                                        |                                                                            |
+| jdbc url with credentials                                      | `NAIS_DATABASE_MYAPP_MYDB_JDBC_URL`    | `jdbc:postgresql://100.10.1.0:5432/mydb?password=...&user=...&sslcert=...` |
+| path to root cert                                              | `NAIS_DATABASE_MYAPP_MYDB_SSLROOTCERT` | `/var/run/secrets/nais.io/sqlcertificate/root-cert.pem`                    |
+| path to client cert                                            | `NAIS_DATABASE_MYAPP_MYDB_SSLCERT`     | `/var/run/secrets/nais.io/sqlcertificate/cert.pem`                         |
+| path to client key                                             | `NAIS_DATABASE_MYAPP_MYDB_SSLKEY`      | `/var/run/secrets/nais.io/sqlcertificate/key.pem`                          |
+| path to client key in DER format                               | `NAIS_DATABASE_MYAPP_MYDB_SSLKEY_PK8`  | `/var/run/secrets/nais.io/sqlcertificate/key.pk8`                          |
+| ssl mode                                                       | `NAIS_DATABASE_MYAPP_MYDB_SSLMODE`     | `verify-ca`                                                                |
 
 !!! info
     The application is the only application that can access the database instance. Other applications can not connect. It is not, for instance,
