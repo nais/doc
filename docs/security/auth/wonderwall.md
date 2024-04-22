@@ -18,7 +18,7 @@ As such, this is OIDC as a sidecar, or OaaS, or to explain the joke:
 
 ## Overview
 
-Wonderwall is a reverse-proxy that sits in front of your application.
+Wonderwall is a reverse proxy that sits in front of your application.
 All incoming requests to your application are intercepted and proxied by the sidecar.
 
 If the user does _not_ have a valid session with the sidecar, requests will be proxied as-is without modifications to the application:
