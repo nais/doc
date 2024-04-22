@@ -1,6 +1,6 @@
 # naisdevice
 
-naisdevice is a mechanism provided by NAIS, that lets you connect to services not available on the public internet from your machine.
+naisdevice is a mechanism provided by NAIS, that lets you connect to services not available on the public Internet from your machine.
 
 Examples of such services are:
 - Access to the NAIS cluster with kubectl

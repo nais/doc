@@ -1,6 +1,6 @@
 # Ingress traffic
 
-Ingress traffic is traffic that is directed to your application from the internet. This is done by configuring the [`ingresses`][nais-ingress] block in your NAIS application yaml manifest with the domains you want your application to receive traffic from.
+Ingress traffic is traffic that is directed to your application from the Internet. This is done by configuring the [`ingresses`][nais-ingress] block in your NAIS application yaml manifest with the domains you want your application to receive traffic from.
 
 [nais-ingress]: https://doc.nais.io/nais-application/application/#ingresses
 

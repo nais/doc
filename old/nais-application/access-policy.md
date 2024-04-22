@@ -42,7 +42,7 @@ The access policy currently have the following limits:
 
 ## Access Policy vs. Ingress
 
-Access policies are only applied to pod-to-pod communication, and not to ingress traffic. This means that you can still use ingress to expose your application to the internet, and use access policies to control which applications can communicate with your application.
+Access policies are only applied to pod-to-pod communication, and not to ingress traffic. This means that you can still use ingress to expose your application to the Internet, and use access policies to control which applications can communicate with your application.
 
 Outbound requests to ingresses are regarded as external hosts, even if these ingresses exist in the same cluster.
 

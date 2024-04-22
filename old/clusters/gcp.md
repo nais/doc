@@ -46,16 +46,16 @@ You can control from where you application is reachable by selecting the appropr
 
 | domain             | accessible from                                             | description                                                                                                                   |
 | :----------------- | :---------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------- |
-| ekstern.dev.nav.no | internet                                                    | development ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
-| intern.dev.nav.no  | [naisdevice](../device/README.md) and NAV internal networks | development ingress for non-public/internet-facing applications                                                               |
+| ekstern.dev.nav.no | Internet                                                    | development ingress for applications exposed to Internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| intern.dev.nav.no  | [naisdevice](../device/README.md) and NAV internal networks | development ingress for non-public/Internet facing applications                                                               |
 
 
 ### prod-gcp ingresses
 
 | domain        | accessible from                   | description                                                                                                                                                                              |
 | :------------ | :-------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| nav.no        | internet                          | URLs containing `/metrics`, `/actuator` or `/internal` are blocked |
-| intern.nav.no | [naisdevice](../device/README.md) | used by non-public/internet-facing applications \(previously called adeo.no\).                                                                                                           |
+| nav.no        | Internet                          | URLs containing `/metrics`, `/actuator` or `/internal` are blocked |
+| intern.nav.no | [naisdevice](../device/README.md) | used by non-public/Internet facing applications \(previously called adeo.no\).                                                                                                           |
 
 
 You can also learn about [how DNS is configured.](../appendix/ingress-dns.md)

@@ -10,7 +10,7 @@ We also enumerate the external IPs used by the environments, so that you can pro
 
 | domain | accessible from | description |
 | :--- | :--- | :--- |
-| external.staging.ssb.cloud.nais.io | internet | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| external.staging.ssb.cloud.nais.io | Internet | ingress for applications exposed to Internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
 | staging.ssb.cloud.nais.io | [naisdevice](../explanation/naisdevice.md) | ingress for internal applications |
 
 #### External/outbound IPs
@@ -23,7 +23,7 @@ We also enumerate the external IPs used by the environments, so that you can pro
 
 | domain | accessible from | description |
 | :--- | :--- | :--- |
-| external.prod.ssb.cloud.nais.io | internet | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| external.prod.ssb.cloud.nais.io | Internet | ingress for applications exposed to Internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
 | prod.ssb.cloud.nais.io | [naisdevice](../explanation/naisdevice.md) | ingress for internal applications |
 
 #### External/outbound IPs

@@ -30,7 +30,7 @@ All applications that have Prometheus scraping enabled will show up in the [defa
 
 ## Metric naming
 
-For metric names we use the internet-standard [Prometheus naming conventions](https://prometheus.io/docs/practices/naming/):
+For metric names we use the Internet standard [Prometheus naming conventions](https://prometheus.io/docs/practices/naming/):
 
 - Metric names should have a (single-word) application prefix relevant to the domain the metric belongs to.
 - Metric names should be nouns in **snake_case**; do not use verbs.

@@ -14,9 +14,9 @@ We also enumerate the external IPs used by the environments, so that you can pro
 
 | domain | accessible from | 
 | :--- | :--- |
-| ekstern.dev.nav.no | internet | 
+| ekstern.dev.nav.no | Internet | 
 | intern.dev.nav.no  | NAV internal networks (including [naisdevice](../explanation/naisdevice.md))| 
-| ansatt.dev.nav.no  | internet, but only accessible by authenticated humans on compliant devices | 
+| ansatt.dev.nav.no  | Internet, but only accessible by authenticated humans on compliant devices | 
 
 See [explanation for exposing application](../explanation/exposing-application.md) for more information.
 
@@ -32,9 +32,9 @@ See [explanation for exposing application](../explanation/exposing-application.m
 
 | domain | accessible from |
 | :--- | :--- |
-| nav.no | internet |
+| nav.no | Internet |
 | intern.nav.no  | NAV internal networks (including [naisdevice](../explanation/naisdevice.md))| 
-| ansatt.nav.no  | internet, but only accessible by authenticated humans on compliant devices | 
+| ansatt.nav.no  | Internet, but only accessible by authenticated humans on compliant devices | 
 
 See [explanation for exposing application](../explanation/exposing-application.md) for more information.
 
