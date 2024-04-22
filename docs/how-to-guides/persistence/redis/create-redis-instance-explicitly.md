@@ -51,7 +51,7 @@ Once the resource is added to the cluster, some additional fields are filled in 
 
 | field                   |                                                                                                       |
 |-------------------------|-------------------------------------------------------------------------------------------------------|
-| `projectVpcId`          | Ensures the instance is connected to the correct project VPC and is not available on public internet. |
+| `projectVpcId`          | Ensures the instance is connected to the correct project VPC and is not available on public Internet. |
 | `tags`                  | Adds tags to the instance used for tracking billing in Aiven.                                         |
 | `cloudName`             | Where the Redis instance should run.                                                                  |
 | `terminationProtection` | Protects the instance against unintended termination. Must be set to `false` before deletion.         |

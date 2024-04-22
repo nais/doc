@@ -173,7 +173,7 @@ The ROS analysis for the team's applications need to be updated to reflect any c
     | :--- | :--- |
     | `<app>.intern.dev.nav.no` | `dev-fss` |
     | `<app>.intern.nav.no` | `prod-fss` |
-    | `<app>.nav.no` | internet, i.e. all clusters |
+    | `<app>.nav.no` | Internet, i.e. all clusters |
 
     The application on-premises should _not_ have to use webproxy to reach these ingresses.
 
