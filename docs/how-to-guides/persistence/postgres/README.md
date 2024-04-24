@@ -340,24 +340,24 @@ See [full example](../../../reference/application-example.md).
 
 ### `FATAL: password authentication failed for user "<user>"`
 
-???+ faq "Answer"
+??? faq "Answer"
     The synchronization of the password to the database may have failed.
     See [workaround for password synchronization issues](#workaround-for-password-synchronization-issues).
 
 ### Connect to a cloned database-instance
 
-???+ faq "Answer"
+??? faq "Answer"
     If you have for some reason cloned a database in the console, you need to do some manually changes on the new database to be allowed to connect to it.
     First you need to log in to with the old username and password, then run `GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO "cloned-user";` to give the new cloned user access to all the old tables. If you have objects outside of tables those also needs to be changed.
     Also remember to delete the `google-sql-appname`-secret from the cluster, so new secrets are generated for the cloned database.
     After this you can update your `nais.yaml`-file to use the instance name of the cloned database instead of the old ones.
-    Remeber to delete the old database when you are finished.
+    Remember to delete the old database when you are finished.
 
 ### Cloud Sql Conditions messages
 
 #### Invalid request: backup retention should be >= transaction log retention
 
-???+ faq "Answer"
+??? faq "Answer"
     This error occurs when the backup retention is set to a value lower than the transaction log retention. 
     The backup retention should be equal to or greater than the transaction log retention. 
     You can fix this by setting the `retainedBackups` to a value equal to or greater than the transaction log retention or 
@@ -367,6 +367,15 @@ See [full example](../../../reference/application-example.md).
 
 #### Cannot disable cloudsql.logical_decoding while there are logical replication slots
 
-???+ faq "Answer"
+??? faq "Answer"
     This error occurs when you try to disable logical decoding while there are logical replication slots.
     [Notes and limitations](https://cloud.google.com/sql/docs/postgres/replication/configure-logical-replication#limitations-general) on disabling logical decoding.
+
+#### ...mmutable field(s): [Field Name: settings.0.diskSize, Got: x, Wanted: xx]...
+
+??? faq "Answer"
+    This error occurs when you try to change the disk size of the database instance. 
+    The disk size settings of the database instance cannot be less then current size after the instance is created. 
+    You can fix this by specifying in the [NAIS manifest](../../../reference/application-spec.md#gcpsqlinstancesdisksize) 
+    the desired disk size of the database instance to be equal to or greater than the current size.
+    If you want to control the disk size of the instance you should disable [automatic storage increase](../../../reference/application-spec.md#gcpsqlinstancesdiskautoresize).
