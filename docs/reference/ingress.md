@@ -105,14 +105,24 @@ All requests to your application via ingress will result in metrics being emitte
 
 ??? info "Ingress metrics label descriptions"
 
-    | Label | Description |
-    | ----- | ----------- |
-    | `status` | HTTP status code |
-    | `method` | HTTP method |
-    | `host`   | Host header (domain) |
-    | `path`   | Request path |
-    | `namespace` | Namespace of the ingress |
+    | Label       | Description                    |
+    | ----------- | ------------------------------ |
+    | `status`    | HTTP status code               |
+    | `method`    | HTTP method                    |
+    | `host`      | Host header (domain)           |
+    | `path`      | Request path                   |
+    | `namespace` | Namespace of the ingress       |
     | `service`   | Name of the service (app name) |
+
+### Uptime probes
+
+All ingresses will automatically have uptime probes enabled on them. This probe will directed at the [application's readiness endpoint](./application-spec.md#readiness) using a HTTP GET request. A probe is considered successful if the HTTP status code is `2xx` or `3xx`. The probe is considered failed if the HTTP status code is `4xx` or `5xx`.
+
+You can query the uptime probe status using the following PromQL query:
+
+```promql
+probe_success{app="my-app"} == 1
+```
 
 ### Example PromQL Queries
 
@@ -151,13 +161,13 @@ Here are pre-configured queries for the controller logs in the following cluster
 
 ### Log fields description
 
-| Field | Description |
-|-------|-------------|
-| `message` | HTTP request on the following format: "`method` `path` `httpVersion`" |
-| `response_code` | HTTP response code from nginx |
-| `x_upstream_name` | The application receiving the request on the following format "`namespace`-`app-name`-`port`"
-| `x_upstream_status` | HTTP response code from the application |
-| `x_request_id` | Unique request ID used for correlating further requests from the application to other services |
+| Field               | Description                                                                                    |
+| ------------------- | ---------------------------------------------------------------------------------------------- |
+| `message`           | HTTP request on the following format: "`method` `path` `httpVersion`"                          |
+| `response_code`     | HTTP response code from nginx                                                                  |
+| `x_upstream_name`   | The application receiving the request on the following format "`namespace`-`app-name`-`port`"  |
+| `x_upstream_status` | HTTP response code from the application                                                        |
+| `x_request_id`      | Unique request ID used for correlating further requests from the application to other services |
 
 ### Find _your_ access logs
 
@@ -208,11 +218,11 @@ If `response_code` and `x_upstream_status` are the same it means that the applic
 
 Here are some suggestions depending on what http status code you might recieve from nginx:
 
-| Code | Suggestion |
-|------|------------|
-| `400 Bad Request` | If nginx returns `401` error with no further explanation and there is no `x_upstream_name` it means that nginx received an invalid request before it could be sent to the backend. One of the most common problems is duplicate `Authorization` headers. |
-| `413 Request Entity Too Large` | If nginx return `413` error it means that the request body is too large. This can be caused by a large file upload or a large request body. The solution is to add the `proxy-body-size` ingress parameter to an appropriate size. |
-| `502 Bad Gateway` | If nginx return `502` error but the application is returning a `2xx` status code it might be caused by large response headers often cookies. The solution is the add the `proxy-buffer-size` to an appropriate size. |
+| Code                           | Suggestion                                                                                                                                                                                                                                               |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `400 Bad Request`              | If nginx returns `401` error with no further explanation and there is no `x_upstream_name` it means that nginx received an invalid request before it could be sent to the backend. One of the most common problems is duplicate `Authorization` headers. |
+| `413 Request Entity Too Large` | If nginx return `413` error it means that the request body is too large. This can be caused by a large file upload or a large request body. The solution is to add the `proxy-body-size` ingress parameter to an appropriate size.                       |
+| `502 Bad Gateway`              | If nginx return `502` error but the application is returning a `2xx` status code it might be caused by large response headers often cookies. The solution is the add the `proxy-buffer-size` to an appropriate size.                                     |
 
 ## Full ingress example
 
