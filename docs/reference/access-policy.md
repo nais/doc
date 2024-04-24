@@ -37,7 +37,7 @@ graph LR
 The access policy currently have the following limits:
 
 1. **No support for UDP**. This is a limitation of Kubernetes, and will be fixed in the future.
-2. **Only for pod-to-pod communication**. The Access policies only apply when communicating internally within the cluster using [service discovery](../clusters/service-discovery.md), and not through [ingress traffic](ingress.md).
+2. **Only for pod-to-pod communication**. The Access policies only apply when communicating internally within the cluster using [service discovery](./service-discovery.md), and not through [ingress traffic](./ingress.md).
 3. **Only available in GCP**. Network policies are only applied in GCP clusters.  However, inbound rules for authorization in the context of [_TokenX_](../security/auth/tokenx.md) or [_Azure AD_](../security/auth/azure-ad/README.md) apply to all clusters.
 
 ## Access Policy vs. Ingress
@@ -245,7 +245,7 @@ In order to send requests to services outside of the cluster, `external.host` co
 Default hosts that are added and accessible for every application:
 
 | Host / service              | Port | Protocol  |
-|-----------------------------|------|-----------|
+| --------------------------- | ---- | --------- |
 | `kube-dns`                  | 53   | UDP / TCP |
 | `metadata.google.internal`  | 80   | TCP       |
 | `private.googleapis.com`    | 443  | TCP       |
