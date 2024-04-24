@@ -371,7 +371,7 @@ See [full example](../../../reference/application-example.md).
     This error occurs when you try to disable logical decoding while there are logical replication slots.
     [Notes and limitations](https://cloud.google.com/sql/docs/postgres/replication/configure-logical-replication#limitations-general) on disabling logical decoding.
 
-#### ...mmutable field(s): [Field Name: settings.0.diskSize, Got: x, Wanted: xx]...
+#### ...immutable field(s): [Field Name: settings.0.diskSize, Got: x, Wanted: xx]...
 
 ??? faq "Answer"
     This error occurs when you try to change the disk size of the database instance. 
@@ -379,3 +379,12 @@ See [full example](../../../reference/application-example.md).
     You can fix this by specifying in the [NAIS manifest](../../../reference/application-spec.md#gcpsqlinstancesdisksize) 
     the desired disk size of the database instance to be equal to or greater than the current size.
     If you want to control the disk size of the instance you should disable [automatic storage increase](../../../reference/application-spec.md#gcpsqlinstancesdiskautoresize).
+
+#### Not allowed to do major version upgrade from POSTGRES_x to POSTGRES_xx
+
+??? faq "Answer"
+    This error occurs when you try to 'upgrade' the major version of the database instance to a version that is not allowed.
+    You cant downgrade the major version of the database instance, if you want to downgrade the version you need to create 
+    a new instance with the desired version.
+    You can fix this by specifying in the [NAIS manifest](../../../reference/application-spec.md#gcpsqlinstancestype)
+    the version type to the same as the current or a higher version.  
