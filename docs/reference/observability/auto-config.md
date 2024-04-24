@@ -44,6 +44,10 @@ The OpenTelemetry Agent is used to automatically instrument your application. Th
 
 ## Java Agent
 
+The OpenTelemetry Java Agent is a Java agent that automatically instruments your Java application. The agent is responsible for collecting telemetry data and sending it to the OpenTelemetry Collector.
+
+It is attached to your JVM automatically at startup using the [`JAVA_TOOL_OPTIONS`](https://docs.oracle.com/javase/8/docs/technotes/guides/troubleshoot/envvars002.html) environment variable.
+
 ### Supported libraries, frameworks, application servers, and JVMs
 
 The OpenTelemetry Java Agent supports many popular libraries, frameworks, application servers, and JVMs. A full list of supported libraries and frameworks can be found on the open-telemetry/opentelemetry-java-instrumentation repository.
