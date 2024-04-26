@@ -2170,10 +2170,10 @@ Required: `false`<br />
 #### gcp.sqlInstances[].diskAutoresizeLimit
 The maximum size, in GB, to which storage capacity can be automatically increased.
 The default value is 0, which specifies that there is no limit.
-naisteam:doc:Default="0"
 
 Type: `integer`<br />
 Required: `false`<br />
+Default value: `0`<br />
 Value range: `0`-`1000`<br />
 
 ??? example
