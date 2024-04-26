@@ -1423,6 +1423,7 @@ Availability: GCP<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -1979,6 +1980,7 @@ Availability: GCP<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2023,6 +2025,7 @@ Value range: `0`-`23`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2065,6 +2068,7 @@ Required: `false`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2106,6 +2110,7 @@ Required: `false`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2147,6 +2152,7 @@ Required: `false`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2189,6 +2195,7 @@ Required: `false`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2231,6 +2238,7 @@ Required: `true`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2272,6 +2280,7 @@ Required: `false`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2314,6 +2323,7 @@ Pattern: `^[_a-zA-Z][-_a-zA-Z0-9]+$`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2361,6 +2371,52 @@ Required: `false`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
+            diskSize: 30
+            diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            retainedBackups: 14
+            tier: db-f1-micro
+            type: POSTGRES_12
+    ```
+
+#### gcp.sqlInstances[].diskAutoresizeLimit
+The maximum size, in GB, to which storage capacity can be automatically increased.
+The default value is 0, which specifies that there is no limit.
+naisteam:doc:Default="0"
+
+Type: `integer`<br />
+Required: `false`<br />
+Value range: `0`-`1000`<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        sqlInstances:
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2405,6 +2461,7 @@ Minimum value: `10`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2447,6 +2504,7 @@ Allowed values: `HDD`, `SSD`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2498,6 +2556,7 @@ Required: `false`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2539,6 +2598,7 @@ Required: `true`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2580,6 +2640,7 @@ Required: `true`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2621,6 +2682,7 @@ Required: `false`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2662,6 +2724,7 @@ Required: `false`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2704,6 +2767,7 @@ Default value: `true`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2746,6 +2810,7 @@ Value range: `256`-`4500`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2787,6 +2852,7 @@ Required: `false`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2828,6 +2894,7 @@ Required: `false`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2869,6 +2936,7 @@ Required: `false`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2909,6 +2977,7 @@ Value range: `1`-`7`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2949,6 +3018,7 @@ Value range: `0`-`23`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -2990,6 +3060,7 @@ Required: `false`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -3031,6 +3102,7 @@ Required: `false`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -3078,6 +3150,7 @@ Value range: `1`-`365`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -3123,6 +3196,7 @@ Pattern: `db-.+`<br />
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
@@ -3169,6 +3243,7 @@ Allowed values: `POSTGRES_11`, `POSTGRES_12`, `POSTGRES_13`, `POSTGRES_14`, `POS
                 users:
                   - name: extra_user
             diskAutoresize: true
+            diskAutoresizeLimit: 60
             diskSize: 30
             diskType: SSD
             flags:
