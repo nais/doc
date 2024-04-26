@@ -153,6 +153,7 @@ spec:
       pointInTimeRecovery: true
       retainedBackups: 14
       tier: db-f1-micro
+      transactionLogRetentionDays: 3
       type: POSTGRES_12
   image: navikt/testapp:69.0.0
   influx:

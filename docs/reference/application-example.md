@@ -169,6 +169,7 @@ spec:
       pointInTimeRecovery: true
       retainedBackups: 14
       tier: db-f1-micro
+      transactionLogRetentionDays: 3
       type: POSTGRES_12
   idporten:
     enabled: true
