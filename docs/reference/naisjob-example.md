@@ -134,6 +134,7 @@ spec:
         users:
         - name: extra_user
       diskAutoresize: true
+      diskAutoresizeLimit: 60
       diskSize: 30
       diskType: SSD
       flags:
