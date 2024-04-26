@@ -1205,6 +1205,7 @@ Availability: GCP<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -1762,6 +1763,7 @@ Availability: GCP<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -1807,6 +1809,7 @@ Value range: `0`-`23`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -1850,6 +1853,7 @@ Required: `false`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -1892,6 +1896,7 @@ Required: `false`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -1934,6 +1939,7 @@ Required: `false`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -1977,6 +1983,7 @@ Required: `false`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2020,6 +2027,7 @@ Required: `true`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2062,6 +2070,7 @@ Required: `false`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2105,6 +2114,7 @@ Pattern: `^[_a-zA-Z][-_a-zA-Z0-9]+$`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2153,6 +2163,7 @@ Required: `false`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2198,6 +2209,7 @@ Value range: `0`-`1000`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2243,6 +2255,7 @@ Minimum value: `10`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2286,6 +2299,7 @@ Allowed values: `HDD`, `SSD`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2338,6 +2352,7 @@ Required: `false`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2380,6 +2395,7 @@ Required: `true`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2422,6 +2438,7 @@ Required: `true`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2464,6 +2481,7 @@ Required: `false`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2506,6 +2524,7 @@ Required: `false`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2549,6 +2568,7 @@ Default value: `true`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2592,6 +2612,7 @@ Value range: `256`-`4500`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2634,6 +2655,7 @@ Required: `false`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2676,6 +2698,7 @@ Required: `false`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2718,6 +2741,7 @@ Required: `false`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2759,6 +2783,7 @@ Value range: `1`-`7`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2800,6 +2825,7 @@ Value range: `0`-`23`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2842,6 +2868,7 @@ Required: `false`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2884,11 +2911,13 @@ Required: `false`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
 #### gcp.sqlInstances[].retainedBackups
 Number of daily backups to retain. Defaults to 7 backups.
+The number of retained backups must be greater or equal to TransactionLogRetentionDays.
 
 Relevant information:
 
@@ -2932,6 +2961,7 @@ Value range: `1`-`365`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -2978,6 +3008,56 @@ Pattern: `db-.+`<br />
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
+            type: POSTGRES_12
+    ```
+
+#### gcp.sqlInstances[].transactionLogRetentionDays
+The number of days of transaction logs gcp retains for point in time restores.
+
+Relevant information:
+
+* [https://cloud.google.com/sql/docs/mysql/backup-recovery/backups#retention](https://cloud.google.com/sql/docs/mysql/backup-recovery/backups#retention)
+
+Type: `integer`<br />
+Required: `false`<br />
+Default value: `7`<br />
+Value range: `1`-`7`<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        sqlInstances:
+          - autoBackupHour: 1
+            cascadingDelete: true
+            collation: nb_NO.UTF8
+            databases:
+              - envVarPrefix: DB
+                name: mydatabase
+                users:
+                  - name: extra_user
+            diskAutoresize: true
+            diskAutoresizeLimit: 60
+            diskSize: 30
+            diskType: SSD
+            flags:
+              - name: max_connections
+                value: "50"
+            highAvailability: true
+            insights:
+              enabled: true
+              queryStringLength: 4500
+              recordApplicationTags: true
+              recordClientAddress: true
+            maintenance:
+              day: 1
+              hour: 4
+            name: myinstance
+            pointInTimeRecovery: true
+            retainedBackups: 14
+            tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
@@ -3025,6 +3105,7 @@ Allowed values: `POSTGRES_11`, `POSTGRES_12`, `POSTGRES_13`, `POSTGRES_14`, `POS
             pointInTimeRecovery: true
             retainedBackups: 14
             tier: db-f1-micro
+            transactionLogRetentionDays: 3
             type: POSTGRES_12
     ```
 
