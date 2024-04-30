@@ -30,11 +30,11 @@ See [explanation for exposing application](../explanation/exposing-application.m
 
 #### Ingress domains
 
-| domain | accessible from |
-| :--- | :--- |
-| nav.no | Internet |
-| intern.nav.no  | NAV internal networks (including [naisdevice](../explanation/naisdevice.md))| 
-| ansatt.nav.no  | Internet, but only accessible by authenticated humans on compliant devices | 
+| domain | accessible from                                                                 |
+| :--- |:--------------------------------------------------------------------------------|
+| nav.no | Internet(URLs containing /metrics, /actuator or /internal are blocked by BIGIP) |
+| intern.nav.no  | NAV internal networks (including [naisdevice](../explanation/naisdevice.md))    | 
+| ansatt.nav.no  | Internet, but only accessible by authenticated humans on compliant devices      | 
 
 See [explanation for exposing application](../explanation/exposing-application.md) for more information.
 
