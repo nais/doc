@@ -32,7 +32,7 @@ See [explanation for exposing application](../explanation/exposing-application.m
 
 | domain | accessible from                                                                 |
 | :--- |:--------------------------------------------------------------------------------|
-| nav.no | Internet(URLs containing /metrics, /actuator or /internal are blocked by BIGIP) |
+| nav.no | Internet(URLs containing /metrics, /actuator or /internal are blocked by Cloud Armor) |
 | intern.nav.no  | NAV internal networks (including [naisdevice](../explanation/naisdevice.md))    | 
 | ansatt.nav.no  | Internet, but only accessible by authenticated humans on compliant devices      | 
 
