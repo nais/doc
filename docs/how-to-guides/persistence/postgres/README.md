@@ -50,7 +50,7 @@ The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instan
 | database password                                              | `NAIS_DATABASE_MYAPP_MYDB_PASSWORD`    | \(randomly generated\)                                                     |
 | database url with credentials                                  | `NAIS_DATABASE_MYAPP_MYDB_URL`         | `postgresql://username:password@100.10.1.0:5432/mydb?sslcert=...`          |
 | *Below variables only available for instances with private IP* |                                        |                                                                            |
-| jdbc url with credentials                                      | `NAIS_DATABASE_MYAPP_MYDB_JDBC_URL`    | `jdbc:postgresql://100.10.1.0:5432/mydb?password=...&user=...&sslcert=...` |
+| jdbc url with credentials [^1]                                 | `NAIS_DATABASE_MYAPP_MYDB_JDBC_URL`    | `jdbc:postgresql://100.10.1.0:5432/mydb?password=...&user=...&sslcert=...` |
 | path to root cert                                              | `NAIS_DATABASE_MYAPP_MYDB_SSLROOTCERT` | `/var/run/secrets/nais.io/sqlcertificate/root-cert.pem`                    |
 | path to client cert                                            | `NAIS_DATABASE_MYAPP_MYDB_SSLCERT`     | `/var/run/secrets/nais.io/sqlcertificate/cert.pem`                         |
 | path to client key                                             | `NAIS_DATABASE_MYAPP_MYDB_SSLKEY`      | `/var/run/secrets/nais.io/sqlcertificate/key.pem`                          |
@@ -64,6 +64,8 @@ The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instan
 !!! info
     Note that if you change your application name, database name or envVarPrefix, and then change it later,
     you have to manually [reset database credentials](#reset-database-credentials).
+
+[^1]: When using [nais cli](https://github.com/nais/cli) to rotate the password, a JDBC-url will be created and stored in the secret.
 
 ### Database flags
 
