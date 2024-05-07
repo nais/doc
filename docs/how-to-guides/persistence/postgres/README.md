@@ -65,7 +65,7 @@ The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instan
     Note that if you change your application name, database name or envVarPrefix, and then change it later,
     you have to manually [reset database credentials](#reset-database-credentials).
 
-[^1]: When using [nais cli](https://github.com/nais/cli) to rotate the password, a JDBC-url will be created and stored in the secret.
+[^1]: jdbc url can be generated for instances without private IP by using [nais cli](https://github.com/nais/cli) to rotate the password.
 
 ### Database flags
 
