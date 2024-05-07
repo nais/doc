@@ -27,8 +27,8 @@ spec:
 
 See also:
 
-- :computer: [Application reference](../reference/application-spec.md#envfromsecret)
-- :computer: [NaisJob reference](../reference/naisjob-spec.md#envfromsecret)
+- :books: [Application reference](../reference/application-spec.md#envfromsecret)
+- :books: [NaisJob reference](../reference/naisjob-spec.md#envfromsecret)
 
 ### Files
 
@@ -41,5 +41,5 @@ spec:
 
 See also:
 
-- :computer: [Application reference](../reference/application-spec.md#filesfromsecret)
-- :computer: [NaisJob reference](../reference/naisjob-spec.md#filesfromsecret)
+- :books: [Application reference](../reference/application-spec.md#filesfromsecret)
+- :books: [NaisJob reference](../reference/naisjob-spec.md#filesfromsecret)

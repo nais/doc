@@ -47,7 +47,7 @@ hide:
 
     [:octicons-arrow-right-24: Explanations](explanation/README.md)
 
-- :computer: **Reference**
+- :books: **Reference**
 
     ---
 

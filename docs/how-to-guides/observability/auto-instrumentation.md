@@ -64,4 +64,4 @@ spec:
 
 ## Resources
 
-[:computer: OpenTelemetry Auto-Instrumentation Configuration Reference](../../reference/observability/auto-config.md)
+[:books: OpenTelemetry Auto-Instrumentation Configuration Reference](../../reference/observability/auto-config.md)
