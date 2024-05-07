@@ -80,4 +80,4 @@ Among many others:
 ## What's next?
 
 - :dart: Learn how to [upload assets to the CDN](../how-to-guides/cdn.md)
-- :computer: [CDN Reference documentation](../reference/cdn.md)
+- :books: [CDN Reference documentation](../reference/cdn.md)

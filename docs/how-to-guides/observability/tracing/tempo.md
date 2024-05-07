@@ -34,7 +34,7 @@ TraceQL provides a powerful and flexible way to query trace data, and it is desi
 
 <iframe title="vimeo-player" src="https://player.vimeo.com/video/796408188?h=b3e8e3257b" width="100%" height="360" frameborder="0" allowfullscreen></iframe>
 
-[:computer: Learn more about TraceQL query language](../../../reference/observability/tracing/traceql.md)
+[:books: Learn more about TraceQL query language](../../../reference/observability/tracing/traceql.md)
 
 ## Understanding trace data
 
@@ -48,5 +48,5 @@ A red circle next to a span indicates that the span has an error. You can click 
 
 Traces in nais follows the OpenTelemetry Semantic Conventions, which provides a standard for naming and structuring trace data. This makes it easier to understand and use trace data, as you can rely on a consistent structure across all traces.
 
-[:computer: Learn more about OpenTelemetry Trace Semantic Conventions](../../../reference/observability/tracing/trace-semconv.md)
+[:books: Learn more about OpenTelemetry Trace Semantic Conventions](../../../reference/observability/tracing/trace-semconv.md)
 
