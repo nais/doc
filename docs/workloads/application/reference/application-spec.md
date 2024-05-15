@@ -4517,7 +4517,7 @@ Must be owned by same team.
 
 Relevant information:
 
-* [https://doc.nais.io/persistence/open-search/](https://doc.nais.io/persistence/open-search/)
+* [https://doc.nais.io/persistence/opensearch/](https://doc.nais.io/persistence/opensearch/)
 
 Type: `object`<br />
 Required: `false`<br />
