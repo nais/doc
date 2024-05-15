@@ -1,6 +1,6 @@
 ---
 description: How to show Grafana on an info-screen
-tags: [how-to, logging, grafana]
+tags: [how-to, logging, grafana, info-screen, infoskjerm]
 ---
 # Show Grafana on info-screen
 
@@ -10,7 +10,10 @@ This how-to shows you how to show Grafana on a info-screen.
 
 In order to run Grafana from a big screen, you will need a Grafana service account.
 
-You get this by contacting us in the [#nais](https://nav-it.slack.com/archives/C5KUST8N6) channel on Slack.
+Every NAIS team will be reconciled to a Grafana team, and as a team member you will have access to a service account matching your team's name.
+With the service account in Grafana you can generate a new service account token, which you use to authenticate against Grafana.
+
+Find your service accounts in [Grafana>Service accounts](https://grafana.<<tenant()>>.cloud.nais.io/org/serviceaccounts).
 
 ## 2. Access Grafana
 
