@@ -4,7 +4,8 @@ tags: [workloads, reference]
 
 # Ingress traffic
 
-Ingress traffic is traffic that is directed to your application from outside the environment. This is done by configuring the [`ingresses`][nais-ingress] block in your NAIS application yaml manifest with the domains you want your application to receive traffic from.
+Ingress traffic is traffic directed to your application from outside the environment.
+This is done by configuring the [`ingresses`][nais-ingress] block in your NAIS application yaml manifest with the [domains](environments.md) you want your application to receive traffic from.
 
 [nais-ingress]: ../application/reference/application-spec.md#ingresses
 
