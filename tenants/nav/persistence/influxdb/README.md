@@ -24,6 +24,7 @@ As there are few teams that need an InfluxDB instance we use a IaC-repo to provi
 Head over to [aiven-iac](https://github.com/navikt/aiven-iac#influxdb) to learn how to get your own instance.
 
 :dart: [Create an InfluxDB instance](how-to/create.md)
+
 :dart: [Access InfluxDB from an application](how-to/access.md)
 
 ## Support
