@@ -6,7 +6,7 @@ tags: [naisdevice, how-to]
 
 ## OS-specific Uninstall steps
 
-{% if tenant == "nav" %}
+{% if tenant() == "nav" %}
 
 ### macOS uninstall
 
