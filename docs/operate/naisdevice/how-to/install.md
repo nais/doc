@@ -4,7 +4,7 @@ tags: [naisdevice, how-to]
 
 # Install naisdevice
 
-{% if tenant == "nav" %}
+{% if tenant() == "nav" %}
 
 !!! warning
 
@@ -24,7 +24,7 @@ tags: [naisdevice, how-to]
 
 === "macOS"
 
-    {% if tenant == "nav" %}
+    {% if tenant() == "nav" %}
 
     The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the NAIS team and should be followed to keep your device safe.
 
@@ -44,7 +44,7 @@ tags: [naisdevice, how-to]
 
     1. When the tap is added, you are ready to install naisdevice, by typing or pasting the following in terminal and press `<Enter>`.
 
-    {% if tenant == "nav" %}
+    {% if tenant() == "nav" %}
 
     ```bash
     brew install naisdevice
@@ -71,7 +71,7 @@ tags: [naisdevice, how-to]
 
     #### Install using Scoop
 
-    {% if tenant == "nav" %}
+    {% if tenant() == "nav" %}
 
     The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the NAIS team and should be followed to keep your device safe.
 
@@ -89,7 +89,7 @@ tags: [naisdevice, how-to]
 
     1. When the bucket is added, you are ready to install naisdevice, by typing the following in the command line:
 
-    {% if tenant == "nav" %}
+    {% if tenant() == "nav" %}
 
     ```powershell
     scoop install naisdevice
@@ -108,7 +108,7 @@ tags: [naisdevice, how-to]
 
 === "Manual"
 
-    {% if tenant == "nav" %}
+    {% if tenant() == "nav" %}
 
     [Install Kolide agent](install-kolide.md).
 
@@ -149,7 +149,7 @@ tags: [naisdevice, how-to]
 
     1. Install the naisdevice package:
 
-    {% if tenant == "nav" %}
+    {% if tenant() == "nav" %}
 
     ```
     sudo apt install naisdevice
@@ -167,7 +167,7 @@ tags: [naisdevice, how-to]
     1. Find `naisdevice` in your application menu, or use the `naisdevice` command in a terminal to start the application.
     2. Follow the [instructions to connect your _nais_ device](#connect-naisdevice-through-tasksys-tray-icon).
 
-{% if tenant == "nav" %}
+{% if tenant() == "nav" %}
 
 !!! warning
 
