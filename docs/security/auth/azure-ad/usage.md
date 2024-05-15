@@ -1,6 +1,3 @@
----
-tags: [azure-ad]
----
 # Usage
 
 ## Use Cases

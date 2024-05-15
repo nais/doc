@@ -1,5 +1,4 @@
 ---
-tags: [authentication, sidecar, services]
 description: Reverse-proxy that handles automatic authentication and login/logout flow public-facing authentication using ID-porten.
 ---
 
@@ -10,7 +9,7 @@ description: Reverse-proxy that handles automatic authentication and login/logou
 NAIS provides a _sidecar_ that integrates with ID-porten, so that you can easily and securely log in and authenticate citizen end-users.
 
 !!! warning "Availability"
-    The sidecar is only available in the [Google Cloud Platform](../../workloads/reference/environments.md#google-cloud-platform-gcp) clusters.
+    The sidecar is only available in the [Google Cloud Platform](../../reference/environments.md#google-cloud-platform-gcp) clusters.
 
 ## Spec
 
@@ -32,9 +31,9 @@ Minimal example:
           locale: nb                # optional, default value shown
     ```
 
-See the [NAIS manifest reference](../../workloads/application/reference/application-spec.md#idportensidecar) for the complete specification.
+See the [NAIS manifest reference](../../reference/application-spec.md#idportensidecar) for the complete specification.
 
-Ensure that you also define at least one [ingress](../../workloads/application/reference/application-spec.md#ingresses) for your application.
+Ensure that you also define at least one [ingress](../../reference/application-spec.md#ingresses) for your application.
 
 ## Network Connectivity
 

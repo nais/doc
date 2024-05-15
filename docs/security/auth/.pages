@@ -1,11 +1,9 @@
 title: Auth
 nav:
-- README.md
-- concepts.md
-- development.md
-- azure-ad
-- idporten.md
-- tokenx.md
-- maskinporten
-- wonderwall.md
-- ...
+    - concepts.md
+    - development.md
+    - azure-ad
+    - idporten.md
+    - tokenx.md
+    - maskinporten
+    - ...

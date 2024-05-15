@@ -1,0 +1,6 @@
+nav:
+  - buckets
+  - kafka
+  - opensearch
+  - redis
+  - postgres

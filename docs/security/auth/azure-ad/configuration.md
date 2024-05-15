@@ -1,13 +1,10 @@
----
-tags: [azure-ad]
----
 # Configuration
 
 ## Spec
 
 Minimal example below. 
 
-See the complete specification in the [NAIS manifest](../../../workloads/application/reference/application-spec.md#azure).
+See the complete specification in the [NAIS manifest](../../../reference/application-spec.md#azure).
 
 === "nais.yaml"
     ```yaml
@@ -34,7 +31,7 @@ Azure AD is an external service. The platform automatically configures outbound 
 
 You do _not_ have to explicitly configure outbound access to Azure AD yourselves in GCP.
 
-If you're on-premises however, you must enable and use [`webproxy`](../../../workloads/application/reference/application-spec.md#webproxy).
+If you're on-premises however, you must enable and use [`webproxy`](../../../reference/application-spec.md#webproxy).
 
 ## Access Policy
 

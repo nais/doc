@@ -1,5 +1,5 @@
 {
-  description = "dev env for docs";
+  description = "Python for docs";
 
   # Flake inputs
   inputs = {
@@ -26,10 +26,15 @@
       # Development environment output
       devShells = forAllSystems ({ pkgs }: {
         default =
+          let
+            # Use Python 3.10
+            python = pkgs.python311;
+          in
           pkgs.mkShell {
-            packages = with pkgs; [
-              python311
-              poetry
+            # The Nix packages provided in the environment
+            packages = [
+              # Python plus helper tools
+              python pkgs.poetry
             ];
           };
       });

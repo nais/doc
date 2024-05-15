@@ -1,6 +1,5 @@
 ---
 title: Sidecar
-tags: [azure-ad, sidecar]
 description: Reverse-proxy that handles automatic authentication and login/logout flows for Azure AD.
 ---
 
@@ -10,7 +9,7 @@ The Azure AD sidecar is a reverse proxy that provides functionality to perform A
 
 !!! warning "Availability"
 
-The sidecar is only available in the [Google Cloud Platform](../../../workloads/reference/environments.md#google-cloud-platform-gcp) clusters.
+    The sidecar is only available in the [Google Cloud Platform](../../../reference/environments.md#google-cloud-platform-gcp) clusters.
 
 ## Spec
 
@@ -31,7 +30,7 @@ Minimal example below.
           enabled: true
     ```
 
-See the [NAIS manifest reference](../../../workloads/application/reference/application-spec.md#azuresidecar) for the complete specification.
+See the [NAIS manifest reference](../../../reference/application-spec.md#azuresidecar) for the complete specification.
 
 The above example will provision a unique Azure AD application and enable a sidecar that uses said application.
 
@@ -42,7 +41,7 @@ For configuration of the Azure AD application itself, see [the Configuration pag
 !!! info "Prerequisites"
 
     - If you're unfamiliar with Azure AD, review the [core concepts](README.md#concepts).
-    - Ensure that you define at least one [ingress](../../../workloads/application/reference/application-spec.md#ingresses) for your application.
+    - Ensure that you define at least one [ingress](../../../reference/application-spec.md#ingresses) for your application.
     - Ensure that you configure [user access](configuration.md#users) for your application. **Users are not granted access by default**.
 
 Try out a basic user flow:

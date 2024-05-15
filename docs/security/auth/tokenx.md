@@ -1,5 +1,4 @@
 ---
-tags: [authentication, services]
 description: Enabling zero trust on the application layer
 ---
 
@@ -18,7 +17,7 @@ There are primarily two distinct cases where one must use TokenX:
 
 ### Spec
 
-See the [NAIS manifest](../../workloads/application/reference/application-spec.md#tokenxenabled).
+See the [NAIS manifest](../../reference/application-spec.md#tokenxenabled).
 
 ### Getting Started
 
