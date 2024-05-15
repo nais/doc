@@ -27,6 +27,7 @@ theme:
     - navigation.footer
     - navigation.instant
     - navigation.indexes
+    - navigation.sections
     - search.suggest
     - search.highlight
     - search.share
@@ -69,7 +70,7 @@ extra_css:
 plugins:
   - awesome-pages
   - tags:
-      tags_file: reference/tags.md
+      tags_file: ./tags.md
   - macros:
       j2_variable_start_string: "<<"
       j2_variable_end_string: ">>"
@@ -79,23 +80,23 @@ plugins:
       enable_creation_date: true
       type: timeago
       strict: false
+      enabled: !ENV [CI, false]
   - redirects:
       redirect_maps:
-          'addons/unleash-next.md': 'explanation/feature-toggling.md'
-          'addons/unleash.md': 'explanation/feature-toggling.md'
-          'observability/README.md': 'explanation/observability/README.md'
-          'observability/alerts.md': 'explanation/observability/alerting.md'
-          'observability/frontend/README.md': 'explanation/observability/frontend.md'
-          'observability/grafana.md': 'explanation/observability/README.md'
-          'observability/logs/README.md': 'explanation/observability/logging.md'
-          'observability/logs/examples.md': 'explanation/observability/logging.md'
-          'observability/metrics.md': 'explanation/observability/metrics.md'
-          'observability/tracing.md': 'explanation/observability/tracing.md'
-          'security/salsa/salsa.md': 'security/salsa/README.md'
-          'addons/wonderwall.md': 'security/auth/wonderwall.md'
-          'device/update.md': 'how-to-guides/naisdevice/update.md'
-          'how-to-guides/observability/tracing/otel-tracing.md': 'how-to-guides/observability/auto-instrumentation.md'
-          'reference/observability/otel/tracing.md': 'reference/observability/auto-config.md'
+        "addons/unleash-next.md": "services/feature-toggling.md"
+        "addons/unleash.md": "services/feature-toggling.md"
+        "observability/alerts.md": "observability/alerting/README.md"
+        "explanation/observability/alerting.md": "observability/alerting/README.md"
+        "observability/grafana.md": "observability/README.md"
+        "observability/logs/README.md": "observability/logging/README.md"
+        "observability/logs/examples.md": "observability/logging/README.md"
+        "security/salsa/salsa.md": "services/salsa.md"
+        "addons/wonderwall.md": "security/auth/wonderwall.md"
+        "device/update.md": "operate/naisdevice/how-to/update.md"
+        "device/install.md": "operate/naisdevice/how-to/install.md"
+        "how-to-guides/observability/tracing/otel-tracing.md": "observability/how-to/auto-instrumentation.md"
+        "reference/observability/otel/tracing.md": "observability/reference/auto-config.md"
+        "deployment.md": "build/README.md"
 markdown_extensions:
   - toc:
       permalink: True

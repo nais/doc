@@ -1,7 +1,8 @@
 title: Azure AD
 nav:
-    - configuration.md
-    - usage.md
-    - sidecar.md
-    - faq-troubleshooting.md
-    - ...
+- README.md
+- configuration.md
+- usage.md
+- sidecar.md
+- faq-troubleshooting.md
+- ...

@@ -1,0 +1,17 @@
+nav:
+  - "":
+    - explanations
+    - tutorials
+  - "":
+    - workloads
+    - build
+    - authentication
+    - observability
+    - persistence
+    - security
+    - Other services: services
+  - "":
+    - operate
+  - "":
+    - tags.md
+    - ...
