@@ -86,7 +86,6 @@ plugins:
         "addons/unleash-next.md": "services/feature-toggling.md"
         "addons/unleash.md": "services/feature-toggling.md"
         "observability/alerts.md": "observability/alerting/README.md"
-        "explanation/observability/alerting.md": "observability/alerting/README.md"
         "observability/grafana.md": "observability/README.md"
         "observability/logs/README.md": "observability/logging/README.md"
         "observability/logs/examples.md": "observability/logging/README.md"
