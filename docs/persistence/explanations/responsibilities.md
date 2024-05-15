@@ -1,5 +1,5 @@
 ---
-tags: [explanations, persistence]
+tags: [explanation, persistence]
 description: >-
   This page aims to clarify the responsibilities as relates to data storage
   using NAIS and GCP. Depending on which infrastructure the data is stored on,

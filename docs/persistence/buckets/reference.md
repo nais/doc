@@ -1,8 +1,9 @@
 ---
+title: Buckets reference
 tags: [reference, bucket]
 ---
 
-# Bucket reference
+# Buckets reference
 
 ## Backup of a bucket 
 

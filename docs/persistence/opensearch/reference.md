@@ -1,4 +1,5 @@
 ---
+title: OpenSearch reference
 tags: [opensearch, reference]
 ---
 

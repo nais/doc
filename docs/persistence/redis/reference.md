@@ -1,4 +1,5 @@
 ---
+title: Redis reference
 tags: [redis, reference]
 ---
 
