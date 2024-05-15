@@ -56,14 +56,14 @@ graph TD
 
 Below is a list of the different storage options available to you.
 
-| Name                                    | Type        | Recommendation | Availability | Backup |
-|-----------------------------------------|-------------|:--------------:|:------------:|:------:|
-| [Kafka](#kafka)                         | Streaming   |       ✅        |     All      |  Yes*  |
-| [Cloud Storage](#cloud-storage-buckets) | Object      |       ✅        |     GCP      |  Yes*  |
-| [Cloud SQL](#cloud-sql)                 | Relational  |       ✅        |     GCP      |  Yes   |
-| [BigQuery](#bigquery)                   | Relational  |       ✅        |     GCP      |  Yes*  |
-| [OpenSearch](#opensearch)               | Document    |       ✅        |     GCP      |  Yes   |
-| [Redis](#redis)                         | Key/Value   |       ✅        |     GCP      |  Yes   |
+| Name                                    | Type        | Availability | Backup |
+|-----------------------------------------|-------------|:------------:|:------:|
+| [Kafka](#kafka)                         | Streaming   |     All      |  Yes*  |
+| [Cloud Storage](#cloud-storage-buckets) | Object      |     GCP      |  Yes*  |
+| [Cloud SQL](#cloud-sql)                 | Relational  |     GCP      |  Yes   |
+| [BigQuery](#bigquery)                   | Relational  |     GCP      |  Yes*  |
+| [OpenSearch](#opensearch)               | Document    |     GCP      |  Yes   |
+| [Redis](#redis)                         | Key/Value   |     GCP      |  Yes   |
 
 \* Data is highly available and fault-tolerant but not backed up if deleted by
 mistake.

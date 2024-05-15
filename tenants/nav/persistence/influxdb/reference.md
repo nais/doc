@@ -1,4 +1,5 @@
 ---
+title: InfluxDB reference
 tags: [influxdb, reference]
 ---
 
