@@ -1,7 +1,3 @@
----
-tags: [maskinporten]
----
-
 # Maskinporten Scopes
 
 A _scope_ represents a permission that a given consumer has access to.
@@ -29,7 +25,7 @@ spec:
             - orgno: "123456789"
 ```
 
-See the [NAIS manifest](../../../workloads/application/reference/application-spec.md#maskinporten) for the complete specification.
+See the [NAIS manifest](../../../reference/application-spec.md#maskinporten) for the complete specification.
 
 ## Network Connectivity
 

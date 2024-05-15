@@ -1,6 +1,3 @@
----
-tags: [azure-ad]
----
 # FAQ / Troubleshooting
 
 This page lists common problems and solutions when authenticating with Azure AD.

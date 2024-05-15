@@ -1,1 +1,6 @@
 title: Security
+nav:
+    - antivirus.md
+    - auth
+    - salsa
+    - ...
