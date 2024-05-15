@@ -1,4 +1,5 @@
 ---
+title: InfluxDB
 tags: [influxdb, persistence, explanation]
 ---
 
