@@ -1,3 +1,7 @@
+---
+tags: [kafka, reference]
+---
+
 # NAIS Topic example YAML
 
 <!--
