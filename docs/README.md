@@ -1,4 +1,5 @@
 ---
+title: NAIS Developer Documentation
 hide:
   - feedback
   - footer
