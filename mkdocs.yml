@@ -118,7 +118,7 @@ plugins:
         "reference/metrics.md": "observability/metrics/reference/metrics.md"
         "reference/observability/metrics/otel.md": "observability/metrics/reference/otel.md"
         "reference/observability/metrics/promql.md": "observability/metrics/reference/promql.md"
-        "reference/observabilit/auto-config.mdy": "observability/reference/auto-config.md"
+        "reference/observability/auto-config.md": "observability/reference/auto-config.md"
         "reference/glossary.md": "observability/reference/glossary.md"
         "explanation/observability/tracing.md": "observability/tracing/README.md"
         "how-to-guides/observability/tracing/context-propagation.md": "observability/tracing/how-to/context-propagation.md"
@@ -126,6 +126,7 @@ plugins:
         "how-to-guides/observability/tracing/tempo.md": "observability/tracing/how-to/tempo.md"
         "reference/observability/tracing/trace-semconv.md": "observability/tracing/reference/trace-semconv.md"
         "reference/observability/tracing/traceql.md": "observability/tracing/reference/traceql.md"
+        "explanation/feature-toggling.md": "services/feature-toggling.md"
 markdown_extensions:
   - toc:
       permalink: True
