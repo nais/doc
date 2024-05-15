@@ -1,5 +1,6 @@
 ---
 title: Wonderwall
+tags: [authentication, sidecar, services]
 description: Sidecar for authentication
 ---
 
@@ -14,7 +15,7 @@ As such, this is OIDC as a sidecar, or OaaS, or to explain the joke:
 > _Oasis - Wonderwall_
 
 !!! warning "Availability"
-    Wonderwall is only available in the [Google Cloud Platform](../../reference/environments.md#google-cloud-platform-gcp) environments.
+    Wonderwall is only available in the [Google Cloud Platform](../../workloads/reference/environments.md#google-cloud-platform-gcp) environments.
 
 ## Overview
 
@@ -89,7 +90,7 @@ application's ingress.
 
 ## Endpoints
 
-The sidecar provides these endpoints under your application's [ingress](../../reference/ingress.md):
+The sidecar provides these endpoints under your application's [ingress](../../workloads/reference/ingress.md):
 
 | Path                           | Description                                                                | Details                                      |
 |--------------------------------|----------------------------------------------------------------------------|----------------------------------------------|
@@ -134,7 +135,7 @@ Minimal configuration examples below:
           enabled: true
     ```
 
-    [:octicons-arrow-right-24: See the NAIS manifest reference for the complete specification](../../reference/application-spec.md#idportensidecar).
+[:octicons-arrow-right-24: See the NAIS manifest reference for the complete specification](../../workloads/application/reference/application-spec.md#idportensidecar).
 
 === "Azure AD"
 
@@ -147,7 +148,7 @@ Minimal configuration examples below:
           enabled: true
     ```
 
-    [:octicons-arrow-right-24: See the NAIS manifest reference for the complete specification](../../reference/application-spec.md#azuresidecar).
+[:octicons-arrow-right-24: See the NAIS manifest reference for the complete specification](../../workloads/application/reference/application-spec.md#azuresidecar).
 
 ## Usage
 
@@ -251,9 +252,9 @@ Ensure that your frontend handles the `HTTP 401` response and redirects the user
 Autologin will by default match all paths for your application's ingresses, except the following:
 
 - `/oauth2/*`
-- [`spec.prometheus.path`](../../reference/application-spec.md#prometheuspath), if defined
-- [`spec.liveness.path`](../../reference/application-spec.md#livenesspath), if defined
-- [`spec.readiness.path`](../../reference/application-spec.md#readinesspath), if defined
+- [`spec.prometheus.path`](../../workloads/application/reference/application-spec.md#prometheuspath), if defined
+- [`spec.liveness.path`](../../workloads/application/reference/application-spec.md#livenesspath), if defined
+- [`spec.readiness.path`](../../workloads/application/reference/application-spec.md#readinesspath), if defined
 
 You can define additional paths or patterns to be excluded: 
 

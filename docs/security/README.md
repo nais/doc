@@ -1,4 +1,5 @@
 ---
+tags: [explanation]
 description: >-
     NAIS is a platform for building, deploying and operating applications in a
     secure manner. This document describes on a high level how NAIS achieves this and what is expected of those who use NAIS.
@@ -41,7 +42,7 @@ policies.
 
 ## Team Isolation
 
-Each team in NAIS has its own isolated environment, which is only accessible by
+Each [team](../explanations/team.md) in NAIS has its own isolated environment, which is only accessible by
 the members of the team. This is achieved by creating a separate Kubernetes
 namespace and Google Cloud project that is only accessible by the members of the
 team.
@@ -83,8 +84,6 @@ team-b-app --> team-b-db
 team-c-app --> team-c-db
 ```
 
-Teams are managed in [NAIS Teams](../explanation/team.md).
-
 ## Secure Software Development Lifecycle (Secure SDLC)
 
 NAIS is not a complete solution for secure software development lifecycle. It is
@@ -115,7 +114,7 @@ provided by NAIS:
 NAIS provides a secure way to store [secrets] for use by applications.
 These secrets are encrypted at rest and are only accessible by applications and members of a given team.
 
-[secrets]: ../explanation/secrets.md
+[secrets]: ../services/secrets/README.md
 
 #### External dependencies
 
@@ -138,7 +137,7 @@ Software Artifacts (SLSA)][slsa]. This means that every application is deployed
 using a secure supply chain that ensures that the application is deployed in a
 secure manner.
 
-[slsa]: salsa/README.md
+[slsa]: ../services/salsa.md
 
 #### Security Policies
 
@@ -175,14 +174,14 @@ The following security policies are enforced by NAIS:
 Developer access control in NAIS is backed by [Google Cloud IAM][google-iam] and
 [Kubernetes RBAC][kubernetes-rbac]. The platform is responsible for setting up
 the necessary roles and permissions in Google Cloud IAM and Kubernetes RBAC
-according to the teams registered in [NAIS Teams](../explanation/team.md) by the
+according to the teams registered in [NAIS Teams](../explanations/team.md) by the
 developers.
 
 Tools and services provided by the platform to the developers are exposed
 securely in two ways:
 
 1. On a private network only accessible to authenticated users over
-[naisdevice](../explanation/naisdevice.md) to trusted devices using secure
+[naisdevice](../operate/naisdevice/README.md) to trusted devices using secure
 [WireGuard][wireguard] VPN tunnels.
 
 1. On a public network behind [Identity Aware Proxy (IAP)][google-iap] which
@@ -196,7 +195,7 @@ ensures that all developers are authenticated with their personal user accounts.
 #### User authentication
 
 User authentication and authorization ("authnz") is the responsibility of each
-application running on the plattform. Authorization (i.e. "who is allowed to see
+application running on the platform. Authorization (i.e. "who is allowed to see
 and do what under which circumstances") is part of the business logic for each
 domain, so it makes sense that it is handled by the teams in their apps. Doing
 authnz right is complicated, so the plattform offers a few tools and services to
@@ -223,7 +222,7 @@ for the other OIDC/OAuth uses cases mentioned above.
 #### Network security
 
 Network security in NAIS is achieved by [Access
-Policy](../how-to-guides/access-policies.md) that is backed by [Kubernetes
+Policy](../workloads/how-to/access-policies.md) that is backed by [Kubernetes
 Network Policies][kubernetes-network-policies]. This controls traffic between
 pods in the same cluster as well as outgoing traffic from the cluster.
 
@@ -243,11 +242,11 @@ Distributed Denial of Service (DDoS) protection.
 #### Logging and monitoring
 
 Application logs are collected and stored in
-[Kibana](../explanation/observability/logging.md) together with infrastructure
+[Kibana](../observability/logging/README.md) together with infrastructure
 components running in the cluster.
 
 Application metrics are collected and stored in
-[Prometheus](../explanation/observability/metrics.md) together with infrastructure
+[Prometheus](../observability/metrics/README.md) together with infrastructure
 components running in the cluster.
 
 Infrastructure, network flow logs and IAM audit logs are available from
