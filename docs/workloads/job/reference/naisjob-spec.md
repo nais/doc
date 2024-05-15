@@ -1,3 +1,7 @@
+---
+tags: [job, reference]
+---
+
 # NAIS Job reference
 
 <!--
@@ -16,7 +20,7 @@ This is also used for granting inbound access in the context of Azure AD and Tok
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/zero-trust/](https://doc.nais.io/explanation/zero-trust/)
+* [https://doc.nais.io/workloads/explanations/zero-trust/](https://doc.nais.io/workloads/explanations/zero-trust/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -1608,10 +1612,6 @@ Default value: `false`<br />
 ### gcp.permissions
 List of _additional_ permissions that should be granted to your application for accessing external GCP resources that have not been provisioned through NAIS.
 
-Relevant information:
-
-* [https://doc.nais.io/nais-application/permissions-in-gcp/](https://doc.nais.io/nais-application/permissions-in-gcp/)
-
 Type: `array`<br />
 Required: `false`<br />
 Availability: GCP<br />
@@ -1945,7 +1945,7 @@ Required: `false`<br />
 
 ##### gcp.sqlInstances[].databases[].envVarPrefix
 Prefix to add to environment variables made available for database connection.
-If switching to `EnvVarPrefix` you need to [reset database credentials](https://docs.nais.io/persistence/postgres/#reset-database-credentials).
+If switching to `EnvVarPrefix` you need to [reset database credentials](https://doc.nais.io/persistence/postgres/#reset-database-credentials).
 
 Type: `string`<br />
 Required: `false`<br />
@@ -3182,7 +3182,7 @@ Allow this app to use kafka streams
 
 Relevant information:
 
-* [https://doc.nais.io/persistence/kafka/application/#using-kafka-streams-with-internal-topics](https://doc.nais.io/persistence/kafka/application/#using-kafka-streams-with-internal-topics)
+* [https://doc.nais.io/persistence/kafka/how-to/internal](https://doc.nais.io/persistence/kafka/how-to/internal)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -3328,7 +3328,7 @@ Allowed values: `dns_loglevel`, `http_loglevel`<br />
 
 ## maskinporten
 Configures a Maskinporten client for this Naisjob.
-See [Maskinporten](https://doc.nais.io/explanation/auth/maskinporten/) for more details.
+See [Maskinporten](https://doc.nais.io/security/auth/maskinporten/) for more details.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3662,10 +3662,6 @@ Allowed values: `altinn`<br />
 ##### maskinporten.scopes.exposes[].enabled
 If Enabled the configured scope is available to be used and consumed by organizations granted access.
 
-Relevant information:
-
-* [https://doc.nais.io/naisjob/reference/#maskinportenscopesexposesconsumers](https://doc.nais.io/naisjob/reference/#maskinportenscopesexposesconsumers)
-
 Type: `boolean`<br />
 Required: `true`<br />
 
@@ -3781,7 +3777,7 @@ Configuration options related to application observability.
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/observability/](https://doc.nais.io/explanation/observability/)
+* [https://doc.nais.io/observability/](https://doc.nais.io/observability/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3858,7 +3854,7 @@ Configure logging for your application.
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/observability/logging/](https://doc.nais.io/explanation/observability/logging/)
+* [https://doc.nais.io/observability/logging/](https://doc.nais.io/observability/logging/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3878,7 +3874,7 @@ Log destinations for where to forward application logs for persistent storage. L
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/observability/logging/#log-destinations](https://doc.nais.io/explanation/observability/logging/#log-destinations)
+* [https://doc.nais.io/observability/logging/#log-destinations](https://doc.nais.io/observability/logging/#log-destinations)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -3928,7 +3924,7 @@ Enable application performance monitoring with traces collected using OpenTeleme
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/observability/tracing/](https://doc.nais.io/explanation/observability/tracing/)
+* [https://doc.nais.io/observability/tracing/](https://doc.nais.io/observability/tracing/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -4022,7 +4018,7 @@ The reason for termination is passed to the handler.
 
 Relevant information:
 
-* [https://doc.nais.io/reference/good-practices/#handles-termination-gracefully](https://doc.nais.io/reference/good-practices/#handles-termination-gracefully)
+* [https://doc.nais.io/workloads/explanations/good-practices/#handles-termination-gracefully](https://doc.nais.io/workloads/explanations/good-practices/#handles-termination-gracefully)
 * [https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks)
 
 Type: `object`<br />
@@ -4234,7 +4230,7 @@ Must be owned by same team.
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/persistence/redis/](https://doc.nais.io/explanation/persistence/redis/)
+* [https://doc.nais.io/persistence/redis/](https://doc.nais.io/persistence/redis/)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -4258,7 +4254,7 @@ the Kubernetes scheduler can make better decisions about which nodes to place po
 
 Relevant information:
 
-* [https://doc.nais.io/reference/good-practices/#set-reasonable-resource-requests-and-limits](https://doc.nais.io/reference/good-practices/#set-reasonable-resource-requests-and-limits)
+* [https://doc.nais.io/workloads/explanations/good-practices/#set-reasonable-resource-requests-and-limits](https://doc.nais.io/workloads/explanations/good-practices/#set-reasonable-resource-requests-and-limits)
 
 Type: `object`<br />
 Required: `false`<br />

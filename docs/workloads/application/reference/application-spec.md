@@ -20,7 +20,7 @@ This is also used for granting inbound access in the context of Azure AD and Tok
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/zero-trust/](https://doc.nais.io/explanation/zero-trust/)
+* [https://doc.nais.io/workloads/explanations/zero-trust/](https://doc.nais.io/workloads/explanations/zero-trust/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -812,7 +812,7 @@ Automatically redirect the user to login for all proxied GET requests.
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/auth/wonderwall/#12-autologin](https://doc.nais.io/explanation/auth/wonderwall/#12-autologin)
+* [https://doc.nais.io/security/auth/wonderwall/#12-autologin](https://doc.nais.io/security/auth/wonderwall/#12-autologin)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -831,7 +831,7 @@ Comma separated list of absolute paths to ignore when auto-login is enabled.
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/auth/wonderwall/#12-autologin](https://doc.nais.io/explanation/auth/wonderwall/#12-autologin)
+* [https://doc.nais.io/security/auth/wonderwall/#12-autologin](https://doc.nais.io/security/auth/wonderwall/#12-autologin)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -865,7 +865,7 @@ Resource requirements for the sidecar container.
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/auth/wonderwall/#4-resource-requirements](https://doc.nais.io/explanation/auth/wonderwall/#4-resource-requirements)
+* [https://doc.nais.io/security/auth/wonderwall/#4-resource-requirements](https://doc.nais.io/security/auth/wonderwall/#4-resource-requirements)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -1370,7 +1370,7 @@ You can import this file directly from your Javascript application.
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/observability/frontend/#auto-configuration](https://doc.nais.io/explanation/observability/frontend/#auto-configuration)
+* [https://doc.nais.io/observability/frontend/#auto-configuration](https://doc.nais.io/observability/frontend/#auto-configuration)
 
 Type: `string`<br />
 Required: `true`<br />
@@ -1849,10 +1849,6 @@ Default value: `false`<br />
 ### gcp.permissions
 List of _additional_ permissions that should be granted to your application for accessing external GCP resources that have not been provisioned through NAIS.
 
-Relevant information:
-
-* [https://doc.nais.io/nais-application/permissions-in-gcp/](https://doc.nais.io/nais-application/permissions-in-gcp/)
-
 Type: `array`<br />
 Required: `false`<br />
 Availability: GCP<br />
@@ -2186,7 +2182,7 @@ Required: `false`<br />
 
 ##### gcp.sqlInstances[].databases[].envVarPrefix
 Prefix to add to environment variables made available for database connection.
-If switching to `EnvVarPrefix` you need to [reset database credentials](https://docs.nais.io/persistence/postgres/#reset-database-credentials).
+If switching to `EnvVarPrefix` you need to [reset database credentials](https://doc.nais.io/persistence/postgres/#reset-database-credentials).
 
 Type: `string`<br />
 Required: `false`<br />
@@ -3352,7 +3348,7 @@ Allowed values: `POSTGRES_11`, `POSTGRES_12`, `POSTGRES_13`, `POSTGRES_14`, `POS
 
 ## idporten
 Configures ID-porten authentication for this application.
-See [ID-porten](https://doc.nais.io/explanation/auth/idporten/) for more details.
+See [ID-porten](https://doc.nais.io/security/auth/idporten/) for more details.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3434,7 +3430,7 @@ Automatically redirect the user to login for all proxied GET requests.
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/auth/wonderwall/#12-autologin](https://doc.nais.io/explanation/auth/wonderwall/#12-autologin)
+* [https://doc.nais.io/security/auth/wonderwall/#12-autologin](https://doc.nais.io/security/auth/wonderwall/#12-autologin)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -3453,7 +3449,7 @@ Comma separated list of absolute paths to ignore when auto-login is enabled.
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/auth/wonderwall/#12-autologin](https://doc.nais.io/explanation/auth/wonderwall/#12-autologin)
+* [https://doc.nais.io/security/auth/wonderwall/#12-autologin](https://doc.nais.io/security/auth/wonderwall/#12-autologin)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -3527,7 +3523,7 @@ Resource requirements for the sidecar container.
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/auth/wonderwall/#4-resource-requirements](https://doc.nais.io/explanation/auth/wonderwall/#4-resource-requirements)
+* [https://doc.nais.io/security/auth/wonderwall/#4-resource-requirements](https://doc.nais.io/security/auth/wonderwall/#4-resource-requirements)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3700,7 +3696,7 @@ Set up Aiven Kafka for your application.
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/persistence/kafka/](https://doc.nais.io/explanation/persistence/kafka/)
+* [https://doc.nais.io/persistence/kafka/](https://doc.nais.io/persistence/kafka/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3731,7 +3727,7 @@ Allow this app to use kafka streams
 
 Relevant information:
 
-* [https://doc.nais.io/persistence/kafka/application/#using-kafka-streams-with-internal-topics](https://doc.nais.io/persistence/kafka/application/#using-kafka-streams-with-internal-topics)
+* [https://doc.nais.io/persistence/kafka/how-to/internal](https://doc.nais.io/persistence/kafka/how-to/internal)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -3750,7 +3746,7 @@ If true, an HTTP endpoint will be available at `$ELECTOR_PATH` that returns the 
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/leader-election/](https://doc.nais.io/explanation/leader-election/)
+* [https://doc.nais.io/services/leader-election/](https://doc.nais.io/services/leader-election/)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -3893,7 +3889,7 @@ Allowed values: `dns_loglevel`, `http_loglevel`<br />
 
 ## maskinporten
 Configures a Maskinporten client for this application.
-See [Maskinporten](https://doc.nais.io/explanation/auth/maskinporten/) for more details.
+See [Maskinporten](https://doc.nais.io/security/auth/maskinporten/) for more details.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -4227,10 +4223,6 @@ Allowed values: `altinn`<br />
 ##### maskinporten.scopes.exposes[].enabled
 If Enabled the configured scope is available to be used and consumed by organizations granted access.
 
-Relevant information:
-
-* [https://doc.nais.io/naisjob/reference/#maskinportenscopesexposesconsumers](https://doc.nais.io/naisjob/reference/#maskinportenscopesexposesconsumers)
-
 Type: `boolean`<br />
 Required: `true`<br />
 
@@ -4346,7 +4338,7 @@ Configuration options related to application observability.
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/observability/](https://doc.nais.io/explanation/observability/)
+* [https://doc.nais.io/observability/](https://doc.nais.io/observability/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -4423,7 +4415,7 @@ Configure logging for your application.
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/observability/logging/](https://doc.nais.io/explanation/observability/logging/)
+* [https://doc.nais.io/observability/logging/](https://doc.nais.io/observability/logging/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -4443,7 +4435,7 @@ Log destinations for where to forward application logs for persistent storage. L
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/observability/logging/#log-destinations](https://doc.nais.io/explanation/observability/logging/#log-destinations)
+* [https://doc.nais.io/observability/logging/#log-destinations](https://doc.nais.io/observability/logging/#log-destinations)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -4493,7 +4485,7 @@ Enable application performance monitoring with traces collected using OpenTeleme
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/observability/tracing/](https://doc.nais.io/explanation/observability/tracing/)
+* [https://doc.nais.io/observability/tracing/](https://doc.nais.io/observability/tracing/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -4525,7 +4517,7 @@ Must be owned by same team.
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/persistence/open-search/](https://doc.nais.io/explanation/persistence/open-search/)
+* [https://doc.nais.io/persistence/open-search/](https://doc.nais.io/persistence/open-search/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -4587,7 +4579,7 @@ The reason for termination is passed to the handler.
 
 Relevant information:
 
-* [https://doc.nais.io/reference/good-practices/#handles-termination-gracefully](https://doc.nais.io/reference/good-practices/#handles-termination-gracefully)
+* [https://doc.nais.io/workloads/explanations/good-practices/#handles-termination-gracefully](https://doc.nais.io/workloads/explanations/good-practices/#handles-termination-gracefully)
 * [https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks)
 
 Type: `object`<br />
@@ -4697,7 +4689,7 @@ This feature is deprecated and will be removed in the next major version (nais.i
 
 Relevant information:
 
-* [https://doc.nais.io/reference/good-practices/#handles-termination-gracefully](https://doc.nais.io/reference/good-practices/#handles-termination-gracefully)
+* [https://doc.nais.io/workloads/explanations/good-practices/#handles-termination-gracefully](https://doc.nais.io/workloads/explanations/good-practices/#handles-termination-gracefully)
 
 Type: `string`<br />
 Required: `false`<br />
@@ -4709,7 +4701,7 @@ Required: `false`<br />
     ```
 
 ## prometheus
-Prometheus is used to [scrape metrics from the pod](https://doc.nais.io/explanation/observability/metrics/).
+Prometheus is used to [scrape metrics from the pod](https://doc.nais.io/observability/metrics/).
 Use this configuration to override the default values.
 
 Type: `object`<br />
@@ -4866,7 +4858,7 @@ Must be owned by same team.
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/persistence/redis/](https://doc.nais.io/explanation/persistence/redis/)
+* [https://doc.nais.io/persistence/redis/](https://doc.nais.io/persistence/redis/)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -5108,7 +5100,7 @@ the Kubernetes scheduler can make better decisions about which nodes to place po
 
 Relevant information:
 
-* [https://doc.nais.io/reference/good-practices/#set-reasonable-resource-requests-and-limits](https://doc.nais.io/reference/good-practices/#set-reasonable-resource-requests-and-limits)
+* [https://doc.nais.io/workloads/explanations/good-practices/#set-reasonable-resource-requests-and-limits](https://doc.nais.io/workloads/explanations/good-practices/#set-reasonable-resource-requests-and-limits)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -5508,7 +5500,7 @@ Provisions and configures a TokenX client for your application.
 
 Relevant information:
 
-* [https://doc.nais.io/explanation/auth/tokenx/](https://doc.nais.io/explanation/auth/tokenx/)
+* [https://doc.nais.io/security/auth/tokenx/](https://doc.nais.io/security/auth/tokenx/)
 
 Type: `object`<br />
 Required: `false`<br />
