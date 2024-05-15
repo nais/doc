@@ -2,7 +2,7 @@
 
 !!! warning "FSS apps only"
 
-    KrakendD in NAIS is meant as an extra feature for teams using [Maskinporten](../auth/maskinporten/README.md) to expose their APIs on-prem (FSS / Fagsystemsonen) to external consumers/partners. Applications that run in GCP should use the [Maskinporten](./auth/maskinporten/README.md) functionality directly. 
+    KrakendD in NAIS is meant as an extra feature for teams using [Maskinporten](auth/maskinporten/README.md) to expose their APIs on-prem (FSS / Fagsystemsonen) to external consumers/partners. Applications that run in GCP should use the [Maskinporten](auth/maskinporten/README.md) functionality directly. 
 
 
 !!! info "Status: Beta"
@@ -152,7 +152,7 @@ Currently we support the following KrakenD features:
 
 ### Expose an API to external consumers from on-prem via GCP
 
-If your app already have a special "pub" ingress, ref [explanation here](https://doc.nais.io/clusters/migrating-to-gcp/#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp),
+If your app already have a special "pub" ingress, ref [explanation here](../workloads/explanations/migrating-to-gcp.md#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp),
 you can enable KrakenD in your namespace in GCP and add API endpoints to your KrakenD instance there, i.e. point to your pub ingress.
 
 === "Maskinporten"
@@ -199,6 +199,7 @@ you can enable KrakenD in your namespace in GCP and add API endpoints to your Kr
             backendHost: https://app1.dev-fss-pub.nais.io
             backendPath: /api/somepath  # the path to your API endpoint in your app
     ```
+
 ### Expose a legacy API to external consumers from on-prem via GCP
 
 If you have a legacy app on-prem without a special "pub" ingress you must enable KrakenD both in your namespace on-prem and gcp.

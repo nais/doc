@@ -1,3 +1,7 @@
+---
+tags: [maskinporten]
+---
+
 # Maskinporten Client
 
 The NAIS platform provides support for declarative provisioning of Maskinporten clients.
@@ -20,7 +24,7 @@ spec:
   webproxy: true
 ```
 
-See the [NAIS manifest reference](../../../reference/application-spec.md#maskinporten) for the complete specification.
+See the [NAIS manifest reference](../../../workloads/application/reference/application-spec.md#maskinporten) for the complete specification.
 
 ## Network Connectivity
 
@@ -29,7 +33,7 @@ The platform automatically configures outbound access to the Maskinporten hosts.
 
 You do _not_ have to explicitly configure outbound access to Maskinporten yourselves in GCP.
 
-If you're on-premises however, you must enable and use [`webproxy`](../../../reference/application-spec.md#webproxy).
+If you're on-premises however, you must enable and use [`webproxy`](../../../workloads/application/reference/application-spec.md#webproxy).
 
 ## Runtime Variables & Credentials
 

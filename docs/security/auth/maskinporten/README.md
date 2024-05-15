@@ -1,4 +1,5 @@
 ---
+tags: [authentication, maskinporten, services]
 description: >
   Enabling service-to-service authentication with external agencies using Maskinporten.
 ---
