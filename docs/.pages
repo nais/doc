@@ -5,7 +5,7 @@ nav:
 - "": ""
 - workloads
 - build
-- authentication
+- auth
 - observability
 - persistence
 - security

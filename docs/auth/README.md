@@ -1,0 +1,97 @@
+---
+tags: [auth, explanation]
+description: Services and addons to support authentication and authorization in your applications.
+---
+# Authentication and authorization
+
+NAIS helps your applications [log in users](#logging-in-users), [validate inbound requests](#validating-inbound-requests) and [make authenticated outbound requests](#making-outbound-requests) using the following identity providers:
+
+<div class="grid cards" markdown>
+
+- [**Azure AD**](../security/auth/azure-ad) (aka Entra ID)
+
+    For employees and internal services.
+
+- [**ID-porten**](../security/auth/idporten)
+
+    For Norwegian citizens.
+
+- [**TokenX**](../security/auth/tokenx)
+
+    Internal, for applications acting on-behalf-of ID-porten citizens.
+
+- [**Maskinporten**](../security/auth/maskinporten)
+
+    For machine-to-machine communication between organizations or businesses.
+
+</div>
+
+Your application may have multiple authentication use cases that may require a combination of services. 
+
+Check out the different scenarios below to see which service(s) you need for your application.
+
+## Logging in users
+
+:person_standing: authenticate employee :octicons-arrow-right-24: [Azure AD](../security/auth/azure-ad/sidecar)
+
+:person_standing: authenticate citizen :octicons-arrow-right-24: [ID-porten] 
+
+
+## Validating inbound requests
+
+...from applications acting 
+
+```mermaid
+graph TD
+  B1[on-behalf-of]
+  B2[as themselves]
+
+  B1 --> |citizens| TokenX[<a href='../security/auth/tokenx'>TokenX</>]
+  B1 --> |employees| AAD_machine[<a href='../security/auth/azure-ad'>Azure AD</>]
+    
+  
+  B2 --> |internally| AAD_machine[<a href='../security/auth/azure-ad'>Azure AD</>]
+  B2 --> |externally| Maskinporten[<a href='../security/auth/maskinporten'>Maskinporten</a>]
+```
+
+The graph above can also be described as:
+
+
+:material-server: Validate requests from internal application :octicons-arrow-right-24: [Azure AD] 
+
+:material-server: Validate requests from external application :octicons-arrow-right-24: [Maskinporten] 
+
+:material-server::person_standing: Validate requests from application on behalf of employee :octicons-arrow-right-24: [Azure AD]
+
+:material-server::person_standing: Validate requests from application on behalf of citizen :octicons-arrow-right-24: [TokenX]
+
+
+## Making outbound requests
+
+
+```mermaid
+graph TD
+  B1[on-behalf-of]
+  B2[as application]
+
+  B1 --> |citizens| TokenX[<a href='../security/auth/tokenx'>TokenX</>]
+  B1 --> |employees| AAD_machine[<a href='../security/auth/azure-ad'>Azure AD</>]
+    
+  
+  B2 --> |internally| AAD_machine[<a href='../security/auth/azure-ad'>Azure AD</>]
+  B2 --> |externally| Maskinporten[<a href='../security/auth/maskinporten'>Maskinporten</a>]
+```
+
+:material-server::person_standing: Make requests on behalf of employee :octicons-arrow-right-24: [Azure AD]
+
+:material-server::person_standing: Make requests on behalf of citizen :octicons-arrow-right-24: [TokenX]
+
+:material-server: Make requests to internal API :octicons-arrow-right-24: [Azure AD]
+
+:material-server: Make requests to external API :octicons-arrow-right-24: [Maskinporten]
+
+
+[Azure AD]: ../security/auth/azure-ad
+[ID-porten]: ../security/auth/idporten
+[TokenX]: ../security/auth/tokenx
+[Maskinporten]: ../security/auth/maskinporten
