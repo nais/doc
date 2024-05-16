@@ -36,7 +36,7 @@ What can we help you with today?
 - :package: [**Run your code**](workloads/README.md)
 - :rocket: [**Build and deploy your code**](build/README.md)
 - :open_file_folder: [**Store your data**](persistence/README.md)
-- :closed_lock_with_key: [**Authenticate your users**](authentication/README.md)
+- :closed_lock_with_key: [**Auth your workloads**](auth/README.md)
 - :telescope: [**Gain insight into your workloads**](observability/README.md)
 - :wrench: [**Manage your workloads and services**](operate/README.md)
 - :heavy_plus_sign: [**Explore the rest of NAIS**](services/README.md)
