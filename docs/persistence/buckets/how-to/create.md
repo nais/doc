@@ -33,7 +33,7 @@ spec:
           withState: ANY
 ```
 
-`retentionPeriodDays` and `lifecycleCondition` are for necessary for [backup](../reference.md).
+`retentionPeriodDays` and `lifecycleCondition` are for necessary for [backup](../reference/README.md).
 
 ## Deploy your manifest
 
