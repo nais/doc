@@ -66,7 +66,7 @@ jobs:
         shell: bash
 ```
 
-For more information on the inputs and outputs of the action, see the [CDN Reference](../reference.md).
+For more information on the inputs and outputs of the action, see the [CDN Reference](../reference/README.md).
 
 ## Use the uploaded assets
 
