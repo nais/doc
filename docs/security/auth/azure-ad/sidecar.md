@@ -10,7 +10,7 @@ The Azure AD sidecar is a reverse proxy that provides functionality to perform A
 
 !!! warning "Availability"
 
-The sidecar is only available in the [Google Cloud Platform](../../../workloads/reference/environments.md#google-cloud-platform-gcp) clusters.
+    The sidecar is only available in the [Google Cloud Platform](../../../workloads/reference/environments.md#google-cloud-platform-gcp) clusters.
 
 ## Spec
 
