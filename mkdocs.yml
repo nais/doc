@@ -27,7 +27,6 @@ theme:
     - navigation.footer
     - navigation.instant
     - navigation.indexes
-    - navigation.sections
     - search.suggest
     - search.highlight
     - search.share
