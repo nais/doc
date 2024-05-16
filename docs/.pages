@@ -1,17 +1,17 @@
 nav:
-  - "":
-    - explanations
-    - tutorials
-  - "":
-    - workloads
-    - build
-    - authentication
-    - observability
-    - persistence
-    - security
-    - Other services: services
-  - "":
-    - operate
-  - "":
-    - tags.md
-    - ...
+- Home: README.md
+- explanations
+- tutorials
+- "": ""
+- workloads
+- build
+- authentication
+- observability
+- persistence
+- security
+- Other services: services
+- "": ""
+- operate
+- "": ""
+- tags.md
+- ...
