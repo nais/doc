@@ -179,6 +179,7 @@ plugins:
         "reference/observability/tracing/traceql.md": "observability/tracing/reference/traceql.md"
         "reference/secrets.md": "services/secrets/README.md"
         "security/salsa/salsa.md": "services/salsa.md"
+        "security/salsa.md": "services/salsa.md"
         "tutorial/hello-nais/README.md": "tutorials/hello-nais.md"
         "tutorial/hello-nais/hello-nais-1.md": "tutorials/hello-nais.md"
         "tutorial/hello-nais/hello-nais-2.md": "tutorials/hello-nais.md"
