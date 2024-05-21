@@ -162,7 +162,7 @@ Find your repository and click `Authorize`.
 
 !!! note "Repository not visible?"
 
-    Normally these permissions are automatically synchronized every 15 minutes, but if you don't see the repository here, force synchronization by clicking the `Refresh` button.
+    Normally these permissions are automatically synchronized every 15 minutes, but if you don't see the repository here, force synchronization by clicking the `Synchronize team` button under the `Settings` panel.
 
 ### Commit and push your changes
 
