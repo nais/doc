@@ -1,7 +1,6 @@
 title: Auth
 nav:
 - README.md
-- concepts.md
 - development.md
 - azure-ad
 - idporten.md

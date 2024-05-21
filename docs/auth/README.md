@@ -8,19 +8,19 @@ NAIS helps your applications [log in users](#logging-in-users), [validate inboun
 
 <div class="grid cards" markdown>
 
-- [**Azure AD**](../security/auth/azure-ad) (aka Entra ID)
+- [**Azure AD**][Azure AD] (aka Entra ID)
 
     For employees and internal services.
 
-- [**ID-porten**](../security/auth/idporten)
+- [**ID-porten**][ID-porten]
 
     For Norwegian citizens.
 
-- [**TokenX**](../security/auth/tokenx)
+- [**TokenX**][TokenX]
 
     Internal, for applications acting on-behalf-of ID-porten citizens.
 
-- [**Maskinporten**](../security/auth/maskinporten)
+- [**Maskinporten**][Maskinporten]
 
     For machine-to-machine communication between organizations or businesses.
 
@@ -34,7 +34,7 @@ See the different scenarios below to identify which service(s) you need for your
 
 Depending on who your users are, you can use the following services to log them in:
 
-:person_standing: Log in employees :octicons-arrow-right-24: [Azure AD](../security/auth/azure-ad/sidecar)
+:person_standing: Log in employees :octicons-arrow-right-24: [Azure AD](../security/auth/azure-ad/sidecar.md)
 
 :person_standing: Log in citizens :octicons-arrow-right-24: [ID-porten]
 
@@ -89,7 +89,7 @@ The graph above can also be described as:
 
 :material-server: Make requests to external API :octicons-arrow-right-24: [Maskinporten]
 
-[Azure AD]: ../security/auth/azure-ad
-[ID-porten]: ../security/auth/idporten
-[TokenX]: ../security/auth/tokenx
-[Maskinporten]: ../security/auth/maskinporten
+[Azure AD]: ../security/auth/azure-ad/README.md
+[ID-porten]: ../security/auth/idporten.md
+[TokenX]: ../security/auth/tokenx.md
+[Maskinporten]: ../security/auth/maskinporten/README.md

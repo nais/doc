@@ -49,7 +49,7 @@ Try out a basic user flow:
 
 1. Visit your application's login endpoint (`https://<ingress>/oauth2/login`) to trigger a login.
 2. After logging in, you should be redirected back to your application.
-3. All further requests to your application should now have an `Authorization` header with the user's access token as a [Bearer token](concepts.md#bearer-token)
+3. All further requests to your application should now have an `Authorization` header with the user's access token as a [Bearer token](../../auth/explanations/README.md#bearer-token)
 4. Visit your application's logout endpoint (`https://<ingress>/oauth2/logout`) to trigger a logout.
 5. You will be redirected to ID-porten for logout, and then back to a preconfigured logout page.
 6. Success!
@@ -65,10 +65,10 @@ The files are available at the following path: `/var/run/secrets/nais.io/idporte
 
 | Name                      | Description                                                                                                   |
 |:--------------------------|:--------------------------------------------------------------------------------------------------------------|
-| `IDPORTEN_AUDIENCE`       | The expected [audience](concepts.md#token-validation) for access tokens from ID-porten.                       |
-| `IDPORTEN_WELL_KNOWN_URL` | The URL for ID-porten's [OIDC metadata discovery document](concepts.md#well-known-url-metadata-document).     |
-| `IDPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](concepts.md#issuer).                                          |
-| `IDPORTEN_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](concepts.md#jwks-endpoint-public-keys).                     |
+| `IDPORTEN_AUDIENCE`       | The expected [audience](../../auth/explanations/README.md#token-validation) for access tokens from ID-porten.                       |
+| `IDPORTEN_WELL_KNOWN_URL` | The URL for ID-porten's [OIDC metadata discovery document](../../auth/explanations/README.md#well-known-url-metadata-document).     |
+| `IDPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](../../auth/explanations/README.md#issuer).                                          |
+| `IDPORTEN_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](../../auth/explanations/README.md#jwks-endpoint-public-keys).                     |
 
 These variables are used for [token validation](#token-validation).
 
@@ -147,13 +147,13 @@ https://<ingress>/oauth2/login?locale=en
 
 ## Token Validation
 
-The sidecar attaches an `Authorization` header with the user's `access_token` as a [Bearer token](concepts.md#bearer-token), as long as the user is authenticated.
+The sidecar attaches an `Authorization` header with the user's `access_token` as a [Bearer token](../../auth/explanations/README.md#bearer-token), as long as the user is authenticated.
 
 It is your responsibility to **validate the token** before granting access to resources.
 
 For any endpoint that requires authentication; **deny access** if the request does not contain a valid Bearer token.
 
-Always validate the [signature and standard time-related claims](concepts.md#token-validation).
+Always validate the [signature and standard time-related claims](../../auth/explanations/README.md#token-validation).
 Additionally, perform the following validations:
 
 **Issuer Validation**
@@ -161,7 +161,7 @@ Additionally, perform the following validations:
 Validate that the `iss` claim has a value that is equal to either:
 
 1. the `IDPORTEN_ISSUER` [environment variable](#runtime-variables-credentials), or
-2. the `issuer` property from the [metadata discovery document](concepts.md#well-known-url-metadata-document).
+2. the `issuer` property from the [metadata discovery document](../../auth/explanations/README.md#well-known-url-metadata-document).
     The document is found at the endpoint pointed to by the `IDPORTEN_WELL_KNOWN_URL` environment variable.
 
 **Audience Validation**

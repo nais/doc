@@ -7,7 +7,7 @@ description: Sidecar for authentication
 # Wonderwall (sidecar for authentication)
 
 [Wonderwall](https://github.com/nais/wonderwall) is an application that implements an OpenID Connect (OIDC)
-[Relying Party](concepts.md#client) in a way that makes it easy to plug into Kubernetes
+[Relying Party](../../auth/explanations/README.md#client) in a way that makes it easy to plug into Kubernetes
 as a _sidecar_.
 
 As such, this is OIDC as a sidecar, or OaaS, or to explain the joke:
@@ -34,7 +34,7 @@ graph LR
 ```
 
 To obtain a local session, the user must be redirected to the `/oauth2/login` endpoint.
-This will initiate the [OpenID Connect Authorization Code Flow](concepts.md#openid-connect):
+This will initiate the [OpenID Connect Authorization Code Flow](../../auth/explanations/README.md#openid-connect):
 
 ```mermaid
 graph LR
@@ -68,7 +68,7 @@ graph LR
 ```
 
 All authenticated requests that are forwarded to the application will now contain the user's `access_token`.
-The token is sent as a [Bearer token](concepts.md#bearer-token) in the `Authorization` header.
+The token is sent as a [Bearer token](../../auth/explanations/README.md#bearer-token) in the `Authorization` header.
 This applies as long as the [session is not _expired_ or _inactive_](#5-sessions):
 
 ```mermaid
@@ -365,7 +365,7 @@ The same restrictions and caveats apply here.
 
 ### 3. Token Validation
 
-The sidecar attaches an `Authorization` header with the user's `access_token` as a [Bearer token](concepts.md#bearer-token), as long as the user has an [_active_ session](#5-sessions):
+The sidecar attaches an `Authorization` header with the user's `access_token` as a [Bearer token](../../auth/explanations/README.md#bearer-token), as long as the user has an [_active_ session](#5-sessions):
 
 ```
 GET /resource
@@ -654,4 +654,4 @@ To access other applications, you exchange the token to a new token that is corr
 
     See <https://github.com/navikt/oasis> for an opinionated JavaScript library for token validation and exchange.
 
-[identity provider]: concepts.md#identity-provider
+[identity provider]: ../../auth/explanations/README.md#identity-provider

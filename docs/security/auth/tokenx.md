@@ -81,9 +81,9 @@ These variables are used for [client authentication](tokenx.md#client-authentica
 
 | Name                     | Description                                                                                              |
 |:-------------------------|:---------------------------------------------------------------------------------------------------------|
-| `TOKEN_X_CLIENT_ID`      | [Client ID](concepts.md#client-id) that uniquely identifies the application in TokenX.                   |
-| `TOKEN_X_PRIVATE_JWK`    | [Private JWK](concepts.md#private-keys) containing an RSA key belonging to client.                       |
-| `TOKEN_X_TOKEN_ENDPOINT` | `token_endpoint` from the [metadata discovery document](concepts.md#token-endpoint).                     |
+| `TOKEN_X_CLIENT_ID`      | [Client ID](../../auth/explanations/README.md#client-id) that uniquely identifies the application in TokenX.                   |
+| `TOKEN_X_PRIVATE_JWK`    | [Private JWK](../../auth/explanations/README.md#private-keys) containing an RSA key belonging to client.                       |
+| `TOKEN_X_TOKEN_ENDPOINT` | `token_endpoint` from the [metadata discovery document](../../auth/explanations/README.md#token-endpoint).                     |
 
 #### Variables for Validating Tokens
 
@@ -91,16 +91,16 @@ These variables are used for [token validation](tokenx.md#token-validation):
 
 | Name                     | Description                                                                                          |
 |:-------------------------|:-----------------------------------------------------------------------------------------------------|
-| `TOKEN_X_CLIENT_ID`      | [Client ID](concepts.md#client-id) that uniquely identifies the application in TokenX.               |
-| `TOKEN_X_WELL_KNOWN_URL` | The URL for Tokendings' [metadata discovery document](concepts.md#well-known-url-metadata-document). |
-| `TOKEN_X_ISSUER`         | `issuer` from the [metadata discovery document](concepts.md#issuer).                                 |
-| `TOKEN_X_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](concepts.md#jwks-endpoint-public-keys).            |
+| `TOKEN_X_CLIENT_ID`      | [Client ID](../../auth/explanations/README.md#client-id) that uniquely identifies the application in TokenX.               |
+| `TOKEN_X_WELL_KNOWN_URL` | The URL for Tokendings' [metadata discovery document](../../auth/explanations/README.md#well-known-url-metadata-document). |
+| `TOKEN_X_ISSUER`         | `issuer` from the [metadata discovery document](../../auth/explanations/README.md#issuer).                                 |
+| `TOKEN_X_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](../../auth/explanations/README.md#jwks-endpoint-public-keys).            |
 
 ### Client Authentication
 
-Your application **must** authenticate itself with Tokendings when attempting to perform token exchanges. To do so, you must create a [client assertion](concepts.md#client-assertion).
+Your application **must** authenticate itself with Tokendings when attempting to perform token exchanges. To do so, you must create a [client assertion](../../auth/explanations/README.md#client-assertion).
 
-Create a [JWT](concepts.md#jwt) that is signed by your application using the [private key](concepts.md#private-keys) contained within [`TOKEN_X_PRIVATE_JWK`](tokenx.md#variables-for-exchanging-tokens).
+Create a [JWT](../../auth/explanations/README.md#jwt) that is signed by your application using the [private key](../../auth/explanations/README.md#private-keys) contained within [`TOKEN_X_PRIVATE_JWK`](tokenx.md#variables-for-exchanging-tokens).
 
 The assertion **must** contain the following claims:
 
@@ -159,7 +159,7 @@ The assertion should be unique and only used once. That is, every request to Tok
 
 To acquire a properly scoped token for a given target application, you must exchange an existing _subject token_ (i.e. a token that contains a subject, in this case a citizen end-user).
 
-Tokendings will then issue an `access_token` in JWT format, based on the parameters set in the token request. The token can then be used as a [**Bearer token**](concepts.md#bearer-token) in the Authorization header when calling your target API on behalf of the aforementioned subject.
+Tokendings will then issue an `access_token` in JWT format, based on the parameters set in the token request. The token can then be used as a [**Bearer token**](../../auth/explanations/README.md#bearer-token) in the Authorization header when calling your target API on behalf of the aforementioned subject.
 
 #### Prerequisites
 
@@ -232,7 +232,7 @@ If the exchange request is invalid, Tokendings will respond with a structured er
 
 ### Token Validation
 
-If your app is a [resource server / API](concepts.md#resource-server) and receives a token from another application, it is **your responsibility** to [validate the token](concepts.md#token-validation) intended for your application.
+If your app is a [resource server / API](../../auth/explanations/README.md#resource-server) and receives a token from another application, it is **your responsibility** to [validate the token](../../auth/explanations/README.md#token-validation) intended for your application.
 
 Configure your app with the OAuth 2.0 Authorization Server Metadata found at the well-known endpoint, [`TOKEN_X_WELL_KNOWN_URL`](tokenx.md#variables-for-validating-tokens).
 Alternatively, use the resolved values from said endpoint for convenience:
@@ -313,7 +313,7 @@ See also the [development overview](development.md) page.
 ### Token Generator
 
 In many cases, you want to locally develop and test against a secured API in the development environments.
-To do so, you need a [token](concepts.md#bearer-token) to access said API.
+To do so, you need a [token](../../auth/explanations/README.md#bearer-token) to access said API.
 
 Use <https://tokenx-token-generator.intern.dev.nav.no> to generate tokens in the development environments.
 
@@ -339,5 +339,5 @@ Use <https://tokenx-token-generator.intern.dev.nav.no> to generate tokens in the
     - For example: `dev-gcp:aura:my-app`
 2. You will be redirected to log in at ID-porten (if not already logged in).
 3. After logging in, you should be redirected back to the token generator and presented with a JSON response containing an `access_token`.
-4. Use the `access_token` as a [Bearer token](concepts.md#bearer-token) for calls to your API application.
+4. Use the `access_token` as a [Bearer token](../../auth/explanations/README.md#bearer-token) for calls to your API application.
 5. Success!

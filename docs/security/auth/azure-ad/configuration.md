@@ -119,7 +119,7 @@ Consumers using the [on-behalf-of flow](usage.md#oauth-20-on-behalf-of-grant) wi
 
 #### Fine-Grained Group-Based Access Control
 
-If you need more fine-grained access controls, you will need to handle authorization in your application by using the `groups` claim found in the user's [JWT](../concepts.md#jwt).
+If you need more fine-grained access controls, you will need to handle authorization in your application by using the `groups` claim found in the user's [JWT](../../../auth/explanations/README.md#jwt).
 
 The `groups` claim in user tokens contains a list of [group object IDs](README.md#group-identifier) if and only if:
 
