@@ -1,5 +1,5 @@
 ---
-tags: [authentication, explanation]
+tags: [auth, explanation]
 description: Services and addons to support authentication (AuthN) & authorization (AuthZ)
 ---
 

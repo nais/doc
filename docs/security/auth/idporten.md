@@ -1,5 +1,5 @@
 ---
-tags: [authentication, sidecar, services]
+tags: [auth, sidecar, services]
 description: Reverse-proxy that handles automatic authentication and login/logout flow public-facing authentication using ID-porten.
 ---
 

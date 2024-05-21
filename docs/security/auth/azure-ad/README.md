@@ -1,6 +1,6 @@
 ---
 title: Azure AD
-tags: [authentication, azure-ad, services]
+tags: [auth, azure-ad, services]
 description: Enabling authentication and authorization in internal web applications.
 ---
 
