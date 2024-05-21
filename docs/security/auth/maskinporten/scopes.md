@@ -47,9 +47,9 @@ The files are available at the following path: `/var/run/secrets/nais.io/maskinp
 
 | Name                          | Description                                                                                                   |
 |:------------------------------|:--------------------------------------------------------------------------------------------------------------|
-| `MASKINPORTEN_WELL_KNOWN_URL` | The well-known URL for the [metadata discovery document](../concepts.md#well-known-url-metadata-document)     |
-| `MASKINPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](../concepts.md#issuer).                                       |
-| `MASKINPORTEN_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](../concepts.md#jwks-endpoint-public-keys).                  |
+| `MASKINPORTEN_WELL_KNOWN_URL` | The well-known URL for the [metadata discovery document](../../../auth/explanations/README.md#well-known-url-metadata-document)     |
+| `MASKINPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](../../../auth/explanations/README.md#issuer).                                       |
+| `MASKINPORTEN_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](../../../auth/explanations/README.md#jwks-endpoint-public-keys).                  |
 
 These variables are used when validating tokens issued by Maskinporten.
 
@@ -99,9 +99,9 @@ Expose your application to the consumer(s) at a publicly accessible ingress.
 
 ### 3. Validate Tokens
 
-Verify incoming requests from the external consumer(s) by validating the [Bearer token](../concepts.md#bearer-token) in the `Authorization` header.
+Verify incoming requests from the external consumer(s) by validating the [Bearer token](../../../auth/explanations/README.md#bearer-token) in the `Authorization` header.
 
-Always validate the [signature and standard time-related claims](../concepts.md#token-validation).
+Always validate the [signature and standard time-related claims](../../../auth/explanations/README.md#token-validation).
 Additionally, perform the following validations:
 
 **Issuer Validation**
@@ -109,7 +109,7 @@ Additionally, perform the following validations:
 Validate that the `iss` claim has a value that is equal to either:
 
 1. the `MASKINPORTEN_ISSUER` [environment variable](#runtime-variables-credentials), or
-2. the `issuer` property from the [metadata discovery document](../concepts.md#well-known-url-metadata-document).
+2. the `issuer` property from the [metadata discovery document](../../../auth/explanations/README.md#well-known-url-metadata-document).
    The document is found at the endpoint pointed to by the `MASKINPORTEN_WELL_KNOWN_URL` environment variable.
 
 **Scope Validation**

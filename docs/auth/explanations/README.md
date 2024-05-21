@@ -28,19 +28,19 @@ There are multiple ways of obtaining such a grant, depending on the use case:
 
 **Internal applications**
 
-- [Machine-to-machine with Azure AD](azure-ad/usage.md#oauth-20-client-credentials-grant)
+- [Machine-to-machine with Azure AD](../../security/auth/azure-ad/usage.md#oauth-20-client-credentials-grant)
 
 **Employee-facing applications**
 
-- [On-behalf-of an end-user with Azure AD](azure-ad/usage.md#oauth-20-on-behalf-of-grant)
+- [On-behalf-of an end-user with Azure AD](../../security/auth/azure-ad/usage.md#oauth-20-on-behalf-of-grant)
 
 **External applications**
 
-- [Machine-to-machine with Maskinporten](maskinporten/client.md)
+- [Machine-to-machine with Maskinporten](../../security/auth/maskinporten/client.md)
 
 **Citizen-facing applications**
 
-- [On-behalf-of an end-user with TokenX](tokenx.md)
+- [On-behalf-of an end-user with TokenX](../../security/auth/tokenx.md)
 
 ### OpenID Connect
 
@@ -49,8 +49,8 @@ It is used to authenticate end users.
 
 The platform provides opt-in sidecars that implement OpenID Connect:
 
-- [Sidecar for Azure AD](azure-ad/sidecar.md) (employee-facing applications)
-- [Sidecar for ID-porten](idporten.md) (citizen-facing applications)
+- [Sidecar for Azure AD](../../security/auth/azure-ad/sidecar.md) (employee-facing applications)
+- [Sidecar for ID-porten](../../security/auth/idporten.md) (citizen-facing applications)
 
 Due to the complexity involved in implementing and maintaining such clients, we recommend that your applications use
 these sidecars when possible.
@@ -72,10 +72,10 @@ Similar terms such as _authorization server_ (AS) or _OpenID provider_ (OP) are 
 
 Providers that the platform supports provisioning for:
 
-- [Azure AD](azure-ad/README.md)
-- [ID-porten](idporten.md)
-- [Maskinporten](maskinporten/README.md)
-- [TokenX](tokenx.md)
+- [Azure AD](../../security/auth/azure-ad/README.md)
+- [ID-porten](../../security/auth/idporten.md)
+- [Maskinporten](../../security/auth/maskinporten/README.md)
+- [TokenX](../../security/auth/tokenx.md)
 
 #### Well-Known URL / Metadata Document
 
@@ -196,9 +196,9 @@ identifier is generally not considered to be confidential.
 The client ID for your client is injected at runtime as an environment variable.
 See the respective identity provider page for details:
 
-- [Azure AD](azure-ad/usage.md#runtime-variables-credentials)
-- [ID-porten](idporten.md#runtime-variables-credentials)
-- [TokenX](tokenx.md#runtime-variables-credentials)
+- [Azure AD](../../security/auth/azure-ad/usage.md#runtime-variables-credentials)
+- [ID-porten](../../security/auth/idporten.md#runtime-variables-credentials)
+- [TokenX](../../security/auth/tokenx.md#runtime-variables-credentials)
 
 #### Client Authentication
 
@@ -428,7 +428,7 @@ Validation should always be performed before granting access to any [resource se
 Use well-known and widely used libraries and frameworks that take care of most
 of the heavy lifting for you.
 
-See [libraries and frameworks](development.md#libraries-and-frameworks) for a non-comprehensive list.
+See [libraries and frameworks](../../security/auth/development.md#libraries-and-frameworks) for a non-comprehensive list.
 
 #### Signature Validation
 
@@ -469,10 +469,10 @@ Most libraries will have implementations to automatically validate these de fact
 
 See the individual identity provider pages for specific validation related to each provider:
 
-- [Azure AD](azure-ad/usage.md#token-validation)
-- [ID-porten](idporten.md#token-validation)
-- [Maskinporten](maskinporten/scopes.md#3-validate-tokens)
-- [TokenX](tokenx.md#token-validation)
+- [Azure AD](../../security/auth/azure-ad/usage.md#token-validation)
+- [ID-porten](../../security/auth/idporten.md#token-validation)
+- [Maskinporten](../../security/auth/maskinporten/scopes.md#3-validate-tokens)
+- [TokenX](../../security/auth/tokenx.md#token-validation)
 
 ---
 

@@ -6,7 +6,7 @@ tags: [maskinporten]
 
 The NAIS platform provides support for declarative provisioning of Maskinporten clients.
 
-A [client](../concepts.md#client) allows your application to integrate with Maskinporten to acquire access tokens.
+A [client](../../../auth/explanations/README.md#client) allows your application to integrate with Maskinporten to acquire access tokens.
 These tokens authenticate your application when consuming external APIs whom require Maskinporten tokens.
 
 ## Spec
@@ -44,12 +44,12 @@ The files are available at the following path: `/var/run/secrets/nais.io/maskinp
 
 | Name                          | Description                                                                                               |
 |:------------------------------|:----------------------------------------------------------------------------------------------------------|
-| `MASKINPORTEN_CLIENT_ID`      | [Client ID](../concepts.md#client-id) that uniquely identifies the client in Maskinporten.                |
-| `MASKINPORTEN_CLIENT_JWK`     | [Private JWK](../concepts.md#private-keys) (RSA) for the client.                                          |
+| `MASKINPORTEN_CLIENT_ID`      | [Client ID](../../../auth/explanations/README.md#client-id) that uniquely identifies the client in Maskinporten.                |
+| `MASKINPORTEN_CLIENT_JWK`     | [Private JWK](../../../auth/explanations/README.md#private-keys) (RSA) for the client.                                          |
 | `MASKINPORTEN_SCOPES`         | Whitespace-separated string of scopes registered for the client.                                          |
-| `MASKINPORTEN_WELL_KNOWN_URL` | The well-known URL for the [metadata discovery document](../concepts.md#well-known-url-metadata-document) |
-| `MASKINPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](../concepts.md#issuer).                                   |
-| `MASKINPORTEN_TOKEN_ENDPOINT` | `token_endpoint` from the [metadata discovery document](../concepts.md#token-endpoint).                   |
+| `MASKINPORTEN_WELL_KNOWN_URL` | The well-known URL for the [metadata discovery document](../../../auth/explanations/README.md#well-known-url-metadata-document) |
+| `MASKINPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](../../../auth/explanations/README.md#issuer).                                   |
+| `MASKINPORTEN_TOKEN_ENDPOINT` | `token_endpoint` from the [metadata discovery document](../../../auth/explanations/README.md#token-endpoint).                   |
 
 These variables are used when acquiring tokens.
 
@@ -84,8 +84,8 @@ Provisioning of client will fail otherwise.
 
 To acquire a token from Maskinporten, you will need to create a JWT grant.
 
-A JWT grant is a [JWT](../concepts.md#jwt) that is used to [authenticate your client](../concepts.md#client-assertion) with Maskinporten.
-The token is signed using a [private key](../concepts.md#private-keys) belonging to your client.
+A JWT grant is a [JWT](../../../auth/explanations/README.md#jwt) that is used to [authenticate your client](../../../auth/explanations/README.md#client-assertion) with Maskinporten.
+The token is signed using a [private key](../../../auth/explanations/README.md#private-keys) belonging to your client.
 
 #### 2.1. Create JWT Grant
 
@@ -95,7 +95,7 @@ The **header** should consist of the following parameters:
 
 | Parameter | Value            | Description                                                                                                                                                                                                                                                |
 |:----------|:-----------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **`kid`** | `<kid-from-JWK>` | The key identifier of the [private JWK](../concepts.md#private-keys) used to sign the assertion. The private key is found in the `MASKINPORTEN_CLIENT_JWK` [environment variable](#runtime-variables-credentials).                                         |
+| **`kid`** | `<kid-from-JWK>` | The key identifier of the [private JWK](../../../auth/explanations/README.md#private-keys) used to sign the assertion. The private key is found in the `MASKINPORTEN_CLIENT_JWK` [environment variable](#runtime-variables-credentials).                                         |
 | **`typ`** | `JWT`            | Represents the type of this JWT. Set this to `JWT`.                                                                                                                                                                                                        |
 | **`alg`** | `RS256`          | Represents the cryptographic algorithm used to secure the JWT. Set this to `RS256`.                                                                                                                                                                        |
 
@@ -250,7 +250,7 @@ See the [Maskinporten token documentation](https://docs.digdir.no/docs/Maskinpor
 
 Once you have acquired the token, you can finally consume the external API.
 
-Use the token in the `Authorization` header as a [Bearer token](../concepts.md#bearer-token):
+Use the token in the `Authorization` header as a [Bearer token](../../../auth/explanations/README.md#bearer-token):
 
 ```http
 GET /resource HTTP/1.1

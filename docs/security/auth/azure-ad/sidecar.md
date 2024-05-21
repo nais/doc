@@ -49,7 +49,7 @@ Try out a basic user flow:
 
 1. Visit your application's login endpoint (`https://<ingress>/oauth2/login`) to trigger a login.
 2. After logging in, you should be redirected back to your application.
-3. All further requests to your application should now have an `Authorization` header with the user's access token as a [Bearer token](../concepts.md#bearer-token)
+3. All further requests to your application should now have an `Authorization` header with the user's access token as a [Bearer token](../../../auth/explanations/README.md#bearer-token)
 4. Visit your application's logout endpoint (`https://<ingress>/oauth2/logout`) to trigger a logout.
 5. You will be redirected to Azure AD for logout, and then back to your application's ingress.
 6. Success!
@@ -58,7 +58,7 @@ Try out a basic user flow:
 
 ### Token Validation
 
-The sidecar attaches an `Authorization` header with the user's `access_token` as a [Bearer token](../concepts.md#bearer-token), as long as the user is authenticated.
+The sidecar attaches an `Authorization` header with the user's `access_token` as a [Bearer token](../../../auth/explanations/README.md#bearer-token), as long as the user is authenticated.
 
 It is your responsibility to **validate the token** before granting access to resources.
 
