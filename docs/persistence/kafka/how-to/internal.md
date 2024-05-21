@@ -18,14 +18,19 @@ This guide will show you how to use Kafka Streams with internal topics.
           team: <MY-TEAM>
       spec:
         kafka:
-          pool: <MY-POOL> # TODO: link to available tenant pools
+          pool: <MY-POOL>
           streams: true
     ```
+
+Select a `pool` from one of the [available pools](../reference/pools.md).
+
 ## Configure your application
+
 When you do this you **must** configure Kafka Streams by setting the property `application.id` to a value that starts
 with the value of the env var `KAFKA_STREAMS_APPLICATION_ID`, which will be injected into your pod automatically.
 
 ## Apply the application
+
 === "Automatically"
     Add the file to your application repository to deploy with [NAIS github action](../../../build/how-to/build-and-deploy.md).
 === "Manually"

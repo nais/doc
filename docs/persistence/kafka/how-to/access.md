@@ -24,8 +24,10 @@ You need an existing topic to access. See [Create a Kafka topic](create.md) for 
           team: <MY-TEAM>
       spec:
         kafka:
-          pool: <MY-POOL> # TODO: link to available tenant pools
+          pool: <MY-POOL>
     ```
+
+Select a `pool` from one of the [available pools](../reference/pools.md).
 
 ## Grant access to the topic
 
