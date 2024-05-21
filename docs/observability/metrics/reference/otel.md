@@ -30,11 +30,17 @@ Target information is exported as a set of labels, including:
 
 The OpenTelemetry SDKs and auto-instrumentation libraries export the following metrics for HTTP servers:
 
-| Metric Name                                | Description                                            |
-| ------------------------------------------ | ------------------------------------------------------ |
-| `http_server_duration_milliseconds_bucket` | Duration of HTTP server requests, in milliseconds.     |
-| `http_server_duration_milliseconds_count`  | Count of HTTP server requests, by duration.            |
-| `http_server_duration_milliseconds_sum`    | Sum of HTTP server request durations, in milliseconds. |
+| Metric Name                                   | Description                                                 |
+| --------------------------------------------- | ----------------------------------------------------------- |
+| `http_server_request_duration_seconds_bucket` | Duration of HTTP server requests, in seconds (java)         |
+| `http_server_duration_milliseconds_bucket`    | Duration of HTTP server requests, in milliseconds (node.js) |
+
+## HTTP Client Metrics
+
+| Metric Name                                   | Description                                                 |
+| --------------------------------------------- | ----------------------------------------------------------- |
+| `http_client_request_duration_seconds_bucket` | Duration of HTTP client requests, in seconds (java)         |
+| `http_client_duration_milliseconds_bucket`    | Duration of HTTP client requests, in milliseconds (node.js) |
 
 ## Database Client Connection Metrics
 
