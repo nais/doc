@@ -49,7 +49,7 @@ gh repo view --web
 
 Click on `Settings` -> `Collaborators and teams` -> `Add teams`.
 
-Select your team, and grant them the `Write` role.
+Select your team, and grant them the `Admin` role.
 
 You have now successfully created your own application repository and granted your team access to it.
 In the next steps we will have a closer look at the files needed to make this application NAIS!
