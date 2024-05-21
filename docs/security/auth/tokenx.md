@@ -1,5 +1,5 @@
 ---
-tags: [authentication, services]
+tags: [auth, services]
 description: Enabling zero trust on the application layer
 ---
 

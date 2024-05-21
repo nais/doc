@@ -1,5 +1,5 @@
 ---
-tags: [authentication, explanation]
+tags: [auth, explanation]
 ---
 
 # Development

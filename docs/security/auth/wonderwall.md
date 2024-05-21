@@ -1,6 +1,6 @@
 ---
 title: Wonderwall
-tags: [authentication, sidecar, services]
+tags: [auth, sidecar, services]
 description: Sidecar for authentication
 ---
 
