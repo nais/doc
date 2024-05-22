@@ -50,22 +50,22 @@ The client assertion is a JWT that consists of a **header**, a **payload** and a
 
 The **header** should consist of the following parameters:
 
-| Parameter | Value            | Description                                                                                                                                                                                                                                            |
-|:----------|:-----------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **`kid`** | `<kid-from-JWK>` | The key identifier of the [private JWK](../../explanations/README.md#private-keys) used to sign the assertion. The private key is found in the `MASKINPORTEN_CLIENT_JWK` [environment variable](../reference/README.md#runtime-variables-credentials). |
-| **`typ`** | `JWT`            | Represents the type of this JWT. Set this to `JWT`.                                                                                                                                                                                                    |
-| **`alg`** | `RS256`          | Represents the cryptographic algorithm used to secure the JWT. Set this to `RS256`.                                                                                                                                                                    |
+| Parameter | Value            | Description                                                                                                                                                                                                     |
+|:----------|:-----------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **`kid`** | `<kid-from-JWK>` | The key identifier of the [private JWK](../../explanations/README.md#private-keys) used to sign the assertion. The private key is found in the `MASKINPORTEN_CLIENT_JWK` [environment variable][variables-ref]. |
+| **`typ`** | `JWT`            | Represents the type of this JWT. Set this to `JWT`.                                                                                                                                                             |
+| **`alg`** | `RS256`          | Represents the cryptographic algorithm used to secure the JWT. Set this to `RS256`.                                                                                                                             |
 
 The **payload** should have the following claims:
 
-| Claim       | Example Value                          | Description                                                                                                                                                                                                                       |
-|:------------|:---------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **`aud`**   | `https://test.maskinporten.no/`        | The _audience_ of the token. Set this to the Maskinporten `issuer`, i.e. [`MASKINPORTEN_ISSUER`](../reference/README.md/#runtime-variables-credentials).                                                                          |
-| **`iss`**   | `60dea49a-255b-48b5-b0c0-0974ac1c0b53` | The _issuer_ of the token. Set this to your `client_id`, i.e. [`MASKINPORTEN_CLIENT_ID`](../reference/README.md/#runtime-variables-credentials).                                                                                  |
-| **`scope`** | `nav:test/api`                         | `scope` is a whitespace-separated list of scopes that you want in the issued token from Maskinporten.                                                                                                                             |
-| **`iat`**   | `1698435010`                           | `iat` stands for _issued at_. Timestamp (seconds after Epoch) for when the JWT was issued or created.                                                                                                                             |
-| **`exp`**   | `1698435070`                           | `exp` is the _expiration time_. Timestamp (seconds after Epoch) for when the JWT is no longer valid. This **must** be less than **120** seconds after `iat`. A lifetime between 10-30 seconds should be fine for most situations. |
-| **`jti`**   | `2d1a343c-6e7d-4ace-ae47-4e77bcb52db9` | The _JWT ID_ of the token. Used to uniquely identify a token. Set this to a unique value such as an UUID.                                                                                                                         |
+| Claim       | Example Value                          | Description                                                                                               |
+|:------------|:---------------------------------------|:----------------------------------------------------------------------------------------------------------|
+| **`aud`**   | `https://test.maskinporten.no/`        | The _audience_ of the token. Set to [`MASKINPORTEN_ISSUER`][variables-ref].                               |
+| **`iss`**   | `60dea49a-255b-48b5-b0c0-0974ac1c0b53` | The _issuer_ of the token. Set to [`MASKINPORTEN_CLIENT_ID`][variables-ref].                              |
+| **`scope`** | `nav:test/api`                         | `scope` is a whitespace-separated list of scopes that you want in the issued token from Maskinporten.     |
+| **`iat`**   | `1698435010`                           | `iat` stands for _issued at_. Set to now.                                                                 |
+| **`exp`**   | `1698435070`                           | `exp` is the _expiration time_. Between 1 and 120 seconds after now. Typically 30 seconds is fine         |
+| **`jti`**   | `2d1a343c-6e7d-4ace-ae47-4e77bcb52db9` | The _JWT ID_ of the token. Used to uniquely identify a token. Set this to a unique value such as an UUID. |
 
 If the API provider requires the use of an [audience-restricted token](https://docs.digdir.no/maskinporten_func_audience_restricted_tokens.html), you must also include the following claim:
 
@@ -164,7 +164,7 @@ The body of the request should contain the following parameters:
 | `grant_type` | `urn:ietf:params:oauth:grant-type:jwt-bearer` | Type of grant the client is sending. Always `urn:ietf:params:oauth:grant-type:jwt-bearer`. |
 | `assertion`  | `eyJraWQ...`                                  | The client assertion itself. It should be unique and only used once.                       |
 
-Send the request to the `token_endpoint`, i.e. [`MASKINPORTEN_TOKEN_ENDPOINT`](../reference/README.md#runtime-variables-credentials):
+Send the request to the `token_endpoint`, i.e. [`MASKINPORTEN_TOKEN_ENDPOINT`][variables-ref]:
 
 ```http
 POST ${MASKINPORTEN_TOKEN_ENDPOINT} HTTP/1.1
@@ -186,7 +186,7 @@ Maskinporten will respond with a JSON object that contains the access token.
 }
 ```
 
-???+ note "Cache your tokens!"
+???+ note "Cache your tokens"
 
     The `expires_in` field in the response indicates the lifetime of the token in seconds.
 
@@ -207,4 +207,4 @@ Host: api.example.com
 Authorization: Bearer eyJraWQ...
 ```
 
-Success!
+[variables-ref]: ../reference/README.md#variables-for-acquiring-tokens

@@ -211,7 +211,7 @@ handling the OIDC flows we offer our "OIDC as a sidecar" named
 
 For service to service-communication further down in the call chain we offer our
 own implementation of the "OAuth2 Token Exchange" standard named
-[TokenX](auth/tokenx.md). Using TokenX eliminates the need for shared "service
+[TokenX](../auth/tokenx/README.md). Using TokenX eliminates the need for shared "service
 users" with long-lived credentials and wide permissions.
 
 For machine to machine-communication between government agencies "Maskinporten"

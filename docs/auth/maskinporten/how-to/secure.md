@@ -67,7 +67,7 @@ Additionally, perform the following validations:
 
 Validate that the `iss` claim has a value that is equal to either:
 
-1. the `MASKINPORTEN_ISSUER` [environment variable](#runtime-variables-credentials), or
+1. the [`MASKINPORTEN_ISSUER`][variables-ref] environment variable, or
 2. the `issuer` property from the [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document).
    The document is found at the endpoint pointed to by the `MASKINPORTEN_WELL_KNOWN_URL` environment variable.
 
@@ -90,9 +90,9 @@ The value must be an absolute URI (such as `https://some-provider.no` or `https:
 Validate that the token is signed with a public key published at the JWKS endpoint.
 This endpoint URI can be found in one of two ways:
 
-1. the `MASKINPORTEN_JWKS_URI` environment variable, or
+1. the [`MASKINPORTEN_JWKS_URI`][variables-ref] environment variable, or
 2. the `jwks_uri` property from the metadata discovery document.
-   The document is found at the endpoint pointed to by the `MASKINPORTEN_WELL_KNOWN_URL` environment variable.
+   The document is found at the endpoint pointed to by the [`MASKINPORTEN_WELL_KNOWN_URL`][variables-ref] environment variable.
 
 **Other Token Claims**
 
@@ -100,3 +100,5 @@ Other claims may be present in the token.
 Validation of these claims is optional.
 
 See the [Access Token Reference in Maskinporten](https://docs.digdir.no/docs/Maskinporten/maskinporten_protocol_token#the-access-token) for a list of all claims.
+
+[variables-ref]: ../reference/README.md#variables-for-validating-tokens

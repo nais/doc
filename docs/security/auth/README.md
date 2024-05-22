@@ -40,7 +40,7 @@ The new tokens should:
 
 **Citizen-facing applications**
 
-Use the [OAuth 2.0 Token Exchange Grant (TokenX)](tokenx.md).
+Use the [OAuth 2.0 Token Exchange Grant (TokenX)](../../auth/tokenx/README.md).
  
 **Employee-facing applications**
 

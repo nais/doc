@@ -18,7 +18,7 @@ NAIS helps your applications [log in users](#logging-in-users), [validate inboun
 
 - [**TokenX**][TokenX]
 
-    Internal, for applications acting on-behalf-of ID-porten citizens.
+    For internal applications acting on-behalf-of ID-porten citizens.
 
 - [**Maskinporten**][Maskinporten]
 
@@ -91,5 +91,5 @@ The graph above can also be described as:
 
 [Azure AD]: ../security/auth/azure-ad/README.md
 [ID-porten]: ../security/auth/idporten.md
-[TokenX]: ../security/auth/tokenx.md
+[TokenX]: tokenx/README.md
 [Maskinporten]: maskinporten/README.md

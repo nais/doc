@@ -182,6 +182,7 @@ plugins:
         "security/auth/maskinporten/README.md": "auth/maskinporten/README.md"
         "security/auth/maskinporten/client.md": "auth/maskinporten/how-to/consume.md"
         "security/auth/maskinporten/scopes.md": "auth/maskinporten/how-to/secure.md"
+        "security/auth/tokenx.md": "auth/tokenx/README.md"
         "security/salsa/salsa.md": "services/salsa.md"
         "security/salsa.md": "services/salsa.md"
         "tutorial/hello-nais/README.md": "tutorials/hello-nais.md"
