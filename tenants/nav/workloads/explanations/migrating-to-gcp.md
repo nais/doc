@@ -216,8 +216,8 @@ The application _in GCP_ must then:
 [environments]: ../reference/environments.md
 [secrets]: ../../services/secrets/README.md
 [auth]: ../../security/auth/README.md
-[tokenx]: ../../security/auth/tokenx.md#access-policies
-[tokenx-access]: ../../security/auth/tokenx.md
+[tokenx]: ../../auth/tokenx/README.md
+[tokenx-access]: ../../auth/tokenx/how-to/secure.md#grant-access
 [azure-ad]: ../../security/auth/azure-ad/README.md
 [azure-ad-access]: ../../security/auth/azure-ad/configuration.md#pre-authorization
 [access-policies]: ../how-to/access-policies.md
