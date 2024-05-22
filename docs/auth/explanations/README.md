@@ -36,7 +36,7 @@ There are multiple ways of obtaining such a grant, depending on the use case:
 
 **External applications**
 
-- [Machine-to-machine with Maskinporten](../../security/auth/maskinporten/client.md)
+- [Machine-to-machine with Maskinporten](../maskinporten/README.md)
 
 **Citizen-facing applications**
 
@@ -74,7 +74,7 @@ Providers that the platform supports provisioning for:
 
 - [Azure AD](../../security/auth/azure-ad/README.md)
 - [ID-porten](../../security/auth/idporten.md)
-- [Maskinporten](../../security/auth/maskinporten/README.md)
+- [Maskinporten](../maskinporten/README.md)
 - [TokenX](../../security/auth/tokenx.md)
 
 #### Well-Known URL / Metadata Document
@@ -471,7 +471,7 @@ See the individual identity provider pages for specific validation related to ea
 
 - [Azure AD](../../security/auth/azure-ad/usage.md#token-validation)
 - [ID-porten](../../security/auth/idporten.md#token-validation)
-- [Maskinporten](../../security/auth/maskinporten/scopes.md#3-validate-tokens)
+- [Maskinporten](../maskinporten/how-to/secure.md#validate-tokens)
 - [TokenX](../../security/auth/tokenx.md#token-validation)
 
 ---

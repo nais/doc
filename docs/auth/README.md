@@ -2,7 +2,7 @@
 tags: [auth, explanation]
 description: Services and addons to support authentication and authorization in your applications.
 ---
-# Authentication and authorization overview
+# Authentication and Authorization Overview
 
 NAIS helps your applications [log in users](#logging-in-users), [validate inbound requests](#validating-inbound-requests) and [make authenticated outbound requests](#making-outbound-requests) using the following identity providers:
 
@@ -92,4 +92,4 @@ The graph above can also be described as:
 [Azure AD]: ../security/auth/azure-ad/README.md
 [ID-porten]: ../security/auth/idporten.md
 [TokenX]: ../security/auth/tokenx.md
-[Maskinporten]: ../security/auth/maskinporten/README.md
+[Maskinporten]: maskinporten/README.md
