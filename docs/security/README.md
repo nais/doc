@@ -216,7 +216,7 @@ users" with long-lived credentials and wide permissions.
 
 For machine to machine-communication between government agencies "Maskinporten"
 is widely used. The platform offers [the same type of
-support](auth/maskinporten/README.md) for integrating with Maskinporten as we do
+support](../auth/maskinporten/README.md) for integrating with Maskinporten as we do
 for the other OIDC/OAuth uses cases mentioned above.
 
 #### Network security

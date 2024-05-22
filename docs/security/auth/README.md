@@ -64,7 +64,7 @@ Use the [OAuth 2.0 Client Credentials Grant in Azure AD](azure-ad/usage.md#oauth
 
 **External**
 
-Use the [OAuth 2.0 JWT Authorization Grant in Maskinporten](maskinporten/client.md).
+Use the [OAuth 2.0 JWT Authorization Grant in Maskinporten](../../auth/maskinporten/README.md).
 
 ---
 
