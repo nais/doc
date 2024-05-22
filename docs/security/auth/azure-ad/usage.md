@@ -274,7 +274,7 @@ Tokens in NAV are v2.0 tokens.
 
 ## Local Development
 
-See also the [development overview](../development.md) page.
+See also the [development overview](../../../auth/reference/README.md) page.
 
 ### Token Generator
 

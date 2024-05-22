@@ -40,7 +40,7 @@ There are multiple ways of obtaining such a grant, depending on the use case:
 
 **Citizen-facing applications**
 
-- [On-behalf-of an end-user with TokenX](../../security/auth/tokenx.md)
+- [On-behalf-of an end-user with TokenX](../tokenx/README.md)
 
 ### OpenID Connect
 
@@ -75,7 +75,7 @@ Providers that the platform supports provisioning for:
 - [Azure AD](../../security/auth/azure-ad/README.md)
 - [ID-porten](../../security/auth/idporten.md)
 - [Maskinporten](../maskinporten/README.md)
-- [TokenX](../../security/auth/tokenx.md)
+- [TokenX](../tokenx/README.md)
 
 #### Well-Known URL / Metadata Document
 
@@ -198,7 +198,7 @@ See the respective identity provider page for details:
 
 - [Azure AD](../../security/auth/azure-ad/usage.md#runtime-variables-credentials)
 - [ID-porten](../../security/auth/idporten.md#runtime-variables-credentials)
-- [TokenX](../../security/auth/tokenx.md#runtime-variables-credentials)
+- [TokenX](../tokenx/README.md#runtime-variables-credentials)
 
 #### Client Authentication
 
@@ -428,7 +428,7 @@ Validation should always be performed before granting access to any [resource se
 Use well-known and widely used libraries and frameworks that take care of most
 of the heavy lifting for you.
 
-See [libraries and frameworks](../../security/auth/development.md#libraries-and-frameworks) for a non-comprehensive list.
+See [libraries and frameworks](../reference/README.md#libraries-and-frameworks-for-validating-and-acquiring-tokens) for a non-comprehensive list.
 
 #### Signature Validation
 
@@ -472,7 +472,7 @@ See the individual identity provider pages for specific validation related to ea
 - [Azure AD](../../security/auth/azure-ad/usage.md#token-validation)
 - [ID-porten](../../security/auth/idporten.md#token-validation)
 - [Maskinporten](../maskinporten/how-to/secure.md#validate-tokens)
-- [TokenX](../../security/auth/tokenx.md#token-validation)
+- [TokenX](../tokenx/README.md#token-validation)
 
 ---
 

@@ -197,7 +197,7 @@ The access token provided by the sidecar should only be accepted and used by you
 
 To access other applications, you need a token scoped to the target application.
 
-For ID-porten, use the [token exchange grant (TokenX)](tokenx.md#exchanging-a-token) to exchange the token for a new token.
+For ID-porten, use [TokenX](../../auth/tokenx/how-to/consume.md) to exchange the token for a new token.
 
 !!! tip "Recommended: JavaScript Library"
 

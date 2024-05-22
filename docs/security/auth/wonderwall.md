@@ -644,7 +644,7 @@ To access other applications, you exchange the token to a new token that is corr
 
 === "ID-porten"
     
-    For ID-porten, use the [token exchange grant (TokenX)](tokenx.md#exchanging-a-token) to exchange the token.
+    For ID-porten, use [TokenX](../../auth/tokenx/how-to/consume.md) to exchange the token.
     
 === "Azure AD"
 
