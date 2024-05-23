@@ -6,10 +6,10 @@ tags: [tokenx, how-to]
 
 This how-to guides you through the steps required to secure your API using [TokenX](../README.md):
 
-1. [Grant access to your consumers](#grant-access)
+1. [Grant access to your consumers](#grant-access-to-consumers)
 1. [Validate tokens in requests from consumers](#validate-tokens)
 
-## Grant access
+## Grant access to consumers
 
 Specify inbound access policies to authorize your consumers:
 
@@ -20,9 +20,11 @@ spec:
   accessPolicy:
     inbound:
       rules:
-        - application: app-1
-        - application: app-2
+        - application: app-1  # same namespace and cluster
+
+        - application: app-2  # same cluster
           namespace: team-a
+
         - application: app-3
           namespace: team-b
           cluster: prod-gcp

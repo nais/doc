@@ -13,7 +13,7 @@ In addition to the [standard claims](../../explanations/README.md#claims-validat
 | `idp`       | The original [`issuer`](../../explanations/README.md#issuer) of the subject token                                                                              |
 | `client_id` | The consumer's [`client_id`](../../explanations/README.md#client-id) using the naming scheme `<cluster>:<namespace>:<appname>` e.g. `prod-gcp:namespace1:app1` |
 
-Other claims such as `pid` and `acr` are copied verbatim from the [original token issued by ID-porten](../../../security/auth/idporten.md#other-token-claims).
+Other claims such as `pid` are copied verbatim from the [original token issued by ID-porten](../../../security/auth/idporten.md#other-token-claims).
 
 ### Claim Mappings
 
@@ -31,11 +31,11 @@ If you're using the `acr` claim in any way, check for both the original and mapp
 
 ## Runtime Variables & Credentials
 
-Your application will automatically be injected with environment variable.
+Your application will automatically be injected with environment variables at runtime.
 
 ### Variables for acquiring tokens
 
-These variables are used for [consuming an API](../how-to/consume.md):
+These variables are used to [:dart: consume an API](../how-to/consume.md):
 
 | Name                     | Description                                                                                               |
 |:-------------------------|:----------------------------------------------------------------------------------------------------------|
@@ -45,7 +45,7 @@ These variables are used for [consuming an API](../how-to/consume.md):
 
 ### Variables for validating tokens
 
-These variables are used for [securing an API](../how-to/secure.md):
+These variables are used to [:dart: secure your API](../how-to/secure.md):
 
 | Name                     | Description                                                                                                           |
 |:-------------------------|:----------------------------------------------------------------------------------------------------------------------|
@@ -56,11 +56,4 @@ These variables are used for [securing an API](../how-to/secure.md):
 
 ## Spec
 
-See the [NAIS manifest](../../../workloads/application/reference/application-spec.md#tokenx).
-
-## Token Generator
-
-In some cases, you want to locally develop and test against a secured API in the development environments.
-To do so, you need a token to access said API.
-
-Learn how to [generate a token for local development](../how-to/generate.md) for details.
+See the [:books: NAIS application reference](../../../workloads/application/reference/application-spec.md#tokenx).
