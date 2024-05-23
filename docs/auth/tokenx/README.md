@@ -6,7 +6,7 @@ tags: [auth, services]
 
 TokenX is NAIS' own implementation of OAuth 2.0 Token Exchange.
 
-This allows internal applications to act on behalf of a citizen that originally authenticated with [ID-porten](../../security/auth/idporten.md),
+This allows internal applications to act on behalf of a citizen that originally authenticated with [ID-porten](../idporten/README.md),
 while maintaining the [zero trust](../../workloads/explanations/zero-trust.md) security model between applications throughout a request chain.
 
 NAIS provides support for declarative registration and configuration of TokenX resources.

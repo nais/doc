@@ -179,6 +179,7 @@ plugins:
         "reference/observability/tracing/traceql.md": "observability/tracing/reference/traceql.md"
         "reference/secrets.md": "services/secrets/README.md"
         "security/auth/concepts.md": "auth/explanations/README.md"
+        "security/auth/idporten.md": "auth/idporten/README.md"
         "security/auth/maskinporten/README.md": "auth/maskinporten/README.md"
         "security/auth/maskinporten/client.md": "auth/maskinporten/how-to/consume.md"
         "security/auth/maskinporten/scopes.md": "auth/maskinporten/how-to/secure.md"

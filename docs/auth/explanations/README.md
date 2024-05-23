@@ -50,7 +50,7 @@ It is used to authenticate end users.
 The platform provides opt-in sidecars that implement OpenID Connect:
 
 - [Sidecar for Azure AD](../../security/auth/azure-ad/sidecar.md) (employee-facing applications)
-- [Sidecar for ID-porten](../../security/auth/idporten.md) (citizen-facing applications)
+- [Sidecar for ID-porten](../idporten/README.md) (citizen-facing applications)
 
 Due to the complexity involved in implementing and maintaining such clients, we recommend that your applications use
 these sidecars when possible.
@@ -73,7 +73,7 @@ Similar terms such as _authorization server_ (AS) or _OpenID provider_ (OP) are 
 Providers that the platform supports provisioning for:
 
 - [Azure AD](../../security/auth/azure-ad/README.md)
-- [ID-porten](../../security/auth/idporten.md)
+- [ID-porten](../idporten/README.md)
 - [Maskinporten](../maskinporten/README.md)
 - [TokenX](../tokenx/README.md)
 
@@ -197,7 +197,7 @@ The client ID for your client is injected at runtime as an environment variable.
 See the respective identity provider page for details:
 
 - [Azure AD](../../security/auth/azure-ad/usage.md#runtime-variables-credentials)
-- [ID-porten](../../security/auth/idporten.md#runtime-variables-credentials)
+- [ID-porten](../idporten/reference/README.md#runtime-variables-credentials)
 - [TokenX](../tokenx/README.md#runtime-variables-credentials)
 
 #### Client Authentication
@@ -470,7 +470,7 @@ Most libraries will have implementations to automatically validate these de fact
 See the individual identity provider pages for specific validation related to each provider:
 
 - [Azure AD](../../security/auth/azure-ad/usage.md#token-validation)
-- [ID-porten](../../security/auth/idporten.md#token-validation)
+- [ID-porten](../idporten/how-to/secure.md#validate-token-in-authorization-header)
 - [Maskinporten](../maskinporten/how-to/secure.md#validate-tokens)
 - [TokenX](../tokenx/README.md#token-validation)
 

@@ -90,6 +90,6 @@ The graph above can also be described as:
 :material-server: Make requests to external API :octicons-arrow-right-24: [Maskinporten]
 
 [Azure AD]: ../security/auth/azure-ad/README.md
-[ID-porten]: ../security/auth/idporten.md
+[ID-porten]: idporten/README.md
 [TokenX]: tokenx/README.md
 [Maskinporten]: maskinporten/README.md

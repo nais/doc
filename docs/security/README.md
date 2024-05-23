@@ -204,7 +204,7 @@ assist.
 We recommend using OIDC to authenticate humans. The platform will (given a few
 lines of configuration) automatically provision clients at our main identity
 providers [Azure AD](auth/azure-ad/README.md) (for employees) and
-[ID-porten](auth/idporten.md) (for the public). The secrets associated with
+[ID-porten](../auth/idporten/README.md) (for the public). The secrets associated with
 these clients are handled behind the scenes and rotated regularly. To ease
 handling the OIDC flows we offer our "OIDC as a sidecar" named
 [Wonderwall](auth/wonderwall.md).

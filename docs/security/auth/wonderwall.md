@@ -111,7 +111,7 @@ Wonderwall currently supports the following [identity providers][identity provid
 
     For citizen end-users.
 
-    [:octicons-arrow-right-24: Read more about ID-porten](idporten.md)
+    [:octicons-arrow-right-24: Read more about ID-porten](../../auth/idporten/README.md)
 
 -   :octicons-server-24:{ .lg .middle } **Azure AD**
 
@@ -382,7 +382,7 @@ See the specific identity provider pages for further details on token validation
 
 === "ID-porten"
 
-    [:octicons-arrow-right-24: Read more about Token Validation for ID-porten](idporten.md#token-validation)
+    [:octicons-arrow-right-24: Read more about Token Validation for ID-porten](../../auth/idporten/how-to/secure.md#validate-token-in-authorization-header)
 
 === "Azure AD"
 
