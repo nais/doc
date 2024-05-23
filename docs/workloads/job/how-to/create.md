@@ -48,7 +48,7 @@ Add the following content to the file, and insert the appropriate values in the 
 
 This job manifest will run your code every hour. If you want to run your job only once, you can remove the `schedule` field.
 
-## What's next?
+## Related pages
 
 :dart: [Build and deploy your job to NAIS](../../../build/how-to/build-and-deploy.md).
 

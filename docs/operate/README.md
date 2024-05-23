@@ -11,7 +11,7 @@ Most of the management tasks can be done through the [NAIS Console](console.md),
 
 Some more advanced use-cases still requires you to interact with the platform using the Kubernetes CLI, `kubectl`. 
 
-## What's next?
+## Related pages
 
 :bulb: [Learn more about Console](console.md)
 

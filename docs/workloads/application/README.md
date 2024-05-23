@@ -10,7 +10,7 @@ An application is defined by its application manifest, which is a YAML file that
 
 Once the application manifest is applied, NAIS will set up your application as specified. If you've requested resources, NAIS will provision and configure your application to use those resources.
 
-## What's next?
+## Related pages
 
 [:bulb: Learn more about exposing your application](explanations/expose.md)
 

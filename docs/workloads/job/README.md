@@ -10,7 +10,7 @@ A job is defined by its job manifest, which is a YAML file that describes how th
 
 Once the job manifest is applied, NAIS will set up your job as specified. If you've requested resources, NAIS will provision and configure your job to use those resources.
 
-## What's next?
+## Related pages
 
 [:dart: Create a job](how-to/create.md)
 
