@@ -75,7 +75,7 @@ Among many others:
 
 {% endif %}
 
-## What's next?
+## Related pages
 
 :dart: Learn how to [upload assets to the CDN](how-to/upload-assets.md)
 

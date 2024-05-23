@@ -52,7 +52,7 @@ Add the following content to the file, and insert the appropriate values in the 
 This application manifest represents a very basic daemon application. 
 You will likely want to add more configuration to your application manifest based on your needs.
 
-## What's next?
+## Related pages
 
 :dart: [Build and deploy your application to NAIS](../../../build/how-to/build-and-deploy.md).
 

@@ -31,7 +31,7 @@ There are two types of secrets on the NAIS platform:
     - User-defined secrets can also be used to store sensitive information specific to your application, such as encryption keys or other private configuration.
 </div>
 
-## What's next?
+## Related pages
 
 :dart: Learn how to [create and manage a secret in Console](how-to/console.md)
 

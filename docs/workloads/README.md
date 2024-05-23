@@ -26,7 +26,7 @@ We support two types of workloads, _applications_ and _jobs_.
 
 </div>
 
-## What's next?
+## Related pages
 
 [:bulb: The workload runtime environment](explanations/environment.md)
 
