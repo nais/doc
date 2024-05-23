@@ -13,7 +13,7 @@ In addition to the [standard claims](../../explanations/README.md#claims-validat
 | `idp`       | The original [`issuer`](../../explanations/README.md#issuer) of the subject token                                                                              |
 | `client_id` | The consumer's [`client_id`](../../explanations/README.md#client-id) using the naming scheme `<cluster>:<namespace>:<appname>` e.g. `prod-gcp:namespace1:app1` |
 
-Other claims such as `pid` are copied verbatim from the [original token issued by ID-porten](../../../security/auth/idporten.md#other-token-claims).
+Other claims such as `pid` are copied verbatim from the [original token issued by ID-porten](../../idporten/reference/README.md#claims).
 
 ### Claim Mappings
 

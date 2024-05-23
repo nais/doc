@@ -17,7 +17,7 @@ This is a usually handled by a server-side component (backend-for-frontend) that
 
 **Citizen-facing applications**
 
-Use the [OpenID Connect Authorization Code Flow in ID-porten](idporten.md).
+Use the [OpenID Connect Authorization Code Flow in ID-porten](../../auth/idporten/README.md).
 
 **Employee-facing applications**
 
