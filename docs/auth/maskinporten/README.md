@@ -26,14 +26,10 @@ graph LR
 
 ## Secure your API
 
-To secure your API with Maskinporten, you'll need to define and grant permissions to your consumers.
+To secure your API with Maskinporten, you'll need to define _permissions_ (also known as _scopes_) and grant consumers access to these.
 
-```mermaid
-graph LR
-    Provider["Application"] -- define and grant permissions---> Maskinporten
-```
+Once configured, your consumers can acquire a token from Maskinporten to [consume your API](#consume-an-api).
 
-Once configured, your consumers can [acquire a token from Maskinporten](#consume-an-api) with these permissions.
-Your application must then validate inbound requests from the consumer.
+Your application code must verify inbound requests by validating the included tokens.
 
 :dart: Learn how to [secure your API using Maskinporten](how-to/secure.md)

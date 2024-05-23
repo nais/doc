@@ -8,7 +8,7 @@ This how-to guides you through the steps required to generate a token that you c
 
 ## Grant access
 
-[Grant access](secure.md#grant-access) to the token generator service:
+[Grant access](secure.md#grant-access-to-consumers) to the token generator service:
 
 ```yaml title="app.yaml"
 spec:

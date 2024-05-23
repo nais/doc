@@ -7,13 +7,12 @@ tags: [tokenx, how-to]
 This how-to guides you through the steps required to consume an API secured with [TokenX](../README.md):
 
 1. [Configure your application](#configure-your-application)
-1. [Authenticate with TokenX](#authenticate-with-tokenx)
-1. [Exchange token](#exchange-token)
+1. [Exchange token with TokenX](#exchange-token)
 1. [Consume the API using the token](#consume-api)
 
 ## Prerequisites
 
-- The API you're consuming has [granted access to your application](secure.md#grant-access)
+- The API you're consuming has [granted access to your application](secure.md#grant-access-to-consumers)
 
 ## Configure your application
 
@@ -27,12 +26,14 @@ This how-to guides you through the steps required to consume an API secured with
 
 - Depending on how you communicate with the API you're consuming, [configure the appropriate outbound access policies](../../../workloads/how-to/access-policies.md).
 
-## Authenticate with TokenX
+## Exchange token
+
+### Create client assertion
 
 To perform a token exchange, your application must authenticate itself.
 To do so, create a [client assertion](../../explanations/README.md#client-assertion).
 
-The client assertion is signed with your applications [private key](../../explanations/README.md#private-keys) contained within [`TOKEN_X_PRIVATE_JWK`][variables-ref].
+Sign the client assertion with your applications [private key](../../explanations/README.md#private-keys) contained within the [`TOKEN_X_PRIVATE_JWK`][variables-ref] environment variable.
 
 The assertion must contain the following claims:
 
@@ -76,28 +77,25 @@ Additionally, the headers of the assertion must contain the following parameters
     }
     ```
 
-## Exchange token
+### Create and perform exchange request
 
 Now that you have a client assertion, we can use this to exchange the inbound token you received from your consumer.
 
-### Create exchange request
-
 Create a POST request with the following required parameters:
 
-| Parameter               | Value                                                    | Comment                                                                                                          |
-|:------------------------|:---------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------|
-| `grant_type`            | `urn:ietf:params:oauth:grant-type:token-exchange`        |                                                                                                                  |
-| `client_assertion_type` | `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` |                                                                                                                  |
-| `client_assertion`      | A serialized JWT identifying the calling app             | The [client assertion](#authenticate-with-tokenx)                                                                |                                                                                                                  |
-| `subject_token_type`    | `urn:ietf:params:oauth:token-type:jwt`                   |                                                                                                                  |
-| `subject_token`         | A serialized JWT, the token that should be exchanged     | Inbound citizen token, either from ID-porten or TokenX                                                           |
-| `audience`              | The identifier of the app you wish to use the token for  | The target application using the naming scheme `<cluster>:<namespace>:<appname>` e.g. `prod-gcp:namespace1:app1` |
+| Parameter               | Value                                                      | Comment                                                                                                |
+|:------------------------|:-----------------------------------------------------------|:-------------------------------------------------------------------------------------------------------|
+| `grant_type`            | `urn:ietf:params:oauth:grant-type:token-exchange`          |                                                                                                        |
+| `client_assertion_type` | `urn:ietf:params:oauth:client-assertion-type:jwt-bearer`   |                                                                                                        |
+| `client_assertion`      | The [client assertion](#create-client-assertion).          | Token that authenticates your application. Generate a new, unique assertion for each request.          |                                                                                                                  |
+| `subject_token_type`    | `urn:ietf:params:oauth:token-type:jwt`                     |                                                                                                        |
+| `subject_token`         | The inbound citizen token, either from ID-porten or TokenX | Token that should be exchanged                                                                         |
+| `audience`              | The identifier of the target application                   | The value follows the naming scheme `<cluster>:<namespace>:<appname>`, e.g. `prod-gcp:namespace1:app1` |
 
-Send the request to the `token_endpoint`, i.e. [`TOKEN_X_TOKEN_ENDPOINT`][variables-ref].
+Send the request to the `token_endpoint`, i.e. the URL found in the [`TOKEN_X_TOKEN_ENDPOINT`][variables-ref] environment variable.
 
-```http title="Example exchange request"
-POST /token HTTP/1.1
-Host: tokenx.prod-gcp.nav.cloud.nais.io
+```http title="Example request"
+POST ${TOKEN_X_TOKEN_ENDPOINT} HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
 grant_type=urn:ietf:params:oauth:grant-type:token-exchange&
@@ -108,20 +106,19 @@ subject_token=eY...............&
 audience=prod-gcp:namespace1:app1
 ```
 
-### Exchange response
+**Success response**
 
-The response is a JSON object
+TokenX responds with a JSON object that contains the new access token:
 
-```json title="Exchange Response"
+```json title="Success response"
 {
   "access_token" : "eyJraWQiOi..............",
-  "issued_token_type" : "urn:ietf:params:oauth:token-type:access_token",
-  "token_type" : "Bearer",
-  "expires_in" : 899
+  "expires_in" : 899,
+  ...
 }
 ```
 
-???+ note "Cache your tokens"
+???+ tip "Cache your tokens"
 
     The `expires_in` field in the response indicates the lifetime of the token in seconds.
 
@@ -129,9 +126,9 @@ The response is a JSON object
 
     A safe cache key is `key = sha256($subject_token + $audience)`.
 
-### Exchange error response
+**Error response**
 
-If the exchange request is invalid, you will receive a structured error, as specified in 
+If the exchange request is invalid, you will receive a structured error as specified in 
 [RFC 8693, Section 2.2.2](https://www.rfc-editor.org/rfc/rfc8693.html#name-error-response):
 
 ```json title="Error response"
@@ -143,7 +140,7 @@ If the exchange request is invalid, you will receive a structured error, as spec
 
 ## Consume API
 
-Once you have acquired the token, you can finally consume the external API.
+Once you have acquired the token, you can finally consume the target API.
 
 Use the token in the `Authorization` header as a [Bearer token](../../explanations/README.md#bearer-token):
 

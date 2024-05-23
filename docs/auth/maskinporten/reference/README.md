@@ -4,17 +4,13 @@ tags: [maskinporten, reference]
 
 # Maskinporten Reference
 
-## Spec
-
-See the [NAIS manifest reference](../../../workloads/application/reference/application-spec.md#maskinporten) for the complete specification.
-
 ## Runtime Variables & Credentials
 
 Your application will automatically be injected with environment variables at runtime.
 
 ### Variables for acquiring tokens
 
-These variables are used [when acquiring tokens](../how-to/consume.md).
+These variables are used to [:dart: consume an external API](../how-to/consume.md).
 
 | Name                          | Description                                                                                                             |
 |:------------------------------|:------------------------------------------------------------------------------------------------------------------------|
@@ -27,7 +23,7 @@ These variables are used [when acquiring tokens](../how-to/consume.md).
 
 ### Variables for validating tokens
 
-These variables are used [when validating tokens issued by Maskinporten](../how-to/secure.md).
+These variables are used to [:dart: secure your API](../how-to/secure.md).
 
 | Name                          | Description                                                                                                             |
 |:------------------------------|:------------------------------------------------------------------------------------------------------------------------|
@@ -64,19 +60,17 @@ It consists of three parts; _product_, _separator_ and _name_:
 subscope := <product><separator><name>
 ```
 
-#### Product
+**Product**
 
 A product should be a _logical grouping_ of the resource, such as `trygdeopplysninger` or `pensjon`.
 
-#### Separator
+**Separator**
 
-The default separator is `:`
+The default separator is `:`. If `name` contains `/`, the default separator is instead `/`.
 
-If `name` contains `/`, the default separator is instead `/`
+If the [`separator` field](../../../workloads/application/reference/application-spec.md#maskinportenscopesexposesseparator) is configured, it will override the default separator.
 
-If the `separator` field is configured in the exposed scope definition, it will override the default separator.
-
-#### Name
+**Name**
 
 The _name_ may also be _postfixed_ to separate between access levels.
 For instance, you could separate between `write` access:
@@ -119,7 +113,7 @@ name := trygdeopplysninger.read
     subscope := arbeid:some.scope.read
     ```
 
-    which results in the scope:
+    which results in the fully qualified scope:
 
     ```text
     scope := nav:arbeid:some.scope.read
@@ -151,8 +145,12 @@ name := trygdeopplysninger.read
     subscope := arbeid/some/scope.read
     ```
   
-    which results in the scope:
+    which results in the fully qualified scope:
 
     ```text
     scope := nav:arbeid/some/scope.read
     ```
+
+## Spec
+
+See the [:books: NAIS application reference](../../../workloads/application/reference/application-spec.md#maskinporten).

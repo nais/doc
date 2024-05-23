@@ -10,14 +10,13 @@ This how-to guides you through the steps required to secure your API using [Mask
 2. [Grant access to scopes for other organizations](#grant-access-to-consumers)
 3. [Validate tokens in requests from external consumers](#validate-tokens)
 
-### Prerequisites
+## Prerequisites
 
 - [Expose your application](../../../workloads/application/how-to/expose.md) to consumers at a publicly accessible domain.
 
-### Define scopes
+## Define scopes
 
 A _scope_ represents a permission that a given consumer has access to.
-The semantics and enforcement logic for a scope is your application's responsibility.
 
 Declare all the scopes that you want to expose in your application's NAIS manifest:
 
@@ -37,7 +36,7 @@ spec:
 
 See the [scope naming reference](../reference/README.md#scope-naming) for details on naming scopes.
 
-### Grant access to consumers
+## Grant access to consumers
 
 Grant the external consumer access to the scopes by specifying their organization number:
 
@@ -56,7 +55,7 @@ spec:
 Now that you have configured the scopes in Maskinporten, consumers can now request tokens with these scopes.
 You will now need to validate these tokens in your application.
 
-### Validate tokens
+## Validate tokens
 
 Verify incoming requests from the external consumer(s) by validating the [Bearer token](../../explanations/README.md#bearer-token) in the `Authorization` header.
 
@@ -75,6 +74,8 @@ Validate that the `iss` claim has a value that is equal to either:
 
 Validate that the `scope` claim contains the expected scope(s).
 The `scope` claim is a string that contains a whitespace-separated list of scopes.
+
+The semantics and authorization that a scope represents is up to you to define and enforce in your application code.
 
 **Audience Validation**
 

@@ -10,7 +10,7 @@ This how-to guides you through the steps required to consume an API secured with
 2. [Acquire tokens from Maskinporten](#acquire-token)
 3. [Consume the API using the token](#consume-api)
 
-### Declare consumer scopes
+## Declare consumer scopes
 
 Declare all the scopes that you want to consume in your application's NAIS manifest so that your application is granted access to them:
 
@@ -27,24 +27,23 @@ spec:
 The scopes themselves are defined and owned by the external API provider. The exact scope values must be exchanged out-of-band.
 
 {%- if tenant() == "nav" %}
-???+ warning "Organization access"
+???+ warning "Ensure that organization has access to scopes"
 
-    Make sure that the provider has granted **NAV** (organization number `889640782`) consumer access to any scopes that you wish to consume.
+    Make sure that the provider has granted NAV (organization number `889640782`) access to any scopes that you wish to consume.
 
     Provisioning of client will fail otherwise.
 
-
-???+ warning "On-premises network connectivity"
+???+ warning "Use webproxy for outbound network connectivity from on-premises environments"
 
     If you're on-premises, you must enable and use [`webproxy`](../../../workloads/application/reference/application-spec.md#webproxy) to access Maskinporten.
 
 {%- endif %}
 
-### Acquire token
+## Acquire token
 
 To acquire a token from Maskinporten, you will need to create a [client assertion](../../explanations/README.md#client-assertion).
 
-#### Create client assertion
+### Create client assertion
 
 The client assertion is a JWT that consists of a **header**, a **payload** and a **signature**.
 
@@ -150,7 +149,7 @@ Finally, create a **signature** for the client assertion.
         jwtAssertion = jwt.encode(payload, private_key, "RS256", header)
         ```
 
-#### Request token from Maskinporten
+### Request token from Maskinporten
 
 **Request**
 
@@ -164,7 +163,7 @@ The body of the request should contain the following parameters:
 | `grant_type` | `urn:ietf:params:oauth:grant-type:jwt-bearer` | Type of grant the client is sending. Always `urn:ietf:params:oauth:grant-type:jwt-bearer`. |
 | `assertion`  | `eyJraWQ...`                                  | The client assertion itself. It should be unique and only used once.                       |
 
-Send the request to the `token_endpoint`, i.e. [`MASKINPORTEN_TOKEN_ENDPOINT`][variables-ref]:
+Send the request to the `token_endpoint`, i.e. the URL found in the [`MASKINPORTEN_TOKEN_ENDPOINT`][variables-ref] environment variable:
 
 ```http
 POST ${MASKINPORTEN_TOKEN_ENDPOINT} HTTP/1.1
@@ -186,7 +185,7 @@ Maskinporten will respond with a JSON object that contains the access token.
 }
 ```
 
-???+ note "Cache your tokens"
+???+ tip "Cache your tokens"
 
     The `expires_in` field in the response indicates the lifetime of the token in seconds.
 
@@ -194,7 +193,7 @@ Maskinporten will respond with a JSON object that contains the access token.
 
 See the [Maskinporten token documentation](https://docs.digdir.no/docs/Maskinporten/maskinporten_protocol_token) for more details.
 
-### Consume API
+## Consume API
 
 Once you have acquired the token, you can finally consume the external API.
 
