@@ -15,11 +15,11 @@ We also enumerate the external IPs used by the environments, so that you can pro
 
 #### Ingress domains
 
-| domain             | accessible from                                                              | 
-|:-------------------|:-----------------------------------------------------------------------------|
-| ekstern.dev.nav.no | internet, URLs containing `/metrics`, `/actuator` or `/internal` are blocked | 
-| intern.dev.nav.no  | NAV internal networks (including [naisdevice])                               | 
-| ansatt.dev.nav.no  | internet, but only accessible by authenticated humans on compliant devices   | 
+| domain             | accessible from                                                                                                                                   |
+| :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ekstern.dev.nav.no | internet, URLs containing `/metrics`, `/actuator` or `/internal` are blocked                                                                      |
+| intern.dev.nav.no  | NAV internal networks (including [naisdevice])                                                                                                    |
+| ansatt.dev.nav.no  | internet, but only accessible by authenticated humans on compliant devices.<br>URLs containing `/metrics`, `/actuator` or `/internal` are blocked |
 
 See [explanation for exposing application][expose-app] for more information.
 
@@ -33,11 +33,11 @@ See [explanation for exposing application][expose-app] for more information.
 
 #### Ingress domains
 
-| domain        | accessible from                                                            |
-|:--------------|:---------------------------------------------------------------------------|
-| nav.no        | URLs containing `/metrics`, `/actuator` or `/internal` are blocked         |
-| intern.nav.no | NAV internal networks (including [naisdevice])                             | 
-| ansatt.nav.no | internet, but only accessible by authenticated humans on compliant devices | 
+| domain        | accessible from                                                                                                                                  |
+| :------------ | :----------------------------------------------------------------------------------------------------------------------------------------------- |
+| nav.no        | URLs containing `/metrics`, `/actuator` or `/internal` are blocked                                                                               |
+| intern.nav.no | NAV internal networks (including [naisdevice])                                                                                                   |
+| ansatt.nav.no | internet, but only accessible by authenticated humans on compliant devices<br>URLs containing `/metrics`, `/actuator` or `/internal` are blocked |
 
 See [explanation for exposing application][expose-app] for more information.
 
