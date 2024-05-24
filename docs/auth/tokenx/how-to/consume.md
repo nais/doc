@@ -39,9 +39,9 @@ The assertion must contain the following claims:
 
 | Claim     | Example Value                                    | Description                                                                                                     |
 |:----------|:-------------------------------------------------|:----------------------------------------------------------------------------------------------------------------|
-| **`sub`** | `dev-gcp:my-team:app-a`                          | The _subject_ of the token. Set to [`TOKEN_X_CLIENT_ID`][variables-ref].                                        |
-| **`iss`** | `dev-gcp:my-team:app-a`                          | The _issuer_ of the token. Set to [`TOKEN_X_CLIENT_ID`][variables-ref].                                         |
-| **`aud`** | `https://tokenx.dev-gcp.nav.cloud.nais.io/token` | The _audience_ of the token. Set to [`TOKEN_X_TOKEN_ENDPOINT`][variables-ref].                                  |
+| **`sub`** | `dev-gcp:my-team:app-a`                          | The _subject_ of the token. Set to the [`TOKEN_X_CLIENT_ID` environment variable][variables-ref].               |
+| **`iss`** | `dev-gcp:my-team:app-a`                          | The _issuer_ of the token. Set to the [`TOKEN_X_CLIENT_ID` environment variable][variables-ref].                |
+| **`aud`** | `https://tokenx.dev-gcp.nav.cloud.nais.io/token` | The _audience_ of the token. Set to the [`TOKEN_X_TOKEN_ENDPOINT` environment variable][variables-ref].         |
 | **`jti`** | `83c580a6-b479-426d-876b-267aa9848e2f`           | The _JWT ID_ of the token. Used to uniquely identify a token. Set this to a UUID or similar.                    |
 | **`nbf`** | `1597783152`                                     | `nbf` stands for _not before_. Set to now.                                                                      |
 | **`iat`** | `1597783152`                                     | `iat` stands for _issued at_. Set to now.                                                                       |
@@ -83,14 +83,14 @@ Now that you have a client assertion, we can use this to exchange the inbound to
 
 Create a POST request with the following required parameters:
 
-| Parameter               | Value                                                      | Comment                                                                                                |
-|:------------------------|:-----------------------------------------------------------|:-------------------------------------------------------------------------------------------------------|
-| `grant_type`            | `urn:ietf:params:oauth:grant-type:token-exchange`          |                                                                                                        |
-| `client_assertion_type` | `urn:ietf:params:oauth:client-assertion-type:jwt-bearer`   |                                                                                                        |
-| `client_assertion`      | The [client assertion](#create-client-assertion).          | Token that authenticates your application. Generate a new, unique assertion for each request.          |                                                                                                                  |
-| `subject_token_type`    | `urn:ietf:params:oauth:token-type:jwt`                     |                                                                                                        |
-| `subject_token`         | The inbound citizen token, either from ID-porten or TokenX | Token that should be exchanged                                                                         |
-| `audience`              | The identifier of the target application                   | The value follows the naming scheme `<cluster>:<namespace>:<appname>`, e.g. `prod-gcp:namespace1:app1` |
+| Parameter               | Value                                                      | Comment                                                                                        |
+|:------------------------|:-----------------------------------------------------------|:-----------------------------------------------------------------------------------------------|
+| `grant_type`            | `urn:ietf:params:oauth:grant-type:token-exchange`          |                                                                                                |
+| `client_assertion_type` | `urn:ietf:params:oauth:client-assertion-type:jwt-bearer`   |                                                                                                |
+| `client_assertion`      | The [client assertion](#create-client-assertion).          | Token that authenticates your application. It should be unique and only used once.             |                                                                                                                  |
+| `subject_token_type`    | `urn:ietf:params:oauth:token-type:jwt`                     |                                                                                                |
+| `subject_token`         | The inbound citizen token, either from ID-porten or TokenX | Token that should be exchanged.                                                                |
+| `audience`              | The identifier for the target application                  | Value follows naming scheme `<cluster>:<namespace>:<appname>`, e.g. `prod-gcp:namespace1:app1` |
 
 Send the request to the `token_endpoint`, i.e. the URL found in the [`TOKEN_X_TOKEN_ENDPOINT`][variables-ref] environment variable.
 
@@ -106,11 +106,11 @@ subject_token=eY...............&
 audience=prod-gcp:namespace1:app1
 ```
 
-**Success response**
+#### Success response
 
 TokenX responds with a JSON object that contains the new access token:
 
-```json title="Success response"
+```json title="Success response body"
 {
   "access_token" : "eyJraWQiOi..............",
   "expires_in" : 899,
@@ -126,12 +126,12 @@ TokenX responds with a JSON object that contains the new access token:
 
     A safe cache key is `key = sha256($subject_token + $audience)`.
 
-**Error response**
+#### Error response
 
 If the exchange request is invalid, you will receive a structured error as specified in 
 [RFC 8693, Section 2.2.2](https://www.rfc-editor.org/rfc/rfc8693.html#name-error-response):
 
-```json title="Error response"
+```json title="Error response body"
 {
   "error_description" : "token exchange audience <some-audience> is invalid",
   "error" : "invalid_request"

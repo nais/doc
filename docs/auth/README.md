@@ -2,7 +2,8 @@
 tags: [auth, explanation]
 description: Services and addons to support authentication and authorization in your applications.
 ---
-# Authentication and Authorization Overview
+
+# Authentication and authorization
 
 NAIS helps your applications [log in users](#logging-in-users), [validate inbound requests](#validating-inbound-requests) and [make authenticated outbound requests](#making-outbound-requests) using the following identity providers:
 

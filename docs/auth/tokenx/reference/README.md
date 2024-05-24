@@ -8,10 +8,10 @@ tags: [tokenx, reference]
 
 In addition to the [standard claims](../../explanations/README.md#claims-validation), tokens from TokenX include the following claims:
 
-| Claim       | Description                                                                                                                                                    |
-|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `idp`       | The original [`issuer`](../../explanations/README.md#issuer) of the subject token                                                                              |
-| `client_id` | The consumer's [`client_id`](../../explanations/README.md#client-id) using the naming scheme `<cluster>:<namespace>:<appname>` e.g. `prod-gcp:namespace1:app1` |
+| Claim       | Description                                                                                                                       |
+|:------------|:----------------------------------------------------------------------------------------------------------------------------------|
+| `idp`       | The original [`issuer`](../../explanations/README.md#issuer) of the subject token                                                 |
+| `client_id` | The consumer's [`client_id`](../../explanations/README.md#client-id). Follows the naming scheme `<cluster>:<namespace>:<appname>` |
 
 Other claims such as `pid` are copied verbatim from the [original token issued by ID-porten](../../idporten/reference/README.md#claims).
 

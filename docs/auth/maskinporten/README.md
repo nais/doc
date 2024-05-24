@@ -1,10 +1,10 @@
 ---
-tags: [auth, maskinporten, services]
+tags: [auth, maskinporten, services, explanation]
 description: >
   Enabling service-to-service authorization between organizations and businesses using Maskinporten.
 ---
 
-# Maskinporten Overview
+# Maskinporten
 
 [Maskinporten](https://docs.digdir.no/maskinporten_overordnet.html) is a service provided by DigDir used to authorize access to APIs between organizations or businesses.
 

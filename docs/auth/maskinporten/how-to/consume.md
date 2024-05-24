@@ -51,7 +51,7 @@ The **header** should consist of the following parameters:
 
 | Parameter | Value            | Description                                                                                                                                                                                                     |
 |:----------|:-----------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **`kid`** | `<kid-from-JWK>` | The key identifier of the [private JWK](../../explanations/README.md#private-keys) used to sign the assertion. The private key is found in the `MASKINPORTEN_CLIENT_JWK` [environment variable][variables-ref]. |
+| **`kid`** | `<kid-from-JWK>` | The key identifier of the [private JWK](../../explanations/README.md#private-keys) used to sign the assertion. The private key is found in the [`MASKINPORTEN_CLIENT_JWK` environment variable][variables-ref]. |
 | **`typ`** | `JWT`            | Represents the type of this JWT. Set this to `JWT`.                                                                                                                                                             |
 | **`alg`** | `RS256`          | Represents the cryptographic algorithm used to secure the JWT. Set this to `RS256`.                                                                                                                             |
 
@@ -59,8 +59,8 @@ The **payload** should have the following claims:
 
 | Claim       | Example Value                          | Description                                                                                               |
 |:------------|:---------------------------------------|:----------------------------------------------------------------------------------------------------------|
-| **`aud`**   | `https://test.maskinporten.no/`        | The _audience_ of the token. Set to [`MASKINPORTEN_ISSUER`][variables-ref].                               |
-| **`iss`**   | `60dea49a-255b-48b5-b0c0-0974ac1c0b53` | The _issuer_ of the token. Set to [`MASKINPORTEN_CLIENT_ID`][variables-ref].                              |
+| **`aud`**   | `https://test.maskinporten.no/`        | The _audience_ of the token. Set to the [`MASKINPORTEN_ISSUER` environment variable][variables-ref].      |
+| **`iss`**   | `60dea49a-255b-48b5-b0c0-0974ac1c0b53` | The _issuer_ of the token. Set to the [`MASKINPORTEN_CLIENT_ID` environment variable][variables-ref].     |
 | **`scope`** | `nav:test/api`                         | `scope` is a whitespace-separated list of scopes that you want in the issued token from Maskinporten.     |
 | **`iat`**   | `1698435010`                           | `iat` stands for _issued at_. Set to now.                                                                 |
 | **`exp`**   | `1698435070`                           | `exp` is the _expiration time_. Between 1 and 120 seconds after now. Typically 30 seconds is fine         |
