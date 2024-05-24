@@ -1,8 +1,8 @@
 ---
-tags: [auth, services]
+tags: [auth, tokenx, services, explanation]
 ---
 
-# TokenX overview
+# TokenX
 
 TokenX is NAIS' own implementation of OAuth 2.0 Token Exchange.
 

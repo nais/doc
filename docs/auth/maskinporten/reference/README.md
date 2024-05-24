@@ -2,7 +2,7 @@
 tags: [maskinporten, reference]
 ---
 
-# Maskinporten Reference
+# Maskinporten reference
 
 ## Runtime Variables & Credentials
 

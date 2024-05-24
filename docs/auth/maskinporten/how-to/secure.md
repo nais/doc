@@ -36,6 +36,8 @@ spec:
 
 See the [scope naming reference](../reference/README.md#scope-naming) for details on naming scopes.
 
+See the [NAIS application reference](../../../workloads/application/reference/application-spec.md#maskinportenscopesexposes) for the complete specifications with all possible options.
+
 ## Grant access to consumers
 
 Grant the external consumer access to the scopes by specifying their organization number:

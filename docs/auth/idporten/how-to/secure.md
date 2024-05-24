@@ -23,7 +23,7 @@ spec:
       enabled: true
 ```
 
-See the [NAIS manifest reference](../../../workloads/application/reference/application-spec.md#idportensidecar) for the complete specification.
+See the [NAIS application reference](../../../workloads/application/reference/application-spec.md#idportensidecar) for the complete specifications with all possible options.
 
 Now that your application is configured, you will need to handle inbound requests in your application code.
 
@@ -59,7 +59,7 @@ Additionally, perform the following validations:
 
 Validate that the `iss` claim has a value that is equal to either:
 
-1. the `IDPORTEN_ISSUER` [environment variable](#runtime-variables-credentials), or
+1. the `IDPORTEN_ISSUER` [environment variable](../reference/README.md#runtime-variables-credentials), or
 2. the `issuer` property from the [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document).
    The document is found at the endpoint pointed to by the `IDPORTEN_WELL_KNOWN_URL` environment variable.
 

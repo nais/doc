@@ -2,7 +2,7 @@
 tags: [auth, explanation]
 ---
 
-# Concepts
+# Auth concepts
 
 This page describes basic concepts and glossary commonly referred to when working with authentication and authorization.
 
