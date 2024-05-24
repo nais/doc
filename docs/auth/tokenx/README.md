@@ -14,16 +14,16 @@ These cover two distinct use cases:
 
 ## Consume an API
 
-To consume an API secured with TokenX on behalf of a citizen, you'll need to exchange the inbound [token](../explanations/README.md#tokens) for a new token.
+To consume an API secured with TokenX on behalf of a citizen, you'll need to exchange their [token](../explanations/README.md#tokens) for a new token.
 
 The new token preserves the citizen's identity context and is only valid for the specific API you want to access.
 
 ```mermaid
 graph LR
-  Consumer -->|1. citizen token| A
-  A["Your API"] -->|2. exchange token| TokenX
-  TokenX -->|3. new token for Other API| A
-  A -->|4. use token| O[Other API]
+  Consumer["User / Consumer API"] --"request with\ncitizen token"--> Application[Your app]
+  Application --1. exchange citizen token---> TokenX
+  TokenX --2. return new token\nfor Other API---> Application
+  Application --3. use new token---> Other["Other API"]
 ```
 
 :dart: Learn how to [consume an API using TokenX](how-to/consume.md)

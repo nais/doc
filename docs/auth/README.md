@@ -9,7 +9,7 @@ NAIS helps your applications [log in users](#logging-in-users), [validate inboun
 
 <div class="grid cards" markdown>
 
-- [**Azure AD**][Azure AD] (aka Entra ID)
+- [**Entra ID**][Entra ID] (aka Azure AD)
 
     For employees and internal services.
 
@@ -35,9 +35,9 @@ See the different scenarios below to identify which service(s) you need for your
 
 Depending on who your users are, you can use the following services to log them in:
 
-:person_standing: Log in employees :octicons-arrow-right-24: [Azure AD](../security/auth/azure-ad/sidecar.md)
+:person_standing: Log in _employees_ :octicons-arrow-right-24: [Entra ID]
 
-:person_standing: Log in citizens :octicons-arrow-right-24: [ID-porten]
+:person_standing: Log in _citizens_ :octicons-arrow-right-24: [ID-porten]
 
 ## Validating inbound requests
 
@@ -48,23 +48,23 @@ graph TD
   B1[on-behalf-of]
   B2[as themselves]
 
-  B1 --> |citizens| TokenX[<a href='../security/auth/tokenx'>TokenX</>]
-  B1 --> |employees| AAD_machine[<a href='../security/auth/azure-ad'>Azure AD</>]
+  B1 --> |citizens| TokenX[<a href='tokenx'>TokenX</>]
+  B1 --> |employees| AAD_machine[<a href='entra-id'>Entra ID</>]
     
   
-  B2 --> |internally| AAD_machine[<a href='../security/auth/azure-ad'>Azure AD</>]
-  B2 --> |externally| Maskinporten[<a href='../security/auth/maskinporten'>Maskinporten</a>]
+  B2 --> |internally| AAD_machine[<a href='entra-id'>Entra ID</>]
+  B2 --> |externally| Maskinporten[<a href='maskinporten'>Maskinporten</a>]
 ```
 
 The graph above can also be described as:
 
-:material-server::person_standing: Validate requests from application on behalf of employee :octicons-arrow-right-24: [Azure AD]
+:material-server::person_standing: Validate requests from _internal_ application acting on behalf of _employee_ :octicons-arrow-right-24: [Entra ID]
 
-:material-server::person_standing: Validate requests from application on behalf of citizen :octicons-arrow-right-24: [TokenX]
+:material-server::person_standing: Validate requests from _internal_ application acting on behalf of _citizen_:octicons-arrow-right-24: [TokenX]
 
-:material-server: Validate requests from internal application :octicons-arrow-right-24: [Azure AD]
+:material-server: Validate requests from _internal_ application :octicons-arrow-right-24: [Entra ID]
 
-:material-server: Validate requests from external application :octicons-arrow-right-24: [Maskinporten]
+:material-server: Validate requests from _external_ application :octicons-arrow-right-24: [Maskinporten]
 
 ## Making outbound requests
 
@@ -73,24 +73,24 @@ graph TD
   B1[on-behalf-of]
   B2[as application]
 
-  B1 --> |citizens| TokenX[<a href='../security/auth/tokenx'>TokenX</>]
-  B1 --> |employees| AAD_machine[<a href='../security/auth/azure-ad'>Azure AD</>]
+  B1 --> |citizens| TokenX[<a href='tokenx'>TokenX</>]
+  B1 --> |employees| AAD_machine[<a href='entra-id'>Entra ID</>]
   
-  B2 --> |internally| AAD_machine[<a href='../security/auth/azure-ad'>Azure AD</>]
-  B2 --> |externally| Maskinporten[<a href='../security/auth/maskinporten'>Maskinporten</a>]
+  B2 --> |internally| AAD_machine[<a href='entra-id'>Entra ID</>]
+  B2 --> |externally| Maskinporten[<a href='maskinporten'>Maskinporten</a>]
 ```
 
 The graph above can also be described as:
 
-:material-server::person_standing: Make requests on behalf of employee :octicons-arrow-right-24: [Azure AD]
+:material-server::person_standing: Make requests to _internal_ API on behalf of _employee_ :octicons-arrow-right-24: [Entra ID]
 
-:material-server::person_standing: Make requests on behalf of citizen :octicons-arrow-right-24: [TokenX]
+:material-server::person_standing: Make requests to _internal_ API on behalf of _citizen_ :octicons-arrow-right-24: [TokenX]
 
-:material-server: Make requests to internal API :octicons-arrow-right-24: [Azure AD]
+:material-server: Make requests to _internal_ API :octicons-arrow-right-24: [Entra ID]
 
-:material-server: Make requests to external API :octicons-arrow-right-24: [Maskinporten]
+:material-server: Make requests to _external_ API :octicons-arrow-right-24: [Maskinporten]
 
-[Azure AD]: ../security/auth/azure-ad/README.md
+[Entra ID]: entra-id/README.md
 [ID-porten]: idporten/README.md
 [TokenX]: tokenx/README.md
 [Maskinporten]: maskinporten/README.md

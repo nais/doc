@@ -113,13 +113,13 @@ Wonderwall currently supports the following [identity providers][identity provid
 
     [:octicons-arrow-right-24: Read more about ID-porten](../../auth/idporten/README.md)
 
--   :octicons-server-24:{ .lg .middle } **Azure AD**
+-   :octicons-server-24:{ .lg .middle } **Entra ID**
 
     ---
 
     For internal end-users or employees.
 
-    [:octicons-arrow-right-24: Read more about Azure AD](azure-ad/sidecar.md)
+    [:octicons-arrow-right-24: Read more about Entra ID](../../auth/entra-id/how-to/login.md)
 
 </div>
 
@@ -137,7 +137,7 @@ Minimal configuration examples below:
 
 [:octicons-arrow-right-24: See the NAIS manifest reference for the complete specification](../../workloads/application/reference/application-spec.md#idportensidecar).
 
-=== "Azure AD"
+=== "Entra ID"
 
     ```yaml
     spec:
@@ -215,7 +215,7 @@ Example configuration:
         sidecar:
           autoLogin: true
     ```
-=== "Azure AD"
+=== "Entra ID"
 
     ```yaml hl_lines="4"
     spec:
@@ -271,7 +271,7 @@ You can define additional paths or patterns to be excluded:
             - /static/stylesheet.css
     ```
 
-=== "Azure AD"
+=== "Entra ID"
 
     ```yaml hl_lines="5-8"
     spec:
@@ -384,9 +384,9 @@ See the specific identity provider pages for further details on token validation
 
     [:octicons-arrow-right-24: Read more about Token Validation for ID-porten](../../auth/idporten/how-to/secure.md#validate-token-in-authorization-header)
 
-=== "Azure AD"
+=== "Entra ID"
 
-    [:octicons-arrow-right-24: Read more about Token Validation for Azure AD](azure-ad/usage.md#token-validation)
+    [:octicons-arrow-right-24: Read more about Token Validation for Entra ID](../../auth/entra-id/how-to/secure.md#validate-token)
 
 ---
 
@@ -408,7 +408,7 @@ This can be customized to your needs. Defaults shown below:
               cpu: 20m
               memory: 32Mi
     ```
-=== "Azure AD"
+=== "Entra ID"
     ```yaml hl_lines="4-10"
     spec:
       azure:
@@ -450,13 +450,13 @@ The maximum session lifetime and inactivity timeout depends on the identity prov
 
     If you're **not** using `nav-dekoratoren`, see [5.2 Session Refresh](#52-session-refresh) for details.
 
-=== "Azure AD"
+=== "Entra ID"
 
     | Maximum Lifetime | Inactivity Timeout |
     |------------------|--------------------|
     | 10 hours         | ❌ No timeout       |
 
-    For Azure AD, if you have users actively working beyond the maximum session lifetime (which they generally shouldn't), consider notifying them before their session expires.
+    For Entra ID, if you have users actively working beyond the maximum session lifetime (which they generally shouldn't), consider notifying them before their session expires.
     
     You can make use of the [session metadata endpoint](#51-session-metadata) to track the session's state.
 
@@ -581,9 +581,9 @@ An _inactive_ or _expired_ session **cannot** be refreshed.
             This should be done with some heuristic specific to your frontend (e.g. using the Idle Detection API, time since last request, and so on).
             If you deem the user to still be present and active, it should be reasonable to just perform automatically perform the refresh in the background.
 
-=== "Azure AD"
+=== "Entra ID"
 
-    For Azure AD, tokens are automatically refreshed for all sessions until the session itself [expires](#5-sessions) reaches the maximum lifetime.
+    For Entra ID, tokens are automatically refreshed for all sessions until the session itself [expires](#5-sessions) reaches the maximum lifetime.
     
     The tokens will at the _earliest_ be automatically refreshed 5 minutes before they expire.
     If the token already has expired for an _active_ session, a refresh attempt is automatically triggered on the next request on any path that belongs to the application.
@@ -646,9 +646,9 @@ To access other applications, you exchange the token to a new token that is corr
     
     For ID-porten, use [TokenX](../../auth/tokenx/how-to/consume.md) to exchange the token.
     
-=== "Azure AD"
+=== "Entra ID"
 
-    For Azure AD, use the [on-behalf-of grant](azure-ad/usage.md#oauth-20-on-behalf-of-grant) to exchange the token.
+    For Entra ID, use the [on-behalf-of grant](../../auth/entra-id/how-to/consume-obo.md) to exchange the token.
 
 !!! tip "Recommended: JavaScript Library"
 

@@ -36,5 +36,5 @@ You will need a token to access said API.
 
 See the respective identity provider pages for details on acquiring such tokens:
 
-- [Azure AD](../../security/auth/azure-ad/usage.md#token-generator)
-- [TokenX](../tokenx/reference/README.md#token-generator)
+- [Entra ID](../entra-id/how-to/generate.md)
+- [TokenX](../tokenx/how-to/generate.md)

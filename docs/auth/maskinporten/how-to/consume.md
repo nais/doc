@@ -6,11 +6,11 @@ tags: [maskinporten, how-to]
 
 This how-to guides you through the steps required to consume an API secured with [Maskinporten](../README.md):
 
-1. [Declare the scopes that you want to consume](#declare-consumer-scopes)
-2. [Acquire tokens from Maskinporten](#acquire-token)
-3. [Consume the API using the token](#consume-api)
+1. [Configure your application](#configure-your-application)
+1. [Acquire tokens from Maskinporten](#acquire-token)
+1. [Consume the API using the token](#consume-api)
 
-## Declare consumer scopes
+## Configure your application
 
 Declare all the scopes that you want to consume in your application's NAIS manifest so that your application is granted access to them:
 
@@ -38,6 +38,8 @@ The scopes themselves are defined and owned by the external API provider. The ex
     If you're on-premises, you must enable and use [`webproxy`](../../../workloads/application/reference/application-spec.md#webproxy) to access Maskinporten.
 
 {%- endif %}
+
+[Configure appropriate outbound access policies](../../../workloads/how-to/access-policies.md#send-requests-to-external-endpoints) to access the external API endpoints.
 
 ## Acquire token
 
@@ -176,6 +178,7 @@ assertion=eY...
 **Response**
 
 Maskinporten will respond with a JSON object that contains the access token.
+Your application does not need to validate this token.
 
 ```json
 {

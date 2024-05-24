@@ -2,7 +2,7 @@
 tags: [tokenx, how-to]
 ---
 
-# Generate a token for development
+# Generate a token from TokenX for development
 
 This how-to guides you through the steps required to generate a token that you can use against an [API secured with TokenX](secure.md) in the development environments.
 
@@ -30,4 +30,4 @@ spec:
     - For example: `dev-gcp:my-team:my-app`
 2. You will be redirected to log in at ID-porten (if not already logged in).
 3. After logging in, you should be redirected back to the token generator and presented with a JSON response containing an `access_token`.
-4. Use the `access_token` as a [Bearer token](../../explanations/README.md#bearer-token) for calls to your API application.
+4. Use the `access_token` as a [Bearer token](../../explanations/README.md#bearer-token) to consume the API application.

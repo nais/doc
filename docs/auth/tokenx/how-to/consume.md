@@ -2,7 +2,7 @@
 tags: [tokenx, how-to]
 ---
 
-# Consume API using TokenX
+# Consume internal API using TokenX
 
 This how-to guides you through the steps required to consume an API secured with [TokenX](../README.md):
 
@@ -12,19 +12,20 @@ This how-to guides you through the steps required to consume an API secured with
 
 ## Prerequisites
 
+- Your application receives requests with a citizen subject token, either from [ID-porten](../../idporten/README.md) or TokenX.
 - The API you're consuming has [granted access to your application](secure.md#grant-access-to-consumers)
 
 ## Configure your application
 
-- Enable TokenX in your application:
+Enable TokenX in your application:
 
-    ```yaml title="app.yaml"
-    spec:
-      tokenx:
-        enabled: true
-    ```
+```yaml title="app.yaml"
+spec:
+  tokenx:
+    enabled: true
+```
 
-- Depending on how you communicate with the API you're consuming, [configure the appropriate outbound access policies](../../../workloads/how-to/access-policies.md).
+Depending on how you communicate with the API you're consuming, [configure the appropriate outbound access policies](../../../workloads/how-to/access-policies.md).
 
 ## Exchange token
 
@@ -117,6 +118,8 @@ TokenX responds with a JSON object that contains the new access token:
   ...
 }
 ```
+
+Your application does not need to validate this token.
 
 ???+ tip "Cache your tokens"
 

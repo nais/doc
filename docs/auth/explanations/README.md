@@ -28,11 +28,11 @@ There are multiple ways of obtaining such a grant, depending on the use case:
 
 **Internal applications**
 
-- [Machine-to-machine with Azure AD](../../security/auth/azure-ad/usage.md#oauth-20-client-credentials-grant)
+- [Machine-to-machine with Entra ID](../entra-id/how-to/consume-m2m.md)
 
 **Employee-facing applications**
 
-- [On-behalf-of an end-user with Azure AD](../../security/auth/azure-ad/usage.md#oauth-20-on-behalf-of-grant)
+- [On-behalf-of an end-user with Entra ID](../entra-id/how-to/consume-obo.md)
 
 **External applications**
 
@@ -49,7 +49,7 @@ It is used to authenticate end users.
 
 The platform provides opt-in sidecars that implement OpenID Connect:
 
-- [Sidecar for Azure AD](../../security/auth/azure-ad/sidecar.md) (employee-facing applications)
+- [Sidecar for Entra ID](../entra-id/how-to/login.md) (employee-facing applications)
 - [Sidecar for ID-porten](../idporten/README.md) (citizen-facing applications)
 
 Due to the complexity involved in implementing and maintaining such clients, we recommend that your applications use
@@ -72,7 +72,7 @@ Similar terms such as _authorization server_ (AS) or _OpenID provider_ (OP) are 
 
 Providers that the platform supports provisioning for:
 
-- [Azure AD](../../security/auth/azure-ad/README.md)
+- [Entra ID](../entra-id/README.md)
 - [ID-porten](../idporten/README.md)
 - [Maskinporten](../maskinporten/README.md)
 - [TokenX](../tokenx/README.md)
@@ -196,8 +196,9 @@ identifier is generally not considered to be confidential.
 The client ID for your client is injected at runtime as an environment variable.
 See the respective identity provider page for details:
 
-- [Azure AD](../../security/auth/azure-ad/usage.md#runtime-variables-credentials)
+- [Entra ID](../entra-id/reference/README.md#runtime-variables-credentials)
 - [ID-porten](../idporten/reference/README.md#runtime-variables-credentials)
+- [Maskinporten](../maskinporten/reference/README.md#runtime-variables-credentials)
 - [TokenX](../tokenx/README.md#runtime-variables-credentials)
 
 #### Client Authentication
@@ -210,7 +211,7 @@ A client secret is a password that belongs to a given client.
 
 This is used to authenticate the client when attempting to acquire tokens from the identity provider.
 
-Azure AD is the only identity provider we use that supports the `client_secret_post` authentication method.
+Entra ID is the only identity provider we use that supports the `client_secret_post` authentication method.
 The secret itself is passed in plain-text as part of the request body:
 
 ```
@@ -257,7 +258,7 @@ Payload:
 
 This method of authentication (also known as the `private_key_jwt` method) is supported by all
 [identity providers](#identity-provider) we use.
-It is also mandatory for all our clients across all the providers, except Azure AD.
+It is also mandatory for all our clients across all the providers, except Entra ID.
 
 An assertion has several security advantages over a [client secret](#client-secret):
 
@@ -469,10 +470,10 @@ Most libraries will have implementations to automatically validate these de fact
 
 See the individual identity provider pages for specific validation related to each provider:
 
-- [Azure AD](../../security/auth/azure-ad/usage.md#token-validation)
+- [Entra ID](../entra-id/how-to/secure.md#validate-tokens)
 - [ID-porten](../idporten/how-to/secure.md#validate-token-in-authorization-header)
 - [Maskinporten](../maskinporten/how-to/secure.md#validate-tokens)
-- [TokenX](../tokenx/README.md#token-validation)
+- [TokenX](../tokenx/how-to/secure.md#validate-tokens)
 
 ---
 

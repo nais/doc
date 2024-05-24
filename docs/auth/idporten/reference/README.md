@@ -33,7 +33,7 @@ By default, they will be redirected back to the matching context path for your a
 - `/` for `https://<app>.nav.no`
 - `/path` for `https://nav.no/path`
 
-To override the path, use the `redirect` parameter and specify a different path:
+To override this, use the `redirect` parameter to specify a different absolute path:
 
 ```
 https://<ingress>/oauth2/login?redirect=/some/path
@@ -119,4 +119,4 @@ https://<ingress>/oauth2/login?level=idporten-loa-high
 
 ## Spec
 
-See the [:books: NAIS application reference](../../../workloads/application/reference/application-spec.md#idporten).
+For all possible configuration options, see the [:books: NAIS application reference](../../../workloads/application/reference/application-spec.md#idporten).

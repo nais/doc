@@ -16,7 +16,7 @@ If you have a citizen-facing application that requires authentication, you will 
 
 NAIS simplifies this by providing:
 
-- :books: [A login endpoint](reference/README.md#logout-endpoint) that handles the authentication flow with ID-porten
+- :books: [A login endpoint](reference/README.md#login-endpoint) that handles the authentication flow with ID-porten
 - :books: [A logout endpoint](reference/README.md#logout-endpoint) that triggers single-logout with ID-porten
 - :books: [Session management](../../security/auth/wonderwall.md#5-sessions)
 

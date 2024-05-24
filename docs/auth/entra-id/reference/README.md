@@ -1,0 +1,335 @@
+---
+tags: [entra-id, azure-ad, reference]
+---
+
+# Entra ID reference
+
+## Access policies
+
+You may define custom permissions for your application in Entra ID and grant them to other consumer applications.
+Permissions will appear as _claims_ in the consumer's token.
+Your application can then use these claims to implement custom authorization logic.
+
+!!! warning
+
+    Custom permissions only apply in the context of _your own application_.
+    They are _not_ global permissions.
+    
+    All the following conditions must be met for the custom permission to appear:
+    
+    1. The token is acquired by a consumer of your application.
+    2. The consumer has been granted a custom permission in your access policy definition.
+    3. The target _audience_ is your application.
+
+### Custom scopes
+
+A _scope_ only applies to tokens acquired [on behalf of an employee][obo]
+(service-to-service calls on behalf of an end-user).
+
+Applications defined in the access policy are always assigned the default scope named `defaultaccess`.
+
+Grant scopes to consumers by specifying the following:
+
+```yaml hl_lines="8-10"
+spec:
+  accessPolicy:
+    inbound:
+      rules:
+        - application: app-a
+          namespace: other-namespace
+          cluster: other-cluster
+          permissions:
+            scopes:
+              - "custom-scope"
+```
+
+The above configuration grants the application `app-a` the scope `custom-scope`.
+
+Scopes will appear as a _space separated string_ in the `scp` claim within the user's token.
+
+??? example "Example decoded on-behalf-of token (click to expand)"
+
+    ```json hl_lines="17"
+    {
+      "aud": "8a5...",
+      "iss": "https://login.microsoftonline.com/.../v2.0",
+      "iat": 1624957183,
+      "nbf": 1624957183,
+      "exp": 1624961081,
+      "aio": "AXQ...",
+      "azp": "e37...",
+      "azpacr": "1",
+      "groups": [
+        "2d7..."
+      ],
+      "name": "Navnesen, Navn",
+      "oid": "15c...",
+      "preferred_username": "Navn.Navnesen@nav.no",
+      "rh": "0.AS...",
+      "scp": "custom-scope defaultaccess",
+      "sub": "6OC...",
+      "tid": "623...",
+      "uti": "i03...",
+      "ver": "2.0"
+    }
+    ```
+
+### Custom roles
+
+A _role_ only applies to tokens acquired [as an application][m2m] (service-to-service calls).
+
+Applications defined in the access policy are always assigned the default role named `access_as_application`.
+
+Grant roles to consumers by specifying the following:
+
+```yaml hl_lines="8-10"
+spec:
+  accessPolicy:
+    inbound:
+      rules:
+        - application: app-a
+          namespace: other-namespace
+          cluster: other-cluster
+          permissions:
+            roles:
+              - "custom-role"
+```
+
+The above configuration grants the application `app-a` the role `custom-role`.
+
+Roles will appear in the `roles` claim as an _array of strings_ within the application's token.
+
+??? example "Example decoded client credentials token (click to expand)"
+
+    ```json hl_lines="12-15"
+    {
+      "aud": "8a5...",
+      "iss": "https://login.microsoftonline.com/.../v2.0",
+      "iat": 1624957347,
+      "nbf": 1624957347,
+      "exp": 1624961247,
+      "aio": "E2Z...",
+      "azp": "e37...",
+      "azpacr": "1",
+      "oid": "933...",
+      "rh": "0.AS...",
+      "roles": [
+        "access_as_application",
+        "custom-role"
+      ],
+      "sub": "933...",
+      "tid": "623...",
+      "uti": "kbG...",
+      "ver": "2.0"
+    }
+    ```
+
+## Claims
+
+Notable claims in tokens from Entra ID:
+
+- `azp` (**authorized party**)
+    - The [client ID](../explanations/README.md#client-id) of the application that requested the token (this would be your consumer).
+- `azp_name` (**authorized party name**)
+    - The value of this claim is the (human-readable) [name](../explanations/README.md#client-name) of the consumer application that requested the token.
+- `groups` (**groups**)
+    - JSON array of [group identifiers](../explanations/README.md#group-identifier) that the user is a member of.
+    - Used to implement group-based authorization logic in your application.
+    - This claim only applies in flows where a user is involved i.e., either the [login] or [on-behalf-of][obo] flows.
+    - In order for a group to appear in the claim, all the following conditions must be true:
+        - The given user is a direct member of the group.
+        - The group has been [granted access to the application](../how-to/secure.md#users).
+- `idtyp` (**identity type**)
+    - This is a special claim used to determine whether a token is a [machine-to-machine][m2m] (app-only) token or a [on-behalf-of][obo] (user) token.
+    - The claim currently only appears in machine-to-machine tokens. The value is `app` when the token is a machine-to-machine token.
+    - In short: if the `idtyp` claim exists and it has the value `app`, then it is a machine-to-machine token. Otherwise, it is a user/on-behalf-of token.
+{%- if tenant() == "nav" %}
+- `NAVident` (**NAV ident**)
+    - The value of this claim maps to an internal identifier for the employees in NAV.
+    - This claim thus only applies in flows where a user is involved i.e., either the [login] or [on-behalf-of][obo] flows.
+{%- endif %}
+- `roles` (**roles**)
+    - The value of this claim is an _array of strings_ that lists the roles that the application has access to:
+    ```json
+    {
+      "roles": [
+        "access_as_application",
+        "role-a",
+        "role-b"
+      ]
+    }
+    ```
+    - This claim **only** applies to [machine-to-machine][m2m] tokens.
+    - Consumers defined in the [access policy](../how-to/secure.md#applications) are always assigned the default role named `access_as_application`.
+    - You can optionally define and grant additional [custom roles](#custom-roles) to consumers.
+- `scp` (**scope**)
+    - The value of this claim is a _space-separated string_ that lists the scopes that the application has access to:
+    ```json
+    {
+       "scp": "defaultaccess scope1 scope2"
+    }
+    ```
+    - This claim **only** applies to user or [on-behalf-of][obo] tokens.
+    - Consumers defined in the [access policy](../how-to/secure.md#applications) are always assigned the default scope named `defaultaccess`.
+    - You can optionally define and grant additional [custom scopes](#custom-scopes) to consumers.
+
+For a complete list of claims, see the [Access Token Claims Reference in Entra ID](https://learn.microsoft.com/en-us/entra/identity-platform/access-token-claims-reference).
+We only use v2.0 tokens.
+
+## Endpoints
+
+If you have [configured your application for login](../how-to/login.md#configure-your-application), NAIS provides the following endpoints to help you integrate with Entra ID:
+
+### Login endpoint
+
+This endpoint handles the authentication flow with Entra ID. It is available at:
+
+```http
+https://<ingress>/oauth2/login
+```
+
+To log in an employee, redirect them to this endpoint.
+By default, they will be redirected back to the matching context path for your application's ingress:
+
+- `/` for `https://<app>.nav.no`
+- `/path` for `https://nav.no/path`
+
+To override this, use the `redirect` parameter to specify a different absolute path:
+
+```
+https://<ingress>/oauth2/login?redirect=/some/path
+```
+
+If you include query parameters, ensure that they are URL encoded.
+
+### Logout endpoint
+
+This endpoint triggers single-logout with Entra ID. It is available at:
+
+```http
+https://<ingress>/oauth2/logout
+```
+
+To log out an employee, redirect them to this endpoint.
+
+## Runtime Variables & Credentials
+
+Your application will automatically be injected with environment variables at runtime.
+
+### Variables for acquiring tokens
+
+These variables are used to:
+
+- [:dart: consume an API as an application](../how-to/consume-m2m.md) and
+- [:dart: consume an API on behalf of an employee](../how-to/consume-obo.md)
+
+| Name                                 | Description                                                                                                              |
+|:-------------------------------------|:-------------------------------------------------------------------------------------------------------------------------|
+| `AZURE_APP_CLIENT_ID`                | [Client ID](../../explanations/README.md#client-id) that uniquely identifies the application in Entra ID.                |
+| `AZURE_APP_CLIENT_SECRET`            | [Client secret](../../explanations/README.md#client-secret) for the application in Entra ID.                             |
+| `AZURE_APP_WELL_KNOWN_URL`           | The well-known URL for the [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document). |
+| `AZURE_OPENID_CONFIG_TOKEN_ENDPOINT` | `token_endpoint` from the [metadata discovery document](../../explanations/README.md#token-endpoint).                    |
+
+`AZURE_APP_WELL_KNOWN_URL` is optional if you're using `AZURE_OPENID_CONFIG_TOKEN_ENDPOINT` directly.
+
+### Variables for validating tokens
+
+These variables are used to [:dart: secure your API](../how-to/secure.md):
+
+| Name                           | Description                                                                                                              |
+|:-------------------------------|:-------------------------------------------------------------------------------------------------------------------------|
+| `AZURE_APP_CLIENT_ID`          | [Client ID](../explanations/README.md#client-id) that uniquely identifies the application in Entra ID.                   |
+| `AZURE_APP_WELL_KNOWN_URL`     | The well-known URL for the [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document). |
+| `AZURE_OPENID_CONFIG_ISSUER`   | `issuer` from the [metadata discovery document](../../explanations/README.md#issuer).                                    |
+| `AZURE_OPENID_CONFIG_JWKS_URI` | `jwks_uri` from the [metadata discovery document](../../explanations/README.md#jwks-endpoint-public-keys).               |
+
+`AZURE_APP_WELL_KNOWN_URL` is optional if you're using `AZURE_OPENID_CONFIG_ISSUER` and `AZURE_OPENID_CONFIG_JWKS_URI` directly.
+
+## Spec
+
+For all possible configuration options, see the [:books: NAIS application reference](../../../workloads/application/reference/application-spec.md#azure).
+
+## Tenants
+
+Available [tenants](../explanations/README.md#tenants) in Entra ID.
+
+{%- if tenant() == "nav" %}
+NAV has two tenants in Entra ID:
+
+| Tenant Name       | Description        |
+|-------------------|--------------------|
+| `nav.no`          | Production tenant  |                                                                                                                                                                                              |
+| `trygdeetaten.no` | Development tenant |
+
+!!! info "Logging into the `trygdeetaten.no` tenant"
+
+     See <https://github.com/navikt/devuser-check/blob/main/README.md#faq> for instructions on acquiring a user and logging into this tenant. Otherwise, consult the `#tech-azure` Slack channel.
+{%- endif %}
+
+## Troubleshooting
+
+This section lists common problems and solutions.
+
+### Missing application access policy
+
+Your application (named `A` in the examples below) attempts to consume another application (named `B`).
+
+When requesting a token from Entra ID, your application may receive a `400 Bad Request` with an `invalid_grant` error response and the following message:
+
+> **AADSTS501051**:
+>
+> Application `'<client ID>'` (`<cluster>:<namespace>:<A>`) is not assigned to a role for the application '`api://<cluster>.<namespace>.<B>`' (`<cluster>:<namespace>:<B>`)"
+
+Or the other variant:
+
+> **AADSTS65001**:
+>
+> The user or administrator has not consented to use the application with ID '`<client ID>`' named '`<cluster>:<namespace>:<A>`'.
+>
+> Send an interactive authorization request for this user and resource.
+
+???+ success "Solution / Answer"
+
+    - Ensure that the [scope value](../explanations/README.md#scopes) in your application's request follows the correct format:
+
+        `api://<cluster>.<namespace>.<application>/.default>`
+
+    - Ensure that application `B`'s [access policy](../how-to/secure.md#applications) includes application `A`.
+    - If all else fails, request assistance in the `#nais` channel on Slack.
+
+### Missing user access policy
+
+When attempting to sign-in or perform the on-behalf-of flow, an application may receive a `400 Bad Request` with an `invalid_grant` error response and the following message:
+
+> **AADSTS50105**:
+>
+> Your administrator has configured the application `<cluster>:<namespace>:<A>` ('`<client id>`') to block users unless they are specifically granted ('assigned') access to the application.
+>
+> The signed in user '{EmailHidden}' is blocked because they are not a direct member of a group with access, nor had access directly assigned by an administrator.
+>
+> Please contact your administrator to assign access to this application
+
+???+ success "Solution / Answer"
+
+    - Ensure that application `A` has configured [user access](../how-to/secure.md#users).
+    - Ensure that the given user is a _direct_ member of any configured groups).
+    - If all else fails, request assistance in the `#nais` channel on Slack.
+
+### Tenant mismatch for signed-in user
+
+While attempting to log in, you may receive the following error message from Entra ID:
+
+> Selected user account does not exist in tenant '`some-tenant`' and cannot access the application '`<client-id>`' in that tenant.
+>
+> The account needs to be added as an external user in the tenant first.
+>
+> Please use a different account.
+
+???+ success "Solution / Answer"
+
+    - Ensure that the user uses an account that matches your application's [tenant](../explanations/README.md#tenants) when logging in.
+    - If all else fails, request assistance in the `#nais` channel on Slack.
+
+[login]: ../how-to/login.md
+[m2m]: ../how-to/consume-m2m.md
+[obo]: ../how-to/consume-obo.md

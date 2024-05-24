@@ -52,6 +52,10 @@ If invalid, redirect the citizen to the [login endpoint] provided by NAIS:
 https://<ingress>/oauth2/login
 ```
 
+!!! tip "Recommended JavaScript Library"
+
+    See <https://github.com/navikt/oasis> that helps with token validation and exchange in JavaScript applications.
+
 To validate the token, start by validating the [signature and standard time-related claims](../../explanations/README.md#token-validation).
 Additionally, perform the following validations:
 
@@ -80,14 +84,12 @@ This endpoint URI can be found in one of two ways:
 
 [Other claims](../reference/README.md#claims) may be present in the token. Validation of these claims is optional.
 
-!!! tip "Recommended JavaScript Library"
-
-    See <https://github.com/navikt/oasis> that helps with token validation and exchange in JavaScript applications.
-
 ## Related pages
 
 :dart: Learn how to [consume other APIs on behalf of a citizen](../../tokenx/how-to/consume.md)
 
 :books: [ID-porten reference](../reference/README.md)
+
+:books: [Wonderwall reference](../../../security/auth/wonderwall.md)
 
 [login endpoint]: ../reference/README.md#login-endpoint

@@ -21,7 +21,7 @@ Use the [OpenID Connect Authorization Code Flow in ID-porten](../../auth/idporte
 
 **Employee-facing applications**
 
-Use the [OpenID Connect Authorization Code Flow in Azure AD](azure-ad/usage.md#openid-connect-authorization-code-flow).
+Use the [OpenID Connect Authorization Code Flow in Entra ID](../../auth/entra-id/how-to/login.md).
 
 ---
 
@@ -44,7 +44,7 @@ Use the [OAuth 2.0 Token Exchange Grant (TokenX)](../../auth/tokenx/README.md).
  
 **Employee-facing applications**
 
-Use the [OAuth 2.0 On-Behalf-Of Grant in Azure AD](azure-ad/usage.md#oauth-20-on-behalf-of-grant).
+Use the [OAuth 2.0 On-Behalf-Of Grant in Entra ID](../../auth/entra-id/how-to/consume-obo.md).
 
 ---
 
@@ -60,7 +60,7 @@ Typical examples:
 
 **Internal**
 
-Use the [OAuth 2.0 Client Credentials Grant in Azure AD](azure-ad/usage.md#oauth-20-client-credentials-grant).
+Use the [OAuth 2.0 Client Credentials Grant in Entra ID](../../auth/entra-id/how-to/consume-m2m.md).
 
 **External**
 

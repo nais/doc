@@ -67,8 +67,11 @@ This endpoint URI can be found in one of two ways:
 2. the `jwks_uri` property from the metadata discovery document.
    The document is found at the endpoint pointed to by the [`TOKEN_X_WELL_KNOWN_URL`][variables-ref] environment variable.
 
-## See also
+**Other Token Claims**
 
-- [TokenX claims reference](../reference/README.md#claims)
+Other claims may be present in the token.
+Validation of these claims is optional.
+
+See the [TokenX claims reference](../reference/README.md#claims) for details.
 
 [variables-ref]: ../reference/README.md#variables-for-validating-tokens
