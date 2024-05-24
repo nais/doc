@@ -8,7 +8,7 @@ This is a overview over the different environments and their available domains.
 
 We also enumerate the external IPs used by the environments, so that you can provide them to services that require IP allow-listing.
 
-{% if tenant() != "nav" %}
+{% if tenant() == "nav" %}
 ## Google Cloud Platform (GCP)
 
 !!! warning
