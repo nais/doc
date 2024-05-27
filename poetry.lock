@@ -393,13 +393,13 @@ wcmatch = ">=7"
 
 [[package]]
 name = "mkdocs-build-plantuml-plugin"
-version = "1.9.0"
+version = "1.10.0"
 description = "An MkDocs plugin to call plantuml locally or remote"
 optional = false
 python-versions = ">=3.2"
 files = [
-    {file = "mkdocs-build-plantuml-plugin-1.9.0.tar.gz", hash = "sha256:b0468a2024741ff5c39d5307e34e54e11225ee0da378ef2bc35ed0e0f1cfc99d"},
-    {file = "mkdocs_build_plantuml_plugin-1.9.0-py3-none-any.whl", hash = "sha256:ba738b698b69dfba8fbd49f92336a17cbe9df16c7b4d384b85528058301ec0c3"},
+    {file = "mkdocs-build-plantuml-plugin-1.10.0.tar.gz", hash = "sha256:81614189fefd1627607775645c9498d6dfeb2566329dc5739bcb92ffd1e6cc71"},
+    {file = "mkdocs_build_plantuml_plugin-1.10.0-py3-none-any.whl", hash = "sha256:56620b948fd422ce7d71da1dbedd606fe5db7ad3421014b4643dc9f4ff70cf51"},
 ]
 
 [package.dependencies]
@@ -960,4 +960,4 @@ bracex = ">=2.1.1"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "49c02eabe31011d174c8d596bb23c38364d2b6742d578e5cc3d56ceccc7f4b68"
+content-hash = "5ff514cd4401ca7ef0fbc2ccccdaea0a3369824b77271b883ecc30cd65c6fff1"
