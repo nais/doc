@@ -72,7 +72,7 @@ When updating the ROS, please be aware that the GCP components you are most like
 
     - Make sure your PVK is up to date.
     - Deploy your application to your team's namespace instead of `default`, as this is not available in GCP.
-    - Use a token auth flow between your applications. Either [TokenX][tokenx] or [Azure AD][azure-ad] depending on your use case. This allows for a more seamless migration of your applications. E.g. if you have two apps in FSS, you can migrate one without the other.
+    - Use a token auth flow between your applications. Either [TokenX][tokenx] or [Entra ID][entra-id] depending on your use case. This allows for a more seamless migration of your applications. E.g. if you have two apps in FSS, you can migrate one without the other.
 
 ### What about PVK?
 
@@ -138,7 +138,7 @@ A PVK is not a unique requirement for GCP, so all applications should already ha
 
     1. Be secured with [OAuth 2.0][auth]. That is, either:
         - a. [TokenX][tokenx], or 
-        - b. [Azure AD][azure-ad]
+        - b. [Entra ID][entra-id]
     2. Exposed to GCP using a special ingress:
         - `https://<app>.dev-fss-pub.nais.io`
         - `https://<app>.prod-fss-pub.nais.io`
@@ -155,7 +155,7 @@ A PVK is not a unique requirement for GCP, so all applications should already ha
 
     2. If secured with OAuth 2.0, ensure that the application also has set up inbound access policies:
         - a. [Access Policies for TokenX][tokenx-access]
-        - b. [Access Policies for Azure AD)][azure-ad-access]
+        - b. [Access Policies for Entra ID)][entra-id-access]
 
 The application _in GCP_ must then:
 
@@ -218,8 +218,8 @@ The application _in GCP_ must then:
 [auth]: ../../security/auth/README.md
 [tokenx]: ../../auth/tokenx/README.md
 [tokenx-access]: ../../auth/tokenx/how-to/secure.md#grant-access
-[azure-ad]: ../../security/auth/azure-ad/README.md
-[azure-ad-access]: ../../security/auth/azure-ad/configuration.md#pre-authorization
+[entra-id]: ../../auth/entra-id/README.md
+[entra-id-access]: ../../auth/entra-id/how-to/secure.md#grant-access
 [access-policies]: ../how-to/access-policies.md
 [roles-responsibilites]: ../../legal/roles-responsibilities.md
 [pvk]: ../../legal/app-pvk.md
