@@ -215,7 +215,7 @@ The application _in GCP_ must then:
 [migrate-database]: ../../persistence/postgres/how-to/migrating-databases-to-gcp.md
 [environments]: ../reference/environments.md
 [secrets]: ../../services/secrets/README.md
-[auth]: ../../security/auth/README.md
+[auth]: ../../auth/README.md
 [tokenx]: ../../auth/tokenx/README.md
 [tokenx-access]: ../../auth/tokenx/how-to/secure.md#grant-access
 [entra-id]: ../../auth/entra-id/README.md

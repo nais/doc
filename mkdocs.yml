@@ -178,6 +178,7 @@ plugins:
         "reference/observability/tracing/trace-semconv.md": "observability/tracing/reference/trace-semconv.md"
         "reference/observability/tracing/traceql.md": "observability/tracing/reference/traceql.md"
         "reference/secrets.md": "services/secrets/README.md"
+        "security/auth/README.md": "auth/README.md"
         "security/auth/azure-ad/README.md": "auth/entra-id/README.md"
         "security/auth/azure-ad/configuration.md": "auth/entra-id/reference/README.md"
         "security/auth/azure-ad/faq-troubleshooting.md": "auth/entra-id/reference/README.md"
