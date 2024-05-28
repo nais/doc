@@ -2,7 +2,7 @@
 tags: [tokenx, how-to]
 ---
 
-# Secure your application with TokenX
+# Secure your API with TokenX
 
 This how-to guides you through the steps required to secure your API using [TokenX](../README.md):
 

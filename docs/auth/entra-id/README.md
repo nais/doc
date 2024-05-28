@@ -23,7 +23,7 @@ NAIS simplifies this by providing:
 
 Your application is left with the responsibility to verify that inbound requests have valid [tokens](../explanations/README.md#tokens).
 
-:dart: Learn how to [log in employees using Entra ID](how-to/login.md).
+:dart: Learn how to [log in employees with Entra ID](how-to/login.md).
 
 ## Secure your API
 
@@ -32,7 +32,7 @@ Once configured, your consumers can acquire a token from Entra ID to [consume yo
 
 Your application code must verify inbound requests by validating the included tokens.
 
-:dart: Learn how to [secure your API using Entra ID](how-to/secure.md)
+:dart: Learn how to [secure your API with Entra ID](how-to/secure.md)
 
 ## Consume an API
 

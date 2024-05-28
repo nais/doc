@@ -22,4 +22,4 @@ NAIS simplifies this by providing:
 
 Your application is left with the responsibility to verify that inbound requests have valid tokens.
 
-:dart: Learn how to [secure your application with ID-porten](how-to/secure.md).
+:dart: Learn how to [log in citizens with ID-porten](how-to/login.md).

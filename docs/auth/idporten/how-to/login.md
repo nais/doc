@@ -2,7 +2,7 @@
 tags: [idporten, how-to]
 ---
 
-# Secure your application with ID-porten
+# Log in a citizen with ID-porten
 
 This how-to guides you through the steps required to ensure that only citizens authenticated with [ID-porten](../README.md) can access your application. 
 

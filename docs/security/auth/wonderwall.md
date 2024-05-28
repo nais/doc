@@ -382,7 +382,7 @@ See the specific identity provider pages for further details on token validation
 
 === "ID-porten"
 
-    [:octicons-arrow-right-24: Read more about Token Validation for ID-porten](../../auth/idporten/how-to/secure.md#validate-token-in-authorization-header)
+    [:octicons-arrow-right-24: Read more about Token Validation for ID-porten](../../auth/idporten/how-to/login.md#validate-token-in-authorization-header)
 
 === "Entra ID"
 

@@ -2,7 +2,7 @@
 tags: [maskinporten, how-to]
 ---
 
-# Secure your API using Maskinporten
+# Secure your API with Maskinporten
 
 This how-to guides you through the steps required to secure your API using [Maskinporten](../README.md):
 

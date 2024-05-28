@@ -471,7 +471,7 @@ Most libraries will have implementations to automatically validate these de fact
 See the individual identity provider pages for specific validation related to each provider:
 
 - [Entra ID](../entra-id/how-to/secure.md#validate-tokens)
-- [ID-porten](../idporten/how-to/secure.md#validate-token-in-authorization-header)
+- [ID-porten](../idporten/how-to/login.md#validate-token-in-authorization-header)
 - [Maskinporten](../maskinporten/how-to/secure.md#validate-tokens)
 - [TokenX](../tokenx/how-to/secure.md#validate-tokens)
 

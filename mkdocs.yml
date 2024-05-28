@@ -85,6 +85,7 @@ plugins:
         "addons/unleash-next.md": "services/feature-toggling.md"
         "addons/unleash.md": "services/feature-toggling.md"
         "addons/wonderwall.md": "security/auth/wonderwall.md"
+        "auth/idporten/how-to/secure.md": "auth/idporten/how-to/login.md"
         "basics/access.md": "operate/how-to/command-line-access.md"
         "basics/teams.md": "explanations/team.md"
         "cli.md": "operate/cli/README.md"

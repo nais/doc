@@ -81,7 +81,7 @@ Your application will automatically be injected with environment variables at ru
 | `IDPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](../../explanations/README.md#issuer).                                      |
 | `IDPORTEN_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](../../explanations/README.md#jwks-endpoint-public-keys).                 |
 
-These variables are used to :dart: [secure your application with ID-porten](../how-to/secure.md).
+These variables are used to :dart: [secure your application with ID-porten](../how-to/login.md).
 
 ## Security levels
 
