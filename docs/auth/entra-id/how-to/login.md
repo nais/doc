@@ -71,6 +71,4 @@ https://<ingress>/oauth2/login
 
 :books: [Entra ID reference](../reference/README.md)
 
-:books: [Wonderwall reference](../../../security/auth/wonderwall.md)
-
-[login endpoint]: ../reference/README.md#login-endpoint
+[login endpoint]: ../../reference/README.md#login-endpoint

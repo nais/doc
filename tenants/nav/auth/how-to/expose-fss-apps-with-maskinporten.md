@@ -152,7 +152,7 @@ Currently we support the following KrakenD features:
 
 ### Expose an API to external consumers from on-prem via GCP
 
-If your app already have a special "pub" ingress, ref [explanation here](../workloads/explanations/migrating-to-gcp.md#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp),
+If your app already have a special "pub" ingress, ref [explanation here](../../workloads/explanations/migrating-to-gcp.md#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp),
 you can enable KrakenD in your namespace in GCP and add API endpoints to your KrakenD instance there, i.e. point to your pub ingress.
 
 === "Maskinporten"

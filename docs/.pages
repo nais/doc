@@ -8,7 +8,6 @@ nav:
 - auth
 - observability
 - persistence
-- security
 - Other services: services
 - "": ""
 - operate

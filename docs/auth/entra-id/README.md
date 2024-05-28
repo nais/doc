@@ -17,9 +17,9 @@ If you have an employee-facing application that requires authentication, you wil
 
 NAIS simplifies this by providing:
 
-- :books: [A login endpoint](reference/README.md#login-endpoint) that handles the authentication flow with Entra ID.
-- :books: [A logout endpoint](reference/README.md#logout-endpoint) that triggers single-logout with Entra ID.
-- :books: [Session management](../../security/auth/wonderwall.md#5-sessions)
+- :books: [A login endpoint](../reference/README.md#login-endpoint) that handles the authentication flow with Entra ID.
+- :books: [A logout endpoint](../reference/README.md#logout-endpoint) that triggers single-logout with Entra ID.
+- :books: [Session management](../explanations/README.md#sessions)
 
 Your application is left with the responsibility to verify that inbound requests have valid [tokens](../explanations/README.md#tokens).
 

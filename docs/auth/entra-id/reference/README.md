@@ -176,42 +176,6 @@ Notable claims in tokens from Entra ID:
 For a complete list of claims, see the [Access Token Claims Reference in Entra ID](https://learn.microsoft.com/en-us/entra/identity-platform/access-token-claims-reference).
 We only use v2.0 tokens.
 
-## Endpoints
-
-If you have [configured your application for login](../how-to/login.md#configure-your-application), NAIS provides the following endpoints to help you integrate with Entra ID:
-
-### Login endpoint
-
-This endpoint handles the authentication flow with Entra ID. It is available at:
-
-```http
-https://<ingress>/oauth2/login
-```
-
-To log in an employee, redirect them to this endpoint.
-By default, they will be redirected back to the matching context path for your application's ingress:
-
-- `/` for `https://<app>.nav.no`
-- `/path` for `https://nav.no/path`
-
-To override this, use the `redirect` parameter to specify a different absolute path:
-
-```
-https://<ingress>/oauth2/login?redirect=/some/path
-```
-
-If you include query parameters, ensure that they are URL encoded.
-
-### Logout endpoint
-
-This endpoint triggers single-logout with Entra ID. It is available at:
-
-```http
-https://<ingress>/oauth2/logout
-```
-
-To log out an employee, redirect them to this endpoint.
-
 ## Runtime Variables & Credentials
 
 Your application will automatically be injected with environment variables at runtime.

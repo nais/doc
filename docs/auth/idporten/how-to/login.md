@@ -90,6 +90,4 @@ This endpoint URI can be found in one of two ways:
 
 :books: [ID-porten reference](../reference/README.md)
 
-:books: [Wonderwall reference](../../../security/auth/wonderwall.md)
-
-[login endpoint]: ../reference/README.md#login-endpoint
+[login endpoint]: ../../reference/README.md#login-endpoint

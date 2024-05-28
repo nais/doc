@@ -15,42 +15,6 @@ Notable claims in tokens from ID-porten:
 
 For a complete list of claims, see the [Access Token Reference in ID-porten](https://docs.digdir.no/docs/idporten/oidc/oidc_protocol_access_token#by-value--self-contained-access-token).
 
-## Endpoints
-
-NAIS provides the following endpoints to help you integrate with ID-porten:
-
-### Login endpoint
-
-This endpoint handles the authentication flow with ID-porten. It is available at:
-
-```http
-https://<ingress>/oauth2/login
-```
-
-To log in a citizen, redirect them to this endpoint.
-By default, they will be redirected back to the matching context path for your application's ingress:
-
-- `/` for `https://<app>.nav.no`
-- `/path` for `https://nav.no/path`
-
-To override this, use the `redirect` parameter to specify a different absolute path:
-
-```
-https://<ingress>/oauth2/login?redirect=/some/path
-```
-
-If you include query parameters, ensure that they are URL encoded.
-
-### Logout endpoint
-
-This endpoint triggers single-logout with ID-porten. It is available at:
-
-```http
-https://<ingress>/oauth2/logout
-```
-
-To log out a citizen, redirect them to this endpoint. 
-
 ## Locales
 
 ID-porten supports a few different locales for the user interface during authentication.
