@@ -2,7 +2,7 @@
 
 !!! warning "FSS apps only"
 
-    KrakendD in NAIS is meant as an extra feature for teams using [Maskinporten](../auth/maskinporten/README.md) to expose their APIs on-prem (FSS / Fagsystemsonen) to external consumers/partners. Applications that run in GCP should use the [Maskinporten](../auth/maskinporten/README.md) functionality directly. 
+    KrakendD in NAIS is meant as an extra feature for teams using [Maskinporten](../maskinporten/README.md) to expose their APIs on-prem (FSS / Fagsystemsonen) to external consumers/partners. Applications that run in GCP should use the [Maskinporten](../maskinporten/README.md) functionality directly. 
 
 
 !!! info "Status: Beta"

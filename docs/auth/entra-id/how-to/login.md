@@ -7,7 +7,7 @@ tags: [entra-id, azure-ad, how-to]
 {%- if tenant() == "nav" %}
 !!! warning "Availability"
 
-    This functionality is only available in the [Google Cloud Platform](../../workloads/reference/environments.md#google-cloud-platform-gcp) environments.
+    This functionality is only available in the [Google Cloud Platform](../../../workloads/reference/environments.md#google-cloud-platform-gcp) environments.
 {%- endif %}
 
 This how-to guides you through the steps required to ensure that only employees authenticated with [Entra ID](../README.md) can access your application.
