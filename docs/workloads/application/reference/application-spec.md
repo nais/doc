@@ -642,11 +642,11 @@ Required: `false`<br />
     ```
 
 ### azure.application
-Configures an Azure AD client for this application.
+Configures an Entra ID client for this application.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/](https://doc.nais.io/security/auth/azure-ad/)
+* [https://doc.nais.io/auth/entra-id/](https://doc.nais.io/auth/entra-id/)
 
 Type: `object`<br />
 Required: `true`<br />
@@ -665,11 +665,11 @@ Required: `true`<br />
     ```
 
 #### azure.application.allowAllUsers
-AllowAllUsers denotes whether all users within the tenant should be allowed to access this AzureAdApplication.
+AllowAllUsers grants all users within the tenant access to this application.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/configuration#all-users](https://doc.nais.io/security/auth/azure-ad/configuration#all-users)
+* [https://doc.nais.io/auth/entra-id/how-to/secure/#all-users](https://doc.nais.io/auth/entra-id/how-to/secure/#all-users)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -737,8 +737,7 @@ Required: `false`<br />
     ```
 
 #### azure.application.enabled
-Whether to enable provisioning of an Azure AD application.
-If enabled, an Azure AD application will be provisioned.
+If enabled, provisions an Entra ID application.
 
 Type: `boolean`<br />
 Required: `true`<br />
@@ -753,13 +752,13 @@ Default value: `false`<br />
     ```
 
 #### azure.application.tenant
-Tenant targets a specific tenant for the Azure AD application.
+Tenant targets a specific tenant for the Entra ID application.
 Only works in the development clusters. Only use this if you have a specific reason to do so.
 Using this will _isolate_ your application from all other applications that are not using the same tenant.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad#tenants](https://doc.nais.io/security/auth/azure-ad#tenants)
+* [https://doc.nais.io/auth/entra-id/explanations/#tenants](https://doc.nais.io/auth/entra-id/explanations/#tenants)
 
 Type: `enum`<br />
 Required: `false`<br />
@@ -779,14 +778,15 @@ All requests to ingress + `/oauth2` will be processed only by the sidecar, where
 will be proxied to the application.
 
 
-If the client is authenticated with Azure AD, the `Authorization` header will be set to `Bearer <JWT>`.
+If the user is authenticated with Entra ID, the `Authorization` header will be set to `Bearer <JWT>`.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/sidecar/](https://doc.nais.io/security/auth/azure-ad/sidecar/)
+* [https://doc.nais.io/auth/explanations/#login-proxy](https://doc.nais.io/auth/explanations/#login-proxy)
 
 Type: `object`<br />
 Required: `false`<br />
+Availability: GCP<br />
 
 ??? example
     ``` yaml
@@ -812,7 +812,7 @@ Automatically redirect the user to login for all proxied GET requests.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/wonderwall/#12-autologin](https://doc.nais.io/security/auth/wonderwall/#12-autologin)
+* [https://doc.nais.io/auth/explanations/#autologin](https://doc.nais.io/auth/explanations/#autologin)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -827,11 +827,11 @@ Default value: `false`<br />
     ```
 
 #### azure.sidecar.autoLoginIgnorePaths
-Comma separated list of absolute paths to ignore when auto-login is enabled.
+Absolute paths to ignore when auto-login is enabled.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/wonderwall/#12-autologin](https://doc.nais.io/security/auth/wonderwall/#12-autologin)
+* [https://doc.nais.io/auth/reference/#autologin-exclusions](https://doc.nais.io/auth/reference/#autologin-exclusions)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -862,10 +862,6 @@ Required: `true`<br />
 
 #### azure.sidecar.resources
 Resource requirements for the sidecar container.
-
-Relevant information:
-
-* [https://doc.nais.io/security/auth/wonderwall/#4-resource-requirements](https://doc.nais.io/security/auth/wonderwall/#4-resource-requirements)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3378,6 +3374,10 @@ Required: `false`<br />
 ### idporten.enabled
 Enable ID-porten authentication. Requires `.spec.idporten.sidecar.enabled=true`.
 
+Relevant information:
+
+* [https://doc.nais.io/auth/idporten/](https://doc.nais.io/auth/idporten/)
+
 Type: `boolean`<br />
 Required: `true`<br />
 Availability: GCP<br />
@@ -3395,14 +3395,15 @@ All requests to ingress + `/oauth2` will be processed only by the sidecar, where
 will be proxied to the application.
 
 
-If the client is authenticated with IDPorten, the `Authorization` header will be set to `Bearer <JWT>`.
+If the user is authenticated with ID-porten, the `Authorization` header will be set to `Bearer <JWT>`.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/idporten/](https://doc.nais.io/security/auth/idporten/)
+* [https://doc.nais.io/auth/idporten/how-to/login/](https://doc.nais.io/auth/idporten/how-to/login/)
 
 Type: `object`<br />
 Required: `false`<br />
+Availability: GCP<br />
 
 ??? example
     ``` yaml
@@ -3430,7 +3431,7 @@ Automatically redirect the user to login for all proxied GET requests.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/wonderwall/#12-autologin](https://doc.nais.io/security/auth/wonderwall/#12-autologin)
+* [https://doc.nais.io/auth/explanations/#autologin](https://doc.nais.io/auth/explanations/#autologin)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -3445,11 +3446,11 @@ Default value: `false`<br />
     ```
 
 #### idporten.sidecar.autoLoginIgnorePaths
-Comma separated list of absolute paths to ignore when auto-login is enabled.
+Absolute paths to ignore when auto-login is enabled.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/wonderwall/#12-autologin](https://doc.nais.io/security/auth/wonderwall/#12-autologin)
+* [https://doc.nais.io/auth/reference/#autologin-exclusions](https://doc.nais.io/auth/reference/#autologin-exclusions)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -3483,7 +3484,7 @@ Default security level for all authentication requests.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/idporten#security-levels](https://doc.nais.io/security/auth/idporten#security-levels)
+* [https://doc.nais.io/auth/idporten/reference/#security-levels](https://doc.nais.io/auth/idporten/reference/#security-levels)
 
 Type: `enum`<br />
 Required: `false`<br />
@@ -3503,7 +3504,7 @@ Default user interface locale for all authentication requests.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/idporten#locales](https://doc.nais.io/security/auth/idporten#locales)
+* [https://doc.nais.io/auth/idporten/reference/#locales](https://doc.nais.io/auth/idporten/reference/#locales)
 
 Type: `enum`<br />
 Required: `false`<br />
@@ -3520,10 +3521,6 @@ Allowed values: `en`, `nb`, `nn`, `se`<br />
 
 #### idporten.sidecar.resources
 Resource requirements for the sidecar container.
-
-Relevant information:
-
-* [https://doc.nais.io/security/auth/wonderwall/#4-resource-requirements](https://doc.nais.io/security/auth/wonderwall/#4-resource-requirements)
 
 Type: `object`<br />
 Required: `false`<br />

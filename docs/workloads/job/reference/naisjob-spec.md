@@ -613,11 +613,11 @@ Required: `false`<br />
     ```
 
 ### azure.application
-Configures an Azure AD client for this application.
+Configures an Entra ID client for this application.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/](https://doc.nais.io/security/auth/azure-ad/)
+* [https://doc.nais.io/auth/entra-id/](https://doc.nais.io/auth/entra-id/)
 
 Type: `object`<br />
 Required: `true`<br />
@@ -635,11 +635,11 @@ Required: `true`<br />
     ```
 
 #### azure.application.allowAllUsers
-AllowAllUsers denotes whether all users within the tenant should be allowed to access this AzureAdApplication.
+AllowAllUsers grants all users within the tenant access to this application.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/configuration#all-users](https://doc.nais.io/security/auth/azure-ad/configuration#all-users)
+* [https://doc.nais.io/auth/entra-id/how-to/secure/#all-users](https://doc.nais.io/auth/entra-id/how-to/secure/#all-users)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -707,8 +707,7 @@ Required: `false`<br />
     ```
 
 #### azure.application.enabled
-Whether to enable provisioning of an Azure AD application.
-If enabled, an Azure AD application will be provisioned.
+If enabled, provisions an Entra ID application.
 
 Type: `boolean`<br />
 Required: `true`<br />
@@ -723,13 +722,13 @@ Default value: `false`<br />
     ```
 
 #### azure.application.tenant
-Tenant targets a specific tenant for the Azure AD application.
+Tenant targets a specific tenant for the Entra ID application.
 Only works in the development clusters. Only use this if you have a specific reason to do so.
 Using this will _isolate_ your application from all other applications that are not using the same tenant.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad#tenants](https://doc.nais.io/security/auth/azure-ad#tenants)
+* [https://doc.nais.io/auth/entra-id/explanations/#tenants](https://doc.nais.io/auth/entra-id/explanations/#tenants)
 
 Type: `enum`<br />
 Required: `false`<br />
