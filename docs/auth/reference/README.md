@@ -1,5 +1,6 @@
 ---
 tags: [auth, reference]
+toc_depth: 3
 ---
 
 # Auth reference
@@ -219,18 +220,33 @@ https://<ingress>/oauth2/login
 ```
 
 To log in an end-user, redirect them to this endpoint.
-By default, they will be redirected back to the matching context path for your application's ingress:
+After login, they are by default redirected back to the matching context path for your application's ingress:
 
 - `/` for `https://<app>.nav.no`
 - `/path` for `https://nav.no/path`
 
-To override this, use the `redirect` parameter to specify a different absolute path:
+Supported query parameters:
 
-```
-https://<ingress>/oauth2/login?redirect=/some/path
-```
+`redirect`
 
-If you include query parameters, ensure that they are URL encoded.
+:   Overrides the default redirect:
+
+    ```
+    https://<ingress>/oauth2/login?redirect=/some/path
+    ```
+
+    Value must be an URL encoded absolute path.
+
+`prompt`
+
+:   Prompts the user to select an account at the identity provider.
+    Useful for switching between multiple accounts.
+
+    ```
+    https://<ingress>/oauth2/login?prompt=select_account
+    ```
+
+    Value must be `select_account`.
 
 #### Logout endpoint
 
@@ -241,15 +257,19 @@ https://<ingress>/oauth2/logout
 ```
 
 To log out an end-user, redirect them to this endpoint.
-By default, they will be redirected back to a preconfigured URL.
+After logout, they are by default redirected back to a preconfigured URL.
 
-To override this, use the `redirect` parameter to specify a different absolute path:
+Supported query parameters:
 
-```
-https://<ingress>/oauth2/logout?redirect=/some/path
-```
+`redirect`
 
-If you include query parameters, ensure that they are URL encoded.
+:   Overrides the default redirect:
+
+    ```
+    https://<ingress>/oauth2/logout?redirect=/some/path
+    ```
+
+    Value must be an URL encoded absolute path.
 
 #### Session endpoint
 
