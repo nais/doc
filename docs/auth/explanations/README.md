@@ -47,13 +47,13 @@ There are multiple ways of obtaining such a grant, depending on the use case:
 [OpenID Connect (OIDC)](https://openid.net/connect/) is an identity layer on top of the OAuth 2.0 protocol.
 It is used to authenticate end users.
 
-The platform provides opt-in sidecars that implement OpenID Connect:
+The platform provides opt-in [login proxies](#login-proxy) that implement OpenID Connect:
 
-- [Sidecar for Entra ID](../entra-id/how-to/login.md) (employee-facing applications)
-- [Sidecar for ID-porten](../idporten/README.md) (citizen-facing applications)
+- [Login proxy for Entra ID](../entra-id/how-to/login.md) (employee-facing applications)
+- [Login proxy for ID-porten](../idporten/how-to/login.md) (citizen-facing applications)
 
 Due to the complexity involved in implementing and maintaining such clients, we recommend that your applications use
-these sidecars when possible.
+these proxies when possible.
 
 If you do implement your own client, we recommend that you always use the
 [Authorization Code Flow](https://openid.net/specs/openid-connect-core-1_0.html#CodeFlowAuth) together with
