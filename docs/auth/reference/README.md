@@ -1,6 +1,5 @@
 ---
 tags: [auth, reference]
-toc_depth: 3
 ---
 
 # Auth reference
