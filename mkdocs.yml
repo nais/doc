@@ -84,7 +84,8 @@ plugins:
       redirect_maps:
         "addons/unleash-next.md": "services/feature-toggling.md"
         "addons/unleash.md": "services/feature-toggling.md"
-        "addons/wonderwall.md": "auth/README.md"
+        "addons/wonderwall.md": "auth/explanations/README.md#login-proxy"
+        "appendix/wonderwall.md": "auth/explanations/README.md#login-proxy"
         "auth/idporten/how-to/secure.md": "auth/idporten/how-to/login.md"
         "basics/access.md": "operate/how-to/command-line-access.md"
         "basics/teams.md": "explanations/team.md"
@@ -191,7 +192,7 @@ plugins:
         "security/auth/maskinporten/client.md": "auth/maskinporten/how-to/consume.md"
         "security/auth/maskinporten/scopes.md": "auth/maskinporten/how-to/secure.md"
         "security/auth/tokenx.md": "auth/tokenx/README.md"
-        "security/auth/wonderwall.md": "auth/README.md"
+        "security/auth/wonderwall.md": "auth/explanations/README.md#login-proxy"
         "security/salsa/salsa.md": "services/salsa.md"
         "security/salsa.md": "services/salsa.md"
         "tutorial/hello-nais/README.md": "tutorials/hello-nais.md"

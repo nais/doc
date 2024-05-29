@@ -598,7 +598,8 @@ verify the signature of your client assertions as proof of your client's identit
 
 ## Login proxy
 
-NAIS provides a login proxy that simplifies the process of authenticating humans in your application.
+NAIS offers an opt-in _login proxy_ (also known as _Wonderwall_) that simplifies the process of authenticating end-users in your application.
+The proxy exposes [endpoints](../reference/README.md#endpoints) under your application's [ingress](../../workloads/reference/ingress.md) to help you authenticate [employees](../entra-id/how-to/login.md) or [citizens](../idporten/how-to/login.md).
 
 !!! warning "Availability"
 
@@ -616,7 +617,7 @@ graph LR
   Proxy -. "proxy request\n as-is" -..-> Application
 ```
 
-To log in a human, redirect them to the [login endpoint](../reference/README.md#login-endpoint).
+To log in an end-user, redirect them to the [login endpoint](../reference/README.md#login-endpoint).
 
 ```mermaid
 graph LR
@@ -632,7 +633,7 @@ graph LR
   end
 ```
 
-After successful login, the proxy creates and manages the user agent's session.
+After successful login, the proxy creates and stores a session for the end-user.
 Requests from the user agent will now contain their access token as a [Bearer token](../../auth/explanations/README.md#bearer-token) in the `Authorization` header.
 
 ```mermaid
@@ -649,139 +650,34 @@ graph LR
 
 ### Sessions
 
-When a user authenticates themselves, they receive a session. Sessions are stored server-side; we only store a session identifier at the end-user's user agent.
+When an end-user authenticates themselves, they receive a session.
+Sessions are stored server-side and are managed by the login proxy; we only store a session identifier at the end-user's user agent.
 
 A session has three possible states:
 
-- _active_ - the session is **valid**
-- _inactive_ - the session has reached the _inactivity timeout_ and is considered **invalid**
-- _expired_ - the session has reached its _maximum lifetime_ and is considered **invalid**
+- _active_ - the session is valid
+- _inactive_ - the session has reached the _inactivity timeout_ and is considered invalid
+- _expired_ - the session has reached its _maximum lifetime_ and is considered invalid
 
-Requests with an **invalid** session are considered _unauthenticated_.
-In this state, the [a new login](../reference/README.md#login-endpoint) must be initiated to acquire a new session.
+Requests with an invalid session are considered unauthenticated; they must get a new session by [performing a new login](../reference/README.md#login-endpoint).
 
-The session's _inactivity timeout_ is reset every time the user's session is [refreshed](#session-refresh).
-
-The maximum session lifetime and inactivity timeout depends on the identity provider:
-
-=== "ID-porten"
-
-    | Maximum Lifetime | Inactivity Timeout |
-    |------------------|--------------------|
-    | 6 hours          | ✅ Yes, 1 hour      |
-    
-    For ID-porten, [nav-dekoratoren](https://github.com/navikt/nav-dekoratoren#utloggingsvarsel) implements automatic support for user-triggered refreshing as well as displaying logout warnings.
-    Refer to their documentation for further details.
-
-    If you're **not** using `nav-dekoratoren`, see [5.2 Session Refresh](#session-refresh) for details.
-
-=== "Entra ID"
-
-    | Maximum Lifetime | Inactivity Timeout |
-    |------------------|--------------------|
-    | 10 hours         | ❌ No timeout       |
-
-    For Entra ID, if you have users actively working beyond the maximum session lifetime (which they generally shouldn't), consider notifying them before their session expires.
-    
-    You can make use of the [session metadata endpoint](../reference/README.md#session-endpoint) to track the session's state.
-
-The maximum lifetime and inactivity timeout (if enabled) durations are subject to change. You should not hard-code or depend on these exact values in your application.
-
-Tokens within the session usually expire before the session itself.
-
-### Session refresh
-
-To avoid redirecting end-users to the `/oauth2/login` endpoint whenever the access tokens have expired, we can use refresh tokens to silently get new tokens.
-
-An _inactive_ or _expired_ session **cannot** be refreshed.
-
-=== "ID-porten"
-
-    For ID-porten, session refreshes must be triggered manually.
-    [nav-dekoratoren](https://github.com/navikt/nav-dekoratoren#utloggingsvarsel) implements automatic support for user-triggered refreshes as well as displaying logout warnings.
-    Refer to their documentation for further details.
-
-    If you're **not** using `nav-dekoratoren` and wish to implement refreshes yourselves, these are the cases (with suggested solutions) you should handle in descending priority:
-
-    ??? note "Cases for Manual Session Refreshes (click to expand)"
-
-        1. _The `/oauth2/session` endpoint returns 401; the user is either not authenticated or their previous session has ended._
-
-            The user should either automatically be redirected to login, or be presented with a message stating that they are not authenticated with an option to either be redirected to log in or return to another page.
-
-        2. _The session is inactive (or timed out)._
-
-            The user should be presented with a message explaining that they've been inactive for too long and were logged out for security reasons.
-            They should then be given the option to either be redirected to login or return to another page.
-
-        3. _The session is active, but will end in around 5-10 minutes._
-
-            The user should be presented with a message that explains that the session is about to end (perhaps with a countdown), and be encouraged to save or complete their work. If the session ends while the user is still present, transition to case 1.
-
-        4. _The session is active, but will time out in around 5-10 minutes._
-
-            The user should be presented with a message explaining that they've been inactive for a while and will be logged out within x time (perhaps with a countdown) if no action is taken.
-
-            They should be given an option to either extend the session or log out. If no action is taken and the session eventually times out, transition to case 2.
-
-        5. _The session is active, and the tokens within the session have either expired or are 5-10 minutes away from expiring._
-
-            If you want all session refrehes to require explicit consent by the end-user, go to case 4.
-
-            If you want to refresh the user's session without prompting the user, read on.
-
-            First, determine whether the user is still present and active.
-            This should be done with some heuristic specific to your frontend (e.g. using the Idle Detection API, time since last request, and so on).
-            If you deem the user to still be present and active, it should be reasonable to just perform automatically perform the refresh in the background.
-
-=== "Entra ID"
-
-    For Entra ID, tokens are automatically refreshed for all sessions until the session itself reaches the maximum lifetime.
-    
-    The tokens will at the _earliest_ be automatically refreshed 5 minutes before they expire.
-    If the token already has expired for an _active_ session, a refresh attempt is automatically triggered on the next request on any path that belongs to the application.
-
-    This means that you do **not** need to implement any token refreshing logic yourself.
-
+See the [session management reference](../reference/README.md#session-management) for more details.
 
 ### Autologin
 
-!!! danger inline end "Autologin vs. Token Validation"
+The [autologin option](../reference/README.md#autologin) configures the login proxy to enforce authentication for **all requests**, except for the paths that are explicitly [excluded](../reference/README.md#autologin-exclusions).
 
-    Autologin does **not** perform nor is it a replacement for [token validation](#token-validation).
+!!! danger "Autologin vs. token validation"
 
-    Always validate the token for any endpoint that requires authentication.
+    Always [validate tokens](#token-validation) in requests for any endpoint that requires authentication.
+    Autologin does **not** perform nor is it a replacement for token validation.
 
     Validation is especially important for requests that access sensitive data or otherwise performs operations that modify state.
 
-The `autoLogin` option will configure the login proxy to enforce authentication for **all** requests, except for the paths that are explicitly [excluded](../reference/README.md#autologin-exclusions).
+If the user is [_unauthenticated_](#sessions), all requests will be short-circuited (i.e. return early and **not** proxied to your application).
+The [response](../reference/README.md#autologin-response) depends on whether the request is a _top-level navigation_ request or not.
 
-Autologin must be explicitly enabled. It is not enabled by default.
-
-Example configuration:
-
-=== "ID-porten"
-
-    ```yaml hl_lines="4"
-    spec:
-      idporten:
-        sidecar:
-          autoLogin: true
-    ```
-=== "Entra ID"
-
-    ```yaml hl_lines="4"
-    spec:
-      azure:
-        sidecar:
-          autoLogin: true
-    ```
-
-If the user is _unauthenticated_ or has an [_inactive_ or _expired_ session](#sessions), all requests will be short-circuited (i.e. return early and **not** proxied to your application).
-
-The short-circuited response depends on whether the request is a _top-level navigation_ request or not.
-
-??? info "What is a _top-level navigation request_?"
+???+ info "What is a _top-level navigation request_?"
 
     A _top-level navigation_ request is a `GET` request that fulfills at least one of the following properties:
 
@@ -791,14 +687,7 @@ The short-circuited response depends on whether the request is a _top-level navi
     All major modern browsers sends at least one of these for navigational requests, with Internet Explorer 8 being the only known exception.
     Hopefully you're not in a position that requires supporting that browser.
 
-A top-level navigation request results in a `HTTP 302 Found` response with the `Location` header pointing to the [login endpoint](#login-endpoint).
-The `redirect` parameter is set to the original request's `Referer` header to preserve the user's original location.
-If the `Referer` header is empty, we use the matching ingress context path for the original request.
-
-All other requests (such as `POST` or `PUT` requests, or `fetch`, `XMLHttpRequest`/`XHR` or `AJAX` from browsers) are _not_ considered navigational requests.
-These requests result in a `HTTP 401 Unauthorized` response with the `Location` header set as described above.
-
-Ensure that your frontend handles the `HTTP 401` response and redirects the user to the login endpoint.
+Ensure that your frontend code handles `HTTP 401` responses and appropriately notifies the user or redirects them to the [login endpoint](../reference/README.md#login-endpoint).
 
 ## Further Reading
 

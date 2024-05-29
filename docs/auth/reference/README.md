@@ -42,167 +42,80 @@ See the respective identity provider pages for details on acquiring such tokens:
 ## Login proxy
 
 Reference documentation for the [login proxy](../explanations/README.md#login-proxy) provided by NAIS.
+Supported identity providers:
 
-### Endpoints
+- Entra ID for [logging in employees](../entra-id/how-to/login.md).
+- ID-porten for [logging in citizens](../idporten/how-to/login.md).
 
-NAIS provides the following endpoints under your application's [ingress](../../workloads/reference/ingress.md) to help you authenticate [employees](../entra-id/how-to/login.md) or [citizens](../idporten/how-to/login.md).
+### Autologin
 
-| Path                                    | Description                                                                                         | Details                                               |
-|-----------------------------------------|-----------------------------------------------------------------------------------------------------|-------------------------------------------------------|
-| `GET <ingress>/oauth2/login`            | Redirect the user agent here to initiate login.                                                     | [Login endpoint](#login-endpoint)                     |
-| `GET <ingress>/oauth2/logout`           | Redirect the user agent here to initiate logout.                                                    | [Logout endpoint](#logout-endpoint)                   |
-| `GET <ingress>/oauth2/session`          | Request from user agent. Returns the current user's session metadata                                | [Session endpoint](#session-endpoint)                 |
-| `POST <ingress>/oauth2/session/refresh` | Request from user agent. Refreshes the tokens and returns the session metadata for the current user | [Session refresh endpoint](#session-refresh-endpoint) |
+[Autologin](../explanations/README.md#autologin) is not enabled by default. To enable autologin:
 
-#### Login endpoint
+=== "ID-porten"
 
-This endpoint handles the authentication flow. It is available at:
+    ```yaml hl_lines="4"
+    spec:
+      idporten:
+        sidecar:
+          autoLogin: true
+    ```
+=== "Entra ID"
 
-```http
-https://<ingress>/oauth2/login
-```
+    ```yaml hl_lines="4"
+    spec:
+      azure:
+        sidecar:
+          autoLogin: true
+    ```
 
-To log in a human, redirect them to this endpoint.
-By default, they will be redirected back to the matching context path for your application's ingress:
+#### Autologin response
 
-- `/` for `https://<app>.nav.no`
-- `/path` for `https://nav.no/path`
+[Top-level navigation requests](../explanations/README.md?h=top+level+navigation#autologin) result in a `HTTP 302 Found` response with the `Location` header pointing to the [login endpoint](../reference/README.md#login-endpoint):
 
-To override this, use the `redirect` parameter to specify a different absolute path:
+- The `redirect` parameter is set to the original request's `Referer` header to preserve the user's original location.
+- If the `Referer` header is empty, we use the matching ingress context path for the original request.
 
-```
-https://<ingress>/oauth2/login?redirect=/some/path
-```
+```http title="Navigational request"
+GET /some/path
 
-If you include query parameters, ensure that they are URL encoded.
-
-#### Logout endpoint
-
-This endpoint triggers single-logout. It is available at:
-
-```http
-https://<ingress>/oauth2/logout
-```
-
-To log out a human, redirect them to this endpoint.
-By default, they will be redirected back to a preconfigured URL.
-
-To override this, use the `redirect` parameter to specify a different absolute path:
-
-```
-https://<ingress>/oauth2/login?redirect=/some/path
-```
-
-If you include query parameters, ensure that they are URL encoded.
-
-#### Session endpoint
-
-This endpoint returns metadata about the human's [session](../explanations/README.md#sessions) as a JSON object.
-Requests to this endpoint must be triggered from the user agent.
-
-```http title="Request"
-GET /oauth2/session
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Referer: https://<ingress>/original/path
 ```
 
 ```http title="Response"
-HTTP/2 200 OK
-Content-Type: application/json
-
-{
-  "session": {
-    "created_at": "2022-08-31T06:58:38.724717899Z", 
-    "ends_at": "2022-08-31T16:58:38.724717899Z",
-    "timeout_at": "0001-01-01T00:00:00Z",
-    "ends_in_seconds": 14658,
-    "active": true,
-    "timeout_in_seconds": -1
-  },
-  "tokens": {
-    "expire_at": "2022-08-31T14:03:47.318251953Z",
-    "refreshed_at": "2022-08-31T12:53:58.318251953Z",
-    "expire_in_seconds": 4166
-    "next_auto_refresh_in_seconds": -1,
-    "refresh_cooldown": false,
-    "refresh_cooldown_seconds": 0
-  }
-}
+HTTP/2 302 Found
+Location: https://<ingress>/oauth2/login?redirect=/original/path
 ```
 
-The table below describes the different fields in the JSON response.
+All other requests are considered non-navigational, such as:
 
-??? note "Session Metadata Field Descriptions (click to expand)"
+- `POST` or `PUT` requests
+- `fetch`, `XMLHttpRequest`/`XHR` / `AJAX` requests from browsers
 
-    | Field                                 | Description                                                                                                                                                   |
-    |---------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-    | `session.active`                      | Whether or not the session is marked as active. If `false`, the session cannot be extended and the user must be redirected to login.                          |
-    | `session.created_at`                  | The timestamp that denotes when the session was first created.                                                                                                |
-    | `session.ends_at`                     | The timestamp that denotes when the session will end. After this point, the session cannot be extended and the user must be redirected to login.              |
-    | `session.ends_in_seconds`             | The number of seconds until `session.ends_at`.                                                                                                                |
-    | `session.timeout_at`                  | The timestamp that denotes when the session will time out. The zero-value, `0001-01-01T00:00:00Z`, means no timeout.                                          |
-    | `session.timeout_in_seconds`          | The number of seconds until `session.timeout_at`. A value of `-1` means no timeout.                                                                           |
-    | `tokens.expire_at`                    | The timestamp that denotes when the tokens within the session will expire.                                                                                    |
-    | `tokens.expire_in_seconds`            | The number of seconds until `tokens.expire_at`.                                                                                                               |
-    | `tokens.refreshed_at`                 | The timestamp that denotes when the tokens within the session was last refreshed.                                                                             |
-    | `tokens.next_auto_refresh_in_seconds` | The number of seconds until the earliest time where the tokens will automatically be refreshed. A value of -1 means that automatic refreshing is not enabled. |
-    | `tokens.refresh_cooldown`             | A boolean indicating whether or not the refresh operation is on cooldown or not.                                                                              |
-    | `tokens.refresh_cooldown_seconds`     | The number of seconds until the refresh operation is no longer on cooldown.                                                                                   |
+These requests result in a `HTTP 401 Unauthorized` response with the `Location` header set as described previously:
 
-This endpoint will respond with the following HTTP status codes on errors:
+```http title="Non-Navigational request"
+GET /some/path
 
-- `HTTP 401 Unauthorized` - no session cookie or matching session found, or maximum lifetime reached
-- `HTTP 500 Internal Server Error` - the login proxy wasn't able to process the request
-
-Otherwise, an `HTTP 200 OK` is returned with the metadata with the `application/json` as the `Content-Type`.
-
-Note that this endpoint will still return `HTTP 200 OK` for _inactive_ sessions, as long as the session is not _expired_.
-This allows application to display errors before redirecting the user to login on timeouts.
-
-This also means that you should not use the HTTP response status codes alone as an indication of whether the user is authenticated or not.
-
-#### Session refresh endpoint
-
-This endpoint allows for refreshing the human's session on demand.
-Requests to this endpoint must be triggered from the user agent.
-
-The endpoint will respond with a `HTTP 401 Unauthorized` if the session is _inactive_.
-It is otherwise equivalent to the [session endpoint](#session-endpoint).
-
-```http title="Request"
-POST /oauth2/session/refresh
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Referer: https://<ingress>/original/path
 ```
 
 ```http title="Response"
-HTTP/2 200 OK
-Content-Type: application/json
-
-{
-  "session": {
-    "created_at": "2022-08-31T06:58:38.724717899Z", 
-    "ends_at": "2022-08-31T16:58:38.724717899Z",
-    "timeout_at": "0001-01-01T00:00:00Z",
-    "ends_in_seconds": 14658,
-    "active": true,
-    "timeout_in_seconds": -1
-  },
-  "tokens": {
-    "expire_at": "2022-08-31T14:03:47.318251953Z",
-    "refreshed_at": "2022-08-31T12:53:58.318251953Z",
-    "expire_in_seconds": 4166,
-    "next_auto_refresh_in_seconds": 3866,
-    "refresh_cooldown": true,
-    "refresh_cooldown_seconds": 37
-  }
-}
+HTTP/2 401 Unauthorized
+Location: https://<ingress>/oauth2/login?redirect=/original/path
 ```
 
-### Autologin exclusions
+#### Autologin exclusions
 
-[Autologin](../explanations/README.md#autologin) will by default match all paths for your application's ingresses, except the following:
+Autologin will by default match all paths for your application's ingresses, except the following:
 
-- `/oauth2/*`
-- [`spec.prometheus.path`](../../workloads/application/reference/application-spec.md#prometheuspath), if defined
-- [`spec.liveness.path`](../../workloads/application/reference/application-spec.md#livenesspath), if defined
-- [`spec.readiness.path`](../../workloads/application/reference/application-spec.md#readinesspath), if defined
+- `/oauth2/**`
+- [`spec.prometheus.path`](../../workloads/application/reference/application-spec.md#prometheuspath) (if defined)
+- [`spec.liveness.path`](../../workloads/application/reference/application-spec.md#livenesspath) (if defined)
+- [`spec.readiness.path`](../../workloads/application/reference/application-spec.md#readinesspath) (if defined)
 
 You can define additional paths or patterns to be excluded:
 
@@ -287,3 +200,191 @@ The paths must be absolute paths. The match patterns use glob-style matching.
             - `/static/min`
             - `/static/min/some.css`
             - `/static/vendor/min/some.css`
+
+### Endpoints
+
+| Path                                    | Description                                                                                                   | Details                                               |
+|-----------------------------------------|---------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|
+| `GET <ingress>/oauth2/login`            | Redirect the user agent here to initiate login.                                                               | [Login endpoint](#login-endpoint)                     |
+| `GET <ingress>/oauth2/logout`           | Redirect the user agent here to initiate logout.                                                              | [Logout endpoint](#logout-endpoint)                   |
+| `GET <ingress>/oauth2/session`          | Must be requested from user agent. Returns the current user's session metadata                                | [Session endpoint](#session-endpoint)                 |
+| `POST <ingress>/oauth2/session/refresh` | Must be requested from user agent. Refreshes the tokens and returns the session metadata for the current user | [Session refresh endpoint](#session-refresh-endpoint) |
+
+#### Login endpoint
+
+This endpoint initiates the authentication flow. It is available at:
+
+```http
+https://<ingress>/oauth2/login
+```
+
+To log in an end-user, redirect them to this endpoint.
+By default, they will be redirected back to the matching context path for your application's ingress:
+
+- `/` for `https://<app>.nav.no`
+- `/path` for `https://nav.no/path`
+
+To override this, use the `redirect` parameter to specify a different absolute path:
+
+```
+https://<ingress>/oauth2/login?redirect=/some/path
+```
+
+If you include query parameters, ensure that they are URL encoded.
+
+#### Logout endpoint
+
+This endpoint triggers single-logout. It is available at:
+
+```http
+https://<ingress>/oauth2/logout
+```
+
+To log out an end-user, redirect them to this endpoint.
+By default, they will be redirected back to a preconfigured URL.
+
+To override this, use the `redirect` parameter to specify a different absolute path:
+
+```
+https://<ingress>/oauth2/logout?redirect=/some/path
+```
+
+If you include query parameters, ensure that they are URL encoded.
+
+#### Session endpoint
+
+This endpoint returns metadata about the end-user's [session](../explanations/README.md#sessions) as a JSON object.
+Requests to this endpoint must be triggered from the user agent.
+
+```http title="Request"
+GET /oauth2/session
+```
+
+```http title="Response"
+HTTP/2 200 OK
+Content-Type: application/json
+
+{
+  "session": {
+    "active": true,
+    "created_at": "2022-08-31T06:58:38.724717899Z", 
+    "ends_at": "2022-08-31T16:58:38.724717899Z",
+    "ends_in_seconds": 14658,
+    "timeout_at": "0001-01-01T00:00:00Z",
+    "timeout_in_seconds": -1
+  },
+  "tokens": {
+    "expire_at": "2022-08-31T14:03:47.318251953Z",
+    "expire_in_seconds": 4166
+    "next_auto_refresh_in_seconds": -1,
+    "refreshed_at": "2022-08-31T12:53:58.318251953Z",
+    "refresh_cooldown": false,
+    "refresh_cooldown_seconds": 0
+  }
+}
+```
+
+The table below describes the different fields in the JSON response.
+
+??? note "Session Metadata Field Descriptions (click to expand)"
+
+    | Field                                 | Description                                                                                                                                                   |
+    |---------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    | `session.active`                      | Whether or not the session is marked as active. If `false`, the session cannot be extended and the user must be redirected to login.                          |
+    | `session.created_at`                  | The timestamp that denotes when the session was first created.                                                                                                |
+    | `session.ends_at`                     | The timestamp that denotes when the session will end. After this point, the session cannot be extended and the user must be redirected to login.              |
+    | `session.ends_in_seconds`             | The number of seconds until `session.ends_at`.                                                                                                                |
+    | `session.timeout_at`                  | The timestamp that denotes when the session will time out. The zero-value, `0001-01-01T00:00:00Z`, means no timeout.                                          |
+    | `session.timeout_in_seconds`          | The number of seconds until `session.timeout_at`. A value of `-1` means no timeout.                                                                           |
+    | `tokens.expire_at`                    | The timestamp that denotes when the tokens within the session will expire.                                                                                    |
+    | `tokens.expire_in_seconds`            | The number of seconds until `tokens.expire_at`.                                                                                                               |
+    | `tokens.next_auto_refresh_in_seconds` | The number of seconds until the earliest time where the tokens will automatically be refreshed. A value of -1 means that automatic refreshing is not enabled. |
+    | `tokens.refreshed_at`                 | The timestamp that denotes when the tokens within the session was last refreshed.                                                                             |
+    | `tokens.refresh_cooldown`             | A boolean indicating whether or not the refresh operation is on cooldown or not.                                                                              |
+    | `tokens.refresh_cooldown_seconds`     | The number of seconds until the refresh operation is no longer on cooldown.                                                                                   |
+
+This endpoint will respond with the following HTTP status codes on errors:
+
+- `HTTP 401 Unauthorized` - no session cookie or matching session found, or maximum lifetime reached
+- `HTTP 500 Internal Server Error` - the login proxy wasn't able to process the request
+
+Otherwise, an `HTTP 200 OK` is returned with the metadata with the `application/json` as the `Content-Type`.
+
+Note that this endpoint will still return `HTTP 200 OK` for _inactive_ sessions, as long as the session is not _expired_.
+This allows application to display errors before redirecting the user to login on timeouts.
+
+This also means that you should not use the HTTP response status codes alone as an indication of whether the user is authenticated or not.
+
+#### Session refresh endpoint
+
+This endpoint allows for refreshing the end-user's session on demand.
+Requests to this endpoint must be triggered from the user agent.
+
+The endpoint will respond with a `HTTP 401 Unauthorized` if the session is _inactive_.
+It is otherwise equivalent to the [session endpoint](#session-endpoint).
+
+```http title="Request"
+POST /oauth2/session/refresh
+```
+
+```http title="Response"
+HTTP/2 200 OK
+Content-Type: application/json
+
+{
+  "session": {
+    "active": true,
+    "created_at": "2022-08-31T06:58:38.724717899Z", 
+    "ends_at": "2022-08-31T16:58:38.724717899Z",
+    "ends_in_seconds": 14658,
+    "timeout_at": "0001-01-01T00:00:00Z",
+    "timeout_in_seconds": -1
+  },
+  "tokens": {
+    "expire_at": "2022-08-31T14:03:47.318251953Z",
+    "expire_in_seconds": 4166,
+    "next_auto_refresh_in_seconds": 3866,
+    "refreshed_at": "2022-08-31T12:53:58.318251953Z",
+    "refresh_cooldown": true,
+    "refresh_cooldown_seconds": 37
+  }
+}
+```
+
+### Session management
+
+A user's [session](../explanations/README.md#sessions) can be inspected by requesting the [session endpoint](#session-endpoint) from their user agent.
+
+#### Session lifetime
+
+Sessions have a maximum lifetime, after which the user is unauthenticated and must [perform a new login](#login-endpoint).
+
+| Identity provider | Maximum lifetime |
+|-------------------|------------------|
+| ID-porten         | 6 hours          |
+| Entra ID          | 10 hours         |
+
+#### Session inactivity timeout
+
+Sessions may have an _inactivity timeout_.
+If enabled, the session is marked as invalid if the timeout has been reached.
+The timeout is reset each time the user's session is refreshed through the [session refresh endpoint](#session-refresh-endpoint).
+
+| Identity provider | Inactivity timeout |
+|-------------------|--------------------|
+| ID-porten         | ✅ Yes, 1 hour      |
+| Entra ID          | ❌ No timeout       |
+
+{%- if tenant() == "nav" %}
+!!! info "Automatic session management for ID-porten"
+
+    [nav-dekoratoren](https://github.com/navikt/nav-dekoratoren#utloggingsvarsel) displays warnings for sessions nearing lifetime expiry or inactivity timeout,
+    and supports user-initiated session refresh operations.
+
+    You do not need to implement your own session management logic if you use `nav-dekoratoren`.
+
+{%- endif %}
+
+The durations for maximum lifetime and inactivity timeout are subject to change.
+Do not hard-code or depend on these exact values in your application.
+Prefer using the metadata returned by the [session endpoint](#session-endpoint) to determine the session's state.

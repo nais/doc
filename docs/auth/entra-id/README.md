@@ -14,12 +14,7 @@ These cover these distinct use cases:
 ## Log in employees
 
 If you have an employee-facing application that requires authentication, you will need to integrate with Entra ID.
-
-NAIS simplifies this by providing:
-
-- :books: [A login endpoint](../reference/README.md#login-endpoint) that handles the authentication flow with Entra ID.
-- :books: [A logout endpoint](../reference/README.md#logout-endpoint) that triggers single-logout with Entra ID.
-- :books: [Session management](../explanations/README.md#sessions)
+NAIS simplifies this by providing a [login proxy](../explanations/README.md#login-proxy) with endpoints to easily handle login, logout, and user sessions.
 
 Your application is left with the responsibility to verify that inbound requests have valid [tokens](../explanations/README.md#tokens).
 

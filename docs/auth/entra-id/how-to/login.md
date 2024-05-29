@@ -21,6 +21,8 @@ This how-to guides you through the steps required to ensure that only employees 
 
 ## Configure your application
 
+Enable the login proxy for Entra ID in your application configuration:
+
 ```yaml title="app.yaml"
 spec:
   azure:
@@ -48,7 +50,7 @@ Your application is responsible for verifying that this token is present and val
 
 If the `Authorization` header is missing or empty, the employee is unauthenticated.
 
-Redirect the employee to the [login endpoint] provided by NAIS:
+Return an appropriate HTTP status code to the frontend, and redirect the citizen's user agent to the [login endpoint]:
 
 ```
 https://<ingress>/oauth2/login
@@ -57,7 +59,7 @@ https://<ingress>/oauth2/login
 ### Validate token in `Authorization` header
 
 If the `Authorization` header is present, validate the token.
-If invalid, redirect the employee to the [login endpoint] provided by NAIS:
+If invalid, redirect the employee to the [login endpoint]:
 
 ```
 https://<ingress>/oauth2/login
@@ -70,5 +72,7 @@ https://<ingress>/oauth2/login
 :dart: Learn how to [consume other APIs on behalf of a employee](consume-obo.md)
 
 :books: [Entra ID reference](../reference/README.md)
+
+:books: [Login proxy reference](../../reference/README.md#login-proxy)
 
 [login endpoint]: ../../reference/README.md#login-endpoint

@@ -15,6 +15,8 @@ This how-to guides you through the steps required to ensure that only citizens a
 
 ## Configure your application
 
+Enable the login proxy for ID-porten in your application configuration:
+
 ```yaml title="app.yaml"
 spec:
   idporten:
@@ -37,7 +39,7 @@ Your application is responsible for verifying that this token is present and val
 
 If the `Authorization` header is missing or empty, the citizen is unauthenticated.
 
-Redirect the citizen to the [login endpoint] provided by NAIS:
+Return an appropriate HTTP status code to the frontend, and redirect the citizen's user agent to the [login endpoint]:
 
 ```
 https://<ingress>/oauth2/login
@@ -46,7 +48,7 @@ https://<ingress>/oauth2/login
 ### Validate token in `Authorization` header
 
 If the `Authorization` header is present, validate the token.
-If invalid, redirect the citizen to the [login endpoint] provided by NAIS:
+If invalid, redirect the citizen to the [login endpoint]:
 
 ```
 https://<ingress>/oauth2/login
@@ -89,5 +91,7 @@ This endpoint URI can be found in one of two ways:
 :dart: Learn how to [consume other APIs on behalf of a citizen](../../tokenx/how-to/consume.md)
 
 :books: [ID-porten reference](../reference/README.md)
+
+:books: [Login proxy reference](../../reference/README.md#login-proxy)
 
 [login endpoint]: ../../reference/README.md#login-endpoint
