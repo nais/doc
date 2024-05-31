@@ -19,7 +19,7 @@ Validate that the `aud` claim is equal to the `AZURE_APP_CLIENT_ID` environment 
 
 **Signature Validation**
 
-Validate that the token is signed with a ID-porten's public key published at the JWKS endpoint.
+Validate that the token is signed with a public key published at the JWKS endpoint.
 This endpoint URI can be found in one of two ways:
 
 1. the `AZURE_OPENID_CONFIG_JWKS_URI` environment variable, or

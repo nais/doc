@@ -60,38 +60,38 @@ It consists of three parts; _product_, _separator_ and _name_:
 subscope := <product><separator><name>
 ```
 
-**Product**
+_product_
 
-A product should be a _logical grouping_ of the resource, such as `trygdeopplysninger` or `pensjon`.
+:   A product should be a _logical grouping_ of the resource, such as `trygdeopplysninger` or `pensjon`.
 
-**Separator**
+_separator_
 
-The default separator is `:`. If `name` contains `/`, the default separator is instead `/`.
+:   The default separator is `:`. If `name` contains `/`, the default separator is instead `/`.
 
-If the [`separator` field](../../../workloads/application/reference/application-spec.md#maskinportenscopesexposesseparator) is configured, it will override the default separator.
+    If the [`separator` field](../../../workloads/application/reference/application-spec.md#maskinportenscopesexposesseparator) is configured, it will override the default separator.
 
-**Name**
+_name_
 
-The _name_ may also be _postfixed_ to separate between access levels.
-For instance, you could separate between `write` access:
+:   The name may also be _postfixed_ to separate between access levels.
+    For instance, you could separate between `write` access:
 
-```text
-name := trygdeopplysninger.write
-```
+    ```text
+    name := trygdeopplysninger.write
+    ```
 
-...and `read` access:
+    ...and `read` access:
 
-```text
-name := trygdeopplysninger.read
-```
+    ```text
+    name := trygdeopplysninger.read
+    ```
 
 ### Example scope
 
 === "Without forward slash"
 
-    If **name** does not contain any `/` (forward slash), the **separator** is set to `:` (colon).
+    If _name_ does not contain any `/` (forward slash), the _separator_ is set to `:` (colon).
 
-    For the following scope:
+    For the following scope definition:
 
     ```yaml title="nais.yaml" hl_lines="5-11"
     spec:
@@ -99,15 +99,13 @@ name := trygdeopplysninger.read
         enabled: true
         scopes:
           exposes:
+            # `nav:arbeid:some.scope.read`
             - name: "some.scope.read"
               enabled: true
               product: "arbeid"
     ```
 
-    - **product** is set to `arbeid`
-    - **name** is set to `some.scope.read`
-
-    The subscope is then:
+    the subscope is then:
 
     ```text
     subscope := arbeid:some.scope.read
@@ -121,9 +119,9 @@ name := trygdeopplysninger.read
 
 === "With forward slash"
 
-    If **name** contains a `/` (forward slash), the **separator** is set to `/` (forward slash).
+    If _name_ contains a `/` (forward slash), the _separator_ is set to `/` (forward slash).
 
-    For the following scope:
+    For the following scope definition:
 
     ```yaml title="nais.yaml" hl_lines="5-11"
     spec:
@@ -131,15 +129,13 @@ name := trygdeopplysninger.read
         enabled: true
         scopes:
           exposes:
+            # `nav:arbeid/some/scope.read`
             - name: "some/scope.read"
               enabled: true
               product: "arbeid"
     ```
 
-    - **product** is set to `arbeid`
-    - **name** is set to `some/scope.read`
-
-    The subscope is then:
+    the subscope is then:
 
     ```text
     subscope := arbeid/some/scope.read

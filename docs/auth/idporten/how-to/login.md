@@ -2,7 +2,7 @@
 tags: [idporten, how-to]
 ---
 
-# Log in a citizen with ID-porten
+# Log in a citizen
 
 This how-to guides you through the steps required to ensure that only citizens authenticated with [ID-porten](../README.md) can access your application. 
 
@@ -75,7 +75,7 @@ Validate that the `aud` claim is equal to the `IDPORTEN_AUDIENCE` environment va
 
 **Signature Validation**
 
-Validate that the token is signed with a ID-porten's public key published at the JWKS endpoint.
+Validate that the token is signed with a public key published at the JWKS endpoint.
 This endpoint URI can be found in one of two ways:
 
 1. the `IDPORTEN_JWKS_URI` environment variable, or

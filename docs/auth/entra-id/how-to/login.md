@@ -2,7 +2,7 @@
 tags: [entra-id, azure-ad, how-to]
 ---
 
-# Log in an employee with Entra ID
+# Log in an employee
 
 {%- if tenant() == "nav" %}
 !!! warning "Availability"

@@ -21,12 +21,12 @@ The new token preserves the citizen's identity context and is only valid for the
 ```mermaid
 graph LR
   Consumer["User / Consumer API"] --"request with\ncitizen token"--> Application[Your app]
-  Application --1. exchange citizen token---> TokenX
+  Application --1. exchange \ncitizen token---> TokenX
   TokenX --2. return new token\nfor Other API---> Application
   Application --3. use new token---> Other["Other API"]
 ```
 
-:dart: Learn how to [consume an API using TokenX](how-to/consume.md)
+:dart: [**Learn how to consume an internal API on behalf of a citizen**](how-to/consume.md)
 
 ## Secure your API
 
@@ -36,4 +36,4 @@ Once configured, your consumers can exchange a token with TokenX to [consume you
 
 Your application code must verify inbound requests by validating the included tokens.
 
-:dart: Learn how to [secure your API with TokenX](how-to/secure.md)
+:dart: [**Learn how to secure your API with TokenX**](how-to/secure.md)

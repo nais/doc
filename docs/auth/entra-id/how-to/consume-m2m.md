@@ -2,7 +2,7 @@
 tags: [entra-id, azure-ad, how-to]
 ---
 
-# Consume internal API as an application using Entra ID
+# Consume internal API as an application
 
 This how-to guides you through the steps required to consume an API secured with [Entra ID](../README.md):
 

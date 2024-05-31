@@ -2,7 +2,7 @@
 tags: [entra-id, azure-ad, how-to]
 ---
 
-# Consume internal API on behalf of an employee using Entra ID
+# Consume internal API on behalf of an employee
 
 This how-to guides you through the steps required to consume an API secured with [Entra ID](../README.md) on behalf of an employee:
 

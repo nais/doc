@@ -2,7 +2,7 @@
 tags: [tokenx, how-to]
 ---
 
-# Consume internal API using TokenX
+# Consume internal API on behalf of a citizen
 
 This how-to guides you through the steps required to consume an API secured with [TokenX](../README.md):
 

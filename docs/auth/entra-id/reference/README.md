@@ -6,6 +6,16 @@ tags: [entra-id, azure-ad, reference]
 
 ## Access policies
 
+### Applications
+
+{% include 'auth/entra-id/partials/app-access.md' %}
+
+### Users
+
+{% include 'auth/entra-id/partials/user-access.md' %}
+
+### Fine-grained permissions
+
 You may define custom permissions for your application in Entra ID and grant them to other consumer applications.
 Permissions will appear as _claims_ in the consumer's token.
 Your application can then use these claims to implement custom authorization logic.
@@ -21,7 +31,7 @@ Your application can then use these claims to implement custom authorization log
     2. The consumer has been granted a custom permission in your access policy definition.
     3. The target _audience_ is your application.
 
-### Custom scopes
+#### Custom scopes
 
 A _scope_ only applies to tokens acquired [on behalf of an employee][obo]
 (service-to-service calls on behalf of an end-user).
@@ -74,7 +84,7 @@ Scopes will appear as a _space separated string_ in the `scp` claim within the u
     }
     ```
 
-### Custom roles
+#### Custom roles
 
 A _role_ only applies to tokens acquired [as an application][m2m] (service-to-service calls).
 
@@ -128,28 +138,43 @@ Roles will appear in the `roles` claim as an _array of strings_ within the appli
 
 Notable claims in tokens from Entra ID:
 
-- `azp` (**authorized party**)
-    - The [client ID](../explanations/README.md#client-id) of the application that requested the token (this would be your consumer).
-- `azp_name` (**authorized party name**)
-    - The value of this claim is the (human-readable) [name](../explanations/README.md#client-name) of the consumer application that requested the token.
-- `groups` (**groups**)
-    - JSON array of [group identifiers](../explanations/README.md#group-identifier) that the user is a member of.
-    - Used to implement group-based authorization logic in your application.
-    - This claim only applies in flows where a user is involved i.e., either the [login] or [on-behalf-of][obo] flows.
-    - In order for a group to appear in the claim, all the following conditions must be true:
-        - The given user is a direct member of the group.
-        - The group has been [granted access to the application](../how-to/secure.md#users).
-- `idtyp` (**identity type**)
-    - This is a special claim used to determine whether a token is a [machine-to-machine][m2m] (app-only) token or a [on-behalf-of][obo] (user) token.
-    - The claim currently only appears in machine-to-machine tokens. The value is `app` when the token is a machine-to-machine token.
-    - In short: if the `idtyp` claim exists and it has the value `app`, then it is a machine-to-machine token. Otherwise, it is a user/on-behalf-of token.
+`azp` (**authorized party**)
+
+:   The [client ID](../explanations/README.md#client-id) of the application that requested the token (this would be your consumer).
+
+`azp_name` (**authorized party name**)
+
+:   The value of this claim is the (human-readable) [name](../explanations/README.md#client-name) of the consumer application that requested the token.
+
+`groups`
+
+:   JSON array of [group identifiers](../explanations/README.md#group-identifier) that the user is a member of.
+    Used to implement group-based authorization logic in your application.
+
+    This claim only applies in flows where a user is involved i.e., either the [login] or [on-behalf-of][obo] flows.
+    In order for a group to appear in the claim, all the following conditions must be true:
+
+    - The given user is a direct member of the group.
+    - The group has been [granted access to the application](../how-to/secure.md#users).
+
+`idtyp` (**identity type**)
+
+:   This is a special claim used to determine whether a token is a [machine-to-machine][m2m] (app-only) token or a [on-behalf-of][obo] (user) token.
+
+    Tokens are a machine-to-machine tokens only if this claim exists and has the value `app`.
+
 {%- if tenant() == "nav" %}
-- `NAVident` (**NAV ident**)
-    - The value of this claim maps to an internal identifier for the employees in NAV.
-    - This claim thus only applies in flows where a user is involved i.e., either the [login] or [on-behalf-of][obo] flows.
+
+`NAVident`
+
+:   The internal identifier for the employees in NAV.
+    Only applies in flows where a user is involved i.e., either the [login] or [on-behalf-of][obo] flows.
+
 {%- endif %}
-- `roles` (**roles**)
-    - The value of this claim is an _array of strings_ that lists the roles that the application has access to:
+
+`roles`
+
+:   The value of this claim is an _array of strings_ that lists the roles that the application has access to:
     ```json
     {
       "roles": [
@@ -159,19 +184,25 @@ Notable claims in tokens from Entra ID:
       ]
     }
     ```
-    - This claim **only** applies to [machine-to-machine][m2m] tokens.
-    - Consumers defined in the [access policy](../how-to/secure.md#applications) are always assigned the default role named `access_as_application`.
-    - You can optionally define and grant additional [custom roles](#custom-roles) to consumers.
-- `scp` (**scope**)
-    - The value of this claim is a _space-separated string_ that lists the scopes that the application has access to:
+
+    This claim **only** applies to [machine-to-machine][m2m] tokens.
+
+    Consumers defined in the [access policy](../how-to/secure.md#applications) are always assigned the default role named `access_as_application`.
+    You can optionally define and grant them [custom roles](#custom-roles).
+
+`scp` (**scope**)
+
+:   The value of this claim is a _space-separated string_ that lists the scopes that the application has access to:
     ```json
     {
        "scp": "defaultaccess scope1 scope2"
     }
     ```
-    - This claim **only** applies to user or [on-behalf-of][obo] tokens.
-    - Consumers defined in the [access policy](../how-to/secure.md#applications) are always assigned the default scope named `defaultaccess`.
-    - You can optionally define and grant additional [custom scopes](#custom-scopes) to consumers.
+
+    This claim **only** applies to user or [on-behalf-of][obo] tokens.
+
+    Consumers defined in the [access policy](../how-to/secure.md#applications) are always assigned the default scope named `defaultaccess`.
+    You can optionally define and grant them [custom scopes](#custom-scopes).
 
 For a complete list of claims, see the [Access Token Claims Reference in Entra ID](https://learn.microsoft.com/en-us/entra/identity-platform/access-token-claims-reference).
 We only use v2.0 tokens.

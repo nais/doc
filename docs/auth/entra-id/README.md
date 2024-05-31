@@ -18,7 +18,7 @@ NAIS simplifies this by providing a [login proxy](../explanations/README.md#logi
 
 Your application is left with the responsibility to verify that inbound requests have valid [tokens](../explanations/README.md#tokens).
 
-:dart: Learn how to [log in employees with Entra ID](how-to/login.md).
+:dart: [**Learn how to log in employees**](how-to/login.md)
 
 ## Secure your API
 
@@ -27,7 +27,7 @@ Once configured, your consumers can acquire a token from Entra ID to [consume yo
 
 Your application code must verify inbound requests by validating the included tokens.
 
-:dart: Learn how to [secure your API with Entra ID](how-to/secure.md)
+:dart: [**Learn how to secure your API with Entra ID**](how-to/secure.md)
 
 ## Consume an API
 
@@ -50,7 +50,7 @@ graph LR
 
 The new token preserves the employee's identity context and is only valid for the specific API you want to access.
 
-:dart: Learn how to [consume an API on behalf of an employee](how-to/consume-obo.md)
+:dart: [**Learn how to consume an API on behalf of an employee**](how-to/consume-obo.md)
  
 ### Consume as application
 
@@ -65,4 +65,4 @@ graph LR
   Application --3. use token---> API["Other API"]
 ```
 
-:dart: Learn how to [consume an API as an application](how-to/consume-m2m.md)
+:dart: [**Learn how to consume an API as an application**](how-to/consume-m2m.md)

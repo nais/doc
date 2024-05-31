@@ -8,10 +8,13 @@ tags: [idporten, reference]
 
 Notable claims in tokens from ID-porten:
 
-- `acr` (**Authentication Context Class Reference**)
-    - The [security level](#security-levels) used for authenticating the end-user.
-- `pid` (**personidentifikator**)
-    - The Norwegian national ID number (fødselsnummer/d-nummer) of the authenticated end user.
+`acr`
+
+:   The [security level](#security-levels) used when authenticating the end-user.
+
+`pid`
+
+:   "Personidentifikator". The Norwegian national ID number (fødselsnummer/d-nummer) of the authenticated end user.
 
 For a complete list of claims, see the [Access Token Reference in ID-porten](https://docs.digdir.no/docs/idporten/oidc/oidc_protocol_access_token#by-value--self-contained-access-token).
 

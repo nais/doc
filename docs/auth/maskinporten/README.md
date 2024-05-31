@@ -22,7 +22,7 @@ graph LR
   Consumer --3. use token---> API["External API"]
 ```
 
-:dart: Learn how to [consume an external API using Maskinporten](how-to/consume.md)
+:dart: [**Learn how to consume an external API using Maskinporten**](how-to/consume.md)
 
 ## Secure your API
 
@@ -32,4 +32,4 @@ Once configured, your consumers can acquire a token from Maskinporten to [consum
 
 Your application code must verify inbound requests by validating the included tokens.
 
-:dart: Learn how to [secure your API with Maskinporten](how-to/secure.md)
+:dart: [**Learn how to secure your API with Maskinporten**](how-to/secure.md)
