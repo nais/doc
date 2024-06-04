@@ -4,6 +4,10 @@ tags: [maskinporten, reference]
 
 # Maskinporten reference
 
+## Claims
+
+See the [Access Token reference in Maskinporten](https://docs.digdir.no/docs/Maskinporten/maskinporten_protocol_token#the-access-token) for a list of all claims.
+
 ## Runtime Variables & Credentials
 
 Your application will automatically be injected with environment variables at runtime.

@@ -32,13 +32,14 @@ Your application code must verify inbound requests by validating the included to
 ## Consume an API
 
 If your application needs to consume another API secured with Entra ID, you need to acquire a token.
-There are two types of flows for requesting tokens, depending on the use case:
+
+There are two types of flows for acquiring tokens, depending on the context of the request:
 
 ### Consume on behalf of employee
 
 This flow is for machine-to-machine requests _on behalf of_ an employee end-user.
 
-To consume an API secured with Entra ID on behalf of an employee, you'll need to exchange their token for a new token:
+To consume an API on behalf of an employee, you'll need to exchange their token for a new token:
 
 ```mermaid
 graph LR
@@ -56,7 +57,7 @@ The new token preserves the employee's identity context and is only valid for th
 
 This flow is for machine-to-machine requests _without_ any end-user involvement.
 
-To consume an API secured with Entra ID as the application itself, you'll need to acquire a token:
+To consume an API as the application itself, you'll need to acquire a token:
 
 ```mermaid
 graph LR

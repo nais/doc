@@ -99,9 +99,7 @@ This endpoint URI can be found in one of two ways:
 
 **Other Token Claims**
 
-Other claims may be present in the token.
+[Other claims](../reference/README.md#claims) may be present in the token.
 Validation of these claims is optional.
-
-See the [Access Token Reference in Maskinporten](https://docs.digdir.no/docs/Maskinporten/maskinporten_protocol_token#the-access-token) for a list of all claims.
 
 [variables-ref]: ../reference/README.md#variables-for-validating-tokens
