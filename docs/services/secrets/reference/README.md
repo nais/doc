@@ -1,21 +1,14 @@
 ---
-title: Secrets Reference
 tags: [secrets, reference]
 ---
 
-# Secrets Reference
+# Secrets reference
 
 This is the reference documentation for [secrets](../README.md) on the NAIS platform.
 
 ## Console
 
 Visit [NAIS Console :octicons-link-external-16:](https://console.<<tenant()>>.cloud.nais.io) to find and manage your team's user-defined secrets.
-
-## How-To Guides
-
-:dart: [Get started with secrets in Console](../how-to/console.md)
-
-:dart: [Use a secret in your workload](../how-to/workload.md)
 
 ## Workloads
 

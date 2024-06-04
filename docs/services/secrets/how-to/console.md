@@ -2,7 +2,7 @@
 tags: [secrets, how-to, console]
 ---
 
-# Get started with secrets in Console
+# Create and manage secrets in Console
 
 This how-to guide shows you how to create and manage a [secret](../README.md) in the NAIS Console.
 

@@ -79,4 +79,4 @@ Among many others:
 
 :dart: Learn how to [upload assets to the CDN](how-to/upload-assets.md)
 
-:books: [CDN Reference documentation](reference/README.md)
+:books: [CDN reference documentation](reference/README.md)

@@ -3,13 +3,9 @@ title: Content Delivery Network Reference
 tags: [cdn, reference]
 ---
 
-# Content Delivery Network Reference
+# Content Delivery Network reference
 
 This is the reference documentation for the [CDN](../README.md) service.
-
-## How-to guides
-
-:dart: [Upload assets to the CDN](../how-to/upload-assets.md)
 
 ## CDN Deploy Action
 
