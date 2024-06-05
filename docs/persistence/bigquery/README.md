@@ -10,7 +10,7 @@ NAIS provides BigQuery for storing and working with analytical datasets as a
 managed service through Google Cloud Platform. This page describes how to get
 started with BigQuery for your applications.
 
-# NAIS Application yaml manifest options
+## NAIS Application yaml manifest options
 
 Full documentation of all available options can be found over at: [`spec.gcp.bigQueryDatasets[]`](../../workloads/application/reference/application-spec.md#gcpbigquerydatasets).
 

@@ -59,7 +59,7 @@ $ curl -X DELETE -u $KAFKA_SCHEMA_REGISTRY_USER:$KAFKA_SCHEMA_REGISTRY_PASSWORD 
   [1]
 ```
 
-# REST API
+## REST API
 
 For applications that can't use Kafka directly, a REST API is possible.
 Because of security implications, we have not enabled the REST API on the cluster, but interested parties may run their own instance.
