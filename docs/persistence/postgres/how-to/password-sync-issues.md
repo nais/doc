@@ -20,4 +20,4 @@ kubectl get secret google-sql-<MYAPP> -o jsonpath="{ .data['<YOUR PASSWORD VARIA
 Log in to the Google [Cloud Console](https://console.cloud.google.com) and set the password manually for the application user in the sql instance:
 SQL -> `DB_INSTANCE` -> Users -> `USERNAME` -> Change password
 
-[nais-cli]: ../../operate/cli/how-to/install.md
+[nais-cli]: ../../../operate/cli/how-to/install.md
