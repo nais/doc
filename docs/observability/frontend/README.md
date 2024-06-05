@@ -84,7 +84,6 @@ visualizing and gain insights.
 You can easily add more logging, custom events, and custom metrics.
 How to do this is out of scope of this documentation.
 Please see the [official documentation](https://grafana.com/docs/grafana-cloud/frontend-observability/).
-There is also an [FAQ](https://grafana.com/docs/grafana-cloud/frontend-observability/faro-web-sdk/faq/).
 
 ### Tracing (OpenTelemetry)
 
