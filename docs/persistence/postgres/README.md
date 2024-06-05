@@ -40,25 +40,6 @@ spec:
 
     By default, the database server is `db-f1-micro` which has 1 vCPU, 614 MB RAM and 10GB of SSD storage with no automatic storage increase. Shared CPU machine types (`db-f1-micro` and `db-g1-small`) are **NOT** covered by the [Cloud SQL SLA](https://cloud.google.com/sql/sla). Consider [changing](../../workloads/application/reference/application-spec.md#gcpsqlinstancestier) to the `db-custom-CPU-RAM` tier for your production databases. Please also note that exhausting disk and/or CPU with automatic increase disabled is [not](https://cloud.google.com/sql/docs/postgres/operational-guidelines) covered by the SLA.
 
-## Cloud SQL credentials
-Cloud SQL uses ConfigConnector/CNRM to create and manage all relevant resources (sqldatabase, sqlinstance, sqluser, credentials) for postgreSQL.
-When creating an application via your nais.yaml the database in your google project, along with other necessary resources, are created.
-The creation of the database takes about ten minutes, and the credential settings will be updated after the database is ready for use.
-
-!!! warning
-    If you delete and recreate your app, new credentials will be created and a synchronization is needed.
-    This process can take up to ten minutes. Using the workaround described below you can avoid this synchronization period.
-
-## Cloud SQL Proxy (instances created before 2024-04-18)
-
-The application will connect to the database using [Cloud SQL Proxy](https://cloud.google.com/sql/docs/postgres/sql-proxy), ensuring that the database communication happens in secure tunnel, authenticated with automatically rotated credentials.
-
-NAIS will add and configure the proxy client container as a sidecar in the pod, making it available on `localhost` for the application. The application will then connect to the proxy using standard database protocol just as if it was the actual database.
-
-![The diagram shows how the application connects to the database using Cloud SQL Proxy. Cloud SQL connects to an instance, the proxy server communicates with the proxy client using a TCP secure tunnel. The proxy client is a sidecar in the pod,  available on the localhost for the application on the client machine.](../../assets/sqlproxy.svg)
-
-For more detailed information, check out the [Cloud SQL Proxy documentation](https://cloud.google.com/sql/docs/postgres/sql-proxy)
-
 ## Example with all configuration options
 
 See [full example](../../workloads/application/reference/application-example.md).
