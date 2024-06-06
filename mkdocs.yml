@@ -151,6 +151,7 @@ plugins:
         "nais-application/ingress.md": "workloads/reference/ingress.md"
         "naisjob.md": "workloads/job/README.md"
         "observability/alerts.md": "observability/alerting/README.md"
+        "observability/auto-instrumentation.md": "observability/how-to/auto-instrumentation.md"
         "observability/grafana.md": "observability/README.md"
         "observability/logs/README.md": "observability/logging/README.md"
         "observability/logs/examples.md": "observability/logging/README.md"
