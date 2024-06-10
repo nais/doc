@@ -7,7 +7,7 @@ tags: [observability, reference]
 When you enable [auto-instrumentation](../how-to/auto-instrumentation.md) in your application the following OpenTelemetry configuration will become available to your application as environment variables:
 
 | Variable                             | Example Value                                                                                 |
-|--------------------------------------|-----------------------------------------------------------------------------------------------|
+| ------------------------------------ | --------------------------------------------------------------------------------------------- |
 | `OTEL_SERVICE_NAME`                  | `my-application`                                                                              |
 | `OTEL_EXPORTER_OTLP_ENDPOINT`        | `http://opentelemetry-collector.nais-system:4317`                                             |
 | `OTEL_EXPORTER_OTLP_PROTOCOL`        | `grpc`                                                                                        |
@@ -42,7 +42,7 @@ The OpenTelemetry Agent is used to automatically instrument your application. Th
 
 | Language | Agent Version | SDK Version |
 | -------- | ------------- | ----------- |
-| Java     | 2.2.0         | 1.36.0      |
+| Java     | 2.4.0         | 1.38.0      |
 | Node.js  | 0.51.0        | 1.24.0      |
 | Python   | 0.44b0        | 1.23.0      |
 
