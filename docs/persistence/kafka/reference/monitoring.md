@@ -51,4 +51,4 @@ sum by(topic) (rate(kafka_server_BrokerTopicMetrics_BytesInPerSec_Count{topic="T
 
 ## Read more
 
-https://help.aiven.io/en/articles/3298562-kafka-metrics-through-prometheus-integration
+[https://help.aiven.io/en/articles/3298562-kafka-metrics-through-prometheus-integration](https://help.aiven.io/en/articles/3298562-kafka-metrics-through-prometheus-integration)

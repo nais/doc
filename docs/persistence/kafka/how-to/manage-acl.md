@@ -4,7 +4,7 @@ tags: [how-to, kafka]
 
 # Manage access
 
-This guide will show you how to manage access to your topic
+This guide will show you how to manage access to your topic.
 
 ## Prerequisites
 

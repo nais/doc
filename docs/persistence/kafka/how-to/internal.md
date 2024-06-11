@@ -3,7 +3,7 @@ tags: [how-to, kafka]
 ---
 
 # Using Kafka Streams with internal topics
-This guide will show you how to use Kafka Streams with internal topics.
+This guide will show you how to use [Kafka Streams](https://kafka.apache.org/documentation/streams/) with internal topics.
 
 ## Enable Kafka Streams in your application
 ???+ note ".nais/app.yaml"
