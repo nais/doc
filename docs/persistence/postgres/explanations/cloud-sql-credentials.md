@@ -1,6 +1,6 @@
 ---
 title: Cloud SQL credentials
-tags: [postgres, credentials, explenation]
+tags: [postgres, credentials, explanation]
 ---
 
 Cloud SQL uses ConfigConnector/CNRM to create and manage all relevant resources (sqldatabase, sqlinstance, sqluser, credentials) for postgreSQL.
