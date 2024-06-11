@@ -22,6 +22,9 @@ Example of various ACLs:
 
     ```yaml
     ...
+    apiVersion: nais.io/v1alpha1
+    kind: Topic
+    ...
     spec:
       acl:
         - team: <ANOTHER-TEAM>

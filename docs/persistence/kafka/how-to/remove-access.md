@@ -2,7 +2,7 @@
 tags: [how-to, kafka]
 ---
 
-# Remove access to Kafka
+# Remove access to topics from an application
 This guide will show you how to remove your application's access to a Kafka topic.
 
 ## Remove ACLs from the topic
