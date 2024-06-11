@@ -122,6 +122,10 @@ Add the following content to the file, and insert the appropriate values in the 
       push:
         branches:
           - main
+    permissions:
+      packages: 'write'
+      contents: 'read'
+      id-token: 'write'
     jobs:
       build_and_deploy:
         name: Build, push and deploy
@@ -141,7 +145,7 @@ Add the following content to the file, and insert the appropriate values in the 
         - name: Deploy to NAIS
           uses: nais/deploy/actions/deploy@v2
           env:
-            CLUSTER: <MY_CLUSTER> # Replace
+            CLUSTER: <MY_CLUSTER> # Replace. Valid environments are dev-gcp or prod-gcp
             RESOURCE: .nais/app.yaml # This points to the file we created in the previous step
             VAR: image=${{ steps.docker-build-push.outputs.image }}
     ```
