@@ -4,6 +4,8 @@ tags: [offset, kafka, explanation]
 
 # Working with Kafka Offsets
 
+The Kafka offset is the index of the last read message for a consumer.
+
 ## Retention and what it means
 
 On Aiven Kafka, we retain consumer offsets for a period of 7 days.
