@@ -18,4 +18,8 @@ Use the `nav-dev` pool for development and `nav-prod` for production.
 | `nav-dev`            | 2                | 3                | `dev-gcp`         | `dev-gcp`, `dev-fss`                         |
 | `nav-prod`           | 2                | 9                | `prod-gcp`        | `prod-gcp`, `prod-fss`                       |
 
+{% else %}
+
+No Kafka pools available for your tenant.
+
 {% endif %}
