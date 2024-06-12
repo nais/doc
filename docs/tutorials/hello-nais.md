@@ -141,10 +141,12 @@ Add the following content to the file, and insert the appropriate values in the 
         - name: Deploy to NAIS
           uses: nais/deploy/actions/deploy@v2
           env:
-            CLUSTER: <MY_CLUSTER> # Replace
+            CLUSTER: <MY_CLUSTER> # Replace (1)
             RESOURCE: .nais/app.yaml # This points to the file we created in the previous step
             VAR: image=${{ steps.docker-build-push.outputs.image }}
     ```
+
+    1.  Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../workloads/reference/environments).
 
 Excellent! We're now ready to deploy :rocket:
 
