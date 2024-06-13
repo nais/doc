@@ -21,7 +21,7 @@ A `Service` in Kubernetes has some interesting properties:
 2. It can load balance traffic across multiple pods. This is useful for scaling out your application without having to change the address of the `Service` or update clients consuming your application.
 3. Translates between ports. This is useful if you want to expose a service on a different port than the one your application is listening on. For example, you can expose port `80` on the `Service` and have it forward to port `8080` on the pod.
 
-Services available can be viewed with `kubectl get service` in a particular namespace. The service name for a [NAIS Application](../application.md) is the same as the Application name (`metdata.name`) and is the same across any cluster where the Application is deployed. This allows for simpler configuration.
+Services available can be viewed with `kubectl get service` in a particular namespace. The service name for a [NAIS Application](../application/README.md) is the same as the Application name (`metdata.name`) and is the same across any cluster where the Application is deployed. This allows for simpler configuration.
 
 [k8s-service-discovery]: https://kubernetes.io/docs/concepts/services-networking/service/
 
