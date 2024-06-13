@@ -146,7 +146,7 @@ Add the following content to the file, and insert the appropriate values in the 
             VAR: image=${{ steps.docker-build-push.outputs.image }}
     ```
 
-    1.  Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../workloads/reference/environments).
+    1.  Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../workloads/reference/environments.md).
 
 Excellent! We're now ready to deploy :rocket:
 

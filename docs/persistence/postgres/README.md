@@ -51,7 +51,7 @@ See [full example](../../workloads/application/reference/application-example.md)
 !!! faq "Answer"
 
     The synchronization of the password to the database may have failed.
-    See [workaround for password synchronization issues](how-to/credentials-issues/#workaround-for-password-synchronization-issues).
+    See [workaround for password synchronization issues](how-to/password-sync-issues.md).
 
 ### Cloud Sql Conditions messages
 

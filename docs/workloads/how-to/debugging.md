@@ -53,7 +53,7 @@ You can inspect the heap dumps with tools like JProfiler, VisualVM or IntelliJ.
     Nais requires the flag --profile=restricted when using `kubectl debug` and the flag is only supported in `kubectl` 1.28+.
     At this time, this is the only way to run the ephemeral containers as [non-root and without any capabilities](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/).
 
-You can run an [ephemeral container](../explanations/ephemeral-container) in a pod using the `kubectl debug` command.
+You can run an [ephemeral container](../explanations/ephemeral-containers.md) in a pod using the `kubectl debug` command.
 
 !!! info "kubectl: --image"
 
@@ -99,7 +99,7 @@ kubectl attach mypod -c ruby-container -i -t
     - The application is not deployed to the cluster
     - The application is not up and running. This can be caused by a problem with the application itself, for example:
         - The application doesn't respond to any configured [health checks](../explanations/good-practices.md#implements-readiness-and-liveness-endpoints)
-        - The application only has a [single pod or replica](../application/reference/application-spec#replicas), and that pod is not running
+        - The application only has a [single pod or replica](../application/reference/application-spec.md#replicas), and that pod is not running
         - The application is configured incorrectly (e.g. has missing required dependencies, has the wrong image, etc.)
         - The application attempts to write files to the filesystem, which is mostly [read-only by default](security-context.md#disable-read-only-file-system)
 
@@ -107,6 +107,6 @@ kubectl attach mypod -c ruby-container -i -t
 
 ???+ faq "Answer"
 
-    If you're using [service discovery](../explanations/service-discovery.md), ensure that the [access policies](../reference/access-policies) for both applications are correctly set up.
+    If you're using [service discovery](../explanations/service-discovery.md), ensure that the [access policies](../reference/access-policies.md) for both applications are correctly set up.
 
-    Otherwise, ensure that the other application is running and responding to requests in a timely manner (see also [ingress customization](../reference/environments) for timeout configuration).
+    Otherwise, ensure that the other application is running and responding to requests in a timely manner (see also [ingress customization](../reference/environments.md) for timeout configuration).

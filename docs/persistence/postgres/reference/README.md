@@ -31,7 +31,7 @@ The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instan
 
 !!! info
     Note that if you change your application name, database name or envVarPrefix, and then change it later,
-    you have to manually [reset database credentials](../how-to/password-synchronization#reset-database-credentials).
+    you have to manually [reset database credentials](../how-to/reset-database-credentials.md).
 
 [^1]: jdbc url can be generated for instances without private IP by using [nais-cli] to rotate the password.
 
@@ -84,7 +84,7 @@ If you wish to be notified about upcoming maintenance, you can opt-in for this o
 
 ### Automated backup
 
-The database is backed up nightly at 3 AM \(GMT+1\) by default, but can be overridden in [`nais.yaml`](../../../workloads/application/reference/application-spec/#gcpsqlinstancesautobackuphour) by setting `spec.gcp.sqlInstances[].autoBackupTime`.
+The database is backed up nightly at 3 AM \(GMT+1\) by default, but can be overridden in [`nais.yaml`](../../../workloads/application/reference/application-spec.md#gcpsqlinstancesautobackuphour) by setting `spec.gcp.sqlInstances[].autoBackupTime`.
 By default, seven backups will be kept. More info [about Cloud SQL backups](https://cloud.google.com/sql/docs/postgres/backup-recovery/backups).
 
 The backups can be found in the [Google Cloud SQL instance](https://cloud.google.com/sql) dashboard.
