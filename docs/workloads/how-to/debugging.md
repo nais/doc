@@ -98,17 +98,15 @@ kubectl attach mypod -c ruby-container -i -t
 
     - The application is not deployed to the cluster
     - The application is not up and running. This can be caused by a problem with the application itself, for example:
-        - The application doesn't respond to any configured [health checks](../nais-application/good-practices.md#implements-readiness-and-liveness-endpoints)
-        - The application only has a [single pod or replica](../nais-application/application.md#replicas), and that pod is not running
+        - The application doesn't respond to any configured [health checks](../explanations/good-practices.md#implements-readiness-and-liveness-endpoints)
+        - The application only has a [single pod or replica](../application/reference/application-spec#replicas), and that pod is not running
         - The application is configured incorrectly (e.g. has missing required dependencies, has the wrong image, etc.)
-        - The application attempts to write files to the filesystem, which is mostly [read-only by default](../nais-application/securitycontext.md#disable-read-only-file-system)
-
-    See also [troubleshooting for deployments](../deployment/troubleshooting.md).
+        - The application attempts to write files to the filesystem, which is mostly [read-only by default](security-context.md#disable-read-only-file-system)
 
 ### My application gets an HTTP 504 Gateway Timeout error when attempting to communicate with another application, why?
 
 ???+ faq "Answer"
 
-    If you're using [service discovery](../clusters/service-discovery.md), ensure that the [access policies](access-policy.md) for both applications are correctly set up.
+    If you're using [service discovery](../explanations/service-discovery.md), ensure that the [access policies](../reference/access-policies) for both applications are correctly set up.
 
-    Otherwise, ensure that the other application is running and responding to requests in a timely manner (see also [ingress customization](ingress.md) for timeout configuration).
+    Otherwise, ensure that the other application is running and responding to requests in a timely manner (see also [ingress customization](../reference/environments) for timeout configuration).
