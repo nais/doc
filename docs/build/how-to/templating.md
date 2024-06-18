@@ -21,9 +21,11 @@ metadata:
 spec:
   image: {{image}}
   ingresses:
-  {{\#each ingresses as |url|}} # remove slash
+  {%- raw %}
+  {{#each ingresses as |url|}}
     - {{url}}
   {{/each}}
+  {% endraw %}
 ```
 
 Now, create a `vars.yaml` file containing variables for your deployment:
