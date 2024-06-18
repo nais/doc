@@ -40,26 +40,29 @@ ingresses:
 
 Run the [`nais validate`](../../operate/cli/reference/validate.md) tool to see the final results:
 
-```javascript
-$ nais validate --verbose --vars vars.yaml nais.yaml"
-{
-  "apiVersion": "nais.io/v1alpha1",
-  "kind": "Application",
-  "metadata": {
-    "labels": {
-      "team": "myteam"
-    },
-    "name": "myapplication",
-    "namespace": "default"
-  },
-  "spec": {
-    "image": "europe-north1-docker.pkg.dev/nais-management-id/myteam/myapplication:417dcaa2c839b9da72e0189e2cfdd4e90e9cc6fd",
-    "ingresses": [
-      "https://myapplication.nav.no",
-      "https://tjenester.nav.no/myapplication"
-    ]
-  }
-}
+```bash
+$ nais validate --verbose --vars vars.yaml nais.yaml
+[📝] Setting template variable 'team' to 'myteam'
+[📝] Setting template variable 'app' to 'myapplication'
+[📝] Setting template variable 'image' to 'europe-north1-docker.pkg.dev/nais-management-id/myteam/myapplication:latest'
+[📝] Setting template variable 'ingresses' to '[https://myapplication.nav.no https://tjenester.nav.no/myapplication]'
+[📝] Setting template variable 'namespace' to 'myteam'
+[🖨️] Printing "app.yaml"...
+---
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: myapplication
+  namespace: myteam
+  labels:
+    team: myteam
+spec:
+  image: europe-north1-docker.pkg.dev/nais-management-id/myteam/myapplication:latest
+  ingresses:
+    - https://myapplication.nav.no
+    - https://tjenester.nav.no/myapplication
+
+[✅] "app.yaml" is valid
 ```
 
 ### Escaping and raw resources
