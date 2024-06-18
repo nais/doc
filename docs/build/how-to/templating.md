@@ -21,7 +21,7 @@ metadata:
 spec:
   image: {{image}}
   ingresses:
-  {{#each ingresses as |url|}}
+  {{\#each ingresses as |url|}} # remove slash
     - {{url}}
   {{/each}}
 ```
