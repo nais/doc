@@ -2,7 +2,7 @@
 tags: [reference, build, deploy]
 ---
 
-# Action configuration
+# Deploy action configuration
 
 The available configuration options for the NAIS deploy GitHub action.
 
