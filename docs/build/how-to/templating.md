@@ -97,4 +97,5 @@ spec:
         severity: danger
 ```
 
-PS: Templating will not be run if you do not use `VARS` and/or `VAR`, meaning `\{{escaped}}` will not be handled by nais/deploy.
+!!! Info
+    Templating will not be run if you do not use `VARS` and/or `VAR`, meaning `\{{escaped}}` will not be handled by nais/deploy.
