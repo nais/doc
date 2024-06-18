@@ -1,5 +1,5 @@
 ---
-tags: [naisdevice, how-to]
+tags: [naisdevice, how-to, kolide]
 ---
 
 # Install Kolide
@@ -23,13 +23,14 @@ You install Kolide by following these steps:
 3. Install the package created by Kolide in your chat with the app (named `xkxp-*-kolide-launcher.{pkg,msi,deb}`).
     - There is _no_ success feedback given by Kolide in Slack.
     - No error message means that the installation was successful.
-4. Allow a couple of minutes to let Kolide check the state of your device, but if you're stuck at "Waiting for your device to connect" just go to the next step.
-5. Check your devices status:
+4. Click the `next` button when you are finished installing Kolide.
+5. Allow a couple of minutes to let Kolide check the state of your device, but if you're stuck at "Waiting for your device to connect" just go to the next step.
+6. Check your devices status:
     1. Paste the following command (in any message input field) in Slack:
        ```
        /msg @Kolide status
        ```
-6. If Kolide reports any issues, follow the instructions on how to remediate them. If a remediation required by Kolide makes you feel unsafe - feel free to ask in [#naisdevice Slack channel](https://nav-it.slack.com/archives/C013XV66XHB). (TODO)
+7. If Kolide reports any issues, follow the instructions on how to remediate them. If a remediation required by Kolide makes you feel unsafe - feel free to ask in [#naisdevice Slack channel](https://nav-it.slack.com/archives/C013XV66XHB). (TODO)
 
 !!! warning
 
