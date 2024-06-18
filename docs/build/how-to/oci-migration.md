@@ -204,7 +204,7 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@v1
+      - uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: target-cluster # Replace
           RESOURCE: nais.yaml
