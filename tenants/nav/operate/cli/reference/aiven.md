@@ -4,35 +4,16 @@ tags: [command-line, reference]
 
 # aiven command
 
-The aiven command can be used to create a AivenApplication and extract credentials.
-The `aiven create service` command will create a Protected & time-limited AivenApplication in your specified namespace.
+The aiven command can be used to create a `AivenApplication` and extract credentials.
+The `aiven create service` command will create a Protected & time-limited `AivenApplication` in your specified namespace.
 This uses your currently configured kubectl context, so in order for it to work you need to select a suitable context first.
 For instance, credentials for nav-prod can only be generated in the prod clusters.
 
-This command will give access to personal but time limited credentials.
-These credentials can be used to debug an Aiven kafka topic, or Opensearch instance.
-The `aiven get` command extracts the credentials and puts them in a folder in the default location for temporary files[^1].
-The created AivenApplication has sane default (days-to-live) set to 1 day.
-
-## Kafka
-
-To gain access to a specific topic be sure to update your topic resource and topic ACLs.
-Add `username` to `acl.application` field in your topic.yaml and apply to your namespace.
-The `username` is the one specified in the next step.
-
-```yaml
-# topic.yml
-spec:
-  pool: nav-integration-test
-  config:
-    retentionHours: 900
-  acl:
-    - access: read
-      team: test
-      application: username
-```
-
 ## create
+
+The `create` command will give access to a personal, but time limited credentials.
+These credentials can be used to debug an Aiven kafka topic, or Opensearch instance.
+After creating credentials you need to use [`aiven get`](#get) to save them locally.
 
 ```bash
 nais aiven create service username namespace
@@ -44,7 +25,22 @@ nais aiven create service username namespace
 | username  | Yes      | Preferred username.                                          |
 | namespace | Yes      | Kubernetes namespace where AivenApplication will be created. |
 
-### Kafka
+### Kafka example
+
+To gain access to a specific Kafka topic be sure to update your topic resource and topic ACLs.
+Add `username` to `spec.acl.application` field in your `topic.yaml` and apply to your namespace.
+
+```yaml hl_lines="6-9"
+# topic.yml
+spec:
+  pool: nav-integration-test
+  config:
+    retentionHours: 900
+  acl:
+    - access: read
+      team: test
+      application: username
+```
 
 ```bash
 nais aiven create -p nav-prod -s some-unique-secretname -e 10 kafka username namespace
@@ -56,7 +52,7 @@ nais aiven create -p nav-prod -s some-unique-secretname -e 10 kafka username nam
 | secret-name | No       | -s    | namespace-username-randomstring | Preferred secret-name.                              |
 | expire      | No       | -e    | 1                               | Time in days the secret should be valid.            |
 
-### OpenSearch
+### OpenSearch example
 
 ```bash
 nais aiven create -i instance -a read -s some-unique-secretname -e 10 opensearch ignored namespace
@@ -74,6 +70,9 @@ This is because the usernames on OpenSearch instances are pre-defined as of now,
 
 ## get
 
+The `get` command extracts the credentials and puts them in a folder in the default location for temporary files[^1].
+The created `AivenApplication` has sane default (days-to-live) set to 1 day.
+
 ```bash
 nais aiven get service secret-name namespace
 ```
@@ -86,6 +85,7 @@ nais aiven get service secret-name namespace
 
 For Kafka we will create a Java properties file, KCat config file, and an .env file.
 For OpenSearch only .env file will be created.
+See [Available output](#available-output) for better understanding of files created.
 All files will ble placed in a folder named `aiven-secret-...` in the default location for temporary files[^1].
 
 ## tidy
