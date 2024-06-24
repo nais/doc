@@ -39,3 +39,7 @@ This how-to guide shows you how to create and manage a [secret](../README.md) in
 
     You will be prompted to confirm the deletion.
     Once confirmed, the secret will be permanently deleted and no longer available to any workloads.
+
+## Related pages
+
+:dart: Learn [how to use a secret in your workload](workload.md)
