@@ -56,10 +56,12 @@ graph TD
 
 Outbound rules are:
 
-  - enforced when _consuming other workloads in the same environment_ by [communicating internally](../how-to/communication.md).
-  - enforced for all traffic to external endpoints.
+- enforced when _consuming other workloads in the same environment_ by [communicating internally](../how-to/communication.md).
+- enforced for all traffic to external endpoints.
 
-**Outbound traffic to other ingresses are regarded as external endpoints**, even if these ingresses exist in the same environment.
+**Ingresses are regarded as external endpoints**, even when they exist in the same environment as your workload.
+We recommend using [internal endpoints](../how-to/communication.md) to communicate with other workloads when possible.
+If you choose to communicate using an external endpoint, make sure that you've [allowed access to the endpoint](../how-to/access-policies.md?h=external#send-requests-to-external-endpoints).
 
 Services offered by NAIS (such as [databases](../../persistence/postgres/README.md)) are automatically configured with necessary access policies.
 

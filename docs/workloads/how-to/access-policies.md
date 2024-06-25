@@ -6,7 +6,9 @@ tags: [workloads, how-to, access, policy]
 
 This guide will show you how to define [access policies](../explanations/zero-trust.md) for your [workload](../README.md).
 
-## Receive requests from workloads in the same namespace
+## Inbound access
+
+### Receive requests from workloads in the same namespace
 
 For app `<MY-APP>` to be able to receive incoming requests from `<MY-OTHER-APP>` in the same namespace, this specification is needed for `<MY-APP>`:
 
@@ -41,7 +43,7 @@ For app `<MY-APP>` to be able to receive incoming requests from `<MY-OTHER-APP>`
       end
     ```
 
-## Receive requests from workloads in other namespaces
+### Receive requests from workloads in other namespaces
 
 For app `<MY-APP>` to be able to receive incoming requests from `<ANOTHER-APP>` in `<ANOTHER-NAMESPACE>`, this specification is needed for `<MY-APP>`:
 
@@ -80,11 +82,13 @@ For app `<MY-APP>` to be able to receive incoming requests from `<ANOTHER-APP>` 
       end
     ```
 
-## Send requests to another app in the same namespace
+## Outbound access
+
+### Send requests to another app in the same namespace
 
 For app `<MY-APP>` to be able to send requests to `<MY-OTHER-APP>` in the same namespace, this specification is needed for `<MY-APP>`:
 
-=== "nais.yaml"
+=== "app.yaml"
 
     ```yaml
     apiVersion: "nais.io/v1alpha1"
@@ -115,11 +119,11 @@ For app `<MY-APP>` to be able to send requests to `<MY-OTHER-APP>` in the same n
       end
     ```
 
-## Send requests to other app in another namespace
+### Send requests to other app in another namespace
 
 For app `<MY-APP>` to be able to send requests to `<ANOTHER-APP>` in `<ANOTHER-NAMESPACE>`, this specification is needed for `<MY-APP>`:
 
-=== "nais.yaml"
+=== "app.yaml"
 
     ```yaml
     apiVersion: "nais.io/v1alpha1"
@@ -154,7 +158,7 @@ For app `<MY-APP>` to be able to send requests to `<ANOTHER-APP>` in `<ANOTHER-N
       end
     ```
 
-## Send requests to external endpoints
+### Send requests to external endpoints
 
 For app `<MY-APP>` to be able to send requests outside of the environment, this specification is needed for `<MY-APP>`:
 

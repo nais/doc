@@ -8,7 +8,8 @@ This guide will show you how to communicate with other workloads inside the same
 
 ## Prerequisites
 
-- Working [access policies](access-policies.md) for the workloads you want to communicate with.
+- Your workload has [configured outbound access that allows traffic to the target workload](access-policies.md#outbound-access)
+- The target workload has [configured inbound access that allows traffic from your workload](access-policies.md#inbound-access)
 
 ## Identify the endpoint you want to communicate with
 
