@@ -2,9 +2,9 @@
 tags: [workloads, how-to]
 ---
 
-# Communicate inside the environment
+# Communicate with other workloads in the same environment
 
-This guide will show you how to communicate with other workloads inside the same environment.
+This guide will show you how to communicate with other workloads inside the same environment by using _internal endpoints_ (also known as [_service discovery_](../explanations/service-discovery.md)).
 
 ## Prerequisites
 
