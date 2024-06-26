@@ -9,7 +9,6 @@ If you have problems getting your pods running you should check out the official
 - [Troubleshoot Applications](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application/)
 - [Debug Running Pods](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-running-pod/)
 
-
 !!! info
     Applications in the context above is not the NAIS applications.
     Debugging a NAIS applications resource is done with `kubectl describe application $app_name`.
@@ -101,7 +100,6 @@ kubectl attach mypod -c ruby-container -i -t
         - The application doesn't respond to any configured [health checks](../explanations/good-practices.md#implements-readiness-and-liveness-endpoints)
         - The application only has a [single pod or replica](../application/reference/application-spec.md#replicas), and that pod is not running
         - The application is configured incorrectly (e.g. has missing required dependencies, has the wrong image, etc.)
-        - The application attempts to write files to the filesystem, which is mostly [read-only by default](security-context.md#disable-read-only-file-system)
 
 ### My application gets an HTTP 504 Gateway Timeout error when attempting to communicate with another application, why?
 
