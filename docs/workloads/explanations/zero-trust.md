@@ -30,7 +30,7 @@ graph TD
 
 Inbound policies defined in [`.spec.accessPolicy.inbound`](../application/reference/application-spec.md#accesspolicyinbound) are:
 
-- enforced for _consumers in the same environment_ using [internal endpoints](../how-to/communication.md).
+- enforced for _consumers in the same environment_ using [service discovery](service-discovery.md).
 - **not** enforced for traffic through an [ingress](../reference/ingress.md).
 {% if tenant() == "nav" %}
 - enforced for authorizing consumers using [Entra ID](../../auth/entra-id/README.md) or [TokenX](../../auth/tokenx/README.md) regardless of environment.
@@ -43,24 +43,24 @@ Your workload is thus responsible for authorizing requests if exposed through an
 
 ## Outbound traffic
 
-Outbound traffic can be allowed to either _other workloads in the same environment_ as well as _external endpoints_:
+Outbound traffic can be allowed to either _other workloads in the same environment_ as well as _external addresses_:
 
 ```mermaid
 graph TD
   A[Is the service you want to call in the same environment?]
   A --> |Yes| B[Are they in the same namespace?]
-  A --> |No| Internet[🎯 <a href='../../how-to/access-policies#send-requests-to-external-endpoints'>Allow access to external endpoint</a>]
+  A --> |No| Internet[🎯 <a href='../../how-to/access-policies#send-requests-to-external-addresses'>Allow access to external address</a>]
   B --> |Yes| InternalSameNS[🎯 <a href='../../how-to/access-policies#send-requests-to-another-app-in-the-same-namespace'>Allow access to same namespace</a>]
   B --> |No| InternalOtherNS[🎯 <a href='../../how-to/access-policies#send-requests-to-other-app-in-another-namespace'>Allow access to other namespaces</a>]
 ```
 
 Outbound policies defined in [`.spec.accessPolicy.outbound`](../application/reference/application-spec.md#accesspolicyoutbound) are:
 
-- enforced when _consuming other workloads in the same environment_ through [internal endpoints](../how-to/communication.md) ([`.spec.accessPolicy.outbound.rules`](../application/reference/application-spec.md#accesspolicyoutboundrules)).
-- enforced for all traffic to external endpoints ([`.spec.accessPolicy.outbound.external`](../application/reference/application-spec.md#accesspolicyoutboundexternal)).
+- enforced when _consuming other workloads in the same environment_ through [service discovery](service-discovery.md) ([`.spec.accessPolicy.outbound.rules`](../application/reference/application-spec.md#accesspolicyoutboundrules)).
+- enforced for all traffic to external addresses ([`.spec.accessPolicy.outbound.external`](../application/reference/application-spec.md#accesspolicyoutboundexternal)).
 
-**Ingresses are external endpoints**.
-We recommend using [internal endpoints](../how-to/communication.md) to communicate with other workloads when possible.
+**Ingresses are external addresses**.
+We recommend using [service discovery](../how-to/communication.md) to communicate with other workloads when possible.
 
 Services offered by NAIS (such as [databases](../../persistence/postgres/README.md)) are automatically configured with necessary access policies.
 
@@ -99,3 +99,5 @@ Now that both applications has explicitly declared their policies, the communica
 ## Related pages
 
 :dart: Learn [how to define access policies](../how-to/access-policies.md)
+
+:dart: Learn [how to communicate with other workloads within an environment](../how-to/communication.md)

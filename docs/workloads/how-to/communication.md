@@ -4,16 +4,17 @@ tags: [workloads, how-to]
 
 # Communicate with other workloads in the same environment
 
-This guide will show you how to communicate with other workloads inside the same environment by using _internal endpoints_ (also known as [_service discovery_](../explanations/service-discovery.md)).
+This guide shows you how to communicate with other workloads inside the same environment by using their internal service address.
+The address is derived by using [_service discovery_](../explanations/service-discovery.md).
 
 ## Prerequisites
 
 - Your workload has [configured policies for _outbound traffic_ to the target workload](access-policies.md#outbound-access)
 - The target workload has [configured policies for _inbound traffic_ from your workload](access-policies.md#inbound-access)
 
-## Identify the target endpoint
+## Identify the target address
 
-To identity the endpoint of the workload we are communicating with, we need to know it's `name` and what `namespace` it's running in.
+To identity the address of the workload we are communicating with, we need to know its `name` and what `namespace` its running in.
 
 ### Target exists in the same namespace
 
@@ -44,9 +45,9 @@ http://<workload-name>.<namespace>
 
 {% endif %}
 
-## Call the endpoint
+## Call the address
 
-Call the workload using HTTP from your own workload:
+Call the workload through its internal address using HTTP from your own workload:
 
 ```http
 GET /resource HTTP/1.1

@@ -158,9 +158,9 @@ For app `<MY-APP>` to be able to send requests to `<ANOTHER-APP>` in `<ANOTHER-N
       end
     ```
 
-### Send requests to external endpoints
+### Send requests to external addresses
 
-For app `<MY-APP>` to be able to send requests outside of the environment, this specification is needed for `<MY-APP>`:
+For app `<MY-APP>` to be able to send requests to addresses outside the environment, this specification is needed for `<MY-APP>`:
 
 === "app.yaml"
 
@@ -182,8 +182,8 @@ For app `<MY-APP>` to be able to send requests outside of the environment, this 
 
     ```mermaid
     graph LR
-      accTitle: External services
-      accDescr: The diagram shows an application, <MY-APP>, that is allowed to send requests to an external service.
+      accTitle: External addresses
+      accDescr: The diagram shows an application, <MY-APP>, that is allowed to send requests to an external address.
 
       MY-APP--"✅"-->external-application.com
 
@@ -194,4 +194,4 @@ For app `<MY-APP>` to be able to send requests outside of the environment, this 
       end
     ```
 
-See the [access policy reference](../reference/access-policies.md) for a list of default external endpoints.
+See the [access policy reference](../reference/access-policies.md) for a list of external addresses that are accessible by default.

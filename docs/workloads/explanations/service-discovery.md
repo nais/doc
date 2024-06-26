@@ -1,10 +1,11 @@
 ---
-tags: [workloads, explanation, sercie, discovery]
+tags: [workloads, explanation, service, discovery]
 ---
 
 # Service Discovery
 
-Applications deployed to Kubernetes are exposed through what is known as a [`Service`][k8s-service-discovery]. This is an address that allows for direct communication within a Kubernetes cluster without having to go through an external ingress, load balancer, or proxy.
+Applications deployed to Kubernetes are exposed through what is known as a [:octicons-link-external-16:`Service`][k8s-service-discovery].
+This is an internal address that allows for direct communication within a [Kubernetes cluster](environment.md) without having to go through an external ingress, load balancer, or proxy.
 
 ```mermaid
 graph LR
@@ -13,11 +14,11 @@ graph LR
   app-a[App A] --http://app-b --> app-b[App B]
 ```
 
-This is the recommended way to communicate between applications in the same Kubernetes cluster. This avoids having to expose your application to the outside world, and allows for direct communication between applications.
+This is the recommended way to communicate between applications in the same Kubernetes cluster. This avoids having to [expose your application to the outside world](../application/how-to/expose.md), and allows for direct communication between applications.
 
 A `Service` in Kubernetes has some interesting properties:
 
-1. It provides a single, stable address for a set of pods. This mens that if a pod dies, moves or is upgraded, the `Service` will continue to point to the remaining pods.
+1. It provides a single, stable address for a set of pods. This means that if a pod dies, moves or is upgraded, the `Service` will continue to point to the remaining pods.
 2. It can load balance traffic across multiple pods. This is useful for scaling out your application without having to change the address of the `Service` or update clients consuming your application.
 3. Translates between ports. This is useful if you want to expose a service on a different port than the one your application is listening on. For example, you can expose port `80` on the `Service` and have it forward to port `8080` on the pod.
 
@@ -43,42 +44,8 @@ graph LR
   end
 ```
 
-## Google Cloud Platform
+## Related pages
 
-!!! warning
-    Ensure that you've set up proper [access policies](../reference/access-policies.md) for your applications.
+:dart: Learn how to [use service discovery to communicate with other workloads](../how-to/communication.md).
 
-The full hostname of a service on GCP follows this format:
-
-```text
-http://<service-name>.<namespace>.svc.cluster.local
-```
-
-## On-prem
-
-The full hostname of a service on-prem follows this format:
-
-```text
-http://<service-name>.<namespace>.svc.nais.local
-```
-
-## Short names
-
-You often won't need to use the full hostname to contact another service.
-
-If you’re addressing a service in the same namespace, you can use just the service name to contact it:
-
-```text
-http://<another-service>
-```
-
-If the service exists in a different namespace, you must add the appropriate namespace:
-
-```text
-http://<another-service>.<another-namespace>
-```
-
-!!! info "Note for on-prem"
-    If your application has [webproxy](../application/reference/application-spec.md#webproxy) enabled, you should use the full hostname for all service discovery calls.
-
-    This is to ensure that your application does not attempt to perform these in-cluster calls through the proxy, as the environment variable `NO_PROXY` includes `*.local`.
+:dart: Learn how to [set up access policies for your workloads](../how-to/access-policies.md).
