@@ -5,6 +5,7 @@ tags: [workloads, reference]
 # Environments
 
 This is a overview over the different environments and their available domains.
+Environments are sometimes also called _clusters_.
 
 We also enumerate the external IPs used by the environments, so that you can provide them to services that require IP allow-listing.
 
