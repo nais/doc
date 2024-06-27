@@ -15,3 +15,8 @@ tags: [naisdevice, how-to]
         - Linux: `rm -r "~/.config/naisdevice/"`
         - Windows: `rmdir /s "C:\ProgramData\NAV\naisdevice\"`
     - Start naisdevice
+- Windows virus scanner blocks naisdevice.exe installer
+  - Make sure you downloaded from the right source, the signature is valid and the checksum matches the file!  
+  - See https://nav-it.slack.com/archives/C0190RZ6HB4/p1687518220599119
+  - Try adding an exception: Windows Security / Virus & threat protection / Exclusions.
+  - Someone reported that running naisdevice.exe from cmd.exe can help.
