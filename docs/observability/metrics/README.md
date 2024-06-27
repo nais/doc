@@ -71,7 +71,7 @@ You should, as a developer, that build metrics into your application have solid 
 
 NAIS clusters comes with a set of metrics that are available for all applications. Many of these relates to Kubernetes and includes metrics like CPU and memory usage, number of pods, etc. You can find a comprehensive list in the [kube-state-metrics documentation](https://github.com/kubernetes/kube-state-metrics/blob/master/docs/README.md).
 
-Our ingress controller also exposes metrics about the number of requests, response times, etc. You can find a comprehensive list in our [ingress documentation](../../workloads/reference/ingress.md#ingress-metrics).
+Our ingress controller also exposes metrics about the number of requests, response times, etc. You can find a comprehensive list in our [ingress documentation](../../workloads/application/reference/ingress.md#metrics).
 
 ## Debugging metrics
 

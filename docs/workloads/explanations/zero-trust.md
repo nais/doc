@@ -31,7 +31,7 @@ graph TD
 Inbound policies defined in [`.spec.accessPolicy.inbound`](../application/reference/application-spec.md#accesspolicyinbound) are:
 
 - enforced for _consumers in the same environment_ using [service discovery](service-discovery.md).
-- **not** enforced for traffic through an [ingress](../reference/ingress.md).
+- **not** enforced for traffic through an [ingress](../application/reference/ingress.md).
 {% if tenant() == "nav" %}
 - enforced for authorizing consumers using [Entra ID](../../auth/entra-id/README.md) or [TokenX](../../auth/tokenx/README.md) regardless of environment.
 {% endif %}

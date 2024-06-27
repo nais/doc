@@ -1,53 +1,28 @@
 ---
-tags: [workloads, reference]
+tags: [workloads, reference, ingress]
 ---
 
-# Ingress traffic
+# Ingress reference
 
-Ingress traffic is traffic directed to your application from outside the environment.
-This is done by configuring the [`ingresses`][nais-ingress] block in your NAIS application yaml manifest with the [domains](environments.md) you want your application to receive traffic from.
+This is the reference documentation for [ingresses](../explanations/expose.md#ingress) in NAIS.
 
-[nais-ingress]: ../application/reference/application-spec.md#ingresses
+## Domains
 
-```mermaid
-graph LR
-  accTitle: Access to application via ingress
-  accDescr {
-    The sequence diagram shows the following steps:
-    1. the user accessing https://myapp.intern.dev.nav.no
-    2. The app sends a request to the ingress controller, within the Kubernetes container. http://myapp.mynamespace.svc.cluster.local
-    3. The request is sent to another container, the namespace, which contains a service.
-    4. The service within the Namespace container can send the request to Pod 1 or Pod 2
-  }
-  user[User]
-  user -->|https://myapp.intern.dev.nav.no| ingresscontroller
-  subgraph Kubernetes
-    ingresscontroller[Ingress Controller]
+See the [environments reference](../../reference/environments.md) for a list of available domains.
 
-    subgraph Namespace
-      pod1[Pod 1]
-      pod2[Pod 2]
-      svc[Service]
+## Ingress customization
 
-      svc-->pod1
-      svc-->pod2
-    end
+Ingresses are automatically created for your application when you specify them in your [application manifest](application-spec.md).
+The ingress is created with a set of default values that should work for most applications.
 
-    ingresscontroller-->|http://myapp.mynamespace.svc.cluster.local| svc
-  end
-```
-
-If you do not need to expose your application outside the cluster, you can rely on [service discovery][service-discovery] instead.
-
-You can tweak the Ingress configuration by specifying certain [Kubernetes annotations][kubernetes-annotations] in your app spec. A list of supported variables are specified in the [Nginx ingress documentation][nginx-ingress-annotations].
+You can tweak the ingress configuration by specifying certain [Kubernetes annotations][kubernetes-annotations] in your application manifest.
+A list of supported variables are specified in the [Nginx ingress documentation][nginx-ingress-annotations].
 
 [kubernetes-annotations]: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 [nginx-ingress-annotations]: https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/
-[service-discovery]: ../how-to/communication.md
+[service-discovery]: ../../how-to/communication.md
 
-As the Nginx ingress documentation states, these parameters are set on the Ingress object. However, Naiserator will copy these parameters from your Application spec.
-
-## Custom max body size
+### Custom max body size
 
 For nginx, an `413` error will be returned to the client when the size in a request exceeds the maximum allowed size of the client request body. By default, this is set to `1m` (1 megabyte).
 
@@ -57,7 +32,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: "8m"
 ```
 
-## Custom proxy buffer size
+### Custom proxy buffer size
 
 Sets the size of the buffer proxy_buffer_size used for reading the first part of the response received from the proxied server. By default proxy buffer size is set as `4k`
 
@@ -67,7 +42,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
 ```
 
-## Custom timeouts
+### Custom timeouts
 
 In some scenarios is required to have different values for various timeouts. To allow this we provide parameters that allows this customization:
 
@@ -104,7 +79,7 @@ spec:
   ...
 ```
 
-## Ingress metrics
+## Metrics
 
 All requests to your application via ingress will result in metrics being emitted to Prometheus. The metrics are prefixed with `nginx_ingress_controller_requests_` and are tagged with the following labels: `status`, `method`, `host`, `path`, `namespace`, `service`.
 
@@ -121,7 +96,7 @@ All requests to your application via ingress will result in metrics being emitte
 
 ### Uptime probes
 
-All ingresses will automatically have uptime probes enabled on them. This probe will directed at the [application's readiness endpoint](../application/reference/application-spec.md#readiness) using a HTTP GET request. A probe is considered successful if the HTTP status code is `2xx` or `3xx`. The probe is considered failed if the HTTP status code is `4xx` or `5xx`.
+All ingresses will automatically have uptime probes enabled on them. This probe will directed at the [application's readiness endpoint](application-spec.md#readiness) using a HTTP GET request. A probe is considered successful if the HTTP status code is `2xx` or `3xx`. The probe is considered failed if the HTTP status code is `4xx` or `5xx`.
 
 You can query the uptime probe status using the following PromQL query:
 

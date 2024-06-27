@@ -148,7 +148,7 @@ plugins:
         "nais-application/automatic-scaling.md": "workloads/application/reference/automatic-scaling.md"
         "nais-application/application.md": "workloads/application/reference/application-spec.md"
         "nais-application/example.md": "workloads/application/reference/application-example.md"
-        "nais-application/ingress.md": "workloads/reference/ingress.md"
+        "nais-application/ingress.md": "workloads/application/reference/ingress.md"
         "naisjob.md": "workloads/job/README.md"
         "observability/alerts.md": "observability/alerting/README.md"
         "observability/auto-instrumentation.md": "observability/how-to/auto-instrumentation.md"
@@ -164,7 +164,7 @@ plugins:
         "reference/environments.md": "workloads/reference/environments.md"
         "reference/default-variables.md": "workloads/reference/default-variables.md"
         "reference/glossary.md": "observability/reference/glossary.md"
-        "reference/ingress.md": "workloads/reference/ingress.md"
+        "reference/ingress.md": "workloads/application/reference/ingress.md"
         "reference/json-schema.md": "workloads/reference/json-schema.md"
         "reference/kafka-topic-spec.md": "persistence/kafka/reference/kafka-topic-spec.md"
         "reference/metrics.md": "observability/metrics/reference/metrics.md"
@@ -201,6 +201,7 @@ plugins:
         "tutorial/hello-nais/hello-nais-2.md": "tutorials/hello-nais.md"
         "tutorial/hello-nais/hello-nais-3.md": "tutorials/hello-nais.md"
         "tutorial/hello-nais/hello-nais-4.md": "tutorials/hello-nais.md"
+        "workloads/reference/ingress.md": "workloads/application/reference/ingress.md"
 markdown_extensions:
   - toc:
       permalink: True

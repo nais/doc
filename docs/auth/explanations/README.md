@@ -599,7 +599,7 @@ verify the signature of your client assertions as proof of your client's identit
 ## Login proxy
 
 NAIS offers an opt-in _login proxy_ (also known as _Wonderwall_) that simplifies the process of authenticating end-users in your application.
-The proxy exposes [endpoints](../reference/README.md#endpoints) under your application's [ingress](../../workloads/reference/ingress.md) to help you authenticate [employees](../entra-id/how-to/login.md) or [citizens](../idporten/how-to/login.md).
+The proxy exposes [endpoints](../reference/README.md#endpoints) under your application's [ingress](../../workloads/application/reference/ingress.md) to help you authenticate [employees](../entra-id/how-to/login.md) or [citizens](../idporten/how-to/login.md).
 
 !!! warning "Availability"
 

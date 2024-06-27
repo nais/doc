@@ -1,8 +1,8 @@
 ---
-tags: [workloads, explanation, service, discovery]
+tags: [workloads, explanation, service-discovery]
 ---
 
-# Service Discovery
+# Service discovery
 
 Applications deployed to Kubernetes are exposed through what is known as a [:octicons-link-external-16:`Service`][k8s-service-discovery].
 This is an internal address that allows for direct communication within a [Kubernetes environment / cluster](environment.md) without having to go through an external ingress, load balancer, or proxy.
