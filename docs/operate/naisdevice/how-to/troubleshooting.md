@@ -39,7 +39,7 @@ Restart your default browser.
 ## Windows virus scanner
 
 > Windows virus scanner blocks naisdevice.exe installer
-> 
+
 - Make sure you downloaded from the right source, the signature is valid and the checksum matches the file!
 {%- if tenant() == "nav" %}
 - See https://nav-it.slack.com/archives/C0190RZ6HB4/p1687518220599119
