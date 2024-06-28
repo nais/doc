@@ -42,7 +42,8 @@ nais device status
 
 
 !!! note "output format"
-If the output format and quiet flags are specified, output takes precedence.
+
+    If the output format and quiet flags are specified, output takes precedence.
 
 {%- if tenant() == "nav" %}
 ## jita
