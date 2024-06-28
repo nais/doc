@@ -36,13 +36,38 @@ nais device status
 ```
 
 | Flag   | Required | Short | Default | Description                                  |
-| ------ | -------- | ----- | ------- | -------------------------------------------- |
+|--------|----------|-------|---------|----------------------------------------------|
 | quiet  | No       | -q    | false   | Only print connection status.                |
 | output | No       | -o    | yaml    | Specify one of yaml or json as output format |
 
 
 !!! note "output format"
-    If the output format and quiet flags are specified, output takes precedence.
+If the output format and quiet flags are specified, output takes precedence.
+
+{%- if tenant() == "nav" %}
+## jita
+
+Starts the *just-in-time access* flow for a named gateway.
+This should redirect you to a browser to submit a request for just-in-time access.
+
+```bash
+nais device jita my-privileged-access-gateway
+```
+
+| Argument | Required | Description                                       |
+|----------|----------|---------------------------------------------------|
+| gateway  | Yes      | The desired gateway to establish a connection to. |
+
+!!! tip "Which gateways require just-in-time access?"
+
+    You can view gateways and their JITA requirement with `nais device status`.
+
+    This snippet explicitly shows the names of gateways with that requirement.
+    ```bash
+    nais device status -ojson | jq -r '.Gateways[] | select(.requiresPrivilegedAccess == true) | .name'
+    ```
+
+{%- endif %}
 
 ## config
 
@@ -67,6 +92,6 @@ nais device config set AutoConnect true
 ```
 
 | Argument | Required | Description                                                                                                                          |
-| -------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+|----------|----------|--------------------------------------------------------------------------------------------------------------------------------------|
 | setting  | Yes      | The setting to adjust. Must be one of `[autoconnect, certrenewal]`, case insensitive.                                                |
 | value    | Yes      | The value to set. Must be one of `[true, false]`, or anything [`strconv.ParseBool`](https://pkg.go.dev/strconv#ParseBool) can parse. |

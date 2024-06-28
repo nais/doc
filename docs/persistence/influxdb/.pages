@@ -1,0 +1,7 @@
+conditional: [tenant, nav]
+title: InfluxDB
+nav:
+- README.md
+- 🎯 How-To: how-to
+- 📚 Reference: reference
+- ...
