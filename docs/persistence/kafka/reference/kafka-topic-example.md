@@ -43,5 +43,5 @@ spec:
     retentionBytes: -1
     retentionHours: 168
     segmentHours: 168
-  pool: nav-integration-test
+  pool: dev-nais-dev
 ```

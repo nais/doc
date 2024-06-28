@@ -313,6 +313,6 @@ Required: `true`<br />
 ??? example
     ``` yaml
     spec:
-      pool: nav-integration-test
+      pool: dev-nais-dev
     ```
 
