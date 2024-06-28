@@ -48,7 +48,7 @@ nais device status
 {%- if tenant() == "nav" %}
 ## jita
 
-Starts the *just-in-time access* flow for a named gateway.
+Starts the [*just-in-time access*](../../naisdevice/explanations/jita.md) flow for a named gateway.
 This should redirect you to a browser to submit a request for just-in-time access.
 
 ```bash
