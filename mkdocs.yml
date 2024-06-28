@@ -202,6 +202,13 @@ plugins:
         "tutorial/hello-nais/hello-nais-3.md": "tutorials/hello-nais.md"
         "tutorial/hello-nais/hello-nais-4.md": "tutorials/hello-nais.md"
         "workloads/reference/ingress.md": "workloads/application/reference/ingress.md"
+  - file-filter:
+      filter_nav: false
+      metadata_property: conditional # front matter property to use for exclude_tags / include_tags
+      exclude_tag: # exclude anything marked with the "tenant" conditional
+        - tenant
+      include_tag: # include anything marked with a conditional matching the TENANT environment variable
+        - !ENV [ TENANT, '' ]
 markdown_extensions:
   - toc:
       permalink: True
