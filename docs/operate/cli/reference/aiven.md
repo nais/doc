@@ -34,7 +34,7 @@ Add `username` to `spec.acl.application` field in your `topic.yaml` and apply to
 ```yaml hl_lines="6-9"
 # topic.yml
 spec:
-  pool: nav-integration-test
+  pool: some-pool
   config:
     retentionHours: 900
   acl:

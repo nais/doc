@@ -19,7 +19,7 @@ The `username` is the one specified in the next step.
 ```yaml
 # topic.yml
 spec:
-  pool: nav-integration-test
+  pool: some-pool
   config:
     retentionHours: 900
   acl:
