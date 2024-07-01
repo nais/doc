@@ -86,6 +86,13 @@ This endpoint URI can be found in one of two ways:
 
 [Other claims](../reference/README.md#claims) may be present in the token. Validation of these claims is optional.
 
+## Next steps
+
+The citizen is now authenticated and can access your application.
+However, the subject token found in the `Authorization` header is **only valid for _your_ application**.
+
+To consume other APIs on behalf of the citizen, [exchange the token for a new token that targets a specific API](../../tokenx/how-to/consume.md).
+
 ## Related pages
 
 :dart: Learn how to [consume other APIs on behalf of a citizen](../../tokenx/how-to/consume.md)

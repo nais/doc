@@ -50,7 +50,7 @@ Your application is responsible for verifying that this token is present and val
 
 If the `Authorization` header is missing or empty, the employee is unauthenticated.
 
-Return an appropriate HTTP status code to the frontend, and redirect the citizen's user agent to the [login endpoint]:
+Return an appropriate HTTP status code to the frontend, and redirect the employee's user agent to the [login endpoint]:
 
 ```
 https://<ingress>/oauth2/login
@@ -66,6 +66,13 @@ https://<ingress>/oauth2/login
 ```
 
 {% include 'auth/entra-id/partials/validate.md' %}
+
+## Next steps
+
+The employee is now authenticated and can access your application.
+However, the subject token found in the `Authorization` header is **only valid for _your_ application**.
+
+To consume other APIs on behalf of the employee, [exchange the token for a new token that targets a specific API](consume-obo.md).
 
 ## Related pages
 

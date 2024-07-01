@@ -214,14 +214,14 @@ This is used to authenticate the client when attempting to acquire tokens from t
 Entra ID is the only identity provider we use that supports the `client_secret_post` authentication method.
 The secret itself is passed in plain-text as part of the request body:
 
-```
+```http title="Token request"
 POST /token HTTP/1.1
 Host: server.example.com
 Content-Type: application/x-www-form-urlencoded
 
-client_id=<some-client-id>
-&client_secret=<some-client-secret>
-&grant_type=client_credentials
+client_id=<some-client-id>&
+client_secret=<some-client-secret>&
+grant_type=client_credentials
 ```
 
 As the platform rotates these credentials relatively regularly, using the `client_secret_post` method shouldn't pose as
@@ -270,17 +270,15 @@ An assertion has several security advantages over a [client secret](#client-secr
 
 For example, for the client credentials grant:
 
-```
+```http title="Token request"
 POST /token HTTP/1.1
 Host: as.example.com
 Content-Type: application/x-www-form-urlencoded
 
-grant_type=client_credentials
-&client_id=<some-client-id>
-&client_assertion=eyJhbGciOiJFUzI1NiIsImtpZCI6IjE2In0.
-eyJpc3Mi[...omitted for brevity...].
-J9l-ZhwP[...omitted for brevity...]
-&client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer
+grant_type=client_credentials&
+client_id=<some-client-id>&
+client_assertion=eyJhbGciOiJFUzI1NiIsImtpZCI6IjE2In0.eyJ[...].J9l[...]&
+client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer
 ```
 
 Each identity provider may have different requirements for the `grant_type` and parameter names for the assertions
@@ -606,7 +604,9 @@ The proxy exposes [endpoints](../reference/README.md#endpoints) under your appli
     Login proxy is only available in the [Google Cloud Platform](../../workloads/reference/environments.md#google-cloud-platform-gcp) environments.
 
 The proxy sits in front of your application and intercepts all incoming requests.
-Unauthenticated requests are proxied as-is.
+It does not validate any requests, nor does it validate any tokens attached to the request.
+
+Unauthenticated requests are proxied as-is without modifications.
 
 ```mermaid
 graph LR
@@ -635,6 +635,7 @@ graph LR
 
 After successful login, the proxy creates and stores a session for the end-user.
 Requests from the user agent will now contain their access token as a [Bearer token](../../auth/explanations/README.md#bearer-token) in the `Authorization` header.
+The proxy does not validate this token. [Validation](#token-validation) is your application's responsibility.
 
 ```mermaid
 graph LR

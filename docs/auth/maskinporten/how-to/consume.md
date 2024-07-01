@@ -156,7 +156,7 @@ Finally, create a **signature** for the client assertion.
 **Request**
 
 The token request is an HTTP POST request.
-It should have the `Content-Type` set to `application/x-www-form-urlencoded`
+It must have the `Content-Type` header set to `application/x-www-form-urlencoded`.
 
 The body of the request should contain the following parameters:
 
@@ -198,9 +198,7 @@ See the [Maskinporten token documentation](https://docs.digdir.no/docs/Maskinpor
 
 ## Consume API
 
-Once you have acquired the token, you can finally consume the external API.
-
-Use the token in the `Authorization` header as a [Bearer token](../../explanations/README.md#bearer-token):
+Once you have acquired a new token, you can finally consume the external API by using the token as a [Bearer token](../../explanations/README.md#bearer-token):
 
 ```http
 GET /resource HTTP/1.1

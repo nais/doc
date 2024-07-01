@@ -12,7 +12,8 @@ This how-to guides you through the steps required to consume an API secured with
 
 ## Prerequisites
 
-- Your application receives requests with a citizen subject token, either from [ID-porten](../../idporten/README.md) or TokenX.
+- Your application receives requests with a citizen subject token in the `Authorization` header
+    - The subject token can either be from [ID-porten](../../idporten/README.md) or from TokenX itself
 - The API you're consuming has [granted access to your application](secure.md#grant-access-to-consumers)
 
 ## Configure your application
@@ -82,16 +83,19 @@ Additionally, the headers of the assertion must contain the following parameters
 
 Now that you have a client assertion, we can use this to exchange the inbound token you received from your consumer.
 
-Create a POST request with the following required parameters:
+The token request is an HTTP POST request.
+It must have the `Content-Type` header set to `application/x-www-form-urlencoded`
 
-| Parameter               | Value                                                      | Comment                                                                                        |
-|:------------------------|:-----------------------------------------------------------|:-----------------------------------------------------------------------------------------------|
-| `grant_type`            | `urn:ietf:params:oauth:grant-type:token-exchange`          |                                                                                                |
-| `client_assertion_type` | `urn:ietf:params:oauth:client-assertion-type:jwt-bearer`   |                                                                                                |
-| `client_assertion`      | The [client assertion](#create-client-assertion).          | Token that authenticates your application. It should be unique and only used once.             |                                                                                                                  |
-| `subject_token_type`    | `urn:ietf:params:oauth:token-type:jwt`                     |                                                                                                |
-| `subject_token`         | The inbound citizen token, either from ID-porten or TokenX | Token that should be exchanged.                                                                |
-| `audience`              | The identifier for the target application                  | Value follows naming scheme `<cluster>:<namespace>:<appname>`, e.g. `prod-gcp:namespace1:app1` |
+The body of the request should contain the following parameters:
+
+| Parameter               | Value                                                    | Description                                                                                                                          |
+|:------------------------|:---------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------|
+| `grant_type`            | `urn:ietf:params:oauth:grant-type:token-exchange`        | Always `urn:ietf:params:oauth:grant-type:token-exchange`.                                                                            |
+| `client_assertion_type` | `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` | Always `urn:ietf:params:oauth:client-assertion-type:jwt-bearer`.                                                                     |
+| `client_assertion`      | `eyJraWQ...`                                             | The [client assertion](#create-client-assertion). Token that authenticates your application. It should be unique and only used once. |                                                                                                                  |
+| `subject_token_type`    | `urn:ietf:params:oauth:token-type:jwt`                   | Always `urn:ietf:params:oauth:token-type:jwt`.                                                                                       |
+| `subject_token`         | `eyJraWQ...`                                             | The citizen's subject token from the inbound request, either from ID-porten or TokenX. Token that should be exchanged.               |
+| `audience`              | `<cluster>:<namespace>:<appname>`                        | The identifier for the target application. Intended audience or recipient of the new token.                                          |
 
 Send the request to the `token_endpoint`, i.e. the URL found in the [`TOKEN_X_TOKEN_ENDPOINT`][variables-ref] environment variable.
 
@@ -127,7 +131,7 @@ Your application does not need to validate this token.
 
     Use this field to cache and reuse the token to minimize network latency impact.
 
-    A safe cache key is `key = sha256($subject_token + $audience)`.
+    A safe cache key for this flow is `key = sha256($subject_token + $audience)`.
 
 #### Error response
 
@@ -143,9 +147,7 @@ If the exchange request is invalid, you will receive a structured error as speci
 
 ## Consume API
 
-Once you have acquired the token, you can finally consume the target API.
-
-Use the token in the `Authorization` header as a [Bearer token](../../explanations/README.md#bearer-token):
+Once you have acquired a new token, you can finally consume the target API by using the token as a [Bearer token](../../explanations/README.md#bearer-token):
 
 ```http
 GET /resource HTTP/1.1
