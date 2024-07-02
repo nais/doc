@@ -1,4 +1,5 @@
 import os
+import textwrap
 
 
 def define_env(env):
@@ -9,3 +10,13 @@ def define_env(env):
     @env.macro
     def tenant_url(app: str, path: str = ''):
         return f'https://{app}.{tenant()}.cloud.nais.io/{path}'
+
+    @env.macro
+    def gcp_only(feature: str):
+        if tenant() == "nav":
+            return textwrap.dedent(f"""\
+            !!! gcp-only "{feature} is only available in GCP"
+            
+                {feature} is only available in GCP clusters, and will not work in on-prem clusters.    
+            """)
+        return ""

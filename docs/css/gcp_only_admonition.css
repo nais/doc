@@ -1,0 +1,14 @@
+.md-typeset .admonition.gcp-only,
+.md-typeset details.gcp-only {
+    border-color: rgb(255, 128, 0); /* #ff9100 */
+}
+.md-typeset .gcp-only > .admonition-title,
+.md-typeset .gcp-only > summary {
+    background-color: rgba(255, 128, 0, 0.1);
+}
+.md-typeset .gcp-only > .admonition-title::before,
+.md-typeset .gcp-only > summary::before {
+    background-color: rgb(255, 128, 0);
+    -webkit-mask-image: var(--md-admonition-icon--gcp-only);
+    mask-image: var(--md-admonition-icon--gcp-only);
+}
