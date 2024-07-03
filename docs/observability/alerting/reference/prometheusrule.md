@@ -38,17 +38,34 @@ graph LR
       namespace: my-team
     spec:
       groups:
-      - name: my-alert-rules
+      - name: my-app-client-errors
         rules:
-        - alert: HighCPUUsage
-          expr: 100 - (avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
-          for: 10m
-          labels:
-            severity: warning
-          annotations:
-            consequence: The high CPU usage may impact the performance of the application.
-            action: Investigate the cause of high CPU usage and optimize the application if necessary.
-            summary: High CPU usage for more than 10 minutes.
+          - alert: HttpClientErrorRateHigh
+            expr: |
+              1 - (
+                sum(
+                  rate(
+                    http_client_request_duration_seconds_count{app="my-app", http_response_status_code="200"}[5m]
+                  )
+                ) by (server_address)
+                /
+                sum(
+                  rate(
+                    http_client_request_duration_seconds_count{app="my-app"}[5m]
+                  )
+                ) by (server_address)
+              ) * 100 < 95
+            for: 10m
+            annotations:
+              summary: "High error rate for outbound http requests"
+              consequence: "Users are experiencing errors when using the application."
+              action: "Check the logs using `kubectl logs` for errors and check upstream services."
+              message: "Requests to `{{ $labels.server_address }}` are failing at {{ $value }}% over the last 5 minutes."
+              runbook_url: "https://github.com/navikt/my-app-runbook/blob/main/HttpClientErrorRateHigh.md"
+              dashboard_url: "https://grafana.nav.cloud.nais.io/d/000000000/my-app"
+            labels:
+              severity: warning
+              namespace: my-team
     ```
 
 ### `groups[]`
@@ -83,20 +100,44 @@ Example values: `30s`, `5m`, `1h`.
 
 Labels to attach to the alert. These are used to group and filter alerts in the Alertmanager.
 
-###### `groups[].rules[].labels.severity`
+###### `groups[].rules[].labels.severity` (required)
 
-This will affect what color the notification gets. Possible values are `critical` (🔴), `warning` (🟡) and `notice` (🟢).
+This will affect what color the notification gets. Possible values are `critical` (🔴), `warning` (🟡) and `info` (🟢).
 
-#### `groups[].rules[].annotations`
+###### `groups[].rules[].labels.namespace` (required)
 
-##### `groups[].rules[].annotations.consequence` (optional)
+The team that is responsible for the alert. This is used to route the alert to the correct Slack channel.
+
+###### `groups[].rules[].labels.send_resolved` (optional)
+
+If set to `false`, no resolved message will be sent when the alert is resolved. This is useful for alerts that are not actionable or where the resolved message is not needed.
+
+##### `groups[].rules[].annotations`
+
+###### `groups[].rules[].annotations.summary` (optional)
+
+The summary annotation is used to give a short description of the alert. This is useful for the one receiving the alert to understand what the alert is about and is the first line in the alert message in Slack.
+
+###### `groups[].rules[].annotations.consequence` (optional)
 
 The consequence annotation is used to describe what happens in the world when this alert fires. This is useful for the one receiving the alert to understand the impact of the alert.
 
-##### `groups[].rules[].annotations.action` (optional)
+###### `groups[].rules[].annotations.action` (optional)
 
 The action annotation is used to describe what the best course of action is to resolve the issue. Good alerts should have a clear action that can be taken to resolve the issue.
 
-##### `groups[].rules[].annotations.summary` (optional)
+###### `groups[].rules[].annotations.message` (optional)
 
-The summary annotation is used to give a short description of the alert. This is useful for the one receiving the alert to understand what the alert is about.
+The message annotation is used to give a more detailed description of the alert. This is useful for the one receiving the alert to understand the alert in more detail and will printed for each result in the alert expression.
+
+###### `groups[].rules[].annotations.runbook_url` (optional)
+
+The runbook URL annotation is used to link to a runbook that describes how to resolve the issue. This is useful for the one receiving the alert to quickly find the information needed to resolve the issue and is added as a link in the alert message in Slack.
+
+[:octicons-link-external-24: Learn more about runbooks](https://www.atlassian.com/software/confluence/templates/devops-runbook).
+
+###### `groups[].rules[].annotations.dashboard_url` (optional)
+
+The dashboard URL annotation is used to link to a dashboard that can help diagnose the issue. This is useful for the one receiving the alert to quickly find the information needed to diagnose the issue and is added as a link in the alert message in Slack.
+
+[:bulb: Create a dashboard in Grafana](../../metrics/how-to/dashboard.md)
