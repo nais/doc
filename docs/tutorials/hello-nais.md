@@ -102,7 +102,7 @@ Add the following content to the file, and insert the appropriate values in the 
           memory: 32Mi
     ```
 
-    Note the `ttl: 3h`. It sets the ["time to live"](../workloads/application/reference/application-spec/?h=#ttl) for your app to 3 hours, in case you start on this tutorial and forget to clean up after. 
+    Note the `ttl: 3h`. It sets the ["time to live"](../workloads/application/reference/application-spec/#ttl) for your app to 3 hours, in case you start on this tutorial and forget to clean up after. 
 
 ### GitHub Actions workflow
 
