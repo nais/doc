@@ -22,7 +22,7 @@ spec:
   accessPolicy:
     inbound:
       rules:
-        - application: tokenx-token-generator
+        - application: azure-token-generator
           namespace: aura
           cluster: dev-gcp
 ```
