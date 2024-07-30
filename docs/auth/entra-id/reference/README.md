@@ -33,14 +33,11 @@ Your application can then use these claims to implement custom authorization log
 
 #### Custom scopes
 
-A _scope_ only applies to tokens acquired [on behalf of an employee][obo]
-(service-to-service calls on behalf of an end-user).
+A _scope_ only applies to tokens acquired [on behalf of an employee][obo].
 
 Applications defined in the access policy are always assigned the default scope named `defaultaccess`.
 
-Grant scopes to consumers by specifying the following:
-
-```yaml hl_lines="8-10"
+```yaml hl_lines="8-10" title="Example configuration"
 spec:
   accessPolicy:
     inbound:
@@ -86,13 +83,11 @@ Scopes will appear as a _space separated string_ in the `scp` claim within the u
 
 #### Custom roles
 
-A _role_ only applies to tokens acquired [as an application][m2m] (service-to-service calls).
+A _role_ only applies to tokens acquired [as an application][m2m] (machine-to-machine calls).
 
 Applications defined in the access policy are always assigned the default role named `access_as_application`.
 
-Grant roles to consumers by specifying the following:
-
-```yaml hl_lines="8-10"
+```yaml hl_lines="8-10" title="Example configuration"
 spec:
   accessPolicy:
     inbound:
@@ -138,37 +133,40 @@ Roles will appear in the `roles` claim as an _array of strings_ within the appli
 
 Notable claims in tokens from Entra ID:
 
-`azp` (**authorized party**)
+`azp` (_authorized party_)
 
 :   The [client ID](../explanations/README.md#client-id) of the application that requested the token (this would be your consumer).
 
-`azp_name` (**authorized party name**)
+`azp_name` (_authorized party name_)
 
 :   The value of this claim is the (human-readable) [name](../explanations/README.md#client-name) of the consumer application that requested the token.
+    This complements the client ID found in the `azp` claim and is intended for display purposes only.
+
+    Not guaranteed to be unique. ihould not** be used for authorization.
 
 `groups`
 
 :   JSON array of [group identifiers](../explanations/README.md#group-identifier) that the user is a member of.
     Used to implement group-based authorization logic in your application.
 
-    This claim only applies in flows where a user is involved i.e., either the [login] or [on-behalf-of][obo] flows.
+    This claim only appears in tokens where an _end-user_ is involved, i.e. from either the [login] or [on-behalf-of][obo] flows.
     In order for a group to appear in the claim, all the following conditions must be true:
 
     - The given user is a direct member of the group.
     - The group has been [granted access to the application](../how-to/secure.md#users).
 
-`idtyp` (**identity type**)
+`idtyp` (_identity type_)
 
 :   This is a special claim used to determine whether a token is a [machine-to-machine][m2m] (app-only) token or a [on-behalf-of][obo] (user) token.
 
-    Tokens are a machine-to-machine tokens only if this claim exists and has the value `app`.
+    A token is a machine-to-machine token if and only if this claim exists and has the value `app`.
 
 {%- if tenant() == "nav" %}
 
 `NAVident`
 
 :   The internal identifier for the employees in NAV.
-    Only applies in flows where a user is involved i.e., either the [login] or [on-behalf-of][obo] flows.
+    Only applies in flows where an end-user is involved i.e., either the [login] or [on-behalf-of][obo] flows.
 
 {%- endif %}
 
@@ -190,7 +188,7 @@ Notable claims in tokens from Entra ID:
     Consumers defined in the [access policy](../how-to/secure.md#applications) are always assigned the default role named `access_as_application`.
     You can optionally define and grant them [custom roles](#custom-roles).
 
-`scp` (**scope**)
+`scp` (_scope_)
 
 :   The value of this claim is a _space-separated string_ that lists the scopes that the application has access to:
     ```json
@@ -199,7 +197,7 @@ Notable claims in tokens from Entra ID:
     }
     ```
 
-    This claim **only** applies to user or [on-behalf-of][obo] tokens.
+    This claim **only** applies to [on-behalf-of][obo] tokens.
 
     Consumers defined in the [access policy](../how-to/secure.md#applications) are always assigned the default scope named `defaultaccess`.
     You can optionally define and grant them [custom scopes](#custom-scopes).

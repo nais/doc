@@ -27,7 +27,7 @@ You should generally **not** hard code or otherwise depend on the client ID of _
 
 ## Client Name
 
-An Entra ID client has an associated name within a tenant. NAIS uses this name for lookups and identification.
+An Entra ID client has an associated name within a tenant.
 
 All clients provisioned through NAIS will be registered in Entra ID using the following naming scheme:
 
@@ -40,6 +40,9 @@ For example:
 ```text 
 dev-gcp:aura:nais-testapp
 ```
+
+The name is not guaranteed to be unique and should not be used for authorization.
+If you want to unambiguously identify a client, use their [client ID](#client-id) instead.
 
 ## Scopes
 
