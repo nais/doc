@@ -100,6 +100,7 @@ plugins:
         "clusters/service-discovery.md": "workloads/how-to/communication.md"
         "deployment.md": "build/README.md"
         "deployment/github-action.md": "build/how-to/build-and-deploy.md"
+        "device.md": "operate/naisdevice/README.md"
         "device/install.md": "operate/naisdevice/how-to/install.md"
         "device/update.md": "operate/naisdevice/how-to/update.md"
         "explanation/cdn.md": "services/cdn/README.md"

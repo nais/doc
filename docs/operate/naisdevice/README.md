@@ -18,3 +18,5 @@ Before connecting, your machine needs to meet certain requirements. These requir
 
 Kolide will notify you through Slack when something is wrong with your machine, and will guide you through the process of fixing it.
 {% endif %}
+
+:dart: [**Get started with naisdevice**](how-to/install.md)
