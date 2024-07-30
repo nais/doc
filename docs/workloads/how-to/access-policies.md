@@ -1,5 +1,5 @@
 ---
-tags: [workloads, how-to, access, policy]
+tags: [workloads, how-to, access-policy]
 ---
 
 # Set up access policies

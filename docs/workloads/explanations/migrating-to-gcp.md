@@ -158,9 +158,9 @@ A PVK is not a unique requirement for GCP, so all applications should already ha
         - a. [Access Policies for TokenX][tokenx-access]
         - b. [Access Policies for Entra ID)][entra-id-access]
 
-The application _in GCP_ must then:
+    The application _in GCP_ must then:
 
-1. Add the above hosts to their [outbound external access policies][access-policies]:
+    1. Add the above hosts to their [outbound external access policies][access-policies]:
 
         ```yaml
         spec:
@@ -169,6 +169,7 @@ The application _in GCP_ must then:
               external:
                 - host: <app>.<dev|prod>-fss-pub.nais.io
         ```
+    2. Consume the application using the special ingress. Other ingresses are not reachable from GCP.
 
 ### How do I reach an application found on GCP from my application on-premises?
 

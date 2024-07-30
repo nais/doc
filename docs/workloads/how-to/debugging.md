@@ -105,6 +105,6 @@ kubectl attach mypod -c ruby-container -i -t
 
 ???+ faq "Answer"
 
-    If you're using [service discovery](../explanations/service-discovery.md), ensure that the [access policies](../reference/access-policies.md) for both applications are correctly set up.
+    If you're using [service discovery](../application/explanations/expose.md#service-discovery), ensure that the [access policies](../reference/access-policies.md) for both applications are correctly set up.
 
     Otherwise, ensure that the other application is running and responding to requests in a timely manner (see also [ingress customization](../reference/environments.md) for timeout configuration).

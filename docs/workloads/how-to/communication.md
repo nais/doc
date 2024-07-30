@@ -5,7 +5,7 @@ tags: [workloads, how-to]
 # Communicate with other workloads in the same environment
 
 This guide shows you how to communicate with other workloads inside the same environment by using their internal service address.
-The address is derived by using [_service discovery_](../explanations/service-discovery.md).
+The address is derived by using [_service discovery_](../application/explanations/expose.md#service-discovery).
 
 ## Prerequisites
 

@@ -1,5 +1,5 @@
 ---
-tags: [workloads, explanation]
+tags: [workloads, explanation, access-policy]
 ---
 
 # Zero Trust
@@ -30,7 +30,7 @@ graph TD
 
 Inbound policies defined in [`.spec.accessPolicy.inbound`](../application/reference/application-spec.md#accesspolicyinbound) are:
 
-- enforced for _consumers in the same environment_ using [service discovery](service-discovery.md).
+- enforced for _consumers in the same environment_ using [service discovery](../application/explanations/expose.md#service-discovery).
 - **not** enforced for traffic through an [ingress](../application/reference/ingress.md).
 {% if tenant() == "nav" %}
 - enforced for authorizing consumers using [Entra ID](../../auth/entra-id/README.md) or [TokenX](../../auth/tokenx/README.md) regardless of environment.
@@ -56,7 +56,7 @@ graph TD
 
 Outbound policies defined in [`.spec.accessPolicy.outbound`](../application/reference/application-spec.md#accesspolicyoutbound) are:
 
-- enforced when _consuming other workloads in the same environment_ through [service discovery](service-discovery.md) ([`.spec.accessPolicy.outbound.rules`](../application/reference/application-spec.md#accesspolicyoutboundrules)).
+- enforced when _consuming other workloads in the same environment_ through [service discovery](../application/explanations/expose.md#service-discovery) ([`.spec.accessPolicy.outbound.rules`](../application/reference/application-spec.md#accesspolicyoutboundrules)).
 - enforced for all traffic to external addresses ([`.spec.accessPolicy.outbound.external`](../application/reference/application-spec.md#accesspolicyoutboundexternal)).
 
 **Ingresses are external addresses**.

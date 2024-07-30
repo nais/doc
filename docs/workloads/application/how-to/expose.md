@@ -4,7 +4,9 @@ tags: [application, how-to, ingress]
 
 # Expose an application
 
-This guide will show you how to [expose your application to the correct audience](../explanations/expose.md) by using an ingress.
+This guide will show you how to [expose your application](../explanations/expose.md) to end-users or applications in other environments by using an ingress.
+
+If your application only needs to be available to other applications running in the same environment, you should use [service discovery](../explanations/expose.md#service-discovery) instead.
 
 ## Select audience
 

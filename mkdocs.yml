@@ -205,6 +205,7 @@ plugins:
         "tutorial/hello-nais/hello-nais-2.md": "tutorials/hello-nais.md"
         "tutorial/hello-nais/hello-nais-3.md": "tutorials/hello-nais.md"
         "tutorial/hello-nais/hello-nais-4.md": "tutorials/hello-nais.md"
+        "workloads/explanations/service-discovery.md": "workloads/application/explanations/expose.md#service-discovery"
         "workloads/reference/ingress.md": "workloads/application/reference/ingress.md"
   - file-filter:
       filter_nav: false
