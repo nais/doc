@@ -307,20 +307,20 @@ The table below describes the different fields in the JSON response.
 
 ??? note "Session Metadata Field Descriptions (click to expand)"
 
-    | Field                                 | Description                                                                                                                                                   |
-    |---------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-    | `session.active`                      | Whether or not the session is marked as active. If `false`, the session cannot be extended and the user must be redirected to login.                          |
-    | `session.created_at`                  | The timestamp that denotes when the session was first created.                                                                                                |
-    | `session.ends_at`                     | The timestamp that denotes when the session will end. After this point, the session cannot be extended and the user must be redirected to login.              |
-    | `session.ends_in_seconds`             | The number of seconds until `session.ends_at`.                                                                                                                |
-    | `session.timeout_at`                  | The timestamp that denotes when the session will time out. The zero-value, `0001-01-01T00:00:00Z`, means no timeout.                                          |
-    | `session.timeout_in_seconds`          | The number of seconds until `session.timeout_at`. A value of `-1` means no timeout.                                                                           |
-    | `tokens.expire_at`                    | The timestamp that denotes when the tokens within the session will expire.                                                                                    |
-    | `tokens.expire_in_seconds`            | The number of seconds until `tokens.expire_at`.                                                                                                               |
-    | `tokens.next_auto_refresh_in_seconds` | The number of seconds until the earliest time where the tokens will automatically be refreshed. A value of -1 means that automatic refreshing is not enabled. |
-    | `tokens.refreshed_at`                 | The timestamp that denotes when the tokens within the session was last refreshed.                                                                             |
-    | `tokens.refresh_cooldown`             | A boolean indicating whether or not the refresh operation is on cooldown or not.                                                                              |
-    | `tokens.refresh_cooldown_seconds`     | The number of seconds until the refresh operation is no longer on cooldown.                                                                                   |
+    | Field                                 | Description                                                                                                                                                      |
+    |---------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    | `session.active`                      | Whether or not the session is active. If `false`, the session cannot be refreshed and the user must be redirected to login to obtain a new session.              |
+    | `session.created_at`                  | The timestamp that denotes when the session was first created.                                                                                                   |
+    | `session.ends_at`                     | The timestamp that denotes when the session will end. After this point, the session is expired and the user must be redirected to login to obtain a new session. |
+    | `session.ends_in_seconds`             | The number of seconds until `session.ends_at`.                                                                                                                   |
+    | `session.timeout_at`                  | The timestamp that denotes when the session will time out. The zero-value, `0001-01-01T00:00:00Z`, means no timeout.                                             |
+    | `session.timeout_in_seconds`          | The number of seconds until `session.timeout_at`. A value of `-1` means no timeout.                                                                              |
+    | `tokens.expire_at`                    | The timestamp that denotes when the tokens within the session will expire.                                                                                       |
+    | `tokens.expire_in_seconds`            | The number of seconds until `tokens.expire_at`.                                                                                                                  |
+    | `tokens.next_auto_refresh_in_seconds` | The number of seconds until the earliest time where the tokens will automatically be refreshed. A value of -1 means that automatic refreshing is not enabled.    |
+    | `tokens.refreshed_at`                 | The timestamp that denotes when the tokens within the session was last refreshed.                                                                                |
+    | `tokens.refresh_cooldown`             | A boolean indicating whether or not the refresh operation is on cooldown or not.                                                                                 |
+    | `tokens.refresh_cooldown_seconds`     | The number of seconds until the refresh operation is no longer on cooldown.                                                                                      |
 
 This endpoint will respond with the following HTTP status codes on errors:
 
@@ -338,6 +338,9 @@ This also means that you should not use the HTTP response status codes alone as 
 
 This endpoint allows for refreshing the end-user's session on demand.
 Requests to this endpoint must be triggered from the user agent.
+
+Using this endpoint is only necessary when [session inactivity timeouts](#session-inactivity-timeout) are enabled.
+The end-user should be prompted to extend their session in accordance with [WCAG 2.2.1](https://www.w3.org/WAI/WCAG21/Understanding/timing-adjustable).
 
 The endpoint will respond with a `HTTP 401 Unauthorized` if the session is _inactive_.
 It is otherwise equivalent to the [session endpoint](#session-endpoint).
@@ -393,6 +396,8 @@ The timeout is reset each time the user's session is refreshed through the [sess
 |-------------------|--------------------|
 | ID-porten         | ✅ Yes, 1 hour      |
 | Entra ID          | ❌ No timeout       |
+
+If inactivity timeout is not enabled, the tokens within the session are automatically refreshed until the session reaches its maximum lifetime.
 
 {%- if tenant() == "nav" %}
 !!! info "Automatic session management for ID-porten"
