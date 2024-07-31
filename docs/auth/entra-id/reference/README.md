@@ -142,7 +142,7 @@ Notable claims in tokens from Entra ID:
 :   The value of this claim is the (human-readable) [name](../explanations/README.md#client-name) of the consumer application that requested the token.
     This complements the client ID found in the `azp` claim and is intended for display purposes only.
 
-    Not guaranteed to be unique. ihould not** be used for authorization.
+    Not guaranteed to be unique. Should **not** be used for authorization.
 
 `groups`
 
