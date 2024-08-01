@@ -15,7 +15,7 @@ This how-to guides you through the steps required to ensure that only citizens a
 
 ## Configure your application
 
-Enable the login proxy for ID-porten in your application configuration:
+Enable the [login proxy](../../explanations/README.md#login-proxy) for ID-porten in your application configuration:
 
 ```yaml title="app.yaml"
 spec:
@@ -24,6 +24,8 @@ spec:
     sidecar:
       enabled: true
 ```
+
+<<gcp_only("Login proxy")>>
 
 See the [NAIS application reference](../../../workloads/application/reference/application-spec.md#idportensidecar) for the complete specifications with all possible options.
 

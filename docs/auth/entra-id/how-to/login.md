@@ -4,12 +4,6 @@ tags: [entra-id, azure-ad, how-to]
 
 # Log in an employee
 
-{%- if tenant() == "nav" %}
-!!! warning "Availability"
-
-    This functionality is only available in the [Google Cloud Platform](../../../workloads/reference/environments.md#google-cloud-platform-gcp) environments.
-{%- endif %}
-
 This how-to guides you through the steps required to ensure that only employees authenticated with [Entra ID](../README.md) can access your application.
 
 1. [Configure your application](#configure-your-application)
@@ -21,7 +15,7 @@ This how-to guides you through the steps required to ensure that only employees 
 
 ## Configure your application
 
-Enable the login proxy for Entra ID in your application configuration:
+Enable the [login proxy](../../explanations/README.md#login-proxy) for Entra ID in your application configuration:
 
 ```yaml title="app.yaml"
 spec:
@@ -31,6 +25,8 @@ spec:
     sidecar:
       enabled: true
 ```
+
+<<gcp_only("Login proxy")>>
 
 See the [NAIS application reference](../../../workloads/application/reference/application-spec.md#azuresidecar) for the complete specifications with all possible options.
 

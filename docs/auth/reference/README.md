@@ -47,6 +47,8 @@ Supported identity providers:
 - Entra ID for [logging in employees](../entra-id/how-to/login.md).
 - ID-porten for [logging in citizens](../idporten/how-to/login.md).
 
+<<gcp_only("Login proxy")>>
+
 ### Autologin
 
 [Autologin](../explanations/README.md#autologin) is not enabled by default. To enable autologin:

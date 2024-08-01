@@ -4,11 +4,7 @@ tags: [auth, idporten, services, explanation]
 
 # ID-porten
 
-{%- if tenant() == "nav" %}
-!!! warning "Availability"
-
-    This functionality is only available in the [Google Cloud Platform](../../workloads/reference/environments.md#google-cloud-platform-gcp) environments.
-{%- endif %}
+<<gcp_only("ID-porten")>>
 
 [ID-porten](https://docs.digdir.no/docs/idporten/) is the standard authentication service used by Norwegian citizens to access public services.
 

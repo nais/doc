@@ -172,17 +172,14 @@ requests before accepting or rejecting the request.
 
 ### Client
 
-A _client_ or _application_ is any entity or device that needs to obtain a token to access a [resource server](#resource-server).
+A _client_ or _application_ is any entity or device that needs to get a token to access a [resource server](#resource-server).
+The client acquires tokens as a part of the [OAuth 2.0 grants](#oauth-20) or [OpenID Connect flows](#openid-connect).
+Clients may either be _public_ and _confidential_. The primary difference here is the notion of whether the client is capable of keeping secrets.
 
-Tokens are acquired when the client as a part of the [OAuth 2.0 grants](#oauth-20) or [OpenID Connect flows](#openid-connect).
-
-There are two types of clients that these specifications define; _public_ and _confidential_. The primary difference
-here is the notion of whether the client is capable of keeping secrets.
-
-A public client cannot use secrets due to the nature of their runtime environment, such as directly in a browser (in a
+A _public_ client cannot use secrets due to the nature of their runtime environment, such as directly in a browser (in a
 single-page application) or on a mobile device.
 
-A confidential client can authenticate with an identity provider using a secret or private key due to the secrets being
+A _confidential_ client can authenticate with an identity provider using a secret or private key due to the secrets being
 difficult to access to other entities than the client itself. Backend APIs, backend-for-frontends (BFFs) or standalone
 daemons are typical examples of confidential clients.
 
@@ -597,11 +594,13 @@ verify the signature of your client assertions as proof of your client's identit
 ## Login proxy
 
 NAIS offers an opt-in _login proxy_ (also known as _Wonderwall_) that simplifies the process of authenticating end-users in your application.
-The proxy exposes [endpoints](../reference/README.md#endpoints) under your application's [ingress](../../workloads/application/reference/ingress.md) to help you authenticate [employees](../entra-id/how-to/login.md) or [citizens](../idporten/how-to/login.md).
 
-!!! warning "Availability"
+<<gcp_only("Login proxy")>>
 
-    Login proxy is only available in the [Google Cloud Platform](../../workloads/reference/environments.md#google-cloud-platform-gcp) environments.
+When enabled, the proxy exposes [endpoints](../reference/README.md#endpoints) under your application's [ingress](../../workloads/application/explanations/expose.md#ingress) to help you authenticate:
+
+- [employees through Entra ID](../entra-id/how-to/login.md) or
+- [citizens through ID-porten](../idporten/how-to/login.md)
 
 The proxy sits in front of your application and intercepts all incoming requests.
 It does not validate any requests, nor does it validate any tokens attached to the request.
