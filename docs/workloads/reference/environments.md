@@ -1,5 +1,5 @@
 ---
-tags: [workloads, reference]
+tags: [workloads, reference, clusters]
 ---
 
 # Environments
