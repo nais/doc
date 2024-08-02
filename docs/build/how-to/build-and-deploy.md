@@ -16,7 +16,7 @@ This how-to guide shows you how to build and deploy your application using [Gith
 
 1. Open [NAIS Console](https://console.<<tenant()>>.cloud.nais.io) in your browser and select your team.
 2. Select the `Repositories` tab
-3. Find the repository you want to deploy from, and click `Authorize`
+3. Input your repository (`organization/repository`) and press `Add`.
 
 ## Create a Github workflow
 
