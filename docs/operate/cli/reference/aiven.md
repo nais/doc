@@ -5,7 +5,7 @@ conditional: [tenant, nav]
 
 # aiven command
 
-The aiven commands can be used to give access to an already existing Aiven instance by creating a `AivenApplication` in your specified namespace and extract credentials.
+The aiven commands can be used to give access to an already existing Aiven service by creating a `AivenApplication` in your specified namespace and extract credentials.
 Specifically the `aiven create service` command will create a personal, protected, and time-limited credential.
 This uses your currently configured kubectl context, so in order for it to work you need to select a suitable context first.
 For instance, credentials for nav-prod can only be generated in the prod clusters.
