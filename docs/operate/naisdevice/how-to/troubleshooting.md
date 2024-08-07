@@ -42,7 +42,7 @@ Restart your default browser.
 
 - Make sure you downloaded from the right source, the signature is valid and the checksum matches the file!
 {%- if tenant() == "nav" %}
-- See https://nav-it.slack.com/archives/C0190RZ6HB4/p1687518220599119
+- See [https://nav-it.slack.com/archives/C0190RZ6HB4/p1687518220599119](https://nav-it.slack.com/archives/C0190RZ6HB4/p1687518220599119)
 {%- endif %}
 - Try adding an exception: Windows Security / Virus & threat protection / Exclusions.
 - Someone reported that running naisdevice.exe from cmd.exe can help.
