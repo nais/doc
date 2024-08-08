@@ -21,7 +21,7 @@ the [Trivy](https://github.com/aquasecurity/trivy-action) GitHub
 action and signed using [cosign](https://github.com/sigstore/cosign).
 
 Upon deploying your image to NAIS, the attestation will undergo verification by the NAIS
-platform ([picante](https://github.com/nais/picante)) and will be
+platform ([slsa-verde](https://github.com/nais/slsa-verde)) and will be
 uploaded to an SBOM analysis platform known as [Dependency-Track](https://dependencytrack.org/). In Dependency-Track,
 you can examine the attestation as
 well as the vulnerabilities present in your image and its dependencies.
