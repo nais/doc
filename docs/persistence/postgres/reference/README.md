@@ -10,12 +10,12 @@ To connect your application to the database, use information from the environmen
 The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instance name `myapp` \(defaults to application name\) and `mydb` \(from database spec\). You can customize these environment variable names by setting `.spec.gcp.sqlInstances[].databases[].envVarPrefix`. For instance, setting this to `DB` will give you `DB_HOST`, `DB_USERNAME`, etc. Note that changing or adding `envVarPrefix` requires you to manually delete the `google-sql-<MYAPP>` secret and `SQLUser` with the same name as the application, see below.
 
 | description                                                    | environment variable                   | example                                                                    |
-|:---------------------------------------------------------------|:---------------------------------------|:---------------------------------------------------------------------------|
+| :------------------------------------------------------------- | :------------------------------------- | :------------------------------------------------------------------------- |
 | ip                                                             | `NAIS_DATABASE_MYAPP_MYDB_HOST`        | 100.10.1.0                                                                 |
 | port                                                           | `NAIS_DATABASE_MYAPP_MYDB_PORT`        | 5432                                                                       |
 | database name                                                  | `NAIS_DATABASE_MYAPP_MYDB_DATABASE`    | `.spec.gcp.sqlInstances[].databases[].name`                                |
 | database user                                                  | `NAIS_DATABASE_MYAPP_MYDB_USERNAME`    | `.spec.gcp.sqlInstances[].name`                                            |
-| database password                                              | `NAIS_DATABASE_MYAPP_MYDB_PASSWORD`    | (randomly generated)                                                     |
+| database password                                              | `NAIS_DATABASE_MYAPP_MYDB_PASSWORD`    | (randomly generated)                                                       |
 | database url with credentials                                  | `NAIS_DATABASE_MYAPP_MYDB_URL`         | `postgresql://username:password@100.10.1.0:5432/mydb?sslcert=...`          |
 | *Below variables only available for instances with private IP* |                                        |                                                                            |
 | jdbc url with credentials [^1]                                 | `NAIS_DATABASE_MYAPP_MYDB_JDBC_URL`    | `jdbc:postgresql://100.10.1.0:5432/mydb?password=...&user=...&sslcert=...` |
@@ -68,7 +68,26 @@ spec:
           value: "2"                            #float in google spec
 ```
 
+#### Database max connections
+
+The default maximum number of connections is dependent on the memory size of the instance and can be configured with the `max_connections` flag. The smallest instance size has a default of 25 maximum connections.
+
+Default connection limits for different memory sizes can be found on [Google Cloud SQL Configure database flags](https://cloud.google.com/sql/docs/postgres/flags#postgres-m).
+
+### Database Metrics
+
+Postgres instances automatically collect metrics that can be viewed in the following locations:
+
+* [Google Cloud Console](https://console.cloud.google.com/monitoring), under the `Cloud SQL` section.
+* [NAIS Console](<<tenant_url("console")>>), under the `Postgres` section.
+* [Grafana](<<tenant_url("grafana")>>), using the `Google CLoud Monitoring` datasource.
+
+A list of all avaialbe metrics can be found on [Cloud SQL metrics](https://cloud.google.com/sql/docs/postgres/admin-api/metrics).
+
+[:dart: Learn how to view Postgres metrics in the Google Cloud Console, Grafana, and NAIS Console](../how-to/database-observability.md)
+
 ### Query Insights
+
 Query insights are now enabled by default in GCP. This feature provides query overview and analysis.
 The data is available in the Google cloud console.
 
