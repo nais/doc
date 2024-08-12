@@ -6,10 +6,6 @@ tags: [maskinporten, how-to]
 
 This how-to guides you through the steps required to secure your API using [Maskinporten](../README.md):
 
-1. [Define the scopes that you want to expose to other organizations](#define-scopes)
-2. [Grant access to scopes for other organizations](#grant-access-to-consumers)
-3. [Validate tokens in requests from external consumers](#validate-tokens)
-
 ## Prerequisites
 
 - [Expose your application](../../../workloads/application/how-to/expose.md) to consumers at a publicly accessible domain.

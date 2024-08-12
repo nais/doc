@@ -6,10 +6,6 @@ tags: [maskinporten, how-to]
 
 This how-to guides you through the steps required to consume an API secured with [Maskinporten](../README.md):
 
-1. [Configure your application](#configure-your-application)
-1. [Acquire tokens from Maskinporten](#acquire-token)
-1. [Consume the API using the token](#consume-api)
-
 ## Configure your application
 
 Declare all the scopes that you want to consume in your application's NAIS manifest so that your application is granted access to them:

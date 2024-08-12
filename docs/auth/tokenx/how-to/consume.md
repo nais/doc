@@ -6,10 +6,6 @@ tags: [tokenx, how-to]
 
 This how-to guides you through the steps required to consume an API secured with [TokenX](../README.md):
 
-1. [Configure your application](#configure-your-application)
-1. [Exchange token with TokenX](#exchange-token)
-1. [Consume the API using the token](#consume-api)
-
 ## Prerequisites
 
 - Your application receives requests with a citizen subject token in the `Authorization` header

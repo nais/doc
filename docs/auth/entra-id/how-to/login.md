@@ -6,9 +6,6 @@ tags: [entra-id, azure-ad, how-to]
 
 This how-to guides you through the steps required to ensure that only employees authenticated with [Entra ID](../README.md) can access your application.
 
-1. [Configure your application](#configure-your-application)
-1. [Handle inbound requests](#handle-inbound-requests)
-
 ## Prerequisites
 
 - Your application is [exposed to the appropriate audience](../../../workloads/application/how-to/expose.md).

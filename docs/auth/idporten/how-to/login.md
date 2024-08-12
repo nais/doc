@@ -6,9 +6,6 @@ tags: [idporten, how-to]
 
 This how-to guides you through the steps required to ensure that only citizens authenticated with [ID-porten](../README.md) can access your application. 
 
-1. [Configure your application](#configure-your-application)
-1. [Handle inbound requests](#handle-inbound-requests)
-
 ## Prerequisites
 
 - Your application is [exposed to the appropriate audience](../../../workloads/application/how-to/expose.md).

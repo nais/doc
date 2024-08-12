@@ -7,10 +7,6 @@ tags: [entra-id, azure-ad, how-to]
 This how-to guides you through the steps required to consume an API secured with [Entra ID](../README.md) as an application.
 This is also known as the _machine-to-machine (M2M)_ or _client credentials_ flow.
 
-1. [Configure your application](#configure-your-application)
-2. [Acquire token from Entra ID](#acquire-token)
-3. [Consume the API using the token](#consume-api)
-
 ## Prerequisites
 
 - The API you're consuming has [granted access to your application](secure.md#grant-access-to-consumers)

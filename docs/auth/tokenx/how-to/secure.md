@@ -6,9 +6,6 @@ tags: [tokenx, how-to]
 
 This how-to guides you through the steps required to secure your API using [TokenX](../README.md):
 
-1. [Grant access to your consumers](#grant-access-to-consumers)
-1. [Validate tokens in requests from consumers](#validate-tokens)
-
 ## Grant access to consumers
 
 Specify inbound access policies to authorize your consumers:

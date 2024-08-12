@@ -6,9 +6,6 @@ tags: [entra-id, azure-ad, how-to]
 
 This how-to guides you through the steps required to secure your API using [Entra ID](../README.md):
 
-1. [Grant access to your consumers](#grant-access-to-consumers)
-1. [Validate tokens in requests from consumers](#validate-tokens)
-
 {%- if tenant() == "nav" %}
 ???+ warning "Use webproxy for outbound network connectivity from on-premises environments"
 
