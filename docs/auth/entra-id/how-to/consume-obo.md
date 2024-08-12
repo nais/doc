@@ -7,13 +7,11 @@ tags: [entra-id, azure-ad, how-to]
 This how-to guides you through the steps required to consume an API secured with [Entra ID](../README.md) on behalf of an employee.
 This is also known as the _on-behalf-of (OBO)_ flow.
 
-1. [Configure your application](#configure-your-application)
-2. [Acquire token from Entra ID](#acquire-token)
-3. [Consume the API using the token](#consume-api)
-
 ## Prerequisites
 
-- Your application is [secured with Entra ID](secure.md) and receives requests with an employee subject token in the `Authorization` header
+- Your application receives requests with an employee subject token in the `Authorization` header. The application is either:
+  - [a backend API secured with Entra ID](secure.md), or
+  - [a backend-for-frontend that logs in employees](login.md)
 - The API you're consuming has [granted access to your application and employees](secure.md#grant-access-to-consumers)
 
 ## Configure your application
