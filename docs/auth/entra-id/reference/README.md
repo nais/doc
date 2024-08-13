@@ -139,17 +139,28 @@ Notable claims in tokens from Entra ID:
 
 `azp_name` (_authorized party name_)
 
-:   The value of this claim is the (human-readable) [name](../explanations/README.md#client-name) of the consumer application that requested the token.
+:   Human-readable [client name](../explanations/README.md#client-name) of the consumer application that requested the token.
     This complements the client ID found in the `azp` claim and is intended for display purposes only.
 
     Not guaranteed to be unique. Should **not** be used for authorization.
 
 `groups`
 
-:   JSON array of [group identifiers](../explanations/README.md#group-identifier) that the user is a member of.
+:   JSON array of [group identifiers](../explanations/README.md#group-identifier) that the user is a member of:
+    ```json
+    {
+      "groups": [
+        "43451d82-19cd-4828-918d-cbf7d5b572ec",
+        "8f0bd3b2-9d3d-4f27-8543-5938db3e6a3e",
+        "2d7..."
+      ]
+    }
+    ```
+
     Used to implement group-based authorization logic in your application.
 
-    This claim only appears in tokens where an _end-user_ is involved, i.e. from either the [login] or [on-behalf-of][obo] flows.
+    **Only appears in flows where an end-user is involved**, i.e. either [login] or [on-behalf-of][obo].
+
     In order for a group to appear in the claim, all the following conditions must be true:
 
     - The given user is a direct member of the group.
@@ -159,20 +170,21 @@ Notable claims in tokens from Entra ID:
 
 :   This is a special claim used to determine whether a token is a [machine-to-machine][m2m] (app-only) token or a [on-behalf-of][obo] (user) token.
 
-    A token is a machine-to-machine token if and only if this claim exists and has the value `app`.
+    A token is a machine-to-machine token if and only if this claim exists and has the value equal to `app`.
 
 {%- if tenant() == "nav" %}
 
 `NAVident`
 
-:   The internal identifier for the employees in NAV.
-    Only applies in flows where an end-user is involved i.e., either the [login] or [on-behalf-of][obo] flows.
+:   Internal identifier for the employees in NAV.
+
+    **Only appears in flows where an end-user is involved**, i.e. either [login] or [on-behalf-of][obo].
 
 {%- endif %}
 
 `roles`
 
-:   The value of this claim is an _array of strings_ that lists the roles that the application has access to:
+:   JSON array of roles that the application has access to:
     ```json
     {
       "roles": [
@@ -183,7 +195,7 @@ Notable claims in tokens from Entra ID:
     }
     ```
 
-    This claim **only** applies to [machine-to-machine][m2m] tokens.
+    **Only appears in [machine-to-machine][m2m] tokens**.
 
     Consumers defined in the [access policy](../how-to/secure.md#applications) are always assigned the default role named `access_as_application`.
     You can optionally define and grant them [custom roles](#custom-roles).
@@ -197,7 +209,7 @@ Notable claims in tokens from Entra ID:
     }
     ```
 
-    This claim **only** applies to [on-behalf-of][obo] tokens.
+    **Only appears in [on-behalf-of][obo] tokens**.
 
     Consumers defined in the [access policy](../how-to/secure.md#applications) are always assigned the default scope named `defaultaccess`.
     You can optionally define and grant them [custom scopes](#custom-scopes).
@@ -258,6 +270,8 @@ NAV has two tenants in Entra ID:
 
      See <https://github.com/navikt/devuser-check/blob/main/README.md#faq> for instructions on acquiring a user and logging into this tenant. Otherwise, consult the `#tech-azure` Slack channel.
 {%- endif %}
+
+See also [`.spec.azure.application.tenant`](../../../workloads/application/reference/application-spec.md#azureapplicationtenant).
 
 ## Troubleshooting
 

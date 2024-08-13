@@ -1,5 +1,5 @@
 By default, no users have access to your application.
-You must explicitly grant access to either [specific groups](#groups), [all users](#all-users), or both.
+You must explicitly grant access to either [specific groups](#groups), [all users](#all-users), or [both](#groups-and-all-users).
 
 #### Groups
 
@@ -32,3 +32,23 @@ spec:
       enabled: true
       allowAllUsers: true
 ```
+
+#### Groups and all users
+
+If you want to implement custom group-based authorization logic in your application, combine the above two configurations:
+
+```yaml hl_lines="5-8" title="app.yaml"
+spec:
+  azure:
+    application:
+      enabled: true
+      allowAllUsers: true
+      claims:
+        groups:
+          - id: "<group identifier>"
+```
+
+This has the following effects:
+
+- All users will have access to your application
+- If a given user is a direct member of any matching group, the group's identifier will be emitted in [the `groups` claim](../reference/README.md?h=groups#claims).

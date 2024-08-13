@@ -25,14 +25,14 @@ Depending on who your consumers are, you must grant access to either application
 
 {% include 'auth/entra-id/partials/user-access.md' %}
 
+## Validate tokens
+
 Now that you have granted access to your consumers, they can now acquire tokens that target your application, either:
 
 - [on behalf of an employee](consume-obo.md), or
 - [as an application](consume-m2m.md)
 
 You will need to validate these tokens in your application.
-
-## Validate tokens
 
 {% include 'auth/entra-id/partials/validate.md' %}
 

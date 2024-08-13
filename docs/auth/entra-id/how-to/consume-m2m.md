@@ -4,7 +4,7 @@ tags: [entra-id, azure-ad, how-to]
 
 # Consume internal API as an application
 
-This how-to guides you through the steps required to consume an API secured with [Entra ID](../README.md) as an application.
+This how-to guides you through the steps required to consume an API secured with [Entra ID](../README.md) as an application (or a machine user).
 This is also known as the _machine-to-machine (M2M)_ or _client credentials_ flow.
 
 ## Prerequisites

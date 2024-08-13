@@ -31,11 +31,10 @@ See the [NAIS application reference](../../../workloads/application/reference/ap
 
 {% include 'auth/entra-id/partials/user-access.md' %}
 
-Now that your application is configured, you will need to handle inbound requests in your application code.
-
 ## Handle inbound requests
 
-As long as the employee is authenticated, the `Authorization` header includes their `access_token` as a [Bearer token](../../explanations/README.md#bearer-token).
+Now that your application is configured, you will need to handle inbound requests in your application code.
+As long as the employee is authenticated, the `Authorization` header will include their `access_token` as a [Bearer token](../../explanations/README.md#bearer-token).
 
 Your application is responsible for verifying that this token is present and valid. To do so, follow these steps:
 
