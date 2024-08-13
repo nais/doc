@@ -74,6 +74,9 @@ The default maximum number of connections is dependent on the memory size of the
 
 Default connection limits for different memory sizes can be found on [Google Cloud SQL Configure database flags](https://cloud.google.com/sql/docs/postgres/flags#postgres-m).
 
+!!! info
+    The actual connection limit for your application may be lower than the configured value due some connections being reserved for superusers and other internal processes.
+
 ### Database Metrics
 
 Postgres instances automatically collect metrics that can be viewed in the following locations:
