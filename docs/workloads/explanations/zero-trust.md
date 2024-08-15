@@ -60,7 +60,7 @@ Outbound policies defined in [`.spec.accessPolicy.outbound`](../application/refe
 - enforced for all traffic to external addresses ([`.spec.accessPolicy.outbound.external`](../application/reference/application-spec.md#accesspolicyoutboundexternal)).
 
 **Ingresses are external addresses**.
-We recommend using [service discovery](../how-to/communication.md) to communicate with other workloads when possible.
+We recommend using service discovery to communicate with other workloads when possible.
 
 Services offered by NAIS (such as [databases](../../persistence/postgres/README.md)) are automatically configured with necessary access policies.
 
@@ -77,7 +77,8 @@ In order to fix this, the frontend needs to allow outbound traffic to the backen
 spec:
   accessPolicy:
     outbound:
-      - application: backend
+      rules:
+        - application: backend
 ```
 
 ![access-policy-2](../../assets/access-policy-2.png)
@@ -89,7 +90,8 @@ The missing piece of the puzzle is adding an inbound policy to the backend like 
 spec:
   accessPolicy:
     inbound:
-      - application: frontend
+      rules:
+        - application: frontend
 ```
 
 ![access-policy-3](../../assets/access-policy-3.png)
