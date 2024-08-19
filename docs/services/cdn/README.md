@@ -79,4 +79,6 @@ Among many others:
 
 :dart: Learn how to [upload assets to the CDN](how-to/upload-assets.md)
 
+:dart: Learn how to [manage CDN assets](how-to/manage-assets.md)
+
 :books: [CDN reference documentation](reference/README.md)
