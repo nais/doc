@@ -3201,10 +3201,12 @@ Value range: `1`-`365`<br />
 #### gcp.sqlInstances[].tier
 Server tier, i.e. how much CPU and memory allocated.
 Available tiers are `db-f1-micro`, `db-g1-small` and custom `db-custom-CPU-RAM`.
-Custom memory must be mulitple of 256 MB and at least 3.75 GB (e.g. `db-custom-1-3840` for 1 cpu, 3840 MB ram)
+Custom instances must specify memory as a multiple of 256 MB and at least 3.75 GB (e.g. `db-custom-1-3840` for 1 cpu, 3840 MB ram).
+The smallest possible instance is `db-f1-micro`, which is recommended only for development instances.
+For production workloads, please specify at least `db-custom-1-3840`.
 
 Type: `string`<br />
-Required: `false`<br />
+Required: `true`<br />
 Default value: `db-f1-micro`<br />
 Pattern: `db-.+`<br />
 
@@ -4684,7 +4686,7 @@ Value range: `1`-`65535`<br />
     ```
 
 ## preStopHookPath
-A HTTP GET will be issued to this endpoint at least once before the pod is terminated.
+An HTTP GET will be issued to this endpoint at least once before the pod is terminated.
 This feature is deprecated and will be removed in the next major version (nais.io/v1).
 
 Relevant information:
@@ -5203,7 +5205,7 @@ Pattern: `^\d+[KMG]i$`<br />
     ```
 
 ## secureLogs
-Whether or not to enable a sidecar container for secure logging.
+Whether to enable a sidecar container for secure logging.
 
 Type: `object`<br />
 Required: `false`<br />
