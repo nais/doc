@@ -90,3 +90,7 @@ https://cdn.<<tenant()>>.cloud.nais.io/<team>/<destination>
 
 CORS is automatically configured to accept `GET` from any
 origin (*).
+
+## Related pages
+
+:dart: Learn how to [manage CDN assets](manage-assets.md)
