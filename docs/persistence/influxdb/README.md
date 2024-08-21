@@ -14,7 +14,9 @@ conditional: [tenant, nav]
     At the start of 2023, Aiven informed us that dropping InfluxDB was no longer in the roadmap, and that InfluxDB support would continue for the foreseeable future.
     However, Aiven is still only supporting InfluxDB 1.8, and they have no plans to allow upgrading to InfluxDB 2 because of licensing issues.
 
-    For that reason, we still discourage use of Aiven InfluxDB for new use cases.
+    During the summer of 2024, Aiven finally stated that Influxdb will be deprecated November 2024, which will be followed up by and end of life announcement.
+
+    For these reason, we discourage use of Aiven InfluxDB for new use cases.
     For many use cases, the BigQuery alternative might be a better fit.
 
     See the end of this document for a description of [the BigQuery alternative](#suggested-alternative).
