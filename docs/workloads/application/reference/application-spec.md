@@ -3744,7 +3744,7 @@ Availability: GCP<br />
     ```
 
 ## leaderElection
-If true, an HTTP endpoint will be available at `$ELECTOR_PATH` that returns the current leader.
+If true, an HTTP endpoint will be available at `$ELECTOR_GET_URL` that returns the current leader.
 
 Relevant information:
 
