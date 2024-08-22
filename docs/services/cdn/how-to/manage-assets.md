@@ -11,7 +11,7 @@ In the rare case you need to manage the assets directly, you can do so through t
 
 ## Prerequisites
 
-- You have previously uploaded assets to the CDN. If not, see [Upload assets to the CDN](upload-assets.md).
+- You have previously [uploaded assets to the CDN](upload-assets.md).
 
 ## Find reference to bucket
 
@@ -27,7 +27,7 @@ To find the bucket name:
 ## List and manage assets through Google Cloud Console
 
 The bucket view in Google Cloud Console lists your team's uploaded assets.
-This might be useful to verify that your uploaded assets are present, or to delete assets are no longer needed or were erroneously uploaded.
+This might be useful to verify that your uploaded assets are present, or to delete unused or erroneously uploaded assets.
 
 Some other common tasks you can perform in the Google Cloud Console:
 
