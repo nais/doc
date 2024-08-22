@@ -20,7 +20,8 @@ Application logs in nais is first and foremost a tool for developers to debug th
 - [x] **Use log levels** to differentiate between different types of logs. We recommend using the following log levels: `INFO`, `WARN`, `ERROR`, and `FATAL`.
 - [x] **Use structured logging**. This means that your logs must be written in a JSON format. This makes it easier to query and aggregate logs.
 - [x] **Write meaningful log messages** and attach relevant metadata to your logs. This makes it easier to understand what is happening in your application.
-- [ ] **Do not log sensitive information**. This includes personal information, passwords, and secrets. If you need to log sensitive information, use [secure logs](#secure-logs) or [audit logs](#audit-logs).
+- [ ] **Do not log sensitive information**. This includes personal information, passwords, and secrets.
+    {% if tenant() == "nav" %}If you need to log sensitive information, use [secure logs](how-to/enable-secure-logs.md) or [audit logs](how-to/audit-logs.md).{% endif %}
 - [ ] **Do not underestimate the cost and performance** of logging. Logging is a trade-off between observability, performance, and cost. Logging can be computational and financial expensive, so make sure you log only what you actually need.
 - [ ] **Do not use rely on logs for monitoring**. Use metrics for monitoring, visualization, and alerting as your first line of defense and use logs for debugging when something goes wrong.
 
