@@ -24,6 +24,14 @@ spec:
     - https://<MY-SUBDOMAIN>.<ENVIRONMENT-DOMAIN>
 ```
 
-!!! tip "Specific paths"
+## Optional: Specify path for ingress
 
-    You can optionally specify a path for each individual ingress to only expose a subset of your application.
+An ingress may include a path to expose a subset of your application:
+
+```yaml hl_lines="4-5" title=".nais/app.yaml"
+apiVersion: nais.io/v1alpha1
+kind: Application
+spec:
+  ingresses:
+    - https://<MY-SUBDOMAIN>.<ENVIRONMENT-DOMAIN>/some-path
+```
