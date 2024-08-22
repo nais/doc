@@ -11,12 +11,23 @@ This is done by asking the [elector container](https://github.com/nais/elector) 
 The leader election configuration does not control which pod the external service requests will be routed to.
 
 ## Elector sidecar
+
 When you [enable leader election](how-to/enable.md), NAIS will inject an elector container as a sidecar into your pod.
 
-When you have the `elector` container running in your pod,
-you can make a HTTP GET to the URL set in environment variable `$ELECTOR_PATH` to see which pod is the leader.
-This will return a JSON object with the name of the leader,
-which you can now compare with your hostname.
+### Simple API
+
+The environment variable `$ELECTOR_GET_URL` contains a URL that can be used to `GET` the current leader.
+Previously, the environment variable `$ELECTOR_PATH`[^1] was used for this API, and it is still available for backwards compatibility.
+
+The simple API returns a JSON object with the name of the leader, which you can now compare with your hostname.
+
+[^1]: Contains only hostname and port, without the protocol. E.g. `localhost:4040`.
+
+### Server Sent Events API
+
+The environment variable `$ELECTOR_SSE_URL` contains a URL that can be used to subscribe to leadership changes using Server Sent Events.
+
+This will emit an event whenever there are changes to leadership, and you can use this to update your application accordingly.
 
 ## Caveats
 
@@ -26,8 +37,5 @@ which you can now compare with your hostname.
   The only way for a leader to lose leadership is to be deleted from the cluster.
   **We recommend that you create alerts to detect when your leader is not doing its job, so that you can intervene.**
 
-* Participants in an election need to poll the `$ELECTOR_PATH` to be informed of changes in leadership.
-  There is no push mechanism in place to inform your application about changes.
+* When using the simple API the application needs to poll the API at regular intervals to be informed of changes in leadership.
   This means your application needs to check at reasonable intervals for changes in leadership.
-  NB: `$ELECTOR_PATH` is the raw ip string without the protocol i.e localhost:4040 so be aware
-  of this and make sure to specify this in your http-client.
