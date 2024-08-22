@@ -24,6 +24,16 @@ spec:
     - https://<MY-SUBDOMAIN>.<ENVIRONMENT-DOMAIN>
 ```
 
+!!! warning "Subdomain restrictions"
+
+    Subdomains must only contain lowercase letters, numbers, and hyphens.
+    They may not start or end with a hyphen.
+
+    Only one level of subdomains is allowed, e.g.:
+
+    - `<MY-SUBDOMAIN>.<ENVIRONMENT-DOMAIN>` is allowed
+    - `<MY-SUBSUBDOMAIN>.<MY-SUBDOMAIN>.<ENVIRONMENT-DOMAIN>` is not allowed
+
 ## Optional: Specify path for ingress
 
 An ingress may include a path to expose a subset of your application:
