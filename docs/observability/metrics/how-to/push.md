@@ -17,8 +17,6 @@ Prometheus has further explanations and examples [here](https://prometheus.io/do
     apiVersion: nais.io/v1
     kind: Naisjob
     metadata:
-    labels:
-        team: <MY-TEAM>
     name: <MY-JOB>
     namespace: <MY-TEAM>
     spec:

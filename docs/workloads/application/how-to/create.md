@@ -33,8 +33,6 @@ Add the following content to the file, and insert the appropriate values in the 
     apiVersion: nais.io/v1alpha1
     kind: Application
     metadata:
-      labels:
-        team: <MY-TEAM>
       name: <MY-APP>
       namespace: <MY-TEAM>
     spec:

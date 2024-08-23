@@ -78,13 +78,10 @@ Add the following content to the file, and insert the appropriate values in the 
 
 ???+ note ".nais/app.yaml"
 
-    ```yaml hl_lines="6-8 11"
+    ```yaml hl_lines="4-5 8"
     apiVersion: nais.io/v1alpha1
     kind: Application
-
     metadata:
-      labels:
-        team: <MY-TEAM>
       name: <MY-APP>
       namespace: <MY-TEAM>
     spec:

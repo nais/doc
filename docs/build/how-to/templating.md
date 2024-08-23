@@ -15,9 +15,7 @@ apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
   name: {{app}}
-  namespace: {{namespace}}
-  labels:
-    team: {{team}}
+  namespace: {{team}}
 spec:
   image: {{image}}
   ingresses:
@@ -32,7 +30,6 @@ Now, create a `vars.yaml` file containing variables for your deployment:
 
 ```yaml
 app: myapplication
-namespace: myteam
 team: myteam
 image: europe-north1-docker.pkg.dev/nais-management-id/myteam/myapplication:latest
 ingresses:
@@ -56,8 +53,6 @@ kind: Application
 metadata:
   name: myapplication
   namespace: myteam
-  labels:
-    team: myteam
 spec:
   image: europe-north1-docker.pkg.dev/nais-management-id/myteam/myapplication:latest
   ingresses:
