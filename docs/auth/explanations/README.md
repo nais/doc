@@ -597,15 +597,16 @@ NAIS offers an opt-in _login proxy_ (also known as _Wonderwall_) that simplifies
 
 <<gcp_only("Login proxy")>>
 
-When enabled, the proxy exposes [endpoints](../reference/README.md#endpoints) under your application's [ingress](../../workloads/application/explanations/expose.md#ingress) to help you authenticate:
+When enabled, the proxy exposes [endpoints](../reference/README.md#endpoints) under your application's ingress.
+These endpoints help you:
 
-- [employees through Entra ID](../entra-id/how-to/login.md) or
-- [citizens through ID-porten](../idporten/how-to/login.md)
+- :dart: [authenticate employees via Entra ID](../entra-id/how-to/login.md), or
+- :dart: [authenticate citizens via ID-porten](../idporten/how-to/login.md)
 
 The proxy sits in front of your application and intercepts all incoming requests.
 It does not validate any requests, nor does it validate any tokens attached to the request.
 
-Unauthenticated requests are proxied as-is without modifications.
+Unauthenticated requests are proxied as-is without modifications:
 
 ```mermaid
 graph LR
@@ -617,6 +618,9 @@ graph LR
 ```
 
 To log in an end-user, redirect them to the [login endpoint](../reference/README.md#login-endpoint).
+This endpoint initiates the [OpenID Connect Authorization Code Flow](#openid-connect) with the identity provider.
+After successful login, the proxy creates and stores a session for the end-user.
+The session identifier is then stored in the user's browser as a cookie.
 
 ```mermaid
 graph LR
@@ -632,9 +636,9 @@ graph LR
   end
 ```
 
-After successful login, the proxy creates and stores a session for the end-user.
-Requests from the user agent will now contain their access token as a [Bearer token](../../auth/explanations/README.md#bearer-token) in the `Authorization` header.
-The proxy does not validate this token. [Validation](#token-validation) is your application's responsibility.
+When the user makes a request to your application's ingress, the proxy intercepts the request and checks for the session cookie.
+This is translated to the user's access token. The token is then attached in the `Authorization` header as a [Bearer token](../../auth/explanations/README.md#bearer-token).
+Finally, the request is forwarded to your application.
 
 ```mermaid
 graph LR
@@ -648,6 +652,11 @@ graph LR
   end
 ```
 
+All of this happens on the server side, which means that neither the token nor the header are visible from the user's browser.
+
+The proxy does not validate this token.
+[Validation](#token-validation) is your application's responsibility.
+
 ### Sessions
 
 When an end-user authenticates themselves, they receive a session.
@@ -655,27 +664,29 @@ Sessions are stored server-side and are managed by the login proxy; we only stor
 
 A session has three possible states:
 
-- _active_ - the session is valid
-- _inactive_ - the session has reached the _inactivity timeout_ and is considered invalid
-- _expired_ - the session has reached its _maximum lifetime_ and is considered invalid
+| State    | Authenticated | Description                                  |
+|----------|:-------------:|----------------------------------------------|
+| Active   |     ✅ Yes     |                                              |
+| Inactive |     ❌ No      | session has reached the _inactivity timeout_ |
+| Expired  |     ❌ No      | session has reached its _maximum lifetime_   |
 
-Requests with an invalid session are considered unauthenticated; they must get a new session by [performing a new login](../reference/README.md#login-endpoint).
+Inactive or expired sessions must obtain a new session by logging in again.
 
 See the [session management reference](../reference/README.md#session-management) for more details.
 
 ### Autologin
 
-The [autologin option](../reference/README.md#autologin) configures the login proxy to enforce authentication for **all requests**, except for the paths that are explicitly [excluded](../reference/README.md#autologin-exclusions).
+The autologin option configures the login proxy to enforce authentication for all requests, except for paths that are explicitly excluded.
 
 !!! danger "Autologin vs. token validation"
 
-    Always [validate tokens](#token-validation) in requests for any endpoint that requires authentication.
-    Autologin does **not** perform nor is it a replacement for token validation.
+    Autologin does **not** perform nor is it a replacement for [token validation](#token-validation).
 
+    We recommend that you always validate tokens in requests for any endpoint that requires authentication.
     Validation is especially important for requests that access sensitive data or otherwise performs operations that modify state.
 
-If the user is [_unauthenticated_](#sessions), all requests will be short-circuited (i.e. return early and **not** proxied to your application).
-The [response](../reference/README.md#autologin-response) depends on whether the request is a _top-level navigation_ request or not.
+If the user is unauthenticated, all requests will be short-circuited by the proxy before they reach your application.
+The response depends on whether the request is a _top-level navigation_ request or not.
 
 ???+ info "What is a _top-level navigation request_?"
 
@@ -684,10 +695,7 @@ The [response](../reference/README.md#autologin-response) depends on whether the
     1. Has the [Fetch metadata request headers](https://developer.mozilla.org/en-US/docs/Glossary/Fetch_metadata_request_header) `Sec-Fetch-Dest=document` and `Sec-Fetch-Mode=navigate`, or
     2. Has an `Accept` header that includes `text/html`
 
-    All major modern browsers sends at least one of these for navigational requests, with Internet Explorer 8 being the only known exception.
-    Hopefully you're not in a position that requires supporting that browser.
-
-Ensure that your frontend code handles `HTTP 401` responses and appropriately notifies the user or redirects them to the [login endpoint](../reference/README.md#login-endpoint).
+See the [autologin reference](../reference/README.md#autologin) for details.
 
 ## Further Reading
 

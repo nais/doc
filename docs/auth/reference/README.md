@@ -110,6 +110,8 @@ HTTP/2 401 Unauthorized
 Location: https://<ingress>/oauth2/login?redirect=/original/path
 ```
 
+Ensure that your frontend code handles `HTTP 401` responses and appropriately notifies the user and/or redirects them to the [login endpoint](#login-endpoint).
+
 #### Autologin exclusions
 
 Autologin will by default match all paths for your application's ingresses, except the following:
@@ -204,6 +206,8 @@ The paths must be absolute paths. The match patterns use glob-style matching.
             - `/static/vendor/min/some.css`
 
 ### Endpoints
+
+The following endpoints are available under your application's [ingress](../../workloads/application/explanations/expose.md#ingress):
 
 | Path                                    | Description                                                                                                   | Details                                               |
 |-----------------------------------------|---------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|
@@ -333,8 +337,7 @@ Otherwise, an `HTTP 200 OK` is returned with the metadata with the `application/
 
 Note that this endpoint will still return `HTTP 200 OK` for _inactive_ sessions, as long as the session is not _expired_.
 This allows application to display errors before redirecting the user to login on timeouts.
-
-This also means that you should not use the HTTP response status codes alone as an indication of whether the user is authenticated or not.
+The HTTP status code alone is insufficient to determine the session state.
 
 #### Session refresh endpoint
 
