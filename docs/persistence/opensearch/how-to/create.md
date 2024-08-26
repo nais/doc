@@ -80,9 +80,4 @@ Simple 5 steps procedure:
 | dev-nais-dev | cc2fd0ad-9e62-492e-b836-86aa9654fd9b |
 
 {% endif %}
-
-### Previous usage
-
-Previously, we defined the OpenSearch instances using Terraform in the [aiven-iac](https://github.com/navikt/aiven-iac) IaC-repo. As we are moving away from Terraform for self-service services on Aiven, we will not be using this method anymore.
-
 {% endif %}
