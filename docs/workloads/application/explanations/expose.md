@@ -13,25 +13,28 @@ Your audience may be other applications within the same [environment](../../expl
 
 If your audience is other applications within the same environment, they can communicate with your application directly by using _service discovery_.
 
-Applications deployed to Kubernetes are exposed through what is known as a [:octicons-link-external-16:`Service`](https://kubernetes.io/docs/concepts/services-networking/service/).
+Applications deployed to Kubernetes are automatically exposed through what is known as a [:octicons-link-external-16:`Service`](https://kubernetes.io/docs/concepts/services-networking/service/).
 A service provides your application with an internal address that allows for direct communication within the [environment / cluster](../../explanations/environment.md).
 
-Each application is automatically provisioned with a service with the same name as the application itself.
+The address is the name of your application:
 
-```mermaid
-graph LR
-  accTitle: Service Discovery
-  accDescr: The diagram shows how App A can communicate with App B directly.
-  app-a[App A] --http://app-b --> app-b[App B]
+```plaintext
+http://<name>
+```
+
+If your consumers are in another namespace, the address should include the namespace as well:
+
+```plaintext
+http://<name>.<namespace>
 ```
 
 **Service discovery is the recommended way to communicate between applications running in the same environment.**
 
 Compared to [ingresses](#ingress), using service discovery has several advantages:
 
-- **Fewer network hops and lower latency.** Requests happen directly between applications. Requests to an ingress will go out of the environment to the internet, and then back to the environment.
-- **Avoids unnecessary exposure**. Applications can avoid being exposed to the outside world through an ingress if all of their consumers are internal.
-- **[Access policies](../../explanations/zero-trust.md) are enforced on the network layer**. This is not the case for traffic through an ingress.
+- _Fewer network hops and lower latency_. Requests happen directly between applications. Requests to an ingress will go out of the environment to the internet, and then back to the environment.
+- _Avoids unnecessary exposure_. Applications can avoid being exposed to the outside world through an ingress if all of their consumers are internal.
+- _[Access policies](../../explanations/zero-trust.md) are enforced on the network layer_. This is not the case for traffic through an ingress.
 
 :dart: Learn how to [communicate with other workloads in the same environment](../../how-to/communication.md).
 

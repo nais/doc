@@ -21,7 +21,7 @@ To identity the address of the workload we are communicating with, we need to kn
 If the workload you are calling is in the same namespace, you can reach it by calling its name directly using HTTP like so:
 
 ```plaintext
-http://<workload-name>
+http://<name>
 ```
 
 ### Target exists in another namespace
@@ -29,7 +29,7 @@ http://<workload-name>
 If the workload is running in another team's namespace, you need to specify the namespace as well:
 
 ```plaintext
-http://<workload-name>.<namespace>
+http://<name>.<namespace>
 ```
 
 {% if tenant() == "nav" %}
@@ -38,7 +38,7 @@ http://<workload-name>.<namespace>
     If your workload has [webproxy](../application/reference/application-spec.md#webproxy) enabled, you should use the full hostname for all service discovery calls:
 
     ```text
-    http://<workload-name>.<namespace>.svc.nais.local
+    http://<name>.<namespace>.svc.nais.local
     ```
 
     This is to ensure that your workload does not attempt to perform these in-cluster calls through the proxy, as the environment variable `NO_PROXY` includes `*.local`.
@@ -52,5 +52,5 @@ Call the workload through its internal address using HTTP from your own workload
 ```http
 GET /resource HTTP/1.1
 
-Host: <workload-name>.<namespace>
+Host: <name>.<namespace>
 ```
