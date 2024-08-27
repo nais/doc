@@ -37,3 +37,10 @@ Once configured, your consumers can exchange a token with TokenX to [consume you
 Your application code must verify inbound requests by validating the included tokens.
 
 :dart: [**Learn how to secure your API with TokenX**](how-to/secure.md)
+
+## Generate a token for development
+
+In some cases, you want to locally develop and test against a secured API in the development environments.
+You will need a token to access said API.
+
+:dart: [**Learn how to generate a token for development**](how-to/generate.md)
