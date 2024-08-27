@@ -8,7 +8,7 @@ This how-to guides you through the steps required to generate a token that you c
 
 ## Prerequisites
 
-1. You will need a [trygdeetaten.no user](../explanations/README.md#tenants) to access the service. Using the `nav.no` tenant is not supported.
+1. You will need a [trygdeetaten.no user](../reference/README.md#tenants) to access the service. Using the `nav.no` tenant is not supported.
 
 ## Grant access
 

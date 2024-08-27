@@ -268,10 +268,18 @@ NAV has two tenants in Entra ID:
 
 !!! info "Logging into the `trygdeetaten.no` tenant"
 
-     See <https://github.com/navikt/devuser-check/blob/main/README.md#faq> for instructions on acquiring a user and logging into this tenant. Otherwise, consult the `#tech-azure` Slack channel.
+    The `trygdeetaten.no` tenant is used for development purposes.
+    To log in to this tenant, you will need a separate account other than your personal NAV account.
+
+    There are two types of accounts you can use:
+
+    1. **Synthetic test accounts**: Visit the [IDA self-service portal](https://ida.intern.nav.no/). See the [#ida](https://nav-it.slack.com/archives/CA9GVNYRE) channel on Slack for details.
+    1. **Personal account**: Visit [navikt/devuser-check](https://github.com/navikt/devuser-check/blob/main/README.md) and see the "FAQ" section. Otherwise, consult the [#tech-azure](https://nav-it.slack.com/archives/C0190RZ6HB4) channel on Slack.
 {%- endif %}
 
-See also [`.spec.azure.application.tenant`](../../../workloads/application/reference/application-spec.md#azureapplicationtenant).
+In the development environments, you can choose a specific tenant for your application by configuring [`.spec.azure.application.tenant`](../../../workloads/application/reference/application-spec.md#azureapplicationtenant).
+
+Configuring this will _isolate_ your application from all other applications that are not using the same tenant, and should not be used unless absolutely necessary.
 
 ## Troubleshooting
 
@@ -334,7 +342,7 @@ While attempting to log in, you may receive the following error message from Ent
 
 ???+ success "Solution / Answer"
 
-    - Ensure that the user uses an account that matches your application's [tenant](../explanations/README.md#tenants) when logging in.
+    - Ensure that the user uses an account that matches your application's [tenant](../reference/README.md#tenants) when logging in.
     - If all else fails, request assistance in the `#nais` channel on Slack.
 
 [login]: ../how-to/login.md
