@@ -1,5 +1,5 @@
 ---
-tags: [workloads, how-to]
+tags: [workloads, how-to, service-discovery]
 ---
 
 # Communicate with other workloads in the same environment
