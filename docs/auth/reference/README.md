@@ -72,12 +72,18 @@ Supported identity providers:
 
 #### Autologin response
 
-[Top-level navigation requests](../explanations/README.md?h=top+level+navigation#autologin) result in a `HTTP 302 Found` response with the `Location` header pointing to the [login endpoint](../reference/README.md#login-endpoint):
+Responses returned by autologin depends on the type of request.
 
-- The `redirect` parameter is set to the original request's `Referer` header to preserve the user's original location.
-- If the `Referer` header is empty, we use the matching ingress context path for the original request.
+_Top-level navigation requests_ result in a `HTTP 302 Found` response.
 
-```http title="Navigational request"
+??? info "What is a top-level navigation request?"
+
+    A _top-level navigation request_ is a `GET` request that fulfills at least one of the following properties:
+
+    1. Has the [Fetch metadata request headers](https://developer.mozilla.org/en-US/docs/Glossary/Fetch_metadata_request_header) `Sec-Fetch-Dest=document` and `Sec-Fetch-Mode=navigate`, or
+    2. Has an `Accept` header that includes `text/html`
+
+```http title="Top-level navigation request"
 GET /some/path
 
 Sec-Fetch-Dest: document
@@ -90,14 +96,21 @@ HTTP/2 302 Found
 Location: https://<ingress>/oauth2/login?redirect=/original/path
 ```
 
-All other requests are considered non-navigational, such as:
+This automatically redirects the user to the [login endpoint](../reference/README.md#login-endpoint).
+To preserve the user's original location, the `redirect` parameter is set to the request's `Referer` header.
+If the `Referer` header is empty, the matching ingress context path is used.
 
-- `POST` or `PUT` requests
-- `fetch`, `XMLHttpRequest`/`XHR` / `AJAX` requests from browsers
+_Non-navigation requests_ result in an equivalent response, but with the `HTTP 401 Unauthorized` status code:
 
-These requests result in a `HTTP 401 Unauthorized` response with the `Location` header set as described previously:
+??? info "What is a non-navigation request?"
 
-```http title="Non-Navigational request"
+    _Non-navigation requests_ are any requests that aren't considered top-level navigation requests.
+    Examples include:
+
+    - Non-`GET` requests, such as `POST` or `PUT` requests
+    - Any browser request that uses the `Fetch` or `XMLHttpRequest` APIs
+
+```http title="Non-navigation request"
 GET /some/path
 
 Sec-Fetch-Dest: empty
@@ -107,103 +120,143 @@ Referer: https://<ingress>/original/path
 
 ```http title="Response"
 HTTP/2 401 Unauthorized
-Location: https://<ingress>/oauth2/login?redirect=/original/path
+Content-Type: application/json
+
+{"error": "unauthenticated, please log in"}
 ```
 
 Ensure that your frontend code handles `HTTP 401` responses and appropriately notifies the user and/or redirects them to the [login endpoint](#login-endpoint).
 
 #### Autologin exclusions
 
-Autologin will by default match all paths for your application's ingresses, except the following:
+Autologin matches all paths for your application's ingresses, except the following:
 
 - `/oauth2/**`
 - [`spec.prometheus.path`](../../workloads/application/reference/application-spec.md#prometheuspath) (if defined)
 - [`spec.liveness.path`](../../workloads/application/reference/application-spec.md#livenesspath) (if defined)
 - [`spec.readiness.path`](../../workloads/application/reference/application-spec.md#readinesspath) (if defined)
 
-You can define additional paths or patterns to be excluded:
+You can exclude additional paths by exact match or wildcard patterns:
 
 === "ID-porten"
 
-    ```yaml hl_lines="5-8"
+    ```yaml hl_lines="5-9"
     spec:
       idporten:
         sidecar:
           autoLogin: true
           autoLoginIgnorePaths:
-            - /internal/*
-            - /some/public/path
-            - /static/stylesheet.css
+            - /exact/path
+            - /api/v1/*
+            - /api/**
     ```
 
 === "Entra ID"
 
-    ```yaml hl_lines="5-8"
+    ```yaml hl_lines="5-9"
     spec:
       azure:
         sidecar:
           autoLogin: true
           autoLoginIgnorePaths:
-            - /internal/*
-            - /some/public/path
-            - /static/stylesheet.css
+            - /exact/path
+            - /api/v1/*
+            - /api/**
     ```
 
-The paths must be absolute paths. The match patterns use glob-style matching.
+The paths must be absolute paths. The match patterns use glob-style matching:
+
+- Trailing slashes in paths and patterns are ignored.
+- A single asterisk (`/*`) is non-recursive. This matches any subpath _directly_ below the path, excluding itself and any nested paths.
+- Double asterisks (`/**`) is recursive. This matches any subpath below the path, including itself and any nested paths.
 
 ??? example "Example match patterns (click to expand)"
 
-    - `/allowed` or `/allowed/`
-        - Trailing slashes in paths and patterns are effectively ignored during matching.
-        - ✅ matches:
-            - `/allowed`
-            - `/allowed/`
-        - ❌ does not match:
-            - `/allowed/nope`
-            - `/allowed/nope/`
-    - `/public/*`
-        - A single asterisk after a path means any subpath _directly_ below the path, excluding itself and any nested paths.
-        - ✅ matches:
-            - `/public/a`
-        - ❌ does not match:
-            - `/public`
-            - `/public/a/b`
-    - `/public/**`
-        - Double asterisks means any subpath below the path, including itself and any nested paths.
-        - ✅ matches:
-            - `/public`
-            - `/public/a`
-            - `/public/a/b`
-        - ❌ does not match:
-            - `/not/public`
-            - `/not/public/a`
-    - `/any*`
-        - ✅ matches:
-            - `/any`
-            - `/anything`
-            - `/anywho`
-        - ❌ does not match:
-            - `/any/thing`
-            - `/anywho/mst/ve`
-    - `/a/*/*`
-        - ✅ matches:
-            - `/a/b/c`
-            - `/a/bee/cee`
-        - ❌ does not match:
-            - `/a`
-            - `/a/b`
-            - `/a/b/c/d`
-    - `/static/**/*.js`
-        - ✅ matches:
-            - `/static/bundle.js`
-            - `/static/min/bundle.js`
-            - `/static/vendor/min/bundle.js`
-        - ❌ does not match:
-            - `/static`
-            - `/static/some.css`
-            - `/static/min`
-            - `/static/min/some.css`
-            - `/static/vendor/min/some.css`
+    `/allowed` or `/allowed/`
+
+    :   Trailing slashes in paths and patterns are effectively ignored during matching.
+
+        ✅ matches:
+
+        - `/allowed`
+        - `/allowed/`
+
+        ❌ does not match:
+
+        - `/allowed/nope`
+        - `/allowed/nope/`
+
+    `/public/*`
+
+    :   A single asterisk after a slash means any subpath _directly_ below the path, excluding itself and any nested paths.
+
+        ✅ matches:
+
+        - `/public/a`
+
+        ❌ does not match:
+
+        - `/public`
+        - `/public/a/b`
+
+    `/public/**`
+
+    :   Double asterisks after a slash means any subpath below the path, including itself and any nested paths.
+
+        ✅ matches:
+
+        - `/public`
+        - `/public/a`
+        - `/public/a/b`
+
+        ❌ does not match:
+
+        - `/not/public`
+        - `/not/public/a`
+
+    `/any*`
+
+    :   A single asterisk matches any sequence of characters within a path segment.
+
+        ✅ matches:
+
+        - `/any`
+        - `/anything`
+        - `/anywho`
+
+        ❌ does not match:
+
+        - `/any/thing`
+        - `/anywho/mst/ve`
+
+    `/a/*/*`
+
+    :   ✅ matches:
+
+        - `/a/b/c`
+        - `/a/bee/cee`
+
+        ❌ does not match:
+
+        - `/a`
+        - `/a/b`
+        - `/a/b/c/d`
+
+    `/static/**/*.js`
+
+    :   ✅ matches:
+
+        - `/static/bundle.js`
+        - `/static/min/bundle.js`
+        - `/static/vendor/min/bundle.js`
+
+        ❌ does not match:
+
+        - `/static`
+        - `/static/some.css`
+        - `/static/min`
+        - `/static/min/some.css`
+        - `/static/vendor/min/some.css`
 
 ### Endpoints
 

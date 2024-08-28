@@ -618,7 +618,7 @@ graph LR
 ```
 
 To log in an end-user, redirect them to the [login endpoint](../reference/README.md#login-endpoint).
-This endpoint initiates the [OpenID Connect Authorization Code Flow](#openid-connect) with the identity provider.
+This performs the [OpenID Connect Authorization Code Flow](#openid-connect) with the identity provider.
 After successful login, the proxy creates and stores a session for the end-user.
 The session identifier is then stored in the user's browser as a cookie.
 
@@ -659,8 +659,8 @@ The proxy does not validate this token.
 
 ### Sessions
 
-When an end-user authenticates themselves, they receive a session.
-Sessions are stored server-side and are managed by the login proxy; we only store a session identifier at the end-user's user agent.
+When an end-user logs in and authenticates themselves, they receive a session.
+Sessions are stored server-side and are managed by the login proxy.
 
 A session has three possible states:
 
@@ -670,13 +670,14 @@ A session has three possible states:
 | Inactive |     ❌ No      | session has reached the _inactivity timeout_ |
 | Expired  |     ❌ No      | session has reached its _maximum lifetime_   |
 
-Inactive or expired sessions must obtain a new session by logging in again.
+Users with an inactive or expired session must perform a new login to receive a new, valid session.
 
-See the [session management reference](../reference/README.md#session-management) for more details.
+See the [session management reference](../reference/README.md#session-management) for details.
 
 ### Autologin
 
-The autologin option configures the login proxy to enforce authentication for all requests, except for paths that are explicitly excluded.
+Autologin configures the login proxy to enforce authenticated user sessions.
+If autologin is enabled, the proxy short-circuits all unauthenticated requests before they reach your application.
 
 !!! danger "Autologin vs. token validation"
 
@@ -685,15 +686,8 @@ The autologin option configures the login proxy to enforce authentication for al
     We recommend that you always validate tokens in requests for any endpoint that requires authentication.
     Validation is especially important for requests that access sensitive data or otherwise performs operations that modify state.
 
-If the user is unauthenticated, all requests will be short-circuited by the proxy before they reach your application.
-The response depends on whether the request is a _top-level navigation_ request or not.
-
-???+ info "What is a _top-level navigation request_?"
-
-    A _top-level navigation_ request is a `GET` request that fulfills at least one of the following properties:
-
-    1. Has the [Fetch metadata request headers](https://developer.mozilla.org/en-US/docs/Glossary/Fetch_metadata_request_header) `Sec-Fetch-Dest=document` and `Sec-Fetch-Mode=navigate`, or
-    2. Has an `Accept` header that includes `text/html`
+Specific [paths can optionally be excluded from autologin](../reference/README.md#autologin-exclusions).
+Requests to these paths will pass through the proxy to your application without any enforcement.
 
 See the [autologin reference](../reference/README.md#autologin) for details.
 

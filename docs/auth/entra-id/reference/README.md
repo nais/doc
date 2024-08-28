@@ -277,9 +277,7 @@ NAV has two tenants in Entra ID:
     1. **Personal account**: Visit [navikt/devuser-check](https://github.com/navikt/devuser-check/blob/main/README.md) and see the "FAQ" section. Otherwise, consult the [#tech-azure](https://nav-it.slack.com/archives/C0190RZ6HB4) channel on Slack.
 {%- endif %}
 
-In the development environments, you can choose a specific tenant for your application by configuring [`.spec.azure.application.tenant`](../../../workloads/application/reference/application-spec.md#azureapplicationtenant).
-
-Configuring this will _isolate_ your application from all other applications that are not using the same tenant, and should not be used unless absolutely necessary.
+See also [`.spec.azure.application.tenant`](../../../workloads/application/reference/application-spec.md#azureapplicationtenant).
 
 ## Troubleshooting
 
