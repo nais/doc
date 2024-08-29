@@ -230,6 +230,8 @@ spec:
         separator: ':'
   observability:
     autoInstrumentation:
+      destinations:
+      - id: my-destination
       enabled: true
       runtime: java
     logging:

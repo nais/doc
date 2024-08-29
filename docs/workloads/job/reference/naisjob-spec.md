@@ -3791,6 +3791,8 @@ Required: `false`<br />
     spec:
       observability:
         autoInstrumentation:
+          destinations:
+            - id: my-destination
           enabled: true
           runtime: java
         logging:
@@ -3820,8 +3822,44 @@ Availability: GCP<br />
     spec:
       observability:
         autoInstrumentation:
+          destinations:
+            - id: my-destination
           enabled: true
           runtime: java
+    ```
+
+#### observability.autoInstrumentation.destinations
+Destinations are where telemetry data should be stored.
+
+Relevant information:
+
+* [https://doc.nais.io/observability/reference/auto-config/#destinations](https://doc.nais.io/observability/reference/auto-config/#destinations)
+
+Type: `array`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        autoInstrumentation:
+          destinations:
+            - id: my-destination
+    ```
+
+##### observability.autoInstrumentation.destinations[].id
+Destination ID.
+
+Type: `string`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        autoInstrumentation:
+          destinations:
+            - id: my-destination
     ```
 
 #### observability.autoInstrumentation.enabled
