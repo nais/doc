@@ -45,3 +45,8 @@
 ::backdrop {
   background-color: rgba(0, 0, 0, 0.6);
 }
+
+/* Make the ... appear in front of the spec items in the right hand nav menu  */
+.md-sidebar--secondary span.md-ellipsis {
+	direction: rtl;
+}
