@@ -123,6 +123,13 @@ as `needs.build.outputs.image`
       VAR: image=${{ needs.build.outputs.image }}
 ```
 
+Also add the following after the build job, to allow the deploy job to access the output:
+
+```yaml
+    outputs:
+      image: ${{ steps.docker-build-push.outputs.image }}
+```
+
 #### NAIS Salsa (SLSA - Supply Chain Levels for Software Artifacts)
 
 [SLSA](https://slsa.dev/) is short for Supply chain Levels for Software Artifacts pronounced salsa.
@@ -194,6 +201,8 @@ jobs:
           team: myteam # Replace
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # Provided as Organization Secret
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # Provided as Organization Variable
+    outputs:
+      image: ${{ steps.docker-build-push.outputs.image }}
 
   deploy:
     name: Deploy to NAIS
