@@ -11,10 +11,6 @@ The main benefit of auto-instrumentation is that is requires little to no effort
 
 Auto-instrumentation is a preferred way to get started with tracing in NAIS, and can also be used for metrics and logs collection.This type of instrumentation is available for Java, Node.js and Python applications, but can also be used for other in `sdk` mode where it will only set up the OpenTelemetry configuration.
 
-!!! info
-
-    :new: Auto-instrumentation is a new feature and is only available for nais applications running in GCP.
-
 ## Enable auto-instrumentation for Java/Kotlin applications
 
 ```yaml
@@ -62,6 +58,25 @@ spec:
       enabled: true
       runtime: sdk
 ```
+
+## Enable auto-instrumentation to multiple destinations
+
+By default data is sent to Grafana, but it is possible to send data to multiple destinations by adding more destinations to the list depending on what cluster your application is running in.
+
+```yaml hl_lines="8-9"
+...
+spec:
+  observability:
+    autoInstrumentation:
+      enabled: true
+      runtime: java
+      destinations:
+        - id: "grafana-lgtm"
+        - id: "elastic-apm"
+```
+
+!!! info
+    `elastic-apm` is only available for applications running on-prem (`dev-fss` and `prod-fss`).
 
 ## Resources
 

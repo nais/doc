@@ -22,9 +22,9 @@ When you enable [auto-instrumentation](../how-to/auto-instrumentation.md) in you
 !!! tip
     Do not hardcode these values in your application. OpenTelemetry SDKs and auto-instrumentation libraries will automatically pick up these environment variables and use them to configure the SDK.
 
-## Agent Logs
+## Logs auto-instrumentation
 
-You can enable logging for the OpenTelemetry Auto-Instrumentation by setting the `OTEL_LOGS_EXPORTER` environment variable to `otlp`. This will intercept all logs produced by the application and send them to the OpenTelemetry Collector.
+You can enable instrumenting logs using the OpenTelemetry Auto-Instrumentation by setting the `OTEL_LOGS_EXPORTER` environment variable to `otlp`. This will intercept all logs produced by the application and send them to the OpenTelemetry Collector.
 
 ```shell
 spec:
@@ -49,7 +49,6 @@ The OpenTelemetry Agent is used to automatically instrument your application. Th
 [java-agent]: https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/tag/v2.6.0
 [nodejs-agent]: https://github.com/open-telemetry/opentelemetry-js/releases/tag/experimental%2Fv0.52.1
 [python-agent]: https://github.com/open-telemetry/opentelemetry-python/releases/tag/v1.26.0
-
 
 ## Java Agent
 
