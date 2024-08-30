@@ -12,7 +12,7 @@ For nais applications running on-prem (dev-fss and prod-fss) you have the option
 Elastic APM can be enabled by setting the list of auto-instrumentation destinations in your nais application manifest.
 
 ???+ note ".nais/application.yaml"
-    ```yaml hl_lines="6"
+    ```yaml hl_lines="7-8"
     …
     spec:
       observability:
