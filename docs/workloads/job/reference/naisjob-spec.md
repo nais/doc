@@ -3804,10 +3804,7 @@ Required: `false`<br />
     ```
 
 ### observability.autoInstrumentation
-Enable auto-instrumenting your application using the OpenTelemetry Agent.
-
-!!! warning "Experimental feature"
-    This feature has not undergone much testing, and is subject to API change, instability, or removal.
+Auto-instrumentiation for your application using OpenTelemetry for collecting telemetry data such as traces, metrics and logs.
 
 Relevant information:
 
@@ -3815,7 +3812,6 @@ Relevant information:
 
 Type: `object`<br />
 Required: `false`<br />
-Availability: GCP<br />
 
 ??? example
     ``` yaml
@@ -3955,40 +3951,6 @@ Default value: `true`<br />
     spec:
       observability:
         logging:
-          enabled: true
-    ```
-
-### observability.tracing
-Enable application performance monitoring with traces collected using OpenTelemetry and the OTLP exporter.
-
-!!! warning "Experimental feature"
-    This feature has not undergone much testing, and is subject to API change, instability, or removal.
-
-Relevant information:
-
-* [https://doc.nais.io/observability/tracing/](https://doc.nais.io/observability/tracing/)
-
-Type: `object`<br />
-Required: `false`<br />
-Availability: GCP<br />
-
-??? example
-    ``` yaml
-    spec:
-      observability:
-        tracing:
-          enabled: true
-    ```
-
-#### observability.tracing.enabled
-Type: `boolean`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      observability:
-        tracing:
           enabled: true
     ```
 
