@@ -92,7 +92,7 @@ different [languages/build tools are dictated by Trivy](https://aquasecurity.git
 
 #### Known limitations and alternatives
 
-Due to Trivy, you'll receive a streamlined graph of dependencies. 
+Due to Trivy, you'll receive a flattened graph of dependencies. 
 This is attributed to Trivy lacking support for Gradle's or Maven's dependency resolution. 
 However, the advantage lies in obtaining both the image dependencies and their associated vulnerabilities.
 
@@ -153,12 +153,12 @@ Gradle and Maven plugins for a deep graph of nested transitive dependencies.
           run: ./mvnw package
     ```
 
-    The SBOM will be default located at `target/bom.json`. Pass the SBOM to the `nais/docker-build-push` action with the following input:
+    The SBOM will be default located at `target/classes/META-INF/sbom/application.cdx.json`. Pass the SBOM to the `nais/docker-build-push` action with the following input:
 
     ```yaml
         uses: nais/docker-build-push@v0
         with:
-          byosbom: target/bom.json
+          byosbom: target/classes/META-INF/sbom/application.cdx.json
     ```
     For more info about settings check out the [CycloneDx Maven Plugin](https://github.com/CycloneDX/cyclonedx-maven-plugin)
 
@@ -169,7 +169,7 @@ When employing the `nais/attest-sign action`, you can provide the SBOM to the ac
 ```yaml
     uses: nais/attest-sign@v1.x.x
     with:
-      sbom: path/to/bom.json
+      sbom: target/classes/META-INF/sbom/application.cdx.json
 ```
 
 ## FAQ
