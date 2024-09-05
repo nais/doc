@@ -67,7 +67,7 @@ spec:
     spec:
       env:
         - name: OTEL_RESOURCE_ATTRIBUTES
-          value: service.environment.name=q1
+          value: deployment.environment.name=q1
     ```
 
 You can now safly remove any references to AppDymamics in the `.spec.env` and `.spec.vault` sections of your `nais.yaml` file.
