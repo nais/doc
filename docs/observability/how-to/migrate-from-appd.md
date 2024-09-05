@@ -59,7 +59,18 @@ spec:
         - id: elastic-apm
 ```
 
-You can remove any references to AppDymamics in the `.spec.env` and `.spec.vault` sections of your `nais.yaml` file.
+!!! info
+
+    If you have multiple virtual environments for your application you can set the `deployment.environment.name` resource attribute in your `nais.yaml` file to differentiate between them like so:
+
+    ```yaml
+    spec:
+      env:
+        - name: OTEL_RESOURCE_ATTRIBUTES
+          value: service.environment.name=q1
+    ```
+
+You can now safly remove any references to AppDymamics in the `.spec.env` and `.spec.vault` sections of your `nais.yaml` file.
 
 ## Resources
 

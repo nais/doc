@@ -20,7 +20,20 @@ When you enable [auto-instrumentation](../how-to/auto-instrumentation.md) in you
 | `OTEL_RESOURCE_ATTRIBUTES`           | `service.name=my-application,service.namespace=my-team,k8s.container.name=my-application,...` |
 
 !!! tip
-    Do not hardcode these values in your application. OpenTelemetry SDKs and auto-instrumentation libraries will automatically pick up these environment variables and use them to configure the SDK.
+
+    Do not hardcode these values in your application or try to overwrite them in your `nais.yaml`. OpenTelemetry SDKs and auto-instrumentation libraries will automatically pick up these environment variables and use them to configure the SDK depending on where your application is running.
+
+## Extra resource attributes
+
+OpenTelemetry Resource Attributes are key-value pairs that describe the application and its environment. These attributes are attached to all telemetry data produced by the application and must adhere to the [OpenTelemetry Semantic Conventions](https://opentelemetry.io/docs/specs/semconv/resource/).
+
+Most applications will not need to set extra resource attributes, and only some attributes can be set by the application using the `OTEL_RESOURCE_ATTRIBUTES` environment variable.
+
+We have compile a list of attributes that can be set by the application and we advise you to consult the specification for more information about how they should be used:
+
+| Attribute                                                                                                     | Type   | Description                                                                                              | Example Value | Stability      |
+| ------------------------------------------------------------------------------------------------------------- | ------ | -------------------------------------------------------------------------------------------------------- | ------------- | -------------- |
+| [`deployment.environment.name`](https://opentelemetry.io/docs/specs/semconv/resource/deployment-environment/) | string | The version string of the service API or implementation. The format is not defined by these conventions. | `q1`;  `p`    | `experimental` |
 
 ## Logs auto-instrumentation
 
