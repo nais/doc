@@ -11,19 +11,28 @@ For nais applications running on-prem (dev-fss and prod-fss) you have the option
 
 Elastic APM can be enabled by setting the list of auto-instrumentation destinations in your nais application manifest.
 
-???+ note ".nais/application.yaml"
-    ```yaml hl_lines="7-8"
-    …
-    spec:
-      observability:
-        autoInstrumentation:
-          enabled: true
-          runtime: "java"
-          destinations:
-            - id: "elastic-apm"
-    ```
+```yaml hl_lines="7-8"
+spec:
+  observability:
+    autoInstrumentation:
+      enabled: true
+      runtime: "java"
+      destinations:
+        - id: "elastic-apm"
+```
 
 It is possible to send data to multiple destinations (such as `grafana-lgtm`) by adding more destinations to the list.
+
+### Service Environment
+
+If you have multiple virutal environments for your application such ac `q1`, `t2`, or `p`, you can specify the environment in the `OTEL_RESOURCE_ATTRIBUTES` environment variable.
+
+```yaml
+spec:
+  env:
+    - name: OTEL_RESOURCE_ATTRIBUTES
+      value: "service.environment.name=q1"
+```
 
 ## Accessing the Elastic APM UI
 
