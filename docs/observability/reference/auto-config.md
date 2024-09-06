@@ -35,6 +35,22 @@ We have compile a list of attributes that can be set by the application and we a
 | ------------------------------------------------------------------------------------------------------------- | ------ | -------------------------------------------------------------------------------------------------------- | ------------- | -------------- |
 | [`deployment.environment.name`](https://opentelemetry.io/docs/specs/semconv/resource/deployment-environment/) | string | The version string of the service API or implementation. The format is not defined by these conventions. | `q1`;  `p`    | `experimental` |
 
+## Sanitizing sensitive data
+
+While the OpenTelemetry SDKs and agends does a best effort to not include any user data, we have added extra protection by redacting some patterns from some trace span attribtes. The following attributes are scrubbed for personal idification numbers (fødselsnummer):
+
+* `url.path`
+* `url.full`
+* `url.original`
+* `url.query`
+* `http.url`
+* `http.target`
+* `http.route`
+* `db.statement`
+* `messaging.kafka.message.key`
+
+We advise you to look over the data collected by your application and ensure that no sensitive data is being stored and contact the nais-team if you have any questions or concerns.
+
 ## Logs auto-instrumentation
 
 You can enable instrumenting logs using the OpenTelemetry Auto-Instrumentation by setting the `OTEL_LOGS_EXPORTER` environment variable to `otlp`. This will intercept all logs produced by the application and send them to the OpenTelemetry Collector.
