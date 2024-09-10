@@ -31,7 +31,7 @@ If you have multiple virutal environments for your application such ac `q1`, `t2
 spec:
   env:
     - name: OTEL_RESOURCE_ATTRIBUTES
-      value: "service.environment.name=q1"
+      value: "deployment.environment.name=q1"
 ```
 
 ## Accessing the Elastic APM UI
