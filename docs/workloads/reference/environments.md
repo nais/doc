@@ -77,18 +77,18 @@ See [explanation for exposing application][expose-app] for more information.
 
 {% endif %}
 {% if tenant() == "ssb" %}
-### staging
+### test
 
 #### Domains
 
 | domain                             | accessible from          | description                                                                                                       |
 |:-----------------------------------|:-------------------------|:------------------------------------------------------------------------------------------------------------------|
-| external.staging.ssb.cloud.nais.io | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
-| staging.ssb.cloud.nais.io          | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
+| external.test.ssb.cloud.nais.io    | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| test.ssb.cloud.nais.io             | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
 
 #### External/outbound IPs
 
-- 34.88.116.202
+- 35.228.178.170
 
 ### prod
 
@@ -101,7 +101,7 @@ See [explanation for exposing application][expose-app] for more information.
 
 #### External/outbound IPs
 
-- 34.88.47.40
+- 34.88.222.166
 {% endif %}
 
 [naisdevice]: ../../operate/naisdevice/README.md
