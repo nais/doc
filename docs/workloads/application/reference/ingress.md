@@ -6,7 +6,7 @@ tags: [workloads, reference, ingress]
 
 This is the reference documentation for [ingresses](../explanations/expose.md#ingress) in NAIS.
 
-Ingress is the only way to expose your application to the outside world, this is not the recommended way to communicate between applications running in the same environment. For that, you should use [service discovery][https://docs.nais.io/workloads/application/explanations/expose/#service-discovery].
+Ingress is the only way to expose your application to the outside world, this is not the recommended way to communicate between applications running in the same environment. For that, you should use [service discovery](../explanations/expose.md#service-discovery).
 
 ## Domains
 
