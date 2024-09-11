@@ -6,9 +6,24 @@ tags: [workloads, reference, ingress]
 
 This is the reference documentation for [ingresses](../explanations/expose.md#ingress) in NAIS.
 
+Ingress is the only way to expose your application to the outside world, this is not the recommended way to communicate between applications running in the same environment. For that, you should use [service discovery][https://docs.nais.io/workloads/application/explanations/expose/#service-discovery].
+
 ## Domains
 
-See the [environments reference](../../reference/environments.md) for a list of available domains.
+See the [environments reference](../../reference/environments.md) for a list of available domains and their intended use.
+
+## Path-based routing
+
+Ingresses may include paths. This allows for routing traffic to only specific parts of your application, or as part of a shared domain between multiple applications like this:
+
+```yaml
+spec:
+  ingresses:
+    - https://myapplication.example.com/path1
+    - https://myapplication.example.com/path2
+```
+
+In the example above, only `path1` and `path2` are routed to the application including any sub-paths. All other paths may return a `404` error. Please keep in mind that no path stripping is done as part of the routing and the full path is passed to the application.
 
 ## Ingress customization
 
@@ -86,7 +101,7 @@ All requests to your application via ingress will result in metrics being emitte
 ??? info "Ingress metrics label descriptions"
 
     | Label       | Description                    |
-    |-------------|--------------------------------|
+    | ----------- | ------------------------------ |
     | `status`    | HTTP status code               |
     | `method`    | HTTP method                    |
     | `host`      | Host header (domain)           |
@@ -137,7 +152,7 @@ Request access logs from nginx ingress controller are automatically collected an
 Here are pre-configured queries for the controller logs in the following clusters:
 
 | Kibana                      | Grafana Loki              |
-|-----------------------------|---------------------------|
+| --------------------------- | ------------------------- |
 | [dev-gcp][dev-gcp-kibana]   | [dev-gcp][dev-gcp-loki]   |
 | [prod-gcp][prod-gcp-kibana] | [prod-gcp][prod-gcp-loki] |
 | [dev-fss]                   | -                         |
@@ -153,7 +168,7 @@ Here are pre-configured queries for the controller logs in the following cluster
 ### Log fields description
 
 | Field               | Description                                                                                    |
-|---------------------|------------------------------------------------------------------------------------------------|
+| ------------------- | ---------------------------------------------------------------------------------------------- |
 | `message`           | HTTP request on the following format: "`method` `path` `httpVersion`"                          |
 | `response_code`     | HTTP response code from nginx                                                                  |
 | `x_upstream_name`   | The application receiving the request on the following format "`namespace`-`app-name`-`port`"  |
@@ -212,7 +227,7 @@ If `response_code` and `x_upstream_status` are the same it means that the applic
 Here are some suggestions depending on what http status code you might recieve from nginx:
 
 | Code                           | Suggestion                                                                                                                                                                                                                                               |
-|--------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `400 Bad Request`              | If nginx returns `401` error with no further explanation and there is no `x_upstream_name` it means that nginx received an invalid request before it could be sent to the backend. One of the most common problems is duplicate `Authorization` headers. |
 | `413 Request Entity Too Large` | If nginx return `413` error it means that the request body is too large. This can be caused by a large file upload or a large request body. The solution is to add the `proxy-body-size` ingress parameter to an appropriate size.                       |
 | `502 Bad Gateway`              | If nginx return `502` error but the application is returning a `2xx` status code it might be caused by large response headers often cookies. The solution is the add the `proxy-buffer-size` to an appropriate size.                                     |
