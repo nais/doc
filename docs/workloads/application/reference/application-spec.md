@@ -3876,6 +3876,90 @@ Allowed values: _(empty string)_, `accesslog`, `accesslog_with_processing_time`,
       logformat: accesslog_with_referer_useragent
     ```
 
+## login
+Login configures a login proxy that sits in front of the application.
+
+Relevant information:
+
+* [https://doc.nais.io/auth/explanations/#login-proxy](https://doc.nais.io/auth/explanations/#login-proxy)
+
+Type: `object`<br />
+Required: `false`<br />
+Availability: Tenant: SSB<br />
+
+??? example
+    ``` yaml
+    spec:
+      login:
+        enforce:
+          enabled: true
+          excludePaths:
+            - /some/path
+            - /api/**
+        provider: openid
+    ```
+
+### login.enforce
+Enforce login for all requests to the application.
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      login:
+        enforce:
+          enabled: true
+          excludePaths:
+            - /some/path
+            - /api/**
+    ```
+
+#### login.enforce.enabled
+If enabled, all unauthenticated requests to the application will be redirected to the login provider.
+
+Type: `boolean`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      login:
+        enforce:
+          enabled: true
+    ```
+
+#### login.enforce.excludePaths
+Absolute paths to ignore when enforcing login.
+
+Type: `array`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      login:
+        enforce:
+          excludePaths:
+            - /some/path
+            - /api/**
+    ```
+
+### login.provider
+Provider configures the authentication provider for the application.
+
+Type: `enum`<br />
+Required: `true`<br />
+Allowed values: `openid`<br />
+
+??? example
+    ``` yaml
+    spec:
+      login:
+        provider: openid
+    ```
+
 ## logtransform
 Extra filters for modifying log content. This can e.g. be used for setting loglevel based on http status code.
 

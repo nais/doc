@@ -209,6 +209,13 @@ spec:
     port: 8080
     timeout: 1
   logformat: accesslog_with_referer_useragent
+  login:
+    enforce:
+      enabled: true
+      excludePaths:
+      - /some/path
+      - /api/**
+    provider: openid
   logtransform: http_loglevel
   maskinporten:
     enabled: true
