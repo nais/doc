@@ -7,21 +7,18 @@ tags: [explanation, observability, services]
 
 # Frontend apps
 
-!!! info "Status: Alpha"
-    This feature is undergoing heavy development. APIs may change or break at any time.
-    Keep in touch with the NAIS frontend team while we are developing it!
-
-    **Experimental**: users report that this component is working, but it needs a broader audience to be battle-tested properly.
-
-    Report any issues to the #nais channel on Slack.
+!!! info "Status: Beta"
+    This feature is undergoing development, but we will try our best to keep it stable.
 
 When developing solutions for the frontend there is a variety of different tools for capturing information about
 usage, logs, exceptions and performance. NAIS offers a unified solution for full stack frontend observability
-through Grafana Faro Web SDK.
+through [Grafana Faro Web SDK][faro-web-sdk].
+
+[faro-web-sdk]: https://www.npmjs.com/package/@grafana/faro-web-sdk
 
 Our frontend observability stack offers:
 
-- user monitoring
+- real user monitoring (RUM)
 - [core web vitals](https://web.dev/vitals/) performance metrics (TTFB, FCP, CLS, LCP, FID)
 - logging, defaulting to messages from `console.info`, `console.warn`, and `console.error`
 - exceptions with stack traces
@@ -84,6 +81,20 @@ visualizing and gain insights.
 You can easily add more logging, custom events, and custom metrics.
 How to do this is out of scope of this documentation.
 Please see the [official documentation](https://grafana.com/docs/grafana-cloud/frontend-observability/).
+
+### Exceptions
+
+Console errors are automatically captured by Faro. But if you want the complete stack trace for exceptions, you can push it manually like this:
+
+```js
+try {
+  // Some code that might throw an error
+  throw new Error("Something went wrong!");
+} catch (error) {
+  // Push the error to Faro for observability
+  faro.api.pushError(error);
+}
+```
 
 ### Tracing (OpenTelemetry)
 
@@ -191,7 +202,6 @@ module.exports = {
 };
 ```
 
-
 ## Framework integrations
 
 ### Next.js
@@ -224,7 +234,3 @@ visualizing and gain insights.
 ### Content Security Policy
 
 If CSP is enabled for your application, you need to add the telemetry collector endpoint to `connect-src`.
-
-<!-- Local Variables: -->
-<!-- jinx-languages: "en_US" -->
-<!-- End: -->
