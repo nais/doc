@@ -84,7 +84,9 @@ See [explanation for exposing application][expose-app] for more information.
 | domain                             | accessible from          | description                                                                                                       |
 |:-----------------------------------|:-------------------------|:------------------------------------------------------------------------------------------------------------------|
 | external.test.ssb.cloud.nais.io    | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| test.ssb.no                        | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
 | test.ssb.cloud.nais.io             | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
+| intern.test.ssb.no                 | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
 
 #### External/outbound IPs
 
@@ -97,7 +99,9 @@ See [explanation for exposing application][expose-app] for more information.
 | domain                          | accessible from | description                                                                                                       |
 |:--------------------------------|:----------------|:------------------------------------------------------------------------------------------------------------------|
 | external.prod.ssb.cloud.nais.io | internet        | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| ssb.no                          | internet        | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
 | prod.ssb.cloud.nais.io          | [naisdevice]    | ingress for internal applications                                                                                 |
+| intern.ssb.no                   | [naisdevice]    | ingress for internal applications                                                                                 |
 
 #### External/outbound IPs
 
