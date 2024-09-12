@@ -16,5 +16,7 @@ The service URI and the name of the database is also available, as well as the r
 | INFLUXDB_USERNAME    | Username                    |
 | INFLUXDB_PASSWORD    | Password                    |
 | INFLUXDB_URI         | Service URI                 |
+| INFLUXDB_HOST        | Service host                |
+| INFLUXDB_PORT        | Service port                |
 | INFLUXDB_NAME        | Database name               |
 | AIVEN_CA             | Aiven certificate authority | 
