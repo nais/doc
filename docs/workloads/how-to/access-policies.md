@@ -194,4 +194,4 @@ For app `<MY-APP>` to be able to send requests to addresses outside the environm
       end
     ```
 
-See the [access policy reference](../reference/access-policies.md) for a list of external addresses that are accessible by default.
+For a list of external addresses that are accessible by default, see the [access policy reference](../reference/access-policies.md#default-allowed-external-hosts).
