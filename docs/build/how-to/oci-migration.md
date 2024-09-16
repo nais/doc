@@ -121,6 +121,7 @@ as `needs.build.outputs.image`
       CLUSTER: target-cluster # Replace 
       RESOURCE: nais.yaml
       VAR: image=${{ needs.build.outputs.image }}
+      TELEMETRY: ${{ needs.build.outputs.telemetry }}
 ```
 
 Also add the following after the build job, to allow the deploy job to access the output:
@@ -128,6 +129,7 @@ Also add the following after the build job, to allow the deploy job to access th
 ```yaml
     outputs:
       image: ${{ steps.docker-build-push.outputs.image }}
+      image: ${{ steps.docker-build-push.outputs.telemetry }}
 ```
 
 #### NAIS Salsa (SLSA - Supply Chain Levels for Software Artifacts)
@@ -189,6 +191,7 @@ jobs:
       id-token: write
     outputs:
       image: ${{ steps.docker-build-push.outputs.image }}
+      telemetry: ${{ steps.docker-build-push.outputs.telemetry }}
     steps:
       - uses: actions/checkout@v4
       - name: Build and test my-app
@@ -203,6 +206,7 @@ jobs:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # Provided as Organization Variable
     outputs:
       image: ${{ steps.docker-build-push.outputs.image }}
+      image: ${{ steps.docker-build-push.outputs.telemetry }}
 
   deploy:
     name: Deploy to NAIS
@@ -218,6 +222,7 @@ jobs:
           CLUSTER: target-cluster # Replace
           RESOURCE: nais.yaml
           VAR: image=${{ needs.build.outputs.image }}
+		  TELEMETRY: ${{ needs.build.outputs.telemetry }}
 ```
 
 The id `docker-build-push` is the id of the previous job step, there is where your new image will be outputted. In this

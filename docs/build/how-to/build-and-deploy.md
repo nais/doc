@@ -20,7 +20,7 @@ This how-to guide shows you how to build and deploy your application using [Gith
 
 ## Create a Github workflow
 
-!!! note 
+!!! note
     If you require a more advanced workflow, or already have one. Just copy the relevant parts from the example below.
 
 !!! note "./github/workflows/main.yml"
@@ -53,6 +53,7 @@ This how-to guide shows you how to build and deploy your application using [Gith
               CLUSTER: <MY-CLUSTER> # Replace
               RESOURCE: .nais/app.yaml #, topic.yaml, statefulset.yaml, etc.
               VAR: image=${{ steps.docker-build-push.outputs.image }}
+              TELEMETRY: ${{ steps.docker-build-push.outputs.telemetry }}
     ```
 
 This example workflow is a minimal example that builds, signs, and pushes your container image to the image registry.
@@ -61,9 +62,9 @@ It then deploys the [app.yaml](../../workloads/application/reference/application
 When this file is pushed to the `main` branch, the workflow will be triggered and you are all set.
 
 !!! info "Google Artifact Registry (GAR)"
-    
+
     The [nais/docker-build-push GitHub action](https://github.com/nais/docker-build-push) builds and pushes images to the _Google Artifact Registry_ (GAR).
-    
+
     This is a registry managed by NAIS and is the recommended way to store your container images for use in workloads on NAIS.
 
     We keep the last 10 versions for each image regardless of age. Versions older than 90 days are automatically deleted.
