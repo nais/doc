@@ -23,7 +23,7 @@ This how-to guide shows you how to build and deploy your application using [Gith
 !!! note
     If you require a more advanced workflow, or already have one. Just copy the relevant parts from the example below.
 
-!!! note "./github/workflows/main.yml"
+!!! note ".github/workflows/main.yml"
 
     ```yaml hl_lines="19 25-26"
     name: Build and deploy
