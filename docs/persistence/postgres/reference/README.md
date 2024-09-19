@@ -11,8 +11,8 @@ The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instan
 
 | description                                                    | environment variable                   | example                                                                    |
 | :------------------------------------------------------------- | :------------------------------------- | :------------------------------------------------------------------------- |
-| ip                                                             | `NAIS_DATABASE_MYAPP_MYDB_HOST`        | 100.10.1.0                                                                 |
-| port                                                           | `NAIS_DATABASE_MYAPP_MYDB_PORT`        | 5432                                                                       |
+| ip                                                             | `NAIS_DATABASE_MYAPP_MYDB_HOST`        | 100.10.1.0                                                                 | 
+| port                                                           | `NAIS_DATABASE_MYAPP_MYDB_PORT`        | 5432                                                                       |    
 | database name                                                  | `NAIS_DATABASE_MYAPP_MYDB_DATABASE`    | `.spec.gcp.sqlInstances[].databases[].name`                                |
 | database user                                                  | `NAIS_DATABASE_MYAPP_MYDB_USERNAME`    | `.spec.gcp.sqlInstances[].name`                                            |
 | database password                                              | `NAIS_DATABASE_MYAPP_MYDB_PASSWORD`    | (randomly generated)                                                       |
@@ -32,6 +32,9 @@ The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instan
 !!! info
     Note that if you change your application name, database name or envVarPrefix, and then change it later,
     you have to manually [reset database credentials](../how-to/reset-database-credentials.md).
+
+!!! info
+    Note that if your application name or database has hyphens in the name, the hyphens are converted to underscores. E.g. my-awesome-app = MY_AWESOME_APP
 
 [^1]: jdbc url can be generated for instances without private IP by using [nais-cli] to rotate the password.
 
