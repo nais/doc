@@ -222,7 +222,7 @@ jobs:
           CLUSTER: target-cluster # Replace
           RESOURCE: nais.yaml
           VAR: image=${{ needs.build.outputs.image }}
-		  TELEMETRY: ${{ needs.build.outputs.telemetry }}
+          TELEMETRY: ${{ needs.build.outputs.telemetry }}
 ```
 
 The id `docker-build-push` is the id of the previous job step, there is where your new image will be outputted. In this
