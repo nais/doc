@@ -11,8 +11,8 @@ The prefix `NAIS_DATABASE_MYAPP_MYDB` is automatically generated from the instan
 
 | description                                                    | environment variable                   | example                                                                    |
 | :------------------------------------------------------------- | :------------------------------------- | :------------------------------------------------------------------------- |
-| ip                                                             | `NAIS_DATABASE_MYAPP_MYDB_HOST`        | 100.10.1.0                                                                 | 
-| port                                                           | `NAIS_DATABASE_MYAPP_MYDB_PORT`        | 5432                                                                       |    
+| ip                                                             | `NAIS_DATABASE_MYAPP_MYDB_HOST`        | 100.10.1.0                                                                 |
+| port                                                           | `NAIS_DATABASE_MYAPP_MYDB_PORT`        | 5432                                                                       |
 | database name                                                  | `NAIS_DATABASE_MYAPP_MYDB_DATABASE`    | `.spec.gcp.sqlInstances[].databases[].name`                                |
 | database user                                                  | `NAIS_DATABASE_MYAPP_MYDB_USERNAME`    | `.spec.gcp.sqlInstances[].name`                                            |
 | database password                                              | `NAIS_DATABASE_MYAPP_MYDB_PASSWORD`    | (randomly generated)                                                       |
