@@ -55,9 +55,12 @@ You will now need to validate these tokens in your application.
 
 ## Validate tokens
 
-Verify incoming requests from the external consumer(s) by validating the [Bearer token](../../explanations/README.md#bearer-token) in the `Authorization` header.
+Verify incoming requests from consumers by validating the [JWT Bearer token](../../explanations/README.md#bearer-token) in the `Authorization` header.
 
-Always validate the [signature and standard time-related claims](../../explanations/README.md#token-validation).
+{% include 'auth/entra-id/partials/validate.md' %}
+
+To validate the token, start by validating the [signature and standard time-related claims](../../explanations/README.md#token-validation).
+
 Additionally, perform the following validations:
 
 **Issuer Validation**

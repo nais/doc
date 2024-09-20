@@ -50,7 +50,7 @@ https://<ingress>/oauth2/login
 
 ### Validate token in `Authorization` header
 
-If the `Authorization` header is present, validate the token.
+If the `Authorization` header is present, validate the [JWT Bearer token](../../explanations/README.md#bearer-token) within.
 If invalid, redirect the employee to the [login endpoint]:
 
 ```

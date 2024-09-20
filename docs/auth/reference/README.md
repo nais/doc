@@ -17,7 +17,7 @@ Below is a list of some well-known and widely used libraries for handling OAuth,
 
 - <https://github.com/navikt/token-support>
 - <https://ktor.io/docs/jwt.html>
-- <https://spring.io/projects/spring-security-oauth>
+- <https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/>
 - <https://github.com/pac4j/pac4j>
 - <https://connect2id.com/products/nimbus-oauth-openid-connect-sdk>
 

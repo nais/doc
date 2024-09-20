@@ -46,18 +46,17 @@ https://<ingress>/oauth2/login
 
 ### Validate token in `Authorization` header
 
-If the `Authorization` header is present, validate the token.
+If the `Authorization` header is present, validate the [JWT Bearer token](../../explanations/README.md#bearer-token) within.
 If invalid, redirect the citizen to the [login endpoint]:
 
 ```
 https://<ingress>/oauth2/login
 ```
 
-!!! tip "Recommended JavaScript Library"
-
-    See <https://github.com/navikt/oasis> that helps with token validation and exchange in JavaScript applications.
+{% include 'auth/partials/validate.md' %}
 
 To validate the token, start by validating the [signature and standard time-related claims](../../explanations/README.md#token-validation).
+
 Additionally, perform the following validations:
 
 **Issuer Validation**
