@@ -129,3 +129,36 @@ For further reading see [google Cloud SQL PIT recovery](https://cloud.google.com
 
 #### Disaster backup
 In case of catastrophic failure in GCP we are running a daily complete backup of the postgresql databases in GCP to an on-prem location. This backup currently runs at 5 am. This is in addition to the regular backups in GCP.
+
+### Instance tiers
+
+List of commonly used database instance tiers:
+
+[Cloud SQL SLA]: https://cloud.google.com/sql/sla
+
+| Tier                    | Description                                            |
+|-------------------------|--------------------------------------------------------|
+| `db-f1-micro`           | Shared CPU, 0.6 GB RAM, not covered by [Cloud SQL SLA] |
+| `db-g1-small`           | Shared CPU, 1.7 GB RAM, not covered by [Cloud SQL SLA] |
+| `db-custom-1-3840`      |                                                        |
+| `db-custom-2-5120`      |                                                        |
+| `db-custom-2-7680`      |                                                        |
+| `db-custom-4-15360`     |                                                        |
+| `db-custom-<CPU>-<RAM>` |                                                        |
+
+The custom tiers can be customized to fit your application's requirements, following this format:
+
+```
+db-custom-<CPU>-<RAM>
+```
+
+- Replace the `<CPU>` placeholder with the number of CPUs
+- Replace the `<RAM>` placeholder with the amount of memory.
+
+When selecting the number of CPUs and amount of memory, there are some restrictions on the configuration you choose:
+
+- CPU must be either 1 or an even number between 2 and 96.
+- Memory must be:
+    - 0.9 to 6.5 GB per vCPU
+    - A multiple of 256 MB
+    - At least 3.75 GB (3840 MB)
