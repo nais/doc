@@ -8,19 +8,11 @@ tags: [explanation, persistence, services]
     Postgres 15 has changed the security model around the public schema and it is no longer world writeable. If you and your team
     make use of the public schema for interactive sessions and experimentation you will have to create separate schemas for separate users and share these role or user grants. Normal app usage will function normally.
 
-PostgreSQL is a relational database service that is provided by Google Cloud Platform. It is a good choice for storing data that is relational in nature.
+[PostgreSQL](https://www.postgresql.org/) is a relational database service provided by Google Cloud Platform. It is a good choice for storing data that is relational in nature.
 
-You can provision and configure [Postgres](https://www.postgresql.org/) through your [`application manifest`](../../workloads/application/reference/application-spec.md).
+Minimal configuration needed to provision a database for your application:
 
-The database is provisioned into the teams own project in GCP. Here the team has full access to view logs, create and restore backups and other administrative database tasks.
-
-When you deploy your application with database config, NAIS will ensure the database exists in a [Google Cloud SQL instance](https://cloud.google.com/sql) with the specified [Postgres](https://cloud.google.com/sql/docs/postgres/) version, and configure the application with means to connect to it.
-
-The Database instance takes a few minutes to be created, so your app will not be able to connect to right away. This only applies to the first time deploy.
-
-Below is an example of the minimal configuration needed. See all configuration options in the [application manifest reference](../../workloads/application/reference/application-spec.md#gcpsqlinstances).
-
-```yaml
+```yaml title="app.yaml"
 ...
 apiVersion: nais.io/v1alpha1
 kind: Application
@@ -37,13 +29,33 @@ spec:
           - name: mydb
 ```
 
-!!! important "Choosing the right tier for production"
+The default configuration sets up the instance with:
 
-    The database in the minimal configuration, `db-f1-micro`, has 1 vCPU, 614 MB RAM and 10GB of SSD storage with no automatic storage increase. Shared CPU machine types (`db-f1-micro` and `db-g1-small`) are **NOT** covered by the [Cloud SQL SLA](https://cloud.google.com/sql/sla). Consider [changing](../../workloads/application/reference/application-spec.md#gcpsqlinstancestier) to the `db-custom-CPU-RAM` tier for your production databases. Please also note that exhausting disk and/or CPU with automatic increase disabled is [not](https://cloud.google.com/sql/docs/postgres/operational-guidelines) covered by the SLA.
+- 10 GB of SSD storage
+- no automatic storage increase
+- no high availability
 
-## Example with all configuration options
+See all configuration options in the [application manifest reference](../../workloads/application/reference/application-spec.md#gcpsqlinstances).
 
-See [full example](../../workloads/application/reference/application-example.md).
+!!! warning "Choosing the right tier for production"
+
+    The minimal configuration above uses the tier `db-f1-micro`, which has 1 shared vCPU and 614 MB RAM.
+    Tiers using shared CPUs (`db-f1-micro` and `db-g1-small`) are **NOT** covered by the [Cloud SQL SLA](https://cloud.google.com/sql/sla) and should not be used for critical production workloads.
+
+    Consider [changing the tier](how-to/change-tier.md) to the `db-custom-CPU-RAM` tier for your production databases.
+
+    Please also note that exhausting disk and/or CPU with automatic increase disabled is [not covered by the SLA](https://cloud.google.com/sql/docs/postgres/operational-guidelines).
+
+## How it works
+
+The first time you deploy your application with the above configuration, NAIS will provision the database into your team's own project in GCP.
+Your team has full access to view logs, create and restore backups and other administrative database tasks.
+
+NAIS also configures your application with the necessary environment variables needed to connect to the database.
+See the [reference](reference/README.md#configuration) for the list of environment variables.
+
+First time provisioning of the database will take some minutes.
+Your application may not be able to connect to the database until the provisioning is complete.
 
 ## FAQ
 
