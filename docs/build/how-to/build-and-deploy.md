@@ -21,7 +21,7 @@ This how-to guide shows you how to build and deploy your application using [Gith
 ## Create a Github workflow
 
 !!! note
-    If you require a more advanced workflow, or already have one. Just copy the relevant parts from the example below.
+    If you require a more advanced workflow, or already have one: copy the relevant parts from the example below.
 
 !!! note ".github/workflows/main.yml"
 
