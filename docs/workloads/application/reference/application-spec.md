@@ -3207,7 +3207,6 @@ For production workloads, please specify at least `db-custom-1-3840`.
 
 Type: `string`<br />
 Required: `true`<br />
-Default value: `db-f1-micro`<br />
 Pattern: `db-.+`<br />
 
 ??? example
