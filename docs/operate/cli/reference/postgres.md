@@ -14,19 +14,18 @@ All commands have the following common flags available:
 |-----------|----------|-------|----------------------------------|---------------------------------------------------------------------------------|
 | namespace | No       | -n    | namespace set in kubeconfig      | Kubernetes namespace where app is deployed                                      |
 | cluster   | No       | -c    | context set in kubeconfig        | Kubernetes context where app is deployed                                        |
-| database  | No       | -d    | the database in the app manifest | The database to interact with, needs to be set if the app has several databases |
 
 Note all flags has to appear before arguments (otherwise the flags will be interpreted as arguments).
 So the common flags for Postgres needs to be positioned after `nais postgres <cmd>`, but before arguments:
 
-OK:
+OK ✅:
 ```
 nais postgres prepare --context dev-gcp --namespace dreamteam appname
 ```
 
-Not OK:
+Not OK ❌:
 ```
-nais postgres prepare appnem --context dev-gcp --namespace dreamteam
+nais postgres prepare appname --context dev-gcp --namespace dreamteam
 ```
 
 !!! warning
