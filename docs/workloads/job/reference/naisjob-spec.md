@@ -1719,6 +1719,7 @@ Required: `true`<br />
 
 ### gcp.sqlInstances
 Provision database instances and connect them to your application.
+Only one item allowed in the list.
 
 Relevant information:
 
@@ -1900,7 +1901,8 @@ Required: `false`<br />
     ```
 
 #### gcp.sqlInstances[].databases
-List of databases that should be created on this Postgres server.
+List of one database or less(!) that should be created on this Postgres server.
+If not present, a default database with the same name as the application will be created.
 
 Type: `array`<br />
 Required: `false`<br />
