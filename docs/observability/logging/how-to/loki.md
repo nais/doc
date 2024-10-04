@@ -9,7 +9,7 @@ This guide will help you get started with Grafana Loki, a log aggregation system
 
 ## Enable logging to Grafana Loki
 
-Grafana Loki can be enabled by setting the list of logging destinations in your nais application manifest.
+Grafana Loki can be enabled by setting the list of logging destinations in your nais application manifest. This will only send logs that are written to `stdout` and `stderr` to Grafana Loki and will not affect logs that are written to files or other log appenders such as [secure logs](./enable-secure-logs.md).
 
 ???+ note ".nais/application.yaml"
     ```yaml hl_lines="6"
@@ -22,7 +22,7 @@ Grafana Loki can be enabled by setting the list of logging destinations in your 
     ```
 
 !!! warning
-    Setting logging destinations will override the default logging configuration. If you want to keep the default logging configuration and add Loki as an additional destination, you need to include the default destination in the list.
+    Specifying logging destinations will override the default logging configuration. If you want to keep the default logging configuration and add Loki as an additional destination, you need to include the default destination in the list.
 
 ## Working with logs in Grafana Loki
 
