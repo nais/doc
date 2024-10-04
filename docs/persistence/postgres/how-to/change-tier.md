@@ -12,7 +12,7 @@ Choosing an appropriate tier depends on your application's requirements such as:
 
 The tier you choose will affect the performance and cost of your database.
 
-See [the reference page for a list of available tiers](../reference/README.md#instance-tiers).
+See [the reference page for a list of available tiers](../reference/README.md#server-size).
 
 ## Change tier
 

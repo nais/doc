@@ -147,7 +147,7 @@ In case of catastrophic failure in GCP we are running a daily complete backup of
 
 The Postgres version can be configured in the application spec. The version is defined by the `type` field in the `nais.yaml` file.
 
-```yaml
+```yaml title="app.yaml" hl_lines="4"
 spec:
   gcp:
     sqlInstances:
@@ -156,23 +156,21 @@ spec:
 
 The full list of supported versions can be found in the [application spec reference](../../../workloads/application/reference/application-spec.md#gcpsqlinstancestype).
 
-### Upgrading Postgres version
-
-To upgrade the Postgres version, modify the `type` field in your application manifest to the desired version and redeploy the application. The upgrade will start automatically.
-
 :dart: [Learn how to safely upgrade the Postgres version](../how-to/upgrade-postgres.md)
 
 ## Server size
 
 The server instance size can be configured in the application spec. The instance size is defined by the `tier` field in the `nais.yaml` file.
 
-```yaml
+```yaml title="app.yaml" hl_lines="5"
 spec:
   gcp:
     sqlInstances:
-      - type: POSTGRES_164
+      - type: POSTGRES_16
         tier: db-custom-2-5120
 ```
+
+:dart: [Learn how to change the server instance tier](../how-to/change-tier.md)
 
 The tier can be set to one of the following values:
 
@@ -197,6 +195,6 @@ When selecting the number of CPUs and amount of memory, there are some restricti
 
 * CPU must be either 1 or an even number between 2 and 96.
 * Memory must be:
-  * 0.9 to 6.5 GB per vCPU
-  * A multiple of 256 MB
-  * At least 3.75 GB (3840 MB)
+    * 0.9 to 6.5 GB per vCPU
+    * A multiple of 256 MB
+    * At least 3.75 GB (3840 MB)
