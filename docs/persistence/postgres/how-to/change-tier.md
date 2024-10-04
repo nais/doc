@@ -12,7 +12,7 @@ Choosing an appropriate tier depends on your application's requirements such as:
 
 The tier you choose will affect the performance and cost of your database.
 
-See [the reference page for a list of available tiers](../reference/README.md#instance-tiers). 
+See [the reference page for a list of available tiers](../reference/README.md#instance-tiers).
 
 ## Change tier
 
@@ -22,7 +22,7 @@ To change the tier, modify the `tier` field in your application manifest:
 spec:
   gcp:
     sqlInstances:
-      - type: POSTGRES_14
+      - type: POSTGRES_16
         tier: db-custom-1-3840
         databases:
           - name: mydb
