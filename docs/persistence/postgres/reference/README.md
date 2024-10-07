@@ -143,7 +143,7 @@ For further reading see [google Cloud SQL PIT recovery](https://cloud.google.com
 
 In case of catastrophic failure in GCP we are running a daily complete backup of the postgresql databases in GCP to an on-prem location. This backup currently runs at 5 am. This is in addition to the regular backups in GCP.
 
-## Postgres vesion
+## Postgres version
 
 The Postgres version can be configured in the application spec. The version is defined by the `type` field in the `nais.yaml` file.
 

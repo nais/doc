@@ -159,3 +159,69 @@ nais postgres password rotate appname
 | Argument    | Required  | Description                                                 |
 |-------------|-----------|-------------------------------------------------------------|
 | appname     | Yes       | Name of application owning the database                     |
+
+
+## migrate 
+
+Commands used for migrating to a new postgres instance.
+
+<!-- TODO: See also [Migrate](../../../persistence/postgres/how-to/migrate-to-new-instance.md) -->
+
+### migrate setup
+
+Setup will create a new (target) instance with updated configuration, and enable continuous replication of data from the source instance.
+
+```bash
+nais postgres migrate setup appname new-instance-name
+```
+
+| Argument          | Required | Description                                     |
+|-------------------|----------|-------------------------------------------------|
+| appname           | Yes      | Name of application owning the database         |
+| new-instance-name | Yes      | Name of the new postgres instance to migrate to |
+
+
+| Flag      | Description                                                                                                                     |
+|-----------|---------------------------------------------------------------------------------------------------------------------------------|
+| tier      | Tier of new instance. See [Postgres reference](../../../persistence/postgres/reference/README.md#server-size).                  |
+| type      | Postgres version of new instance. See [Postgres reference](../../../persistence/postgres/reference/README.md#postgres-version). |
+| disk-size | Disk size of new instance.                                                                                                      |
+
+### migrate promote
+
+Promote will promote the target instance to the new primary instance, and update the application to use the new instance.
+
+```bash
+nais postgres migrate promote appname new-instance-name
+```
+
+| Argument          | Required | Description                                     |
+|-------------------|----------|-------------------------------------------------|
+| appname           | Yes      | Name of application owning the database         |
+| new-instance-name | Yes      | Name of the new postgres instance to migrate to |
+
+### migrate finalize
+
+Finalize will remove the source instance and associated resources after a successful migration.
+
+```bash
+nais postgres migrate finalize appname new-instance-name
+```
+
+| Argument          | Required | Description                                     |
+|-------------------|----------|-------------------------------------------------|
+| appname           | Yes      | Name of application owning the database         |
+| new-instance-name | Yes      | Name of the new postgres instance to migrate to |
+
+### migrate rollback
+
+Rollback will roll back the migration, and restore the application to use the original instance.
+
+```bash
+nais postgres migrate rollback appname new-instance-name
+```
+
+| Argument          | Required | Description                                     |
+|-------------------|----------|-------------------------------------------------|
+| appname           | Yes      | Name of application owning the database         |
+| new-instance-name | Yes      | Name of the new postgres instance to migrate to |
