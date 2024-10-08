@@ -5,6 +5,8 @@ tags: [how-to, logging, observability, loki]
 
 # Get started with Grafana Loki
 
+<<gcp_only("Grafana Loki")>>
+
 This guide will help you get started with Grafana Loki, a log aggregation system that is integrated with Grafana and inspired by Prometheus.
 
 ## Enable logging to Grafana Loki
