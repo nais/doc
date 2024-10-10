@@ -11,7 +11,7 @@ This guide describes how to migrate your PostgreSQL database to a new [SQLInstan
 
 !!! danger
 
-   During migration, you can't make DDL changes (changing structure of tables, adding or removing tables, etc.) to your database. 
+   During migration, you can't make structural database ([DDL](https://en.wikipedia.org/wiki/Data_definition_language)) changes (changing structure of tables, adding or removing tables, etc.) to your database. 
    Check with your team to avoid any problems during the migration.
 
 * Make sure to have the latest version of the [nais CLI](../../../operate/cli/README.md) installed.
