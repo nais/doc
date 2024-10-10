@@ -165,7 +165,7 @@ nais postgres password rotate appname
 
 Commands used for migrating to a new postgres instance.
 
-<!-- TODO: See also [Migrate](../../../persistence/postgres/how-to/migrate-to-new-instance.md) -->
+See also [Migrating to a new SQLInstance](../../../persistence/postgres/how-to/migrate-to-new-instance.md)
 
 ### migrate setup
 
