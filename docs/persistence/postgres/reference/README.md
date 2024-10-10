@@ -45,7 +45,7 @@ If you have hyphens (`-`) in your application name or database name, they will b
     Note that if you change your application name, database name or envVarPrefix, and then change it later,
     you have to manually [reset database credentials](../how-to/reset-database-credentials.md).
 
-[^1]: jdbc url can be generated for instances without private IP by using [nais-cli] to rotate the password.
+[^1]: jdbc url can be generated for instances without private IP by using [nais-cli to rotate the password](../../../operate/cli/reference/postgres.md#password-rotate).
 
 ## Database flags
 
