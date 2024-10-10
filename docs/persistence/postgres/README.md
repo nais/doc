@@ -30,7 +30,7 @@ spec:
           - name: mydb
 ```
 
-The default configuration sets up the instance with:
+The default configuration sets up the [instance](explanations/cloud-sql-instance.md) with:
 
 - 10 GB of SSD storage
 - no automatic storage increase

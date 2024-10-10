@@ -39,7 +39,7 @@ You can customize these environment variable names by setting `.spec.gcp.sqlInst
 
 For instance, setting this to `DB` will give you `DB_HOST`, `DB_USERNAME`, etc. Note that changing or adding `envVarPrefix` requires you to manually delete the `google-sql-<MYAPP>` secret and `SQLUser` with the same name as the application, see below.
 
-If you habe hyphens (`-`) in your application name or database name, they will be converted to underscores (`_`). E.g. `my-awesome-app` = `MY_AWESOME_APP`.
+If you have hyphens (`-`) in your application name or database name, they will be converted to underscores (`_`). E.g. `my-awesome-app` = `MY_AWESOME_APP`.
 
 !!! info
     Note that if you change your application name, database name or envVarPrefix, and then change it later,
@@ -160,7 +160,8 @@ The full list of supported versions can be found in the [application spec refere
 
 ## Server size
 
-The server instance size can be configured in the application spec. The instance size is defined by the `tier` field in the `nais.yaml` file.
+The [server instance](../explanations/cloud-sql-instance.md) size can be configured in the application spec.
+The instance size is defined by the `tier` field in the `nais.yaml` file.
 
 ```yaml title="app.yaml" hl_lines="5"
 spec:

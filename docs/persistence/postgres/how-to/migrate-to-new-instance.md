@@ -5,7 +5,7 @@ tags: [postgres, migrate, how-to]
 
 # Migrating to a new SQLInstance
 
-This guide describes how to migrate your PostgreSQL database to a new SQLInstance.
+This guide describes how to migrate your PostgreSQL database to a new [SQLInstance](../explanations/cloud-sql-instance.md).
 
 ## Preparations
 
