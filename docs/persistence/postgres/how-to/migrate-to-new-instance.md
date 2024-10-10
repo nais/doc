@@ -9,8 +9,11 @@ This guide describes how to migrate your PostgreSQL database to a new [SQLInstan
 
 ## Preparations
 
-* During migration, you can't make DDL changes (changing structure of tables, adding or removing tables, etc.) to your database. 
-  Check with your team to avoid any problems during the migration.
+!!! danger
+
+   During migration, you can't make DDL changes (changing structure of tables, adding or removing tables, etc.) to your database. 
+   Check with your team to avoid any problems during the migration.
+
 * Make sure to have the latest version of the [nais CLI](../../../operate/cli/README.md) installed.
 * Decide on a new name for the new SQLInstance. It must be different from the current SQLInstance name.
 * naisdevice connected.
@@ -31,8 +34,7 @@ This guide describes how to migrate your PostgreSQL database to a new [SQLInstan
     nais migrate postgres setup <appname> <new-sql-instance-name>
     ```
 
-3. Check that the new instance contains expected data
-4. Check that the replication is up to date by checking the URL you got from the setup command.
+3. Check that the replication is up to date by checking the URL you got from the setup command.
    This may take some time, depending on how much data needs to be transferred. 
 
 ## Promoting the new SQLInstance
