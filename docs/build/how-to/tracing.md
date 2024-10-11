@@ -4,7 +4,7 @@ tags: [build, deploy, tracing, how-to]
 
 # Set up tracing for your pipeline
 
-To further support [DORA metrics](https://dora.dev/guides/dora-metrics-four-keys/) we use [tracing](../observability/tracing/) directly in the build pipeline.
+To further support [DORA metrics](https://dora.dev/guides/dora-metrics-four-keys/) we use [tracing](../../observability/tracing/README.md) directly in the build pipeline.
 This will allow you to measure the time it takes for your team to deliver new code to production.
 
 !!! note "Lead time"
