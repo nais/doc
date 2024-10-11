@@ -68,7 +68,7 @@ graph LR
   Prometheus --GET /metrics--> Application
 ```
 
-[:simple-prometheus: Access Prometheus here](metrics/README.md#prometheus-environments)
+[:simple-prometheus: Access Prometheus here](metrics/README.md#environments)
 
 ### Grafana
 

@@ -196,7 +196,7 @@ See the respective identity provider page for details:
 - [Entra ID](../entra-id/reference/README.md#runtime-variables-credentials)
 - [ID-porten](../idporten/reference/README.md#runtime-variables-credentials)
 - [Maskinporten](../maskinporten/reference/README.md#runtime-variables-credentials)
-- [TokenX](../tokenx/README.md#runtime-variables-credentials)
+- [TokenX](../tokenx/reference/README.md#runtime-variables-credentials)
 
 #### Client Authentication
 

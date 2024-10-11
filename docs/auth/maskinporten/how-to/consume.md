@@ -35,7 +35,7 @@ The scopes themselves are defined and owned by the external API provider. The ex
 
 {%- endif %}
 
-[Configure appropriate outbound access policies](../../../workloads/how-to/access-policies.md#send-requests-to-external-endpoints) to access the external API endpoints.
+[Configure appropriate outbound access policies](../../../workloads/how-to/access-policies.md#send-requests-to-external-addresses) to access the external API endpoints.
 
 ## Acquire token
 

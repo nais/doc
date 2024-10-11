@@ -155,7 +155,7 @@ tags: [naisdevice, how-to]
 When you have opened naisdevice, you may be concerned that nothing happened. The little naisdevice icon has appeared in your Systray (where all your small program icons are located - see above picture for how it looks on Mac):
 
 1. Find your `naisdevice` icon (pictured above - though it should not be red at first attempted connection).
-- Can't find the icon? Make sure it is installed (See [macOS](#macos-installation), [Windows](#windows-installation) or [Ubuntu](#ubuntu-installation))
+    - Can't find the icon? Make sure it is installed (See [macOS](#__tabbed_1_2), [Windows (Scoop)](#__tabbed_1_1) or [Ubuntu](#__tabbed_1_4))
 2. Left-click it and select `Connect`.
 3. Left-click the `naisdevice` icon again and click `Connect`.
-You might need to allow ~20 seconds to pass before clicking `Connect` turns your `naisdevice` icon green.
+    - You might need to allow ~20 seconds to pass before clicking `Connect` turns your `naisdevice` icon green.

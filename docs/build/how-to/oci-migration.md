@@ -173,7 +173,7 @@ to [The GitHub Blog Post](https://github.blog/changelog/2021-04-20-github-action
 The use of `secrets.NAIS_DEPLOY_APIKEY` is deprecated, and will be removed in the future.
 
 For more information on how to authorize your workflow, please refer
-to [Authorize your workflow](build-and-deploy.md#1-authorize-your-github-repository-for-deployment)
+to [Authorize your workflow](build-and-deploy.md#authorize-your-github-repository-for-deployment).
 
 ### Finalized workflow
 
