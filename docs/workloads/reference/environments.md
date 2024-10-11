@@ -17,9 +17,9 @@ We also enumerate the external IPs used by the environments, so that you can pro
 #### Ingress domains
 
 | domain             | accessible from                                              | notes                                                              |
-|:-------------------|:-------------------------------------------------------------|--------------------------------------------------------------------|
-| ekstern.dev.nav.no | internet                                                     | URLs containing `/metrics`, `/actuator` or `/internal` are blocked | 
-| intern.dev.nav.no  | NAV internal networks (including [naisdevice])               |                                                                    | 
+| :----------------- | :----------------------------------------------------------- | ------------------------------------------------------------------ |
+| ekstern.dev.nav.no | internet                                                     | URLs containing `/metrics`, `/actuator` or `/internal` are blocked |
+| intern.dev.nav.no  | NAV internal networks (including [naisdevice])               |                                                                    |
 | ansatt.dev.nav.no  | internet, only for authenticated humans on compliant devices | URLs containing `/metrics`, `/actuator` or `/internal` are blocked |
 
 See [explanation for exposing application][expose-app] for more information.
@@ -30,15 +30,19 @@ See [explanation for exposing application][expose-app] for more information.
 - 34.88.219.93
 - 35.228.165.176
 
+#### Kubectl access
+
+Kubectl access to the cluster is available through [naisdevice](../../operate/naisdevice/README.md). You can access all namespaces in the cluster, but you can only modify resources in your team's namespace.
+
 ### prod-gcp
 
 #### Ingress domains
 
 | domain        | accessible from                                              | notes                                                              |
-|:--------------|:-------------------------------------------------------------|--------------------------------------------------------------------|
+| :------------ | :----------------------------------------------------------- | ------------------------------------------------------------------ |
 | nav.no        | internet                                                     | URLs containing `/metrics`, `/actuator` or `/internal` are blocked |
-| intern.nav.no | NAV internal networks (including [naisdevice])               |                                                                    | 
-| ansatt.nav.no | internet, only for authenticated humans on compliant devices | URLs containing `/metrics`, `/actuator` or `/internal` are blocked | 
+| intern.nav.no | NAV internal networks (including [naisdevice])               |                                                                    |
+| ansatt.nav.no | internet, only for authenticated humans on compliant devices | URLs containing `/metrics`, `/actuator` or `/internal` are blocked |
 
 See [explanation for exposing application][expose-app] for more information.
 
@@ -48,32 +52,43 @@ See [explanation for exposing application][expose-app] for more information.
 - 35.228.12.134
 - 35.228.189.194
 
+#### Kubectl access
+
+Kubectl access to the cluster is available through [naisdevice](../../operate/naisdevice/README.md). You can only read or modify resources in your team's namespace.
 
 ## On-prem
 
 !!! warning
 
-    This is a legacy environment, and is not recommended for new workloads. 
+    This is a legacy environment, and is not recommended for new workloads.
 
 ### dev-fss
 
 #### Ingress domains
 
 | domain              | accessible from | description                                                                                          |
-|:--------------------|:----------------|:-----------------------------------------------------------------------------------------------------|
+| :------------------ | :-------------- | :--------------------------------------------------------------------------------------------------- |
 | intern.dev.nav.no   | [naisdevice]    | development ingress for internal applications. Also available in dev-gcp, use this to ease migration |
 | dev-fss-pub.nais.io | GCP             | See [How do I reach an application found on-premises from my application in GCP?][on-prem]           |
+
+#### Kubectl access
+
+Kubectl access to the cluster is available through [naisdevice](../../operate/naisdevice/README.md). You can access all namespaces in the cluster, but you can only modify resources in your team's namespace.
 
 ### prod-fss
 
 #### Ingress domains
 
 | domain               | accessible from | description                                                                                                                                                                |
-|:---------------------|:----------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| :------------------- | :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | intern.nav.no        | [naisdevice]    | ingress for internal applications (supersedes nais.adeo.no). Also available in prod-gcp, use this to ease migration. Requires [JITA][naisdevice-jita] to `onprem-k8s-prod` |
 | prod-fss-pub.nais.io | GCP             | See [How do I reach an application found on-premises from my application in GCP?][on-prem]                                                                                 |
 
 [on-prem]: ../explanations/migrating-to-gcp.md#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp
+
+#### Kubectl access
+
+Kubectl access to the cluster is available through [naisdevice](../../operate/naisdevice/README.md) with just in time access ([jita](../../operate/naisdevice/explanations/jita.md)). You can only read or modify  resources in your team's namespace.
 
 {% endif %}
 {% if tenant() == "ssb" %}
@@ -81,12 +96,12 @@ See [explanation for exposing application][expose-app] for more information.
 
 #### Domains
 
-| domain                             | accessible from          | description                                                                                                       |
-|:-----------------------------------|:-------------------------|:------------------------------------------------------------------------------------------------------------------|
-| external.test.ssb.cloud.nais.io    | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
-| test.ssb.no                        | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
-| test.ssb.cloud.nais.io             | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
-| intern.test.ssb.no                 | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
+| domain                          | accessible from          | description                                                                                                       |
+| :------------------------------ | :----------------------- | :---------------------------------------------------------------------------------------------------------------- |
+| external.test.ssb.cloud.nais.io | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| test.ssb.no                     | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| test.ssb.cloud.nais.io          | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
+| intern.test.ssb.no              | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
 
 #### External/outbound IPs
 
@@ -97,7 +112,7 @@ See [explanation for exposing application][expose-app] for more information.
 #### Domains
 
 | domain                          | accessible from | description                                                                                                       |
-|:--------------------------------|:----------------|:------------------------------------------------------------------------------------------------------------------|
+| :------------------------------ | :-------------- | :---------------------------------------------------------------------------------------------------------------- |
 | external.prod.ssb.cloud.nais.io | internet        | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
 | ssb.no                          | internet        | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
 | prod.ssb.cloud.nais.io          | [naisdevice]    | ingress for internal applications                                                                                 |
