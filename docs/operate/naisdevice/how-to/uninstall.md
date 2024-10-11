@@ -4,59 +4,62 @@ tags: [naisdevice, how-to]
 
 # Uninstall naisdevice
 
-## OS-specific Uninstall steps
-
 {% if tenant() == "nav" %}
 
-### macOS uninstall
+## OS-specific Uninstall steps
 
-1. Stop and remove Kolide and the related launch mechanisms
-    ```zsh
-    sudo /bin/launchctl unload /Library/LaunchDaemons/com.kolide-k2.launcher.plist
-    sudo /bin/rm -f /Library/LaunchDaemons/com.kolide-k2.launcher.plist
-    ```
-2. Delete files, configuration and binaries
-    ```zsh
-    sudo /bin/rm -rf /usr/local/kolide-k2
-    sudo /bin/rm -rf /etc/kolide-k2
-    sudo /bin/rm -rf /var/kolide-k2
-    ```
-3. Uninstall the naisdevice Homebrew cask
-    ```bash
-    brew uninstall --force naisdevice
-    ```
+=== "macOS"
 
-### Windows uninstall
+    1. Stop and remove Kolide and the related launch mechanisms
+        ```zsh
+        sudo /bin/launchctl unload /Library/LaunchDaemons/com.kolide-k2.launcher.plist
+        sudo /bin/rm -f /Library/LaunchDaemons/com.kolide-k2.launcher.plist
+        ```
+    2. Delete files, configuration and binaries
+        ```zsh
+        sudo /bin/rm -rf /usr/local/kolide-k2
+        sudo /bin/rm -rf /etc/kolide-k2
+        sudo /bin/rm -rf /var/kolide-k2
+        ```
+    3. Uninstall the naisdevice Homebrew cask
+        ```bash
+        brew uninstall --force naisdevice
+        ```
 
-1. Uninstall _Kolide_ from Apps & Features 
-2. (Optionally) Uninstall _WireGuard_ from Apps & Features
-3. Uninstall naisdevice
-   * Installed with Scoop
-     ```powershell
-     scoop uninstall naisdevice
-     ```
-   * Installed manually
-     * Uninstall _naisdevice_ from Apps & Features
+=== "Windows (Scoop)"
 
-### Ubuntu uninstall
+    1. Uninstall _Kolide_ from Apps & Features
+    2. (Optionally) Uninstall _WireGuard_ from Apps & Features
+    3. Uninstall naisdevice
+        ```powershell
+        scoop uninstall naisdevice
+        ```
 
-1. Stop and remove Kolide and the related launch mechanisms
-    ```bash
-    sudo systemctl stop launcher.kolide-k2.service
-    sudo systemctl disable launcher.kolide-k2.service
-    ```
-2. Uninstall Kolide program files
-    ```bash
-    sudo apt(-get) remove launcher-kolide-k2
-    ```
-3. Delete Kolide files & caches
-    ```bash
-    sudo rm -r /{etc,var}/kolide-k2
-    ```
-4. Uninstall the naisdevice deb package
-    ```bash
-    sudo apt remove naisdevice
-    ```
+=== "Windows (Manual)"
+
+    1. Uninstall _Kolide_ from Apps & Features
+    2. (Optionally) Uninstall _WireGuard_ from Apps & Features
+    3. Uninstall _naisdevice_ from Apps & Features
+
+=== "Ubuntu"
+
+    1. Stop and remove Kolide and the related launch mechanisms
+        ```bash
+        sudo systemctl stop launcher.kolide-k2.service
+        sudo systemctl disable launcher.kolide-k2.service
+        ```
+    2. Uninstall Kolide program files
+        ```bash
+        sudo apt(-get) remove launcher-kolide-k2
+        ```
+    3. Delete Kolide files & caches
+        ```bash
+        sudo rm -r /{etc,var}/kolide-k2
+        ```
+    4. Uninstall the naisdevice deb package
+        ```bash
+        sudo apt remove naisdevice
+        ```
 
 ## OS-agnostic uninstall steps
 
@@ -65,31 +68,33 @@ This is necessary so that the record of your device can be purged from our Kolid
 
 {% else %}
 
-### macOS uninstall
+=== "macOS"
 
-Uninstall the naisdevice Homebrew cask
+    Uninstall the naisdevice Homebrew cask
 
-```bash
-brew uninstall --force naisdevice
-```
+    ```bash
+    brew uninstall --force naisdevice-tenant
+    ```
 
-### Windows uninstall
+=== "Windows (Scoop)"
 
-1. (Optionally) Uninstall _WireGuard_ from Apps & Features
-2. Uninstall naisdevice
-    * Installed with Scoop
-      ```powershell
-      scoop uninstall naisdevice
-      ```
-    * Installed manually
-        * Uninstall _naisdevice_ from Apps & Features
+    1. (Optionally) Uninstall _WireGuard_ from Apps & Features
+    2. Uninstall naisdevice
+        ```powershell
+        scoop uninstall naisdevice-tenant
+        ```
 
-### Ubuntu uninstall
+=== "Windows (Manual)"
 
-Uninstall the naisdevice deb package
+    1. (Optionally) Uninstall _WireGuard_ from Apps & Features
+    2. Uninstall _naisdevice_ from Apps & Features
 
-```bash
-sudo apt remove naisdevice
-```
+=== "Ubuntu"
+
+    Uninstall the naisdevice deb package
+
+    ```bash
+    sudo apt remove naisdevice-tenant
+    ```
 
 {% endif %}

@@ -67,9 +67,7 @@ tags: [naisdevice, how-to]
     1. Use `<Command> + <Space>` to find your `naisdevice.app` and press `<Enter>`.
     1. Follow the [instructions to connect your _nais_ device](#connect-naisdevice-through-tasksys-tray-icon).
 
-=== "Windows"
-
-    #### Install using Scoop
+=== "Windows (Scoop)"
 
     {% if tenant() == "nav" %}
 
@@ -106,7 +104,7 @@ tags: [naisdevice, how-to]
     (you will be asked for administrator access to run the installer)
     1. Start _naisdevice_ from the _Start menu_
 
-=== "Manual"
+=== "Winows (Manual)"
 
     {% if tenant() == "nav" %}
 
