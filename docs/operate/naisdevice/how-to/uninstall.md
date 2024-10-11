@@ -23,22 +23,22 @@ tags: [naisdevice, how-to]
         ```
     3. Uninstall the naisdevice Homebrew cask
         ```bash
-        brew uninstall --force naisdevice
+        brew uninstall --force <<naisdevice_name()>>
         ```
 
 === "Windows (Scoop)"
 
-    1. Uninstall _Kolide_ from Apps & Features
-    2. (Optionally) Uninstall _WireGuard_ from Apps & Features
+    1. Uninstall _Kolide_ from Apps & Features.
+    2. (Optionally) Uninstall _WireGuard_ from Apps & Features.
     3. Uninstall naisdevice
         ```powershell
-        scoop uninstall naisdevice
+        scoop uninstall <<naisdevice_name()>>
         ```
 
 === "Windows (Manual)"
 
-    1. Uninstall _Kolide_ from Apps & Features
-    2. (Optionally) Uninstall _WireGuard_ from Apps & Features
+    1. Uninstall _Kolide_ from Apps & Features.
+    2. (Optionally) Uninstall _WireGuard_ from Apps & Features.
     3. Uninstall _naisdevice_ from Apps & Features
 
 === "Ubuntu"
@@ -58,7 +58,7 @@ tags: [naisdevice, how-to]
         ```
     4. Uninstall the naisdevice deb package
         ```bash
-        sudo apt remove naisdevice
+        sudo apt remove <<naisdevice_name()>>
         ```
 
 ## OS-agnostic uninstall steps
@@ -70,31 +70,30 @@ This is necessary so that the record of your device can be purged from our Kolid
 
 === "macOS"
 
-    Uninstall the naisdevice Homebrew cask
-
+    1. Open a Terminal window.
+    2. Run the following command:
     ```bash
-    brew uninstall --force naisdevice-tenant
+    brew uninstall --force <<naisdevice_name()>>
     ```
 
 === "Windows (Scoop)"
 
-    1. (Optionally) Uninstall _WireGuard_ from Apps & Features
-    2. Uninstall naisdevice
-        ```powershell
-        scoop uninstall naisdevice-tenant
-        ```
+    1. (Optionally) Uninstall _WireGuard_ from Apps & Features.
+    2. Uninstall naisdevice.
+    ```powershell
+    scoop uninstall <<naisdevice_name()>>
+    ```
 
 === "Windows (Manual)"
 
-    1. (Optionally) Uninstall _WireGuard_ from Apps & Features
-    2. Uninstall _naisdevice_ from Apps & Features
+    1. (Optionally) Uninstall _WireGuard_ from Apps & Features.
+    2. Uninstall `<<naisdevice_name()>>.exe` from Apps & Features.
 
 === "Ubuntu"
 
-    Uninstall the naisdevice deb package
-
+    1. Open a Terminal window.
+    2. Run the following command:
     ```bash
-    sudo apt remove naisdevice-tenant
+    sudo apt remove <<naisdevice_name()>>
     ```
-
 {% endif %}

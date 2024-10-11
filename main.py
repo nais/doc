@@ -20,3 +20,10 @@ def define_env(env):
                 {feature} is only available in GCP clusters, and will not work in on-prem clusters.    
             """)
         return ""
+
+    @env.macro
+    def naisdevice_name():
+        if tenant() == "nav":
+            return "naisdevice"
+
+        return "naisdevice-tenant"

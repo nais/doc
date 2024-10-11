@@ -6,66 +6,33 @@ tags: [naisdevice, how-to]
 
 === "macOS"
 
+    {% if tenant() == "nav" %}
     1. Request privileges by running `Privileges.app`
+	{% endif %}
     2. Open a Terminal window.
     3. Run the following command:
-
-    {% if tenant() == "nav" %}
-
     ```bash
-    brew update && brew upgrade naisdevice
+    brew update && brew upgrade <<naisdevice_name()>>
     ```
-    {% else %}
-
-    ```bash
-    brew update && brew upgrade naisdevice-tenant
-    ```
-
-    {% endif %}
 
 === "Windows (Scoop)"
 
-    {% if tenant() == "nav" %}
-
+    1. Open a Terminal window.
+    2. Run the following command:
     ```powershell
-    scoop update naisdevice
+    scoop update <<naisdevice_name()>>
     ```
-
-    {% else %}
-
-    ```powershell
-    scoop update naisdevice-tenant
-    ```
-
-    {% endif %}
 
 === "Windows (Manual)"
 
-    {% if tenant() == "nav" %}
-
-    Download and run the newest [naisdevice installer](https://github.com/nais/device/releases/latest) \(naisdevice.exe\).
-
-    {% else %}
-
-    Download and run the newest [naisdevice installer](https://github.com/nais/device/releases/latest) \(naisdevice-tenant.exe\).
-
-    {% endif %}
+	1. Open a browser.
+	2. Go to [github.com/naid/device](https://github.com/nais/device/releases/latest).
+    3. Download and run the newest `<<naisdevice_name()>>.exe` installer.
 
 === "Ubuntu"
 
     1. Open a Terminal window.
     2. Run the following command:
-
-    {% if tenant() == "nav" %}
-
-    ```shell
-    apt-get install --only-upgrade naisdevice
+    ```bash
+	apt-get install --only-upgrade <<naisdevice_name()>>
     ```
-
-    {% else %}
-
-    ```shell
-    apt-get install --only-upgrade naisdevice-tenant
-    ```
-
-    {% endif %}
