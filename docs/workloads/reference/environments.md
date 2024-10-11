@@ -54,7 +54,7 @@ See [explanation for exposing application][expose-app] for more information.
 
 #### Kubectl access
 
-Kubectl access to the cluster is available through [naisdevice](../../operate/naisdevice/README.md). You can access all namespaces in the cluster, but you can only modify resources in your team's namespace.
+Kubectl access to the cluster is available through [naisdevice](../../operate/naisdevice/README.md). You can only read or modify resources in your team's namespace.
 
 ## On-prem
 
@@ -88,7 +88,7 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 
 #### Kubectl access
 
-Kubectl access to the cluster is available through [naisdevice](../../operate/naisdevice/README.md) with just in time access ([jita](../../operate/naisdevice/explanations/jita.md)). You can only read or mody modify resources in your team's namespace.
+Kubectl access to the cluster is available through [naisdevice](../../operate/naisdevice/README.md) with just in time access ([jita](../../operate/naisdevice/explanations/jita.md)). You can only read or modify  resources in your team's namespace.
 
 {% endif %}
 {% if tenant() == "ssb" %}
