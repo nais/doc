@@ -16,7 +16,7 @@ This how-to guide shows you how to upload assets to the [CDN](../README.md).
 
 1. Open [NAIS console](https://console.<<tenant()>>.cloud.nais.io) in your browser and select your team.
 2. Select the `Repositories` tab
-3. Find the repository you want to deploy from, and click `Authorize`
+3. Input your repository (`organization/repository`) and press `Add`.
 
 ## Upload assets with the CDN action
 
@@ -30,7 +30,7 @@ In your Github Workflow, add the following step to upload your assets to the CDN
 
 
 ```yaml
-name: 'push-to-cdn'
+name: Push to CDN
 
 on:
   push:
@@ -57,20 +57,17 @@ jobs:
 {%- endif %}
           source: <The path to your build folder or assets>
           destination: <A destination you pick, like /my-app/dist>
-          # project_id and identity_provider must be included, and they
-          # are provided as organization secret/variables.
-          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
-          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # Provided as Organization Secret
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # Provided as Organization Variable
   
       - run: echo uploaded file ${{ steps.upload.outputs.uploaded }}
-        shell: bash
 ```
 
 For more information on the inputs and outputs of the action, see the [CDN reference](../reference/README.md).
 
 ## Use the uploaded assets
 
-The assets from the CDN will be available at 
+The assets from the CDN will be available at:
 
 {% if tenant() == "nav" %}
 ```
@@ -78,18 +75,13 @@ https://cdn.nav.no/<team>/<destination>
 ```
 
 and
-
-```
-https://cdn.<<tenant()>>.cloud.nais.io/<team>/<destination>
-```
-{% else %}
-```
-https://cdn.<<tenant()>>.cloud.nais.io/<team>/<destination>
-```
 {% endif %}
 
-CORS is automatically configured to accept `GET` from any
-origin (*).
+```
+https://cdn.<<tenant()>>.cloud.nais.io/<team>/<destination>
+```
+
+CORS is automatically configured to accept `GET` from any origin (*).
 
 ## Related pages
 

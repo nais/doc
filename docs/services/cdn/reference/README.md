@@ -80,4 +80,4 @@ The action accepts the following inputs:
       ...
     ```
 
-    will be available in future steps as `${{ steps.upload-cdn.outputs.uploaded }}`
+    will be available in future steps as `${{ steps.upload-cdn.outputs.uploaded }}`.
