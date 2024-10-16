@@ -323,7 +323,6 @@ spec:
     - format: env
       kvPath: /kv/preprod/fss/application/namespace
       mountPath: /var/run/secrets/nais.io/vault
-    sidecar: true
   webproxy: true
 status: {}
 ```

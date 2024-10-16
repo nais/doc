@@ -5657,7 +5657,6 @@ Availability: on-premises<br />
           - format: env
             kvPath: /kv/preprod/fss/application/namespace
             mountPath: /var/run/secrets/nais.io/vault
-        sidecar: true
     ```
 
 ### vault.enabled
@@ -5747,19 +5746,6 @@ Required: `true`<br />
           - format: env
             kvPath: /kv/preprod/fss/application/namespace
             mountPath: /var/run/secrets/nais.io/vault
-    ```
-
-### vault.sidecar
-If enabled, the sidecar will automatically refresh the token's Time-To-Live before it expires.
-
-Type: `boolean`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      vault:
-        sidecar: true
     ```
 
 ## webproxy
