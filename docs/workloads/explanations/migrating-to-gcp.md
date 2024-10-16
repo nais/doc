@@ -219,9 +219,9 @@ A PVK is not a unique requirement for GCP, so all applications should already ha
 [secrets]: ../../services/secrets/README.md
 [auth]: ../../auth/README.md
 [tokenx]: ../../auth/tokenx/README.md
-[tokenx-access]: ../../auth/tokenx/how-to/secure.md#grant-access
+[tokenx-access]: ../../auth/tokenx/how-to/secure.md#grant-access-to-consumers
 [entra-id]: ../../auth/entra-id/README.md
-[entra-id-access]: ../../auth/entra-id/how-to/secure.md#grant-access
+[entra-id-access]: ../../auth/entra-id/how-to/secure.md#grant-access-to-consumers
 [access-policies]: ../how-to/access-policies.md
 [roles-responsibilites]: ../../legal/roles-responsibilities.md
 [pvk]: ../../legal/app-pvk.md
