@@ -71,3 +71,4 @@ Among many others:
 
 :dart: [manage CDN assets](how-to/manage-assets.md)
 
+:dart: [SPA deploy](how-to/spa-deploy.md)
