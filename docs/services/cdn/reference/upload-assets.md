@@ -1,17 +1,11 @@
 ---
-title: Content Delivery Network Reference
-tags: [cdn, reference]
+tags: [cdn, upload, reference]
+title: CDN Upload Action
 ---
 
-# Content Delivery Network reference
+This is the reference documentation for the [CDN Upload GitHub action](../how-to/upload-assets.md).
 
-This is the reference documentation for the [CDN](../README.md) service.
-
-## CDN Deploy Action
-
-Reference documentation for the [CDN GitHub action](https://github.com/nais/deploy/blob/master/actions/cdn-upload/v2/action.yaml).
-
-### Inputs
+## Inputs
 
 The action accepts the following inputs:
 
@@ -64,7 +58,7 @@ The action accepts the following inputs:
 
     Default value: `<empty>`
 
-### Outputs
+## Outputs
 
 `uploaded`
 

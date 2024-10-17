@@ -63,7 +63,7 @@ jobs:
       - run: echo uploaded file ${{ steps.upload.outputs.uploaded }}
 ```
 
-For more information on the inputs and outputs of the action, see the [CDN reference](../reference/README.md).
+For more information on the inputs and outputs of the action, see the [CDN Upload action reference](../reference/upload-assets.md).
 
 ## Use the uploaded assets
 
