@@ -69,10 +69,10 @@ https://cdn.nav.no/<team>/<app>/<env>/
 If you want your app exposed on multiple ingresses you can use a comma separated list in the `ingress` field:
 
 ```yaml
-      - uses: nais/deploy/actions/spa-deploy/v2@master
-        with:
-          ...
-          ingress: https://team.nav.no/my-frontend,https://team.nav.no/my-other-ingress
+- uses: nais/deploy/actions/spa-deploy/v2@master
+  with:
+    ...
+    ingress: https://team.nav.no/my-frontend,https://team.nav.no/my-other-ingress
 ```
 
 ### Custom ingress
@@ -104,10 +104,10 @@ PUBLIC_URL=https://cdn.nav.no/<team>/<app>/<env>/
 - Or with an `env` in your GitHub Actions when you run `npm run build`:
 
 ```yaml
-    steps:
-      - run: npm run build
-        env:
-          PUBLIC_URL: https://cdn.nav.no/<team>/<app>/<env>
+steps:
+  - run: npm run build
+    env:
+      PUBLIC_URL: https://cdn.nav.no/<team>/<app>/<env>
 ```
 
 * <https://create-react-app.dev/docs/advanced-configuration/>
