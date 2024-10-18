@@ -43,10 +43,13 @@ To consume an API on behalf of an employee, you'll need to exchange their token 
 
 ```mermaid
 graph LR
-  Consumer["User / Consumer API"] --"request with \n employee token"--> Application[Your app]
-  Application --1. exchange \nemployee token---> AAD["Entra ID"]
-  AAD --2. issue new token \nfor Other API---> Application
-  Application --3. use new token ---> OtherAPI["Other API"]
+  Consumer["User / Consumer API"] -- "`request with
+  employee token`" --> Application["Your app"]
+  Application -- "`exchange
+  employee token`" ----> AAD["Entra ID"]
+  AAD -- "`issue new token
+  for Other API`" ----> Application
+  Application -- use new token ----> OtherAPI["Other API"]
 ```
 
 The new token preserves the employee's identity context and is only valid for the specific API you want to access.
@@ -61,9 +64,11 @@ To consume an API as the application itself, you'll need to acquire a token:
 
 ```mermaid
 graph LR
-  Application["Your app"] --1. request token---> AzureAD["Entra ID"]
-  AzureAD --2. return token---> Application
-  Application --3. use token---> API["Other API"]
+  Application["Your app"] -- "`request token
+  for Other API`" ---> AzureAD["Entra ID"]
+  AzureAD -- "`issue new token
+  for Other API`" ---> Application
+  Application -- "`use new token`" ---> API["Other API"]
 ```
 
 :dart: [**Learn how to consume an API as an application**](how-to/consume-m2m.md)

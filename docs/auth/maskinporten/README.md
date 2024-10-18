@@ -17,9 +17,9 @@ To consume an external API secured with Maskinporten, you'll need to acquire a [
 
 ```mermaid
 graph LR
-  Consumer["Application"] --1. request token---> Maskinporten
-  Maskinporten --2. return token---> Consumer
-  Consumer --3. use token---> API["External API"]
+  Consumer["Application"] -- request token ---> Maskinporten
+  Maskinporten -- issue new token ---> Consumer
+  Consumer -- use token ---> API["External API"]
 ```
 
 :dart: [**Learn how to consume an external API using Maskinporten**](how-to/consume.md)

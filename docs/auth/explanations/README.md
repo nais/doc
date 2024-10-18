@@ -613,8 +613,9 @@ graph LR
   style Proxy stroke:#0f0,stroke-dasharray: 5
   style Application stroke:#f00
     
-  U((User)) -- "request" ---> Proxy["Login proxy"]
-  Proxy -. "proxy request\n as-is" -..-> Application
+  U((User)) -- "request" --> Proxy["Login proxy"]
+  Proxy -. "`proxy request
+  as-is`" .-> Application
 ```
 
 To log in an end-user, redirect them to the [login endpoint](../reference/README.md#login-endpoint).
@@ -624,16 +625,16 @@ The session identifier is then stored in the user's browser as a cookie.
 
 ```mermaid
 graph LR
-  IDP[Identity Provider]
-  style Proxy stroke:#0f0,stroke-dasharray: 5
-  style IDP stroke:#f00
+    style Proxy stroke:#0f0,stroke-dasharray: 5
+    IDP[Identity Provider]
+    style IDP stroke:#f00
 
-  U((User)) -- "/oauth2/login" --> Proxy["Login proxy"]
+    U((User)) -- "/oauth2/login" --> Proxy["Login proxy"]
 
-  subgraph OIDC["OpenID Connect Authorization Code Flow"]
-    IDP -- "redirect callback" ---> Proxy
-    Proxy -- "redirect to log in" ---> IDP
-  end
+    subgraph OIDC["OIDC Auth Code Flow"]
+        IDP -- "redirect callback" ---> Proxy
+        Proxy -- "redirect to log in" ---> IDP
+    end
 ```
 
 When the user makes a request to your application's ingress, the proxy intercepts the request and checks for the session cookie.
@@ -647,8 +648,9 @@ graph LR
 
   subgraph Session["Authenticated Session"]
     direction LR
-    U((User)) -- "request" ---> Proxy["Login proxy"]
-    Proxy -. "proxy request\n with token" -..-> Application
+    U((User)) -- "request" --> Proxy["Login proxy"]
+    Proxy -. "`proxy request
+    with token`" .-> Application
   end
 ```
 

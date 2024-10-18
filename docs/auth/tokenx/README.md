@@ -20,10 +20,13 @@ The new token preserves the citizen's identity context and is only valid for the
 
 ```mermaid
 graph LR
-  Consumer["User / Consumer API"] --"request with\ncitizen token"--> Application[Your app]
-  Application --1. exchange \ncitizen token---> TokenX
-  TokenX --2. return new token\nfor Other API---> Application
-  Application --3. use new token---> Other["Other API"]
+  Consumer["User / Consumer API"] -- "`request with
+  citizen token`" --> Application[Your app]
+  Application -- "`exchange
+  citizen token`" ---> TokenX
+  TokenX -- "`issue new token
+  for Other API`" ---> Application
+  Application -- use new token ---> Other["Other API"]
 ```
 
 :dart: [**Learn how to consume an internal API on behalf of a citizen**](how-to/consume.md)
