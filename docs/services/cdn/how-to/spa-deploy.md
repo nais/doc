@@ -75,6 +75,19 @@ If you want your app exposed on multiple ingresses you can use a comma separated
           ingress: https://team.nav.no/my-frontend,https://team.nav.no/my-other-ingress
 ```
 
+### Custom ingress
+
+If you have your own domain that you want to host your SPA on, you need to supply the action with `ingressClass` and `cluster`.
+
+```yaml
+- uses: nais/deploy/actions/spa-deploy/v2@master
+  with:
+    ...
+    ingress: https://you-domain.no
+    ingressClass: nais-ingress-external
+    cluster: prod-gcp
+```
+
 ## App configuration
 
 ### Create React App
