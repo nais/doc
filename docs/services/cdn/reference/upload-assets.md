@@ -63,7 +63,7 @@ The action accepts the following inputs:
 `uploaded`
 
 :   List of successfully uploaded files.
-    
+
     Available as `${{ steps.<job-id>.outputs.uploaded }}`
     For example:
 

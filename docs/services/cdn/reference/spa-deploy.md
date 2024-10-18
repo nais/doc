@@ -36,3 +36,21 @@ The action accepts the following inputs:
 `identity_provider`
 
 :   **Required**. Set this to `${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}`.
+
+## Outputs
+
+`url`
+
+:   The URL for the Single Page Application.
+
+    Available as `${{ steps.<job-id>.outputs.url }}`
+    For example:
+
+    ```yaml
+    - id: spa-deploy
+      name: Deploy SPA
+      uses: nais/deploy/actions/spa-deploy/v2@master
+      ...
+    ```
+
+    will be available in future steps as `${{ steps.spa-deploy.outputs.url }}`.
