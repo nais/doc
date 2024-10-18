@@ -77,7 +77,7 @@ If you want your app exposed on multiple ingresses you can use a comma separated
 
 ### Custom ingress
 
-If you have your own domain that you want to host your SPA on, you need to supply the action with `ingressClass` and `cluster`.
+If you have your own domain that you want to host your SPA on, you need to supply the action with `ingressClass` and set the `environment`-field to the cluster you want to deploy to.
 
 ```yaml
 - uses: nais/deploy/actions/spa-deploy/v2@master
@@ -85,7 +85,7 @@ If you have your own domain that you want to host your SPA on, you need to suppl
     ...
     ingress: https://you-domain.no
     ingressClass: nais-ingress-external
-    cluster: prod-gcp
+    environment: prod-gcp
 ```
 
 ## App configuration

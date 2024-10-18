@@ -24,6 +24,7 @@ The action accepts the following inputs:
 `environment`
 
 :   **Required**. Environment, for separating different versions of the app (free text field).
+For custom domains the `environment` must be the cluster you want to deploy to.
 
 `ingress`
 
@@ -32,10 +33,6 @@ The action accepts the following inputs:
 `ingressClass`
 
 :   **Optional**. The `ingressClass` for your custom domain.
-
-`cluster`
-
-:   **Optional**. The cluster to deploy your SPA in.
 
 `project_id`
 
