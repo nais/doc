@@ -591,7 +591,7 @@ verify the signature of your client assertions as proof of your client's identit
 
 ---
 
-## Login proxy
+## Login proxy (Wonderwall)
 
 NAIS offers an opt-in _login proxy_ (also known as _Wonderwall_) that simplifies the process of authenticating end-users in your application.
 
