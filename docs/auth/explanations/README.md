@@ -4,6 +4,8 @@ tags: [auth, explanation]
 
 # Auth concepts
 
+{%- if tenant() == "nav" %}
+
 This page describes basic concepts and glossary commonly referred to when working with authentication and authorization.
 
 Most of the documentation later on assumes that you are familiar with these concepts,
@@ -704,3 +706,5 @@ See the [autologin reference](../reference/README.md#autologin) for details.
 - <https://connect2id.com/learn/oauth-2>
 - <https://infosec.mozilla.org/guidelines/iam/openid_connect.html>
 - <https://pragmaticwebsecurity.com/files/cheatsheets/oauth2securityfordevelopers.pdf>
+
+{%- endif %}

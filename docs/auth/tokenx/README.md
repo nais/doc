@@ -1,5 +1,6 @@
 ---
 tags: [auth, tokenx, services, explanation]
+conditional: [tenant, nav]
 ---
 
 # TokenX

@@ -1,4 +1,5 @@
 title: TokenX
+conditional: [tenant, nav]
 nav:
 - README.md
 - 🎯 How-To: how-to

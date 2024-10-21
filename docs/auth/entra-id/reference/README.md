@@ -1,5 +1,6 @@
 ---
 tags: [entra-id, azure-ad, reference]
+conditional: [tenant, nav]
 ---
 
 # Entra ID reference

@@ -1,5 +1,6 @@
 ---
 tags: [entra-id, azure-ad, how-to]
+conditional: [tenant, nav]
 ---
 
 # Consume internal API on behalf of an employee

@@ -1,5 +1,6 @@
 ---
 tags: [tokenx, how-to]
+conditional: [tenant, nav]
 ---
 
 # Secure your API with TokenX

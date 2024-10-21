@@ -2,3 +2,4 @@ nav:
 - consume.md
 - secure.md
 - ...
+conditional: [tenant, nav]

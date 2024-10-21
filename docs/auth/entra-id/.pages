@@ -1,4 +1,5 @@
 title: Entra ID
+conditional: [tenant, nav]
 nav:
 - README.md
 - 💡 Explanations: explanations

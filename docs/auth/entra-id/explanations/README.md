@@ -1,5 +1,6 @@
 ---
 tags: [entra-id, azure-ad, explanations]
+conditional: [tenant, nav]
 ---
 
 # Entra ID concepts

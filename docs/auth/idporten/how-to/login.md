@@ -1,5 +1,6 @@
 ---
 tags: [idporten, how-to]
+conditional: [tenant, nav]
 ---
 
 # Log in a citizen

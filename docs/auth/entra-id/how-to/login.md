@@ -1,5 +1,6 @@
 ---
 tags: [entra-id, azure-ad, how-to]
+conditional: [tenant, nav]
 ---
 
 # Log in an employee

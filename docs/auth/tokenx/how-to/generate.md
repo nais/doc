@@ -1,5 +1,6 @@
 ---
 tags: [tokenx, how-to]
+conditional: [tenant, nav]
 ---
 
 # Generate a token from TokenX for development

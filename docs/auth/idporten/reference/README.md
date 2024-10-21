@@ -1,5 +1,6 @@
 ---
 tags: [idporten, reference]
+conditional: [tenant, nav]
 ---
 
 # ID-porten reference

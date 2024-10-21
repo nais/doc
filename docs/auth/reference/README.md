@@ -4,6 +4,8 @@ tags: [auth, reference]
 
 # Auth reference
 
+{%- if tenant() == "nav" %}
+
 ## Libraries for mocking
 
 - <https://github.com/navikt/mock-oauth2-server>
@@ -457,7 +459,6 @@ The timeout is reset each time the user's session is refreshed through the [sess
 
 If inactivity timeout is not enabled, the tokens within the session are automatically refreshed until the session reaches its maximum lifetime.
 
-{%- if tenant() == "nav" %}
 !!! info "Automatic session management for ID-porten"
 
     [nav-dekoratoren](https://github.com/navikt/nav-dekoratoren#utloggingsvarsel) displays warnings for sessions nearing lifetime expiry or inactivity timeout,
@@ -465,8 +466,8 @@ If inactivity timeout is not enabled, the tokens within the session are automati
 
     You do not need to implement your own session management logic if you use `nav-dekoratoren`.
 
-{%- endif %}
-
 The durations for maximum lifetime and inactivity timeout are subject to change.
 Do not hard-code or depend on these exact values in your application.
 Prefer using the metadata returned by the [session endpoint](#session-endpoint) to determine the session's state.
+
+{%- endif %}

@@ -209,6 +209,8 @@ plugins:
         "workloads/reference/ingress.md": "workloads/application/reference/ingress.md"
   - file-filter:
       filter_nav: false
+      exclude_glob:
+        - '**/partials/*' # exclude partials as standalone pages; these are already included in pages through the macros plugin
       metadata_property: conditional # front matter property to use for exclude_tags / include_tags
       exclude_tag: # exclude anything marked with the "tenant" conditional
         - tenant

@@ -1,5 +1,6 @@
 ---
 tags: [entra-id, azure-ad, how-to]
+conditional: [tenant, nav]
 ---
 
 # Generate a token from Entra ID for development

@@ -4,3 +4,4 @@ nav:
 - 🎯 How-To: how-to
 - 📚 Reference: reference
 - ...
+conditional: [tenant, nav]

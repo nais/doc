@@ -1,5 +1,6 @@
 ---
 tags: [maskinporten, reference]
+conditional: [tenant, nav]
 ---
 
 # Maskinporten reference

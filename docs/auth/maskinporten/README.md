@@ -2,6 +2,7 @@
 tags: [auth, maskinporten, services, explanation]
 description: >
   Enabling service-to-service authorization between organizations and businesses using Maskinporten.
+conditional: [tenant, nav]
 ---
 
 # Maskinporten

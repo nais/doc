@@ -1,5 +1,6 @@
 ---
 tags: [maskinporten, how-to]
+conditional: [tenant, nav]
 ---
 
 # Consume external API using Maskinporten

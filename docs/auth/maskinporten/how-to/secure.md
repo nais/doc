@@ -1,5 +1,6 @@
 ---
 tags: [maskinporten, how-to]
+conditional: [tenant, nav]
 ---
 
 # Secure your API with Maskinporten

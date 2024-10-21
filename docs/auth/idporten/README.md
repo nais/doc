@@ -1,5 +1,6 @@
 ---
 tags: [auth, idporten, services, explanation]
+conditional: [tenant, nav]
 ---
 
 # ID-porten

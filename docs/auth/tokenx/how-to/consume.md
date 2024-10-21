@@ -1,5 +1,6 @@
 ---
 tags: [tokenx, how-to]
+conditional: [tenant, nav]
 ---
 
 # Consume internal API on behalf of a citizen

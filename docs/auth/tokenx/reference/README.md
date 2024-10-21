@@ -1,5 +1,6 @@
 ---
 tags: [tokenx, reference]
+conditional: [tenant, nav]
 ---
 
 # TokenX reference
