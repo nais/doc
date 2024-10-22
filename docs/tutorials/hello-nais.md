@@ -130,7 +130,7 @@ Add the following content to the file, and insert the appropriate values in the 
           id-token: write
         steps:
         - uses: actions/checkout@v4
-        - name: Push docker image to GAR
+        - name: Build and push image and SBOM to OCI registry
           uses: nais/docker-build-push@v0
           id: docker-build-push
           with:

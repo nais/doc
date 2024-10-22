@@ -40,7 +40,7 @@ This how-to guide shows you how to build and deploy your application using [Gith
           id-token: write
         steps:
           - uses: actions/checkout@v4
-          - name: Push docker image to GAR
+          - name: Build and push image and SBOM to OCI registry
             uses: nais/docker-build-push@v0
             id: docker-build-push
             with:
