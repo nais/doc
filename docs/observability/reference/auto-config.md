@@ -95,15 +95,17 @@ The OpenTelemetry Java Agent supports many popular libraries, frameworks, applic
 
 When using the OpenTelemetry Java SDK and Agent (auto-instrumentation), the following additional environment variables are available:
 
-| Variable                                                                | Description                                                                                       | Example Value                      |
-| ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------- |
-| `OTEL_JAVAAGENT_EXCLUDE_CLASSES`                                        | Suppresses all instrumentation for specific classes, format is "my.package.MyClass,my.package2.*" | `my.package.MyClass,my.package2.*` |
-| `OTEL_INSTRUMENTATION_SPRING_BOOT_ACTUATOR_AUTOCONFIGURE_ENABLED`       | Enables or disables the Spring Boot Actuator auto-configuration instrumentation                   | `false`                            |
-| `OTEL_INSTRUMENTATION_MICROMETER_ENABLED`                               | Enables or disables the Micrometer instrumentation                                                | `false`                            |
-| `OTEL_INSTRUMENTATION_COMMON_EXPERIMENTAL_CONTROLLER_TELEMETRY_ENABLED` | Enables or disables controller span instrumentation                                               | `false`                            |
-| `OTEL_INSTRUMENTATION_COMMON_EXPERIMENTAL_VIEW_TELEMETRY_ENABLED`       | Enables or disables view span instrumentation                                                     | `false`                            |
+| Variable                                                                | Description                                                                                           | Example Value                      |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| `OTEL_JAVAAGENT_LOGGING`                                                | Controles log output from the Java Agent itself, valid values are `none`, `simple`, and `application` | `simple`                           |
+| `OTEL_JAVAAGENT_EXCLUDE_CLASSES`                                        | Suppresses all instrumentation for specific classes, format is "my.package.MyClass,my.package2.*"     | `my.package.MyClass,my.package2.*` |
+| `OTEL_INSTRUMENTATION_SPRING_BOOT_ACTUATOR_AUTOCONFIGURE_ENABLED`       | Enables or disables the Spring Boot Actuator auto-configuration instrumentation                       | `false`                            |
+| `OTEL_INSTRUMENTATION_MICROMETER_ENABLED`                               | Enables or disables the Micrometer instrumentation                                                    | `false`                            |
+| `OTEL_INSTRUMENTATION_COMMON_EXPERIMENTAL_CONTROLLER_TELEMETRY_ENABLED` | Enables or disables controller span instrumentation                                                   | `false`                            |
+| `OTEL_INSTRUMENTATION_COMMON_EXPERIMENTAL_VIEW_TELEMETRY_ENABLED`       | Enables or disables view span instrumentation                                                         | `false`                            |
 
 * [:octicons-link-external-24: Advanced Java configuration options](https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/docs/advanced-configuration-options.md)
+* [:octicons-link-external-24: Java agent logging output](https://opentelemetry.io/docs/zero-code/java/agent/configuration/#java-agent-logging-output)
 
 ## More OpenTelemetry Configuration
 
