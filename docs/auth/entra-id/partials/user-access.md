@@ -16,9 +16,13 @@ spec:
           - id: "<group identifier>"
 ```
 
+where each group is specified by their unique [identifier](../explanations/README.md#group-identifier).
+
+To find your group's identifier, see [finding the group identifier](../explanations/README.md#finding-the-group-identifier).
+
 !!! warning
 
-    Invalid [group identifiers](../explanations/README.md#group-identifier) are skipped and will not be granted access to your application.
+    Invalid group identifiers are skipped and will not be granted access to your application.
     Ensure that they are correct and exist in Entra ID.
 
 #### All users

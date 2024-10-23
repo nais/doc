@@ -99,11 +99,11 @@ Then, do one of the following:
 
 1. If you either own or are a direct member of the group, visit <https://mygroups.microsoft.com> and find the desired group.
 
-   Browsing the detailed view for the group should reveal the ID in the address bar within the query parameter `objectId`.
+    Browsing the detailed view for the group should reveal the ID in the address bar within the query parameter `objectId`.
 
 2. Otherwise, visit the Groups view in the Entra ID Portal: <https://portal.azure.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/AllGroups>
 
-   You should be able to search and filter the list of groups.
+    You should be able to search and filter the list of groups.
 
-   Consult the `#tech-azure` Slack channel for assistance if you do not have access to this page. Check the pinned/bookmarked posts first.
+    Consult the `#tech-azure` Slack channel for assistance if you do not have access to this page. Check the pinned/bookmarked posts first.
 {%- endif %}
