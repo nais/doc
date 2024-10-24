@@ -707,4 +707,98 @@ See the [autologin reference](../reference/README.md#autologin) for details.
 - <https://infosec.mozilla.org/guidelines/iam/openid_connect.html>
 - <https://pragmaticwebsecurity.com/files/cheatsheets/oauth2securityfordevelopers.pdf>
 
+{%- else %}
+
+## Login proxy
+
+NAIS offers an opt-in _login proxy_ (also known as [_Wonderwall_](https://github.com/nais/wonderwall)) that simplifies the process of authenticating end-users in your application.
+
+When enabled, the proxy exposes [endpoints](../reference/README.md#endpoints) under your application's ingress.
+
+The proxy sits in front of your application and intercepts all incoming requests.
+It does not validate any requests, nor does it validate any tokens attached to the request.
+
+**:dart: Learn [how to authenticate users with the login proxy](../how-to/login.md)**
+
+### How it works
+
+Unauthenticated requests are proxied as-is without modifications:
+
+```mermaid
+graph LR
+  style Proxy stroke:#0f0,stroke-dasharray: 5
+  style Application stroke:#f00
+    
+  U((User)) -- "request" --> Proxy["Login proxy"]
+  Proxy -. "`proxy request
+  as-is`" .-> Application
+```
+
+To log in an end-user, redirect them to the [login endpoint](../reference/README.md#login-endpoint).
+This performs the OpenID Connect Authorization Code Flow with the identity provider.
+After successful login, the proxy creates and stores a session for the end-user.
+The session identifier is then stored in the user's browser as a cookie.
+
+```mermaid
+graph LR
+    style Proxy stroke:#0f0,stroke-dasharray: 5
+    IDP[Identity Provider]
+    style IDP stroke:#f00
+
+    U((User)) -- "/oauth2/login" --> Proxy["Login proxy"]
+
+    subgraph OIDC["OIDC Auth Code Flow"]
+        IDP -- "redirect callback" ---> Proxy
+        Proxy -- "redirect to log in" ---> IDP
+    end
+```
+
+When the user makes a request to your application's ingress, the proxy intercepts the request and checks for the session cookie.
+This is translated to the user's access token. The token is then attached in the `Authorization` header as a Bearer token.
+Finally, the request is forwarded to your application.
+
+```mermaid
+graph LR
+  style Proxy stroke:#0f0,stroke-dasharray: 5
+  style Application stroke:#f00
+
+  subgraph Session["Authenticated Session"]
+    direction LR
+    U((User)) -- "request" --> Proxy["Login proxy"]
+    Proxy -. "`proxy request
+    with token`" .-> Application
+  end
+```
+
+All of this happens on the server side, which means that neither the token nor the header are visible from the user's browser.
+
+The proxy does not validate the access token.
+Validation is your application's responsibility.
+
+### Sessions
+
+When an end-user logs in and authenticates themselves, they receive a session.
+Sessions are stored server-side and are managed by the login proxy.
+
+A session has two possible states:
+
+| State    | Authenticated | Description                                  |
+|----------|:-------------:|----------------------------------------------|
+| Active   |     ✅ Yes     |                                              |
+| Expired  |     ❌ No      | session has reached its _maximum lifetime_   |
+
+Users with an expired session must perform a new login to receive a new, valid session.
+
+See the [session management reference](../reference/README.md#session-management) for details.
+
+### Enforce login
+
+The enforce mode configures the login proxy to enforce authenticated user sessions.
+If enabled, the proxy will short-circuit all unauthenticated requests before they reach your application.
+
+Specific [paths can optionally be excluded from enforcement](../reference/README.md#enforce-mode-exclusions).
+Requests to these paths will pass through the proxy to your application, regardless of session states.
+
+See the [enforce mode reference](../reference/README.md#enforce-login) for details.
+
 {%- endif %}

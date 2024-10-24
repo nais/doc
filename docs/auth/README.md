@@ -97,4 +97,12 @@ The graph above can also be described as:
 [TokenX]: tokenx/README.md
 [Maskinporten]: maskinporten/README.md
 
+{%- else %}
+
+NAIS provides the following services and addons to support authentication and authorization in your applications:
+
+:   [**Login proxy**](explanations/README.md#login-proxy)
+
+     A reverse proxy for authenticating end-users in your application.
+
 {%- endif %}
