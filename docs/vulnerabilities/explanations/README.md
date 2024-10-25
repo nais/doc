@@ -44,7 +44,7 @@ Attestations typically include information such as:
 * 🔐 Verification that the software hasn’t been tampered with
 * 📦 Details about dependencies and their origins
 
-In SLSA, attestations are crucial because they allow organizations to trust the software they are using or distributing.
+In [SLSA](#slsa) attestations are crucial, because they allow organizations to trust the software they are using or distributing.
 These attestations can be checked to ensure that the software supply chain follows the necessary security standards and to reduce
 the risk of supply chain attacks.
 
@@ -56,3 +56,18 @@ these components. An SBOM is essential for understanding what's inside your soft
 and ensure compliance with licensing and security standards. It's like an ingredient list for software, providing transparency and control 
 over what is used in the development process.
 
+## Secure by default images
+
+### Distroless (Google)
+
+[Distroless](https://github.com/GoogleContainerTools/distroless) images are minimal Docker images that include only the dependencies required to run an application.
+Unlike traditional container images, which often include package managers, shells, distroless images contain only 
+essential runtime libraries. This reduces the attack surface, decreases the image size, and enhances security by limiting 
+unnecessary components that could contain vulnerabilities. 
+
+### Chainguard
+
+[Chainguard](https://edu.chainguard.dev/chainguard/chainguard-images/) images designed to be even more minimal than distroless images. 
+They are built with security in mind, using a "zero-trust" approach that minimizes dependencies and aims to eliminate software 
+vulnerabilities from the ground up. Chainguard images focus on transparency, supply chain security, and integrity by using 
+technologies like Sigstore for cryptographic signing and verification. 

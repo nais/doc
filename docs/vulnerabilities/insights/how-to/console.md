@@ -2,7 +2,7 @@
 tags: [ console, vulnerabilities, how-to ]
 ---
 
-# Vulnerability insights in the NAIS Console 
+# Vulnerability insights in Nais Console 
 
 Teams can visit the Console to view their workload vulnerabilities, for example:
 

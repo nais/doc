@@ -3,7 +3,6 @@ name = "doc"
 version = "0.1.0"
 description = "nais developer documentation"
 authors = []
-package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"

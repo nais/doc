@@ -6,20 +6,22 @@ tags: [slsa, salsa, console, vulnerabilities, how-to]
 
 NAIS provides a set of tools and services to help you secure your software supply chain and manage vulnerabilities in your applications.
 
-## DependencyTrack
+## Dependency-track
 
-DependencyTrack is an Component Analysis platform that allows you to identify and reduce risk in the software supply chain.
+Dependency-track is a Component Analysis platform that allows you to identify and reduce risk in the software supply chain.
 [Dependency-Track](https://dependencytrack.org/) operates as a single instance that manages all clusters and stores both
-attestations and vulnerabilities for all signed attestations deployed.
+attestations and vulnerabilities for all signed attestations successfully deployed.
 
-:dart: [**Explore DependencyTrack**](how-to/dependencytrack.md)
+:dart: [**Explore Dependency-track**](how-to/dependencytrack.md)
 
 ## NAIS Console
 
 The NAIS Console is a web-based interface that provides developers and teams with tools to manage, monitor, and
-interact with their applications and resources deployed on the NAIS (NAV Application Infrastructure Services) platform. 
+interact with their worloads and resources deployed on the NAIS (NAV Application Infrastructure Services) platform. 
 It offers a centralized way to view and handle various aspects of workloads, such as:
 
-Vulnerability insights 🛡️: Access detailed reports about security vulnerabilities in deployed container images.
+**Vulnerability insights 🛡️:** Access detailed reports about security vulnerabilities in deployed container images.  
+**Vulnerability analysis 📊:** Get an overview of the vulnerabilities in your workloads and clusters.  
+**Vulnerability management 🛠️:** Manage vulnerabilities and take action to mitigate risks.  
 
-:dart: [**Explore the Console**](how-to/console.md)
+:dart: [**Explore Console**](how-to/console.md)

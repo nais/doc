@@ -1,11 +1,11 @@
 ---
 tags: [salsa, slsa, supply-chain, vulnerabilities, explanation]
-description: NAIS provides a set of services to help you secure your software supply chain and manage vulnerabilities in your workloads.
+description: Nais provides a set of services to help you secure your software supply chain and manage vulnerabilities in your workloads.
 ---
 
 # Vulnerability insights and management
 
-NAIS provides a set of tools and services to help you secure your software supply chain and manage vulnerabilities in your workloads:
+Nais provides a set of tools and services to help you secure your software supply chain and manage vulnerabilities in your workloads:
 
 <div class="grid cards" markdown>
 
@@ -19,7 +19,7 @@ NAIS provides a set of tools and services to help you secure your software suppl
 
 </div>
 
-The NAIS [SLSA](explanations/README.md#slsa) is built on a security framework designed to prevent tampering, enhance integrity, and secure both packages and infrastructure within software projects.
+The Nais [SLSA](explanations/README.md#slsa) is built on a security framework designed to prevent tampering, enhance integrity, and secure both packages and infrastructure within software projects.
 Se the different tools below and follow the links to the respective tool for more details.
 
 ## Getting started with vulnerability insights
@@ -31,11 +31,11 @@ This is bundled as an [attestation](explanations/README.md#attestation) and push
 
 ## Acknowledge vulnerabilities
 
-NAIS continuously monitors deployed container images in the cluster. 
-When a new image is detected, NAIS automatically uploads its [SBOM][SBOM] to [DependencyTrack][Insights] for vulnerability analysis.
+Nais continuously monitors deployed container images in the cluster. 
+When a new image is detected, Nais automatically uploads its [SBOM][SBOM] to [Dependency-track][Insights] for vulnerability analysis.
 
-The results of the DependencyTrack analysis, including vulnerability insights, can then be viewed in the NAIS Console.
-The [NAIS Console][Insights] provides a platform for viewing and managing vulnerabilities at the team level.
+The results of the Dependency-track analysis, including vulnerability insights, can then be viewed in the Nais Console.
+The [Nais Console][Insights] provides a platform for viewing and managing vulnerabilities at the team level.
 
 [Attestation]: attestation/README.md
 [Insights]: insights/README.md
