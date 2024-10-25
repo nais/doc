@@ -75,7 +75,7 @@ Here is a basic example with a single alert (that always trigger to make this ea
               username: "Testing Alert"
               sendResolved: true
               httpConfig:
-                proxyURL: http://webproxy.nais:8088
+                proxyUrl: http://webproxy.nais:8088
               title: |-
                 [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }}
               text: >-
