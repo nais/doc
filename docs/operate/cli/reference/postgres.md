@@ -163,6 +163,11 @@ nais postgres password rotate appname
 
 ## migrate 
 
+!!! info "Status: Beta"
+    
+    We believe that migration works as intended, but it needs a broader audience to be battle-tested properly.
+    Please report any issues to the #nais channel on Slack.
+
 Commands used for migrating to a new postgres instance.
 
 See also [Migrating to a new SQLInstance](../../../persistence/postgres/how-to/migrate-to-new-instance.md)

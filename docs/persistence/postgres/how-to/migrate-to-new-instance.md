@@ -5,6 +5,11 @@ tags: [postgres, migrate, how-to]
 
 # Migrating to a new SQLInstance
 
+!!! info "Status: Beta"
+
+    We believe that migration works as intended, but it needs a broader audience to be battle-tested properly.
+    Please report any issues to the #nais channel on Slack.
+
 This guide describes how to migrate your PostgreSQL database to a new [SQLInstance](../explanations/cloud-sql-instance.md).
 
 ## Preparations
