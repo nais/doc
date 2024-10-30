@@ -39,8 +39,8 @@ Add the following content to the file, and insert the appropriate values in the 
       image: {{image}} # Placeholder variable to be replaced by the CI/CD pipeline
       port: 8080
       replicas:
-        max: 2
-        min: 4
+        max: 4
+        min: 2
       resources:
         requests:
           cpu: 200m
