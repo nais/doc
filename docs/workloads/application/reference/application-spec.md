@@ -5608,7 +5608,7 @@ Required: `false`<br />
 Enables token service for Azure, also known as Entra ID.
 
 Type: `boolean`<br />
-Required: `true`<br />
+Required: `false`<br />
 
 ??? example
     ``` yaml
@@ -5621,7 +5621,7 @@ Required: `true`<br />
 Enables token service for Maskinporten.
 
 Type: `boolean`<br />
-Required: `true`<br />
+Required: `false`<br />
 
 ??? example
     ``` yaml
@@ -5634,7 +5634,7 @@ Required: `true`<br />
 Enables token service for TokenX.
 
 Type: `boolean`<br />
-Required: `true`<br />
+Required: `false`<br />
 
 ??? example
     ``` yaml
