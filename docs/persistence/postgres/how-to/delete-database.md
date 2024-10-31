@@ -7,3 +7,10 @@ The database is not automatically removed when deleting your NAIS application. R
 
 !!! danger
     When you delete an Cloud SQL instance, you cannot reuse the name of the deleted instance until one week from the deletion date.
+
+To remove a database completely without deleting the application:
+
+1. First, set [cascadingDelete](../../../workloads/application/reference/application-spec.md#gcpsqlinstancescascadingdelete) to `true` in the application spec and deploy it
+2. Remove `sqlInstances` from the application spec and deploy again
+
+The database and the instance it runs on should now be completely removed after a short while.
