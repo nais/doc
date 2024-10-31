@@ -19,3 +19,4 @@ site/
 .git/
 
 __pycache__/
+.direnv/
