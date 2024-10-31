@@ -135,6 +135,33 @@ Allowed values: `compact`, `compact,delete`, `delete`<br />
         cleanupPolicy: delete
     ```
 
+### config.localRetentionBytes
+When set, remote storage will be used to store log segments.
+This value controls the size of the log that is kept before it is moved to remote storage.
+Must be less than RetentionBytes
+
+Relevant information:
+
+* [https://kafka.apache.org/documentation.html#topicconfigs_local.retention.bytes](https://kafka.apache.org/documentation.html#topicconfigs_local.retention.bytes)
+
+Type: `integer`<br />
+Required: `false`<br />
+Default value: `-2`<br />
+
+### config.localRetentionHours
+When set, remote storage will be used to store log segments.
+This value controls the number of hours to keep before it is moved to remote storage.
+Must be less than RetentionHours.
+
+Relevant information:
+
+* [https://kafka.apache.org/documentation.html#topicconfigs_local.retention.ms](https://kafka.apache.org/documentation.html#topicconfigs_local.retention.ms)
+
+Type: `integer`<br />
+Required: `false`<br />
+Default value: `-2`<br />
+Maximum value: `2147483648`<br />
+
 ### config.maxCompactionLagMs
 MaxCompactionLagMs indicates the maximum time a message will remain ineligible for compaction in the log
 
@@ -277,7 +304,7 @@ Relevant information:
 Type: `integer`<br />
 Required: `false`<br />
 Default value: `168`<br />
-Maximum value: `2562047788015`<br />
+Maximum value: `2147483648`<br />
 
 ??? example
     ``` yaml
