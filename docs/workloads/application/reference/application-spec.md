@@ -5579,6 +5579,70 @@ Value range: `0`-`180`<br />
       terminationGracePeriodSeconds: 60
     ```
 
+## texas
+Enables token exchange as a service (Texas).
+Texas runs as a sidecar in your container.
+When enabled, credentials needed for OAuth2 are injected into the Texas sidecar
+instead of your application container.
+
+!!! warning "Experimental feature"
+    This feature has not undergone much testing, and is subject to API change, instability, or removal.
+
+Relevant information:
+
+* [https://doc.nais.io/auth/texas/](https://doc.nais.io/auth/texas/)
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      texas:
+        azure: true
+        maskinporten: true
+        tokenx: true
+    ```
+
+### texas.azure
+Enables token service for Azure, also known as Entra ID.
+
+Type: `boolean`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      texas:
+        azure: true
+    ```
+
+### texas.maskinporten
+Enables token service for Maskinporten.
+
+Type: `boolean`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      texas:
+        maskinporten: true
+    ```
+
+### texas.tokenx
+Enables token service for TokenX.
+
+Type: `boolean`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      texas:
+        tokenx: true
+    ```
+
 ## tokenx
 Provisions and configures a TokenX client for your application.
 
