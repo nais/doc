@@ -106,11 +106,15 @@ Required: `false`<br />
     spec:
       config:
         cleanupPolicy: delete
+        localRetentionBytes: 1000
+        localRetentionHours: 68
+        maxCompactionLagMs: 60000
         maxMessageBytes: 1.048588e+06
+        minCompactionLagMs: 10000
         minimumInSyncReplicas: 2
         partitions: 1
         replication: 3
-        retentionBytes: -1
+        retentionBytes: 6000
         retentionHours: 168
         segmentHours: 168
     ```
@@ -148,6 +152,13 @@ Type: `integer`<br />
 Required: `false`<br />
 Default value: `-2`<br />
 
+??? example
+    ``` yaml
+    spec:
+      config:
+        localRetentionBytes: 1000
+    ```
+
 ### config.localRetentionHours
 When set, remote storage will be used to store log segments.
 This value controls the number of hours to keep before it is moved to remote storage.
@@ -162,6 +173,13 @@ Required: `false`<br />
 Default value: `-2`<br />
 Maximum value: `2147483648`<br />
 
+??? example
+    ``` yaml
+    spec:
+      config:
+        localRetentionHours: 68
+    ```
+
 ### config.maxCompactionLagMs
 MaxCompactionLagMs indicates the maximum time a message will remain ineligible for compaction in the log
 
@@ -173,6 +191,13 @@ Type: `integer`<br />
 Required: `false`<br />
 Default value: `Inf`<br />
 Minimum value: `0`<br />
+
+??? example
+    ``` yaml
+    spec:
+      config:
+        maxCompactionLagMs: 60000
+    ```
 
 ### config.maxMessageBytes
 The largest record batch size allowed by Kafka (after compression if compression is enabled).
@@ -219,6 +244,13 @@ Type: `integer`<br />
 Required: `false`<br />
 Default value: `0`<br />
 Minimum value: `0`<br />
+
+??? example
+    ``` yaml
+    spec:
+      config:
+        minCompactionLagMs: 10000
+    ```
 
 ### config.minimumInSyncReplicas
 When a producer sets acks to "all" (or "-1"), `min.insync.replicas` specifies the minimum number of replicas
@@ -291,7 +323,7 @@ Default value: `-1`<br />
     ``` yaml
     spec:
       config:
-        retentionBytes: -1
+        retentionBytes: 6000
     ```
 
 ### config.retentionHours

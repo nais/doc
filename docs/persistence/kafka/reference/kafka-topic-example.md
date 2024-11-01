@@ -36,11 +36,15 @@ spec:
     team: myteam
   config:
     cleanupPolicy: delete
+    localRetentionBytes: 1000
+    localRetentionHours: 68
+    maxCompactionLagMs: 60000
     maxMessageBytes: 1048588
+    minCompactionLagMs: 10000
     minimumInSyncReplicas: 2
     partitions: 1
     replication: 3
-    retentionBytes: -1
+    retentionBytes: 6000
     retentionHours: 168
     segmentHours: 168
   pool: dev-nais-dev
