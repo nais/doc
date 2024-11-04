@@ -12,6 +12,8 @@ The ratio of local to remote can be configured per topic.
 When using remote storage, cluster maintenance will be more efficient as less data needs to be transferred between brokers.
 With less data locally we can run smaller sized brokers.
 
+See [the how-to documentation for tiered storage](../how-to/tiered-storage.md) for how to enable tiered storage for your kafka topic.
+
 ## Local vs. remote data retention
 
 When using tiered storage you need to decide how much retention you need to keep locally, for low latency retrieval, and what can be stored remotely.
