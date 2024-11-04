@@ -133,8 +133,4 @@ If your application only has a single replica, then your users will experience d
 
 If you wish to avoid unnecessary downtime, your application should run at least 2 replicas.
 
-If your application functions in a way that requires that only a single pod is active, you can employ [leader election] to select a leader that does the work,
-
-[leader election]: ../../services/leader-election/README.md
-
-while keeping a running backup replica ready to step in should the leader be killed.
+If your application functions in a way that requires that only a single pod is active, you can employ [leader election](../../services/leader-election/README.md) to select a leader that does the work, while keeping a running backup replica ready to step in should the leader be killed.
