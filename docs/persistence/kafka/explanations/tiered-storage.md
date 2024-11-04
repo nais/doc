@@ -21,7 +21,7 @@ The active segment will always be stored locally, meaning that if you set your l
 
 ![How the sum of retention is distributed between remote and local storage](/assets/tiered-storage.svg)
 
-The value in [`retention`](../../reference/kafka-topic-spec/#configretentionbytes) is the total retention, where [`localRetention`](../../reference/kafka-topic-spec/#configlocalretentionbytes) describes what is minimally in local storage.
+The value in [`retention`](../../reference/kafka-topic-spec.md#configretentionbytes) is the total retention, where [`localRetention`](../../reference/kafka-topic-spec.md#configlocalretentionbytes) describes what is minimally in local storage.
 If `localRetention` is not set, all retention is local.
 
 If you have once set `localRetention`, you can not turn off remote storage.
