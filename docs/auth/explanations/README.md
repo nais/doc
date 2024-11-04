@@ -697,9 +697,9 @@ See the [autologin reference](../reference/README.md#autologin) for details.
 
 ## Further Reading
 
-- <https://nais.io/blog/posts/2020/09/oauth1>
-- <https://nais.io/blog/posts/2020/09/oauth2>
-- <https://nais.io/blog/posts/2021/03/oauth-del-3-pkce>
+- <https://nais.io/blog/posts/oauth1/>
+- <https://nais.io/blog/posts/oauth2/>
+- <https://nais.io/blog/posts/oauth-del3-pkce/>
 - <https://oauth.net/2/>
 - <https://oauth.net/2.1/>
 - <https://openid.net/connect/>
