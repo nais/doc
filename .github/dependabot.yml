@@ -1,18 +1,18 @@
 version: 2
 updates:
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "monthly"
   - package-ecosystem: "github-actions"
     directory: "/" # must be root (ref. docs)
     schedule:
-      interval: "monthly"
+      interval: "weekly"
+    groups:
+      actions:
+        patterns:
+          - "*"
   - package-ecosystem: "pip" # poetry / pyproject
     directory: "/"
     schedule:
-      interval: "monthly"
-  - package-ecosystem: "terraform"
-    directory: "/terraform/"
-    schedule:
-      interval: "monthly"
+      interval: "weekly"
+    groups:
+      pip:
+        patterns:
+          - "*"
