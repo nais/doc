@@ -34,7 +34,7 @@ jobs:
 
       - name: Build documentation
         run: |
-          ./build.sh nav ssb ci-nais dev-nais tenant
+          ./build.sh nav ssb test-nais ci-nais dev-nais tenant
 
   publish:
     if: github.ref == 'refs/heads/main'
@@ -53,6 +53,8 @@ jobs:
             bucket: docs.nais.io
           - name: ssb
             bucket: doc.ssb.cloud.nais.io
+          - name: test-nais
+            bucket: doc.test-nais.cloud.nais.io
     steps:
       - name: Restore cache folder
         uses: actions/cache/restore@v4

@@ -122,6 +122,21 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 
 - 34.88.222.166
 {% endif %}
+{% if tenant() == "test-nais" %}
+### test
+
+#### Domains
+
+| domain                          | accessible from          | description                                                                                                       |
+| :------------------------------ | :----------------------- | :---------------------------------------------------------------------------------------------------------------- |
+| external.sandbox.test-nais.cloud.nais.io | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| sandbox.test-nais.cloud.nais.io          | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
+
+#### External/outbound IPs
+
+- 35.228.243.95
+
+{% endif %}
 
 [naisdevice]: ../../operate/naisdevice/README.md
 [naisdevice-jita]: ../../operate/naisdevice/explanations/jita.md
