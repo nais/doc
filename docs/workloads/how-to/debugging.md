@@ -61,14 +61,14 @@ You can run an [ephemeral container](../explanations/ephemeral-containers.md) in
 The following example starts a shell in a new ephemeral container named `debugger-id` in the `my-pod-name` pod:
 
 ```bash
-kubectl debug -it my-pod-name --image="cgr.dev/chainguard/busybox:latest" --profile=restricted -- sh
+kubectl debug -it my-pod-name --image="europe-north1-docker.pkg.dev/nais-io/nais/images/debug:latest" --profile=restricted
 ```
 
 Once the ephemeral container is created, you will be presented with a shell prompt. Then run some diagnostic commands
 and inspect the container’s environment, or modify the container’s configuration to debug the issue.
 
 ```bash
-kubectl debug -it my-pod-name --image="cgr.dev/chainguard/busybox:latest" --profile=restricted -- sh
+kubectl debug -it my-pod-name  --image="europe-north1-docker.pkg.dev/nais-io/nais/images/debug:latest" --profile=restricted
 Defaulting debug container name to debugger-lrmqq.
 If you don't see a command prompt, try pressing enter.
 ~ $
