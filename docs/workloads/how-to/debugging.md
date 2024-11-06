@@ -13,6 +13,34 @@ If you have problems getting your pods running you should check out the official
     Applications in the context above is not the NAIS applications.
     Debugging a NAIS applications resource is done with `kubectl describe application $app_name`.
 
+
+## `kubectl` debug
+
+You can run an [ephemeral container](https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers/) in a pod using the `kubectl debug` command.
+
+The following example starts a shell in a new ephemeral container in the `my-pod-name` pod using the nais debug image:
+
+```bash
+kubectl debug -it my-pod-name --image="europe-north1-docker.pkg.dev/nais-io/nais/images/debug:latest" --profile=restricted
+```
+
+Once the ephemeral container is created, you will be presented with a shell prompt where you can try debugging the issue.
+
+!!! info "image capabilities"
+
+    The specified `--image` cant have more capabilities than the pod it is attached to and must be able to run as non-root.
+
+## `kubectl` attach
+
+If you want to attach to a running process inside a running container you need to use `kubectl attach`.
+You can read more about the command over at [kubernetes.io/docs](https://kubernetes.io/docs/reference/kubectl/generated/kubectl_attach/).
+
+```bash
+# Switch to raw terminal mode; sends stdin to 'bash' in ruby-container from pod mypod
+# and sends stdout/stderr from 'bash' back to the client
+kubectl attach mypod -c ruby-container -i -t
+```
+
 ## Debugging Memory Leaks
 
 If you experience memory leaks in Java processes you can get heap dumps either automatically on OOM or on-demand.
@@ -42,50 +70,6 @@ kubectl cp [pod-name]:/tmp/heap.hprof ./heap.hprof
 ```
 
 You can inspect the heap dumps with tools like JProfiler, VisualVM or IntelliJ.
-
-## `kubectl` debug
-
-!!! info "kubectl: version"
-
-    This feature requires `kubectl` version [1.28](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.28.md) or later.
-
-    Nais requires the flag --profile=restricted when using `kubectl debug` and the flag is only supported in `kubectl` 1.28+.
-    At this time, this is the only way to run the ephemeral containers as [non-root and without any capabilities](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/).
-
-You can run an [ephemeral container](../explanations/ephemeral-containers.md) in a pod using the `kubectl debug` command.
-
-!!! info "kubectl: --image"
-
-    The specified `--image` cant have more capabilities than the pod it is attached to and must be able to run as non-root.
-
-The following example starts a shell in a new ephemeral container named `debugger-id` in the `my-pod-name` pod:
-
-```bash
-kubectl debug -it my-pod-name --image="europe-north1-docker.pkg.dev/nais-io/nais/images/debug:latest" --profile=restricted
-```
-
-Once the ephemeral container is created, you will be presented with a shell prompt. Then run some diagnostic commands
-and inspect the container’s environment, or modify the container’s configuration to debug the issue.
-
-```bash
-kubectl debug -it my-pod-name  --image="europe-north1-docker.pkg.dev/nais-io/nais/images/debug:latest" --profile=restricted
-Defaulting debug container name to debugger-lrmqq.
-If you don't see a command prompt, try pressing enter.
-~ $
-```
-
-You can read more about debugging with an ephemeral debug container over at [kubernetes.io/docs](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container).
-
-## `kubectl` attach
-
-If you want to attach to a running process inside a running container you need to use `kubectl attach`.
-You can read more about the command over at [kubernetes.io/docs](https://kubernetes.io/docs/reference/kubectl/generated/kubectl_attach/).
-
-```bash
-# Switch to raw terminal mode; sends stdin to 'bash' in ruby-container from pod mypod
-# and sends stdout/stderr from 'bash' back to the client
-kubectl attach mypod -c ruby-container -i -t
-```
 
 ## FAQ
 
