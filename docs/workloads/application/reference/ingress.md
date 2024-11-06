@@ -25,6 +25,22 @@ spec:
 
 In the example above, only `path1` and `path2` are routed to the application including any sub-paths. All other paths may return a `404` error. Please keep in mind that no path stripping is done as part of the routing and the full path is passed to the application.
 
+
+## Redirects
+
+If you have an ingress then you may want to set up redirects. If for example you are operating a new service and want to use an old ingress or moving a new service to a new ingrees and you don not want to break traffic.
+
+```yaml
+spec:
+  ingresses:
+    - https://myapplication.example.com
+  redirects:
+      - from: https://old.myapplication.example.com
+	    to: https://new.myapplication.example.com
+
+```
+The example above demonstrates how to set up redirects in an ingress configuration to redirect traffic from an old domain to a new domain.
+
 ## Ingress customization
 
 Ingresses are automatically created for your application when you specify them in your [application manifest](application-spec.md).
