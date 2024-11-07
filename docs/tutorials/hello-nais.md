@@ -39,22 +39,13 @@ gh repo create <GITHUB-ORG>/<MY-APP> --template nais/hello-nais --private --clon
 cd <MY-APP>
 ```
 
-### Grant your team access to your repository
+### Authorize the repository for deployment
 
-Open your repository:
+This is required for the GitHub Actions workflow to be able to deploy your application.
 
-```bash
-gh repo view --web
-```
+Visit [Console](https://console.<<tenant()>>.cloud.nais.io). Select your team, and visit the `Repositories` tab.
 
-Click on `Settings` -> `Collaborators and teams` -> `Add teams`.
-
-Select your team, and grant them the `Admin` role.
-
-You have now successfully created your own application repository and granted your team access to it.
-In the next steps we will have a closer look at the files needed to make this application NAIS!
-
-For this to happen, we need three files.
+Here you can add your repository to the list of authorized repositories. This authorizes the GitHub repository to perform deployments on behalf of your team.
 
 ### Dockerfile
 
@@ -155,16 +146,6 @@ Excellent! We're now ready to deploy :rocket:
 Previously we've made our application and created the required files for deployment.
 In this part of the tutorial we will deploy our application to NAIS.
 
-### Authorize the repository for deployment
-
-This is required for the GitHub Actions workflow to be able to deploy your application.
-
-Visit [Console](https://console.<<tenant()>>.cloud.nais.io). Select your team, and visit the `Repositories` tab.
-Find your repository and click `Authorize`.
-
-!!! note "Repository not visible?"
-
-    Normally these permissions are automatically synchronized every 15 minutes, but if you don't see the repository here, force synchronization by clicking the `Synchronize team` button under the `Settings` panel.
 
 ### Commit and push your changes
 
