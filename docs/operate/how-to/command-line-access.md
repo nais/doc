@@ -53,7 +53,7 @@ A successful run will output how many clusters and where the kubeconfig file is 
 kubectl --context '<MY-ENV>' get ns
 ```
 
-If you are unsure about which clusters are available, you can list them with:
+If you are unsure about which environments are available, you can list them with:
 
 ```shell
 kubectl config get-clusters
