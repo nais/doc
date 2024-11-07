@@ -118,7 +118,7 @@ plugins:
         "explanation/workloads/job.md": "workloads/job/README.md"
         "explanation/workloads/cdn.md": "services/cdn/README.md"
         "explanation/zero-trust.md": "workloads/explanations/zero-trust.md"
-        "guides/oci-migration.md": "build/how-to/oci-migration.md"
+        "guides/oci-migration.md": "build/how-to/build-and-deploy.md"
         "how-to-guides/access-policies.md": "workloads/how-to/access-policies.md"
         "how-to-guides/cdn.md": "services/cdn/README.md"
         "how-to-guides/command-line-access.md": "operate/how-to/command-line-access.md"
