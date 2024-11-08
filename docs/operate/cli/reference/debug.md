@@ -13,13 +13,16 @@ namespace as the target workload and connect it to the same network.
 
 `nais debug app` creates a debug container in the "live" pod, meaning it’s not a copy of the original pod. If you exit
 this command with `exit`, you cannot reconnect or attach again, because the debug container is terminated. To
-reconnect, simply run `nais debug app` again, this will create a new debug container in the same pod. See
-`naist debug tidy` to clean up the pod you just debugged.
+reconnect, simply run `nais debug app` again, this will create a new debug container in the same pod. See [tidy](#tidy)
+to clean up the pod you just debugged.
 
 `nais debug app --copy app` creates a copy of the original pod in the same namespace. This is useful if you want to
 debug the pod without affecting the live pod, useful for debugging production workloads.
 If you exit this command with `exit`, you can reconnect or attach again by
-running `nais debug app --copy app` again. See `nais debug tidy` to clean up the pod you just debugged.
+running `nais debug app --copy app` again. See [tidy](#tidy) to clean up the pod you just debugged.
+
+```bash
+to clean up the pod you just debugged.
 
 ```bash
 nais debug app
@@ -54,6 +57,6 @@ nais debug tidy
 | context   | No       | -c    | current  | Context of the pod.    |
 | copy      | No       | -cp   | live pod | Delete the copied pod. |
 
-# debug image and tools
+## debug image and tools
 
 The image used for debugging is documented in [debug](https://github.com/nais/debug/blob/main/flake.nix) repository.
