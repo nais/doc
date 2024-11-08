@@ -21,8 +21,6 @@ If you exit this command with `exit`, you can reconnect or attach again by
 running `nais debug app --copy app` again. See [tidy](#tidy) to clean up the pod you just debugged.
 
 ```bash
-to clean up the pod you just debugged.
-
 ```bash
 nais debug app
 ```

@@ -12,7 +12,7 @@ Dependency-track is a Component Analysis platform that allows you to identify an
 [Dependency-Track](https://dependencytrack.org/) operates as a single instance that manages all clusters and stores both
 attestations and vulnerabilities for all signed attestations successfully deployed.
 
-:dart: [**Explore Dependency-track**](how-to/dependencytrack.md)
+:dart: [**Explore Dependency-track**](dependencytrack.md)
 
 ## NAIS Console
 
@@ -24,4 +24,4 @@ It offers a centralized way to view and handle various aspects of workloads, suc
 **Vulnerability analysis 📊:** Get an overview of the vulnerabilities in your workloads and clusters.  
 **Vulnerability management 🛠️:** Manage vulnerabilities and take action to mitigate risks.  
 
-:dart: [**Explore Console**](how-to/console.md)
+:dart: [**Explore Console**](console.md)
