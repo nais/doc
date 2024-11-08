@@ -154,10 +154,12 @@ Read more about [external dependencies](../persistence/README.md) and [responsib
 
 #### Supply Chain
 
-NAIS provides a secure way to deploy applications using Supply-chain Levels for
-Software Artifacts (SLSA). This means that every application is deployed
+NAIS provides a secure way to deploy applications using [Supply-chain Levels for
+Software Artifacts (SLSA)][slsa]. This means that every application is deployed
 using a secure supply chain that ensures that the application is deployed in a
 secure manner.
+
+[slsa]: ./salsa/salsa.md
 
 #### Security Policies
 

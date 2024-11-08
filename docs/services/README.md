@@ -8,4 +8,5 @@ It includes services such as:
 - [Secrets](secrets/README.md)
 - [Feature toggling](./feature-toggling.md)
 - [Anti-virus](antivirus.md)
+- [Salsa](salsa.md)
 - [Leader election](leader-election/README.md)
