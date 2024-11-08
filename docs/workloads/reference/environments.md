@@ -123,7 +123,7 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 - 34.88.222.166
 {% endif %}
 {% if tenant() == "test-nais" %}
-### test
+### sandbox
 
 #### Domains
 
