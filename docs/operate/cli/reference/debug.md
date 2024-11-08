@@ -53,3 +53,7 @@ nais debug tidy
 | namespace | No       | -n    | current  | Namespace of the pod.  |
 | context   | No       | -c    | current  | Context of the pod.    |
 | copy      | No       | -cp   | live pod | Delete the copied pod. |
+
+# debug image and tools
+
+The image used for debugging is documented in [debug](https://github.com/nais/debug/blob/main/flake.nix) repository.
