@@ -198,8 +198,6 @@ plugins:
         "security/auth/maskinporten/scopes.md": "auth/maskinporten/how-to/secure.md"
         "security/auth/tokenx.md": "auth/tokenx/README.md"
         "security/auth/wonderwall.md": "auth/explanations/README.md#login-proxy"
-        "security/salsa/salsa.md": "services/salsa.md"
-        "security/salsa.md": "services/salsa.md"
         "tutorial/hello-nais/README.md": "tutorials/hello-nais.md"
         "tutorial/hello-nais/hello-nais-1.md": "tutorials/hello-nais.md"
         "tutorial/hello-nais/hello-nais-2.md": "tutorials/hello-nais.md"
