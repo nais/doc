@@ -26,10 +26,6 @@ Dependency-track integrates with Trivy at runtime, ensuring that vulnerabilities
 Trivy directly parses the .jar files without access to full dependency resolution details.
 
 Gradle and Maven plugins provide a deeper graph of nested transitive dependencies.
-However, if you're using [Distroless](../explanations/README.md#distroless-google) images or
-[Chainguard images](../explanations/README.md#chainguard), updates are managed and kept to a minimum.
-
-See [limitations and alternatives](../attestation/reference/README.md#known-limitations-and-alternatives) for more information.
 
 ### Gradle Plugin
 
