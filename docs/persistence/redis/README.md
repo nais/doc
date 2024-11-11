@@ -15,3 +15,5 @@ for caching.
 :dart: [Create Redis via Application](how-to/create-application.md)
 
 :dart: [Create Redis as a standalone instance](how-to/create-explicit.md).
+
+:dart: [Delete Redis](how-to/delete.md)
