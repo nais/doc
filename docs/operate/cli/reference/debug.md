@@ -3,7 +3,7 @@
 The debug command allows you to troubleshoot workloads running on the NAIS platform.This command creates a
 debug pod within the same namespace as the target workload. There are two options
 for debugging a workload: you can either create a container within the same pod as the workload or create a separate pod
-in the same namespace as the workload, with the latter option providing
+in the same namespace as the workload, both options providing
 a [shared namespace](https://kubernetes.io/docs/tasks/configure-pod-container/share-process-namespace/).
 
 ## debug
@@ -11,14 +11,14 @@ a [shared namespace](https://kubernetes.io/docs/tasks/configure-pod-container/sh
 Creates a debug pod in the same namespace as the target workload. 
 
 `nais debug app` creates a debug container in the "live" pod, meaning it’s not a copy of the original pod. If you exit
-this command with `exit`, you cannot reconnect or attach again, because the debug container is terminated. To
-reconnect, simply run `nais debug app` again, this will create a new debug container in the same pod. See [tidy](#tidy)
+this command, you cannot reconnect or attach again, because the debug container is terminated. To debug, simply run `nais debug app` again, this will create a new debug container in the same pod. See [tidy](#tidy)
 to clean up the pod you just debugged.
 
 `nais debug app --copy app` creates a copy of the original pod in the same namespace. This is useful if you want to
 debug the pod without affecting the live pod, useful for debugging production workloads.
-If you exit this command with `exit`, you can reconnect or attach again by
+If you exit this command, you can reconnect/attach again by
 running `nais debug app --copy app` again. See [tidy](#tidy) to clean up the pod you just debugged.
+
 
 ```bash
 ```bash
