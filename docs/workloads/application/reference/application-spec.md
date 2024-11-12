@@ -4936,6 +4936,46 @@ Required: `false`<br />
         timeout: 1
     ```
 
+## redirects
+List of ingress redirects
+
+Type: `array`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      redirects:
+        - from: https://myapplication-old.nav.no
+          to: https://myapplication.nav.no
+    ```
+
+### redirects[].from
+Type: `string`<br />
+Required: `true`<br />
+Pattern: `^https:\/\/.+$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      redirects:
+        - from: https://myapplication-old.nav.no
+          to: https://myapplication.nav.no
+    ```
+
+### redirects[].to
+Type: `string`<br />
+Required: `true`<br />
+Pattern: `^https:\/\/.+$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      redirects:
+        - from: https://myapplication-old.nav.no
+          to: https://myapplication.nav.no
+    ```
+
 ## redis
 List of redis instances this job needs credentials for.
 Must be owned by same team.
