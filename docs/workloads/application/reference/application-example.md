@@ -316,10 +316,6 @@ spec:
       maxUnavailable: 0
     type: RollingUpdate
   terminationGracePeriodSeconds: 60
-  texas:
-    azure: true
-    maskinporten: true
-    tokenx: true
   tokenx:
     enabled: true
     mountSecretsAsFilesOnly: true
