@@ -53,3 +53,12 @@ This allows for routing traffic to only specific parts of your application, or a
 :dart: Learn how to [expose your application with an ingress](../how-to/expose.md).
 
 :books: See the [ingress reference](../reference/ingress.md) for technical details and options.
+
+## Ingress redirects
+
+In some cases, you may want to redirect traffic from one domain to another.
+This can be useful if you have changed the domain of your application, or if you want to redirect users from an old domain to a new one.
+
+:dart: Learn how to [redirect traffic with an ingress](../how-to/redirect.md).
+
+:books: See the [ingress reference](../reference/ingress.md#ingress-redirects) for technical details and options.
