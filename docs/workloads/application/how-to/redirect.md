@@ -39,7 +39,7 @@ apiVersion: nais.io/v1alpha1
 kind: Application
 spec:
   ingress:
-    - https://example-new.com
+    - http://example-new.nais.io
   redirects:
     - from: "http://example-old.nais.io"
       to: "http://example-new.nais.io"
