@@ -46,11 +46,13 @@ jobs:
         with:
           app: my-frontend
           team: <team slug> # Required, e.g. "team-name"
-{%- if tenant() != "nav" %}
-          tenant: <<tenant()>> # Required, e.g. "nav"
+{%- if tenant() == "nav" %}
+          ingress: https://team.nav.no/my-frontend
+{%- else %}
+          tenant: <<tenant()>> # Required
+          ingress: <<tenant_url("<env>", "my-frontend")>>
 {%- endif %}
           source: <The path to your build folder or assets>
-          ingress: https://team.nav.no/my-frontend
           environment: dev
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # Provided as Organization Secret
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # Provided as Organization Variable
@@ -58,10 +60,12 @@ jobs:
 
 For more information on the inputs and outputs of the action, see the [SPA deploy action reference](../reference/spa-deploy.md).
 
-Static files will be uploaded with the following NAV CDN address:
+The different values for `env` can be found under [Environments](../../../workloads/reference/environments.md).
+
+Static files will be uploaded with the following CDN address:
 
 ```text
-https://cdn.nav.no/<team>/<app>/<env>/
+<<tenant_url("cdn", "<team>/<app>/<env>/")>>
 ```
 
 ### Multiple ingresses
@@ -72,7 +76,11 @@ If you want your app exposed on multiple ingresses you can use a comma separated
 - uses: nais/deploy/actions/spa-deploy/v2@master
   with:
     ...
-    ingress: https://team.nav.no/my-frontend,https://team.nav.no/my-other-ingress
+{%- if tenant() != "nav" %}
+    ingress: <<tenant_url("<env>", "my-frontend")>>, <<tenant_url("<env>", "my-other-ingress")>>
+{%- else %}
+    ingress: https://team.nav.no/my-frontend, https://team.nav.no/my-other-ingress
+{%- endif %}
 ```
 
 ### Custom ingress
@@ -83,9 +91,9 @@ If you have your own domain that you want to host your SPA on, you need to suppl
 - uses: nais/deploy/actions/spa-deploy/v2@master
   with:
     ...
-    ingress: https://you-domain.no
-    ingressClass: nais-ingress-external
-    environment: prod-gcp
+    ingress: https://your-domain.no
+    ingressClass: nais-ingress-external # Internal addresses should use "nais-ingress"
+    environment: <env> # e.g. "prod-gcp"
 ```
 
 ## App configuration
@@ -98,7 +106,7 @@ This can be done in one of two ways:
 - Either in a `.env` file:
 
 ```text
-PUBLIC_URL=https://cdn.nav.no/<team>/<app>/<env>/
+PUBLIC_URL=<<tenant_url("cdn", "<team>/<app>/<env>/")>>
 ```
 
 - Or with an `env` in your GitHub Actions when you run `npm run build`:
@@ -107,7 +115,7 @@ PUBLIC_URL=https://cdn.nav.no/<team>/<app>/<env>/
 steps:
   - run: npm run build
     env:
-      PUBLIC_URL: https://cdn.nav.no/<team>/<app>/<env>
+      PUBLIC_URL=<<tenant_url("cdn", "<team>/<app>/<env>/")>>
 ```
 
 * <https://create-react-app.dev/docs/advanced-configuration/>
@@ -122,7 +130,7 @@ const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
   // Use the CDN in production and localhost for development.
-  assetPrefix: isProd ? 'https://cdn.nav.no/<team>/<app>/<env>' : undefined,
+  assetPrefix: isProd ? '<<tenant_url("cdn", "<team>/<app>/<env>/")>>' : undefined,
 }
 ```
 
