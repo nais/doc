@@ -39,10 +39,3 @@ If you want to push to another registry, you can use the [nais/attest-sign](http
      sbom: my-image.json # optional
      # ... other options removed for readability
 ```
-
-### Attestation
-
-The action automatically generates a signed attestation with the help of [Trivy](https://github.com/aquasecurity/trivy-action) and [cosign](https://github.com/sigstore/cosign).  
-The attestation envelope includes a SBOM (Software Bill of Materials) for your container image and its dependencies.
-
-The SBOM is uploaded to the same registry alongside your image.
