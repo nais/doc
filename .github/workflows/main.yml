@@ -63,7 +63,7 @@ jobs:
           key: ${{ github.sha }}
 
       - name: Sync documentation to bucket
-        uses: actions-hub/gcloud@500.0.0
+        uses: actions-hub/gcloud@501.0.0
         env:
           PROJECT_ID: not-used
           APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
@@ -72,7 +72,7 @@ jobs:
           cli: gsutil
 
       - name: Invalidate cache
-        uses: actions-hub/gcloud@500.0.0
+        uses: actions-hub/gcloud@501.0.0
         env:
           PROJECT_ID: not-used
           APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
