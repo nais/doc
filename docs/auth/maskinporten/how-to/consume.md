@@ -40,6 +40,31 @@ The scopes themselves are defined and owned by the external API provider. The ex
 
 ## Acquire token
 
+### Automatically with Texas
+???+ warning "Token Exchange as a Service (Texas) is in public beta."
+
+    To enable for your application, set the `texas.nais.io=enabled` label on your `Application`.
+
+Texas is [Token Exchange as a Service](../../explanations/README.md#texas), aimed to make it easier to deal with tokens.
+
+Send a HTTP POST request to the endpoint described in the `$NAIS_TOKEN_ENDPOINT` environment variable. The value for `target` is the identifier for the application you wish to make calls to.
+```json
+{
+    "identity_provider": "maskinporten",
+    "target": "skatt:some.scope"
+}
+```
+
+You will get a response with an access token. The token can be used to access APIs for your specified target only.
+```json
+{
+    "access_token": "eyJra...",
+    "expires_in": 3599,
+    "token_type": "Bearer"
+}
+```
+
+### Manually
 To acquire a token from Maskinporten, you will need to create a [client assertion](../../explanations/README.md#client-assertion).
 
 ### Create client assertion

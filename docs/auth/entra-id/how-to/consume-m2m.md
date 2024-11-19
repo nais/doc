@@ -33,9 +33,33 @@ Depending on how you communicate with the API you're consuming, [configure the a
 {%- endif %}
 
 ## Acquire token
-
 Now you can request a new token for the API that you want to consume.
 
+### Automatically with Texas
+???+ warning "Token Exchange as a Service (Texas) is in public beta."
+
+    To enable for your application, set the `texas.nais.io=enabled` label on your `Application`.
+
+Texas is [Token Exchange as a Service](../../explanations/README.md#texas), aimed to make it easier to deal with tokens.
+
+Send a HTTP POST request to the endpoint described in the `$NAIS_TOKEN_ENDPOINT` environment variable. The value for `target` is the identifier for the application you wish to make calls to.
+```json
+{
+    "identity_provider": "azuread",
+    "target": "cluster:namespace:application"
+}
+```
+
+You will get a response with an access token. The token can be used to access APIs for your specified target only.
+```json
+{
+    "access_token": "eyJra...",
+    "expires_in": 3599,
+    "token_type": "Bearer"
+}
+```
+
+### Manually
 The token request is an HTTP POST request.
 It must have the `Content-Type` header set to `application/x-www-form-urlencoded`.
 
