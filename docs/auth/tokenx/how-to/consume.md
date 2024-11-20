@@ -27,7 +27,38 @@ Depending on how you communicate with the API you're consuming, [configure the a
 
 ## Exchange token
 
-### Create client assertion
+### Automatically with Texas
+
+???+ warning "Token Exchange as a Service (Texas) is in public beta."
+
+    To enable for your application, set the `texas.nais.io=enabled` label on your `Application`.
+
+Texas is [Token Exchange as a Service](../../explanations/README.md#texas), aimed to make it easier to deal with tokens.
+
+Send a HTTP POST request to the endpoint described in the `$NAIS_TOKEN_EXCHANGE_ENDPOINT` environment variable.
+The value for `target` is the identifier for the application you wish to make calls to.
+Set `user_token` to the user's access token.
+
+```json
+{
+    "identity_provider": "tokenx",
+    "target": "cluster:namespace:application",
+    "user_token": "eyJra..."
+}
+```
+
+You will get a response with an access token. The token can be used to access APIs on behalf of the user, for your specified target only.
+```json
+{
+    "access_token": "eyJra...",
+    "expires_in": 3599,
+    "token_type": "Bearer"
+}
+```
+
+### Manually
+
+#### Create client assertion
 
 To perform a token exchange, your application must authenticate itself.
 To do so, create a [client assertion](../../explanations/README.md#client-assertion).
@@ -76,7 +107,7 @@ Additionally, the headers of the assertion must contain the following parameters
     }
     ```
 
-### Create and perform exchange request
+#### Create and perform exchange request
 
 Now that you have a client assertion, we can use this to exchange the inbound token you received from your consumer.
 
@@ -108,7 +139,7 @@ subject_token=eY...............&
 audience=prod-gcp:namespace1:app1
 ```
 
-#### Success response
+##### Success response
 
 TokenX responds with a JSON object that contains the new access token:
 
@@ -130,7 +161,7 @@ Your application does not need to validate this token.
 
     A safe cache key for this flow is `key = sha256($subject_token + $audience)`.
 
-#### Error response
+##### Error response
 
 If the exchange request is invalid, you will receive a structured error as specified in 
 [RFC 8693, Section 2.2.2](https://www.rfc-editor.org/rfc/rfc8693.html#name-error-response):
