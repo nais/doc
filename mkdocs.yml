@@ -69,8 +69,11 @@ extra_css:
   - material_theme_stylesheet_overrides/uu.css
   - material_theme_stylesheet_overrides/grid.css
   - css/gcp_only_admonition.css
+  - css/swagger.css
 plugins:
   - awesome-pages
+  - swagger-ui-tag:
+      extra_css: ['css/swagger.css']
   - tags:
       tags_file: ./tags.md
   - macros:

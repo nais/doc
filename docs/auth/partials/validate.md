@@ -11,6 +11,8 @@ Texas is [Token Exchange as a Service](../../explanations/README.md#texas), aime
 Send a HTTP POST request to the endpoint described in the `$NAIS_TOKEN_INTROSPECT_ENDPOINT` environment variable.
 Set `target` to the access token you wish to validate.
 
+For the complete API documentation, see [Texas OpenAPI reference](../../reference/texas.md).
+
 ```json
 {
     "identity_provider": "<IDENTITY_PROVIDER>",
