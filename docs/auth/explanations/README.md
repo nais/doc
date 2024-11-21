@@ -697,16 +697,18 @@ See the [autologin reference](../reference/README.md#autologin) for details.
 
 ## Texas
 
-Texas is an abbreviation for *Token Exchange as a Service* that runs as local service together with your application.
-It handles the boring parts of OAuth 2.0 and JWTs - so that your application doesn't have to.
+Texas is an abbreviation for *Token Exchange as a Service*.
+It handles the boring parts of OAuth 2.0 and JWTs — so that your application doesn't have to.
 
-Texas offers HTTP endpoints for:
+Texas runs as a sidecar together with your application and offers HTTP endpoints for:
 
 - getting machine tokens
 - exchanging user tokens into on-behalf-of tokens
 - token validation with introspection
 
 ???+ warning "Texas is currently in opt-in public beta"
+
+    API stability is not guaranteed during the beta period, and we may introduce breaking changes as we gather feedback.
 
     To enable for your application, set the `texas.nais.io/enabled: "true"` annotation on your `Application`:
 
@@ -717,6 +719,8 @@ Texas offers HTTP endpoints for:
       annotations:
         texas.nais.io: enabled
     ```
+
+    Visit the `#texas` channel on Slack for updates, questions and feedback.
 
 All available [identity providers](#identity-provider) are supported. See their respective pages for usage details.
 
