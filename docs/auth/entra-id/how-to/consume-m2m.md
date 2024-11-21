@@ -47,7 +47,7 @@ The value for `target` is the identifier for the application you wish to make ca
 ```json
 {
     "identity_provider": "azuread",
-    "target": "api://<cluster>:<namespace>:<application>/.default"
+    "target": "api://<cluster>.<namespace>.<application>/.default"
 }
 ```
 

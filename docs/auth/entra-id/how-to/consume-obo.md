@@ -42,7 +42,7 @@ Set `user_token` to the user's access token.
 ```json
 {
     "identity_provider": "azuread",
-    "target": "api://<cluster>:<namespace>:<application>/.default",
+    "target": "api://<cluster>.<namespace>.<application>/.default",
     "user_token": "eyJra..."
 }
 ```
