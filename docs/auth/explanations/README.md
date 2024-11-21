@@ -695,6 +695,36 @@ Requests to these paths will pass through the proxy to your application without 
 
 See the [autologin reference](../reference/README.md#autologin) for details.
 
+## Texas
+
+???+ warning "Token Exchange as a Service (Texas) is in public beta."
+
+    To enable for your application, set the `texas.nais.io=enabled` annotation on your `Application`.
+
+<<gcp_only("Texas")>>
+
+Texas is an abbreviation for *Token Exchange as a Service*, and aims to make it easier to deal with tokens.
+
+Texas offers HTTP endpoints for getting tokens, exchanging user tokens into on-behalf-of tokens, and token introspection.
+
+See the [OpenAPI v3 documentation](https://raw.githubusercontent.com/nais/texas/refs/heads/master/doc/openapi-spec.json)
+for details.
+
+### Get a machine token
+
+The token endpoint is available at `$NAIS_TOKEN_ENDPOINT`.
+Use this endpoint when you need to call another API, unless the request is behalf of a logged-in user. Use the token exchange endpoint for those cases.
+
+### Exchange a user token for a machine token
+
+The token endpoint is available at `$NAIS_TOKEN_ENDPOINT`.
+Use this endpoint when you need to call another API on behalf of a logged-in user.
+
+### Introspection
+
+The introspect endpoint is available at `$NAIS_TOKEN_INTROSPECT_ENDPOINT`.
+Introspection implies validation. *Always* validate tokens in incoming requests before handling the request.
+
 ## Further Reading
 
 - <https://nais.io/blog/posts/oauth1/>
