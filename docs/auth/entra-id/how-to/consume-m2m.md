@@ -38,7 +38,9 @@ Now you can request a new token for the API that you want to consume.
 ### Automatically with Texas
 ???+ warning "Token Exchange as a Service (Texas) is in public beta."
 
-    To enable for your application, set the `texas.nais.io=enabled` label on your `Application`.
+    To enable for your application, set the `texas.nais.io=enabled` annotation on your `Application`.
+
+<<gcp_only("Texas")>>
 
 Texas is [Token Exchange as a Service](../../explanations/README.md#texas), aimed to make it easier to deal with tokens.
 

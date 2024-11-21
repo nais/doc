@@ -33,7 +33,9 @@ Now you can exchange the employees subject token for a new token targeting the A
 
 ???+ warning "Token Exchange as a Service (Texas) is in public beta."
 
-    To enable for your application, set the `texas.nais.io=enabled` label on your `Application`.
+    To enable for your application, set the `texas.nais.io=enabled` annotation on your `Application`.
+
+<<gcp_only("Texas")>>
 
 Texas is [Token Exchange as a Service](../../explanations/README.md#texas), aimed to make it easier to deal with tokens.
 
