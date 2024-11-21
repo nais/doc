@@ -1,11 +1,11 @@
 To validate a token, you can either:
 
-- use [Token Exchange as a Service](../../explanations/README.md#texas) (_Texas_), or
-- manually perform JWT validation in your application
+- [validate tokens with Texas](#validate-with-texas), or
+- [validate JWTs manually](#validate-jwt-manually) in your application
 
-**Texas**
+#### Validate with Texas
 
-???+ warning "Texas is in public beta"
+???+ warning "[Token Exchange as a Service](../../explanations/README.md#texas) (Texas) is in public beta"
 
     To enable for your application, set the `texas.nais.io/enabled: "true"` annotation on your `Application`.
 
@@ -14,7 +14,7 @@ Send a HTTP POST request to the endpoint described in the `$NAIS_TOKEN_INTROSPEC
 - Set `token` to the access token you wish to validate
 - Set `identity_provider` to the identity provider that you wish to validate against (one of `azuread`, `idporten`, `maskinporten`, `tokenx`)
 
-For the complete API documentation, see [Texas OpenAPI reference](../../reference/texas.md).
+For the complete API documentation, see [Texas reference](../../reference/README.md#texas).
 
 ```json
 {
@@ -23,7 +23,10 @@ For the complete API documentation, see [Texas OpenAPI reference](../../referenc
 }
 ```
 
-If the token is valid, you will get a response containing all the token's claims, in addition to an extra field `active=true`:
+The response is a JSON object.
+It always contains the field `active` with a boolean value that indicates whether the token is valid or not.
+
+If the token is valid, the response will also contain all the token's claims:
 
 ```json
 {
@@ -35,8 +38,7 @@ If the token is valid, you will get a response containing all the token's claims
 }
 ```
 
-On the other hand, if the token is invalid due to any reason, the response will contain the field `active=false`,
-in addition to a human-readable error message describing the situation:
+If the token is invalid, the only additional field in the response is the `error` field:
 
 ```json
 {
@@ -45,7 +47,9 @@ in addition to a human-readable error message describing the situation:
 }
 ```
 
-**JWT Validation**
+The `error` field contains a human-readable error message that describes why the token is invalid.
+
+#### Validate JWT manually
 
 Validating a JWT involves a number of steps.
 These steps are outlined and described below in a language- and framework-agnostic way.

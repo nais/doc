@@ -697,7 +697,16 @@ See the [autologin reference](../reference/README.md#autologin) for details.
 
 ## Texas
 
-???+ warning "Token Exchange as a Service (Texas) is in public beta."
+Texas is an abbreviation for *Token Exchange as a Service* that runs as local service together with your application.
+It handles the boring parts of OAuth 2.0 and JWTs - so that your application doesn't have to.
+
+Texas offers HTTP endpoints for:
+
+- getting machine tokens
+- exchanging user tokens into on-behalf-of tokens
+- token validation with introspection
+
+???+ warning "Texas is currently in opt-in public beta"
 
     To enable for your application, set the `texas.nais.io/enabled: "true"` annotation on your `Application`:
 
@@ -709,32 +718,9 @@ See the [autologin reference](../reference/README.md#autologin) for details.
         texas.nais.io: enabled
     ```
 
-Texas is an abbreviation for *Token Exchange as a Service*, and aims to make it easier to deal with tokens.
+All available [identity providers](#identity-provider) are supported. See their respective pages for usage details.
 
-Texas offers HTTP endpoints for getting tokens, exchanging user tokens into on-behalf-of tokens, and token introspection.
-
-See the [OpenAPI v3 documentation](../reference/texas.md) for details.
-
-### Get a machine token
-
-The token endpoint is available at `$NAIS_TOKEN_ENDPOINT`.
-
-Use this endpoint when you need a token for machine-to-machine interactions without end-user involvement.
-
-### Exchange a user token for a machine token
-
-The token endpoint is available at `$NAIS_TOKEN_EXCHANGE_ENDPOINT`.
-
-Use this endpoint when you need to call another API on behalf of a logged-in end-user.
-
-### Introspection
-
-The introspect endpoint is available at `$NAIS_TOKEN_INTROSPECTION_ENDPOINT`.
-
-Introspection implies validation.
-Use this endpoint to validate a token and receive its claims in the response.
-
-Your application should *always* validate tokens in incoming requests before handling the request.
+See the [Texas reference](../reference/README.md#texas) for API specifications and available environment variables.
 
 ## Further Reading
 

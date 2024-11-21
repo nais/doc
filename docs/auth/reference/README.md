@@ -470,6 +470,24 @@ The durations for maximum lifetime and inactivity timeout are subject to change.
 Do not hard-code or depend on these exact values in your application.
 Prefer using the metadata returned by the [session endpoint](#session-endpoint) to determine the session's state.
 
+## Texas
+
+Reference documentation for [Token Exchange as a Service (Texas)](../explanations/README.md#texas).
+
+### Environment Variables
+
+The following environment variables are available for your application to interact with Texas:
+
+| Variable                            | Description                                                                                                             |
+|-------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| `NAIS_TOKEN_ENDPOINT`               | URL to token endpoint. Use this when you need a token for machine-to-machine interactions without end-user involvement. |
+| `NAIS_TOKEN_EXCHANGE_ENDPOINT`      | URL to token exchange endpoint. Use this when you need to call another API on behalf of a logged-in end-user.           |
+| `NAIS_TOKEN_INTROSPECTION_ENDPOINT` | URL to token introspection endpoint. Use this to validate a token and receive its claims in the response.               |
+
+### OpenAPI specification
+
+<swagger-ui src="https://raw.githubusercontent.com/nais/texas/refs/heads/master/doc/openapi-spec.json"/>
+
 {%- else %}
 
 ## Login proxy

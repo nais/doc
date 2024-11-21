@@ -26,10 +26,16 @@ Depending on how you communicate with the API you're consuming, [configure the a
 
 {%- endif %}
 
-## Acquire token
+## Exchange token
+
 Now you can exchange the employees subject token for a new token targeting the API that you want to consume.
 
-### Automatically with Texas
+To exchange a token, you can either:
+
+- [exchange tokens with Texas](#exchange-tokens-with-texas), or
+- [exchange tokens manually](#exchange-tokens-manually) in your application
+
+### Exchange tokens with Texas
 
 ???+ warning "[Token Exchange as a Service](../../explanations/README.md#texas) (Texas) is in public beta."
 
@@ -57,7 +63,8 @@ You will get a response with an access token. The token can be used to access AP
 }
 ```
 
-### Manually
+### Exchange tokens manually
+
 The token request is an HTTP POST request.
 It must have the `Content-Type` header set to `application/x-www-form-urlencoded`.
 

@@ -40,7 +40,13 @@ The scopes themselves are defined and owned by the external API provider. The ex
 
 ## Acquire token
 
-### Automatically with Texas
+To acquire a token, you can either:
+
+- [acquire tokens with Texas](#acquire-tokens-with-texas), or
+- [acquire tokens manually](#acquire-tokens-manually) in your application
+
+### Acquire tokens with Texas
+
 ???+ warning "[Token Exchange as a Service](../../explanations/README.md#texas) (Texas) is in public beta."
 
     To enable for your application, set the `texas.nais.io/enabled: "true"` annotation on your `Application`.
@@ -65,7 +71,8 @@ You will get a response with an access token:
 }
 ```
 
-### Manually
+### Acquire tokens manually
+
 To acquire a token from Maskinporten, you will need to create a [client assertion](../../explanations/README.md#client-assertion).
 
 #### Create client assertion

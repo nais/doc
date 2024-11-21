@@ -27,7 +27,12 @@ Depending on how you communicate with the API you're consuming, [configure the a
 
 ## Exchange token
 
-### Automatically with Texas
+To exchange a token, you can either:
+
+- [exchange tokens with Texas](#exchange-tokens-with-texas), or
+- [exchange tokens manually](#exchange-tokens-manually) in your application
+
+### Exchange tokens with Texas
 
 ???+ warning "[Token Exchange as a Service](../../explanations/README.md#texas) (Texas) is in public beta."
 
@@ -54,7 +59,7 @@ You will get a response with an access token. The token can be used to access AP
 }
 ```
 
-### Manually
+### Exchange tokens manually
 
 #### Create client assertion
 

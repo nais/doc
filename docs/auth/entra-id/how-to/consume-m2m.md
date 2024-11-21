@@ -33,9 +33,15 @@ Depending on how you communicate with the API you're consuming, [configure the a
 {%- endif %}
 
 ## Acquire token
+
 Now you can request a new token for the API that you want to consume.
 
-### Automatically with Texas
+To acquire a token, you can either:
+
+- [acquire tokens with Texas](#acquire-tokens-with-texas), or
+- [acquire tokens manually](#acquire-tokens-manually) in your application
+
+### Acquire tokens with Texas
 
 ???+ warning "[Token Exchange as a Service](../../explanations/README.md#texas) (Texas) is in public beta."
 
@@ -61,7 +67,8 @@ You will get a response with an access token. The token can be used to access AP
 }
 ```
 
-### Manually
+### Acquire tokens manually
+
 The token request is an HTTP POST request.
 It must have the `Content-Type` header set to `application/x-www-form-urlencoded`.
 
