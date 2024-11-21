@@ -74,6 +74,8 @@ plugins:
   - awesome-pages
   - swagger-ui-tag:
       extra_css: ['css/swagger.css']
+      supportedSubmitMethods: []
+      tryItOutEnabled: false
   - tags:
       tags_file: ./tags.md
   - macros:
