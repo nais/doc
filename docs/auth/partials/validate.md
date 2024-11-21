@@ -1,15 +1,18 @@
+To validate a token, you can either:
+
+- use [Token Exchange as a Service](../../explanations/README.md#texas) (_Texas_), or
+- manually perform JWT validation in your application
+
 **Texas**
 
-???+ warning "Token Exchange as a Service (Texas) is in public beta."
+???+ warning "Texas is in public beta"
 
-    To enable for your application, set the `texas.nais.io=enabled` annotation on your `Application`.
+    To enable for your application, set the `texas.nais.io/enabled: "true"` annotation on your `Application`.
 
-<<gcp_only("Texas")>>
+Send a HTTP POST request to the endpoint described in the `$NAIS_TOKEN_INTROSPECTION_ENDPOINT` environment variable.
 
-Texas is [Token Exchange as a Service](../../explanations/README.md#texas), aimed to make it easier to deal with tokens.
-
-Send a HTTP POST request to the endpoint described in the `$NAIS_TOKEN_INTROSPECT_ENDPOINT` environment variable.
-Set `target` to the access token you wish to validate.
+- Set `token` to the access token you wish to validate
+- Set `identity_provider` to the identity provider that you wish to validate against (one of `azuread`, `idporten`, `maskinporten`, `tokenx`)
 
 For the complete API documentation, see [Texas OpenAPI reference](../../reference/texas.md).
 
@@ -25,15 +28,10 @@ If the token is valid, you will get a response containing all the token's claims
 ```json
 {
     "active": true,
-    "aud": "my-target",
-    "azp": "yolo",
+    "aud": "<client-id>",
     "exp": 1730980893,
     "iat": 1730977293,
-    "iss": "http://localhost:8080/tokenx",
-    "jti": "e7cbadc3-6bda-49c0-a196-c47328da880e",
-    "nbf": 1730977293,
-    "sub": "e015542c-0f81-40f5-bbd9-7c3d9366298f",
-    "tid": "tokenx"
+    ...
 }
 ```
 

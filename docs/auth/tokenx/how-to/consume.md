@@ -29,13 +29,9 @@ Depending on how you communicate with the API you're consuming, [configure the a
 
 ### Automatically with Texas
 
-???+ warning "Token Exchange as a Service (Texas) is in public beta."
+???+ warning "[Token Exchange as a Service](../../explanations/README.md#texas) (Texas) is in public beta."
 
-    To enable for your application, set the `texas.nais.io=enabled` annotation on your `Application`.
-
-<<gcp_only("Texas")>>
-
-Texas is [Token Exchange as a Service](../../explanations/README.md#texas), aimed to make it easier to deal with tokens.
+    To enable for your application, set the `texas.nais.io/enabled: "true"` annotation on your `Application`.
 
 Send a HTTP POST request to the endpoint described in the `$NAIS_TOKEN_EXCHANGE_ENDPOINT` environment variable.
 The value for `target` is the identifier for the application you wish to make calls to.
@@ -44,7 +40,7 @@ Set `user_token` to the user's access token.
 ```json
 {
     "identity_provider": "tokenx",
-    "target": "cluster:namespace:application",
+    "target": "<cluster>:<namespace>:<application>",
     "user_token": "eyJra..."
 }
 ```

@@ -31,13 +31,9 @@ Now you can exchange the employees subject token for a new token targeting the A
 
 ### Automatically with Texas
 
-???+ warning "Token Exchange as a Service (Texas) is in public beta."
+???+ warning "[Token Exchange as a Service](../../explanations/README.md#texas) (Texas) is in public beta."
 
-    To enable for your application, set the `texas.nais.io=enabled` annotation on your `Application`.
-
-<<gcp_only("Texas")>>
-
-Texas is [Token Exchange as a Service](../../explanations/README.md#texas), aimed to make it easier to deal with tokens.
+    To enable for your application, set the `texas.nais.io/enabled: "true"` annotation on your `Application`.
 
 Send a HTTP POST request to the endpoint described in the `$NAIS_TOKEN_EXCHANGE_ENDPOINT` environment variable.
 The value for `target` is the identifier for the application you wish to make calls to.
@@ -46,12 +42,13 @@ Set `user_token` to the user's access token.
 ```json
 {
     "identity_provider": "azuread",
-    "target": "cluster:namespace:application",
+    "target": "api://<cluster>:<namespace>:<application>/.default",
     "user_token": "eyJra..."
 }
 ```
 
 You will get a response with an access token. The token can be used to access APIs on behalf of the user, for your specified target only.
+
 ```json
 {
     "access_token": "eyJra...",

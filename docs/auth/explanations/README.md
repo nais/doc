@@ -699,9 +699,15 @@ See the [autologin reference](../reference/README.md#autologin) for details.
 
 ???+ warning "Token Exchange as a Service (Texas) is in public beta."
 
-    To enable for your application, set the `texas.nais.io=enabled` annotation on your `Application`.
+    To enable for your application, set the `texas.nais.io/enabled: "true"` annotation on your `Application`:
 
-<<gcp_only("Texas")>>
+    ```yaml title="app.yaml" hl_lines="5"
+    apiVersion: "nais.io/v1alpha1"
+    kind: "Application"
+    metadata:
+      annotations:
+        texas.nais.io: enabled
+    ```
 
 Texas is an abbreviation for *Token Exchange as a Service*, and aims to make it easier to deal with tokens.
 
@@ -712,17 +718,23 @@ See the [OpenAPI v3 documentation](../reference/texas.md) for details.
 ### Get a machine token
 
 The token endpoint is available at `$NAIS_TOKEN_ENDPOINT`.
-Use this endpoint when you need to call another API, unless the request is behalf of a logged-in user. Use the token exchange endpoint for those cases.
+
+Use this endpoint when you need a token for machine-to-machine interactions without end-user involvement.
 
 ### Exchange a user token for a machine token
 
-The token endpoint is available at `$NAIS_TOKEN_ENDPOINT`.
-Use this endpoint when you need to call another API on behalf of a logged-in user.
+The token endpoint is available at `$NAIS_TOKEN_EXCHANGE_ENDPOINT`.
+
+Use this endpoint when you need to call another API on behalf of a logged-in end-user.
 
 ### Introspection
 
-The introspect endpoint is available at `$NAIS_TOKEN_INTROSPECT_ENDPOINT`.
-Introspection implies validation. *Always* validate tokens in incoming requests before handling the request.
+The introspect endpoint is available at `$NAIS_TOKEN_INTROSPECTION_ENDPOINT`.
+
+Introspection implies validation.
+Use this endpoint to validate a token and receive its claims in the response.
+
+Your application should *always* validate tokens in incoming requests before handling the request.
 
 ## Further Reading
 

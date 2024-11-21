@@ -36,23 +36,23 @@ Depending on how you communicate with the API you're consuming, [configure the a
 Now you can request a new token for the API that you want to consume.
 
 ### Automatically with Texas
-???+ warning "Token Exchange as a Service (Texas) is in public beta."
 
-    To enable for your application, set the `texas.nais.io=enabled` annotation on your `Application`.
+???+ warning "[Token Exchange as a Service](../../explanations/README.md#texas) (Texas) is in public beta."
 
-<<gcp_only("Texas")>>
+    To enable for your application, set the `texas.nais.io/enabled: "true"` annotation on your `Application`.
 
-Texas is [Token Exchange as a Service](../../explanations/README.md#texas), aimed to make it easier to deal with tokens.
+Send a HTTP POST request to the endpoint described in the `$NAIS_TOKEN_ENDPOINT` environment variable.
+The value for `target` is the identifier for the application you wish to make calls to.
 
-Send a HTTP POST request to the endpoint described in the `$NAIS_TOKEN_ENDPOINT` environment variable. The value for `target` is the identifier for the application you wish to make calls to.
 ```json
 {
     "identity_provider": "azuread",
-    "target": "cluster:namespace:application"
+    "target": "api://<cluster>:<namespace>:<application>/.default"
 }
 ```
 
 You will get a response with an access token. The token can be used to access APIs for your specified target only.
+
 ```json
 {
     "access_token": "eyJra...",

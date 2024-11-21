@@ -8,3 +8,4 @@ conditional: [tenant, nav]
 }
 </style>
 <swagger-ui src="https://raw.githubusercontent.com/nais/texas/refs/heads/master/doc/openapi-spec.json"/>
+This is the reference documentation for the [Texas](../explanations/README.md#texas) API.

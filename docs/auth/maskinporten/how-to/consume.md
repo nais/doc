@@ -41,15 +41,13 @@ The scopes themselves are defined and owned by the external API provider. The ex
 ## Acquire token
 
 ### Automatically with Texas
-???+ warning "Token Exchange as a Service (Texas) is in public beta."
+???+ warning "[Token Exchange as a Service](../../explanations/README.md#texas) (Texas) is in public beta."
 
-    To enable for your application, set the `texas.nais.io=enabled` annotation on your `Application`.
+    To enable for your application, set the `texas.nais.io/enabled: "true"` annotation on your `Application`.
 
-<<gcp_only("Texas")>>
+Send a HTTP POST request to the endpoint described in the `$NAIS_TOKEN_ENDPOINT` environment variable.
+The value for `target` is name of the scope you want a token for.
 
-Texas is [Token Exchange as a Service](../../explanations/README.md#texas), aimed to make it easier to deal with tokens.
-
-Send a HTTP POST request to the endpoint described in the `$NAIS_TOKEN_ENDPOINT` environment variable. The value for `target` is the identifier for the application you wish to make calls to.
 ```json
 {
     "identity_provider": "maskinporten",
@@ -57,7 +55,8 @@ Send a HTTP POST request to the endpoint described in the `$NAIS_TOKEN_ENDPOINT`
 }
 ```
 
-You will get a response with an access token. The token can be used to access APIs for your specified target only.
+You will get a response with an access token:
+
 ```json
 {
     "access_token": "eyJra...",
@@ -69,7 +68,7 @@ You will get a response with an access token. The token can be used to access AP
 ### Manually
 To acquire a token from Maskinporten, you will need to create a [client assertion](../../explanations/README.md#client-assertion).
 
-### Create client assertion
+#### Create client assertion
 
 The client assertion is a JWT that consists of a **header**, a **payload** and a **signature**.
 
@@ -175,7 +174,7 @@ Finally, create a **signature** for the client assertion.
         jwtAssertion = jwt.encode(payload, private_key, "RS256", header)
         ```
 
-### Request token from Maskinporten
+#### Request token from Maskinporten
 
 **Request**
 
