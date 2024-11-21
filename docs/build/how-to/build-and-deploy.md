@@ -54,6 +54,8 @@ This how-to guide shows you how to build and deploy your application using [Gith
               RESOURCE: .nais/app.yaml #, topic.yaml, statefulset.yaml, etc.
               VAR: image=${{ steps.docker-build-push.outputs.image }}
               TELEMETRY: ${{ steps.docker-build-push.outputs.telemetry }}
+              DEPLOY_SERVER: deploy.<<tenant()>>.cloud.nais.io:443 
+
     ```
 
 This example workflow is a minimal example that builds, signs, and pushes your container image to the image registry.

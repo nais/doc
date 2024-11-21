@@ -1,6 +1,5 @@
 ---
 description: Github action that helps to secure supply chain for software artifacts.
-tags: [explanation, services]
 ---
 
 # Salsa
@@ -44,7 +43,7 @@ Simply add [nais/docker-build-push](https://github.com/nais/docker-build-push) t
 ```
 
 !!! Opt-out
-    Opt-out from salsa
+Opt-out from salsa
 
     If you want to opt-out from salsa you can set the salsa input to false
 
@@ -58,7 +57,7 @@ See [nais/docker-build-push](https://github.com/nais/docker-build-push) for more
 
 Vulnerabilities is aggregated to the team level, and can be viewed in the Console.
 Teams can visit the Console to view their Application vulnerabilities, for example:  
-https://console.<<tenant()>>.cloud.nais.io/team/[team]/vulnerabilities
+https://console.[tenant].cloud.nais.io/team/[team]/vulnerabilities
 
 ### View and analyze dependencies in Dependency-Track
 
@@ -66,12 +65,13 @@ https://console.<<tenant()>>.cloud.nais.io/team/[team]/vulnerabilities
 attestations and vulnerabilities for all signed attestations deployed, except those that have chosen to opt out
 from salsa. You can access the Dependency-Track user interface through the following URL:
 
-https://salsa.<<tenant()>>.cloud.nais.io
+https://salsa.[tenantname].cloud.nais.io
+For instance, you can visit [nav-salsa](https://salsa.nav.cloud.nais.io) as an example.
 
 To sign in, utilize the OpenID button, which will redirect you to your organization's identity provider.
 
-Within Dependency-Track, each container in a deployment is associated with its own project. 
-The project's name is composed of the cluster, team name, application name, and/or the container name. 
+Within Dependency-Track, each container in a deployment is associated with its own project.
+The project's name is composed of the cluster, team name, application name, and/or the container name.
 You can conduct searches within projects using the following tags:
 
 * Team
@@ -80,7 +80,7 @@ You can conduct searches within projects using the following tags:
 
 Below is a screenshot of a project utilizing the dependency graph within Dependency-Track:
 
-![Dependency Graph](../assets/salsa-graph.png)
+![Dependency Graph](../../assets/salsa-graph.png)
 
 [Dependency-Track](https://dependencytrack.org/) has a ton of features so check out
 the [documentation](https://docs.dependencytrack.org/) for more information.
@@ -92,8 +92,8 @@ different [languages/build tools are dictated by Trivy](https://aquasecurity.git
 
 #### Known limitations and alternatives
 
-Due to Trivy, you'll receive a flattened graph of dependencies. 
-This is attributed to Trivy lacking support for Gradle's or Maven's dependency resolution. 
+Due to Trivy, you'll receive a streamlined graph of dependencies.
+This is attributed to Trivy lacking support for Gradle's or Maven's dependency resolution.
 However, the advantage lies in obtaining both the image dependencies and their associated vulnerabilities.
 
 Trivy directly parses the .jar files, lacking access to the dependency resolution information. Here are two alternative approaches:
@@ -103,7 +103,7 @@ Alternative 2, Generate your own Gradle dependencies.
 Gradle and Maven plugins for a deep graph of nested transitive dependencies.
 
 !!! Gradle Plugin
-    Add the following plugin to your `build.gradle*` file.
+Add the following plugin to your `build.gradle*` file.
 
     ```groovy
         id("org.cyclonedx.bom") version "1.7.4"
@@ -127,7 +127,7 @@ Gradle and Maven plugins for a deep graph of nested transitive dependencies.
     For more info about settings check out the [CycloneDx Gradle Plugin](https://github.com/CycloneDX/cyclonedx-gradle-plugin)
 
 !!! Maven Plugin
-    Add the following to your `pom.xml` file.
+Add the following to your `pom.xml` file.
 
     ```xml
         <plugins>
@@ -153,12 +153,12 @@ Gradle and Maven plugins for a deep graph of nested transitive dependencies.
           run: ./mvnw package
     ```
 
-    The SBOM will be default located at `target/classes/META-INF/sbom/application.cdx.json`. Pass the SBOM to the `nais/docker-build-push` action with the following input:
+    The SBOM will be default located at `target/bom.json`. Pass the SBOM to the `nais/docker-build-push` action with the following input:
 
     ```yaml
         uses: nais/docker-build-push@v0
         with:
-          byosbom: target/classes/META-INF/sbom/application.cdx.json
+          byosbom: target/bom.json
     ```
     For more info about settings check out the [CycloneDx Maven Plugin](https://github.com/CycloneDX/cyclonedx-maven-plugin)
 
@@ -169,13 +169,13 @@ When employing the `nais/attest-sign action`, you can provide the SBOM to the ac
 ```yaml
     uses: nais/attest-sign@v1.x.x
     with:
-      sbom: target/classes/META-INF/sbom/application.cdx.json
+      sbom: path/to/bom.json
 ```
 
 ## FAQ
 
 ### Project exists in Dependency-Track, but I can't see the SBOM or vulnerabilities
-This issue likely arises from using the GitHub dependencies graph resolution output JSON as an input for `byosbom`. 
+This issue likely arises from using the GitHub dependencies graph resolution output JSON as an input for `byosbom`.
 The format of this JSON is incompatible with Dependency-Track, please use the SBOM generated `nais/docker-build-push` action instead or
 any of the alternatives mentioned above.
 

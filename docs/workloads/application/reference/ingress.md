@@ -25,6 +25,12 @@ spec:
 
 In the example above, only `path1` and `path2` are routed to the application including any sub-paths. All other paths may return a `404` error. Please keep in mind that no path stripping is done as part of the routing and the full path is passed to the application.
 
+## Ingress redirects
+
+[ingress redirects](../explanations/expose.md#ingress-redirects) is a way to perform redirects in NAIS.
+
+Ingress redirects are used to redirect traffic from one domain to another. This can be useful when you want to change the domain of an application or when you want to redirect traffic from an old domain to a new one.
+
 ## Ingress customization
 
 Ingresses are automatically created for your application when you specify them in your [application manifest](application-spec.md).

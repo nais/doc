@@ -21,7 +21,6 @@ These variables are used to [:dart: consume an external API](../how-to/consume.m
 |:------------------------------|:------------------------------------------------------------------------------------------------------------------------|
 | `MASKINPORTEN_CLIENT_ID`      | [Client ID](../../explanations/README.md#client-id) that uniquely identifies the client in Maskinporten.                |
 | `MASKINPORTEN_CLIENT_JWK`     | [Private JWK](../../explanations/README.md#private-keys) (RSA) for the client.                                          |
-| `MASKINPORTEN_SCOPES`         | Whitespace-separated string of scopes registered for the client.                                                        |
 | `MASKINPORTEN_WELL_KNOWN_URL` | The well-known URL for the [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document) |
 | `MASKINPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](../../explanations/README.md#issuer).                                   |
 | `MASKINPORTEN_TOKEN_ENDPOINT` | `token_endpoint` from the [metadata discovery document](../../explanations/README.md#token-endpoint).                   |
@@ -38,16 +37,10 @@ These variables are used to [:dart: secure your API](../how-to/secure.md).
 
 ## Scope Naming
 
-All scopes within Maskinporten consist of a _prefix_ and a _subscope_:
+A Maskinporten scope consists of a _prefix_ and a _subscope_:
 
 ```text
 scope := <prefix>:<subscope>
-```
-
-For example:
-
-```text
-scope := nav:trygdeopplysninger
 ```
 
 {%- if tenant() == "nav" %}
@@ -67,90 +60,58 @@ subscope := <product><separator><name>
 
 _product_
 
-:   A product should be a _logical grouping_ of the resource, such as `trygdeopplysninger` or `pensjon`.
+:   The [`product`](../../../workloads/application/reference/application-spec.md#maskinportenscopesexposesproduct) is a logical grouping of resources, such as `arbeid`, `helse`, or `pensjon`.
 
 _separator_
 
-:   The default separator is `:`. If `name` contains `/`, the default separator is instead `/`.
-
-    If the [`separator` field](../../../workloads/application/reference/application-spec.md#maskinportenscopesexposesseparator) is configured, it will override the default separator.
+:   The [`separator`](../../../workloads/application/reference/application-spec.md#maskinportenscopesexposesseparator) should be set to `/`.
 
 _name_
 
-:   The name may also be _postfixed_ to separate between access levels.
+:   The [`name`](../../../workloads/application/reference/application-spec.md#maskinportenscopesexposesname) describes the resource itself.
+    It may contain multiple parts separated by `/`.
+
+    The name may also contain a suffix to separate between access levels.
     For instance, you could separate between `write` access:
 
     ```text
-    name := trygdeopplysninger.write
+    name := sykepenger/afp.write
     ```
 
     ...and `read` access:
 
     ```text
-    name := trygdeopplysninger.read
+    name := sykepenger/afp.read
     ```
 
-### Example scope
+### Example
 
-=== "Without forward slash"
+For the following scope definition:
 
-    If _name_ does not contain any `/` (forward slash), the _separator_ is set to `:` (colon).
+```yaml title="nais.yaml" hl_lines="5-11"
+spec:
+  maskinporten:
+    enabled: true
+    scopes:
+      exposes:
+        # nav:helse/sykepenger/afp.read
+        - enabled: true
+          product: "helse"
+          separator: "/"
+          name: "sykepenger/afp.read"
+```
 
-    For the following scope definition:
+the subscope is then:
 
-    ```yaml title="nais.yaml" hl_lines="5-11"
-    spec:
-      maskinporten:
-        enabled: true
-        scopes:
-          exposes:
-            # `nav:arbeid:some.scope.read`
-            - name: "some.scope.read"
-              enabled: true
-              product: "arbeid"
-    ```
+```text
+subscope := helse/sykepenger/afp.read
+```
 
-    the subscope is then:
+which results in the fully qualified scope:
 
-    ```text
-    subscope := arbeid:some.scope.read
-    ```
-
-    which results in the fully qualified scope:
-
-    ```text
-    scope := nav:arbeid:some.scope.read
-    ```
-
-=== "With forward slash"
-
-    If _name_ contains a `/` (forward slash), the _separator_ is set to `/` (forward slash).
-
-    For the following scope definition:
-
-    ```yaml title="nais.yaml" hl_lines="5-11"
-    spec:
-      maskinporten:
-        enabled: true
-        scopes:
-          exposes:
-            # `nav:arbeid/some/scope.read`
-            - name: "some/scope.read"
-              enabled: true
-              product: "arbeid"
-    ```
-
-    the subscope is then:
-
-    ```text
-    subscope := arbeid/some/scope.read
-    ```
-  
-    which results in the fully qualified scope:
-
-    ```text
-    scope := nav:arbeid/some/scope.read
-    ```
+```text
+scope := nav:helse/sykepenger/afp.read
+```
 
 ## Spec
 

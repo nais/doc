@@ -9,6 +9,9 @@ def define_env(env):
 
     @env.macro
     def tenant_url(app: str, path: str = ''):
+        if tenant() == 'nav' and app == 'cdn':
+            return f'https://cdn.nav.no/{path}'
+
         return f'https://{app}.{tenant()}.cloud.nais.io/{path}'
 
     @env.macro

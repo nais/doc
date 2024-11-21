@@ -17,18 +17,22 @@ A _scope_ represents a permission that a given consumer has access to.
 
 Declare all the scopes that you want to expose in your application's NAIS manifest:
 
-```yaml title="nais.yaml" hl_lines="5-11"
+```yaml title="nais.yaml" hl_lines="5-15"
 spec:
   maskinporten:
     enabled: true
     scopes:
       exposes:
-        - name: "some.scope.read"
-          enabled: true
-          product: "arbeid"
-        - name: "some.scope.write"
-          enabled: true
-          product: "arbeid"
+        # nav:helse/sykepenger/afp.write
+        - enabled: true
+          product: "helse"
+          separator: "/"
+          name: "sykepenger/afp.write"
+        # nav:helse/sykepenger/afp.read
+        - enabled: true
+          product: "helse"
+          separator: "/"
+          name: "sykepenger/afp.read"
 ```
 
 See the [scope naming reference](../reference/README.md#scope-naming) for details on naming scopes.
@@ -39,20 +43,22 @@ See the [NAIS application reference](../../../workloads/application/reference/ap
 
 Grant the external consumer access to the scopes by specifying their organization number:
 
-```yaml title="nais.yaml" hl_lines="8-9"
+```yaml title="nais.yaml" hl_lines="10-11"
 spec:
   maskinporten:
     enabled: true
     scopes:
       exposes:
-        - name: "some.scope.read"
-          ...
+        - name: "sykepenger/afp.read"
+          enabled: true
+          product: "helse"
+          separator: "/"
           consumers:
             - orgno: "123456789"
 ```
 
-Now that you have configured the scopes in Maskinporten, consumers can now request tokens with these scopes.
-You will now need to validate these tokens in your application.
+Now that you have configured the scopes in Maskinporten, consumers can request tokens with these scopes.
+You will need to validate these tokens in your application.
 
 ## Validate tokens
 

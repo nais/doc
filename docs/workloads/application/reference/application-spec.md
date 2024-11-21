@@ -4936,6 +4936,46 @@ Required: `false`<br />
         timeout: 1
     ```
 
+## redirects
+List of ingress redirects
+
+Type: `array`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      redirects:
+        - from: https://myapplication-old.nav.no
+          to: https://myapplication.nav.no
+    ```
+
+### redirects[].from
+Type: `string`<br />
+Required: `true`<br />
+Pattern: `^https:\/\/.+$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      redirects:
+        - from: https://myapplication-old.nav.no
+          to: https://myapplication.nav.no
+    ```
+
+### redirects[].to
+Type: `string`<br />
+Required: `true`<br />
+Pattern: `^https:\/\/.+$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      redirects:
+        - from: https://myapplication-old.nav.no
+          to: https://myapplication.nav.no
+    ```
+
 ## redis
 List of redis instances this job needs credentials for.
 Must be owned by same team.
@@ -5577,70 +5617,6 @@ Value range: `0`-`180`<br />
     ``` yaml
     spec:
       terminationGracePeriodSeconds: 60
-    ```
-
-## texas
-Enables token exchange as a service (Texas).
-Texas runs as a sidecar in your container.
-When enabled, credentials needed for OAuth2 are injected into the Texas sidecar
-instead of your application container.
-
-!!! warning "Experimental feature"
-    This feature has not undergone much testing, and is subject to API change, instability, or removal.
-
-Relevant information:
-
-* [https://doc.nais.io/auth/texas/](https://doc.nais.io/auth/texas/)
-
-Type: `object`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      texas:
-        azure: true
-        maskinporten: true
-        tokenx: true
-    ```
-
-### texas.azure
-Enables token service for Azure, also known as Entra ID.
-
-Type: `boolean`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      texas:
-        azure: true
-    ```
-
-### texas.maskinporten
-Enables token service for Maskinporten.
-
-Type: `boolean`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      texas:
-        maskinporten: true
-    ```
-
-### texas.tokenx
-Enables token service for TokenX.
-
-Type: `boolean`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      texas:
-        tokenx: true
     ```
 
 ## tokenx

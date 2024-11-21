@@ -272,6 +272,9 @@ spec:
     periodSeconds: 5
     port: 8080
     timeout: 1
+  redirects:
+  - from: https://myapplication-old.nav.no
+    to: https://myapplication.nav.no
   redis:
   - access: readwrite
     instance: cache
@@ -313,10 +316,6 @@ spec:
       maxUnavailable: 0
     type: RollingUpdate
   terminationGracePeriodSeconds: 60
-  texas:
-    azure: true
-    maskinporten: true
-    tokenx: true
   tokenx:
     enabled: true
     mountSecretsAsFilesOnly: true

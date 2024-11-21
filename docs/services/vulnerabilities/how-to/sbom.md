@@ -1,8 +1,8 @@
 ---
-tags: [attestation, docker-build-push, how-to]
+tags: [attestation, sbom, how-to]
 ---
 
-# Docker Build Push
+# Generate SBOM
 
 Simply add [nais/docker-build-push](https://github.com/nais/docker-build-push) to your workflow.
 
@@ -39,18 +39,3 @@ If you want to push to another registry, you can use the [nais/attest-sign](http
      sbom: my-image.json # optional
      # ... other options removed for readability
 ```
-
-## Known limitations and alternatives
-
-Due to [Trivy](https://github.com/aquasecurity/trivy-action), you'll receive a simplified dependency graph, as Trivy 
-doesn't support Gradle or Maven's dependency resolution. 
-
-Dependency-track integrates with Trivy at runtime, ensuring that vulnerabilities from the Docker container are still detected.
-
-Trivy directly parses the .jar files without access to full dependency resolution details.
-
-Gradle and Maven plugins provide a deeper graph of nested transitive dependencies.
-However, if you're using [Distroless](../../explanations/README.md#distroless-google) images or
-[Chainguard images](../../explanations/README.md#chainguard), updates are managed and kept to a minimum.
- 
-See [limitations and alternatives](../reference/README.md#known-limitations-and-alternatives) for more information.
