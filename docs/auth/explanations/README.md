@@ -707,8 +707,7 @@ Texas is an abbreviation for *Token Exchange as a Service*, and aims to make it 
 
 Texas offers HTTP endpoints for getting tokens, exchanging user tokens into on-behalf-of tokens, and token introspection.
 
-See the [OpenAPI v3 documentation](https://raw.githubusercontent.com/nais/texas/refs/heads/master/doc/openapi-spec.json)
-for details.
+See the [OpenAPI v3 documentation](../reference/texas.md) for details.
 
 ### Get a machine token
 
