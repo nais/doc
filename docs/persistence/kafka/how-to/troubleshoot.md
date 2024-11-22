@@ -19,3 +19,18 @@ This can happen for a number of reasons:
 
 * Make sure your application retries the operation after a short delay
 * If the problem persists, contact the nais team for assistance
+
+## Testing your application
+
+To test that you have configured your consumer application correctly, you can use one of the kafkarator-canary topics.
+All applications (from all teams) have read access to the canary topics.
+All the canary topics receives messages on a fixed interval, containing a RFC3339 formatted timestamp.
+The only difference between each, is where the producer is located.
+The available canary topics are:
+
+| Pool     | Topic name                              |
+| :------- | :-------------------------------------- |
+| nav-dev  | nais-verification.kafka-canary-dev-gcp  |
+| nav-dev  | nais-verification.kafka-canary-dev-fss  |
+| nav-prod | nais-verification.kafka-canary-prod-gcp |
+| nav-prod | nais-verification.kafka-canary-prod-fss |

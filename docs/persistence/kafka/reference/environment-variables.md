@@ -22,3 +22,11 @@ These variables are made available to your application when Kafka is enabled.
 | `KAFKA_KEYSTORE_PATH`            | PKCS\#12 keystore for use with Java clients, as file                       |
 | `KAFKA_TRUSTSTORE_PATH`          | JKS truststore for use with Java clients, as file                          |
 | `AIVEN_SECRET_UPDATED`           | A timestamp of when the secret was created                                 |
+
+Aiven has written several articles on how to configure your application.
+We use SSL, so ignore the SASL-SSL examples:
+
+- [Java](https://docs.aiven.io/docs/products/kafka/howto/connect-with-java.html)
+- [Python](https://docs.aiven.io/docs/products/kafka/howto/connect-with-python.html)
+- [Node.js](https://docs.aiven.io/docs/products/kafka/howto/connect-with-nodejs.html)
+- [Go](https://docs.aiven.io/docs/products/kafka/howto/connect-with-go.html)
