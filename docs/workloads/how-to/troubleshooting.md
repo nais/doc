@@ -80,7 +80,7 @@ Events:
   Warning  FailedMount  22m (x5 over 22m)  kubelet            MountVolume.SetUp failed for volume "<secret-name>" : secret "<secret-name>" not found
 ```
 
-Some secrets (such as those from [Entra ID](../../auth/entra-id/README.md) or [Kafka](../../persistence/kafka/README.md)) are _eventually consistent_.
+Some secrets needed to interact with external systems are _eventually consistent_.
 
 Typically, the message appears on either:
 
