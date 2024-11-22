@@ -67,6 +67,7 @@ This link looks like `<<tenant_url('grafana', 'd/<dashboard_id>/deploy-tracing-d
 | the server could not find the requested resource \(total of 1 errors\)                                                          | The resource is not specifying its namespace.                                                                                 |
 | MountVolume.SetUp failed for volume "<some-secret>" : secret "<some-secret>" not found                                          | See [secret not found](#secret-not-found).                                                                                    |
 | no team specified, and unable to auto-detect from nais.yaml                                                                     | The resource is missing the "team" label.                                                                                     |
+| Error: fatal: Unauthenticated: authentication token has expired                                                                 | The token issued at the start of the github workflow has a lifetime of 10 minutes. Is your workflow taking too long?          |
 
 ## Secret not found
 
