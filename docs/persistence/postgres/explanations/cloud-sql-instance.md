@@ -33,6 +33,9 @@ In nais, an Application can only have one SQL Instance.
 We believe that an application should not need more than one database. 
 If you have a need for more than one database, you should consider splitting your application into multiple applications. 
 
+Creation of an SQL Instance can take some time, often as much as 8-10 minutes.
+When first deploying an application with an SQL Instance, this can cause the deployment to time out.
+
 ## Attributes of an SQL Instance
 
 ### Machine type
