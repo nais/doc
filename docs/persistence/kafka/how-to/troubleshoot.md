@@ -1,3 +1,7 @@
+---
+tags: [kafka, troubleshooting, debugging, how-to]
+---
+
 # Troubleshooting
 
 ## Topic authorization failed for topics
