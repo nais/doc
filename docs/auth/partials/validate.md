@@ -5,33 +5,45 @@ To validate a token, you can either:
 
 #### Validate with Texas
 
-???+ warning "[Token Exchange as a Service](../../explanations/README.md#texas) (Texas) is in public beta"
+{% set endpoint_env_var = 'NAIS_TOKEN_INTROSPECTION_ENDPOINT' %}
+{% include 'auth/partials/texas-header.md' %}
 
-    To enable for your application, set the `texas.nais.io/enabled: "true"` annotation on your `Application`.
+| Parameter           | Example Value           | Description                            |
+|:--------------------|:------------------------|:---------------------------------------|
+| `identity_provider` | `<<identity_provider>>` | Always `<<identity_provider>>`.        |
+| `token`             | `eyJra...`              | The access token you wish to validate. |
 
-Send a HTTP POST request to the endpoint described in the `$NAIS_TOKEN_INTROSPECTION_ENDPOINT` environment variable.
+=== "application/json"
 
-- Set `token` to the access token you wish to validate
-- Set `identity_provider` to the identity provider that you wish to validate against (one of `azuread`, `idporten`, `maskinporten`, `tokenx`)
+    ```http title="Token request"
+    POST ${<<endpoint_env_var>>} HTTP/1.1
+    Content-Type: application/json
 
-For the complete API documentation, see [Texas reference](../../reference/README.md#texas).
+    {
+        "identity_provider": "<<identity_provider>>",
+        "token": "eyJra..."
+    }
+    ```
 
-```json
-{
-    "identity_provider": "<IDENTITY_PROVIDER>",
-    "token": "eyJra..."
-}
-```
+=== "application/x-www-form-urlencoded"
 
-The response is a JSON object.
-It always contains the field `active` with a boolean value that indicates whether the token is valid or not.
+    ```http title="Token request"
+    POST ${<<endpoint_env_var>>} HTTP/1.1
+    Content-Type: application/x-www-form-urlencoded
+
+    identity_provider=<<identity_provider>>&
+    token=eyJra...
+    ```
+
+The response is always a HTTP 200 OK response with a JSON body.
+
+It always contains the `active` field, which is a boolean value that indicates whether the token is valid or not.
 
 If the token is valid, the response will also contain all the token's claims:
 
-```json
+```json title="Valid token"
 {
     "active": true,
-    "aud": "<client-id>",
     "exp": 1730980893,
     "iat": 1730977293,
     ...
@@ -40,10 +52,10 @@ If the token is valid, the response will also contain all the token's claims:
 
 If the token is invalid, the only additional field in the response is the `error` field:
 
-```json
+```json title="Invalid token"
 {
     "active": false,
-    "error": "token is expired",
+    "error": "token is expired"
 }
 ```
 

@@ -708,9 +708,7 @@ Texas runs as a sidecar together with your application and offers HTTP endpoints
 
 ???+ warning "Texas is currently in opt-in public beta"
 
-    API stability is not guaranteed during the beta period, and we may introduce breaking changes as we gather feedback.
-
-    To enable for your application, set the `texas.nais.io/enabled: "true"` annotation on your `Application`:
+    To enable Texas for your application, set the `texas.nais.io/enabled: "true"` annotation on your `Application`:
 
     ```yaml title="app.yaml" hl_lines="5"
     apiVersion: "nais.io/v1alpha1"
@@ -719,6 +717,8 @@ Texas runs as a sidecar together with your application and offers HTTP endpoints
       annotations:
         texas.nais.io: enabled
     ```
+
+    API stability is not guaranteed during the beta period, and we may introduce breaking changes as we gather feedback.
 
     Visit the `#texas` channel on Slack for updates, questions and feedback.
 

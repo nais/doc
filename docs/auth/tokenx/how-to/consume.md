@@ -34,30 +34,9 @@ To exchange a token, you can either:
 
 ### Exchange tokens with Texas
 
-???+ warning "[Token Exchange as a Service](../../explanations/README.md#texas) (Texas) is in public beta."
-
-    To enable for your application, set the `texas.nais.io/enabled: "true"` annotation on your `Application`.
-
-Send a HTTP POST request to the endpoint described in the `$NAIS_TOKEN_EXCHANGE_ENDPOINT` environment variable.
-The value for `target` is the identifier for the application you wish to make calls to.
-Set `user_token` to the user's access token.
-
-```json
-{
-    "identity_provider": "tokenx",
-    "target": "<cluster>:<namespace>:<application>",
-    "user_token": "eyJra..."
-}
-```
-
-You will get a response with an access token. The token can be used to access APIs on behalf of the user, for your specified target only.
-```json
-{
-    "access_token": "eyJra...",
-    "expires_in": 3599,
-    "token_type": "Bearer"
-}
-```
+{% set identity_provider = 'tokenx' %}
+{% set target = '<cluster>:<namespace>:<other-app-name>' %}
+{% include 'auth/partials/token-exchange.md' %}
 
 ### Exchange tokens manually
 

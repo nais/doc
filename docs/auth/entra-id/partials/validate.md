@@ -1,3 +1,4 @@
+{% set identity_provider = 'azuread' %}
 {% include 'auth/partials/validate.md' %}
 
 To validate the token, start by validating the [signature and standard time-related claims](../../explanations/README.md#token-validation).

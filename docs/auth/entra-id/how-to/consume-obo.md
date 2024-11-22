@@ -37,31 +37,9 @@ To exchange a token, you can either:
 
 ### Exchange tokens with Texas
 
-???+ warning "[Token Exchange as a Service](../../explanations/README.md#texas) (Texas) is in public beta."
-
-    To enable for your application, set the `texas.nais.io/enabled: "true"` annotation on your `Application`.
-
-Send a HTTP POST request to the endpoint described in the `$NAIS_TOKEN_EXCHANGE_ENDPOINT` environment variable.
-The value for `target` is the identifier for the application you wish to make calls to.
-Set `user_token` to the user's access token.
-
-```json
-{
-    "identity_provider": "azuread",
-    "target": "api://<cluster>.<namespace>.<application>/.default",
-    "user_token": "eyJra..."
-}
-```
-
-You will get a response with an access token. The token can be used to access APIs on behalf of the user, for your specified target only.
-
-```json
-{
-    "access_token": "eyJra...",
-    "expires_in": 3599,
-    "token_type": "Bearer"
-}
-```
+{% set identity_provider = 'azuread' %}
+{% set target = 'api://<cluster>.<namespace>.<other-api-app-name>/.default' %}
+{% include 'auth/partials/token-exchange.md' %}
 
 ### Exchange tokens manually
 
@@ -70,7 +48,7 @@ It must have the `Content-Type` header set to `application/x-www-form-urlencoded
 
 The body of the request should contain the following parameters:
 
-| Parameter             | Value                                                       | Description                                                                                                     |
+| Parameter             | Example Value                                               | Description                                                                                                     |
 |:----------------------|:------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------|
 | `assertion`           | `eyJraWQ...`                                                | The employee's subject token from the inbound request. Token that should be exchanged.                          |
 | `client_id`           | `60dea49a-255b-48b5-b0c0-0974ac1c0b53`                      | Client identifier for your application. Set to the [`AZURE_APP_CLIENT_ID` environment variable][variables-ref]. |

@@ -43,29 +43,10 @@ To acquire a token, you can either:
 
 ### Acquire tokens with Texas
 
-???+ warning "[Token Exchange as a Service](../../explanations/README.md#texas) (Texas) is in public beta."
-
-    To enable for your application, set the `texas.nais.io/enabled: "true"` annotation on your `Application`.
-
-Send a HTTP POST request to the endpoint described in the `$NAIS_TOKEN_ENDPOINT` environment variable.
-The value for `target` is the identifier for the application you wish to make calls to.
-
-```json
-{
-    "identity_provider": "azuread",
-    "target": "api://<cluster>.<namespace>.<application>/.default"
-}
-```
-
-You will get a response with an access token. The token can be used to access APIs for your specified target only.
-
-```json
-{
-    "access_token": "eyJra...",
-    "expires_in": 3599,
-    "token_type": "Bearer"
-}
-```
+{% set identity_provider = 'azuread' %}
+{% set target = 'api://<cluster>.<namespace>.<other-api-app-name>/.default' %}
+{% set target_description = 'The intended _audience_ (target API or recipient) of the new token.' %}
+{% include 'auth/partials/token.md' %}
 
 ### Acquire tokens manually
 
@@ -74,7 +55,7 @@ It must have the `Content-Type` header set to `application/x-www-form-urlencoded
 
 The body of the request should contain the following parameters:
 
-| Parameter       | Value                                                       | Description                                                                                                     |
+| Parameter       | Example Value                                               | Description                                                                                                     |
 |:----------------|:------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------|
 | `client_id`     | `60dea49a-255b-48b5-b0c0-0974ac1c0b53`                      | Client identifier for your application. Set to the [`AZURE_APP_CLIENT_ID` environment variable][variables-ref]. |
 | `client_secret` | `<some-secret>`                                             | Client secret for your application. Set to the [`AZURE_APP_CLIENT_SECRET` environment variable][variables-ref]. |

@@ -47,29 +47,10 @@ To acquire a token, you can either:
 
 ### Acquire tokens with Texas
 
-???+ warning "[Token Exchange as a Service](../../explanations/README.md#texas) (Texas) is in public beta."
-
-    To enable for your application, set the `texas.nais.io/enabled: "true"` annotation on your `Application`.
-
-Send a HTTP POST request to the endpoint described in the `$NAIS_TOKEN_ENDPOINT` environment variable.
-The value for `target` is name of the scope you want a token for.
-
-```json
-{
-    "identity_provider": "maskinporten",
-    "target": "skatt:some.scope"
-}
-```
-
-You will get a response with an access token:
-
-```json
-{
-    "access_token": "eyJra...",
-    "expires_in": 3599,
-    "token_type": "Bearer"
-}
-```
+{% set identity_provider = 'maskinporten' %}
+{% set target = 'example:some.scope' %}
+{% set target_description = 'Whitespace-separated list of scopes that you want in the issued token from Maskinporten.' %}
+{% include 'auth/partials/token.md' %}
 
 ### Acquire tokens manually
 
@@ -81,7 +62,7 @@ The client assertion is a JWT that consists of a **header**, a **payload** and a
 
 The **header** should consist of the following parameters:
 
-| Parameter | Value            | Description                                                                                                                                                                                                     |
+| Parameter | Example Value    | Description                                                                                                                                                                                                     |
 |:----------|:-----------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **`kid`** | `<kid-from-JWK>` | The key identifier of the [private JWK](../../explanations/README.md#private-keys) used to sign the assertion. The private key is found in the [`MASKINPORTEN_CLIENT_JWK` environment variable][variables-ref]. |
 | **`typ`** | `JWT`            | Represents the type of this JWT. Set this to `JWT`.                                                                                                                                                             |
@@ -220,9 +201,11 @@ Your application does not need to validate this token.
 
 ???+ tip "Cache your tokens"
 
-    The `expires_in` field in the response indicates the lifetime of the token in seconds.
+    The `expires_in` field denotes the lifetime of the token in seconds.
 
-    Use this field to cache and reuse the token to minimize network latency impact.
+    **Cache and reuse the token until it expires** to minimize network latency impact.
+
+    A safe cache key for this flow is `key = $scope`.
 
 See the [Maskinporten token documentation](https://docs.digdir.no/docs/Maskinporten/maskinporten_protocol_token) for more details.
 
