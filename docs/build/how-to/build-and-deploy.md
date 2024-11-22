@@ -69,4 +69,4 @@ When this file is pushed to the `main` branch, the workflow will be triggered an
 
     This is a registry managed by NAIS and is the recommended way to store your container images for use in workloads on NAIS.
 
-    We keep the last 10 versions for each image regardless of age. Versions older than 90 days are automatically deleted.
+    We keep images that are deployed, as well as the last 10 versions for each image regardless of age. Versions older than 90 days are automatically deleted.
