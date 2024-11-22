@@ -11,8 +11,13 @@ The `redirects` field specifies URL redirects. It is structured as a mapping fro
 
 A successful redirect will return a `302 Moved Temporarily` HTTP status code with location header set to the target URL.
 
+!!! info "Explicit redirect permission"
+	The ingress being redirected has to have `nais.io/allow-redirect: true` set.
+	This can be set as an annotation in the application spec.
+
+
 ??? note "Status code for redirects"
-    The status code can not be overridden. 
+    The status code can not be overridden.
 
 ### Structure
 
@@ -52,4 +57,4 @@ spec:
 
 In this example:
 
-- Requests to `http://example-old.nais.io` are redirected to `http://example-new.nais.io`. 
+- Requests to `http://example-old.nais.io` are redirected to `http://example-new.nais.io`.
