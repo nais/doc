@@ -42,10 +42,5 @@
 
 Your application does not need to validate this token.
 
-!!! tip "Token Caching"
-
-      The `expires_in` field denotes the lifetime of the token in seconds.
-
-      **Cache and reuse the token until it expires** to minimize network latency impact.
-
-      A safe cache key for this flow is `key = $target`.
+Tokens are cached by default with regards to the `expires_in` field.
+To forcibly fetch a new token, set the `skip_cache=true` parameter in the request.
