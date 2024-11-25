@@ -50,13 +50,13 @@ To acquire a token, you can either:
 {% set identity_provider = 'maskinporten' %}
 {% set target = 'example:some.scope' %}
 {% set target_description = 'Whitespace-separated list of scopes that you want in the issued token from Maskinporten.' %}
+{% set additional_parameters = 'If the API provider requires the use of an [audience-restricted token](https://docs.digdir.no/maskinporten_func_audience_restricted_tokens.html), you must also include the following parameter in the request:
+
+| Parameter    | Example Value                       | Description                                                                                                                                 |
+|:-------------|:------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------|
+| `resource`   | `https://some-provider.example/api` | Optional. Target audience for the token returned by Maskinporten. The exact value is defined by the API provider and exchanged out-of-band. |
+' %}
 {% include 'auth/partials/token.md' %}
-
-If the API provider requires the use of an [audience-restricted token](https://docs.digdir.no/maskinporten_func_audience_restricted_tokens.html), you must also include the following parameter in the request:
-
-| Parameter    | Example Value                       | Description                                                                                                                       |
-|:-------------|:------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------|
-| `resource`   | `https://some-provider.example/api` | Target audience for the token returned by Maskinporten. The exact value is defined by the API provider and exchanged out-of-band. |
 
 ### Acquire tokens manually
 

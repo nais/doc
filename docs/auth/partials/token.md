@@ -6,6 +6,10 @@
 | `identity_provider` | `<<identity_provider>>` | Always `<<identity_provider>>`. |
 | `target`            | `<<target>>`            | <<target_description>>          |
 
+{% if additional_parameters %}
+<<additional_parameters>>
+{% endif %}
+
 === "application/json"
 
     ```http title="Token request"
