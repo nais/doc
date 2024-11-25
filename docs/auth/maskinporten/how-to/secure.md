@@ -65,6 +65,7 @@ You will need to validate these tokens in your application.
 Verify incoming requests from consumers by validating the [JWT Bearer token](../../explanations/README.md#bearer-token) in the `Authorization` header.
 
 {% set identity_provider = 'maskinporten' %}
+{% set claims_reference = '../reference/README.md#claims' %}
 {% include 'auth/partials/validate.md' %}
 
 To validate the token, start by validating the [signature and standard time-related claims](../../explanations/README.md#token-validation).
@@ -78,13 +79,6 @@ Validate that the `iss` claim has a value that is equal to either:
 1. the [`MASKINPORTEN_ISSUER`][variables-ref] environment variable, or
 2. the `issuer` property from the [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document).
    The document is found at the endpoint pointed to by the `MASKINPORTEN_WELL_KNOWN_URL` environment variable.
-
-**Scope Validation**
-
-Validate that the `scope` claim contains the expected scope(s).
-The `scope` claim is a string that contains a whitespace-separated list of scopes.
-
-The semantics and authorization that a scope represents is up to you to define and enforce in your application code.
 
 **Audience Validation**
 
@@ -108,5 +102,14 @@ This endpoint URI can be found in one of two ways:
 
 [Other claims](../reference/README.md#claims) may be present in the token.
 Validation of these claims is optional.
+
+### Scope Validation
+
+You must validate the `scope` claim in the token, regardless of whether you're using Texas or validating JWTs manually.
+
+The `scope` claim is a string that contains a whitespace-separated list of scopes.
+Validate that the `scope` claim contains the expected scope(s).
+
+The semantics and authorization that a scope represents is up to you to define and enforce in your application code.
 
 [variables-ref]: ../reference/README.md#variables-for-validating-tokens

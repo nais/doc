@@ -55,6 +55,7 @@ https://<ingress>/oauth2/login
 ```
 
 {% set identity_provider = 'idporten' %}
+{% set claims_reference = '../reference/README.md#claims' %}
 {% include 'auth/partials/validate.md' %}
 
 To validate the token, start by validating the [signature and standard time-related claims](../../explanations/README.md#token-validation).

@@ -39,6 +39,8 @@ The response is always a HTTP 200 OK response with a JSON body.
 
 It always contains the `active` field, which is a boolean value that indicates whether the token is valid or not.
 
+##### Success response
+
 If the token is valid, the response will also contain all the token's claims:
 
 ```json title="Valid token"
@@ -49,6 +51,12 @@ If the token is valid, the response will also contain all the token's claims:
     ...
 }
 ```
+
+Texas validates the standard claims.
+[Other claims](<<claims_reference>>) are not validated.
+Your application must validate these claims according to your own requirements.
+
+##### Error response
 
 If the token is invalid, the only additional field in the response is the `error` field:
 

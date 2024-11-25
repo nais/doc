@@ -42,6 +42,7 @@ You will need to validate these tokens in your application.
 Verify incoming requests from consumers by validating the [JWT Bearer token](../../explanations/README.md#bearer-token) in the `Authorization` header.
 
 {% set identity_provider = 'tokenx' %}
+{% set claims_reference = '../reference/README.md#claims' %}
 {% include 'auth/partials/validate.md' %}
 
 To validate the token, start by validating the [signature and standard time-related claims](../../explanations/README.md#token-validation).
