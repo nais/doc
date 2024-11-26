@@ -175,7 +175,7 @@ When pushed, the GitHub Actions workflow will automatically start. You can obser
     - Navigate to `Actions`.
     - Select the latest workflow run.
 
-If you get a 403 PERMISSION_DENIED error in the Build and push image step, you might not have added your repo to the nais team as described above, or it might not have synchronized yet.
+If you get a `403 PERMISSION_DENIED` error in the Build and push image step, you might not have added your repo to the nais team as described above, or it might not have synchronized yet.
 
 ### Visit your application
 On successful completion, we can view our application at `https://<MY-APP>.<MY-ENV>.<<tenant()>>.cloud.nais.io`
