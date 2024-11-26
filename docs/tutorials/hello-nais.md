@@ -131,7 +131,7 @@ Add the following content to the file, and insert the appropriate values in the 
         - name: Deploy to NAIS
           uses: nais/deploy/actions/deploy@v2
           env:
-            CLUSTER: <MY_CLUSTER> # Replace (1)
+            CLUSTER: <MY_ENV> # Replace (1)
             RESOURCE: .nais/app.yaml # This points to the file we created in the previous step
             VAR: image=${{ steps.docker-build-push.outputs.image }}
             TELEMETRY: ${{ steps.docker-build-push.outputs.telemetry }}
