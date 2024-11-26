@@ -718,7 +718,8 @@ Texas runs as a sidecar together with your application and offers HTTP endpoints
         texas.nais.io: enabled
     ```
 
-    API stability is not guaranteed during the beta period, and we may introduce breaking changes as we gather feedback.
+    Texas is in beta as we gather feedback and test it in production environments.
+    We do not plan to make any breaking API changes.
 
     Visit the `#texas` channel on Slack for updates, questions and feedback.
 
