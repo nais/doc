@@ -1,23 +1,23 @@
 ---
 tags: [tutorial]
 ---
-# :wave: Hello NAIS
+# :wave: Hello Nais
 
-This tutorial will take you through the process of getting a simple application up and running on NAIS.
+This tutorial will take you through the process of getting a simple application up and running on Nais.
 
 ## Prerequisites
 
 - You have a GitHub account connected to your GitHub organization (e.g. `navikt`)
-- [naisdevice installed](../operate/naisdevice/how-to/install.md)
-- [Member of a NAIS team](../explanations/team.md)
+- [Naisdevice installed](../operate/naisdevice/how-to/install.md)
+- [Member of a Nais team](../explanations/team.md)
 - [GitHub CLI installed](https://cli.github.com/)
 
 ???+ note "Conventions"
 
     Throughout this guide, we will use the following conventions:
 
-    - `<MY-APP>` - The name of your NAIS application (e.g. `joannas-first`)
-    - `<MY-TEAM>` - The name of your NAIS team (e.g. `onboarding`)
+    - `<MY-APP>` - The name of your Nais application (e.g. `joannas-first`)
+    - `<MY-TEAM>` - The name of your Nais team (e.g. `onboarding`)
     - `<GITHUB-ORG>` - Your GitHub organization (e.g. `navikt`)
     - `<MY-ENV>` - The name of the environment you want to deploy to (e.g. `dev-gcp`)
 
@@ -51,12 +51,12 @@ Here you can add your repository to the list of authorized repositories. This au
 
 This describes the system your application will be running on.
 It includes the base image, and the commands needed to build your application.
-This is the payload you are requesting NAIS to run.
+This is the payload you are requesting Nais to run.
 We have created this file for you, as there are no changes needed for this tutorial. Check it out.
 
 ### Application manifest
 
-This file describes your application to the NAIS platform so that it can run it correctly and provision the resources it needs.
+This file describes your application to the Nais platform so that it can run it correctly and provision the resources it needs.
 
 Create a file called `app.yaml` in a `.nais`-folder.
 
@@ -94,7 +94,7 @@ Add the following content to the file, and insert the appropriate values in the 
 
 ### GitHub Actions workflow
 
-GitHub Actions uses the `Dockerfile` from step 1 and the `app.yaml` from step 2. to build and deploy your application to NAIS.
+GitHub Actions uses the `Dockerfile` from step 1 and the `app.yaml` from step 2. to build and deploy your application to Nais.
 
 Create a file called `main.yaml` in a `.github/workflows`-folder.
 
@@ -128,7 +128,7 @@ Add the following content to the file, and insert the appropriate values in the 
             team: <MY-TEAM> # Replace
             identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # Provided as Organization Secret
             project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # Provided as Organization Variable
-        - name: Deploy to NAIS
+        - name: Deploy to Nais
           uses: nais/deploy/actions/deploy@v2
           env:
             CLUSTER: <MY_ENV> # Replace (1)
@@ -145,7 +145,7 @@ Excellent! We're now ready to deploy :rocket:
 ## :ship: Ship it
 
 Previously we've made our application and created the required files for deployment.
-In this part of the tutorial we will deploy our application to NAIS.
+In this part of the tutorial we will deploy our application to Nais.
 
 
 ### Commit and push your changes
@@ -180,7 +180,7 @@ If you get a `403 PERMISSION_DENIED` error in the `Build and push image` step, y
 ### Visit your application
 On successful completion, we can view our application at `https://<MY-APP>.<MY-ENV>.<<tenant()>>.cloud.nais.io`
 
-Congratulations! You have now successfully deployed your first application to NAIS!
+Congratulations! You have now successfully deployed your first application to Nais!
 The next and most important step is to clean up after ourselves.
 
 ## :broom: Clean up
