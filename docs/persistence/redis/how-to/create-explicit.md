@@ -4,6 +4,9 @@ tags: [redis, how-to]
 
 # Create a Redis instance explicitly
 
+## Prerequisites
+- [Member of a NAIS team](../../../explanations/team.md)
+
 We recommend creating your Redis instances in their own workflow for more control over configuration, especially if you intend for multiple applications using the same Redis instance, or if you need to change configuration.
 
 Creating a Redis instance is done by adding a Redis resource to your namespace with detailed configuration.

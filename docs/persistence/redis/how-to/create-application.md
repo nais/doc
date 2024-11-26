@@ -32,6 +32,22 @@ a read-only user for the `lookup` instance. See the [manifest
 reference][app-spec-redis] for other
 options for `access`.
 
+The default Redis created by NAIS looks like this:
+
+```yaml
+apiVersion: aiven.io/v1alpha1
+kind: Redis
+metadata:
+  labels:
+    app: redis-tester
+    team: myteam
+  name: redis-myteam-sessions
+  namespace: myteam
+spec:
+  plan: startup-4
+  project: nav-dev
+```
+
 If all you need is a Redis instance for one application using just the
 default settings, this is all you need. If you want to share a Redis
 instance across applications, or want to change configuration away
