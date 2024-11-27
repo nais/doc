@@ -715,7 +715,7 @@ Texas runs as a sidecar together with your application and offers HTTP endpoints
     kind: "Application"
     metadata:
       annotations:
-        texas.nais.io: enabled
+        texas.nais.io/enabled: "true"
     ```
 
     Texas is in beta as we gather feedback and test it in production environments.
