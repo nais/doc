@@ -41,7 +41,7 @@ It always contains the `active` field, which is a boolean value that indicates w
 
 ##### Success response
 
-If the token is valid, the response will also contain all the token's claims:
+If the token is valid, the response will additionally contain **all** the token's claims:
 
 ```json title="Valid token"
 {
@@ -52,9 +52,14 @@ If the token is valid, the response will also contain all the token's claims:
 }
 ```
 
-Texas validates the standard claims.
-[Other claims](<<claims_reference>>) are not validated.
-Your application must validate these claims according to your own requirements.
+Claims are copied verbatim from the token to the response.
+
+!!! question "Which claims are validated by Texas?"
+
+    Texas only validates the token's signature and its [standard claims](../../explanations/README.md#claims-validation).
+
+    [Other claims](<<claims_reference>>) are included in the response, but are not validated by Texas.
+    Your application must validate these other claims according to your own requirements.
 
 ##### Error response
 
