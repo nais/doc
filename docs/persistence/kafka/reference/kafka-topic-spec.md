@@ -143,6 +143,7 @@ Allowed values: `compact`, `compact,delete`, `delete`<br />
 When set, remote storage will be used to store log segments.
 This value controls the size of the log that is kept before it is moved to remote storage.
 Must be less than RetentionBytes
+Not supported when CleanupPolicy is set to "compact"
 
 Relevant information:
 
@@ -163,6 +164,7 @@ Default value: `-2`<br />
 When set, remote storage will be used to store log segments.
 This value controls the number of hours to keep before it is moved to remote storage.
 Must be less than RetentionHours.
+Not supported when CleanupPolicy is set to "compact"
 
 Relevant information:
 
