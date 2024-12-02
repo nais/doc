@@ -11,6 +11,8 @@ This guide shows you how to enable tiered storage for your Kafka topic.
 You need to own an existing topic in nais.
 Check [Create a Kafka topic](create.md) for how to create a topic.
 
+Your topic can not use `compact` cleanup policy.
+
 ## Enable tiered storage by specifying local retention on a topic
 
 ???+ note "Git diff showing how to enable tiered storage in a 'nai example_topic.yaml' file"
