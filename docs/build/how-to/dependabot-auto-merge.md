@@ -66,7 +66,7 @@ See also [Automating Dependabot with GitHub Actions][automating-dependabot].
     jobs:
       dependabot:
         runs-on: ubuntu-latest
-        if: ${{ github.actor == 'dependabot[bot]' }}
+        if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
         steps:
           - name: Dependabot metadata
             id: metadata
