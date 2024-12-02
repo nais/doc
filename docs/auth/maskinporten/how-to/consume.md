@@ -21,6 +21,12 @@ spec:
         - name: "nav:some/other/scope"
 ```
 
+???+ warning "Maskinporten configuration changes are eventually consistent"
+
+    Changes to the Maskinporten configuration may take up to 15 minutes to propagate.
+
+    If you're experiencing issues with access to these scopes, wait a few minutes before trying again.
+
 The scopes themselves are defined and owned by the external API provider. The exact scope values must be exchanged out-of-band.
 
 {%- if tenant() == "nav" %}
@@ -32,11 +38,11 @@ The scopes themselves are defined and owned by the external API provider. The ex
 
 ???+ warning "Use webproxy for outbound network connectivity from on-premises environments"
 
-    If you're on-premises, you must enable and use [`webproxy`](../../../workloads/application/reference/application-spec.md#webproxy) to access Maskinporten.
+    If you're on-premises, you must also enable and use [`webproxy`](../../../workloads/application/reference/application-spec.md#webproxy) to access Maskinporten.
 
 {%- endif %}
 
-[Configure appropriate outbound access policies](../../../workloads/how-to/access-policies.md#send-requests-to-external-addresses) to access the external API endpoints.
+Finally, [configure appropriate outbound access policies](../../../workloads/how-to/access-policies.md#send-requests-to-external-addresses) to access the external API endpoints.
 
 ## Acquire token
 
