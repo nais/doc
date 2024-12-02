@@ -723,7 +723,23 @@ Texas runs as a sidecar together with your application and offers HTTP endpoints
 
     Visit the `#texas` channel on Slack for updates, questions and feedback.
 
-All available [identity providers](#identity-provider) are supported. See their respective pages for usage details.
+All available [identity providers](#identity-provider) are supported:
+
+[Entra ID](../entra-id/README.md)
+:   - [:dart: Get a machine-to-machine token](../entra-id/how-to/consume-m2m.md#acquire-tokens-with-texas)
+    - [:dart: Exchange an on-behalf-of token](../entra-id/how-to/consume-obo.md#exchange-tokens-with-texas)
+    - [:dart: Validate token](../entra-id/how-to/secure.md#validate-with-texas)
+
+[ID-porten](../idporten/README.md)
+:   - [:dart: Validate token](../idporten/how-to/login.md#validate-with-texas)
+
+[Maskinporten](../maskinporten/README.md)
+:   - [:dart: Get a machine-to-machine token](../maskinporten/how-to/consume.md#acquire-tokens-with-texas)
+    - [:dart: Validate token](../maskinporten/how-to/secure.md#validate-with-texas) 
+
+[TokenX](../tokenx/README.md)
+:   - [:dart: Exchange an on-behalf-of token](../tokenx/how-to/consume.md#exchange-tokens-with-texas) 
+    - [:dart: Validate token](../tokenx/how-to/secure.md#validate-with-texas) 
 
 See the [Texas reference](../reference/README.md#texas) for API specifications and available environment variables.
 
