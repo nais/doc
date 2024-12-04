@@ -3306,7 +3306,7 @@ Relevant information:
 
 Type: `enum`<br />
 Required: `true`<br />
-Allowed values: `POSTGRES_11`, `POSTGRES_12`, `POSTGRES_13`, `POSTGRES_14`, `POSTGRES_15`, `POSTGRES_16`<br />
+Allowed values: `POSTGRES_11`, `POSTGRES_12`, `POSTGRES_13`, `POSTGRES_14`, `POSTGRES_15`, `POSTGRES_16`, `POSTGRES_17`<br />
 
 ??? example
     ``` yaml
