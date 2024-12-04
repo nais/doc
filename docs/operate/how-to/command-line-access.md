@@ -15,10 +15,6 @@ This guide shows you how to set up command line tools for accessing NAIS cluster
 
 Follow Googles instructions on how to install [gcloud](https://cloud.google.com/sdk/docs/install) for your OS
 
-## Install kubectl
-
-Follow the instruction to install [kubectl](https://kubernetes.io/docs/tasks/tools/) for your OS
-
 ## Authenticate using gcloud
 
 ```shell
@@ -46,6 +42,11 @@ nais kubeconfig
 ```
 
 A successful run will output how many clusters and where the kubeconfig file is written to.
+
+## Install kubectl
+
+Follow the instruction to install [kubectl](https://kubernetes.io/docs/tasks/tools/) for your OS. 
+The next step of this guide verify that you have access to our clusters, so you can skip the "Verify kubectl configuration" section in the instructions.
 
 ## Verify access
 
