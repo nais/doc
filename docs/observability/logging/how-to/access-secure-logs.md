@@ -4,7 +4,7 @@ conditional: [tenant, nav]
 ---
 # Access secure logs
 
-Once everything is configured, your secure logs will be sent to the `tjenestekall-*` index in kibana. The members of the corresponding NAIS team should get access to those logs automatically when they log on to kibana with Single Sign On. Give message in #kibana channel if that is not the case. 
+Once everything is configured, your secure logs will be sent to the `tjenestekall-*` index in kibana. The members of the corresponding NAIS team should get access to those logs automatically when they log on to kibana with Single Sign On. Send a message in #kibana channel if that is not the case. 
 
 ## Access to secure logs for external participants
 
