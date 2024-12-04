@@ -8,7 +8,7 @@ Once everything is configured, your secure logs will be sent to the `tjenestekal
 
 ## Access to secure logs for external participants
 
-It is also possible to give access to these logs to people outside of the team. The external participants currently could not use Single Sign On to read the secure logs. They should use Elasticsearch login on the Kibana login page. 
+It is also possible to give access to these logs to people outside of the team. The external participants currently could not use Single Sign On to read the others' secure logs. They should use Elasticsearch login on the Kibana login page. 
 
 To open access to your secure logs for people not in the team do the following:
 
