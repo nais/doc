@@ -74,8 +74,6 @@ Here is a basic example with a single alert (that always trigger to make this ea
               iconEmoji: ":test:"
               username: "Testing Alert"
               sendResolved: true
-              httpConfig:
-                proxyUrl: http://webproxy.nais:8088
               title: |-
                 [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }}
               text: >-
@@ -125,3 +123,14 @@ The label `special_type_to_use_in_alertmanager_config` is used to pair the alert
 To prevent the default nais `AlertmanagerConfig` route to include the alerts you need to
 set the label `alert_type` to `custom`. If you don't set the label `alert_type` to `custom` you will get 2
 slack messages for each alert, one from your custom `AlertmanagerConfig` and one from the nais default `AlertmanagerConfig`.
+
+{%- if tenant() == "nav" %}
+### Note for onprem (fss) clusters
+
+In onprem clusters you need to use proxy to reach external services like Slack. Enable proxy by adding the following to the `slackConfig`:
+
+```yaml
+httpConfig:
+  proxyUrl: http://webproxy.nais:8088
+```
+{%- endif %}
