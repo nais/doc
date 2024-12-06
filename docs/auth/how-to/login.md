@@ -36,6 +36,9 @@ and either:
 - `WONDERWALL_OPENID_CLIENT_JWK` - this is a private key in JWK format, e.g. `{"kty":"RSA","e":"AQAB","kid":"my-key-id",...}`, or
 - `WONDERWALL_OPENID_CLIENT_SECRET` - the client secret for your application
 
+Optionally, add additional environment variables to the secret to configure the login proxy further.
+See the [Wonderwall configuration reference :octicons-link-external-16:](https://github.com/nais/wonderwall/blob/master/docs/configuration.md) for all available options.
+
 ## Configure your application
 
 Enable the proxy in your application configuration:
