@@ -22,7 +22,7 @@ The platform team is responsible for the following:
 * Tooling and automation to make it easy to use the platform
 * Providing documentation and support for the platform
 
-The platform team is **not** responsible for the application itself, not the data stored in the provided data storage services.
+The platform team is **not** responsible for the application itself, nor the data stored in the provided data storage services.
 
 ??? note "List of data processors"
 
@@ -47,7 +47,10 @@ The platform team is **not** responsible for the application itself, not the dat
 
 ## The Team
 
-At the end of the day, the team is responsible for its own data and how it is managed. This includes compliance with data policies (e.g. GDPR or archiving), ensuring disaster recovery (aided by tooling and interfaces supplied by the platform) and daily operations.
+The team is responsible for its own data and how it is managed. This includes compliance with data policies (e.g. GDPR or archiving), ensuring disaster recovery (aided by tooling and interfaces supplied by the platform) and daily operations. 
+The team is also responsible for the configuration of the resources, through the application specification. These configurations will be propagated automatically by the platform operators.
+
+The team needs to be aware that manual changes in vendor interfaces, such as Google Console and Aiven Console could be overwritten by the platform operators.
 
 ### Team Checklist for Data Storage
 
