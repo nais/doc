@@ -3883,7 +3883,6 @@ Relevant information:
 
 Type: `object`<br />
 Required: `false`<br />
-Availability: Tenant: SSB<br />
 
 ??? example
     ``` yaml
