@@ -762,6 +762,7 @@ Relevant information:
 
 Type: `enum`<br />
 Required: `false`<br />
+Immutable: `true`<br />
 Allowed values: `nav.no`, `trygdeetaten.no`<br />
 
 ??? example
