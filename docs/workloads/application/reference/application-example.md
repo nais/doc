@@ -318,7 +318,6 @@ spec:
   terminationGracePeriodSeconds: 60
   tokenx:
     enabled: true
-    mountSecretsAsFilesOnly: true
   ttl: 1h
   vault:
     enabled: true

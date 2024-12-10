@@ -5633,7 +5633,6 @@ Required: `false`<br />
     spec:
       tokenx:
         enabled: true
-        mountSecretsAsFilesOnly: true
     ```
 
 ### tokenx.enabled
@@ -5648,19 +5647,6 @@ Default value: `false`<br />
     spec:
       tokenx:
         enabled: true
-    ```
-
-### tokenx.mountSecretsAsFilesOnly
-If enabled, secrets for TokenX will be mounted as files only, i.e. not as environment variables.
-
-Type: `boolean`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      tokenx:
-        mountSecretsAsFilesOnly: true
     ```
 
 ## ttl
