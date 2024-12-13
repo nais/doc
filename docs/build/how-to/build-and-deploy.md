@@ -50,13 +50,16 @@ This how-to guide shows you how to build and deploy your application using [Gith
           - name: Deploy to NAIS
             uses: nais/deploy/actions/deploy@v2
             env:
-              CLUSTER: <MY-CLUSTER> # Replace
+              CLUSTER: <MY-CLUSTER> # Replace (1)
               RESOURCE: .nais/app.yaml #, topic.yaml, statefulset.yaml, etc.
               VAR: image=${{ steps.docker-build-push.outputs.image }}
               TELEMETRY: ${{ steps.docker-build-push.outputs.telemetry }}
-              DEPLOY_SERVER: deploy.<<tenant()>>.cloud.nais.io:443 
-
+              {%- if tenant() != "nav" %}
+              DEPLOY_SERVER: deploy.<<tenant()>>.cloud.nais.io:443
+              {%- endif %}
     ```
+
+    1.  Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../workloads/reference/environments.md).
 
 This example workflow is a minimal example that builds, signs, and pushes your container image to the image registry.
 It then deploys the [app.yaml](../../workloads/application/reference/application-spec.md), injecting the image tag from the previous step.
