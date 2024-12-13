@@ -59,7 +59,7 @@ This how-to guide shows you how to build and deploy your application using [Gith
               {%- endif %}
     ```
 
-    1.  Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../workloads/reference/environments.md).
+    1.  Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../../workloads/reference/environments.md).
 
 This example workflow is a minimal example that builds, signs, and pushes your container image to the image registry.
 It then deploys the [app.yaml](../../workloads/application/reference/application-spec.md), injecting the image tag from the previous step.
