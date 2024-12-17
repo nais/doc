@@ -235,6 +235,7 @@ spec:
         name: scope.read
         product: arbeid
         separator: ':'
+        visibility: public
   observability:
     autoInstrumentation:
       destinations:

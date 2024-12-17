@@ -3999,6 +3999,7 @@ Required: `false`<br />
               name: scope.read
               product: arbeid
               separator: ':'
+              visibility: public
     ```
 
 ### maskinporten.enabled
@@ -4042,6 +4043,7 @@ Required: `false`<br />
               name: scope.read
               product: arbeid
               separator: ':'
+              visibility: public
     ```
 
 #### maskinporten.scopes.consumes
@@ -4104,6 +4106,7 @@ Required: `false`<br />
               name: scope.read
               product: arbeid
               separator: ':'
+              visibility: public
     ```
 
 ##### maskinporten.scopes.exposes[].accessibleForAll
@@ -4131,6 +4134,7 @@ Default value: `false`<br />
               name: scope.read
               product: arbeid
               separator: ':'
+              visibility: public
     ```
 
 ##### maskinporten.scopes.exposes[].allowedIntegrations
@@ -4163,6 +4167,7 @@ Default value: `maskinporten`<br />
               name: scope.read
               product: arbeid
               separator: ':'
+              visibility: public
     ```
 
 ##### maskinporten.scopes.exposes[].atMaxAge
@@ -4192,6 +4197,7 @@ Value range: `30`-`680`<br />
               name: scope.read
               product: arbeid
               separator: ':'
+              visibility: public
     ```
 
 ##### maskinporten.scopes.exposes[].consumers
@@ -4218,6 +4224,7 @@ Required: `false`<br />
               name: scope.read
               product: arbeid
               separator: ':'
+              visibility: public
     ```
 
 ###### maskinporten.scopes.exposes[].consumers[].name
@@ -4244,6 +4251,7 @@ Required: `false`<br />
               name: scope.read
               product: arbeid
               separator: ':'
+              visibility: public
     ```
 
 ###### maskinporten.scopes.exposes[].consumers[].orgno
@@ -4271,6 +4279,7 @@ Pattern: `^\d{9}$`<br />
               name: scope.read
               product: arbeid
               separator: ':'
+              visibility: public
     ```
 
 ##### maskinporten.scopes.exposes[].delegationSource
@@ -4302,6 +4311,7 @@ Allowed values: `altinn`<br />
               name: scope.read
               product: arbeid
               separator: ':'
+              visibility: public
     ```
 
 ##### maskinporten.scopes.exposes[].enabled
@@ -4328,6 +4338,7 @@ Required: `true`<br />
               name: scope.read
               product: arbeid
               separator: ':'
+              visibility: public
     ```
 
 ##### maskinporten.scopes.exposes[].name
@@ -4357,6 +4368,7 @@ Pattern: `^([a-zæøå0-9]+\/?)+(\:[a-zæøå0-9]+)*[a-zæøå0-9]+(\.[a-zæøå
               name: scope.read
               product: arbeid
               separator: ':'
+              visibility: public
     ```
 
 ##### maskinporten.scopes.exposes[].product
@@ -4385,6 +4397,7 @@ Pattern: `^[a-z0-9]+$`<br />
               name: scope.read
               product: arbeid
               separator: ':'
+              visibility: public
     ```
 
 ##### maskinporten.scopes.exposes[].separator
@@ -4415,6 +4428,39 @@ Pattern: `^[\/:]$`<br />
               name: scope.read
               product: arbeid
               separator: ':'
+              visibility: public
+    ```
+
+##### maskinporten.scopes.exposes[].visibility
+Visibility controls the scope's visibility.
+Public scopes are visible for everyone.
+Private scopes are only visible for the organization that owns the scope as well as
+organizations that have been granted consumer access.
+
+Type: `enum`<br />
+Required: `false`<br />
+Default value: `public`<br />
+Allowed values: `private`, `public`<br />
+
+??? example
+    ``` yaml
+    spec:
+      maskinporten:
+        scopes:
+          exposes:
+            - accessibleForAll: true
+              allowedIntegrations:
+                - maskinporten
+              atMaxAge: 30
+              consumers:
+                - name: KST
+                  orgno: "123456789"
+              delegationSource: delegation-source
+              enabled: true
+              name: scope.read
+              product: arbeid
+              separator: ':'
+              visibility: public
     ```
 
 ## observability
