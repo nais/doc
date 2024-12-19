@@ -27,25 +27,25 @@ Example of various ACLs:
     ...
     spec:
       acl:
-        - team: <ANOTHER-TEAM>
+      - team: <ANOTHER-TEAM>
         application: <CONSUMER-APP>
         access: read
-        - team: <ANOTHER-TEAM>
+      - team: <ANOTHER-TEAM>
         application: <CONSUMER-APP2>
         access: read
-        - team: <ANOTHER-TEAM>
+      - team: <ANOTHER-TEAM>
         application: <PRODUCER-APP> 
         access: write
-        - team: <PRODUCER-TEAM>
+      - team: <PRODUCER-TEAM>
         application: <PRODUCER-APP> 
         access: write
-        - team: <TRUSTED-TEAM>
+      - team: <TRUSTED-TEAM>
         application: *
         access: read     # ALL applications from this trusted-team has read
-        - team: *
+      - team: *
         application: <APPLICATION-NAME>
         access: read     # Applications named <APPLICATION-NAME> from ANY team has read
-        - team: <MY-TEAM>
+      - team: <MY-TEAM>
         application: rapid-*
         access: readwrite   # ALL applications from <MY-TEAM> with names starting with `rapid-` has readwrite access
       ...
