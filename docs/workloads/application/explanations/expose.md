@@ -9,6 +9,11 @@ What good is an application if no one can reach it?
 NAIS tries to make it easy to expose your application to the correct audience.
 Your audience may be other applications within the same [environment](../../explanations/environment.md), or it may be humans or machines on the outside.
 
+For each audience, there are different ways to expose your application:
+
+- [Service discovery](#service-discovery) for applications within the same environment.
+- [Ingress](#ingress) for users and applications outside the environment.
+
 ## Service discovery
 
 If your audience is other applications within the same environment, they can communicate with your application directly by using _service discovery_.
@@ -42,19 +47,25 @@ Compared to [ingresses](#ingress), using service discovery has several advantage
 
 If your audiences consist of human users or other services outside the environment, you will have to expose your application by using an _ingress_.
 
+```yaml
+spec:
+  ingresses:
+    - https://myapplication.example.com
+```
+
 An ingress exposes a route for inbound traffic from outside the environment to your application.
 The domain of the URL controls which users and environments that your application is reachable from.
 
 Your application may specify multiple ingresses, each using the same or different domains.
 
-Ingresses may also include paths.
+Ingresses may also include a trailing path.
 This allows for routing traffic to only specific parts of your application, or as part of a shared domain between multiple applications.
 
 :dart: Learn how to [expose your application with an ingress](../how-to/expose.md).
 
 :books: See the [ingress reference](../reference/ingress.md) for technical details and options.
 
-## Ingress redirects
+### Ingress redirects
 
 In some cases, you may want to redirect traffic from one domain to another.
 This can be useful if you have changed the domain of your application, or if you want to redirect users from an old domain to a new one.

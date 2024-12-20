@@ -4,7 +4,7 @@ tags: [workloads, reference, ingress]
 
 # Ingress reference
 
-This is the reference documentation for [ingresses](../explanations/expose.md#ingress) in NAIS.
+This is the reference documentation for [ingresses](../explanations/expose.md#ingress) in Nais.
 
 Ingress is the only way to expose your application to the outside world, this is not the recommended way to communicate between applications running in the same environment. For that, you should use [service discovery](../explanations/expose.md#service-discovery).
 
@@ -149,13 +149,16 @@ Percentage of `5xx` errors to the `myapp` application as a ratio of total reques
 )
 ```
 
-{% if tenant() == "nav" %}
-
 ## Ingress access logs
 
-Request access logs from nginx ingress controller are automatically collected and stored in Kibana.
+Ingress access logs are enabled by default for all applications and accessible from [Grafana Log Explorer](https://grafana.<<tenant()>>.cloud.nais.io/a/grafana-lokiexplore-app/explore) by selecting the `nais-ingress` service.
 
-Here are pre-configured queries for the controller logs in the following clusters:
+From there you can use the Filter tab to search for logs from your application by using the `ingress_namespace`, `ingress_name` and `url_domain` labels.
+
+{% if tenant() == "nav" %}
+
+Ingress logs for on-premise applications are available in Kibana.
+Here are pre-configured queries for ingress logs in the different environments:
 
 | Kibana                      | Grafana Loki              |
 | --------------------------- | ------------------------- |
@@ -168,42 +171,9 @@ Here are pre-configured queries for the controller logs in the following cluster
 [prod-gcp-kibana]: https://logs.adeo.no/app/discover#/view/1d10b410-3369-11ed-b3e8-d969437dd878?_g=()
 [dev-fss]: https://logs.adeo.no/app/discover#/view/e7562030-3368-11ed-b3e8-d969437dd878?_g=()
 [prod-fss]: https://logs.adeo.no/app/discover#/view/00c05220-3369-11ed-b3e8-d969437dd878?_g=()
-[dev-gcp-loki]: https://grafana.nav.cloud.nais.io/explore?schemaVersion=1&panes=%7B%224fy%22%3A%7B%22datasource%22%3A%22P7BE696147D279490%22%2C%22queries%22%3A%5B%7B%22refId%22%3A%22A%22%2C%22expr%22%3A%22%7Bnamespace%3D%5C%22nais-system%5C%22%2C+app%3D%5C%22nais-ingress%5C%22%7D+%7C+json%22%2C%22queryType%22%3A%22range%22%2C%22datasource%22%3A%7B%22type%22%3A%22loki%22%2C%22uid%22%3A%22P7BE696147D279490%22%7D%2C%22editorMode%22%3A%22builder%22%7D%5D%2C%22range%22%3A%7B%22from%22%3A%22now-1h%22%2C%22to%22%3A%22now%22%7D%7D%7D&orgId=1
-[prod-gcp-loki]: https://grafana.nav.cloud.nais.io/explore?schemaVersion=1&panes=%7B%224fy%22%3A%7B%22datasource%22%3A%22PD969E40991D5C4A8%22%2C%22queries%22%3A%5B%7B%22refId%22%3A%22A%22%2C%22expr%22%3A%22%7Bnamespace%3D%5C%22nais-system%5C%22%2C+app%3D%5C%22nais-ingress%5C%22%7D+%7C+json%22%2C%22queryType%22%3A%22range%22%2C%22datasource%22%3A%7B%22type%22%3A%22loki%22%2C%22uid%22%3A%22PD969E40991D5C4A8%22%7D%2C%22editorMode%22%3A%22builder%22%7D%5D%2C%22range%22%3A%7B%22from%22%3A%22now-1h%22%2C%22to%22%3A%22now%22%7D%7D%7D&orgId=1
-
-### Log fields description
-
-| Field               | Description                                                                                    |
-| ------------------- | ---------------------------------------------------------------------------------------------- |
-| `message`           | HTTP request on the following format: "`method` `path` `httpVersion`"                          |
-| `response_code`     | HTTP response code from nginx                                                                  |
-| `x_upstream_name`   | The application receiving the request on the following format "`namespace`-`app-name`-`port`"  |
-| `x_upstream_status` | HTTP response code from the application                                                        |
-| `x_request_id`      | Unique request ID used for correlating further requests from the application to other services |
-
+[dev-gcp-loki]: https://grafana.nav.cloud.nais.io/d/ingress-logs/ingress-logs?var-env=dev
+[prod-gcp-loki]: https://grafana.nav.cloud.nais.io/d/ingress-logs/ingress-logs?var-env=prod
 {% endif %}
-
-### Find _your_ access logs
-
-In order to find your team's application access logs, you need to filter on the following fields:
-
-* `AND x_upstream_name: my-namespace*` (replace `my-namespace` with your namespace)
-
-If you want to filter on a specific application, you can add the following filter:
-
-* `AND x_upstream_name: my-namespace-my-app*` (replace `my-namespace` with your namespace and `my-app` with your application name)
-
-If you want to filter out specific HTTP response codes, you can add the following filter:
-
-* `NOT response_code: 404` (replace `404` with the HTTP response code you want to filter out)
-
-If you want to filter out multiple HTTP response codes, you can add the following filter:
-
-* `NOT response_code: (404 or 503)` (replace `404` and `503` with the HTTP response codes you want to filter out)
-
-If you want to find specific HTTP methods, you can add the following filter:
-
-* `AND message: GET*` (replace `GET` with the HTTP method you want to filter out)
 
 ### Disable _your_ access logs
 
