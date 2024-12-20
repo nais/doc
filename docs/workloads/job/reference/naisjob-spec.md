@@ -3922,7 +3922,7 @@ Application runtime. Supported runtimes are `java`, `nodejs`, `python`, `sdk`.
 
 Type: `enum`<br />
 Required: `false`<br />
-Allowed values: `java`, `nodejs`, `python`, `sdk`<br />
+Allowed values: `dotnet`, `java`, `nodejs`, `python`, `sdk`<br />
 
 ??? example
     ``` yaml
