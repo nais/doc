@@ -49,6 +49,7 @@ const config = {
     city: false,
     ip_address: false,
   },
+  identityStorage: "localStorage",
 }
 
 isLive = document.domain === "docs.nais.io"
