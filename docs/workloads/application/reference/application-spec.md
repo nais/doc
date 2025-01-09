@@ -2813,6 +2813,7 @@ Maximum query length stored in bytes. Between 256 and 4500. Default to 1024.
 
 Type: `integer`<br />
 Required: `false`<br />
+Default value: `1024`<br />
 Value range: `256`-`4500`<br />
 
 ??? example
@@ -3836,9 +3837,12 @@ Default value: `10`<br />
 
 ### liveness.port
 Port for the startup probe.
+Defaults to application port, as defined in `.spec.port`.
 
 Type: `integer`<br />
 Required: `false`<br />
+Default value: `.spec.port`<br />
+Value range: `1`-`65535`<br />
 
 ??? example
     ``` yaml
@@ -4803,6 +4807,7 @@ Defaults to application port, as defined in `.spec.port`.
 
 Type: `integer`<br />
 Required: `false`<br />
+Default value: `.spec.port`<br />
 Value range: `1`-`65535`<br />
 
 ??? example
@@ -4870,8 +4875,11 @@ Default value: `/metrics`<br />
     ```
 
 ### prometheus.port
+Defaults to application port, as defined in `.spec.port`.
+
 Type: `string`<br />
 Required: `false`<br />
+Default value: `.spec.port`<br />
 
 ??? example
     ``` yaml
@@ -4958,9 +4966,12 @@ Required: `false`<br />
 
 ### readiness.port
 Port for the startup probe.
+Defaults to application port, as defined in `.spec.port`.
 
 Type: `integer`<br />
 Required: `false`<br />
+Default value: `.spec.port`<br />
+Value range: `1`-`65535`<br />
 
 ??? example
     ``` yaml
@@ -5421,6 +5432,7 @@ Port for the default service. Default port is 80.
 Type: `integer`<br />
 Required: `true`<br />
 Default value: `80`<br />
+Value range: `1`-`65535`<br />
 
 ??? example
     ``` yaml
@@ -5532,9 +5544,12 @@ Required: `false`<br />
 
 ### startup.port
 Port for the startup probe.
+Defaults to application port, as defined in `.spec.port`.
 
 Type: `integer`<br />
 Required: `false`<br />
+Default value: `.spec.port`<br />
+Value range: `1`-`65535`<br />
 
 ??? example
     ``` yaml
