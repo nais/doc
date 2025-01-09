@@ -29,7 +29,7 @@ jobs:
           poetry install \
           --no-interaction \
           --ansi \
-          --remove-untracked
+          --sync
 
       - name: Build documentation
         run: |
