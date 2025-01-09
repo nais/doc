@@ -19,8 +19,6 @@ mkdocs-awesome-pages-plugin = "^2.9.3"
 mkdocs-file-filter-plugin = "^0.2.0"
 mkdocs-swagger-ui-tag = "^0.6.11"
 
-[tool.poetry.dev-dependencies]
-
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
