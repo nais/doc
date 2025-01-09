@@ -26,11 +26,9 @@ jobs:
 
       - name: Install all dependencies
         run: |
-          poetry install \
+          poetry sync \
           --no-interaction \
-          --ansi \
-          --sync
-
+          --ansi
       - name: Build documentation
         run: |
           ./build.sh nav ssb test-nais ci-nais dev-nais tenant
