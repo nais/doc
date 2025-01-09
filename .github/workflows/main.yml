@@ -27,7 +27,7 @@ jobs:
       - name: Install all dependencies
         run: |
           poetry install \
-          --no-dev \
+          --without dev \
           --no-interaction \
           --ansi \
           --remove-untracked
