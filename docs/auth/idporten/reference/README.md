@@ -7,7 +7,8 @@ conditional: [tenant, nav]
 
 ## Claims
 
-Notable claims in tokens from ID-porten:
+Notable claims in tokens from ID-porten.
+For a complete list of claims, see the [Access Token Reference in ID-porten](https://docs.digdir.no/docs/idporten/oidc/oidc_protocol_access_token#by-value--self-contained-access-token).
 
 `acr`
 
@@ -16,8 +17,6 @@ Notable claims in tokens from ID-porten:
 `pid`
 
 :   "Personidentifikator". The Norwegian national ID number (fødselsnummer/d-nummer) of the authenticated end user.
-
-For a complete list of claims, see the [Access Token Reference in ID-porten](https://docs.digdir.no/docs/idporten/oidc/oidc_protocol_access_token#by-value--self-contained-access-token).
 
 ## Locales
 

@@ -132,7 +132,9 @@ Roles will appear in the `roles` claim as an _array of strings_ within the appli
 
 ## Claims
 
-Notable claims in tokens from Entra ID:
+Notable claims in tokens from Entra ID.
+For a complete list of claims, see the [Access Token Claims Reference in Entra ID](https://learn.microsoft.com/en-us/entra/identity-platform/access-token-claims-reference).
+We only use v2.0 tokens.
 
 `azp` (_authorized party_)
 
@@ -214,9 +216,6 @@ Notable claims in tokens from Entra ID:
 
     Consumers defined in the [access policy](../how-to/secure.md#applications) are always assigned the default scope named `defaultaccess`.
     You can optionally define and grant them [custom scopes](#custom-scopes).
-
-For a complete list of claims, see the [Access Token Claims Reference in Entra ID](https://learn.microsoft.com/en-us/entra/identity-platform/access-token-claims-reference).
-We only use v2.0 tokens.
 
 ## Runtime Variables & Credentials
 
