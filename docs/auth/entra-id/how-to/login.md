@@ -63,8 +63,9 @@ https://<ingress>/oauth2/login
 ## Next steps
 
 The employee is now authenticated and can access your application.
-However, the subject token found in the `Authorization` header is **only valid for _your_ application**.
+You can extract [the claims](../reference/README.md#claims) from the subject token found in the `Authorization` header to assert the user's identity.
 
+However, the token is **only valid for _your_ application**.
 To consume other APIs on behalf of the employee, [exchange the token for a new token that targets a specific API](consume-obo.md).
 
 ## Related pages

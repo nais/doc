@@ -90,8 +90,9 @@ This endpoint URI can be found in one of two ways:
 ## Next steps
 
 The citizen is now authenticated and can access your application.
-However, the subject token found in the `Authorization` header is **only valid for _your_ application**.
+You can extract [the claims](../reference/README.md#claims) from the subject token found in the `Authorization` header to assert the user's identity.
 
+However, the token is **only valid for _your_ application**.
 To consume other APIs on behalf of the citizen, [exchange the token for a new token that targets a specific API](../../tokenx/how-to/consume.md).
 
 ## Related pages

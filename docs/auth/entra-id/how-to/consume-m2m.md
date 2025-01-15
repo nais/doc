@@ -23,7 +23,7 @@ spec:
       enabled: true
 ```
 
-Depending on how you communicate with the API you're consuming, [configure the appropriate outbound access policies](../../../workloads/how-to/access-policies.md).
+Depending on how you communicate with the API you're consuming, [configure the appropriate outbound access policies](../../../workloads/how-to/access-policies.md#outbound-access).
 
 {%- if tenant() == "nav" %}
 ???+ warning "Use webproxy for outbound network connectivity from on-premises environments"

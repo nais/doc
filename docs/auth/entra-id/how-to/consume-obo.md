@@ -11,13 +11,13 @@ This is also known as the _on-behalf-of (OBO)_ flow.
 ## Prerequisites
 
 - Your application receives requests with an employee subject token in the `Authorization` header. The application is either:
-  - [a backend API secured with Entra ID](secure.md), or
-  - [a backend-for-frontend that logs in employees](login.md)
+    - [a backend API secured with Entra ID](secure.md), or
+    - [a backend-for-frontend that logs in employees](login.md)
 - The API you're consuming has [granted access to your application and employees](secure.md#grant-access-to-consumers)
 
 ## Configure your application
 
-Depending on how you communicate with the API you're consuming, [configure the appropriate outbound access policies](../../../workloads/how-to/access-policies.md).
+Depending on how you communicate with the API you're consuming, [configure the appropriate outbound access policies](../../../workloads/how-to/access-policies.md#outbound-access).
 
 {%- if tenant() == "nav" %}
 ???+ warning "Use webproxy for outbound network connectivity from on-premises environments"

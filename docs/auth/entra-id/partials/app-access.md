@@ -1,8 +1,11 @@
 By default, no applications have access to your API.
 You must explicitly grant access to consumer applications.
 
-```yaml title="app.yaml" hl_lines="5-12"
+```yaml title="app.yaml" hl_lines="8-15"
 spec:
+  azure:
+    application:
+      enabled: true
   accessPolicy:
     inbound:
       rules:

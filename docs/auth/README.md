@@ -31,6 +31,9 @@ NAIS helps your applications [log in users](#logging-in-users), [validate inboun
 
 Your application may have multiple use cases that can require a combination of services.
 
+:books: To learn more about authentication and authorization in general, see [the explanations page](explanations/README.md).
+If you just want to get started, continue reading below.
+
 See the different scenarios below to identify which service(s) you need for your application, and follow the links to the respective service for more details.
 
 ## Logging in users
