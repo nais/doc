@@ -17,6 +17,6 @@ The nais team has conducted the following risk assessments:
 * [Google Secret Manager](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=538)
 * [Dataplattform (including BigQuery)](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=607)
 * [Bruk av ansatt.nav.no](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=1670)
+* [Bruk av Nais Console](https://apps.powerapps.com/play/f8517640-ea01-46e2-9c09-be6b05013566?ID=1921)
 
 (Note that all risk assessments link to the NAV internal tool TryggNok.)
-
