@@ -5442,12 +5442,14 @@ Value range: `1`-`65535`<br />
     ```
 
 ### service.protocol
+At some point below valkey will start talking valkey protocol, they are
+currently the same.
 Which protocol the backend service runs on. Default is `http`.
 
 Type: `enum`<br />
 Required: `false`<br />
 Default value: `http`<br />
-Allowed values: `grpc`, `http`, `redis`, `tcp`<br />
+Allowed values: `grpc`, `http`, `redis`, `tcp`, `valkey`<br />
 
 ??? example
     ``` yaml
@@ -5721,6 +5723,54 @@ Required: `false`<br />
     ``` yaml
     spec:
       ttl: 1h
+    ```
+
+## valkey
+List of Valkey instances this application needs credentials for.
+Must be owned by same team.
+
+Relevant information:
+
+* [https://doc.nais.io/persistence/valkey/](https://doc.nais.io/persistence/valkey/)
+
+Type: `array`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      valkey:
+        - access: readwrite
+          instance: cache
+    ```
+
+### valkey[].access
+Access level for Valkey user
+
+Type: `enum`<br />
+Required: `false`<br />
+Allowed values: `admin`, `read`, `readwrite`, `write`<br />
+
+??? example
+    ``` yaml
+    spec:
+      valkey:
+        - access: readwrite
+          instance: cache
+    ```
+
+### valkey[].instance
+The last part of the name used when creating the instance (ie. valkey-{team}-{instance})
+
+Type: `string`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      valkey:
+        - access: readwrite
+          instance: cache
     ```
 
 ## vault

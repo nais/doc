@@ -4640,6 +4640,54 @@ Required: `false`<br />
       ttlSecondsAfterFinished: 60
     ```
 
+## valkey
+List of Valkey instances this job needs credentials for.
+Must be owned by same team.
+
+Relevant information:
+
+* [https://doc.nais.io/persistence/valkey/](https://doc.nais.io/persistence/valkey/)
+
+Type: `array`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      valkey:
+        - access: readwrite
+          instance: cache
+    ```
+
+### valkey[].access
+Access level for Valkey user
+
+Type: `enum`<br />
+Required: `false`<br />
+Allowed values: `admin`, `read`, `readwrite`, `write`<br />
+
+??? example
+    ``` yaml
+    spec:
+      valkey:
+        - access: readwrite
+          instance: cache
+    ```
+
+### valkey[].instance
+The last part of the name used when creating the instance (ie. valkey-{team}-{instance})
+
+Type: `string`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      valkey:
+        - access: readwrite
+          instance: cache
+    ```
+
 ## vault
 Provides secrets management, identity-based access, and encrypting application data for auditing of secrets
 for applications, systems, and users.

@@ -248,6 +248,9 @@ spec:
   terminationGracePeriodSeconds: 60
   timeZone: Europe/Oslo
   ttlSecondsAfterFinished: 60
+  valkey:
+  - access: readwrite
+    instance: cache
   vault:
     enabled: true
     paths:

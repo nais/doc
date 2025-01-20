@@ -320,6 +320,9 @@ spec:
   tokenx:
     enabled: true
   ttl: 1h
+  valkey:
+  - access: readwrite
+    instance: cache
   vault:
     enabled: true
     paths:
