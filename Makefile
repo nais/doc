@@ -7,4 +7,4 @@ install:
 	poetry install
 
 local:
-	TENANT=$(tenant) poetry run mkdocs serve
+	poetry run mkdocs serve
