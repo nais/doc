@@ -25,5 +25,5 @@ make local
 ## 3a. Serve a tenant-specific version of the documentation
 
 ```bash
-make local tenant=nav
+TENANT=nav make local
 ```
