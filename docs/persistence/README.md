@@ -33,7 +33,7 @@ Choose wisely.
 
 ```mermaid
 graph TD
-  F[I need caching!] --> REDIS[Redis]
+  F[I need caching!] --> VALKEY[Valkey]
   A[I got data!] --> B[Is it structured?]
   B --> |Yes| C[Is it events?]
   B --> |No| D[Is it files?]
@@ -44,7 +44,7 @@ graph TD
   E --> |Yes| GBQ[BigQuery]
   E --> |No| GCSQL[Cloud SQL]
 
-  click REDIS "#redis"
+  click VALKEY "#valkey"
   click GBQ "#bigquery"
   click GCS "#cloud-storage-buckets"
   click GCSQL "#cloud-sql"
@@ -56,14 +56,14 @@ graph TD
 
 Below is a list of the different storage options available to you.
 
-| Name                                    | Type        | Availability | Backup |
-|-----------------------------------------|-------------|:------------:|:------:|
-| [Kafka](#kafka)                         | Streaming   |     All      |  Yes*  |
-| [Cloud Storage](#cloud-storage-buckets) | Object      |     GCP      |  Yes*  |
-| [Cloud SQL](#cloud-sql)                 | Relational  |     GCP      |  Yes   |
-| [BigQuery](#bigquery)                   | Relational  |     GCP      |  Yes*  |
-| [OpenSearch](#opensearch)               | Document    |     GCP      |  Yes   |
-| [Redis](#redis)                         | Key/Value   |     GCP      |  Yes   |
+| Name                                    | Type       | Availability | Backup |
+|-----------------------------------------|------------|:------------:|:------:|
+| [Kafka](#kafka)                         | Streaming  | All          | Yes*   |
+| [Cloud Storage](#cloud-storage-buckets) | Object     | GCP          | Yes*   |
+| [Cloud SQL](#cloud-sql)                 | Relational | GCP          | Yes    |
+| [BigQuery](#bigquery)                   | Relational | GCP          | Yes*   |
+| [OpenSearch](#opensearch)               | Document   | GCP          | Yes    |
+| [Valkey](#valkey)                       | Key/Value  | GCP          | Yes    |
 
 \* Data is highly available and fault-tolerant but not backed up if deleted by
 mistake.
@@ -108,10 +108,10 @@ OpenSearch offers a drop-in replacement for Elasticsearch.
 
 [:bulb: Learn more about OpenSearch](./opensearch/README.md)
 
-## Redis
+## Valkey
 
-Redis is a key value database that is used for storing and querying data. It is
+Valkey is a key value database that is used for storing and querying data. It is
 a good choice for storing data that is not relational in nature and often used
 for caching.
 
-[:bulb: Learn more about Redis](./redis/README.md)
+[:bulb: Learn more about Valkey](./valkey/README.md)

@@ -169,7 +169,7 @@ Typically, you should inspect the `Status` parts of the output.
 | Kafka (`aiven-...`)                          | aivenapp           |
 | OpenSearch (`aiven-...`)                     | aivenapp           |
 | Influx (`aiven-...`)                         | aivenapp           |
-| Redis (`aiven-...`)                          | aivenapp           |
+| Valkey (`aiven-...`)                         | aivenapp           |
 | Entra-ID (`azure-...`)                       | azureapp           |
 | TokenX (`tokenx-...`)                        | jwker              |
 | ID porten (`idporten-...`)                   | idportenclient     |

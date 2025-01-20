@@ -46,7 +46,7 @@ NAIS does not collect application trace data automatically, but it provides the 
 
 The preferred way to get started with tracing is to enable auto-instrumentation for your application. This will automatically collect traces and send them to the correct place using the OpenTelemetry Agent.
 
-This is the easiest way to get started with tracing, as it requires little to no effort on the part of the team developing the application and provides instrumentation for popular libraries, frameworks and external services such as PostgreSQL, Redis, Kafka and HTTP clients.
+This is the easiest way to get started with tracing, as it requires little to no effort on the part of the team developing the application and provides instrumentation for popular libraries, frameworks and external services such as PostgreSQL, Redis, Valkey, Kafka and HTTP clients.
 
 [:dart: Get started with auto-instrumentation](../how-to/auto-instrumentation.md)
 
@@ -74,9 +74,9 @@ While tracing is only concerned about request/response metadata there are some e
 Bellow is a list of known fields you should check for your application.
 
 | Trace type | Known fields                                        |
-| ---------- | --------------------------------------------------- |
+|------------|-----------------------------------------------------|
 | HTTP       | `url.path`, `target.path`, `route.path`, `url.full` |
-| Redis      | `db.statement`                                      |
+| Valkey     | `db.statement`                                      |
 | Postgres   | `db.statement`                                      |
 | Kafka      | `messaging.kafka.message.key`                       |
 
