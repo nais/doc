@@ -10,7 +10,7 @@ If your application only needs to be available to other applications running in 
 
 ## Select audience
 
-Select the correct audience from the available [domains in your environment](../../reference/environments.md).
+Select the correct audience from [the available domains in your environment](../../reference/environments.md).
 
 ## Define ingress
 

@@ -4,20 +4,17 @@ tags: [workloads, explanation, access-policy]
 
 # Zero Trust
 
-NAIS embraces the [zero trust](https://en.wikipedia.org/wiki/Zero_trust_security_model) security model, where the core principle is to "never trust, always verify".
+Nais embraces the [zero trust](https://en.wikipedia.org/wiki/Zero_trust_security_model) security model, where the core principle is to "never trust, always verify".
 
-In NAIS, every [workload](../README.md) is isolated by default. This means that workloads are not able to make _any_ outbound requests or receive _any_ incoming traffic unless explicitly allowed.
+In Nais, every [workload](../README.md) is isolated by default.
+Workloads are not able to make _any_ outbound requests or receive _any_ incoming traffic unless explicitly allowed.
 
-We use _access policies_ to specify which applications and services a workload can communicate with.
+We use _access policies_ to specify which applications and external addresses a workload can communicate with.
 This is done by defining _inbound_ and _outbound_ policies in the workload's manifest.
-
-{% if tenant() == "nav" %}
-Access policies only restrict network traffic for workloads running in the [GCP environments](../reference/environments.md). They do not affect network traffic in the on-premise environments.
-{% endif %}
 
 ## Inbound traffic
 
-Depending on your use case and [environment](../reference/environments.md), you can allow inbound access in multiple ways:
+Allowing inbound access to your application depends on your consumers and the [environment](../explanations/environment.md) they're in:
 
 ```mermaid
 graph TD
@@ -28,22 +25,22 @@ graph TD
   B --> |No| InternalOtherNS[🎯 <a href='../../how-to/access-policies#receive-requests-from-workloads-in-other-namespaces'>Allow access from other namespaces</a>]
 ```
 
-Inbound policies defined in [`.spec.accessPolicy.inbound`](../application/reference/application-spec.md#accesspolicyinbound) are:
+### Service discovery
 
-- enforced for _consumers in the same environment_ using [service discovery](../application/explanations/expose.md#service-discovery).
-- **not** enforced for traffic through an [ingress](../application/reference/ingress.md).
-{% if tenant() == "nav" %}
-- enforced for authorizing consumers using [Entra ID](../../auth/entra-id/README.md) or [TokenX](../../auth/tokenx/README.md) regardless of environment.
-{% endif %}
+Consumers running in the same environment should prefer to communicate with your workload via [service discovery](../application/explanations/expose.md#service-discovery).
 
-**Inbound policies do not affect ingress traffic**.
-An ingress exposes your application to a selected audience, depending on the domain.
-All traffic through an ingress is implicitly allowed.
-Your workload is thus responsible for authorizing requests if exposed through an ingress.
+[`.spec.accessPolicy.inbound`](../application/reference/application-spec.md#accesspolicyinbound) controls inbound network traffic via service discovery.
+
+### Ingress
+
+To allow consumers in other environments to communicate with your workload, you should expose it with an [ingress](../application/explanations/expose.md#ingress).
+The ingress domain controls which networks the ingress is reachable from. Other than that, inbound network traffic through an ingress is essentially unrestricted.
+
+[`.spec.accessPolicy.inbound`](../application/reference/application-spec.md#accesspolicyinbound) **does not** control network traffic via ingresses.
 
 ## Outbound traffic
 
-Outbound traffic can be allowed to either _other workloads in the same environment_ as well as _external addresses_:
+Allowing outbound traffic from your application depends on whether you're using [service discovery](../application/explanations/expose.md#service-discovery) or external addresses:
 
 ```mermaid
 graph TD
@@ -54,24 +51,30 @@ graph TD
   B --> |No| InternalOtherNS[🎯 <a href='../../how-to/access-policies#send-requests-to-other-app-in-another-namespace'>Allow access to other namespaces</a>]
 ```
 
-Outbound policies defined in [`.spec.accessPolicy.outbound`](../application/reference/application-spec.md#accesspolicyoutbound) are:
+Services offered by Nais (such as [databases](../../persistence/postgres/README.md)) are automatically configured with necessary outbound access policies.
 
-- enforced when _consuming other workloads in the same environment_ through [service discovery](../application/explanations/expose.md#service-discovery) ([`.spec.accessPolicy.outbound.rules`](../application/reference/application-spec.md#accesspolicyoutboundrules)).
-- enforced for all traffic to external addresses ([`.spec.accessPolicy.outbound.external`](../application/reference/application-spec.md#accesspolicyoutboundexternal)).
+### Service discovery
 
-**Ingresses are external addresses**.
-We recommend using service discovery to communicate with other workloads when possible.
+If the service you want to call is in the same environment, you should communicate with it by using service discovery.
 
-Services offered by NAIS (such as [databases](../../persistence/postgres/README.md)) are automatically configured with necessary access policies.
+[`.spec.accessPolicy.outbound.rules`](../application/reference/application-spec.md#accesspolicyoutboundrules) controls outbound network traffic via service discovery.
+
+### External addresses
+
+An external address is any address outside the environment your workload is running in.
+[Ingresses](../application/explanations/expose.md#ingress) exposed by other workloads are also considered external addresses.
+
+[`.spec.accessPolicy.outbound.external`](../application/reference/application-spec.md#accesspolicyoutboundexternal) controls which external addresses your workload can communicate with.
 
 ## Example
 
-Consider a simple application which consists of a frontend and a backend, where naturally the frontend needs to communicate with the backend.
+Consider two applications: a frontend and a backend.
+The frontend needs to communicate with the backend by using service discovery.
 
 This communication is denied by default as indicated by the red arrow.
 ![access-policy-1](../../assets/access-policy-1.png)
 
-In order to fix this, the frontend needs to allow outbound traffic to the backend by adding the following access policy.
+To fix this, the frontend needs to allow outbound traffic to the backend by adding the following access policy:
 
 ```yaml
 spec:
@@ -83,8 +86,8 @@ spec:
 
 ![access-policy-2](../../assets/access-policy-2.png)
 
-However - the frontend is still not allowed to make any requests to the backend.
-The missing piece of the puzzle is adding an inbound policy to the backend like so:
+However, the frontend is still not allowed to make any requests to the backend.
+The missing piece of the puzzle is an inbound policy, allowing the frontend to communicate with it:
 
 ```yaml
 spec:
@@ -96,10 +99,10 @@ spec:
 
 ![access-policy-3](../../assets/access-policy-3.png)
 
-Now that both applications has explicitly declared their policies, the communication is allowed.
+Now that both applications have explicitly declared their respective inbound and outbound policies, communication is allowed.
 
 ## Related pages
 
 :dart: Learn [how to define access policies](../how-to/access-policies.md)
 
-:dart: Learn [how to communicate with other workloads within an environment](../how-to/communication.md)
+:dart: Learn [how to communicate with other workloads via service discovery](../how-to/communication.md)

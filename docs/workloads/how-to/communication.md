@@ -2,10 +2,9 @@
 tags: [workloads, how-to, service-discovery]
 ---
 
-# Communicate with other workloads in the same environment
+# Communicate with other workloads
 
-This guide shows you how to communicate with other workloads inside the same environment by using their internal service address.
-The address is derived by using [_service discovery_](../application/explanations/expose.md#service-discovery).
+This guide shows you how to communicate with other workloads inside the same environment or cluster via [_service discovery_](../application/explanations/expose.md#service-discovery).
 
 ## Prerequisites
 
@@ -34,8 +33,9 @@ http://<name>.<namespace>
 
 {% if tenant() == "nav" %}
 
-!!! info "Note for on-prem"
-    If your workload has [webproxy](../application/reference/application-spec.md#webproxy) enabled, you should use the full hostname for all service discovery calls:
+!!! warning "Use full hostname when using webproxy on-premises"
+
+    If your workload has [webproxy](../application/reference/application-spec.md#webproxy) enabled, you must use the full hostname for all service discovery calls:
 
     ```text
     http://<name>.<namespace>.svc.nais.local
