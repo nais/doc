@@ -12,8 +12,6 @@ Simply add [nais/docker-build-push](https://github.com/nais/docker-build-push) t
    with:
      team: myteam # required
      salsa: true # optional, defaults to true
-     project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # required, but is defined as an organization variable
-     identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # required, but is defined as an organization secret
      # ... other options removed for readability
 ```
 
