@@ -54,8 +54,6 @@ jobs:
 {%- endif %}
           source: <The path to your build folder or assets>
           environment: dev
-          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # Provided as Organization Secret
-          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # Provided as Organization Variable
 ```
 
 For more information on the inputs and outputs of the action, see the [SPA deploy action reference](../reference/spa-deploy.md).

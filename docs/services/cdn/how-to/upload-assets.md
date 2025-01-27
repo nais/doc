@@ -57,8 +57,6 @@ jobs:
 {%- endif %}
           source: <The path to your build folder or assets>
           destination: <A destination you pick, like /my-app/dist>
-          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # Provided as Organization Secret
-          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # Provided as Organization Variable
   
       - run: echo uploaded file ${{ steps.upload.outputs.uploaded }}
 ```

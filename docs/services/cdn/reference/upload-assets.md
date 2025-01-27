@@ -21,14 +21,6 @@ The action accepts the following inputs:
 
 :   **Required**. Destination directory.
 
-`project_id`
-
-:   **Required**. Set this to `${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}`.
-
-`identity_provider`
-
-:   **Required**. Set this to `${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}`.
-
 `tenant`
 
 :   **Optional**. Tenant name.

@@ -126,8 +126,6 @@ Add the following content to the file, and insert the appropriate values in the 
           id: docker-build-push
           with:
             team: <MY-TEAM> # Replace
-            identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # Provided as Organization Secret
-            project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # Provided as Organization Variable
         - name: Deploy to Nais
           uses: nais/deploy/actions/deploy@v2
           env:
@@ -135,9 +133,6 @@ Add the following content to the file, and insert the appropriate values in the 
             RESOURCE: .nais/app.yaml # This points to the file we created in the previous step
             VAR: image=${{ steps.docker-build-push.outputs.image }}
             TELEMETRY: ${{ steps.docker-build-push.outputs.telemetry }}
-            {%- if tenant() != "nav" %}
-            DEPLOY_SERVER: deploy.<<tenant()>>.cloud.nais.io:443
-            {%- endif %}
     ```
 
     1.  Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../workloads/reference/environments.md).

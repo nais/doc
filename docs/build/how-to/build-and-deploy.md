@@ -45,8 +45,6 @@ This how-to guide shows you how to build and deploy your application using [Gith
             id: docker-build-push
             with:
               team: <MY-TEAM> # Replace
-              identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # Provided as Organization Secret
-              project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # Provided as Organization Variable
           - name: Deploy to NAIS
             uses: nais/deploy/actions/deploy@v2
             env:
@@ -54,9 +52,6 @@ This how-to guide shows you how to build and deploy your application using [Gith
               RESOURCE: .nais/app.yaml #, topic.yaml, statefulset.yaml, etc.
               VAR: image=${{ steps.docker-build-push.outputs.image }}
               TELEMETRY: ${{ steps.docker-build-push.outputs.telemetry }}
-              {%- if tenant() != "nav" %}
-              DEPLOY_SERVER: deploy.<<tenant()>>.cloud.nais.io:443
-              {%- endif %}
     ```
 
     1.  Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../../workloads/reference/environments.md).
