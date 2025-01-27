@@ -38,10 +38,10 @@ nais postgres prepare appname --context dev-gcp --namespace dreamteam
 
 ## prepare
 Prepare will prepare the postgres instance by connecting using the
-application credentials and modify the permissions on the public schema.
+application credentials and by default modify the permissions on the public schema.
 All IAM users in your GCP project will be able to connect to the instance.
 
-This operation is only required to run once for each postgresql instance.
+This operation is only required to run once for each postgresql instance and schema.
 
 ```bash
 nais postgres prepare appname
@@ -54,9 +54,10 @@ nais postgres prepare appname
 | Flag      | Required | Short |Default                       |Description                                              |
 |-----------|----------|-------|------------------------------|---------------------------------------------------------|
 | all-privs | No       |       | false                        | If true `ALL` is granted, else only `SELECT` is granted |
+| schema    | No       |       | public                       | Name of the schema to grant access to                   |
 
 ## revoke
-Revokes the privileges given to the role cloudsqliamuser.
+Revokes the privileges given to the role cloudsqliamuser in the given schema (default `public`).
 Does not remove access for users to log in to the database or the `roles/cloudsql.admin` given to the user in GCP console.
 
 This operation is only required to run once for each postgresql instance.
@@ -68,6 +69,10 @@ nais postgres revoke appname
 | Argument    | Required  | Description                                                 |
 |-------------|-----------|-------------------------------------------------------------|
 | appname     | Yes       | Name of application owning the database                     |
+
+| Flag      | Required | Short |Default |Description                               |
+|-----------|----------|-------|--------|------------------------------------------|
+| schema    | No       |       | public | Name of the schema to revoke access from |
 
 ## grant
 Grant yourself access to a Postgres database.
