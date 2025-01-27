@@ -48,6 +48,7 @@ Supported identity providers:
 
 - Entra ID for [logging in employees](../entra-id/how-to/login.md).
 - ID-porten for [logging in citizens](../idporten/how-to/login.md).
+- [Generic OpenID Connect providers](../how-to/login.md) are also supported as an advanced use case.
 
 <<gcp_only("Login proxy")>>
 

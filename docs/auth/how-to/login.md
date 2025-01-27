@@ -8,11 +8,15 @@ This guide shows you how to log in users to your application with the [login pro
 
 {%- if tenant() == "nav" %}
 
-To log in a citizen, see the :dart: [guide to logging in with ID-porten](../idporten/how-to/login.md)
+!!! warning "The instructions below are for advanced use cases"
 
-To log in an employee, see the :dart: [guide to logging in with Entra ID](../entra-id/how-to/login.md)
+    To log in a citizen, see the :dart: [guide to logging in with ID-porten](../idporten/how-to/login.md)
 
-{%- else %}
+    To log in an employee, see the :dart: [guide to logging in with Entra ID](../entra-id/how-to/login.md)
+
+    For advanced use cases where you need to log in users with a generic OpenID Connect identity provider, follow the instructions below.
+
+{%- endif %}
 
 ## Prerequisites
 
@@ -29,12 +33,25 @@ login-config-<application-name>
 
 and add the following keys:
 
-- `WONDERWALL_OPENID_CLIENT_ID` - the client ID for your application
+`WONDERWALL_OPENID_CLIENT_ID`
 
-and either:
+:   The client ID for your application.
 
-- `WONDERWALL_OPENID_CLIENT_JWK` - this is a private key in JWK format, e.g. `{"kty":"RSA","e":"AQAB","kid":"my-key-id",...}`, or
-- `WONDERWALL_OPENID_CLIENT_SECRET` - the client secret for your application
+`WONDERWALL_OPENID_WELL_KNOWN_URL`
+
+:   Optional. Only required of your organization doesn't set a default value.
+
+    The well-known URL for the OpenID Connect provider, e.g. `https://<provider>/well-known/openid-configuration`.
+
+and either (at most one of):
+
+`WONDERWALL_OPENID_CLIENT_JWK`
+
+:   This is a private key in JWK format, e.g. `{"kty":"RSA","e":"AQAB","kid":"my-key-id",...}`.
+
+`WONDERWALL_OPENID_CLIENT_SECRET`
+
+:   The client secret for your application.
 
 Optionally, add additional environment variables to the secret to configure the login proxy further.
 See the [Wonderwall configuration reference :octicons-link-external-16:](https://github.com/nais/wonderwall/blob/master/docs/configuration.md) for all available options.
@@ -90,8 +107,8 @@ https://<ingress>/oauth2/login
 
 ## Related pages
 
-:books: [Login proxy reference](../reference/README.md)
+:bulb: [Learn more about the login proxy](../explanations/README.md#login-proxy).
+
+:books: See [Login proxy reference](../reference/README.md#login-proxy) for technical details.
 
 [login endpoint]: ../reference/README.md#login-endpoint
-
-{%- endif %}
