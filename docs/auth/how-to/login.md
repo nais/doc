@@ -8,13 +8,14 @@ This guide shows you how to log in users to your application with the [login pro
 
 {%- if tenant() == "nav" %}
 
-!!! warning "The instructions below are for advanced use cases"
+!!! warning "The instructions on this page are for advanced use cases"
 
-    To log in a citizen, see the :dart: [guide to logging in with ID-porten](../idporten/how-to/login.md)
+    For most cases, you will want to use ID-porten or Entra ID directly:
 
-    To log in an employee, see the :dart: [guide to logging in with Entra ID](../entra-id/how-to/login.md)
+    - To log in a citizen, see the :dart: [guide to logging in with ID-porten](../idporten/how-to/login.md)
+    - To log in an employee, see the :dart: [guide to logging in with Entra ID](../entra-id/how-to/login.md)
 
-    For advanced use cases where you need to log in users with a generic OpenID Connect identity provider, follow the instructions below.
+    If you need to log in users with a generic OpenID Connect identity provider instead, follow the instructions below.
 
 {%- endif %}
 
