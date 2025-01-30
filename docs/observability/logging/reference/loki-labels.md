@@ -9,12 +9,13 @@ In Grafana Loki, logs are stored as key-value pairs called labels. Labels are us
 
 The following labels are available in Grafana Loki by default:
 
-| Field                | Description                                                       |
-| -------------------- | ----------------------------------------------------------------- |
-| `service_name`       | The name of the service that generated the log line.              |
-| `service_namespace`  | The namespace of the service that generated the log line.         |
-| `k8s_container_name` | The name of the Kubernetes container that generated the log line. |
-| `k8s_pod_name`       | The name of the Kubernetes pod that generated the log line.       |
-| `k8s_node_name`      | The name of the Kubernetes node that generated the log line.      |
-| `k8s_cluster_name`   | The name of the Kubernetes cluster that generated the log line.   |
-| `collector_name`     | The name of the log collector that ingested the log line.         |
+| Field                | Description                                                               | Applicable to |
+| -------------------- | ------------------------------------------------------------------------- | ------------- |
+| `service_name`       | The name of the application that generated the log line.                  | All           |
+| `service_namespace`  | The namespace of the application that generated the log line.             | All           |
+| `k8s_container_name` | The name of the Kubernetes container that generated the log line.         | Kubernetes    |
+| `k8s_pod_name`       | The name of the Kubernetes pod that generated the log line.               | Kubernetes    |
+| `k8s_node_name`      | The name of the Kubernetes node that generated the log line.              | Kubernetes    |
+| `k8s_cluster_name`   | The name of the Kubernetes cluster that generated the log line.           | Kubernetes    |
+| `collector_name`     | The name of the log collector that ingested the log line.                 | All           |
+| `kind`               | The kind of log line. Can be `exception`, `event` `log` or `measurement`, | Faro SDK      |
