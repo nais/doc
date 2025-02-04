@@ -63,8 +63,6 @@ extra:
           note: >-
             Thanks for your feedback! Help us improve this page by
             using our <a href="https://github.com/nais/doc/issues/new">feedback form</a> or contact us on Slack</a>.
-extra_javascript:
-  - javascript/amplitude_events.js
 extra_css:
   - material_theme_stylesheet_overrides/uu.css
   - material_theme_stylesheet_overrides/grid.css
