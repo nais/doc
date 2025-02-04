@@ -60,7 +60,7 @@ Use with caution!
 
 Among many others:
 
-- Designsystemet ([example](https://github.com/navikt/Designsystemet/blob/master/.github/workflows/push-to-cdn.yaml))
+- Aksel ([example](https://github.com/navikt/aksel/blob/main/.github/workflows/push-to-cdn.yaml))
 - Mikrofrontend ([example](https://github.com/navikt/tms-deploy/blob/main/.github/workflows/mikrofrontend-deploy-v2.yaml))
 
 {% endif %}
