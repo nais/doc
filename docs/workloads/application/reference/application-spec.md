@@ -778,7 +778,6 @@ Sidecar configures a sidecar that intercepts every HTTP request, and performs th
 All requests to ingress + `/oauth2` will be processed only by the sidecar, whereas all other requests
 will be proxied to the application.
 
-
 If the user is authenticated with Entra ID, the `Authorization` header will be set to `Bearer <JWT>`.
 
 Relevant information:
@@ -1109,10 +1108,8 @@ Allowed values: _(empty string)_, `metadata.annotations`, `metadata.labels`, `me
 EnvFrom exposes all variables in the ConfigMap or Secret resources as environment variables.
 One of `configMap` or `secret` is required.
 
-
 Environment variables will take the form `KEY=VALUE`, where `key` is the ConfigMap or Secret key.
 You can specify as many keys as you like in a single ConfigMap or Secret.
-
 
 The ConfigMap and Secret resources must live in the same Kubernetes namespace as the Application resource.
 
@@ -1162,16 +1159,13 @@ Required: `false`<br />
 List of ConfigMap, Secret, or EmptyDir resources that will have their contents mounted into the containers.
 Either `configMap`, `secret`, or `emptyDir` is required.
 
-
 Files will take the path `<mountPath>/<key>`, where `key` is the ConfigMap or Secret key.
 You can specify as many keys as you like in a single ConfigMap or Secret, and they will all
 be mounted to the same directory.
 
-
 If you reference an emptyDir you will just get an empty directory, backed
 by your requested memory or the disk on the node where your pod is
 running.
-
 
 The ConfigMap and Secret resources must live in the same Kubernetes namespace as the Application resource.
 
@@ -1261,7 +1255,6 @@ Allowed values: `Disk`, `Memory`<br />
 Filesystem path inside the pod where files are mounted.
 The directory will be created if it does not exist. If the directory exists,
 any files in the directory will be made unaccessible.
-
 
 Defaults to `/var/run/configmaps/<NAME>`, `/var/run/secrets`, or `/var/run/pvc/<NAME>`, depending on which of them is specified.
 For EmptyDir, MountPath must be set.
@@ -1814,7 +1807,6 @@ Value range: `1`-`36500`<br />
 Allows you to uniformly control access to your Cloud Storage resources.
 When you enable uniform bucket-level access on a bucket, Access Control Lists (ACLs) are disabled, and only bucket-level Identity
 and Access Management (IAM) permissions grant access to that bucket and the objects it contains.
-
 
 Uniform access control can not be reversed after 90 days! This is controlled by Google.
 
@@ -2984,7 +2976,7 @@ Required: `false`<br />
 
 ##### gcp.sqlInstances[].maintenance.day
 Type: `integer`<br />
-Required: `false`<br />
+Required: `true`<br />
 Value range: `1`-`7`<br />
 
 ??? example
@@ -3026,7 +3018,7 @@ Value range: `1`-`7`<br />
 
 ##### gcp.sqlInstances[].maintenance.hour
 Type: `integer`<br />
-Required: `false`<br />
+Required: `true`<br />
 Value range: `0`-`23`<br />
 
 ??? example
@@ -3398,7 +3390,6 @@ Availability: GCP<br />
 Sidecar configures a sidecar that intercepts every HTTP request, and performs the OIDC flow if necessary.
 All requests to ingress + `/oauth2` will be processed only by the sidecar, whereas all other requests
 will be proxied to the application.
-
 
 If the user is authenticated with ID-porten, the `Authorization` header will be set to `Bearer <JWT>`.
 
@@ -4755,7 +4746,6 @@ Command is the command line to execute inside the container before the pod is sh
 The command is not run inside a shell, so traditional shell instructions (pipes, redirects, etc.) won't work.
 To use a shell, you need to explicitly call out to that shell.
 
-
 If the exit status is non-zero, the pod will still be shut down, and marked as `Failed`.
 
 Type: `array`<br />
@@ -5813,13 +5803,10 @@ Required: `false`<br />
 List of secret paths to be read from Vault and injected into the pod's filesystem.
 Overriding the `paths` array is optional, and will give you fine-grained control over which Vault paths that will be mounted on the file system.
 
-
 By default, the list will contain an entry with
-
 
 `kvPath: /kv/<environment>/<zone>/<application>/<namespace>`
 `mountPath: /var/run/secrets/nais.io/vault`
-
 
 that will always be attempted to be mounted.
 
