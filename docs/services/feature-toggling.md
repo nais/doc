@@ -30,7 +30,7 @@ Yes, there are some limitations and known issues with Unleash:
 
 ### Getting started
 
-Each team (or a collection of teams) get their own Unleash instance. Please contact us in [#unleash](https://nav-it.slack.com/archives/C9BPTSULS) to get started!
+Each team (or a collection of teams) can get their own Unleash instance. You can create a new Unleash server in [nais console](https://console.<<tenant()>>.cloud.nais.io) or add teams to an existing instance. Go to your team and select Unleash from the left side menue.
 
 ## Using Unleash
 
