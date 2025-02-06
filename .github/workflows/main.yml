@@ -31,7 +31,7 @@ jobs:
           --ansi
       - name: Build documentation
         run: |
-          ./build.sh nav ssb test-nais ldir ci-nais dev-nais tenant
+          ./build.sh nav ssb test-nais ldir atil ci-nais dev-nais tenant
 
   publish:
     if: github.ref == 'refs/heads/main'
@@ -54,6 +54,8 @@ jobs:
             bucket: doc.test-nais.cloud.nais.io
           - name: ldir
             bucket: doc.ldir.cloud.nais.io
+          - name: atil
+            bucket: doc.atil.cloud.nais.io
     steps:
       - name: Restore cache folder
         uses: actions/cache/restore@v4
