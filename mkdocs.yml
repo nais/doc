@@ -150,6 +150,7 @@ plugins:
         "how-to-guides/persistence/bigquery/create.md": "persistence/bigquery/how-to/create.md"
         "how-to-guides/persistence/kafka/delete.md": "persistence/kafka/how-to/delete.md"
         "how-to-guides/persistence/postgres/README.md": "persistence/postgres/README.md"
+        "how-to-guides/persistence/postgres/enable-auditing.md": "persistence/postgres/enable-auditing.md"
         "how-to-guides/secrets/console.md": "services/secrets/how-to/console.md"
         "nais-application/access-policy.md": "workloads/explanations/zero-trust.md"
         "nais-application/automatic-scaling.md": "workloads/application/reference/automatic-scaling.md"
