@@ -8,7 +8,6 @@ This tutorial will take you through the process of getting a simple application 
 ## Prerequisites
 
 - You have a GitHub account connected to your GitHub organization (e.g. `navikt`)
-- [Naisdevice installed](../operate/naisdevice/how-to/install.md)
 - [Member of a Nais team](../explanations/team.md)
 - [GitHub CLI installed](https://cli.github.com/)
 
