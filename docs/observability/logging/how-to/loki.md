@@ -39,3 +39,4 @@ To get you started we suggest using the query builder mode when writing your fir
 ## Further reading
 
 - [LogQL reference](../reference/logql.md)
+- [Adding logs to your Grafana dashboard](./logs-in-dashboards.md)
