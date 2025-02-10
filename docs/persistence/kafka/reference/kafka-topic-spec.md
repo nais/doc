@@ -106,6 +106,7 @@ Required: `false`<br />
     spec:
       config:
         cleanupPolicy: delete
+        deleteRetentionHours: 24
         localRetentionBytes: 1000
         localRetentionHours: 68
         maxCompactionLagMs: 60000
@@ -125,7 +126,7 @@ This designates the retention policy to use on old log segments.
 
 Relevant information:
 
-* [https://kafka.apache.org/33/documentation.html#topicconfigs_cleanup.policy](https://kafka.apache.org/33/documentation.html#topicconfigs_cleanup.policy)
+* [https://kafka.apache.org/documentation.html#topicconfigs_cleanup.policy](https://kafka.apache.org/documentation.html#topicconfigs_cleanup.policy)
 
 Type: `enum`<br />
 Required: `false`<br />
@@ -137,6 +138,25 @@ Allowed values: `compact`, `compact,delete`, `delete`<br />
     spec:
       config:
         cleanupPolicy: delete
+    ```
+
+### config.deleteRetentionHours
+The amount of time to retain delete tombstone markers for log compacted topics.
+This setting also gives a bound on the time in which a consumer must complete a read if they begin from offset 0 to ensure that they get a valid snapshot of the final stage (otherwise delete tombstones may be collected before they complete their scan).
+
+Relevant information:
+
+* [https://kafka.apache.org/documentation/#topicconfigs_delete.retention.ms](https://kafka.apache.org/documentation/#topicconfigs_delete.retention.ms)
+
+Type: `integer`<br />
+Required: `false`<br />
+Default value: `24`<br />
+
+??? example
+    ``` yaml
+    spec:
+      config:
+        deleteRetentionHours: 24
     ```
 
 ### config.localRetentionBytes
@@ -187,7 +207,7 @@ MaxCompactionLagMs indicates the maximum time a message will remain ineligible f
 
 Relevant information:
 
-* [https://kafka.apache.org/33/documentation.html#topicconfigs_max.compaction.lag.ms](https://kafka.apache.org/33/documentation.html#topicconfigs_max.compaction.lag.ms)
+* [https://kafka.apache.org/documentation.html#topicconfigs_max.compaction.lag.ms](https://kafka.apache.org/documentation.html#topicconfigs_max.compaction.lag.ms)
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -210,7 +230,7 @@ batches and this limit only applies to a single record in that case.
 
 Relevant information:
 
-* [https://kafka.apache.org/33/documentation.html#topicconfigs_max.message.bytes](https://kafka.apache.org/33/documentation.html#topicconfigs_max.message.bytes)
+* [https://kafka.apache.org/documentation.html#topicconfigs_max.message.bytes](https://kafka.apache.org/documentation.html#topicconfigs_max.message.bytes)
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -229,7 +249,7 @@ MinCleanableDirtyRatio indicates the minimum ratio of dirty log to retention siz
 
 Relevant information:
 
-* [https://kafka.apache.org/33/documentation.html#topicconfigs_min.cleanable.dirty.ratio](https://kafka.apache.org/33/documentation.html#topicconfigs_min.cleanable.dirty.ratio)
+* [https://kafka.apache.org/documentation.html#topicconfigs_min.cleanable.dirty.ratio](https://kafka.apache.org/documentation.html#topicconfigs_min.cleanable.dirty.ratio)
 
 Type: `integer` or `string`<br />
 Required: `false`<br />
@@ -240,7 +260,7 @@ MinCompactionLagMs indicates the minimum time a message will remain uncompacted 
 
 Relevant information:
 
-* [https://kafka.apache.org/33/documentation.html#topicconfigs_min.compaction.lag.ms](https://kafka.apache.org/33/documentation.html#topicconfigs_min.compaction.lag.ms)
+* [https://kafka.apache.org/documentation.html#topicconfigs_min.compaction.lag.ms](https://kafka.apache.org/documentation.html#topicconfigs_min.compaction.lag.ms)
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -260,7 +280,7 @@ that must acknowledge a write for the write to be considered successful.
 
 Relevant information:
 
-* [https://kafka.apache.org/33/documentation.html#topicconfigs_min.insync.replicas](https://kafka.apache.org/33/documentation.html#topicconfigs_min.insync.replicas)
+* [https://kafka.apache.org/documentation.html#topicconfigs_min.insync.replicas](https://kafka.apache.org/documentation.html#topicconfigs_min.insync.replicas)
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -294,7 +314,7 @@ The default replication factor for created topics.
 
 Relevant information:
 
-* [https://kafka.apache.org/33/documentation.html#replication](https://kafka.apache.org/33/documentation.html#replication)
+* [https://kafka.apache.org/documentation.html#replication](https://kafka.apache.org/documentation.html#replication)
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -315,7 +335,7 @@ Since this limit is enforced at the partition level, multiply it by the number o
 
 Relevant information:
 
-* [https://kafka.apache.org/33/documentation.html#topicconfigs_retention.bytes](https://kafka.apache.org/33/documentation.html#topicconfigs_retention.bytes)
+* [https://kafka.apache.org/documentation.html#topicconfigs_retention.bytes](https://kafka.apache.org/documentation.html#topicconfigs_retention.bytes)
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -333,7 +353,7 @@ The number of hours to keep a log file before deleting it.
 
 Relevant information:
 
-* [https://kafka.apache.org/33/documentation.html#topicconfigs_retention.ms](https://kafka.apache.org/33/documentation.html#topicconfigs_retention.ms)
+* [https://kafka.apache.org/documentation.html#topicconfigs_retention.ms](https://kafka.apache.org/documentation.html#topicconfigs_retention.ms)
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -353,7 +373,7 @@ that retention can delete or compact old data.
 
 Relevant information:
 
-* [https://kafka.apache.org/33/documentation.html#topicconfigs_segment.ms](https://kafka.apache.org/33/documentation.html#topicconfigs_segment.ms)
+* [https://kafka.apache.org/documentation.html#topicconfigs_segment.ms](https://kafka.apache.org/documentation.html#topicconfigs_segment.ms)
 
 Type: `integer`<br />
 Required: `false`<br />

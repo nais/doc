@@ -36,6 +36,7 @@ spec:
     team: myteam
   config:
     cleanupPolicy: delete
+    deleteRetentionHours: 24
     localRetentionBytes: 1000
     localRetentionHours: 68
     maxCompactionLagMs: 60000
