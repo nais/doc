@@ -26,35 +26,34 @@ This guide shows you how to log in users to your application with the [login pro
 
 ## Configure the secret
 
-[Create a secret](../../services/secrets/how-to/console.md) for your team with the following the naming format
+1. [Create a secret](../../services/secrets/how-to/console.md) for your team with the following naming format
 
-```
-login-config-<application-name>
-```
+    ```
+    login-config-<application-name>
+    ```
 
-and add the following keys:
+2. Add the following keys:
 
-`WONDERWALL_OPENID_CLIENT_ID`
+    `WONDERWALL_OPENID_CLIENT_ID`
 
-:   The client ID for your application.
+    :   The client ID for your application.
 
-`WONDERWALL_OPENID_WELL_KNOWN_URL`
+    `WONDERWALL_OPENID_WELL_KNOWN_URL`
 
-:   Optional. Only required of your organization doesn't set a default value.
+    :   Optional. Only required of your organization doesn't set a default value, or if you need to override the default value.<br/><br/>
+        The well-known URL for the OpenID Connect provider, e.g. `https://<provider>/well-known/openid-configuration`.
 
-    The well-known URL for the OpenID Connect provider, e.g. `https://<provider>/well-known/openid-configuration`.
+3. Add one of the following keys:
 
-and either (at most one of):
+    `WONDERWALL_OPENID_CLIENT_JWK`
 
-`WONDERWALL_OPENID_CLIENT_JWK`
+    :   This is a private key in JWK format, e.g. `{"kty":"RSA","e":"AQAB","kid":"my-key-id",...}`.
 
-:   This is a private key in JWK format, e.g. `{"kty":"RSA","e":"AQAB","kid":"my-key-id",...}`.
+    `WONDERWALL_OPENID_CLIENT_SECRET`
 
-`WONDERWALL_OPENID_CLIENT_SECRET`
+    :   The client secret for your application.
 
-:   The client secret for your application.
-
-Optionally, add additional environment variables to the secret to configure the login proxy further.
+4. Optionally, add additional environment variables to the secret to configure the login proxy further.
 See the [Wonderwall configuration reference :octicons-link-external-16:](https://github.com/nais/wonderwall/blob/master/docs/configuration.md) for all available options.
 
 ## Configure your application
