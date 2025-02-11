@@ -2,7 +2,7 @@
 tags: [postgres, audit, troubleshooting, how-to]
 ---
 
-# Audit logging
+# Enable audit logging
 
 !!! info "Only available for postgreSQL in GCP"
 
@@ -19,13 +19,13 @@ For more information on audit logging, see the [official documentation](https://
 
 ## Configure database flags for your sql instance
 
+The following database flags must be set before we can enable audit logging. 
 ```text
-$ cloudsql.enable_pgaudit = on
-$ pgaudit = read | write | all
+cloudsql.enable_pgaudit
+pgaudit.log
 ```
 
-Example application spec: 
-
+The flags can be set in the application spec:
 ```yaml
 spec:
   gcp:
@@ -37,6 +37,17 @@ spec:
         - name: "pgaudit.log"
           value: "write"
 ```
+
+The `cloudsql.enable_pgaudit` flag enables the pgaudit logging in the database. The `pgaudit.log` flag specifies what to log. 
+Possible values for `pgaudit.log` are as follows (and all combinations of these):
+- `read` - Log select and copy commands.
+- `write` - Log insert, update, delete, truncate and copy commands.
+- `ddl` - Log all data definition language commands not included in `role`.
+- `role` - Log role and permission changes (grant, revoke, create/alter/drop role).
+- `misc` - Log miscellaneous commands (discard, fetch, checkpoint, vacuum, set).
+- `misc_set` - Log miscellaneous set commands.
+- `function` - Log function calls and do-blocks operations.
+- `all` - Log all commands.
 
 ## Use the nais cli to configure database internals
 
