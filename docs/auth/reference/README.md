@@ -743,7 +743,7 @@ Useful for switching between multiple accounts.
 :   The `ui_locales` parameter for the OpenID Connect authentication request.
 
     ```
-    https://<ingress>/oauth2/login?prompt=select_account
+    https://<ingress>/oauth2/login?locale=en
     ```
 
     Value must be declared as supported by the Identity Provider through the `ui_locales_supported` property in the metadata document.
