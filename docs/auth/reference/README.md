@@ -727,6 +727,27 @@ Useful for switching between multiple accounts.
 
     Value must be `select_account`.
 
+
+`level`
+
+:   The `acr_values` parameter for the OpenID Connect authentication request.
+
+    ```
+    https://<ingress>/oauth2/login?level=some_acr_value
+    ```
+
+    Value must be declared as supported by the Identity Provider through the `acr_values_supported` property in the metadata document.
+
+`locale`
+
+:   The `ui_locales` parameter for the OpenID Connect authentication request.
+
+    ```
+    https://<ingress>/oauth2/login?prompt=select_account
+    ```
+
+    Value must be declared as supported by the Identity Provider through the `ui_locales_supported` property in the metadata document.
+
 #### Logout endpoint
 
 This endpoint triggers single-logout. It is available at:
