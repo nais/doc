@@ -8,6 +8,7 @@ tags: [postgres, audit, troubleshooting, how-to]
 
     The cli used for this configuration can only detect sql instances in GCP.
 
+
 This guide describes how to enable audit logging in your postgreSQL database.
 
 The following steps need to be taken to enable the logging.
@@ -15,9 +16,15 @@ The following steps need to be taken to enable the logging.
 1. [Configure database flags](#configure-database-flags-for-your-sql-instance), and configure replication etc.
 2. [Configure database internals](#use-the-nais-cli-to-configure-database-internals) to be the primary.
 
+The pgaudit logs will require disk space, monitor disk usage and [enable automatic storage increase](https://doc.nais.io/workloads/application/reference/application-spec/#gcpsqlinstancesdiskautoresize) if necessary.
+
 For more information on audit logging, see the [official documentation](https://cloud.google.com/sql/docs/postgres/pg-audit).
 
 ## Configure database flags for your sql instance
+
+!!! info "Changing cloudsql.enable_pgaudit flag"
+
+    Changing this flag after first-time setup will restart the postgreSQL instance.
 
 The following database flags must be set before we can enable audit logging. 
 ```text
@@ -48,6 +55,8 @@ Possible values for `pgaudit.log` are as follows (and all combinations of these)
 - `misc_set` - Log miscellaneous set commands.
 - `function` - Log function calls and do-blocks operations.
 - `all` - Log all commands.
+
+Other flags that are available for pgaudit are documented [here](https://github.com/pgaudit/pgaudit/blob/main/README.md#settings).
 
 ## Use the nais cli to configure database internals
 
