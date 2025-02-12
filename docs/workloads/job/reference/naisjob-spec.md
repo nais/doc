@@ -3764,7 +3764,7 @@ The default separator is `:`. If `name` contains `/`, the default separator is i
 
 Type: `string`<br />
 Required: `false`<br />
-Pattern: `^[\/:]$`<br />
+Pattern: `^[\/:.]$`<br />
 
 ??? example
     ``` yaml
