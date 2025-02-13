@@ -57,11 +57,16 @@ initializeFaro({
 The URL points to a Grafana Agent collector, and should be set to one of the following values.
 See below for auto-configuration instructions for when your app is a NAIS application.
 
-| Collector endpoint                             | Cluster    |
-| ---------------------------------------------- | ---------- |
-| `https://telemetry.nav.no/collect`             | `prod-gcp` |
-| `https://telemetry.ekstern.dev.nav.no/collect` | `dev-gcp`  |
-| `http://localhost:12347/collect`               | N/A        |
+| Collector endpoint | Environment |
+| ------------------ | ----------- |
+{% if tenant() == "nav" %}
+| `https://telemetry.nav.no/collect`             | `prod`      |
+| `https://telemetry.ekstern.dev.nav.no/collect` | `dev`       |
+{% else %}
+| `<<tenant_url("telemetry.external.prod")>>`/collect` | `prod` |
+| `<<tenant_url("telemetry.external.dev")>>`/collect` | `dev` |
+{% endif %}
+| `http://localhost:12347/collect`               | `local` |
 
 On-premises clusters are not supported.
 
