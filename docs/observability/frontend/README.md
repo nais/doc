@@ -63,8 +63,8 @@ See below for auto-configuration instructions for when your app is a NAIS applic
 | `https://telemetry.nav.no/collect`             | `prod`      |
 | `https://telemetry.ekstern.dev.nav.no/collect` | `dev`       |
 {% else %}
-| `<<tenant_url("telemetry.external.prod")>>`/collect` | `prod` |
-| `<<tenant_url("telemetry.external.dev")>>`/collect` | `dev` |
+| `<<tenant_url("telemetry.external.prod")>>/collect` | `prod` |
+| `<<tenant_url("telemetry.external.dev")>>/collect` | `dev` |
 {% endif %}
 | `http://localhost:12347/collect`               | `local` |
 
