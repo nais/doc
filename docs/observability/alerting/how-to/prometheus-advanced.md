@@ -1,11 +1,11 @@
 ---
-description: Advanced guide to customized Promethues alerts
+description: Advanced guide to customized Prometheus alerts
 tags: [how-to, alerting, observability, prometheus]
 ---
 
 # Customize Prometheus alerts
 
-This guide will show you how to customize Promethues alerts for your team. This is useful if you want to experiment with formatting, use a different webhook, or have a different set of labels for your alerts.
+This guide will show you how to customize Prometheus alerts for your team. This is useful if you want to experiment with formatting, use a different webhook, or have a different set of labels for your alerts.
 
 ## Prerequisites
 
