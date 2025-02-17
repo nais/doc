@@ -47,6 +47,7 @@ spec:
 
 The `cloudsql.enable_pgaudit` flag enables the pgaudit logging in the database. The `pgaudit.log` flag specifies what to log. 
 Possible values for `pgaudit.log` are as follows (and all combinations of these):
+
 - `read` - Log select and copy commands.
 - `write` - Log insert, update, delete, truncate and copy commands.
 - `ddl` - Log all data definition language commands not included in `role`.
