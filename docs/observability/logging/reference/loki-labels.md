@@ -11,6 +11,7 @@ The following labels are available in Grafana Loki by default:
 
 | Field                | Description                                                               | Applicable to |
 | -------------------- | ------------------------------------------------------------------------- | ------------- |
+| `detected_level`     | The log level detected by the log parser.                                 | All           |
 | `service_name`       | The name of the application that generated the log line.                  | All           |
 | `service_namespace`  | The namespace of the application that generated the log line.             | All           |
 | `k8s_container_name` | The name of the Kubernetes container that generated the log line.         | Kubernetes    |
