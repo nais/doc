@@ -4,7 +4,7 @@ tags: [how-to, tracing, observability]
 ---
 # Correlate traces and logs
 
-This guide will explain how to correlate traces with logs in Grafana Tempo. This is only necessary if you are not using auto-instrumentation with OpenTelemetry Agent. If you are using auto-instrumentation, logs are automatically correlated with traces.
+This guide will explain how to correlate traces with logs in Grafana Tempo by including trace information in your logs. This will allow you to easily see the logs that are associated with a trace and troubleshoot issues in your application.
 
 ## Configure Tracing
 
