@@ -4,13 +4,7 @@ conditional: [tenant, nav]
 ---
 # Enable secure logs
 
-This guide will show you how to enable shipping of secure logs for your application
-
-Some applications have logs with information that should not be stored with the normal application logs. To support this a directory for these logs can be mounted in the application, and the content of logs written here will be transferred to separate indices in Elasticsearch.
-
-!!! warning "Deprecated syntax"
-
-    This is guide contains a deprecated syntax for enabling secure logs. With the new syntax all logs will be sent to secure logs when enabled and will not require any special log configuration.
+This guide will show you how to enable shipping of secure logs for your application.
 
 ## Prerequisites
 
@@ -18,7 +12,27 @@ If your NAIS team has already at any point produced secure logs, you can skip th
 
 If your team has never before produced secure logs, before enabling them for the first time, give a warning in [#kibana](https://nav-it.slack.com/archives/C7T8QHXD3) Slack channel. There are some things that need to be adjusted before a new team can start sending. Remember to include the name of your NAIS team in the message.
 
-## Enabling secure logs [manifest](../../../workloads/application/reference/application-spec.md)
+## Configuring secure logs
+
+To enable secure logs for your application, you need to add the following configuration to your application manifest. This will send all logs produced by the application to the secure logs index in Kibana.
+
+???+ note ".nais/app.yaml"
+
+    ```yaml
+    spec:
+        observability:
+            logging:
+                destinations:
+                - id: secure_logs
+    ```
+
+## Legacy secure logs configuration
+
+!!! warning "Deprecated syntax"
+
+    This part of the guide contains the now deprecated syntax for enabling secure logs and is subject to removal in the future.
+
+### Enabling secure logs [manifest](../../../workloads/application/reference/application-spec.md)
 
 ???+ note ".nais/app.yaml"
 
@@ -28,7 +42,7 @@ If your team has never before produced secure logs, before enabling them for the
             enabled: true
     ```
 
-## Set log rotation
+### Set log rotation
 
 With secure logs enabled a directory `/secure-logs/` will be mounted in the application container. Every `*.log` file in this directory will be monitored and the content transferred to Elasticsearch. Make sure that these files are readable for the log shipper \(the process runs as uid/gid 1065\).
 
@@ -38,7 +52,7 @@ With secure logs enabled a directory `/secure-logs/` will be mounted in the appl
 
     **If the limit is exceeded the application pod will be evicted and restarted.**
 
-### Example log configuration
+#### Example log configuration
 
 Log files should be in JSON format as the normal application logs. Here is an example configuration of JSON logging with a size based rolling file appender in Logback:
 
@@ -57,7 +71,7 @@ Log files should be in JSON format as the normal application logs. Here is an ex
   </appender>
 ```
 
-## Configure log shipping
+### Configure log shipping
 
 Example configuration selecting which logs go to secure logs
 
@@ -103,7 +117,7 @@ Example configuration selecting which logs go to secure logs
     </configuration>
     ```
 
-## Use secure logs in application
+### Use secure logs in application
 
 Using the Logback config below you can log to secure logs by writing Kotlin-code like this:
 
@@ -122,7 +136,7 @@ log.info("Non-sensitive data here") // Logging to non-secure app logs
 See doc on [Logback filters](https://logback.qos.ch/manual/filters.html#evaluatorFilter) and [markers](https://www.slf4j.org/api/org/slf4j/MarkerFactory.html)
 See [Example log configuration](#example-log-configuration) for further configuration examples.
 
-### Non-JSON logs
+#### Non-JSON logs
 
 If the logging framework used doesn't support JSON logging, it is also possible to use multiline logs in this format:
 
@@ -134,7 +148,7 @@ If the logging framework used doesn't support JSON logging, it is also possible 
 
 Files on this format must be named `*.mlog`.
 
-### Sending logs with HTTP
+#### Sending logs with HTTP
 
 If you do not want to have these logs as files in the pod, it is also possible to use HTTP to write logs. POST your log entry as JSON to `http://localhost:19880`
 
