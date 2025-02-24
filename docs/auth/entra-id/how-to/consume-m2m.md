@@ -25,74 +25,14 @@ spec:
 
 Depending on how you communicate with the API you're consuming, [configure the appropriate outbound access policies](../../../workloads/how-to/access-policies.md#outbound-access).
 
-{%- if tenant() == "nav" %}
-???+ warning "Use webproxy for outbound network connectivity from on-premises environments"
-
-    If you're on-premises, you must enable and use [`webproxy`](../../../workloads/application/reference/application-spec.md#webproxy) to access Entra ID.
-
-{%- endif %}
-
 ## Acquire token
 
 Now you can request a new token for the API that you want to consume.
-
-To acquire a token, you can either:
-
-- [acquire tokens with Texas](#acquire-tokens-with-texas), or
-- [acquire tokens manually](#acquire-tokens-manually) in your application
-
-### Acquire tokens with Texas
 
 {% set identity_provider = 'azuread' %}
 {% set target = 'api://<cluster>.<namespace>.<other-api-app-name>/.default' %}
 {% set target_description = 'The intended _audience_ (target API or recipient) of the new token.' %}
 {% include 'auth/partials/token.md' %}
-
-### Acquire tokens manually
-
-The token request is an HTTP POST request.
-It must have the `Content-Type` header set to `application/x-www-form-urlencoded`.
-
-The body of the request should contain the following parameters:
-
-| Parameter       | Example Value                                               | Description                                                                                                     |
-|:----------------|:------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------|
-| `client_id`     | `60dea49a-255b-48b5-b0c0-0974ac1c0b53`                      | Client identifier for your application. Set to the [`AZURE_APP_CLIENT_ID` environment variable][variables-ref]. |
-| `client_secret` | `<some-secret>`                                             | Client secret for your application. Set to the [`AZURE_APP_CLIENT_SECRET` environment variable][variables-ref]. |
-| `grant_type`    | `client_credentials`                                        | Always `client_credentials`.                                                                                    |
-| `scope`         | `api://<cluster>.<namespace>.<other-api-app-name>/.default` | The intended _audience_ (target API or recipient) of the new token.                                             |
-
-[variables-ref]: ../reference/README.md#variables-for-acquiring-tokens
-
-Send the request to the `token_endpoint`, i.e. the URL found in the [`AZURE_OPENID_CONFIG_TOKEN_ENDPOINT`][variables-ref] environment variable:
-
-```http title="Token request"
-POST ${AZURE_OPENID_CONFIG_TOKEN_ENDPOINT} HTTP/1.1
-Content-Type: application/x-www-form-urlencoded
-
-client_id=${AZURE_APP_CLIENT_ID]&
-client_secret=${AZURE_APP_CLIENT_SECRET}&
-grant_type=client_credentials&
-scope=api://<cluster>.<namespace>.<other-api-app-name>/.default
-```
-
-```json title="Successful response"
-{
-  "access_token" : "eyJ0eX[...]",
-  "expires_in" : 3599,
-  ...
-}
-```
-
-Your application does not need to validate this token.
-
-!!! tip "Token Caching"
-
-      The `expires_in` field denotes the lifetime of the token in seconds.
-
-      **Cache and reuse the token until it expires** to minimize network latency impact.
-
-      A safe cache key for this flow is `key = $scope`.
 
 ## Consume API
 
