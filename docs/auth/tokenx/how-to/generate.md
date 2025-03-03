@@ -19,7 +19,7 @@ spec:
     inbound:
       rules:
         - application: tokenx-token-generator
-          namespace: aura
+          namespace: nais
           cluster: dev-gcp
 ```
 

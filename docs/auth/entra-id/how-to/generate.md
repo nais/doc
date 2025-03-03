@@ -24,7 +24,7 @@ spec:
     inbound:
       rules:
         - application: azure-token-generator
-          namespace: aura
+          namespace: nais
           cluster: dev-gcp
 ```
 
