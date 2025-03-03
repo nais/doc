@@ -79,6 +79,9 @@ Example configuration selecting which logs go to secure logs
 
     ```xml
     <configuration>
+        <!-- Log detailed information about the Logback initialization process at application startup. -->
+        <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
+    
         <appender name="appLog" class="ch.qos.logback.core.ConsoleAppender">
             <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
             <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
