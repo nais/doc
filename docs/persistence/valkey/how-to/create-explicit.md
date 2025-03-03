@@ -41,7 +41,7 @@ A minimal Valkey resource only requires `plan` and `project`.
    Make sure you understand the differences between the plans before selecting the one you need.
    Examples: `startup-4`, `startup-56`, `business-4`, `premium-14`.
 
-We use Aivens operator, so the Valkey resource is [documented in detail](https://aiven.github.io/aiven-operator/api-reference/valkey.html) in the Aiven documentation.
+We use Aivens operator, so the Valkey resource is [documented in detail](https://aiven.github.io/aiven-operator/resources/valkey.html) in the Aiven documentation.
 You should look at the reference for any other fields that might be of interest.
 
 Probably the most important value to consider is which plan to use.
