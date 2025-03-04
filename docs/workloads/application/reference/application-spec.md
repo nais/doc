@@ -20,7 +20,7 @@ This is also used for granting inbound access in the context of Azure AD and Tok
 
 Relevant information:
 
-* [https://doc.nais.io/workloads/explanations/zero-trust/](https://doc.nais.io/workloads/explanations/zero-trust/)
+* [https://doc.<<tenant()>>.cloud.nais.io/workloads/explanations/zero-trust/](https://doc.<<tenant()>>.cloud.nais.io/workloads/explanations/zero-trust/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -255,13 +255,14 @@ Required: `false`<br />
                   - custom-scope
     ```
 
+{%- if tenant() == "nav" %}
 ##### accessPolicy.inbound.rules[].permissions
 Permissions contains a set of permissions that are granted to the given application.
 Currently only applicable for Azure AD clients.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/configuration#fine-grained-access-control](https://doc.nais.io/security/auth/azure-ad/configuration#fine-grained-access-control)
+* [https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration#fine-grained-access-control](https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration#fine-grained-access-control)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -301,7 +302,7 @@ Roles is a set of custom permission roles that are granted to a given applicatio
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/configuration#custom-roles](https://doc.nais.io/security/auth/azure-ad/configuration#custom-roles)
+* [https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration#custom-roles](https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration#custom-roles)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -341,7 +342,7 @@ Scopes is a set of custom permission scopes that are granted to a given applicat
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/configuration#custom-scopes](https://doc.nais.io/security/auth/azure-ad/configuration#custom-scopes)
+* [https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration#custom-scopes](https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration#custom-scopes)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -376,6 +377,7 @@ Required: `false`<br />
                   - custom-scope
     ```
 
+{%- endif %}
 ### accessPolicy.outbound
 Configures outbound access for your application.
 
@@ -609,6 +611,7 @@ Required: `false`<br />
               namespace: q3
     ```
 
+{%- if tenant() == "nav" %}
 ## azure
 Provisions and configures Azure resources.
 
@@ -646,7 +649,7 @@ Configures an Entra ID client for this application.
 
 Relevant information:
 
-* [https://doc.nais.io/auth/entra-id/](https://doc.nais.io/auth/entra-id/)
+* [https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/](https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/)
 
 Type: `object`<br />
 Required: `true`<br />
@@ -669,7 +672,7 @@ AllowAllUsers grants all users within the tenant access to this application.
 
 Relevant information:
 
-* [https://doc.nais.io/auth/entra-id/how-to/secure/#all-users](https://doc.nais.io/auth/entra-id/how-to/secure/#all-users)
+* [https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/how-to/secure/#all-users](https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/how-to/secure/#all-users)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -705,7 +708,7 @@ This also assigns groups to the application for access control. Only direct memb
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/configuration/#groups](https://doc.nais.io/security/auth/azure-ad/configuration/#groups)
+* [https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration/#groups](https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration/#groups)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -758,7 +761,7 @@ Using this will _isolate_ your application from all other applications that are 
 
 Relevant information:
 
-* [https://doc.nais.io/auth/entra-id/explanations/#tenants](https://doc.nais.io/auth/entra-id/explanations/#tenants)
+* [https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/explanations/#tenants](https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/explanations/#tenants)
 
 Type: `enum`<br />
 Required: `false`<br />
@@ -782,7 +785,8 @@ If the user is authenticated with Entra ID, the `Authorization` header will be s
 
 Relevant information:
 
-* [https://doc.nais.io/auth/explanations/#login-proxy](https://doc.nais.io/auth/explanations/#login-proxy)
+* [https://doc.<<tenant()>>.cloud.nais.io/auth/explanations/#login-proxy](https://doc.<<tenant()>>.cloud.nais.io/auth/explanations/#login-proxy)
+* [https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/how-to/login/](https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/how-to/login/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -812,7 +816,7 @@ Automatically redirect the user to login for all proxied GET requests.
 
 Relevant information:
 
-* [https://doc.nais.io/auth/explanations/#autologin](https://doc.nais.io/auth/explanations/#autologin)
+* [https://doc.<<tenant()>>.cloud.nais.io/auth/explanations/#autologin](https://doc.<<tenant()>>.cloud.nais.io/auth/explanations/#autologin)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -831,7 +835,7 @@ Absolute paths to ignore when auto-login is enabled.
 
 Relevant information:
 
-* [https://doc.nais.io/auth/reference/#autologin-exclusions](https://doc.nais.io/auth/reference/#autologin-exclusions)
+* [https://doc.<<tenant()>>.cloud.nais.io/auth/reference/#autologin-exclusions](https://doc.<<tenant()>>.cloud.nais.io/auth/reference/#autologin-exclusions)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -974,6 +978,7 @@ Pattern: `^\d+[KMG]i$`<br />
               memory: 32Mi
     ```
 
+{%- endif %}
 ## command
 Override command when starting Docker image.
 
@@ -1360,7 +1365,7 @@ You can import this file directly from your Javascript application.
 
 Relevant information:
 
-* [https://doc.nais.io/observability/frontend/#auto-configuration](https://doc.nais.io/observability/frontend/#auto-configuration)
+* [https://doc.<<tenant()>>.cloud.nais.io/observability/frontend/#auto-configuration](https://doc.<<tenant()>>.cloud.nais.io/observability/frontend/#auto-configuration)
 
 Type: `string`<br />
 Required: `true`<br />
@@ -1561,7 +1566,7 @@ Provision cloud storage buckets and connect them to your application.
 
 Relevant information:
 
-* [https://doc.nais.io/persistence/buckets/](https://doc.nais.io/persistence/buckets/)
+* [https://doc.<<tenant()>>.cloud.nais.io/persistence/buckets/](https://doc.<<tenant()>>.cloud.nais.io/persistence/buckets/)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -1950,7 +1955,7 @@ Only one item allowed in the list.
 
 Relevant information:
 
-* [https://doc.nais.io/persistence/postgres/](https://doc.nais.io/persistence/postgres/)
+* [https://doc.<<tenant()>>.cloud.nais.io/persistence/postgres/](https://doc.<<tenant()>>.cloud.nais.io/persistence/postgres/)
 * [https://cloud.google.com/sql/docs/postgres/instance-settings#impact](https://cloud.google.com/sql/docs/postgres/instance-settings#impact)
 
 Type: `array`<br />
@@ -3339,6 +3344,7 @@ Allowed values: `POSTGRES_11`, `POSTGRES_12`, `POSTGRES_13`, `POSTGRES_14`, `POS
             type: POSTGRES_12
     ```
 
+{%- if tenant() == "nav" %}
 ## idporten
 Configures ID-porten authentication for this application.
 See [ID-porten](https://doc.nais.io/security/auth/idporten/) for more details.
@@ -3373,7 +3379,7 @@ Enable ID-porten authentication. Requires `.spec.idporten.sidecar.enabled=true`.
 
 Relevant information:
 
-* [https://doc.nais.io/auth/idporten/](https://doc.nais.io/auth/idporten/)
+* [https://doc.<<tenant()>>.cloud.nais.io/auth/idporten/](https://doc.<<tenant()>>.cloud.nais.io/auth/idporten/)
 
 Type: `boolean`<br />
 Required: `true`<br />
@@ -3395,7 +3401,8 @@ If the user is authenticated with ID-porten, the `Authorization` header will be 
 
 Relevant information:
 
-* [https://doc.nais.io/auth/idporten/how-to/login/](https://doc.nais.io/auth/idporten/how-to/login/)
+* [https://doc.<<tenant()>>.cloud.nais.io/auth/idporten/how-to/login/](https://doc.<<tenant()>>.cloud.nais.io/auth/idporten/how-to/login/)
+* [https://doc.<<tenant()>>.cloud.nais.io/auth/explanations/#login-proxy](https://doc.<<tenant()>>.cloud.nais.io/auth/explanations/#login-proxy)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3427,7 +3434,7 @@ Automatically redirect the user to login for all proxied GET requests.
 
 Relevant information:
 
-* [https://doc.nais.io/auth/explanations/#autologin](https://doc.nais.io/auth/explanations/#autologin)
+* [https://doc.<<tenant()>>.cloud.nais.io/auth/explanations/#autologin](https://doc.<<tenant()>>.cloud.nais.io/auth/explanations/#autologin)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -3446,7 +3453,7 @@ Absolute paths to ignore when auto-login is enabled.
 
 Relevant information:
 
-* [https://doc.nais.io/auth/reference/#autologin-exclusions](https://doc.nais.io/auth/reference/#autologin-exclusions)
+* [https://doc.<<tenant()>>.cloud.nais.io/auth/reference/#autologin-exclusions](https://doc.<<tenant()>>.cloud.nais.io/auth/reference/#autologin-exclusions)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -3480,7 +3487,7 @@ Default security level for all authentication requests.
 
 Relevant information:
 
-* [https://doc.nais.io/auth/idporten/reference/#security-levels](https://doc.nais.io/auth/idporten/reference/#security-levels)
+* [https://doc.<<tenant()>>.cloud.nais.io/auth/idporten/reference/#security-levels](https://doc.<<tenant()>>.cloud.nais.io/auth/idporten/reference/#security-levels)
 
 Type: `enum`<br />
 Required: `false`<br />
@@ -3500,7 +3507,7 @@ Default user interface locale for all authentication requests.
 
 Relevant information:
 
-* [https://doc.nais.io/auth/idporten/reference/#locales](https://doc.nais.io/auth/idporten/reference/#locales)
+* [https://doc.<<tenant()>>.cloud.nais.io/auth/idporten/reference/#locales](https://doc.<<tenant()>>.cloud.nais.io/auth/idporten/reference/#locales)
 
 Type: `enum`<br />
 Required: `false`<br />
@@ -3629,6 +3636,7 @@ Pattern: `^\d+[KMG]i$`<br />
               memory: 32Mi
     ```
 
+{%- endif %}
 ## image
 Your application's Docker image location and tag.
 
@@ -3641,6 +3649,7 @@ Required: `true`<br />
       image: navikt/testapp:69.0.0
     ```
 
+{%- if tenant() == "nav" %}
 ## influx
 An InfluxDB via Aiven. A typical use case for influxdb is to store metrics from your application and visualize them in Grafana.
 
@@ -3669,6 +3678,7 @@ Required: `true`<br />
         instance: influx-instance
     ```
 
+{%- endif %}
 ## ingresses
 List of URLs that will route HTTPS traffic to the application.
 All URLs must start with `https://`. Domain availability differs according to which environment your application is running in.
@@ -3689,7 +3699,7 @@ Set up Aiven Kafka for your application.
 
 Relevant information:
 
-* [https://doc.nais.io/persistence/kafka/](https://doc.nais.io/persistence/kafka/)
+* [https://doc.<<tenant()>>.cloud.nais.io/persistence/kafka/](https://doc.<<tenant()>>.cloud.nais.io/persistence/kafka/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3720,7 +3730,7 @@ Allow this app to use kafka streams
 
 Relevant information:
 
-* [https://doc.nais.io/persistence/kafka/how-to/internal](https://doc.nais.io/persistence/kafka/how-to/internal)
+* [https://doc.<<tenant()>>.cloud.nais.io/persistence/kafka/how-to/internal](https://doc.<<tenant()>>.cloud.nais.io/persistence/kafka/how-to/internal)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -3739,7 +3749,7 @@ If true, an HTTP endpoint will be available at `$ELECTOR_GET_URL` that returns t
 
 Relevant information:
 
-* [https://doc.nais.io/services/leader-election/](https://doc.nais.io/services/leader-election/)
+* [https://doc.<<tenant()>>.cloud.nais.io/services/leader-election/](https://doc.<<tenant()>>.cloud.nais.io/services/leader-election/)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -3875,7 +3885,7 @@ Login configures a login proxy that sits in front of the application.
 
 Relevant information:
 
-* [https://doc.nais.io/auth/explanations/#login-proxy](https://doc.nais.io/auth/explanations/#login-proxy)
+* [https://doc.<<tenant()>>.cloud.nais.io/auth/explanations/#login-proxy](https://doc.<<tenant()>>.cloud.nais.io/auth/explanations/#login-proxy)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3966,6 +3976,7 @@ Allowed values: `dns_loglevel`, `http_loglevel`<br />
       logtransform: http_loglevel
     ```
 
+{%- if tenant() == "nav" %}
 ## maskinporten
 Configures a Maskinporten client for this application.
 See [Maskinporten](https://doc.nais.io/security/auth/maskinporten/) for more details.
@@ -4063,7 +4074,7 @@ Ensure that the NAV organization has been granted access to the scope prior to r
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/maskinporten/#consume-scopes](https://doc.nais.io/security/auth/maskinporten/#consume-scopes)
+* [https://doc.<<tenant()>>.cloud.nais.io/security/auth/maskinporten/#consume-scopes](https://doc.<<tenant()>>.cloud.nais.io/security/auth/maskinporten/#consume-scopes)
 
 Type: `string`<br />
 Required: `true`<br />
@@ -4458,12 +4469,13 @@ Allowed values: `private`, `public`<br />
               visibility: public
     ```
 
+{%- endif %}
 ## observability
 Configuration options related to application observability.
 
 Relevant information:
 
-* [https://doc.nais.io/observability/](https://doc.nais.io/observability/)
+* [https://doc.<<tenant()>>.cloud.nais.io/observability/](https://doc.<<tenant()>>.cloud.nais.io/observability/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -4490,7 +4502,7 @@ Auto-instrumentiation for your application using OpenTelemetry for collecting te
 
 Relevant information:
 
-* [https://doc.nais.io/observability/auto-instrumentation/](https://doc.nais.io/observability/auto-instrumentation/)
+* [https://doc.<<tenant()>>.cloud.nais.io/observability/auto-instrumentation/](https://doc.<<tenant()>>.cloud.nais.io/observability/auto-instrumentation/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -4511,7 +4523,7 @@ Destinations are where telemetry data should be stored.
 
 Relevant information:
 
-* [https://doc.nais.io/observability/reference/auto-config/#destinations](https://doc.nais.io/observability/reference/auto-config/#destinations)
+* [https://doc.<<tenant()>>.cloud.nais.io/observability/reference/auto-config/#destinations](https://doc.<<tenant()>>.cloud.nais.io/observability/reference/auto-config/#destinations)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -4574,7 +4586,7 @@ Configure logging for your application.
 
 Relevant information:
 
-* [https://doc.nais.io/observability/logging/](https://doc.nais.io/observability/logging/)
+* [https://doc.<<tenant()>>.cloud.nais.io/observability/logging/](https://doc.<<tenant()>>.cloud.nais.io/observability/logging/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -4594,7 +4606,7 @@ Log destinations for where to forward application logs for persistent storage. L
 
 Relevant information:
 
-* [https://doc.nais.io/observability/logging/#log-destinations](https://doc.nais.io/observability/logging/#log-destinations)
+* [https://doc.<<tenant()>>.cloud.nais.io/observability/logging/#log-destinations](https://doc.<<tenant()>>.cloud.nais.io/observability/logging/#log-destinations)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -4642,7 +4654,7 @@ Must be owned by same team.
 
 Relevant information:
 
-* [https://doc.nais.io/persistence/opensearch/](https://doc.nais.io/persistence/opensearch/)
+* [https://doc.<<tenant()>>.cloud.nais.io/persistence/opensearch/](https://doc.<<tenant()>>.cloud.nais.io/persistence/opensearch/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -4704,7 +4716,7 @@ The reason for termination is passed to the handler.
 
 Relevant information:
 
-* [https://doc.nais.io/workloads/explanations/good-practices/#handles-termination-gracefully](https://doc.nais.io/workloads/explanations/good-practices/#handles-termination-gracefully)
+* [https://doc.<<tenant()>>.cloud.nais.io/workloads/explanations/good-practices/#handles-termination-gracefully](https://doc.<<tenant()>>.cloud.nais.io/workloads/explanations/good-practices/#handles-termination-gracefully)
 * [https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks)
 
 Type: `object`<br />
@@ -4814,7 +4826,7 @@ This feature is deprecated and will be removed in the next major version (nais.i
 
 Relevant information:
 
-* [https://doc.nais.io/workloads/explanations/good-practices/#handles-termination-gracefully](https://doc.nais.io/workloads/explanations/good-practices/#handles-termination-gracefully)
+* [https://doc.<<tenant()>>.cloud.nais.io/workloads/explanations/good-practices/#handles-termination-gracefully](https://doc.<<tenant()>>.cloud.nais.io/workloads/explanations/good-practices/#handles-termination-gracefully)
 
 Type: `string`<br />
 Required: `false`<br />
@@ -5029,7 +5041,7 @@ Must be owned by same team.
 
 Relevant information:
 
-* [https://doc.nais.io/persistence/redis/](https://doc.nais.io/persistence/redis/)
+* [https://doc.<<tenant()>>.cloud.nais.io/persistence/redis/](https://doc.<<tenant()>>.cloud.nais.io/persistence/redis/)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -5157,6 +5169,10 @@ Default value: `2`<br />
 ### replicas.scalingStrategy
 ScalingStrategy configures how automatic scaling is performed.
 
+Relevant information:
+
+* [https://doc.<<tenant()>>.cloud.nais.io/workloads/application/reference/automatic-scaling/](https://doc.<<tenant()>>.cloud.nais.io/workloads/application/reference/automatic-scaling/)
+
 Type: `object`<br />
 Required: `false`<br />
 
@@ -5271,7 +5287,7 @@ the Kubernetes scheduler can make better decisions about which nodes to place po
 
 Relevant information:
 
-* [https://doc.nais.io/workloads/explanations/good-practices/#set-reasonable-resource-requests-and-limits](https://doc.nais.io/workloads/explanations/good-practices/#set-reasonable-resource-requests-and-limits)
+* [https://doc.<<tenant()>>.cloud.nais.io/workloads/explanations/good-practices/#set-reasonable-resource-requests-and-limits](https://doc.<<tenant()>>.cloud.nais.io/workloads/explanations/good-practices/#set-reasonable-resource-requests-and-limits)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -5373,6 +5389,7 @@ Pattern: `^\d+[KMG]i$`<br />
           memory: 256Mi
     ```
 
+{%- if tenant() == "nav" %}
 ## secureLogs
 Whether to enable a sidecar container for secure logging.
 
@@ -5401,6 +5418,7 @@ Default value: `false`<br />
         enabled: true
     ```
 
+{%- endif %}
 ## service
 Specify which port and protocol is used to connect to the application in the container.
 Defaults to HTTP on port 80.
@@ -5677,7 +5695,7 @@ Provisions and configures a TokenX client for your application.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/tokenx/](https://doc.nais.io/security/auth/tokenx/)
+* [https://doc.<<tenant()>>.cloud.nais.io/security/auth/tokenx/](https://doc.<<tenant()>>.cloud.nais.io/security/auth/tokenx/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -5721,7 +5739,7 @@ Must be owned by same team.
 
 Relevant information:
 
-* [https://doc.nais.io/persistence/valkey/](https://doc.nais.io/persistence/valkey/)
+* [https://doc.<<tenant()>>.cloud.nais.io/persistence/valkey/](https://doc.<<tenant()>>.cloud.nais.io/persistence/valkey/)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -5763,6 +5781,7 @@ Required: `false`<br />
           instance: cache
     ```
 
+{%- if tenant() == "nav" %}
 ## vault
 Provides secrets management, identity-based access, and encrypting application data for auditing of secrets
 for applications, systems, and users.
@@ -5872,6 +5891,8 @@ Required: `true`<br />
             mountPath: /var/run/secrets/nais.io/vault
     ```
 
+{%- endif %}
+{%- if tenant() == "nav" %}
 ## webproxy
 Inject on-premises web proxy configuration into the application pod.
 Most Linux applications should auto-detect these settings from the `$HTTP_PROXY`, `$HTTPS_PROXY` and `$NO_PROXY` environment variables (and their lowercase counterparts).
@@ -5887,3 +5908,4 @@ Availability: on-premises<br />
       webproxy: true
     ```
 
+{%- endif %}

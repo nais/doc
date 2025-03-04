@@ -20,7 +20,7 @@ This is also used for granting inbound access in the context of Azure AD and Tok
 
 Relevant information:
 
-* [https://doc.nais.io/workloads/explanations/zero-trust/](https://doc.nais.io/workloads/explanations/zero-trust/)
+* [https://doc.<<tenant()>>.cloud.nais.io/workloads/explanations/zero-trust/](https://doc.<<tenant()>>.cloud.nais.io/workloads/explanations/zero-trust/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -251,13 +251,14 @@ Required: `false`<br />
                   - custom-scope
     ```
 
+{%- if tenant() == "nav" %}
 ##### accessPolicy.inbound.rules[].permissions
 Permissions contains a set of permissions that are granted to the given application.
 Currently only applicable for Azure AD clients.
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/configuration#fine-grained-access-control](https://doc.nais.io/security/auth/azure-ad/configuration#fine-grained-access-control)
+* [https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration#fine-grained-access-control](https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration#fine-grained-access-control)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -297,7 +298,7 @@ Roles is a set of custom permission roles that are granted to a given applicatio
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/configuration#custom-roles](https://doc.nais.io/security/auth/azure-ad/configuration#custom-roles)
+* [https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration#custom-roles](https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration#custom-roles)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -337,7 +338,7 @@ Scopes is a set of custom permission scopes that are granted to a given applicat
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/configuration#custom-scopes](https://doc.nais.io/security/auth/azure-ad/configuration#custom-scopes)
+* [https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration#custom-scopes](https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration#custom-scopes)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -372,6 +373,7 @@ Required: `false`<br />
                   - custom-scope
     ```
 
+{%- endif %}
 ### accessPolicy.outbound
 Configures outbound access for your application.
 
@@ -617,7 +619,7 @@ Configures an Entra ID client for this application.
 
 Relevant information:
 
-* [https://doc.nais.io/auth/entra-id/](https://doc.nais.io/auth/entra-id/)
+* [https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/](https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/)
 
 Type: `object`<br />
 Required: `true`<br />
@@ -639,7 +641,7 @@ AllowAllUsers grants all users within the tenant access to this application.
 
 Relevant information:
 
-* [https://doc.nais.io/auth/entra-id/how-to/secure/#all-users](https://doc.nais.io/auth/entra-id/how-to/secure/#all-users)
+* [https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/how-to/secure/#all-users](https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/how-to/secure/#all-users)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -675,7 +677,7 @@ This also assigns groups to the application for access control. Only direct memb
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/azure-ad/configuration/#groups](https://doc.nais.io/security/auth/azure-ad/configuration/#groups)
+* [https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration/#groups](https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration/#groups)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -728,7 +730,7 @@ Using this will _isolate_ your application from all other applications that are 
 
 Relevant information:
 
-* [https://doc.nais.io/auth/entra-id/explanations/#tenants](https://doc.nais.io/auth/entra-id/explanations/#tenants)
+* [https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/explanations/#tenants](https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/explanations/#tenants)
 
 Type: `enum`<br />
 Required: `false`<br />
@@ -1329,7 +1331,7 @@ Provision cloud storage buckets and connect them to your application.
 
 Relevant information:
 
-* [https://doc.nais.io/persistence/buckets/](https://doc.nais.io/persistence/buckets/)
+* [https://doc.<<tenant()>>.cloud.nais.io/persistence/buckets/](https://doc.<<tenant()>>.cloud.nais.io/persistence/buckets/)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -1718,7 +1720,7 @@ Only one item allowed in the list.
 
 Relevant information:
 
-* [https://doc.nais.io/persistence/postgres/](https://doc.nais.io/persistence/postgres/)
+* [https://doc.<<tenant()>>.cloud.nais.io/persistence/postgres/](https://doc.<<tenant()>>.cloud.nais.io/persistence/postgres/)
 * [https://cloud.google.com/sql/docs/postgres/instance-settings#impact](https://cloud.google.com/sql/docs/postgres/instance-settings#impact)
 
 Type: `array`<br />
@@ -3180,7 +3182,7 @@ Allow this app to use kafka streams
 
 Relevant information:
 
-* [https://doc.nais.io/persistence/kafka/how-to/internal](https://doc.nais.io/persistence/kafka/how-to/internal)
+* [https://doc.<<tenant()>>.cloud.nais.io/persistence/kafka/how-to/internal](https://doc.<<tenant()>>.cloud.nais.io/persistence/kafka/how-to/internal)
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -3424,7 +3426,7 @@ Ensure that the NAV organization has been granted access to the scope prior to r
 
 Relevant information:
 
-* [https://doc.nais.io/security/auth/maskinporten/#consume-scopes](https://doc.nais.io/security/auth/maskinporten/#consume-scopes)
+* [https://doc.<<tenant()>>.cloud.nais.io/security/auth/maskinporten/#consume-scopes](https://doc.<<tenant()>>.cloud.nais.io/security/auth/maskinporten/#consume-scopes)
 
 Type: `string`<br />
 Required: `true`<br />
@@ -3824,7 +3826,7 @@ Configuration options related to application observability.
 
 Relevant information:
 
-* [https://doc.nais.io/observability/](https://doc.nais.io/observability/)
+* [https://doc.<<tenant()>>.cloud.nais.io/observability/](https://doc.<<tenant()>>.cloud.nais.io/observability/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3851,7 +3853,7 @@ Auto-instrumentiation for your application using OpenTelemetry for collecting te
 
 Relevant information:
 
-* [https://doc.nais.io/observability/auto-instrumentation/](https://doc.nais.io/observability/auto-instrumentation/)
+* [https://doc.<<tenant()>>.cloud.nais.io/observability/auto-instrumentation/](https://doc.<<tenant()>>.cloud.nais.io/observability/auto-instrumentation/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3872,7 +3874,7 @@ Destinations are where telemetry data should be stored.
 
 Relevant information:
 
-* [https://doc.nais.io/observability/reference/auto-config/#destinations](https://doc.nais.io/observability/reference/auto-config/#destinations)
+* [https://doc.<<tenant()>>.cloud.nais.io/observability/reference/auto-config/#destinations](https://doc.<<tenant()>>.cloud.nais.io/observability/reference/auto-config/#destinations)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -3935,7 +3937,7 @@ Configure logging for your application.
 
 Relevant information:
 
-* [https://doc.nais.io/observability/logging/](https://doc.nais.io/observability/logging/)
+* [https://doc.<<tenant()>>.cloud.nais.io/observability/logging/](https://doc.<<tenant()>>.cloud.nais.io/observability/logging/)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -3955,7 +3957,7 @@ Log destinations for where to forward application logs for persistent storage. L
 
 Relevant information:
 
-* [https://doc.nais.io/observability/logging/#log-destinations](https://doc.nais.io/observability/logging/#log-destinations)
+* [https://doc.<<tenant()>>.cloud.nais.io/observability/logging/#log-destinations](https://doc.<<tenant()>>.cloud.nais.io/observability/logging/#log-destinations)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -4065,7 +4067,7 @@ The reason for termination is passed to the handler.
 
 Relevant information:
 
-* [https://doc.nais.io/workloads/explanations/good-practices/#handles-termination-gracefully](https://doc.nais.io/workloads/explanations/good-practices/#handles-termination-gracefully)
+* [https://doc.<<tenant()>>.cloud.nais.io/workloads/explanations/good-practices/#handles-termination-gracefully](https://doc.<<tenant()>>.cloud.nais.io/workloads/explanations/good-practices/#handles-termination-gracefully)
 * [https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks)
 
 Type: `object`<br />
@@ -4280,7 +4282,7 @@ Must be owned by same team.
 
 Relevant information:
 
-* [https://doc.nais.io/persistence/redis/](https://doc.nais.io/persistence/redis/)
+* [https://doc.<<tenant()>>.cloud.nais.io/persistence/redis/](https://doc.<<tenant()>>.cloud.nais.io/persistence/redis/)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -4304,7 +4306,7 @@ the Kubernetes scheduler can make better decisions about which nodes to place po
 
 Relevant information:
 
-* [https://doc.nais.io/workloads/explanations/good-practices/#set-reasonable-resource-requests-and-limits](https://doc.nais.io/workloads/explanations/good-practices/#set-reasonable-resource-requests-and-limits)
+* [https://doc.<<tenant()>>.cloud.nais.io/workloads/explanations/good-practices/#set-reasonable-resource-requests-and-limits](https://doc.<<tenant()>>.cloud.nais.io/workloads/explanations/good-practices/#set-reasonable-resource-requests-and-limits)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -4639,7 +4641,7 @@ Must be owned by same team.
 
 Relevant information:
 
-* [https://doc.nais.io/persistence/valkey/](https://doc.nais.io/persistence/valkey/)
+* [https://doc.<<tenant()>>.cloud.nais.io/persistence/valkey/](https://doc.<<tenant()>>.cloud.nais.io/persistence/valkey/)
 
 Type: `array`<br />
 Required: `false`<br />
