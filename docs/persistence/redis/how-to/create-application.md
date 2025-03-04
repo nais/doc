@@ -7,7 +7,7 @@ tags: [how-to, redis]
 You can create many Redis instances for your `Application`.
 
 ## Prerequisites
-- [Member of a NAIS team](../../../explanations/team.md)
+- [Member of a Nais team](../../../explanations/team.md)
 
 !!! warning 
 
@@ -32,7 +32,7 @@ a read-only user for the `lookup` instance. See the [manifest
 reference][app-spec-redis] for other
 options for `access`.
 
-The default Redis created by NAIS looks like this:
+The default Redis created by Nais looks like this:
 
 ```yaml
 apiVersion: aiven.io/v1alpha1

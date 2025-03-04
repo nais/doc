@@ -42,7 +42,7 @@ cd <MY-APP>
 
 This is required for the GitHub Actions workflow to be able to deploy your application.
 
-Visit [Console](https://console.<<tenant()>>.cloud.nais.io). Select your team, and visit the `Repositories` tab.
+Visit [Nais Console](https://console.<<tenant()>>.cloud.nais.io). Select your team, and visit the `Repositories` tab.
 
 Here you can add your repository to the list of authorized repositories. This authorizes the GitHub repository to perform deployments on behalf of your team.
 
@@ -185,7 +185,7 @@ During this tutorial we have
 
 - created a github repository
 - added the required files for deployment
-- deployed our application to NAIS
+- deployed our application to Nais
 
 Now it's time to clean up after ourselves.
 

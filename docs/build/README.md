@@ -6,7 +6,7 @@ tags: [build, deploy, explanation, services]
 
 To make your application available to others, you need to build and deploy it.
 
-NAIS attempts to make this as simple as possible by providing a set of composable [GitHub Actions](https://docs.github.com/en/actions).
+Nais attempts to make this as simple as possible by providing a set of composable [GitHub Actions](https://docs.github.com/en/actions).
 
 Use these actions to compose your own build and deploy pipeline through [Github Actions workflows](https://docs.github.com/en/actions/using-workflows). 
 

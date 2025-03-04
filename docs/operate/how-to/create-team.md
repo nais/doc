@@ -2,9 +2,9 @@
 tags: [team, how-to, operate]
 ---
 
-# Create a NAIS team
+# Create a Nais team
 
-This how-to guide shows you how to create a NAIS team.
+This how-to guide shows you how to create a Nais team.
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ This how-to guide shows you how to create a NAIS team.
 
 ## Create your team
 
-1. Open [Console](https://console.<<tenant()>>.cloud.nais.io/) in your browser, and authenticate.
+1. Open [Nais Console](https://console.<<tenant()>>.cloud.nais.io/) in your browser, and authenticate.
 2. Click on "Create"
 3. Choose a team name, add a description of the team and the Slack channel that is mentioned in the prerequisites.
 4. Click "Create"

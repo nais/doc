@@ -11,7 +11,7 @@ tags: [reference, observability, alerting, prometheus]
 
 Prometheus alerts are defined using the [PromQL](../../metrics/reference/promql.md) query language. The query language is used to specify when an alert should fire, and the `PrometheusRule` resource is used to specify the alert and its properties.
 
-Prometheus alerts are sent to the team's Slack channel configured in [Console](../../../operate/console.md) when the alert fires.
+Prometheus alerts are sent to the team's Slack channel configured in [Nais Console](../../../operate/console.md) when the alert fires.
 
 ```mermaid
 graph LR

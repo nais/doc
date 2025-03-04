@@ -35,7 +35,7 @@ Your topic can not use `compact` cleanup policy.
 
 ## Apply the new configuration
 === "Automatically"
-    Add the file to your application repository and deploy with [NAIS github action](../../../build/how-to/build-and-deploy.md).
+    Add the file to your application repository and deploy with [Nais github action](../../../build/how-to/build-and-deploy.md).
 === "Manually"
     ```bash
     kubectl apply -f ./example_topic.yaml --namespace=<MY-TEAM> --context=<MY-CLUSTER>

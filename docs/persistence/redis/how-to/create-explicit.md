@@ -5,18 +5,18 @@ tags: [redis, how-to]
 # Create a Redis instance explicitly
 
 ## Prerequisites
-- [Member of a NAIS team](../../../explanations/team.md)
+- [Member of a Nais team](../../../explanations/team.md)
 
 We recommend creating your Redis instances in their own workflow for more control over configuration, especially if you intend for multiple applications using the same Redis instance, or if you need to change configuration.
 
 Creating a Redis instance is done by adding a Redis resource to your namespace with detailed configuration.
-Some configuration is enforced by the NAIS platform, while the rest is up to the users.
+Some configuration is enforced by the Nais platform, while the rest is up to the users.
 
 Earlier we talked about the "instance name".
 In reality, the actual name of the redis instance will be `redis-<team name>-<instance name>` (where `team name` is the same as the namespace your application resides in).
 The resource needs to have this full name in order to be accepted.
 
-The default Redis created by NAIS looks like this:
+The default Redis created by Nais looks like this:
 
 ```yaml
 apiVersion: aiven.io/v1alpha1
@@ -34,7 +34,7 @@ spec:
 
 A minimal Redis resource only requires `plan` and `project`.
 
- * `project` should match your NAIS tenant (`<<tenant()>>`) and the environment you are running in (ex. `dev`, `prod`), with a dash (`-`) in between.
+ * `project` should match your Nais tenant (`<<tenant()>>`) and the environment you are running in (ex. `dev`, `prod`), with a dash (`-`) in between.
  * `plan` is the Aiven plan for your Redis instance.
    See Aivens list of [possible plan values](https://aiven.io/pricing?product=redis).
    The values are lowercased.
@@ -68,7 +68,7 @@ There are some fields available that should not be used:
 | field                  |                                                                                                 |
 |------------------------|-------------------------------------------------------------------------------------------------|
 | `authSecretRef`        | Reference to a secret containing an Aiven API token. Provided via other mechanisms.             |
-| `connInfoSecretTarget` | Name of secret to put connection info in, not used as NAIS provides these via other mechanisms. |
+| `connInfoSecretTarget` | Name of secret to put connection info in, not used as Nais provides these via other mechanisms. |
 | `projectVPCRef`        | Not used since we use `projectVpcId`.                                                           |
 | `serviceIntegrations`  | Not used at this time.                                                                          |
 

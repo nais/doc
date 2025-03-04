@@ -26,7 +26,7 @@ spec:
 
 <<gcp_only("Login proxy")>>
 
-See the [NAIS application reference](../../../workloads/application/reference/application-spec.md#azuresidecar) for the complete specifications with all possible options.
+See the [Nais application reference](../../../workloads/application/reference/application-spec.md#azuresidecar) for the complete specifications with all possible options.
 
 ### Grant access to users
 

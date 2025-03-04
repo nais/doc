@@ -75,7 +75,7 @@ spec:
 
 The default value is `idporten-loa-high`.
 
-NAIS ensures that the user's authentication level matches or exceeds the level configured by the application.
+Nais ensures that the user's authentication level matches or exceeds the level configured by the application.
 If lower, the user is considered unauthenticated.
 
 For runtime control of the value, set the query parameter `level` when redirecting the user to login:
@@ -86,4 +86,4 @@ https://<ingress>/oauth2/login?level=idporten-loa-high
 
 ## Spec
 
-For all possible configuration options, see the [:books: NAIS application reference](../../../workloads/application/reference/application-spec.md#idporten).
+For all possible configuration options, see the [:books: Nais application reference](../../../workloads/application/reference/application-spec.md#idporten).

@@ -25,7 +25,7 @@ spec:
 
 <<gcp_only("Login proxy")>>
 
-See the [NAIS application reference](../../../workloads/application/reference/application-spec.md#idportensidecar) for the complete specifications with all possible options.
+See the [Nais application reference](../../../workloads/application/reference/application-spec.md#idportensidecar) for the complete specifications with all possible options.
 
 Now that your application is configured, you will need to handle inbound requests in your application code.
 

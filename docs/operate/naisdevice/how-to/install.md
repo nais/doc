@@ -26,7 +26,7 @@ tags: [naisdevice, how-to]
 
     {% if tenant() == "nav" %}
 
-    The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the NAIS team and should be followed to keep your device safe.
+    The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the Nais team and should be followed to keep your device safe.
 
     {% endif %}
 
@@ -62,7 +62,7 @@ tags: [naisdevice, how-to]
 
     {% if tenant() == "nav" %}
 
-    The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the NAIS team and should be followed to keep your device safe.
+    The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the Nais team and should be followed to keep your device safe.
 
     {% endif %}
 
@@ -90,7 +90,7 @@ tags: [naisdevice, how-to]
 
     [Install Kolide agent](install-kolide.md).
 
-    The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the NAIS team and should be followed to keep your device safe.
+    The Kolide agent will be added to your Slack app, and let you know when there are recommended updates or security issues you need to address - and how to address them. They have been vetted by the Nais team and should be followed to keep your device safe.
 
     {% endif %}
 

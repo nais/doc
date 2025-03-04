@@ -6,7 +6,7 @@ tags: [how-to, tracing, tempo, observability]
 
 Grafana Tempo is an open-source, easy-to-use, high-scale, and cost-effective distributed tracing backend that stores and queries traces in a way that is easy to understand and use. It is fully integrated with Grafana, allowing you to visualize and query traces in the same interface as your metrics, and logs.
 
-Since NAIS does not collect application trace data automatically, you need to enable tracing in your application. The preferred way to get started with tracing is to enable auto-instrumentation for your application. This will automatically collect traces and send them to the correct place using the OpenTelemetry Agent.
+Since Nais does not collect application trace data automatically, you need to enable tracing in your application. The preferred way to get started with tracing is to enable auto-instrumentation for your application. This will automatically collect traces and send them to the correct place using the OpenTelemetry Agent.
 
 [:dart: Get started with auto-instrumentation](../../how-to/auto-instrumentation.md)
 

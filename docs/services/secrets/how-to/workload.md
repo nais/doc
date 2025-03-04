@@ -11,9 +11,9 @@ A secret can be made available as environment variables or files, or both.
 
 ## Prerequisites
 
-- You're part of a [NAIS team](../../../explanations/team.md)
+- You're part of a [Nais team](../../../explanations/team.md)
 - You have previously [created a secret](console.md#create-a-secret) for your team
-- A Github repository where the NAIS team has access
+- A Github repository where the Nais team has access
 - The repository contains a valid workload manifest (`nais.yaml`)
 
 ## Expose secret as environment variables 

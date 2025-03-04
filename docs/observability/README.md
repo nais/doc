@@ -1,6 +1,6 @@
 ---
 description: >-
-  NAIS offers several methods for monitoring and observing your applications.
+  Nais offers several methods for monitoring and observing your applications.
   This page describes the different options and how to use them.
 search:
   boost: 1
@@ -40,7 +40,7 @@ graph
 
 ## Automatic observability
 
-NAIS provides a new way to get started with observability. By enabling auto-instrumentation, you can get started with observability without having to write any code. This is the easiest way to get started with observability, as it requires little to no effort on the part of the team developing the application.
+Nais provides a new way to get started with observability. By enabling auto-instrumentation, you can get started with observability without having to write any code. This is the easiest way to get started with observability, as it requires little to no effort on the part of the team developing the application.
 
 [:dart: Get started with auto-instrumentation](../observability/how-to/auto-instrumentation.md)
 
@@ -100,7 +100,7 @@ graph LR
 With tracing, we can get application performance monitoring (APM). Tracing gives deep insight into the execution of your application. For instance, you can use tracing to see if parallel function are actually run in parallel,
 or what amount of time your application spends in a given function.
 
-Traces from NAIS applications can be collected using the [OpenTelemetry](https://opentelemetry.io/) standard. Performance metrics are stored and queried from the [Tempo](https://grafana.com/oss/tempo/) component.
+Traces from Nais applications can be collected using the [OpenTelemetry](https://opentelemetry.io/) standard. Performance metrics are stored and queried from the [Tempo](https://grafana.com/oss/tempo/) component.
 
 Visualization of traces can be done in [Grafana](https://grafana.<<tenant()>>.cloud.nais.io), using the `*-tempo` data sources (one for each environment).
 
@@ -116,7 +116,7 @@ graph LR
 
 Alerts are a way to notify you when something is wrong with your application, and are usually triggered when a metric or log entry matches a certain condition.
 
-Alerts in NAIS are based on application metrics and use [Prometheus Alertmanager][alertmanager] to send notifications to Slack.
+Alerts in Nais are based on application metrics and use [Prometheus Alertmanager][alertmanager] to send notifications to Slack.
 
 [alertmanager]: https://prometheus.io/docs/alerting/latest/alertmanager/
 

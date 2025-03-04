@@ -8,7 +8,7 @@ tags: [kafka, explanation, persistence, services]
 
 # Kafka
 
-NAIS offers Kafka as a managed service through Aiven.
+Nais offers Kafka as a managed service through Aiven.
 
 Start using Kafka by [creating a `Topic` resource](how-to/create.md) in one of our Kubernetes clusters.
 
@@ -40,7 +40,7 @@ In this case, Aivenator will update the `status` part of the resource, with furt
 
 ### Authentication and authorization
 
-The NAIS platform will generate new credentials when your applications is deployed. Kafka requires TLS client certificates for authentication. Make sure your Kafka and/or TLS library can do client certificate authentication, and that you can specify a custom CA certificate for server validation.
+The Nais platform will generate new credentials when your applications is deployed. Kafka requires TLS client certificates for authentication. Make sure your Kafka and/or TLS library can do client certificate authentication, and that you can specify a custom CA certificate for server validation.
 
 ### Readiness and liveness
 

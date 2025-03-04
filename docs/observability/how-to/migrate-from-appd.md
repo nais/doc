@@ -12,7 +12,7 @@ We are deprecating AppDynamics in favor of OpenTelemetry and by the end of 2024 
 
 To migrate from AppDynamics to OpenTelemetry, you need to remove the AppDynamics agent from your Dockerfile and add the OpenTelemetry AutoInstrumentation agent.
 
-Since we will be using the AutoInstrumentation feature of NAIS, you do not need to add any additional agents in your Dockerfile. The OpenTelemetry agent will be injected into your application automatically.
+Since we will be using the AutoInstrumentation feature of Nais, you do not need to add any additional agents in your Dockerfile. The OpenTelemetry agent will be injected into your application automatically.
 
 Here is an example removing the `-appdynamics` tag from the base image:
 

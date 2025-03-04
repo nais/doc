@@ -1,6 +1,6 @@
 # nais-cli
 
-nais-cli is a CLI application that provides some useful commands and utilities for interacting with the NAIS platform.
+nais-cli is a CLI application that provides some useful commands and utilities for interacting with the Nais platform.
 
 ## Prerequisites
 

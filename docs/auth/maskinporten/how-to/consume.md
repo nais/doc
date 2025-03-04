@@ -9,7 +9,7 @@ This how-to guides you through the steps required to consume an API secured with
 
 ## Configure your application
 
-Declare all the scopes that you want to consume in your application's NAIS manifest so that your application is granted access to them:
+Declare all the scopes that you want to consume in your application's Nais manifest so that your application is granted access to them:
 
 ```yaml hl_lines="5-7" title="nais.yaml"
 spec:

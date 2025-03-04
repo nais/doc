@@ -8,7 +8,7 @@ This page guides you through the steps required to delete a Redis instance.
 
 ## Prerequisites
 
-- [You are a member of a NAIS team](../../../explanations/team.md)
+- [You are a member of a Nais team](../../../explanations/team.md)
 - [You have set up command-line access](../../../operate/how-to/command-line-access.md)
 
 ## Steps
@@ -20,7 +20,7 @@ If you delete a Redis instance in use, the applications will lose access to the 
 
 To list all Redis instances belonging to your team:
 
-1. Open [NAIS Console](https://console.<<tenant()>>.cloud.nais.io) in your browser and select your team.
+1. Open [Nais Console](https://console.<<tenant()>>.cloud.nais.io) in your browser and select your team.
 2. Select the `Redis` tab
 3. Find the name of the Redis instance you want to delete
 

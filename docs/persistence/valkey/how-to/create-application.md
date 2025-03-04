@@ -7,7 +7,7 @@ tags: [how-to, valkey, redis]
 You can create many Valkey instances for your `Application`.
 
 ## Prerequisites
-- [Member of a NAIS team](../../../explanations/team.md)
+- [Member of a Nais team](../../../explanations/team.md)
 
 !!! warning 
 
@@ -28,7 +28,7 @@ You can create many Valkey instances for your `Application`.
 The above snippet will allow your application to use the `sessions` Valkey instance, and provide the application with credentials for a read/write user.
 In addition, the application will get credentials for a read-only user for the `lookup` instance. See the [manifest reference][app-spec-valkey] for other options for `access`.
 
-The default Valkey created by NAIS looks like this:
+The default Valkey created by Nais looks like this:
 
 ```yaml
 apiVersion: aiven.io/v1alpha1

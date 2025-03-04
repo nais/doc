@@ -9,7 +9,7 @@ This guide shows you how to create a dashboard in Grafana for your application. 
 
 ## 0. Prerequisites
 
-- You have an application running in the NAIS platform.
+- You have an application running in the Nais platform.
 - Your application is [exporting metrics to Prometheus](./expose.md)
 
 ## 1. Create a new dashboard

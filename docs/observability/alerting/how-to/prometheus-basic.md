@@ -53,7 +53,7 @@ You can define alerts by creating a `PrometheusRule` resource in your teams name
 ## Activate the alert
 
 === "Automatically"
-    Add the file to your application repository, alongside `nais.yaml` to deploy with [NAIS github action](../../../build/how-to/build-and-deploy.md).
+    Add the file to your application repository, alongside `nais.yaml` to deploy with [Nais github action](../../../build/how-to/build-and-deploy.md).
 === "Manually"
     ```bash
     kubectl apply -f ./nais/alert.yaml

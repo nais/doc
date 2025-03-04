@@ -12,7 +12,7 @@ The leader election configuration does not control which pod the external servic
 
 ## Elector sidecar
 
-When you [enable leader election](how-to/enable.md), NAIS will inject an elector container as a sidecar into your pod.
+When you [enable leader election](how-to/enable.md), Nais will inject an elector container as a sidecar into your pod.
 
 ### Simple API
 

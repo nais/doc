@@ -44,7 +44,7 @@ See [manage access](manage-acl.md) for how to grant access to your topic.
 ## Apply the Topic resource
 
 === "Automatically"
-    Add the file to your application repository to deploy with [NAIS github action](../../../build/how-to/build-and-deploy.md).
+    Add the file to your application repository to deploy with [Nais github action](../../../build/how-to/build-and-deploy.md).
 === "Manually"
     ```bash
     kubectl apply -f ./nais/topic.yaml --namespace=<MY-TEAM> --context=<MY-CLUSTER>

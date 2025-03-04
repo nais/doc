@@ -5,7 +5,7 @@ tags: [how-to, observability, metrics, prometheus]
 # Push metrics to Prometheus
 
 This how-to guide shows you how to push metrics from your application using the Prometheus Pushgateway.
-This is typically used in NAIS jobs, which by it's nature often is short-lived and cannot effectively be scraped by Prometheus.
+This is typically used in Nais jobs, which by it's nature often is short-lived and cannot effectively be scraped by Prometheus.
 
 Prometheus has further explanations and examples [here](https://prometheus.io/docs/instrumenting/pushing/)
 

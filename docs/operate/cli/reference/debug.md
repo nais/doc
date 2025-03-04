@@ -1,6 +1,6 @@
 # debug command
 
-The debug command allows you to troubleshoot workloads running on the NAIS platform.This command creates a
+The debug command allows you to troubleshoot workloads running on the Nais platform.This command creates a
 debug pod within the same namespace as the target workload. There are two options
 for debugging a workload: you can either create a container within the same pod as the workload or create a separate pod
 in the same namespace as the workload, both options providing

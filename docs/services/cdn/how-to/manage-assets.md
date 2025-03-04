@@ -18,7 +18,7 @@ In the rare case you need to manage the assets directly, you can do so through t
 Assets are stored in a Google Cloud Bucket.
 To find the bucket name:
 
-1. Open the [NAIS console](https://console.<<tenant()>>.cloud.nais.io) in your browser.
+1. Open the [Nais console](https://console.<<tenant()>>.cloud.nais.io) in your browser.
 2. Select your team.
 3. Select the **Settings** tab.
 4. Under the **Managed resources** section, look for the heading named **Team CDN bucket**.

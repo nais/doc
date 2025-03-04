@@ -1,6 +1,6 @@
-# Welcome to the NAIS documentation
+# Welcome to the Nais documentation
 
-See the [NAIS handbook](https://handbook.nais.io/technical/write-the-doc/) for a more detailed explanation of the documentation structure and how to contribute.
+See the [Nais handbook](https://handbook.nais.io/technical/write-the-doc/) for a more detailed explanation of the documentation structure and how to contribute.
 
 ## Local development
 

@@ -6,11 +6,11 @@ tags: [job, how-to]
 
 ## Prerequisites
 
-- You're part of a [NAIS team](../../../explanations/team.md)
+- You're part of a [Nais team](../../../explanations/team.md)
 
 ## Delete your job
 
-1. Open [NAIS console :octicons-link-external-16:](https://console.<<tenant()>>.cloud.nais.io) in your browser
+1. Open [Nais console :octicons-link-external-16:](https://console.<<tenant()>>.cloud.nais.io) in your browser
 2. Select your team
 3. Select the `Job` tab
 4. Select the job that you want to delete

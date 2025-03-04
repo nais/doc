@@ -76,7 +76,7 @@ spec:
       enabled: true
 ```
 
-See the [NAIS application reference](../../workloads/application/reference/application-spec.md#login) for the complete specifications with all possible options.
+See the [Nais application reference](../../workloads/application/reference/application-spec.md#login) for the complete specifications with all possible options.
 
 Now that your application is configured, you should handle inbound requests in your application code.
 

@@ -1,7 +1,7 @@
 ---
 tags: [how-to, opensearch]
 description: >-
-  NAIS provides managed search index services through OpenSearch as a drop-in
+  Nais provides managed search index services through OpenSearch as a drop-in
   replacement for Elasticsearch.
 ---
 

@@ -107,7 +107,7 @@ If you don't want to start at either end, but have a reasonable estimate of wher
 
 You can also update consumer offsets using the Kafka command-line tool `kafka-consumer-groups.sh`.
 Aiven has written a short [article][aiven-offset-help] about its usage, that is a great place to start.
-In order to use it you need credentials giving you access to the topic, which you can get using the NAIS CLI.
+In order to use it you need credentials giving you access to the topic, which you can get using the Nais CLI.
 
 For other strategies, post a message in [#kafka](https://nav-it.slack.com/archives/C73B9LC86) on slack, and ask for help.
 Several teams have plans and tools for recovery that they can share.

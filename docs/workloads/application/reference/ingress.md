@@ -27,7 +27,7 @@ In the example above, only `path1` and `path2` are routed to the application inc
 
 ## Ingress redirects
 
-[ingress redirects](../explanations/expose.md#ingress-redirects) is a way to perform redirects in NAIS.
+[ingress redirects](../explanations/expose.md#ingress-redirects) is a way to perform redirects in Nais.
 
 Ingress redirects are used to redirect traffic from one domain to another. This can be useful when you want to change the domain of an application or when you want to redirect traffic from an old domain to a new one.
 

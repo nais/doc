@@ -4,7 +4,7 @@ tags: [secrets, how-to]
 
 # Advanced: Secrets with binary data
 
-[NAIS Console](console.md) only supports secrets with string values.
+[Nais Console](console.md) only supports secrets with string values.
 You can work around this by Base64-encoding the binary data and store the resulting string, though it also requires that your application does the equivalent decoding.
 
 If you instead want to manage binary data directly, you can use the command line interface (CLI) to create and manage secrets with binary data.
@@ -13,7 +13,7 @@ This how-to guides you through creating and managing a secret with binary data u
 
 ## Prerequisites
 
-- You're part of a [NAIS team](../../../explanations/team.md)
+- You're part of a [Nais team](../../../explanations/team.md)
 - You have [configured command line access](../../../operate/how-to/command-line-access.md) for your machine
 
 ## Create the secret

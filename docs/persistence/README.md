@@ -1,6 +1,6 @@
 ---
 description: >-
-  NAIS offers several storage solutions for storing data. This page describes
+  Nais offers several storage solutions for storing data. This page describes
   the different options and how to use them.
 tags: [persistence, explanation]
 ---

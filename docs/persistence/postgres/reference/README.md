@@ -96,12 +96,12 @@ Default connection limits for different memory sizes can be found on [Google Clo
 Postgres instances automatically collect metrics that can be viewed in the following locations:
 
 * [Google Cloud Console](https://console.cloud.google.com/monitoring), under the `Cloud SQL` section.
-* [NAIS Console](<<tenant_url("console")>>), under the `Postgres` section.
+* [Nais Console](<<tenant_url("console")>>), under the `Postgres` section.
 * [Grafana](<<tenant_url("grafana")>>), using the `Google CLoud Monitoring` datasource.
 
 A list of all avaialbe metrics can be found on [Cloud SQL metrics](https://cloud.google.com/sql/docs/postgres/admin-api/metrics).
 
-[:dart: Learn how to view Postgres metrics in the Google Cloud Console, Grafana, and NAIS Console](../how-to/database-observability.md)
+[:dart: Learn how to view Postgres metrics in the Google Cloud Console, Grafana, and Nais Console](../how-to/database-observability.md)
 
 ### Query insights
 
@@ -115,7 +115,7 @@ For further reading see [Google Cloud SQL Query Insights](https://cloud.google.c
 
 ## Maintenance window
 
-Google will automatically perform upgrades, fix bugs and apply security patches to prevent exploits. Your application should be able to handle occasional downtime as this maintenance is performed. [Read more on maintenance windows](https://cloud.google.com/sql/docs/postgres/maintenance). NAIS does not configure the maintenance window, but this can be set up in the application spec: [`nais.yaml`](../../../workloads/application/reference/application-spec.md#gcpsqlinstances).
+Google will automatically perform upgrades, fix bugs and apply security patches to prevent exploits. Your application should be able to handle occasional downtime as this maintenance is performed. [Read more on maintenance windows](https://cloud.google.com/sql/docs/postgres/maintenance). Nais does not configure the maintenance window, but this can be set up in the application spec: [`nais.yaml`](../../../workloads/application/reference/application-spec.md#gcpsqlinstances).
 If you wish to be notified about upcoming maintenance, you can opt-in for this on the [Communications page](https://console.cloud.google.com/user-preferences/communication) in the GCP console.
 
 ## Automated backup

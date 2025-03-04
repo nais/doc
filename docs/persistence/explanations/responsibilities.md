@@ -2,19 +2,19 @@
 tags: [explanation, persistence]
 description: >-
   This page aims to clarify the responsibilities as relates to data storage
-  using NAIS and GCP. Depending on which infrastructure the data is stored on,
+  using Nais and GCP. Depending on which infrastructure the data is stored on,
   the responsibilities look slightly different.
 ---
 
 # Responsibilities
 
-It is important to understand the responsibilities of the different parties involved when working with data in NAIS. This page aims to clarify the responsibilities as relates to data storage on-prem and in GCP. Depending on which infrastructure the data is stored on, the responsibilites look slightly different.
+It is important to understand the responsibilities of the different parties involved when working with data in Nais. This page aims to clarify the responsibilities as relates to data storage on-prem and in GCP. Depending on which infrastructure the data is stored on, the responsibilites look slightly different.
 
 ## The Platform
 
 The platform does not manage the underlying infrastructure or run the data storage service provided by the platform.
 These are provided by NAV, Google or Aiven.
-NAIS is responsible for setting up the infrastructure and data storage service according to the specifications provided by the application.
+Nais is responsible for setting up the infrastructure and data storage service according to the specifications provided by the application.
 
 The platform team is responsible for the following:
 

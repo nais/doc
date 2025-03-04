@@ -13,7 +13,7 @@ This will allow you to measure the time it takes for your team to deliver new co
 
 With these metrics you can also get a better view if changes to your pipeline affect the lead time for change.
 
-NAIS automatically collects telemetry data from your pipeline when you use the
+Nais automatically collects telemetry data from your pipeline when you use the
 `docker-build-push` action to build your Docker image.
 
 The following manual step is required on your part to visualize that data in Grafana;
@@ -29,7 +29,7 @@ you must export the `TELEMETRY` environment variable when you deploy.
           - name: Build and push Docker image
             uses: nais/docker-build-push@v0
             id: docker-build-push  # make sure this ID matches the step id below
-          - name: Deploy to NAIS
+          - name: Deploy to Nais
             uses: nais/deploy/actions/deploy@v2
             env:
               TELEMETRY: ${{ steps.docker-build-push.outputs.telemetry }}

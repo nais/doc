@@ -115,4 +115,4 @@ scope := nav:helse/sykepenger/afp.read
 
 ## Spec
 
-See the [:books: NAIS application reference](../../../workloads/application/reference/application-spec.md#maskinporten).
+See the [:books: Nais application reference](../../../workloads/application/reference/application-spec.md#maskinporten).

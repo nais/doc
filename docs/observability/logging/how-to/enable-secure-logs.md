@@ -8,9 +8,9 @@ This guide will show you how to enable shipping of secure logs for your applicat
 
 ## Prerequisites
 
-If your NAIS team has already at any point produced secure logs, you can skip this step.
+If your Nais team has already at any point produced secure logs, you can skip this step.
 
-If your team has never before produced secure logs, before enabling them for the first time, give a warning in [#kibana](https://nav-it.slack.com/archives/C7T8QHXD3) Slack channel. There are some things that need to be adjusted before a new team can start sending. Remember to include the name of your NAIS team in the message.
+If your team has never before produced secure logs, before enabling them for the first time, give a warning in [#kibana](https://nav-it.slack.com/archives/C7T8QHXD3) Slack channel. There are some things that need to be adjusted before a new team can start sending. Remember to include the name of your Nais team in the message.
 
 ## Configuring secure logs
 

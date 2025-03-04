@@ -4,17 +4,17 @@ tags: [build, deploy, how-to]
 
 # Build and deploy with Github Actions
 
-This how-to guide shows you how to build and deploy your application using [Github Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions) and the NAIS deploy action.
+This how-to guide shows you how to build and deploy your application using [Github Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions) and the Nais deploy action.
 
 ## Prerequisites
 
-- You're part of a [NAIS team](../../operate/how-to/create-team.md)
-- A Github repository where the NAIS team has access
+- You're part of a [Nais team](../../operate/how-to/create-team.md)
+- A Github repository where the Nais team has access
 - The repository contains a valid [workload manifest](../../workloads/README.md)
 
 ## Authorize your Github repository for deployment
 
-1. Open [NAIS Console](https://console.<<tenant()>>.cloud.nais.io) in your browser and select your team.
+1. Open [Nais Console](https://console.<<tenant()>>.cloud.nais.io) in your browser and select your team.
 2. Select the `Repositories` tab
 3. Input your repository (`organization/repository`) and press `Add`.
 
@@ -45,7 +45,7 @@ This how-to guide shows you how to build and deploy your application using [Gith
             id: docker-build-push
             with:
               team: <MY-TEAM> # Replace
-          - name: Deploy to NAIS
+          - name: Deploy to Nais
             uses: nais/deploy/actions/deploy@v2
             env:
               CLUSTER: <MY-CLUSTER> # Replace (1)
@@ -65,6 +65,6 @@ When this file is pushed to the `main` branch, the workflow will be triggered an
 
     The [nais/docker-build-push GitHub action](https://github.com/nais/docker-build-push) builds and pushes images to the _Google Artifact Registry_ (GAR).
 
-    This is a registry managed by NAIS and is the recommended way to store your container images for use in workloads on NAIS.
+    This is a registry managed by Nais and is the recommended way to store your container images for use in workloads on Nais.
 
     We keep images that are deployed, as well as the last 10 versions for each image regardless of age. Versions older than 90 days are automatically deleted.

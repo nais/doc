@@ -3,9 +3,9 @@ tags: [kafka, how-to]
 conditional: [tenant, nav]
 ---
 
-# Accessing topics from an application outside NAIS
+# Accessing topics from an application outside Nais
 
-This guide will show you how to access a [Kafka topic](create.md) from an application outside NAIS clusters.
+This guide will show you how to access a [Kafka topic](create.md) from an application outside Nais clusters.
 
 ## Enable access to the relevant pool in your manifest
 
@@ -29,7 +29,7 @@ This guide will show you how to access a [Kafka topic](create.md) from an applic
 
 ## Apply the AivenApplication
 === "Automatically"
-    Add the file to your application repository, alongside `nais.yaml` to deploy with [NAIS github action](../../../build/how-to/build-and-deploy.md).
+    Add the file to your application repository, alongside `nais.yaml` to deploy with [Nais github action](../../../build/how-to/build-and-deploy.md).
 === "Manually"
     ```bash
     kubectl apply -f ./nais/aivenapp.yaml --namespace=<MY-TEAM> --context=<MY-ENV>

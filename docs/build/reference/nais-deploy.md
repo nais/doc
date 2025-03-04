@@ -4,11 +4,11 @@ tags: [reference, build, deploy]
 
 # Deploy action configuration
 
-The available configuration options for the NAIS deploy GitHub action.
+The available configuration options for the Nais deploy GitHub action.
 
 | Environment variable | Default                | Description                                                                                                                                                                                                                 |
 |:---------------------|:-----------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CLUSTER              | (required)             | Which NAIS cluster to deploy into.                                                                                                                                                                                          |
+| CLUSTER              | (required)             | Which Nais cluster to deploy into.                                                                                                                                                                                          |
 | DRY_RUN              | `false`                | If `true`, run templating and validate input, but do not actually make any requests.                                                                                                                                        |
 | ENVIRONMENT          | (auto-detect)          | The environment to be shown in GitHub Deployments. Defaults to `CLUSTER:NAMESPACE` for the resource to be deployed if not specified, otherwise falls back to `CLUSTER` if multiple namespaces exist in the given resources. |
 | OWNER                | (auto-detect)          | Owner of the repository making the request.                                                                                                                                                                                 |
