@@ -20,12 +20,6 @@ This how-to guide shows you how to upload assets to the [CDN](../README.md).
 
 ## Upload assets with the CDN action
 
-{% if tenant() == "nav" %}
-???+ note "SPA deploy"
-    We also provide an action for swift deployment of single page applications (SPA),
-    [spa-deploy](https://github.com/nais/deploy/tree/master/actions/spa-deploy).
-{% endif %}
-
 In your Github Workflow, add the following step to upload your assets to the CDN.
 
 
