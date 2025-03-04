@@ -4,7 +4,7 @@ tags: [workloads, reference]
 
 # Container security
 
-The following settings are applied to all containers running in NAIS: 
+The following settings are applied to all containers running in Nais:
 
 - Read only root filesystem. Only `/tmp` is writable.
 - Runs as non-root, with user and group id `1069`

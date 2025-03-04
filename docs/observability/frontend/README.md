@@ -1,6 +1,6 @@
 ---
 description: >-
-  NAIS offers observability tooling for frontend applications.
+  Nais offers observability tooling for frontend applications.
   This page describes how to use these offerings.
 tags: [explanation, observability, services]
 ---
@@ -11,7 +11,7 @@ tags: [explanation, observability, services]
     This feature is undergoing development, but we will try our best to keep it stable.
 
 When developing solutions for the frontend there is a variety of different tools for capturing information about
-usage, logs, exceptions and performance. NAIS offers a unified solution for full stack frontend observability
+usage, logs, exceptions and performance. Nais offers a unified solution for full stack frontend observability
 through [Grafana Faro Web SDK][faro-web-sdk].
 
 [faro-web-sdk]: https://www.npmjs.com/package/@grafana/faro-web-sdk
@@ -55,7 +55,7 @@ initializeFaro({
 ```
 
 The URL points to a Grafana Agent collector, and should be set to one of the following values.
-See below for auto-configuration instructions for when your app is a NAIS application.
+See below for auto-configuration instructions for when your app is a Nais application.
 
 {% if tenant() == "nav" %}
 | Collector endpoint                             | Environment |
@@ -144,13 +144,13 @@ context.with(trace.setSpan(context.active(), span), () => {
 
 ## Auto-configuration
 
-When you deploy your frontend as a NAIS application, the telemetry collector URL can be automatically configured.
+When you deploy your frontend as a Nais application, the telemetry collector URL can be automatically configured.
 
 To use this feature, you must specify [frontend.mountPath.generatedConfig](../../workloads/application/reference/application-spec.md#frontendgeneratedconfigmountpath) in your `nais.yaml`.
 A Javascript file will be created at the specified path in your pod file system, and contains the appropriate configuration.
 Additionally, the environment variable `NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL` will be set in your pod.
 
-First, create a `nais.js` file with the following contents. This file will be replaced by NAIS
+First, create a `nais.js` file with the following contents. This file will be replaced by Nais
 when deployed, and will contain the correct values for your application and environment.
 
 ```js

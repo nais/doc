@@ -4,7 +4,7 @@ tags: [command-line, how-to, operate]
 
 # Setup command line access
 
-This guide shows you how to set up command line tools for accessing NAIS clusters
+This guide shows you how to set up command line tools for accessing Nais clusters
 
 ## Prerequisites
 
@@ -35,7 +35,7 @@ gcloud components install gke-gcloud-auth-plugin
 
 ## Generate kubeconfig file
 
-Use nais-cli to generate the kubeconfig file that grants access to the NAIS clusters.
+Use nais-cli to generate the kubeconfig file that grants access to the Nais clusters.
 
 ```shell
 nais kubeconfig

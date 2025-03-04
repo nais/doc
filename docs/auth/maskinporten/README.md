@@ -9,7 +9,7 @@ conditional: [tenant, nav]
 
 [Maskinporten](https://docs.digdir.no/maskinporten_overordnet.html) is a service provided by DigDir used to authorize access to APIs between organizations or businesses.
 
-NAIS provides support for declarative registration and configuration of Maskinporten resources.
+Nais provides support for declarative registration and configuration of Maskinporten resources.
 These cover two distinct use cases:
 
 ## Consume an API

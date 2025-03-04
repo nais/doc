@@ -57,7 +57,7 @@ User happiness is a rather diffuse concept and it is very hard to measure precis
 
 What we do know is that 100% reliability is not the right target for many reasons:
 
-* Even the most reliable systems have outages, and none of the components or underlying infrastructure in NAIS offer a 100% reliability guarantee.
+* Even the most reliable systems have outages, and none of the components or underlying infrastructure in Nais offer a 100% reliability guarantee.
 * Even if you could achieve 100% reliability, users would in practice not experience it as such. They would still experience outages due to network issues, client-side issues, and so on.
 * If you had complete control over the entire value chain, a 100% reliability would in practice mean that you could never make any changes to the system, as any change has the potential to introduce new bugs or outages.
 * A 100% reliability target would mean that you can only be reactive to problems, as you would never have any headroom to handle unexpected issues. This does not align with the engineering culture we want to promote.

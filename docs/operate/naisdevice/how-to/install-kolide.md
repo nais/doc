@@ -35,6 +35,6 @@ You install Kolide by following these steps:
 
 !!! warning
 
-    The issues reported by Kolide _**must**_ be addressed - these remediations have been vetted by the NAIS team and should be followed. Depending on the issue, you might lose `naisdevice` connectivity if an issue is left unresolved for a sufficient length of time.
+    The issues reported by Kolide _**must**_ be addressed - these remediations have been vetted by the Nais team and should be followed. Depending on the issue, you might lose `naisdevice` connectivity if an issue is left unresolved for a sufficient length of time.
 
     If you run into problems, you can always ask in the [Slack channel #naisdevice](https://nav-it.slack.com/archives/C013XV66XHB)

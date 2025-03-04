@@ -4,7 +4,7 @@ tags: [job, how-to]
 
 # Create job
 
-This how-to guide will show you how to create a NAIS manifest for your [job](../README.md).
+This how-to guide will show you how to create a Nais manifest for your [job](../README.md).
 
 ## Setup
 
@@ -50,7 +50,7 @@ This job manifest will run your code every hour. If you want to run your job onl
 
 ## Related pages
 
-:dart: [Build and deploy your job to NAIS](../../../build/how-to/build-and-deploy.md).
+:dart: [Build and deploy your job to Nais](../../../build/how-to/build-and-deploy.md).
 
 :books: [Job spec reference](../reference/naisjob-spec.md).
 

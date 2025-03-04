@@ -4,7 +4,7 @@ tags: [how-to, bigquery]
 
 # Create an instance of BigQuery
 
-Below is a minimal working example for a NAIS Application manifest.
+Below is a minimal working example for a Nais Application manifest.
 
 ## 1. Create dataset
 ???+ note ".nais/app.yaml"

@@ -3,7 +3,7 @@ tags: [influxdb, how-to]
 conditional: [tenant, nav]
 ---
 
-# Access from NAIS-app
+# Access from Nais-app
 
 You need to specify the InfluxDB instance to get access from an application. See [nais.yaml-reference](../../../workloads/application/reference/application-spec.md#influxinstance).
 

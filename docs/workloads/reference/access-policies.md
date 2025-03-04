@@ -30,9 +30,9 @@ For details about the Kubernetes API, see the [official documentation](https://k
     Usage of the Kubernetes API from workloads is done at your own risk.
     This is an advanced use case that most workloads should not need.
 
-    NAIS does not offer any uptime, stability or compatibility guarantees for the API.
+    Nais does not offer any uptime, stability or compatibility guarantees for the API.
 
-    If you're considering using the Kubernetes API, we recommend that you first reach out to the NAIS team for guidance.
+    If you're considering using the Kubernetes API, we recommend that you first reach out to the Nais team for guidance.
 
 To allow outbound network access from your workload to the Kubernetes API server, you must explicitly add a label to your workload manifest:
 

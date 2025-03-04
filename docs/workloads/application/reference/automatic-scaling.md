@@ -37,7 +37,7 @@ If you define both a CPU threshold and a Kafka Consumer Lag threshold, the appli
 
 !!! warning
     
-    In order to use custom scaling policies and rules, make sure you disable default NAIS HPA by setting the [`.spec.replicas.disableAutoScaling`](application-spec.md#replicasdisableautoscaling) field to `true`. 
+    In order to use custom scaling policies and rules, make sure you disable default Nais HPA by setting the [`.spec.replicas.disableAutoScaling`](application-spec.md#replicasdisableautoscaling) field to `true`. 
 
 
 ### Scaling based on custom metrics

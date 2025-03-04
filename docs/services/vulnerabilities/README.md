@@ -8,7 +8,4 @@ Nais provides what you need to secure your software supply chain and manage vuln
 
 Get started by using our [GitHub Actions](how-to/sbom.md) to generate SBOMs and attestations for your workloads.
 
-Once this is in place, you can use the [Console](../../operate/console.md) to view and manage vulnerabilities in your workloads. 
-
-
-
+Once this is in place, you can use the [Nais Console](../../operate/console.md) to view and manage vulnerabilities in your workloads. 

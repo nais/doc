@@ -5,18 +5,18 @@ tags: [how-to, valkey, redis]
 # Create a Valkey instance explicitly
 
 ## Prerequisites
-- [Member of a NAIS team](../../../explanations/team.md)
+- [Member of a Nais team](../../../explanations/team.md)
 
 We recommend creating your Valkey instances in their own workflow for more control over configuration, especially if you intend for multiple applications using the same Valkey instance, or if you need to change configuration.
 
 Creating a Valkey instance is done by adding a Valkey resource to your namespace with detailed configuration.
-Some configuration is enforced by the NAIS platform, while the rest is up to the users.
+Some configuration is enforced by the Nais platform, while the rest is up to the users.
 
 Earlier we talked about the "instance name".
 In reality, the actual name of the valkey instance will be `valkey-<team name>-<instance name>` (where `team name` is the same as the namespace your application resides in).
 The resource needs to have this full name in order to be accepted.
 
-The default Valkey created by NAIS looks like this:
+The default Valkey created by Nais looks like this:
 
 ```yaml
 apiVersion: aiven.io/v1alpha1
@@ -34,7 +34,7 @@ spec:
 
 A minimal Valkey resource only requires `plan` and `project`.
 
- * `project` should match your NAIS tenant (`<<tenant()>>`) and the environment you are running in (ex. `dev`, `prod`), with a dash (`-`) in between.
+ * `project` should match your Nais tenant (`<<tenant()>>`) and the environment you are running in (ex. `dev`, `prod`), with a dash (`-`) in between.
  * `plan` is the Aiven plan for your Valkey instance.
    See Aivens list of [possible plan values](https://aiven.io/pricing?product=valkey).
    The values are lowercased.
@@ -68,7 +68,7 @@ There are some fields available that should not be used:
 | field                  |                                                                                                 |
 |------------------------|-------------------------------------------------------------------------------------------------|
 | `authSecretRef`        | Reference to a secret containing an Aiven API token. Provided via other mechanisms.             |
-| `connInfoSecretTarget` | Name of secret to put connection info in, not used as NAIS provides these via other mechanisms. |
+| `connInfoSecretTarget` | Name of secret to put connection info in, not used as Nais provides these via other mechanisms. |
 | `projectVPCRef`        | Not used since we use `projectVpcId`.                                                           |
 | `serviceIntegrations`  | Not used at this time.                                                                          |
 

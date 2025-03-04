@@ -64,6 +64,6 @@ $ curl -X DELETE -u $KAFKA_SCHEMA_REGISTRY_USER:$KAFKA_SCHEMA_REGISTRY_PASSWORD 
 For applications that can't use Kafka directly, a REST API is possible.
 Because of security implications, we have not enabled the REST API on the cluster, but interested parties may run their own instance.
 
-We have packaged [Aivens Karapace](https://github.com/aiven/karapace) project in a NAIS-friendly package.
+We have packaged [Aivens Karapace](https://github.com/aiven/karapace) project in a Nais-friendly package.
 Teams can install [Karapace](https://github.com/nais/karapace) in their own namespace with relevant access to provide a REST API for Kafka topics.
 Check the Karapace Readme for details.

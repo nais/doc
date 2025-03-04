@@ -49,10 +49,10 @@ See all configuration options in the [application manifest reference](../../work
 
 ## How it works
 
-The first time you deploy your application with the above configuration, NAIS will provision the database into your team's own project in GCP.
+The first time you deploy your application with the above configuration, Nais will provision the database into your team's own project in GCP.
 Your team has full access to view logs, create and restore backups and other administrative database tasks.
 
-NAIS also configures your application with the necessary environment variables needed to connect to the database.
+Nais also configures your application with the necessary environment variables needed to connect to the database.
 See the [reference](reference/README.md#configuration) for the list of environment variables.
 
 First time provisioning of the database will take some minutes.
@@ -76,7 +76,7 @@ Your application may not be able to connect to the database until the provisioni
     The backup retention should be equal to or greater than the transaction log retention.
     You can fix this by setting the `retainedBackups` to a value equal to or greater than the transaction log retention or
     by setting the `transactionLogRetentionDays` to a value equal to or less than the backup retention.
-    This can be configured in the [NAIS manifest](../../workloads/application/reference/application-spec.md#gcpsqlinstances).
+    This can be configured in the [NAis manifest](../../workloads/application/reference/application-spec.md#gcpsqlinstances).
     Read more about [automated backups with cloud sql](https://cloud.google.com/sql/docs/mysql/backup-recovery/backups#automated-backups).
 
 #### Cannot disable cloudsql.logical_decoding while there are logical replication slots
@@ -90,7 +90,7 @@ Your application may not be able to connect to the database until the provisioni
 !!! faq "Answer"
     This error occurs when you try to change the disk size of the database instance.
     The disk size settings of the database instance cannot be less then current size after the instance is created.
-    You can fix this by specifying in the [NAIS manifest](../../workloads/application/reference/application-spec.md#gcpsqlinstancesdisksize)
+    You can fix this by specifying in the [Nais manifest](../../workloads/application/reference/application-spec.md#gcpsqlinstancesdisksize)
     the desired disk size of the database instance to be equal to or greater than the current size.
     If you want to control the disk size of the instance you should disable [automatic storage increase](../../workloads/application/reference/application-spec.md#gcpsqlinstancesdiskautoresize).
 
@@ -100,7 +100,7 @@ Your application may not be able to connect to the database until the provisioni
     This error occurs when you try to 'upgrade' the major version of the database instance to a version that is not allowed.
     You cant downgrade the major version of the database instance, if you want to downgrade the version you need to create
     a new instance with the desired version.
-    You can fix this by specifying in the [NAIS manifest](../../workloads/application/reference/application-spec.md#gcpsqlinstancestype)
+    You can fix this by specifying in the [Nais manifest](../../workloads/application/reference/application-spec.md#gcpsqlinstancestype)
     the version type to the same as the current or a higher version.
 
 [nais-cli]: ../../operate/cli/how-to/install.md

@@ -6,7 +6,7 @@ tags: [cdn, explanation, services]
 
 A content delivery network (CDN) serves static content and single-page applications (SPA) in a fast and reliable manner.
 
-NAIS offers CDN as a service through Google Cloud CDN. The CDN is used for serving static content such as HTML files, JavaScript libraries and files, stylesheets, and images.
+Nais offers CDN as a service through Google Cloud CDN. The CDN is used for serving static content such as HTML files, JavaScript libraries and files, stylesheets, and images.
 
 ```mermaid
   graph LR

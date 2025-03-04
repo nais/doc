@@ -7,7 +7,7 @@ description: Services and addons to support authentication and authorization in 
 
 {%- if tenant() == "nav" %}
 
-NAIS helps your applications [log in users](#logging-in-users), [validate inbound requests](#validating-inbound-requests) and [make authenticated outbound requests](#making-outbound-requests) using the following identity providers:
+Nais helps your applications [log in users](#logging-in-users), [validate inbound requests](#validating-inbound-requests) and [make authenticated outbound requests](#making-outbound-requests) using the following identity providers:
 
 <div class="grid cards" markdown>
 
@@ -102,7 +102,7 @@ The graph above can also be described as:
 
 {%- else %}
 
-NAIS provides the following services and addons to support authentication and authorization in your applications:
+Nais provides the following services and addons to support authentication and authorization in your applications:
 
 :   [**Login proxy**](explanations/README.md#login-proxy)
 

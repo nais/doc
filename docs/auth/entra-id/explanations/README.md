@@ -30,7 +30,7 @@ You should generally **not** hard code or otherwise depend on the client ID of _
 
 An Entra ID client has an associated name within a tenant.
 
-All clients provisioned through NAIS will be registered in Entra ID using the following naming scheme:
+All clients provisioned through Nais will be registered in Entra ID using the following naming scheme:
 
 ```text
 <cluster>:<namespace>:<app-name>

@@ -1,6 +1,6 @@
 ---
 description: >-
-  Application Performance Monitoring or tracing using Grafana Tempo on NAIS.
+  Application Performance Monitoring or tracing using Grafana Tempo on Nais.
 tags: [explanation, observability, tracing, services]
 ---
 
@@ -38,9 +38,9 @@ It's vendor-neutral, allowing telemetry data export to any backend, providing th
 
 [:octicons-link-external-24: Learn more about OpenTelemetry on opentelemetry.io][open-telemetry]
 
-## Tracing in NAIS
+## Tracing in Nais
 
-NAIS does not collect application trace data automatically, but it provides the infrastructure to do so using OpenTelemetry, Grafana Tempo for storage and querying, and easy-to-use configuration options.
+Nais does not collect application trace data automatically, but it provides the infrastructure to do so using OpenTelemetry, Grafana Tempo for storage and querying, and easy-to-use configuration options.
 
 ### The easy way: Auto-instrumentation
 

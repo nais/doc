@@ -4,7 +4,7 @@ conditional: [tenant, nav]
 ---
 # Access secure logs
 
-Once secure logs for your team are [enabled](./enable-secure-logs.md), they will be sent to the team's own `tjenestekall-*` index in Kibana. Those indices are accessed through `Securelogs` dataview. The members of the corresponding NAIS team should get access to those logs automatically when they log on to Kibana with Single Sign On. Send a message in #kibana channel if that is not the case. 
+Once secure logs for your team are [enabled](./enable-secure-logs.md), they will be sent to the team's own `tjenestekall-*` index in Kibana. Those indices are accessed through `Securelogs` dataview. The members of the corresponding Nais team should get access to those logs automatically when they log on to Kibana with Single Sign On. Send a message in #kibana channel if that is not the case.
 
 ## Access to secure logs for external participants
 
@@ -38,7 +38,7 @@ Enheter i Nav som skal ha tilgang: <four digit department code>. E.g (2990 - IT-
 
 ### Connect the AD group to your team in Kibana
 
-The logs your apps produces are linked with your [NAIS team](../../../explanations/team.md).
+The logs your apps produces are linked with your [Nais team](../../../explanations/team.md).
 Administrators of Kibana will give the read rights to those logs to people from the created group.
 Ask for this in the [#kibana](https://nav-it.slack.com/archives/C7T8QHXD3) Slack channel; provide the name of the AD-group and the name of your team in the message.
 

@@ -15,7 +15,7 @@ This how-to guides you through the steps required to secure your API using [Mask
 
 A _scope_ represents a permission that a given consumer has access to.
 
-Declare all the scopes that you want to expose in your application's NAIS manifest:
+Declare all the scopes that you want to expose in your application's Nais manifest:
 
 ```yaml title="nais.yaml" hl_lines="5-15"
 spec:
@@ -37,7 +37,7 @@ spec:
 
 See the [scope naming reference](../reference/README.md#scope-naming) for details on naming scopes.
 
-See the [NAIS application reference](../../../workloads/application/reference/application-spec.md#maskinportenscopesexposes) for the complete specifications with all possible options.
+See the [Nais application reference](../../../workloads/application/reference/application-spec.md#maskinportenscopesexposes) for the complete specifications with all possible options.
 
 ## Grant access to consumers
 

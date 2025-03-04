@@ -57,4 +57,4 @@ These variables are used to [:dart: secure your API](../how-to/secure.md):
 
 ## Spec
 
-See the [:books: NAIS application reference](../../../workloads/application/reference/application-spec.md#tokenx).
+See the [:books: Nais application reference](../../../workloads/application/reference/application-spec.md#tokenx).

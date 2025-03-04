@@ -252,7 +252,7 @@ These variables are used to [:dart: secure your API](../how-to/secure.md):
 
 ## Spec
 
-For all possible configuration options, see the [:books: NAIS application reference](../../../workloads/application/reference/application-spec.md#azure).
+For all possible configuration options, see the [:books: Nais application reference](../../../workloads/application/reference/application-spec.md#azure).
 
 ## Tenants
 

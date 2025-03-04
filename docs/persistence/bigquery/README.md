@@ -6,11 +6,11 @@ tags: [persistence, bigquery, explanation, services]
 
 Google Cloud BigQuery is a service that provides a relational database that is optimized for analytical workloads. It is a good choice for storing data that is relational in nature.
 
-NAIS provides BigQuery for storing and working with analytical datasets as a
+Nais provides BigQuery for storing and working with analytical datasets as a
 managed service through Google Cloud Platform. This page describes how to get
 started with BigQuery for your applications.
 
-## NAIS Application yaml manifest options
+## Nais Application yaml manifest options
 
 Full documentation of all available options can be found over at: [`spec.gcp.bigQueryDatasets[]`](../../workloads/application/reference/application-spec.md#gcpbigquerydatasets).
 

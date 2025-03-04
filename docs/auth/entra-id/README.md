@@ -9,13 +9,13 @@ conditional: [tenant, nav]
 
 We use Entra ID as our internal identity provider for authenticating and authorizing both employees and applications.
 
-NAIS provides support for declarative registration and configuration of Entra ID resources.
+Nais provides support for declarative registration and configuration of Entra ID resources.
 These cover these distinct use cases:
 
 ## Log in employees
 
 If you have an employee-facing application that requires authentication, you will need to integrate with Entra ID.
-NAIS simplifies this by providing a [login proxy](../explanations/README.md#login-proxy) with endpoints to easily handle login, logout, and user sessions.
+Nais simplifies this by providing a [login proxy](../explanations/README.md#login-proxy) with endpoints to easily handle login, logout, and user sessions.
 
 Your application is responsible for verifying that inbound requests have valid [tokens](../explanations/README.md#tokens).
 

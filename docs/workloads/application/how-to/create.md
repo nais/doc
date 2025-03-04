@@ -4,7 +4,7 @@ tags: [application, how-to]
 
 # Create application
 
-This how-to guide will show you how to create a NAIS manifest for your [application](../README.md).
+This how-to guide will show you how to create a Nais manifest for your [application](../README.md).
 
 ## Setup
 
@@ -52,7 +52,7 @@ You will likely want to add more configuration to your application manifest base
 
 ## Related pages
 
-:dart: [Build and deploy your application to NAIS](../../../build/how-to/build-and-deploy.md).
+:dart: [Build and deploy your application to Nais](../../../build/how-to/build-and-deploy.md).
 
 :dart: [Expose your application](./expose.md).
 
@@ -60,4 +60,4 @@ You will likely want to add more configuration to your application manifest base
 
 :books: [Full Application example](../reference/application-example.md).
 
-:bulb: [Good practices for NAIS workloads](../../explanations/good-practices.md).
+:bulb: [Good practices for Nais workloads](../../explanations/good-practices.md).

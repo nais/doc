@@ -6,8 +6,8 @@ conditional: [tenant, nav]
 
 !!! warning "FSS apps only"
 
-    KrakendD in NAIS is meant as an extra feature for teams using [Maskinporten](../README.md) to expose their APIs on-prem (FSS / Fagsystemsonen) to external consumers/partners.
-    Applications that run in GCP should use the [Maskinporten](../README.md) functionality directly. 
+    KrakendD in Nais is meant as an extra feature for teams using [Maskinporten](../README.md) to expose their APIs on-prem (FSS / Fagsystemsonen) to external consumers/partners.
+    Applications that run in GCP should use the [Maskinporten](../README.md) functionality directly.
 
 
 !!! info "Status: Beta"
@@ -22,7 +22,7 @@ conditional: [tenant, nav]
 
 [KrakenD](https://www.krakend.io/) is an open-source API Gateway that sits in front of your Maskinporten APIs and provides a single point of entry for API clients.
 
-## KrakenD in NAIS
+## KrakenD in Nais
 
 Each team can get their own instance of KrakenD deployed in their namespace. The KrakenD instance will be configured to require JWT tokens, and API endpoints can be added
 in a declarative manner using the [ApiEndpoints custom resource](https://github.com/nais/krakend/blob/main/config/samples/apiendpoints_max.yaml)
@@ -33,7 +33,7 @@ The KrakenD instances and config for exposing APIs are managed by the [krakend-o
 
 To get KrakenD installed in your namespace - the namespace must have a label `krakend.nais.io/enabled: "true"`.
 
-If you do not have permissions to add this label, please contact the NAIS team and we will add it for you.
+If you do not have permissions to add this label, please contact the Nais team and we will add it for you.
 After beta testing, we will add more automation to this process.
 
 When KrakenD is installed in your namespace you will get an ingress for your KrakenD instance at:
@@ -108,7 +108,6 @@ spec:
 
 !!! info "KrakenD requirements on paths, query params and headers"
     There are some strict requirements on specifying paths, query params and headers in KrakenD, see the [ApiEndpoints CRD](https://github.com/nais/krakend/blob/main/config/crd/bases/krakend.nais.io_apiendpoints.yaml) and corresponding [Krakend Doc](https://www.krakend.io/docs/endpoints/) for details.
-
 
 ## Use cases
 

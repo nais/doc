@@ -5,12 +5,12 @@ conditional: [tenant, nav]
 
 # TokenX
 
-TokenX is NAIS' own implementation of OAuth 2.0 Token Exchange.
+TokenX is Nais' own implementation of OAuth 2.0 Token Exchange.
 
 This allows internal applications to act on behalf of a citizen that originally authenticated with [ID-porten](../idporten/README.md),
 while maintaining the [zero trust](../../workloads/explanations/zero-trust.md) security model between applications throughout a request chain.
 
-NAIS provides support for declarative registration and configuration of TokenX resources.
+Nais provides support for declarative registration and configuration of TokenX resources.
 These cover two distinct use cases:
 
 ## Consume an API

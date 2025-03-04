@@ -43,7 +43,7 @@ See the respective identity provider pages for details on acquiring such tokens:
 
 ## Login proxy
 
-Reference documentation for the [login proxy](../explanations/README.md#login-proxy) provided by NAIS.
+Reference documentation for the [login proxy](../explanations/README.md#login-proxy) provided by Nais.
 Supported identity providers:
 
 - Entra ID for [logging in employees](../entra-id/how-to/login.md).
@@ -493,7 +493,7 @@ The following environment variables are available for your application to intera
 
 ## Login proxy
 
-Reference documentation for the [login proxy](../explanations/README.md#login-proxy) provided by NAIS.
+Reference documentation for the [login proxy](../explanations/README.md#login-proxy) provided by Nais.
 
 ### Enforce login
 

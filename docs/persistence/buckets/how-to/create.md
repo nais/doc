@@ -6,9 +6,9 @@ tags: [how-to, bucket]
 
 This guide will show you how to create a Google Cloud Storage bucket.
 
-## Add the bucket to the NAIS application manifest
+## Add the bucket to the Nais application manifest
 
-You create the bucket through the NAIS application manifest. 
+You create the bucket through the Nais application manifest.
 
 !!! warning "Use a globally unique name"
 
@@ -37,7 +37,7 @@ spec:
 
 ## Deploy your manifest
 
-Deploy your manifest either using [NAIS deploy action](../../../build/how-to/build-and-deploy.md), or manually:
+Deploy your manifest either using [Nais deploy action](../../../build/how-to/build-and-deploy.md), or manually:
 
 ```bash
 kubectl apply -f <PATH-TO-MANIFEST>

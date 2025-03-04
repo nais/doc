@@ -17,6 +17,6 @@ Using PosgreSQL with OpenSearch in this way gives you the same data durability a
 
 A very powerful pattern for OpenSearch is search and filter, also known as [faceted search](https://opensearch.org/docs/latest/aggregations/bucket/index/).
 
-NAIS offers OpenSearch via [Aiven](https://aiven.io/).
+Nais offers OpenSearch via [Aiven](https://aiven.io/).
 Aiven OpenSearch can be used by applications in all environments, but must be *defined* in a GCP cluster.
 All OpenSearch instances on Aiven, regardless of plan, are backed up but there are no disaster backups outside of the provider.

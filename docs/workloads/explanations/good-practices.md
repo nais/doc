@@ -4,9 +4,9 @@ tags: [workloads, explanation]
 
 # Good practices
 
-This document describes the different properties a NAIS application should have.
+This document describes the different properties a Nais application should have.
 
-In general, NAIS applications should be inspired by the [Twelve Factor App](https://12factor.net) manifesto.
+In general, Nais applications should be inspired by the [Twelve Factor App](https://12factor.net) manifesto.
 
 ## Use environment variables for configuration
 
@@ -28,7 +28,7 @@ See [envFrom ConfigMap](https://doc.nais.io/reference/application-spec/#envfromc
 
 ## Use enviroment variables exposed by the platform
 
-Some environment variables are made available to the pods by default when deployed on the NAIS platform, depending on which features are enabled. Examples of such features are tokenx, azurerator and aivenator. Avoid setting your own environment variables for these values and use pre-defined variables instead.
+Some environment variables are made available to the pods by default when deployed on the Nais platform, depending on which features are enabled. Examples of such features are tokenx, azurerator and aivenator. Avoid setting your own environment variables for these values and use pre-defined variables instead.
 
 This will ease or eliminate the need for configuration when the platform changes. Such changes in the platform will not necessarily be announced or communicated, as we expect the applications to use these variables and not create their own.
 
@@ -64,7 +64,7 @@ If you need to do performance testing or similar activities, then setting `limit
 
 The application should make sure it listens to the `SIGTERM` signal, and prepare for shutdown \(closing connections etc.\) upon receival.
 
-When running on NAIS \(or Kubernetes, actually\) your application must be able to handle being shut down at any given time. This is because the platform might have to reboot the node your application is running on \(e.g. because of a OS patch requiring restart\), and in that case will reschedule your application on a different node.
+When running on Nais \(or Kubernetes, actually\) your application must be able to handle being shut down at any given time. This is because the platform might have to reboot the node your application is running on \(e.g. because of a OS patch requiring restart\), and in that case will reschedule your application on a different node.
 
 To best be able to handle this in your application, it helps to be aware of the relevant parts of the termination lifecycle.
 

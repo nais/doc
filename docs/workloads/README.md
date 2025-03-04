@@ -4,7 +4,7 @@ tags: [workloads, explanation]
 
 # Workloads
 
-A core functionality of NAIS is enabling you to run the code you write.
+A core functionality of Nais is enabling you to run the code you write.
 
 We support two types of workloads, _applications_ and _jobs_.
 
@@ -32,4 +32,4 @@ We support two types of workloads, _applications_ and _jobs_.
 
 [:bulb: Good practices for your workloads](explanations/good-practices.md)
 
-[:bulb: Zero trust on NAIS](explanations/zero-trust.md)
+[:bulb: Zero trust on Nais](explanations/zero-trust.md)

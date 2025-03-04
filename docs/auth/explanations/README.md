@@ -595,7 +595,7 @@ verify the signature of your client assertions as proof of your client's identit
 
 ## Login proxy
 
-NAIS offers an opt-in _login proxy_ (also known as _Wonderwall_) that simplifies the process of authenticating end-users in your application.
+Nais offers an opt-in _login proxy_ (also known as _Wonderwall_) that simplifies the process of authenticating end-users in your application.
 
 <<gcp_only("Login proxy")>>
 
@@ -759,7 +759,7 @@ See the [Texas reference](../reference/README.md#texas) for API specifications a
 
 ## Login proxy
 
-NAIS offers an opt-in _login proxy_ (also known as [_Wonderwall_](https://github.com/nais/wonderwall)) that simplifies the process of authenticating end-users in your application.
+Nais offers an opt-in _login proxy_ (also known as [_Wonderwall_](https://github.com/nais/wonderwall)) that simplifies the process of authenticating end-users in your application.
 
 When enabled, the proxy exposes [endpoints](../reference/README.md#endpoints) under your application's ingress.
 

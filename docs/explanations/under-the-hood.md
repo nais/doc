@@ -4,7 +4,7 @@ tags: [explanation, nais]
 
 # Under the hood
 
-In this explanation, we will go through some of the underlying technologies we use to provide NAIS.
+In this explanation, we will go through some of the underlying technologies we use to provide Nais.
 
 ## Environment
 
