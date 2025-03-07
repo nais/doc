@@ -14,9 +14,7 @@ started with BigQuery for your applications.
 
 Full documentation of all available options can be found over at: [`spec.gcp.bigQueryDatasets[]`](../../workloads/application/reference/application-spec.md#gcpbigquerydatasets).
 
-Example of an application using a `nais.yaml` provisioned BigQuery Dataset can be found here: [testapp](https://github.com/nais/testapp/blob/master/pkg/bigquery/bigquery.go).
-
-## Caveats to be aware of
+## Caveats
 
 === "Automatic Deletion"
     Once a BigQuery Dataset is provisioned, it will not be automatically deleted - unless one explicitly sets [`spec.gcp.bigQueryDatasets[].cascadingDelete`](../../workloads/application/reference/application-spec.md#gcpbigquerydatasetscascadingdelete) to `true`.
@@ -27,8 +25,6 @@ Example of an application using a `nais.yaml` provisioned BigQuery Dataset can b
     The name of your Dataset must be unique within your team's GCP project.
 === "Updates/Immutability"
     The NAIS Manifest does not currently support updating any setting of existing BigQuery Datasets.
-    <br/>
-    Thus, if you want a read-connection to a already-created BigQuery Dataset, take a look at [nais/dp](https://github.com/nais/dp/#dp).
 === "K8s resource naming"
     Since Kubernetes does not permit underscores (`_`) in the names of any K8s resource, any underscores will be converted to hyphens (`-`).
 
