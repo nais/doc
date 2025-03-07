@@ -59,6 +59,8 @@ Databases should always be accessed using a personal account, and the access sho
     nais postgres prepare --all-privs <MYAPP>
     ```
 
+Read more about [Grants and Privileges](../explanations/grants-and-privileges.md).
+
 ## Granting temporary personal access
 
 !!! check "Step 1. Create database IAM user"
