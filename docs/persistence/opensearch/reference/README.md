@@ -11,7 +11,7 @@ The `spec.opensearch` configuration has two fields as you get exactly one OpenSe
 
 ```yaml
     spec:
-      opensearch:
+      openSearch:
         instance: <OpenSearchInstanceName>
         access: readwrite | read | write | admin
 ```
