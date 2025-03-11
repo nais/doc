@@ -204,7 +204,7 @@ The `kafka.properties` file can be used with the official Kafka command-line too
 ##### opensearch-secret.env file
 
 ```Properties
-OPEN_SEARCH_URI_="<uri>"
+OPEN_SEARCH_URI="<uri>"
 OPEN_SEARCH_PASSWORD="<password>"
 OPEN_SEARCH_USER="<username>"
 ```
