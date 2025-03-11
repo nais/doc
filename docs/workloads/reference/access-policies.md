@@ -16,7 +16,6 @@ The following hosts are by default accessible for every workload:
 | `login.microsoftonline.com` | 443  | TCP       |
 | `graph.microsoft.com`       | 443  | TCP       |
 | `aivencloud.com`            | 443  | TCP       |
-| `unleash.nais.io`           | 443  | TCP       |
 
 You do not need to specify these hosts in your access policies.
 
