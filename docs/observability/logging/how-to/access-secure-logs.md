@@ -8,9 +8,7 @@ Once secure logs for your team are [enabled](./enable-secure-logs.md), they will
 
 ## Access to secure logs for external participants
 
-It is also possible to give access to these logs to people outside of the team. The external participants currently could not use Single Sign On to read the others' secure logs. They should use Elasticsearch login on the Kibana login page. 
-
-To open access to your secure logs for people not in the team do the following:
+It is also possible to give access to these logs to people outside of the team by doing the following:
 
 ### Create an AD-group
 
@@ -36,11 +34,15 @@ Enheter i Nav som skal ha tilgang: <four digit department code>. E.g (2990 - IT-
 
 ![ticket](../../../assets/jira_secure_log.png)
 
-### Connect the AD group to your team in Kibana
+### Order the synchronization of this AD group to Entra
+
+Ask in #tech-azure or create a ticket for team Azure in Porten/JIRA.
+
+### Connect the Entra group synced from AD to your team in Kibana
 
 The logs your apps produces are linked with your [Nais team](../../../explanations/team.md).
-Administrators of Kibana will give the read rights to those logs to people from the created group.
-Ask for this in the [#kibana](https://nav-it.slack.com/archives/C7T8QHXD3) Slack channel; provide the name of the AD-group and the name of your team in the message.
+Administrators of Kibana will give the read rights to those logs to people from the synced Entra group.
+Ask for this in the [#kibana](https://nav-it.slack.com/archives/C7T8QHXD3) Slack channel; provide the name of the Entra-group and the name of your team in the message.
 
 ### Put people into the AD-group
 
