@@ -138,14 +138,16 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 
 {% endif %}
 {% if tenant() == "ldir" %}
-### test
+### non-prod
 
 #### Domains
 
-| domain                          | accessible from          | description                                                                                                       |
-| :------------------------------ | :----------------------- | :---------------------------------------------------------------------------------------------------------------- |
-| external.test.ldir.cloud.nais.io | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
-| test.ldir.cloud.nais.io          | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
+| domain                                   | accessible from          | description                                                                                                       |
+| :--------------------------------------- | :----------------------- | :---------------------------------------------------------------------------------------------------------------- |
+| external.non-prod.ldir.cloud.nais.io     | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| non-prod.landbruksdirektoratet.no        | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| non-prod.ldir.cloud.nais.io              | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
+| intern.non-prod.landbruksdirektoratet.no | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
 
 #### External/outbound IPs
 
@@ -158,7 +160,9 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 | domain                          | accessible from          | description                                                                                                       |
 | :------------------------------ | :----------------------- | :---------------------------------------------------------------------------------------------------------------- |
 | external.prod.ldir.cloud.nais.io | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| landbruksdirektoratet.no         | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
 | prod.ldir.cloud.nais.io          | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
+| intern.landbruksdirektoratet.no  | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
 
 #### External/outbound IPs
 
