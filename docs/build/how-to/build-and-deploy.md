@@ -61,10 +61,10 @@ It then deploys the [app.yaml](../../workloads/application/reference/application
 
 When this file is pushed to the `main` branch, the workflow will be triggered and you are all set.
 
-!!! info "Google Artifact Registry (GAR)"
+!!! info "Registry used by Nais"
 
-    The [nais/docker-build-push GitHub action](https://github.com/nais/docker-build-push) builds and pushes images to the _Google Artifact Registry_ (GAR).
+    The [nais/docker-build-push GitHub action](https://github.com/nais/docker-build-push) as well as the
+    [nais/login GitHub action](https://github.com/nais/login) works with a registry that is only meant for use within the Nais platform.
 
-    This is a registry managed by Nais and is the recommended way to store your container images for use in workloads on Nais.
-
-    We keep images that are deployed, as well as the last 10 versions for each image regardless of age. Versions older than 90 days are automatically deleted.
+    Usage of this registry for other purposes is not supported.
+    If you need to use the image outside of Nais, e.g. locally in a development environment, you should [push the image to another registry](./use-image-outside-nais.md).
