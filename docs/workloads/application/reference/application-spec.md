@@ -1442,7 +1442,7 @@ Availability: GCP<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 ### gcp.bigQueryDatasets
@@ -1996,7 +1996,7 @@ Availability: GCP<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 #### gcp.sqlInstances[].autoBackupHour
@@ -2042,7 +2042,7 @@ Value range: `0`-`23`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 #### gcp.sqlInstances[].cascadingDelete
@@ -2086,7 +2086,7 @@ Required: `false`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 #### gcp.sqlInstances[].collation
@@ -2129,7 +2129,7 @@ Required: `false`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 #### gcp.sqlInstances[].databases
@@ -2173,7 +2173,7 @@ Required: `false`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 ##### gcp.sqlInstances[].databases[].envVarPrefix
@@ -2217,7 +2217,7 @@ Required: `false`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 ##### gcp.sqlInstances[].databases[].name
@@ -2261,7 +2261,7 @@ Required: `true`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 ##### gcp.sqlInstances[].databases[].users
@@ -2304,7 +2304,7 @@ Required: `false`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 ###### gcp.sqlInstances[].databases[].users[].name
@@ -2348,7 +2348,7 @@ Pattern: `^[_a-zA-Z][-_a-zA-Z0-9]+$`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 #### gcp.sqlInstances[].diskAutoresize
@@ -2397,7 +2397,7 @@ Required: `false`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 #### gcp.sqlInstances[].diskAutoresizeLimit
@@ -2443,7 +2443,7 @@ Value range: `0`-`1000`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 #### gcp.sqlInstances[].diskSize
@@ -2489,7 +2489,7 @@ Minimum value: `10`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 #### gcp.sqlInstances[].diskType
@@ -2533,7 +2533,7 @@ Allowed values: `HDD`, `SSD`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 #### gcp.sqlInstances[].flags
@@ -2586,7 +2586,7 @@ Required: `false`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 ##### gcp.sqlInstances[].flags[].name
@@ -2629,7 +2629,7 @@ Required: `true`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 ##### gcp.sqlInstances[].flags[].value
@@ -2672,7 +2672,7 @@ Required: `true`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 #### gcp.sqlInstances[].highAvailability
@@ -2715,7 +2715,7 @@ Required: `false`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 #### gcp.sqlInstances[].insights
@@ -2758,7 +2758,7 @@ Required: `false`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 ##### gcp.sqlInstances[].insights.enabled
@@ -2802,7 +2802,7 @@ Default value: `true`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 ##### gcp.sqlInstances[].insights.queryStringLength
@@ -2847,7 +2847,7 @@ Value range: `256`-`4500`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 ##### gcp.sqlInstances[].insights.recordApplicationTags
@@ -2890,7 +2890,7 @@ Required: `false`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 ##### gcp.sqlInstances[].insights.recordClientAddress
@@ -2933,7 +2933,7 @@ Required: `false`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 #### gcp.sqlInstances[].maintenance
@@ -2976,7 +2976,7 @@ Required: `false`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 ##### gcp.sqlInstances[].maintenance.day
@@ -3018,7 +3018,7 @@ Value range: `1`-`7`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 ##### gcp.sqlInstances[].maintenance.hour
@@ -3060,7 +3060,7 @@ Value range: `0`-`23`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 #### gcp.sqlInstances[].name
@@ -3103,7 +3103,7 @@ Required: `false`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 #### gcp.sqlInstances[].pointInTimeRecovery
@@ -3146,7 +3146,7 @@ Required: `false`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 #### gcp.sqlInstances[].retainedBackups
@@ -3196,7 +3196,7 @@ Value range: `1`-`365`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 #### gcp.sqlInstances[].tier
@@ -3244,7 +3244,7 @@ Pattern: `db-.+`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 #### gcp.sqlInstances[].transactionLogRetentionDays
@@ -3293,7 +3293,7 @@ Value range: `1`-`7`<br />
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 #### gcp.sqlInstances[].type
@@ -3305,7 +3305,7 @@ Relevant information:
 
 Type: `enum`<br />
 Required: `true`<br />
-Allowed values: `POSTGRES_11`, `POSTGRES_12`, `POSTGRES_13`, `POSTGRES_14`, `POSTGRES_15`, `POSTGRES_16`, `POSTGRES_17`<br />
+Allowed values: `POSTGRES_12`, `POSTGRES_13`, `POSTGRES_14`, `POSTGRES_15`, `POSTGRES_16`, `POSTGRES_17`<br />
 
 ??? example
     ``` yaml
@@ -3341,7 +3341,7 @@ Allowed values: `POSTGRES_11`, `POSTGRES_12`, `POSTGRES_13`, `POSTGRES_14`, `POS
             retainedBackups: 14
             tier: db-f1-micro
             transactionLogRetentionDays: 3
-            type: POSTGRES_12
+            type: POSTGRES_17
     ```
 
 {%- if tenant() == "nav" %}

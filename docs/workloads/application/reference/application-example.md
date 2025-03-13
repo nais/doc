@@ -174,7 +174,7 @@ spec:
       retainedBackups: 14
       tier: db-f1-micro
       transactionLogRetentionDays: 3
-      type: POSTGRES_12
+      type: POSTGRES_17
   idporten:
     enabled: true
     sidecar:
