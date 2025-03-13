@@ -7,9 +7,9 @@ tags: [how-to, build, image]
 When using the [nais/docker-build-push](https://github.com/nais/docker-build-push) action, the image is pushed to a registry that is meant for use within the Nais platform.
 If you need to use the image outside of Nais, e.g. locally in a development environment, you should push the image to another registry.
 
-## Push to Github Container Registry
+## Push to GitHub Container Registry
 
-After the image is built by `nais/docker-build-push`, you can push it to the Github Container Registry (GHCR) by adding the following step to your workflow:
+After the image is built by `nais/docker-build-push`, you can push it to the GitHub Container Registry (GHCR) by adding the following step to your workflow:
 
 - `packages: write` permission is required to push images to the GHCR.
 - Step to retag the image after it has been built.
@@ -37,7 +37,7 @@ jobs:
           team: <MY-TEAM> # Replace
       - name: Push image to ghcr.io
         run: |
-          # Log in to the Github Container Registry
+          # Log in to the GitHub Container Registry
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           # Tag the image, e.g. ghcr.io/owner/repo:latest
           docker buildx imagetools create -t ghcr.io/${{ github.repository }}:latest ${{ steps.docker-build-push.outputs.image }}

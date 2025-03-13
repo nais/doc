@@ -2,9 +2,9 @@
 tags: [build, deploy, how-to]
 ---
 
-# Build and deploy with Github Actions
+# Build and deploy with GitHub Actions
 
-This how-to guide shows you how to build and deploy your application using [Github Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions) and the Nais deploy action.
+This how-to guide shows you how to build and deploy your application using [GitHub Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions) and the Nais deploy action.
 
 ## Prerequisites
 
@@ -64,7 +64,7 @@ When this file is pushed to the `main` branch, the workflow will be triggered an
 !!! info "Registry used by Nais"
 
     The [nais/docker-build-push GitHub action](https://github.com/nais/docker-build-push) as well as the
-    [nais/login GitHub action](https://github.com/nais/login) works with a registry that is only meant for use within the Nais platform.
+    [nais/login GitHub action](https://github.com/nais/login) work with a registry that is only meant for use within the Nais platform.
 
     Usage of this registry for other purposes is not supported.
     If you need to use the image outside of Nais, e.g. locally in a development environment, you should [push the image to another registry](./use-image-outside-nais.md).
