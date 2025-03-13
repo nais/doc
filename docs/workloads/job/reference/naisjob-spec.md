@@ -256,9 +256,8 @@ Required: `false`<br />
 Permissions contains a set of permissions that are granted to the given application.
 Currently only applicable for Azure AD clients.
 
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration#fine-grained-access-control](https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration#fine-grained-access-control)
+!!! failure "Deprecated"
+    This feature is deprecated, preserved only for backwards compatibility.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -296,9 +295,8 @@ Required: `false`<br />
 ###### accessPolicy.inbound.rules[].permissions.roles
 Roles is a set of custom permission roles that are granted to a given application.
 
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration#custom-roles](https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration#custom-roles)
+!!! failure "Deprecated"
+    This feature is deprecated, preserved only for backwards compatibility.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -336,9 +334,8 @@ Required: `false`<br />
 ###### accessPolicy.inbound.rules[].permissions.scopes
 Scopes is a set of custom permission scopes that are granted to a given application.
 
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration#custom-scopes](https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration#custom-scopes)
+!!! failure "Deprecated"
+    This feature is deprecated, preserved only for backwards compatibility.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -723,6 +720,7 @@ Default value: `false`<br />
           enabled: true
     ```
 
+{%- if tenant() == "nav" %}
 #### azure.application.tenant
 Tenant targets a specific tenant for the Entra ID application.
 Only works in the development clusters. Only use this if you have a specific reason to do so.
@@ -737,6 +735,7 @@ Required: `false`<br />
 Immutable: `true`<br />
 Allowed values: `nav.no`, `trygdeetaten.no`<br />
 
+{%- endif %}
 ## backoffLimit
 Specify the number of retries before considering a Naisjob as failed
 
