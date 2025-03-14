@@ -3640,7 +3640,7 @@ Pattern: `^\d+[KMG]i$`<br />
 Your application's Docker image location and tag.
 
 Type: `string`<br />
-Required: `true`<br />
+Required: `false`<br />
 
 ??? example
     ``` yaml

@@ -3112,7 +3112,7 @@ Allowed values: `POSTGRES_12`, `POSTGRES_13`, `POSTGRES_14`, `POSTGRES_15`, `POS
 Your Naisjob's Docker image location and tag.
 
 Type: `string`<br />
-Required: `true`<br />
+Required: `false`<br />
 
 ??? example
     ``` yaml
