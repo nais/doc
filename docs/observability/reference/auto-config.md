@@ -135,4 +135,4 @@ The following destinations are available:
 * `elastic-apm`
 {% endif %}
 
-Default destination for each environment can be found in the [environments overview](../../../workloads/reference/environments.md).
+Default destination for each environment can be found in the [environments overview](../../workloads/reference/environments.md).
