@@ -4605,7 +4605,7 @@ Log destinations for where to forward application logs for persistent storage. L
 
 Relevant information:
 
-* [https://doc.<<tenant()>>.cloud.nais.io/observability/logging/#log-destinations](https://doc.<<tenant()>>.cloud.nais.io/observability/logging/#log-destinations)
+* [https://doc.<<tenant()>>.cloud.nais.io/observability/logging/reference/destinations/#destinations](https://doc.<<tenant()>>.cloud.nais.io/observability/logging/reference/destinations/#destinations)
 
 Type: `array`<br />
 Required: `false`<br />
