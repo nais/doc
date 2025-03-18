@@ -115,3 +115,24 @@ A full list of environment variables that can be used to configure the OpenTelem
 * [:octicons-link-external-24: OTLP Exporter Configuration](https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/)
 
 [OTLP is the OpenTelemetry Protocol](https://opentelemetry.io/docs/specs/otel/protocol/exporter/), and is the protocol used to send telemetry data to Prometheus, Grafana Tempo, and Grafana Loki.
+
+## Destinations
+
+If you need to override where telemetry data is stored, you can do so with the following configuration in your `nais.yaml`:
+
+```yaml
+spec:
+  observability:
+    telemetry:
+      destinations:
+        - grafana-lgtm
+```
+
+The following destinations are available:
+
+* `grafana-lgtm`
+{% if tenant() == "nav" %}
+* `elastic-apm`
+{% endif %}
+
+Default destination for each environment can be found in the [environments overview](../../../workloads/reference/environments.md).

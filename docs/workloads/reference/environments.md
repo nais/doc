@@ -34,6 +34,13 @@ See [explanation for exposing application][expose-app] for more information.
 
 Kubectl access to the cluster is available through [naisdevice](../../operate/naisdevice/README.md). You can access all namespaces in the cluster, but you can only modify resources in your team's namespace.
 
+#### Observability
+
+| data                 | default        |
+| :------------------- | :------------- |
+| logs (stdout)        | `elastic`      |
+| auto-instrumentation | `grafana-lgtm` |
+
 ### prod-gcp
 
 #### Ingress domains
@@ -56,6 +63,13 @@ See [explanation for exposing application][expose-app] for more information.
 
 Kubectl access to the cluster is available through [naisdevice](../../operate/naisdevice/README.md). You can only read or modify resources in your team's namespace.
 
+#### Observability
+
+| data                 | default        |
+| :------------------- | :------------- |
+| logs (stdout)        | `elastic`      |
+| auto-instrumentation | `grafana-lgtm` |
+
 ## On-prem
 
 !!! warning
@@ -75,6 +89,13 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 
 Kubectl access to the cluster is available through [naisdevice](../../operate/naisdevice/README.md). You can access all namespaces in the cluster, but you can only modify resources in your team's namespace.
 
+#### Observability
+
+| data                 | default        |
+| :------------------- | :------------- |
+| logs (stdout)        | `elastic`      |
+| auto-instrumentation | `grafana-lgtm` |
+
 ### prod-fss
 
 #### Ingress domains
@@ -89,6 +110,13 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 #### Kubectl access
 
 Kubectl access to the cluster is available through [naisdevice](../../operate/naisdevice/README.md) with just in time access ([jita](../../operate/naisdevice/explanations/jita.md)). You can only read or modify  resources in your team's namespace.
+
+#### Observability
+
+| data                 | default        |
+| :------------------- | :------------- |
+| logs (stdout)        | `elastic`      |
+| auto-instrumentation | `grafana-lgtm` |
 
 {% endif %}
 {% if tenant() == "ssb" %}
@@ -107,6 +135,13 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 
 - 35.228.178.170
 
+#### Observability
+
+| data                 | default      |
+| :------------------- | :----------- |
+| logs (stdout)        | `cloud-logs` |
+| auto-instrumentation | Not enabled  |
+
 ### prod
 
 #### Domains
@@ -121,6 +156,13 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 #### External/outbound IPs
 
 - 34.88.222.166
+
+#### Observability
+
+| data                 | default      |
+| :------------------- | :----------- |
+| logs (stdout)        | `cloud-logs` |
+| auto-instrumentation | Not enabled  |
 {% endif %}
 {% if tenant() == "atil" %}
 ### dev
@@ -135,6 +177,13 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 #### External/outbound IPs
 
 - 34.88.9.217
+
+#### Observability
+
+| data                 | default        |
+| :------------------- | :------------- |
+| logs (stdout)        | `loki`         |
+| auto-instrumentation | `grafana-lgtm` |
 
 {% endif %}
 {% if tenant() == "ldir" %}
@@ -153,12 +202,19 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 
 - 34.88.208.138
 
+#### Observability
+
+| data                 | default        |
+| :------------------- | :------------- |
+| logs (stdout)        | `loki`         |
+| auto-instrumentation | `grafana-lgtm` |
+
 ### prod
 
 #### Domains
 
-| domain                          | accessible from          | description                                                                                                       |
-| :------------------------------ | :----------------------- | :---------------------------------------------------------------------------------------------------------------- |
+| domain                           | accessible from          | description                                                                                                       |
+| :------------------------------- | :----------------------- | :---------------------------------------------------------------------------------------------------------------- |
 | external.prod.ldir.cloud.nais.io | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
 | landbruksdirektoratet.no         | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
 | prod.ldir.cloud.nais.io          | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
@@ -168,20 +224,34 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 
 - 34.88.126.246
 
+#### Observability
+
+| data                 | default        |
+| :------------------- | :------------- |
+| logs (stdout)        | `loki`         |
+| auto-instrumentation | `grafana-lgtm` |
+
 {% endif %}
 {% if tenant() == "test-nais" %}
 ### sandbox
 
 #### Domains
 
-| domain                          | accessible from          | description                                                                                                       |
-| :------------------------------ | :----------------------- | :---------------------------------------------------------------------------------------------------------------- |
+| domain                                   | accessible from          | description                                                                                                       |
+| :--------------------------------------- | :----------------------- | :---------------------------------------------------------------------------------------------------------------- |
 | external.sandbox.test-nais.cloud.nais.io | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
 | sandbox.test-nais.cloud.nais.io          | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
 
 #### External/outbound IPs
 
 - 35.228.243.95
+
+#### Observability
+
+| data                 | default        |
+| :------------------- | :------------- |
+| logs (stdout)        | `loki`         |
+| auto-instrumentation | `grafana-lgtm` |
 
 {% endif %}
 
