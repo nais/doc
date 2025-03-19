@@ -80,3 +80,57 @@ This guide will show you how to enable leader election for your application.
 ## Using leader election in your application (Server Sent Events API)
 
 :construction_worker: Help Wanted! Please contribute with examples on how to use the Server Sent Events API.
+
+
+=== "Kotlin with Spring"
+
+    WebFlux to create a subscription, and an ApplicationEvent to inform about changes.
+
+    ```kotlin
+    @Service
+    class LederUtvelger :ApplicationListener<LeaderChangedEvent> {
+    
+        private val hostname = InetAddress.getLocalHost().hostName
+        var erLeder : Boolean = false
+    
+        override fun onApplicationEvent(event: LeaderChangedEvent) {
+            erLeder = event.leder == hostname
+        }
+    }
+    
+    
+    @Component
+    class SSEHandler(builder: Builder, @Value("\${elector.sse.url}") uri: URI, publisher: ApplicationEventPublisher) {
+        init {
+            builder.build()
+                .get()
+                .uri(uri)
+                .retrieve()
+                .bodyToFlux(LederUtvelgerRespons::class.java).subscribe {
+                publisher.publishEvent(LeaderChangedEvent(this,it.name))
+            }
+        }
+        data class LederUtvelgerRespons(val name: String, val last_update: LocalDateTime)
+        class LeaderChangedEvent(source: Any, val leder: String) : ApplicationEvent(source)
+    }
+    ```
+
+
+=== "Python with sseclient"
+
+    Using `sseclient` to subscribe to the leader election events, and passing them to a handler function.
+    Probably needs to be run in a separate thread.
+
+    ```python
+    import os
+    from typing import Callable
+    
+    from sseclient import SSEClient
+    
+    
+    def subscribe_leader_election(handler: Callable[[str], None]):
+        url = os.getenv("ELECTOR_SSE_URL")
+        messages = SSEClient(url)
+        for msg in messages:
+            handler(msg)
+    ```
