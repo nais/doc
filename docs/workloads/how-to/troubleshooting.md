@@ -182,9 +182,9 @@ When the SQLInstance is not ready, either because it is still being created, or 
 Possible causes and how to resolve them:
 
  - An existing certificate blocks creation of a new one.  
-   See [Certification sync issues](./postgres/how-to/certification-sync-issues.md) for more information.
+   See [Certification sync issues](../../persistence/postgres/how-to/certification-sync-issues.md) for more information.
  - Attempting to assign a private IP to an existing Cloud SQL instance. 
-   See [Failing to assign private IP to an existing Cloud SQL instance](./postgres/how-to/existing-instance-private-ip.md) for more information.
+   See [Failing to assign private IP to an existing Cloud SQL instance](../../persistence/postgres/how-to/existing-instance-private-ip.md) for more information.
 
 ### Step 4. Ask for help
 
