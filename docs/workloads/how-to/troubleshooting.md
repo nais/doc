@@ -179,14 +179,12 @@ Typically, you should inspect the `Status` parts of the output.
 
 When the SQLInstance is not ready, either because it is still being created, or some modification is being made to it, the `sqluser` and `sqlsslcert` resources will not be updated, which again blocks creation of secrets.
 
-##### `Cannot assign a private IP address for an existing Cloud SQL instance in a Shared VPC` 
+Possible causes and how to resolve them:
 
-An [SQLInstance](../../persistence/postgres/explanations/cloud-sql-instance.md) created before 2024-04-18 will have a public IP address, and can not be updated to have a private IP address.
-This error occurs when the SQLInstance resource in the cluster has been deleted, without the corresponding instance actually being deleted in GCP.
-In this case, nais is unable to detect that the instance has a public IP, and will attempt to assign a private IP, which is not possible.
-
-The solution is to edit the SQLInstance resource in the cluster and removing the `ipConfiguration` stanzas: `kubectl edit sqlinstance <instancename>`.
-After a few minutes the issue will be resolved and the secrets will be created.
+ - An existing certificate blocks creation of a new one.  
+   See [Certification sync issues](./postgres/how-to/certification-sync-issues.md) for more information.
+ - Attempting to assign a private IP to an existing Cloud SQL instance. 
+   See [Failing to assign private IP to an existing Cloud SQL instance](./postgres/how-to/existing-instance-private-ip.md) for more information.
 
 ### Step 4. Ask for help
 

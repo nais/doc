@@ -1,6 +1,6 @@
 ---
 title: Certification sync issues
-tags: [postgres, certificate, how-to]
+tags: [postgres, certificate, how-to, troubleshooting, debugging]
 ---
 
 If you have deleted your application and recreate it, there might be an issue that your new app will not be able to create a client certificate because the old one still exists.
