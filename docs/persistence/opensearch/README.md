@@ -19,4 +19,4 @@ A very powerful pattern for OpenSearch is search and filter, also known as [face
 
 Nais offers OpenSearch via [Aiven](https://aiven.io/).
 Aiven OpenSearch can be used by applications in all environments, but must be *defined* in a GCP cluster.
-All OpenSearch instances on Aiven, regardless of plan, are backed up but there are no disaster backups outside of the provider.
+All OpenSearch instances on Aiven, regardless of plan, are backed up but there are no disaster backups outside of the provider. The serviceuser for any particular OpenSearch instance gets rotated regularly by the platform.
