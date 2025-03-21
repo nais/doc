@@ -20,7 +20,12 @@ conditional: [tenant, nav]
 
 === "Windows"
     1. Uninstall _Kolide_ from Apps & Features 
-    2. (Optionally) Uninstall _WireGuard_ from Apps & Features
+    2. Depending on agent version installed, the uninstall will leave the prior launcher database in either `C:\Program Files\Kolide\Launcher-kolide-k2` or `C:\ProgramData\Kolide\Launcher-kolide-k2`. For a complete removal, these directories can be deleted through Windows Explorer or from an Admin PowerShell window with the following commands:
+
+    - `Remove-Item -LiteralPath "C:\Program Files\Kolide\Launcher-kolide-k2" -Force -Recurse`
+    - `Remove-Item -LiteralPath "C:\ProgramData\Kolide\Launcher-kolide-k2" -Force -Recurse`
+
+    3. (Optionally) Uninstall _WireGuard_ from Apps & Features
 
 === "Ubuntu"
     1. Stop and remove Kolide and the related launch mechanisms
