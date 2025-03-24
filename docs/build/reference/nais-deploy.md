@@ -24,6 +24,8 @@ The available configuration options for the Nais deploy GitHub action.
 | VAR                  |                        | Comma-separated list of template variables in the form `key=value`. Will overwrite any identical template variable in the `VARS` file.                                                                                      |
 | VARS                 | `/dev/null`            | File containing template variables. Will be interpolated with the `$RESOURCE` file. Must be JSON or YAML format.                                                                                                            |
 | WAIT                 | `true`                 | Block until deployment has completed with either `success`, `failure` or `error` state.                                                                                                                                     |
+| WORKLOAD_IMAGE       |                        | Use this image in a companion Image resource.                                                                                                                                                                               | 
+| WORKLOAD_NAME        | (auto-detect)          | Name of workload.                                                                                                                                                                                                           | 
 
 Note that `OWNER` and `REPOSITORY` corresponds to the two parts of a full repository identifier.
 If that name is `navikt/myapplication`, those two variables should be set to `navikt` and `myapplication`, respectively.
