@@ -119,19 +119,27 @@ Add the following content to the file, and insert the appropriate values in the 
           contents: read
           id-token: write
         steps:
-        - uses: actions/checkout@v4
-        - name: Build and push image and SBOM to OCI registry
-          uses: nais/docker-build-push@v0
-          id: docker-build-push
-          with:
-            team: <MY-TEAM> # Replace
-        - name: Deploy to Nais
-          uses: nais/deploy/actions/deploy@v2
-          env:
-            CLUSTER: <MY_ENV> # Replace (1)
-            RESOURCE: .nais/app.yaml # This points to the file we created in the previous step
-            VAR: image=${{ steps.docker-build-push.outputs.image }}
-            TELEMETRY: ${{ steps.docker-build-push.outputs.telemetry }}
+          - uses: actions/checkout@v4
+            with:
+              fetch-depth: 0 # Fetch all history for what-changed action
+          - name: Determine what to do
+            id: changed-files
+            uses: "nais/what-changed@main"
+            with:
+              files: .nais/app.yaml # This points to the file we created in the previous step
+          - name: Build and push image and SBOM to OCI registry
+            if: steps.changed-files.outputs.changed != 'only-inputs'  # This skips the build if only the app.yaml has changed
+            uses: nais/docker-build-push@v0
+            id: docker-build-push
+            with:
+              team: <MY-TEAM> # Replace
+          - name: Deploy to Nais
+            uses: nais/deploy/actions/deploy@v2
+            env:
+              CLUSTER: <MY_ENV> # Replace (1)
+              RESOURCE: .nais/app.yaml # same list as in changed-files step above
+              WORKLOAD_IMAGE: ${{ steps.docker-build-push.outputs.image }}
+              TELEMETRY: ${{ steps.docker-build-push.outputs.telemetry }}
     ```
 
     1.  Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../workloads/reference/environments.md).

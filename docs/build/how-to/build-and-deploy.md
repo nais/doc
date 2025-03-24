@@ -40,7 +40,15 @@ This how-to guide shows you how to build and deploy your application using [GitH
           id-token: write
         steps:
           - uses: actions/checkout@v4
+            with:
+              fetch-depth: 0 # Fetch all history for what-changed action
+          - name: Determine what to do
+            id: changed-files
+            uses: "nais/what-changed@main"
+            with:
+              files: .nais/app.yaml #, topic.yaml, statefulset.yaml, etc.
           - name: Build and push image and SBOM to OCI registry
+            if: steps.changed-files.outputs.changed != 'only-inputs'
             uses: nais/docker-build-push@v0
             id: docker-build-push
             with:
@@ -49,17 +57,18 @@ This how-to guide shows you how to build and deploy your application using [GitH
             uses: nais/deploy/actions/deploy@v2
             env:
               CLUSTER: <MY-CLUSTER> # Replace (1)
-              RESOURCE: .nais/app.yaml #, topic.yaml, statefulset.yaml, etc.
-              VAR: image=${{ steps.docker-build-push.outputs.image }}
+              RESOURCE: .nais/app.yaml # same list as in changed-files step above
+              WORKLOAD_IMAGE: ${{ steps.docker-build-push.outputs.image }}
               TELEMETRY: ${{ steps.docker-build-push.outputs.telemetry }}
     ```
 
     1.  Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../../workloads/reference/environments.md).
 
 This example workflow is a minimal example that builds, signs, and pushes your container image to the image registry.
-It then deploys the [app.yaml](../../workloads/application/reference/application-spec.md), injecting the image tag from the previous step.
+It then deploys the [app.yaml](../../workloads/application/reference/application-spec.md).
+In this example, the workload image is specified separately, and you don't need to have the `image` field in your workload manifest.
 
-When this file is pushed to the `main` branch, the workflow will be triggered and you are all set.
+When this file is pushed to the `main` branch, the workflow will be triggered, and you are all set.
 
 !!! info "Registry used by Nais"
 
