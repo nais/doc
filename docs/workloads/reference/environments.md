@@ -176,7 +176,7 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 
 #### External/outbound IPs
 
-- 34.88.9.217
+- 34.88.111.48
 
 #### Observability
 
