@@ -25,7 +25,7 @@ This how-to guide shows you how to build and deploy your application using [GitH
 
 !!! note ".github/workflows/main.yml"
 
-    ```yaml hl_lines="27 33-34"
+    ```yaml hl_lines="27 31-32"
     name: Build and deploy
     on:
       push:
