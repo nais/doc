@@ -118,6 +118,7 @@ Add the following content to the file, and insert the appropriate values in the 
         permissions:
           contents: read
           id-token: write
+          actions: read
         steps:
           - uses: actions/checkout@v4
             with:

@@ -38,6 +38,7 @@ This how-to guide shows you how to build and deploy your application using [GitH
         permissions:
           contents: read
           id-token: write
+          actions: read
         steps:
           - uses: actions/checkout@v4
             with:
