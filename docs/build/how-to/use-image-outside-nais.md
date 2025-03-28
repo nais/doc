@@ -5,7 +5,13 @@ tags: [how-to, build, image]
 # Using the image outside of Nais
 
 When using the [nais/docker-build-push](https://github.com/nais/docker-build-push) action, the image is pushed to a registry that is meant for use within the Nais platform.
-If you need to use the image outside of Nais, e.g. locally in a development environment, you should push the image to another registry.
+If you wish to use this image for anything else than deploying with the limitations (on e.g. docker tags) that come with [nais/docker-build-push action](https://github.com/nais/docker-build-push), you should push the image to a new repository.
+
+!!! Beware
+    With the [nais/docker-build-push action](https://github.com/nais/docker-build-push), known limitations include (but are not limited to)
+    - Controlling the tag of the pushed and deployed image
+    - Download the image for other uses (such as `docker-compose`) w/the out-of-the-box nais supported tooling
+
 
 ## Push to GitHub Container Registry
 
