@@ -83,10 +83,6 @@ Your application should handle those connections before exiting.
 
 If not set, the platform will automatically add a `preStop`-hook that pauses the termination sufficiently that e.g. the ingress controller has time to update it's list of endpoints \(thus avoid sending traffic to a application while terminating\).
 
-The default `preStop`-hook is implemented by calling `sleep 5`.
-The `sleep` binary needs to be on `PATH` in your container for this to work.
-If this is not the case \(for example if you use `distroless` baseimages\), you will see warnings in the log when your container is stopping.
-
 ## Exposes relevant application metrics
 
 The application should be instrumented using [Prometheus](https://prometheus.io/docs/instrumenting/clientlibs/), exposing the relevant application metrics. See the [metrics documentation][metrics] for more info.
