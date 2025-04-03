@@ -276,9 +276,6 @@ spec:
   redirects:
   - from: https://myapplication-old.nav.no
     to: https://myapplication.nav.no
-  redis:
-  - access: readwrite
-    instance: cache
   replicas:
     cpuThresholdPercentage: 50
     disableAutoScaling: true
