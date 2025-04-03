@@ -46,7 +46,7 @@ Nais does not collect application trace data automatically, but it provides the 
 
 The preferred way to get started with tracing is to enable auto-instrumentation for your application. This will automatically collect traces and send them to the correct place using the OpenTelemetry Agent.
 
-This is the easiest way to get started with tracing, as it requires little to no effort on the part of the team developing the application and provides instrumentation for popular libraries, frameworks and external services such as PostgreSQL, Redis, Valkey, Kafka and HTTP clients.
+This is the easiest way to get started with tracing, as it requires little to no effort on the part of the team developing the application and provides instrumentation for popular libraries, frameworks and external services such as PostgreSQL, Valkey, Kafka and HTTP clients.
 
 [:dart: Get started with auto-instrumentation](../how-to/auto-instrumentation.md)
 
