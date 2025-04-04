@@ -101,7 +101,7 @@ Example configuration selecting which logs go to secure logs
                 <maxIndex>1</maxIndex>
             </rollingPolicy>
             <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-                <maxFileSize>128MB</maxFileSize>
+                <maxFileSize>64MB</maxFileSize>
             </triggeringPolicy>
             <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
             <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
