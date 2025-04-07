@@ -18,7 +18,7 @@ spec:
 
 ## Environment variables
 
-Every `<ValkeyInstanceName>` will give three environment variables for the applications to use:
+Every `<ValkeyInstanceName>` will be given a handfull of environment variables for the applications to use:
 
 | Key                                    | Value                                                                                                                                           |
 |----------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -27,6 +27,16 @@ Every `<ValkeyInstanceName>` will give three environment variables for the appli
 | `VALKEY_PORT_<ValkeyInstanceName>`     | The port for the Valkey instance. <br/>Example:  `26483`                                                                                        |
 | `VALKEY_USERNAME_<ValkeyInstanceName>` | The username to use when connecting.                                                                                                            |
 | `VALKEY_PASSWORD_<ValkeyInstanceName>` | The password to use when connecting.                                                                                                            |
+
+To make the usage of Valkey backward compatible for libraries not supporting Valkeys, but only Redis, we also supply these environment variables:
+
+| Key                                  | Value                                                                                                                                       |
+|--------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| `REDIS_URI_<RedisInstanceName>`      | The URI for the Redis instance, typically with a `redis` scheme. <br/>Example:  `rediss://redis-team-sessions-nav-dev.aivencloud.com:26483` |
+| `REDIS_HOST_<RedisInstanceName>`     | The host for the Redis instance. <br/>Example:  `redis-team-sessions-nav-dev.aivencloud.com`                                                |
+| `REDIS_PORT_<RedisInstanceName>`     | The port for the Redis instance. <br/>Example:  `26483`                                                                                     |
+| `REDIS_USERNAME_<RedisInstanceName>` | The username to use when connecting.                                                                                                        |
+| `REDIS_PASSWORD_<RedisInstanceName>` | The password to use when connecting.                                                                                                        |
 
 ## Advanced configuration
 
