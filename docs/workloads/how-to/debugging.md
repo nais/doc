@@ -60,6 +60,24 @@ Set `JAVA_OPTS` to `-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp`
 
 The `/tmp` volume is maintained through restarts, so if your app is restarting because of OOM, the heap dumps can be retrieved from there.
 
+### Triggering with JMX
+
+You can monitor and debug memory usage you can use remote JMX with JConsole or VisualVM. 
+
+Enable remote JMX by adding this to your application manifest:
+```
+env:
+  - name: JDK_JAVA_OPTIONS
+    value: -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9999 -Dcom.sun.management.jmxremote.authenticate=false
+      -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false
+      -Djava.rmi.server.hostname=localhost -Dcom.sun.management.jmxremote.rmi.port=9999
+```
+
+Set up port-forwarding to port `9999` on one of the pods:
+```kubectl port-forward pod/[POD] 9999:9999```
+
+Run `jconsole`/`visualvm` with `localhost:9999` without authentication.
+
 ### Manually on-demand
 
 You can use `jmap` to create a heap dump of a running Java process.
