@@ -12,7 +12,6 @@ Keep in mind that in the kubernetes documentation, the term "application" is a m
 - [Troubleshoot Applications](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application/)
 - [Debug Running Pods](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-running-pod/)
 
-
 ## `kubectl` debug
 
 You can run an [ephemeral container](https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers/) in a pod using the `kubectl debug` command.
@@ -28,6 +27,17 @@ Once the ephemeral container is created, you will be presented with a shell prom
 !!! info "image capabilities"
 
     The specified `--image` cant have more capabilities than the pod it is attached to and must be able to run as non-root.
+
+### Mounting /tmp
+
+In order for the debug container to access the same /tmp volume as the main container you need to specify a volume mount like this:
+
+```
+kubectl debug -it my-pod-name \
+  --profile=restricted \
+  --image europe-north1-docker.pkg.dev/nais-io/nais/images/debug:latest \
+  --custom=<(echo '{"volumeMounts":[{"mountPath":"/tmp","name":"writable-tmp"}]}')
+```
 
 ## `kubectl` attach
 
@@ -55,6 +65,7 @@ The `/tmp` volume is maintained through restarts, so if your app is restarting b
 You can use `jmap` to create a heap dump of a running Java process.
 
 Find a pod and exec `jmap` in it (assuming PID 1 is the Java process):
+
 ```
 kubectl get pods -l app=[app-name]
 kubectl exec [pod-name] -- jmap -dump:all,file=/tmp/heap.hprof 1
