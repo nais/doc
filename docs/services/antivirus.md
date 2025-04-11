@@ -9,7 +9,7 @@ tags: [explanation, services]
 
 [ClamAV][clamav] is an open source antivirus engine for detecting trojans, viruses, malware and other malicious threats. It is used in a variety of situations including file scanning, email scanning, web scanning and end point security.
 
-This feature is installed on all nais clusters. clamAV runs in its own pod with a separate pod running the REST api applications use. There is a service set up so all applications will be able to talk to the REST api using [http://clamav.nais-system.svc.nais.local/scan](http://clamav.nais-system.svc.nais.local/scan) for on-prem and [http://clamav.nais-system](http://clamav.nais-system) for not on-prem. The REST api supports PUT or POST and can be tested using curl as well:
+This feature is installed on all nais clusters. clamAV runs with one daemon pod and one pod running the REST api the applications use. There is a service set up so all applications will be able to talk to the REST api using [http://clamav.nais-system/scan](http://clamav.nais-system/scan). The REST api supports PUT or POST and can be tested using curl as well:
 
 ClamAV has a REST API applications can use for scanning files and urls.
 
