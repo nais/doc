@@ -25,7 +25,7 @@ This how-to guide shows you how to build and deploy your application using [GitH
 
 !!! note ".github/workflows/main.yml"
 
-    ```yaml hl_lines="27 31-32"
+    ```yaml hl_lines="28 32-33"
     name: Build and deploy
     on:
       push:
@@ -67,7 +67,10 @@ This how-to guide shows you how to build and deploy your application using [GitH
 
 This example workflow is a minimal example that builds, signs, and pushes your container image to the image registry.
 It then deploys the [app.yaml](../../workloads/application/reference/application-spec.md).
-In this example, the workload image is specified separately, and you don't need to have the `image` field in your workload manifest.
+
+The `WORKLOAD_IMAGE` variable is used to [tell the platform which image](../../workloads/explanations/workload-image.md) to use when deploying the workload.
+This is optional, and you can also set the image in the workload manifest directly using templating.
+If you do this, you should not set the `WORKLOAD_IMAGE` variable, but instead set a suitable `VAR` (traditionally, `image` is used).
 
 When this file is pushed to the `main` branch, the workflow will be triggered, and you are all set.
 

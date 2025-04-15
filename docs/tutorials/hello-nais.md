@@ -77,7 +77,7 @@ Add the following content to the file, and insert the appropriate values in the 
     spec:
       ingresses:
         - https://<MY-APP>.<MY-ENV>.<<tenant()>>.cloud.nais.io
-      image: {{image}}
+      image: {{image}} #(1)
       port: 8080
       ttl: 3h
       replicas:
@@ -88,6 +88,8 @@ Add the following content to the file, and insert the appropriate values in the 
           cpu: 50m
           memory: 32Mi
     ```
+
+    1.  This is a templating variable that will be replaced when the deploy action prepares the manifest in the next step.
 
     Note the `ttl: 3h`. It sets the ["time to live"](../workloads/application/reference/application-spec.md/#ttl) for your app to 3 hours, in case you start on this tutorial and forget to clean up after. 
 
@@ -105,7 +107,7 @@ touch .github/workflows/main.yaml
 Add the following content to the file, and insert the appropriate values in the placeholders on the highlighted lines:
 ???+ note ".github/workflows/main.yaml"
 
-    ```yaml hl_lines="19 25"
+    ```yaml hl_lines="20 24"
     name: Build and deploy
     on:
       push:
@@ -121,15 +123,7 @@ Add the following content to the file, and insert the appropriate values in the 
           actions: read
         steps:
           - uses: actions/checkout@v4
-            with:
-              fetch-depth: 0 # Fetch all history for what-changed action
-          - name: Determine what to do
-            id: changed-files
-            uses: "nais/what-changed@main"
-            with:
-              files: .nais/app.yaml # This points to the file we created in the previous step
           - name: Build and push image and SBOM to OCI registry
-            if: steps.changed-files.outputs.changed != 'only-inputs'  # This skips the build if only the app.yaml has changed
             uses: nais/docker-build-push@v0
             id: docker-build-push
             with:
@@ -138,12 +132,13 @@ Add the following content to the file, and insert the appropriate values in the 
             uses: nais/deploy/actions/deploy@v2
             env:
               CLUSTER: <MY_ENV> # Replace (1)
-              RESOURCE: .nais/app.yaml # same list as in changed-files step above
-              WORKLOAD_IMAGE: ${{ steps.docker-build-push.outputs.image }}
+              RESOURCE: .nais/app.yaml # This points to the file we created in the previous step
+              VAR: image=${{ steps.docker-build-push.outputs.image }} # (2)
               TELEMETRY: ${{ steps.docker-build-push.outputs.telemetry }}
     ```
 
     1.  Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../workloads/reference/environments.md).
+    2.  Here we set the templating variable `image` used in the `app.yaml` file to the image we just built.
 
 Excellent! We're now ready to deploy :rocket:
 
@@ -214,3 +209,15 @@ When you are finished with this guide you can delete your repository:
     - Navigate to `Settings`.
     - At the bottom of the page, click on `Delete this repository`
     - Confirm the deletion
+
+## Your next application
+
+In this guide, we took a few short-cuts to get you up and running quickly.
+
+For instance, we didn't explore all the possibilities of the `app.yaml` file, or take advantage of the integrations the nais platform provides.
+To learn more about the possibilities, explore our documentation for [Applications](../workloads/application/README.md) and [Nais Jobs](../workloads/job/README.md).
+
+The GitHub workflow is similarly simplified.
+Some teams like to do more advanced things, like running tests, or deploying to multiple environments.
+It is also possible to skip some steps under certain conditions, such as not building a new image if the code hasn't changed.
+Explore the [GitHub Actions documentation](https://docs.github.com/en/actions) for more information about GitHub Actions in general, and our guide on [workload image](../workloads/explanations/workload-image.md) for how you can skip building.
