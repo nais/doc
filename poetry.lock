@@ -56,18 +56,19 @@ extras = ["regex"]
 
 [[package]]
 name = "beautifulsoup4"
-version = "4.12.3"
+version = "4.13.4"
 description = "Screen-scraping library"
 optional = false
-python-versions = ">=3.6.0"
+python-versions = ">=3.7.0"
 groups = ["main"]
 files = [
-    {file = "beautifulsoup4-4.12.3-py3-none-any.whl", hash = "sha256:b80878c9f40111313e55da8ba20bdba06d8fa3969fc68304167741bbf9e082ed"},
-    {file = "beautifulsoup4-4.12.3.tar.gz", hash = "sha256:74e3d1928edc070d21748185c46e3fb33490f22f52a3addee9aee0f4f7781051"},
+    {file = "beautifulsoup4-4.13.4-py3-none-any.whl", hash = "sha256:9bbbb14bfde9d79f38b8cd5f8c7c85f4b8f2523190ebed90e950a8dea4cb1c4b"},
+    {file = "beautifulsoup4-4.13.4.tar.gz", hash = "sha256:dbb3c4e1ceae6aefebdaf2423247260cd062430a410e38c66f2baa50a8437195"},
 ]
 
 [package.dependencies]
 soupsieve = ">1.2"
+typing-extensions = ">=4.0.0"
 
 [package.extras]
 cchardet = ["cchardet"]
@@ -584,14 +585,14 @@ requests = "*"
 
 [[package]]
 name = "mkdocs-git-revision-date-localized-plugin"
-version = "1.4.2"
+version = "1.4.5"
 description = "Mkdocs plugin that enables displaying the localized date of the last git modification of a markdown file."
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "mkdocs_git_revision_date_localized_plugin-1.4.2-py3-none-any.whl", hash = "sha256:81b7ae57c2c7f8d0a7ff5eb4d2c51120bf131165a357f73dcc5c22af9f91f41a"},
-    {file = "mkdocs_git_revision_date_localized_plugin-1.4.2.tar.gz", hash = "sha256:eec56395cf647a148f9ac013f42a3e61de6ec42c59df0232fc2054c4db275eae"},
+    {file = "mkdocs_git_revision_date_localized_plugin-1.4.5-py3-none-any.whl", hash = "sha256:395ae0b9eec565c78a76fffc938b70f52774bf2971245482d31aba47018c5fa9"},
+    {file = "mkdocs_git_revision_date_localized_plugin-1.4.5.tar.gz", hash = "sha256:9e37f1343d314c9cd8f9cbbf117c4bdc1d2d24a0653c5bbd7059d072f2cd0972"},
 ]
 
 [package.dependencies]
@@ -628,21 +629,21 @@ test = ["mkdocs-d2-plugin", "mkdocs-include-markdown-plugin", "mkdocs-macros-tes
 
 [[package]]
 name = "mkdocs-material"
-version = "9.6.7"
+version = "9.6.12"
 description = "Documentation that simply works"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "mkdocs_material-9.6.7-py3-none-any.whl", hash = "sha256:8a159e45e80fcaadd9fbeef62cbf928569b93df954d4dc5ba76d46820caf7b47"},
-    {file = "mkdocs_material-9.6.7.tar.gz", hash = "sha256:3e2c1fceb9410056c2d91f334a00cdea3215c28750e00c691c1e46b2a33309b4"},
+    {file = "mkdocs_material-9.6.12-py3-none-any.whl", hash = "sha256:92b4fbdc329e4febc267ca6e2c51e8501fa97b2225c5f4deb4d4e43550f8e61e"},
+    {file = "mkdocs_material-9.6.12.tar.gz", hash = "sha256:add6a6337b29f9ea7912cb1efc661de2c369060b040eb5119855d794ea85b473"},
 ]
 
 [package.dependencies]
 babel = ">=2.10,<3.0"
 backrefs = ">=5.7.post1,<6.0"
 colorama = ">=0.4,<1.0"
-jinja2 = ">=3.0,<4.0"
+jinja2 = ">=3.1,<4.0"
 markdown = ">=3.2,<4.0"
 mkdocs = ">=1.6,<2.0"
 mkdocs-material-extensions = ">=1.3,<2.0"
@@ -685,18 +686,18 @@ mkdocs = ">=1.1.1"
 
 [[package]]
 name = "mkdocs-swagger-ui-tag"
-version = "0.6.11"
+version = "0.7.0"
 description = "A MkDocs plugin supports for add Swagger UI in page."
 optional = false
-python-versions = "*"
+python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "mkdocs_swagger_ui_tag-0.6.11-py3-none-any.whl", hash = "sha256:eb7e0d6e14c793ec3430a6916dff6d8d1a0b3fd88ac6e909fa493f218685d12f"},
-    {file = "mkdocs_swagger_ui_tag-0.6.11.tar.gz", hash = "sha256:31681821d7f56a38379eb793abb3e035595df2043732a7db28e357dca2a0d566"},
+    {file = "mkdocs_swagger_ui_tag-0.7.0-py3-none-any.whl", hash = "sha256:9ebad56e41da458bd56f5e7a1d428407776f73b3d307649772d9080f56d3036b"},
+    {file = "mkdocs_swagger_ui_tag-0.7.0.tar.gz", hash = "sha256:c218d9be2303fee67eaa2da196f39b2126ac1b660f1692fd978b39b9d1eadb36"},
 ]
 
 [package.dependencies]
-beautifulsoup4 = ">=4.11.1"
+beautifulsoup4 = ">=4.13.3"
 
 [[package]]
 name = "natsort"
@@ -1014,6 +1015,18 @@ files = [
 tests = ["pytest", "pytest-cov"]
 
 [[package]]
+name = "typing-extensions"
+version = "4.13.2"
+description = "Backported and Experimental Type Hints for Python 3.8+"
+optional = false
+python-versions = ">=3.8"
+groups = ["main"]
+files = [
+    {file = "typing_extensions-4.13.2-py3-none-any.whl", hash = "sha256:a439e7c04b49fec3e5d3e2beaa21755cadbbdc391694e28ccdd36ca4a1408f8c"},
+    {file = "typing_extensions-4.13.2.tar.gz", hash = "sha256:e6c81219bd689f51865d9e372991c540bda33a0379d5573cddb9a3a23f7caaef"},
+]
+
+[[package]]
 name = "urllib3"
 version = "2.3.0"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
@@ -1092,4 +1105,4 @@ bracex = ">=2.1.1"
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "e136cc347d03e559d3ee554771379d3319e93a8525057161bd139ff057d4e6b4"
+content-hash = "3b28e1f0acc55db910745a4113b63cc8494f1723c7e2438d4ff1300dc4056267"
