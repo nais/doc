@@ -34,7 +34,7 @@ theme:
     repo: fontawesome/brands/github
     admonition:
       gcp-only: simple/googlecloud
-copyright: Made with ❤️ by NAV
+copyright: Made with ❤️ by Nav
 extra:
   generator: false
   search:
