@@ -4672,6 +4672,7 @@ Access level for OpenSearch user
 
 Type: `enum`<br />
 Required: `false`<br />
+Default value: `read`<br />
 Allowed values: `admin`, `read`, `readwrite`, `write`<br />
 
 ??? example
@@ -5709,6 +5710,7 @@ Access level for Valkey user
 
 Type: `enum`<br />
 Required: `false`<br />
+Default value: `read`<br />
 Allowed values: `admin`, `read`, `readwrite`, `write`<br />
 
 ??? example
