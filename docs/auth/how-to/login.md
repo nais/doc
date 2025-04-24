@@ -21,8 +21,11 @@ This guide shows you how to log in users to your application with the [login pro
 
 ## Prerequisites
 
-- Your application is [exposed to the appropriate audience](../../workloads/application/how-to/expose.md).
-- You have a client ID and either a client secret or private key for a client registered at an OpenID Connect identity provider.
+Before you begin, ensure that you have:
+
+- Familiarized yourselves with [the login proxy concepts](../explanations/README.md#login-proxy).
+- [Exposed your application with an ingress](../../workloads/application/how-to/expose.md).
+- A client ID and either a client secret or private key for a client registered at an OpenID Connect identity provider.
 
 ## Configure the secret
 
@@ -82,8 +85,7 @@ Now that your application is configured, you should handle inbound requests in y
 
 ## Handle inbound requests
 
-As long as the user is authenticated, the `Authorization` header includes their `access_token` as a Bearer token.
-Read more about the request flow under [explanations/#login-proxy](../explanations/#login-proxy).
+As long as the user is authenticated, all requests to your application at the server-side will include the `Authorization` header with the user's `access_token` as a [Bearer token](../explanations/README.md#bearer-token).
 
 Your application is responsible for verifying that this token is present and valid. To do so, follow these steps:
 

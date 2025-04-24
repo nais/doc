@@ -9,11 +9,14 @@ This how-to guides you through the steps required to ensure that only citizens a
 
 ## Prerequisites
 
-- Your application is [exposed to the appropriate audience](../../../workloads/application/how-to/expose.md).
+Before you begin, ensure that you have:
+
+- Familiarized yourselves with [the login proxy concepts](../../explanations/README.md#login-proxy).
+- [Exposed your application with an ingress](../../../workloads/application/how-to/expose.md).
 
 ## Configure your application
 
-Enable the [login proxy](../../explanations/README.md#login-proxy) for ID-porten in your application configuration:
+Enable the login proxy for ID-porten in your application configuration:
 
 ```yaml title="app.yaml"
 spec:
@@ -31,7 +34,7 @@ Now that your application is configured, you will need to handle inbound request
 
 ## Handle inbound requests
 
-As long as the citizen is authenticated, the `Authorization` header includes their `access_token` as a [Bearer token](../../explanations/README.md#bearer-token).
+As long as the user is authenticated, all requests to your application at the server-side will include the `Authorization` header with the user's `access_token` as a [Bearer token](../../explanations/README.md#bearer-token).
 
 Your application is responsible for verifying that this token is present and valid. To do so, follow these steps:
 
