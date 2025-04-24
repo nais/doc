@@ -82,7 +82,7 @@ Now that your application is configured, you should handle inbound requests in y
 
 ## Handle inbound requests
 
-As long as the user is authenticated, the `Authorization` header includes their `access_token` as a Bearer token.
+As long as the user is authenticated, every request to your site will include the `Authorization` header with their `access_token` as a Bearer token.
 
 Your application is responsible for verifying that this token is present and valid. To do so, follow these steps:
 
