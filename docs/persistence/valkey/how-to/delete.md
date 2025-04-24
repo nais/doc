@@ -15,14 +15,23 @@ This page guides you through the steps required to delete a Valkey instance.
 
 Before you delete a Valkey instance, ensure that no applications are using it.
 If you delete a Valkey instance in use, the applications will lose access to the data stored in the instance.
+Deletion of a Valkey instance can only be done through the terminal.
 
 ### List Valkey instances
 
 To list all Valkey instances belonging to your team:
 
+#### Through the Nais Console
+
 1. Open [Nais Console](https://console.<<tenant()>>.cloud.nais.io) in your browser and select your team.
 2. Select the `Valkey` tab
 3. Find the name of the Valkey instance you want to delete
+
+#### Using Kubectl
+
+```shell
+kubectl get valkeys
+```
 
 ### Disable termination protection
 
