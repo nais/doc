@@ -256,9 +256,6 @@ Required: `false`<br />
 Permissions contains a set of permissions that are granted to the given application.
 Currently only applicable for Azure AD clients.
 
-!!! failure "Deprecated"
-    This feature is deprecated, preserved only for backwards compatibility.
-
 Type: `object`<br />
 Required: `false`<br />
 
@@ -295,9 +292,6 @@ Required: `false`<br />
 ###### accessPolicy.inbound.rules[].permissions.roles
 Roles is a set of custom permission roles that are granted to a given application.
 
-!!! failure "Deprecated"
-    This feature is deprecated, preserved only for backwards compatibility.
-
 Type: `array`<br />
 Required: `false`<br />
 
@@ -333,9 +327,6 @@ Required: `false`<br />
 
 ###### accessPolicy.inbound.rules[].permissions.scopes
 Scopes is a set of custom permission scopes that are granted to a given application.
-
-!!! failure "Deprecated"
-    This feature is deprecated, preserved only for backwards compatibility.
 
 Type: `array`<br />
 Required: `false`<br />
