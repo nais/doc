@@ -9,14 +9,12 @@ conditional: [tenant, nav]
     KrakendD in Nais is meant as an extra feature for teams using [Maskinporten](../README.md) to expose their APIs on-prem (FSS / Fagsystemsonen) to external consumers/partners.
     Applications that run in GCP should use the [Maskinporten](../README.md) functionality directly.
 
-
 !!! info "Status: Beta"
     This feature is only in a beta.
 
     **Experimental**: this feature is in its early stages and awaits user feedback - breaking changes may be introduced in the future.
 
     Please report any issues and feedback to the #eksponere-eksterne-apier-fra-gcp or #nais channel on Slack.
-
 
 ## What is KrakenD
 
@@ -108,6 +106,43 @@ spec:
 
 !!! info "KrakenD requirements on paths, query params and headers"
     There are some strict requirements on specifying paths, query params and headers in KrakenD, see the [ApiEndpoints CRD](https://github.com/nais/krakend/blob/main/config/crd/bases/krakend.nais.io_apiendpoints.yaml) and corresponding [Krakend Doc](https://www.krakend.io/docs/endpoints/) for details.
+
+### Monitoring and Logging
+
+#### Logs
+
+KrakenD logs are available in Grafana Loki. You can access these logs by querying for your team's namespace and the KrakenD service:
+
+```logql
+{service_namespace="your-team-namespace", service_name="krakend"}
+```
+
+This allows you to monitor API requests, debug issues, and track the behavior of your KrakenD gateway.
+
+#### Metrics
+
+KrakenD also exposes Prometheus metrics that you can use to monitor the performance and health of your API gateway. Here are some of the most useful metrics:
+
+**Server metrics** (API gateway performance):
+
+* `krakend_opencensus_io_http_server_latency_bucket`: Histogram showing the full request latency distribution
+* `krakend_opencensus_io_http_server_request_count`: Total count of requests received by KrakenD
+* `krakend_opencensus_io_http_server_request_count_by_method`: Total requests broken down by HTTP method
+* `krakend_opencensus_io_http_server_response_count_by_status_code`: Total responses broken down by status code
+
+**Backend/client metrics** (downstream service performance):
+
+* `krakend_opencensus_io_http_client_completed_count`: Count of completed requests to your backend services
+* `krakend_opencensus_io_http_client_roundtrip_latency_bucket`: Histogram showing the latency distribution for backend requests
+
+You can use these metrics to create Grafana dashboards to monitor:
+
+* Gateway throughput and request rates
+* Response status code distribution (success vs errors)
+* Request latency at both gateway and backend levels
+* Data transfer volume with sent/received bytes metrics
+
+These metrics are automatically collected and can be queried in Prometheus.
 
 ## Use cases
 
