@@ -20,7 +20,7 @@ A panel is a single visualization or a single query result. You can add multiple
 
 ## Data source
 
-A data source is a source of data that you can query in Grafana. Grafana supports a variety of data sources, including Prometheus, Tempo, Loki, and InfluxDB.
+A data source is a source of data that you can query in Grafana. Grafana supports a variety of data sources, including Prometheus (metrics), Tempo (traces), and Loki (logs).
 
 * [Grafana docs: Data sources](https://grafana.com/docs/grafana/latest/datasources/)
 
