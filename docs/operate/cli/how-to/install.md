@@ -18,6 +18,9 @@ tags: [command-line, how-to]
 
 === "Ubuntu"
 
+    !!! tip
+        The PPA repo is shared between nais-cli and [naisdevice](../../naisdevice/README.md), so the first step may be unnecessary.
+
     1. Add the nais PPA repo:
      ```
      NAIS_GPG_KEY="/etc/apt/keyrings/nav_nais_gar.asc"
