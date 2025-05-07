@@ -34,5 +34,5 @@ tags: [naisdevice, how-to]
     1. Open a Terminal window.
     2. Run the following command:
     ```bash
-	apt-get install --only-upgrade <<naisdevice_name()>>
+	apt install --only-upgrade <<naisdevice_name()>>
     ```
