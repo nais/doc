@@ -131,8 +131,5 @@ spec:
 The following destinations are available:
 
 * `grafana-lgtm`
-{% if tenant() == "nav" %}
-* `elastic-apm`
-{% endif %}
 
 Default destination for each environment can be found in the [environments overview](../../workloads/reference/environments.md).

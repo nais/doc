@@ -113,4 +113,3 @@ Below are some example PromQL queries for using span metrics in Prometheus or Gr
 > Note: Adjust the label filters to match your application's configuration. Use only the appropriate set of labels relevant to each span context to maintain data clarity and consistency.
 
 These metrics and queries provide a comprehensive overview of your application's distributed traces, aiding in observability and troubleshooting.
-

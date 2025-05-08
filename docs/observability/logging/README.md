@@ -27,25 +27,22 @@ Application logs in nais is first and foremost a tool for developers to debug th
 
 ## Log destinations
 
-Logs can be sent to different destinations for persistent storage and querying. Logs can even be sent to multiple destinations at the same time.
+Logs can be sent to different destinations for persistent storage and querying. Logs can even be sent to multiple destinations at the same time depending on your use case.
 
 ### Grafana Loki
 
 ![Grafana Loki](../../assets/grafana-loki-banner.png)
 
-Grafana Loki is a log aggregation system inspired by Prometheus and integrated with Grafana. It is designed to be cost effective and easy to operate, as it does not index the contents of the logs, but rather a set of predefined labels for each log stream.
+Grafana Loki is the default log storage system in Nais. It is inspired by Prometheus and integrates seamlessly with Grafana. It is designed to be cost effective and easy to operate, as it does not index the contents of the logs, but rather a set of predefined labels for each log stream.
 
 Loki is designed to be used in conjunction with metrics and tracing to provide a complete picture of an application's performance. Without the other two, it can be perceived as more cumbersome to use than a traditional logging system.
 
 [:dart: Get started with Grafana Loki](how-to/loki.md)
 
-{% if tenant() == "nav" %}
+### Team Logs
 
-### Elastic Kibana
+![Team Logs](../../assets/team-logs-banner.png)
 
-![Elastic Kibana](../../assets/elastic-kibana-banner.png)
+Team Logs is a private log storage system for your team. Where logs in Loki is available across all teams, Team Logs private log storage system is only available for your team. Team Logs is designed to be used in conjunction with Grafana Loki and has to be configured as a destination for your application logs.
 
-Kibana is a tool for visualizing and analyzing logs. It is part of the Elastic Stack and is widely used for log analysis and visualization in NAV. Kibana Elastic is supported by atom.
-
-[:dart: Get started with Kibana](how-to/kibana.md)
-{% endif %}
+[:dart: Get started with Team Logs](how-to/team-logs.md)
