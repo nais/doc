@@ -118,16 +118,16 @@ You can use other logging libraries that support JSON format and TCP/HTTP output
 
 The format for the logs should be JSON, and you must include the following fields:
 
-| Field Name                   | Description                       | Environment Variable |
-| ---------------------------- | --------------------------------- | -------------------- |
-| google_cloud_project         | The Google Cloud project ID       | GOOGLE_CLOUD_PROJECT |
-| nais_metadata.namespace_name | The namespace of the application  | NAIS_NAMESPACE       |
-| nais_metadata.pod_name       | The name of the pod               | HOSTNAME             |
-| nais_metadata.container_name | The name of the container         | NAIS_APP_NAME        |
-| message                      | The log message                   |                      |
-| severity                     | The log level (e.g., INFO, ERROR) |                      |
-
-All other fields will be available upon querying the logs. Please see the [Google Cloud Logging documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for more details on the log entry format.
+| Field Name               | Description                                     | Environment Variable   |
+| ------------------------ | ----------------------------------------------- | ---------------------- |
+| Field Name               | Description                                     | Environment Variable   |
+| ------------------------ | ----------------------------------------------- | ---------------------- |
+| google_cloud_project     | The Google Cloud project ID                     | GOOGLE_CLOUD_PROJECT   |
+| nais_namespace_name      | The namespace of the application                | NAIS_NAMESPACE         |
+| nais_pod_name            | The name of the pod                             | HOSTNAME               |
+| nais_container_name      | The name of the container                       | NAIS_APP_NAME          |
+| message                  | The log message                                 |                        |
+| severity                 | The log level (e.g., INFO, ERROR)               |                        |
 
 ## Writing Logs
 
