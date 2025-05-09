@@ -1,9 +1,7 @@
-
 ---
 title: Log Destinations
 description: Available log destinations for application logging in Nais.
 tags: [reference, logging]
-conditional: [tenant, nav]
 ---
 
 # Log Destinations
@@ -31,10 +29,7 @@ spec:
 The following log destinations are available in Nais:
 
 {% if tenant() != "ssb" %}
-- [`loki`](../how-to/loki.md#enable-logging-to-grafana-loki)
+- [`loki`](../how-to/loki.md#enable-logging-to-loki)
 {% endif %}
-{% if tenant() == "nav" %}
-- [`elastic`](../how-to/kibana.md#enable-logging-to-elastic-kibana)
-- [`secure_logs`](../how-to/enable-secure-logs.md)
-{% endif %}
+- [`team-logs`](../how-to/team-logs.md#enable-team-logs)
 - [`[]`](../how-to/disable.md) (disabled)

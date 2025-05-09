@@ -63,7 +63,7 @@ spec:
 ```
 
 !!! warning
-    Enabling logging for the OpenTelemetry Auto-Instrumentation will send all logs to the OpenTelemetry Collector including logs from other libraries and frameworks such as log4j, logback, and slf4j. This should not be enabled if you are using Secure Logs.
+    Enabling logging for the OpenTelemetry Auto-Instrumentation will send all logs to the OpenTelemetry Collector including logs from other libraries and frameworks such as log4j, logback, and slf4j. This should not be enabled if you are using Team Logs.
 
 ## Agent Versions
 
@@ -131,8 +131,5 @@ spec:
 The following destinations are available:
 
 * `grafana-lgtm`
-{% if tenant() == "nav" %}
-* `elastic-apm`
-{% endif %}
 
 Default destination for each environment can be found in the [environments overview](../../workloads/reference/environments.md).

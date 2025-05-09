@@ -5,6 +5,10 @@ conditional: [tenant, nav]
 ---
 # Tracing data in Elastic APM
 
+!!! warning "Deprecation notice"
+
+    Support for Elastic APM in Nais has been deprecated and will be removed at the end of the year.
+
 For nais applications running on-prem (dev-fss and prod-fss) you have the option to send telemetry data to Elastic APM in adition to Grafana. This guide will help you get started with Elastic APM for your application.
 
 ## Enable auto-instrumentation for Elastic APM

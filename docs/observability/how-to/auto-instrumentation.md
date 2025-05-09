@@ -59,25 +59,6 @@ spec:
       runtime: sdk
 ```
 
-## Enable auto-instrumentation to multiple destinations
-
-By default data is sent to Grafana, but it is possible to send data to multiple destinations by adding more destinations to the list depending on what cluster your application is running in.
-
-```yaml hl_lines="8-9"
-...
-spec:
-  observability:
-    autoInstrumentation:
-      enabled: true
-      runtime: java
-      destinations:
-        - id: "grafana-lgtm"
-        - id: "elastic-apm"
-```
-
-!!! info
-    `elastic-apm` is only available for applications running on-prem (`dev-fss` and `prod-fss`).
-
 ## Resources
 
 [:books: OpenTelemetry Auto-Instrumentation Configuration Reference](../reference/auto-config.md)

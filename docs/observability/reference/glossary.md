@@ -51,11 +51,3 @@ Logs are a record of what has happened in your application. They are useful for 
 ### Grafana Loki
 
 [Grafana Loki](https://grafana.com/oss/loki/) is a storage and query system for logs in Grafana.
-
-### Kibana
-
-[Kibana](https://www.elastic.co/kibana) is a tool for visualizing logs. It is often used in combination with Elasticsearch to create dashboards and alerts.
-
-### Elasticsearch
-
-[Elasticsearch](https://www.elastic.co/elasticsearch/) is a search engine that is used to store logs.

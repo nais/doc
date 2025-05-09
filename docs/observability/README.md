@@ -88,9 +88,8 @@ Logs that are sent to console (`stdout`) are collected automatically and can be 
 ```mermaid
 graph LR
   Application --stdout/stderr--> Router
-  Router --> A[Secure Logs]
-  Router --> B[Grafana Loki]
-  Router --> C[Elastic / Kibana]
+  Router --> A[Grafana Loki]
+  Router --> B[Team Logs]
 ```
 
 [:bulb: Learn more about logs](logging/README.md)

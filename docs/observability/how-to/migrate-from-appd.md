@@ -47,18 +47,6 @@ spec:
       runtime: java
 ```
 
-If you prefer using Elastic APM instead of Grafana you can set the `destinations` configuration:
-
-```yaml hl_lines="6-7"
-spec:
-  observability:
-    autoInstrumentation:
-      enabled: true
-      runtime: java
-      destinations:
-        - id: elastic-apm
-```
-
 !!! info
 
     If you have multiple virtual environments for your application you can set the `deployment.environment.name` resource attribute in your `nais.yaml` file to differentiate between them like so:
