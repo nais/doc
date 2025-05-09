@@ -118,16 +118,14 @@ You can use other logging libraries that support JSON format and TCP/HTTP output
 
 The format for the logs should be JSON, and you must include the following fields:
 
-| Field Name               | Description                                     | Environment Variable   |
-| ------------------------ | ----------------------------------------------- | ---------------------- |
-| Field Name               | Description                                     | Environment Variable   |
-| ------------------------ | ----------------------------------------------- | ---------------------- |
-| google_cloud_project     | The Google Cloud project ID                     | GOOGLE_CLOUD_PROJECT   |
-| nais_namespace_name      | The namespace of the application                | NAIS_NAMESPACE         |
-| nais_pod_name            | The name of the pod                             | HOSTNAME               |
-| nais_container_name      | The name of the container                       | NAIS_APP_NAME          |
-| message                  | The log message                                 |                        |
-| severity                 | The log level (e.g., INFO, ERROR)               |                        |
+| Field Name           | Description                       | Environment Variable |
+| -------------------- | --------------------------------- | -------------------- |
+| google_cloud_project | The Google Cloud project ID       | GOOGLE_CLOUD_PROJECT |
+| nais_namespace_name  | The namespace of the application  | NAIS_NAMESPACE       |
+| nais_pod_name        | The name of the pod               | HOSTNAME             |
+| nais_container_name  | The name of the container         | NAIS_APP_NAME        |
+| message              | The log message                   |                      |
+| severity             | The log level (e.g., INFO, ERROR) |                      |
 
 {% if tenant() == "nav" %}
 ## Migrating from Secure Logs
@@ -200,6 +198,24 @@ To ensure that your logs are sent to the `team-logs` appender, you can use SLF4J
 
     Ensure that your `log4j2.xml` configuration includes the `team-logs` appender and the marker-based filter as shown in the configuration section above.
 
+=== "curl"
+
+    If you are using a logging library that does not support SLF4J or Log4j2, you can still send logs to the `team-logs` appender using a simple HTTP request. Below is an example using `curl`:
+
+    ```bash
+    curl -X POST \
+      -H "Content-Type: application/json" \
+      -d '{
+        "google_cloud_project": "my-project",
+        "nais_namespace_name": "my-namespace",
+        "nais_pod_name": "my-pod",
+        "nais_container_name": "my-container",
+        "message": "This is a log message for team-logs",
+        "severity": "INFO"
+      }' \
+      http://team-logs.nais-system:9880
+    ```
+
 ### Key Points for Developers
 
 1. **Markers**: Use the `TEAM_LOGS` marker to route logs to the `team-logs` appender. Without this marker, logs will go to the default JSON appender.
@@ -236,6 +252,7 @@ To search your logs, use the Google Cloud Logging Query Language. Here are some 
   ```
 
 For more detailed guidance, review the following resources:
+
 * [Advanced Queries](https://cloud.google.com/logging/docs/view/advanced-queries)
 * [Query Library](https://cloud.google.com/logging/docs/view/query-library)
 
@@ -243,25 +260,20 @@ For more detailed guidance, review the following resources:
 
 Team Logs automatically attaches labels to every log entry for better context. Below are some key labels you’ll see:
 
-**Resource Type:** `k8s_container`
-_Indicates that the log entry originates from a Kubernetes container._
-
-#### Common Resource Labels
-
-- **cluster_name**
-  _Description:_ Name of the Kubernetes cluster.
-  _Example:_ `dev`
-
-- **container_name**
-  _Description:_ Name of the container as defined in the configuration.
-  _Example:_ `my-app`
-
-- **namespace_name**
-  _Description:_ Kubernetes namespace where the container is running.
-  _Example:_ `my-team`
-
-- **pod_name**
-  _Description:_ Name of the pod hosting the container.
-  _Example:_ `my-app-7789dbcdb4-56mps`
+```json
+{
+  "resource": {
+    "labels": {
+      "cluster_name": "dev",
+      "container_name": "my-app",
+      "location": "gcp",
+      "namespace_name": "my-team",
+      "pod_name": "my-app-7789dbcdb4-12345",
+      "extra_label": "my-label"
+    },
+    "type": "k8s_container"
+  }
+}
+```
 
 This structure ensures that you can easily locate and analyze your team's logs with clarity and precision.
