@@ -9,7 +9,7 @@ This guide will help you get started with Grafana Loki, a log aggregation system
 
 ## Enable logging to Grafana Loki
 
-Grafana Loki can be enabled by setting the list of logging destinations in your nais application manifest. This will only send logs that are written to `stdout` and `stderr` to Grafana Loki and will not affect logs that are written to files or other log appenders{% if tenant() == "nav" %} such as [secure logs](./enable-secure-logs.md){% endif %}.
+Grafana Loki can be enabled by setting the list of logging destinations in your nais application manifest. This will only send logs that are written to `stdout` and `stderr` to Grafana Loki and will not affect logs that are written to files or other log appenders such as [team logs](./team-logs.md).
 
 ???+ note ".nais/application.yaml"
     ```yaml hl_lines="6"
