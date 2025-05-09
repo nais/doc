@@ -38,7 +38,7 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 
 | data                 | default        |
 | :------------------- | :------------- |
-| logs (stdout)        | `elastic`      |
+| logs (stdout)        | `loki`         |
 | auto-instrumentation | `grafana-lgtm` |
 
 ### prod-gcp
@@ -67,7 +67,7 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 
 | data                 | default        |
 | :------------------- | :------------- |
-| logs (stdout)        | `elastic`      |
+| logs (stdout)        | `loki`         |
 | auto-instrumentation | `grafana-lgtm` |
 
 ## On-prem
@@ -93,7 +93,7 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 
 | data                 | default        |
 | :------------------- | :------------- |
-| logs (stdout)        | `elastic`      |
+| logs (stdout)        | `loki`         |
 | auto-instrumentation | `grafana-lgtm` |
 
 ### prod-fss
@@ -115,7 +115,7 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 
 | data                 | default        |
 | :------------------- | :------------- |
-| logs (stdout)        | `elastic`      |
+| logs (stdout)        | `loki`         |
 | auto-instrumentation | `grafana-lgtm` |
 
 {% endif %}
@@ -137,10 +137,10 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 
 #### Observability
 
-| data                 | default      |
-| :------------------- | :----------- |
-| logs (stdout)        | `cloud-logs` |
-| auto-instrumentation | Not enabled  |
+| data                 | default     |
+| :------------------- | :---------- |
+| logs (stdout)        | `team-logs` |
+| auto-instrumentation | Not enabled |
 
 ### prod
 
@@ -159,10 +159,10 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 
 #### Observability
 
-| data                 | default      |
-| :------------------- | :----------- |
-| logs (stdout)        | `cloud-logs` |
-| auto-instrumentation | Not enabled  |
+| data                 | default     |
+| :------------------- | :---------- |
+| logs (stdout)        | `team-logs` |
+| auto-instrumentation | Not enabled |
 {% endif %}
 {% if tenant() == "atil" %}
 ### dev
