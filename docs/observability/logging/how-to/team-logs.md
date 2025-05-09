@@ -207,41 +207,61 @@ To ensure that your logs are sent to the `team-logs` appender, you can use SLF4J
 3. **Structured Logging**: Use JSON format for logs to make them easier to query and analyze.
 4. **Configuration**: Ensure your logging configuration files (`logback.xml` or `log4j2.xml`) are correctly set up with the `team-logs` appender and marker-based filters.
 
-By following these examples and guidelines, you can ensure that your logs are properly routed to the `team-logs` appender for secure and isolated logging.
-
 ## Accessing Team Logs
 
-Team Logs can be accessed through the [Google Cloud Console](https://console.cloud.google.com/logs/query) or other compatible tools. Note that Team Logs remain separate from default log destinations like Grafana Loki and can not be accessed through the standard logging interface in Grafana.
+Team Logs can be accessed through the [Google Cloud Console](https://console.cloud.google.com/logs/query) or other tools that support Google Cloud Logging. Note that Team Logs are kept separate from standard log destinations like Grafana Loki and thus aren’t available through its standard logging interface.
 
 ### Querying Team Logs
 
-Utilize the Cloud Logging query language to filter and analyze your logs. Here are some examples:
+To search your logs, use the Google Cloud Logging Query Language. Here are some practical examples:
 
-* Filter by resource type:
-
+* Filter by app name:
   ```
-  resource.type="k8s_container"
+  resource.labels.container_name="my-app"
   ```
 
 * Filter by severity:
-
   ```
   severity>=ERROR
   ```
 
 * Combine multiple filters:
-
   ```
-  resource.type="k8s_container" AND severity>=ERROR AND "database error"
+  resource.labels.container_name="my-app" AND severity>=ERROR AND "database error"
   ```
 
-* Apply date and time filters:
-
+* Filter by a specific time range:
   ```
   timestamp>="2023-10-01T00:00:00Z" AND timestamp<="2023-10-31T23:59:59Z"
   ```
 
-For more detailed information on crafting queries, see the [Google Cloud Logging documentation](https://cloud.google.com/logging/docs/view/logging-query-language). Additionally, you can refer to these resources:
-
+For more detailed guidance, review the following resources:
 * [Advanced Queries](https://cloud.google.com/logging/docs/view/advanced-queries)
 * [Query Library](https://cloud.google.com/logging/docs/view/query-library)
+
+### Log Labels
+
+Team Logs automatically attaches labels to every log entry for better context. Below are some key labels you’ll see:
+
+**Resource Type:** `k8s_container`
+_Indicates that the log entry originates from a Kubernetes container._
+
+#### Common Resource Labels
+
+- **cluster_name**
+  _Description:_ Name of the Kubernetes cluster.
+  _Example:_ `dev`
+
+- **container_name**
+  _Description:_ Name of the container as defined in the configuration.
+  _Example:_ `my-app`
+
+- **namespace_name**
+  _Description:_ Kubernetes namespace where the container is running.
+  _Example:_ `my-team`
+
+- **pod_name**
+  _Description:_ Name of the pod hosting the container.
+  _Example:_ `my-app-7789dbcdb4-56mps`
+
+This structure ensures that you can easily locate and analyze your team's logs with clarity and precision.
