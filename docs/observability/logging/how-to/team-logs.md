@@ -129,6 +129,14 @@ The format for the logs should be JSON, and you must include the following field
 | message                  | The log message                                 |                        |
 | severity                 | The log level (e.g., INFO, ERROR)               |                        |
 
+{% if tenant() == "nav" %}
+## Migrating from Secure Logs
+
+If you are migrating from Secure Logs to Team Logs, you need to ensure that your application is configured to send logs to the `team-logs` appender instead of the Secure Logs appender. This involves updating your logging configuration files (`logback.xml` or `log4j2.xml`) and ensuring that the necessary dependencies are included in your project.
+
+You should also remove any references to Secure Logs in your `nais.yaml` configuration - specifically the `secureLogs` section.
+{% endif %}
+
 ## Writing Logs
 
 To ensure that your logs are sent to the `team-logs` appender, you can use SLF4J markers or loggers. Below are detailed examples of how to do this in both Logback and Log4j2.
