@@ -4,6 +4,10 @@ conditional: [tenant, nav]
 ---
 # Enable secure logs
 
+!!! warning "Deprecation notice"
+
+    Support for Secure Logs in Nais has been deprecated and will be removed at the end of the year. Migrate to [Team Logs](./team-logs.md) for a private logging solution.
+
 This guide will show you how to enable shipping of secure logs for your application.
 
 ## Prerequisites
@@ -81,7 +85,7 @@ Example configuration selecting which logs go to secure logs
     <configuration>
         <!-- Log detailed information about the Logback initialization process at application startup. -->
         <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
-    
+
         <appender name="appLog" class="ch.qos.logback.core.ConsoleAppender">
             <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
             <filter class="ch.qos.logback.core.filter.EvaluatorFilter">

@@ -5,6 +5,10 @@ conditional: [tenant, nav]
 ---
 # Get started with Elastic Kibana
 
+!!! warning "Deprecation notice"
+
+    Support for Elastic in Nais has been deprecated and will be removed at the end of the year. See [Loki](./loki.md) for the new default logging solution.
+
 This guide will help you get stared sending application logs to Elastic Kibana and writing queries to search for logs.
 
 ## Enable logging to Elastic Kibana

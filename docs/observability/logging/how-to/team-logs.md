@@ -18,15 +18,26 @@ To send logs to your team's private index, configure your application to use the
       <appender name="team-logs" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <destination>team-logs.nais-system:5170</destination>
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-          <customFields>{"google_cloud_project":"${GOOGLE_CLOUD_PROJECT}","nais_metadata":{"namespace_name":"${NAIS_NAMESPACE}","pod_name":"${HOSTNAME}","container_name":"${NAIS_APP_NAME}"}}</customFields>
+          <customFields>{"google_cloud_project":"${GOOGLE_CLOUD_PROJECT}","nais_namespace_name":"${NAIS_NAMESPACE}","nais_pod_name":"${HOSTNAME}","nais_container_name":"${NAIS_APP_NAME}"}}</customFields>
           <includeContext>false</includeContext>
         </encoder>
       </appender>
 
       <root level="all">
-      <appender-ref ref="team-logs"/>
+        <appender-ref ref="team-logs" />
       </root>
+
     </configuration>
+    ```
+
+    You also need to add the following dependency to your `pom.xml`:
+
+    ```xml
+    <dependency>
+      <groupId>net.logstash.logback</groupId>
+      <artifactId>logstash-logback-encoder</artifactId>
+      <version>8.1</version>
+    </dependency>
     ```
 
 === "Log4j2"
@@ -36,10 +47,10 @@ To send logs to your team's private index, configure your application to use the
       <Appenders>
         <Socket name="team-logs" host="team-logs.nais-system" port="5170" protocol="tcp">
           <JsonLayout complete="false" compact="true">
-          <KeyValuePair key="google_cloud_project" value="${env:GOOGLE_CLOUD_PROJECT}"/>
-          <KeyValuePair key="nais_metadata.namespace_name" value="${env:NAIS_NAMESPACE}"/>
-          <KeyValuePair key="nais_metadata.pod_name" value="${env:HOSTNAME}"/>
-          <KeyValuePair key="nais_metadata.container_name" value="${env:NAIS_APP_NAME}"/>
+            <KeyValuePair key="google_cloud_project" value="${env:GOOGLE_CLOUD_PROJECT}"/>
+            <KeyValuePair key="nais_namespace_name" value="${env:NAIS_NAMESPACE}"/>
+            <KeyValuePair key="nais_pod_name" value="${env:HOSTNAME}"/>
+            <KeyValuePair key="nais_container_name" value="${env:NAIS_APP_NAME}"/>
           </JsonLayout>
         </Socket>
       </Appenders>
@@ -52,6 +63,8 @@ To send logs to your team's private index, configure your application to use the
     ```
 
 === "nais.yaml"
+
+    You also need to configure your `nais.yaml` file to allow the application to send logs to the `team-logs` appender. This is done by adding the following configuration:
 
     ```yaml
     ...
@@ -120,6 +133,7 @@ Utilize the Cloud Logging query language to filter and analyze your logs. Here a
   timestamp>="2023-10-01T00:00:00Z" AND timestamp<="2023-10-31T23:59:59Z"
   ```
 
-  For more detailed information on crafting queries, see the [Google Cloud Logging documentation](https://cloud.google.com/logging/docs/view/logging-query-language). Additionally, you can refer to these resources:
-  * [Advanced Queries](https://cloud.google.com/logging/docs/view/advanced-queries)
-  * [Query Library](https://cloud.google.com/logging/docs/view/query-library)
+For more detailed information on crafting queries, see the [Google Cloud Logging documentation](https://cloud.google.com/logging/docs/view/logging-query-language). Additionally, you can refer to these resources:
+
+  - [Advanced Queries](https://cloud.google.com/logging/docs/view/advanced-queries)
+  - [Query Library](https://cloud.google.com/logging/docs/view/query-library)
