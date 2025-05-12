@@ -90,24 +90,22 @@ To send logs to your team's private index, configure your application to use the
     </Configuration>
     ```
 
-=== "nais.yaml"
-
-    You also need to configure your `nais.yaml` file to allow the application to send logs to the `team-logs` appender. This is done by adding the following configuration:
-
-    ```yaml
-    ...
-    accessPolicy:
-      outbound:
-        rules:
-          - application: logging
-            namespace: nais-system
-    ```
-
-!!! info
-
-    The referenced environment variables are set automatically in your application, so you don't need to configure them manually.The referenced environment variables are set automatically in your application, you do not need to set them manually.
+The referenced environment variables are set automatically in your application, so you don't need to configure them manually.The referenced environment variables are set automatically in your application, you do not need to set them manually.
 
 This configuration ensures that all logs are sent exclusively to your team's private log index on Google Cloud.
+
+### Nais.yaml Configuration
+
+You also need to configure your `nais.yaml` file to allow the application to send logs to the `team-logs` appender. This is done by adding the following configuration:
+
+```yaml
+...
+accessPolicy:
+  outbound:
+    rules:
+      - application: logging
+        namespace: nais-system
+```
 
 ### Other Logging Libraries
 
