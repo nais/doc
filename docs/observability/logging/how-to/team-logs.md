@@ -32,6 +32,13 @@ To send logs to your team's private index, configure your application to use the
 
       <appender name="default-json" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+          <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+            <marker>TEAM_LOGS</marker>
+          </evaluator>
+          <OnMatch>DENY</OnMatch>
+          <OnMismatch>ACCEPT</OnMismatch>
+        </filter>
       </appender>
 
       <root level="INFO">
@@ -44,7 +51,6 @@ To send logs to your team's private index, configure your application to use the
       </logger>
     </configuration>
     ```
-
     You also need to add the following dependency to your `pom.xml`:
 
     ```xml
@@ -62,6 +68,9 @@ To send logs to your team's private index, configure your application to use the
       <Appenders>
         <Console name="default-json" target="SYSTEM_OUT">
           <JsonLayout compact="true" />
+          <Filters>
+            <MarkerFilter marker="TEAM_LOGS" onMatch="DENY" onMismatch="ACCEPT" />
+          </Filters>
         </Console>
 
         <Socket name="team-logs" host="team-logs.nais-system" port="5170" protocol="tcp">
