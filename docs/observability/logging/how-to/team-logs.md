@@ -51,6 +51,9 @@ To send logs to your team's private index, configure your application to use the
       </logger>
     </configuration>
     ```
+
+    **NB!** Marker is not required for the `team-logs` appender, but it is recommended to use it to ensure that logs are sent to the correct destination. In this configuration the `default-json` appender will send all logs that do not have the `TEAM_LOGS` marker to the console.
+
     You also need to add the following dependency to your `pom.xml`:
 
     ```xml
@@ -99,6 +102,8 @@ To send logs to your team's private index, configure your application to use the
     </Configuration>
     ```
 
+    **NB!** Marker is not required for the `team-logs` appender, but it is recommended to use it to ensure that logs are sent to the correct destination. In this configuration the `default-json` appender will send all logs that do not have the `TEAM_LOGS` marker to the console.
+
 The referenced environment variables are set automatically in your application, so you don't need to configure them manually.The referenced environment variables are set automatically in your application, you do not need to set them manually.
 
 This configuration ensures that all logs are sent exclusively to your team's private log index on Google Cloud.
@@ -139,7 +144,9 @@ The format for the logs should be JSON, and you must include the following field
 
 If you are migrating from Secure Logs to Team Logs, you need to ensure that your application is configured to send logs to the `team-logs` appender instead of the Secure Logs appender. This involves updating your logging configuration files (`logback.xml` or `log4j2.xml`) and ensuring that the necessary dependencies are included in your project.
 
-You should also remove any references to Secure Logs in your `nais.yaml` configuration - specifically the `secureLogs` section.
+It is possible to use both Secure Logs and Team Logs simultaneously, but it is only recommended to do so temporarily during the migration process. Once you have confirmed that your logs are being sent correctly to Team Logs, you should remove the Secure Logs configuration from your application.
+
+Once you have completely migrated to Team Logs you should also remove any references to Secure Logs in your `nais.yaml` configuration - specifically the `secureLogs` section.
 {% endif %}
 
 ## Writing Logs
