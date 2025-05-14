@@ -42,7 +42,7 @@ spec:
         - name: "cloudsql.enable_pgaudit"
           value: "on"
         - name: "pgaudit.log"
-          value: "write"
+          value: "write,ddl"
 ```
 
 The `cloudsql.enable_pgaudit` flag enables the pgaudit logging in the database. The `pgaudit.log` flag specifies what to log. 
