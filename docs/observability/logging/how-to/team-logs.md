@@ -104,7 +104,7 @@ To send logs to your team's private index, configure your application to use the
 
     **NB!** Marker is not required for the `team-logs` appender, but it is recommended to use it to ensure that logs are sent to the correct destination. In this configuration the `default-json` appender will send all logs that do not have the `TEAM_LOGS` marker to the console.
 
-The referenced environment variables are set automatically in your application, so you don't need to configure them manually.The referenced environment variables are set automatically in your application, you do not need to set them manually.
+The referenced environment variables are set automatically in your application, so you don't need to configure them manually.
 
 This configuration ensures that all logs are sent exclusively to your team's private log index on Google Cloud.
 
