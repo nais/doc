@@ -126,7 +126,7 @@ accessPolicy:
 You can use other logging libraries that support JSON format and TCP/HTTP output.
 
 * TCP: `team-logs.nais-system:5170`
-* HTTP: `team-logs.nais-system:9880`
+* HTTP: `team-logs.nais-system:80`
 
 The format for the logs should be JSON, and you must include the following fields:
 
@@ -227,7 +227,7 @@ To ensure that your logs are sent to the `team-logs` appender, you can use SLF4J
         "message": "This is a log message for team-logs",
         "severity": "INFO"
       }' \
-      http://team-logs.nais-system:9880
+      http://team-logs.nais-system/
     ```
 
 ### Key Points for Developers
