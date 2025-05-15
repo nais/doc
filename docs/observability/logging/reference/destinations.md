@@ -31,7 +31,7 @@ The following log destinations are available in Nais:
 {% if tenant() != "ssb" %}
 - [`loki`](../how-to/loki.md#enable-logging-to-loki)
 {% endif %}
-- [`team-logs`](../how-to/team-logs.md#enable-team-logs)
+- [`team_logs`](../how-to/team-logs.md#enable-team-logs)
 {% if tenant() == "nav" %}
 - [`elastic`](../how-to/kibana.md#enable-logging-to-elastic-kibana) (deprecated)
 {% endif %}
