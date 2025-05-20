@@ -130,7 +130,7 @@ By default the user is granted select privileges to the database public schema
 The privilege level can be altered with the `--privilege` flag.
 
 ```bash
-nais postgres users add username password appname
+nais postgres users add appname username password
 ```
 
 | Argument    | Required  | Description                                                 |
