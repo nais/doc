@@ -22,38 +22,12 @@ In order to use the Grafana Tempo log correlation feature, you need to send your
 
 The final step is to include trace information in your logs. This will allow Grafana Tempo to look up logs that are associated with a trace.
 
-=== "log4j"
-
-    Add the [opentelemetry-javaagent-log4j-context-data-2.17](https://mvnrepository.com/artifact/io.opentelemetry.javaagent.instrumentation/opentelemetry-javaagent-log4j-context-data-2.17) package to your `pom.xml` or `build.gradle` to include trace information in your logs:
-
-    ```
-    io.opentelemetry.instrumentation:opentelemetry-log4j-context-data-2.17-autoconfigure:2.1.0-alpha
-    ```
-
-    Add the following pattern to your log4j configuration to include trace information in your logs:
-
-    ```xml
-    <?xml version="1.0" encoding="UTF-8"?>
-    <Configuration status="WARN">
-        <Appenders>
-            <Console name="Console" target="SYSTEM_OUT">
-                <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} traceId: %X{trace_id} spanId: %X{span_id} - %msg%n" />
-            </Console>
-        </Appenders>
-        <Loggers>
-            <Root level="All" >
-                <AppenderRef ref="Console"/>
-            </Root>
-        </Loggers>
-    </Configuration>
-    ```
-
 === "logback"
 
     Add the [opentelemetry-logback-mdc-1.0](https://mvnrepository.com/artifact/io.opentelemetry.instrumentation/opentelemetry-logback-mdc-1.0) package to your `pom.xml` or `build.gradle` to include trace information in your logs:
 
     ```
-    io.opentelemetry.instrumentation:opentelemetry-logback-mdc-1.0:2.1.0-alpha
+    io.opentelemetry.instrumentation:opentelemetry-logback-mdc-1.0:2.16.0-alpha
     ```
 
     Add the following pattern to your logback configuration to include trace information in your logs:
@@ -62,8 +36,8 @@ The final step is to include trace information in your logs. This will allow Gra
     <?xml version="1.0" encoding="UTF-8" ?>
     <configuration>
         <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-            <encoder>
-                <pattern><![CDATA[%date{HH:mm:ss.SSS} [%thread] %-5level %logger{15}#%line %X{req.requestURI} traceId: %X{trace_id} spanId: %X{span_id} %msg\n]]></pattern>
+            <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+                <layout class="net.logstash.logback.layout.LogstashLayout" />
             </encoder>
         </appender>
 
@@ -71,12 +45,37 @@ The final step is to include trace information in your logs. This will allow Gra
             <appender-ref ref="STDOUT" />
         </appender>
 
-        <root>
-            <level value="DEBUG" />
+        <root level="INFO">
             <appender-ref ref="STDOUT" />
         </root>
-
     </configuration>
+    ```
+
+=== "log4j"
+
+    Add the [opentelemetry-javaagent-log4j-context-data-2.17](https://mvnrepository.com/artifact/io.opentelemetry.javaagent.instrumentation/opentelemetry-javaagent-log4j-context-data-2.17) package to your `pom.xml` or `build.gradle` to include trace information in your logs:
+
+    ```
+    io.opentelemetry.instrumentation:opentelemetry-log4j-context-data-2.17-autoconfigure:2.16.0-alpha
+    ```
+
+    Add the following pattern to your log4j configuration to include trace information in your logs:
+
+    ```xml
+        <?xml version="1.0" encoding="UTF-8"?>
+        <Configuration status="WARN">
+            <Appenders>
+                <Console name="Console" target="SYSTEM_OUT">
+                    <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} traceId: %X{trace_id} spanId: %X{span_id} - %msg%n" />
+                </Console>
+            </Appenders>
+            <Loggers>
+                <Root level="INFO">
+                    <AppenderRef ref="Console"/>
+                </Root>
+            </Loggers>
+        </Configuration>
+    ```
     ```
 
 ## Profit
