@@ -21,7 +21,7 @@ spec:
   observability:
     logging:
       destinations:
-        - loki
+        - id: loki
 ```
 
 ## Destinations
