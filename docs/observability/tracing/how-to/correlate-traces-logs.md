@@ -36,17 +36,15 @@ The final step is to include trace information in your logs. This will allow Gra
     <?xml version="1.0" encoding="UTF-8" ?>
     <configuration>
         <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-            <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-                <layout class="net.logstash.logback.layout.LogstashLayout" />
-            </encoder>
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
         </appender>
 
-        <appender name="OTEL" class="io.opentelemetry.instrumentation.logback.v1_0.OpenTelemetryAppender">
+        <appender name="OTEL" class="io.opentelemetry.instrumentation.logback.mdc.v1_0.OpenTelemetryAppender">
             <appender-ref ref="STDOUT" />
         </appender>
 
         <root level="INFO">
-            <appender-ref ref="STDOUT" />
+            <appender-ref ref="OTEL" />
         </root>
     </configuration>
     ```
