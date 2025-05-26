@@ -74,6 +74,31 @@ The final step is to include trace information in your logs. This will allow Gra
             </Loggers>
         </Configuration>
     ```
+
+=== "@navikt/pino-logger"
+
+    If you are using [Pino](https://github.com/pinojs/pino) or `@navikt/pino-logger`, correlation is enabled by default when you use the OpenTelemetry Node.js auto-instrumentation. The trace and span IDs will be included in the logs automatically.
+
+    If you are using Next.js be sure to add the `@navikt/pino-logger` and `pino` packages to `serverExternalPackages` in your `next.config.js` file to prevent it from being tree-shaken by Next.js:
+
+    ```javascript
+    // next.config.js
+    module.exports = {
+      serverExternalPackages: ['@navikt/pino-logger', 'pino'],
+    };
+    ```
+
+=== "@navikt/next-logger"
+
+    If you are using the [@navikt/next-logger](https://github.com/navikt/next-logger), correlation is enabled by default when you use the OpenTelemetry Node.js auto-instrumentation. The trace and span IDs will be included in the logs automatically.
+
+    Be sure to add the `@navikt/next-logger` and `pino` packages to `serverExternalPackages` in your `next.config.js` file to prevent it from being tree-shaken by Next.js:
+
+    ```javascript
+    // next.config.js
+    module.exports = {
+      serverExternalPackages: ['@navikt/next-logger', 'pino'],
+    };
     ```
 
 ## Profit
