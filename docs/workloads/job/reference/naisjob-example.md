@@ -209,6 +209,23 @@ spec:
     access: readwrite
     instance: my-open-search-instance
   parallelism: 1
+  postgres:
+    cluster:
+      allowDeletion: true
+      highAvailability: true
+      majorVersion: "17"
+      name: my-postgres-cluster
+      resources:
+        cpu: 100m
+        diskSize: 100Mi
+        memory: 1Gi
+    database:
+      collation: nb_NO
+      extensions:
+      - name: postgis
+    maintenanceWindow:
+      day: 3
+      hour: 3
   preStopHook:
     exec:
       command:
