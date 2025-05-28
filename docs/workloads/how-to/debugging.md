@@ -7,14 +7,14 @@ tags: [workloads, how-to, debugging, kubectl, debug, attach, oom, memory, leaks]
 A useful place to start when you have problems getting your pods running is the [troubleshooting guide](troubleshooting.md).
 
 It can also be useful to check out the official documentation from Kubernetes.
-Keep in mind that in the kubernetes documentation, the term "application" is a more general concept that a Nais application.
+Keep in mind that in the Kubernetes documentation, the term "application" is a more general concept than a Nais application.
 
 - [Troubleshoot Applications](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application/)
 - [Debug Running Pods](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-running-pod/)
 
-In certain scenarios issues with workloads might not be directly related to runtime errors or may not be easily debuggable. 
-Therefore, it could be worth taking another quick look at [Workloads > Good practices](https://doc.nav.cloud.nais.io/workloads/explanations/good-practices/index.html)
-to make sure that you are following the recommendations there, before commencing with debugging.
+!!! tip
+
+    Before you begin debugging, make sure that your application follows [good practices for Nais workloads](../explanations/good-practices.md).
 
 ## `kubectl` debug
 

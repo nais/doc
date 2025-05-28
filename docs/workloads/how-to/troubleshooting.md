@@ -99,34 +99,36 @@ Follow the steps below to verify that the secret exists:
 ### Step 1. Verify Pod events
 
 ???+ success
-If the event log looks like this:
 
-```shell hl_lines="5 8-9"
-Events:
-Type     Reason       Age                    From               Message
-----     ------       ----                   ----               -------
-Normal   Scheduled    2m22s                  default-scheduler  Successfully assigned <namespace>/<pod> to <node>
-Warning  FailedMount  2m20s (x3 over 2m22s)  kubelet            MountVolume.SetUp failed for volume "<secret-name>" : secret "<secret-name>" not found
-Normal   Pulling      2m18s                  kubelet            Pulling image "<docker-image>"
-Normal   Pulled       117s                   kubelet            Successfully pulled image "<docker-image>"
-Normal   Created      61s (x4 over 115s)     kubelet            Created container <app>
-Normal   Started      61s (x4 over 115s)     kubelet            Started container <app>
-```
+    If the event log looks like this:
+
+    ```shell hl_lines="5 8-9"
+    Events:
+    Type     Reason       Age                    From               Message
+    ----     ------       ----                   ----               -------
+    Normal   Scheduled    2m22s                  default-scheduler  Successfully assigned <namespace>/<pod> to <node>
+    Warning  FailedMount  2m20s (x3 over 2m22s)  kubelet            MountVolume.SetUp failed for volume "<secret-name>" : secret "<secret-name>" not found
+    Normal   Pulling      2m18s                  kubelet            Pulling image "<docker-image>"
+    Normal   Pulled       117s                   kubelet            Successfully pulled image "<docker-image>"
+    Normal   Created      61s (x4 over 115s)     kubelet            Created container <app>
+    Normal   Started      61s (x4 over 115s)     kubelet            Started container <app>
+    ```
 
 Then the secret was successfully found and your application's container has been started.
 
 ???+ failure
-If the event log looks like this:
 
-```shell hl_lines="5-7"
-Events:
-Type     Reason       Age                   From               Message
-----     ------       ----                  ----               -------
-Normal   Scheduled    4m53s                 default-scheduler  Successfully assigned <namespace>/<pod> to <node>
-Warning  FailedMount  2m50s                 kubelet            Unable to attach or mount volumes: unmounted volumes=[<secret-name>], unattached volumes=[<secret-name>]: timed out waiting for the condition
-Warning  FailedMount  43s (x10 over 4m53s)  kubelet            MountVolume.SetUp failed for volume "<secret-name>" : secret "<secret-name>" not found
-Warning  FailedMount  35s                   kubelet            Unable to attach or mount volumes: unmounted volumes=[<secret-name>], unattached volumes=[<secret-name>]: timed out waiting for the condition
-```
+    If the event log looks like this:
+
+    ```shell hl_lines="5-7"
+    Events:
+    Type     Reason       Age                   From               Message
+    ----     ------       ----                  ----               -------
+    Normal   Scheduled    4m53s                 default-scheduler  Successfully assigned <namespace>/<pod> to <node>
+    Warning  FailedMount  2m50s                 kubelet            Unable to attach or mount volumes: unmounted volumes=[<secret-name>], unattached volumes=[<secret-name>]: timed out waiting for the condition
+    Warning  FailedMount  43s (x10 over 4m53s)  kubelet            MountVolume.SetUp failed for volume "<secret-name>" : secret "<secret-name>" not found
+    Warning  FailedMount  35s                   kubelet            Unable to attach or mount volumes: unmounted volumes=[<secret-name>], unattached volumes=[<secret-name>]: timed out waiting for the condition
+    ```
 
 Then you should [ask for help](#asking-on-slack) on Slack.
 
@@ -140,19 +142,21 @@ kubectl get secret <secret-name>
 ```
 
 ???+ success
-```shell
-➜ kubectl get secret my-secret
+
+    ```shell
+    ➜ kubectl get secret my-secret
 
     NAME        TYPE     DATA  AGE
     my-secret   Opaque   3     15h
-```
+    ```
 
 ???+ failure
-```shell
-➜ kubectl get secret my-secret
+
+    ```shell
+    ➜ kubectl get secret my-secret
 
     Error from server (NotFound): secrets "my-secret" not found
-```
+    ```
 
 ### Step 3. Check related resources
 
