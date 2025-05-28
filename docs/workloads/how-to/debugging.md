@@ -12,6 +12,10 @@ Keep in mind that in the kubernetes documentation, the term "application" is a m
 - [Troubleshoot Applications](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application/)
 - [Debug Running Pods](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-running-pod/)
 
+In certain scenarios issues with workloads might not be directly related to runtime errors or may not be easily debuggable. 
+Therefore, it could be worth taking another quick look at [Workloads > Good practices](https://doc.nav.cloud.nais.io/workloads/explanations/good-practices/index.html)
+to make sure that you are following the recommendations there, before commencing with debugging.
+
 ## `kubectl` debug
 
 You can run an [ephemeral container](https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers/) in a pod using the `kubectl debug` command.
