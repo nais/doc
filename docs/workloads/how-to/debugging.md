@@ -60,7 +60,13 @@ If you experience memory leaks in Java processes you can get heap dumps either a
 
 ### Automatically on OOM
 
-Set `JAVA_OPTS` to `-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp`
+Use `JDK_JAVA_OPTIONS` to enable automatic heap dumps on OutOfMemoryError (OOM) to `/tmp`.
+
+```
+env:
+  - name: JDK_JAVA_OPTIONS
+    value: -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp
+```
 
 The `/tmp` volume is maintained through restarts, so if your app is restarting because of OOM, the heap dumps can be retrieved from there.
 
