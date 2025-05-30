@@ -13,10 +13,6 @@ This page guides you through the steps required to delete a Valkey instance.
 
 ## Steps
 
-Before you delete a Valkey instance, ensure that no applications are using it.
-If you delete a Valkey instance in use, the applications will lose access to the data stored in the instance.
-Deletion of a Valkey instance can only be done through the terminal.
-
 ### List Valkey instances
 
 To list all Valkey instances belonging to your team:
@@ -45,15 +41,10 @@ kubectl patch valkey <VALKEY-NAME> \
   -p='[{"op": "replace", "path": "/spec/terminationProtection", "value": false}]'
 ```
 
-### Delete Valkey instance
-
-To delete the Valkey instance, run the following command:
-
-```shell
-kubectl delete valkey <VALKEY-NAME>
-```
-
 ### Remove references from application manifests
+
+If the instance was created implicitly by adding it to your application manifest, removing it from the manifest will trigger deletion of the instance.
+If you have explicitly created the instance, you must also [explicitly delete it](#delete-valkey-instance) after removing it from the application manifest.
 
 Ensure that all references to the Valkey instance are removed from your application manifests:
 
@@ -63,3 +54,12 @@ spec:
 -    - instance: <VALKEY-INSTANCE-NAME>
 -      access: <ACCESS-LEVEL>
 ```
+
+### Delete Valkey instance
+
+To delete the Valkey instance, run the following command:
+
+```shell
+kubectl delete valkey <VALKEY-NAME>
+```
+
