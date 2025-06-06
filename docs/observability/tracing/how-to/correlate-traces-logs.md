@@ -106,4 +106,3 @@ The final step is to include trace information in your logs. This will allow Gra
 Now that you have tracing and logging set up, you can use Grafana Tempo to correlate traces and logs. When you view a trace in Grafana Tempo, you can see the logs that are associated with that trace. This makes it easy to understand what happened in your application and troubleshoot issues.
 
 ![Correlate traces and logs](../../../assets/grafana-tempo-logs.png)
-
