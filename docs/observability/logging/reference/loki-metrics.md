@@ -61,6 +61,4 @@ sum(loki:service:loglevel:count1m{detected_level="error"}) > 100
 
 ### Related Documentation
 
-- [Logging in NAIS](../../explanations/logging.md)
-- [Metrics in NAIS](../../explanations/metrics.md)
-- [Grafana Loki How-to Guides](../how-to/grafana-loki.md)
+- [Grafana Loki How-to Guides](../how-to/loki.md)
