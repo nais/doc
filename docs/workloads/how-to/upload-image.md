@@ -12,6 +12,13 @@ This how-to guide will show you how to upload a Docker image to your team's imag
 ```bash
 nais login
 ```
+
+## Register the Docker registry
+
+```bash
+gcloud auth configure-docker europe-north1-docker.pkg.dev
+```
+
 ## Ensure you have the image locally
 
 Ensure the desired image is available on your machine by pulling it from its source or building it locally. For example:
