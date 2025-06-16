@@ -33,6 +33,12 @@ You will also need to install a plugin in order to authenticate to the Kubernete
 gcloud components install gke-gcloud-auth-plugin
 ```
 
+{%- if tenant() == "nav" %}
+## Install kubelogin for access to on-prem clusters
+
+Follow Microsoft's instructions on how to install [kubelogin](https://azure.github.io/kubelogin/install.html) for your OS.
+{%- endif %}
+
 ## Generate kubeconfig file
 
 Use nais-cli to generate the kubeconfig file that grants access to the Nais clusters.
