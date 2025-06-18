@@ -38,6 +38,9 @@ jobs:
     if: github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     strategy:
       matrix:
         tenant:
@@ -63,20 +66,19 @@ jobs:
         with:
           name: out-folder
 
-      - name: Sync documentation to bucket
-        uses: actions-hub/gcloud@524.0.0
-        env:
-          PROJECT_ID: not-used
-          APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v2
         with:
-          args: -m rsync -r -c -d ${{matrix.tenant.name}}/ gs://${{ matrix.tenant.bucket }}
-          cli: gsutil
+          workload_identity_provider: ${{ secrets.NAIS_IO_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: nais-doc-sa@nais-io.iam.gserviceaccount.com
+          token_format: access_token
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Sync documentation to bucket
+        run: gsutil -m rsync -r -c -d ${{matrix.tenant.name}}/ gs://${{ matrix.tenant.bucket }}
 
       - name: Invalidate cache
-        uses: actions-hub/gcloud@524.0.0
-        env:
-          PROJECT_ID: not-used
-          APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
-        with:
-          args: -m setmeta -r -h 'Cache-Control:public, max-age=180' 'gs://${{ matrix.tenant.bucket }}/*'
-          cli: gsutil
+        run: gsutil -m setmeta -r -h 'Cache-Control:public, max-age=180' 'gs://${{ matrix.tenant.bucket }}/*'
