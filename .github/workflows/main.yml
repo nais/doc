@@ -72,6 +72,17 @@ jobs:
           args: -m rsync -r -c -d out/${{matrix.tenant.name}}/ gs://${{ matrix.tenant.bucket }}
           cli: gsutil
 
+      - name: debug
+        run: |
+          echo "Bucket: ${{ matrix.tenant.bucket }}"
+          echo "Name: ${{ matrix.tenant.name }}"
+          echo "Out folder: out/${{ matrix.tenant.name }}/"
+          echo "GCP credentials: ${{ secrets.NAIS_DOC_SA }}"
+          echo dir:
+          ls -la
+          echo out:
+          ls -la out/
+
       - name: Invalidate cache
         uses: actions-hub/gcloud@524.0.0
         env:
