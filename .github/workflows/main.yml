@@ -63,15 +63,6 @@ jobs:
         with:
           name: out-folder
 
-      - name: Sync documentation to bucket
-        uses: actions-hub/gcloud@524.0.0
-        env:
-          PROJECT_ID: not-used
-          APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
-        with:
-          args: -m rsync -r -c -d out/${{matrix.tenant.name}}/ gs://${{ matrix.tenant.bucket }}
-          cli: gsutil
-
       - name: debug
         run: |
           echo "Bucket: ${{ matrix.tenant.bucket }}"
@@ -82,6 +73,15 @@ jobs:
           ls -la
           echo out:
           ls -la out/
+
+      - name: Sync documentation to bucket
+        uses: actions-hub/gcloud@524.0.0
+        env:
+          PROJECT_ID: not-used
+          APPLICATION_CREDENTIALS: ${{ secrets.NAIS_DOC_SA }}
+        with:
+          args: -m rsync -r -c -d out/${{matrix.tenant.name}}/ gs://${{ matrix.tenant.bucket }}
+          cli: gsutil
 
       - name: Invalidate cache
         uses: actions-hub/gcloud@524.0.0
