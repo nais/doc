@@ -119,6 +119,7 @@ spec:
 
 All versions from POSTGRES_14 and upwards are supported.
 
+#TODO: create a document
 :dart: [Learn how to safely upgrade the Postgres version](../how-to/upgrade-postgres.md)
 
 ### High availability
@@ -135,16 +136,19 @@ spec:
 
 ## Database logs
 
+#TODO: missing logs exporting and link to loki
 Postgres instances automatically collect logs that can be viewed in [loki]()
 
 ## Database metrics
 
 Postgres instances automatically collect metrics that can be viewed in the following locations:
 
+#TODO: update these links and add more information about the metrics available
 * [Nais Console](<<tenant_url("console")>>), under the `Postgres` section.
 * [Grafana](<<tenant_url("grafana")>>), using the cluster datasource.
 
-A list of all available metrics can be found [here](https://cloud.google.com/sql/docs/postgres/admin-api/metrics).
+#TODO: add link to metrics documentation
+A list of all available metrics can be found []().
 
 [:dart: Learn how to view Postgres metrics in the Google Cloud Console, Grafana, and Nais Console](../how-to/database-observability.md)
 
@@ -174,8 +178,7 @@ spec:
             hour: 3 # 3 = 03:00
 ```
 
-The postgres-operator will automatcally perform upgrades when, fix bugs and apply security patches to prevent exploits. Your application should be able to handle occasional downtime as this maintenance is performed. [Read more on maintenance windows](https://cloud.google.com/sql/docs/postgres/maintenance). Nais does not configure the maintenance window, but this can be set up in the application spec: [`nais.yaml`](../../../workloads/application/reference/application-spec.md#gcpsqlinstances).
-If you wish to be notified about upcoming maintenance, you can opt-in for this on the [Communications page](https://console.cloud.google.com/user-preferences/communication) in the GCP console.
+The postgres-operator will automatically perform upgrades when, fix bugs and apply security patches to prevent exploits. Your application should be able to handle occasional downtime as this maintenance is performed. [Read more on maintenance windows](https://cloud.google.com/sql/docs/postgres/maintenance). Nais does not configure the maintenance window, but this can be set up in the application spec: [`nais.yaml`](../../../workloads/application/reference/application-spec.md#gcpsqlinstances).
 
 ## Automated backup
 
