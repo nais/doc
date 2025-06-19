@@ -1,5 +1,8 @@
 ---
-description: Get started with Grafana Loki, the default and preferred log aggregation system for all Nais appli### Performance tips
+description: Get started with Grafana Loki, the default and preferred log aggregation system for all Nais application
+---
+
+### Performance tips
 
 - **Use specific label selectors**: Always include `service` and `namespace` labels when possible
 - **Limit time ranges**: Shorter time ranges perform better
