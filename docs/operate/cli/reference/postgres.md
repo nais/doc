@@ -51,10 +51,10 @@ nais postgres prepare appname
 |-------------|-----------|-------------------------------------------------------------|
 | appname     | Yes       | Name of application owning the database                     |
 
-| Flag      | Required | Short |Default                       |Description                                              |
-|-----------|----------|-------|------------------------------|---------------------------------------------------------|
-| all-privs | No       |       | false                        | If true `ALL` is granted, else only `SELECT` is granted |
-| schema    | No       |       | public                       | Name of the schema to grant access to                   |
+| Flag           | Required | Short |Default                       |Description                                              |
+|----------------|----------|-------|------------------------------|---------------------------------------------------------|
+| all-privileges | No       |       | false                        | If true `ALL` is granted, else only `SELECT` is granted |
+| schema         | No       |       | public                       | Name of the schema to grant access to                   |
 
 ## revoke
 Revokes the privileges given to the role cloudsqliamuser in the given schema (default `public`).

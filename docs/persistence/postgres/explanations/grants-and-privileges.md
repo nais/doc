@@ -7,7 +7,7 @@ When using the [`nais postgres prepare`](../how-to/personal-access.md#prerequisi
 
 By default, the user is granted `SELECT` privileges on all tables and sequences in the default schema.
 
-With the `--all-privs` flag, the user is granted `ALL` privileges on all tables and sequences in the default schema.
+With the `--all-privileges` flag, the user is granted `ALL` privileges on all tables and sequences in the default schema.
 In addition, the user is granted `CREATE` on the default schema.
 This should be enough to allow most maintenance tasks, but if you need more privileges, you can usually grant yourself the necessary privileges.
 
