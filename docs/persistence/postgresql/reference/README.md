@@ -150,10 +150,6 @@ spec:
 
 Postgres instances automatically collect metrics that can be viewed in [Grafana](<<tenant_url("grafana")>>), using the cluster datasource.
 
-Metrics are collected using [Prometheus postgres exporter](https://github.com/prometheus-community/postgres_exporter).
-
-{#TODO: Add more information about the metrics collected, and how to use them#}
-
 [:dart: Learn how to view Postgres metrics in the Google Cloud Console, Grafana, and Nais Console](../how-to/database-observability.md)
 
 ### Query insights
