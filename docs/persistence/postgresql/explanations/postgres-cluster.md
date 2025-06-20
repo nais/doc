@@ -59,4 +59,3 @@ This can be done by exporting the data from the old cluster and importing it int
 The postgres operator also supports cloning clusters from a backup which is fairly easy, but we recommend contacting the nais team for assistance with this.
 
 {#TODO: Add link and information on how to migrate to new instance#}
-Learn [how to create a new SQL Instance and migrate your application](../how-to/migrate-to-new-instance.md).
