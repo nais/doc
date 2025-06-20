@@ -4,23 +4,18 @@ tags: [postgres, debugging, troubleshooting, how-to]
 
 # Debugging
 
-When issues arise with your [Cloud SQL instance](../explanations/cloud-sql-instance.md), you can use the following steps to troubleshoot the problem.
+When issues arise with your [Postgres cluster](../explanations/postgres-cluster.md), you can use the following steps to troubleshoot the problem.
 
-Some times your application may look fine and work fine, but some update to the SQLInstance has not been properly applied.
+Some times your application may look fine and work fine, but some update to the postgres cluster has not been properly applied.
 In these situations, inspecting the resources may reveal update problems.
-If there is a problem with updating the SQLInstance, no changes will be applied until the problem is resolved.
+If there is a problem with updating the postgres cluster, the problem needs to be resolved before further changes can be applied.
 
-## Check the events and status on the [Config Connector](https://cloud.google.com/config-connector/docs/overview) resources
-
-```text
-$ kubectl describe sqlinstance -lapp=<myapp>
-$ kubectl describe sqldatabase -lapp=<myapp>
-$ kubectl describe sqluser -lapp=<myapp>
-$ kubectl describe sqlsslcert -lapp=<myapp>
-```
-
-## Check the logs of the Cloud SQL Proxy (if instance uses cloudsql-proxy)
+## Check the events and status on the relevant Kubernetes resources
 
 ```text
-$ kubectl logs <pod> -c cloudsql-proxy
+$ kubectl describe postgresql -n pg-<my-team> -lapp=<my-app>
+$ kubectl describe sts -n pg-<my-team> -lapp=<my-app>
+$ kubectl describe pod -n pg-<my-team> -lapp=<my-app>
+$ kubectl describe pvc -n pg-<my-team> -lapp=<my-app>
+$ kubectl describe secret -n <my-team> -lapp=<my-app>
 ```
