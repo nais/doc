@@ -1,3 +1,7 @@
+---
+tags: [how-to, openSearch]
+---
+
 Upgrade major version
 =====================
 
