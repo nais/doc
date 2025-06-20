@@ -53,7 +53,7 @@ Databases should always be accessed using a personal account, and the access sho
     application credentials and modify the permissions on the public schema.
     All IAM users with correct permissions in your GCP project will be able to connect to the instance.
 
-    The default is to allow only `SELECT` statements. If you need to allow all privileges, you can use the `--all-privs` flag.
+    The default is to allow only `SELECT` statements. If you need to allow all privileges, you can use the `--all-privileges` flag.
 
     ```bash
     nais postgres prepare --all-privs <MYAPP>
