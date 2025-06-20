@@ -9,6 +9,7 @@ In the nais platform, we support zalando postgres-operator to provision managed 
 
 !!! warning "Experimental feature"
     This feature is an alpha feature, and is subject to API change, instability or removal.
+    Some features may not be fully developed, and changes will be made in the coming months.
 
 Minimal configuration needed to provision a database for your application:
 
@@ -30,7 +31,7 @@ spec:
         memory: 2G
 ```
 
-The default configuration sets up the [cluster](explanations/postgress-cluster.md) with:
+The default configuration sets up the [cluster](explanations/postgres-cluster.md) with:
 
 - no automatic storage increase
 - primary and replica (in production we recommend using high availability which offers a primary and two replicas)
@@ -47,13 +48,11 @@ See all configuration options in the [application manifest reference](../../work
 
 ## How it works
 
-The first time you deploy your application with the above configuration, Nais will provision the database into your team's postgres namespace
-(team namespace prefixed with pg-).
+The first time you deploy your application with the above configuration, Nais will provision the database into your team's postgres namespace (team namespace prefixed with pg-).
 Your team has full access to view logs and perform administrative database tasks and maintenance.
 
 Nais also configures your application with the necessary environment variables needed to connect to the database.
-See the [reference](reference/README.md#database-connnection) for the list of environment variables.
-
+See the [reference](reference/README.md#database-connection) for the list of environment variables.
 
 First time provisioning of the database will take a few minutes.
 Your application will not be able to connect to the database until the provisioning is complete.
