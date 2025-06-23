@@ -4053,6 +4053,278 @@ Default value: `1`<br />
       parallelism: 1
     ```
 
+## postgres
+Postgres is used to provision and configure a Postgres database for your naisjob.
+
+!!! warning "Experimental feature"
+    This feature has not undergone much testing, and is subject to API change, instability, or removal.
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      postgres:
+        cluster:
+          allowDeletion: true
+          highAvailability: true
+          majorVersion: "17"
+          name: my-postgres-cluster
+          resources:
+            cpu: 100m
+            diskSize: 100Mi
+            memory: 1Gi
+        database:
+          collation: nb_NO
+          extensions:
+            - name: postgis
+        maintenanceWindow:
+          day: 3
+          hour: 3
+    ```
+
+### postgres.cluster
+Cluster configures the Postgres cluster
+
+Type: `object`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      postgres:
+        cluster:
+          allowDeletion: true
+          highAvailability: true
+          majorVersion: "17"
+          name: my-postgres-cluster
+          resources:
+            cpu: 100m
+            diskSize: 100Mi
+            memory: 1Gi
+    ```
+
+#### postgres.cluster.allowDeletion
+Allow deletion of the Postgres cluster when the application is deleted.
+
+Type: `boolean`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      postgres:
+        cluster:
+          allowDeletion: true
+    ```
+
+#### postgres.cluster.highAvailability
+High availability cluster.
+
+Type: `boolean`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      postgres:
+        cluster:
+          highAvailability: true
+    ```
+
+#### postgres.cluster.majorVersion
+Major version of Postgres to use.
+
+Type: `enum`<br />
+Required: `true`<br />
+Allowed values: `16`, `17`<br />
+
+??? example
+    ``` yaml
+    spec:
+      postgres:
+        cluster:
+          majorVersion: "17"
+    ```
+
+#### postgres.cluster.name
+Name of the Postgres cluster.
+
+Type: `string`<br />
+Required: `false`<br />
+Pattern: `^[a-z0-9][a-z0-9-]{1,62}$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      postgres:
+        cluster:
+          name: my-postgres-cluster
+    ```
+
+#### postgres.cluster.resources
+Type: `object`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      postgres:
+        cluster:
+          resources:
+            cpu: 100m
+            diskSize: 100Mi
+            memory: 1Gi
+    ```
+
+##### postgres.cluster.resources.cpu
+CPU resources for the Postgres cluster.
+
+Type: `object`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      postgres:
+        cluster:
+          resources:
+            cpu: 100m
+    ```
+
+##### postgres.cluster.resources.diskSize
+Disk size for the Postgres cluster.
+
+Type: `object`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      postgres:
+        cluster:
+          resources:
+            diskSize: 100Mi
+    ```
+
+##### postgres.cluster.resources.memory
+Memory resources for the Postgres cluster.
+
+Type: `object`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      postgres:
+        cluster:
+          resources:
+            memory: 1Gi
+    ```
+
+### postgres.database
+Database configures the Postgres database.
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      postgres:
+        database:
+          collation: nb_NO
+          extensions:
+            - name: postgis
+    ```
+
+#### postgres.database.collation
+Collation for the Postgres database.
+
+Type: `enum`<br />
+Required: `false`<br />
+Allowed values: `en_US`, `nb_NO`<br />
+
+??? example
+    ``` yaml
+    spec:
+      postgres:
+        database:
+          collation: nb_NO
+    ```
+
+#### postgres.database.extensions
+Extensions to enable in the Postgres database.
+
+Type: `array`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      postgres:
+        database:
+          extensions:
+            - name: postgis
+    ```
+
+##### postgres.database.extensions[].name
+Name of the Postgres extension to enable.
+
+Type: `string`<br />
+Required: `true`<br />
+
+??? example
+    ``` yaml
+    spec:
+      postgres:
+        database:
+          extensions:
+            - name: postgis
+    ```
+
+### postgres.maintenanceWindow
+MaintenanceWindow configures the maintenance window for the Postgres cluster.
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      postgres:
+        maintenanceWindow:
+          day: 3
+          hour: 3
+    ```
+
+#### postgres.maintenanceWindow.day
+Type: `integer`<br />
+Required: `true`<br />
+Value range: `1`-`7`<br />
+
+??? example
+    ``` yaml
+    spec:
+      postgres:
+        maintenanceWindow:
+          day: 3
+    ```
+
+#### postgres.maintenanceWindow.hour
+Type: `integer`<br />
+Required: `true`<br />
+Value range: `0`-`23`<br />
+
+??? example
+    ``` yaml
+    spec:
+      postgres:
+        maintenanceWindow:
+          hour: 3
+    ```
+
 ## preStopHook
 PreStopHook is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc.
 The handler is not called if the container crashes or exits by itself.
