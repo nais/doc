@@ -27,3 +27,9 @@ make local
 ```bash
 TENANT=nav make local
 ```
+
+## 3b. Do a clean build of the documentation
+
+```bash
+make clean-build
+```
