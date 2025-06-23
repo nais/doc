@@ -90,8 +90,8 @@ Typically, the message appears on either:
 
 Generally, the warning message should not persist or be stuck for more than a minute.
 
-One exception to this rule is the secrets to connect to [Postgres](../../persistence/postgres/README.md) when the application is first deployed.
-Creating [SQLInstances](../../persistence/postgres/explanations/cloud-sql-instance.md) takes time, usually as much as 8-10 minutes, and the first deploy will usually time out and be marked as failed while waiting for the SQLInstance to be created.
+One exception to this rule is the secrets to connect to [Postgres](../../persistence/cloudsql/README.md) when the application is first deployed.
+Creating [SQLInstances](../../persistence/cloudsql/explanations/cloud-sql-instance.md) takes time, usually as much as 8-10 minutes, and the first deploy will usually time out and be marked as failed while waiting for the SQLInstance to be created.
 It will eventually resolve itself, and the next deploy will succeed.
 
 Follow the steps below to verify that the secret exists:
@@ -186,9 +186,9 @@ When the SQLInstance is not ready, either because it is still being created, or 
 Possible causes and how to resolve them:
 
  - An existing certificate blocks creation of a new one.  
-   See [Certification sync issues](../../persistence/postgres/how-to/certification-sync-issues.md) for more information.
+   See [Certification sync issues](../../persistence/cloudsql/how-to/certification-sync-issues.md) for more information.
  - Attempting to assign a private IP to an existing Cloud SQL instance. 
-   See [Failing to assign private IP to an existing Cloud SQL instance](../../persistence/postgres/how-to/existing-instance-private-ip.md) for more information.
+   See [Failing to assign private IP to an existing Cloud SQL instance](../../persistence/cloudsql/how-to/existing-instance-private-ip.md) for more information.
 
 ### Step 4. Ask for help
 

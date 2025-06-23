@@ -90,7 +90,7 @@ Cloud SQL is a PostgreSQL relational database service that is provided by Google
 Cloud Platform. It is a good choice for storing data that is relational in
 nature.
 
-[:bulb: Learn more about Cloud SQL](./postgres/README.md)
+[:bulb: Learn more about Cloud SQL](cloudsql/README.md)
 
 ## BigQuery
 

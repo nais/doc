@@ -51,7 +51,7 @@ graph TD
   B --> |No| InternalOtherNS[🎯 <a href='../../how-to/access-policies#send-requests-to-other-app-in-another-namespace'>Allow access to other namespaces</a>]
 ```
 
-Services offered by Nais (such as [databases](../../persistence/postgres/README.md)) are automatically configured with necessary outbound access policies.
+Services offered by Nais (such as [databases](../../persistence/cloudsql/README.md)) are automatically configured with necessary outbound access policies.
 
 ### Service discovery
 

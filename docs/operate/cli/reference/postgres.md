@@ -175,7 +175,7 @@ nais postgres password rotate appname
 
 Commands used for migrating to a new postgres instance.
 
-See also [Migrating to a new SQLInstance](../../../persistence/postgres/how-to/migrate-to-new-instance.md)
+See also [Migrating to a new SQLInstance](../../../persistence/cloudsql/how-to/migrate-to-new-instance.md)
 
 All the `migrate` subcommands require the following arguments:
 
@@ -196,8 +196,8 @@ Setup supports the following optional flags:
 
 | Flag      | Description                                                                                                                     |
 |-----------|---------------------------------------------------------------------------------------------------------------------------------|
-| tier      | Tier of new instance. See [Postgres reference](../../../persistence/postgres/reference/README.md#server-size).                  |
-| type      | Postgres version of new instance. See [Postgres reference](../../../persistence/postgres/reference/README.md#postgres-version). |
+| tier      | Tier of new instance. See [Postgres reference](../../../persistence/cloudsql/reference/README.md#server-size).                  |
+| type      | Postgres version of new instance. See [Postgres reference](../../../persistence/cloudsql/reference/README.md#postgres-version). |
 | disk-size | Disk size of new instance.                                                                                                      |
 
 These flags must be specified before arguments, e.g:
