@@ -163,7 +163,9 @@ Postgres instances automatically collect metrics that can be viewed in [Grafana]
 The maintenance window is a period of time when the postgres-operator will perform maintenance on the Postgres instance.
 This includes applying updates, security patches, and other maintenance tasks to ensure the database is running smoothly.
 The application should be able to handle reconnects as this maintenance is performed, the operator will perform a switchover to the replica during the maintenance.
+If no maintenance window is set, the operator will perform maintenance at any time.
 
+Nais does not configure a maintenance window by default.
 Maintenance window can be configured in the [application spec](../../../workloads/application/reference/application-spec.md#postgresmaintenancewindow) under the `spec.postgres.maintenanceWindow` field.
 The duration of the maintenance window is one hour, and it can be set to any day of the week and hour of the day.
 
@@ -180,10 +182,6 @@ spec:
       day: 3 # 3 = Wednesday
       hour: 3 # 3 = 03:00
 ```
-
-The postgres-operator will automatically perform upgrades when, fix bugs and apply security patches to prevent exploits. 
-Your application should be able to handle occasional downtime as this maintenance is performed. 
-Nais does not configure the maintenance window, but this can be set up in the [application spec](../../../workloads/application/reference/application-spec.md#postgresmaintenancewindow).
 
 ## Automated backup
 
