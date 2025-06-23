@@ -122,7 +122,7 @@ spec:
       majorVersion: "17"
 ```
 
-All versions from 14 and upwards are supported.
+All versions from 16 and upwards are supported.
 
 :dart: [Learn how to safely upgrade the Postgres version](../how-to/upgrade-postgres.md)
 
