@@ -305,7 +305,7 @@ Or the other variant:
 
     - Ensure that the [scope value](../explanations/README.md#scopes) in your application's request follows the correct format:
 
-        `api://<cluster>.<namespace>.<application>/.default>`
+        `api://<cluster>.<namespace>.<application>/.default`
 
     - Ensure that application `B`'s [access policy](../how-to/secure.md#applications) includes application `A`.
     - If all else fails, request assistance in the `#nais` channel on Slack.
