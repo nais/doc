@@ -74,6 +74,7 @@ plugins:
       extra_css: ['css/swagger.css']
       supportedSubmitMethods: []
       tryItOutEnabled: false
+      enabled: !ENV [CI, false]
   - tags
   - macros:
       j2_variable_start_string: "<<"
