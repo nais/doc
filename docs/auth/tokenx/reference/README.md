@@ -30,30 +30,48 @@ The table below shows the claim mappings:
 The mappings will be removed at some point in the future.
 If you're using the `acr` claim in any way, check for both the original and mapped values.
 
+## Manual Token Validation
+
+{% include 'auth/partials/validate-manually.md' %}
+
+**Issuer Validation**
+
+Validate that the `iss` claim has a value that is equal to either:
+
+1. the `TOKEN_X_ISSUER` environment variable, or
+2. the `issuer` property from the [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document).
+   The document is found at the endpoint pointed to by the `TOKEN_X_WELL_KNOWN_URL` environment variable.
+
+**Audience Validation**
+
+Validate that the `aud` claim is equal to the value found in the `TOKEN_X_CLIENT_ID` environment variable.
+
+**Signature Validation**
+
+Validate that the token is signed with a public key published at the JWKS endpoint.
+This endpoint URI can be found in one of two ways:
+
+1. the `TOKEN_X_JWKS_URI` environment variable, or
+2. the `jwks_uri` property from the metadata discovery document.
+   The document is found at the endpoint pointed to by the `TOKEN_X_WELL_KNOWN_URL` environment variable.
+
+**Other Token Claims**
+
+Other claims may be present in the token.
+Validation of these claims is optional.
+
+See the [TokenX claims reference](../reference/README.md#claims) for details.
+
 ## Runtime Variables & Credentials
 
 Your application will automatically be injected with environment variables at runtime.
 
-### Variables for acquiring tokens
+| Environment Variable                | Description                                                                     |
+|-------------------------------------|---------------------------------------------------------------------------------|
+| `NAIS_TOKEN_EXCHANGE_ENDPOINT`      | Used to [:dart: consume an API on behalf of an end-user](../how-to/consume.md). |
+| `NAIS_TOKEN_INTROSPECTION_ENDPOINT` | Used to [:dart: secure your API with TokenX](../how-to/secure.md).              |
 
-These variables are used to [:dart: consume an API](../how-to/consume.md):
-
-| Name                     | Description                                                                                               |
-|:-------------------------|:----------------------------------------------------------------------------------------------------------|
-| `TOKEN_X_CLIENT_ID`      | [Client ID](../../explanations/README.md#client-id) that uniquely identifies the application in TokenX.   |
-| `TOKEN_X_PRIVATE_JWK`    | [Private JWK](../../explanations/README.md#private-keys) containing an RSA key belonging to client.       |
-| `TOKEN_X_TOKEN_ENDPOINT` | `token_endpoint` from the [metadata discovery document](../../explanations/README.md#token-endpoint).     |
-
-### Variables for validating tokens
-
-These variables are used to [:dart: secure your API](../how-to/secure.md):
-
-| Name                     | Description                                                                                                           |
-|:-------------------------|:----------------------------------------------------------------------------------------------------------------------|
-| `TOKEN_X_CLIENT_ID`      | [Client ID](../../explanations/README.md#client-id) that uniquely identifies the application in TokenX.               |
-| `TOKEN_X_WELL_KNOWN_URL` | The URL for Tokendings' [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document). |
-| `TOKEN_X_ISSUER`         | `issuer` from the [metadata discovery document](../../explanations/README.md#issuer).                                 |
-| `TOKEN_X_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](../../explanations/README.md#jwks-endpoint-public-keys).            |
+For further details about these endpoints, see the [OpenAPI specification](../../reference/README.md#openapi-specification).
 
 ## Spec
 

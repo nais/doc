@@ -66,50 +66,21 @@ Verify incoming requests from consumers by validating the [JWT Bearer token](../
 
 {% set identity_provider = 'maskinporten' %}
 {% set claims_reference = '../reference/README.md#claims' %}
+{% set token_validation_reference = '../reference/README.md#manual-token-validation' %}
 {% include 'auth/partials/validate.md' %}
 
-To validate the token, start by validating the [signature and standard time-related claims](../../explanations/README.md#token-validation).
+### Validate scopes
 
-Additionally, perform the following validations:
+Your application must validate the `scope` claim in the token.
 
-**Issuer Validation**
+The `scope` claim is a string that contains a whitespace-separated list of scopes, for example:
 
-Validate that the `iss` claim has a value that is equal to either:
+```json
+{
+    "scope": "nav:helse/sykepenger/afp.read nav:helse/sykepenger/afp.write"
+}
+```
 
-1. the [`MASKINPORTEN_ISSUER`][variables-ref] environment variable, or
-2. the `issuer` property from the [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document).
-   The document is found at the endpoint pointed to by the `MASKINPORTEN_WELL_KNOWN_URL` environment variable.
-
-**Audience Validation**
-
-The `aud` claim is not included by default in Maskinporten tokens and does not need to be validated.
-It is only included if the consumer has requested an [audience-restricted token](https://docs.digdir.no/maskinporten_func_audience_restricted_tokens.html).
-
-Only validate the `aud` claim if you want to require your consumers to use audience-restricted tokens.
-The expected audience value is up to you to define and must be communicated to your consumers.
-The value must be an absolute URI (such as `https://some-provider.no` or `https://some-provider.no/api`).
-
-**Signature Validation**
-
-Validate that the token is signed with a public key published at the JWKS endpoint.
-This endpoint URI can be found in one of two ways:
-
-1. the [`MASKINPORTEN_JWKS_URI`][variables-ref] environment variable, or
-2. the `jwks_uri` property from the metadata discovery document.
-   The document is found at the endpoint pointed to by the [`MASKINPORTEN_WELL_KNOWN_URL`][variables-ref] environment variable.
-
-**Other Token Claims**
-
-[Other claims](../reference/README.md#claims) may be present in the token.
-Validation of these claims is optional.
-
-### Scope Validation
-
-You must validate the `scope` claim in the token, regardless of whether you're using Texas or validating JWTs manually.
-
-The `scope` claim is a string that contains a whitespace-separated list of scopes.
 Validate that the `scope` claim contains the expected scope(s).
 
 The semantics and authorization that a scope represents is up to you to define and enforce in your application code.
-
-[variables-ref]: ../reference/README.md#variables-for-validating-tokens

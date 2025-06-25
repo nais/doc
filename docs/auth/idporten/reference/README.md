@@ -37,18 +37,44 @@ Set the query parameter `locale` when redirecting the user to login:
 https://<ingress>/oauth2/login?locale=en
 ```
 
+## Manual token validation
+
+{% include 'auth/partials/validate-manually.md' %}
+
+**Issuer Validation**
+
+Validate that the `iss` claim has a value that is equal to either:
+
+1. the `IDPORTEN_ISSUER` environment variable, or
+2. the `issuer` property from the [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document).
+   The document is found at the endpoint pointed to by the `IDPORTEN_WELL_KNOWN_URL` environment variable.
+
+**Audience Validation**
+
+Validate that the `aud` claim is equal to the `IDPORTEN_AUDIENCE` environment variable.
+
+**Signature Validation**
+
+Validate that the token is signed with a public key published at the JWKS endpoint.
+This endpoint URI can be found in one of two ways:
+
+1. the `IDPORTEN_JWKS_URI` environment variable, or
+2. the `jwks_uri` property from the metadata discovery document.
+   The document is found at the endpoint pointed to by the `IDPORTEN_WELL_KNOWN_URL` environment variable.
+
+**Claims Validation**
+
+[Other claims](#claims) may be present in the token. Validation of these claims is optional.
+
 ## Runtime variables & credentials
 
-Your application will automatically be injected with environment variables at runtime.
+Your application will automatically be injected with the following environment variables at runtime.
 
-| Name                      | Description                                                                                                                |
-|:--------------------------|:---------------------------------------------------------------------------------------------------------------------------|
-| `IDPORTEN_AUDIENCE`       | The expected [audience](../../explanations/README.md#token-validation) for access tokens from ID-porten.                   |
-| `IDPORTEN_WELL_KNOWN_URL` | The URL for ID-porten's [OIDC metadata discovery document](../../explanations/README.md#well-known-url-metadata-document). |
-| `IDPORTEN_ISSUER`         | `issuer` from the [metadata discovery document](../../explanations/README.md#issuer).                                      |
-| `IDPORTEN_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](../../explanations/README.md#jwks-endpoint-public-keys).                 |
+| Environment Variable                | Description                                                                  |
+|-------------------------------------|------------------------------------------------------------------------------|
+| `NAIS_TOKEN_INTROSPECTION_ENDPOINT` | Used to [:dart: secure your application with ID-porten](../how-to/login.md). |
 
-These variables are used to :dart: [secure your application with ID-porten](../how-to/login.md).
+For further details about these endpoints, see the [OpenAPI specification](../../reference/README.md#openapi-specification).
 
 ## Security levels
 

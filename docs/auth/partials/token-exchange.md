@@ -31,15 +31,4 @@
     user_token=eyJra...
     ```
 
-```json title="Successful response"
-{
-    "access_token": "eyJra...",
-    "expires_in": 3599,
-    "token_type": "Bearer"
-}
-```
-
-Your application does not need to validate this token.
-
-Tokens are cached by default with regards to the `expires_in` field.
-To forcibly fetch a new token, set the `skip_cache=true` parameter in the request.
+{% include 'auth/partials/texas-footer.md' %}

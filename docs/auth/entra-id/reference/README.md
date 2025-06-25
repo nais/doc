@@ -217,38 +217,46 @@ We only use v2.0 tokens.
     Consumers defined in the [access policy](../how-to/secure.md#applications) are always assigned the default scope named `defaultaccess`.
     You can optionally define and grant them [custom scopes](#custom-scopes).
 
+## Manual Token Validation
+
+{% include 'auth/partials/validate-manually.md' %}
+
+**Issuer Validation**
+
+Validate that the `iss` claim has a value that is equal to either:
+
+1. the `AZURE_OPENID_CONFIG_ISSUER` environment variable, or
+2. the `issuer` property from the [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document).
+   The document is found at the endpoint pointed to by the `AZURE_APP_WELL_KNOWN_URL` environment variable.
+
+**Audience Validation**
+
+Validate that the `aud` claim is equal to the `AZURE_APP_CLIENT_ID` environment variable.
+
+**Signature Validation**
+
+Validate that the token is signed with a public key published at the JWKS endpoint.
+This endpoint URI can be found in one of two ways:
+
+1. the `AZURE_OPENID_CONFIG_JWKS_URI` environment variable, or
+2. the `jwks_uri` property from the metadata discovery document.
+   The document is found at the endpoint pointed to by the `AZURE_APP_WELL_KNOWN_URL` environment variable.
+
+**Claims Validation**
+
+[Other claims](../reference/README.md#claims) may be present in the token. Validation of these claims is optional.
+
 ## Runtime Variables & Credentials
 
-Your application will automatically be injected with environment variables at runtime.
+Your application will automatically be injected with the following environment variables at runtime.
 
-### Variables for acquiring tokens
+| Environment Variable                | Description                                                                                             |
+|-------------------------------------|---------------------------------------------------------------------------------------------------------|
+| `NAIS_TOKEN_ENDPOINT`               | Used to [:dart: consume an API as an application](../how-to/consume-m2m.md).                            |
+| `NAIS_TOKEN_EXCHANGE_ENDPOINT`      | Used to [:dart: consume an API on behalf of an employee](../how-to/consume-obo.md).                     |
+| `NAIS_TOKEN_INTROSPECTION_ENDPOINT` | Used to [:dart: secure your API](../how-to/secure.md) or [:dart: log in employees](../how-to/login.md). |
 
-These variables are used to:
-
-- [:dart: consume an API as an application](../how-to/consume-m2m.md) and
-- [:dart: consume an API on behalf of an employee](../how-to/consume-obo.md)
-
-| Name                                 | Description                                                                                                              |
-|:-------------------------------------|:-------------------------------------------------------------------------------------------------------------------------|
-| `AZURE_APP_CLIENT_ID`                | [Client ID](../../explanations/README.md#client-id) that uniquely identifies the application in Entra ID.                |
-| `AZURE_APP_CLIENT_SECRET`            | [Client secret](../../explanations/README.md#client-secret) for the application in Entra ID.                             |
-| `AZURE_APP_WELL_KNOWN_URL`           | The well-known URL for the [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document). |
-| `AZURE_OPENID_CONFIG_TOKEN_ENDPOINT` | `token_endpoint` from the [metadata discovery document](../../explanations/README.md#token-endpoint).                    |
-
-`AZURE_APP_WELL_KNOWN_URL` is optional if you're using `AZURE_OPENID_CONFIG_TOKEN_ENDPOINT` directly.
-
-### Variables for validating tokens
-
-These variables are used to [:dart: secure your API](../how-to/secure.md):
-
-| Name                           | Description                                                                                                              |
-|:-------------------------------|:-------------------------------------------------------------------------------------------------------------------------|
-| `AZURE_APP_CLIENT_ID`          | [Client ID](../explanations/README.md#client-id) that uniquely identifies the application in Entra ID.                   |
-| `AZURE_APP_WELL_KNOWN_URL`     | The well-known URL for the [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document). |
-| `AZURE_OPENID_CONFIG_ISSUER`   | `issuer` from the [metadata discovery document](../../explanations/README.md#issuer).                                    |
-| `AZURE_OPENID_CONFIG_JWKS_URI` | `jwks_uri` from the [metadata discovery document](../../explanations/README.md#jwks-endpoint-public-keys).               |
-
-`AZURE_APP_WELL_KNOWN_URL` is optional if you're using `AZURE_OPENID_CONFIG_ISSUER` and `AZURE_OPENID_CONFIG_JWKS_URI` directly.
+For further details about these endpoints, see the [OpenAPI specification](../../reference/README.md#openapi-specification).
 
 ## Spec
 

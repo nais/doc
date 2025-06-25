@@ -192,14 +192,6 @@ Unless specified otherwise, all clients we use are confidential clients.
 A client ID is a unique identifier associated with your client for a given identity provider. The value of the
 identifier is generally not considered to be confidential.
 
-The client ID for your client is injected at runtime as an environment variable.
-See the respective identity provider page for details:
-
-- [Entra ID](../entra-id/reference/README.md#runtime-variables-credentials)
-- [ID-porten](../idporten/reference/README.md#runtime-variables-credentials)
-- [Maskinporten](../maskinporten/reference/README.md#runtime-variables-credentials)
-- [TokenX](../tokenx/reference/README.md#runtime-variables-credentials)
-
 #### Client Authentication
 
 A confidential client must authenticate itself to the identity provider.
@@ -426,8 +418,6 @@ Validation should always be performed before granting access to any [resource se
 Use well-known and widely used libraries and frameworks that take care of most
 of the heavy lifting for you.
 
-See [libraries and frameworks](../reference/README.md#libraries-and-frameworks-for-validating-and-acquiring-tokens) for a non-comprehensive list.
-
 #### Signature Validation
 
 A JWT usually contains the `kid` (key ID) claim in the token's [header](#header) to indicate which key was used to sign
@@ -467,7 +457,7 @@ Most libraries will have implementations to automatically validate these de fact
 
 See the individual identity provider pages for specific validation related to each provider:
 
-- [Entra ID](../entra-id/how-to/secure.md#validate-tokens)
+- [Entra ID](../entra-id/reference/README.md#manual-token-validation)
 - [ID-porten](../idporten/how-to/login.md#validate-token-in-authorization-header)
 - [Maskinporten](../maskinporten/how-to/secure.md#validate-tokens)
 - [TokenX](../tokenx/how-to/secure.md#validate-tokens)
@@ -681,7 +671,9 @@ See the [session management reference](../reference/README.md#session-management
 ### Autologin
 
 Autologin configures the login proxy to enforce authenticated user sessions.
-If autologin is enabled, the proxy short-circuits all unauthenticated requests before they reach your application.
+
+If autologin is enabled, the proxy will prevent unauthenticated requests from reaching your application.
+Instead, unauthenticated requests will result in either a redirect to the login endpoint or an `HTTP 401 Unauthorized`.
 
 !!! danger "Autologin vs. token validation"
 
@@ -706,40 +698,27 @@ Texas runs as a sidecar together with your application and offers HTTP endpoints
 - exchanging user tokens into on-behalf-of tokens
 - token validation with introspection
 
-???+ warning "Texas is currently in opt-in public beta"
-
-    To enable Texas for your application, set the `texas.nais.io/enabled: "true"` annotation on your `Application`:
-
-    ```yaml title="app.yaml" hl_lines="5"
-    apiVersion: "nais.io/v1alpha1"
-    kind: "Application"
-    metadata:
-      annotations:
-        texas.nais.io/enabled: "true"
-    ```
-
-    Texas is in beta as we gather feedback and test it in production environments.
-    We do not plan to make any breaking API changes.
-
-    Visit the `#texas` channel on Slack for updates, questions and feedback.
-
 All available [identity providers](#identity-provider) are supported:
 
 [Entra ID](../entra-id/README.md)
-:   - [:dart: Get a machine-to-machine token](../entra-id/how-to/consume-m2m.md#acquire-tokens-with-texas)
-    - [:dart: Exchange an on-behalf-of token](../entra-id/how-to/consume-obo.md#exchange-tokens-with-texas)
-    - [:dart: Validate token](../entra-id/how-to/secure.md#validate-with-texas)
+:   - [:dart: Get a machine-to-machine token](../entra-id/how-to/consume-m2m.md#acquire-token)
+    - [:dart: Exchange an on-behalf-of token](../entra-id/how-to/consume-obo.md#exchange-token)
+    - [:dart: Validate token](../entra-id/how-to/secure.md#validate-tokens)
 
 [ID-porten](../idporten/README.md)
-:   - [:dart: Validate token](../idporten/how-to/login.md#validate-with-texas)
+:   - [:dart: Validate token](../idporten/how-to/login.md#validate-token-in-authorization-header)
 
 [Maskinporten](../maskinporten/README.md)
-:   - [:dart: Get a machine-to-machine token](../maskinporten/how-to/consume.md#acquire-tokens-with-texas)
-    - [:dart: Validate token](../maskinporten/how-to/secure.md#validate-with-texas) 
+:   - [:dart: Get a machine-to-machine token](../maskinporten/how-to/consume.md#acquire-token)
+    - [:dart: Validate token](../maskinporten/how-to/secure.md#validate-tokens)
 
 [TokenX](../tokenx/README.md)
-:   - [:dart: Exchange an on-behalf-of token](../tokenx/how-to/consume.md#exchange-tokens-with-texas) 
-    - [:dart: Validate token](../tokenx/how-to/secure.md#validate-with-texas) 
+:   - [:dart: Exchange an on-behalf-of token](../tokenx/how-to/consume.md#exchange-token)
+    - [:dart: Validate token](../tokenx/how-to/secure.md#validate-tokens)
+
+!!! example
+
+    See <https://github.com/nais/wonderwalled> for an example application that uses Texas.
 
 See the [Texas reference](../reference/README.md#texas) for API specifications and available environment variables.
 
@@ -842,7 +821,9 @@ See the [session management reference](../reference/README.md#session-management
 ### Enforce login
 
 The enforce mode configures the login proxy to enforce authenticated user sessions.
-If enabled, the proxy will short-circuit all unauthenticated requests before they reach your application.
+
+If enabled, the proxy will prevent unauthenticated requests from reaching your application.
+Instead, unauthenticated requests will result in either a redirect to the login endpoint or an `HTTP 401 Unauthorized`.
 
 Specific [paths can optionally be excluded from enforcement](../reference/README.md#enforce-mode-exclusions).
 Requests to these paths will pass through the proxy to your application, regardless of session states.
