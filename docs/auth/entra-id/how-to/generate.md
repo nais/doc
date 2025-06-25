@@ -34,7 +34,9 @@ Ensure that the API application has configured the appropriate [user access poli
 
 The Entra ID token generator supports two use cases:
 
-### Generate token on behalf of employee user
+### Generate token for employee user (on-behalf-of)
+
+This generates a token by using the [on-behalf-of flow](consume-obo.md).
 
 1. Visit <https://azure-token-generator.intern.dev.nav.no/api/obo?aud=&lt;audience&gt;> in your browser.
     - Replace `<audience>` with the intended _audience_ of the token, in this case the API application.
@@ -44,12 +46,27 @@ The Entra ID token generator supports two use cases:
 1. After logging in, you should be redirected back to the token generator and presented with a JSON response containing an `access_token`.
 1. Use the `access_token` as a [Bearer token](../../explanations/README.md#bearer-token) to consume the API application.
 
-### Generate token for application user
+### Generate token for application user (client credentials)
 
-1. Visit <https://azure-token-generator.intern.dev.nav.no/api/m2m?aud=&lt;audience&gt;> in your browser.
-    - Replace `<audience>` with the intended _audience_ of the token, in this case the API application.
-    - The audience value must be on the form of `<cluster>:<namespace>:<application>`
-    - For example: `dev-gcp:my-team:my-app`
-1. You will be redirected to log in at Entra ID (if not already logged in).
-1. After logging in, you should be redirected back to the token generator and presented with a JSON response containing an `access_token`.
-1. Use the `access_token` as a [Bearer token](../../explanations/README.md#bearer-token) to consume the API application.
+This generates a token by using the [client credentials flow](consume-m2m.md).
+
+Perform a `POST` request to `https://azure-token-generator.intern.dev.nav.no/api/public/m2m`:
+
+```http
+POST /api/public/m2m?aud=<audience> HTTP/1.1
+Host: azure-token-generator.intern.dev.nav.no
+Content-Type: application/x-www-form-urlencoded
+
+aud=<audience>
+```
+
+where `<audience>` is the intended _audience_ of the token, in this case the target API application.
+
+For example, in `curl`:
+
+```bash
+curl -s -X POST "https://azure-token-generator.intern.dev.nav.no/api/public/m2m" \
+  -d "aud=dev-gcp:my-team:my-app"
+```
+
+This returns an access token which can be used as a [Bearer token](../../explanations/README.md#bearer-token) to consume the target API application.
