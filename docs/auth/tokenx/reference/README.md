@@ -5,6 +5,34 @@ conditional: [tenant, nav]
 
 # TokenX reference
 
+## Spec
+
+See the [:books: Nais application reference](../../../workloads/application/reference/application-spec.md#tokenx).
+
+## Runtime Variables & Credentials
+
+Your application will automatically be injected with environment variables at runtime.
+
+| Environment Variable                | Description                                                                     |
+|-------------------------------------|---------------------------------------------------------------------------------|
+| `NAIS_TOKEN_EXCHANGE_ENDPOINT`      | Used to [:dart: consume an API on behalf of an end-user](../how-to/consume.md). |
+| `NAIS_TOKEN_INTROSPECTION_ENDPOINT` | Used to [:dart: secure your API with TokenX](../how-to/secure.md).              |
+
+For further details about these endpoints, see the [OpenAPI specification](../../reference/README.md#openapi-specification).
+
+### Variables for manually validating tokens
+
+These variables are optional and should only be used for [manually validating tokens](#manual-token-validation) when :dart: [securing your API with TokenX](../how-to/secure.md).
+
+| Name                     | Description                                                                                                              |
+|:-------------------------|:-------------------------------------------------------------------------------------------------------------------------|
+| `TOKEN_X_CLIENT_ID`      | [Client ID](../../explanations/README.md#client-id) that uniquely identifies the application in TokenX.                  |
+| `TOKEN_X_WELL_KNOWN_URL` | The well-known URL for the [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document). |
+| `TOKEN_X_ISSUER`         | `issuer` from the [metadata discovery document](../../explanations/README.md#issuer).                                    |
+| `TOKEN_X_JWKS_URI`       | `jwks_uri` from the [metadata discovery document](../../explanations/README.md#jwks-endpoint-public-keys).               |
+
+`TOKEN_X_WELL_KNOWN_URL` is optional if you're using `TOKEN_X_ISSUER` and `TOKEN_X_JWKS_URI` directly.
+
 ## Claims
 
 In addition to the [standard claims](../../explanations/README.md#claims-validation), tokens from TokenX include the following claims:
@@ -61,18 +89,3 @@ Other claims may be present in the token.
 Validation of these claims is optional.
 
 See the [TokenX claims reference](../reference/README.md#claims) for details.
-
-## Runtime Variables & Credentials
-
-Your application will automatically be injected with environment variables at runtime.
-
-| Environment Variable                | Description                                                                     |
-|-------------------------------------|---------------------------------------------------------------------------------|
-| `NAIS_TOKEN_EXCHANGE_ENDPOINT`      | Used to [:dart: consume an API on behalf of an end-user](../how-to/consume.md). |
-| `NAIS_TOKEN_INTROSPECTION_ENDPOINT` | Used to [:dart: secure your API with TokenX](../how-to/secure.md).              |
-
-For further details about these endpoints, see the [OpenAPI specification](../../reference/README.md#openapi-specification).
-
-## Spec
-
-See the [:books: Nais application reference](../../../workloads/application/reference/application-spec.md#tokenx).

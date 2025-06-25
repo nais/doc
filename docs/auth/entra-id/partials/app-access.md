@@ -9,9 +9,9 @@ spec:
   accessPolicy:
     inbound:
       rules:
-        - application: app-a
+        - application: app-a  # same namespace and cluster
 
-        - application: app-b
+        - application: app-b  # same cluster
           namespace: other-namespace
 
         - application: app-c

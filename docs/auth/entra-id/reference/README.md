@@ -5,6 +5,125 @@ conditional: [tenant, nav]
 
 # Entra ID reference
 
+## Spec
+
+For all possible configuration options, see the [:books: Nais application reference](../../../workloads/application/reference/application-spec.md#azure).
+
+## Runtime Variables & Credentials
+
+Your application will automatically be injected with the following environment variables at runtime.
+
+| Environment Variable                | Description                                                                                             |
+|-------------------------------------|---------------------------------------------------------------------------------------------------------|
+| `NAIS_TOKEN_ENDPOINT`               | Used to [:dart: consume an API as an application](../how-to/consume-m2m.md).                            |
+| `NAIS_TOKEN_EXCHANGE_ENDPOINT`      | Used to [:dart: consume an API on behalf of an employee](../how-to/consume-obo.md).                     |
+| `NAIS_TOKEN_INTROSPECTION_ENDPOINT` | Used to [:dart: secure your API](../how-to/secure.md) or [:dart: log in employees](../how-to/login.md). |
+
+For further details about these endpoints, see the [OpenAPI specification](../../reference/README.md#openapi-specification).
+
+### Variables for manually validating tokens
+
+These variables are optional and should only be used for [manually validating tokens](#manual-token-validation) when:
+
+- :dart: [securing your API with Entra ID](../how-to/secure.md), or
+- :dart: [logging in employees with Entra ID](../how-to/login.md)
+
+| Name                           | Description                                                                                                              |
+|:-------------------------------|:-------------------------------------------------------------------------------------------------------------------------|
+| `AZURE_APP_CLIENT_ID`          | [Client ID](../explanations/README.md#client-id) that uniquely identifies the application in Entra ID.                   |
+| `AZURE_APP_WELL_KNOWN_URL`     | The well-known URL for the [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document). |
+| `AZURE_OPENID_CONFIG_ISSUER`   | `issuer` from the [metadata discovery document](../../explanations/README.md#issuer).                                    |
+| `AZURE_OPENID_CONFIG_JWKS_URI` | `jwks_uri` from the [metadata discovery document](../../explanations/README.md#jwks-endpoint-public-keys).               |
+
+`AZURE_APP_WELL_KNOWN_URL` is optional if you're using `AZURE_OPENID_CONFIG_ISSUER` and `AZURE_OPENID_CONFIG_JWKS_URI` directly.
+
+## Claims
+
+Notable claims in tokens from Entra ID.
+For a complete list of claims, see the [Access Token Claims Reference in Entra ID](https://learn.microsoft.com/en-us/entra/identity-platform/access-token-claims-reference).
+We only use v2.0 tokens.
+
+`azp` (_authorized party_)
+
+:   The [client ID](../explanations/README.md#client-id) of the application that requested the token (this would be your consumer).
+
+`azp_name` (_authorized party name_)
+
+:   Human-readable [client name](../explanations/README.md#client-name) of the consumer application that requested the token.
+This complements the client ID found in the `azp` claim and is intended for display purposes only.
+
+    Not guaranteed to be unique. Should **not** be used for authorization.
+
+`groups`
+
+:   JSON array of [group identifiers](../explanations/README.md#group-identifier) that the user is a member of:
+```json
+{
+  "groups": [
+    "43451d82-19cd-4828-918d-cbf7d5b572ec",
+    "8f0bd3b2-9d3d-4f27-8543-5938db3e6a3e",
+    "2d7..."
+  ]
+}
+```
+
+    Used to implement group-based authorization logic in your application.
+
+    **Only appears in flows where an end-user is involved**, i.e. either [login] or [on-behalf-of][obo].
+
+    In order for a group to appear in the claim, all the following conditions must be true:
+
+    - The given user is a direct member of the group.
+    - The group has been [granted access to the application](../how-to/secure.md#users).
+
+`idtyp` (_identity type_)
+
+:   This is a special claim used to determine whether a token is a [machine-to-machine][m2m] (app-only) token or a [on-behalf-of][obo] (user) token.
+
+    A token is a machine-to-machine token if and only if this claim exists and has the value equal to `app`.
+
+{%- if tenant() == "nav" %}
+
+`NAVident`
+
+:   Internal identifier for the employees in NAV.
+
+    **Only appears in flows where an end-user is involved**, i.e. either [login] or [on-behalf-of][obo].
+
+{%- endif %}
+
+`roles`
+
+:   JSON array of roles that the application has access to:
+```json
+{
+  "roles": [
+    "access_as_application",
+    "role-a",
+    "role-b"
+  ]
+}
+```
+
+    **Only appears in [machine-to-machine][m2m] tokens**.
+
+    Consumers defined in the [access policy](../how-to/secure.md#applications) are always assigned the default role named `access_as_application`.
+    You can optionally define and grant them [custom roles](#custom-roles).
+
+`scp` (_scope_)
+
+:   The value of this claim is a _space-separated string_ that lists the scopes that the application has access to:
+```json
+{
+   "scp": "defaultaccess scope1 scope2"
+}
+```
+
+    **Only appears in [on-behalf-of][obo] tokens**.
+
+    Consumers defined in the [access policy](../how-to/secure.md#applications) are always assigned the default scope named `defaultaccess`.
+    You can optionally define and grant them [custom scopes](#custom-scopes).
+
 ## Access policies
 
 ### Applications
@@ -130,138 +249,6 @@ Roles will appear in the `roles` claim as an _array of strings_ within the appli
     }
     ```
 
-## Claims
-
-Notable claims in tokens from Entra ID.
-For a complete list of claims, see the [Access Token Claims Reference in Entra ID](https://learn.microsoft.com/en-us/entra/identity-platform/access-token-claims-reference).
-We only use v2.0 tokens.
-
-`azp` (_authorized party_)
-
-:   The [client ID](../explanations/README.md#client-id) of the application that requested the token (this would be your consumer).
-
-`azp_name` (_authorized party name_)
-
-:   Human-readable [client name](../explanations/README.md#client-name) of the consumer application that requested the token.
-    This complements the client ID found in the `azp` claim and is intended for display purposes only.
-
-    Not guaranteed to be unique. Should **not** be used for authorization.
-
-`groups`
-
-:   JSON array of [group identifiers](../explanations/README.md#group-identifier) that the user is a member of:
-    ```json
-    {
-      "groups": [
-        "43451d82-19cd-4828-918d-cbf7d5b572ec",
-        "8f0bd3b2-9d3d-4f27-8543-5938db3e6a3e",
-        "2d7..."
-      ]
-    }
-    ```
-
-    Used to implement group-based authorization logic in your application.
-
-    **Only appears in flows where an end-user is involved**, i.e. either [login] or [on-behalf-of][obo].
-
-    In order for a group to appear in the claim, all the following conditions must be true:
-
-    - The given user is a direct member of the group.
-    - The group has been [granted access to the application](../how-to/secure.md#users).
-
-`idtyp` (_identity type_)
-
-:   This is a special claim used to determine whether a token is a [machine-to-machine][m2m] (app-only) token or a [on-behalf-of][obo] (user) token.
-
-    A token is a machine-to-machine token if and only if this claim exists and has the value equal to `app`.
-
-{%- if tenant() == "nav" %}
-
-`NAVident`
-
-:   Internal identifier for the employees in NAV.
-
-    **Only appears in flows where an end-user is involved**, i.e. either [login] or [on-behalf-of][obo].
-
-{%- endif %}
-
-`roles`
-
-:   JSON array of roles that the application has access to:
-    ```json
-    {
-      "roles": [
-        "access_as_application",
-        "role-a",
-        "role-b"
-      ]
-    }
-    ```
-
-    **Only appears in [machine-to-machine][m2m] tokens**.
-
-    Consumers defined in the [access policy](../how-to/secure.md#applications) are always assigned the default role named `access_as_application`.
-    You can optionally define and grant them [custom roles](#custom-roles).
-
-`scp` (_scope_)
-
-:   The value of this claim is a _space-separated string_ that lists the scopes that the application has access to:
-    ```json
-    {
-       "scp": "defaultaccess scope1 scope2"
-    }
-    ```
-
-    **Only appears in [on-behalf-of][obo] tokens**.
-
-    Consumers defined in the [access policy](../how-to/secure.md#applications) are always assigned the default scope named `defaultaccess`.
-    You can optionally define and grant them [custom scopes](#custom-scopes).
-
-## Manual Token Validation
-
-{% include 'auth/partials/validate-manually.md' %}
-
-**Issuer Validation**
-
-Validate that the `iss` claim has a value that is equal to either:
-
-1. the `AZURE_OPENID_CONFIG_ISSUER` environment variable, or
-2. the `issuer` property from the [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document).
-   The document is found at the endpoint pointed to by the `AZURE_APP_WELL_KNOWN_URL` environment variable.
-
-**Audience Validation**
-
-Validate that the `aud` claim is equal to the `AZURE_APP_CLIENT_ID` environment variable.
-
-**Signature Validation**
-
-Validate that the token is signed with a public key published at the JWKS endpoint.
-This endpoint URI can be found in one of two ways:
-
-1. the `AZURE_OPENID_CONFIG_JWKS_URI` environment variable, or
-2. the `jwks_uri` property from the metadata discovery document.
-   The document is found at the endpoint pointed to by the `AZURE_APP_WELL_KNOWN_URL` environment variable.
-
-**Claims Validation**
-
-[Other claims](../reference/README.md#claims) may be present in the token. Validation of these claims is optional.
-
-## Runtime Variables & Credentials
-
-Your application will automatically be injected with the following environment variables at runtime.
-
-| Environment Variable                | Description                                                                                             |
-|-------------------------------------|---------------------------------------------------------------------------------------------------------|
-| `NAIS_TOKEN_ENDPOINT`               | Used to [:dart: consume an API as an application](../how-to/consume-m2m.md).                            |
-| `NAIS_TOKEN_EXCHANGE_ENDPOINT`      | Used to [:dart: consume an API on behalf of an employee](../how-to/consume-obo.md).                     |
-| `NAIS_TOKEN_INTROSPECTION_ENDPOINT` | Used to [:dart: secure your API](../how-to/secure.md) or [:dart: log in employees](../how-to/login.md). |
-
-For further details about these endpoints, see the [OpenAPI specification](../../reference/README.md#openapi-specification).
-
-## Spec
-
-For all possible configuration options, see the [:books: Nais application reference](../../../workloads/application/reference/application-spec.md#azure).
-
 ## Tenants
 
 Available [tenants](../explanations/README.md#tenants) in Entra ID.
@@ -350,6 +337,35 @@ While attempting to log in, you may receive the following error message from Ent
 
     - Ensure that the user uses an account that matches your application's [tenant](../reference/README.md#tenants) when logging in.
     - If all else fails, request assistance in the `#nais` channel on Slack.
+
+## Manual Token Validation
+
+{% include 'auth/partials/validate-manually.md' %}
+
+**Issuer Validation**
+
+Validate that the `iss` claim has a value that is equal to either:
+
+1. the `AZURE_OPENID_CONFIG_ISSUER` environment variable, or
+2. the `issuer` property from the [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document).
+   The document is found at the endpoint pointed to by the `AZURE_APP_WELL_KNOWN_URL` environment variable.
+
+**Audience Validation**
+
+Validate that the `aud` claim is equal to the `AZURE_APP_CLIENT_ID` environment variable.
+
+**Signature Validation**
+
+Validate that the token is signed with a public key published at the JWKS endpoint.
+This endpoint URI can be found in one of two ways:
+
+1. the `AZURE_OPENID_CONFIG_JWKS_URI` environment variable, or
+2. the `jwks_uri` property from the metadata discovery document.
+   The document is found at the endpoint pointed to by the `AZURE_APP_WELL_KNOWN_URL` environment variable.
+
+**Claims Validation**
+
+[Other claims](../reference/README.md#claims) may be present in the token. Validation of these claims is optional.
 
 [login]: ../how-to/login.md
 [m2m]: ../how-to/consume-m2m.md
