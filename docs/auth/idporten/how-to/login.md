@@ -57,6 +57,13 @@ If invalid, redirect the citizen to the [login endpoint]:
 https://<ingress>/oauth2/login
 ```
 
+!!! tip "Library for token validation"
+
+    For JavaScript-based applications, recommend using [navikt/oasis](https://github.com/navikt/oasis).
+    This provides native utilities for validating tokens as well as [exchanging these for new tokens when consuming other APIs](#next-steps).
+
+    Otherwise, you can implement validation with the steps below.
+
 {% set identity_provider = 'idporten' %}
 {% set claims_reference = '../reference/README.md#claims' %}
 {% set token_validation_reference = '../reference/README.md#manual-token-validation' %}
