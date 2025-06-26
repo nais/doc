@@ -11,6 +11,14 @@ In the nais platform, we support zalando postgres-operator to provision managed 
     This feature is an alpha feature, and is subject to API change, instability or removal.
     Some features may not be fully developed, and changes will be made in the coming months.
 
+    Notable missing features include:
+
+    - Audit logging
+    - Automatic storage increase
+    - Disaster recovery backups to separate location
+    - Query Insights
+
+
 Minimal configuration needed to provision a database for your application:
 
 ```yaml title="app.yaml"
