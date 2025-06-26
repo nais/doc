@@ -67,6 +67,19 @@ Your application may not be able to connect to the database until the provisioni
     The synchronization of the password to the database may have failed.
     See [workaround for password synchronization issues](how-to/password-sync-issues.md).
 
+### Do I need to enable audit logging?
+
+!!! faq "Answer"
+
+    Audit logging is not enabled by default.
+    As the owner of the database, you need to make this assessment yourself.
+    Typically, databases that contain sensitive, financial or accounting data should have audit logging enabled.
+
+    {% if tenant() == "nav" %}
+    As part of your assessment, you should consult [Støtte til etterlevelse](https://etterlevelse.ansatt.nav.no), in particular [Sikkerhet i økonomisystemet](https://etterlevelse.ansatt.nav.no/krav/125/2).
+    {% endif %}
+
+
 ### Cloud Sql Conditions messages
 
 #### Invalid request: backup retention should be >= transaction log retention
