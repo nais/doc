@@ -73,7 +73,7 @@ Your application may not be able to connect to the database until the provisioni
 
     Audit logging is not enabled by default.
     As the owner of the database, you need to make this assessment yourself.
-    Typically, databases that contain sensitive, financial or accounting data should have audit logging enabled.
+    Typically, databases that contain sensitive, financial or accounting data should have [audit logging enabled](./how-to/enable-auditing.md).
 
     {% if tenant() == "nav" %}
     As part of your assessment, you should consult [Støtte til etterlevelse](https://etterlevelse.ansatt.nav.no), in particular [Sikkerhet i økonomisystemet](https://etterlevelse.ansatt.nav.no/krav/125/2).
