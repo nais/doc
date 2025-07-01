@@ -315,7 +315,11 @@ Supported query parameters:
 #### Session endpoint
 
 This endpoint returns metadata about the end-user's [session](../explanations/README.md#sessions) as a JSON object.
-Requests to this endpoint must be triggered from the user agent.
+Usage of this endpoint is optional.
+It is intended for use by frontend applications to display or handle session state (e.g. timeouts or expirations).
+
+Requests to this endpoint must be sent from the user agent (browser), e.g. using the Fetch API.
+Credentials must be included in the request, e.g. with `credentials: 'include'`.
 
 ```http title="Request"
 GET /oauth2/session
@@ -372,16 +376,17 @@ This endpoint will respond with the following HTTP status codes on errors:
 Otherwise, an `HTTP 200 OK` is returned with the metadata with the `application/json` as the `Content-Type`.
 
 Note that this endpoint will still return `HTTP 200 OK` for _inactive_ sessions, as long as the session is not _expired_.
-This allows application to display errors before redirecting the user to login on timeouts.
+This allows frontend applications to display errors before redirecting the user to login on timeouts.
 The HTTP status code alone is insufficient to determine the session state.
 
 #### Session refresh endpoint
 
 This endpoint allows for refreshing the end-user's session on demand.
-Requests to this endpoint must be triggered from the user agent.
-
 Using this endpoint is only necessary when [session inactivity timeouts](#session-inactivity-timeout) are enabled.
 The end-user should be prompted to extend their session in accordance with [WCAG 2.2.1](https://www.w3.org/WAI/WCAG21/Understanding/timing-adjustable).
+
+Requests to this endpoint must be sent from the user agent (browser), e.g. using the Fetch API.
+Credentials must be included in the request, e.g. with `credentials: 'include'`.
 
 The endpoint will respond with a `HTTP 401 Unauthorized` if the session is _inactive_.
 It is otherwise equivalent to the [session endpoint](#session-endpoint).
@@ -756,7 +761,11 @@ Supported query parameters:
 #### Session endpoint
 
 This endpoint returns metadata about the end-user's [session](../explanations/README.md#sessions) as a JSON object.
-Requests to this endpoint must be triggered from the user agent.
+Usage of this endpoint is optional.
+It is intended for use by frontend applications to display or handle session state (e.g. timeouts or expirations).
+
+Requests to this endpoint must be sent from the user agent (browser), e.g. using the Fetch API.
+Credentials must be included in the request, e.g. with `credentials: 'include'`.
 
 ```http title="Request"
 GET /oauth2/session
