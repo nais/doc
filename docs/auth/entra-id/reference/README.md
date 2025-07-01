@@ -280,29 +280,29 @@ This section lists common problems and solutions.
 
 ### Missing application access policy
 
-Your application (named `A` in the examples below) attempts to consume another application (named `B`).
+Your application (named `your-application` in the examples below) attempts to consume another application (named `target-application`).
 
 When requesting a token from Entra ID, your application may receive a `400 Bad Request` with an `invalid_grant` error response and the following message:
 
 > **AADSTS501051**:
 >
-> Application `'<client ID>'` (`<cluster>:<namespace>:<A>`) is not assigned to a role for the application '`api://<cluster>.<namespace>.<B>`' (`<cluster>:<namespace>:<B>`)"
+> Application `'<client ID>'` (`<cluster>:<namespace>:<your-application>`) is not assigned to a role for the application '`api://<cluster>.<namespace>.<target-application>`'
 
 Or the other variant:
 
 > **AADSTS65001**:
 >
-> The user or administrator has not consented to use the application with ID '`<client ID>`' named '`<cluster>:<namespace>:<A>`'.
+> The user or administrator has not consented to use the application with ID '`<client ID>`' named '`<cluster>:<namespace>:<your-application>`'.
 >
 > Send an interactive authorization request for this user and resource.
 
 ???+ success "Solution / Answer"
 
-    - Ensure that the [scope value](../explanations/README.md#scopes) in your application's request follows the correct format:
+    - Ensure that the [scope](../explanations/README.md#scopes) or `target` parameter for your request follows the correct format:
 
-        `api://<cluster>.<namespace>.<application>/.default`
+        `api://<cluster>.<namespace>.<target-application>/.default`
 
-    - Ensure that application `B`'s [access policy](../how-to/secure.md#applications) includes application `A`.
+    - Ensure that the target application has configured an inbound [access policy](../how-to/secure.md#applications) that grants your application access to the target application.
     - If all else fails, request assistance in the `#nais` channel on Slack.
 
 ### Missing user access policy
@@ -311,7 +311,7 @@ When attempting to sign-in or perform the on-behalf-of flow, an application may 
 
 > **AADSTS50105**:
 >
-> Your administrator has configured the application `<cluster>:<namespace>:<A>` ('`<client id>`') to block users unless they are specifically granted ('assigned') access to the application.
+> Your administrator has configured the application `<cluster>:<namespace>:<application>` ('`<client id>`') to block users unless they are specifically granted ('assigned') access to the application.
 >
 > The signed in user '{EmailHidden}' is blocked because they are not a direct member of a group with access, nor had access directly assigned by an administrator.
 >
@@ -319,8 +319,8 @@ When attempting to sign-in or perform the on-behalf-of flow, an application may 
 
 ???+ success "Solution / Answer"
 
-    - Ensure that application `A` has configured [user access](../how-to/secure.md#users).
-    - Ensure that the given user is a _direct_ member of any configured groups).
+    - Ensure that the application has configured appropriate [user access policies](../how-to/secure.md#users).
+    - Ensure that the given user is a _direct_ member of any configured groups.
     - If all else fails, request assistance in the `#nais` channel on Slack.
 
 ### Tenant mismatch for signed-in user
