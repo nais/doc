@@ -18,7 +18,7 @@ To send logs to your team's private index, configure your application to use the
       <appender name="team-logs" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <destination>team-logs.nais-system:5170</destination>
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-          <customFields>{"google_cloud_project":"${GOOGLE_CLOUD_PROJECT}","nais_namespace_name":"${NAIS_NAMESPACE}","nais_pod_name":"${HOSTNAME}","nais_container_name":"${NAIS_APP_NAME}"}</customFields>
+          <customFields>{"google_cloud_project":"${GOOGLE_CLOUD_PROJECT}","nais_namespace_name":"${NAIS_NAMESPACE}","nais_pod_name":"${NAIS_POD_NAME}","nais_container_name":"${NAIS_APP_NAME}"}</customFields>
           <includeContext>false</includeContext>
         </encoder>
         <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
@@ -80,7 +80,7 @@ To send logs to your team's private index, configure your application to use the
           <JsonLayout compact="true">
             <KeyValuePair key="google_cloud_project" value="${env:GOOGLE_CLOUD_PROJECT}"/>
             <KeyValuePair key="nais_namespace_name" value="${env:NAIS_NAMESPACE}"/>
-            <KeyValuePair key="nais_pod_name" value="${env:HOSTNAME}"/>
+            <KeyValuePair key="nais_pod_name" value="${env:NAIS_POD_NAME}"/>
             <KeyValuePair key="nais_container_name" value="${env:NAIS_APP_NAME}"/>
           </JsonLayout>
           <Filters>
@@ -131,10 +131,10 @@ You can use other logging libraries that support JSON format and TCP/HTTP output
 The format for the logs should be JSON, and you must include the following fields:
 
 | Field Name           | Description                       | Environment Variable |
-| -------------------- | --------------------------------- | -------------------- |
+|----------------------|-----------------------------------|----------------------|
 | google_cloud_project | The Google Cloud project ID       | GOOGLE_CLOUD_PROJECT |
 | nais_namespace_name  | The namespace of the application  | NAIS_NAMESPACE       |
-| nais_pod_name        | The name of the pod               | HOSTNAME             |
+| nais_pod_name        | The name of the pod               | NAIS_POD_NAME        |
 | nais_container_name  | The name of the container         | NAIS_APP_NAME        |
 | message              | The log message                   |                      |
 | severity             | The log level (e.g., INFO, ERROR) |                      |
