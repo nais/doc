@@ -467,7 +467,9 @@ The following environment variables are available for your application to intera
 
 ### OpenAPI specification
 
-<swagger-ui src="https://raw.githubusercontent.com/nais/texas/refs/heads/master/doc/openapi-spec.json"/>
+Texas has an OpenAPI specification [available here](https://github.com/nais/texas/blob/master/doc/openapi-spec.json).
+
+You can also [view the specification in Swagger Editor](https://editor-next.swagger.io/?url=https://raw.githubusercontent.com/nais/texas/refs/heads/master/doc/openapi-spec.json).
 
 {%- else %}
 
