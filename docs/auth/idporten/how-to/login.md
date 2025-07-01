@@ -59,7 +59,7 @@ https://<ingress>/oauth2/login
 
 !!! tip "Library for token validation"
 
-    For JavaScript-based applications, recommend using [navikt/oasis](https://github.com/navikt/oasis).
+    For JavaScript-based applications, we recommend using [navikt/oasis](https://github.com/navikt/oasis).
     This provides native utilities for validating tokens as well as [exchanging these for new tokens when consuming other APIs](#next-steps).
 
     Otherwise, you can implement validation with the steps below.
