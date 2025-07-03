@@ -3,6 +3,11 @@ title: Postgres reference
 tags: [postgres, reference]
 ---
 
+!!! warning "Experimental feature"
+    This feature is an alpha feature, and is subject to API change, instability or removal.
+    See the [main Postgres page](../README.md) for more information.
+
+
 ## Configuration
 
 The full configuration options for the Postgres instance can be found in the [application spec reference](../../../workloads/application/reference/application-spec.md#postgres).

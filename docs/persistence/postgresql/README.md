@@ -4,20 +4,21 @@ tags: [explanation, persistence, services, experimental]
 
 # PostgreSQL
 
-[PostgreSQL](https://www.postgresql.org/) is a relational database which is a good choice for storing data that is relational in nature.
-In the nais platform, we support zalando postgres-operator to provision managed PostgreSQL databases.
-
 !!! warning "Experimental feature"
     This feature is an alpha feature, and is subject to API change, instability or removal.
     Some features may not be fully developed, and changes will be made in the coming months.
-
-    Notable missing features include:
-
-    - Audit logging
-    - Automatic storage increase
-    - Disaster recovery backups to separate location
-    - Query Insights
-
+    If this is not what you want, you probably want to use [Cloud SQL](../cloudsql/README.md) instead.
+    
+        Notable missing features include:
+    
+        - Audit logging
+        - Automatic storage increase
+        - Disaster recovery backups to separate location
+        - Query Insights
+    
+    
+[PostgreSQL](https://www.postgresql.org/) is a relational database which is a good choice for storing data that is relational in nature.
+In the nais platform, we support zalando postgres-operator to provision managed PostgreSQL databases.
 
 Minimal configuration needed to provision a database for your application:
 

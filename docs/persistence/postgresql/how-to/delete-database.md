@@ -3,6 +3,10 @@ title: Deleting the database
 tags: [postgres, delete, database, how-to]
 ---
 
+!!! warning "Experimental feature"
+    This feature is an alpha feature, and is subject to API change, instability or removal.
+    See the [main Postgres page](../README.md) for more information.
+    
 The database is not automatically removed when deleting your Nais application. 
 Remove unused databases to avoid incurring unnecessary costs.
 This is done by setting [allowDeletion](../../../workloads/application/reference/application-spec.md#postgresclusterallowdeletion) in your `nais.yaml`-specification.

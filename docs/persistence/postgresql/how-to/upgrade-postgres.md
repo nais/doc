@@ -3,6 +3,10 @@ title: Upgrade major version
 tags: [postgres, upgrade, how-to]
 ---
 
+!!! warning "Experimental feature"
+    This feature is an alpha feature, and is subject to API change, instability or removal.
+    See the [main Postgres page](../README.md) for more information.
+
 This page describes how to upgrade the major version of your PostgreSQL database.
 
 ## Preparations

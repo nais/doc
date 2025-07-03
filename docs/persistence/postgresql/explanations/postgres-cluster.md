@@ -4,6 +4,10 @@ tags: [postgres, sql, explanation, cluster]
 
 # Postgres cluster 
 
+!!! warning "Experimental feature"
+    This feature is an alpha feature, and is subject to API change, instability or removal.
+    See the [main Postgres page](../README.md) for more information.
+
 Postgres is a managed database cluster provided by nais utilizing the Zalando postgres-operator.
 
 You manage your cluster by defining it in your [application manifest](../../../workloads/application/reference/application-spec.md#postgres).
