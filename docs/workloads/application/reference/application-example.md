@@ -193,8 +193,6 @@ spec:
           cpu: 20m
           memory: 32Mi
   image: navikt/testapp:69.0.0
-  influx:
-    instance: influx-instance
   ingresses:
   - https://myapplication.nav.no
   kafka:

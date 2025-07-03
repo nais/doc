@@ -160,8 +160,6 @@ spec:
       transactionLogRetentionDays: 3
       type: POSTGRES_17
   image: navikt/testapp:69.0.0
-  influx:
-    instance: influx-instance
   kafka:
     pool: nav-dev
     streams: true
