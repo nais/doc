@@ -55,10 +55,10 @@ spec:
   postgres:
     cluster:
       ...
-  database: 
-    extensions:
-    - name: postgis
-    - name: pgcrypto
+    database:
+      extensions:
+      - name: postgis
+      - name: pgcrypto
 ```
 
 ### Collation and character set
@@ -75,8 +75,8 @@ spec:
   postgres:
     cluster:
       ...
-  database:
-    collation: nb_NO
+    database:
+      collation: nb_NO
 ```
 
 ### Cluster size and resources
