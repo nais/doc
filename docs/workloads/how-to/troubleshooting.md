@@ -172,7 +172,6 @@ Typically, you should inspect the `Status` parts of the output.
 | Postgres certificates (`sqeletor-...`)       | sqlsslcert         |
 | Kafka (`aiven-...`)                          | aivenapp           |
 | OpenSearch (`aiven-...`)                     | aivenapp           |
-| Influx (`aiven-...`)                         | aivenapp           |
 | Valkey (`aiven-...`)                         | aivenapp           |
 | Entra-ID (`azure-...`)                       | azureapp           |
 | TokenX (`tokenx-...`)                        | jwker              |
