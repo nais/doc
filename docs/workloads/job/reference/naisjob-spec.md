@@ -4834,6 +4834,18 @@ Required: `false`<br />
       timeZone: Europe/Oslo
     ```
 
+## ttl
+After the specified TTL, the naisjob will be deleted.
+
+Type: `string`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      ttl: 1h
+    ```
+
 ## ttlSecondsAfterFinished
 Specify the number of seconds to wait before removing the Job after it has finished (either Completed or Failed).
 If the field is unset, this Job won't be cleaned up by the TTL controller after it finishes.

@@ -262,6 +262,7 @@ spec:
   successfulJobsHistoryLimit: 2
   terminationGracePeriodSeconds: 60
   timeZone: Europe/Oslo
+  ttl: 1h
   ttlSecondsAfterFinished: 60
   valkey:
   - access: readwrite
