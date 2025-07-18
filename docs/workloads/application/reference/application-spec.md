@@ -5295,7 +5295,7 @@ Required: `false`<br />
     ```
 
 ### replicas.cpuThresholdPercentage
-Deprecated: Use `spec.scalingStrategy.cpu.thresholdPercentage` instead.
+Deprecated: Use `spec.replicas.scalingStrategy.cpu.thresholdPercentage` instead.
 Amount of CPU usage before the autoscaler kicks in.
 If anything under ScalingStrategy is set, that takes precedence.
 
