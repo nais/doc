@@ -14,7 +14,8 @@ Some configuration is enforced by the Nais platform, while the rest is up to the
 
 Earlier we talked about the "instance name".
 In reality, the actual name of the valkey instance will be `valkey-<team name>-<instance name>` (where `team name` is the same as the namespace your application resides in).
-The resource needs to have this full name in order to be accepted.
+The resource needs to have this full name in order to be accepted. However, when referencing the instance from the nais spec you only need to use the `<instance name>` nais
+will fill in the rest.
 
 The default Valkey created by Nais looks like this:
 
@@ -124,4 +125,3 @@ Simple 5 steps procedure:
 {% endif %}
 
 {% endif %}
-
