@@ -25,7 +25,7 @@ The minimal OpenSearch resource looks like this:
       project: nav-dev
     ```
 
-The actual name of the OpenSearch instance will be `opensearch-<TEAM NAME>-<INSTANCE NAME>` (where `TEAM NAME` is the same as the namespace your application resides in). The resource needs to have this full name in order to be accepted.
+The actual name of the OpenSearch instance will be `opensearch-<TEAM NAME>-<INSTANCE NAME>` (where `TEAM NAME` is the same as the namespace your application resides in). The resource needs to have this full name in order to be accepted. However, to reference the instance in the app spec you should use `<instance name>`.
 
 As we use Aivens operator, [the OpenSearch resource is documented in detail](https://aiven.github.io/aiven-operator/api-reference/opensearch.html) in the Aiven documentation. Check the reference for any other fields that might be of interest.
 
