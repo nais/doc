@@ -4553,7 +4553,6 @@ Required: `false`<br />
 #### resources.limits.cpu
 Type: `string`<br />
 Required: `false`<br />
-Default value: `500m`<br />
 Pattern: `^\d+m?$`<br />
 
 ??? example
