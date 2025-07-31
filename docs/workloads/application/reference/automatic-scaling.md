@@ -3,7 +3,7 @@
 As part of the nais platform, the Application resource supports two types of scaling:
 
 * CPU based scaling
-* Scaling based on Kafka Consumer Lag
+* Scaling based on Kafka Consumer Lag (only available on GCP-clusters)
 
 ## CPU based scaling
 
