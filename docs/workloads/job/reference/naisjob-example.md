@@ -79,6 +79,7 @@ spec:
   - value
   - --other-param
   - other-value
+  completionMode: Indexed
   completions: 1
   concurrencyPolicy: Allow
   env:
