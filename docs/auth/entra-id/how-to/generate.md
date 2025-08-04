@@ -65,8 +65,7 @@ where `<audience>` is the intended _audience_ of the token, in this case the tar
 For example, in `curl`:
 
 ```bash
-curl -s -X POST "https://azure-token-generator.intern.dev.nav.no/api/public/m2m" \
-  -d "aud=dev-gcp:my-team:my-app"
+curl -s -X POST "https://azure-token-generator.intern.dev.nav.no/api/public/m2m?aud=dev-gcp:my-team:my-app"
 ```
 
 This returns an access token which can be used as a [Bearer token](../../explanations/README.md#bearer-token) to consume the target API application.
