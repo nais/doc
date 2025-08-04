@@ -1,12 +1,5 @@
 ---
 description: Get started with Grafana Loki, the default and preferred log aggregation system for all Nais application
----
-
-### Performance tips
-
-- **Use specific label selectors**: Always include `service` and `namespace` labels when possible
-- **Limit time ranges**: Shorter time ranges perform better
-- **Use the query builder**: It helps prevent syntax errors and suggests available labelsns.
 tags: [how-to, logging, observability, loki]
 ---
 
@@ -56,31 +49,31 @@ If you're new to working with logs in Grafana, here's a step-by-step guide to ge
 
 Start with a simple query to find logs from your application:
 
-    {service="your-app-name"}
+    {service_name="your-app-name", service_namespace="your-team"}
 
-Replace `your-app-name` with your actual application name. This will show all logs from your application.
+Replace `your-app-name` with your actual application name and `your-team` with your actual team name. This will show all logs from your application.
 
-### 3. Filter by namespace
-
-If you have multiple applications with the same name across different namespaces:
-
-    {service="your-app-name", service_namespace="your-team"}
-
-### 4. Search log content
+### 3. Search log content
 
 To search for specific text within your logs:
 
-    {service="your-app-name"} |= "error"
+    {service_name="your-app-name", service_namespace="your-team"} |= "some-value"
 
-This finds all logs containing the word "error".
+This finds all logs containing the word "some-value".
 
-### 5. Filter by log level
+### 4. Filter by log level
 
 Many applications use structured logging with levels:
 
-    {service="your-app-name"} | json | level="ERROR"
+    {service_name="your-app-name", service_namespace="your-team"} | detected_level="error"
 
-This works if your application outputs JSON logs with a `level` field.
+Loki will automatically detect the log level if your application outputs structured logs.
+
+### 5. Filter by structured log data
+
+If your application outputs structured logs (e.g., JSON), you can filter by specific fields:
+
+    {service_name="your-app-name", service_namespace="your-team"} | json | some_field="some-value"
 
 ### Using the query builder
 
@@ -99,18 +92,18 @@ To enable query builder mode:
 
 Grafana Loki uses LogQL, a query language inspired by PromQL. Here are the key concepts:
 
-- **Log Stream Selectors**: Use curly braces to select log streams: `{service="myapp"}`
-- **Filter Expressions**: Use `|=` for contains, `!=` for not contains: `{service="myapp"} |= "error"`
-- **Regular Expressions**: Use `|~` for regex matches: `{service="myapp"} |~ "error|warning"`
-- **JSON Parsing**: Use `| json` to parse JSON logs and access fields: `{service="myapp"} | json | level="ERROR"`
+- **Log Stream Selectors**: Use curly braces to select log streams: `{service_name="myapp", service_namespace="myteam"}`
+- **Filter Expressions**: Use `|=` for contains, `!=` for not contains: `{service_name="myapp", service_namespace="myteam"} |= "some-value"`
+- **Regular Expressions**: Use `|~` for regex matches: `{service_name="myapp", service_namespace="myteam"} |~ "some-value|another-value"`
+- **JSON Parsing**: Use `| json` to parse JSON logs and access fields: `{service_name="myapp", service_namespace="myteam"} | json | some_field="some-value"`
 - **Time Ranges**: Use the time picker in Grafana to limit your search to specific time periods
 
 ## Common troubleshooting tips
 
 ### No logs appearing?
 
-1. **Check your application name**: Ensure the `service` label matches your actual application name in the manifest
-2. **Verify the namespace**: Make sure you're searching in the correct namespace
+1. **Check your application name**: Ensure the `service_name` label matches your actual application name in the manifest
+2. **Verify the namespace**: Make sure you're searching in the correct `service_namespace`
 3. **Check the time range**: Expand the time range in Grafana's time picker
 4. **Confirm log output**: Ensure your application is writing logs to `stdout` or `stderr`
 
@@ -122,7 +115,8 @@ Grafana Loki uses LogQL, a query language inspired by PromQL. Here are the key c
 
 ### Performance tips
 
-- **Use specific label selectors**: Always include `service` and `service_namespace` labels when possible
+- **Use specific label selectors**: Always include `service_name` and `service_namespace` labels when possible
+- **Filter before parsing**: Apply filters before using `| json` to improve performance
 - **Limit time ranges**: Shorter time ranges perform better
 - **Use the query builder**: It helps prevent syntax errors and suggests available labels
 

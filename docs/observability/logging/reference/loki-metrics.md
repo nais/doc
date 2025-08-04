@@ -34,14 +34,14 @@ The `loki:service:loglevel:count1m` metric provides a pre-aggregated count of lo
 Count of error logs for a specific service in the last hour:
 
 ```promql
-sum(loki:service:loglevel:count1m{service_name="my-app", detected_level="error"}[60m:1m])
+sum(loki:service:loglevel:count1m{service_name="my-app", service_namespace="my-team", detected_level="error"}[60m:1m])
 ```
 
 Ratio of errors to total logs for all services in a namespace:
 
 ```promql
-sum(loki:service:loglevel:count1m{service_namespace="team-a", detected_level="error"}) /
-sum(loki:service:loglevel:count1m{service_namespace="team-a"})
+sum(loki:service:loglevel:count1m{service_namespace="team-a", service_namespace="my-team", detected_level="error"}) /
+sum(loki:service:loglevel:count1m{service_namespace="team-a", service_namespace="my-team"})
 ```
 
 #### Alert Examples

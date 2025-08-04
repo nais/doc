@@ -50,15 +50,15 @@ The log pipeline is a set of stage expressions that are chained together and app
 Consider the following example:
 
 ```logql
-{service_name="my-app"} | json | __error__=`` | level = `error`
+{service_name="my-app", service_namespace="my-team"} | json | __error__=`` | some_field = `some-value`
 ```
 
 This query will:
 
-1. Select all logs where the label `service_name` has the value `my-app`
+1. Select all logs where the label `service_name` has the value `my-app` and `service_namespace` has the value `my-team`
 2. Parse the log line as JSON
 3. Filter out all formatting and parsing errors.
-4. Filter out logs where the `level` field is not `error`
+4. Filter out logs where the `some_field` field is not `some-value`
 
 ### Pipeline Operators
 
@@ -68,14 +68,6 @@ LogQL supports a set of operators for filtering and transforming logs in additio
 - `!=` - Log line does not contain string
 - `|~` - Log line contains a match to the regular expression
 - `!~` - Log line does not contain a match to the regular expression
-
-### Filter Fields
-
-```logql
-{service_name="my-app"} | json | __error__=`` | my_field = `my_value`
-```
-
-In the example above, `my_field` is a field in the log line that is being filtered by the value `my_value`. This is a common pattern in LogQL queries.
 
 ## Reference
 
