@@ -112,11 +112,13 @@ A PVK is not a unique requirement for GCP, so all applications should already ha
 
     Add a bucket to your application spec Copy the data from the filestore using [s3cmd](https://s3tools.org/s3cmd) to the bucket using [gsutil](https://cloud.google.com/storage/docs/gsutil)
 
-### What are the plans for cloud migration in NAV?
+### What are the plans for cloud migration in Nav?
 
 ???+ faq "Answer"
 
-    Both sbs clusters are now retired. NAVs strategic goal is to shut off all on-prem datacenters by the end of 2023
+    Nav has a cloud strategy that includes moving applications to the cloud. 
+    Read more about the [cloud strategy at Navet](https://navno.sharepoint.com/sites/enhet-it-avdelingen/SitePages/Skystrategi.aspx).
+
 
 ### What can we do in our GCP project?
 
