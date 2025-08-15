@@ -1,5 +1,6 @@
 ---
 tags: [how-to, opensearch, dashboard]
+conditional: [tenant, nav]
 ---
 
 # Get access to the dashboard
@@ -10,7 +11,8 @@ To get access to this dashboard you need to follow these steps:
 {%- if tenant() == "nav" %}
 ## Prerequisites
 
-Enable the `aiven-prod` gateway in Naisdevice using [JITA](../../../operate/naisdevice/explanations/jita.md).
+For production services, you need to have the `aiven-prod` gateway enabled in Naisdevice. 
+This is done through [Just In Time Access (JITA)](../../../operate/naisdevice/explanations/jita.md).
 
 {%- endif %}
 
