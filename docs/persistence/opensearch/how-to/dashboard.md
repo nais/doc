@@ -1,6 +1,5 @@
 ---
 tags: [how-to, opensearch, dashboard]
-conditional: [tenant, nav]
 ---
 
 # Get access to the dashboard
