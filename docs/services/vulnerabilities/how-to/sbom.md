@@ -24,7 +24,7 @@ Simply add [nais/docker-build-push](https://github.com/nais/docker-build-push) t
     salsa: false
     ```
 
-## Attest sign
+### Attest sign
 
 The `nais/docker-build-push` action default push to Google Container Registry (GAR).
 If you want to push to another registry, you can use the [nais/attest-sign](https://github.com/nais/attest-sign) to generate sbom and sign the attestation.
