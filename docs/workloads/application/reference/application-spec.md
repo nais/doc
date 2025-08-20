@@ -4688,6 +4688,12 @@ Required: `false`<br />
       postgres:
         cluster:
           allowDeletion: true
+          audit:
+            enabled: true
+            statementClasses:
+              - misc
+              - ddl
+              - function
           highAvailability: true
           majorVersion: "17"
           name: my-postgres-cluster
@@ -4716,6 +4722,12 @@ Required: `true`<br />
       postgres:
         cluster:
           allowDeletion: true
+          audit:
+            enabled: true
+            statementClasses:
+              - misc
+              - ddl
+              - function
           highAvailability: true
           majorVersion: "17"
           name: my-postgres-cluster
@@ -4737,6 +4749,59 @@ Required: `false`<br />
       postgres:
         cluster:
           allowDeletion: true
+    ```
+
+#### postgres.cluster.audit
+Configure audit logging for the Postgres cluster.
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      postgres:
+        cluster:
+          audit:
+            enabled: true
+            statementClasses:
+              - misc
+              - ddl
+              - function
+    ```
+
+##### postgres.cluster.audit.enabled
+Enable audit logging for the Postgres cluster.
+
+Type: `boolean`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      postgres:
+        cluster:
+          audit:
+            enabled: true
+    ```
+
+##### postgres.cluster.audit.statementClasses
+Statement classes to log.
+
+Type: `array`<br />
+Required: `false`<br />
+Default value: `ddl,write`<br />
+
+??? example
+    ``` yaml
+    spec:
+      postgres:
+        cluster:
+          audit:
+            statementClasses:
+              - misc
+              - ddl
+              - function
     ```
 
 #### postgres.cluster.highAvailability

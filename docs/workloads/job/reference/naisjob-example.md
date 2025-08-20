@@ -211,6 +211,12 @@ spec:
   postgres:
     cluster:
       allowDeletion: true
+      audit:
+        enabled: true
+        statementClasses:
+        - misc
+        - ddl
+        - function
       highAvailability: true
       majorVersion: "17"
       name: my-postgres-cluster
