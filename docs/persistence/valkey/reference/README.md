@@ -42,4 +42,4 @@ To make the usage of Valkey backward compatible for libraries not supporting Val
 
 For advanced configuration, we recommend [creating your Valkey instances explicitly](../how-to/create-explicit.md), especially if you intend for multiple applications using the same Valkey instance.
 
-We use Aivens operator, so the Valkey resource is [documented in detail](https://aiven.github.io/aiven-operator/api-reference/valkey.html) in the Aiven documentation.
+We use Aivens operator, so the Valkey resource is [documented in detail](https://aiven.github.io/aiven-operator/resources/valkey.html) in the Aiven documentation.
