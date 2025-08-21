@@ -3,13 +3,6 @@ tags: [workloads, how-to]
 conditional: [tenant, nav]
 ---
 
-<style>
-/* Override global uu.css which places the question marks at the wrong side in the right hand nav menu */
-.md-sidebar--secondary span.md-ellipsis {
-	direction: ltr
-}
-</style>
-
 # Migrating to GCP
 
 ## Why migrate our application(s)?
