@@ -2,6 +2,13 @@
 tags: [job, reference]
 ---
 
+<style>
+/* Make the ... appear in front of the spec items in the right hand nav menu  */
+.md-sidebar--secondary span.md-ellipsis {
+	direction: rtl;
+}
+</style>
+
 # Nais Job reference
 
 <!--
