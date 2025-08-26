@@ -185,6 +185,26 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 | logs (stdout)        | `loki`         |
 | auto-instrumentation | `grafana-lgtm` |
 
+### prod
+
+#### Domains
+
+| domain                          | accessible from          | description                                                                                                       |
+| :------------------------------ | :----------------------- | :---------------------------------------------------------------------------------------------------------------- |
+| external.prod.atil.cloud.nais.io | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| prod.atil.cloud.nais.io          | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
+
+#### External/outbound IPs
+
+- 34.88.243.178
+
+#### Observability
+
+| data                 | default        |
+| :------------------- | :------------- |
+| logs (stdout)        | `loki`         |
+| auto-instrumentation | `grafana-lgtm` |
+
 {% endif %}
 {% if tenant() == "ldir" %}
 ### non-prod
