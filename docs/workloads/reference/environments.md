@@ -163,6 +163,7 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 | :------------------- | :---------- |
 | logs (stdout)        | `team-logs` |
 | auto-instrumentation | Not enabled |
+
 {% endif %}
 {% if tenant() == "atil" %}
 ### dev
