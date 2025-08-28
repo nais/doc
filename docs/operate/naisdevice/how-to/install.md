@@ -95,7 +95,7 @@ tags: [naisdevice, how-to]
     {% endif %}
 
 	1. Open a browser.
-	2. Go to [github.com/naid/device](https://github.com/nais/device/releases/latest).
+	2. Go to [github.com/nais/device](https://github.com/nais/device/releases/latest).
     3. Download and run the newest `<<naisdevice_name()>>.exe` installer (you will be asked for administrator access when you run the installer).
     4. Start _naisdevice_ from the _Start menu_.
 
