@@ -1485,6 +1485,7 @@ object's Custom-Time metadata field.
 Relevant information:
 
 * [https://cloud.google.com/storage/docs/lifecycle#dayssincecustomtime](https://cloud.google.com/storage/docs/lifecycle#dayssincecustomtime)
+* [https://cloud.google.com/storage/docs/metadata#custom-time](https://cloud.google.com/storage/docs/metadata#custom-time)
 
 Type: `integer`<br />
 Required: `false`<br />
