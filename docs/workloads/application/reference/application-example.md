@@ -132,6 +132,7 @@ spec:
       lifecycleCondition:
         age: 10
         createdBefore: "2020-01-01"
+        daysSinceCustomTime: 5
         numNewerVersions: 2
         withState: ARCHIVED
       name: my-cloud-storage-bucket

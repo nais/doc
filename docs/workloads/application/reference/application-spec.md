@@ -1399,6 +1399,7 @@ Availability: GCP<br />
             lifecycleCondition:
               age: 10
               createdBefore: "2020-01-01"
+              daysSinceCustomTime: 5
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
@@ -1580,6 +1581,7 @@ Availability: GCP<br />
             lifecycleCondition:
               age: 10
               createdBefore: "2020-01-01"
+              daysSinceCustomTime: 5
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
@@ -1603,6 +1605,7 @@ Required: `false`<br />
             lifecycleCondition:
               age: 10
               createdBefore: "2020-01-01"
+              daysSinceCustomTime: 5
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
@@ -1630,6 +1633,7 @@ Required: `false`<br />
             lifecycleCondition:
               age: 10
               createdBefore: "2020-01-01"
+              daysSinceCustomTime: 5
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
@@ -1653,6 +1657,7 @@ Required: `false`<br />
             lifecycleCondition:
               age: 10
               createdBefore: "2020-01-01"
+              daysSinceCustomTime: 5
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
@@ -1676,6 +1681,36 @@ Required: `false`<br />
             lifecycleCondition:
               age: 10
               createdBefore: "2020-01-01"
+              daysSinceCustomTime: 5
+              numNewerVersions: 2
+              withState: ARCHIVED
+            name: my-cloud-storage-bucket
+            publicAccessPrevention: true
+            retentionPeriodDays: 30
+            uniformBucketLevelAccess: true
+    ```
+
+##### gcp.buckets[].lifecycleCondition.daysSinceCustomTime
+Condition is satisfied when the specified number of days have passed since the date and time specified in an
+object's Custom-Time metadata field.
+
+Relevant information:
+
+* [https://cloud.google.com/storage/docs/lifecycle#dayssincecustomtime](https://cloud.google.com/storage/docs/lifecycle#dayssincecustomtime)
+
+Type: `integer`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      gcp:
+        buckets:
+          - cascadingDelete: true
+            lifecycleCondition:
+              age: 10
+              createdBefore: "2020-01-01"
+              daysSinceCustomTime: 5
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
@@ -1700,6 +1735,7 @@ Required: `false`<br />
             lifecycleCondition:
               age: 10
               createdBefore: "2020-01-01"
+              daysSinceCustomTime: 5
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
@@ -1724,6 +1760,7 @@ Allowed values: _(empty string)_, `ANY`, `ARCHIVED`, `LIVE`<br />
             lifecycleCondition:
               age: 10
               createdBefore: "2020-01-01"
+              daysSinceCustomTime: 5
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
@@ -1747,6 +1784,7 @@ Required: `true`<br />
             lifecycleCondition:
               age: 10
               createdBefore: "2020-01-01"
+              daysSinceCustomTime: 5
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
@@ -1775,6 +1813,7 @@ Default value: `false`<br />
             lifecycleCondition:
               age: 10
               createdBefore: "2020-01-01"
+              daysSinceCustomTime: 5
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
@@ -1799,6 +1838,7 @@ Value range: `1`-`36500`<br />
             lifecycleCondition:
               age: 10
               createdBefore: "2020-01-01"
+              daysSinceCustomTime: 5
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
@@ -1831,6 +1871,7 @@ Default value: `false`<br />
             lifecycleCondition:
               age: 10
               createdBefore: "2020-01-01"
+              daysSinceCustomTime: 5
               numNewerVersions: 2
               withState: ARCHIVED
             name: my-cloud-storage-bucket
