@@ -7,7 +7,7 @@ Delete unused buckets to avoid incurring unnecessary costs. A bucket is deleted 
 
 ## Enable cascading/automatic deletion
 
-For deletion of the application to automatically delete the bucket, set `cascadingDelete` to `true` in your Nais application spesification. Don't worry, the bucket won't be deleted if it contains files.
+For deletion of the application to automatically delete the bucket, set `cascadingDelete` to `true` in your Nais application manifest. Don't worry, the bucket won't be deleted if it contains files.
 
 ```yaml hl_lines="11"
 apiVersion: nais.io/v1alpha1
@@ -25,6 +25,7 @@ spec:
         lifecycleCondition:
           age: 7
           createdBefore: 2020-01-01
+          daysSinceCustomTime: 2
           numNewerVersions: 2
           withState: ANY
 ```

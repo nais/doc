@@ -29,6 +29,7 @@ spec:
         lifecycleCondition:
           age: 7
           createdBefore: 2020-01-01
+          daysSinceCustomTime: 2
           numNewerVersions: 2
           withState: ANY
 ```
