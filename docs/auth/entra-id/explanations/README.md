@@ -71,7 +71,7 @@ The `/.default` scope indicates that your application is requesting _all_ availa
 ## Groups
 
 A _group_ in Entra ID is a collection of users.
-The group itself can be granted [access to applications](../how-to/secure.md#users).
+The group itself can be granted [access to applications](../how-to/secure.md#user-access).
 
 ### Group Identifier
 

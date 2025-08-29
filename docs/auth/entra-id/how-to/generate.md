@@ -28,7 +28,7 @@ spec:
           cluster: dev-gcp
 ```
 
-Ensure that the API application has configured the appropriate [user access policies](secure.md#users).
+Ensure that the API application has configured the appropriate [user access policies](secure.md#user-access).
 
 ## Generate token
 

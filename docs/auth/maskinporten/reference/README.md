@@ -9,7 +9,7 @@ conditional: [tenant, nav]
 
 See the [:books: Nais application reference](../../../workloads/application/reference/application-spec.md#maskinporten).
 
-## Runtime Variables & Credentials
+## Runtime variables & credentials
 
 Your application will automatically be injected with environment variables at runtime.
 
@@ -36,9 +36,9 @@ These variables are optional and should only be used for [manually validating to
 
 See the [Access Token reference in Maskinporten](https://docs.digdir.no/docs/Maskinporten/maskinporten_protocol_token#the-access-token) for a list of all claims.
 
-## Scope Naming
+## Fully qualified scopes
 
-A Maskinporten scope consists of a _prefix_ and a _subscope_:
+A fully qualified Maskinporten scope consists of a _prefix_ and a _subscope_:
 
 ```text
 scope := <prefix>:<subscope>
@@ -118,7 +118,7 @@ scope := nav:helse/sykepenger/afp.read
 
 {% include 'auth/partials/validate-manually.md' %}
 
-**Issuer Validation**
+**Issuer validation**
 
 Validate that the `iss` claim has a value that is equal to either:
 
@@ -126,7 +126,7 @@ Validate that the `iss` claim has a value that is equal to either:
 2. the `issuer` property from the [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document).
    The document is found at the endpoint pointed to by the `MASKINPORTEN_WELL_KNOWN_URL` environment variable.
 
-**Audience Validation**
+**Audience validation**
 
 The `aud` claim is not included by default in Maskinporten tokens and does not need to be validated.
 It is only included if the consumer has requested an [audience-restricted token](https://docs.digdir.no/maskinporten_func_audience_restricted_tokens.html).
@@ -135,7 +135,7 @@ Only validate the `aud` claim if you want to require your consumers to use audie
 The expected audience value is up to you to define and must be communicated to your consumers.
 The value must be an absolute URI (such as `https://some-provider.no` or `https://some-provider.no/api`).
 
-**Signature Validation**
+**Signature validation**
 
 Validate that the token is signed with a public key published at the JWKS endpoint.
 This endpoint URI can be found in one of two ways:
@@ -144,7 +144,7 @@ This endpoint URI can be found in one of two ways:
 2. the `jwks_uri` property from the metadata discovery document.
    The document is found at the endpoint pointed to by the `MASKINPORTEN_WELL_KNOWN_URL` environment variable.
 
-**Scope Validation**
+**Scope validation**
 
 Your application must validate the `scope` claim in the token.
 
@@ -160,7 +160,7 @@ Validate that the `scope` claim contains the expected scope(s).
 
 The semantics and authorization that a scope represents is up to you to define and enforce in your application code.
 
-**Other Token Claims**
+**Claims validation**
 
 [Other claims](#claims) may be present in the token.
-Validation of these claims is optional.
+Your application should validate these other claims according to your own requirements.

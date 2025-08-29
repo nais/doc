@@ -102,7 +102,7 @@ https://<ingress>/oauth2/login?level=idporten-loa-high
 
 {% include 'auth/partials/validate-manually.md' %}
 
-**Issuer Validation**
+**Issuer validation**
 
 Validate that the `iss` claim has a value that is equal to either:
 
@@ -110,11 +110,11 @@ Validate that the `iss` claim has a value that is equal to either:
 2. the `issuer` property from the [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document).
    The document is found at the endpoint pointed to by the `IDPORTEN_WELL_KNOWN_URL` environment variable.
 
-**Audience Validation**
+**Audience validation**
 
 Validate that the `aud` claim is equal to the `IDPORTEN_AUDIENCE` environment variable.
 
-**Signature Validation**
+**Signature validation**
 
 Validate that the token is signed with a public key published at the JWKS endpoint.
 This endpoint URI can be found in one of two ways:
@@ -123,6 +123,7 @@ This endpoint URI can be found in one of two ways:
 2. the `jwks_uri` property from the metadata discovery document.
    The document is found at the endpoint pointed to by the `IDPORTEN_WELL_KNOWN_URL` environment variable.
 
-**Claims Validation**
+**Claims validation**
 
-[Other claims](#claims) may be present in the token. Validation of these claims is optional.
+[Other claims](#claims) may be present in the token.
+Your application should validate these other claims according to your own requirements.

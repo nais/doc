@@ -9,7 +9,7 @@ conditional: [tenant, nav]
 
 See the [:books: Nais application reference](../../../workloads/application/reference/application-spec.md#tokenx).
 
-## Runtime Variables & Credentials
+## Runtime variables & credentials
 
 Your application will automatically be injected with environment variables at runtime.
 
@@ -42,7 +42,7 @@ In addition to the [standard claims](../../explanations/README.md#claims-validat
 | `idp`       | The original [`issuer`](../../explanations/README.md#issuer) of the subject token                                                 |
 | `client_id` | The consumer's [`client_id`](../../explanations/README.md#client-id). Follows the naming scheme `<cluster>:<namespace>:<appname>` |
 
-Other claims such as `pid` are copied verbatim from the [original token issued by ID-porten](../../idporten/reference/README.md#claims).
+Other claims such as `pid` and `acr` are copied verbatim from the [original token issued by ID-porten](../../idporten/reference/README.md#claims).
 
 ### Claim Mappings
 
@@ -58,11 +58,11 @@ The table below shows the claim mappings:
 The mappings will be removed at some point in the future.
 If you're using the `acr` claim in any way, check for both the original and mapped values.
 
-## Manual Token Validation
+## Manual token validation
 
 {% include 'auth/partials/validate-manually.md' %}
 
-**Issuer Validation**
+**Issuer validation**
 
 Validate that the `iss` claim has a value that is equal to either:
 
@@ -70,11 +70,11 @@ Validate that the `iss` claim has a value that is equal to either:
 2. the `issuer` property from the [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document).
    The document is found at the endpoint pointed to by the `TOKEN_X_WELL_KNOWN_URL` environment variable.
 
-**Audience Validation**
+**Audience validation**
 
 Validate that the `aud` claim is equal to the value found in the `TOKEN_X_CLIENT_ID` environment variable.
 
-**Signature Validation**
+**Signature validation**
 
 Validate that the token is signed with a public key published at the JWKS endpoint.
 This endpoint URI can be found in one of two ways:
@@ -83,9 +83,7 @@ This endpoint URI can be found in one of two ways:
 2. the `jwks_uri` property from the metadata discovery document.
    The document is found at the endpoint pointed to by the `TOKEN_X_WELL_KNOWN_URL` environment variable.
 
-**Other Token Claims**
+**Claims validation**
 
-Other claims may be present in the token.
-Validation of these claims is optional.
-
-See the [TokenX claims reference](../reference/README.md#claims) for details.
+[Other claims](#claims) may be present in the token.
+Your application should validate these other claims according to your own requirements.

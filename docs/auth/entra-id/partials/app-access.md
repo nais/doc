@@ -1,5 +1,8 @@
-By default, no applications have access to your API.
-You must explicitly grant access to consumer applications.
+Consumer applications may request tokens from Entra ID that targets your API application.
+Before issuing a token, Entra ID will check that the consumer is authorized to access your API application.
+
+Consumers are not authorized by default.
+To authorize consumers, specify inbound access policies in your application's configuration:
 
 ```yaml title="app.yaml" hl_lines="8-15"
 spec:

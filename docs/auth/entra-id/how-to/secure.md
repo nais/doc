@@ -11,11 +11,11 @@ This how-to guides you through the steps required to secure your API using [Entr
 
 Depending on who your consumers are, you must grant access to either applications, users, or both.
 
-### Applications
+### Application access
 
 {% include 'auth/entra-id/partials/app-access.md' %}
 
-### Users
+### User access
 
 {% include 'auth/entra-id/partials/user-access.md' %}
 

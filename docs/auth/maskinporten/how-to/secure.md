@@ -35,7 +35,7 @@ spec:
           name: "sykepenger/afp.read"
 ```
 
-See the [scope naming reference](../reference/README.md#scope-naming) for details on naming scopes.
+See the [fully qualified scope reference](../reference/README.md#fully-qualified-scopes) for details on naming scopes.
 
 See the [Nais application reference](../../../workloads/application/reference/application-spec.md#maskinportenscopesexposes) for the complete specifications with all possible options.
 

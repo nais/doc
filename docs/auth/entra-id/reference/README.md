@@ -9,7 +9,7 @@ conditional: [tenant, nav]
 
 For all possible configuration options, see the [:books: Nais application reference](../../../workloads/application/reference/application-spec.md#azure).
 
-## Runtime Variables & Credentials
+## Runtime variables & credentials
 
 Your application will automatically be injected with the following environment variables at runtime.
 
@@ -74,7 +74,7 @@ This complements the client ID found in the `azp` claim and is intended for disp
     In order for a group to appear in the claim, all the following conditions must be true:
 
     - The given user is a direct member of the group.
-    - The group has been [granted access to the application](../how-to/secure.md#users).
+    - The group has been [granted access to the application](../how-to/secure.md#user-access).
 
 `idtyp` (_identity type_)
 
@@ -107,7 +107,7 @@ This complements the client ID found in the `azp` claim and is intended for disp
 
     **Only appears in [machine-to-machine][m2m] tokens**.
 
-    Consumers defined in the [access policy](../how-to/secure.md#applications) are always assigned the default role named `access_as_application`.
+    Consumers defined in the [access policy](../how-to/secure.md#application-access) are always assigned the default role named `access_as_application`.
     You can optionally define and grant them [custom roles](#custom-roles).
 
 `scp` (_scope_)
@@ -121,16 +121,16 @@ This complements the client ID found in the `azp` claim and is intended for disp
 
     **Only appears in [on-behalf-of][obo] tokens**.
 
-    Consumers defined in the [access policy](../how-to/secure.md#applications) are always assigned the default scope named `defaultaccess`.
+    Consumers defined in the [access policy](../how-to/secure.md#application-access) are always assigned the default scope named `defaultaccess`.
     You can optionally define and grant them [custom scopes](#custom-scopes).
 
 ## Access policies
 
-### Applications
+### Application access
 
 {% include 'auth/entra-id/partials/app-access.md' %}
 
-### Users
+### User access
 
 {% include 'auth/entra-id/partials/user-access.md' %}
 
@@ -302,7 +302,7 @@ Or the other variant:
 
         `api://<cluster>.<namespace>.<target-application>/.default`
 
-    - Ensure that the target application has configured an inbound [access policy](../how-to/secure.md#applications) that grants your application access to the target application.
+    - Ensure that the target application has configured an inbound [access policy](../how-to/secure.md#application-access) that grants your application access to the target application.
     - If all else fails, request assistance in the `#nais` channel on Slack.
 
 ### Missing user access policy
@@ -319,7 +319,7 @@ When attempting to sign-in or perform the on-behalf-of flow, an application may 
 
 ???+ success "Solution / Answer"
 
-    - Ensure that the application has configured appropriate [user access policies](../how-to/secure.md#users).
+    - Ensure that the application has configured appropriate [user access policies](../how-to/secure.md#user-access).
     - Ensure that the given user is a _direct_ member of any configured groups.
     - If all else fails, request assistance in the `#nais` channel on Slack.
 
@@ -338,11 +338,11 @@ While attempting to log in, you may receive the following error message from Ent
     - Ensure that the user uses an account that matches your application's [tenant](../reference/README.md#tenants) when logging in.
     - If all else fails, request assistance in the `#nais` channel on Slack.
 
-## Manual Token Validation
+## Manual token validation
 
 {% include 'auth/partials/validate-manually.md' %}
 
-**Issuer Validation**
+**Issuer validation**
 
 Validate that the `iss` claim has a value that is equal to either:
 
@@ -350,11 +350,11 @@ Validate that the `iss` claim has a value that is equal to either:
 2. the `issuer` property from the [metadata discovery document](../../explanations/README.md#well-known-url-metadata-document).
    The document is found at the endpoint pointed to by the `AZURE_APP_WELL_KNOWN_URL` environment variable.
 
-**Audience Validation**
+**Audience validation**
 
 Validate that the `aud` claim is equal to the `AZURE_APP_CLIENT_ID` environment variable.
 
-**Signature Validation**
+**Signature validation**
 
 Validate that the token is signed with a public key published at the JWKS endpoint.
 This endpoint URI can be found in one of two ways:
@@ -363,9 +363,10 @@ This endpoint URI can be found in one of two ways:
 2. the `jwks_uri` property from the metadata discovery document.
    The document is found at the endpoint pointed to by the `AZURE_APP_WELL_KNOWN_URL` environment variable.
 
-**Claims Validation**
+**Claims validation**
 
-[Other claims](../reference/README.md#claims) may be present in the token. Validation of these claims is optional.
+[Other claims](#claims) may be present in the token.
+Your application should validate these other claims according to your own requirements.
 
 [login]: ../how-to/login.md
 [m2m]: ../how-to/consume-m2m.md
