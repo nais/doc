@@ -56,7 +56,7 @@ Databases should always be accessed using a personal account, and the access sho
     The default is to allow only `SELECT` statements. If you need to allow all privileges, you can use the `--all-privileges` flag.
 
     ```bash
-    nais postgres prepare --all-privs <MYAPP>
+    nais postgres prepare --all-privileges <MYAPP>
     ```
 
 Read more about [Grants and Privileges](../explanations/grants-and-privileges.md).
