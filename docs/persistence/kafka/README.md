@@ -74,4 +74,4 @@ If the new instances are not able to connect to Kafka, keeping the old ones unti
 ### Are Schemas backed up?
 !!! faq "Answer"
     Aiven makes backups of configuration and schemas every 3 hours, but no topic data is backed up by default.
-See the [Aiven documentation](https://docs.aiven.io/docs/products/kafka/concepts/configuration-backup) for more details.
+See the [Aiven documentation](https://aiven.io/docs/products/kafka/concepts/configuration-backup) for more details.

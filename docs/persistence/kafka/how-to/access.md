@@ -38,10 +38,10 @@ The owner of the topic must [grant your application access to the topic](manage-
 Aiven has written several articles on how to configure your application.
 We use SSL, so ignore the SASL-SSL examples:
 
-- [Java](https://docs.aiven.io/docs/products/kafka/howto/connect-with-java.html)
-- [Python](https://docs.aiven.io/docs/products/kafka/howto/connect-with-python.html)
-- [Node.js](https://docs.aiven.io/docs/products/kafka/howto/connect-with-nodejs.html)
-- [Go](https://docs.aiven.io/docs/products/kafka/howto/connect-with-go.html)
+- [Java](https://aiven.io/docs/products/kafka/howto/connect-with-java)
+- [Python](https://aiven.io/docs/products/kafka/howto/connect-with-python)
+- [Node.js](https://aiven.io/docs/products/kafka/howto/connect-with-nodejs)
+- [Go](https://aiven.io/docs/products/kafka/howto/connect-with-go)
 
 For all available environment variables, see the [reference](../reference/environment-variables.md).
 

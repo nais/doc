@@ -136,5 +136,5 @@ You can use this query to get offsets for a consumer group:
 [offset-management]: https://docs.confluent.io/platform/current/clients/consumer.html#offset-management
 [rebalance]: https://kafka.apache.org/28/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#rebalancecallback
 [seek]: https://kafka.apache.org/28/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#seek(org.apache.kafka.common.TopicPartition,long)
-[aiven-offset-help]: https://developer.aiven.io/docs/products/kafka/howto/viewing-resetting-offset
+[aiven-offset-help]: https://aiven.io/docs/products/kafka/howto/viewing-resetting-offset
 
