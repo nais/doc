@@ -169,7 +169,7 @@ kcat \
     -X ssl.ca.location=ca.pem
 ```
 
-For more details [aiven-kcat](https://help.aiven.io/en/articles/2607674-using-kafkacat)
+For more details [aiven-kcat](https://aiven.io/docs/products/kafka/howto/kcat)
 
 #### java
 
