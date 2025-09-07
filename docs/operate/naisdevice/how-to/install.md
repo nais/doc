@@ -105,7 +105,15 @@ tags: [naisdevice, how-to]
 
         Using Gnome DE on latest Ubuntu LTS - only supported variant atm
 
-    1. Add the nais PPA repo:
+    ### Install curl
+
+    **NOTE** curl is not installed in a "fresh" ubuntu:
+
+    ```
+    sudo apt install curl
+    ```
+
+    ### Add the nais PPA repo:
 
     ```
     NAIS_GPG_KEY="/etc/apt/keyrings/nav_nais_gar.asc"
@@ -114,13 +122,8 @@ tags: [naisdevice, how-to]
     sudo apt update
     ```
 
-    **NOTE** curl is not installed in a "fresh" ubuntu:
 
-    ```
-    sudo apt install curl
-    ```
-
-    1. Install the naisdevice package:
+    ### Install the naisdevice package:
 
     {% if tenant() == "nav" %}
 
