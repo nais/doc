@@ -16,7 +16,5 @@ All PostgreSQL databases running in the cluster export metrics using the [Promet
 
 To view Postgres metrics in your Grafana dashboard, you can use the normal cluster datasource.
 
-1. Log on to [Grafana](<<tenant_url("grafana")>>).
-2. In your Grafana dashboard, add a new panel.
-6. Select the metric you want to display.
-7. Add any filters you want to apply to the metric.
+1. Log on to [Grafana](<<tenant_url("grafana")>>d/zalando-postgres/zalando-postgres-operator-overview).
+2. Select desired datasource, namespace and instance.
