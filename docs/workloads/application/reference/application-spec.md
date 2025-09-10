@@ -4887,7 +4887,7 @@ Name of the Postgres cluster.
 
 Type: `string`<br />
 Required: `false`<br />
-Pattern: `^[a-z0-9][a-z0-9-]{1,62}$`<br />
+Pattern: `^[a-z0-9][a-z0-9-]{1,55}$`<br />
 
 ??? example
     ``` yaml
