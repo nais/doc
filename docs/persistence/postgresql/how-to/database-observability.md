@@ -10,11 +10,21 @@ tags: [postgres, metrics, how-to]
 
 All PostgreSQL databases running in the cluster export metrics using the [Prometheus postgres exporter](https://github.com/prometheus-community/postgres_exporter).
 
-{#TODO: Add more information about the metrics collected, and how to use them#}
-
-## Viewing Postgres metrics in your Grafana dashboard
+## Viewing Postgres metrics in Grafana
 
 To view Postgres metrics in your Grafana dashboard, you can use the normal cluster datasource.
 
 1. Log on to [Grafana](<<tenant_url("grafana")>>d/zalando-postgres/zalando-postgres-operator-overview).
-2. Select desired datasource, namespace and instance.
+2. Select desired datasource (aka environment), namespace and instance.
+
+
+## Viewing other Postgres metrics in Grafana
+
+1. Log on to [Grafana](<<tenant_url("grafana")>>).
+2. Go to Drilldown -> Metrics.
+3. Select desired datasource (aka environment).
+4. Add a label filter with `namespace=pg-<team-name>`.
+5. Add a label filter with `cluster_name=<cluster-name>`.
+6. Explore available metrics. Metrics from postgres-exporter usually start with `pg_`.
+7. You can also create your own dashboards using these metrics.
+
