@@ -16,6 +16,8 @@ The `spec.opensearch` configuration has two fields as you get exactly one OpenSe
         access: readwrite | read | write | admin
 ```
 
+## Environment variables
+
 Specifying an OpenSearch instance will yield three environment variables in the Application
 
 | Key                    | Value                                 |
