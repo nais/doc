@@ -62,12 +62,12 @@ nais aiven create -i instance -a read -s some-unique-secretname -e 10 opensearch
 In OpenSearch, the username in the command is not related to the actual OpenSearch username, but used for internal purposes to identify the request.
 This is because the usernames on OpenSearch instances are pre-defined as of now, one for each possible access level.
 
-| Flag        | Required | Short | Default                         | Description                                                               |
-|-------------|----------|-------|---------------------------------|---------------------------------------------------------------------------|
-| access      | No       | -a    | read                            | One of: admin, read, write, readwrite.                                    |
-| instance    | Yes      | -i    |                                 | Name of the [instance](../../../persistence/opensearch/how-to/create.md). |
-| secret-name | No       | -s    | namespace-username-randomstring | Preferred secret-name.                                                    |
-| expire      | No       | -e    | 1                               | Time in days the secret should be valid.                                  |
+| Flag        | Required | Short | Default                         | Description                              |
+|-------------|----------|-------|---------------------------------|------------------------------------------|
+| access      | No       | -a    | read                            | One of: admin, read, write, readwrite.   |
+| instance    | Yes      | -i    |                                 | Name of the instance.                    |
+| secret-name | No       | -s    | namespace-username-randomstring | Preferred secret-name.                   |
+| expire      | No       | -e    | 1                               | Time in days the secret should be valid. |
 
 ## get
 
