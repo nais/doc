@@ -36,4 +36,4 @@ The following log destinations are available in Nais:
 - [`elastic`](../how-to/kibana.md#enable-logging-to-elastic-kibana) (deprecated)
 {% endif %}
 
-It is possible to specify multiple destinations, or use `destinations: []` to disable all log forwarding.
+It is possible to specify multiple destinations.
