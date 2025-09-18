@@ -32,7 +32,7 @@ cloudsql.enable_pgaudit
 pgaudit.log
 ```
 
-The flags can be set in the application spec:
+The flags can be set in the application spec (these parameters are the recommended settings):
 ```yaml
 spec:
   gcp:
@@ -42,7 +42,9 @@ spec:
         - name: "cloudsql.enable_pgaudit"
           value: "on"
         - name: "pgaudit.log"
-          value: "write,ddl"
+          value: "write,ddl,role"
+        - name: "pgaudit.log_parameter"
+          value: "on"
 ```
 
 The `cloudsql.enable_pgaudit` flag enables the pgaudit logging in the database. The `pgaudit.log` flag specifies what to log. 
