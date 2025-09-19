@@ -2,16 +2,20 @@
 tags: [how-to, valkey, redis]
 ---
 
-# Create Valkey via Application
+# Create Valkey via Application (legacy)
 
 You can create many Valkey instances for your `Application`.
 
+!!! warning
+
+    The steps below describe how to create a Valkey instance via a workload manifest.
+
+    <!-- TODO: Add reference to Nais TOML when ready -->
+    We recommend that most users instead create Valkey instances via [Nais Console](create.md).
+
 ## Prerequisites
+
 - [Member of a Nais team](../../../explanations/team.md)
-
-!!! warning 
-
-    It is not possible to share Valkey instances between teams.
 
 ## Enable Valkey in your [manifest][app-spec-valkey]
 

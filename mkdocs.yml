@@ -67,7 +67,6 @@ extra_css:
   - material_theme_stylesheet_overrides/uu.css
   - material_theme_stylesheet_overrides/grid.css
   - css/gcp_only_admonition.css
-  - css/swagger.css
 plugins:
   - awesome-pages
   - tags
@@ -266,3 +265,6 @@ markdown_extensions:
   - md_in_html
   - pymdownx.tasklist:
       custom_checkbox: true
+exclude_docs: |
+  manage-via-toml.md
+  apply.md
