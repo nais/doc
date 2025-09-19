@@ -4,7 +4,7 @@ tags: [how-to, valkey, redis]
 
 # Manage Valkeys via Nais TOML (preview)
 
-This guide will show you how to manage Valkey instances using [Nais TOML](todo-some-document-explaining-what-nais-toml-is.md) configuration files, as an alternative to [Nais Console](create-console.md).
+This guide will show you how to manage Valkey instances using [Nais TOML](todo-some-document-explaining-what-nais-toml-is.md) configuration files, as an alternative to [Nais Console](create.md).
 
 !!! example "Preview"
 
@@ -16,7 +16,9 @@ This guide will show you how to manage Valkey instances using [Nais TOML](todo-s
 
 - You're part of a [Nais team](../../../explanations/team.md)
 
-## Configure Valkey in Nais TOML
+## Steps
+
+### 1. Configure Valkey in Nais TOML
 
 In your Nais TOML file, add a `[valkey.<instance-name>]` section to define your Valkey instance
 
@@ -43,7 +45,9 @@ tier = "HIGH_AVAILABILITY"
 maxMemoryPolicy = "ALLKEYS_LRU"
 ```
 
-## Next steps
+### 2. Apply Nais TOML
+
+Once you've configured your Valkey instances in Nais TOML, you can apply the configuration to create or update the Valkey instances.
 
 :dart: Learn how to [apply Nais TOML from GitHub Actions](../../../build/how-to/apply.md)
 

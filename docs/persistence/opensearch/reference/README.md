@@ -7,18 +7,23 @@ tags: [opensearch, reference]
 
 ## Configuration options
 
-The `spec.opensearch` configuration has two fields as you get exactly one OpenSearch instance per Application.
+The `spec.openSearch` configuration allows you to reference a single OpenSearch instance with a desired access mode.
 
 ```yaml
-    spec:
-      openSearch:
-        instance: <OpenSearchInstanceName>
-        access: readwrite | read | write | admin
+spec:
+  openSearch:
+    instance: <OpenSearchInstanceName>
+    access: readwrite | read | write | admin
 ```
+
+For details, see the manifest reference for your workload type:
+
+- Application: [`.spec.openSearch`](../../../workloads/application/reference/application-spec.md#opensearch)
+- Job: [`.spec.openSearch`](../../../workloads/job/reference/naisjob-spec.md#opensearch)
 
 ## Environment variables
 
-Specifying an OpenSearch instance will yield three environment variables in the Application
+When [using an OpenSearch from your workload](../how-to/use-in-workload.md), these environment variables are available at runtime:
 
 | Key                    | Value                                 |
 |------------------------|---------------------------------------|

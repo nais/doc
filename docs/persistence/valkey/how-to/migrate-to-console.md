@@ -19,7 +19,9 @@ skip to [step 4](#4-apply-annotation-to-valkey-resource-in-kubernetes).
 
 If you [created your Valkey explicitly](create-explicit.md), follow all the steps below.
 
-## 1. Verify that your existing Valkey settings are compatible with Console
+## Steps
+
+### 1. Verify that your existing Valkey settings are compatible with Console
 
 Before migrating, ensure that your existing Valkey instance is compatible with Nais Console.
 
@@ -28,21 +30,24 @@ Console currently supports the following fields:
 - `.spec.plan` - plan is now split into _size_ and _tier_
     - `size` denotes the memory size of the instance
     - `tier` denotes the availability tier of the instance
-      - `SINGLE_NODE` (equivalent to `startup-*`)
-      - `HIGH_AVAILABILITY` (equivalent to `business-*`)
+        - `SINGLE_NODE` (equivalent to `startup-*`, or `hobbyist` for the smallest `size`)
+        - `HIGH_AVAILABILITY` (equivalent to `business-*`)
     - For example, if your existing plan is `startup-4`, you would set:
-      - `size = "RAM_4GB"`
-      - `tier = "SINGLE_NODE"`
+        - `size = "RAM_4GB"`
+        - `tier = "SINGLE_NODE"`
     - If your existing plan is `business-14`, you would set:
-      - `size = "RAM_14GB"`
-      - `tier = "HIGH_AVAILABILITY"`
+        - `size = "RAM_14GB"`
+        - `tier = "HIGH_AVAILABILITY"`
+    - If your existing plan is `hobbyist`, you would set:
+        - `size = "RAM_1GB"`
+        - `tier = "SINGLE_NODE"`
 - `.spec.userConfig.valkey_maxmemory_policy`
 - `.spec.project` (automatically set)
 - `.spec.terminationProtection` (automatically enabled)
 
 If you need other fields not supported by Console, reach out to the Nais team.
 
-## 2. Delete Valkey manifest from your Git repository
+### 2. Delete Valkey manifest from your Git repository
 
 Your Git repository might have a manifest file that was used to create the Valkey instance.
 It should look something like this:
@@ -63,7 +68,7 @@ It should look something like this:
 
 Delete the file from your repository.
 
-## 3. Remove references from GitHub Actions workflows
+### 3. Remove references from GitHub Actions workflows
 
 If you have any GitHub Actions workflows that references the Valkey manifest file you just deleted, you should remove those references:
 
@@ -83,7 +88,7 @@ jobs:
 ``
 ```
 
-## 4. Apply annotation to Valkey resource in Kubernetes
+### 4. Apply annotation to Valkey resource in Kubernetes
 
 To allow Console to take over management of the Valkey instance, you need to add an annotation to the existing Valkey resource in your Kubernetes cluster.
 
@@ -95,7 +100,7 @@ kubectl annotate valkey $VALKEY_NAME nais.io/managed-by=console \
   --context $ENVIRONMENT
 ```
 
-## 5. Finishing up
+### 5. Finishing up
 
 1. Visit [Nais Console](https://console.<<tenant()>>.cloud.nais.io).
 2. Navigate to your team.
@@ -106,6 +111,8 @@ kubectl annotate valkey $VALKEY_NAME nais.io/managed-by=console \
 
 Congratulations! You've now successfully migrated your Valkey instance to be managed via Nais Console.
 
+<!-- TODO: Unhide when Nais TOML is live
 ## Next steps
 
 :dart: Learn how to [manage Valkeys via Nais TOML](manage-via-toml.md)
+-->

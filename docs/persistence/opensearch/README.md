@@ -31,3 +31,5 @@ Aiven OpenSearch can be used by applications in all environments, but must be *d
 :dart: [Use OpenSearch in your workload](how-to/use-in-workload.md)
 
 :dart: [Delete OpenSearch](how-to/delete.md)
+
+:books: [OpenSearch reference](reference/README.md)

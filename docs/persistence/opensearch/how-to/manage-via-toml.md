@@ -16,7 +16,9 @@ This guide will show you how to manage OpenSearch instances using [Nais TOML](to
 
 - You're part of a [Nais team](../../../explanations/team.md)
 
-## Configure opensearch in Nais TOML
+## Steps
+
+### 1. Configure opensearch in Nais TOML
 
 In your Nais TOML file, add a `[openSearch.<instance-name>]` section to define your opensearch instance
 
@@ -42,7 +44,9 @@ size = "RAM_16GB"
 tier = "HIGH_AVAILABILITY"
 ```
 
-## Next steps
+### 2. Apply Nais TOML
+
+Once you've configured your OpenSearch instances in Nais TOML, you can apply the configuration to create or update the OpenSearch instances.
 
 :dart: Learn how to [apply Nais TOML from GitHub Actions](../../../build/how-to/apply.md)
 

@@ -1,6 +1,5 @@
 nav:
-- create-console.md
-- manage-via-toml.md
-- delete.md
+- create.md
 - use-in-workload.md
+- delete.md
 - ...

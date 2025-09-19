@@ -11,7 +11,8 @@ description: >-
 
     The steps below describe how to create an OpenSearch instance explicitly via a Kubernetes resource manifest.
 
-    For an easier experience, we recommend that most users instead create OpenSearch instances via [Nais TOML](manage-via-toml.md) or [Nais Console](create.md).
+    <!-- TODO: Add reference to Nais TOML when ready -->
+    For an easier experience, we recommend that most users instead create OpenSearch instances via [Nais Console](create.md).
 
 Explicitly creating an OpenSearch instance is done by adding a OpenSearch resource to your namespace with detailed configuration in a GCP cluster. In your `Application` or `Naisjob` specifications, you specify an instance and access.
 

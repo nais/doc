@@ -11,14 +11,16 @@ This guide will show you how to connect your workload to a previously created Op
 - You're part of a [Nais team](../../../explanations/team.md)
 - You have previously [created a OpenSearch](create.md) for your team
 
-## Add reference to OpenSearch instance in workload manifest
+## Steps
+
+### 1. Add reference to OpenSearch instance in workload manifest
 
 In your workload manifest, add the following lines to reference the OpenSearch instance:
 
 ```yaml title="nais.yaml" hl_lines="2-4"
 spec:
   openSearch:
-    name: $NAME
+    instance: $NAME
     access: read # read | readwrite | write | admin
 ```
 
@@ -34,13 +36,13 @@ Possible values are:
 - `readwrite`
 - `admin`
 
-## Find OpenSearch environment variables
+### 2. Find OpenSearch environment variables
 
 When the workload is deployed, the Nais platform will inject the necessary environment variables to connect to the OpenSearch instance.
 
 See the available environment variables in the [OpenSearch reference](../reference/README.md#environment-variables).
 
-## Use a OpenSearch client library
+### 3. Use a OpenSearch client library
 
 Use a OpenSearch client library to connect to the OpenSearch instance using the injected environment variables.
 

@@ -2,7 +2,7 @@
 tags: [how-to, valkey, redis]
 ---
 
-# Create Valkey via Console
+# Create Valkey
 
 This guide will show you how to create a Valkey instance for your team using [Nais Console](../../../operate/console.md).
 
