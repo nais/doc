@@ -8,6 +8,7 @@ tags: [reference, valkey]
 ## Configuration options
 
 The `spec.valkey` field takes a list of records of two fields, instance and access:
+
 - `instance` is the instance name
 - `access` is the access mode
 
@@ -22,6 +23,18 @@ For details, see the manifest reference for your workload type:
 
 - Application: [`.spec.valkey`](../../../workloads/application/reference/application-spec.md#valkey)
 - Job: [`.spec.valkey`](../../../workloads/job/reference/naisjob-spec.md#valkey)
+
+### Access levels
+
+Access levels grants the service user access to different [Valkey ACL categories](https://valkey.io/topics/acl/#command-categories).
+The access levels are as follows:
+
+| Access level | Description                                                                                             |
+|--------------|---------------------------------------------------------------------------------------------------------|
+| `read`       | `["-@all", "+@connection", "+@scripting", "+@pubsub", "+@transaction", "+@read"]`                       |
+| `write`      | `["-@all", "+@connection", "+@scripting", "+@pubsub", "+@transaction", "+@write"]`                      |
+| `readwrite`  | `["-@all", "+@connection", "+@scripting", "+@pubsub", "+@transaction", "+@write", "+@read"]`            |
+| `admin`      | `["-@all", "+@connection", "+@scripting", "+@pubsub", "+@transaction", "+@write", "+@read", "+@admin"]` |
 
 ## Environment variables
 

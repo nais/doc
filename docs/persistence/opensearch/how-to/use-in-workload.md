@@ -1,5 +1,5 @@
 ---
-tags: [how-to, opensearch, redis]
+tags: [how-to, opensearch]
 ---
 
 # Use OpenSearch in your workload
@@ -29,12 +29,8 @@ If you [created your OpenSearch through the legacy method](create-legacy.md), ex
 
 The `access` field defines the access level your workload will have to the OpenSearch instance.
 Choose the access level that fits your use case.
-Possible values are:
 
-- `read`
-- `write`
-- `readwrite`
-- `admin`
+See the available access levels in the [OpenSearch reference](../reference/README.md#access-levels).
 
 ### 2. Find OpenSearch environment variables
 

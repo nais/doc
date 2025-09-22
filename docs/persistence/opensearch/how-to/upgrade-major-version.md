@@ -1,5 +1,5 @@
 ---
-tags: [how-to, openSearch]
+tags: [how-to, opensearch]
 ---
 
 # Upgrade major version

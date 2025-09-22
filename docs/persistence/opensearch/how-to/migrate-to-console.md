@@ -1,5 +1,5 @@
 ---
-tags: [how-to, OpenSearch, redis]
+tags: [how-to, opensearch]
 ---
 
 # Migrate OpenSearch management to Nais Console

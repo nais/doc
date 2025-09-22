@@ -1,8 +1,5 @@
 ---
 tags: [how-to, opensearch]
-description: >-
-  Nais provides managed search index services through OpenSearch as a drop-in
-  replacement for Elasticsearch.
 ---
 
 # Create an OpenSearch instance (legacy)

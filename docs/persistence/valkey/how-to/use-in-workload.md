@@ -32,12 +32,8 @@ If you created your Valkey explicitly, exclude the `valkey-<TEAM>-` prefix.
 
 The `access` field defines the access level your workload will have to the Valkey instance.
 Choose the access level that fits your use case.
-Possible values are:
 
-- `read`
-- `write`
-- `readwrite`
-- `admin`
+See the available access levels in the [Valkey reference](../reference/README.md#access-levels).
 
 ### 2. Find Valkey environment variables
 

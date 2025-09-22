@@ -1,5 +1,5 @@
 ---
-tags: [how-to, opensearch, redis]
+tags: [how-to, opensearch]
 ---
 
 # Delete OpenSearch
