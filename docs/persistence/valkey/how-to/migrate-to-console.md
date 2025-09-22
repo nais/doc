@@ -102,7 +102,9 @@ kubectl annotate valkey $VALKEY_NAME nais.io/managed-by=console \
 
 where `$NAME` is the fully qualified name of your Valkey instance, e.g. `valkey-<TEAM>-<INSTANCE>`.
 
-You must also run the following command to remove any existing owner references:
+### 4a. Remove owner references (if applicable)
+
+If you [created your Valkey instance via an application](create-application.md), you must also remove the existing owner references from the resource:
 
 ```shell
 kubectl patch valkey $NAME \

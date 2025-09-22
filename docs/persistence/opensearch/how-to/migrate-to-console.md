@@ -97,16 +97,6 @@ kubectl annotate opensearch $NAME nais.io/managed-by=console \
 
 where `$NAME` is the fully qualified name of your OpenSearch instance, e.g. `opensearch-<TEAM>-<INSTANCE>`.
 
-You must also run the following command to remove any existing owner references:
-
-```shell
-kubectl patch opensearch $NAME \
-    --namespace $TEAM \
-    --context $ENVIRONMENT \
-    --type='json' \
-    -p='[{"op": "remove", "path": "/metadata/ownerReferences"}]'
-```
-
 ### 5. Finishing up
 
 1. Visit [Nais Console](https://console.<<tenant()>>.cloud.nais.io).
