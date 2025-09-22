@@ -88,7 +88,7 @@ jobs:
 ``
 ```
 
-### 4. Apply annotation to Valkey resource in Kubernetes
+### 4. Patch resource in Kubernetes
 
 To allow Console to take over management of the Valkey instance, you need to add an annotation to the existing Valkey resource in your Kubernetes cluster.
 
@@ -98,6 +98,18 @@ To do so, run the following command:
 kubectl annotate valkey $VALKEY_NAME nais.io/managed-by=console \
   --namespace $TEAM \
   --context $ENVIRONMENT
+```
+
+where `$NAME` is the fully qualified name of your Valkey instance, e.g. `valkey-<TEAM>-<INSTANCE>`.
+
+You must also run the following command to remove any existing owner references:
+
+```shell
+kubectl patch valkey $NAME \
+    --namespace $TEAM \
+    --context $ENVIRONMENT \
+    --type='json' \
+    -p='[{"op": "remove", "path": "/metadata/ownerReferences"}]'
 ```
 
 ### 5. Finishing up
