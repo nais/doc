@@ -85,12 +85,12 @@ jobs:
 
 ### 4. Patch resource in Kubernetes
 
-To allow Console to take over management of the OpenSearch instance, you need to add an annotation to the existing OpenSearch resource in your Kubernetes cluster.
+To allow Console to take over management of the OpenSearch instance, you need to add a label to the existing OpenSearch resource in your Kubernetes cluster.
 
 To do so, run the following command:
 
 ```shell
-kubectl annotate opensearch $NAME nais.io/managed-by=console \
+kubectl label opensearch $NAME nais.io/managed-by=console \
   --namespace $TEAM \
   --context $ENVIRONMENT
 ```
