@@ -107,9 +107,3 @@ where `$NAME` is the fully qualified name of your OpenSearch instance, e.g. `ope
 6. Verify that you can **Edit** or **Delete** the OpenSearch instance.
 
 Congratulations! You've now successfully migrated your OpenSearch instance to be managed via Nais Console.
-
-<!-- TODO: Unhide when Nais TOML is live
-## Next steps
-
-:dart: Learn how to [manage OpenSearches via Nais TOML](manage-via-toml.md)
--->

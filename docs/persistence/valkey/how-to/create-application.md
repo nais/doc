@@ -10,7 +10,6 @@ You can create many Valkey instances for your `Application`.
 
     The steps below describe how to create a Valkey instance via a workload manifest.
 
-    <!-- TODO: Add reference to Nais TOML when ready -->
     We recommend that most users instead create Valkey instances via [Nais Console](create.md).
 
 ## Prerequisites

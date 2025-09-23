@@ -265,6 +265,3 @@ markdown_extensions:
   - md_in_html
   - pymdownx.tasklist:
       custom_checkbox: true
-exclude_docs: |
-  manage-via-toml.md
-  apply.md

@@ -8,7 +8,6 @@ tags: [how-to, valkey, redis]
 
     The steps below describe how to create a Valkey instance explicitly via a Kubernetes resource manifest.
 
-    <!-- TODO: Add reference to Nais TOML when ready -->
     For an easier experience, we recommend that most users instead create Valkey instances via [Nais Console](create.md).
 
 ## Prerequisites

@@ -124,9 +124,3 @@ kubectl patch valkey $NAME \
 6. Verify that you can **Edit** or **Delete** the Valkey instance.
 
 Congratulations! You've now successfully migrated your Valkey instance to be managed via Nais Console.
-
-<!-- TODO: Unhide when Nais TOML is live
-## Next steps
-
-:dart: Learn how to [manage Valkeys via Nais TOML](manage-via-toml.md)
--->

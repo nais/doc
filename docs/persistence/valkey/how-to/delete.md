@@ -25,13 +25,6 @@ spec:
 -      access: <ACCESS-LEVEL>
 ```
 
-<!-- TODO: Unhide when Nais TOML is ready
-### 2. Remove TOML from Git repository
-
-If you're [managing the Valkey through Nais TOML](manage-via-toml.md), remove the corresponding TOML configuration from your repository.
-
-### 3. Delete the Valkey instance
--->
 ### 2. Delete the Valkey instance
 
 1. Open [Nais Console](https://console.<<tenant()>>.cloud.nais.io) in your browser and select your team
