@@ -4,10 +4,13 @@ tags: [postgres, audit, troubleshooting, how-to]
 
 # Enable audit logging
 
+!!! info "Default retention time for logs are 30 days in GCP"
+
+    Contact the nais team to set retention to 90 days if this is your teams first application with audit log requirements.
+
 !!! info "Only available for postgreSQL in GCP"
 
     The cli used for this configuration can only detect sql instances in GCP.
-
 
 This guide describes how to enable audit logging in your postgreSQL database.
 
