@@ -100,7 +100,11 @@ kubectl label valkey $VALKEY_NAME nais.io/managed-by=console \
   --context $ENVIRONMENT
 ```
 
-where `$NAME` is the fully qualified name of your Valkey instance, e.g. `valkey-<TEAM>-<INSTANCE>`.
+where
+
+- `$VALKEY_NAME` is the fully qualified name of your Valkey instance, e.g. `valkey-<TEAM>-<INSTANCE>`.
+- `$TEAM` is your team.
+- `$ENVIRONMENT` is the [name of the environment](../../../workloads/reference/environments.md) you're targeting.
 
 ### 4a. Remove owner references (if applicable)
 

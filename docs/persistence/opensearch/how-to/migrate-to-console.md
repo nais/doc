@@ -90,12 +90,16 @@ To allow Console to take over management of the OpenSearch instance, you need to
 To do so, run the following command:
 
 ```shell
-kubectl label opensearch $NAME nais.io/managed-by=console \
+kubectl label opensearch $OPENSEARCH_NAME nais.io/managed-by=console \
   --namespace $TEAM \
   --context $ENVIRONMENT
 ```
 
-where `$NAME` is the fully qualified name of your OpenSearch instance, e.g. `opensearch-<TEAM>-<INSTANCE>`.
+where
+
+- `$OPENSEARCH_NAME` is the fully qualified name of your OpenSearch instance, e.g. `opensearch-<TEAM>-<INSTANCE>`.
+- `$TEAM` is your team.
+- `$ENVIRONMENT` is the [name of the environment](../../../workloads/reference/environments.md) you're targeting.
 
 ### 5. Finishing up
 
