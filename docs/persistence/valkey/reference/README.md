@@ -7,7 +7,10 @@ tags: [reference, valkey]
 
 ## Configuration options
 
-The `spec.valkey` field takes a list of records of two fields, instance and access. Instance is the instance name and access is the access mode.
+The `spec.valkey` field takes a list of records of two fields, instance and access:
+
+- `instance` is the instance name
+- `access` is the access mode
 
 ```yaml
 spec:
@@ -16,9 +19,26 @@ spec:
       access: readwrite | read | write | admin
 ```
 
+For details, see the manifest reference for your workload type:
+
+- Application: [`.spec.valkey`](../../../workloads/application/reference/application-spec.md#valkey)
+- Job: [`.spec.valkey`](../../../workloads/job/reference/naisjob-spec.md#valkey)
+
+### Access levels
+
+Access levels grants the service user access to different [Valkey ACL categories](https://valkey.io/topics/acl/#command-categories).
+The access levels are as follows:
+
+| Access level | Description                                                                                             |
+|--------------|---------------------------------------------------------------------------------------------------------|
+| `read`       | `["-@all", "+@connection", "+@scripting", "+@pubsub", "+@transaction", "+@read"]`                       |
+| `write`      | `["-@all", "+@connection", "+@scripting", "+@pubsub", "+@transaction", "+@write"]`                      |
+| `readwrite`  | `["-@all", "+@connection", "+@scripting", "+@pubsub", "+@transaction", "+@write", "+@read"]`            |
+| `admin`      | `["-@all", "+@connection", "+@scripting", "+@pubsub", "+@transaction", "+@write", "+@read", "+@admin"]` |
+
 ## Environment variables
 
-Every `<ValkeyInstanceName>` will be given a handfull of environment variables for the applications to use:
+When [using a Valkey from your workload](../how-to/use-in-workload.md), each `<ValkeyInstanceName>` you have configured will result in environment variables at runtime:
 
 | Key                                    | Value                                                                                                                                           |
 |----------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -37,9 +57,3 @@ To make the usage of Valkey backward compatible for libraries not supporting Val
 | `REDIS_PORT_<RedisInstanceName>`     | The port for the Redis instance. <br/>Example:  `26483`                                                                                     |
 | `REDIS_USERNAME_<RedisInstanceName>` | The username to use when connecting.                                                                                                        |
 | `REDIS_PASSWORD_<RedisInstanceName>` | The password to use when connecting.                                                                                                        |
-
-## Advanced configuration
-
-For advanced configuration, we recommend [creating your Valkey instances explicitly](../how-to/create-explicit.md), especially if you intend for multiple applications using the same Valkey instance.
-
-We use Aivens operator, so the Valkey resource is [documented in detail](https://aiven.github.io/aiven-operator/resources/valkey.html) in the Aiven documentation.

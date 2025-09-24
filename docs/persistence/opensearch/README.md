@@ -1,5 +1,8 @@
 ---
 tags: [opensearch, explanation, persistence, services]
+description: >-
+  Nais provides managed search index services through OpenSearch as a drop-in
+  replacement for Elasticsearch.
 ---
 
 # OpenSearch
@@ -23,3 +26,13 @@ The serviceuser for any particular OpenSearch instance gets rotated regularly by
 {%- if tenant() == "nav" %}
 Aiven OpenSearch can be used by applications in all environments, but must be *defined* in a GCP cluster.
 {%- endif %}
+
+## Next steps
+
+:dart: [Create OpenSearch](how-to/create.md)
+
+:dart: [Use OpenSearch in your workload](how-to/use-in-workload.md)
+
+:dart: [Delete OpenSearch](how-to/delete.md)
+
+:books: [OpenSearch reference](reference/README.md)

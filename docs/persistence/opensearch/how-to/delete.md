@@ -1,5 +1,5 @@
 ---
-tags: [how-to, openSearch]
+tags: [how-to, opensearch]
 ---
 
 # Delete OpenSearch
@@ -10,52 +10,26 @@ This page guides you through the steps required to delete an OpenSearch instance
 
 - [You are a member of a Nais team](../../../explanations/team.md)
 - [You have set up command-line access](../../../operate/how-to/command-line-access.md)
+- Your OpenSearch instance is managed by Nais Console.
+    - If you created your OpenSearch [via the legacy](create-legacy.md), see [Migrate opensearch management to Console](migrate-to-console.md).
 
 ## Steps
 
-### List OpenSearch instances
+### 1. Remove references from workload manifests
 
-To list all OpenSearch instances belonging to your team:
-
-#### Through the Nais Console
-
-1. Open [Nais Console](https://console.<<tenant()>>.cloud.nais.io) in your browser and select your team.
-2. Select the `OpenSearch` tab
-3. Find the name of the OpenSearch instance you want to delete
-
-#### Using Kubectl
-
-```shell
-kubectl get opensearches
-```
-
-### Disable termination protection
-
-Before your can delete a specific OpenSearch instance, you must first disable termination protection.
-
-To disable termination protection, run the following command:
-
-```shell
-kubectl patch openSearch <OPENSEARCH-NAME> \
-  --type json \
-  -p='[{"op": "replace", "path": "/spec/terminationProtection", "value": false}]'
-```
-
-### Remove references from application manifests
-
-Ensure that all references to the OpenSearch instance are removed from your application manifests:
+Ensure that all references to the opensearch instance are removed from your workload manifests:
 
 ```diff title="app.yaml"
 spec:
 -  openSearch:
--    - instance: <OPENSEARCH-INSTANCE-NAME>
--      access: <ACCESS-LEVEL>
+-    instance: <OPENSEARCH-NAME>
+-    access: <ACCESS-LEVEL>
 ```
 
-### Delete OpenSearch instance
+### 2. Delete the OpenSearch instance
 
-To delete the OpenSearch instance, run the following command:
-
-```shell
-kubectl delete openSearch <OPENSEARCH-NAME>
-```
+1. Open [Nais Console](https://console.<<tenant()>>.cloud.nais.io) in your browser and select your team
+2. Select the **OpenSearch** tab
+3. Select the OpenSearch instance you want to delete
+4. Click the **Delete OpenSearch** button
+5. Confirm the deletion by typing the name of the OpenSearch instance and clicking the **Delete OpenSearch** button
