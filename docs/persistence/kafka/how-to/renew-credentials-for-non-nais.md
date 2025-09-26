@@ -12,7 +12,7 @@ When it is time to renew the credentials, follow these steps:
 
 ## Edit the AivenApplication resource
 
-You need to change the `.spec.secretName` field in the `AivenApplication` resource you used to create the credentials in the first place.
+You need to change the `.spec.(kafka|openSearch|valkey[]).secretName` field in the `AivenApplication` resource you used to create the credentials in the first place.
 Make a note of the current value, and change it to something suitable.
 You can use any valid name you want, but make sure it is different from the old name.
 

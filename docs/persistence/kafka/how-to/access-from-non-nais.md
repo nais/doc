@@ -20,7 +20,7 @@ This guide will show you how to access a [Kafka topic](create.md) from an applic
     spec:
       kafka:
         pool: <MY-POOL> (TODO: link to available tenant pools)
-      secretName: <MY-UNIQUE-SECRET-NAME>
+        secretName: <MY-UNIQUE-SECRET-NAME>
       protected: true
     ```
 

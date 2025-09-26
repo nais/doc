@@ -27,7 +27,7 @@ To get started with Kafka in your application, see [accessing topics from an app
 ## What happens on deploy?
 
 When you deploy an application that requests access to Kafka, Naiserator will create an `AivenApplication` resource in the cluster.
-The `AivenApplication` has a name that matches the deployed application, and the name of the secret to generate.
+The `AivenApplication` has a name that matches the deployed application, and within its `spec.kafka`, the name of the secret to generate.
 Naiserator will request that a secret with this name used in the deployment.
 
 When an `AivenApplication` resource is created or updated, Aivenator will create a new service user and generate credentials.
@@ -40,7 +40,9 @@ In this case, Aivenator will update the `status` part of the resource, with furt
 
 ### Authentication and authorization
 
-The Nais platform will generate new credentials when your applications is deployed. Kafka requires TLS client certificates for authentication. Make sure your Kafka and/or TLS library can do client certificate authentication, and that you can specify a custom CA certificate for server validation.
+The Nais platform will generate new credentials when your applications is deployed.
+Kafka requires TLS client certificates for authentication.
+Make sure your Kafka and/or TLS library can do client certificate authentication, and that you can specify a custom CA certificate for server validation.
 
 ### Readiness and liveness
 
