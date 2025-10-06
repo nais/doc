@@ -31,7 +31,7 @@ To change the major version, modify the `type` field in your application manifes
 spec:
   gcp:
     sqlInstances:
-      - type: POSTGRES_16
+      - type: POSTGRES_18
 ```
 
 Commit and push the changes to your application repository.

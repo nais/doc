@@ -24,7 +24,7 @@ spec:
   ...
   gcp:
     sqlInstances:
-      - type: POSTGRES_16
+      - type: POSTGRES_18
         tier: db-f1-micro
         databases:
           - name: mydb
