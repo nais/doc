@@ -19,6 +19,12 @@ The following steps need to be taken to enable the logging.
 1. [Configure database flags](#configure-database-flags-for-your-sql-instance), and configure replication etc.
 2. [Configure database internals](#use-the-nais-cli-to-configure-database-internals) to be the primary.
 
+!!! warning "Migrations using cloud-sql-migrator and changing of database name"
+
+    When using cloud-sql-migrator to migrate will result in a completely new instance.
+    Similarly changing the database name will create a new database without changes made after creation in the previous database.
+    This means that the pgaudit extension will need to be created again using the nais cli.
+
 The pgaudit logs will require disk space, monitor disk usage and [enable automatic storage increase](https://doc.nais.io/workloads/application/reference/application-spec/#gcpsqlinstancesdiskautoresize) if necessary.
 
 For more information on audit logging, see the [official documentation](https://cloud.google.com/sql/docs/postgres/pg-audit).
