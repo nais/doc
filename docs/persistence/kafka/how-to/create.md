@@ -1,5 +1,6 @@
 ---
 tags: [how-to, kafka]
+not-in: [test-nais]
 ---
 
 # Create a Kafka topic

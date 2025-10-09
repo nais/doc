@@ -1,5 +1,6 @@
 ---
 tags: [local-retention, tiered-storage, kafka, explanation]
+not-in: [test-nais]
 ---
 
 # Tiered storage

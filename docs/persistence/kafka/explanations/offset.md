@@ -1,5 +1,6 @@
 ---
 tags: [offset, kafka, explanation]
+not-in: [test-nais]
 ---
 
 # Working with Kafka Offsets

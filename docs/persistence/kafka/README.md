@@ -8,15 +8,21 @@ tags: [kafka, explanation, persistence, services]
 
 # Kafka
 
+<<not_in_test_nais("Kafka")>>
+
 Nais offers Kafka as a managed service through Aiven.
 
+{% if tenant() != "test-nais" %}
 Start using Kafka by [creating a `Topic` resource](how-to/create.md) in one of our Kubernetes clusters.
+{% endif %}
 
 A `Topic` belongs to one of the Kafka _pools_.
 A pool is a highly available, replicated Kafka cluster running at Aiven.
 After the topic is created, relevant users are added to the topic's access control list (ACL).
 
+{% if tenant() != "test-nais" %}
 To get started with Kafka in your application, see [accessing topics from an application](how-to/access.md).
+{% endif %}
 
 !!! note "Backups and recovery"
 
@@ -57,7 +63,7 @@ If the new instances are not able to connect to Kafka, keeping the old ones unti
 
 ## FAQ/Troubleshooting
 
-### Why do I have to specify a pool name if there is only `nav-dev` and `nav-prod`?
+### Why do I have to specify a pool name if there is only one per environment?
 !!! faq "Answer"
     Custom pools might be added in the future, so this is done to avoid changing that part of the API.
 
@@ -71,7 +77,7 @@ If the new instances are not able to connect to Kafka, keeping the old ones unti
 
 ### I get the error _MountVolume.SetUp failed for volume "kafka-credentials" : secret ... not found_
 !!! faq "Answer"
-    Check the status of the `AivenApplication` resource created by Naiserator to look for errors.
+    See the general [troubleshooting guide](../../workloads/how-to/troubleshooting.md).
 
 ### Are Schemas backed up?
 !!! faq "Answer"

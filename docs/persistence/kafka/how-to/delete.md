@@ -1,5 +1,6 @@
 ---
 tags: [how-to, kafka, delete, annotate]
+not-in: [test-nais]
 ---
 
 # Delete Kafka topic and data

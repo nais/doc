@@ -1,5 +1,6 @@
 ---
 tags: [kafka, troubleshooting, debugging, how-to]
+not-in: [test-nais]
 ---
 
 # Troubleshooting

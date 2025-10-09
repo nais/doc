@@ -1,5 +1,6 @@
 ---
 tags: [how-to, kafka]
+not-in: [test-nais]
 ---
 
 # Manage access

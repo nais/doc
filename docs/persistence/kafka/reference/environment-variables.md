@@ -1,5 +1,6 @@
 ---
 tags: [kafka, reference]
+not-in: [test-nais]
 ---
 
 # Environment variables for Kafka

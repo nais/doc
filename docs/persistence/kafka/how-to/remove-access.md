@@ -1,5 +1,6 @@
 ---
 tags: [how-to, kafka]
+not-in: [test-nais]
 ---
 
 # Remove access to topics from an application

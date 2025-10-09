@@ -30,3 +30,13 @@ def define_env(env):
             return "naisdevice"
 
         return "naisdevice-tenant"
+
+    @env.macro
+    def not_in_test_nais(feature: str):
+        if tenant() == "test-nais":
+            return textwrap.dedent(f"""\
+            !!! not-in-test-nais "{feature} is not available in test-nais clusters"
+            
+                {feature} is not available in test-nais clusters.    
+            """)
+        return ""
