@@ -1,7 +1,7 @@
 ---
 title: Using Kafka Streams with internal topics
 tags: [how-to, kafka]
-not-in: [test-nais]
+conditional: [not-test-nais]
 ---
 
 # Using Kafka Streams with internal topics

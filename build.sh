@@ -6,5 +6,5 @@ mkdir -p ./out
 
 for TENANT in $@;
   do
-    TENANT=$TENANT poetry run mkdocs build --strict -d out/$TENANT
+    TENANT="${TENANT}" NOT_TENANT="not-${TENANT}" poetry run mkdocs build --strict -d "out/${TENANT}"
   done

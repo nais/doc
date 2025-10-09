@@ -1,6 +1,6 @@
 ---
 tags: [offset, kafka, explanation]
-not-in: [test-nais]
+conditional: [not-test-nais]
 ---
 
 # Working with Kafka Offsets

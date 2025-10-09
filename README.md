@@ -17,7 +17,7 @@ If a page should have a warning about not being available in test-nais, add the 
 Add the following to the frontmatter of the page:
 
 ```yaml
-not-in: [test-nais, dev-nais]
+conditional: [not-test-nais, not-nav]
 ```
 
 ### Include a page only for one or more tenants
@@ -26,6 +26,7 @@ Add the following to the frontmatter of the page:
 
 ```yaml
 conditional: [tenant, nav, ssb]
+              ^^^^^^--- the keyword "tenant" is required to exclude all not mentioned
 ```
 
 ## Local development

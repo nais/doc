@@ -1,7 +1,6 @@
 ---
 tags: [kafka, how-to]
 conditional: [tenant, nav]
-not-in: [test-nais]
 ---
 
 # Accessing topics from an application outside Nais

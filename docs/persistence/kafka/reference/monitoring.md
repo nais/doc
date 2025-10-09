@@ -1,6 +1,6 @@
 ---
 tags: [how-to, kafka]
-not-in: [test-nais]
+conditional: [not-test-nais]
 ---
 
 # Kafka metrics

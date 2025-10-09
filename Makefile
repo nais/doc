@@ -7,7 +7,7 @@ install:
 	poetry install
 
 local:
-	env TENANT=$(TENANT) poetry run mkdocs serve --dirty
+	env TENANT=$(TENANT) NOT_TENANT=not-$(TENANT) poetry run mkdocs serve --dirty
 
 clean-build:
-	env TENANT=$(TENANT) poetry run mkdocs build --clean
+	env TENANT=$(TENANT) NOT_TENANT=not-$(TENANT) poetry run mkdocs build --clean

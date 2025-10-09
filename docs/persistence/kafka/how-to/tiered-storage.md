@@ -1,6 +1,6 @@
 ---
 tags: [how-to, kafka, tiered-storage]
-not-in: [test-nais]
+conditional: [not-test-nais]
 ---
 
 # How to turn on Tiered Storage for your Kafka topic

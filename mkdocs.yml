@@ -231,14 +231,9 @@ plugins:
       metadata_property: conditional # front matter property to use for exclude_tags / include_tags
       exclude_tag: # exclude anything marked with the "tenant" conditional
         - tenant
+        - !ENV [ NOT_TENANT, '' ]
       include_tag: # include anything marked with a conditional matching the TENANT environment variable
         - !ENV [ TENANT, '' ]
-#  - file-filter:
-#      exclude_glob:
-#        - '**/partials/*' # exclude partials as standalone pages; these are already included in pages through the macros plugin
-#      metadata_property: not-in # front matter property to use for exclude_tags / include_tags
-#      exclude_tag: # exclude anything matching the TENANT environment variable
-#        - !ENV [ TENANT, '' ]
 markdown_extensions:
   - toc:
       permalink: True
