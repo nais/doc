@@ -22,7 +22,7 @@ To change the tier, modify the `tier` field in your application manifest:
 spec:
   gcp:
     sqlInstances:
-      - type: POSTGRES_18
+      - type: POSTGRES_17
         tier: db-custom-1-3840
         databases:
           - name: mydb

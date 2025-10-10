@@ -66,7 +66,7 @@ metadata:
 spec:
   gcp:
     sqlInstances:
-      - type: POSTGRES_18
+      - type: POSTGRES_17
         tier: db-f1-micro
         databases:
           - name: mydb
@@ -151,7 +151,7 @@ The Postgres version can be configured in the application spec. The version is d
 spec:
   gcp:
     sqlInstances:
-      - type: POSTGRES_18
+      - type: POSTGRES_17
 ```
 
 The full list of supported versions can be found in the [application spec reference](../../../workloads/application/reference/application-spec.md#gcpsqlinstancestype).
@@ -167,7 +167,7 @@ The instance size is defined by the `tier` field in the `nais.yaml` file.
 spec:
   gcp:
     sqlInstances:
-      - type: POSTGRES_18
+      - type: POSTGRES_17
         tier: db-custom-2-5120
 ```
 
