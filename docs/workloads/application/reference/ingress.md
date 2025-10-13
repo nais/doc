@@ -67,15 +67,17 @@ metadata:
 
 In some scenarios is required to have different values for various timeouts. To allow this we provide parameters that allows this customization:
 
-* `nginx.ingress.kubernetes.io/proxy-connect-timeout`
-* `nginx.ingress.kubernetes.io/proxy-send-timeout`
-* `nginx.ingress.kubernetes.io/proxy-read-timeout`
-* `nginx.ingress.kubernetes.io/proxy-next-upstream`
-* `nginx.ingress.kubernetes.io/proxy-next-upstream-timeout`
-* `nginx.ingress.kubernetes.io/proxy-next-upstream-tries`
-* `nginx.ingress.kubernetes.io/proxy-request-buffering`
+* `nginx.ingress.kubernetes.io/proxy-connect-timeout` (default `5`)
+* `nginx.ingress.kubernetes.io/proxy-send-timeout` (default `60`)
+* `nginx.ingress.kubernetes.io/proxy-read-timeout` (default `60`)
+* `nginx.ingress.kubernetes.io/proxy-next-upstream` 
+* `nginx.ingress.kubernetes.io/proxy-next-upstream-timeout` (default `0`)
+* `nginx.ingress.kubernetes.io/proxy-next-upstream-tries` (default `3`)
+* `nginx.ingress.kubernetes.io/proxy-request-buffering` (default `on`)
 
 Note: All timeout values are unitless and in seconds e.g. `nginx.ingress.kubernetes.io/proxy-read-timeout: "120"` sets a valid 120 seconds proxy read timeout.
+
+We generally use the [default values from the nginx ingress controller](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/).
 
 ## WebSockets Support
 
