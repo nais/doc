@@ -14,11 +14,6 @@ Before we begin, ensure that:
 - You have set up [command-line access](../../../operate/how-to/command-line-access.md)
 - You have an existing Valkey instance
 
-If you [created your Valkey via an application](create-application.md),
-skip to [step 4](#4-apply-annotation-to-valkey-resource-in-kubernetes).
-
-If you [created your Valkey explicitly](create-explicit.md), follow all the steps below.
-
 ## Steps
 
 ### 1. Verify that your existing Valkey settings are compatible with Console
@@ -105,18 +100,6 @@ where
 - `$VALKEY_NAME` is the fully qualified name of your Valkey instance, e.g. `valkey-<TEAM>-<INSTANCE>`.
 - `$TEAM` is your team.
 - `$ENVIRONMENT` is the [name of the environment](../../../workloads/reference/environments.md) you're targeting.
-
-### 4a. Remove owner references (if applicable)
-
-If you [created your Valkey instance via an application](create-application.md), you must also remove the existing owner references from the resource:
-
-```shell
-kubectl patch valkey $NAME \
-    --namespace $TEAM \
-    --context $ENVIRONMENT \
-    --type='json' \
-    -p='[{"op": "remove", "path": "/metadata/ownerReferences"}]'
-```
 
 ### 5. Finishing up
 
