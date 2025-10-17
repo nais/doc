@@ -11,7 +11,6 @@ This guide will show you how to connect your workload to a previously created Va
 - You're part of a [Nais team](../../../explanations/team.md)
 - You have previously created a Valkey for your team, either:
     - [via Console](create.md), or
-    - [via an application](create-application.md), or
     - [explicitly](create-explicit.md)
 
 ## Steps
