@@ -10,7 +10,7 @@ This page guides you through the steps required to delete a Valkey instance.
 
 - [You are a member of a Nais team](../../../explanations/team.md)
 - Your Valkey instance is managed by Nais Console.
-    - If you either created your Valkey [explicitly](create-explicit.md), see [Migrate Valkey management to Console](migrate-to-console.md). 
+    - If you created your Valkey [explicitly](create-explicit.md), see [Migrate Valkey management to Console](migrate-to-console.md). 
 
 ## Steps
 

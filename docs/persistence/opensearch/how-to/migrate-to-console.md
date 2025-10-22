@@ -22,19 +22,19 @@ Before migrating, ensure that your existing OpenSearch instance is compatible wi
 
 Console currently supports the following fields:
 
-- `.spec.plan` - plan is now split into _size_ and _tier_
-    - `size` denotes the memory size of the instance
+- `.spec.plan` - plan is now split into _memory_ and _tier_
+    - `memory` denotes the memory size of the instance
     - `tier` denotes the availability tier of the instance
-        - `SINGLE_NODE` (equivalent to `startup-*`, or `hobbyist` for the smallest `size`)
+        - `SINGLE_NODE` (equivalent to `startup-*`, or `hobbyist` for the smallest `memory`)
         - `HIGH_AVAILABILITY` (equivalent to `business-*`)
     - For example, if your existing plan is `startup-4`, you would set:
-        - `size = "RAM_4GB"`
+        - `memory = "GB_4"`
         - `tier = "SINGLE_NODE"`
     - If your existing plan is `business-16`, you would set:
-        - `size = "RAM_16GB"`
+        - `memory = "GB_16"`
         - `tier = "HIGH_AVAILABILITY"`
     - If your existing plan is `hobbyist`, you would set:
-        - `size = "RAM_2GB"`
+        - `memory = "GB_2"`
         - `tier = "SINGLE_NODE"`
 - `.spec.userConfig.opensearch_version`
 - `.spec.project` (automatically set)
