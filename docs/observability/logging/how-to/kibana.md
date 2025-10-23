@@ -45,4 +45,4 @@ Once the page loads you will see an empty page with a search bar. This is the qu
 
 The query language is called [Kibana Query Language](../reference/kql.md) (`KQL`). KQL is a simplified version of Lucene query syntax. You can use KQL to search for logs by message, by field, or by a combination of both.
 
-Ther=31;OKe is also a time picker in the upper right corner of the page. You can use the time picker to select a time range to search for logs. The default time range is the last 15 minutes. If no logs shows up, try to increase the time range.
+There is also a time picker in the upper right corner of the page. You can use the time picker to select a time range to search for logs. The default time range is the last 15 minutes. If no logs shows up, try to increase the time range.
