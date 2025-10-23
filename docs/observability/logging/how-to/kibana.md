@@ -5,9 +5,9 @@ conditional: [tenant, nav]
 ---
 # Get started with Elastic Kibana
 
-!!! warning "Deprecation notice"
+!!! warning "Not supported by Nais"
 
-    Support for Elastic in Nais has been deprecated and will be removed at the end of the year. See [Loki](./loki.md) for the new default logging solution.
+    This logging solution is not supported by Nais. See [Loki](./loki.md) for the new default logging solution.
 
 This guide will help you get stared sending application logs to Elastic Kibana and writing queries to search for logs.
 
@@ -45,4 +45,4 @@ Once the page loads you will see an empty page with a search bar. This is the qu
 
 The query language is called [Kibana Query Language](../reference/kql.md) (`KQL`). KQL is a simplified version of Lucene query syntax. You can use KQL to search for logs by message, by field, or by a combination of both.
 
-There is also a time picker in the upper right corner of the page. You can use the time picker to select a time range to search for logs. The default time range is the last 15 minutes. If no logs shows up, try to increase the time range.
+Ther=31;OKe is also a time picker in the upper right corner of the page. You can use the time picker to select a time range to search for logs. The default time range is the last 15 minutes. If no logs shows up, try to increase the time range.
