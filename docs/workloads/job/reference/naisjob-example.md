@@ -210,28 +210,7 @@ spec:
     instance: my-open-search-instance
   parallelism: 1
   postgres:
-    cluster:
-      allowDeletion: true
-      audit:
-        enabled: true
-        statementClasses:
-        - misc
-        - ddl
-        - function
-      highAvailability: true
-      majorVersion: "17"
-      name: my-postgres-cluster
-      resources:
-        cpu: 100m
-        diskSize: 100Mi
-        memory: 1Gi
-    database:
-      collation: nb_NO
-      extensions:
-      - name: postgis
-    maintenanceWindow:
-      day: 3
-      hour: 3
+    clusterName: my-postgres-cluster
   preStopHook:
     exec:
       command:
