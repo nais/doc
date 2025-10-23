@@ -20,7 +20,7 @@ This is done through [Just In Time Access (JITA)](../../../operate/naisdevice/ex
 1. Create a personal temporary Aiven service account using [nais-cli](../../../operate/cli/README.md).
 
     ```
-    nais aiven create --access read --instance <name-of-instance> opensearch ignored namespace
+    nais aiven create --access read --instance <name-of-instance> opensearch ignored <namespace-the-instance-is-in>
     ```
 
 2. Retrieve dashboard URI, username, and password using nais-cli and the command that was outputted from the last command
