@@ -15,16 +15,30 @@ This is done through [Just In Time Access (JITA)](../../../operate/naisdevice/ex
 
 {%- endif %}
 
-## Create service account for access
+## Steps
 
-1. Create a personal temporary Aiven service account using [nais-cli](../../../operate/cli/README.md).
+### 1. Create a personal service account
 
-    ```
-    nais aiven create --access read --instance <name-of-instance> opensearch ignored <namespace-the-instance-is-in>
-    ```
+Create a personal temporary Aiven service account using [nais-cli](../../../operate/cli/README.md):
 
-2. Retrieve dashboard URI, username, and password using nais-cli and the command that was outputted from the last command
+```shell
+nais aiven create opensearch \
+    <username> \
+    <namespace> \
+    --access <access-level> \
+    --instance <name-of-instance>
+```
+   
+where `<access-level>` is one of the available [access levels](../reference/README.md#access-levels), such as `read`.
 
-    ```
-    nais aiven get opensearch secret-name namespace
-    ```
+### 2. Retrieve credentials for service account
+
+Retrieve the dashboard URI, username, and password for the service account you just created:
+
+```shell
+nais aiven get opensearch \
+    <secret-name> \
+    <namespace>
+```
+
+where `<secret-name>` is the name of the Kubernetes secret created in the previous step.
