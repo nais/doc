@@ -9,12 +9,12 @@ tags: [postgres, password, credentials, how-to]
 To reset the database credentials for your application (if application name, database name or envVarPrefix has been changed), you need to first delete the secret and sqluser for the database:
 
 ```bash
-$ kubectl delete secret google-sql-<MYAPP>
-$ kubectl delete sqluser <MYAPP>
+$ kubectl --namespace <TEAM> delete secret google-sql-<MYAPP>
+$ kubectl --namespace <TEAM> delete sqluser <MYAPP>
 ```
 
 Then either redeploy your application or force a synchronization of your application:
 
 ```bash
-kubectl patch application <MYAPP> -p '[{"op": "remove", "path": "/status/synchronizationHash"}]' --type=json
+kubectl --namespace <TEAM> patch application <MYAPP> -p '[{"op": "remove", "path": "/status/synchronizationHash"}]' --type=json
 ```
