@@ -45,3 +45,18 @@ When [using an OpenSearch from your workload](../how-to/use-in-workload.md), the
 | `OPEN_SEARCH_PORT`     | The port for the OpenSearch instance. |
 | `OPEN_SEARCH_USERNAME` | The username to use when connecting.  |
 | `OPEN_SEARCH_PASSWORD` | The password to use when connecting.  |
+
+## Metrics
+
+If your OpenSearch instance is managed by [Nais Console](<<tenant_url("console")>>) or you've [created a `ServiceIntegration` manually](../how-to/create-legacy.md#serviceintegration),
+you will find essential instance metrics in Nais Console in the "Insights" tab.
+
+Metrics are not available for the `SINGLE_NODE` tier and `GB_2` memory configuration (equivalent to the `hobbyist` service plan in Aiven).
+
+Additional metrics are available in Prometheus. For example, CPU usage percentage can be queried with:
+
+```promql
+100 - avg by (cpu) (cpu_usage_idle{service="opensearch-<team>-<instance>"})
+```
+
+See the Aiven documentation for a [full list of available OpenSearch metrics](https://aiven.io/docs/products/opensearch/howto/os-metrics).

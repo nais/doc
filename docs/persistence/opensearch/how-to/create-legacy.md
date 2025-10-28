@@ -67,6 +67,8 @@ Simple 5 steps procedure:
       sourceServiceName: opensearch-<MYTEAM>-<INSTANCE>
     ```
 
+See the [metrics reference](../reference/README.md#metrics) for details on available OpenSearch metrics.
+
 #### Prometheus Endpoint IDs
 
 {% if tenant() == "nav" %}
