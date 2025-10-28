@@ -29,7 +29,11 @@ nais aiven create opensearch \
     --instance <name-of-instance>
 ```
    
-where `<access-level>` is one of the available [access levels](../reference/README.md#access-levels), such as `read`.
+where
+
+- `<username>` is a descriptive name for the service account, e.g. your name or somesthing similar.
+- `<namespace>` is the name of the team that owns the OpenSearch instance.
+- `<access-level>` is one of the available [access levels](../reference/README.md#access-levels), such as `read`.
 
 ### 2. Retrieve credentials for service account
 

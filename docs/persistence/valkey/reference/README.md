@@ -57,3 +57,18 @@ To make the usage of Valkey backward compatible for libraries not supporting Val
 | `REDIS_PORT_<RedisInstanceName>`     | The port for the Redis instance. <br/>Example:  `26483`                                                                                     |
 | `REDIS_USERNAME_<RedisInstanceName>` | The username to use when connecting.                                                                                                        |
 | `REDIS_PASSWORD_<RedisInstanceName>` | The password to use when connecting.                                                                                                        |
+
+## Metrics
+
+If your Valkey instance is managed by [Nais Console](<<tenant_url("console")>>) or you've [created a `ServiceIntegration` manually](../how-to/create-explicit.md#serviceintegration),
+you will find essential instance metrics in Nais Console in the "Insights" tab.
+
+Metrics are not available for the `SINGLE_NODE` tier and `GB_1` memory configuration (equivalent to the `hobbyist` service plan in Aiven).
+
+Additional metrics are available in Prometheus. For example, CPU usage percentage can be queried with:
+
+```promql
+100 - avg by (cpu) (cpu_usage_idle{service="valkey-<team>-<instance>"})
+```
+
+See the Aiven documentation for a [full list of available Valkey metrics](https://aiven.io/docs/products/valkey/reference/valkey-metrics-in-prometheus).
