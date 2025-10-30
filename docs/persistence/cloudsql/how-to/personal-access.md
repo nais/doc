@@ -39,7 +39,7 @@ Databases should always be accessed using a personal account, and the access sho
     kubectl config set-context --current --namespace=<TEAM>
     ```
 
-!!! check "Step 3. One-time setup of privileges to SQL IAM users"
+!!! check "Step 4. One-time setup of privileges to SQL IAM users"
 
     This is only required once per database instance.
 
@@ -47,6 +47,12 @@ Databases should always be accessed using a personal account, and the access sho
 
     ```bash
     nais postgres prepare <MYAPP>
+    ```
+
+    To allow access to a different schema than `public`, you can use the `--schema` flag to specify the schema name.
+
+    ```bash
+    nais postgres prepare --schema <SCHEMA_NAME> <MYAPP>
     ```
 
     Prepare will prepare the postgres instance by connecting using the
