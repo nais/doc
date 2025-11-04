@@ -68,6 +68,10 @@ Other flags that are available for pgaudit are documented [here](https://github.
 
 ## Use the nais cli to configure database internals
 
+!!! info "This command requires personal access to the database (e.g. Cloud SQL IAM User)"
+
+    Verify that the user running this command has the correct permissions in IAM, 
+    to allow cloud-sql-proxy connection to the postgreSQL instance.
 The nais cli can be used to configure the database internals. This will fail if the necessary database flags have not been configured.
 The cli will log on to your database and create the pgaudit extension and also disable logging for the application user.
 
