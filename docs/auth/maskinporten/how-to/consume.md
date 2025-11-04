@@ -45,13 +45,71 @@ Finally, [configure appropriate outbound access policies](../../../workloads/how
 {% set identity_provider = 'maskinporten' %}
 {% set target = 'example:some.scope' %}
 {% set target_description = 'Whitespace-separated list of scopes that you want in the issued token from Maskinporten.' %}
-{% set additional_parameters = 'If the API provider requires the use of an [audience-restricted token](https://docs.digdir.no/maskinporten_func_audience_restricted_tokens.html), you must also include the following parameter in the request:
+{% include 'auth/partials/token.md' %}
+
+### Audience-restricted tokens
+
+If the API provider requires the use of an [audience-restricted token](https://docs.digdir.no/maskinporten_func_audience_restricted_tokens.html), you must also include the following parameter in the request:
 
 | Parameter    | Example Value                       | Description                                                                                                                                 |
 |:-------------|:------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------|
 | `resource`   | `https://some-provider.example/api` | Optional. Target audience for the token returned by Maskinporten. The exact value is defined by the API provider and exchanged out-of-band. |
-' %}
-{% include 'auth/partials/token.md' %}
+
+=== "application/json"
+
+    ```http title="Token request"
+    POST ${NAIS_TOKEN_ENDPOINT} HTTP/1.1
+    Content-Type: application/json
+
+    {
+        "identity_provider": "maskinporten",
+        "target": "example:some.scope",
+        "resource": "https://some-provider.example/api"
+    }
+    ```
+
+=== "application/x-www-form-urlencoded"
+
+    ```http title="Token request"
+    POST ${NAIS_TOKEN_ENDPOINT} HTTP/1.1
+    Content-Type: application/x-www-form-urlencoded
+
+    identity_provider=maskinporten&
+    target=example:some.scope&
+    resource=https://some-provider.example/api
+    ```
+
+### Rich authorization requests (RAR)
+
+If the API provider requires the use of an [rich authorization requests (RAR)](https://docs.digdir.no/docs/Maskinporten/maskinporten_func_systembruker.html), you must also include the following parameter in the request:
+
+| Parameter               | Example Value                              | Description                                                                                                                                                                                                                                                                                     |
+|:------------------------|:-------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `authorization_details` | `[{"type": "urn:altinn:systemuser", ...}]` | Optional. Must be a JSON array of objects. The entire value is passed through as `authorization_details` to the identity provider. See the [Maskinporten system user documentation](https://docs.digdir.no/docs/Maskinporten/maskinporten_func_systembruker.html#foresp%C3%B8rsel) for details. |
+
+=== "application/json"
+
+    ```http title="Token request"
+    POST ${NAIS_TOKEN_ENDPOINT} HTTP/1.1
+    Content-Type: application/json
+
+    {
+        "identity_provider": "maskinporten",
+        "target": "example:some.scope",
+        "authorization_details": [{"type": "urn:altinn:systemuser", ...}]
+    }
+    ```
+
+=== "application/x-www-form-urlencoded"
+
+    ```http title="Token request"
+    POST ${NAIS_TOKEN_ENDPOINT} HTTP/1.1
+    Content-Type: application/x-www-form-urlencoded
+
+    identity_provider=maskinporten&
+    target=example:some.scope&
+    authorization_details=[{"type":"urn:altinn:systemuser",...}]
+    ```
 
 ## Consume API
 
