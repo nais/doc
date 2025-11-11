@@ -36,7 +36,7 @@ spec:
       majorVersion: "17"
       resources:
         cpu: 100m
-        diskSize: 1Gi
+        diskSize: 2Gi
         memory: 2G
 ```
 
