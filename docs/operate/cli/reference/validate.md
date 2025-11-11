@@ -16,16 +16,16 @@ nais validate path/to/nais.yaml path/to/another/nais.yaml
 
 Available flags:
 
-| Flag    | Required | Short | Description                                                                                            |
-|---------|----------|-------|--------------------------------------------------------------------------------------------------------|
-| vars    | No       |       | path to `FILE` containing template variables, must be JSON or YAML format                              |
-| var     | No       |       | template variable in KEY=VALUE form, can either be a comma separated list or specified multiple times. |
-| verbose | No       | -v    | print all the template variables and final resources after templating                                  |
+| Flag         | Required | Short | Description                                                                                            |
+|--------------|----------|-------|--------------------------------------------------------------------------------------------------------|
+| vars-file    | No       | -f    | path to `FILE` containing template variables, must be JSON or YAML format                              |
+| var          | No       |       | template variable in KEY=VALUE form, can either be a comma separated list or specified multiple times. |
+| verbose      | No       | -v    | print all the template variables and final resources after templating                                  |
 
 All flags must be specified _before_ arguments:
 
 ```bash
-nais validate [--vars path/to/vars.(yaml|json)] [--var key=value] path/to/nais.yaml 
+nais validate [--vars-file path/to/vars.(yaml|json)] [--var key=value] path/to/nais.yaml
 ```
 
 See the [templating section](#templating) for examples.
@@ -76,10 +76,10 @@ The variable file must be in either JSON or YAML format:
     image: some-image
     ```
 
-Specify the path to the variable file with the `--vars` flag:
+Specify the path to the variable file with the `--vars-file` flag:
 
 ```bash
-nais validate --vars vars.yaml nais.yaml
+nais validate --vars-file vars.yaml nais.yaml
 ```
 
 ### Variable Flags
@@ -100,13 +100,13 @@ nais validate --var app=app --var image=image nais.yaml
 If both a variable file and variable flags are provided:
 
 ```bash
-nais validate --vars vars.yaml --var image=some-other-image nais.yaml
+nais validate --vars-file vars.yaml --var image=some-other-image nais.yaml
 ```
 
 ...the flags will override any variables set by the file:
 
 ```bash
-nais validate --vars vars.yaml --var image=some-other-image -v nais.yaml
+nais validate --vars-file vars.yaml --var image=some-other-image -v nais.yaml
 
 [📝] Setting template variable 'app' to 'some-app'
 [📝] Setting template variable 'image' to 'some-image'
@@ -120,7 +120,7 @@ nais validate --vars vars.yaml --var image=some-other-image -v nais.yaml
 The `--verbose` (shorthand `-v`) flag prints additional information, such as template variables set and the final templated resources:
 
 ```bash
-nais validate --vars vars.yaml --verbose nais.yaml
+nais validate --vars-file vars.yaml --verbose nais.yaml
 ```
 
 ```bash
