@@ -69,15 +69,16 @@ spec:
 
 The OpenTelemetry Agent is used to automatically instrument your application. The agent is responsible for collecting telemetry data and sending it to the OpenTelemetry Collector.
 
-| Runtime  | Agent Version          | SDK Version                                                                                                |
-| -------- | ---------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `java`   | [2.6.0][java-agent]    | 1.40.0                                                                                                     |
-| `nodejs` | [0.52.1][nodejs-agent] | @opentelemetry/sdk-node@0.52.1, @opentelemetry/api@1.9.0, @opentelemetry/auto-instrumentations-node@0.48.0 |
-| `python` | [0.47b0][python-agent] | 1.26.0                                                                                                     |
+| Runtime  | Agent Version          | SDK Version  |
+| -------- | ---------------------- | ------------ |
+| `java`   | [2.21.0][java-agent]   | 1.55.0       |
+| `nodejs` | [0.67.0][nodejs-agent] | 0.208.0      |
+| `python` | [0.51b0][python-agent] | 1.30.0       |
+| `dotnet` | 1.12.0                 |              |
 
-[java-agent]: https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/tag/v2.6.0
-[nodejs-agent]: https://github.com/open-telemetry/opentelemetry-js/releases/tag/experimental%2Fv0.52.1
-[python-agent]: https://github.com/open-telemetry/opentelemetry-python/releases/tag/v1.26.0
+[java-agent]: https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/tag/v2.21.0
+[nodejs-agent]: https://github.com/open-telemetry/opentelemetry-js-contrib/releases/tag/auto-instrumentations-node-v0.67.0
+[python-agent]: https://github.com/open-telemetry/opentelemetry-python-contrib/releases/tag/v0.51b0
 
 ## Java Agent
 
