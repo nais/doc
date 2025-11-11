@@ -11,10 +11,8 @@ tags: [explanation, persistence, services, experimental]
     
         Notable missing features include:
     
-        - Audit logging
         - Automatic storage increase
         - Disaster recovery backups to separate location
-        - Query Insights
     
     
 [PostgreSQL](https://www.postgresql.org/) is a relational database which is a good choice for storing data that is relational in nature.
@@ -22,22 +20,21 @@ In the nais platform, we support zalando postgres-operator to provision managed 
 
 Minimal configuration needed to provision a database for your application:
 
-```yaml title="app.yaml"
+```yaml title="postgres.yaml"
 ...
-apiVersion: nais.io/v1alpha1
-kind: Application
+apiVersion: data.nais.io/v1
+kind: Postgres
 metadata:
-  name: myapp
+  name: my-postgres-cluster
 ...
 spec:
+  cluster:
+    majorVersion: "17"
+    resources:
+      cpu: 100m
+      diskSize: 2Gi
+      memory: 2G
   ...
-  postgres:
-    cluster:
-      majorVersion: "17"
-      resources:
-        cpu: 100m
-        diskSize: 2Gi
-        memory: 2G
 ```
 
 The default configuration sets up the [cluster](explanations/postgres-cluster.md) with:
@@ -46,7 +43,7 @@ The default configuration sets up the [cluster](explanations/postgres-cluster.md
 - primary and replica (in production we recommend using high availability which offers a primary and two replicas)
 - automatic backups
 
-See all configuration options in the [application manifest reference](../../workloads/application/reference/application-spec.md#postgres).
+See all configuration options in the [Postgres manifest reference](../../persistence/postgresql/reference/postgres-spec.md).
 
 !!! warning "Choosing the right resources for production"
 
@@ -57,8 +54,10 @@ See all configuration options in the [application manifest reference](../../work
 
 ## How it works
 
-The first time you deploy your application with the above configuration, Nais will provision the database into your team's postgres namespace (team namespace prefixed with pg-).
+The first time you deploy the Postgres resource with the above configuration, Nais will provision the database into your team's postgres namespace (team namespace prefixed with pg-).
 Your team has full access to view logs and perform administrative database tasks and maintenance.
+
+The application `spec.postgres.clusterName` field in your Application manifest should reference the name of the Postgres resource to link the database to your application.
 
 Nais also configures your application with the necessary environment variables needed to connect to the database.
 See the [reference](reference/README.md#database-connection) for the list of environment variables.

@@ -18,6 +18,7 @@ If there is a problem with updating the postgres cluster, the problem needs to b
 ## Check the events and status on the relevant Kubernetes resources
 
 ```text
+$ kubectl describe postgres -n <my-team> <cluster-name>
 $ kubectl describe postgresql -n pg-<my-team> -lapp=<my-app>
 $ kubectl describe sts -n pg-<my-team> -lapp=<my-app>
 $ kubectl describe pod -n pg-<my-team> -lapp=<my-app>

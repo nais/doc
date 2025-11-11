@@ -18,19 +18,18 @@ Before doing a major version upgrade, consult the [PostgreSQL Release Notes](htt
 Select a new major version of PostgreSQL that you want to upgrade to.
 For safe upgrades, it is recommended to only do one major version at a time.
 
-The full list of supported versions can be found in the [application spec reference](../../../workloads/application/reference/application-spec.md#postgresclustermajorversion).
+The full list of supported versions can be found in the [Postgres spec reference](../../../persistence/postgresql/reference/postgres-spec.md#clustermajorversion).
 
 ## Change the major version
 
 To change the major version, modify the `majorVersion` field in your application manifest:
 
-```yaml title="app.yaml" hl_lines="4"
-spec:
-  postgres:
-    cluster:
-      majorVersion: "17"
+```yaml title="postgres.yaml" hl_lines="4"
+spec: 
+  cluster:
+    majorVersion: "17"
 ```
 
-Commit and push the changes to your application repository.
+Commit and push the changes.
 
-The upgrade will start the next time you [deploy your application](../../../build/how-to/build-and-deploy.md).
+The upgrade will start the next time you [deploy the Postgres resource](../../../build/how-to/build-and-deploy.md).

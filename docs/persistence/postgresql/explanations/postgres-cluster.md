@@ -10,7 +10,27 @@ tags: [postgres, sql, explanation, cluster]
 
 Postgres is a managed database cluster provided by nais utilizing the Zalando postgres-operator.
 
-You manage your cluster by defining it in your [application manifest](../../../workloads/application/reference/application-spec.md#postgres).
+You manage your cluster by defining a [Postgres manifest](../../../persistence/postgresql/reference/postgres-spec.md).
+
+```yaml title="postgres.yaml"
+...
+apiVersion: data,nais.io/v1
+kind: Postgres
+metadata:
+  name: my-postgres-cluster
+...
+spec:
+  cluster:
+    name: my-cluster
+    majorVersion: "17"
+    resources:
+      cpu: 100m
+      diskSize: 10Gi
+      memory: 2G
+```
+
+You use the postgres cluster yaml by referencing it in your [Application manifest](../../../workloads/application/reference/application-spec.md#postgres).
+
 
 ```yaml title="app.yaml"
 ...
@@ -20,15 +40,8 @@ metadata:
   name: myapp
 ...
 spec:
-  ...
   postgres:
-    cluster:
-      name: my-cluster
-      majorVersion: "17"
-      resources:
-        cpu: 100m
-        diskSize: 10Gi
-        memory: 2G
+    clusterName: my-cluster
 ```
 
 In nais, an Application can only have one postgres cluster, with one application database in the instances.
@@ -46,13 +59,13 @@ Additionally, network policies are applied to ensure that only the application t
 
 ### Disks
 
-Clusters will be created with SSD disks, and the user is required to specify the disk size in the `nais.yaml` file.
+Clusters will be created with SSD disks, and the user is required to specify the disk size in the `postgres.yaml` file.
 
 ## Making changes to a postgres cluster
 
-All changes to your cluster is done by modifying the `nais.yaml` file and redeploying your application.
+All changes to your cluster is done by modifying the `postgres.yaml` file and redeploying your postgres cluster.
 Most changes will be applied to your cluster with virtually no downtime.
-The operator will handle the changes and apply them to the cluster instances in a rolling fashion, ensuring that your application remains available.
+The operator will handle the changes and apply them to the cluster instances in a rolling fashion, ensuring that your postgres cluster remains available.
 
 Some of these changes can not be undone, such as changing the major version or increasing disk size.
 
