@@ -11,6 +11,10 @@ tags: [kafka, reference]
   DO NOT MAKE MANUAL CHANGES TO THIS FILE, THEY WILL BE OVERWRITTEN!
 -->
 
+!!! warning "Experimental feature"
+    This feature is an alpha feature, and is subject to API change, instability or removal.
+    See the [main Postgres page](../README.md) for more information.
+
 This is a complete example of a `Postgres` resource, commonly known as the `postgres.yaml` file.
 
 For an in-depth explanation of each field, head over to the [reference documentation](./postgres-spec.md).
