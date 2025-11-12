@@ -33,7 +33,7 @@ The following log destinations are available in Nais:
 {% endif %}
 - [`team_logs`](../how-to/team-logs.md#enable-team-logs)
 {% if tenant() == "nav" %}
-- [`elastic`](../how-to/kibana.md#enable-logging-to-elastic-kibana) (deprecated)
+- [`elastic`](../how-to/nav-logs-dashboards.md#enable-logging-to-nav-logs)
 {% endif %}
 
 It is possible to specify multiple destinations.

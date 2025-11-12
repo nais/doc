@@ -1,19 +1,19 @@
 ---
-description: This guide will help you get started with Kibana.
-tags: [how-to, logging, kibana]
+description: This guide will help you get started with nav-logs (OpenSearch Dashboards).
+tags: [how-to, logging, opensearch]
 conditional: [tenant, nav]
 ---
-# Get started with Elastic Kibana
+# Get started with nav-logs
 
 !!! warning "Not supported by Nais"
 
     This logging solution is not supported by Nais. See [Loki](./loki.md) for the new default logging solution.
 
-This guide will help you get stared sending application logs to Elastic Kibana and writing queries to search for logs.
+This guide will help you get started sending application logs to nav-logs (OpenSearch) and writing queries to search for logs in OpenSearch Dashboards.
 
-## Enable logging to Elastic Kibana
+## Enable logging to nav-logs
 
-Elastic Kibana can be enabled by setting the list of logging destinations in your nais application manifest.
+nav-logs (OpenSearch) can be enabled by setting the list of logging destinations in your nais application manifest.
 
 ???+ note ".nais/application.yaml"
     ```yaml hl_lines="6"
@@ -25,9 +25,9 @@ Elastic Kibana can be enabled by setting the list of logging destinations in you
             - id: elastic
     ```
 
-## Get access to Kibana
+## Get access to nav-logs
 
-In order to get access to logs.adeo.no you need to have the correct access rights added to your AD account. This can be requested through your Personnel Manager.
+In order to get access to logs.az.nav.no you need to have the correct access rights added to your AD account. This can be requested through your Personnel Manager.
 
 These permissions will give you access:
 
@@ -37,9 +37,9 @@ These permissions will give you access:
 0000-GA-Logganalyse_FullVerdikjede_UTQ
 ```
 
-## Working with Kibana
+## Working with nav-logs
 
-When you open Kibana you are prompted to select a workspace, select "Nav Logs" to start viewing your application logs.
+When you open nav-logs (OpenSearch Dashboards) you are prompted to select a workspace, select "Nav Logs" to start viewing your application logs.
 
 Once the page loads you will see an empty page with a search bar. This is the query bar, and it is used to search for logs. You can use the query bar to search for logs by message, by field, or by a combination of both.
 
