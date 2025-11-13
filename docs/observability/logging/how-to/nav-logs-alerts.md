@@ -11,148 +11,294 @@ conditional: [tenant, nav]
 
 This guide will help you create alerts based on your application logs in nav-logs (OpenSearch Dashboards).
 
+Alerting in OpenSearch consists of two main components: **notification channels** (where alerts are sent) and **monitors** (what triggers the alerts). You must create a notification channel before you can create a monitor.
+
 ## Prerequisites
 
 - You have [enabled logging to nav-logs](./nav-logs-dashboards.md#enable-logging-to-nav-logs) for your application
 - You have [access to nav-logs](./nav-logs-dashboards.md#get-access-to-nav-logs)
-- You are familiar with [KQL (Kibana Query Language)](../reference/kql.md)
+- You have a Slack webhook URL ready
 
-## Access the Alerting feature
+## Step 1: Create a notification channel
+
+Before you can receive alerts, you need to create a notification channel. This defines where your alerts will be sent (e.g., Slack, email, webhook).
+
+### Access notification channels
 
 1. Navigate to [logs.az.nav.no](https://logs.az.nav.no)
-2. Select the "Nav Logs" workspace
-3. Open the menu and navigate to **Alerting**
+2. Open the menu and navigate to **Notifications** → **Channels**
+3. Or go directly to the [Channels page](https://logs.az.nav.no/app/notifications-dashboards#/channels)
 
-## Create a monitor
+### Create a new channel
 
-Monitors are the foundation of alerting in OpenSearch. A monitor runs queries on your logs at scheduled intervals and triggers alerts when specific conditions are met.
+1. Click **Create channel**
+2. **Name**: Give your channel a descriptive name (e.g., "my-team-slack-alerts")
+3. **Channel type**: Select **Slack**
+4. **Slack webhook URL**: Paste your Slack incoming webhook URL
+    - To create a webhook: Go to your Slack workspace → Apps → Incoming Webhooks
+    - Configure which channel receives notifications and copy the webhook URL
+5. Click **Create**
 
-### Step 1: Create a new monitor
+<!-- Screenshot placeholder: Creating a Slack notification channel -->
 
-1. In the Alerting page, click **Create monitor**
-2. Choose the monitor type:
-   - **Per query monitor**: Triggers based on a single query result
-   - **Per bucket monitor**: Triggers based on grouped results (e.g., per application, per namespace)
-   - **Per document monitor**: Triggers for each document that matches your query
+!!! tip "Test your channel"
+    Use the "Send test message" button to verify the channel works before creating monitors.
 
-### Step 2: Define the monitor
+## Step 2: Create a monitor
 
-1. **Monitor name**: Give your monitor a descriptive name (e.g., "High error rate for my-app")
-2. **Schedule**: Set how often the monitor should run (e.g., every 5 minutes)
-3. **Data source**: Select the index pattern or data view for your logs (typically `logs-*` or your team's specific index)
+Monitors run queries on your logs at scheduled intervals and trigger alerts when conditions are met.
 
-### Step 3: Define the query
+### Access monitors
 
-Create a query to identify the logs you want to monitor. For example:
+1. Navigate to [logs.az.nav.no](https://logs.az.nav.no)
+2. Open the menu and navigate to **Alerting** → **Monitors**
+3. Click **Create monitor**
 
-**Monitor for errors in your application:**
+<!-- Screenshot placeholder: Monitors list page -->
+
+### Configure monitor basics
+
+1. **Monitor name**: Give your monitor a descriptive name (e.g., "BO accounting reporting")
+2. **Monitor type**: Select **Per query monitor** (most common for log monitoring)
+3. **Monitor definition**: Select **Visual editor**
+4. **Schedule**: Set how often to check (e.g., every 5 minutes)
+
+<!-- Screenshot placeholder: Monitor details section -->
+
+### Define what to monitor
+
+1. **Index**: Select `logs-*` or your specific index pattern
+2. **Time field**: Select `@timestamp`
+3. **Define using**: Add filters to match your logs
+
+**Query examples:**
 
     application: "my-app" AND level: "ERROR"
-
-**Monitor for specific error messages:**
-
     application: "my-app" AND message: "Database connection failed"
+    namespace: "myteam" AND level: "ERROR"
 
-**Monitor for high response times:**
+<!-- Screenshot placeholder: Query definition -->
 
-    application: "my-app" AND response_time: >1000
+!!! tip
+    Test your query in Discover first to ensure it returns the expected results.
 
-### Step 4: Set the trigger condition
+## Step 3: Create triggers
 
-Define when the monitor should trigger an alert:
+Triggers define the conditions that cause your monitor to send an alert and specify which notification channel to use.
 
-1. **Trigger name**: Descriptive name for this trigger
-2. **Severity level**: Choose the severity (1-5, where 1 is the highest)
-3. **Condition**: Define the threshold that triggers the alert
+## Step 3: Create triggers
 
-**Examples:**
+Triggers define when to send alerts and to which channel.
 
-Trigger if more than 10 errors occur in the time window:
+### Add a trigger
 
-    ctx.results[0].hits.total.value > 10
+1. Click **Add trigger**
+2. **Trigger name**: Describe the condition (e.g., "High error rate")
+3. **Severity level**: Select 1-5 (1 is highest priority)
+4. **Trigger condition**: Define when to alert
 
-Trigger if the average response time exceeds 1000ms:
+**Common conditions:**
 
-    ctx.results[0].aggregations.avg_response_time.value > 1000
+    ctx.results[0].hits.total.value > 10    # More than 10 errors
+    ctx.results[0].hits.total.value > 0     # Any errors found
+    ctx.results[0].hits.total.value == 0    # No logs found (missing expected events)
 
-### Step 5: Configure actions
+<!-- Screenshot placeholder: Trigger condition -->
 
-Actions define what happens when a trigger condition is met. You can:
-
-- Send a notification to a Slack channel
-- Send an email
-- Create a webhook notification
-- Execute a custom action
-
-#### Slack notification example
+### Configure notification
 
 1. Click **Add action**
-2. Select **Slack** as the destination
-3. Configure the Slack webhook (you'll need to create a Slack app with incoming webhooks)
-4. Customize the message using Mustache templates:
+2. **Action name**: e.g., "Notify team Slack"
+3. **Destination**: Select your notification channel
+4. **Message**: Customize the alert content
 
-        Alert: {{ctx.monitor.name}}
-        Severity: {{ctx.trigger.severity}}
-        Number of errors: {{ctx.results.0.hits.total.value}}
-        Time: {{ctx.periodEnd}}
+**Example message:**
 
-## Best practices
+    ⚠️ Alert: {{ctx.monitor.name}}
 
-- **Use descriptive names**: Make it clear what the alert is monitoring
-- **Set appropriate thresholds**: Avoid alert fatigue by setting meaningful thresholds
-- **Test your monitors**: Use the preview feature to test your query before creating the monitor
-- **Use aggregations**: For performance, aggregate data rather than monitoring individual documents when possible
-- **Set the right frequency**: Balance between timely alerts and system load
-- **Group related monitors**: Use naming conventions to organize monitors by team or application
+    Found {{ctx.results.0.hits.total.value}} errors
+    Time: {{ctx.periodStart}} to {{ctx.periodEnd}}
 
-## Example: Monitor for application errors
+    View logs: https://logs.az.nav.no
 
-Here's a complete example of monitoring error logs for your application:
+**Useful variables:**
 
-1. **Monitor name**: `my-app-error-rate`
-2. **Schedule**: Every 5 minutes
-3. **Query**:
+- `{{ctx.monitor.name}}` - Monitor name
+- `{{ctx.trigger.name}}` - Trigger name
+- `{{ctx.results.0.hits.total.value}}` - Number of matches
+- `{{ctx.periodStart}}` / `{{ctx.periodEnd}}` - Time period
 
-        application: "my-app" AND level: "ERROR" AND namespace: "myteam"
+<!-- Screenshot placeholder: Action configuration -->
 
-4. **Trigger condition**:
+### Enable throttling (optional)
 
-        ctx.results[0].hits.total.value > 5
+To prevent alert spam:
 
-5. **Action**: Send Slack notification to `#my-team-alerts`
-6. **Message**:
+- **Throttling**: Enable and set time window (e.g., 10 minutes)
+- This limits how often notifications are sent
 
-        ⚠️ High error rate detected in my-app
+<!-- Screenshot placeholder: Throttling -->
 
-        Error count: {{ctx.results.0.hits.total.value}}
-        Time window: Last 5 minutes
-        Environment: {{ctx.results.0.hits.hits.0._source.cluster}}
+### Save
 
-        View logs: https://logs.az.nav.no
+Click **Create** to save your monitor. It will start running on the schedule you defined.
+
+## Complete example
+
+Here's a quick example monitoring for missing accounting reports:
+
+**Notification channel:**
+- Name: `bo-team-slack`, Type: Slack
+
+**Monitor:**
+- Name: `BO accounting reporting`
+- Type: Per query monitor
+- Schedule: Every 5 minutes
+- Query: `application: "bo-accounting" AND message: "accounting report sent"`
+
+**Trigger:**
+- Name: `BO does not send accounting`
+- Condition: `ctx.results[0].hits.total.value == 0` (alerts when no logs found)
+- Action: Send to `bo-team-slack`
 
 ## Troubleshooting
 
-### Monitor not triggering
+**Monitor not triggering:**
+- Test your query in Discover first
+- Check the time range covers when logs appear
+- Verify the trigger condition is correct
 
-- Verify your KQL query returns results in the Discover view
-- Check that the time range in your monitor matches when logs are available
-- Ensure the trigger condition threshold is set correctly
+**No notifications received:**
+- Test the notification channel with "Send test message"
+- Check the channel is selected in the action
+- Verify throttling isn't blocking notifications
 
-### Too many alerts
-
-- Increase the threshold value
-- Increase the monitor frequency interval
-- Add more specific filters to your query
-- Consider using aggregation to reduce noise
-
-### Missing notifications
-
-- Verify your notification destination is configured correctly
-- Check that the action is enabled in your trigger
-- Ensure webhook URLs or email addresses are correct
+**Too many alerts:**
+- Increase the trigger threshold
+- Enable throttling to limit notification frequency
+- Make your query more specific
 
 ## Related documentation
 
 - [Get started with nav-logs](./nav-logs-dashboards.md)
 - [KQL Reference](../reference/kql.md)
+- [Loki alerts](./logs-metrics-alerts.md) (recommended alternative)
+
+## Step 4: Save the monitor
+
+1. Review your monitor configuration
+2. Click **Create** to save the monitor
+3. The monitor will start running on the schedule you defined
+
+<!-- Screenshot placeholder: Save/Create button -->
+
+For more detailed information about monitors, see the [OpenSearch Alerting documentation](https://docs.opensearch.org/latest/observing-your-data/alerting/monitors/).
+
+## Complete example: Monitoring for missing reports
+
+Here's a complete example of monitoring for missing accounting reports:
+
+## Complete example
+
+Here's a complete example of monitoring for missing accounting reports:
+
+### Notification channel
+
+- **Name**: `bo-team-slack`
+- **Type**: Slack
+- **Webhook URL**: `https://hooks.slack.com/services/YOUR/WEBHOOK/URL`
+
+### Monitor configuration
+
+- **Monitor name**: `BO accounting reporting`
+- **Monitor type**: Per query monitor
+- **Method**: Visual editor
+- **Schedule**: By interval, every 5 minutes
+- **Index**: `logs-*`
+- **Time field**: `@timestamp`
+
+### Query
+
+    application: "bo-accounting" AND message: "accounting report sent"
+
+### Trigger
+
+- **Trigger name**: `BO does not send accounting`
+- **Severity**: 1 (Highest)
+- **Condition**: `ctx.results[0].hits.total.value == 0`
+  - This triggers when NO logs are found (meaning the report wasn't sent)
+
+### Action
+
+- **Action name**: `Notify BO Slack`
+- **Destination**: `bo-team-slack`
+- **Message**:
+
+        ⚠️ BO Accounting Alert
+
+        No accounting reports were detected in the last 5 minutes.
+
+        Monitor: {{ctx.monitor.name}}
+        Trigger: {{ctx.trigger.name}}
+        Time: {{ctx.periodStart}} to {{ctx.periodEnd}}
+
+        Expected log message not found: "accounting report sent"
+
+        View logs: https://logs.az.nav.no
+
+- **Throttling**: Enabled for 10 minutes
+
+This monitor will check every 5 minutes for the presence of accounting report logs, and alert if none are found.
+
+## Best practices
+
+- **Create notification channels first**: Always set up your notification channels before creating monitors
+- **Use descriptive names**: Make it clear what the alert is monitoring (both for channels and monitors)
+- **Test your queries**: Use the Discover view to test queries before adding them to monitors
+- **Set appropriate thresholds**: Avoid alert fatigue by setting meaningful trigger conditions
+- **Use throttling**: Prevent duplicate notifications by enabling action throttling
+- **Start with low frequency**: Begin with longer intervals (e.g., 10-15 minutes) and adjust based on needs
+- **Group by team**: Use naming conventions to organize channels and monitors by team
+- **Document your alerts**: Add clear descriptions to monitors explaining what they detect and why
+
+## Troubleshooting
+
+### Monitor not triggering
+
+- Verify your query returns results in the Discover view
+- Check that the time range covers the period when logs should appear
+- Ensure the trigger condition threshold is set correctly
+- Use "Preview query and graph" to see what data the monitor evaluates
+- Verify the monitor is enabled and not paused
+
+### Notifications not received
+
+- Verify the notification channel is configured correctly
+- Test the channel using the "Send test message" feature
+- Check that the channel is selected in the monitor's action
+- Ensure the action is enabled in the trigger configuration
+- For Slack: Verify the webhook URL is correct and the webhook is active
+- Check if throttling is preventing notifications
+
+### Too many alerts
+
+- Increase the trigger condition threshold
+- Increase the monitor check frequency (run less often)
+- Enable or adjust action throttling to reduce notification frequency
+- Add more specific filters to your query to reduce false positives
+- Review if the severity level is appropriate
+
+### Query performance issues
+
+- Use more specific index patterns instead of `logs-*`
+- Reduce the time range for each check
+- Avoid overly complex queries with many conditions
+- Consider using aggregations instead of document-level queries
+
+## Related documentation
+
+- [Get started with nav-logs](./nav-logs-dashboards.md)
+- [KQL Reference](../reference/kql.md)
+- [OpenSearch Notifications documentation](https://docs.opensearch.org/latest/observing-your-data/notifications/index/)
+- [OpenSearch Alerting documentation](https://docs.opensearch.org/latest/observing-your-data/alerting/monitors/)
 - [Loki alerts](./logs-metrics-alerts.md) (recommended alternative)

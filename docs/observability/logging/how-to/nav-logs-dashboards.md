@@ -39,9 +39,7 @@ These permissions will give you access:
 
 ## Working with nav-logs
 
-When you open nav-logs (OpenSearch Dashboards) you are prompted to select a workspace, select "Nav Logs" to start viewing your application logs.
-
-Once the page loads you will see an empty page with a search bar. This is the query bar, and it is used to search for logs. You can use the query bar to search for logs by message, by field, or by a combination of both.
+When you open nav-logs (OpenSearch Dashboards), you will see a page with a search bar. This is the query bar, and it is used to search for logs. You can use the query bar to search for logs by message, by field, or by a combination of both.
 
 The query language is called [Kibana Query Language](../reference/kql.md) (`KQL`). KQL is a simplified version of Lucene query syntax. You can use KQL to search for logs by message, by field, or by a combination of both.
 
