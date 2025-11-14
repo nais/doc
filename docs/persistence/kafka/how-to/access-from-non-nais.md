@@ -37,7 +37,7 @@ This guide will show you how to access a [Kafka topic](create.md) from an applic
 
 ## Extract the value of the generated secret
 ```bash
-kubectl get secret <MY-UNIQUE-SECRET-NAME> --namespace <MY-TEAM> --contect <MY-ENV> -o jsonpath='{.data}' 
+kubectl get secret <MY-UNIQUE-SECRET-NAME> --namespace <MY-TEAM> --contect <MY-ENV> -o jsonpath='{.data}'
 ```
 
 Make the values available to your application.
