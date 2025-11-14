@@ -1,13 +1,13 @@
 ---
 title: KQL Reference
-description: Kibana Query Language (KQL) Reference for filtering data in Kibana.
-tags: [reference, logging, kibana]
+description: Kibana Query Language (KQL) Reference for filtering data in nav-logs (OpenSearch Dashboards).
+tags: [reference, logging, opensearch]
 conditional: [tenant, nav]
 ---
 
 # Kibana Query Language (KQL) Reference
 
-The Kibana Query Language (KQL) is a simple text-based query language for filtering data in Kibana. You can use KQL to search for logs by message, by field, or by a combination of both.
+The Kibana Query Language (KQL) is a simple text-based query language for filtering data in nav-logs (OpenSearch Dashboards). You can use KQL to search for logs by message, by field, or by a combination of both.
 
 ## Operators
 

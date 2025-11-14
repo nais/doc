@@ -109,13 +109,13 @@ A PVK is not a unique requirement for GCP, so all applications should already ha
 
 ???+ faq "Answer"
 
-    Nav has a cloud strategy that includes moving applications to the cloud. 
+    Nav has a cloud strategy that includes moving applications to the cloud.
     Read more about the [cloud strategy at Navet](https://navno.sharepoint.com/sites/enhet-it-avdelingen/SitePages/Skystrategi.aspx).
 
 
 ### What can we do in our GCP project?
 
-???+ faq "Answer" 
+???+ faq "Answer"
 
     The teams GCP projects are primarily used for automatically generated resources (buckets and postgres). We're working on extending the service offering. However, additional access may be granted if required by the team
 
@@ -140,7 +140,7 @@ A PVK is not a unique requirement for GCP, so all applications should already ha
     The application _on-premises_ should generally fulfill the following requirements:
 
     1. Be secured with [OAuth 2.0][auth]. That is, either:
-        - a. [TokenX][tokenx], or 
+        - a. [TokenX][tokenx], or
         - b. [Entra ID][entra-id]
     2. Exposed to GCP using a special ingress:
         - `https://<app>.dev-fss-pub.nais.io`
@@ -149,7 +149,7 @@ A PVK is not a unique requirement for GCP, so all applications should already ha
     The application _on-premises_ must then:
 
     1. Add the ingress created above to the list of ingresses:
-    
+
         ```yaml
         spec:
           ingresses:
@@ -179,24 +179,24 @@ A PVK is not a unique requirement for GCP, so all applications should already ha
 
     The application in GCP must be exposed on a [matching ingress][environments]:
 
-    | ingress | reachable from zone |
-    | :--- | :--- |
-    | `<app>.intern.dev.nav.no` | `dev-fss` |
-    | `<app>.intern.nav.no` | `prod-fss` |
-    | `<app>.nav.no` | internet, i.e. all clusters |
+    | ingress                   | reachable from zone         |
+    | :------------------------ | :-------------------------- |
+    | `<app>.intern.dev.nav.no` | `dev-fss`                   |
+    | `<app>.intern.nav.no`     | `prod-fss`                  |
+    | `<app>.nav.no`            | internet, i.e. all clusters |
 
     The application on-premises should _not_ have to use webproxy to reach these ingresses.
 
 ## GCP compared to on-premises
 
 | Feature                   | on-prem    | gcp                | Comment                                                         |
-|:--------------------------|:-----------|:-------------------|:----------------------------------------------------------------|
+| :------------------------ | :--------- | :----------------- | :-------------------------------------------------------------- |
 | Deploy                    | yes        | yes                | different clustername when deploying                            |
-| Logging                   | yes        | yes                | different clustername in logs.adeo.no                           |
+| Logging                   | yes        | yes                | different clustername in logs.az.nav.no                         |
 | Metrics                   | yes        | yes                | same mechanism, different datasource                            |
 | Nais app dashboard        | yes        | yes                | new and improved in GCP                                         |
 | Alerts                    | yes        | yes                | identical                                                       |
-| Secure logs               | yes        | yes                | different clustername in logs.adeo.no                           |
+| Secure logs               | yes        | yes                | different clustername in logs.az.nav.no                         |
 | Kafka                     | yes        | yes                | identical                                                       |
 | Secrets                   | Vault      | Console secrets    |                                                                 |
 | Team namespaces           | yes        | yes                |                                                                 |

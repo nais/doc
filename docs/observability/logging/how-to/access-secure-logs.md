@@ -6,9 +6,9 @@ conditional: [tenant, nav]
 
 !!! warning "Deprecation notice"
 
-    Support for Secure Logs in Nais has been deprecated and will be removed at the end of the year. Migrate to [Team Logs](./team-logs.md) for a private logging solution.
+    Support for Secure Logs in Nais has been deprecated and will be removed at the end of the year. Secure logs will not be migrated to nav-logs (OpenSearch). Migrate to [Team Logs](./team-logs.md) for a private logging solution.
 
-Once secure logs for your team are [enabled](./enable-secure-logs.md), they will become available in `Securelogs` dataview. The members of the corresponding Nais team should get access to those logs automatically when they log on to Kibana with Single Sign On. Send a message in #kibana channel if that is not the case.
+Once secure logs for your team are [enabled](./enable-secure-logs.md), they will become available in `Securelogs` dataview. The members of the corresponding Nais team should get access to those logs automatically when they log on to the legacy logging system with Single Sign On. Send a message in #kibana channel if that is not the case.
 
 ## Access to secure logs for external participants
 
