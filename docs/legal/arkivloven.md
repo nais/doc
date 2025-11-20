@@ -12,6 +12,8 @@ As long as the documents in and out of your applications end up in archives that
 
 There is a new proposal regarding public cloud infrastructure which hopefully will be ready this autumn as well. This proposal will allow storage on public cloud systems, to a degree. See \[New public archive proposal\].
 
+[Arkivverket](https://www.arkivverket.no/) has stated that it is sufficient to transfer data every 24 hours.
+
 ## Background
 
 When moving to GCP or other public cloud providers not offering data centers in Norway, an evaluation of the documentation requirements for the application must be done. There are several important regulations that apply to this documentation, as stated by The Archival Act For Public Archives of 1992 \(referred to as The Archival Act in the following\).
@@ -62,4 +64,3 @@ All paragraphs of law except §16 and §18 are from The Archival Act: [The Archi
 Paragraphs §16 and §18: [The Regulation concerning Public Archives](https://lovdata.no/dokument/SF/forskrift/2017-12-15-2105?q=arkiv)
 
 Archival proposal for public cloud solutions: [New public archive proposal](https://www.regjeringen.no/no/dokumenter/hoyring--ny-forskrift-om-offentlege-arkiv/id2515364/)
-
