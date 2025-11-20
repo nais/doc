@@ -25,7 +25,12 @@ Before you begin, ensure that you have:
 
 - Familiarized yourselves with [the login proxy concepts](../explanations/README.md#login-proxy).
 - [Exposed your application with an ingress](../../workloads/application/how-to/expose.md).
-- A client ID and either a client secret or private key for a client registered at an OpenID Connect identity provider.
+- A client registered at an OpenID Connect identity provider.
+  - The client must be a _confidential_ client, which means it must have:
+    - a client ID, and
+    - either a client secret, or a private key in JWK format
+  - The redirect URI must be configured to point to your application's ingress, i.e. `https://<ingress>/oauth2/callback`
+  - The post logout redirect URI must be configured to point to your application's ingress, i.e. `https://<ingress>/oauth2/logout/callback`
 
 ## Configure the secret
 
