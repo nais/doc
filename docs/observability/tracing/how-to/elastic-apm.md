@@ -1,13 +1,13 @@
 ---
 description: This guide will help you get started with sending tracing data to Elastic APM.
-tags: [how-to, opentelemetry, kibana]
+tags: [how-to, opentelemetry, deprecated]
 conditional: [tenant, nav]
 ---
 # Tracing data in Elastic APM
 
 !!! warning "Deprecation notice"
 
-    Support for Elastic APM in Nais has been deprecated and will be removed at the end of the year.
+    Support for Elastic APM in Nais has been deprecated and will be removed at the end of the year. Elastic APM will not be available in the new OpenSearch-based nav-logs system.
 
 For nais applications running on-prem (dev-fss and prod-fss) you have the option to send telemetry data to Elastic APM in adition to Grafana. This guide will help you get started with Elastic APM for your application.
 
@@ -40,6 +40,6 @@ spec:
 
 ## Accessing the Elastic APM UI
 
-The Elastic APM UI is available at [logs.adeo.no](https://logs.adeo.no/app/apm/services) and requires you to log in with your NAV account and by selecting the `APM` menu item.
+The Elastic APM UI is available on the legacy logging system (not available in nav-logs) and requires you to log in with your NAV account and by selecting the `APM` menu item.
 
 From there you can select the application (or service as they are called in Elastic APM) you want to inspect.

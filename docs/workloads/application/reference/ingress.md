@@ -70,7 +70,7 @@ In some scenarios is required to have different values for various timeouts. To 
 * `nginx.ingress.kubernetes.io/proxy-connect-timeout` (default `5`)
 * `nginx.ingress.kubernetes.io/proxy-send-timeout` (default `60`)
 * `nginx.ingress.kubernetes.io/proxy-read-timeout` (default `60`)
-* `nginx.ingress.kubernetes.io/proxy-next-upstream` 
+* `nginx.ingress.kubernetes.io/proxy-next-upstream`
 * `nginx.ingress.kubernetes.io/proxy-next-upstream-timeout` (default `0`)
 * `nginx.ingress.kubernetes.io/proxy-next-upstream-tries` (default `3`)
 * `nginx.ingress.kubernetes.io/proxy-request-buffering` (default `on`)
@@ -159,20 +159,20 @@ From there you can use the Filter tab to search for logs from your application b
 
 {% if tenant() == "nav" %}
 
-Ingress logs for on-premise applications are available in Kibana.
+Ingress logs for on-premise applications are available in nav-logs (OpenSearch Dashboards).
 Here are pre-configured queries for ingress logs in the different environments:
 
-| Kibana                      | Grafana Loki              |
-| --------------------------- | ------------------------- |
-| [dev-gcp][dev-gcp-kibana]   | [dev-gcp][dev-gcp-loki]   |
-| [prod-gcp][prod-gcp-kibana] | [prod-gcp][prod-gcp-loki] |
-| [dev-fss]                   | -                         |
-| [prod-fss]                  | -                         |
+| nav-logs (OpenSearch Dashboards) | Grafana Loki              |
+| -------------------------------- | ------------------------- |
+| [dev-gcp][dev-gcp-opensearch]    | [dev-gcp][dev-gcp-loki]   |
+| [prod-gcp][prod-gcp-opensearch]  | [prod-gcp][prod-gcp-loki] |
+| [dev-fss]                        | -                         |
+| [prod-fss]                       | -                         |
 
-[dev-gcp-kibana]: https://logs.adeo.no/app/discover#/view/1638d780-3369-11ed-b3e8-d969437dd878?_g=()
-[prod-gcp-kibana]: https://logs.adeo.no/app/discover#/view/1d10b410-3369-11ed-b3e8-d969437dd878?_g=()
-[dev-fss]: https://logs.adeo.no/app/discover#/view/e7562030-3368-11ed-b3e8-d969437dd878?_g=()
-[prod-fss]: https://logs.adeo.no/app/discover#/view/00c05220-3369-11ed-b3e8-d969437dd878?_g=()
+[dev-gcp-opensearch]: https://logs.az.nav.no/app/discover#/view/1638d780-3369-11ed-b3e8-d969437dd878?_g=()
+[prod-gcp-opensearch]: https://logs.az.nav.no/app/discover#/view/1d10b410-3369-11ed-b3e8-d969437dd878?_g=()
+[dev-fss]: https://logs.az.nav.no/app/discover#/view/e7562030-3368-11ed-b3e8-d969437dd878?_g=()
+[prod-fss]: https://logs.az.nav.no/app/discover#/view/00c05220-3369-11ed-b3e8-d969437dd878?_g=()
 [dev-gcp-loki]: https://grafana.nav.cloud.nais.io/d/ingress-logs/ingress-logs?var-env=dev
 [prod-gcp-loki]: https://grafana.nav.cloud.nais.io/d/ingress-logs/ingress-logs?var-env=prod
 {% endif %}
