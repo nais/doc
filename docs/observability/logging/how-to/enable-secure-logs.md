@@ -6,7 +6,7 @@ conditional: [tenant, nav]
 
 !!! warning "Deprecation notice"
 
-    Support for Secure Logs in Nais has been deprecated and will be removed at the end of the year. Migrate to [Team Logs](./team-logs.md) for a private logging solution.
+    Support for Secure Logs in Nais has been deprecated and will be removed at the end of the year. Secure logs will not be migrated to nav-logs (OpenSearch). Migrate to [Team Logs](./team-logs.md) for a private logging solution.
 
 This guide will show you how to enable shipping of secure logs for your application.
 
@@ -18,7 +18,7 @@ If your team has never before produced secure logs, give a warning in [#kibana](
 
 ## Configuring secure logs
 
-To enable secure logs for your application, you need to add the following configuration to your application manifest. This will send all logs produced by the application to the secure logs index in Kibana.
+To enable secure logs for your application, you need to add the following configuration to your application manifest. This will send all logs produced by the application to the secure logs index in the legacy logging system.
 
 ???+ note ".nais/app.yaml"
 
@@ -48,7 +48,7 @@ To enable secure logs for your application, you need to add the following config
 
 ### Set log rotation
 
-With secure logs enabled a directory `/secure-logs/` will be mounted in the application container. Every `*.log` file in this directory will be monitored and the content transferred to Elasticsearch. Make sure that these files are readable for the log shipper \(the process runs as uid/gid 1065\).
+With secure logs enabled a directory `/secure-logs/` will be mounted in the application container. Every `*.log` file in this directory will be monitored and the content transferred to the legacy Elasticsearch system. Make sure that these files are readable for the log shipper \(the process runs as uid/gid 1065\).
 
 !!! warning "directory size limit"
 
