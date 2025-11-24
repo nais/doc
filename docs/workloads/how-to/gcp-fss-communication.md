@@ -189,6 +189,7 @@ Monitor application logs for these errors (should decrease after configuration):
 
 ## Related resources
 
+- [HTTP client connection management](../explanations/http-client-connection-management.md) - Understanding connection pooling and timeouts
 - [Access policies](access-policies.md) - Configure outbound access to FSS services
 - [Migrating to GCP FAQ](../explanations/migrating-to-gcp.md#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp) - Overview of GCP-FSS communication
 - [OpenTelemetry metrics](../../observability/metrics/reference/otel.md#http-client-metrics) - Available HTTP client metrics
