@@ -17,11 +17,14 @@ Alerting in OpenSearch consists of two main components: **notification channels*
 
 - You have [enabled logging to nav-logs](./nav-logs-dashboards.md#enable-logging-to-nav-logs) for your application
 - You have [access to nav-logs](./nav-logs-dashboards.md#get-access-to-nav-logs)
-- You have a Slack webhook URL ready
+- You have a Slack webhook URL ready (see Step 1 below)
 
 ## Step 1: Create a notification channel
 
-Before you can receive alerts, you need to create a notification channel. This defines where your alerts will be sent (e.g., Slack, email, webhook).
+Before you can receive alerts, you need to create a notification channel. This defines where your alerts will be sent.
+
+!!! warning "Sensitive information"
+    The Slack webhook URL is sensitive and should be kept secure. Only paste it into the OpenSearch notification channel configuration.
 
 ### Access notification channels
 
@@ -39,7 +42,7 @@ Before you can receive alerts, you need to create a notification channel. This d
     - Configure which channel receives notifications and copy the webhook URL
 5. Click **Create**
 
-<!-- Screenshot placeholder: Creating a Slack notification channel -->
+![Screenshot: Creating a Slack notification channel](../../../assets/nav-logs-alert-channel.png)
 
 !!! tip "Test your channel"
     Use the "Send test message" button to verify the channel works before creating monitors.
@@ -50,26 +53,35 @@ Monitors run queries on your logs at scheduled intervals and trigger alerts when
 
 ### Access monitors
 
-1. Navigate to [logs.az.nav.no](https://logs.az.nav.no)
-2. Open the menu and navigate to **Alerting** → **Monitors**
-3. Click **Create monitor**
+1. Go directly to the [Create monitor page](https://logs.az.nav.no/app/alerting#/create-monitor)
+2. Or navigate from the menu: **Alerting** → **Monitors** → **Create monitor**
 
-<!-- Screenshot placeholder: Monitors list page -->
+![Screenshot: Creating a monitor](../../../assets/nav-logs-alert-monitor-list.png)
 
 ### Configure monitor basics
 
 1. **Monitor name**: Give your monitor a descriptive name (e.g., "BO accounting reporting")
-2. **Monitor type**: Select **Per query monitor** (most common for log monitoring)
-3. **Monitor definition**: Select **Visual editor**
-4. **Schedule**: Set how often to check (e.g., every 5 minutes)
+2. **Monitor type**: Select **Per query monitor** (this is what you're familiar with from logs.adeo.no)
+3. **Schedule**: Set how often to check (e.g., every 5 minutes)
 
-<!-- Screenshot placeholder: Monitor details section -->
+![Screenshot: Monitor details section](../../../assets/nav-logs-alert-monitor-details.png)
 
 ### Define what to monitor
 
-1. **Index**: Select `logs-*` or your specific index pattern
+1. **Index**: Enter the data stream name or pattern:
+    - `logs.nais` - Nais application logs
+    - `logs.aura` - Aura database logs
+    - `logs.datapower` - DataPower logs
+    - `logs*` - All log types (supports current and future data streams)
 2. **Time field**: Select `@timestamp`
-3. **Define using**: Add filters to match your logs
+
+### Define your query
+
+You can define your query using one of two methods:
+
+#### Method 1: Visual editor
+
+Use the visual editor to build your query with filters:
 
 **Query examples:**
 
@@ -79,23 +91,33 @@ Monitors run queries on your logs at scheduled intervals and trigger alerts when
 
 <!-- Screenshot placeholder: Query definition -->
 
+#### Method 2: Extraction query editor
+
+For more complex queries, you can write the query yourself:
+
+1. First, test your search in the **Discover** tab to find what you're looking for
+2. Click **Inspect** in the top-right corner of the screen
+3. Select the **Request** tab
+4. Scroll down to find the query being used to show your results
+5. Copy this query and paste it into the **Extraction query editor** when creating your monitor
+
 !!! tip
-    Test your query in Discover first to ensure it returns the expected results.
+    Test your query in Discover first to ensure it returns the expected results before creating a monitor.
 
 ## Step 3: Create triggers
 
 Triggers define the conditions that cause your monitor to send an alert and specify which notification channel to use.
 
-## Step 3: Create triggers
+## Step 3: Create a trigger
 
-Triggers define when to send alerts and to which channel.
+Triggers define the threshold for when an alert should be sent.
 
 ### Add a trigger
 
 1. Click **Add trigger**
 2. **Trigger name**: Describe the condition (e.g., "High error rate")
 3. **Severity level**: Select 1-5 (1 is highest priority)
-4. **Trigger condition**: Define when to alert
+4. **Trigger condition**: Define the threshold for when to alert
 
 **Common conditions:**
 
@@ -105,11 +127,16 @@ Triggers define when to send alerts and to which channel.
 
 <!-- Screenshot placeholder: Trigger condition -->
 
-### Configure notification
+### Configure action
+
+Under the **Action** section of the trigger, select where the alert should be sent.
+
+!!! info
+    You must have already created a notification channel (Step 1) before you can select it here.
 
 1. Click **Add action**
 2. **Action name**: e.g., "Notify team Slack"
-3. **Destination**: Select your notification channel
+3. **Destination**: Select your notification channel (created in Step 1)
 4. **Message**: Customize the alert content
 
 **Example message:**
@@ -148,15 +175,21 @@ Click **Create** to save your monitor. It will start running on the schedule you
 Here's a quick example monitoring for missing accounting reports:
 
 **Notification channel:**
-- Name: `bo-team-slack`, Type: Slack
+
+- Name: `bo-team-slack`
+- Type: Slack
 
 **Monitor:**
+
 - Name: `BO accounting reporting`
 - Type: Per query monitor
 - Schedule: Every 5 minutes
+- Index: `logs.nais`
+- Time field: `@timestamp`
 - Query: `application: "bo-accounting" AND message: "accounting report sent"`
 
 **Trigger:**
+
 - Name: `BO does not send accounting`
 - Condition: `ctx.results[0].hits.total.value == 0` (alerts when no logs found)
 - Action: Send to `bo-team-slack`
@@ -164,16 +197,19 @@ Here's a quick example monitoring for missing accounting reports:
 ## Troubleshooting
 
 **Monitor not triggering:**
+
 - Test your query in Discover first
 - Check the time range covers when logs appear
 - Verify the trigger condition is correct
 
 **No notifications received:**
+
 - Test the notification channel with "Send test message"
 - Check the channel is selected in the action
 - Verify throttling isn't blocking notifications
 
 **Too many alerts:**
+
 - Increase the trigger threshold
 - Enable throttling to limit notification frequency
 - Make your query more specific
