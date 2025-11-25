@@ -211,6 +211,6 @@ Here's a quick example monitoring for missing accounting reports:
 ## Related documentation
 
 - [Get started with nav-logs](./nav-logs-dashboards.md)
-- [KQL Reference](../reference/kql.md)
+- [DQL Reference](../reference/dql.md)
 - [Loki alerts](./logs-metrics-alerts.md) (recommended alternative)
 - [OpenSearch Alerting documentation](https://docs.opensearch.org/latest/observing-your-data/alerting/monitors/)

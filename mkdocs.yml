@@ -129,6 +129,7 @@ plugins:
         "how-to-guides/naisdevice/update.md": "operate/naisdevice/how-to/update.md"
         "how-to-guides/observability/alerts/grafana.md": "observability/alerting/how-to/grafana.md"
         "observability/logging/how-to/kibana.md": "observability/logging/how-to/nav-logs-dashboards.md"
+        "observability/logging/reference/kql.md": "observability/logging/reference/dql.md"
         "how-to-guides/observability/alerts/prometheus-advanced.md": "observability/alerting/how-to/prometheus-advanced.md"
         "how-to-guides/observability/alerts/prometheus-basic.md": "observability/alerting/how-to/prometheus-basic.md"
         "how-to-guides/observability/auto-instrumentation.md": "observability/how-to/auto-instrumentation.md"
