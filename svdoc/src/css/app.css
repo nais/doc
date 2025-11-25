@@ -1,0 +1,19 @@
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "@nais/ds-svelte-community/css" layer(components);
+
+body {
+	min-height: 100vh;
+}
+
+/* Emoji font stack for consistent rendering across platforms */
+.emoji {
+	font-family:
+		"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Twemoji Mozilla", "Android Emoji",
+		sans-serif;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1;
+}
