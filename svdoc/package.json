@@ -39,6 +39,7 @@
 		"@nais/ds-svelte-community": "^2.0.0-next.4",
 		"emoji-name-map": "^2.0.3",
 		"front-matter": "^4.0.2",
-		"marked": "^17.0.1"
+		"marked": "^17.0.1",
+		"yaml": "^2.8.1"
 	}
 }
