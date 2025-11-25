@@ -5,6 +5,8 @@ import { Marked, type Token, type TokensList } from "marked";
 export interface Attributes {
 	title?: string;
 	description?: string;
+	tags?: string[];
+	hide?: string[];
 }
 
 /**
@@ -249,5 +251,19 @@ export async function readMarkdownFile(
 	// Process footnotes - collect and move to end
 	const processedTokens = processFootnotes(htmlProcessed);
 
-	return { tokens: processedTokens, attributes };
+	// Extract title from first heading if not in frontmatter
+	const finalAttributes = { ...attributes };
+	if (!finalAttributes.title) {
+		const firstHeading = processedTokens.find(
+			(t) => t.type === "heading" && (t as { depth: number }).depth === 1,
+		);
+		if (firstHeading && "text" in firstHeading) {
+			// Strip emoji shortcodes and clean up
+			finalAttributes.title = (firstHeading.text as string)
+				.replace(/:[a-zA-Z0-9_+-]+:/g, "")
+				.trim();
+		}
+	}
+
+	return { tokens: processedTokens, attributes: finalAttributes };
 }

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from "$app/paths";
 	import type { NavItem } from "./navigation";
 	import Self from "./NavItem.svelte";
 
@@ -11,15 +12,26 @@
 </script>
 
 <li class="nav-item" class:nav-item--top={depth === 0}>
-	<a
-		href={item.href}
-		class="nav-link"
-		class:nav-link--top={depth === 0}
-		class:nav-link--child={depth === 1}
-		class:nav-link--grandchild={depth >= 2}
-	>
-		{item.title}
-	</a>
+	{#if item.hasContent}
+		<a
+			href="{base}{item.href}"
+			class="nav-link"
+			class:nav-link--top={depth === 0}
+			class:nav-link--child={depth === 1}
+			class:nav-link--grandchild={depth >= 2}
+		>
+			{item.title}
+		</a>
+	{:else}
+		<span
+			class="nav-label"
+			class:nav-label--top={depth === 0}
+			class:nav-label--child={depth === 1}
+			class:nav-label--grandchild={depth >= 2}
+		>
+			{item.title}
+		</span>
+	{/if}
 	{#if item.children && item.children.length > 0}
 		<ul
 			class="nav-children"
@@ -64,6 +76,29 @@
 		color: var(--ax-text-default, #f0f6fc);
 		padding: 0.3rem 0.5rem;
 		margin-bottom: 0.125rem;
+	}
+
+	.nav-label {
+		display: block;
+		padding: 0.25rem 0.5rem;
+		color: var(--ax-text-neutral);
+	}
+
+	.nav-label--top {
+		font-weight: 600;
+		font-size: 0.9375rem;
+		padding: 0.3rem 0.5rem;
+		margin-bottom: 0.125rem;
+	}
+
+	.nav-label--child {
+		padding: 0.2rem 0.5rem;
+		font-size: 0.875rem;
+	}
+
+	.nav-label--grandchild {
+		padding: 0.15rem 0.5rem;
+		font-size: 0.8125rem;
 	}
 
 	.nav-link--child {
