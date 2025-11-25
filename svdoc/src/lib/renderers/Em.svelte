@@ -6,7 +6,7 @@
 	let { token }: { token: Tokens.Em } = $props();
 </script>
 
-<BodyShort as="em" size="small">
+<BodyShort as="em">
 	{#if (token.tokens?.length || 0) > 0}
 		<Renderer tokens={token.tokens!} />
 	{:else}

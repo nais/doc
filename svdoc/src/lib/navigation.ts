@@ -5,6 +5,7 @@ import { parse as parseYaml } from "yaml";
 export interface NavItem {
 	title: string;
 	href: string;
+	hasContent: boolean;
 	children?: NavItem[];
 }
 
@@ -116,6 +117,13 @@ async function fileExists(path: string): Promise<boolean> {
 }
 
 /**
+ * Check if a directory has a README.md file
+ */
+async function hasReadme(dirPath: string): Promise<boolean> {
+	return fileExists(`${dirPath}/README.md`);
+}
+
+/**
  * Scan a directory for markdown files and subdirectories
  */
 async function scanDirectory(dirPath: string): Promise<NavEntry[]> {
@@ -206,6 +214,9 @@ async function buildNavForDirectory(dirPath: string, depth: number = 0): Promise
 			// It's a directory - recurse
 			const children = await buildNavForDirectory(fullPath, depth + 1);
 
+			// Check if directory has a README.md (has content)
+			const dirHasContent = await hasReadme(fullPath);
+
 			// Try to get title from README.md if not explicitly set
 			if (title === filenameToTitle(path)) {
 				const readmeTitle = await getMarkdownTitle(`${fullPath}/README.md`);
@@ -217,6 +228,7 @@ async function buildNavForDirectory(dirPath: string, depth: number = 0): Promise
 			items.push({
 				title,
 				href: pathToHref(dirPath, path),
+				hasContent: dirHasContent,
 				children: children.length > 0 ? children : undefined,
 			});
 		} else {
@@ -237,6 +249,7 @@ async function buildNavForDirectory(dirPath: string, depth: number = 0): Promise
 			items.push({
 				title,
 				href: pathToHref(dirPath, path),
+				hasContent: true,
 			});
 		}
 	}
