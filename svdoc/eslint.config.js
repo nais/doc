@@ -22,6 +22,9 @@ export default defineConfig(
 			// typescript-eslint strongly recommend that you do not use the no-undef lint rule on TypeScript projects.
 			// see: https://typescript-eslint.io/troubleshooting/faqs/eslint/#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
 			"no-undef": "off",
+			// We use `base` from $app/paths for navigation hrefs, which is the correct approach
+			// for static links. The resolve() function is meant for dynamic route resolution.
+			"svelte/no-navigation-without-resolve": "off",
 		},
 	},
 	{

@@ -2,7 +2,8 @@
 
 ## Documentation Source
 
-The markdown documentation files are located in the `docs/` directory at the repository root (relative path from svdoc: `../docs/`). 
+The markdown documentation files are located in the `docs/` directory at the repository root (relative path from svdoc: `../docs/`).
+
 ## Architecture
 
 This project implements a custom Svelte-based markdown renderer using the `marked` library. Instead of rendering markdown to HTML strings, we parse it into tokens and render them as Svelte components.
@@ -16,17 +17,22 @@ This project implements a custom Svelte-based markdown renderer using the `marke
 ## Custom Marked Extensions
 
 ### Emoji Extension
+
 Converts `:emoji_name:` shortcodes to native emoji characters (e.g., `:wave:` → 👋). Uses `emoji-name-map` for the conversion. Implemented as an inline tokenizer extension.
 
 ### Footnote Extension
+
 Custom implementation (not using `marked-footnote`) with two parts:
+
 - `footnoteRef` (inline): Parses `[^1]` references
 - `footnote` (block): Parses `[^1]: content` definitions
 
 The `processFootnotes()` function collects all footnote definitions and moves them to the end wrapped in a `footnotes` token.
 
 ### HTML with Markdown Attribute
+
 Material for MkDocs uses `<div class="grid cards" markdown>` to indicate the div's content should be parsed as markdown. The `processHtmlMarkdownBlocks()` function:
+
 1. Detects opening tags with `markdown` attribute
 2. Finds the matching closing tag
 3. Combines into a single `html_with_markdown` token with `openTag`, `closeTag`, and `innerTokens`
@@ -47,6 +53,7 @@ Each markdown token type maps to a Svelte component in `src/lib/renderers/`. The
 ## Design System Integration
 
 Uses `@nais/ds-svelte-community` components where appropriate:
+
 - `Heading` for headings (with dynamic `as` and `size` props)
 - `BodyLong` for paragraphs
 - `Alert` for blockquotes

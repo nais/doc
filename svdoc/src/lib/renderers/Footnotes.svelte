@@ -3,16 +3,16 @@
 	import Footnote from "./Footnote.svelte";
 
 	type FootnoteItem = {
-		type: "footnote";
-		raw: string;
+		// type: "footnote";
+		// raw: string;
 		id: string;
 		label: string;
 		tokens: Token[];
 	};
 
 	type FootnotesToken = {
-		type: "footnotes";
-		raw: string;
+		// type: "footnotes";
+		// raw: string;
 		items: FootnoteItem[];
 	};
 
@@ -22,7 +22,7 @@
 <section class="footnotes" data-footnotes>
 	<hr />
 	<ol>
-		{#each token.items as item, i (item.id)}
+		{#each token.items as item (item.id)}
 			<Footnote token={item} />
 		{/each}
 	</ol>

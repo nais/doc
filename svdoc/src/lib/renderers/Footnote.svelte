@@ -3,8 +3,8 @@
 	import Renderer from "./Renderer.svelte";
 
 	type FootnoteToken = {
-		type: "footnote";
-		raw: string;
+		// type: "footnote";
+		// raw: string;
 		id: string;
 		label: string;
 		tokens: Token[];
