@@ -6,7 +6,7 @@
 	let { token }: { token: Tokens.Table } = $props();
 </script>
 
-<Table>
+<Table zebraStripes>
 	<Thead>
 		<Tr>
 			{#each token.header as cell, i (i)}

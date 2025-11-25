@@ -1,4 +1,5 @@
 import fm from "front-matter";
+import { readdir } from "node:fs/promises";
 import { parse as parseYaml } from "yaml";
 
 export interface NavItem {
@@ -91,22 +92,58 @@ function pathToHref(basePath: string, name: string): string {
 }
 
 /**
- * Check if a path is a directory
+ * Check if a path is a directory using fs
  */
 async function isDirectory(path: string): Promise<boolean> {
 	try {
-		const file = Bun.file(`${path}/.pages`);
-		await file.text();
+		await readdir(path);
 		return true;
 	} catch {
-		// Check if it's a directory by trying to read README.md
-		try {
-			const readme = Bun.file(`${path}/README.md`);
-			await readme.text();
-			return true;
-		} catch {
-			return false;
+		return false;
+	}
+}
+
+/**
+ * Check if a file exists
+ */
+async function fileExists(path: string): Promise<boolean> {
+	try {
+		await Bun.file(path).text();
+		return true;
+	} catch {
+		return false;
+	}
+}
+
+/**
+ * Scan a directory for markdown files and subdirectories
+ */
+async function scanDirectory(dirPath: string): Promise<NavEntry[]> {
+	try {
+		const entries = await readdir(dirPath, { withFileTypes: true });
+		const navEntries: NavEntry[] = [];
+
+		for (const entry of entries) {
+			// Skip hidden files and .pages
+			if (entry.name.startsWith(".")) {
+				continue;
+			}
+
+			if (entry.isDirectory()) {
+				navEntries.push(entry.name);
+			} else if (entry.name.endsWith(".md") && entry.name.toLowerCase() !== "readme.md") {
+				navEntries.push(entry.name);
+			}
 		}
+
+		// Sort alphabetically
+		return navEntries.sort((a, b) => {
+			const nameA = typeof a === "string" ? a : Object.values(a)[0];
+			const nameB = typeof b === "string" ? b : Object.values(b)[0];
+			return nameA.localeCompare(nameB);
+		});
+	} catch {
+		return [];
 	}
 }
 
@@ -114,12 +151,19 @@ async function isDirectory(path: string): Promise<boolean> {
  * Build navigation tree for a directory
  */
 async function buildNavForDirectory(dirPath: string, depth: number = 0): Promise<NavItem[]> {
-	const nav = await readPagesFile(dirPath);
-	const items: NavItem[] = [];
+	// First try to read .pages file, otherwise scan directory
+	let nav = await readPagesFile(dirPath);
 
 	if (!nav) {
-		return items;
+		// No .pages file - scan the directory
+		nav = await scanDirectory(dirPath);
 	}
+
+	if (!nav || nav.length === 0) {
+		return [];
+	}
+
+	const items: NavItem[] = [];
 
 	for (const entry of nav) {
 		// Skip empty entries (separators in mkdocs)
@@ -178,6 +222,11 @@ async function buildNavForDirectory(dirPath: string, depth: number = 0): Promise
 		} else {
 			// It's a file
 			const mdPath = path.endsWith(".md") ? fullPath : `${fullPath}.md`;
+
+			// Check if file exists
+			if (!(await fileExists(mdPath))) {
+				continue;
+			}
 
 			// Try to get title from file
 			const fileTitle = await getMarkdownTitle(mdPath);

@@ -3,11 +3,11 @@
 	import Renderer from "./Renderer.svelte";
 
 	type HtmlWithMarkdownToken = {
-		type: "html_with_markdown";
-		raw: string;
-		text: string;
+		// type: "html_with_markdown";
+		// raw: string;
+		// text: string;
 		openTag: string;
-		closeTag: string;
+		// closeTag: string;
 		innerTokens: Token[];
 	};
 

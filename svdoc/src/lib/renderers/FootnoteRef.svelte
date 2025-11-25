@@ -1,8 +1,8 @@
 <script lang="ts">
 	type FootnoteRefToken = {
-		type: "footnoteRef";
-		raw: string;
-		index: number;
+		// type: "footnoteRef";
+		// raw: string;
+		// index: number;
 		id: string;
 		label: string;
 	};
@@ -10,16 +10,14 @@
 	let { token }: { token: FootnoteRefToken } = $props();
 </script>
 
-<sup class="footnote-ref">
-	<a
+<sup class="footnote-ref"
+	><a
 		id="footnote-ref-{token.id}"
 		href="#footnote-{token.id}"
 		data-footnote-ref
-		aria-describedby="footnote-label"
-	>
-		{token.label}
-	</a>
-</sup>
+		aria-describedby="footnote-label">{token.label}</a
+	></sup
+>
 
 <style>
 	.footnote-ref {
@@ -31,14 +29,6 @@
 	.footnote-ref a {
 		text-decoration: none;
 		color: var(--ax-text-action, #0067c5);
-	}
-
-	.footnote-ref a::before {
-		content: "[";
-	}
-
-	.footnote-ref a::after {
-		content: "]";
 	}
 
 	.footnote-ref a:hover {
