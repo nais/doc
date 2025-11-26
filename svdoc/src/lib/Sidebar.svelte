@@ -1,6 +1,6 @@
 <script lang="ts">
 	import NavItem from "./NavItem.svelte";
-	import type { NavItem as NavItemType } from "./navigation";
+	import type { NavItem as NavItemType } from "./content-store";
 
 	interface Props {
 		items: NavItemType[];

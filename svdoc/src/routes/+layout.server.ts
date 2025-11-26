@@ -1,6 +1,6 @@
-import { buildNavigation } from "$lib/navigation";
+import { contentStore } from "$lib/content-store";
 
 export const load = async () => {
-	const navigation = await buildNavigation();
+	const navigation = await contentStore.getNavigation();
 	return { navigation };
 };

@@ -3,7 +3,7 @@
 	import type { PageProps } from "./$types";
 
 	let { data }: PageProps = $props();
-	const { tag, slug, pages } = $derived(data);
+	const { tag, pages } = $derived(data);
 </script>
 
 <svelte:head>

@@ -1,21 +1,12 @@
 <script lang="ts">
 	import { Tag } from "@nais/ds-svelte-community";
+	import { tagToSlug } from "./utils";
 
 	interface Props {
 		tags: string[];
 	}
 
 	let { tags }: Props = $props();
-
-	/**
-	 * Convert a tag name to a URL-safe slug
-	 */
-	function tagToSlug(tag: string): string {
-		return tag
-			.toLowerCase()
-			.replace(/\s+/g, "-")
-			.replace(/[^a-z0-9-]/g, "");
-	}
 </script>
 
 {#if tags.length > 0}
