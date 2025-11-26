@@ -72,7 +72,7 @@
 
 	.nav-link--top {
 		font-weight: 600;
-		font-size: 0.9375rem;
+		font-size: 1rem;
 		color: var(--ax-text-default, #f0f6fc);
 		padding: 0.3rem 0.5rem;
 		margin-bottom: 0.125rem;
@@ -86,24 +86,24 @@
 
 	.nav-label--top {
 		font-weight: 600;
-		font-size: 0.9375rem;
+		font-size: 1rem;
 		padding: 0.3rem 0.5rem;
 		margin-bottom: 0.125rem;
 	}
 
 	.nav-label--child {
 		padding: 0.2rem 0.5rem;
-		font-size: 0.875rem;
+		font-size: 0.9375rem;
 	}
 
 	.nav-label--grandchild {
 		padding: 0.15rem 0.5rem;
-		font-size: 0.8125rem;
+		font-size: 0.9375rem;
 	}
 
 	.nav-link--child {
 		padding: 0.2rem 0.5rem;
-		font-size: 0.875rem;
+		font-size: 0.9375rem;
 		color: var(--ax-text-subtle, #8b949e);
 	}
 
@@ -113,7 +113,7 @@
 
 	.nav-link--grandchild {
 		padding: 0.15rem 0.5rem;
-		font-size: 0.8125rem;
+		font-size: 0.9375rem;
 		color: var(--ax-text-subtle, #6e7681);
 	}
 
