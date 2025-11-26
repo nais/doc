@@ -3,20 +3,18 @@
 	import type { Token } from "marked";
 	import Renderer from "./Renderer.svelte";
 
-	interface ContentTabToken {
-		type: "content_tab";
-		raw: string;
+	interface ContentTab {
 		label: string;
 		tokens: Token[];
 	}
 
-	interface ContentTabsToken {
-		type: "content_tabs";
-		raw: string;
-		tabs: ContentTabToken[];
+	interface Props {
+		token: {
+			tabs: ContentTab[];
+		};
 	}
 
-	let { token }: { token: ContentTabsToken } = $props();
+	let { token }: Props = $props();
 
 	// Default to first tab
 	let activeTab = $state(token.tabs[0]?.label ?? "");

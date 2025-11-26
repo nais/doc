@@ -1,6 +1,7 @@
 import fm from "front-matter";
 import { readdir } from "node:fs/promises";
 import { parse as parseYaml } from "yaml";
+import { IGNORED_DIRECTORIES } from "./constants";
 
 export interface NavItem {
 	title: string;
@@ -41,9 +42,6 @@ async function isHiddenDirectory(dirPath: string): Promise<boolean> {
 	const pagesFile = await readPagesFile(dirPath);
 	return pagesFile?.hide === true;
 }
-
-// Directories to ignore (no markdown content)
-const IGNORED_DIRECTORIES = new Set(["assets", "css", "material_theme_stylesheet_overrides"]);
 
 /**
  * Get all files and directories in a directory

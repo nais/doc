@@ -246,10 +246,12 @@
 						onmouseenter={() => (selectedIndex = i)}
 					>
 						<div class="result-title">
+							<!-- eslint-disable-next-line svelte/no-at-html-tags -- Content is escaped via escapeHtml(), only <mark> tags are injected -->
 							{@html highlightMatch(doc.title, searchQuery)}
 						</div>
 						<div class="result-path">{doc.path}</div>
 						<div class="result-snippet">
+							<!-- eslint-disable-next-line svelte/no-at-html-tags -- Content is escaped via escapeHtml(), only <mark> tags are injected -->
 							{@html highlightMatch(getSnippet(doc, searchQuery), searchQuery)}
 						</div>
 					</button>

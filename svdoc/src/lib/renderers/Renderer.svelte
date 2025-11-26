@@ -30,47 +30,43 @@
 	import Table from "./Table.svelte";
 	import Text from "./Text.svelte";
 
-	let {
-		tokens,
-	}: {
+	interface Props {
 		tokens: TokensList | Token[];
-	} = $props();
+	}
 
-	const components: {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		[key: Token["type"]]: Component<any>;
-	} = {
-		admonition: Admonition as never,
-		blockquote: Blockquote as never,
-		checkbox: Checkbox as never,
-		content_tabs: ContentTabs as never,
-		def: Def as never,
-		br: Br as never,
-		code: Code as never,
-		codespan: Codespan as never,
-		del: Del as never,
-		em: Em as never,
-		escape: Escape as never,
-		footnote: Footnote as never,
-		footnoteRef: FootnoteRef as never,
-		footnotes: Footnotes as never,
-		heading: Heading as never,
-		highlighted_code: HighlightedCode as never,
+	let { tokens }: Props = $props();
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const components: Record<string, Component<any>> = {
+		admonition: Admonition,
+		blockquote: Blockquote,
+		br: Br,
+		checkbox: Checkbox,
+		code: Code,
+		codespan: Codespan,
+		content_tabs: ContentTabs,
+		def: Def,
+		del: Del,
+		em: Em,
+		escape: Escape,
+		footnote: Footnote,
+		footnoteRef: FootnoteRef,
+		footnotes: Footnotes,
+		heading: Heading,
+		highlighted_code: HighlightedCode,
 		hr: HR,
-		html: HTML as never,
-		html_with_markdown: HtmlWithMarkdown as never,
-		image: Image as never,
-		link: Link as never,
-		list: List as never,
-		list_item: ListItem as never,
-		paragraph: Paragraph as never,
-		space: Space as never,
-		strong: Strong as never,
-		table: Table as never,
-		text: Text as never,
+		html: HTML,
+		html_with_markdown: HtmlWithMarkdown,
+		image: Image,
+		link: Link,
+		list: List,
+		list_item: ListItem,
+		paragraph: Paragraph,
+		space: Space,
+		strong: Strong,
+		table: Table,
+		text: Text,
 	};
-
-	// $inspect(tokens);
 </script>
 
 {#each tokens as token, i (i)}
@@ -78,13 +74,17 @@
 		{@const Component = components[token.type]}
 		<Component {token} />
 	{:else}
-		<div class="error">Unknown token type: {token.type}</div>
+		<div class="unknown-token">Unknown token type: {token.type}</div>
 	{/if}
 {/each}
 
 <style>
-	.error {
-		color: red;
+	.unknown-token {
+		color: var(--ax-text-danger, #ec526e);
 		font-weight: bold;
+		padding: 0.5rem;
+		background: var(--ax-bg-danger-soft, rgba(236, 82, 110, 0.1));
+		border-radius: 4px;
+		margin: 0.5rem 0;
 	}
 </style>

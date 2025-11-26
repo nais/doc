@@ -24,7 +24,7 @@
 </article>
 
 {#if showToc}
-	<aside class="toc-container">
+	<aside class="toc-container scrollbar-thin">
 		<TableOfContents {tokens} />
 	</aside>
 {/if}
@@ -42,67 +42,11 @@
 		width: 220px;
 		max-height: calc(100vh - 48px - 3rem);
 		overflow-y: auto;
-
-		/* Firefox scrollbar */
-		scrollbar-width: thin;
-		scrollbar-color: var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.3)) transparent;
-	}
-
-	.toc-container::-webkit-scrollbar {
-		width: 4px;
-	}
-
-	.toc-container::-webkit-scrollbar-track {
-		background: transparent;
-	}
-
-	.toc-container::-webkit-scrollbar-thumb {
-		background-color: var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.3));
-		border-radius: 2px;
 	}
 
 	@media (max-width: 1300px) {
 		.toc-container {
 			display: none;
 		}
-	}
-
-	/* Grid cards styling for Material for MkDocs compatibility */
-	:global(.md-content .grid.cards ul) {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 1rem;
-		list-style: none;
-		padding: 0;
-		margin: 1.5rem 0;
-	}
-
-	@media (max-width: 600px) {
-		:global(.md-content .grid.cards ul) {
-			grid-template-columns: 1fr;
-		}
-	}
-
-	:global(.md-content .grid.cards li .aksel-list__item-marker) {
-		display: none;
-	}
-
-	:global(.md-content .grid.cards li) {
-		padding: 1rem;
-		border: 1px solid var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.3));
-		border-radius: 0.5rem;
-		background-color: var(--ax-bg-neutral-soft, rgba(175, 184, 193, 0.05));
-		transition: all 0.2s;
-	}
-
-	:global(.md-content .grid.cards li:hover) {
-		border-color: var(--ax-border-accent, rgba(0, 103, 197, 0.5));
-		background-color: var(--ax-bg-accent-soft, rgba(0, 103, 197, 0.1));
-		transform: translateY(-2px);
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	}
-
-	:global(.md-content .grid.cards li .twemoji) {
-		margin-right: 0.5rem;
 	}
 </style>

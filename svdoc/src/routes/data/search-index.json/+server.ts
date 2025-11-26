@@ -3,6 +3,13 @@ import { readdir } from "node:fs/promises";
 import { resolve } from "node:path";
 import fm from "front-matter";
 import type { RequestHandler } from "./$types";
+import { IGNORED_DIRECTORIES } from "$lib/constants";
+import {
+	extractHeadings,
+	extractTitle,
+	stripMarkdown,
+	type Heading,
+} from "$lib/helpers/markdown-utils";
 
 // Resolve the docs directory relative to project root
 // process.cwd() in SvelteKit points to the project root (svdoc/)
@@ -12,7 +19,7 @@ interface SearchDocument {
 	id: string;
 	title: string;
 	path: string;
-	headings: { text: string; id: string; level: number }[];
+	headings: Heading[];
 	content: string;
 }
 
@@ -21,104 +28,6 @@ interface DocAttributes {
 	description?: string;
 	tags?: string[];
 	hide?: string[];
-}
-
-// Directories to ignore
-const IGNORED_DIRECTORIES = new Set(["assets", "css", "material_theme_stylesheet_overrides"]);
-
-/**
- * Strip markdown formatting from text
- */
-function stripMarkdown(text: string): string {
-	return (
-		text
-			// Remove code blocks
-			.replace(/```[\s\S]*?```/g, "")
-			// Remove inline code
-			.replace(/`[^`]+`/g, "")
-			// Remove images
-			.replace(/!\[[^\]]*\]\([^)]+\)/g, "")
-			// Remove links but keep text
-			.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-			// Remove HTML tags
-			.replace(/<[^>]+>/g, "")
-			// Remove admonitions markers
-			.replace(/^[!?]{3}\+?\s+\w+(?:\s+"[^"]*")?\s*$/gm, "")
-			// Remove content tab markers
-			.replace(/^===\s+"[^"]+"\s*$/gm, "")
-			// Remove emphasis
-			.replace(/\*\*([^*]+)\*\*/g, "$1")
-			.replace(/\*([^*]+)\*/g, "$1")
-			.replace(/__([^_]+)__/g, "$1")
-			.replace(/_([^_]+)_/g, "$1")
-			// Remove emoji shortcodes
-			.replace(/:[a-zA-Z0-9_+-]+:/g, "")
-			// Remove heading markers
-			.replace(/^#+\s+/gm, "")
-			// Normalize whitespace
-			.replace(/\s+/g, " ")
-			.trim()
-	);
-}
-
-/**
- * Generate a slug from heading text for anchor IDs
- */
-function slugify(text: string): string {
-	return text
-		.toLowerCase()
-		.replace(/:[a-zA-Z0-9_+-]+:/g, "") // Remove emoji shortcodes
-		.replace(/[^\w\s-]/g, "") // Remove special chars
-		.replace(/\s+/g, "-") // Replace spaces with dashes
-		.replace(/-+/g, "-") // Collapse multiple dashes
-		.trim();
-}
-
-/**
- * Extract headings from markdown content
- */
-function extractHeadings(content: string): { text: string; id: string; level: number }[] {
-	const headingRegex = /^(#{1,6})\s+(.+)$/gm;
-	const headings: { text: string; id: string; level: number }[] = [];
-	let match;
-
-	while ((match = headingRegex.exec(content)) !== null) {
-		const level = match[1].length;
-		const text = match[2]
-			.replace(/:[a-zA-Z0-9_+-]+:/g, "") // Remove emoji
-			.replace(/\*\*([^*]+)\*\*/g, "$1") // Remove bold
-			.trim();
-
-		if (text) {
-			headings.push({
-				text,
-				id: slugify(text),
-				level,
-			});
-		}
-	}
-
-	return headings;
-}
-
-/**
- * Get title from markdown content
- */
-function extractTitle(attributes: DocAttributes, content: string): string {
-	if (attributes.title) {
-		return attributes.title;
-	}
-
-	// Try first heading
-	const headingMatch = content.match(/^#\s+(.+)$/m);
-	if (headingMatch) {
-		return headingMatch[1]
-			.replace(/:[a-zA-Z0-9_+-]+:/g, "")
-			.replace(/\*\*/g, "")
-			.trim();
-	}
-
-	return "Untitled";
 }
 
 /**
