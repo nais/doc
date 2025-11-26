@@ -10,6 +10,39 @@ export interface NavItem {
 	hasContent: boolean;
 }
 
+/**
+ * Extract all paths from a navigation tree (for static site generation)
+ */
+function extractPaths(items: NavItem[]): string[] {
+	const paths: string[] = [];
+
+	for (const item of items) {
+		// Add this item's path (remove leading slash for route params)
+		const path = item.href.replace(/^\//, "");
+		paths.push(path);
+
+		// Recursively extract paths from children
+		if (item.children) {
+			paths.push(...extractPaths(item.children));
+		}
+	}
+
+	return paths;
+}
+
+/**
+ * Get all page paths for static prerendering
+ */
+export async function getAllPaths(): Promise<string[]> {
+	const navigation = await buildNavigation();
+	const paths = extractPaths(navigation);
+
+	// Add root path (empty string maps to /)
+	paths.unshift("");
+
+	return paths;
+}
+
 export interface NavAttributes {
 	title?: string;
 }
