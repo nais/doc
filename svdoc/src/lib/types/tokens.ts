@@ -100,6 +100,35 @@ export interface CodeAnnotation {
 }
 
 /**
+ * Definition list item (term + definitions)
+ */
+export interface DefinitionListItemToken {
+	type: "def_list_item";
+	raw: string;
+	term: string;
+	termTokens: Token[];
+	definitions: DefinitionToken[];
+}
+
+/**
+ * Single definition in a definition list
+ */
+export interface DefinitionToken {
+	type: "definition";
+	raw: string;
+	tokens: Token[];
+}
+
+/**
+ * Definition list container
+ */
+export interface DefinitionListToken {
+	type: "def_list";
+	raw: string;
+	items: DefinitionListItemToken[];
+}
+
+/**
  * Frontmatter attributes extracted from markdown files
  */
 export interface Attributes {

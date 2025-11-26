@@ -8,6 +8,9 @@ import type {
 	Attributes,
 	ContentTabsToken,
 	ContentTabToken,
+	DefinitionListToken,
+	DefinitionListItemToken,
+	DefinitionToken,
 	FootnoteToken,
 	HighlightedCodeToken,
 } from "./types/tokens";
@@ -198,6 +201,120 @@ function createMarkedInstance(): Marked {
 						this.lexer.inline(content, token.tokens);
 						return token;
 					}
+					return undefined;
+				},
+			},
+			// Definition list extension for Material for MkDocs syntax
+			// Syntax:
+			// `term`
+			// :   Definition text
+			{
+				name: "def_list",
+				level: "block",
+				start(src) {
+					// Look for a line followed by :   (colon + 3 spaces)
+					const match = src.match(/^[^\n]+\n\n?: {3}/m);
+					return match ? match.index : undefined;
+				},
+				tokenizer(src) {
+					// Match definition list items
+					// Term is on its own line (can be inline formatted like `code`)
+					// Definition starts with :   (colon + 3 spaces)
+					// Multiple definitions can follow the same term
+					// Continuation lines are indented with 4 spaces
+
+					const items: DefinitionListItemToken[] = [];
+					let remaining = src;
+					let fullRaw = "";
+
+					// Pattern for a term followed by one or more definitions
+					// Term: any non-empty line
+					// Definition: starts with :   (colon + 3 spaces)
+					const termPattern = /^([^\n]+)\n\n?(?=: {3})/;
+					const defPattern = /^: {3}([\s\S]*?)(?=\n: {3}|\n[^\s\n]|\n\n[^\s]|\n*$)/;
+
+					let termMatch = termPattern.exec(remaining);
+					while (termMatch) {
+						const termRaw = termMatch[0];
+						const termText = termMatch[1].trim();
+
+						remaining = remaining.slice(termMatch[0].length);
+						let itemRaw = termRaw;
+
+						const definitions: DefinitionToken[] = [];
+
+						// Match all definitions for this term
+						let defMatch = defPattern.exec(remaining);
+						while (defMatch) {
+							const defRaw = defMatch[0];
+							let defContent = defMatch[1];
+
+							// Handle continuation lines (indented with 4 spaces)
+							defContent = defContent
+								.split("\n")
+								.map((line) => (line.startsWith("    ") ? line.slice(4) : line))
+								.join("\n")
+								.trim();
+
+							const defToken: DefinitionToken = {
+								type: "definition",
+								raw: defRaw,
+								tokens: [],
+							};
+
+							// Parse definition content as markdown
+							this.lexer.blockTokens(defContent, defToken.tokens);
+
+							definitions.push(defToken);
+							itemRaw += defRaw;
+							remaining = remaining.slice(defRaw.length);
+
+							// Check for another definition (starts with :   )
+							if (remaining.startsWith(":   ")) {
+								defMatch = defPattern.exec(remaining);
+							} else {
+								break;
+							}
+						}
+
+						if (definitions.length > 0) {
+							const itemToken: DefinitionListItemToken = {
+								type: "def_list_item",
+								raw: itemRaw,
+								term: termText,
+								termTokens: [],
+								definitions,
+							};
+
+							// Parse term as inline tokens
+							this.lexer.inline(termText, itemToken.termTokens);
+
+							items.push(itemToken);
+							fullRaw += itemRaw;
+						} else {
+							// No definitions found, not a valid definition list item
+							break;
+						}
+
+						// Skip any blank lines between items
+						const blankMatch = /^\n*/.exec(remaining);
+						if (blankMatch && blankMatch[0]) {
+							fullRaw += blankMatch[0];
+							remaining = remaining.slice(blankMatch[0].length);
+						}
+
+						// Check for another term
+						termMatch = termPattern.exec(remaining);
+					}
+
+					if (items.length > 0) {
+						return {
+							type: "def_list",
+							raw: fullRaw,
+							items,
+						} as DefinitionListToken;
+					}
+
 					return undefined;
 				},
 			},
