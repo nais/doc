@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Renderer from "$lib/renderers/Renderer.svelte";
+	import { setupContext } from "$lib/state/page_context.svelte";
 	import TableOfContents from "$lib/TableOfContents.svelte";
 	import Tags from "$lib/Tags.svelte";
 	import type { PageProps } from "./$types";
@@ -10,6 +11,8 @@
 	const tags = $derived(attributes?.tags ?? []);
 	const hideItems = $derived(attributes?.hide ?? []);
 	const showToc = $derived(!hideItems.includes("toc"));
+
+	setupContext();
 </script>
 
 <svelte:head>
