@@ -2,6 +2,20 @@ import emojiNameMap from "emoji-name-map";
 import fm from "front-matter";
 import { Marked, type Token, type TokensList } from "marked";
 
+/**
+ * Admonition token for Material for MkDocs style admonitions
+ * Syntax: !!! type "title" or ??? type "title" (collapsible) or ???+ type "title" (collapsible, open)
+ */
+export interface AdmonitionToken {
+	type: "admonition";
+	raw: string;
+	admonitionType: string;
+	title: string;
+	collapsible: boolean;
+	open: boolean;
+	tokens: Token[];
+}
+
 export interface Attributes {
 	title?: string;
 	description?: string;
@@ -39,6 +53,55 @@ function createMarkedInstance(): Marked {
 	// Add emoji extension
 	marked.use({
 		extensions: [
+			// Admonition extension for Material for MkDocs syntax
+			{
+				name: "admonition",
+				level: "block",
+				start(src) {
+					const match = src.match(/^[!?]{3}/m);
+					return match ? match.index : undefined;
+				},
+				tokenizer(src) {
+					// Match !!! type "title", ??? type "title", or ???+ type "title"
+					// Content is indented by 4 spaces
+					const rule =
+						/^([!?]{3})(\+)?\s+(\w+)(?:\s+"([^"]*)")?\s*\n((?:(?:    |\t).*(?:\n|$)|\s*\n)*)/;
+					const match = rule.exec(src);
+
+					if (match) {
+						const marker = match[1];
+						const plusSign = match[2];
+						const admonitionType = match[3];
+						const title =
+							match[4] || admonitionType.charAt(0).toUpperCase() + admonitionType.slice(1);
+						const rawContent = match[5];
+
+						// Remove 4-space or tab indent from content
+						const content = rawContent
+							.split("\n")
+							.map((line) => line.replace(/^(?:    |\t)/, ""))
+							.join("\n")
+							.trim();
+
+						const token: AdmonitionToken = {
+							type: "admonition",
+							raw: match[0],
+							admonitionType: admonitionType.toLowerCase(),
+							title,
+							collapsible: marker === "???",
+							open: marker === "!!!" || plusSign === "+",
+							tokens: [],
+						};
+
+						// Parse the content as markdown
+						this.lexer.blockTokens(content, token.tokens);
+
+						return token;
+					}
+
+					return undefined;
+				},
+			},
 			{
 				name: "emoji",
 				level: "inline",
