@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { base } from "$app/paths";
 	import type { NavItem } from "./content-store";
 	import Self from "./NavItem.svelte";
 
@@ -14,7 +13,7 @@
 <li class="nav-item" class:nav-item--top={depth === 0}>
 	{#if item.hasContent}
 		<a
-			href="{base}{item.href}"
+			href={item.href}
 			class="nav-link"
 			class:nav-link--top={depth === 0}
 			class:nav-link--child={depth === 1}

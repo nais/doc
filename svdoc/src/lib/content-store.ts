@@ -140,6 +140,18 @@ function filenameToTitle(name: string): string {
 		.join(" ");
 }
 
+// Get base path from environment variable (set in svelte.config.js)
+const BASE_PATH = process.env.BASE_PATH || "";
+
+/**
+ * Prefix a path with the configured base path
+ */
+function withBase(path: string): string {
+	if (!BASE_PATH) return path;
+	const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+	return `${BASE_PATH}${normalizedPath}`.replace(/\/+/g, "/");
+}
+
 /**
  * Convert a file/directory path to a URL href
  */
@@ -147,11 +159,14 @@ function pathToHref(basePath: string, name: string): string {
 	const cleanBase = basePath.replace(DOCS_DIR, "").replace(/\/$/, "");
 	const cleanName = name.replace(/\.md$/, "").replace(/README$/i, "");
 
+	let href: string;
 	if (cleanName === "") {
-		return cleanBase || "/";
+		href = cleanBase || "/";
+	} else {
+		href = `${cleanBase}/${cleanName}`.replace(/\/+/g, "/");
 	}
 
-	return `${cleanBase}/${cleanName}`.replace(/\/+/g, "/");
+	return withBase(href);
 }
 
 /**
@@ -293,7 +308,7 @@ class ContentStore {
 				const pages = this.tagPages.get(slug) || [];
 				pages.push({
 					title: doc.title,
-					path: doc.urlPath,
+					path: withBase(doc.urlPath),
 					description: doc.description,
 				});
 				this.tagPages.set(slug, pages);
@@ -473,7 +488,7 @@ class ContentStore {
 			documents.push({
 				id: doc.filePath,
 				title: doc.title,
-				path: doc.urlPath,
+				path: withBase(doc.urlPath),
 				headings: doc.headings,
 				content: doc.searchContent,
 			});
@@ -488,7 +503,12 @@ class ContentStore {
 		const paths: string[] = [];
 
 		for (const item of items) {
-			const path = item.href.replace(/^\//, "");
+			// Strip the base path prefix if present, then remove leading slash
+			let path = item.href;
+			if (BASE_PATH && path.startsWith(BASE_PATH)) {
+				path = path.slice(BASE_PATH.length);
+			}
+			path = path.replace(/^\//, "");
 			paths.push(path);
 
 			if (item.children) {

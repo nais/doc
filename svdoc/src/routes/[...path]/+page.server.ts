@@ -68,7 +68,7 @@ export const load: PageServerLoad = async ({ params }) => {
 	// Check if there's a redirect for this path
 	const redirectTarget = getRedirectTarget(path);
 	if (redirectTarget) {
-		redirect(301, redirectTarget);
+		redirect(307, redirectTarget);
 	}
 
 	// Nothing found - throw 404
