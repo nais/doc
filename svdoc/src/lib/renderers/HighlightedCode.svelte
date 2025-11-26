@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { computePosition, flip, offset, shift } from "@floating-ui/dom";
 	import { CopyButton } from "@nais/ds-svelte-community";
 	import type { Token } from "marked";
 	import { onMount } from "svelte";
@@ -28,26 +29,60 @@
 	let codeContainer: HTMLDivElement | undefined = $state();
 	let annotationSourceContainer: HTMLDivElement | undefined = $state();
 
-	// After mount, inject annotation content into the popup placeholders
+	// Position a popover relative to its trigger button using Floating UI
+	function positionPopover(button: HTMLElement, popover: HTMLElement) {
+		computePosition(button, popover, {
+			placement: "bottom-start",
+			middleware: [offset(8), flip(), shift({ padding: 8 })],
+		}).then(({ x, y }) => {
+			Object.assign(popover.style, {
+				left: `${x}px`,
+				top: `${y}px`,
+			});
+		});
+	}
+
+	// After mount, inject annotation content and set up popover positioning
 	onMount(() => {
 		if (!codeContainer || !annotationSourceContainer || !hasAnnotations) return;
 
 		// Wait a tick for content to render
 		requestAnimationFrame(() => {
-			// For each annotation, find its rendered content and inject into popup
+			// For each annotation, find its rendered content and inject into popover
 			token.annotations.forEach((annotation) => {
 				const source = annotationSourceContainer?.querySelector(
 					`[data-annotation-id="${annotation.id}"]`,
 				);
-				const popups = codeContainer?.querySelectorAll(
+				const popovers = codeContainer?.querySelectorAll(
 					`[data-annotation-content="${annotation.id}"]`,
 				);
 
-				if (source && popups) {
-					popups.forEach((popup) => {
-						popup.innerHTML = source.innerHTML;
+				if (source && popovers) {
+					popovers.forEach((popover) => {
+						popover.innerHTML = source.innerHTML;
 					});
 				}
+			});
+
+			// Set up popover positioning for all annotation buttons
+			const buttons = codeContainer?.querySelectorAll<HTMLButtonElement>(
+				".code-annotation-marker[popovertarget]",
+			);
+
+			buttons?.forEach((button) => {
+				const popoverId = button.getAttribute("popovertarget");
+				if (!popoverId) return;
+
+				const popover = document.getElementById(popoverId) as HTMLElement | null;
+				if (!popover) return;
+
+				// Position on toggle (when popover opens)
+				popover.addEventListener("toggle", (e: Event) => {
+					const event = e as ToggleEvent;
+					if (event.newState === "open") {
+						positionPopover(button, popover);
+					}
+				});
 			});
 		});
 	});
@@ -136,17 +171,7 @@
 
 	.code-content {
 		overflow-x: auto;
-		overflow-y: visible;
 		position: relative;
-	}
-
-	/* Ensure pre allows popup overflow */
-	.code-content :global(pre) {
-		overflow: visible !important;
-	}
-
-	.code-content :global(code) {
-		overflow: visible;
 	}
 
 	/* Theme switching */
@@ -209,15 +234,14 @@
 		background-color: #161b22 !important;
 	}
 
-	/* ===== Code Annotation Styles (twoslash-inspired) ===== */
+	/* ===== Code Annotation Styles (Popover API) ===== */
 	.code-content :global(.code-annotation) {
-		position: relative;
 		display: inline-flex;
 		align-items: center;
 		margin-left: 0.5rem;
 	}
 
-	/* The circled number marker */
+	/* The circled number marker button */
 	.code-content :global(.code-annotation-marker) {
 		display: inline-flex;
 		align-items: center;
@@ -233,6 +257,7 @@
 		transition: all 0.15s ease;
 		border: none;
 		outline: none;
+		padding: 0;
 	}
 
 	.code-content :global(.code-annotation-marker:hover),
@@ -241,57 +266,14 @@
 		transform: scale(1.1);
 	}
 
-	/* The popup container */
-	.code-content :global(.code-annotation-popup) {
+	/* Popover element - renders in top layer, positioned by Floating UI */
+	:global(.code-annotation-popover) {
+		/* Reset default popover centering - Floating UI handles positioning */
+		margin: 0;
 		position: absolute;
-		left: 0;
-		top: 100%;
-		transform: translateX(-25%);
-		margin-top: 0.5rem;
-		opacity: 0;
-		visibility: hidden;
-		pointer-events: none;
-		transition:
-			opacity 0.2s ease,
-			visibility 0.2s ease;
-		z-index: 100;
-		/* Ensure popup stays in viewport */
-		max-width: min(400px, 90vw);
-	}
 
-	/* Show popup on hover/focus */
-	.code-content :global(.code-annotation:hover .code-annotation-popup),
-	.code-content :global(.code-annotation:focus-within .code-annotation-popup) {
-		opacity: 1;
-		visibility: visible;
-		pointer-events: auto;
-	}
-
-	/* Popup arrow */
-	.code-content :global(.code-annotation-popup-arrow) {
-		position: absolute;
-		top: -6px;
-		left: 1.5rem;
-		transform: rotate(45deg);
-		width: 12px;
-		height: 12px;
-		background: var(--ax-bg-default, #fff);
-		border-top: 1px solid var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.3));
-		border-left: 1px solid var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.3));
-		z-index: -1;
-	}
-
-	:global(.dark) .code-content :global(.code-annotation-popup-arrow) {
-		background: #1e2530;
-		border-color: rgba(175, 184, 193, 0.2);
-	}
-
-	/* Popup content */
-	.code-content :global(.code-annotation-popup-content) {
-		display: block;
 		min-width: 220px;
 		max-width: 400px;
-		width: max-content;
 		padding: 0.75rem 1rem;
 		background: var(--ax-bg-default, #fff);
 		border: 1px solid var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.3));
@@ -307,34 +289,34 @@
 			-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 	}
 
-	:global(.dark) .code-content :global(.code-annotation-popup-content) {
+	:global(.dark .code-annotation-popover) {
 		background: #1e2530;
 		border-color: rgba(175, 184, 193, 0.2);
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 	}
 
-	/* Style content inside popup */
-	.code-content :global(.code-annotation-popup-content p) {
+	/* Style content inside popover */
+	:global(.code-annotation-popover p) {
 		margin: 0 0 0.5rem 0;
 	}
 
-	.code-content :global(.code-annotation-popup-content p:last-child) {
+	:global(.code-annotation-popover p:last-child) {
 		margin-bottom: 0;
 	}
 
-	.code-content :global(.code-annotation-popup-content code) {
+	:global(.code-annotation-popover code) {
 		font-size: 0.8rem;
 		padding: 0.15rem 0.35rem;
 		background: var(--ax-bg-neutral-soft, rgba(175, 184, 193, 0.15));
 		border-radius: 0.25rem;
 	}
 
-	.code-content :global(.code-annotation-popup-content a) {
+	:global(.code-annotation-popover a) {
 		color: var(--ax-text-info, #5a8fae);
 		text-decoration: none;
 	}
 
-	.code-content :global(.code-annotation-popup-content a:hover) {
+	:global(.code-annotation-popover a:hover) {
 		text-decoration: underline;
 	}
 </style>
