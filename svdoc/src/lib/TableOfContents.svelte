@@ -62,30 +62,8 @@
 
 <style>
 	.toc {
-		position: sticky;
-		top: calc(48px + 1.5rem);
-		max-height: calc(100vh - 48px - 3rem);
-		overflow-y: auto;
 		padding: 1rem;
 		font-size: 0.875rem;
-
-		/* Firefox scrollbar */
-		scrollbar-width: thin;
-		scrollbar-color: var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.3)) transparent;
-	}
-
-	/* Webkit scrollbar styling */
-	.toc::-webkit-scrollbar {
-		width: 4px;
-	}
-
-	.toc::-webkit-scrollbar-track {
-		background: transparent;
-	}
-
-	.toc::-webkit-scrollbar-thumb {
-		background-color: var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.3));
-		border-radius: 2px;
 	}
 
 	.toc-title {

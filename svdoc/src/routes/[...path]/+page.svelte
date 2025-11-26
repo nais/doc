@@ -16,39 +16,52 @@
 	<title>{pageTitle}</title>
 </svelte:head>
 
-<div class="page-container">
-	<article class="md-content">
-		{#if tags.length > 0}
-			<Tags {tags} />
-		{/if}
-		<Renderer {tokens} />
-	</article>
-	{#if showToc}
-		<aside class="toc-container">
-			<TableOfContents {tokens} />
-		</aside>
+<article class="md-content">
+	{#if tags.length > 0}
+		<Tags {tags} />
 	{/if}
-</div>
+	<Renderer {tokens} />
+</article>
+
+{#if showToc}
+	<aside class="toc-container">
+		<TableOfContents {tokens} />
+	</aside>
+{/if}
 
 <style>
-	.page-container {
-		display: flex;
-		gap: 2rem;
-	}
-
 	.md-content {
-		flex: 1;
-		min-width: 0;
 		padding: 2rem;
 		max-width: 100%;
 	}
 
 	.toc-container {
+		position: fixed;
+		top: calc(48px + 1.5rem);
+		right: 2rem;
 		width: 220px;
-		flex-shrink: 0;
+		max-height: calc(100vh - 48px - 3rem);
+		overflow-y: auto;
+
+		/* Firefox scrollbar */
+		scrollbar-width: thin;
+		scrollbar-color: var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.3)) transparent;
 	}
 
-	@media (max-width: 1100px) {
+	.toc-container::-webkit-scrollbar {
+		width: 4px;
+	}
+
+	.toc-container::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	.toc-container::-webkit-scrollbar-thumb {
+		background-color: var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.3));
+		border-radius: 2px;
+	}
+
+	@media (max-width: 1300px) {
 		.toc-container {
 			display: none;
 		}

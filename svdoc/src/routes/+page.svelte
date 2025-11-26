@@ -16,13 +16,14 @@
 	<title>{pageTitle}</title>
 </svelte:head>
 
-<div class="page-container">
+<div class="content-wrapper">
 	<article class="md-content">
 		{#if tags.length > 0}
 			<Tags {tags} />
 		{/if}
 		<Renderer {tokens} />
 	</article>
+
 	{#if showToc}
 		<aside class="toc-container">
 			<TableOfContents {tokens} />
@@ -31,24 +32,52 @@
 </div>
 
 <style>
-	.page-container {
+	.content-wrapper {
 		display: flex;
-		gap: 2rem;
+		gap: 1rem;
 	}
 
 	.md-content {
+		padding: 2rem;
+		padding-right: 240px;
 		flex: 1;
 		min-width: 0;
-		padding: 2rem;
-		max-width: 100%;
+	}
+
+	@media (max-width: 1300px) {
+		.md-content {
+			padding-right: 2rem;
+		}
 	}
 
 	.toc-container {
+		position: sticky;
+		top: calc(48px + 1.5rem);
 		width: 220px;
+		max-height: calc(100vh - 48px - 3rem);
+		overflow-y: auto;
 		flex-shrink: 0;
+		align-self: flex-start;
+
+		/* Firefox scrollbar */
+		scrollbar-width: thin;
+		scrollbar-color: var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.3)) transparent;
 	}
 
-	@media (max-width: 1100px) {
+	.toc-container::-webkit-scrollbar {
+		width: 4px;
+	}
+
+	.toc-container::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	.toc-container::-webkit-scrollbar-thumb {
+		background-color: var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.3));
+		border-radius: 2px;
+	}
+
+	@media (max-width: 1300px) {
 		.toc-container {
 			display: none;
 		}
