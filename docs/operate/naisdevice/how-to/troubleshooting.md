@@ -46,3 +46,7 @@ Restart your default browser.
 {%- endif %}
 - Try adding an exception: Windows Security / Virus & threat protection / Exclusions.
 - Someone reported that running naisdevice.exe from cmd.exe can help.
+- Sometimes the installer gets blocked. To unblock it, follow these steps:
+  ![Right click the installer and click preferences](../../../assets/naisdevice-unblock-1.png)
+  ![Check the box to remove the block](../../../assets/naisdevice-unblock-2.png)
+  ![Click OK](../../../assets/naisdevice-unblock-3.png)
