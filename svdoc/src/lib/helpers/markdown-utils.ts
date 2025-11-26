@@ -21,6 +21,7 @@ export function slugify(text: string): string {
  * Useful for search indexing and excerpts.
  */
 export function stripMarkdown(text: string): string {
+	// TODO(thokra): Let's use something other than regex for this in the future
 	return (
 		text
 			// Remove code blocks
