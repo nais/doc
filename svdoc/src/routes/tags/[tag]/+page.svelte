@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from "$app/paths";
 	import { Tag } from "@nais/ds-svelte-community";
 	import type { PageProps } from "./$types";
 
@@ -12,7 +13,7 @@
 
 <article class="tag-page">
 	<div class="header">
-		<a href="/tags" class="back-link">← All tags</a>
+		<a href={resolve("/tags")} class="back-link">← All tags</a>
 		<div class="title-row">
 			<h1>
 				<Tag variant="alt3-moderate" size="small">{tag}</Tag>

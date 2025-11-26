@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from "$app/paths";
 	import { Tag } from "@nais/ds-svelte-community";
 	import { tagToSlug } from "./utils";
 
@@ -12,7 +13,7 @@
 {#if tags.length > 0}
 	<div class="tags">
 		{#each tags as tag (tag)}
-			<a href="/tags/{tagToSlug(tag)}" class="tag-link">
+			<a href={resolve("/tags/[tag]", { tag: tagToSlug(tag) })} class="tag-link">
 				<Tag variant="alt3-moderate" size="small">{tag}</Tag>
 			</a>
 		{/each}

@@ -5,6 +5,9 @@
  * Keys are old paths (without leading slash, with .md extension)
  * Values are new paths (without leading slash, with .md extension and optional #anchor)
  */
+
+// Get base path from environment variable (set in svelte.config.js)
+const BASE_PATH = process.env.BASE_PATH || "";
 export const REDIRECTS: Record<string, string> = {
 	"addons/unleash-next.md": "services/feature-toggling.md",
 	"addons/unleash.md": "services/feature-toggling.md",
@@ -218,8 +221,9 @@ function convertToUrl(mdPath: string): string {
 		.replace(/\/README$/, "")
 		.replace(/^README$/, "");
 
-	// Add leading slash
-	urlPath = "/" + urlPath;
+	// Add leading slash and base path
+	urlPath = BASE_PATH + "/" + urlPath;
+	urlPath = urlPath.replace(/\/+/g, "/");
 
 	// Add anchor if present
 	if (anchor) {
