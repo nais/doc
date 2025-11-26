@@ -143,8 +143,9 @@ function createMarkedInstance(): Marked {
 				tokenizer(src) {
 					// Match !!! type "title", ??? type "title", or ???+ type "title"
 					// Content is indented by 4 spaces
+					// Type can include hyphens (e.g., gcp-only)
 					const rule =
-						/^([!?]{3})(\+)?\s+(\w+)(?:\s+"([^"]*)")?\s*\n((?:(?:    |\t).*(?:\n|$)|\s*\n)*)/;
+						/^([!?]{3})(\+)?\s+([\w-]+)(?:\s+"([^"]*)")?\s*\n((?:(?:    |\t).*(?:\n|$)|\s*\n)*)/;
 					const match = rule.exec(src);
 
 					if (match) {
