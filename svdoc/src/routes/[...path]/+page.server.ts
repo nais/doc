@@ -1,5 +1,5 @@
+import { contentStore } from "$lib/content-store";
 import { readMarkdownFile, type Attributes } from "$lib/markdown";
-import { getAllPaths } from "$lib/navigation";
 import { getAllRedirects, getRedirectTarget } from "$lib/redirects";
 import { error, redirect } from "@sveltejs/kit";
 import { access } from "node:fs/promises";
@@ -18,7 +18,7 @@ async function fileExists(path: string): Promise<boolean> {
  * Generate all entry points for static prerendering
  */
 export const entries: EntryGenerator = async () => {
-	const paths = await getAllPaths();
+	const paths = await contentStore.getAllPaths();
 	const redirects = getAllRedirects();
 
 	// Combine regular paths and redirect source paths

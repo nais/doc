@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { base } from "$app/paths";
-	import type { NavItem } from "./navigation";
+	import type { NavItem } from "./content-store";
 	import Self from "./NavItem.svelte";
 
 	interface Props {
