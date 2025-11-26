@@ -70,6 +70,7 @@ This renderer supports several Material for MkDocs features:
 ### Admonitions
 
 Supports `!!!`, `???`, and `???+` syntax for notes, warnings, etc:
+
 - `!!! note "Title"` - Regular admonition
 - `??? note "Title"` - Collapsible (closed)
 - `???+ note "Title"` - Collapsible (open by default)
@@ -81,6 +82,7 @@ Supports `=== "Tab Title"` syntax with indented content.
 ### Code Annotations
 
 Supports inline code annotations using comment syntax:
+
 - `# (1)` or `// (1)` - Annotation marker (hover to reveal)
 - `# Replace (1)` - Text before marker is preserved in output
 - `#(1)!` - The `!` suffix strips the entire comment
@@ -106,6 +108,7 @@ Navigation is built from the `../docs` directory structure in `src/lib/navigatio
 ### .pages Files
 
 Supports MkDocs-style `.pages` files for navigation configuration:
+
 - `nav:` - Ordered list of items
 - `hide: true` - Exclude directory from navigation
 - `...` - Include all unlisted items at that position

@@ -3,65 +3,16 @@ import fm from "front-matter";
 import { Marked, type Token, type Tokens, type TokensList } from "marked";
 import { highlightCodeDual, parseHighlightLines, parseTitle } from "./helpers/shiki";
 import { processTemplates } from "./helpers/templates";
+import type {
+	AdmonitionToken,
+	Attributes,
+	ContentTabsToken,
+	ContentTabToken,
+	FootnoteToken,
+} from "./types/tokens";
 
-/**
- * Admonition token for Material for MkDocs style admonitions
- * Syntax: !!! type "title" or ??? type "title" (collapsible) or ???+ type "title" (collapsible, open)
- */
-export interface AdmonitionToken {
-	type: "admonition";
-	raw: string;
-	admonitionType: string;
-	title: string;
-	collapsible: boolean;
-	open: boolean;
-	tokens: Token[];
-}
-
-/**
- * Content tabs token for Material for MkDocs style tabs
- * Syntax: === "Tab Title"
- */
-export interface ContentTabToken {
-	type: "content_tab";
-	raw: string;
-	label: string;
-	tokens: Token[];
-}
-
-export interface ContentTabsToken {
-	type: "content_tabs";
-	raw: string;
-	tabs: ContentTabToken[];
-}
-
-export interface Attributes {
-	title?: string;
-	description?: string;
-	tags?: string[];
-	hide?: string[];
-}
-
-/**
- * Footnote reference token (inline [^1])
- */
-export interface FootnoteRefToken {
-	type: "footnoteRef";
-	raw: string;
-	id: string;
-	label: string;
-}
-
-/**
- * Footnote definition token ([^1]: content)
- */
-export interface FootnoteToken {
-	type: "footnote";
-	raw: string;
-	id: string;
-	label: string;
-	tokens: Token[];
-}
+// Re-export Attributes for external use
+export type { Attributes } from "./types/tokens";
 
 /**
  * Create a configured Marked instance with all extensions
@@ -69,7 +20,6 @@ export interface FootnoteToken {
 function createMarkedInstance(): Marked {
 	const marked = new Marked({ gfm: true });
 
-	// Add emoji extension
 	marked.use({
 		extensions: [
 			// Content tabs extension for Material for MkDocs syntax
@@ -83,7 +33,7 @@ function createMarkedInstance(): Marked {
 				tokenizer(src) {
 					// Match consecutive === "Tab Title" blocks
 					// Each tab's content is indented by 4 spaces
-					const tabRule = /^===\s+"([^"]+)"\s*\n((?:(?:    |\t).*(?:\n|$)|\s*\n)*)/;
+					const tabRule = /^===\s+"([^"]+)"\s*\n((?:(?: {4}|\t).*(?:\n|$)|\s*\n)*)/;
 
 					let remaining = src;
 					let fullRaw = "";
@@ -98,7 +48,7 @@ function createMarkedInstance(): Marked {
 						// Remove 4-space or tab indent from content
 						const content = rawContent
 							.split("\n")
-							.map((line) => line.replace(/^(?:    |\t)/, ""))
+							.map((line) => line.replace(/^(?: {4}|\t)/, ""))
 							.join("\n")
 							.trim();
 
@@ -145,7 +95,7 @@ function createMarkedInstance(): Marked {
 					// Content is indented by 4 spaces
 					// Type can include hyphens (e.g., gcp-only)
 					const rule =
-						/^([!?]{3})(\+)?\s+([\w-]+)(?:\s+"([^"]*)")?\s*\n((?:(?:    |\t).*(?:\n|$)|\s*\n)*)/;
+						/^([!?]{3})(\+)?\s+([\w-]+)(?:\s+"([^"]*)")?\s*\n((?:(?: {4}|\t).*(?:\n|$)|\s*\n)*)/;
 					const match = rule.exec(src);
 
 					if (match) {
@@ -159,7 +109,7 @@ function createMarkedInstance(): Marked {
 						// Remove 4-space or tab indent from content
 						const content = rawContent
 							.split("\n")
-							.map((line) => line.replace(/^(?:    |\t)/, ""))
+							.map((line) => line.replace(/^(?: {4}|\t)/, ""))
 							.join("\n")
 							.trim();
 
@@ -182,6 +132,7 @@ function createMarkedInstance(): Marked {
 					return undefined;
 				},
 			},
+			// Emoji extension
 			{
 				name: "emoji",
 				level: "inline",
@@ -308,7 +259,6 @@ function processHtmlMarkdownBlocks(tokens: Token[] | TokensList): Token[] | Toke
 						if (innerToken.text.trim().toLowerCase() === closingTag.toLowerCase()) {
 							depth--;
 							if (depth === 0) {
-								// Found the matching closing tag
 								break;
 							}
 						}
@@ -358,7 +308,6 @@ function processFootnotes(tokens: Token[] | TokensList): Token[] | TokensList {
 	const footnotes: FootnoteToken[] = [];
 	const result: Token[] = [];
 
-	// Separate footnotes from other tokens
 	for (const token of tokens) {
 		if (token.type === "footnote") {
 			footnotes.push(token as FootnoteToken);
@@ -367,7 +316,6 @@ function processFootnotes(tokens: Token[] | TokensList): Token[] | TokensList {
 		}
 	}
 
-	// If there are footnotes, add them at the end wrapped in a container
 	if (footnotes.length > 0) {
 		result.push({
 			type: "footnotes",

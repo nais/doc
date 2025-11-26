@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { CheckmarkCircleFillIcon, CircleIcon } from "@nais/ds-svelte-community/icons";
 
-	interface CheckboxToken {
-		type: "checkbox";
-		raw: string;
-		checked: boolean;
+	interface Props {
+		token: {
+			checked: boolean;
+		};
 	}
 
-	let { token }: { token: CheckboxToken } = $props();
+	let { token }: Props = $props();
 </script>
 
 <span class="checkbox" class:checkbox--checked={token.checked}>

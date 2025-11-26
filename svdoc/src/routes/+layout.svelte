@@ -7,7 +7,6 @@
 	import { InternalHeader, InternalHeaderTitle } from "@nais/ds-svelte-community/experimental";
 	import "../css/app.css";
 	import type { LayoutProps } from "./$types";
-	import "./layout.css";
 
 	let { children, data }: LayoutProps = $props();
 	const { navigation } = $derived(data);
@@ -32,7 +31,7 @@
 		<SearchModal bind:open={searchOpen} />
 
 		<div class="content-wrapper">
-			<aside class="sidebar-container">
+			<aside class="sidebar-container scrollbar-thin">
 				<Sidebar items={navigation} />
 			</aside>
 			<main class="main-content">
@@ -77,28 +76,6 @@
 		left: 0;
 		bottom: 0;
 		height: calc(100vh - 48px);
-
-		/* Firefox scrollbar */
-		scrollbar-width: thin;
-		scrollbar-color: var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.3)) transparent;
-	}
-
-	/* Webkit scrollbar styling */
-	.sidebar-container::-webkit-scrollbar {
-		width: 6px;
-	}
-
-	.sidebar-container::-webkit-scrollbar-track {
-		background: transparent;
-	}
-
-	.sidebar-container::-webkit-scrollbar-thumb {
-		background-color: var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.3));
-		border-radius: 3px;
-	}
-
-	.sidebar-container::-webkit-scrollbar-thumb:hover {
-		background-color: var(--ax-border-neutral, rgba(175, 184, 193, 0.5));
 	}
 
 	.main-content {
