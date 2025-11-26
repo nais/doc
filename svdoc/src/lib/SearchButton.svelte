@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from "@nais/ds-svelte-community";
+	import { InternalHeaderButton } from "@nais/ds-svelte-community/experimental";
 	import { MagnifyingGlassIcon } from "@nais/ds-svelte-community/icons";
 
 	interface Props {
@@ -14,20 +14,15 @@
 	const shortcutKey = isMac ? "⌘" : "Ctrl";
 </script>
 
-<Button variant="tertiary-neutral" size="small" {onclick} class="search-button">
-	{#snippet icon()}
-		<MagnifyingGlassIcon title="Search" />
-	{/snippet}
+<InternalHeaderButton as="button" {onclick} aria-label="Search documentation">
+	<MagnifyingGlassIcon aria-hidden="true" />
 	<span class="search-label">Search</span>
 	<kbd class="search-shortcut">{shortcutKey}+K</kbd>
-</Button>
+</InternalHeaderButton>
 
 <style>
-	:global(.search-button) {
-		gap: 0.5rem;
-	}
-
 	.search-label {
+		margin-left: 0.375rem;
 		margin-right: 0.25rem;
 	}
 
