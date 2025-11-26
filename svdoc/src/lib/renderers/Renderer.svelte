@@ -4,6 +4,7 @@
 	import Admonition from "./Admonition.svelte";
 	import Blockquote from "./Blockquote.svelte";
 	import Br from "./Br.svelte";
+	import Checkbox from "./Checkbox.svelte";
 	import Code from "./Code.svelte";
 	import Codespan from "./Codespan.svelte";
 	import ContentTabs from "./ContentTabs.svelte";
@@ -40,6 +41,7 @@
 	} = {
 		admonition: Admonition as never,
 		blockquote: Blockquote as never,
+		checkbox: Checkbox as never,
 		content_tabs: ContentTabs as never,
 		br: Br as never,
 		code: Code as never,
