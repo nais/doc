@@ -8,6 +8,7 @@
 	import Code from "./Code.svelte";
 	import Codespan from "./Codespan.svelte";
 	import ContentTabs from "./ContentTabs.svelte";
+	import Def from "./Def.svelte";
 	import Del from "./Del.svelte";
 	import Em from "./Em.svelte";
 	import Escape from "./Escape.svelte";
@@ -22,7 +23,6 @@
 	import Link from "./Link.svelte";
 	import List from "./List.svelte";
 	import ListItem from "./ListItem.svelte";
-
 	import Paragraph from "./Paragraph.svelte";
 	import Space from "./Space.svelte";
 	import Strong from "./Strong.svelte";
@@ -43,6 +43,7 @@
 		blockquote: Blockquote as never,
 		checkbox: Checkbox as never,
 		content_tabs: ContentTabs as never,
+		def: Def as never,
 		br: Br as never,
 		code: Code as never,
 		codespan: Codespan as never,
@@ -60,7 +61,6 @@
 		link: Link as never,
 		list: List as never,
 		list_item: ListItem as never,
-
 		paragraph: Paragraph as never,
 		space: Space as never,
 		strong: Strong as never,
