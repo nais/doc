@@ -1,7 +1,8 @@
 import { readMarkdownFile, type Attributes } from "$lib/markdown";
+import { getAllPaths } from "$lib/navigation";
 import { error } from "@sveltejs/kit";
 import { access } from "node:fs/promises";
-import type { PageServerLoad } from "./$types";
+import type { EntryGenerator, PageServerLoad } from "./$types";
 
 async function fileExists(path: string): Promise<boolean> {
 	try {
@@ -11,6 +12,16 @@ async function fileExists(path: string): Promise<boolean> {
 		return false;
 	}
 }
+
+/**
+ * Generate all entry points for static prerendering
+ */
+export const entries: EntryGenerator = async () => {
+	const paths = await getAllPaths();
+	return paths.map((path) => ({ path }));
+};
+
+export const prerender = true;
 
 export const load: PageServerLoad = async ({ params }) => {
 	const { path } = params;

@@ -71,7 +71,7 @@
 		{:else if token.lang && token.lang !== "text" && token.lang !== "plaintext"}
 			<span class="language">{token.lang}</span>
 		{:else}
-			<span></span>
+			<span>Plaintext</span>
 		{/if}
 		<CopyButton size="small" variant="neutral" copyText={token.text} />
 	</div>
