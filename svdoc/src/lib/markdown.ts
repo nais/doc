@@ -15,6 +15,9 @@ import type {
 	HighlightedCodeToken,
 } from "./types/tokens";
 
+// Get base path from environment variable (set in svelte.config.js)
+const BASE_PATH = process.env.BASE_PATH || "";
+
 // Re-export Attributes for external use
 export type { Attributes } from "./types/tokens";
 
@@ -231,7 +234,6 @@ function createMarkedInstance(): Marked {
 					// Term: any non-empty line
 					// Definition: starts with :   (colon + 3 spaces)
 					const termPattern = /^([^\n]+)\n\n?(?=: {3})/;
-					const defPattern = /^: {3}([\s\S]*?)(?=\n: {3}|\n[^\s\n]|\n\n[^\s]|\n*$)/;
 
 					let termMatch = termPattern.exec(remaining);
 					while (termMatch) {
@@ -244,17 +246,75 @@ function createMarkedInstance(): Marked {
 						const definitions: DefinitionToken[] = [];
 
 						// Match all definitions for this term
-						let defMatch = defPattern.exec(remaining);
-						while (defMatch) {
-							const defRaw = defMatch[0];
-							let defContent = defMatch[1];
+						while (remaining.startsWith(":   ")) {
+							// Find where this definition ends
+							let inCodeBlock = false;
+							let codeBlockFence = "";
+							const lines = remaining.split("\n");
+							let defEndLine = 1;
 
-							// Handle continuation lines (indented with 4 spaces)
-							defContent = defContent
-								.split("\n")
-								.map((line) => (line.startsWith("    ") ? line.slice(4) : line))
-								.join("\n")
-								.trim();
+							for (let i = 1; i < lines.length; i++) {
+								const line = lines[i];
+
+								// Check for code block fences (with optional 4-space indent)
+								const fenceMatch = /^(?: {4})?(```|~~~)/.exec(line);
+								if (fenceMatch) {
+									const fence = fenceMatch[1];
+									if (!inCodeBlock) {
+										inCodeBlock = true;
+										codeBlockFence = fence;
+									} else if (line.trim().startsWith(codeBlockFence)) {
+										inCodeBlock = false;
+										codeBlockFence = "";
+									}
+									defEndLine = i + 1;
+									continue;
+								}
+
+								// If in code block, keep going
+								if (inCodeBlock) {
+									defEndLine = i + 1;
+									continue;
+								}
+
+								// Another definition starts
+								if (/^: {3}/.test(line)) {
+									break;
+								}
+
+								// Empty line is OK (might be between paragraphs in definition)
+								if (/^\s*$/.test(line)) {
+									defEndLine = i + 1;
+									continue;
+								}
+
+								// Indented line (continuation)
+								if (line.startsWith("    ")) {
+									defEndLine = i + 1;
+									continue;
+								}
+
+								// Non-indented, non-empty line - check if it's a new term
+								let j = i + 1;
+								while (j < lines.length && /^\s*$/.test(lines[j])) j++;
+								if (j < lines.length && /^: {3}/.test(lines[j])) {
+									// New term found, stop this definition
+									break;
+								}
+								// End of definition list
+								break;
+							}
+
+							const defLines = lines.slice(0, defEndLine);
+							const defRaw = defLines.join("\n") + (defEndLine < lines.length ? "\n" : "");
+
+							// Extract content: first line after ":   ", then dedent continuation lines
+							let defContent = defLines[0].slice(4); // Remove ":   "
+							for (let i = 1; i < defLines.length; i++) {
+								const line = defLines[i];
+								defContent += "\n" + (line.startsWith("    ") ? line.slice(4) : line);
+							}
+							defContent = defContent.trim();
 
 							const defToken: DefinitionToken = {
 								type: "definition",
@@ -268,13 +328,6 @@ function createMarkedInstance(): Marked {
 							definitions.push(defToken);
 							itemRaw += defRaw;
 							remaining = remaining.slice(defRaw.length);
-
-							// Check for another definition (starts with :   )
-							if (remaining.startsWith(":   ")) {
-								defMatch = defPattern.exec(remaining);
-							} else {
-								break;
-							}
 						}
 
 						if (definitions.length > 0) {
@@ -648,6 +701,11 @@ function transformHref(href: string, basePath: string, isReadme: boolean): strin
 	// Re-add anchor if present
 	if (anchor) {
 		transformed += "#" + anchor;
+	}
+
+	// Add base path prefix for internal links
+	if (BASE_PATH && !transformed.startsWith(BASE_PATH)) {
+		transformed = `${BASE_PATH}${transformed}`.replace(/\/+/g, "/");
 	}
 
 	return transformed;
