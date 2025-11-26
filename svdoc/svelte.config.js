@@ -14,6 +14,9 @@ const config = {
 		adapter: adapter({
 			fallback: "404.html",
 		}),
+		paths: {
+			base: process.argv.includes("dev") ? "" : process.env.BASE_PATH,
+		},
 		prerender: {
 			handleHttpError: ({ path, referrer, message }) => {
 				// Ignore 404s for .md links - these are documentation links that
