@@ -266,12 +266,54 @@
 		transform: scale(1.1);
 	}
 
-	/* Popover element - renders in top layer, positioned by Floating UI */
-	:global(.code-annotation-popover) {
-		/* Reset default popover centering - Floating UI handles positioning */
-		margin: 0;
+	/* The popup container */
+	.code-content :global(.code-annotation-popup) {
 		position: absolute;
+		left: 0;
+		top: 100%;
+		transform: translateX(-25%);
+		margin-top: 0.5rem;
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+		transition:
+			opacity 0.2s ease,
+			visibility 0.2s ease;
+		z-index: 100;
+		/* Ensure popup stays in viewport */
+		max-width: min(400px, 90vw);
+	}
 
+	/* Show popup on hover/focus */
+	.code-content :global(.code-annotation:hover .code-annotation-popup),
+	.code-content :global(.code-annotation:focus-within .code-annotation-popup) {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+	}
+
+	/* Popup arrow */
+	.code-content :global(.code-annotation-popup-arrow) {
+		position: absolute;
+		top: -6px;
+		left: 1.5rem;
+		transform: rotate(45deg);
+		width: 12px;
+		height: 12px;
+		background: var(--ax-bg-default, #fff);
+		border-top: 1px solid var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.3));
+		border-left: 1px solid var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.3));
+		z-index: -1;
+	}
+
+	:global(.dark) .code-content :global(.code-annotation-popup-arrow) {
+		background: #1e2530;
+		border-color: rgba(175, 184, 193, 0.2);
+	}
+
+	/* Popup content */
+	.code-content :global(.code-annotation-popup-content) {
+		display: block;
 		min-width: 220px;
 		max-width: 400px;
 		padding: 0.75rem 1rem;
