@@ -1,6 +1,7 @@
 import emojiNameMap from "emoji-name-map";
 import fm from "front-matter";
 import { Marked, type Token, type TokensList } from "marked";
+import { processTemplates } from "./helpers/templates";
 
 /**
  * Admonition token for Material for MkDocs style admonitions
@@ -382,8 +383,12 @@ export async function readMarkdownFile(
 	const source = await Bun.file(path).text();
 	const { attributes, body } = fm<Attributes>(source);
 
+	// Process template variables (<<tenant()>>, <<tenant_url("...")>>, etc.)
+	// Pass file path for resolving {% include %} statements
+	const processedBody = processTemplates(body, path);
+
 	const marked = createMarkedInstance();
-	const tokens = marked.lexer(body);
+	const tokens = marked.lexer(processedBody);
 
 	// Process HTML blocks with markdown attribute
 	const htmlProcessed = processHtmlMarkdownBlocks(tokens);
