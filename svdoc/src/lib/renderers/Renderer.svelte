@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { type Token, type TokensList } from "marked";
 	import type { Component } from "svelte";
+	import Admonition from "./Admonition.svelte";
 	import Blockquote from "./Blockquote.svelte";
 	import Br from "./Br.svelte";
 	import Code from "./Code.svelte";
@@ -36,6 +37,7 @@
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		[key: Token["type"]]: Component<any>;
 	} = {
+		admonition: Admonition as never,
 		blockquote: Blockquote as never,
 		br: Br as never,
 		code: Code as never,
