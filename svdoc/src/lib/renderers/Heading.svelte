@@ -38,6 +38,16 @@
 </Heading>
 
 <style>
+	/* Offset scroll position for anchor links to account for fixed header */
+	:global(h1[id]),
+	:global(h2[id]),
+	:global(h3[id]),
+	:global(h4[id]),
+	:global(h5[id]),
+	:global(h6[id]) {
+		scroll-margin-top: 4rem; /* 48px header + 16px padding */
+	}
+
 	:global(.headerlink) {
 		margin-left: 0.5rem;
 		opacity: 0;
