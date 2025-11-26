@@ -1,6 +1,7 @@
 import { readMarkdownFile, type Attributes } from "$lib/markdown";
 import { getAllPaths } from "$lib/navigation";
-import { error } from "@sveltejs/kit";
+import { getAllRedirects, getRedirectTarget } from "$lib/redirects";
+import { error, redirect } from "@sveltejs/kit";
 import { access } from "node:fs/promises";
 import type { EntryGenerator, PageServerLoad } from "./$types";
 
@@ -18,7 +19,15 @@ async function fileExists(path: string): Promise<boolean> {
  */
 export const entries: EntryGenerator = async () => {
 	const paths = await getAllPaths();
-	return paths.map((path) => ({ path }));
+	const redirects = getAllRedirects();
+
+	// Combine regular paths and redirect source paths
+	const allPaths = [
+		...paths.map((path) => ({ path })),
+		...redirects.map((r) => ({ path: r.from.replace(/^\//, "") })),
+	];
+
+	return allPaths;
 };
 
 export const prerender = true;
@@ -54,6 +63,12 @@ export const load: PageServerLoad = async ({ params }) => {
 			attributes: {} as Attributes,
 			isCategory: true,
 		};
+	}
+
+	// Check if there's a redirect for this path
+	const redirectTarget = getRedirectTarget(path);
+	if (redirectTarget) {
+		redirect(301, redirectTarget);
 	}
 
 	// Nothing found - throw 404
