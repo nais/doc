@@ -62,3 +62,74 @@ Uses `@nais/ds-svelte-community` components where appropriate:
 - `CopyButton` in code blocks
 
 Regular `<a>` elements are used for links.
+
+## MkDocs Material Compatibility
+
+This renderer supports several Material for MkDocs features:
+
+### Admonitions
+
+Supports `!!!`, `???`, and `???+` syntax for notes, warnings, etc:
+- `!!! note "Title"` - Regular admonition
+- `??? note "Title"` - Collapsible (closed)
+- `???+ note "Title"` - Collapsible (open by default)
+
+### Content Tabs
+
+Supports `=== "Tab Title"` syntax with indented content.
+
+### Code Annotations
+
+Supports inline code annotations using comment syntax:
+- `# (1)` or `// (1)` - Annotation marker (hover to reveal)
+- `# Replace (1)` - Text before marker is preserved in output
+- `#(1)!` - The `!` suffix strips the entire comment
+
+Annotations link to numbered lists following the code block.
+
+## Syntax Highlighting
+
+Uses Shiki for server-side syntax highlighting with dual theme support (light/dark).
+
+### Code Fence Options
+
+- Language: ` ```yaml `
+- Line highlighting: ` ```yaml hl_lines="4-5 8" `
+- Title: ` ```yaml title="config.yaml" `
+
+Highlighting is processed at build time via `src/lib/helpers/shiki.ts`.
+
+## Navigation System
+
+Navigation is built from the `../docs` directory structure in `src/lib/navigation.ts`.
+
+### .pages Files
+
+Supports MkDocs-style `.pages` files for navigation configuration:
+- `nav:` - Ordered list of items
+- `hide: true` - Exclude directory from navigation
+- `...` - Include all unlisted items at that position
+- Explicit titles: `{ "Display Name": "path" }`
+
+### Directory Handling
+
+- Directories use their name as the nav title (not README heading)
+- `hasContent` is true only if directory contains README.md
+- Items without content render as text, not links
+
+## Template Processing
+
+The `src/lib/helpers/templates.ts` module processes Jinja-like templates:
+
+### Variables
+
+- `<<tenant()>>` - Tenant name
+- `<<tenant_url("path")>>` - Tenant-specific URL
+
+### Includes
+
+- `{% include 'path/to/file.md' %}` - Paths relative to docs root
+
+### Conditionals
+
+- `{% if tenant() == "nav" %}...{% endif %}`
