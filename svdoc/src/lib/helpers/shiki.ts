@@ -108,6 +108,52 @@ export interface CodeAnnotation {
 	stripComment: boolean;
 }
 
+// Common annotation patterns for different comment styles
+// Pattern captures: (before comment)(comment start + text before annotation)(annotation id)(optional ! for strip)(rest)
+const HASH_COMMENT = /^(.*?)(#[^(]*)\((\d+)\)(!)?(.*)$/;
+const DOUBLE_SLASH = /^(.*?)(\/\/[^(]*)\((\d+)\)(!)?(.*)$/;
+const BLOCK_COMMENT = /^(.*?)(\/\*[^(]*)\((\d+)\)(!)?[^*]*\*\/(.*)$/;
+const HTML_COMMENT = /^(.*?)(<!--[^(]*)\((\d+)\)(!)?[^-]*-->(.*)$/;
+const SQL_COMMENT = /^(.*?)(--[^(]*)\((\d+)\)(!)?(.*)$/;
+
+// Language to comment pattern mapping
+const LANGUAGE_PATTERNS: Record<string, RegExp[]> = {
+	// Hash-style comments
+	yaml: [HASH_COMMENT],
+	python: [HASH_COMMENT],
+	bash: [HASH_COMMENT],
+	shell: [HASH_COMMENT],
+	sh: [HASH_COMMENT],
+	toml: [HASH_COMMENT],
+	dockerfile: [HASH_COMMENT],
+
+	// C-style comments (// and /* */)
+	javascript: [DOUBLE_SLASH, BLOCK_COMMENT],
+	typescript: [DOUBLE_SLASH, BLOCK_COMMENT],
+	js: [DOUBLE_SLASH, BLOCK_COMMENT],
+	ts: [DOUBLE_SLASH, BLOCK_COMMENT],
+	java: [DOUBLE_SLASH, BLOCK_COMMENT],
+	kotlin: [DOUBLE_SLASH, BLOCK_COMMENT],
+	go: [DOUBLE_SLASH, BLOCK_COMMENT],
+	rust: [DOUBLE_SLASH, BLOCK_COMMENT],
+	c: [DOUBLE_SLASH, BLOCK_COMMENT],
+	cpp: [DOUBLE_SLASH, BLOCK_COMMENT],
+	groovy: [DOUBLE_SLASH, BLOCK_COMMENT],
+
+	// HTML/XML comments
+	html: [HTML_COMMENT],
+	xml: [HTML_COMMENT],
+
+	// CSS block comments
+	css: [BLOCK_COMMENT],
+
+	// SQL comments
+	sql: [SQL_COMMENT],
+};
+
+// Default patterns to try if language not explicitly mapped
+const DEFAULT_PATTERNS = [HASH_COMMENT, DOUBLE_SLASH, BLOCK_COMMENT];
+
 /**
  * Parse code annotations from source code
  * Looks for patterns like: # (1), // Replace (2), #(1)!, etc.
@@ -126,51 +172,7 @@ export function parseCodeAnnotations(
 	const lines = code.split("\n");
 	const cleanedLines: string[] = [];
 
-	// Patterns to match annotation markers in different comment styles
-	// Group 1: everything before the comment
-	// Group 2: comment start + optional text before (x)
-	// Group 3: the annotation number
-	// Group 4: optional ! to strip entire comment
-	// Group 5: anything after
-	const commentPatterns: Record<string, RegExp[]> = {
-		yaml: [/^(.*?)(#[^(]*)\((\d+)\)(!)?(.*)$/],
-		python: [/^(.*?)(#[^(]*)\((\d+)\)(!)?(.*)$/],
-		bash: [/^(.*?)(#[^(]*)\((\d+)\)(!)?(.*)$/],
-		shell: [/^(.*?)(#[^(]*)\((\d+)\)(!)?(.*)$/],
-		sh: [/^(.*?)(#[^(]*)\((\d+)\)(!)?(.*)$/],
-		javascript: [
-			/^(.*?)(\/\/[^(]*)\((\d+)\)(!)?(.*)$/,
-			/^(.*?)(\/\*[^(]*)\((\d+)\)(!)?[^*]*\*\/(.*)$/,
-		],
-		typescript: [
-			/^(.*?)(\/\/[^(]*)\((\d+)\)(!)?(.*)$/,
-			/^(.*?)(\/\*[^(]*)\((\d+)\)(!)?[^*]*\*\/(.*)$/,
-		],
-		js: [/^(.*?)(\/\/[^(]*)\((\d+)\)(!)?(.*)$/, /^(.*?)(\/\*[^(]*)\((\d+)\)(!)?[^*]*\*\/(.*)$/],
-		ts: [/^(.*?)(\/\/[^(]*)\((\d+)\)(!)?(.*)$/, /^(.*?)(\/\*[^(]*)\((\d+)\)(!)?[^*]*\*\/(.*)$/],
-		java: [/^(.*?)(\/\/[^(]*)\((\d+)\)(!)?(.*)$/, /^(.*?)(\/\*[^(]*)\((\d+)\)(!)?[^*]*\*\/(.*)$/],
-		kotlin: [/^(.*?)(\/\/[^(]*)\((\d+)\)(!)?(.*)$/, /^(.*?)(\/\*[^(]*)\((\d+)\)(!)?[^*]*\*\/(.*)$/],
-		go: [/^(.*?)(\/\/[^(]*)\((\d+)\)(!)?(.*)$/, /^(.*?)(\/\*[^(]*)\((\d+)\)(!)?[^*]*\*\/(.*)$/],
-		rust: [/^(.*?)(\/\/[^(]*)\((\d+)\)(!)?(.*)$/, /^(.*?)(\/\*[^(]*)\((\d+)\)(!)?[^*]*\*\/(.*)$/],
-		c: [/^(.*?)(\/\/[^(]*)\((\d+)\)(!)?(.*)$/, /^(.*?)(\/\*[^(]*)\((\d+)\)(!)?[^*]*\*\/(.*)$/],
-		cpp: [/^(.*?)(\/\/[^(]*)\((\d+)\)(!)?(.*)$/, /^(.*?)(\/\*[^(]*)\((\d+)\)(!)?[^*]*\*\/(.*)$/],
-		html: [/^(.*?)(<!--[^(]*)\((\d+)\)(!)?[^-]*-->(.*)$/],
-		xml: [/^(.*?)(<!--[^(]*)\((\d+)\)(!)?[^-]*-->(.*)$/],
-		css: [/^(.*?)(\/\*[^(]*)\((\d+)\)(!)?[^*]*\*\/(.*)$/],
-		sql: [/^(.*?)(--[^(]*)\((\d+)\)(!)?(.*)$/],
-		toml: [/^(.*?)(#[^(]*)\((\d+)\)(!)?(.*)$/],
-		dockerfile: [/^(.*?)(#[^(]*)\((\d+)\)(!)?(.*)$/],
-		groovy: [/^(.*?)(\/\/[^(]*)\((\d+)\)(!)?(.*)$/, /^(.*?)(\/\*[^(]*)\((\d+)\)(!)?[^*]*\*\/(.*)$/],
-	};
-
-	// Default patterns
-	const defaultPatterns = [
-		/^(.*?)(#[^(]*)\((\d+)\)(!)?(.*)$/,
-		/^(.*?)(\/\/[^(]*)\((\d+)\)(!)?(.*)$/,
-		/^(.*?)(\/\*[^(]*)\((\d+)\)(!)?[^*]*\*\/(.*)$/,
-	];
-
-	const patterns = commentPatterns[language.toLowerCase()] || defaultPatterns;
+	const patterns = LANGUAGE_PATTERNS[language.toLowerCase()] || DEFAULT_PATTERNS;
 
 	for (let i = 0; i < lines.length; i++) {
 		const line = lines[i];
@@ -196,7 +198,6 @@ export function parseCodeAnnotations(
 					cleanedLines.push(beforeComment.trimEnd());
 				} else {
 					// Keep the comment but remove the (x) part
-					// commentStart already includes the text before (x)
 					const cleanedComment = commentStart.trimEnd();
 					if (cleanedComment.match(/^(#|\/\/|--|\/\*)$/)) {
 						// Comment is just the marker with no text, remove it entirely
@@ -224,9 +225,9 @@ export function parseCodeAnnotations(
 }
 
 /**
- * Check if a language is supported by our Shiki instance
+ * Languages supported by our Shiki instance
  */
-const supportedLanguages = new Set([
+const SUPPORTED_LANGUAGES = new Set([
 	"javascript",
 	"js",
 	"typescript",
@@ -263,41 +264,112 @@ const supportedLanguages = new Set([
 ]);
 
 /**
+ * Language aliases to canonical names
+ */
+const LANGUAGE_ALIASES: Record<string, string> = {
+	js: "javascript",
+	ts: "typescript",
+	yml: "yaml",
+	sh: "bash",
+	shell: "bash",
+	py: "python",
+	rs: "rust",
+	kt: "kotlin",
+	md: "markdown",
+	docker: "dockerfile",
+	txt: "plaintext",
+	text: "plaintext",
+};
+
+/**
  * Normalize language name to what Shiki expects
  */
 export function normalizeLanguage(lang: string): string {
 	const normalized = lang.toLowerCase();
-
-	const aliases: Record<string, string> = {
-		js: "javascript",
-		ts: "typescript",
-		yml: "yaml",
-		sh: "bash",
-		shell: "bash",
-		py: "python",
-		rs: "rust",
-		kt: "kotlin",
-		md: "markdown",
-		docker: "dockerfile",
-		txt: "plaintext",
-		text: "plaintext",
-	};
-
-	if (aliases[normalized]) {
-		return aliases[normalized];
-	}
-
-	if (supportedLanguages.has(normalized)) {
-		return normalized;
-	}
-
-	return "plaintext";
+	return (
+		LANGUAGE_ALIASES[normalized] || (SUPPORTED_LANGUAGES.has(normalized) ? normalized : "plaintext")
+	);
 }
 
 export interface HighlightResult {
 	html: string;
 	language: string;
 	title: string | null;
+}
+
+/**
+ * Create a Shiki transformer for line processing
+ */
+function createLineTransformer(
+	highlightLines: Set<number>,
+	lineToAnnotation: Map<number, string>,
+	includePopups: boolean = false,
+): ShikiTransformer {
+	return {
+		line(node, line) {
+			// Add highlight class to specific lines
+			if (highlightLines.has(line)) {
+				this.addClassToHast(node, "highlighted-line");
+			}
+			// Add line number data attribute
+			node.properties["data-line"] = line;
+
+			// Add annotation marker if this line has an annotation
+			const annotationId = lineToAnnotation.get(line);
+			if (annotationId) {
+				node.properties["data-annotation"] = annotationId;
+				this.addClassToHast(node, "has-annotation");
+
+				if (includePopups) {
+					// Inject twoslash-style annotation marker with hover popup
+					const annotationMarker: Element = {
+						type: "element",
+						tagName: "span",
+						properties: {
+							class: "code-annotation",
+							"data-annotation-id": annotationId,
+						},
+						children: [
+							// The clickable marker (circled number)
+							{
+								type: "element",
+								tagName: "span",
+								properties: { class: "code-annotation-marker", tabindex: "0" },
+								children: [{ type: "text", value: annotationId }],
+							},
+							// The popup container (hidden by default, shown on hover/focus)
+							{
+								type: "element",
+								tagName: "span",
+								properties: { class: "code-annotation-popup" },
+								children: [
+									// Arrow pointing to the marker
+									{
+										type: "element",
+										tagName: "span",
+										properties: { class: "code-annotation-popup-arrow" },
+										children: [],
+									},
+									// Content placeholder - will be filled client-side
+									{
+										type: "element",
+										tagName: "span",
+										properties: {
+											class: "code-annotation-popup-content",
+											"data-annotation-content": annotationId,
+										},
+										children: [{ type: "text", value: `Annotation ${annotationId}` }],
+									},
+								],
+							},
+						],
+					};
+
+					node.children.push(annotationMarker);
+				}
+			}
+		},
+	};
 }
 
 /**
@@ -335,28 +407,10 @@ export async function highlightCode(
 		lineToAnnotation.set(annotation.line, annotation.id);
 	}
 
-	const transformer: ShikiTransformer = {
-		line(node, line) {
-			// Add highlight class to specific lines
-			if (highlightLines.has(line)) {
-				this.addClassToHast(node, "highlighted-line");
-			}
-			// Add line number data attribute
-			node.properties["data-line"] = line;
-
-			// Add annotation marker if this line has an annotation
-			const annotationId = lineToAnnotation.get(line);
-			if (annotationId) {
-				node.properties["data-annotation"] = annotationId;
-				this.addClassToHast(node, "has-annotation");
-			}
-		},
-	};
-
 	const html = highlighter.codeToHtml(cleanedCode, {
 		lang: normalizedLang,
 		theme: themeId,
-		transformers: [transformer],
+		transformers: [createLineTransformer(highlightLines, lineToAnnotation, false)],
 	});
 
 	return {
@@ -404,78 +458,16 @@ export async function highlightCodeDual(
 		lineToAnnotation.set(annotation.line, annotation.id);
 	}
 
-	const createTransformer = (): ShikiTransformer => ({
-		line(node, line) {
-			if (highlightLines.has(line)) {
-				this.addClassToHast(node, "highlighted-line");
-			}
-			node.properties["data-line"] = line;
-
-			// Add annotation marker if this line has an annotation
-			const annotationId = lineToAnnotation.get(line);
-			if (annotationId) {
-				node.properties["data-annotation"] = annotationId;
-				this.addClassToHast(node, "has-annotation");
-
-				// Inject twoslash-style annotation marker with hover popup
-				const annotationMarker: Element = {
-					type: "element",
-					tagName: "span",
-					properties: {
-						class: "code-annotation",
-						"data-annotation-id": annotationId,
-					},
-					children: [
-						// The clickable marker (circled number)
-						{
-							type: "element",
-							tagName: "span",
-							properties: { class: "code-annotation-marker", tabindex: "0" },
-							children: [{ type: "text", value: annotationId }],
-						},
-						// The popup container (hidden by default, shown on hover/focus)
-						{
-							type: "element",
-							tagName: "span",
-							properties: { class: "code-annotation-popup" },
-							children: [
-								// Arrow pointing to the marker
-								{
-									type: "element",
-									tagName: "span",
-									properties: { class: "code-annotation-popup-arrow" },
-									children: [],
-								},
-								// Content placeholder - will be filled client-side
-								{
-									type: "element",
-									tagName: "span",
-									properties: {
-										class: "code-annotation-popup-content",
-										"data-annotation-content": annotationId,
-									},
-									children: [{ type: "text", value: `Annotation ${annotationId}` }],
-								},
-							],
-						},
-					],
-				};
-
-				node.children.push(annotationMarker);
-			}
-		},
-	});
-
 	const light = highlighter.codeToHtml(cleanedCode, {
 		lang: normalizedLang,
 		theme: "github-light",
-		transformers: [createTransformer()],
+		transformers: [createLineTransformer(highlightLines, lineToAnnotation, true)],
 	});
 
 	const dark = highlighter.codeToHtml(cleanedCode, {
 		lang: normalizedLang,
 		theme: "github-dark",
-		transformers: [createTransformer()],
+		transformers: [createLineTransformer(highlightLines, lineToAnnotation, true)],
 	});
 
 	return { light, dark, language, title, annotations };

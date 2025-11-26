@@ -134,6 +134,40 @@ export function createTemplateContext(): TemplateContext {
 }
 
 /**
+ * Parse function arguments from a string like '"arg1", "arg2"'
+ */
+function parseFunctionArgs(argsStr: string): string[] {
+	const args: string[] = [];
+	if (argsStr.trim()) {
+		const argMatches = argsStr.match(/["']([^"']*)["']/g);
+		if (argMatches) {
+			args.push(...argMatches.map((a: string) => a.slice(1, -1)));
+		}
+	}
+	return args;
+}
+
+/**
+ * Call a template function by name with the given arguments
+ */
+function callTemplateFunction(funcName: string, args: string[], context: TemplateContext): unknown {
+	switch (funcName) {
+		case "tenant":
+			return context.tenant;
+		case "tenant_url":
+			return context.tenantUrl(args[0] || "", args[1] || "");
+		case "naisdevice_name":
+			return context.naisdeviceName;
+		case "gcp_only":
+			return context.gcpOnly(args[0] || "");
+		case "not_in_test_nais":
+			return context.notInTestNais(args[0] || "");
+		default:
+			return undefined;
+	}
+}
+
+/**
  * Evaluate a simple condition expression
  * Supports: ==, !=, in (tuple), and function calls like tenant()
  */
@@ -202,31 +236,8 @@ function evaluateValue(expression: string, context: TemplateContext): unknown {
 	const funcMatch = trimmed.match(/^(\w+)\(([^)]*)\)$/);
 	if (funcMatch) {
 		const funcName = funcMatch[1];
-		const argsStr = funcMatch[2];
-
-		// Parse arguments
-		const args: string[] = [];
-		if (argsStr.trim()) {
-			const argMatches = argsStr.match(/["']([^"']*)["']/g);
-			if (argMatches) {
-				args.push(...argMatches.map((a: string) => a.slice(1, -1)));
-			}
-		}
-
-		switch (funcName) {
-			case "tenant":
-				return context.tenant;
-			case "tenant_url":
-				return context.tenantUrl(args[0] || "", args[1] || "");
-			case "naisdevice_name":
-				return context.naisdeviceName;
-			case "gcp_only":
-				return context.gcpOnly(args[0] || "");
-			case "not_in_test_nais":
-				return context.notInTestNais(args[0] || "");
-			default:
-				return undefined;
-		}
+		const args = parseFunctionArgs(funcMatch[2]);
+		return callTemplateFunction(funcName, args, context);
 	}
 
 	// Handle variable lookup
@@ -265,26 +276,35 @@ function processSetStatements(content: string, context: TemplateContext): string
 }
 
 /**
- * Process {% include 'path' %} statements
+ * Process {% include 'path' %} statements recursively
  */
-function processIncludes(content: string, basePath: string): string {
+function processIncludes(content: string, basePath: string, maxDepth: number = 10): string {
+	if (maxDepth <= 0) {
+		console.warn("Max include depth reached, possible circular include");
+		return content;
+	}
+
 	const includeRegex = /\{%-?\s*include\s+['"]([^'"]+)['"]\s*-?%\}/g;
 
 	return content.replace(includeRegex, (_, includePath) => {
 		try {
 			let fullPath: string;
+			let newBasePath: string;
 
 			if (includePath.startsWith("./") || includePath.startsWith("../")) {
 				// Relative path - resolve from current file's directory
 				fullPath = resolve(basePath, includePath);
+				newBasePath = dirname(fullPath);
 			} else {
 				// Absolute-style path (e.g., 'auth/partials/validate.md') - resolve from docs root
 				// The docs root is always ../docs relative to the project
 				fullPath = resolve("../docs", includePath);
+				newBasePath = dirname(fullPath);
 			}
 
 			const includeContent = readFileSync(fullPath, "utf-8");
-			return includeContent;
+			// Recursively process includes in the included content
+			return processIncludes(includeContent, newBasePath, maxDepth - 1);
 		} catch {
 			// If include fails, return a comment indicating the error
 			console.warn(`Failed to include: ${includePath}`);
@@ -293,20 +313,68 @@ function processIncludes(content: string, basePath: string): string {
 	});
 }
 
+interface ConditionalBranch {
+	condition: string | null;
+	content: string;
+}
+
+/**
+ * Parse the branches (if/elif/else) from inner conditional content
+ */
+function parseConditionalBranches(ifCondition: string, innerContent: string): ConditionalBranch[] {
+	const branches: ConditionalBranch[] = [];
+	const branchRegex = /\{%-?\s*(?:elif\s+(.+?)|else)\s*-?%\}/g;
+
+	// Find all branch markers (elif/else)
+	const parts: { type: "elif" | "else"; condition?: string; index: number; length: number }[] = [];
+	let branchMatch;
+
+	while ((branchMatch = branchRegex.exec(innerContent)) !== null) {
+		parts.push({
+			type: branchMatch[1] ? "elif" : "else",
+			condition: branchMatch[1],
+			index: branchMatch.index,
+			length: branchMatch[0].length,
+		});
+	}
+
+	if (parts.length === 0) {
+		// No elif or else, just the if content
+		branches.push({ condition: ifCondition, content: innerContent });
+	} else {
+		// First branch: from start to first elif/else
+		branches.push({
+			condition: ifCondition,
+			content: innerContent.slice(0, parts[0].index),
+		});
+
+		// Middle and final branches
+		for (let i = 0; i < parts.length; i++) {
+			const startIndex = parts[i].index + parts[i].length;
+			const endIndex = i + 1 < parts.length ? parts[i + 1].index : innerContent.length;
+			const branchCondition = parts[i].type === "else" ? null : parts[i].condition!;
+
+			branches.push({
+				condition: branchCondition,
+				content: innerContent.slice(startIndex, endIndex),
+			});
+		}
+	}
+
+	return branches;
+}
+
 /**
  * Process {% if %}...{% elif %}...{% else %}...{% endif %} blocks
  */
 function processConditionals(content: string, context: TemplateContext): string {
-	// Match if/elif/else/endif blocks (including nested ones)
-	// We need to process from innermost to outermost
-
 	let result = content;
 	let iterations = 0;
 	const maxIterations = 100; // Prevent infinite loops
 
 	// Keep processing until no more conditionals are found
+	// Process innermost conditionals first (ones without nested ifs)
 	while (iterations < maxIterations) {
-		// Find an if block that doesn't contain nested if blocks
 		const ifRegex = /\{%-?\s*if\s+(.+?)\s*-?%\}([\s\S]*?)\{%-?\s*endif\s*-?%\}/;
 		const match = ifRegex.exec(result);
 
@@ -318,54 +386,8 @@ function processConditionals(content: string, context: TemplateContext): string 
 		const condition = match[1];
 		const innerContent = match[2];
 
-		// Parse the inner content for elif/else branches
-		const branches: { condition: string | null; content: string }[] = [];
-
-		// Split by elif and else
-		const branchRegex = /\{%-?\s*(?:elif\s+(.+?)|else)\s*-?%\}/g;
-		let lastIndex = 0;
-		let currentContent = "";
-		let currentCondition: string | null = condition;
-		let branchMatch;
-
-		const parts: { type: "elif" | "else"; condition?: string; index: number }[] = [];
-
-		while ((branchMatch = branchRegex.exec(innerContent)) !== null) {
-			parts.push({
-				type: branchMatch[1] ? "elif" : "else",
-				condition: branchMatch[1],
-				index: branchMatch.index,
-			});
-		}
-
-		if (parts.length === 0) {
-			// No elif or else, just if content
-			branches.push({ condition: currentCondition, content: innerContent });
-		} else {
-			// Process branches
-			for (let i = 0; i <= parts.length; i++) {
-				const startIndex =
-					i === 0
-						? 0
-						: parts[i - 1].index +
-							innerContent
-								.slice(parts[i - 1].index)
-								.match(/\{%-?\s*(?:elif\s+.+?|else)\s*-?%\}/)![0].length;
-				const endIndex = i < parts.length ? parts[i].index : innerContent.length;
-
-				currentContent = innerContent.slice(startIndex, endIndex);
-
-				if (i === 0) {
-					branches.push({ condition: currentCondition, content: currentContent });
-				} else {
-					const prevPart = parts[i - 1];
-					branches.push({
-						condition: prevPart.type === "else" ? null : prevPart.condition!,
-						content: currentContent,
-					});
-				}
-			}
-		}
+		// Parse branches
+		const branches = parseConditionalBranches(condition, innerContent);
 
 		// Evaluate branches and find the first matching one
 		let output = "";
@@ -399,31 +421,12 @@ function processVariables(content: string, context: TemplateContext): string {
 		const funcMatch = trimmed.match(/^(\w+)\(([^)]*)\)$/);
 		if (funcMatch) {
 			const funcName = funcMatch[1];
-			const argsStr = funcMatch[2];
-
-			// Parse arguments
-			const args: string[] = [];
-			if (argsStr.trim()) {
-				const argMatches = argsStr.match(/["']([^"']*)["']/g);
-				if (argMatches) {
-					args.push(...argMatches.map((a: string) => a.slice(1, -1)));
-				}
+			const args = parseFunctionArgs(funcMatch[2]);
+			const result = callTemplateFunction(funcName, args, context);
+			if (result !== undefined) {
+				return String(result);
 			}
-
-			switch (funcName) {
-				case "tenant":
-					return context.tenant;
-				case "tenant_url":
-					return context.tenantUrl(args[0] || "", args[1] || "");
-				case "naisdevice_name":
-					return context.naisdeviceName;
-				case "gcp_only":
-					return context.gcpOnly(args[0] || "");
-				case "not_in_test_nais":
-					return context.notInTestNais(args[0] || "");
-				default:
-					return match;
-			}
+			return match;
 		}
 
 		// Handle simple variables
