@@ -1,30 +1,75 @@
 <script lang="ts">
+	import { browser } from "$app/environment";
+	import { resolve } from "$app/paths";
 	import favicon from "$lib/assets/favicon.svg";
 	import SearchButton from "$lib/SearchButton.svelte";
 	import SearchModal from "$lib/SearchModal.svelte";
 	import Sidebar from "$lib/Sidebar.svelte";
+	import ThemeToggle from "$lib/ThemeToggle.svelte";
 	import { Spacer, Theme } from "@nais/ds-svelte-community";
 	import { InternalHeader, InternalHeaderTitle } from "@nais/ds-svelte-community/experimental";
 	import "../css/app.css";
 	import type { LayoutProps } from "./$types";
 
+	type ThemeMode = "light" | "dark";
+
 	let { children, data }: LayoutProps = $props();
 	const { navigation } = $derived(data);
 
 	let searchOpen = $state(false);
+
+	// Initialize theme from localStorage or system preference
+	function getInitialTheme(): ThemeMode {
+		if (browser) {
+			const stored = localStorage.getItem("theme");
+			if (stored === "light" || stored === "dark") {
+				return stored;
+			}
+			// Fall back to system preference
+			if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+				return "light";
+			}
+		}
+		return "dark";
+	}
+
+	let theme = $state<ThemeMode>(getInitialTheme());
+
+	function handleThemeChange(newTheme: ThemeMode) {
+		theme = newTheme;
+		if (browser) {
+			localStorage.setItem("theme", newTheme);
+		}
+	}
+
+	// Listen for system preference changes
+	$effect(() => {
+		if (browser) {
+			const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+			const handler = (e: MediaQueryListEvent) => {
+				// Only auto-switch if user hasn't explicitly set a preference
+				if (!localStorage.getItem("theme")) {
+					theme = e.matches ? "dark" : "light";
+				}
+			};
+			mediaQuery.addEventListener("change", handler);
+			return () => mediaQuery.removeEventListener("change", handler);
+		}
+	});
 </script>
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<Theme theme="dark">
+<Theme {theme}>
 	<div class="layout-root">
 		<header class="header-container">
 			<InternalHeader>
-				<InternalHeaderTitle href="#Home">Nais Docs</InternalHeaderTitle>
+				<InternalHeaderTitle href={resolve("/")}>Nais Docs</InternalHeaderTitle>
 				<Spacer />
 				<SearchButton onclick={() => (searchOpen = true)} />
+				<ThemeToggle {theme} onchange={handleThemeChange} />
 			</InternalHeader>
 		</header>
 
