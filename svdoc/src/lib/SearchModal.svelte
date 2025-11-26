@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
+	import { resolve } from "$app/paths";
 	import { Modal, Search } from "@nais/ds-svelte-community";
 	import MiniSearch, { type SearchResult } from "minisearch";
 	import { onMount } from "svelte";
@@ -46,7 +47,7 @@
 
 		isLoading = true;
 		try {
-			const response = await fetch("/data/search-index.json");
+			const response = await fetch(resolve("/data/search-index.json"));
 			documents = await response.json();
 
 			miniSearch = new MiniSearch<SearchDocument>({
