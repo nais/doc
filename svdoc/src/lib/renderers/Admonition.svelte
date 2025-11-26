@@ -4,8 +4,8 @@
 	import Renderer from "./Renderer.svelte";
 
 	interface AdmonitionToken {
-		type: "admonition";
-		raw: string;
+		// type: "admonition";
+		// raw: string;
 		admonitionType: string;
 		title: string;
 		collapsible: boolean;

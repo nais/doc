@@ -16,6 +16,23 @@ export interface AdmonitionToken {
 	tokens: Token[];
 }
 
+/**
+ * Content tabs token for Material for MkDocs style tabs
+ * Syntax: === "Tab Title"
+ */
+export interface ContentTabToken {
+	type: "content_tab";
+	raw: string;
+	label: string;
+	tokens: Token[];
+}
+
+export interface ContentTabsToken {
+	type: "content_tabs";
+	raw: string;
+	tabs: ContentTabToken[];
+}
+
 export interface Attributes {
 	title?: string;
 	description?: string;
@@ -53,6 +70,66 @@ function createMarkedInstance(): Marked {
 	// Add emoji extension
 	marked.use({
 		extensions: [
+			// Content tabs extension for Material for MkDocs syntax
+			{
+				name: "content_tabs",
+				level: "block",
+				start(src) {
+					const match = src.match(/^===\s+"/m);
+					return match ? match.index : undefined;
+				},
+				tokenizer(src) {
+					// Match consecutive === "Tab Title" blocks
+					// Each tab's content is indented by 4 spaces
+					const tabRule = /^===\s+"([^"]+)"\s*\n((?:(?:    |\t).*(?:\n|$)|\s*\n)*)/;
+
+					let remaining = src;
+					let fullRaw = "";
+					const tabs: ContentTabToken[] = [];
+
+					// Keep matching consecutive tabs
+					let match = tabRule.exec(remaining);
+					while (match) {
+						const label = match[1];
+						const rawContent = match[2];
+
+						// Remove 4-space or tab indent from content
+						const content = rawContent
+							.split("\n")
+							.map((line) => line.replace(/^(?:    |\t)/, ""))
+							.join("\n")
+							.trim();
+
+						const tabToken: ContentTabToken = {
+							type: "content_tab",
+							raw: match[0],
+							label,
+							tokens: [],
+						};
+
+						// Parse the content as markdown
+						this.lexer.blockTokens(content, tabToken.tokens);
+
+						tabs.push(tabToken);
+						fullRaw += match[0];
+						remaining = remaining.slice(match[0].length);
+
+						// Check if next content is another tab
+						match = tabRule.exec(remaining);
+					}
+
+					// Only return if we found at least one tab
+					if (tabs.length > 0) {
+						return {
+							type: "content_tabs",
+							raw: fullRaw,
+							tabs,
+						} as ContentTabsToken;
+					}
+
+					return undefined;
+				},
+			},
 			// Admonition extension for Material for MkDocs syntax
 			{
 				name: "admonition",

@@ -6,6 +6,7 @@
 	import Br from "./Br.svelte";
 	import Code from "./Code.svelte";
 	import Codespan from "./Codespan.svelte";
+	import ContentTabs from "./ContentTabs.svelte";
 	import Del from "./Del.svelte";
 	import Em from "./Em.svelte";
 	import Escape from "./Escape.svelte";
@@ -39,6 +40,7 @@
 	} = {
 		admonition: Admonition as never,
 		blockquote: Blockquote as never,
+		content_tabs: ContentTabs as never,
 		br: Br as never,
 		code: Code as never,
 		codespan: Codespan as never,
