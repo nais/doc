@@ -9,6 +9,7 @@
 	import Codespan from "./Codespan.svelte";
 	import ContentTabs from "./ContentTabs.svelte";
 	import Def from "./Def.svelte";
+	import DefinitionList from "./DefinitionList.svelte";
 	import Del from "./Del.svelte";
 	import Em from "./Em.svelte";
 	import Escape from "./Escape.svelte";
@@ -46,6 +47,7 @@
 		codespan: Codespan,
 		content_tabs: ContentTabs,
 		def: Def,
+		def_list: DefinitionList,
 		del: Del,
 		em: Em,
 		escape: Escape,
