@@ -9,6 +9,7 @@ import type {
 	ContentTabsToken,
 	ContentTabToken,
 	FootnoteToken,
+	HighlightedCodeToken,
 } from "./types/tokens";
 
 // Re-export Attributes for external use
@@ -594,6 +595,18 @@ function processLinks(
 			return {
 				...token,
 				tokens: processLinks(token.tokens as Token[], basePath, isReadme),
+			};
+		}
+
+		// Handle highlighted_code tokens with annotations
+		if (token.type === "highlighted_code" && "annotations" in token) {
+			const highlightedToken = token as HighlightedCodeToken;
+			return {
+				...highlightedToken,
+				annotations: highlightedToken.annotations.map((annotation) => ({
+					...annotation,
+					tokens: processLinks(annotation.tokens, basePath, isReadme) as Token[],
+				})),
 			};
 		}
 
