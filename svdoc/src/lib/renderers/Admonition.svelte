@@ -28,6 +28,7 @@
 			case "warning":
 			case "caution":
 			case "attention":
+			case "gcp-only":
 				return "warning";
 			case "success":
 			case "check":
@@ -102,7 +103,8 @@
 	/* Style collapsible admonitions based on type */
 	.admonition--collapsible.admonition--warning :global(.navds-expansioncard),
 	.admonition--collapsible.admonition--caution :global(.navds-expansioncard),
-	.admonition--collapsible.admonition--attention :global(.navds-expansioncard) {
+	.admonition--collapsible.admonition--attention :global(.navds-expansioncard),
+	.admonition--collapsible.admonition--gcp-only :global(.navds-expansioncard) {
 		border-color: var(--ax-border-warning, #e75e01);
 		background-color: var(--ax-bg-warning-soft, rgba(231, 94, 1, 0.1));
 	}
