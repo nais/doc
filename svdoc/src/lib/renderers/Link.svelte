@@ -5,7 +5,6 @@
 	let { token }: { token: Tokens.Link } = $props();
 </script>
 
-<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 <a href={token.href} title={token.title}>
 	{#if (token.tokens?.length || 0) > 0}
 		<Renderer tokens={token.tokens!} />
