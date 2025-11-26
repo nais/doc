@@ -297,6 +297,12 @@ export interface HighlightResult {
 	title: string | null;
 }
 
+// Generate unique IDs for popover elements
+let popoverIdCounter = 0;
+function generatePopoverId(): string {
+	return `annotation-popover-${++popoverIdCounter}`;
+}
+
 /**
  * Create a Shiki transformer for line processing
  */
@@ -321,7 +327,10 @@ function createLineTransformer(
 				this.addClassToHast(node, "has-annotation");
 
 				if (includePopups) {
-					// Inject twoslash-style annotation marker with hover popup
+					// Generate unique ID for this popover instance
+					const popoverId = generatePopoverId();
+
+					// Inject annotation marker with popover API
 					const annotationMarker: Element = {
 						type: "element",
 						tagName: "span",
@@ -330,37 +339,27 @@ function createLineTransformer(
 							"data-annotation-id": annotationId,
 						},
 						children: [
-							// The clickable marker (circled number)
+							// The clickable button that triggers the popover
 							{
 								type: "element",
-								tagName: "span",
-								properties: { class: "code-annotation-marker", tabindex: "0" },
+								tagName: "button",
+								properties: {
+									class: "code-annotation-marker",
+									popovertarget: popoverId,
+								},
 								children: [{ type: "text", value: annotationId }],
 							},
-							// The popup container (hidden by default, shown on hover/focus)
+							// The popover element (rendered in top layer)
 							{
 								type: "element",
-								tagName: "span",
-								properties: { class: "code-annotation-popup" },
-								children: [
-									// Arrow pointing to the marker
-									{
-										type: "element",
-										tagName: "span",
-										properties: { class: "code-annotation-popup-arrow" },
-										children: [],
-									},
-									// Content placeholder - will be filled client-side
-									{
-										type: "element",
-										tagName: "span",
-										properties: {
-											class: "code-annotation-popup-content",
-											"data-annotation-content": annotationId,
-										},
-										children: [{ type: "text", value: `Annotation ${annotationId}` }],
-									},
-								],
+								tagName: "div",
+								properties: {
+									id: popoverId,
+									popover: "",
+									class: "code-annotation-popover",
+									"data-annotation-content": annotationId,
+								},
+								children: [{ type: "text", value: `Annotation ${annotationId}` }],
 							},
 						],
 					};
