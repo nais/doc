@@ -9,6 +9,7 @@ export { default as Footnote } from "./Footnote.svelte";
 export { default as FootnoteRef } from "./FootnoteRef.svelte";
 export { default as Footnotes } from "./Footnotes.svelte";
 export { default as Heading } from "./Heading.svelte";
+export { default as HighlightedCode } from "./HighlightedCode.svelte";
 export { default as HR } from "./HR.svelte";
 export { default as HTML } from "./HTML.svelte";
 export { default as HtmlWithMarkdown } from "./HtmlWithMarkdown.svelte";
