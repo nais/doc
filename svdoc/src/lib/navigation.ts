@@ -5,8 +5,8 @@ import { parse as parseYaml } from "yaml";
 export interface NavItem {
 	title: string;
 	href: string;
-	hasContent: boolean;
 	children?: NavItem[];
+	hasContent: boolean;
 }
 
 export interface NavAttributes {
@@ -26,6 +26,31 @@ async function readPagesFile(dirPath: string): Promise<NavEntry[] | null> {
 		return parsed.nav || null;
 	} catch {
 		return null;
+	}
+}
+
+// Directories to ignore (no markdown content)
+const IGNORED_DIRECTORIES = new Set(["assets", "css", "material_theme_stylesheet_overrides"]);
+
+/**
+ * Get all files and directories in a directory
+ */
+async function getDirectoryContents(dirPath: string): Promise<string[]> {
+	try {
+		const entries = await readdir(dirPath, { withFileTypes: true });
+		return entries
+			.filter((entry) => {
+				// Skip hidden files and .pages
+				if (entry.name.startsWith(".")) return false;
+				// Skip ignored directories
+				if (IGNORED_DIRECTORIES.has(entry.name.toLowerCase())) return false;
+				// Include directories and .md files
+				return entry.isDirectory() || entry.name.endsWith(".md");
+			})
+			.map((entry) => entry.name)
+			.sort();
+	} catch {
+		return [];
 	}
 }
 
@@ -93,85 +118,125 @@ function pathToHref(basePath: string, name: string): string {
 }
 
 /**
- * Check if a path is a directory using fs
+ * Check if a path is a directory
  */
 async function isDirectory(path: string): Promise<boolean> {
 	try {
-		await readdir(path);
+		const file = Bun.file(`${path}/.pages`);
+		await file.text();
 		return true;
 	} catch {
-		return false;
-	}
-}
-
-/**
- * Check if a file exists
- */
-async function fileExists(path: string): Promise<boolean> {
-	try {
-		await Bun.file(path).text();
-		return true;
-	} catch {
-		return false;
-	}
-}
-
-/**
- * Check if a directory has a README.md file
- */
-async function hasReadme(dirPath: string): Promise<boolean> {
-	return fileExists(`${dirPath}/README.md`);
-}
-
-/**
- * Scan a directory for markdown files and subdirectories
- */
-async function scanDirectory(dirPath: string): Promise<NavEntry[]> {
-	try {
-		const entries = await readdir(dirPath, { withFileTypes: true });
-		const navEntries: NavEntry[] = [];
-
-		for (const entry of entries) {
-			// Skip hidden files and .pages
-			if (entry.name.startsWith(".")) {
-				continue;
+		// Check if it's a directory by trying to read README.md
+		try {
+			const readme = Bun.file(`${path}/README.md`);
+			await readme.text();
+			return true;
+		} catch {
+			// Try listing directory contents as final check
+			try {
+				const contents = await readdir(path);
+				return contents.length > 0;
+			} catch {
+				return false;
 			}
+		}
+	}
+}
 
-			if (entry.isDirectory()) {
-				navEntries.push(entry.name);
-			} else if (entry.name.endsWith(".md") && entry.name.toLowerCase() !== "readme.md") {
-				navEntries.push(entry.name);
+/**
+ * Get the path from a nav entry
+ */
+function getPathFromEntry(entry: NavEntry): string {
+	if (typeof entry === "string") {
+		return entry;
+	}
+	return Object.values(entry)[0];
+}
+
+/**
+ * Process a single nav item (file or directory)
+ */
+async function processNavItem(
+	dirPath: string,
+	path: string,
+	explicitTitle: string | null,
+): Promise<NavItem | null> {
+	const fullPath = `${dirPath}/${path}`;
+	const isDir = await isDirectory(fullPath);
+	// Use explicit title if provided, otherwise use directory/filename converted to title case
+	// Don't use README heading - MkDocs uses directory name for nav
+	let title = explicitTitle || filenameToTitle(path);
+
+	if (isDir) {
+		// It's a directory - recurse
+		const children = await buildNavForDirectory(fullPath);
+
+		return {
+			title,
+			href: pathToHref(dirPath, path),
+			children: children.length > 0 ? children : undefined,
+			hasContent: true,
+		};
+	} else {
+		// It's a file - get title from the file itself
+		const mdPath = path.endsWith(".md") ? fullPath : `${fullPath}.md`;
+
+		// Try to get title from file (frontmatter or first heading)
+		if (!explicitTitle) {
+			const fileTitle = await getMarkdownTitle(mdPath);
+			if (fileTitle) {
+				title = fileTitle;
 			}
 		}
 
-		// Sort alphabetically
-		return navEntries.sort((a, b) => {
-			const nameA = typeof a === "string" ? a : Object.values(a)[0];
-			const nameB = typeof b === "string" ? b : Object.values(b)[0];
-			return nameA.localeCompare(nameB);
-		});
-	} catch {
-		return [];
+		return {
+			title,
+			href: pathToHref(dirPath, path),
+			hasContent: true,
+		};
 	}
 }
 
 /**
  * Build navigation tree for a directory
  */
-async function buildNavForDirectory(dirPath: string, depth: number = 0): Promise<NavItem[]> {
-	// First try to read .pages file, otherwise scan directory
-	let nav = await readPagesFile(dirPath);
-
-	if (!nav) {
-		// No .pages file - scan the directory
-		nav = await scanDirectory(dirPath);
-	}
-
-	if (!nav || nav.length === 0) {
-		return [];
-	}
-
+async function buildNavForDirectory(dirPath: string): Promise<NavItem[]> {
+	const nav = await readPagesFile(dirPath);
 	const items: NavItem[] = [];
+
+	// If no .pages file, list directory contents directly
+	if (!nav) {
+		const contents = await getDirectoryContents(dirPath);
+		for (const name of contents) {
+			// Skip README.md as it represents the directory itself
+			if (name.toLowerCase() === "readme.md") {
+				continue;
+			}
+			const item = await processNavItem(dirPath, name, null);
+			if (item) {
+				items.push(item);
+			}
+		}
+		return items;
+	}
+
+	// Track which items are explicitly listed (to know what's left for ...)
+	const explicitPaths = new Set<string>();
+
+	// First pass: collect explicitly listed paths
+	for (const entry of nav) {
+		if (
+			entry === "..." ||
+			entry === "" ||
+			(typeof entry === "object" && Object.keys(entry)[0] === "")
+		) {
+			continue;
+		}
+		const path = getPathFromEntry(entry);
+		explicitPaths.add(path);
+		// Also add without .md extension for matching
+		explicitPaths.add(path.replace(/\.md$/, ""));
+	}
 
 	for (const entry of nav) {
 		// Skip empty entries (separators in mkdocs)
@@ -179,18 +244,36 @@ async function buildNavForDirectory(dirPath: string, depth: number = 0): Promise
 			continue;
 		}
 
-		// Skip ... (catch-all)
+		// Handle ... (catch-all) - include remaining files/directories
 		if (entry === "...") {
+			const allContents = await getDirectoryContents(dirPath);
+
+			for (const name of allContents) {
+				// Skip if already explicitly listed
+				const nameWithoutExt = name.replace(/\.md$/, "");
+				if (explicitPaths.has(name) || explicitPaths.has(nameWithoutExt)) {
+					continue;
+				}
+
+				// Skip README.md as it represents the directory itself
+				if (name.toLowerCase() === "readme.md") {
+					continue;
+				}
+
+				const item = await processNavItem(dirPath, name, null);
+				if (item) {
+					items.push(item);
+				}
+			}
 			continue;
 		}
 
-		let title: string;
+		let title: string | null = null;
 		let path: string;
 
 		if (typeof entry === "string") {
 			// Simple entry like "nais.md" or "explanations"
 			path = entry;
-			title = filenameToTitle(entry);
 		} else {
 			// Object entry like { "Home": "README.md" } or { "💡 Explanations": "explanations" }
 			const key = Object.keys(entry)[0];
@@ -200,57 +283,13 @@ async function buildNavForDirectory(dirPath: string, depth: number = 0): Promise
 
 		// Skip README.md entries that would duplicate the parent directory link
 		// But keep them if they have an explicit title (like "Home: README.md")
-		if (
-			(path === "README.md" || path.toLowerCase() === "readme.md") &&
-			title === filenameToTitle(path)
-		) {
+		if ((path === "README.md" || path.toLowerCase() === "readme.md") && !title) {
 			continue;
 		}
 
-		const fullPath = `${dirPath}/${path}`;
-		const isDir = await isDirectory(fullPath);
-
-		if (isDir) {
-			// It's a directory - recurse
-			const children = await buildNavForDirectory(fullPath, depth + 1);
-
-			// Check if directory has a README.md (has content)
-			const dirHasContent = await hasReadme(fullPath);
-
-			// Try to get title from README.md if not explicitly set
-			if (title === filenameToTitle(path)) {
-				const readmeTitle = await getMarkdownTitle(`${fullPath}/README.md`);
-				if (readmeTitle) {
-					title = readmeTitle;
-				}
-			}
-
-			items.push({
-				title,
-				href: pathToHref(dirPath, path),
-				hasContent: dirHasContent,
-				children: children.length > 0 ? children : undefined,
-			});
-		} else {
-			// It's a file
-			const mdPath = path.endsWith(".md") ? fullPath : `${fullPath}.md`;
-
-			// Check if file exists
-			if (!(await fileExists(mdPath))) {
-				continue;
-			}
-
-			// Try to get title from file
-			const fileTitle = await getMarkdownTitle(mdPath);
-			if (fileTitle && title === filenameToTitle(path)) {
-				title = fileTitle;
-			}
-
-			items.push({
-				title,
-				href: pathToHref(dirPath, path),
-				hasContent: true,
-			});
+		const item = await processNavItem(dirPath, path, title);
+		if (item) {
+			items.push(item);
 		}
 	}
 
