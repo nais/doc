@@ -272,9 +272,17 @@ function processIncludes(content: string, basePath: string): string {
 
 	return content.replace(includeRegex, (_, includePath) => {
 		try {
-			// Resolve path relative to docs directory
-			const docsDir = resolve(basePath, "..");
-			const fullPath = resolve(docsDir, includePath);
+			let fullPath: string;
+
+			if (includePath.startsWith("./") || includePath.startsWith("../")) {
+				// Relative path - resolve from current file's directory
+				fullPath = resolve(basePath, includePath);
+			} else {
+				// Absolute-style path (e.g., 'auth/partials/validate.md') - resolve from docs root
+				// The docs root is always ../docs relative to the project
+				fullPath = resolve("../docs", includePath);
+			}
+
 			const includeContent = readFileSync(fullPath, "utf-8");
 			return includeContent;
 		} catch {
