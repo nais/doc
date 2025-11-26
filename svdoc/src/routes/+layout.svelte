@@ -1,5 +1,7 @@
 <script lang="ts">
 	import favicon from "$lib/assets/favicon.svg";
+	import SearchButton from "$lib/SearchButton.svelte";
+	import SearchModal from "$lib/SearchModal.svelte";
 	import Sidebar from "$lib/Sidebar.svelte";
 	import { Spacer, Theme } from "@nais/ds-svelte-community";
 	import { InternalHeader, InternalHeaderTitle } from "@nais/ds-svelte-community/experimental";
@@ -9,6 +11,8 @@
 
 	let { children, data }: LayoutProps = $props();
 	const { navigation } = $derived(data);
+
+	let searchOpen = $state(false);
 </script>
 
 <svelte:head>
@@ -21,8 +25,11 @@
 			<InternalHeader>
 				<InternalHeaderTitle href="#Home">Nais Docs</InternalHeaderTitle>
 				<Spacer />
+				<SearchButton onclick={() => (searchOpen = true)} />
 			</InternalHeader>
 		</header>
+
+		<SearchModal bind:open={searchOpen} />
 
 		<div class="content-wrapper">
 			<aside class="sidebar-container">
