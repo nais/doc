@@ -15,18 +15,31 @@ export interface NavAttributes {
 
 type NavEntry = string | Record<string, string>;
 
+interface PagesFile {
+	nav?: NavEntry[];
+	hide?: boolean;
+}
+
 /**
  * Read and parse a .pages file
  */
-async function readPagesFile(dirPath: string): Promise<NavEntry[] | null> {
+async function readPagesFile(dirPath: string): Promise<PagesFile | null> {
 	try {
 		const pagesPath = `${dirPath}/.pages`;
 		const content = await Bun.file(pagesPath).text();
-		const parsed = parseYaml(content) as { nav?: NavEntry[] };
-		return parsed.nav || null;
+		const parsed = parseYaml(content) as PagesFile;
+		return parsed;
 	} catch {
 		return null;
 	}
+}
+
+/**
+ * Check if a directory should be hidden from navigation
+ */
+async function isHiddenDirectory(dirPath: string): Promise<boolean> {
+	const pagesFile = await readPagesFile(dirPath);
+	return pagesFile?.hide === true;
 }
 
 // Directories to ignore (no markdown content)
@@ -118,6 +131,19 @@ function pathToHref(basePath: string, name: string): string {
 }
 
 /**
+ * Check if a directory has a README.md file
+ */
+async function hasReadme(dirPath: string): Promise<boolean> {
+	try {
+		const readme = Bun.file(`${dirPath}/README.md`);
+		await readme.text();
+		return true;
+	} catch {
+		return false;
+	}
+}
+
+/**
  * Check if a path is a directory
  */
 async function isDirectory(path: string): Promise<boolean> {
@@ -163,6 +189,11 @@ async function processNavItem(
 ): Promise<NavItem | null> {
 	const fullPath = `${dirPath}/${path}`;
 	const isDir = await isDirectory(fullPath);
+
+	// Skip hidden directories
+	if (isDir && (await isHiddenDirectory(fullPath))) {
+		return null;
+	}
 	// Use explicit title if provided, otherwise use directory/filename converted to title case
 	// Don't use README heading - MkDocs uses directory name for nav
 	let title = explicitTitle || filenameToTitle(path);
@@ -171,11 +202,14 @@ async function processNavItem(
 		// It's a directory - recurse
 		const children = await buildNavForDirectory(fullPath);
 
+		// Check if directory has a README.md (has content)
+		const dirHasContent = await hasReadme(fullPath);
+
 		return {
 			title,
 			href: pathToHref(dirPath, path),
 			children: children.length > 0 ? children : undefined,
-			hasContent: true,
+			hasContent: dirHasContent,
 		};
 	} else {
 		// It's a file - get title from the file itself
@@ -201,10 +235,17 @@ async function processNavItem(
  * Build navigation tree for a directory
  */
 async function buildNavForDirectory(dirPath: string): Promise<NavItem[]> {
-	const nav = await readPagesFile(dirPath);
+	const pagesFile = await readPagesFile(dirPath);
 	const items: NavItem[] = [];
 
-	// If no .pages file, list directory contents directly
+	// If directory is hidden, return empty array
+	if (pagesFile?.hide === true) {
+		return [];
+	}
+
+	const nav = pagesFile?.nav;
+
+	// If no .pages file or no nav entries, list directory contents directly
 	if (!nav) {
 		const contents = await getDirectoryContents(dirPath);
 		for (const name of contents) {
