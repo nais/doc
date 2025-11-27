@@ -15,7 +15,7 @@
 
 	let edit = $state(false);
 	let value = $derived.by(() => {
-		return ctx.variables.get(name) || `<${name}>`;
+		return ctx.getValue(name) || `<${name}>`;
 	});
 
 	let button: HTMLButtonElement | null = $state(null);
@@ -42,7 +42,7 @@
 		if (event.key === "Enter" || event.key === "Escape") {
 			event.preventDefault();
 			if (!readonly) {
-				ctx.variables.set(name, value);
+				ctx.setValue(name, value);
 			}
 			edit = false;
 		}
@@ -55,7 +55,7 @@
 	type="text"
 	onblur={() => {
 		if (!readonly) {
-			ctx.variables.set(name, value);
+			ctx.setValue(name, value);
 		}
 		edit = false;
 	}}
