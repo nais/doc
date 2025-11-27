@@ -143,11 +143,11 @@ nais postgres users add appname username password
 |-----------|----------|-------|------------------------------|---------------------------------------------|
 | privilege | No       |       | select                       | The privilege level the user is granted     |
 
-## users list
-Lists all users in a database.
+## users get
+Get all users in a database.
 
 ```bash
-nais postgres users list appname
+nais postgres users get appname
 ```
 
 | Argument    | Required  | Description                                                 |
