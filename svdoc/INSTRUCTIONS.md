@@ -120,6 +120,39 @@ Supports MkDocs-style `.pages` files for navigation configuration:
 - `hasContent` is true only if directory contains README.md
 - Items without content render as text, not links
 
+## Editable Variables
+
+The renderer supports editable placeholder variables in both inline code and code blocks.
+
+### Syntax
+
+- `<VARIABLE_NAME>` - Editable variable (uppercase letters, underscores, hyphens)
+- `<VARIABLE_NAME:readonly>` - Read-only variable (displays but can't be edited)
+
+### How It Works
+
+1. **Inline code** (`Codespan.svelte`): The `textAndVariables()` function parses the code span for variable patterns and renders `Variable` components inline.
+
+2. **Code blocks** (`HighlightedCode.svelte`): 
+   - Variables are extracted before Shiki highlighting and replaced with unique placeholders
+   - A Shiki transformer wraps these placeholders in `<span class="svdoc-variable-marker">` elements with data attributes
+   - After mount, `Variable` components are mounted into these marker spans using Svelte 5's `mount()` API
+   - The page context is passed as a prop since `mount()` doesn't inherit Svelte context
+
+### Implementation
+
+- `src/lib/components/Variable.svelte` - The editable variable component with click-to-edit UI (accepts optional `ctx` prop for mount scenarios)
+- `src/lib/state/page_context.svelte.ts` - Reactive context using `SvelteMap` to share variable values across the page
+- `src/lib/helpers/shiki.ts` - `extractVariables()` function and Shiki transformer for wrapping placeholders in marker spans
+
+### Example
+
+```yaml
+kubectl get pods -n <NAMESPACE>
+```
+
+Users can click on `<NAMESPACE>` to enter their actual namespace value, which persists across all instances on the page.
+
 ## Template Processing
 
 The `src/lib/helpers/templates.ts` module processes Jinja-like templates:
