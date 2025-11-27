@@ -1,8 +1,11 @@
 <script lang="ts">
+	import Variable from "$lib/components/Variable.svelte";
+	import type { CodeVariable } from "$lib/helpers/shiki";
+	import { getContext } from "$lib/state/page_context.svelte";
 	import { computePosition, flip, offset, shift } from "@floating-ui/dom";
 	import { CopyButton } from "@nais/ds-svelte-community";
 	import type { Token } from "marked";
-	import { onMount } from "svelte";
+	import { mount, onMount, unmount } from "svelte";
 	import Renderer from "./Renderer.svelte";
 
 	interface CodeAnnotation {
@@ -20,11 +23,34 @@
 		darkHtml: string;
 		title: string | null;
 		annotations: CodeAnnotation[];
+		variables?: CodeVariable[];
 	}
 
 	let { token }: { token: HighlightedCodeToken } = $props();
 
+	// Get the page context to pass to mounted Variable components
+	const ctx = getContext();
+
 	const hasAnnotations = $derived(token.annotations && token.annotations.length > 0);
+	const hasVariables = $derived(token.variables && token.variables.length > 0);
+
+	// Compute copy text with variable values substituted
+	const copyText = $derived.by(() => {
+		let text = token.text;
+		if (!token.variables || token.variables.length === 0) {
+			return text;
+		}
+		// Replace each variable pattern with its current value from context
+		for (const variable of token.variables) {
+			const pattern = variable.isReadOnly ? `<${variable.name}:readonly>` : `<${variable.name}>`;
+			const value = ctx.variables.get(variable.name) ?? pattern;
+			text = text.replaceAll(pattern, value);
+		}
+		return text;
+	});
+
+	// Track mounted Variable components for cleanup
+	let mountedVariables: Array<{ unmount: () => void }> = [];
 
 	let codeContainer: HTMLDivElement | undefined = $state();
 	let annotationSourceContainer: HTMLDivElement | undefined = $state();
@@ -42,9 +68,57 @@
 		});
 	}
 
+	// Mount Variable components into marker spans
+	function mountVariables() {
+		if (!codeContainer || !hasVariables) return;
+
+		// Clean up any previously mounted variables
+		for (const v of mountedVariables) {
+			v.unmount();
+		}
+		mountedVariables = [];
+
+		// Find all variable marker spans
+		const markers = codeContainer.querySelectorAll<HTMLSpanElement>(".svdoc-variable-marker");
+
+		markers.forEach((marker) => {
+			const name = marker.dataset.variableName;
+			const readonly = marker.dataset.variableReadonly === "true";
+
+			if (!name) return;
+
+			// Clear the placeholder text
+			marker.textContent = "";
+
+			// Mount a Variable component into this span
+			// Pass the context as a prop since mount() doesn't inherit Svelte context
+			const instance = mount(Variable, {
+				target: marker,
+				props: {
+					name,
+					readonly,
+					ctx,
+				},
+			});
+
+			mountedVariables.push({ unmount: () => unmount(instance) });
+		});
+	}
+
 	// After mount, inject annotation content and set up popover positioning
 	onMount(() => {
-		if (!codeContainer || !annotationSourceContainer || !hasAnnotations) return;
+		// Mount variables
+		mountVariables();
+
+		// Cleanup on unmount
+		const cleanup = () => {
+			for (const v of mountedVariables) {
+				v.unmount();
+			}
+			mountedVariables = [];
+		};
+
+		if (!codeContainer || !annotationSourceContainer || !hasAnnotations) return cleanup;
 
 		// Wait a tick for content to render
 		requestAnimationFrame(() => {
@@ -83,6 +157,8 @@
 						positionPopover(button, popover);
 					}
 				});
+
+				return cleanup;
 			});
 		});
 	});
@@ -108,7 +184,7 @@
 		{:else}
 			<span>Plaintext</span>
 		{/if}
-		<CopyButton size="small" variant="neutral" copyText={token.text} />
+		<CopyButton size="small" variant="neutral" {copyText} />
 	</div>
 	<div class="code-content" bind:this={codeContainer}>
 		<div class="light-theme">

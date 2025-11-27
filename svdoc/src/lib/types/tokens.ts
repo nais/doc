@@ -1,3 +1,4 @@
+import type { CodeVariable } from "$lib/helpers/shiki";
 import type { Token } from "marked";
 
 /**
@@ -88,6 +89,7 @@ export interface HighlightedCodeToken {
 	darkHtml: string;
 	title?: string;
 	annotations: CodeAnnotation[];
+	variables: CodeVariable[];
 }
 
 /**
