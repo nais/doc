@@ -1,10 +1,51 @@
-import type { Element } from "hast";
+import type { Element, Text } from "hast";
 import {
 	createHighlighter,
 	type BundledLanguage,
 	type Highlighter,
 	type ShikiTransformer,
 } from "shiki";
+
+/**
+ * Variable found in code
+ */
+export interface CodeVariable {
+	index: number;
+	name: string;
+	isReadOnly: boolean;
+	placeholder: string;
+}
+
+// Unique prefix for variable placeholders that won't conflict with code
+const VARIABLE_PLACEHOLDER_PREFIX = "___SVDOC_VAR_";
+const VARIABLE_PLACEHOLDER_SUFFIX = "___";
+
+/**
+ * Extract variables from code and replace with placeholders
+ * Variables use the format: <VARIABLE_NAME> or <VARIABLE_NAME:readonly>
+ */
+export function extractVariables(code: string): {
+	processedCode: string;
+	variables: CodeVariable[];
+} {
+	const variables: CodeVariable[] = [];
+	const variablePattern = /<([A-Z_-]+)(:readonly)?>/g;
+
+	let index = 0;
+	const processedCode = code.replace(variablePattern, (match, name, readonlyTag) => {
+		const placeholder = `${VARIABLE_PLACEHOLDER_PREFIX}${index}${VARIABLE_PLACEHOLDER_SUFFIX}`;
+		variables.push({
+			index,
+			name,
+			isReadOnly: !!readonlyTag,
+			placeholder,
+		});
+		index++;
+		return placeholder;
+	});
+
+	return { processedCode, variables };
+}
 
 let highlighterPromise: Promise<Highlighter> | null = null;
 
@@ -295,6 +336,7 @@ export interface HighlightResult {
 	html: string;
 	language: string;
 	title: string | null;
+	variables: CodeVariable[];
 }
 
 // Generate unique IDs for popover elements
@@ -304,13 +346,110 @@ function generatePopoverId(): string {
 }
 
 /**
+ * Process variables in a node's children recursively
+ */
+function processVariablesInNode(node: Element, placeholderMap: Map<string, CodeVariable>): void {
+	if (!node.children || node.children.length === 0) return;
+
+	const newChildren: (Element | Text)[] = [];
+	let modified = false;
+
+	for (const child of node.children) {
+		if (child.type === "element") {
+			// Recursively process child elements
+			processVariablesInNode(child, placeholderMap);
+			newChildren.push(child);
+			continue;
+		}
+
+		if (child.type !== "text") {
+			// Skip comments and other node types
+			continue;
+		}
+
+		const text = child.value;
+		const segments: (Element | Text)[] = [];
+		let currentPos = 0;
+
+		// Find all placeholders in this text and their positions
+		const matches: { start: number; end: number; variable: CodeVariable }[] = [];
+		for (const [placeholder, variable] of placeholderMap) {
+			let searchStart = 0;
+			let idx: number;
+			while ((idx = text.indexOf(placeholder, searchStart)) !== -1) {
+				matches.push({
+					start: idx,
+					end: idx + placeholder.length,
+					variable,
+				});
+				searchStart = idx + placeholder.length;
+			}
+		}
+
+		if (matches.length === 0) {
+			newChildren.push(child);
+			continue;
+		}
+
+		modified = true;
+		// Sort matches by position
+		matches.sort((a, b) => a.start - b.start);
+
+		for (const match of matches) {
+			// Add text before this placeholder
+			if (match.start > currentPos) {
+				segments.push({
+					type: "text",
+					value: text.slice(currentPos, match.start),
+				});
+			}
+
+			// Add the marker span for the variable
+			segments.push({
+				type: "element",
+				tagName: "span",
+				properties: {
+					class: "svdoc-variable-marker",
+					"data-variable-name": match.variable.name,
+					"data-variable-readonly": match.variable.isReadOnly ? "true" : "false",
+				},
+				children: [{ type: "text", value: `<${match.variable.name}>` }],
+			});
+
+			currentPos = match.end;
+		}
+
+		// Add remaining text after the last placeholder
+		if (currentPos < text.length) {
+			segments.push({
+				type: "text",
+				value: text.slice(currentPos),
+			});
+		}
+
+		newChildren.push(...segments);
+	}
+
+	if (modified) {
+		node.children = newChildren;
+	}
+}
+
+/**
  * Create a Shiki transformer for line processing
  */
 function createLineTransformer(
 	highlightLines: Set<number>,
 	lineToAnnotation: Map<number, string>,
 	includePopups: boolean = false,
+	variables: CodeVariable[] = [],
 ): ShikiTransformer {
+	// Build a map from placeholder to variable for quick lookup
+	const placeholderMap = new Map<string, CodeVariable>();
+	for (const v of variables) {
+		placeholderMap.set(v.placeholder, v);
+	}
+
 	return {
 		line(node, line) {
 			// Add highlight class to specific lines
@@ -319,6 +458,11 @@ function createLineTransformer(
 			}
 			// Add line number data attribute
 			node.properties["data-line"] = line;
+
+			// Process variable placeholders in this line's text nodes
+			if (variables.length > 0) {
+				processVariablesInNode(node, placeholderMap);
+			}
 
 			// Add annotation marker if this line has an annotation
 			const annotationId = lineToAnnotation.get(line);
@@ -386,6 +530,9 @@ export async function highlightCode(
 	// Parse code annotations
 	const { cleanedCode, annotations } = parseCodeAnnotations(code, language);
 
+	// Extract variables and replace with placeholders
+	const { processedCode, variables } = extractVariables(cleanedCode);
+
 	const highlighter = await getHighlighter();
 
 	// Load language dynamically if not already loaded
@@ -406,16 +553,17 @@ export async function highlightCode(
 		lineToAnnotation.set(annotation.line, annotation.id);
 	}
 
-	const html = highlighter.codeToHtml(cleanedCode, {
+	const html = highlighter.codeToHtml(processedCode, {
 		lang: normalizedLang,
 		theme: themeId,
-		transformers: [createLineTransformer(highlightLines, lineToAnnotation, false)],
+		transformers: [createLineTransformer(highlightLines, lineToAnnotation, false, variables)],
 	});
 
 	return {
 		html,
 		language,
 		title,
+		variables,
 	};
 }
 
@@ -431,6 +579,7 @@ export async function highlightCodeDual(
 	language: string;
 	title: string | null;
 	annotations: CodeAnnotation[];
+	variables: CodeVariable[];
 }> {
 	const { language, highlightLines } = parseHighlightLines(langInfo);
 	const title = parseTitle(langInfo);
@@ -438,6 +587,9 @@ export async function highlightCodeDual(
 
 	// Parse code annotations
 	const { cleanedCode, annotations } = parseCodeAnnotations(code, language);
+
+	// Extract variables and replace with placeholders
+	const { processedCode, variables } = extractVariables(cleanedCode);
 
 	const highlighter = await getHighlighter();
 
@@ -457,17 +609,17 @@ export async function highlightCodeDual(
 		lineToAnnotation.set(annotation.line, annotation.id);
 	}
 
-	const light = highlighter.codeToHtml(cleanedCode, {
+	const light = highlighter.codeToHtml(processedCode, {
 		lang: normalizedLang,
 		theme: "github-light",
-		transformers: [createLineTransformer(highlightLines, lineToAnnotation, true)],
+		transformers: [createLineTransformer(highlightLines, lineToAnnotation, true, variables)],
 	});
 
-	const dark = highlighter.codeToHtml(cleanedCode, {
+	const dark = highlighter.codeToHtml(processedCode, {
 		lang: normalizedLang,
 		theme: "github-dark",
-		transformers: [createLineTransformer(highlightLines, lineToAnnotation, true)],
+		transformers: [createLineTransformer(highlightLines, lineToAnnotation, true, variables)],
 	});
 
-	return { light, dark, language, title, annotations };
+	return { light, dark, language, title, annotations, variables };
 }

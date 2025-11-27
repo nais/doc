@@ -8,8 +8,8 @@ import type {
 	Attributes,
 	ContentTabsToken,
 	ContentTabToken,
-	DefinitionListToken,
 	DefinitionListItemToken,
+	DefinitionListToken,
 	DefinitionToken,
 	FootnoteToken,
 	HighlightedCodeToken,
@@ -591,6 +591,7 @@ async function processCodeBlocks(tokens: Token[] | TokensList): Promise<Token[]>
 					darkHtml: highlighted.dark,
 					title: title,
 					annotations: annotationsWithContent,
+					variables: highlighted.variables,
 				} as Token);
 			} catch (err) {
 				// Fall back to original token if highlighting fails
