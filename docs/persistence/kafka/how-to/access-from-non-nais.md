@@ -12,7 +12,7 @@ This guide will show you how to access a [Kafka topic](create.md) from an applic
 ???+ note ".nais/aivenapp.yaml"
 
     ```yaml
-    apiVersion: aiven.nais.io/v1
+    apiVersion: aiven.nais.io/v2
     kind: AivenApplication
     metadata:
       name: <MY-APP>
