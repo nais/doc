@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from "$app/environment";
 	import { Alert, ExpansionCard } from "@nais/ds-svelte-community";
 	import type { Token } from "marked";
 	import Renderer from "./Renderer.svelte";
@@ -58,7 +59,7 @@
 
 {#if token.collapsible}
 	<div class="admonition admonition--collapsible admonition--{token.admonitionType}">
-		<ExpansionCard header={token.title} open={token.open} size="small">
+		<ExpansionCard header={token.title} open={!browser || token.open} size="small">
 			<div class="admonition-content">
 				<Renderer tokens={token.tokens} />
 			</div>
