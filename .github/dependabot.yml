@@ -6,6 +6,8 @@ updates:
       interval: "weekly"
       time: "09:00"
       day: "monday"
+    cooldown:
+      default-days: 7
     groups:
       actions:
         patterns:
@@ -16,6 +18,8 @@ updates:
       interval: "weekly"
       time: "09:00"
       day: "monday"
+    cooldown:
+      default-days: 7
     groups:
       pip:
         patterns:
