@@ -60,6 +60,14 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<noscript>
+		<style>
+			/* Hide elements that require JavaScript when JS is disabled */
+			.hide-noscript {
+				display: none;
+			}
+		</style>
+	</noscript>
 </svelte:head>
 
 <Theme {theme}>
