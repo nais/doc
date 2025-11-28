@@ -174,7 +174,7 @@
 			{#if token.lang}
 				<span class="language">{token.lang}</span>
 			{/if}
-			<CopyButton size="small" variant="neutral" copyText={token.text} />
+			<CopyButton size="small" variant="neutral" copyText={token.text} class="hide-noscript" />
 		</div>
 		<pre><code class="language-{token.lang || 'text'}">{token.text}</code></pre>
 	</div>

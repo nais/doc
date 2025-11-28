@@ -184,7 +184,7 @@
 		{:else}
 			<span>Plaintext</span>
 		{/if}
-		<CopyButton size="small" variant="neutral" {copyText} />
+		<CopyButton size="small" variant="neutral" {copyText} class="hide-noscript" />
 	</div>
 	<div class="code-content" bind:this={codeContainer}>
 		<div class="light-theme">

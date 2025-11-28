@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from "$app/environment";
 	import { getContext, type PageContext } from "$lib/state/page_context.svelte";
 	import { PencilIcon } from "@nais/ds-svelte-community/icons";
 
@@ -18,9 +19,7 @@
 		return ctx.getValue(name) || `<${name}>`;
 	});
 
-	let button: HTMLButtonElement | null = $state(null);
 	let input: HTMLInputElement | null = $state(null);
-
 	let inputWidth = $derived.by(() => {
 		// Create a temporary span to measure the text width
 		if (typeof document !== "undefined" && input) {
@@ -49,34 +48,37 @@
 	}
 </script>
 
-<input
-	bind:this={input}
-	bind:value
-	type="text"
-	onblur={() => {
-		if (!readonly) {
-			ctx.setValue(name, value);
-		}
-		edit = false;
-	}}
-	onkeydown={handleKeydown}
-	{id}
-	class:hidden={!edit}
-	style="width: {inputWidth}px"
-/><button
-	bind:this={button}
-	onclick={() => {
-		edit = !edit;
-		if (edit) {
-			// Focus the input when entering edit mode
-			setTimeout(() => {
-				input?.focus();
-				input?.setSelectionRange(0, value.length);
-			}, 0);
-		}
-	}}
-	class:hidden={edit}>{value}<PencilIcon style="margin-left: 0.3rem;" /></button
->
+{#if !browser}
+	{value}
+{:else}
+	<input
+		bind:this={input}
+		bind:value
+		type="text"
+		onblur={() => {
+			if (!readonly) {
+				ctx.setValue(name, value);
+			}
+			edit = false;
+		}}
+		onkeydown={handleKeydown}
+		{id}
+		class:hidden={!edit}
+		style="width: {inputWidth}px"
+	/><button
+		onclick={() => {
+			edit = !edit;
+			if (edit) {
+				// Focus the input when entering edit mode
+				setTimeout(() => {
+					input?.focus();
+					input?.setSelectionRange(0, value.length);
+				}, 0);
+			}
+		}}
+		class:hidden={edit}>{value}<PencilIcon style="margin-left: 0.3rem;" /></button
+	>
+{/if}
 
 <style>
 	button,
