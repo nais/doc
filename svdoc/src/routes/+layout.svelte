@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { browser } from "$app/environment";
+	import { afterNavigate } from "$app/navigation";
 	import { resolve } from "$app/paths";
 	import favicon from "$lib/assets/favicon.svg";
 	import SearchButton from "$lib/SearchButton.svelte";
@@ -8,6 +9,7 @@
 	import ThemeToggle from "$lib/ThemeToggle.svelte";
 	import { Spacer, Theme } from "@nais/ds-svelte-community";
 	import { InternalHeader, InternalHeaderTitle } from "@nais/ds-svelte-community/experimental";
+	import { MenuHamburgerIcon } from "@nais/ds-svelte-community/icons";
 	import "../css/app.css";
 	import type { LayoutProps } from "./$types";
 
@@ -56,15 +58,26 @@
 			return () => mediaQuery.removeEventListener("change", handler);
 		}
 	});
+
+	// Close sidebar when navigating to a new page
+	afterNavigate(() => {
+		if (browser) {
+			const checkbox = document.getElementById("sidebar-toggle") as HTMLInputElement | null;
+			if (checkbox) {
+				checkbox.checked = false;
+			}
+		}
+	});
 </script>
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
 	<noscript>
 		<style>
-			/* Hide elements that require JavaScript when JS is disabled */
-			.hide-noscript {
-				display: none;
+			/* CSS checkbox hack works without JS - just hide the overlay */
+			/* The overlay uses JS-like behavior we don't need without JS */
+			.sidebar-overlay {
+				display: none !important;
 			}
 		</style>
 	</noscript>
@@ -72,8 +85,19 @@
 
 <Theme {theme}>
 	<div class="layout-root">
+		<!-- Hidden checkbox for CSS-only sidebar toggle -->
+		<input type="checkbox" id="sidebar-toggle" class="sidebar-toggle-input" aria-hidden="true" />
+
 		<header class="header-container">
 			<InternalHeader>
+				<!-- Hamburger menu button (label for checkbox) - only visible on mobile -->
+				<label
+					for="sidebar-toggle"
+					class="sidebar-toggle-btn aksel-internalheader__button"
+					aria-label="Toggle navigation menu"
+				>
+					<MenuHamburgerIcon aria-hidden="true" />
+				</label>
 				<InternalHeaderTitle href={resolve("/")}>Nais Docs</InternalHeaderTitle>
 				<Spacer />
 				<SearchButton onclick={() => (searchOpen = true)} />
@@ -84,6 +108,9 @@
 		<SearchModal bind:open={searchOpen} />
 
 		<div class="content-wrapper">
+			<!-- Overlay to close sidebar when clicking outside (mobile) -->
+			<label for="sidebar-toggle" class="sidebar-overlay" aria-hidden="true"></label>
+
 			<aside class="sidebar-container scrollbar-thin">
 				<Sidebar items={navigation} />
 			</aside>
@@ -96,11 +123,42 @@
 	</div>
 </Theme>
 
-<style>
+<style lang="postcss">
+	@reference "../css/app.css";
+
 	.layout-root {
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
+	}
+
+	/* Hidden checkbox that controls sidebar state */
+	.sidebar-toggle-input {
+		position: absolute;
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	/* Hamburger button - hidden on desktop, uses InternalHeaderButton styling */
+	:global(.sidebar-toggle-btn) {
+		display: none;
+		cursor: pointer;
+		/* Override border from aksel-internalheader__button - we're on the left side */
+		border-left: none !important;
+		border-right: 1px solid var(--ax-border-neutral-subtleA) !important;
+	}
+
+	/* Overlay - hidden by default */
+	.sidebar-overlay {
+		display: none;
+		position: fixed;
+		top: var(--svdoc-header-height);
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: rgba(0, 0, 0, 0.5);
+		z-index: 40;
+		cursor: pointer;
 	}
 
 	.header-container {
@@ -109,61 +167,91 @@
 		left: 0;
 		right: 0;
 		z-index: 50;
+		height: var(--svdoc-header-height);
 	}
 
 	.content-wrapper {
 		display: flex;
 		flex: 1;
-		margin-top: 48px; /* Height of InternalHeader */
+		margin-top: var(--svdoc-header-height);
 	}
 
 	.sidebar-container {
-		width: 280px;
+		width: var(--svdoc-sidebar-width);
 		flex-shrink: 0;
 		padding: 1rem 0.5rem;
 		border-right: 1px solid var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.2));
 		background-color: var(--ax-bg-neutral-soft, rgba(0, 0, 0, 0.2));
 		overflow-y: auto;
 		position: fixed;
-		top: 48px;
+		top: var(--svdoc-header-height);
 		left: 0;
 		bottom: 0;
-		height: calc(100vh - 48px);
+		height: calc(100vh - var(--svdoc-header-height));
+		z-index: 45;
 	}
 
 	.main-content {
 		flex: 1;
 		min-width: 0;
-		margin-left: 280px; /* Same as sidebar width */
+		margin-left: var(--svdoc-sidebar-width);
+		margin-right: var(--svdoc-toc-width);
 		overflow-x: hidden;
 	}
 
 	.main-content-inner {
-		max-width: 1000px;
+		max-width: var(--svdoc-content-max-width);
 		margin: 0 auto;
-		padding: 1.5rem 2rem;
+		padding: var(--svdoc-content-padding);
 	}
 
-	/* Responsive adjustments */
-	@media (max-width: 1200px) {
-		.main-content-inner {
-			max-width: 900px;
-			padding: 1rem 1.5rem;
+	/* Sidebar collapses */
+	@media (width < theme(--breakpoint-svdoc-sidebar-collapse)) {
+		/* Show hamburger button */
+		:global(.sidebar-toggle-btn) {
+			display: inline-flex;
 		}
-	}
 
-	@media (max-width: 900px) {
+		/* Sidebar hidden by default, slides in from left */
 		.sidebar-container {
-			width: 240px;
+			width: var(--svdoc-sidebar-width-mobile);
+			transform: translateX(-100%);
+			transition: transform var(--svdoc-transition-duration) var(--svdoc-transition-timing);
+			background-color: var(--ax-bg-default, #0d1117);
 		}
 
+		/* Content takes full width on left */
 		.main-content {
-			margin-left: 240px;
+			margin-left: 0;
+		}
+
+		/* When checkbox is checked, show sidebar */
+		.sidebar-toggle-input:checked ~ .content-wrapper .sidebar-container {
+			transform: translateX(0);
+		}
+
+		/* Show overlay when sidebar is open */
+		.sidebar-toggle-input:checked ~ .content-wrapper .sidebar-overlay {
+			display: block;
+		}
+	}
+
+	/* TOC hides */
+	@media (width < theme(--breakpoint-svdoc-toc-hide)) {
+		.main-content {
+			margin-right: 0;
 		}
 
 		.main-content-inner {
-			max-width: none;
-			padding: 1rem;
+			max-width: var(--svdoc-content-max-width-narrow);
+			padding: var(--svdoc-content-padding-narrow);
+		}
+	}
+
+	/* Mobile - smaller padding */
+	@media (width < theme(--breakpoint-svdoc-mobile)) {
+		.main-content-inner {
+			padding: var(--svdoc-content-padding-mobile);
 		}
 	}
 </style>
