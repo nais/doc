@@ -183,6 +183,7 @@
 		border-right: 1px solid var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.2));
 		background-color: var(--ax-bg-neutral-soft, rgba(0, 0, 0, 0.2));
 		overflow-y: auto;
+		overscroll-behavior: contain;
 		position: fixed;
 		top: var(--svdoc-header-height);
 		left: 0;

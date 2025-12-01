@@ -160,6 +160,9 @@
 		margin: 1rem 0;
 		border-radius: 0.5rem;
 		border: 1px solid var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.2));
+		/* Force width to parent, don't grow with content */
+		width: 0;
+		min-width: 100%;
 	}
 
 	.code-header {
@@ -187,7 +190,7 @@
 	}
 
 	.code-content {
-		position: relative;
+		overflow-x: auto;
 	}
 
 	/* Shiki pre/code styling */
