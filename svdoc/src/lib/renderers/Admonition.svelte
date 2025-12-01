@@ -101,6 +101,23 @@
 		margin-bottom: 0;
 	}
 
+	/* Truncate expansion card title if too wide */
+	.admonition--collapsible :global(.aksel-expansioncard__header-content) {
+		overflow: hidden;
+		min-width: 0;
+	}
+
+	.admonition--collapsible :global(.aksel-expansioncard__title) {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	/* Override overflow:hidden on expansion card content to allow code block scrolling */
+	.admonition--collapsible :global(.aksel-expansioncard__content[data-open="true"]) {
+		overflow: unset;
+	}
+
 	/* Style collapsible admonitions based on type */
 	.admonition--collapsible.admonition--warning :global(.navds-expansioncard),
 	.admonition--collapsible.admonition--caution :global(.navds-expansioncard),
