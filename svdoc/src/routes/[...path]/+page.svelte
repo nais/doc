@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PageMeta from "$lib/components/PageMeta.svelte";
-	import Renderer from "$lib/renderers/Renderer.svelte";
+	import ContentRenderer from "$lib/renderers/ContentRenderer.svelte";
 	import { setupContext } from "$lib/state/page_context.svelte";
 	import TableOfContents from "$lib/TableOfContents.svelte";
 	import Tags from "$lib/Tags.svelte";
@@ -26,7 +26,7 @@
 	{#if tags.length > 0}
 		<Tags {tags} />
 	{/if}
-	<Renderer {tokens} />
+	<ContentRenderer {tokens} />
 	{#if showMeta && git}
 		<PageMeta createdAt={git.createdAt} modifiedAt={git.modifiedAt} sourcePath={git.sourcePath} />
 	{/if}

@@ -2,7 +2,7 @@
 	import { browser } from "$app/environment";
 	import { Alert, ExpansionCard } from "@nais/ds-svelte-community";
 	import type { Token } from "marked";
-	import Renderer from "./Renderer.svelte";
+	import ContentRenderer from "./ContentRenderer.svelte";
 
 	interface AdmonitionToken {
 		// type: "admonition";
@@ -61,7 +61,7 @@
 	<div class="admonition admonition--collapsible admonition--{token.admonitionType}">
 		<ExpansionCard header={token.title} open={!browser || token.open} size="small">
 			<div class="admonition-content">
-				<Renderer tokens={token.tokens} />
+				<ContentRenderer tokens={token.tokens} />
 			</div>
 		</ExpansionCard>
 	</div>
@@ -72,7 +72,7 @@
 				<strong class="admonition-title">{token.title}</strong>
 			{/if}
 			<div class="admonition-content">
-				<Renderer tokens={token.tokens} />
+				<ContentRenderer tokens={token.tokens} />
 			</div>
 		</Alert>
 	</div>

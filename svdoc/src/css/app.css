@@ -102,6 +102,28 @@ h6:first-child {
 	margin-top: 0;
 }
 
+/* Content spacing using lobotomized owl selector */
+/* Apply to content-flow containers for consistent spacing between elements */
+.content-flow > * {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.content-flow > * + * {
+	margin-top: 1rem;
+}
+
+/* Elements that already have spacing from the design system - remove double margin */
+.content-flow > .aksel-body-long.aksel-typo--spacing + * {
+	margin-top: 0;
+}
+
+/* Headings need more space above them */
+.content-flow > .aksel-body-long.aksel-typo--spacing + :is(h1, h2, h3, h4, h5, h6),
+.content-flow > * + :is(h1, h2, h3, h4, h5, h6) {
+	margin-top: 1.5em;
+}
+
 /* External link icon for links that open in new tab */
 a[target="_blank"]:not(.no-icon)::after,
 a[href^="http"]:not([href*="nais.io"]):not(.no-icon)::after {
