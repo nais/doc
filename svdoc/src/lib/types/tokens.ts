@@ -85,8 +85,7 @@ export interface HighlightedCodeToken {
 	raw: string;
 	text: string;
 	lang: string;
-	lightHtml: string;
-	darkHtml: string;
+	html: string;
 	title?: string;
 	annotations: CodeAnnotation[];
 	variables: CodeVariable[];
