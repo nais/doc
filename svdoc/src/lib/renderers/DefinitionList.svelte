@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Token } from "marked";
+	import ContentRenderer from "./ContentRenderer.svelte";
 	import Renderer from "./Renderer.svelte";
 
 	interface DefinitionToken {
@@ -27,7 +28,7 @@
 		</dt>
 		{#each item.definitions as definition, j (j)}
 			<dd class="definition-description">
-				<Renderer tokens={definition.tokens} />
+				<ContentRenderer tokens={definition.tokens} />
 			</dd>
 		{/each}
 	{/each}
