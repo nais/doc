@@ -17,41 +17,6 @@ export function tenant(): string {
 }
 
 /**
- * Get the endpoint environment variable name
- */
-export function endpointEnvVar(): string {
-	return getEnv("ENDPOINT_ENV_VAR", "ENDPOINT");
-}
-
-/**
- * Get the target name
- */
-export function target(): string {
-	return getEnv("TARGET", "target");
-}
-
-/**
- * Get the target description
- */
-export function targetDescription(): string {
-	return getEnv("TARGET_DESCRIPTION", "the target system");
-}
-
-/**
- * Get the claims reference
- */
-export function claimsReference(): string {
-	return getEnv("CLAIMS_REFERENCE", "claims");
-}
-
-/**
- * Get the token validation reference
- */
-export function tokenValidationReference(): string {
-	return getEnv("TOKEN_VALIDATION_REFERENCE", "token validation");
-}
-
-/**
  * Get the tenant URL for a service
  */
 export function tenantUrl(app: string, path: string = ""): string {
@@ -70,13 +35,6 @@ export function naisdeviceName(): string {
 		return "naisdevice";
 	}
 	return "naisdevice-tenant";
-}
-
-/**
- * Get the identity provider name
- */
-export function identityProvider(): string {
-	return getEnv("IDENTITY_PROVIDER", "Entra ID");
 }
 
 /**
@@ -103,12 +61,6 @@ export interface TemplateContext {
 	tenant: string;
 	tenantUrl: (app: string, path?: string) => string;
 	naisdeviceName: string;
-	identityProvider: string;
-	endpointEnvVar: string;
-	target: string;
-	targetDescription: string;
-	claimsReference: string;
-	tokenValidationReference: string;
 	gcpOnly: (feature: string) => string;
 	notInTestNais: (feature: string) => string;
 	[key: string]: unknown;
@@ -122,12 +74,6 @@ export function createTemplateContext(): TemplateContext {
 		tenant: tenant(),
 		tenantUrl,
 		naisdeviceName: naisdeviceName(),
-		identityProvider: identityProvider(),
-		endpointEnvVar: endpointEnvVar(),
-		target: target(),
-		targetDescription: targetDescription(),
-		claimsReference: claimsReference(),
-		tokenValidationReference: tokenValidationReference(),
 		gcpOnly,
 		notInTestNais,
 	};
