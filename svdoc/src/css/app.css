@@ -82,6 +82,25 @@ body {
 	margin-right: 0.5rem;
 }
 
+/* Consistent top margin for headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin-top: 1.5em;
+}
+
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child {
+	margin-top: 0;
+}
+
 /* External link icon for links that open in new tab */
 a[target="_blank"]:not(.no-icon)::after,
 a[href^="http"]:not([href*="nais.io"]):not(.no-icon)::after {
