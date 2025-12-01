@@ -137,4 +137,13 @@ export interface Attributes {
 	description?: string;
 	tags?: string[];
 	hide?: string[];
+	/** Git metadata */
+	git?: {
+		/** Date the file was first created (first commit) */
+		createdAt?: string;
+		/** Date the file was last modified (last commit) */
+		modifiedAt?: string;
+		/** Relative path to the source file in the repo */
+		sourcePath?: string;
+	};
 }

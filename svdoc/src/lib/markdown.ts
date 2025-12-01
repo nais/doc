@@ -1,6 +1,7 @@
 import emojiNameMap from "emoji-name-map";
 import fm from "front-matter";
 import { Marked, type Token, type Tokens, type TokensList } from "marked";
+import { getGitInfo } from "./helpers/git";
 import { highlightCodeDual, parseHighlightLines, parseTitle } from "./helpers/shiki";
 import { processTemplates } from "./helpers/templates";
 import type {
@@ -854,6 +855,9 @@ export async function readMarkdownFile(
 	const source = await Bun.file(path).text();
 	const { attributes, body } = fm<Attributes>(source);
 
+	// Get git information for the file
+	const gitInfo = getGitInfo(path);
+
 	// Process template variables (<<tenant()>>, <<tenant_url("...")>>, etc.)
 	// Pass file path for resolving {% include %} statements
 	const processedBody = processTemplates(body, path);
@@ -875,7 +879,7 @@ export async function readMarkdownFile(
 	const processedTokens = processLinks(codeProcessed, urlPath, isReadme);
 
 	// Extract title from first heading if not in frontmatter
-	const finalAttributes = { ...attributes };
+	const finalAttributes: Attributes = { ...attributes };
 	if (!finalAttributes.title) {
 		const firstHeading = processedTokens.find(
 			(t) => t.type === "heading" && (t as { depth: number }).depth === 1,
@@ -886,6 +890,15 @@ export async function readMarkdownFile(
 				.replace(/:[a-zA-Z0-9_+-]+:/g, "")
 				.trim();
 		}
+	}
+
+	// Add git metadata
+	if (gitInfo.createdAt || gitInfo.modifiedAt || gitInfo.sourcePath) {
+		finalAttributes.git = {
+			createdAt: gitInfo.createdAt,
+			modifiedAt: gitInfo.modifiedAt,
+			sourcePath: gitInfo.sourcePath,
+		};
 	}
 
 	return { tokens: processedTokens, attributes: finalAttributes };
