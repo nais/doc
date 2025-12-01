@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Token } from "marked";
-	import Renderer from "./Renderer.svelte";
+	import ContentRenderer from "./ContentRenderer.svelte";
 
 	interface ContentTab {
 		label: string;
@@ -50,7 +50,7 @@
 		{#each token.tabs as tab, i (i)}
 			<div class="tab-panel tab-panel-{i} aksel-tabs__tabpanel" id="panel-{id}-{i}">
 				<div class="tab-content">
-					<Renderer tokens={tab.tokens} />
+					<ContentRenderer tokens={tab.tokens} />
 				</div>
 			</div>
 		{/each}
@@ -59,11 +59,7 @@
 
 <style>
 	.content-tabs {
-		margin: 1rem 0;
-	}
-
-	.tab-content {
-		padding: 1rem 0;
+		margin-top: 1rem !important;
 	}
 
 	/* Remove top margin from first element in tab content */

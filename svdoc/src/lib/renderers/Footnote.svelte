@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Token } from "marked";
-	import Renderer from "./Renderer.svelte";
+	import ContentRenderer from "./ContentRenderer.svelte";
 
 	type FootnoteToken = {
 		// type: "footnote";
@@ -14,7 +14,7 @@
 </script>
 
 <li id="footnote-{token.id}">
-	<Renderer tokens={token.tokens} />
+	<ContentRenderer tokens={token.tokens} />
 	<a
 		href="#footnote-ref-{token.id}"
 		data-footnote-backref

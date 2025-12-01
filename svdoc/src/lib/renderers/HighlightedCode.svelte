@@ -5,7 +5,7 @@
 	import { CopyButton } from "@nais/ds-svelte-community";
 	import type { Token } from "marked";
 	import { mount, onMount, unmount } from "svelte";
-	import Renderer from "./Renderer.svelte";
+	import ContentRenderer from "./ContentRenderer.svelte";
 
 	interface CodeAnnotation {
 		id: string;
@@ -148,7 +148,7 @@
 			>
 				<span class="annotation-number">{annotation.id}</span>
 				<div class="annotation-content">
-					<Renderer tokens={annotation.tokens} />
+					<ContentRenderer tokens={annotation.tokens} />
 				</div>
 			</div>
 		{/each}

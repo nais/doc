@@ -6,7 +6,7 @@
 	let { token }: { token: Tokens.Paragraph } = $props();
 </script>
 
-<BodyLong>
+<BodyLong spacing>
 	{#if (token.tokens?.length || 0) > 0}
 		<Renderer tokens={token.tokens!} />
 	{:else}

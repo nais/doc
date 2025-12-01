@@ -6,7 +6,7 @@
 	let { token }: { token: Tokens.Table } = $props();
 </script>
 
-<Table zebraStripes>
+<Table zebraStripes style="margin-bottom: var(--ax-space-28);">
 	<Thead>
 		<Tr>
 			{#each token.header as cell, i (i)}
