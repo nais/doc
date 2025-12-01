@@ -2,6 +2,7 @@
 	import { browser } from "$app/environment";
 	import { getContext, type PageContext } from "$lib/state/page_context.svelte";
 	import { PencilIcon } from "@nais/ds-svelte-community/icons";
+	import { tick } from "svelte";
 
 	let {
 		name,
@@ -66,14 +67,13 @@
 		class:hidden={!edit}
 		style="width: {inputWidth}px"
 	/><button
-		onclick={() => {
+		onclick={async () => {
 			edit = !edit;
 			if (edit) {
 				// Focus the input when entering edit mode
-				setTimeout(() => {
-					input?.focus();
-					input?.setSelectionRange(0, value.length);
-				}, 0);
+				await tick();
+				input?.focus();
+				input?.setSelectionRange(0, value.length);
 			}
 		}}
 		class:hidden={edit}>{value}<PencilIcon style="margin-left: 0.3rem;" /></button
