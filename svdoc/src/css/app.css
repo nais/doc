@@ -1,5 +1,6 @@
 @layer theme, base, components, utilities;
 
+@import "./variables.css";
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 @import "@nais/ds-svelte-community/css" layer(components);

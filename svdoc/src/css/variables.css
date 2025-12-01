@@ -1,0 +1,58 @@
+/*
+ * Svdoc Layout Variables
+ *
+ * These CSS custom properties define the core layout dimensions and breakpoints.
+ * Use these variables throughout the application for consistent sizing.
+ */
+
+:root {
+	/* Header */
+	--svdoc-header-height: 48px;
+
+	/* Sidebar */
+	--svdoc-sidebar-width: 280px;
+	--svdoc-sidebar-width-narrow: 240px;
+	--svdoc-sidebar-width-mobile: 280px;
+
+	/* Table of Contents */
+	--svdoc-toc-width: 250px;
+
+	/* Content */
+	--svdoc-content-max-width: 1000px;
+	--svdoc-content-max-width-narrow: 900px;
+
+	/* Spacing */
+	--svdoc-content-padding: 1.5rem 2rem;
+	--svdoc-content-padding-narrow: 1rem 1.5rem;
+	--svdoc-content-padding-mobile: 1rem;
+
+	/* Transitions */
+	--svdoc-transition-duration: 0.3s;
+	--svdoc-transition-timing: ease;
+}
+
+/*
+ * Tailwind v4 Custom Breakpoints
+ *
+ * These extend Tailwind's default breakpoints with svdoc-specific breakpoints.
+ *
+ * Usage in Svelte component <style> blocks:
+ *   <style lang="postcss">
+ *     @reference "tailwindcss";
+ *     @media (width < theme(--breakpoint-svdoc-sidebar-collapse)) { ... }
+ *   </style>
+ *
+ * Usage with Tailwind utility classes:
+ *   class="svdoc-sidebar-collapse:hidden"
+ *
+ * Breakpoint behavior:
+ *   > 1300px:  Full layout (sidebar + content + TOC)
+ *   ≤ 1300px:  Sidebar toggleable, content expands left
+ *   ≤ 1000px:  TOC hidden, content expands right
+ *   ≤ 768px:   Mobile layout (smaller padding)
+ */
+@theme {
+	--breakpoint-svdoc-sidebar-collapse: 1300px;
+	--breakpoint-svdoc-toc-hide: 1000px;
+	--breakpoint-svdoc-mobile: 768px;
+}

@@ -38,22 +38,33 @@
 	</aside>
 {/if}
 
-<style>
+<style lang="postcss">
+	@reference "../../css/app.css";
+
 	.md-content {
 		padding: 2rem;
 		max-width: 100%;
 	}
 
-	.toc-container {
-		position: fixed;
-		top: calc(48px + 1.5rem);
-		right: 2rem;
-		width: 220px;
-		max-height: calc(100vh - 48px - 3rem);
-		overflow-y: auto;
+	/* Mobile - smaller padding */
+	@media (width < theme(--breakpoint-svdoc-mobile)) {
+		.md-content {
+			padding: var(--svdoc-content-padding-mobile);
+		}
 	}
 
-	@media (max-width: 1300px) {
+	.toc-container {
+		position: fixed;
+		top: calc(var(--svdoc-header-height) + 1rem);
+		right: 0;
+		width: var(--svdoc-toc-width);
+		max-height: calc(100vh - var(--svdoc-header-height) - 2rem);
+		overflow-y: auto;
+		padding: 0 1rem;
+	}
+
+	/* TOC hides */
+	@media (width < theme(--breakpoint-svdoc-toc-hide)) {
 		.toc-container {
 			display: none;
 		}
