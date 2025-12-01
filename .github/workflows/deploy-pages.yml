@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0 # Fetch all history for accurate git timestamps
 
       - uses: jdx/mise-action@v3
 
