@@ -55,7 +55,7 @@ let highlighterPromise: Promise<Highlighter> | null = null;
 export async function getHighlighter(): Promise<Highlighter> {
 	if (!highlighterPromise) {
 		highlighterPromise = createHighlighter({
-			themes: ["github-dark", "github-light"],
+			themes: ["github-dark", "github-light", "github-dark-default", "github-light-default"],
 			langs: [
 				"javascript",
 				"typescript",
@@ -339,12 +339,6 @@ export interface HighlightResult {
 	variables: CodeVariable[];
 }
 
-// Generate unique IDs for popover elements
-let popoverIdCounter = 0;
-function generatePopoverId(): string {
-	return `annotation-popover-${++popoverIdCounter}`;
-}
-
 /**
  * Process variables in a node's children recursively
  */
@@ -471,10 +465,7 @@ function createLineTransformer(
 				this.addClassToHast(node, "has-annotation");
 
 				if (includePopups) {
-					// Generate unique ID for this popover instance
-					const popoverId = generatePopoverId();
-
-					// Inject annotation marker with popover API
+					// Simple clickable annotation marker
 					const annotationMarker: Element = {
 						type: "element",
 						tagName: "span",
@@ -483,27 +474,15 @@ function createLineTransformer(
 							"data-annotation-id": annotationId,
 						},
 						children: [
-							// The clickable button that triggers the popover
 							{
 								type: "element",
-								tagName: "button",
+								tagName: "span",
 								properties: {
 									class: "code-annotation-marker",
-									popovertarget: popoverId,
+									tabindex: "0",
+									role: "button",
 								},
 								children: [{ type: "text", value: annotationId }],
-							},
-							// The popover element (rendered in top layer)
-							{
-								type: "element",
-								tagName: "div",
-								properties: {
-									id: popoverId,
-									popover: "",
-									class: "code-annotation-popover",
-									"data-annotation-content": annotationId,
-								},
-								children: [{ type: "text", value: `Annotation ${annotationId}` }],
 							},
 						],
 					};
@@ -568,14 +547,14 @@ export async function highlightCode(
 }
 
 /**
- * Highlight code with both themes for CSS-based theme switching
+ * Highlight code with CSS variables for light/dark theme switching
+ * Uses Shiki's dual theme support to output CSS variables
  */
 export async function highlightCodeDual(
 	code: string,
 	langInfo: string,
 ): Promise<{
-	light: string;
-	dark: string;
+	html: string;
 	language: string;
 	title: string | null;
 	annotations: CodeAnnotation[];
@@ -609,17 +588,16 @@ export async function highlightCodeDual(
 		lineToAnnotation.set(annotation.line, annotation.id);
 	}
 
-	const light = highlighter.codeToHtml(processedCode, {
+	// Use Shiki's dual theme support with CSS variables
+	const html = highlighter.codeToHtml(processedCode, {
 		lang: normalizedLang,
-		theme: "github-light",
+		themes: {
+			light: "github-light",
+			dark: "github-dark",
+		},
+		defaultColor: false,
 		transformers: [createLineTransformer(highlightLines, lineToAnnotation, true, variables)],
 	});
 
-	const dark = highlighter.codeToHtml(processedCode, {
-		lang: normalizedLang,
-		theme: "github-dark",
-		transformers: [createLineTransformer(highlightLines, lineToAnnotation, true, variables)],
-	});
-
-	return { light, dark, language, title, annotations, variables };
+	return { html, language, title, annotations, variables };
 }
