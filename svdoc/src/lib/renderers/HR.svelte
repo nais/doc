@@ -9,7 +9,7 @@
 
 <style>
 	hr {
-		margin: 2rem 0;
+		margin: 1em 0;
 		border: none;
 		border-top: 1px solid var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.3));
 	}
