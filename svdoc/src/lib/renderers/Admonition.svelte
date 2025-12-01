@@ -67,7 +67,7 @@
 	</div>
 {:else}
 	<div class="admonition admonition--{token.admonitionType}">
-		<Alert {variant} size="small">
+		<Alert {variant} size="small" contentMaxWidth={false}>
 			{#if token.title}
 				<strong class="admonition-title">{token.title}</strong>
 			{/if}
@@ -99,6 +99,11 @@
 
 	.admonition-content :global(p:last-child) {
 		margin-bottom: 0;
+	}
+
+	/* Fix Alert wrapper width to allow code blocks to use full width */
+	.admonition :global(.aksel-alert__wrapper) {
+		width: 100%;
 	}
 
 	/* Truncate expansion card title if too wide */
