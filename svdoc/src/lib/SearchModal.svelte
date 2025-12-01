@@ -3,7 +3,7 @@
 	import { resolve } from "$app/paths";
 	import { Modal, Search } from "@nais/ds-svelte-community";
 	import MiniSearch, { type SearchResult } from "minisearch";
-	import { onMount } from "svelte";
+	import { onMount, tick } from "svelte";
 
 	interface SearchDocument {
 		id: string;
@@ -24,6 +24,7 @@
 	let miniSearch = $state<MiniSearch<SearchDocument> | null>(null);
 	let isLoading = $state(false);
 	let selectedIndex = $state(0);
+	let isKeyboardNavigating = $state(false);
 
 	// Derive search results from query and miniSearch instance
 	let results = $derived.by(() => {
@@ -98,11 +99,15 @@
 		switch (event.key) {
 			case "ArrowDown":
 				event.preventDefault();
+				isKeyboardNavigating = true;
 				selectedIndex = Math.min(selectedIndex + 1, results.length - 1);
+				scrollSelectedIntoView();
 				break;
 			case "ArrowUp":
 				event.preventDefault();
+				isKeyboardNavigating = true;
 				selectedIndex = Math.max(selectedIndex - 1, 0);
+				scrollSelectedIntoView();
 				break;
 			case "Enter":
 				event.preventDefault();
@@ -110,6 +115,15 @@
 					navigateToResult(results[selectedIndex]);
 				}
 				break;
+		}
+	}
+
+	// Scroll selected result into view
+	async function scrollSelectedIntoView() {
+		await tick();
+		const selected = document.querySelector(".search-result.selected");
+		if (selected) {
+			selected.scrollIntoView({ block: "nearest", behavior: "smooth" });
 		}
 	}
 
@@ -244,7 +258,14 @@
 						role="option"
 						aria-selected={i === selectedIndex}
 						onclick={() => navigateToResult(result)}
-						onmouseenter={() => (selectedIndex = i)}
+						onmouseenter={() => {
+							if (!isKeyboardNavigating) {
+								selectedIndex = i;
+							}
+						}}
+						onmousemove={() => {
+							isKeyboardNavigating = false;
+						}}
 					>
 						<div class="result-title">
 							<!-- eslint-disable-next-line svelte/no-at-html-tags -- Content is escaped via escapeHtml(), only <mark> tags are injected -->
