@@ -135,7 +135,7 @@
 
 	.nav-chevron::before {
 		content: "›";
-		font-size: 1.25rem;
+		font-size: 2rem;
 		line-height: 1;
 	}
 
