@@ -45,7 +45,7 @@
 	:global(h4[id]),
 	:global(h5[id]),
 	:global(h6[id]) {
-		scroll-margin-top: 4rem; /* 48px header + 16px padding */
+		scroll-margin-top: calc(var(--svdoc-header-height) + 1rem);
 	}
 
 	:global(.headerlink) {
