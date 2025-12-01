@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageMeta from "$lib/components/PageMeta.svelte";
 	import Renderer from "$lib/renderers/Renderer.svelte";
 	import { setupContext } from "$lib/state/page_context.svelte";
 	import TableOfContents from "$lib/TableOfContents.svelte";
@@ -11,6 +12,8 @@
 	const tags = $derived(attributes?.tags ?? []);
 	const hideItems = $derived(attributes?.hide ?? []);
 	const showToc = $derived(!hideItems.includes("toc"));
+	const showMeta = $derived(!hideItems.includes("meta"));
+	const git = $derived(attributes?.git);
 
 	setupContext();
 </script>
@@ -24,6 +27,9 @@
 		<Tags {tags} />
 	{/if}
 	<Renderer {tokens} />
+	{#if showMeta && git}
+		<PageMeta createdAt={git.createdAt} modifiedAt={git.modifiedAt} sourcePath={git.sourcePath} />
+	{/if}
 </article>
 
 {#if showToc}
