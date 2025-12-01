@@ -94,7 +94,7 @@
 	button {
 		display: inline-flex;
 		align-items: center;
-		color: var(--ax-text-brand-magenta);
+		color: var(--ax-text-brand-magenta-subtle);
 		border-bottom: 1px dotted var(--ax-border-brand-magenta);
 	}
 
