@@ -124,13 +124,14 @@
 
 	.nav-chevron {
 		flex-shrink: 0;
-		width: 24px;
-		height: 24px;
+		width: 1.5rem;
+		height: 2rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		color: var(--ax-text-subtle, #6e7681);
 		transition: transform 0.15s ease;
+		overflow: hidden;
 	}
 
 	.nav-chevron::before {
