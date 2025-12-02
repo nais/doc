@@ -1,20 +1,14 @@
 <script lang="ts">
+	import { extractTextForId, slugify } from "$lib/helpers/markdown-utils";
 	import { Heading } from "@nais/ds-svelte-community";
 	import type { Tokens } from "marked";
 	import Renderer from "./Renderer.svelte";
 
 	let { token }: { token: Tokens.Heading } = $props();
 
-	// Generate ID from heading text for anchor links
-	function generateId(text: string): string {
-		return text
-			.toLowerCase()
-			.replace(/[^\w\s-]/g, "")
-			.replace(/\s+/g, "-")
-			.replace(/^-+|-+$/g, "");
-	}
-
-	const headingId = token.text ? generateId(token.text) : undefined;
+	// Generate ID from heading tokens, skipping emoji shortcodes
+	const headingText = token.tokens ? extractTextForId(token.tokens) : token.text;
+	const headingId = headingText ? slugify(headingText) : undefined;
 
 	// Map heading depth to appropriate size
 	const sizeMap: Record<number, "xlarge" | "large" | "medium" | "small" | "xsmall"> = {
