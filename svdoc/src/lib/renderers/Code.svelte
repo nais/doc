@@ -121,7 +121,7 @@
 		{/if}
 	</div>
 {:else}
-	<div class="code-block">
+	<div class="code-block regular">
 		<div class="code-header">
 			{#if token.lang}
 				<span class="language">{token.lang}</span>
