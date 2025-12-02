@@ -17,7 +17,6 @@
 	import FootnoteRef from "./FootnoteRef.svelte";
 	import Footnotes from "./Footnotes.svelte";
 	import Heading from "./Heading.svelte";
-	import HighlightedCode from "./HighlightedCode.svelte";
 	import HR from "./HR.svelte";
 	import HTML from "./HTML.svelte";
 	import HtmlWithMarkdown from "./HtmlWithMarkdown.svelte";
@@ -55,7 +54,6 @@
 		footnoteRef: FootnoteRef,
 		footnotes: Footnotes,
 		heading: Heading,
-		highlighted_code: HighlightedCode,
 		hr: HR,
 		html: HTML,
 		html_with_markdown: HtmlWithMarkdown,

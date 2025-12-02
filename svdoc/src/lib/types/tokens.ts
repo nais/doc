@@ -1,4 +1,3 @@
-import type { CodeVariable } from "$lib/helpers/shiki";
 import type { Token } from "marked";
 
 /**
@@ -75,29 +74,6 @@ export interface HtmlWithMarkdownToken {
 	openTag: string;
 	closeTag: string;
 	innerTokens: Token[];
-}
-
-/**
- * Syntax-highlighted code block with Shiki
- */
-export interface HighlightedCodeToken {
-	type: "highlighted_code";
-	raw: string;
-	text: string;
-	lang: string;
-	html: string;
-	title?: string;
-	annotations: CodeAnnotation[];
-	variables: CodeVariable[];
-}
-
-/**
- * Code annotation linked to a line
- */
-export interface CodeAnnotation {
-	id: string;
-	line: number;
-	tokens: Token[];
 }
 
 /**

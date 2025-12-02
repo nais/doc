@@ -1,50 +1,60 @@
 <script lang="ts">
 	import Variable from "$lib/components/Variable.svelte";
-	import type { CodeVariable } from "$lib/helpers/shiki";
+	import { highlightCodeDual, parseHighlightLines, parseTitle } from "$lib/helpers/shiki";
 	import { getContext } from "$lib/state/page_context.svelte";
 	import { CopyButton } from "@nais/ds-svelte-community";
 	import type { Token } from "marked";
-	import { mount, onMount, unmount } from "svelte";
+	import { mount, unmount } from "svelte";
 	import ContentRenderer from "./ContentRenderer.svelte";
 
-	interface CodeAnnotation {
-		id: string;
-		line: number;
-		tokens: Token[];
-	}
-
-	interface HighlightedCodeToken {
-		text: string;
-		lang: string;
-		html: string;
-		title: string | null;
-		annotations: CodeAnnotation[];
-		variables?: CodeVariable[];
-	}
-
-	let { token }: { token: HighlightedCodeToken } = $props();
+	let {
+		text,
+		lang,
+		annotations: tokenAnnotations,
+	}: { text: string; lang: string; annotations?: Token[][] } = $props();
 
 	const ctx = getContext();
 	const codeBlockId = $props.id();
 
-	const hasAnnotations = $derived(token.annotations && token.annotations.length > 0);
-	const hasVariables = $derived(token.variables && token.variables.length > 0);
+	// Parse language and title from the lang info string
+	const langInfo = lang || "text";
+	const { language } = parseHighlightLines(langInfo);
+	const title = parseTitle(langInfo);
+
+	// Highlight code with Shiki (async)
+	const highlighted = await highlightCodeDual(text, langInfo);
+
+	// Merge Shiki annotations (line info) with token annotations (content)
+	const annotationsWithContent = $derived.by(() => {
+		if (!highlighted.annotations || highlighted.annotations.length === 0) return [];
+		if (!tokenAnnotations || tokenAnnotations.length === 0) return [];
+
+		return highlighted.annotations.map((ann, idx) => ({
+			id: ann.id,
+			line: ann.line,
+			tokens: tokenAnnotations[idx] || [],
+		}));
+	});
+
+	const hasAnnotations = $derived(annotationsWithContent.length > 0);
+	const hasVariables = highlighted.variables && highlighted.variables.length > 0;
 
 	// Track which annotation is currently highlighted
 	let highlightedAnnotation = $state<string | null>(null);
+	let highlightTimeout: ReturnType<typeof setTimeout> | null = null;
 
 	// Compute copy text with variable values substituted
 	const copyText = $derived.by(() => {
-		let text = token.text;
-		if (!token.variables || token.variables.length === 0) {
-			return text;
+		let result = text;
+		if (!highlighted.variables || highlighted.variables.length === 0) {
+			return result;
 		}
-		for (const variable of token.variables) {
+		for (const variable of highlighted.variables) {
 			const pattern = variable.isReadOnly ? `<${variable.name}:readonly>` : `<${variable.name}>`;
 			const value = ctx.variables.get(variable.name) ?? pattern;
-			text = text.replaceAll(pattern, value);
+			result = result.replaceAll(pattern, value);
 		}
-		return text;
+		return result;
 	});
 
 	// Track mounted Variable components for cleanup
@@ -53,6 +63,7 @@
 
 	// Mount Variable components into marker spans
 	function mountVariables() {
+		console.log("mount variables");
 		if (!codeContainer || !hasVariables) return;
 
 		for (const v of mountedVariables) {
@@ -79,68 +90,93 @@
 		});
 	}
 
-	// Set up annotation marker click handlers
-	function setupAnnotationMarkers() {
-		if (!codeContainer || !hasAnnotations) return;
+	// Handle annotation marker clicks
+	function handleAnnotationClick(annotationId: string) {
+		// Clear any existing timeout
+		if (highlightTimeout) {
+			clearTimeout(highlightTimeout);
+		}
 
-		const markers = codeContainer.querySelectorAll<HTMLElement>(".code-annotation-marker");
+		highlightedAnnotation = annotationId;
 
-		markers.forEach((marker) => {
-			const annotationSpan = marker.closest(".code-annotation");
-			const annotationId = annotationSpan?.getAttribute("data-annotation-id");
+		// Scroll the annotation into view
+		const annotationElement = document.getElementById(`annotation-${codeBlockId}-${annotationId}`);
+		annotationElement?.scrollIntoView({ behavior: "smooth", block: "nearest" });
 
-			if (!annotationId) return;
-
-			marker.addEventListener("click", () => {
-				highlightedAnnotation = annotationId;
-
-				// Scroll the annotation into view
-				const annotationElement = document.getElementById(
-					`annotation-${codeBlockId}-${annotationId}`,
-				);
-				annotationElement?.scrollIntoView({ behavior: "smooth", block: "nearest" });
-
-				// Remove highlight after a delay
-				setTimeout(() => {
-					highlightedAnnotation = null;
-				}, 2000);
-			});
-		});
+		// Remove highlight after a delay
+		highlightTimeout = setTimeout(() => {
+			highlightedAnnotation = null;
+			highlightTimeout = null;
+		}, 2000);
 	}
 
-	onMount(() => {
+	// Handle click/keyboard on annotation markers using event delegation
+	function handleCodeContentInteraction(event: MouseEvent | KeyboardEvent) {
+		const target = event.target as HTMLElement;
+		const marker = target.closest(".code-annotation-marker");
+		if (!marker) return;
+
+		// For keyboard events, only handle Enter and Space
+		if (event instanceof KeyboardEvent && event.key !== "Enter" && event.key !== " ") {
+			return;
+		}
+
+		// Prevent space from scrolling the page
+		if (event instanceof KeyboardEvent && event.key === " ") {
+			event.preventDefault();
+		}
+
+		const annotationSpan = marker.closest(".code-annotation");
+		const annotationId = annotationSpan?.getAttribute("data-annotation-id");
+		if (annotationId) {
+			handleAnnotationClick(annotationId);
+		}
+	}
+
+	$effect(() => {
 		mountVariables();
-		setupAnnotationMarkers();
 
 		return () => {
 			for (const v of mountedVariables) {
 				v.unmount();
 			}
 			mountedVariables = [];
+
+			// Clear timeout on unmount
+			if (highlightTimeout) {
+				clearTimeout(highlightTimeout);
+			}
 		};
 	});
 </script>
 
-<div class="code-block shiki">
+<div class="code-block">
 	<div class="code-header">
-		{#if token.title}
-			<span class="title">{token.title}</span>
-		{:else if token.lang && token.lang !== "text" && token.lang !== "plaintext"}
-			<span class="language">{token.lang}</span>
+		{#if title}
+			<span class="title">{title}</span>
+		{:else if language && language !== "text" && language !== "plaintext"}
+			<span class="language">{language}</span>
 		{:else}
 			<span class="language">Plaintext</span>
 		{/if}
 		<CopyButton size="small" variant="neutral" {copyText} class="hide-noscript" />
 	</div>
-	<div class="code-content" bind:this={codeContainer} id={codeBlockId}>
+	<div
+		class="code-content"
+		bind:this={codeContainer}
+		id={codeBlockId}
+		onclick={handleCodeContentInteraction}
+		onkeydown={handleCodeContentInteraction}
+		role="presentation"
+	>
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-		{@html token.html}
+		{@html highlighted.html}
 	</div>
 </div>
 
 {#if hasAnnotations}
 	<div class="annotation-list">
-		{#each token.annotations as annotation (annotation.id)}
+		{#each annotationsWithContent as annotation (annotation.id)}
 			<div
 				class="annotation-item"
 				class:highlighted={highlightedAnnotation === annotation.id}
@@ -212,6 +248,7 @@
 		width: 100%;
 		padding: 0 0.5rem;
 		margin: 0 -0.5rem;
+		white-space: pre;
 	}
 
 	/* Highlighted line styling */
