@@ -103,8 +103,10 @@
 				</label>
 				<InternalHeaderTitle href={resolve("/")}>Nais Docs</InternalHeaderTitle>
 				<Spacer />
-				<SearchButton onclick={() => (searchOpen = true)} />
-				<ThemeToggle theme={themeState.theme} onchange={handleThemeChange} />
+				<div class="hide-noscript contents">
+					<SearchButton onclick={() => (searchOpen = true)} />
+					<ThemeToggle theme={themeState.theme} onchange={handleThemeChange} />
+				</div>
 			</InternalHeader>
 		</header>
 
