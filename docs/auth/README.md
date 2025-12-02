@@ -40,9 +40,9 @@ See the different scenarios below to identify which service(s) you need for your
 
 Depending on who your users are, you can use the following services to log them in:
 
-:person_standing: Log in _employees_ :octicons-arrow-right-24: [Entra ID]
+:standing_person: Log in _employees_ :octicons-arrow-right-24: [Entra ID]
 
-:person_standing: Log in _citizens_ :octicons-arrow-right-24: [ID-porten]
+:standing_person: Log in _citizens_ :octicons-arrow-right-24: [ID-porten]
 
 ## Validating inbound requests
 
@@ -63,9 +63,9 @@ graph TD
 
 The graph above can also be described as:
 
-:material-server::person_standing: Validate requests from _internal_ application acting on behalf of _employee_ :octicons-arrow-right-24: [Entra ID]
+:material-server::standing_person: Validate requests from _internal_ application acting on behalf of _employee_ :octicons-arrow-right-24: [Entra ID]
 
-:material-server::person_standing: Validate requests from _internal_ application acting on behalf of _citizen_:octicons-arrow-right-24: [TokenX]
+:material-server::standing_person: Validate requests from _internal_ application acting on behalf of _citizen_:octicons-arrow-right-24: [TokenX]
 
 :material-server: Validate requests from _internal_ application :octicons-arrow-right-24: [Entra ID]
 
@@ -87,9 +87,9 @@ graph TD
 
 The graph above can also be described as:
 
-:material-server::person_standing: Make requests to _internal_ API on behalf of _employee_ :octicons-arrow-right-24: [Entra ID]
+:material-server::standing_person: Make requests to _internal_ API on behalf of _employee_ :octicons-arrow-right-24: [Entra ID]
 
-:material-server::person_standing: Make requests to _internal_ API on behalf of _citizen_ :octicons-arrow-right-24: [TokenX]
+:material-server::standing_person: Make requests to _internal_ API on behalf of _citizen_ :octicons-arrow-right-24: [TokenX]
 
 :material-server: Make requests to _internal_ API :octicons-arrow-right-24: [Entra ID]
 

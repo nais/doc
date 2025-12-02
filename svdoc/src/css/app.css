@@ -9,6 +9,19 @@ body {
 	min-height: 100vh;
 }
 
+/* Inline icons styling */
+.emoji-icon {
+	display: inline-flex;
+	height: 1.125em;
+	vertical-align: text-top;
+}
+
+.emoji-icon svg {
+	fill: currentColor;
+	height: 100%;
+	width: auto;
+}
+
 /* Emoji font stack for consistent rendering across platforms */
 .emoji {
 	font-family:
@@ -79,7 +92,7 @@ body {
 	display: none;
 }
 
-.grid.cards > div > ul > li .twemoji {
+.grid.cards > div > ul > li .emoji-icon {
 	margin-right: 0.5rem;
 }
 
