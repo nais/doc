@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { browser } from "$app/environment";
 	import { afterNavigate } from "$app/navigation";
-	import { resolve } from "$app/paths";
-	import favicon from "$lib/assets/favicon.svg";
+	import { asset, resolve } from "$app/paths";
 	import SearchButton from "$lib/SearchButton.svelte";
 	import SearchModal from "$lib/SearchModal.svelte";
 	import Sidebar from "$lib/Sidebar.svelte";
@@ -70,7 +69,7 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<link rel="icon" href={asset("/assets/logo-white.png")} />
 	<noscript>
 		<style>
 			/* CSS checkbox hack works without JS - just hide the overlay */
