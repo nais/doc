@@ -6,7 +6,6 @@ const emojiMap = new Map<string, string>(gemoji.flatMap((e) => e.names.map((n) =
 import fm from "front-matter";
 import { Marked, type Token, type Tokens, type TokensList } from "marked";
 import { getGitInfo } from "./helpers/git";
-import { highlightCodeDual, parseHighlightLines, parseTitle } from "./helpers/shiki";
 import { processTemplates } from "./helpers/templates";
 import type {
 	AdmonitionToken,
@@ -17,7 +16,6 @@ import type {
 	DefinitionListToken,
 	DefinitionToken,
 	FootnoteToken,
-	HighlightedCodeToken,
 } from "./types/tokens";
 
 // Get base path from environment variable (set in svelte.config.js)
@@ -530,6 +528,90 @@ function processHtmlMarkdownBlocks(tokens: Token[] | TokensList): Token[] | Toke
 }
 
 /**
+ * Process code blocks to attach annotation content from following ordered lists.
+ * Annotations in code (like `# (1)`) reference items in the list that follows.
+ */
+function processCodeAnnotations(tokens: Token[] | TokensList): Token[] {
+	const result: Token[] = [];
+	let i = 0;
+
+	while (i < tokens.length) {
+		const token = tokens[i];
+
+		if (token.type === "code") {
+			const codeToken = token as Tokens.Code;
+
+			// Look for an ordered list following this code block (skip space tokens)
+			let nextIdx = i + 1;
+			while (nextIdx < tokens.length && tokens[nextIdx].type === "space") {
+				nextIdx++;
+			}
+
+			let annotationList: Token[] | null = null;
+			if (nextIdx < tokens.length) {
+				const nextToken = tokens[nextIdx] as Tokens.List;
+				if (nextToken.type === "list" && nextToken.ordered && nextToken.start === 1) {
+					// Extract annotation content from the list items
+					annotationList = nextToken.items.map((item) => item.tokens).flat();
+					// Store annotations on the code token
+					(codeToken as Tokens.Code & { annotations?: Token[][] }).annotations =
+						nextToken.items.map((item) => item.tokens);
+					// Skip the annotation list
+					i = nextIdx;
+				}
+			}
+
+			result.push(codeToken);
+		} else if ("tokens" in token && Array.isArray(token.tokens)) {
+			// Recursively process nested tokens
+			result.push({
+				...token,
+				tokens: processCodeAnnotations(token.tokens),
+			} as Token);
+		} else if (token.type === "content_tabs" && "tabs" in token) {
+			// Handle content tabs specially
+			const tabsToken = token as ContentTabsToken;
+			result.push({
+				...token,
+				tabs: tabsToken.tabs.map((tab) => ({
+					...tab,
+					tokens: processCodeAnnotations(tab.tokens),
+				})),
+			} as Token);
+		} else if (token.type === "list" && "items" in token) {
+			// Handle list items
+			const listToken = token as Tokens.List;
+			result.push({
+				...token,
+				items: listToken.items.map((item) => ({
+					...item,
+					tokens: processCodeAnnotations(item.tokens),
+				})),
+			} as Token);
+		} else if (token.type === "def_list" && "items" in token) {
+			// Handle definition lists
+			const defListToken = token as DefinitionListToken;
+			result.push({
+				...token,
+				items: defListToken.items.map((item) => ({
+					...item,
+					definitions: item.definitions.map((def) => ({
+						...def,
+						tokens: processCodeAnnotations(def.tokens),
+					})),
+				})),
+			} as Token);
+		} else {
+			result.push(token);
+		}
+
+		i++;
+	}
+
+	return result;
+}
+
+/**
  * Collect footnote definitions and move them to the end, wrapped in a footnotes container
  */
 function processFootnotes(tokens: Token[] | TokensList): Token[] | TokensList {
@@ -550,166 +632,6 @@ function processFootnotes(tokens: Token[] | TokensList): Token[] | TokensList {
 			raw: "",
 			items: footnotes,
 		} as Token);
-	}
-
-	return result;
-}
-
-/**
- * Check if a list token is an annotation list (ordered list starting with 1)
- * and extract annotation content by ID
- */
-function extractAnnotationList(token: Token): Map<string, Token[]> | null {
-	if (token.type !== "list") return null;
-
-	const listToken = token as Tokens.List;
-	if (!listToken.ordered || listToken.start !== 1) return null;
-
-	const annotations = new Map<string, Token[]>();
-
-	for (let i = 0; i < listToken.items.length; i++) {
-		const item = listToken.items[i];
-		const annotationId = String(i + 1);
-		annotations.set(annotationId, item.tokens);
-	}
-
-	return annotations;
-}
-
-/**
- * Process code blocks to add syntax highlighting with Shiki
- * Also handles code annotations by looking for following ordered lists
- */
-async function processCodeBlocks(tokens: Token[] | TokensList): Promise<Token[]> {
-	const result: Token[] = [];
-	let i = 0;
-
-	while (i < tokens.length) {
-		const token = tokens[i];
-
-		if (token.type === "code") {
-			const codeToken = token as Tokens.Code;
-			const langInfo = codeToken.lang || "text";
-			const { language } = parseHighlightLines(langInfo);
-			const title = parseTitle(langInfo);
-
-			// Skip mermaid blocks - they're handled client-side
-			if (language === "mermaid") {
-				result.push(token);
-				i++;
-				continue;
-			}
-
-			try {
-				const highlighted = await highlightCodeDual(codeToken.text, langInfo);
-
-				// Check if the next token is an annotation list
-				let annotationTokens: Map<string, Token[]> | null = null;
-				if (highlighted.annotations.length > 0 && i + 1 < tokens.length) {
-					// Skip any space tokens
-					let nextIdx = i + 1;
-					while (nextIdx < tokens.length && tokens[nextIdx].type === "space") {
-						nextIdx++;
-					}
-
-					if (nextIdx < tokens.length) {
-						annotationTokens = extractAnnotationList(tokens[nextIdx]);
-						if (annotationTokens) {
-							// Skip the annotation list token
-							i = nextIdx;
-						}
-					}
-				}
-
-				// Build annotations array with content
-				const annotationsWithContent: Array<{
-					id: string;
-					line: number;
-					tokens: Token[];
-				}> = [];
-
-				for (const annotation of highlighted.annotations) {
-					const content = annotationTokens?.get(annotation.id);
-					if (content) {
-						annotationsWithContent.push({
-							id: annotation.id,
-							line: annotation.line,
-							tokens: content,
-						});
-					}
-				}
-
-				result.push({
-					type: "highlighted_code",
-					raw: codeToken.raw,
-					text: codeToken.text,
-					lang: language,
-					html: highlighted.html,
-					title: title,
-					annotations: annotationsWithContent,
-					variables: highlighted.variables,
-				} as Token);
-			} catch (err) {
-				// Fall back to original token if highlighting fails
-				console.warn("Shiki highlighting failed:", err);
-				result.push(token);
-			}
-		} else if ("tokens" in token && Array.isArray(token.tokens)) {
-			// Recursively process nested tokens
-			const processedNested = await processCodeBlocks(token.tokens);
-			result.push({
-				...token,
-				tokens: processedNested,
-			} as Token);
-		} else if (token.type === "content_tabs" && "tabs" in token) {
-			// Handle content tabs specially
-			const tabsToken = token as ContentTabsToken;
-			const processedTabs = await Promise.all(
-				tabsToken.tabs.map(async (tab) => ({
-					...tab,
-					tokens: await processCodeBlocks(tab.tokens),
-				})),
-			);
-			result.push({
-				...token,
-				tabs: processedTabs,
-			} as Token);
-		} else if (token.type === "list" && "items" in token) {
-			// Handle list items
-			const listToken = token as Tokens.List;
-			const processedItems = await Promise.all(
-				listToken.items.map(async (item) => ({
-					...item,
-					tokens: await processCodeBlocks(item.tokens),
-				})),
-			);
-			result.push({
-				...token,
-				items: processedItems,
-			} as Token);
-		} else if (token.type === "def_list" && "items" in token) {
-			// Handle definition lists
-			const defListToken = token as DefinitionListToken;
-			const processedItems = await Promise.all(
-				defListToken.items.map(async (item) => ({
-					...item,
-					definitions: await Promise.all(
-						item.definitions.map(async (def) => ({
-							...def,
-							tokens: await processCodeBlocks(def.tokens),
-						})),
-					),
-				})),
-			);
-			result.push({
-				...token,
-				items: processedItems,
-			} as Token);
-		} else {
-			result.push(token);
-		}
-
-		i++;
 	}
 
 	return result;
@@ -848,18 +770,6 @@ function processLinks(
 			};
 		}
 
-		// Handle highlighted_code tokens with annotations
-		if (token.type === "highlighted_code" && "annotations" in token) {
-			const highlightedToken = token as HighlightedCodeToken;
-			return {
-				...highlightedToken,
-				annotations: highlightedToken.annotations.map((annotation) => ({
-					...annotation,
-					tokens: processLinks(annotation.tokens, basePath, isReadme) as Token[],
-				})),
-			};
-		}
-
 		// Recursively process nested tokens
 		if ("tokens" in token && Array.isArray(token.tokens)) {
 			return {
@@ -945,12 +855,12 @@ export async function readMarkdownFile(
 	// Process footnotes - collect and move to end
 	const footnotesProcessed = processFootnotes(htmlProcessed);
 
-	// Process code blocks for syntax highlighting
-	const codeProcessed = await processCodeBlocks(footnotesProcessed);
+	// Process code annotations - attach following ordered lists to code tokens
+	const annotationsProcessed = processCodeAnnotations(footnotesProcessed);
 
 	// Process links to transform .md hrefs to clean, absolute URLs
 	const { urlPath, isReadme } = filePathToUrlPath(path);
-	const processedTokens = processLinks(codeProcessed, urlPath, isReadme);
+	const processedTokens = processLinks(annotationsProcessed, urlPath, isReadme);
 
 	// Extract title from first heading if not in frontmatter
 	const finalAttributes: Attributes = { ...attributes };
