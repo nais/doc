@@ -133,7 +133,7 @@ The renderer supports editable placeholder variables in both inline code and cod
 
 1. **Inline code** (`Codespan.svelte`): The `textAndVariables()` function parses the code span for variable patterns and renders `Variable` components inline.
 
-2. **Code blocks** (`HighlightedCode.svelte`): 
+2. **Code blocks** (`HighlightedCode.svelte`):
    - Variables are extracted before Shiki highlighting and replaced with unique placeholders
    - A Shiki transformer wraps these placeholders in `<span class="svdoc-variable-marker">` elements with data attributes
    - After mount, `Variable` components are mounted into these marker spans using Svelte 5's `mount()` API
