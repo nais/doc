@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { resolve } from "$app/paths";
 	import { Tag } from "@nais/ds-svelte-community";
+	import { ChevronLeftIcon } from "@nais/ds-svelte-community/icons";
 	import type { PageProps } from "./$types";
 
 	let { data }: PageProps = $props();
@@ -9,41 +10,46 @@
 
 <svelte:head>
 	<title>{tag} - Tags - Nais</title>
+	<meta name="description" content="Pages tagged with {tag}" />
 </svelte:head>
 
 <article class="tag-page">
-	<div class="header">
-		<a href={resolve("/tags")} class="back-link">← All tags</a>
+	<header class="header">
+		<a href={resolve("/tags")} class="back-link">
+			<ChevronLeftIcon aria-hidden="true" />
+			All tags
+		</a>
 		<div class="title-row">
 			<h1>
 				<Tag variant="alt3-moderate" size="small">{tag}</Tag>
 			</h1>
 			<span class="count">{pages.length} {pages.length === 1 ? "page" : "pages"}</span>
 		</div>
-	</div>
+	</header>
 
-	<ul class="pages-list">
-		{#each pages as page (page.path)}
-			<li>
-				<a href={page.path} class="page-card">
-					<span class="page-title">{page.title}</span>
-					{#if page.description}
-						<span class="page-description">{page.description}</span>
-					{/if}
-					<span class="page-path">{page.path}</span>
-				</a>
-			</li>
-		{/each}
-	</ul>
-
-	{#if pages.length === 0}
-		<p class="empty">No pages found with this tag.</p>
+	{#if pages.length > 0}
+		<ul class="pages-list">
+			{#each pages as page (page.path)}
+				<li>
+					<a href={page.path} class="page-card">
+						<h2 class="page-title">{page.title}</h2>
+						{#if page.description || page.summary}
+							<p class="page-summary">{page.description || page.summary}</p>
+						{/if}
+					</a>
+				</li>
+			{/each}
+		</ul>
+	{:else}
+		<div class="empty">
+			<p>No pages found with this tag.</p>
+			<a href={resolve("/tags")} class="back-link-empty">Browse all tags</a>
+		</div>
 	{/if}
 </article>
 
 <style>
 	.tag-page {
-		padding: 2rem;
 		max-width: 900px;
 	}
 
@@ -52,22 +58,25 @@
 	}
 
 	.back-link {
-		display: inline-block;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
 		margin-bottom: 1rem;
 		color: var(--ax-text-neutral, #6b7280);
 		text-decoration: none;
 		font-size: 0.875rem;
+		transition: color 0.15s ease;
 	}
 
 	.back-link:hover {
 		color: var(--ax-text-default, inherit);
-		text-decoration: underline;
 	}
 
 	.title-row {
 		display: flex;
 		align-items: center;
 		gap: 1rem;
+		flex-wrap: wrap;
 	}
 
 	h1 {
@@ -87,47 +96,69 @@
 		margin: 0;
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
+		gap: 1rem;
 	}
 
 	.page-card {
-		display: flex;
-		flex-direction: column;
-		gap: 0.25rem;
-		padding: 1rem;
+		display: block;
+		padding: 1.25rem 1.5rem;
 		border: 1px solid var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.3));
 		border-radius: 0.5rem;
 		background-color: var(--ax-bg-neutral-soft, rgba(175, 184, 193, 0.05));
 		text-decoration: none;
-		transition: all 0.2s ease;
+		transition:
+			border-color 0.2s ease,
+			background-color 0.2s ease,
+			box-shadow 0.2s ease;
 	}
 
 	.page-card:hover {
 		border-color: var(--ax-border-accent, rgba(0, 103, 197, 0.5));
-		background-color: var(--ax-bg-accent-soft, rgba(0, 103, 197, 0.1));
-		transform: translateY(-2px);
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		background-color: var(--ax-bg-accent-soft, rgba(0, 103, 197, 0.05));
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	}
+
+	.page-card:hover .page-title {
+		color: var(--ax-text-accent, #0067c5);
 	}
 
 	.page-title {
-		font-weight: 500;
+		margin: 0 0 0.5rem 0;
+		font-size: 1.125rem;
+		font-weight: 600;
 		color: var(--ax-text-default, inherit);
+		transition: color 0.2s ease;
 	}
 
-	.page-description {
-		font-size: 0.875rem;
+	.page-summary {
+		margin: 0;
+		font-size: 0.9375rem;
 		color: var(--ax-text-neutral, #6b7280);
-		line-height: 1.4;
-	}
-
-	.page-path {
-		font-size: 0.75rem;
-		color: var(--ax-text-neutral, #9ca3af);
-		font-family: "Monaco", "Menlo", "Ubuntu Mono", "Consolas", monospace;
+		line-height: 1.5;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
 	}
 
 	.empty {
+		text-align: center;
+		padding: 3rem 1rem;
 		color: var(--ax-text-neutral, #6b7280);
-		font-style: italic;
+	}
+
+	.empty p {
+		margin: 0 0 1rem 0;
+		font-size: 1rem;
+	}
+
+	.back-link-empty {
+		color: var(--ax-text-accent, #0067c5);
+		text-decoration: none;
+	}
+
+	.back-link-empty:hover {
+		text-decoration: underline;
 	}
 </style>
