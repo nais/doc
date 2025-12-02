@@ -1,4 +1,8 @@
-import emojiNameMap from "emoji-name-map";
+import { gemoji } from "gemoji";
+import { getIconSvg, isIconShortcode } from "./helpers/icons";
+
+// Build emoji lookup map from gemoji data
+const emojiMap = new Map<string, string>(gemoji.flatMap((e) => e.names.map((n) => [n, e.emoji])));
 import fm from "front-matter";
 import { Marked, type Token, type Tokens, type TokensList } from "marked";
 import { getGitInfo } from "./helpers/git";
@@ -140,7 +144,7 @@ function createMarkedInstance(): Marked {
 					return undefined;
 				},
 			},
-			// Emoji extension
+			// Emoji and icon extension
 			{
 				name: "emoji",
 				level: "inline",
@@ -150,13 +154,28 @@ function createMarkedInstance(): Marked {
 				tokenizer(src) {
 					const match = /^:([a-zA-Z0-9_+-]+):/.exec(src);
 					if (match) {
-						const emoji = emojiNameMap.get(match[1]);
+						const shortcode = match[1];
+
+						// Try emoji first
+						const emoji = emojiMap.get(shortcode);
 						if (emoji) {
 							return {
 								type: "text",
 								raw: match[0],
 								text: emoji,
 							};
+						}
+
+						// Try icon (material, octicons, simple, fontawesome)
+						if (isIconShortcode(shortcode)) {
+							const svg = getIconSvg(shortcode);
+							if (svg) {
+								return {
+									type: "html",
+									raw: match[0],
+									text: svg,
+								};
+							}
 						}
 					}
 					return undefined;
