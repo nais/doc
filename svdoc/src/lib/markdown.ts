@@ -302,7 +302,7 @@ function createMarkedInstance(): Marked {
 									break;
 								}
 
-								// Empty line is OK (might be between paragraphs in definition)
+								// Empty line - might be between paragraphs in definition
 								if (/^\s*$/.test(line)) {
 									defEndLine = i + 1;
 									continue;
@@ -314,15 +314,26 @@ function createMarkedInstance(): Marked {
 									continue;
 								}
 
-								// Non-indented, non-empty line - check if it's a new term
-								let j = i + 1;
-								while (j < lines.length && /^\s*$/.test(lines[j])) j++;
-								if (j < lines.length && /^: {3}/.test(lines[j])) {
-									// New term found, stop this definition
+								// Non-indented, non-empty line
+								// Check if previous line was empty (new paragraph boundary)
+								const prevLineEmpty = i > 0 && /^\s*$/.test(lines[i - 1]);
+
+								if (prevLineEmpty) {
+									// After a blank line, a non-indented line ends the definition
+									// unless it's followed by a definition marker (new term)
+									let j = i + 1;
+									while (j < lines.length && /^\s*$/.test(lines[j])) j++;
+									if (j < lines.length && /^: {3}/.test(lines[j])) {
+										// New term found, stop this definition
+										break;
+									}
+									// End of definition list
 									break;
 								}
-								// End of definition list
-								break;
+
+								// No blank line before - this is a continuation of the same paragraph
+								defEndLine = i + 1;
+								continue;
 							}
 
 							const defLines = lines.slice(0, defEndLine);
