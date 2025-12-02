@@ -133,8 +133,9 @@ The renderer supports editable placeholder variables in both inline code and cod
 
 1. **Inline code** (`Codespan.svelte`): The `textAndVariables()` function parses the code span for variable patterns and renders `Variable` components inline.
 
-2. **Code blocks** (`HighlightedCode.svelte`):
-   - Variables are extracted before Shiki highlighting and replaced with unique placeholders
+2. **Code blocks** (`Code.svelte`):
+   - Uses Svelte 5's experimental async mode to await Shiki highlighting directly in the component
+   - Variables are extracted before highlighting and replaced with unique placeholders
    - A Shiki transformer wraps these placeholders in `<span class="svdoc-variable-marker">` elements with data attributes
    - After mount, `Variable` components are mounted into these marker spans using Svelte 5's `mount()` API
    - The page context is passed as a prop since `mount()` doesn't inherit Svelte context
@@ -152,6 +153,63 @@ kubectl get pods -n <NAMESPACE>
 ```
 
 Users can click on `<NAMESPACE>` to enter their actual namespace value, which persists across all instances on the page.
+
+## Svelte MCP Server
+
+This project uses the Svelte MCP (Model Context Protocol) server for AI-assisted development. The MCP server provides comprehensive Svelte 5 and SvelteKit documentation and code analysis.
+
+### Available Tools
+
+1. **list-sections** - Discover all available documentation sections. Use this FIRST when asked about Svelte topics.
+
+2. **get-documentation** - Retrieves full documentation for specific sections. After list-sections, analyze the `use_cases` field and fetch ALL relevant sections at once.
+
+3. **svelte-autofixer** - Analyzes Svelte code and returns issues/suggestions. MUST be used when writing Svelte code before sending to the user.
+
+4. **playground-link** - Generates a Svelte Playground link. Only use after user confirms they want one, and NEVER if code was written to project files.
+
+### Key Svelte 5 Patterns
+
+- **Use `$effect` instead of `onMount`** for DOM manipulation after render. Effects re-run when their dependencies change and include cleanup via return function.
+- **`onMount` only runs once** and doesn't track reactive dependencies - use `$effect` when you need reactivity.
+- **`$effect` runs after DOM updates** in a microtask, making it ideal for mounting imperative components into rendered HTML.
+- **Track dependencies explicitly** - `$effect` only tracks values read synchronously in its body. Values read after `await` or in `setTimeout` are not tracked.
+
+### Example: Mounting Components into Rendered HTML
+
+```svelte
+<script>
+  import { mount, unmount } from 'svelte';
+  import MyComponent from './MyComponent.svelte';
+  
+  let container = $state();
+  
+  // $effect tracks `container` and runs after DOM updates
+  $effect(() => {
+    if (!container) return;
+    
+    const markers = container.querySelectorAll('.marker');
+    const mounted = [];
+    
+    markers.forEach((marker) => {
+      const instance = mount(MyComponent, {
+        target: marker,
+        props: { /* props here */ }
+      });
+      mounted.push(instance);
+    });
+    
+    // Cleanup runs before re-run and on destroy
+    return () => {
+      mounted.forEach((instance) => unmount(instance));
+    };
+  });
+</script>
+
+<div bind:this={container}>
+  {@html someHtmlWithMarkers}
+</div>
+```
 
 ## Template Processing
 
