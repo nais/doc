@@ -111,6 +111,40 @@ function extractTextFromToken(token: Token): string {
 }
 
 /**
+ * Remove emoji shortcodes from text (e.g., :seedling:, :rocket:)
+ */
+function stripEmojiShortcodes(text: string): string {
+	return text.replace(/:[a-zA-Z0-9_+-]+:/g, "").trim();
+}
+
+/**
+ * Extract text from tokens for generating heading IDs.
+ * Strips emoji shortcodes and extracts only actual text content.
+ * This matches how mkdocs generates heading IDs.
+ */
+export function extractTextForId(tokens: Token[]): string {
+	const parts: string[] = [];
+
+	for (const token of tokens) {
+		if (token.type === "text") {
+			// Strip emoji shortcodes from text content
+			const text = stripEmojiShortcodes((token as { text: string }).text);
+			if (text) {
+				parts.push(text);
+			}
+		} else if ("tokens" in token && Array.isArray(token.tokens)) {
+			// Recurse into nested tokens (e.g., strong, em)
+			const nestedText = extractTextForId(token.tokens);
+			if (nestedText) {
+				parts.push(nestedText);
+			}
+		}
+	}
+
+	return parts.join(" ").replace(/\s+/g, " ").trim();
+}
+
+/**
  * Extract headings from parsed markdown tokens.
  */
 export function extractHeadingsFromTokens(tokens: Token[]): Heading[] {
@@ -118,12 +152,9 @@ export function extractHeadingsFromTokens(tokens: Token[]): Heading[] {
 
 	for (const token of tokens) {
 		if (token.type === "heading") {
-			const heading = token as { depth: number; text: string };
-			const text = heading.text
-				.replace(/:[a-zA-Z0-9_+-]+:/g, "") // Remove emoji shortcodes
-				.replace(/\*\*([^*]+)\*\*/g, "$1") // Remove bold
-				.replace(/\*([^*]+)\*/g, "$1") // Remove italic
-				.trim();
+			const heading = token as { depth: number; text: string; tokens?: Token[] };
+			// Extract text from nested tokens, skipping emoji shortcodes
+			const text = heading.tokens ? extractTextForId(heading.tokens) : heading.text;
 
 			if (text) {
 				headings.push({
