@@ -121,7 +121,7 @@
 	});
 </script>
 
-<div class="code-block">
+<div class="code-block shiki">
 	<div class="code-header">
 		{#if token.title}
 			<span class="title">{token.title}</span>

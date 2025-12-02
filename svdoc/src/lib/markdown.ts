@@ -340,9 +340,35 @@ function createMarkedInstance(): Marked {
 							const defRaw = defLines.join("\n") + (defEndLine < lines.length ? "\n" : "");
 
 							// Extract content: first line after ":   ", then dedent continuation lines
+							// But preserve indentation inside non-indented code blocks
 							let defContent = defLines[0].slice(4); // Remove ":   "
+							let inNonIndentedCodeBlock = false;
+							let nonIndentedCodeFence = "";
+
 							for (let i = 1; i < defLines.length; i++) {
 								const line = defLines[i];
+
+								// Check for code fence at column 0 (non-indented)
+								const nonIndentedFence = /^(```|~~~)/.exec(line);
+								if (nonIndentedFence && !line.startsWith("    ")) {
+									if (!inNonIndentedCodeBlock) {
+										inNonIndentedCodeBlock = true;
+										nonIndentedCodeFence = nonIndentedFence[1];
+									} else if (line.startsWith(nonIndentedCodeFence)) {
+										inNonIndentedCodeBlock = false;
+										nonIndentedCodeFence = "";
+									}
+									defContent += "\n" + line;
+									continue;
+								}
+
+								// Inside a non-indented code block - preserve content as-is
+								if (inNonIndentedCodeBlock) {
+									defContent += "\n" + line;
+									continue;
+								}
+
+								// Outside code blocks - dedent 4-space indented lines
 								defContent += "\n" + (line.startsWith("    ") ? line.slice(4) : line);
 							}
 							defContent = defContent.trim();
@@ -655,6 +681,24 @@ async function processCodeBlocks(tokens: Token[] | TokensList): Promise<Token[]>
 				listToken.items.map(async (item) => ({
 					...item,
 					tokens: await processCodeBlocks(item.tokens),
+				})),
+			);
+			result.push({
+				...token,
+				items: processedItems,
+			} as Token);
+		} else if (token.type === "def_list" && "items" in token) {
+			// Handle definition lists
+			const defListToken = token as DefinitionListToken;
+			const processedItems = await Promise.all(
+				defListToken.items.map(async (item) => ({
+					...item,
+					definitions: await Promise.all(
+						item.definitions.map(async (def) => ({
+							...def,
+							tokens: await processCodeBlocks(def.tokens),
+						})),
+					),
 				})),
 			);
 			result.push({
