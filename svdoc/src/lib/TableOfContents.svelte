@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { extractTextForId, slugify } from "$lib/helpers/markdown-utils";
 	import type { Token } from "marked";
 
 	interface TocItem {
@@ -13,28 +14,23 @@
 
 	let { tokens }: Props = $props();
 
-	function generateId(text: string): string {
-		return text
-			.toLowerCase()
-			.replace(/[^a-z0-9\s-]/g, "")
-			.replace(/\s+/g, "-")
-			.replace(/-+/g, "-")
-			.trim();
-	}
-
 	function extractHeadings(tokens: Token[]): TocItem[] {
 		const headings: TocItem[] = [];
 
 		for (const token of tokens) {
 			if (token.type === "heading") {
-				const heading = token as { depth: number; text: string };
+				const heading = token as { depth: number; text: string; tokens?: Token[] };
 				// Only include h2 and h3 in TOC (h1 is the page title)
 				if (heading.depth >= 2 && heading.depth <= 3) {
-					headings.push({
-						id: generateId(heading.text),
-						text: heading.text.replace(/:[a-zA-Z0-9_+-]+:/g, "").trim(),
-						depth: heading.depth,
-					});
+					// Extract text from nested tokens, skipping emoji shortcodes
+					const text = heading.tokens ? extractTextForId(heading.tokens) : heading.text;
+					if (text) {
+						headings.push({
+							id: slugify(text),
+							text,
+							depth: heading.depth,
+						});
+					}
 				}
 			}
 		}
