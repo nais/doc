@@ -1,157 +1,53 @@
 <script lang="ts">
+	import { browser } from "$app/environment";
+	import { getMermaidThemeVariables } from "$lib/helpers/mermaid";
+	import { getTheme } from "$lib/state/theme.svelte";
 	import { CopyButton } from "@nais/ds-svelte-community";
 	import type { Tokens } from "marked";
 	import mermaid from "mermaid";
-	import { onMount } from "svelte";
 
 	let { token }: { token: Tokens.Code } = $props();
 
-	let mermaidContainer: HTMLDivElement | undefined = $state();
+	const id = $props.id();
+	const themeState = getTheme();
+
 	let mermaidSvg: string = $state("");
 	let mermaidError: string | null = $state(null);
 
 	const isMermaid = $derived(token.lang === "mermaid");
+	const isDark = $derived(themeState?.isDark ?? false);
 
-	onMount(() => {
-		if (isMermaid && mermaidContainer) {
-			// Detect theme from parent element
-			const themeElement = mermaidContainer.closest(".light, .dark");
-			const isDark = themeElement?.classList.contains("dark") ?? false;
+	$effect(() => {
+		if (!browser || !isMermaid) return;
 
-			mermaid.initialize({
-				startOnLoad: false,
-				theme: "base",
-				themeVariables: isDark
-					? {
-							// Dark theme variables
-							background: "#161d28",
-							primaryColor: "#17365c",
-							primaryTextColor: "#dfe1e5",
-							primaryBorderColor: "#2e6db8",
-							secondaryColor: "#242b37",
-							secondaryTextColor: "#a5acb6",
-							secondaryBorderColor: "#3a4250",
-							tertiaryColor: "#2e3641",
-							tertiaryTextColor: "#949ba8",
-							tertiaryBorderColor: "#4a5260",
-							lineColor: "#656d7b",
-							textColor: "#dfe1e5",
-							mainBkg: "#17365c",
-							nodeBorder: "#2e6db8",
-							clusterBkg: "#1e2530",
-							clusterBorder: "#3a4250",
-							titleColor: "#dfe1e5",
-							edgeLabelBackground: "#242b37",
-							nodeTextColor: "#dfe1e5",
-							actorBkg: "#17365c",
-							actorBorder: "#2e6db8",
-							actorTextColor: "#dfe1e5",
-							actorLineColor: "#656d7b",
-							signalColor: "#dfe1e5",
-							signalTextColor: "#dfe1e5",
-							labelBoxBkgColor: "#242b37",
-							labelBoxBorderColor: "#2e3641",
-							labelTextColor: "#dfe1e5",
-							loopTextColor: "#a5acb6",
-							noteBkgColor: "#242b37",
-							noteBorderColor: "#2e3641",
-							noteTextColor: "#a5acb6",
-							activationBkgColor: "#17365c",
-							activationBorderColor: "#2e6db8",
-							sequenceNumberColor: "#dfe1e5",
-							sectionBkgColor: "#1c232f",
-							altSectionBkgColor: "#242b37",
-							sectionBkgColor2: "#161d28",
-							taskBkgColor: "#17365c",
-							taskBorderColor: "#2e6db8",
-							taskTextColor: "#dfe1e5",
-							taskTextLightColor: "#a5acb6",
-							taskTextOutsideColor: "#dfe1e5",
-							taskTextClickableColor: "#84aee6",
-							activeTaskBorderColor: "#5f94d8",
-							gridColor: "#2e3641",
-							doneTaskBkgColor: "#207c41",
-							doneTaskBorderColor: "#4ca265",
-							critBkgColor: "#002300",
-							critBorderColor: "#004000",
-							todayLineColor: "#5f94d8",
-							personBkg: "#17365c",
-							personBorder: "#2e6db8",
-						}
-					: {
-							// Light theme variables
-							background: "#ffffff",
-							primaryColor: "#bad5fb",
-							primaryTextColor: "#202733",
-							primaryBorderColor: "#0063c1",
-							secondaryColor: "#ecedef",
-							secondaryTextColor: "#49515e",
-							secondaryBorderColor: "#c0c4ca",
-							tertiaryColor: "#e1e3e7",
-							tertiaryTextColor: "#5d6573",
-							tertiaryBorderColor: "#b0b5bd",
-							lineColor: "#818997",
-							textColor: "#202733",
-							mainBkg: "#bad5fb",
-							nodeBorder: "#0063c1",
-							clusterBkg: "#f0f1f3",
-							clusterBorder: "#c0c4ca",
-							titleColor: "#202733",
-							edgeLabelBackground: "#f5f6f7",
-							nodeTextColor: "#202733",
-							actorBkg: "#bad5fb",
-							actorBorder: "#0063c1",
-							actorTextColor: "#202733",
-							actorLineColor: "#818997",
-							signalColor: "#202733",
-							signalTextColor: "#202733",
-							labelBoxBkgColor: "#f5f6f7",
-							labelBoxBorderColor: "#cfd3d8",
-							labelTextColor: "#202733",
-							loopTextColor: "#49515e",
-							noteBkgColor: "#f5f6f7",
-							noteBorderColor: "#cfd3d8",
-							noteTextColor: "#49515e",
-							activationBkgColor: "#bad5fb",
-							activationBorderColor: "#0063c1",
-							sequenceNumberColor: "#202733",
-							sectionBkgColor: "#f5f6f7",
-							altSectionBkgColor: "#ecedef",
-							sectionBkgColor2: "#ffffff",
-							taskBkgColor: "#bad5fb",
-							taskBorderColor: "#0063c1",
-							taskTextColor: "#202733",
-							taskTextLightColor: "#49515e",
-							taskTextOutsideColor: "#202733",
-							taskTextClickableColor: "#0063c1",
-							activeTaskBorderColor: "#2176d4",
-							gridColor: "#cfd3d8",
-							doneTaskBkgColor: "#a8dfb4",
-							doneTaskBorderColor: "#007629",
-							critBkgColor: "#ffc2d7",
-							critBorderColor: "#cb0035",
-							todayLineColor: "#2176d4",
-							personBkg: "#bad5fb",
-							personBorder: "#0063c1",
-						},
+		// Track theme changes by accessing isDark
+		const currentTheme = isDark;
+
+		// Reset state for re-render
+		mermaidError = null;
+
+		mermaid.initialize({
+			startOnLoad: false,
+			theme: "base",
+			themeVariables: getMermaidThemeVariables(currentTheme),
+		});
+
+		const mermaidId = `mermaid-${id}-${currentTheme ? "dark" : "light"}`;
+
+		mermaid
+			.render(mermaidId, token.text)
+			.then((result) => {
+				mermaidSvg = result.svg;
+			})
+			.catch((err) => {
+				console.error("Mermaid rendering failed:", err);
+				mermaidError = err.message || "Failed to render diagram";
 			});
-
-			const id = `mermaid-${crypto.randomUUID()}`;
-			mermaid
-				.render(id, token.text)
-				.then((result) => {
-					mermaidSvg = result.svg;
-				})
-				.catch((err) => {
-					console.error("Mermaid rendering failed:", err);
-					mermaidError = err.message || "Failed to render diagram";
-				});
-		}
 	});
 </script>
 
 {#if isMermaid}
-	<div class="mermaid-diagram" bind:this={mermaidContainer}>
+	<div class="mermaid-diagram">
 		{#if mermaidSvg}
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html mermaidSvg}
@@ -165,7 +61,14 @@
 				</details>
 			</div>
 		{:else}
-			<div class="mermaid-loading">Loading diagram...</div>
+			<!-- Show code on server or while loading -->
+			<div class="code-block">
+				<div class="code-header">
+					<span class="language">mermaid</span>
+					<CopyButton size="small" variant="neutral" copyText={token.text} class="hide-noscript" />
+				</div>
+				<pre><code class="language-mermaid">{token.text}</code></pre>
+			</div>
 		{/if}
 	</div>
 {:else}
@@ -229,12 +132,6 @@
 
 	:global(.light) .mermaid-diagram :global(.cluster .cluster .cluster .cluster rect) {
 		fill: #cccfd5 !important;
-	}
-
-	.mermaid-loading {
-		padding: 2rem;
-		color: var(--ax-text-subtle, #8b949e);
-		font-style: italic;
 	}
 
 	.mermaid-error {
