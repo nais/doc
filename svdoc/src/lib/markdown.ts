@@ -234,7 +234,8 @@ function createMarkedInstance(): Marked {
 				level: "block",
 				start(src) {
 					// Look for a line followed by :   (colon + 3 spaces)
-					const match = src.match(/^[^\n]+\n\n?: {3}/m);
+					// Also match with optional leading space (for content inside list items)
+					const match = src.match(/^[^\n]+\n\n? ?: {3}/m);
 					return match ? match.index : undefined;
 				},
 				tokenizer(src) {
@@ -251,7 +252,8 @@ function createMarkedInstance(): Marked {
 					// Pattern for a term followed by one or more definitions
 					// Term: any non-empty line
 					// Definition: starts with :   (colon + 3 spaces)
-					const termPattern = /^([^\n]+)\n\n?(?=: {3})/;
+					// Also handle optional leading space (for content inside list items after dedent)
+					const termPattern = /^([^\n]+)\n\n?(?= ?: {3})/;
 
 					let termMatch = termPattern.exec(remaining);
 					while (termMatch) {
@@ -264,7 +266,9 @@ function createMarkedInstance(): Marked {
 						const definitions: DefinitionToken[] = [];
 
 						// Match all definitions for this term
-						while (remaining.startsWith(":   ")) {
+						// Handle optional leading space (from list item dedentation)
+						while (remaining.startsWith(":   ") || remaining.startsWith(" :   ")) {
+							const hasLeadingSpace = remaining.startsWith(" :   ");
 							// Find where this definition ends
 							let inCodeBlock = false;
 							let codeBlockFence = "";
@@ -295,8 +299,8 @@ function createMarkedInstance(): Marked {
 									continue;
 								}
 
-								// Another definition starts
-								if (/^: {3}/.test(line)) {
+								// Another definition starts (with or without leading space)
+								if (/^ ?: {3}/.test(line)) {
 									break;
 								}
 
@@ -337,9 +341,10 @@ function createMarkedInstance(): Marked {
 							const defLines = lines.slice(0, defEndLine);
 							const defRaw = defLines.join("\n") + (defEndLine < lines.length ? "\n" : "");
 
-							// Extract content: first line after ":   ", then dedent continuation lines
+							// Extract content: first line after ":   " (or " :   "), then dedent continuation lines
 							// But preserve indentation inside non-indented code blocks
-							let defContent = defLines[0].slice(4); // Remove ":   "
+							const skipChars = hasLeadingSpace ? 5 : 4; // Remove " :   " or ":   "
+							let defContent = defLines[0].slice(skipChars);
 							let inNonIndentedCodeBlock = false;
 							let nonIndentedCodeFence = "";
 
