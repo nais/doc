@@ -9,14 +9,15 @@
  */
 
 import fm from "front-matter";
-import { readdir, stat } from "node:fs/promises";
-import { resolve, relative } from "node:path";
 import type { Token } from "marked";
+import { readdir, stat } from "node:fs/promises";
+import { relative, resolve } from "node:path";
 import { IGNORED_DIRECTORIES } from "./constants";
 import {
+	extractHeadingsFromTokens,
+	extractSummaryFromTokens,
 	extractTitle,
-	extractHeadings,
-	stripMarkdown,
+	stripMarkdownTokens,
 	type Heading,
 } from "./helpers/markdown-utils";
 import { readMarkdownFile, type Attributes } from "./markdown";
@@ -46,6 +47,8 @@ export interface ContentDocument {
 	headings: Heading[];
 	/** Stripped content for search indexing */
 	searchContent: string;
+	/** Summary extracted from first paragraphs */
+	summary?: string;
 	/** Last modified time */
 	mtime: number;
 }
@@ -69,6 +72,7 @@ export interface TaggedPage {
 	title: string;
 	path: string;
 	description?: string;
+	summary?: string;
 }
 
 /**
@@ -257,14 +261,14 @@ class ContentStore {
 	 */
 	private async processFile(filePath: string): Promise<void> {
 		try {
-			const source = await Bun.file(filePath).text();
 			const fileStat = await stat(filePath);
-			const { attributes, body } = fm<DocAttributes>(source);
+			const { tokens, attributes } = await readMarkdownFile(filePath);
 
 			const { urlPath, isReadme } = filePathToUrlPath(filePath);
-			const title = extractTitle(attributes, body);
-			const headings = extractHeadings(body);
-			const searchContent = stripMarkdown(body).slice(0, 10000);
+			const title = attributes.title || "Untitled";
+			const headings = extractHeadingsFromTokens(tokens);
+			const searchContent = stripMarkdownTokens(tokens).slice(0, 10000);
+			const summary = extractSummaryFromTokens(tokens);
 
 			const doc: ContentDocument = {
 				filePath,
@@ -276,6 +280,7 @@ class ContentStore {
 				hide: attributes.hide || [],
 				headings,
 				searchContent,
+				summary,
 				mtime: fileStat.mtimeMs,
 			};
 
@@ -310,6 +315,7 @@ class ContentStore {
 					title: doc.title,
 					path: withBase(doc.urlPath),
 					description: doc.description,
+					summary: doc.summary,
 				});
 				this.tagPages.set(slug, pages);
 			}
