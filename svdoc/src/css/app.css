@@ -152,3 +152,9 @@ a[href^="http"]:not([href*="nais.io"]):not(.no-icon)::after {
 .grid.cards a:not(.unstyled) {
 	display: inline;
 }
+
+/* Break long code spans in table cells */
+td code,
+th code {
+	word-break: break-all;
+}
