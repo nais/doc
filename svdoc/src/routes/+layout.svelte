@@ -6,14 +6,13 @@
 	import SearchButton from "$lib/SearchButton.svelte";
 	import SearchModal from "$lib/SearchModal.svelte";
 	import Sidebar from "$lib/Sidebar.svelte";
+	import { setupTheme, type Theme as ThemeMode } from "$lib/state/theme.svelte";
 	import ThemeToggle from "$lib/ThemeToggle.svelte";
 	import { Spacer, Theme } from "@nais/ds-svelte-community";
 	import { InternalHeader, InternalHeaderTitle } from "@nais/ds-svelte-community/experimental";
 	import { MenuHamburgerIcon } from "@nais/ds-svelte-community/icons";
 	import "../css/app.css";
 	import type { LayoutProps } from "./$types";
-
-	type ThemeMode = "light" | "dark";
 
 	let { children, data }: LayoutProps = $props();
 	const { navigation } = $derived(data);
@@ -35,10 +34,10 @@
 		return "dark";
 	}
 
-	let theme = $state<ThemeMode>(getInitialTheme());
+	const themeState = setupTheme(getInitialTheme());
 
 	function handleThemeChange(newTheme: ThemeMode) {
-		theme = newTheme;
+		themeState.theme = newTheme;
 		if (browser) {
 			localStorage.setItem("theme", newTheme);
 		}
@@ -51,7 +50,7 @@
 			const handler = (e: MediaQueryListEvent) => {
 				// Only auto-switch if user hasn't explicitly set a preference
 				if (!localStorage.getItem("theme")) {
-					theme = e.matches ? "dark" : "light";
+					themeState.theme = e.matches ? "dark" : "light";
 				}
 			};
 			mediaQuery.addEventListener("change", handler);
@@ -79,11 +78,15 @@
 			.sidebar-overlay {
 				display: none !important;
 			}
+
+			.hide-noscript {
+				display: none !important;
+			}
 		</style>
 	</noscript>
 </svelte:head>
 
-<Theme {theme}>
+<Theme theme={themeState.theme}>
 	<div class="layout-root">
 		<!-- Hidden checkbox for CSS-only sidebar toggle -->
 		<input type="checkbox" id="sidebar-toggle" class="sidebar-toggle-input" aria-hidden="true" />
@@ -101,7 +104,7 @@
 				<InternalHeaderTitle href={resolve("/")}>Nais Docs</InternalHeaderTitle>
 				<Spacer />
 				<SearchButton onclick={() => (searchOpen = true)} />
-				<ThemeToggle {theme} onchange={handleThemeChange} />
+				<ThemeToggle theme={themeState.theme} onchange={handleThemeChange} />
 			</InternalHeader>
 		</header>
 
