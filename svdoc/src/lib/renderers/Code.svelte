@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { browser } from "$app/environment";
+	import { base } from "$app/paths";
+	import { page } from "$app/state";
 	import { getMermaidThemeVariables } from "$lib/helpers/mermaid";
 	import { getTheme } from "$lib/state/theme.svelte";
 	import { CopyButton } from "@nais/ds-svelte-community";
@@ -16,6 +18,52 @@
 
 	const isMermaid = $derived(token.lang === "mermaid");
 	const isDark = $derived(themeState?.isDark ?? false);
+
+	/**
+	 * Transform relative hrefs in mermaid SVG to absolute paths.
+	 * Handles links like href='tokenx' -> href='/docs/auth/tokenx'
+	 */
+	function transformMermaidLinks(svg: string, currentPath: string): string {
+		// For directory pages (like /docs/auth which shows README.md),
+		// the currentPath IS the base directory for resolving relative links.
+		// We treat paths without a file extension as directories.
+		const hasFileExtension = /\.[^/]+$/.test(currentPath);
+		const baseDir = hasFileExtension ? currentPath.replace(/\/[^/]*$/, "") || "/" : currentPath;
+
+		// Transform href attributes in the SVG
+		return svg.replace(/href=['"]([^'"]+)['"]/g, (match, href) => {
+			// Skip external links, anchors, and already absolute paths
+			if (
+				href.startsWith("http://") ||
+				href.startsWith("https://") ||
+				href.startsWith("#") ||
+				href.startsWith("mailto:") ||
+				href.startsWith("/")
+			) {
+				return match;
+			}
+
+			// Resolve relative path
+			const segments = [...baseDir.split("/").filter(Boolean), ...href.split("/")];
+			const resolved: string[] = [];
+			for (const segment of segments) {
+				if (segment === "..") {
+					resolved.pop();
+				} else if (segment !== ".") {
+					resolved.push(segment);
+				}
+			}
+
+			let absolutePath = "/" + resolved.join("/");
+
+			// Add base path if configured
+			if (base && !absolutePath.startsWith(base)) {
+				absolutePath = `${base}${absolutePath}`.replace(/\/+/g, "/");
+			}
+
+			return `href="${absolutePath}"`;
+		});
+	}
 
 	$effect(() => {
 		if (!browser || !isMermaid) return;
@@ -37,7 +85,8 @@
 		mermaid
 			.render(mermaidId, token.text)
 			.then((result) => {
-				mermaidSvg = result.svg;
+				// Transform relative links in the SVG to absolute paths
+				mermaidSvg = transformMermaidLinks(result.svg, page.url.pathname);
 			})
 			.catch((err) => {
 				console.error("Mermaid rendering failed:", err);
