@@ -22,9 +22,9 @@
 	--svdoc-content-max-width-narrow: 900px;
 
 	/* Spacing */
-	--svdoc-content-padding: 1.5rem 2rem;
-	--svdoc-content-padding-narrow: 1rem 1.5rem;
-	--svdoc-content-padding-mobile: 1rem;
+	--svdoc-content-padding: 2rem 2rem 1.5rem 2rem;
+	--svdoc-content-padding-narrow: 1.5rem;
+	--svdoc-content-padding-mobile: 1.5rem 1rem;
 
 	/* Transitions */
 	--svdoc-transition-duration: 0.3s;

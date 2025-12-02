@@ -42,15 +42,7 @@
 	@reference "../../css/app.css";
 
 	.md-content {
-		padding: 2rem;
 		max-width: 100%;
-	}
-
-	/* Mobile - smaller padding */
-	@media (width < theme(--breakpoint-svdoc-mobile)) {
-		.md-content {
-			padding: var(--svdoc-content-padding-mobile);
-		}
 	}
 
 	.toc-container {
