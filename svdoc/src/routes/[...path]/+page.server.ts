@@ -9,7 +9,7 @@ import type { EntryGenerator, PageServerLoad } from "./$types";
  */
 export const entries: EntryGenerator = async () => {
 	const paths = await contentStore.getAllPaths();
-	const redirects = getAllRedirects();
+	const redirects = await getAllRedirects();
 
 	// Combine regular paths and redirect source paths
 	const allPaths = [

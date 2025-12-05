@@ -6,6 +6,8 @@
  * Values are new paths (without leading slash, with .md extension and optional #anchor)
  */
 
+import { contentStore } from "./content-store";
+
 // Get base path from environment variable (set in svelte.config.js)
 const BASE_PATH = process.env.BASE_PATH || "";
 export const REDIRECTS: Record<string, string> = {
@@ -234,17 +236,46 @@ function convertToUrl(mdPath: string): string {
 }
 
 /**
- * Get all redirect entries for static site generation
- * Returns array of { from, to } objects with URL paths
+ * Convert a target .md path to a URL path for checking against content store
  */
-export function getAllRedirects(): Array<{ from: string; to: string }> {
-	return Object.entries(REDIRECTS).map(([from, to]) => ({
-		from:
+function targetToUrlPath(mdPath: string): string {
+	const [pathPart] = mdPath.split("#");
+	return (
+		(
 			"/" +
-			from
+			pathPart
 				.replace(/\.md$/, "")
 				.replace(/\/README$/, "")
-				.replace(/^README$/, ""),
-		to: convertToUrl(to),
-	}));
+				.replace(/^README$/, "")
+		).replace(/\/+/g, "/") || "/"
+	);
+}
+
+/**
+ * Get all redirect entries for static site generation
+ * Returns array of { from, to } objects with URL paths
+ * Only includes redirects where the target document exists in the content store
+ */
+export async function getAllRedirects(): Promise<Array<{ from: string; to: string }>> {
+	const redirects: Array<{ from: string; to: string }> = [];
+
+	for (const [from, to] of Object.entries(REDIRECTS)) {
+		const targetUrlPath = targetToUrlPath(to);
+		const targetDoc = await contentStore.getDocumentByPath(targetUrlPath);
+
+		// Only include redirect if target document exists (not filtered out)
+		if (targetDoc) {
+			redirects.push({
+				from:
+					"/" +
+					from
+						.replace(/\.md$/, "")
+						.replace(/\/README$/, "")
+						.replace(/^README$/, ""),
+				to: convertToUrl(to),
+			});
+		}
+	}
+
+	return redirects;
 }
