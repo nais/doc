@@ -2,21 +2,22 @@
  * ContentStore - Central singleton for managing all markdown content
  *
  * This module provides a centralized store for:
- * - Parsing and caching markdown files
- * - Building navigation trees
+ * - Parsing and caching markdown files (including full tokens and attributes)
+ * - Building navigation trees from the cached documents
  * - Managing tags and metadata
  * - File watching for development hot reload
+ *
+ * Files are processed once and cached. Navigation and page serving
+ * both use this cache, avoiding duplicate file reads.
  */
 
-import fm from "front-matter";
-import type { Token } from "marked";
+import type { Token, TokensList } from "marked";
 import { readdir, stat } from "node:fs/promises";
 import { relative, resolve } from "node:path";
 import { IGNORED_DIRECTORIES } from "./constants";
 import {
 	extractHeadingsFromTokens,
 	extractSummaryFromTokens,
-	extractTitle,
 	stripMarkdownTokens,
 	type Heading,
 } from "./helpers/markdown-utils";
@@ -31,7 +32,28 @@ const DOCS_DIR = resolve(process.cwd(), "../docs");
 const TENANT = process.env.TENANT?.toLowerCase() || "";
 const NOT_TENANT = process.env.NOT_TENANT?.toLowerCase() || "";
 
-console.log(`[content-store] Tenant filtering: TENANT="${TENANT}", NOT_TENANT="${NOT_TENANT}"`);
+// Log levels: "debug" | "info" | "warn" | "error" | "none"
+const LOG_LEVEL = process.env.CONTENT_STORE_LOG_LEVEL?.toLowerCase() || "info";
+
+const LOG_LEVELS = { debug: 0, info: 1, warn: 2, error: 3, none: 4 };
+const currentLogLevel = LOG_LEVELS[LOG_LEVEL as keyof typeof LOG_LEVELS] ?? LOG_LEVELS.info;
+
+const log = {
+	debug: (...args: unknown[]) => {
+		if (currentLogLevel <= LOG_LEVELS.debug) console.log("[content-store]", ...args);
+	},
+	info: (...args: unknown[]) => {
+		if (currentLogLevel <= LOG_LEVELS.info) console.log("[content-store]", ...args);
+	},
+	warn: (...args: unknown[]) => {
+		if (currentLogLevel <= LOG_LEVELS.warn) console.warn("[content-store]", ...args);
+	},
+	error: (...args: unknown[]) => {
+		if (currentLogLevel <= LOG_LEVELS.error) console.error("[content-store]", ...args);
+	},
+};
+
+log.debug(`Tenant filtering: TENANT="${TENANT}", NOT_TENANT="${NOT_TENANT}"`);
 
 /**
  * Check if a file should be included based on its conditional frontmatter.
@@ -49,6 +71,7 @@ console.log(`[content-store] Tenant filtering: TENANT="${TENANT}", NOT_TENANT="$
  *    - Only included if TENANT matches one of the listed values (nav, ssb, etc.)
  *
  * @param conditional - The conditional array from frontmatter
+ * @param filePath - Optional file path for logging
  * @returns true if the file should be included, false if it should be excluded
  */
 export function shouldIncludeFile(conditional?: string[], filePath?: string): boolean {
@@ -62,7 +85,7 @@ export function shouldIncludeFile(conditional?: string[], filePath?: string): bo
 	// NOT_TENANT already has the "not-" prefix (e.g., "not-ssb")
 	// Exclude if the file's conditional array contains this value
 	if (NOT_TENANT && normalizedConditional.includes(NOT_TENANT)) {
-		console.log(`[content-store] Excluding "${filePath}" - matches NOT_TENANT="${NOT_TENANT}"`);
+		log.debug(`Excluding "${filePath}" - matches NOT_TENANT="${NOT_TENANT}"`);
 		return false;
 	}
 
@@ -72,14 +95,14 @@ export function shouldIncludeFile(conditional?: string[], filePath?: string): bo
 	if (normalizedConditional.includes("tenant")) {
 		if (!TENANT) {
 			// No TENANT set, exclude tenant-specific pages
-			console.log(`[content-store] Excluding "${filePath}" - tenant-specific but no TENANT set`);
+			log.debug(`Excluding "${filePath}" - tenant-specific but no TENANT set`);
 			return false;
 		}
 		// Check if TENANT matches any of the values (excluding "tenant" keyword itself)
 		const allowedTenants = normalizedConditional.filter((c) => c !== "tenant");
 		if (!allowedTenants.includes(TENANT)) {
-			console.log(
-				`[content-store] Excluding "${filePath}" - TENANT="${TENANT}" not in allowed list [${allowedTenants.join(", ")}]`,
+			log.debug(
+				`Excluding "${filePath}" - TENANT="${TENANT}" not in allowed list [${allowedTenants.join(", ")}]`,
 			);
 			return false;
 		}
@@ -89,22 +112,7 @@ export function shouldIncludeFile(conditional?: string[], filePath?: string): bo
 }
 
 /**
- * Check if a file at the given path should be included based on its frontmatter.
- * This reads the file's frontmatter to check the conditional property.
- */
-export async function shouldIncludeFilePath(filePath: string): Promise<boolean> {
-	try {
-		const source = await Bun.file(filePath).text();
-		const { attributes } = fm<{ conditional?: string[] }>(source);
-		return shouldIncludeFile(attributes.conditional, filePath);
-	} catch {
-		// If we can't read the file, include it by default
-		return true;
-	}
-}
-
-/**
- * Represents a parsed markdown document with all its metadata
+ * Represents a parsed markdown document with all its metadata and content
  */
 export interface ContentDocument {
 	/** Absolute file path */
@@ -129,6 +137,10 @@ export interface ContentDocument {
 	summary?: string;
 	/** Last modified time */
 	mtime: number;
+	/** Full parsed tokens for rendering */
+	tokens: Token[] | TokensList;
+	/** Full attributes from frontmatter */
+	attributes: Attributes;
 }
 
 /**
@@ -161,16 +173,6 @@ export interface NavItem {
 	href: string;
 	children?: NavItem[];
 	hasContent: boolean;
-}
-
-/**
- * Frontmatter attributes from markdown files
- */
-interface DocAttributes {
-	title?: string;
-	description?: string;
-	tags?: string[];
-	hide?: string[];
 }
 
 /**
@@ -235,20 +237,10 @@ function withBase(path: string): string {
 }
 
 /**
- * Convert a file/directory path to a URL href
+ * Convert a URL path to an href with base path
  */
-function pathToHref(basePath: string, name: string): string {
-	const cleanBase = basePath.replace(DOCS_DIR, "").replace(/\/$/, "");
-	const cleanName = name.replace(/\.md$/, "").replace(/README$/i, "");
-
-	let href: string;
-	if (cleanName === "") {
-		href = cleanBase || "/";
-	} else {
-		href = `${cleanBase}/${cleanName}`.replace(/\/+/g, "/");
-	}
-
-	return withBase(href);
+function urlPathToHref(urlPath: string): string {
+	return withBase(urlPath);
 }
 
 /**
@@ -256,6 +248,7 @@ function pathToHref(basePath: string, name: string): string {
  */
 class ContentStore {
 	private documents: Map<string, ContentDocument> = new Map();
+	private documentsByUrlPath: Map<string, ContentDocument> = new Map();
 	private navigation: NavItem[] | null = null;
 	private tags: Map<string, TagInfo> = new Map();
 	private tagPages: Map<string, TaggedPage[]> = new Map();
@@ -282,8 +275,12 @@ class ContentStore {
 	}
 
 	private async doInitialize(): Promise<void> {
+		const startTime = Date.now();
+		log.info("Initializing...");
+
 		// Clear existing data
 		this.documents.clear();
+		this.documentsByUrlPath.clear();
 		this.tags.clear();
 		this.tagPages.clear();
 		this.navigation = null;
@@ -291,6 +288,7 @@ class ContentStore {
 
 		// Scan all markdown files
 		const files = await this.findMarkdownFiles(DOCS_DIR);
+		log.debug(`Found ${files.length} markdown files`);
 
 		// Process each file
 		for (const filePath of files) {
@@ -299,8 +297,10 @@ class ContentStore {
 
 		// Build derived data
 		this.buildTagsIndex();
+		this.navigation = await this.buildNavigation();
 
 		this.initialized = true;
+		log.info(`Initialized in ${Date.now() - startTime}ms with ${this.documents.size} documents`);
 	}
 
 	/**
@@ -309,7 +309,11 @@ class ContentStore {
 	async invalidateFile(filePath: string): Promise<void> {
 		const absolutePath = resolve(filePath);
 
-		// Remove from cache
+		// Find and remove old document
+		const oldDoc = this.documents.get(absolutePath);
+		if (oldDoc) {
+			this.documentsByUrlPath.delete(oldDoc.urlPath);
+		}
 		this.documents.delete(absolutePath);
 
 		// Re-process the file
@@ -322,7 +326,7 @@ class ContentStore {
 
 		// Rebuild derived data
 		this.buildTagsIndex();
-		this.navigation = null;
+		this.navigation = await this.buildNavigation();
 		this.allPaths = null;
 	}
 
@@ -335,7 +339,7 @@ class ContentStore {
 	}
 
 	/**
-	 * Process a single markdown file
+	 * Process a single markdown file and add it to the cache
 	 */
 	private async processFile(filePath: string): Promise<void> {
 		try {
@@ -365,9 +369,12 @@ class ContentStore {
 				searchContent,
 				summary,
 				mtime: fileStat.mtimeMs,
+				tokens,
+				attributes,
 			};
 
 			this.documents.set(filePath, doc);
+			this.documentsByUrlPath.set(urlPath, doc);
 		} catch {
 			// Skip files that can't be read
 		}
@@ -457,14 +464,7 @@ class ContentStore {
 
 		// Normalize the path
 		const normalizedPath = urlPath.startsWith("/") ? urlPath : `/${urlPath}`;
-
-		for (const doc of this.documents.values()) {
-			if (doc.urlPath === normalizedPath) {
-				return doc;
-			}
-		}
-
-		return undefined;
+		return this.documentsByUrlPath.get(normalizedPath);
 	}
 
 	/**
@@ -477,17 +477,20 @@ class ContentStore {
 
 	/**
 	 * Get parsed markdown content for a URL path
+	 * Returns the cached tokens and attributes directly from the store
 	 */
-	async getContent(urlPath: string): Promise<{ tokens: Token[]; attributes: Attributes } | null> {
+	async getContent(
+		urlPath: string,
+	): Promise<{ tokens: Token[] | TokensList; attributes: Attributes } | null> {
 		await this.initialize();
 
 		const doc = await this.getDocumentByPath(urlPath);
 		if (!doc) return null;
 
-		// Use the existing readMarkdownFile for full parsing
-		// This handles all the complex token processing
-		const relativePath = relative(process.cwd(), doc.filePath);
-		return await readMarkdownFile(relativePath);
+		return {
+			tokens: doc.tokens,
+			attributes: doc.attributes,
+		};
 	}
 
 	/**
@@ -519,13 +522,7 @@ class ContentStore {
 	 */
 	async getNavigation(): Promise<NavItem[]> {
 		await this.initialize();
-
-		if (this.navigation) {
-			return this.navigation;
-		}
-
-		this.navigation = await this.buildNavForDirectory(DOCS_DIR);
-		return this.navigation;
+		return this.navigation || [];
 	}
 
 	/**
@@ -541,8 +538,10 @@ class ContentStore {
 		const navigation = await this.getNavigation();
 		const paths = this.extractPaths(navigation);
 
-		// Add root path
-		paths.unshift("");
+		// Add root path if we have a root document
+		if (this.documentsByUrlPath.has("/")) {
+			paths.unshift("");
+		}
 
 		this.allPaths = paths;
 		return this.allPaths;
@@ -588,6 +587,9 @@ class ContentStore {
 
 	// ============ Navigation Building ============
 
+	/**
+	 * Extract paths from navigation items
+	 */
 	private extractPaths(items: NavItem[]): string[] {
 		const paths: string[] = [];
 
@@ -608,6 +610,9 @@ class ContentStore {
 		return paths;
 	}
 
+	/**
+	 * Read and parse a .pages file
+	 */
 	private async readPagesFile(dirPath: string): Promise<PagesFile | null> {
 		try {
 			const { parse: parseYaml } = await import("yaml");
@@ -619,6 +624,9 @@ class ContentStore {
 		}
 	}
 
+	/**
+	 * Get directory contents from filesystem
+	 */
 	private async getDirectoryContents(dirPath: string): Promise<string[]> {
 		try {
 			const entries = await readdir(dirPath, { withFileTypes: true });
@@ -635,15 +643,45 @@ class ContentStore {
 		}
 	}
 
-	private async hasReadme(dirPath: string): Promise<boolean> {
-		try {
-			await Bun.file(`${dirPath}/README.md`).text();
-			return true;
-		} catch {
+	/**
+	 * Check if a directory has a README.md that is included in the store
+	 */
+	private hasIncludedReadme(dirPath: string): boolean {
+		const readmePath = `${dirPath}/README.md`;
+		return this.documents.has(readmePath);
+	}
+
+	/**
+	 * Check if an item (file or directory) should be included in navigation
+	 */
+	private isItemIncluded(fullPath: string, isDir: boolean): boolean {
+		if (isDir) {
+			// A directory is included if it has any documents underneath it
+			for (const doc of this.documents.values()) {
+				if (doc.filePath.startsWith(fullPath + "/")) {
+					return true;
+				}
+			}
 			return false;
+		} else {
+			// A file is included if it's in the documents map
+			const mdPath = fullPath.endsWith(".md") ? fullPath : `${fullPath}.md`;
+			return this.documents.has(mdPath);
 		}
 	}
 
+	/**
+	 * Get title for a path from the documents cache
+	 */
+	private getTitleForPath(fullPath: string): string | null {
+		const mdPath = fullPath.endsWith(".md") ? fullPath : `${fullPath}.md`;
+		const doc = this.documents.get(mdPath);
+		return doc?.title || null;
+	}
+
+	/**
+	 * Check if path is a directory
+	 */
 	private async isDirectory(path: string): Promise<boolean> {
 		try {
 			const s = await stat(path);
@@ -653,22 +691,16 @@ class ContentStore {
 		}
 	}
 
-	private async getMarkdownTitle(filePath: string): Promise<string | null> {
-		const doc = this.documents.get(filePath);
-		if (doc) {
-			return doc.title;
-		}
-
-		// Fallback to reading the file directly
-		try {
-			const source = await Bun.file(filePath).text();
-			const { attributes, body } = fm<DocAttributes>(source);
-			return extractTitle(attributes, body);
-		} catch {
-			return null;
-		}
+	/**
+	 * Build the navigation tree from cached documents
+	 */
+	private async buildNavigation(): Promise<NavItem[]> {
+		return this.buildNavForDirectory(DOCS_DIR);
 	}
 
+	/**
+	 * Process a single navigation item
+	 */
 	private async processNavItem(
 		dirPath: string,
 		path: string,
@@ -677,17 +709,15 @@ class ContentStore {
 		const fullPath = `${dirPath}/${path}`;
 		const isDir = await this.isDirectory(fullPath);
 
+		// Check if this item should be included
+		if (!this.isItemIncluded(fullPath, isDir)) {
+			return null;
+		}
+
 		// Check for hidden directory
 		if (isDir) {
 			const pagesFile = await this.readPagesFile(fullPath);
 			if (pagesFile?.hide === true) {
-				return null;
-			}
-		} else {
-			// For files, check if they should be included based on conditional frontmatter
-			const mdPath = path.endsWith(".md") ? fullPath : `${fullPath}.md`;
-			const shouldInclude = await shouldIncludeFilePath(mdPath);
-			if (!shouldInclude) {
 				return null;
 			}
 		}
@@ -695,42 +725,56 @@ class ContentStore {
 		let title = explicitTitle || filenameToTitle(path);
 
 		if (isDir) {
-			// Check if the directory's README should be included
-			const readmePath = `${fullPath}/README.md`;
-			const dirHasContent = await this.hasReadme(fullPath);
-			const readmeIncluded = dirHasContent ? await shouldIncludeFilePath(readmePath) : false;
-
 			const children = await this.buildNavForDirectory(fullPath);
+			const hasContent = this.hasIncludedReadme(fullPath);
 
-			// If no children and no included README, skip this directory entirely
-			if (children.length === 0 && !readmeIncluded) {
+			// If no children and no content, skip
+			if (children.length === 0 && !hasContent) {
 				return null;
 			}
 
+			// Get title from README if available
+			if (!explicitTitle) {
+				const readmeTitle = this.getTitleForPath(`${fullPath}/README.md`);
+				if (readmeTitle) {
+					title = readmeTitle;
+				}
+			}
+
+			// Build URL path for this directory
+			const urlPath = fullPath.slice(DOCS_DIR.length) || "/";
+
 			return {
 				title,
-				href: pathToHref(dirPath, path),
+				href: urlPathToHref(urlPath),
 				children: children.length > 0 ? children : undefined,
-				hasContent: readmeIncluded,
+				hasContent,
 			};
 		} else {
 			const mdPath = path.endsWith(".md") ? fullPath : `${fullPath}.md`;
 
 			if (!explicitTitle) {
-				const fileTitle = await this.getMarkdownTitle(mdPath);
+				const fileTitle = this.getTitleForPath(mdPath);
 				if (fileTitle) {
 					title = fileTitle;
 				}
 			}
 
+			// Get URL path from document
+			const doc = this.documents.get(mdPath);
+			const urlPath = doc?.urlPath || filePathToUrlPath(mdPath).urlPath;
+
 			return {
 				title,
-				href: pathToHref(dirPath, path),
+				href: urlPathToHref(urlPath),
 				hasContent: true,
 			};
 		}
 	}
 
+	/**
+	 * Build navigation for a directory
+	 */
 	private async buildNavForDirectory(dirPath: string): Promise<NavItem[]> {
 		const pagesFile = await this.readPagesFile(dirPath);
 		const items: NavItem[] = [];
@@ -742,6 +786,7 @@ class ContentStore {
 		const nav = pagesFile?.nav;
 
 		if (!nav) {
+			// No .pages file - use directory contents
 			const contents = await this.getDirectoryContents(dirPath);
 			for (const name of contents) {
 				if (name.toLowerCase() === "readme.md") continue;
@@ -751,6 +796,7 @@ class ContentStore {
 			return items;
 		}
 
+		// Process .pages nav entries
 		const explicitPaths = new Set<string>();
 
 		for (const entry of nav) {
@@ -772,6 +818,7 @@ class ContentStore {
 			}
 
 			if (entry === "...") {
+				// Include all non-explicit items
 				const allContents = await this.getDirectoryContents(dirPath);
 
 				for (const name of allContents) {
@@ -808,8 +855,17 @@ class ContentStore {
 	}
 }
 
-// Export singleton instance
-export const contentStore = new ContentStore();
+// Use globalThis to ensure singleton is shared across all module contexts
+// This is necessary because Vite plugin and SvelteKit server may have different module instances
+const CONTENT_STORE_KEY = Symbol.for("nais-doc-content-store");
 
-// Re-export types that other modules might need
-export type { Heading };
+function getContentStore(): ContentStore {
+	const globalAny = globalThis as unknown as { [key: symbol]: ContentStore };
+	if (!globalAny[CONTENT_STORE_KEY]) {
+		globalAny[CONTENT_STORE_KEY] = new ContentStore();
+	}
+	return globalAny[CONTENT_STORE_KEY];
+}
+
+// Export singleton instance
+export const contentStore = getContentStore();
