@@ -1,4 +1,4 @@
-import { contentStore } from "$lib/content-store";
+import { contentStore, shouldIncludeFilePath } from "$lib/content-store";
 import { readMarkdownFile, type Attributes } from "$lib/markdown";
 import { getAllRedirects, getRedirectTarget } from "$lib/redirects";
 import { error, redirect } from "@sveltejs/kit";
@@ -45,12 +45,20 @@ export const load: PageServerLoad = async ({ params }) => {
 	// First, try the path as a direct .md file
 	const mdFilePath = `${basePath}.md`;
 	if (await fileExists(mdFilePath)) {
+		// Check if file should be included based on conditional frontmatter
+		if (!(await shouldIncludeFilePath(mdFilePath))) {
+			error(404, { message: "Page not found" });
+		}
 		return await readMarkdownFile(mdFilePath);
 	}
 
 	// Next, try as a directory with README.md
 	const readmePath = `${basePath}/README.md`;
 	if (await fileExists(readmePath)) {
+		// Check if file should be included based on conditional frontmatter
+		if (!(await shouldIncludeFilePath(readmePath))) {
+			error(404, { message: "Page not found" });
+		}
 		return await readMarkdownFile(readmePath);
 	}
 
