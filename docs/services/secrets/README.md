@@ -12,6 +12,7 @@ Secrets are kept separate from the codebase and configuration files that are usu
 There are two types of secrets on the Nais platform:
 
 <div class="grid cards" markdown>
+
 -   :construction_worker: **Platform-provided secrets**
 
     ---
@@ -22,6 +23,7 @@ There are two types of secrets on the Nais platform:
 </div>
 
 <div class="grid cards" markdown>
+	
 - :technologist: **User-defined secrets**
 
     ---
