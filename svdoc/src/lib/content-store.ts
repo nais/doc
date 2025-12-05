@@ -25,6 +25,84 @@ import { readMarkdownFile, type Attributes } from "./markdown";
 // Resolve the docs directory relative to project root
 const DOCS_DIR = resolve(process.cwd(), "../docs");
 
+// Environment variables for tenant-based filtering
+// TENANT: the current tenant (e.g., "ssb", "nav")
+// NOT_TENANT: exclusion tag with "not-" prefix (e.g., "not-ssb", "not-nav")
+const TENANT = process.env.TENANT?.toLowerCase() || "";
+const NOT_TENANT = process.env.NOT_TENANT?.toLowerCase() || "";
+
+console.log(`[content-store] Tenant filtering: TENANT="${TENANT}", NOT_TENANT="${NOT_TENANT}"`);
+
+/**
+ * Check if a file should be included based on its conditional frontmatter.
+ *
+ * The conditional frontmatter is an array of strings that controls visibility:
+ *
+ * 1. Exclude from specific tenants:
+ *    conditional: [not-test-nais, not-nav]
+ *    - Excluded when NOT_TENANT matches a value in conditional
+ *    - NOT_TENANT already includes the "not-" prefix (e.g., NOT_TENANT=not-ssb)
+ *
+ * 2. Include only for specific tenants:
+ *    conditional: [tenant, nav, ssb]
+ *    - The keyword "tenant" indicates this is a tenant-specific page
+ *    - Only included if TENANT matches one of the listed values (nav, ssb, etc.)
+ *
+ * @param conditional - The conditional array from frontmatter
+ * @returns true if the file should be included, false if it should be excluded
+ */
+export function shouldIncludeFile(conditional?: string[], filePath?: string): boolean {
+	if (!conditional || conditional.length === 0) {
+		return true;
+	}
+
+	const normalizedConditional = conditional.map((c) => c.toLowerCase());
+
+	// Check for NOT_TENANT exclusion
+	// NOT_TENANT already has the "not-" prefix (e.g., "not-ssb")
+	// Exclude if the file's conditional array contains this value
+	if (NOT_TENANT && normalizedConditional.includes(NOT_TENANT)) {
+		console.log(`[content-store] Excluding "${filePath}" - matches NOT_TENANT="${NOT_TENANT}"`);
+		return false;
+	}
+
+	// Check for tenant-specific inclusion
+	// If the file has "tenant" in conditional, it's a tenant-specific page
+	// Only include if TENANT is set and matches one of the other values
+	if (normalizedConditional.includes("tenant")) {
+		if (!TENANT) {
+			// No TENANT set, exclude tenant-specific pages
+			console.log(`[content-store] Excluding "${filePath}" - tenant-specific but no TENANT set`);
+			return false;
+		}
+		// Check if TENANT matches any of the values (excluding "tenant" keyword itself)
+		const allowedTenants = normalizedConditional.filter((c) => c !== "tenant");
+		if (!allowedTenants.includes(TENANT)) {
+			console.log(
+				`[content-store] Excluding "${filePath}" - TENANT="${TENANT}" not in allowed list [${allowedTenants.join(", ")}]`,
+			);
+			return false;
+		}
+	}
+
+	return true;
+}
+
+/**
+ * Check if a file at the given path should be included based on its frontmatter.
+ * This reads the file's frontmatter to check the conditional property.
+ */
+export async function shouldIncludeFilePath(filePath: string): Promise<boolean> {
+	try {
+		const source = await Bun.file(filePath).text();
+		const { attributes } = fm<{ conditional?: string[] }>(source);
+		return shouldIncludeFile(attributes.conditional, filePath);
+	} catch {
+		// If we can't read the file, include it by default
+		return true;
+	}
+}
+
 /**
  * Represents a parsed markdown document with all its metadata
  */
@@ -263,6 +341,11 @@ class ContentStore {
 		try {
 			const fileStat = await stat(filePath);
 			const { tokens, attributes } = await readMarkdownFile(filePath);
+
+			// Check if file should be included based on conditional frontmatter
+			if (!shouldIncludeFile(attributes.conditional, filePath)) {
+				return;
+			}
 
 			const { urlPath, isReadme } = filePathToUrlPath(filePath);
 			const title = attributes.title || "Untitled";
@@ -600,19 +683,35 @@ class ContentStore {
 			if (pagesFile?.hide === true) {
 				return null;
 			}
+		} else {
+			// For files, check if they should be included based on conditional frontmatter
+			const mdPath = path.endsWith(".md") ? fullPath : `${fullPath}.md`;
+			const shouldInclude = await shouldIncludeFilePath(mdPath);
+			if (!shouldInclude) {
+				return null;
+			}
 		}
 
 		let title = explicitTitle || filenameToTitle(path);
 
 		if (isDir) {
-			const children = await this.buildNavForDirectory(fullPath);
+			// Check if the directory's README should be included
+			const readmePath = `${fullPath}/README.md`;
 			const dirHasContent = await this.hasReadme(fullPath);
+			const readmeIncluded = dirHasContent ? await shouldIncludeFilePath(readmePath) : false;
+
+			const children = await this.buildNavForDirectory(fullPath);
+
+			// If no children and no included README, skip this directory entirely
+			if (children.length === 0 && !readmeIncluded) {
+				return null;
+			}
 
 			return {
 				title,
 				href: pathToHref(dirPath, path),
 				children: children.length > 0 ? children : undefined,
-				hasContent: dirHasContent,
+				hasContent: readmeIncluded,
 			};
 		} else {
 			const mdPath = path.endsWith(".md") ? fullPath : `${fullPath}.md`;
