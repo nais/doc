@@ -113,6 +113,8 @@ export interface Attributes {
 	description?: string;
 	tags?: string[];
 	hide?: string[];
+	/** Conditional visibility based on tenant */
+	conditional?: string[];
 	/** Git metadata */
 	git?: {
 		/** Date the file was first created (first commit) */
