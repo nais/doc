@@ -179,35 +179,37 @@ This project uses the Svelte MCP (Model Context Protocol) server for AI-assisted
 
 ```svelte
 <script>
-  import { mount, unmount } from 'svelte';
-  import MyComponent from './MyComponent.svelte';
-  
-  let container = $state();
-  
-  // $effect tracks `container` and runs after DOM updates
-  $effect(() => {
-    if (!container) return;
-    
-    const markers = container.querySelectorAll('.marker');
-    const mounted = [];
-    
-    markers.forEach((marker) => {
-      const instance = mount(MyComponent, {
-        target: marker,
-        props: { /* props here */ }
-      });
-      mounted.push(instance);
-    });
-    
-    // Cleanup runs before re-run and on destroy
-    return () => {
-      mounted.forEach((instance) => unmount(instance));
-    };
-  });
+	import { mount, unmount } from "svelte";
+	import MyComponent from "./MyComponent.svelte";
+
+	let container = $state();
+
+	// $effect tracks `container` and runs after DOM updates
+	$effect(() => {
+		if (!container) return;
+
+		const markers = container.querySelectorAll(".marker");
+		const mounted = [];
+
+		markers.forEach((marker) => {
+			const instance = mount(MyComponent, {
+				target: marker,
+				props: {
+					/* props here */
+				},
+			});
+			mounted.push(instance);
+		});
+
+		// Cleanup runs before re-run and on destroy
+		return () => {
+			mounted.forEach((instance) => unmount(instance));
+		};
+	});
 </script>
 
 <div bind:this={container}>
-  {@html someHtmlWithMarkers}
+	{@html someHtmlWithMarkers}
 </div>
 ```
 
