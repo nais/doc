@@ -552,12 +552,9 @@ function processCodeAnnotations(tokens: Token[] | TokensList): Token[] {
 				nextIdx++;
 			}
 
-			let annotationList: Token[] | null = null;
 			if (nextIdx < tokens.length) {
 				const nextToken = tokens[nextIdx] as Tokens.List;
 				if (nextToken.type === "list" && nextToken.ordered && nextToken.start === 1) {
-					// Extract annotation content from the list items
-					annotationList = nextToken.items.map((item) => item.tokens).flat();
 					// Store annotations on the code token
 					(codeToken as Tokens.Code & { annotations?: Token[][] }).annotations =
 						nextToken.items.map((item) => item.tokens);
@@ -819,21 +816,40 @@ function processLinks(
 
 /**
  * Convert a file path to a URL path and determine if it's a README
+ * Handles both relative paths (../docs/...) and absolute paths (/home/.../docs/...)
  * e.g., "../docs/workloads/README.md" -> { urlPath: "/workloads", isReadme: true }
- * e.g., "../docs/workloads/how-to/access.md" -> { urlPath: "/workloads/how-to/access", isReadme: false }
+ * e.g., "/home/user/project/docs/workloads/how-to/access.md" -> { urlPath: "/workloads/how-to/access", isReadme: false }
  */
 function filePathToUrlPath(filePath: string): { urlPath: string; isReadme: boolean } {
 	const isReadme = /\/README\.md$/i.test(filePath) || filePath.toLowerCase() === "readme.md";
-	const urlPath =
-		filePath
-			// Remove ../docs prefix
-			.replace(/^\.\.\/docs\/?/, "/")
-			// Remove .md extension
-			.replace(/\.md$/, "")
-			// Remove /README suffix
-			.replace(/\/README$/i, "")
-			// Ensure leading slash
-			.replace(/^([^/])/, "/$1") || "/";
+
+	// Find the /docs/ part and extract everything after it
+	const docsMatch = filePath.match(/\/docs(\/.*)?$/);
+	let urlPath: string;
+
+	if (docsMatch) {
+		// Extract the part after /docs
+		urlPath =
+			(docsMatch[1] || "/")
+				// Remove .md extension
+				.replace(/\.md$/, "")
+				// Remove /README suffix
+				.replace(/\/README$/i, "")
+				// Normalize slashes
+				.replace(/\/+/g, "/") || "/";
+	} else {
+		// Fallback for relative paths like ../docs/...
+		urlPath =
+			filePath
+				// Remove ../docs prefix
+				.replace(/^\.\.\/docs\/?/, "/")
+				// Remove .md extension
+				.replace(/\.md$/, "")
+				// Remove /README suffix
+				.replace(/\/README$/i, "")
+				// Ensure leading slash
+				.replace(/^([^/])/, "/$1") || "/";
+	}
 
 	return { urlPath, isReadme };
 }
