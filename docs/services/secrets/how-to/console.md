@@ -12,7 +12,7 @@ This how-to guide shows you how to create and manage a [secret](../README.md) in
 
 ## List secrets
 
-1. Open [Nais console :octicons-link-external-16:](https://console.<<tenant()>>.cloud.nais.io) in your browser
+1. Open [Nais console](https://console.<<tenant()>>.cloud.nais.io) in your browser
 2. Select your team
 3. Select the `Secrets` tab
 
