@@ -134,7 +134,6 @@ Add the following content to the file, and insert the appropriate values in the 
               CLUSTER: <MY_ENV> # Replace (1)
               RESOURCE: .nais/app.yaml # This points to the file we created in the previous step
               VAR: image=${{ steps.docker-build-push.outputs.image }} # (2)
-              TELEMETRY: ${{ steps.docker-build-push.outputs.telemetry }}
     ```
 
     1.  Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../workloads/reference/environments.md).
