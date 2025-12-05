@@ -1,18 +1,8 @@
-import { contentStore, shouldIncludeFilePath } from "$lib/content-store";
-import { readMarkdownFile, type Attributes } from "$lib/markdown";
+import { contentStore } from "$lib/content-store";
 import { getAllRedirects, getRedirectTarget } from "$lib/redirects";
+import type { Attributes } from "$lib/types/tokens";
 import { error, redirect } from "@sveltejs/kit";
-import { access } from "node:fs/promises";
 import type { EntryGenerator, PageServerLoad } from "./$types";
-
-async function fileExists(path: string): Promise<boolean> {
-	try {
-		await access(path);
-		return true;
-	} catch {
-		return false;
-	}
-}
 
 /**
  * Generate all entry points for static prerendering
@@ -35,46 +25,39 @@ export const prerender = true;
 export const load: PageServerLoad = async ({ params }) => {
 	const { path } = params;
 
-	// Handle root path
-	if (!path || path === "") {
-		return await readMarkdownFile("../docs/README.md");
-	}
+	// Normalize the URL path
+	const urlPath = !path || path === "" ? "/" : `/${path}`;
 
-	const basePath = `../docs/${path}`;
+	// Try to get content from the content store
+	const content = await contentStore.getContent(urlPath);
 
-	// First, try the path as a direct .md file
-	const mdFilePath = `${basePath}.md`;
-	if (await fileExists(mdFilePath)) {
-		// Check if file should be included based on conditional frontmatter
-		if (!(await shouldIncludeFilePath(mdFilePath))) {
-			error(404, { message: "Page not found" });
-		}
-		return await readMarkdownFile(mdFilePath);
-	}
-
-	// Next, try as a directory with README.md
-	const readmePath = `${basePath}/README.md`;
-	if (await fileExists(readmePath)) {
-		// Check if file should be included based on conditional frontmatter
-		if (!(await shouldIncludeFilePath(readmePath))) {
-			error(404, { message: "Page not found" });
-		}
-		return await readMarkdownFile(readmePath);
-	}
-
-	// Check if it's a directory without README (category page)
-	const dirPath = basePath;
-	if (await fileExists(dirPath)) {
-		// Return empty tokens - this is a category page without content
+	if (content) {
 		return {
-			tokens: [],
-			attributes: {} as Attributes,
-			isCategory: true,
+			tokens: content.tokens,
+			attributes: content.attributes,
 		};
 	}
 
+	// Check if it's a directory without README (category page)
+	// This happens when a directory has children but no README.md
+	const doc = await contentStore.getDocumentByPath(urlPath);
+	if (!doc) {
+		// Check if there are any documents under this path (category without content)
+		const allDocs = await contentStore.getAllDocuments();
+		const hasChildren = allDocs.some((d) => d.urlPath.startsWith(urlPath + "/"));
+
+		if (hasChildren) {
+			// Return empty tokens - this is a category page without content
+			return {
+				tokens: [],
+				attributes: {} as Attributes,
+				isCategory: true,
+			};
+		}
+	}
+
 	// Check if there's a redirect for this path
-	const redirectTarget = getRedirectTarget(path);
+	const redirectTarget = getRedirectTarget(path || "");
 	if (redirectTarget) {
 		redirect(307, redirectTarget);
 	}
