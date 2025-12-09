@@ -23,7 +23,7 @@ A user can be part of multiple teams.
 
 When you [create a team](../operate/how-to/create-team.md), the following will be provisioned for you:
 
-- An isolated area for your team's workloads and resources in each environment (e.g. `dev` and `prod`)
+- An isolated area for your team's workloads and resources in each environment (e.g. `dev` and `prod`). (See [Under the hood](under-the-hood.md) for further explanation.)
 - A GitHub team with the same name in your GitHub organization. The members of your Nais team will be synchronized with the GitHub team.
 - Roles and permissions to access the teams workloads and resources.
 
