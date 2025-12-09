@@ -1,6 +1,13 @@
 <script lang="ts">
 	import { browser } from "$app/environment";
-	import { Alert, ExpansionCard } from "@nais/ds-svelte-community";
+	import {
+		ExpansionCard,
+		LocalAlert,
+		LocalAlertContent,
+		LocalAlertHeader,
+		LocalAlertTitle,
+	} from "@nais/ds-svelte-community";
+	import type { BaseAlertStatus } from "@nais/ds-svelte-community/components/alerts/BaseAlert/type.js";
 	import type { Token } from "marked";
 	import ContentRenderer from "./ContentRenderer.svelte";
 
@@ -17,7 +24,7 @@
 	let { token }: { token: AdmonitionToken } = $props();
 
 	// Map admonition types to Alert variants
-	function getAlertVariant(type: string): "error" | "warning" | "info" | "success" {
+	function getAlertStatus(type: string): BaseAlertStatus {
 		switch (type) {
 			case "danger":
 			case "error":
@@ -50,11 +57,11 @@
 			case "help":
 			case "faq":
 			default:
-				return "info";
+				return "announcement";
 		}
 	}
 
-	const variant = $derived(getAlertVariant(token.admonitionType));
+	const status = $derived(getAlertStatus(token.admonitionType));
 </script>
 
 {#if token.collapsible}
@@ -66,30 +73,19 @@
 		</ExpansionCard>
 	</div>
 {:else}
-	<div class="admonition admonition--{token.admonitionType}">
-		<Alert {variant} size="small" contentMaxWidth={false}>
-			{#if token.title}
-				<strong class="admonition-title">{token.title}</strong>
-			{/if}
-			<div class="admonition-content">
-				<ContentRenderer tokens={token.tokens} />
-			</div>
-		</Alert>
-	</div>
+	<LocalAlert {status}>
+		<LocalAlertHeader>
+			<LocalAlertTitle>{token.title}</LocalAlertTitle>
+		</LocalAlertHeader>
+		<LocalAlertContent>
+			<ContentRenderer tokens={token.tokens} />
+		</LocalAlertContent>
+	</LocalAlert>
 {/if}
 
 <style>
 	.admonition {
 		margin: 1rem 0;
-	}
-
-	.admonition-title {
-		display: block;
-		margin-bottom: 0.5rem;
-	}
-
-	.admonition-content {
-		font-size: 0.9375rem;
 	}
 
 	/* Remove default margins from nested elements */
