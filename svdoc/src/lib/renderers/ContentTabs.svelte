@@ -65,6 +65,7 @@
 	/* Remove top margin from first element in tab content */
 	.tab-content :global(> *:first-child) {
 		margin-top: 0;
+		padding-top: var(--ax-space-12);
 	}
 
 	/* Remove bottom margin from last element in tab content */
