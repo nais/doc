@@ -62,7 +62,7 @@ Before you begin, ensure that you have:
     :   The client secret for your application.
 
 4. Optionally, add additional environment variables to the secret to configure the login proxy further.
-See the [Wonderwall configuration reference :octicons-link-external-16:](https://github.com/nais/wonderwall/blob/master/docs/configuration.md) for all available options.
+See the [Wonderwall configuration reference](https://github.com/nais/wonderwall/blob/master/docs/configuration.md) for all available options.
 
 ## Configure your application
 

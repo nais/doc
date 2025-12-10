@@ -24,7 +24,7 @@ Ensure that your workload is compatible with the new major version of OpenSearch
 
 ### 2. Upgrade the OpenSearch instance
 
-1. Open [Nais Console :octicons-link-external-16:](https://console.<<tenant()>>.cloud.nais.io) in your browser
+1. Open [Nais Console](https://console.<<tenant()>>.cloud.nais.io) in your browser
 2. Select your team
 3. Select **OpenSearch** in the sidebar menu
 4. Select the OpenSearch instance you want to upgrade
