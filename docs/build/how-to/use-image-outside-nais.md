@@ -53,7 +53,6 @@ jobs:
           CLUSTER: <MY-CLUSTER> # Replace (1)
           RESOURCE: .nais/app.yaml #, topic.yaml, statefulset.yaml, etc.
           VAR: image=${{ steps.docker-build-push.outputs.image }}
-          TELEMETRY: ${{ steps.docker-build-push.outputs.telemetry }}
 ```
 
 ## Even more control
