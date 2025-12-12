@@ -60,7 +60,6 @@ This how-to guide shows you how to build and deploy your application using [GitH
               CLUSTER: <MY-CLUSTER> # Replace (1)
               RESOURCE: .nais/app.yaml # same list as in changed-files step above
               WORKLOAD_IMAGE: ${{ steps.docker-build-push.outputs.image }}
-              TELEMETRY: ${{ steps.docker-build-push.outputs.telemetry }}
     ```
 
     1.  Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../../workloads/reference/environments.md).

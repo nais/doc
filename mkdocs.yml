@@ -111,7 +111,6 @@ plugins:
         "explanation/observability/frontend.md": "observability/frontend/README.md"
         "explanation/observability/logging.md": "observability/logging/README.md"
         "explanation/observability/metrics.md": "observability/metrics/README.md"
-        "explanation/observability/tracing.md": "observability/tracing/README.md"
         "explanation/workloads/job.md": "workloads/job/README.md"
         "explanation/workloads/cdn.md": "services/cdn/README.md"
         "explanation/zero-trust.md": "workloads/explanations/zero-trust.md"
