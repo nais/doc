@@ -165,7 +165,30 @@ nais postgres password rotate appname
 |-------------|-----------|-------------------------------------------------------------|
 | appname     | Yes       | Name of application owning the database                     |
 
+## enable-audit
+Enable the pgaudit extension and disable the logging for the application user. 
+Requires that the database flags have been set for the Cloud SQL database.
 
+```bash
+nais postgres enable-audit appname
+```
+
+| Argument    | Required  | Description                                                 |
+|-------------|-----------|-------------------------------------------------------------|
+| appname     | Yes       | Name of application owning the database                     |
+
+
+## verify-audit
+Verifies that database flags have been set and that the pgaudit extension has been created.
+Also verifies the logging level for the application user.
+
+```bash
+nais postgres verify-audit appname
+```
+
+| Argument    | Required  | Description                                                 |
+|-------------|-----------|-------------------------------------------------------------|
+| appname     | Yes       | Name of application owning the database                     |
 ## migrate 
 
 !!! info "Status: Beta"
