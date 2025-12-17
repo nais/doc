@@ -177,7 +177,6 @@ nais postgres enable-audit appname
 |-------------|-----------|-------------------------------------------------------------|
 | appname     | Yes       | Name of application owning the database                     |
 
-
 ## verify-audit
 Verifies that database flags have been set and that the pgaudit extension has been created.
 Also verifies the logging level for the application user.
@@ -189,6 +188,7 @@ nais postgres verify-audit appname
 | Argument    | Required  | Description                                                 |
 |-------------|-----------|-------------------------------------------------------------|
 | appname     | Yes       | Name of application owning the database                     |
+
 ## migrate 
 
 !!! info "Status: Beta"
