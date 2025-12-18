@@ -51,7 +51,7 @@ Here you can add your repository to the list of authorized repositories. This au
 This describes the system your application will be running on.
 It includes the base image, and the commands needed to build your application.
 This is the payload you are requesting Nais to run.
-We have created this file for you, as there are no changes needed for this tutorial. Check it out.
+We have created this file for you, as there are no changes needed for this tutorial. Have a quick look to get familiar.
 
 ### Application manifest
 
