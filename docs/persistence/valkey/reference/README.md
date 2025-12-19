@@ -40,13 +40,16 @@ The access levels are as follows:
 
 When [using a Valkey from your workload](../how-to/use-in-workload.md), each `<ValkeyInstanceName>` you have configured will result in environment variables at runtime:
 
-| Key                                    | Value                                                                                                                                           |
-|----------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| `VALKEY_URI_<ValkeyInstanceName>`      | The URI for the Valkey instance, typically with a `valkey` scheme. <br/>Example:  `valkeys://valkey-team-sessions-nav-dev.aivencloud.com:26483` |
-| `VALKEY_HOST_<ValkeyInstanceName>`     | The host for the Valkey instance. <br/>Example:  `valkey-team-sessions-nav-dev.aivencloud.com`                                                  |
-| `VALKEY_PORT_<ValkeyInstanceName>`     | The port for the Valkey instance. <br/>Example:  `26483`                                                                                        |
-| `VALKEY_USERNAME_<ValkeyInstanceName>` | The username to use when connecting.                                                                                                            |
-| `VALKEY_PASSWORD_<ValkeyInstanceName>` | The password to use when connecting.                                                                                                            |
+| Key                                        | Value                                                                                                                                               |
+|--------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| `VALKEY_URI_<ValkeyInstanceName>`          | The URI for the Valkey instance, typically with a `valkey` scheme. <br/>Example:  `valkeys://valkey-team-sessions-nav-dev.aivencloud.com:26483`     |
+| `VALKEY_HOST_<ValkeyInstanceName>`         | The host for the Valkey instance. <br/>Example:  `valkey-team-sessions-nav-dev.aivencloud.com`                                                      |
+| `VALKEY_PORT_<ValkeyInstanceName>`         | The port for the Valkey instance. <br/>Example:  `26483`                                                                                            |
+| `VALKEY_USERNAME_<ValkeyInstanceName>`     | The username to use when connecting.                                                                                                                |
+| `VALKEY_PASSWORD_<ValkeyInstanceName>`     | The password to use when connecting.                                                                                                                |
+| `VALKEY_REPLICA_URI_<ValkeyInstanceName>`  | The URI for the Valkey read replica, typically with a `valkey` scheme. <br/>Example:  `valkeys://valkey-team-sessions-nav-dev.aivencloud.com:26483` |
+| `VALKEY_REPLICA_HOST_<ValkeyInstanceName>` | The host for the Valkey read replica. <br/>Example:  `valkey-team-sessions-nav-dev.aivencloud.com`                                                  |
+| `VALKEY_REPLICA_PORT_<ValkeyInstanceName>` | The port for the Valkey read replica. <br/>Example:  `26483`                                                                                        |
 
 To make the usage of Valkey backward compatible for libraries not supporting Valkeys, but only Redis, we also supply these environment variables:
 

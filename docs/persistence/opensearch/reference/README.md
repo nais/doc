@@ -38,13 +38,16 @@ See the [Aiven documentation](https://aiven.io/docs/products/opensearch/concepts
 
 When [using an OpenSearch from your workload](../how-to/use-in-workload.md), these environment variables are available at runtime:
 
-| Key                    | Value                                 |
-|------------------------|---------------------------------------|
-| `OPEN_SEARCH_URI`      | The URI for the OpenSearch instance.  |
-| `OPEN_SEARCH_HOST`     | The host for the OpenSearch instance. |
-| `OPEN_SEARCH_PORT`     | The port for the OpenSearch instance. |
-| `OPEN_SEARCH_USERNAME` | The username to use when connecting.  |
-| `OPEN_SEARCH_PASSWORD` | The password to use when connecting.  |
+| Key                          | Value                                  |
+|------------------------------|----------------------------------------|
+| `OPEN_SEARCH_URI`            | The URI for the OpenSearch instance.   |
+| `OPEN_SEARCH_HOST`           | The host for the OpenSearch instance.  |
+| `OPEN_SEARCH_PORT`           | The port for the OpenSearch instance.  |
+| `OPEN_SEARCH_USERNAME`       | The username to use when connecting.   |
+| `OPEN_SEARCH_PASSWORD`       | The password to use when connecting.   |
+| `OPEN_SEARCH_DASHBOARD_URI`  | The URI for the OpenSearch dashboard.  |
+| `OPEN_SEARCH_DASHBOARD_HOST` | The host for the OpenSearch dashboard. |
+| `OPEN_SEARCH_DASHBOARD_PORT` | The port for the OpenSearch dashboard. |
 
 ## Metrics
 
