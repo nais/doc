@@ -5,12 +5,6 @@ hide:
   - footer
   - toc
 ---
-<!-- This hides the edit button on the start page -->
-<style>
-  .md-content__button {
-    display: none;
-  }
-</style>
 
 # :wave: **Welcome to the Nais developer documentation!**
 

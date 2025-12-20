@@ -1,0 +1,281 @@
+/**
+ * Redirect mappings from old MkDocs URLs to new paths.
+ * Source: mkdocs.yml redirect_maps
+ *
+ * Keys are old paths (without leading slash, with .md extension)
+ * Values are new paths (without leading slash, with .md extension and optional #anchor)
+ */
+
+import { contentStore } from "./content-store";
+
+// Get base path from environment variable (set in svelte.config.js)
+const BASE_PATH = process.env.BASE_PATH || "";
+export const REDIRECTS: Record<string, string> = {
+	"addons/unleash-next.md": "services/feature-toggling.md",
+	"addons/unleash.md": "services/feature-toggling.md",
+	"addons/wonderwall.md": "auth/explanations/README.md#login-proxy",
+	"appendix/wonderwall.md": "auth/explanations/README.md#login-proxy",
+	"auth/idporten/how-to/secure.md": "auth/idporten/how-to/login.md",
+	"basics/access.md": "operate/how-to/command-line-access.md",
+	"basics/teams.md": "explanations/team.md",
+	"cli.md": "operate/cli/README.md",
+	"cli/commands/validate.md": "operate/cli/reference/validate.md",
+	"cli/commands/kubeconfig.md": "operate/cli/reference/kubeconfig.md",
+	"clusters/gcp.md": "workloads/reference/environments.md",
+	"clusters/on-premises.md": "workloads/reference/environments.md",
+	"clusters/service-discovery.md": "workloads/how-to/communication.md",
+	"deployment.md": "build/README.md",
+	"deployment/github-action.md": "build/how-to/build-and-deploy.md",
+	"device.md": "operate/naisdevice/README.md",
+	"device/install.md": "operate/naisdevice/how-to/install.md",
+	"device/update.md": "operate/naisdevice/how-to/update.md",
+	"explanation/cdn.md": "services/cdn/README.md",
+	"explanation/feature-toggling.md": "services/feature-toggling.md",
+	"explanation/leader-election.md": "services/leader-election/README.md",
+	"explanation/good-practices.md": "workloads/explanations/good-practices.md",
+	"explanation/nais-application/access-policy.md": "workloads/explanations/zero-trust.md",
+	"explanation/naisdevice.md": "operate/naisdevice/README.md",
+	"explanation/observability/README.md": "observability/README.md",
+	"explanation/observability/alerting.md": "observability/alerting/README.md",
+	"explanation/observability/frontend.md": "observability/frontend/README.md",
+	"explanation/observability/logging.md": "observability/logging/README.md",
+	"explanation/observability/metrics.md": "observability/metrics/README.md",
+	"explanation/observability/tracing.md": "observability/tracing/README.md",
+	"explanation/workloads/job.md": "workloads/job/README.md",
+	"explanation/workloads/cdn.md": "services/cdn/README.md",
+	"explanation/zero-trust.md": "workloads/explanations/zero-trust.md",
+	"guides/oci-migration.md": "build/how-to/build-and-deploy.md",
+	"how-to-guides/access-policies.md": "workloads/how-to/access-policies.md",
+	"how-to-guides/cdn.md": "services/cdn/README.md",
+	"how-to-guides/command-line-access.md": "operate/how-to/command-line-access.md",
+	"how-to-guides/command-line-access/setup.md": "operate/how-to/command-line-access.md",
+	"how-to-guides/dependabot-auto-merge.md": "build/how-to/dependabot-auto-merge.md",
+	"how-to-guides/github-action.md": "build/how-to/build-and-deploy.md",
+	"how-to-guides/exposing-an-application/README.md": "workloads/application/how-to/expose.md",
+	"how-to-guides/nais-cli/install.md": "operate/cli/how-to/install.md",
+	"how-to-guides/naisdevice/install.md": "operate/naisdevice/how-to/install.md",
+	"how-to-guides/naisdevice/troubleshooting.md": "operate/naisdevice/how-to/troubleshooting.md",
+	"how-to-guides/naisdevice/update.md": "operate/naisdevice/how-to/update.md",
+	"how-to-guides/observability/alerts/grafana.md": "observability/alerting/how-to/grafana.md",
+	"how-to-guides/observability/alerts/prometheus-advanced.md":
+		"observability/alerting/how-to/prometheus-advanced.md",
+	"how-to-guides/observability/alerts/prometheus-basic.md":
+		"observability/alerting/how-to/prometheus-basic.md",
+	"how-to-guides/observability/auto-instrumentation.md":
+		"observability/how-to/auto-instrumentation.md",
+	"how-to-guides/observability/logs/disable.md": "observability/logging/how-to/disable.md",
+	"how-to-guides/observability/logs/kubectl.md": "observability/logging/how-to/kubectl.md",
+	"how-to-guides/observability/logs/loki.md": "observability/logging/how-to/loki.md",
+	"how-to-guides/observability/metrics/dashboard.md": "observability/metrics/how-to/dashboard.md",
+	"how-to-guides/observability/metrics/expose.md": "observability/metrics/how-to/expose.md",
+	"how-to-guides/observability/metrics/push.md": "observability/metrics/how-to/push.md",
+	"how-to-guides/observability/tracing/context-propagation.md":
+		"observability/tracing/how-to/context-propagation.md",
+	"how-to-guides/observability/tracing/correlate-traces-logs.md":
+		"observability/tracing/how-to/correlate-traces-logs.md",
+	"how-to-guides/observability/tracing/otel-tracing.md":
+		"observability/how-to/auto-instrumentation.md",
+	"how-to-guides/observability/tracing/tempo.md": "observability/tracing/how-to/tempo.md",
+	"how-to-guides/persistence/bigquery/create.md": "persistence/bigquery/how-to/create.md",
+	"how-to-guides/persistence/kafka/delete.md": "persistence/kafka/how-to/delete.md",
+	"how-to-guides/persistence/postgres/README.md": "persistence/cloudsql/README.md",
+	"how-to-guides/secrets/console.md": "services/secrets/how-to/console.md",
+	"nais-application/access-policy.md": "workloads/explanations/zero-trust.md",
+	"nais-application/automatic-scaling.md": "workloads/application/reference/automatic-scaling.md",
+	"nais-application/application.md": "workloads/application/reference/application-spec.md",
+	"nais-application/example.md": "workloads/application/reference/application-example.md",
+	"nais-application/ingress.md": "workloads/application/reference/ingress.md",
+	"naisjob.md": "workloads/job/README.md",
+	"observability/alerts.md": "observability/alerting/README.md",
+	"observability/auto-instrumentation.md": "observability/how-to/auto-instrumentation.md",
+	"observability/grafana.md": "observability/README.md",
+	"observability/logs/README.md": "observability/logging/README.md",
+	"observability/logs/examples.md": "observability/logging/README.md",
+	"observability/logging/how-to/kibana.md": "observability/logging/how-to/nav-logs-dashboards.md",
+	"observability/logging/reference/kql.md": "observability/logging/reference/dql.md",
+	"persistence/kafka/manage_topics.md": "persistence/kafka/README.md",
+	"persistence/open-search/README.md": "persistence/opensearch/README.md",
+	"persistence/postgres/README.md": "persistence/cloudsql/README.md",
+	"persistence/postgres/explanations/cloud-sql-credentials.md":
+		"persistence/cloudsql/explanations/cloud-sql-credentials.md",
+	"persistence/postgres/explanations/cloud-sql-instance.md":
+		"persistence/cloudsql/explanations/cloud-sql-instance.md",
+	"persistence/postgres/explanations/cloud-sql-proxy.md":
+		"persistence/cloudsql/explanations/cloud-sql-proxy.md",
+	"persistence/postgres/explanations/grants-and-privileges.md":
+		"persistence/cloudsql/explanations/grants-and-privileges.md",
+	"persistence/postgres/explanations/migrate-to-new-instance.md":
+		"persistence/cloudsql/explanations/migrate-to-new-instance.md",
+	"persistence/postgres/how-to/additional-users.md":
+		"persistence/cloudsql/how-to/additional-users.md",
+	"persistence/postgres/how-to/certification-sync-issues.md":
+		"persistence/cloudsql/how-to/certification-sync-issues.md",
+	"persistence/postgres/how-to/change-tier.md": "persistence/cloudsql/how-to/change-tier.md",
+	"persistence/postgres/how-to/connect-to-cloned.md":
+		"persistence/cloudsql/how-to/connect-to-cloned.md",
+	"persistence/postgres/how-to/database-observability.md":
+		"persistence/cloudsql/how-to/database-observability.md",
+	"persistence/postgres/how-to/debugging.md": "persistence/cloudsql/how-to/debugging.md",
+	"persistence/postgres/how-to/delete-database.md":
+		"persistence/cloudsql/how-to/delete-database.md",
+	"persistence/postgres/how-to/enable-auditing.md":
+		"persistence/cloudsql/how-to/enable-auditing.md",
+	"persistence/postgres/how-to/existing-instance-private-ip.md":
+		"persistence/cloudsql/how-to/existing-instance-private-ip.md",
+	"persistence/postgres/how-to/migrate-to-new-instance.md":
+		"persistence/cloudsql/how-to/migrate-to-new-instance.md",
+	"persistence/postgres/how-to/migrating-databases-to-gcp.md":
+		"persistence/cloudsql/how-to/migrating-databases-to-gcp.md",
+	"persistence/postgres/how-to/password-sync-issues.md":
+		"persistence/cloudsql/how-to/password-sync-issues.md",
+	"persistence/postgres/how-to/personal-access.md":
+		"persistence/cloudsql/how-to/personal-access.md",
+	"persistence/postgres/how-to/reset-database-credentials.md":
+		"persistence/cloudsql/how-to/reset-database-credentials.md",
+	"persistence/postgres/how-to/upgrade-postgres.md":
+		"persistence/cloudsql/how-to/upgrade-postgres.md",
+	"persistence/postgres/reference/README.md": "persistence/cloudsql/reference/README.md",
+	"reference/application-example.md": "workloads/application/reference/application-example.md",
+	"reference/application-spec.md": "workloads/application/reference/application-spec.md",
+	"reference/cli/postgres.md": "operate/cli/reference/postgres.md",
+	"reference/cli/validate.md": "operate/cli/reference/validate.md",
+	"reference/environments.md": "workloads/reference/environments.md",
+	"reference/default-variables.md": "workloads/reference/default-variables.md",
+	"reference/glossary.md": "observability/reference/glossary.md",
+	"reference/ingress.md": "workloads/application/reference/ingress.md",
+	"reference/json-schema.md": "workloads/reference/json-schema.md",
+	"reference/kafka-topic-spec.md": "persistence/kafka/reference/kafka-topic-spec.md",
+	"reference/metrics.md": "observability/metrics/reference/metrics.md",
+	"reference/naisjob-example.md": "workloads/job/reference/naisjob-example.md",
+	"reference/naisjob-spec.md": "workloads/job/reference/naisjob-spec.md",
+	"reference/observability/alerts/prometheusrule.md":
+		"observability/alerting/reference/prometheusrule.md",
+	"reference/observability/auto-config.md": "observability/reference/auto-config.md",
+	"reference/observability/logs/logql.md": "observability/logging/reference/logql.md",
+	"reference/observability/metrics/globals.md": "observability/metrics/reference/globals.md",
+	"reference/observability/metrics/grafana.md": "observability/metrics/reference/grafana.md",
+	"reference/observability/metrics/otel.md": "observability/metrics/reference/otel.md",
+	"reference/observability/metrics/promql.md": "observability/metrics/reference/promql.md",
+	"reference/observability/otel/tracing.md": "observability/reference/auto-config.md",
+	"reference/observability/tracing/trace-semconv.md":
+		"observability/tracing/reference/trace-semconv.md",
+	"reference/observability/tracing/traceql.md": "observability/tracing/reference/traceql.md",
+	"reference/secrets.md": "services/secrets/README.md",
+	"security/auth/README.md": "auth/README.md",
+	"security/auth/azure-ad/README.md": "auth/entra-id/README.md",
+	"security/auth/azure-ad/configuration.md": "auth/entra-id/reference/README.md",
+	"security/auth/azure-ad/faq-troubleshooting.md": "auth/entra-id/reference/README.md",
+	"security/auth/azure-ad/sidecar.md": "auth/entra-id/how-to/login.md",
+	"security/auth/azure-ad/usage.md": "auth/entra-id/README.md",
+	"security/auth/concepts.md": "auth/explanations/README.md",
+	"security/auth/idporten.md": "auth/idporten/README.md",
+	"security/auth/maskinporten/README.md": "auth/maskinporten/README.md",
+	"security/auth/maskinporten/client.md": "auth/maskinporten/how-to/consume.md",
+	"security/auth/maskinporten/scopes.md": "auth/maskinporten/how-to/secure.md",
+	"security/auth/tokenx.md": "auth/tokenx/README.md",
+	"security/auth/wonderwall.md": "auth/explanations/README.md#login-proxy",
+	"tutorial/hello-nais/README.md": "tutorials/hello-nais.md",
+	"tutorial/hello-nais/hello-nais-1.md": "tutorials/hello-nais.md",
+	"tutorial/hello-nais/hello-nais-2.md": "tutorials/hello-nais.md",
+	"tutorial/hello-nais/hello-nais-3.md": "tutorials/hello-nais.md",
+	"tutorial/hello-nais/hello-nais-4.md": "tutorials/hello-nais.md",
+	"workloads/explanations/service-discovery.md":
+		"workloads/application/explanations/expose.md#service-discovery",
+	"workloads/reference/ingress.md": "workloads/application/reference/ingress.md",
+};
+
+/**
+ * Convert a path to its redirect target URL (if any)
+ * @param path - The path to check (without leading slash)
+ * @returns The redirect target URL or null if no redirect exists
+ */
+export function getRedirectTarget(path: string): string | null {
+	// Normalize path: add .md if not present (for URL lookups)
+	let lookupPath = path;
+	if (!lookupPath.endsWith(".md") && !lookupPath.includes("#")) {
+		lookupPath = `${path}.md`;
+	}
+
+	const target = REDIRECTS[lookupPath];
+	if (!target) {
+		// Also try with /README.md for directory paths
+		const readmePath = `${path}/README.md`;
+		const readmeTarget = REDIRECTS[readmePath];
+		if (readmeTarget) {
+			return convertToUrl(readmeTarget);
+		}
+		return null;
+	}
+
+	return convertToUrl(target);
+}
+
+/**
+ * Convert a .md path to a URL path
+ */
+function convertToUrl(mdPath: string): string {
+	// Handle anchors
+	const [pathPart, anchor] = mdPath.split("#");
+
+	// Convert path: remove .md, handle README
+	let urlPath = pathPart
+		.replace(/\.md$/, "")
+		.replace(/\/README$/, "")
+		.replace(/^README$/, "");
+
+	// Add leading slash and base path
+	urlPath = BASE_PATH + "/" + urlPath;
+	urlPath = urlPath.replace(/\/+/g, "/");
+
+	// Add anchor if present
+	if (anchor) {
+		urlPath += "#" + anchor;
+	}
+
+	return urlPath;
+}
+
+/**
+ * Convert a target .md path to a URL path for checking against content store
+ */
+function targetToUrlPath(mdPath: string): string {
+	const [pathPart] = mdPath.split("#");
+	return (
+		(
+			"/" +
+			pathPart
+				.replace(/\.md$/, "")
+				.replace(/\/README$/, "")
+				.replace(/^README$/, "")
+		).replace(/\/+/g, "/") || "/"
+	);
+}
+
+/**
+ * Get all redirect entries for static site generation
+ * Returns array of { from, to } objects with URL paths
+ * Only includes redirects where the target document exists in the content store
+ */
+export async function getAllRedirects(): Promise<Array<{ from: string; to: string }>> {
+	const redirects: Array<{ from: string; to: string }> = [];
+
+	for (const [from, to] of Object.entries(REDIRECTS)) {
+		const targetUrlPath = targetToUrlPath(to);
+		const targetDoc = await contentStore.getDocumentByPath(targetUrlPath);
+
+		// Only include redirect if target document exists (not filtered out)
+		if (targetDoc) {
+			redirects.push({
+				from:
+					"/" +
+					from
+						.replace(/\.md$/, "")
+						.replace(/\/README$/, "")
+						.replace(/^README$/, ""),
+				to: convertToUrl(to),
+			});
+		}
+	}
+
+	return redirects;
+}

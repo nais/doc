@@ -1,0 +1,52 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - ds-svelte
+
+jobs:
+  build_site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0 # Fetch all history for accurate git timestamps
+
+      - uses: jdx/mise-action@v3
+
+      - name: Install dependencies
+        working-directory: ./svdoc
+        run: bun i
+
+      - name: build
+        working-directory: ./svdoc
+        env:
+          BASE_PATH: "/${{ github.event.repository.name }}"
+          TENANT: "nav"
+        run: |
+          bun run build
+
+      - name: Upload Artifacts
+        uses: actions/upload-pages-artifact@v4
+        with:
+          # this should match the `pages` option in your adapter-static options
+          path: "svdoc/build/"
+
+  deploy:
+    needs: build_site
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
