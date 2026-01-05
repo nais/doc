@@ -35,7 +35,7 @@ jobs:
       id-token: write
       packages: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Build and push image and SBOM to OCI registry
         uses: nais/docker-build-push@v0
         id: docker-build-push

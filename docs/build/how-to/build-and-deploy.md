@@ -40,7 +40,7 @@ This how-to guide shows you how to build and deploy your application using [GitH
           id-token: write
           actions: read
         steps:
-          - uses: actions/checkout@v4
+          - uses: actions/checkout@v6
             with:
               fetch-depth: 0 # Fetch all history for what-changed action
           - name: Determine what to do

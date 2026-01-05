@@ -40,7 +40,7 @@ jobs:
       id-token: 'write'
 
     steps:
-      - uses: 'actions/checkout@v4'
+      - uses: 'actions/checkout@v6
 
       - name: Upload static files to CDN
         uses: nais/deploy/actions/cdn-upload/v2@master
