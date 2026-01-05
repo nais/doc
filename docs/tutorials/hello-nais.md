@@ -77,9 +77,8 @@ Add the following content to the file, and insert the appropriate values in the 
     spec:
       ingresses:
         - https://<MY-APP>.<MY-ENV>.<<tenant()>>.cloud.nais.io
-      image: {{image}} #(1)
       port: 8080
-      ttl: 3h
+      ttl: 3h # Time before clean-up (1)
       replicas:
         max: 1
         min: 1
@@ -89,9 +88,7 @@ Add the following content to the file, and insert the appropriate values in the 
           memory: 32Mi
     ```
 
-    1.  This is a templating variable that will be replaced when the deploy action prepares the manifest in the next step.
-
-    Note the `ttl: 3h`. It sets the ["time to live"](../workloads/application/reference/application-spec.md/#ttl) for your app to 3 hours, in case you start on this tutorial and forget to clean up after. 
+    1.  This sets the ["time to live"](../workloads/application/reference/application-spec.md/#ttl) for your app to 3 hours, in case you start on this tutorial and forget to clean up after. 
 
 ### GitHub Actions workflow
 
@@ -107,8 +104,8 @@ touch .github/workflows/main.yaml
 Add the following content to the file, and insert the appropriate values in the placeholders on the highlighted lines:
 ???+ note ".github/workflows/main.yaml"
 
-    ```yaml hl_lines="20 24"
-    name: Build and deploy
+    ```yaml hl_lines="28 32"
+	name: Build and deploy
     on:
       push:
         branches:
@@ -122,8 +119,16 @@ Add the following content to the file, and insert the appropriate values in the 
           id-token: write
           actions: read
         steps:
-          - uses: actions/checkout@v4
+          - uses: actions/checkout@v6
+            with:
+              fetch-depth: 0 # Fetch all history for what-changed action
+          - name: Determine what to do
+            id: changed-files
+            uses: "nais/what-changed@main"
+            with:
+              files: .nais/app.yaml
           - name: Build and push image and SBOM to OCI registry
+            if: steps.changed-files.outputs.changed != 'only-inputs'
             uses: nais/docker-build-push@v0
             id: docker-build-push
             with:
@@ -131,13 +136,12 @@ Add the following content to the file, and insert the appropriate values in the 
           - name: Deploy to Nais
             uses: nais/deploy/actions/deploy@v2
             env:
-              CLUSTER: <MY_ENV> # Replace (1)
+              CLUSTER: <MY-CLUSTER> # Replace (1)
               RESOURCE: .nais/app.yaml # This points to the file we created in the previous step
-              VAR: image=${{ steps.docker-build-push.outputs.image }} # (2)
+              WORKLOAD_IMAGE: ${{ steps.docker-build-push.outputs.image }}
     ```
 
     1.  Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../workloads/reference/environments.md).
-    2.  Here we set the templating variable `image` used in the `app.yaml` file to the image we just built.
 
 Excellent! We're now ready to deploy :rocket:
 
