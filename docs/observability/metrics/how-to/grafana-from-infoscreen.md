@@ -1,6 +1,6 @@
 ---
 description: How to show Grafana on an infoscreen
-tags: [how-to, metrics, grafana]
+tags: [how-to, metrics, grafana, infoskjerm]
 conditional: [tenant, nav]
 ---
 # Show Grafana on infoscreen
@@ -15,16 +15,15 @@ To access Grafana from an infoscreen, some additional steps are required.
 
 ## Access Grafana from infoscreen browser
 
-To add the service account credentials to the header of your requests, you can use the [Modify Header Value](https://mybrowseraddon.com/modify-header-value.html) browser extension available for Chrome and Firefox.
+To add the service account credentials to the header of your requests, you can use the Simple Modify Header browser extension available for both [Chrome](https://chromewebstore.google.com/detail/simple-modify-headers/gjgiipmpldkpbdfjkgofildhapegmmic) and [Firefox](https://addons.mozilla.org/nb-NO/firefox/addon/simple-modify-header/).
 
 Set the following configuration in the extension:
 
-| Field        | Value                                                     |
-| ------------ | --------------------------------------------------------- |
-| URL          | `https://grafana-infoskjerm.<<tenant()>>.cloud.nais.io/*` |
-| Domain       | ✅                                                         |
-| Header name  | `Authorization`                                           |
-| Add          | ✅                                                         |
-| Header value | `Bearer <service-account-token>`                          |
-| State        | Active                                                    |
-
+| Field              | Value                                                     |
+|--------------------|-----------------------------------------------------------|
+| Url Patterns       | `https://grafana-infoskjerm.<<tenant()>>.cloud.nais.io/*` |
+| Action             | Add                                                       |
+| Header Field Name  | `Authorization`                                           |
+| Header Field Value | `Bearer <service-account-token>`                          |
+| Apply on           | Request                                                   |
+| Status             | ON ✅                                                     |
