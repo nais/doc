@@ -5387,6 +5387,10 @@ Pattern: `^\d+[KMG]i$`<br />
 {%- if tenant() == "nav" %}
 ## secureLogs
 Whether to enable a sidecar container for secure logging.
+Deprecated. Support for Secure Logs in Nais has been deprecated and will be removed.
+
+!!! failure "Deprecated"
+    This feature is deprecated, preserved only for backwards compatibility.
 
 Type: `object`<br />
 Required: `false`<br />
