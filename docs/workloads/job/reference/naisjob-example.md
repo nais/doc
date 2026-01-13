@@ -172,8 +172,6 @@ spec:
     periodSeconds: 5
     port: 8080
     timeout: 1
-  logformat: accesslog_with_referer_useragent
-  logtransform: http_loglevel
   maskinporten:
     enabled: true
     scopes:

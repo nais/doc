@@ -3337,33 +3337,6 @@ Default value: `1`<br />
         timeout: 1
     ```
 
-## logformat
-Format of the logs from the container. Use this if the container doesn't support
-JSON logging and the log is in a special format that need to be parsed.
-
-Type: `enum`<br />
-Required: `false`<br />
-Allowed values: _(empty string)_, `accesslog`, `accesslog_with_processing_time`, `accesslog_with_referer_useragent`, `capnslog`, `glog`, `gokit`, `influxdb`, `log15`, `logrus`, `redis`, `simple`<br />
-
-??? example
-    ``` yaml
-    spec:
-      logformat: accesslog_with_referer_useragent
-    ```
-
-## logtransform
-Extra filters for modifying log content. This can e.g. be used for setting loglevel based on http status code.
-
-Type: `enum`<br />
-Required: `false`<br />
-Allowed values: `dns_loglevel`, `http_loglevel`<br />
-
-??? example
-    ``` yaml
-    spec:
-      logtransform: http_loglevel
-    ```
-
 ## maskinporten
 Configures a Maskinporten client for this Naisjob.
 See [Maskinporten](https://doc.nais.io/security/auth/maskinporten/) for more details.
