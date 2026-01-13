@@ -8,9 +8,6 @@ tags: [explanation, persistence, services]
     Postgres 15 has changed the security model around the public schema and it is no longer world writeable. If you and your team
     make use of the public schema for interactive sessions and experimentation you will have to create separate schemas for separate users and share these role or user grants. Normal app usage will function normally.
 
-!!! info
-    Postgres 18 is in preview and is not recommended in production environments.
-
 [PostgreSQL](https://www.postgresql.org/) is a relational database which is a good choice for storing data that is relational in nature.
 In the nais platform, we use CloudSQL from the Google Cloud Platform to provide managed PostgreSQL databases.
 
