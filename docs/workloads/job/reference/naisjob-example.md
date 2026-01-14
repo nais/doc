@@ -18,7 +18,6 @@ For an in-depth explanation of each field, head over to the [reference documenta
 apiVersion: nais.io/v1
 kind: Naisjob
 metadata:
-  creationTimestamp: null
   labels:
     team: myteam
   name: myjob

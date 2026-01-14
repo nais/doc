@@ -18,7 +18,6 @@ For an in-depth explanation of each field, head over to the [reference documenta
 apiVersion: kafka.nais.io/v1
 kind: Topic
 metadata:
-  creationTimestamp: null
   labels:
     team: myteam
   name: mytopic

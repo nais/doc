@@ -18,7 +18,6 @@ For an in-depth explanation of each field, head over to the [reference documenta
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  creationTimestamp: null
   labels:
     team: myteam
   name: myapplication
