@@ -37,7 +37,7 @@ These variables are optional and should only be used for [manually validating to
 The client ID for your application in Maskinporten can be found with the following command:
 
 ```shell
-kubectl get maskinportenclient -n <team> <name> -o jsonpath='{.status.clientId}'
+kubectl get maskinportenclient -n <team> <name> -o jsonpath='{.status.clientID}'
 ```
 
 ## Claims
