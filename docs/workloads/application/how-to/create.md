@@ -36,7 +36,6 @@ Add the following content to the file, and insert the appropriate values in the 
       name: <MY-APP>
       namespace: <MY-TEAM>
     spec:
-      image: {{image}} # Placeholder variable to be replaced by the CI/CD pipeline
       port: 8080
       replicas:
         max: 4

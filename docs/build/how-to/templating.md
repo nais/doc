@@ -17,7 +17,6 @@ metadata:
   name: {{app}}
   namespace: {{team}}
 spec:
-  image: {{image}}
   ingresses:
   {%- raw %}
   {{#each ingresses as |url|}}
@@ -31,7 +30,6 @@ Now, create a `vars.yaml` file containing variables for your deployment:
 ```yaml
 app: myapplication
 team: myteam
-image: europe-north1-docker.pkg.dev/nais-management-id/myteam/myapplication:latest
 ingresses:
   - https://myapplication.nav.no
   - https://tjenester.nav.no/myapplication
@@ -43,7 +41,6 @@ Run the [`nais validate`](../../operate/cli/reference/validate.md) tool to see t
 $ nais validate --verbose --vars vars.yaml nais.yaml
 [📝] Setting template variable 'team' to 'myteam'
 [📝] Setting template variable 'app' to 'myapplication'
-[📝] Setting template variable 'image' to 'europe-north1-docker.pkg.dev/nais-management-id/myteam/myapplication:latest'
 [📝] Setting template variable 'ingresses' to '[https://myapplication.nav.no https://tjenester.nav.no/myapplication]'
 [📝] Setting template variable 'namespace' to 'myteam'
 [🖨️] Printing "app.yaml"...
