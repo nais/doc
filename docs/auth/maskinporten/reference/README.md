@@ -32,6 +32,14 @@ These variables are optional and should only be used for [manually validating to
 
 `MASKINPORTEN_WELL_KNOWN_URL` is optional if you're using `MASKINPORTEN_ISSUER` and `MASKINPORTEN_JWKS_URI` directly.
 
+## Client ID
+
+The client ID for your application in Maskinporten can be found with the following command:
+
+```shell
+kubectl get maskinportenclient -n <team> <name> -o jsonpath='{.status.clientId}'
+```
+
 ## Claims
 
 See the [Access Token reference in Maskinporten](https://docs.digdir.no/docs/Maskinporten/maskinporten_protocol_token#the-access-token) for a list of all claims.
