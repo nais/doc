@@ -23,7 +23,28 @@ spec:
     enabled: true
 ```
 
-Depending on how you communicate with the API you're consuming, [configure the appropriate outbound access policies](../../../workloads/how-to/access-policies.md#outbound-access).
+Depending on how you communicate with the API you're consuming, [configure the appropriate outbound access policies](../../../workloads/explanations/zero-trust.md#outbound-traffic):
+
+=== "Service discovery"
+
+    ```yaml title="app.yaml"
+    spec:
+      accessPolicy:
+        outbound:
+          rules:
+            - application: <some-api>
+              namespace: <some-team>
+    ```
+
+=== "External addresses"
+
+    ```yaml title="app.yaml"
+    spec:
+      accessPolicy:
+        outbound:
+          external:
+            - host: <some-host> 
+    ```
 
 ## Exchange token
 

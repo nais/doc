@@ -11,7 +11,7 @@ This how-to guides you through the steps required to consume an API secured with
 
 Declare all the scopes that you want to consume in your application's Nais manifest so that your application is granted access to them:
 
-```yaml hl_lines="5-7" title="nais.yaml"
+```yaml hl_lines="5-7" title="app.yaml"
 spec:
   maskinporten:
     enabled: true
@@ -38,7 +38,15 @@ The scopes themselves are defined and owned by the external API provider. The ex
 
 {%- endif %}
 
-Finally, [configure appropriate outbound access policies](../../../workloads/how-to/access-policies.md#send-requests-to-external-addresses) to access the external API endpoints.
+Finally, [configure appropriate outbound access policies](../../../workloads/explanations/zero-trust.md#outbound-traffic) to access the external API endpoints:
+
+```yaml hl_lines="5" title="app.yaml"
+spec:
+  accessPolicy:
+    outbound:
+      external:
+        - host: api.example.com
+```
 
 ## Acquire token
 

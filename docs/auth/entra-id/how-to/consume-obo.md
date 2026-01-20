@@ -10,14 +10,44 @@ This is also known as the _on-behalf-of (OBO)_ flow.
 
 ## Prerequisites
 
-- Your application receives requests with an employee subject token in the `Authorization` header. The application is either:
+- Your application receives requests with an employee subject token in the `Authorization` header. Your application is either:
     - [a backend API secured with Entra ID](secure.md), or
     - [a backend-for-frontend that logs in employees](login.md)
 - The API you're consuming has [granted access to your application and employees](secure.md#grant-access-to-consumers)
 
 ## Configure your application
 
-Depending on how you communicate with the API you're consuming, [configure the appropriate outbound access policies](../../../workloads/how-to/access-policies.md#outbound-access).
+Enable Entra ID in your application:
+
+```yaml title="app.yaml"
+spec:
+  azure:
+    application:
+      enabled: true
+```
+
+Depending on how you communicate with the API you're consuming, [configure the appropriate outbound access policies](../../../workloads/explanations/zero-trust.md#outbound-traffic):
+
+=== "Service discovery"
+
+    ```yaml title="app.yaml"
+    spec:
+      accessPolicy:
+        outbound:
+          rules:
+            - application: <some-api>
+              namespace: <some-team>
+    ```
+
+=== "External addresses"
+
+    ```yaml title="app.yaml"
+    spec:
+      accessPolicy:
+        outbound:
+          external:
+            - host: <some-host> 
+    ```
 
 ## Exchange token
 
