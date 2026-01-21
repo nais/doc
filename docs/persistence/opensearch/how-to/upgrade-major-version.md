@@ -20,7 +20,7 @@ Downgrading to an older major version is not supported.
 
 Consult the [OpenSearch release notes](https://docs.opensearch.org/latest/breaking-changes/) to understand the changes in the new major version.
 
-OpenSearch does not support does not support backward compatibility between indices more than one major version.
+OpenSearch does not support backward compatibility between indices more than one major version.
 If you have indices created in an older major version, you may need to [upgrade the indices by reindexing](https://docs.opensearch.org/latest/api-reference/document-apis/reindex/) before attempting an upgrade to another major version.
 
 Ensure that your workload is compatible with the new major version of OpenSearch.
