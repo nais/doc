@@ -20,6 +20,9 @@ Downgrading to an older major version is not supported.
 
 Consult the [OpenSearch release notes](https://docs.opensearch.org/latest/breaking-changes/) to understand the changes in the new major version.
 
+OpenSearch does not support does not support backward compatibility between indices more than one major version.
+If you have indices created in an older major version, you may need to [upgrade the indices by reindexing](https://docs.opensearch.org/latest/api-reference/document-apis/reindex/) before attempting an upgrade to another major version.
+
 Ensure that your workload is compatible with the new major version of OpenSearch.
 
 ### 2. Upgrade the OpenSearch instance
@@ -34,7 +37,7 @@ Ensure that your workload is compatible with the new major version of OpenSearch
 
 The upgrade process will take a few minutes. The **Status** column will show you the current state.
 
-When the status changes to `Running`, the upgrade is complete.
+When the **Status** changes to `Running` and the shown **Version** matches the desired version, the upgrade is complete.
 
 ### 3. Verify that the upgrade was successful
 
