@@ -22,6 +22,7 @@ Consult the [OpenSearch release notes](https://docs.opensearch.org/latest/breaki
 
 OpenSearch does not support backward compatibility between indices more than one major version.
 If you have indices created in an older major version, you may need to [upgrade the indices by reindexing](https://docs.opensearch.org/latest/api-reference/document-apis/reindex/) before attempting an upgrade to another major version.
+See also Aiven's guide on [Reindexing OpenSearch data](https://aiven.io/docs/products/opensearch/howto/reindex-opensearch).
 
 Ensure that your workload is compatible with the new major version of OpenSearch.
 
