@@ -84,7 +84,7 @@ Read more about [Grants and Privileges](../explanations/grants-and-privileges.md
     Use `nais postgres proxy` to create a secure tunnel to the database.
 
     ```bash
-    nais postgres proxy <MYAPP>
+    nais postgres proxy --reason "debugging issue" <MYAPP>
     ```
 
     This will start a proxy client in the background and print the connection string to the database.
@@ -94,7 +94,7 @@ Read more about [Grants and Privileges](../explanations/grants-and-privileges.md
     If you'd like to use the psql binary, you can use the following command to connect to the database:
 
     ```bash
-    nais postgres psql <MYAPP>
+    nais postgres psql --reason "debugging issue" <MYAPP>
     ```
 
     This will create a proxy on a random port and execute the psql binary with the correct connection string.

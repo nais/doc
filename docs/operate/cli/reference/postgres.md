@@ -93,7 +93,7 @@ nais postgres grant appname
 Update IAM policies by giving your user a timed sql.cloudsql.instanceUser role, then start a proxy to the instance.
 
 ```bash
-nais postgres proxy appname
+nais postgres proxy --reason "debugging issue" appname
 ```
 
 | Argument    | Required  | Description                                                 |
@@ -102,6 +102,7 @@ nais postgres proxy appname
 
 | Flag      | Required | Short |Default                       |Description                                  |
 |-----------|----------|-------|------------------------------|---------------------------------------------|
+| reason    | Yes      |       |                              | Reason for requesting database access       |
 | port      | No       | -p    | 5432                         | Local port for cloudsql proxy to listen on  |
 | host      | No       | -H    | localhost                    | Host for the proxy                          |
 
@@ -113,7 +114,7 @@ nais postgres proxy appname
 Create a shell to the postgres instance by opening a proxy on a random port (see the proxy command for more info) and opening a psql shell.
 
 ```bash
-nais postgres psql appname
+nais postgres psql --reason "debugging issue" appname
 ```
 
 | Argument    | Required  | Description                                                 |
@@ -122,6 +123,7 @@ nais postgres psql appname
 
 | Flag      | Required | Short |Default                       |Description                                  |
 |-----------|----------|-------|------------------------------|---------------------------------------------|
+| reason    | Yes      |       |                              | Reason for requesting database access       |
 | verbose   | No       | -V    | false                        | Verbose will print proxy log                |
 
 ## users add

@@ -24,8 +24,8 @@ For Postgres clusters, the commands can also use the name of the cluster directl
 
 1. Acquire a nais token: `nais auth login --nais`
 2. Connect to the database using either 
-   1. a psql connection: `nais postgres psql <app-or-cluster-name>`, or
-   2. a proxy for connection using any postgres client: `nais postgres proxy <app-or-cluster-name>`
+   1. a psql connection: `nais postgres psql --reason "debugging issue" <app-or-cluster-name>`, or
+   2. a proxy for connection using any postgres client: `nais postgres proxy --reason "debugging issue" <app-or-cluster-name>`
 3. Follow the instructions
 
 ## Useful things to know
