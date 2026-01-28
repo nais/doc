@@ -173,6 +173,9 @@ A PVK is not a unique requirement for GCP, so all applications should already ha
         ```
     2. Consume the application using the special ingress. Other ingresses are not reachable from GCP.
 
+    !!! warning "Connection timeouts"
+        Applications calling on-prem services from GCP must handle firewall connection timeouts. See [Communication between GCP and on-prem][gcp-fss-comm] for details.
+
 ### How do I reach an application found on GCP from my application on-premises?
 
 ???+ faq "Answer"
@@ -225,6 +228,7 @@ A PVK is not a unique requirement for GCP, so all applications should already ha
 [entra-id]: ../../auth/entra-id/README.md
 [entra-id-access]: ../../auth/entra-id/how-to/secure.md#grant-access-to-consumers
 [access-policies]: ../how-to/access-policies.md
+[gcp-fss-comm]: ../how-to/gcp-fss-communication.md
 [roles-responsibilites]: ../../legal/roles-responsibilities.md
 [pvk]: ../../legal/app-pvk.md
 [ros]: ../../legal/nais-ros.md
