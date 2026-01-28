@@ -63,7 +63,7 @@ Allowed values: `read`, `readwrite`, `write`<br />
     ```
 
 ### acl[].application
-The name of the specified application
+The name of the specified AivenApplication.aiven.nais.io
 
 Type: `string`<br />
 Required: `true`<br />
