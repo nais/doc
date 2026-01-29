@@ -92,13 +92,13 @@ All files will ble placed in a folder named `aiven-secret-...` in the default lo
 ## grant-access
 
 The `grant-access` command will add entries to the access control list (ACL) for the kubernetes resources listed as subcommands.
-Thus, namespace must be provided, though can alternately be set with `nais config set namespace <namespace>` so that you don't need to specify it for every command.
+Thus, namespace must be provided, though can alternatively be set with `nais config set namespace <namespace>` so that you don't need to specify it for every command.
 
 ### Stream
 
 To gain access permissions to a specific Kafka stream, be sure to: 
-* have write access to your `stream.kafka.nais.io` kubernetes resource
-* have an Aiven service user (eg. by running `nais aiven create kafka <username> <namespace>`)
+- have write access to your `stream.kafka.nais.io` kubernetes resource
+- have an Aiven service user (eg. by running `nais aiven create kafka <username> <namespace>`)
 
 ```bash
 nais aiven grant-access stream --namespace <namespace> <userame> <stream name>
@@ -111,13 +111,13 @@ nais aiven grant-access stream --namespace <namespace> <userame> <stream name>
 ### Topic
 
 To gain access permissions to a specific Kafka topic, be sure to:
-* have write access to your `topic.kafka.nais.io` kubernetes resource
-* have an Aiven service user (eg. by running `nais aiven create kafka <username> <namespace>`)
+- have write access to your `topic.kafka.nais.io` kubernetes resource
+- have an Aiven service user (eg. by running `nais aiven create kafka <username> <namespace>`)
 
 ```bash
 nais aiven grant-access topic --namespace <namespace> --access <permission*> <userame> <topic name>
 ```
-\* can be skipped, defaults to `read`
+\* Optional; can be skipped, defaults to `read`.
 
 | Flag      | Required | Short | Description                                          |
 |-----------|----------|-------|------------------------------------------------------|
