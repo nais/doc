@@ -89,6 +89,41 @@ For OpenSearch only .env file will be created.
 See [Available output](#available-output) for better understanding of files created.
 All files will ble placed in a folder named `aiven-secret-...` in the default location for temporary files[^1].
 
+## grant-access
+
+The `grant-access` command will add entries to the access control list (ACL) for the kubernetes resources listed as subcommands.
+Thus, namespace must be provided, though can alternately be set with `nais config set namespace <namespace>` so that you don't need to specify it for every command.
+
+### Stream
+
+To gain access permissions to a specific Kafka stream, be sure to: 
+* have write access to your `stream.kafka.nais.io` kubernetes resource
+* have an Aiven service user (eg. by running `nais aiven create kafka <username> <namespace>`)
+
+```bash
+nais aiven grant-access stream --namespace <namespace> <userame> <stream name>
+```
+
+| Flag        | Required | Short | Description                                          |
+|-------------|----------|-------|------------------------------------------------------|
+| namespace   | Yes      | -n    | Kubernetes namespace for the ´stream.kafka.nais.io´. |
+
+### Topic
+
+To gain access permissions to a specific Kafka topic, be sure to:
+* have write access to your `topic.kafka.nais.io` kubernetes resource
+* have an Aiven service user (eg. by running `nais aiven create kafka <username> <namespace>`)
+
+```bash
+nais aiven grant-access topic --namespace <namespace> --access <permission*> <userame> <topic name>
+```
+\* can be skipped, defaults to `read`
+
+| Flag      | Required | Short | Description                                          |
+|-----------|----------|-------|------------------------------------------------------|
+| namespace | Yes      | -n    | Kubernetes namespace for the `topic.kafka.nais.io`.  |
+| access    | Yes      | -a    | Permission level for the `topic.kafka.nais.io`'s ACL.|
+
 ## tidy
 
 Removes folders in temporary files directory that starts with `aiven-secret-`[^1].
