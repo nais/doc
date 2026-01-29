@@ -11,7 +11,11 @@ This guide will show you how to manage access to your topic.
 
 - [An existing topic](create.md) to manage access to.
 
-## Add ACLs to your topic
+## Alternative 1 - Nais CLI
+
+See https://nais.io/log/#2026-01-29-nais-cli-kafka-acls.
+
+## Alternative 2 - Manually add ACLs to your topic
 
 !!! info
     It is possible to use simple wildcards (`*`) in both team and application names, which matches any character any number of times.
