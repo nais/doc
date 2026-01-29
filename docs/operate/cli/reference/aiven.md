@@ -96,7 +96,8 @@ Thus, namespace must be provided, though can alternatively be set with `nais con
 
 ### Stream
 
-To gain access permissions to a specific Kafka stream, be sure to: 
+To gain access permissions to a specific Kafka stream, be sure to:
+
 - have write access to your `stream.kafka.nais.io` kubernetes resource
 - have an Aiven service user (eg. by running `nais aiven create kafka <username> <namespace>`)
 
@@ -111,6 +112,7 @@ nais aiven grant-access stream --namespace <namespace> <userame> <stream name>
 ### Topic
 
 To gain access permissions to a specific Kafka topic, be sure to:
+
 - have write access to your `topic.kafka.nais.io` kubernetes resource
 - have an Aiven service user (eg. by running `nais aiven create kafka <username> <namespace>`)
 
