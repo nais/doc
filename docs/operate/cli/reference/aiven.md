@@ -106,13 +106,13 @@ The command ensures that only authorized users can access the specified resource
 
 To grant a user access to a specific Kafka stream:
 
-1. Ensure prerequisites:
-   * You have write access to the relevant stream.kafka.nais.io Kubernetes resource.
-   * The user has an Aiven service user. Create one if needed:
+Ensure prerequisites:
+1. You have write access to the relevant stream.kafka.nais.io Kubernetes resource. 
+2. The user has an Aiven service user. Create one if needed:
     ```bash
     nais aiven create kafka <username> <namespace>
     ```
-2. Grant access:
+3. Grant access:
 ```bash
 nais aiven grant-access stream --namespace <namespace> <userame> <streamname>
 ```
@@ -127,13 +127,13 @@ The default permission level matches the application's own access.
 
 To grant a user access to a specific Kafka topic:
 
-1. Ensure prerequisites:
-   * You have write access to the relevant topic.kafka.nais.io Kubernetes resource.
-   * The user has an Aiven service user. Create one if needed:
+Ensure prerequisites:
+1. You have write access to the relevant topic.kafka.nais.io Kubernetes resource. 
+2. The user has an Aiven service user. Create one if needed:
     ```bash
     nais aiven create kafka <username> <namespace>
     ```
-2. Grant access:
+3. Grant access:
 ```bash
 nais aiven grant-access topic --namespace <namespace> [--access <permission>] <username> <topicname>
 ```
