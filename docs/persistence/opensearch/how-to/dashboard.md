@@ -24,16 +24,18 @@ Create a personal temporary Aiven service account using [nais-cli](../../../oper
 ```shell
 nais aiven create opensearch \
     <username> \
-    <namespace> \
+    <team> \
     --access <access-level> \
     --instance <name-of-instance>
 ```
    
 where
 
-- `<username>` is a descriptive name for the service account, e.g. your name or somesthing similar.
-- `<namespace>` is the name of the team that owns the OpenSearch instance.
+- `<username>` is a descriptive name for the service account, e.g. your name.
+- `<team>` is the name of the team that owns the OpenSearch instance.
 - `<access-level>` is one of the available [access levels](../reference/README.md#access-levels), such as `read`.
+- `<name-of-instance>` is the name of the OpenSearch instance you want to access. A list of your team's instances can be found in [Nais Console](<<tenant_url("console")>>).
+  If the name of the instance is prefixed with `opensearch-<team>-`, you must **exclude** this prefix when passing it to this command.
 
 ### 2. Retrieve credentials for service account
 
