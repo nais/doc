@@ -81,10 +81,10 @@ If your metrics are not showing up in the expression browser, you can check the 
 
 ## Environments
 
-You can visit the prometheus instance for your environment by visiting the following URL:
+You can visit the Prometheus instance for your environment by visiting the following URL:
 
 ```plaintext
     https://prometheus.<MY-ENV>.<<tenant()>>.cloud.nais.io
 ```
 
-Replace `<MY-ENV>` with the environment you want to access, e.g. `dev`, `prod` etc.
+Replace `<MY-ENV>` with the environment you want to access, for example `dev`, or `prod`.
