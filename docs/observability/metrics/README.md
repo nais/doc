@@ -81,14 +81,10 @@ If your metrics are not showing up in the expression browser, you can check the 
 
 ## Environments
 
-List of Prometheus environments:
+You can visit the prometheus instance for your environment by visiting the following URL:
 
-{% if tenant() == "nav" %}
-* <<tenant_url("prometheus.dev-fss")>>
-* <<tenant_url("prometheus.prod-fss")>>
-* <<tenant_url("prometheus.dev-gcp")>>
-* <<tenant_url("prometheus.prod-gcp")>>
-{% else %}
-* <<tenant_url("prometheus.dev")>>
-* <<tenant_url("prometheus.prod")>>
-{% endif %}
+```plaintext
+    https://prometheus.<MY-ENV>.<<tenant()>>.cloud.nais.io
+```
+
+Replace `<MY-ENV>` with the environment you want to access, e.g. `dev`, `prod` etc.
