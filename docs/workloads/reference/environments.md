@@ -107,6 +107,11 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 
 [on-prem]: ../explanations/migrating-to-gcp.md#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp
 
+#### External IPs
+
+- 155.55.65.50 (with webproxy)
+- 155.55.51.x/24 (without webproxy)
+
 #### Kubectl access
 
 Kubectl access to the cluster is available through [naisdevice](../../operate/naisdevice/README.md) with just in time access ([jita](../../operate/naisdevice/explanations/jita.md)). You can only read or modify  resources in your team's namespace.
