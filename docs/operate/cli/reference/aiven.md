@@ -92,14 +92,8 @@ All files will ble placed in a folder named `aiven-secret-...` in the default lo
 ## grant-access
 
 The grant-access command updates the access control list (ACL) for specified Kubernetes resources (such as Kafka topics
-or streams). It requires a namespace to identify the target resource. You can provide the namespace
-directly with the --namespace flag or set a default using:
+or streams). It requires a team to identify the target resource, using the `--team` (`-t`) flag.
 
-```bash
-nais config set namespace <namespace>
-```
-
-This allows you to omit the --namespace flag in subsequent commands. 
 The command ensures that only authorized users can access the specified resources according to the permissions you grant.
 
 ### Stream
@@ -114,12 +108,12 @@ Ensure prerequisites:
     ```
 3. Grant access:
 ```bash
-nais aiven grant-access stream --namespace <namespace> <userame> <streamname>
+nais aiven grant-access stream --team <team> <username> <streamname>
 ```
 
-| Flag        | Required | Short | Description                                         |
-|-------------|----------|-------|-----------------------------------------------------|
-| namespace   | Yes      | -n    | Kubernetes namespace for the `stream.kafka.nais.io`. |
+| Flag        | Required | Short | Description                                    |
+|-------------|----------|-------|------------------------------------------------|
+| team        | Yes      | -t    | The team that owns the `stream.kafka.nais.io`. |
 
 The default permission level matches the application's own access.
 
@@ -135,14 +129,14 @@ Ensure prerequisites:
     ```
 3. Grant access:
 ```bash
-nais aiven grant-access topic --namespace <namespace> [--access <permission>] <username> <topicname>
+nais aiven grant-access topic --team <team> [--access <permission>] <username> <topicname>
 ```
 
 \* The `--access` flag is optional; if omitted, permission defaults to read.
 
 | Flag      | Required | Short | Default | Description                                           |
 |-----------|----------|-------|---------|-------------------------------------------------------|
-| namespace | Yes      | -n    |         | Kubernetes namespace for the `topic.kafka.nais.io`.   |
+| team      | Yes      | -t    |         | The team that owns the `topic.kafka.nais.io`.         |
 | access    | No       | -a    | read    | Permission level for the `topic.kafka.nais.io`'s ACL. |
 
 ## tidy

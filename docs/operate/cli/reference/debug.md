@@ -29,12 +29,12 @@ nais debug app
 |----------|----------|--------------------------------|
 | app      | Yes      | Name of the workload to debug. |
 
-| Flag      | Required | Short | Default             | Description                                               |
-|-----------|----------|-------|---------------------|-----------------------------------------------------------|
-| namespace | No       | -n    | current             | Namespace of the workload.                                |
-| context   | No       | -c    | current             | Context of the workload.                                  |
-| copy      | No       | -cp   | in current live pod | Copy the workload's pod to a separate pod with container. |
-| by-pod    | No       | -p    | first pod           | Specify the pod to debug.                                 |
+| Flag        | Required | Short | Default             | Description                                               |
+|-------------|----------|-------|---------------------|-----------------------------------------------------------|
+| team        | Yes      | -t    |                     | The team who owns the workload.                           |
+| environment | Yes      | -e    |                     | The environment where the workload runs.                  |
+| copy        | No       | -cp   | in current live pod | Copy the workload's pod to a separate pod with container. |
+| by-pod      | No       | -p    | first pod           | Specify the pod to debug.                                 |
 
 ## tidy
 
@@ -48,11 +48,11 @@ nais debug tidy
 |----------|----------|---------------------------------|
 | app      | Yes      | Name of the workload to delete. |
 
-| Flag      | Required | Short | Default  | Description            |
-|-----------|----------|-------|----------|------------------------|
-| namespace | No       | -n    | current  | Namespace of the pod.  |
-| context   | No       | -c    | current  | Context of the pod.    |
-| copy      | No       | -cp   | live pod | Delete the copied pod. |
+| Flag        | Required | Short | Default  | Description                              |
+|-------------|----------|-------|----------|------------------------------------------|
+| team        | Yes      | -t    |          | The team who owns the workload.          |
+| environment | Yes      | -e    |          | The environment where the workload runs. |
+| copy        | No       | -cp   | live pod | Delete the copied pod.                   |
 
 ## debug image and tools
 
