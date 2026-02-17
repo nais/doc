@@ -36,20 +36,13 @@ We have written a more detailed explanation of the process in the [explanation s
 
 ## Setting up the migration
 
-1. Select the correct kubernetes context and namespace
-
-   ```shell
-   kubectl config use-context <cluster>
-   kubectl config set-context --current --namespace=<namespace>
-   ```
-
-2. Run the [setup](../../../operate/cli/reference/postgres.md#migrate-setup) command and follow the prompts
+1. Run the [setup](../../../operate/cli/reference/postgres.md#migrate-setup) command and follow the prompts
     
     ```shell
-    nais postgres migrate setup <appname> <new-sql-instance-name>
+    nais postgres migrate setup --team <team> --environment <environment> <appname> <new-sql-instance-name>
     ```
 
-3. Check that the replication is up to date by checking the URL you got from the setup command.
+2. Check that the replication is up to date by checking the URL you got from the setup command.
    This may take some time, depending on how much data needs to be transferred. 
 
 ## Promoting the new SQLInstance
@@ -62,7 +55,7 @@ We have written a more detailed explanation of the process in the [explanation s
 1. Run the [promote](../../../operate/cli/reference/postgres.md#migrate-promote) command and follow the instructions
 
     ```shell
-    nais postgres migrate promote <appname> <new-sql-instance-name>
+    nais postgres migrate promote --team <team> --environment <environment> <appname> <new-sql-instance-name>
     ```
 
 2. Check that the application is running as expected, and that all data is available in the new SQLInstance.
@@ -81,7 +74,7 @@ We have written a more detailed explanation of the process in the [explanation s
 1. Run the [finalize](../../../operate/cli/reference/postgres.md#migrate-finalize) command
 
     ```shell
-    nais postgres migrate finalize <appname> <new-sql-instance-name>
+    nais postgres migrate finalize --team <team> --environment <environment> <appname> <new-sql-instance-name>
     ```
 
 ## Rolling back the migration
@@ -91,5 +84,5 @@ If you decide to not go through with the migration, you can roll back to the old
 1. Run the [rollback](../../../operate/cli/reference/postgres.md#migrate-rollback) command
 
     ```shell
-    nais postgres migrate rollback <appname> <new-sql-instance-name>
+    nais postgres migrate rollback --team <team> --environment <environment> <appname> <new-sql-instance-name>
     ```

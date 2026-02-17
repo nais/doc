@@ -24,35 +24,19 @@ Databases should always be accessed using a personal account, and the access sho
     nais login
     ```
 
-!!! check "Step 3. Select the context and namespace of your application"
-    If you have installed [kubectx](https://github.com/ahmetb/kubectx) you can use the following command to select the context and namespace of your application:
-
-    ```bash
-    kubectx <CLUSTER>
-    kubens <TEAM>
-    ```
-
-    If you do not have kubectx installed, you can use the following command to select the context and namespace of your application:
-
-    ```bash
-    kubectl config use-context <CLUSTER>
-    kubectl config set-context --current --namespace=<TEAM>
-    ```
-
-!!! check "Step 4. One-time setup of privileges to SQL IAM users"
-
+!!! check "Step 3. One-time setup of privileges to SQL IAM users"
     This is only required once per database instance.
 
     Once the database instance is created, we need to grant the IAM users access to the `public` schema.
 
     ```bash
-    nais postgres prepare <MYAPP>
+    nais postgres prepare --team <TEAM> --environment <ENVIRONMENT> <MYAPP>
     ```
 
     To allow access to a different schema than `public`, you can use the `--schema` flag to specify the schema name.
 
     ```bash
-    nais postgres prepare --schema <SCHEMA_NAME> <MYAPP>
+    nais postgres prepare --team <TEAM> --environment <ENVIRONMENT> --schema <SCHEMA_NAME> <MYAPP>
     ```
 
     Prepare will prepare the postgres instance by connecting using the
@@ -62,7 +46,7 @@ Databases should always be accessed using a personal account, and the access sho
     The default is to allow only `SELECT` statements. If you need to allow all privileges, you can use the `--all-privileges` flag.
 
     ```bash
-    nais postgres prepare --all-privileges <MYAPP>
+    nais postgres prepare --team <TEAM> --environment <ENVIRONMENT> --all-privileges <MYAPP>
     ```
 
 Read more about [Grants and Privileges](../explanations/grants-and-privileges.md).
@@ -74,7 +58,7 @@ Read more about [Grants and Privileges](../explanations/grants-and-privileges.md
     This is required once per user and requires that you have access to the team's GCP project.
 
     ```bash
-    nais postgres grant <MYAPP>
+    nais postgres grant --team <TEAM> --environment <ENVIRONMENT> <MYAPP>
     ```
 
     This will give you a limited time access to the database unless there's already an existing permission for your user.
@@ -84,7 +68,7 @@ Read more about [Grants and Privileges](../explanations/grants-and-privileges.md
     Use `nais postgres proxy` to create a secure tunnel to the database.
 
     ```bash
-    nais postgres proxy --reason "debugging issue" <MYAPP>
+    nais postgres proxy --team <TEAM> --environment <ENVIRONMENT> --reason "debugging issue" <MYAPP>
     ```
 
     This will start a proxy client in the background and print the connection string to the database.
@@ -94,7 +78,7 @@ Read more about [Grants and Privileges](../explanations/grants-and-privileges.md
     If you'd like to use the psql binary, you can use the following command to connect to the database:
 
     ```bash
-    nais postgres psql --reason "debugging issue" <MYAPP>
+    nais postgres psql --team <TEAM> --environment <ENVIRONMENT> --reason "debugging issue" <MYAPP>
     ```
 
     This will create a proxy on a random port and execute the psql binary with the correct connection string.

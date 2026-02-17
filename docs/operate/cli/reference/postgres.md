@@ -10,22 +10,22 @@ setting up a cloudsql proxy, and connecting to the database using a psql shell.
 
 All commands have the following common flags available:
 
-| Flag      | Required | Short | Default                          | Description                                                                     |
-|-----------|----------|-------|----------------------------------|---------------------------------------------------------------------------------|
-| namespace | No       | -n    | namespace set in kubeconfig      | Kubernetes namespace where app is deployed                                      |
-| cluster   | No       | -c    | context set in kubeconfig        | Kubernetes context where app is deployed                                        |
+| Flag        | Required | Short | Default | Description                                    |
+|-------------|----------|-------|---------|------------------------------------------------|
+| team        | Yes      | -t    |         | The team who owns the application              |
+| environment | Yes      | -e    |         | The environment where the application runs     |
 
 Note all flags has to appear before arguments (otherwise the flags will be interpreted as arguments).
 So the common flags for Postgres needs to be positioned after `nais postgres <cmd>`, but before arguments:
 
 OK ✅:
 ```
-nais postgres prepare --context dev-gcp --namespace dreamteam appname
+nais postgres prepare --team dreamteam --environment dev-gcp appname
 ```
 
 Not OK ❌:
 ```
-nais postgres prepare appname --context dev-gcp --namespace dreamteam
+nais postgres prepare appname --team dreamteam --environment dev-gcp
 ```
 
 !!! warning
