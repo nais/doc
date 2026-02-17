@@ -7,8 +7,13 @@ conditional: [tenant, nav]
 
 The aiven commands can be used to give access to an already existing Aiven service by creating a `AivenApplication` in your specified namespace and extract credentials.
 Specifically the `aiven create service` command will create a personal, protected, and time-limited credential.
-This uses your currently configured kubectl context, so in order for it to work you need to select a suitable context first.
 For instance, credentials for nav-prod can only be generated in the prod clusters.
+
+All commands have the following common flag available:
+
+| Flag        | Required | Short | Description                                        |
+|-------------|----------|-------|----------------------------------------------------|
+| environment | No       | -e    | The environment (Kubernetes context) to target.    |
 
 ## create
 
@@ -44,14 +49,14 @@ spec:
 ```
 
 ```bash
-nais aiven create -p nav-prod -s some-unique-secretname -e 10 kafka username namespace
+nais aiven create -p nav-prod -s some-unique-secretname --expire 10 kafka username namespace
 ```
 
 | Flag        | Required | Short | Default                         | Description                                         |
 |-------------|----------|-------|---------------------------------|-----------------------------------------------------|
 | pool        | No       | -p    | nav-dev                         | [Kafka pool](../../../persistence/kafka/README.md). |
 | secret-name | No       | -s    | namespace-username-randomstring | Preferred secret-name.                              |
-| expire      | No       | -e    | 1                               | Time in days the secret should be valid.            |
+| expire      | No       |       | 1                               | Time in days the secret should be valid.            |
 
 ### OpenSearch example
 
@@ -67,7 +72,7 @@ This is because the usernames on OpenSearch instances are pre-defined for each p
 | access   | No       | -a    | read                            | One of: admin, read, write, readwrite.                                                                           |
 | instance | Yes      | -i    |                                 | Name of the instance. If your instance name is prefixed with `opensearch-<team>-`, you must exclude this prefix. |
 | secret   | No       | -s    | namespace-username-randomstring | Preferred secret-name.                                                                                           |
-| expire   | No       | -e    | 1                               | Time in days the secret should be valid.                                                                         |
+| expire   | No       |       | 1                               | Time in days the secret should be valid.                                                                         |
 
 ## get
 
@@ -111,9 +116,10 @@ Ensure prerequisites:
 nais aiven grant-access stream --team <team> <username> <streamname>
 ```
 
-| Flag        | Required | Short | Description                                    |
-|-------------|----------|-------|------------------------------------------------|
-| team        | Yes      | -t    | The team that owns the `stream.kafka.nais.io`. |
+| Flag        | Required | Short | Description                                        |
+|-------------|----------|-------|----------------------------------------------------|
+| team        | Yes      | -t    | The team that owns the `stream.kafka.nais.io`.     |
+| environment | No       | -e    | The environment (Kubernetes context) to target.    |
 
 The default permission level matches the application's own access.
 
@@ -134,10 +140,11 @@ nais aiven grant-access topic --team <team> [--access <permission>] <username> <
 
 \* The `--access` flag is optional; if omitted, permission defaults to read.
 
-| Flag      | Required | Short | Default | Description                                           |
-|-----------|----------|-------|---------|-------------------------------------------------------|
-| team      | Yes      | -t    |         | The team that owns the `topic.kafka.nais.io`.         |
-| access    | No       | -a    | read    | Permission level for the `topic.kafka.nais.io`'s ACL. |
+| Flag        | Required | Short | Default | Description                                           |
+|-------------|----------|-------|---------|-------------------------------------------------------|
+| team        | Yes      | -t    |         | The team that owns the `topic.kafka.nais.io`.         |
+| environment | No       | -e    |         | The environment (Kubernetes context) to target.       |
+| access      | No       | -a    | read    | Permission level for the `topic.kafka.nais.io`'s ACL. |
 
 ## tidy
 
