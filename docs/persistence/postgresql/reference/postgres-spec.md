@@ -96,7 +96,6 @@ Statement classes to log.
 
 Type: `array`<br />
 Required: `false`<br />
-Default value: `ddl,write`<br />
 
 ??? example
     ``` yaml
