@@ -62,7 +62,7 @@ tags: [naisdevice, how-to]
 
     1. Start _naisdevice_ from the _Start menu_
 
-=== "Winows (Manual)"
+=== "Windows (Manual)"
 
     {% if tenant() == "nav" %}
     1. Go [here](https://auth.kolide.com/device/registrations/new?organization_id=1401), log in, and follow the prompts.
