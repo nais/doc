@@ -233,8 +233,6 @@ spec:
       memory: 256Mi
   restartPolicy: Never
   schedule: '*/15 0 0 0 0'
-  secureLogs:
-    enabled: true
   skipCaBundle: true
   startup:
     failureThreshold: 10

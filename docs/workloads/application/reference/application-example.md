@@ -293,8 +293,6 @@ spec:
     requests:
       cpu: 200m
       memory: 256Mi
-  secureLogs:
-    enabled: true
   service:
     port: 80
     protocol: http

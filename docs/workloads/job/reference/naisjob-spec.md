@@ -4452,38 +4452,6 @@ Required: `false`<br />
       schedule: '*/15 0 0 0 0'
     ```
 
-## secureLogs
-Whether or not to enable a sidecar container for secure logging.
-Deprecated. Support for Secure Logs in Nais has been deprecated and will be removed.
-
-!!! failure "Deprecated"
-    This feature is deprecated, preserved only for backwards compatibility.
-
-Type: `object`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      secureLogs:
-        enabled: true
-    ```
-
-### secureLogs.enabled
-Whether to enable a sidecar container for secure logging.
-If enabled, a volume is mounted in the pods where secure logs can be saved.
-
-Type: `boolean`<br />
-Required: `true`<br />
-Default value: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      secureLogs:
-        enabled: true
-    ```
-
 ## skipCaBundle
 Whether to skip injection of NAV certificate authority bundle or not. Defaults to false.
 

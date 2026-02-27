@@ -5357,40 +5357,6 @@ Pattern: `^\d+[KMG]i$`<br />
           memory: 256Mi
     ```
 
-{%- if tenant() == "nav" %}
-## secureLogs
-Whether to enable a sidecar container for secure logging.
-Deprecated. Support for Secure Logs in Nais has been deprecated and will be removed.
-
-!!! failure "Deprecated"
-    This feature is deprecated, preserved only for backwards compatibility.
-
-Type: `object`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      secureLogs:
-        enabled: true
-    ```
-
-### secureLogs.enabled
-Whether to enable a sidecar container for secure logging.
-If enabled, a volume is mounted in the pods where secure logs can be saved.
-
-Type: `boolean`<br />
-Required: `true`<br />
-Default value: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      secureLogs:
-        enabled: true
-    ```
-
-{%- endif %}
 ## service
 Specify which port and protocol is used to connect to the application in the container.
 Defaults to HTTP on port 80.
