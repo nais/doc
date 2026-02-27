@@ -190,13 +190,12 @@ A PVK is not a unique requirement for GCP, so all applications should already ha
 ## GCP compared to on-premises
 
 | Feature                   | on-prem    | gcp                | Comment                                                         |
-| :------------------------ | :--------- | :----------------- | :-------------------------------------------------------------- |
+|:--------------------------|:-----------|:-------------------|:----------------------------------------------------------------|
 | Deploy                    | yes        | yes                | different clustername when deploying                            |
 | Logging                   | yes        | yes                | different clustername in logs.az.nav.no                         |
 | Metrics                   | yes        | yes                | same mechanism, different datasource                            |
 | Nais app dashboard        | yes        | yes                | new and improved in GCP                                         |
 | Alerts                    | yes        | yes                | identical                                                       |
-| Secure logs               | yes        | yes                | different clustername in logs.az.nav.no                         |
 | Kafka                     | yes        | yes                | identical                                                       |
 | Secrets                   | Vault      | Console secrets    |                                                                 |
 | Team namespaces           | yes        | yes                |                                                                 |

@@ -142,11 +142,8 @@ The format for the logs should be JSON, and you must include the following field
 {% if tenant() == "nav" %}
 ## Migrating from Secure Logs
 
-If you are migrating from Secure Logs to Team Logs, you need to ensure that your application is configured to send logs to the `team-logs` appender instead of the Secure Logs appender. This involves updating your logging configuration files (`logback.xml` or `log4j2.xml`) and ensuring that the necessary dependencies are included in your project.
-
-It is possible to use both Secure Logs and Team Logs simultaneously, but it is only recommended to do so temporarily during the migration process. Once you have confirmed that your logs are being sent correctly to Team Logs, you should remove the Secure Logs configuration from your application.
-
-Once you have completely migrated to Team Logs you should also remove any references to Secure Logs in your `nais.yaml` configuration - specifically the `secureLogs` section.
+If you are migrating from Secure Logs to Team Logs, you need to ensure that your application is configured to send logs to the `team-logs` appender instead of the Secure Logs appender.
+This involves updating your logging configuration files (`logback.xml` or `log4j2.xml`) and ensuring that the necessary dependencies are included in your project.
 {% endif %}
 
 ## Writing Logs
