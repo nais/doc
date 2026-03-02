@@ -4,15 +4,9 @@
 	import { PencilIcon } from "@nais/ds-svelte-community/icons";
 	import { tick } from "svelte";
 
-	let {
-		name,
-		readonly,
-		ctx: ctxProp,
-	}: { name: string; readonly: boolean; ctx?: PageContext } = $props();
+	let { name, readonly }: { name: string; readonly: boolean } = $props();
 
-	// Use provided context prop (for mount() scenarios) or get from Svelte context
-	const ctx = ctxProp ?? getContext();
-
+	const ctx = getContext() as PageContext;
 	const id = $props.id();
 
 	let edit = $state(false);

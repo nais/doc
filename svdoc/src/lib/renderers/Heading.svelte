@@ -7,8 +7,8 @@
 	let { token }: { token: Tokens.Heading } = $props();
 
 	// Generate ID from heading tokens, skipping emoji shortcodes
-	const headingText = token.tokens ? extractTextForId(token.tokens) : token.text;
-	const headingId = headingText ? slugify(headingText) : undefined;
+	const headingText = $derived(token.tokens ? extractTextForId(token.tokens) : token.text);
+	const headingId = $derived(headingText ? slugify(headingText) : undefined);
 
 	// Map heading depth to appropriate size
 	const sizeMap: Record<number, "xlarge" | "large" | "medium" | "small" | "xsmall"> = {
@@ -20,8 +20,8 @@
 		6: "xsmall",
 	};
 
-	const headingSize = sizeMap[token.depth] || "medium";
-	const headingLevel = `h${token.depth}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+	const headingSize = $derived(sizeMap[token.depth] || "medium");
+	const headingLevel = $derived(`h${token.depth}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6");
 </script>
 
 <Heading as={headingLevel} size={headingSize} spacing id={headingId}>

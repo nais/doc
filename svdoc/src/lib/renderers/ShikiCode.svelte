@@ -17,12 +17,12 @@
 	const codeBlockId = $props.id();
 
 	// Parse language and title from the lang info string
-	const langInfo = lang || "text";
-	const { language } = parseHighlightLines(langInfo);
-	const title = parseTitle(langInfo);
+	const langInfo = $derived(lang || "text");
+	const { language } = $derived(parseHighlightLines(langInfo));
+	const title = $derived(parseTitle(langInfo));
 
 	// Highlight code with Shiki (async)
-	const highlighted = await highlightCodeDual(text, langInfo);
+	const highlighted = $derived(await highlightCodeDual(text, langInfo));
 
 	// Merge Shiki annotations (line info) with token annotations (content)
 	const annotationsWithContent = $derived.by(() => {
@@ -37,7 +37,7 @@
 	});
 
 	const hasAnnotations = $derived(annotationsWithContent.length > 0);
-	const hasVariables = highlighted.variables && highlighted.variables.length > 0;
+	const hasVariables = $derived(highlighted.variables && highlighted.variables.length > 0);
 
 	// Track which annotation is currently highlighted
 	let highlightedAnnotation = $state<string | null>(null);

@@ -5,7 +5,7 @@
 	let { token }: { token: Tokens.Em } = $props();
 </script>
 
-<em as="em">
+<em>
 	{#if (token.tokens?.length || 0) > 0}
 		<Renderer tokens={token.tokens!} />
 	{:else}
