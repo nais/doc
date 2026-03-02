@@ -10,7 +10,7 @@ tags: [application, how-to]
 
 ## Delete your application
 
-1. Open [Nais console :octicons-link-external-16:](https://console.<<tenant()>>.cloud.nais.io) in your browser
+1. Open [Nais console](https://console.<<tenant()>>.cloud.nais.io) in your browser
 2. Select your team
 3. Select the `Apps` tab
 4. Select the application that you want to delete
