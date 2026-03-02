@@ -26,7 +26,8 @@ We have written a more detailed explanation of the process in the [explanation s
 
 !!! danger
     
-    During migration, you can't make structural database ([DDL](https://en.wikipedia.org/wiki/Data_definition_language)) changes (changing structure of tables, adding or removing tables, etc.) to your database. 
+    During migration, you can't make structural database ([DDL](https://en.wikipedia.org/wiki/Data_definition_language)) changes (changing structure of tables, adding or removing tables, etc.) to your database.
+    You should also avoid deploying your application unless instructed to do so by the tool.
     Check with your team to avoid any problems during the migration.
 
 * Make sure to have the latest version of the [nais CLI](../../../operate/cli/README.md) installed.
