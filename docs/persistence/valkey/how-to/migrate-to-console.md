@@ -37,6 +37,7 @@ Console currently supports the following fields:
         - `memory = "GB_1"`
         - `tier = "SINGLE_NODE"`
 - `.spec.userConfig.valkey_maxmemory_policy`
+- `.spec.userConfig.valkey_number_of_databases`
 - `.spec.project` (automatically set)
 - `.spec.terminationProtection` (automatically enabled)
 
