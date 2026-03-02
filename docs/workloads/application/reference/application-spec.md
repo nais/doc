@@ -697,6 +697,15 @@ Required: `false`<br />
               - id: 00000000-0000-0000-0000-000000000000
     ```
 
+##### azure.application.claims.extra
+Deprecated. These claims are already included by default; this field is ignored and has no effect. It will be removed in a future release.
+
+!!! failure "Deprecated"
+    This feature is deprecated, preserved only for backwards compatibility.
+
+Type: `array`<br />
+Required: `false`<br />
+
 ##### azure.application.claims.groups
 Groups is a list of Azure AD group IDs to be emitted in the `groups` claim in tokens issued by Azure AD.
 This also assigns groups to the application for access control. Only direct members of the groups are granted access.
@@ -748,6 +757,25 @@ Default value: `false`<br />
         application:
           enabled: true
     ```
+
+#### azure.application.replyURLs
+Deprecated, do not use. This is currently only needed if you're implementing logins _without_ using sidecar. This field will be removed in a future release.
+
+!!! failure "Deprecated"
+    This feature is deprecated, preserved only for backwards compatibility.
+
+Type: `array`<br />
+Required: `false`<br />
+
+#### azure.application.singlePageApplication
+Deprecated, do not use. Use sidecar instead. This field is only used if you're implementing logins in a client-side
+frontend application, which we do not recommend. This field will be removed in a future release.
+
+!!! failure "Deprecated"
+    This feature is deprecated, preserved only for backwards compatibility.
+
+Type: `boolean`<br />
+Required: `false`<br />
 
 {%- if tenant() == "nav" %}
 #### azure.application.tenant
