@@ -749,8 +749,13 @@ Required: `false`<br />
 {%- if tenant() == "nav" %}
 #### azure.application.tenant
 Tenant targets a specific tenant for the Entra ID application.
-Only works in the development clusters. Only use this if you have a specific reason to do so.
-Using this will _isolate_ your application from all other applications that are not using the same tenant.
+
+In production clusters, the value defaults to `nav.no` if unspecified; no other value is allowed.
+In development clusters, the value defaults to `trygdeetaten.no` if unspecified.
+Effectively, this means that the field only works in the development clusters.
+
+We do not recommend setting this field unless you understand the consequences and have a specific reason to do so.
+Changing tenants will _isolate_ your application from all other applications that are not using the same tenant.
 
 Relevant information:
 
