@@ -5105,6 +5105,7 @@ Required: `false`<br />
             consumerGroup: dev-gcp
             threshold: 10
             topic: nais-verification.kafka-canary-dev-gcp
+          scaleUpStabilizationWindowSeconds: 30
     ```
 
 ### replicas.cpuThresholdPercentage
@@ -5188,6 +5189,7 @@ Required: `false`<br />
             consumerGroup: dev-gcp
             threshold: 10
             topic: nais-verification.kafka-canary-dev-gcp
+          scaleUpStabilizationWindowSeconds: 30
     ```
 
 #### replicas.scalingStrategy.cpu
@@ -5280,6 +5282,21 @@ Required: `true`<br />
         scalingStrategy:
           kafka:
             topic: nais-verification.kafka-canary-dev-gcp
+    ```
+
+#### replicas.scalingStrategy.scaleUpStabilizationWindowSeconds
+Configure stabilization window for scaling up, to avoid cpu storms on startup. Defaults to 0 seconds.
+
+Type: `integer`<br />
+Required: `false`<br />
+Default value: `0s`<br />
+
+??? example
+    ``` yaml
+    spec:
+      replicas:
+        scalingStrategy:
+          scaleUpStabilizationWindowSeconds: 30
     ```
 
 ## resources
