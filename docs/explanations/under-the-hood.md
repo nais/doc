@@ -10,9 +10,9 @@ In this explanation, we will go through some of the underlying technologies we u
 
 ### Runtime implementation
 
-Each _environment_ is its own [Kubernetes :octicons-link-external-16:](https://kubernetes.io) cluster using [Google Kubernetes Engine (GKE) :octicons-link-external-16:](https://cloud.google.com/kubernetes-engine?hl=en).
+Each _environment_ is its own [Kubernetes](https://kubernetes.io) cluster using [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine?hl=en).
 
-Inside each environment, every team has their own [namespace :octicons-link-external-16:](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/).
+Inside each environment, every team has their own [namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/).
 
 A namespace can contain one or more [workloads](../workloads/README.md).
 Only members of the team have access to the namespace and its resources.
@@ -33,13 +33,13 @@ In the example above, the team has an application and a job running in the `dev`
 
 All workloads are deployed in a team namespace.
 
-Every workload is isolated from _all_ other workloads with [Kubernetes network policies :octicons-link-external-16:](https://kubernetes.io/docs/concepts/services-networking/network-policies/).
+Every workload is isolated from _all_ other workloads with [Kubernetes network policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/).
 
 Access is denied by default, unless [explicitly allowed](../workloads/explanations/zero-trust.md).
 
 ## Google Cloud Platform (GCP) resources
 
-Each team has a dedicated [GCP project :octicons-link-external-16:](https://cloud.google.com/resource-manager/docs/creating-managing-projects) for _each_ environment.
+Each team has a dedicated [GCP project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) for _each_ environment.
 
 When your workload requests resources e.g. a bucket, it will be provisioned in the team's project for the matching environment.
 

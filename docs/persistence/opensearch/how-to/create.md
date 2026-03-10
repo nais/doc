@@ -12,7 +12,7 @@ This guide will show you how to create a OpenSearch instance for your team using
 
 ## Steps
 
-1. Open [Nais Console :octicons-link-external-16:](https://console.<<tenant()>>.cloud.nais.io) in your browser
+1. Open [Nais Console](https://console.<<tenant()>>.cloud.nais.io) in your browser
 2. Select your team
 3. Select **OpenSearch** in the sidebar menu
 4. Click the **Create OpenSearch** button
