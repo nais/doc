@@ -5,6 +5,7 @@ tags: [naisdevice, how-to]
 # Troubleshooting naisdevice
 
 {%- if tenant() == "nav" %}
+
 ## Kolide
 
 > naisdevice cannot connect, yet `/msg @Kolide status` reports that everything is fine
@@ -14,7 +15,7 @@ tags: [naisdevice, how-to]
 > Kolide is reporting that your device has not been seen "in a long time"
 
 - Reinstall ([uninstall](uninstall.md) -> [install](install.md))
-{%- endif %}
+  {%- endif %}
 
 ## Browser not opening
 
@@ -31,9 +32,9 @@ Restart your default browser.
 
 - Stop naisdevice
 - Remove configuration directory
-    - Mac: `rm -r "~/Library/Application Support/naisdevice/"`
-    - Linux: `rm -r "~/.config/naisdevice/"`
-    - Windows: `rmdir /s "C:\ProgramData\NAV\naisdevice\"`
+  - Mac: `rm -ri ~/Library/Application\ Support/naisdevice/`
+  - Linux: `rm -ri ~/.config/naisdevice/`
+  - Windows: `rmdir /s "C:\ProgramData\NAV\naisdevice\"`
 - Start naisdevice
 
 ## Windows virus scanner
@@ -41,9 +42,9 @@ Restart your default browser.
 > Windows virus scanner blocks naisdevice.exe installer
 
 - Make sure you downloaded from the right source, the signature is valid and the checksum matches the file!
-{%- if tenant() == "nav" %}
+  {%- if tenant() == "nav" %}
 - See <https://nav-it.slack.com/archives/C0190RZ6HB4/p1687518220599119>
-{%- endif %}
+  {%- endif %}
 - Try adding an exception: Windows Security / Virus & threat protection / Exclusions.
 - Someone reported that running naisdevice.exe from cmd.exe can help.
 - Sometimes the installer gets blocked. To unblock it, follow these steps:
