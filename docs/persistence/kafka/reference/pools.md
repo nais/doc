@@ -14,10 +14,19 @@ Applications can access topics from any cluster, including on-premises.
 
 Use the `nav-dev` pool for development and `nav-prod` for production.
 
-| Pool                 | Min. replication | Max. replication | Topic declared in | Available from                               |
-|:---------------------|:-----------------|:-----------------|:------------------|:---------------------------------------------|
-| `nav-dev`            | 2                | 3                | `dev-gcp`         | `dev-gcp`, `dev-fss`                         |
-| `nav-prod`           | 2                | 9                | `prod-gcp`        | `prod-gcp`, `prod-fss`                       |
+| Pool       | Min. replication | Max. replication | Topic declared in | Available from         |
+|:-----------|:-----------------|:-----------------|:------------------|:-----------------------|
+| `nav-dev`  | 2                | 3                | `dev-gcp`         | `dev-gcp`, `dev-fss`   |
+| `nav-prod` | 2                | 9                | `prod-gcp`        | `prod-gcp`, `prod-fss` |
+
+{% elif tenant() == "atil" %}
+
+Use the `<<tenant()>>-dev` pool for development and `<<tenant()>>-prod` for production.
+
+| Pool                | Available from |
+|:--------------------|:---------------|
+| `<<tenant()>>-dev`  | `dev`          |
+| `<<tenant()>>-prod` | `prod`         |
 
 {% else %}
 
