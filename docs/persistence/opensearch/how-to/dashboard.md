@@ -17,34 +17,28 @@ This is done through [Just In Time Access (JITA)](../../../operate/naisdevice/ex
 
 ## Steps
 
-### 1. Create a personal service account
+### 1. Get temporary credentials
 
-Create a personal temporary Aiven service account using [nais-cli](../../../operate/cli/README.md):
+Get temporary credentials for the OpenSearch instance using [nais-cli](../../../operate/cli/README.md):
 
 ```shell
-nais aiven create opensearch \
-    <username> \
-    <team> \
-    --access <access-level> \
-    --instance <name-of-instance>
+nais opensearch credentials <instance> \
+    --team <team> \
+    --environment <environment> \
+    --permission <access-level> \
+    --ttl <duration>
 ```
-   
+
 where
 
-- `<username>` is a descriptive name for the service account, e.g. your name.
+- `<instance>` is the name of the OpenSearch instance you want to access. A list of your team's instances can be found in [Nais Console](<<tenant_url("console")>>).
 - `<team>` is the name of the team that owns the OpenSearch instance.
+- `<environment>` is the environment where the instance runs (e.g. `dev`, `prod`).
 - `<access-level>` is one of the available [access levels](../reference/README.md#access-levels), such as `read`.
-- `<name-of-instance>` is the name of the OpenSearch instance you want to access. A list of your team's instances can be found in [Nais Console](<<tenant_url("console")>>).
-  If the name of the instance is prefixed with `opensearch-<team>-`, you must **exclude** this prefix when passing it to this command.
+- `<duration>` is how long the credentials should be valid (e.g. `1d`, `7d`, max `30d`).
 
-### 2. Retrieve credentials for service account
+The command returns the dashboard URI, username, and password directly. The credentials are temporary and expire automatically when the TTL runs out.
 
-Retrieve the dashboard URI, username, and password for the service account you just created:
+### 2. Open the dashboard
 
-```shell
-nais aiven get opensearch \
-    <secret-name> \
-    <namespace>
-```
-
-where `<secret-name>` is the name of the Kubernetes secret created in the previous step.
+Use the URI, username, and password from the output to log in to the OpenSearch dashboard.
