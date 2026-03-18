@@ -49,6 +49,5 @@ tags: [command-line, how-to]
 
 === "Manual"
 
-    Download the archive for windows from [nais/cli](https://github.com/nais/cli/releases/latest) and unpack the tool to a directory on your `$PATH`.
-    If you are unable to run nais after installing, check out our [troubleshooting guide](troubleshooting.md).
+    Download the archive for your platform from [nais/cli](https://github.com/nais/cli/releases/latest) and unpack the tool to a directory on your `$PATH`.
 

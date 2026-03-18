@@ -12,7 +12,7 @@ When you start naisdevice you will not be automatically connected to all the ava
 !!! info
     The gateways currently requiring JITA are `aiven-prod`, `onprem-k8s-prod` and `postgres-prod`.
 
-    Access can be requested via the naisdevice menu or through the [nais cli](../../cli/reference/device.md#jita).
+    Access can be requested via the naisdevice menu or through the [nais cli](../../cli/README.md).
 
 Once authenticated you will be presented with a form where you have to supply a short reason for why access is needed and for how long. You will then be granted access for the requested amount of time instantly and automatically.
 
