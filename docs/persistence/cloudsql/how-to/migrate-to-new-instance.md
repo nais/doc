@@ -37,7 +37,7 @@ We have written a more detailed explanation of the process in the [explanation s
 
 ## Setting up the migration
 
-1. Run the [setup](../../../operate/cli/reference/postgres.md#migrate-setup) command and follow the prompts
+1. Run the `nais postgres migrate setup` command and follow the prompts
     
     ```shell
     nais postgres migrate setup --team <team> --environment <environment> <appname> <new-sql-instance-name>
@@ -53,7 +53,7 @@ We have written a more detailed explanation of the process in the [explanation s
     Promoting the new SQLInstance will cause downtime for your application.
     Before proceeding, decide on a time when your application can have downtime to perform the promotion.
 
-1. Run the [promote](../../../operate/cli/reference/postgres.md#migrate-promote) command and follow the instructions
+1. Run the `nais postgres migrate promote` command and follow the instructions
 
     ```shell
     nais postgres migrate promote --team <team> --environment <environment> <appname> <new-sql-instance-name>
@@ -72,7 +72,7 @@ We have written a more detailed explanation of the process in the [explanation s
 
     There is no rollback option after this point.
 
-1. Run the [finalize](../../../operate/cli/reference/postgres.md#migrate-finalize) command
+1. Run the `nais postgres migrate finalize` command
 
     ```shell
     nais postgres migrate finalize --team <team> --environment <environment> <appname> <new-sql-instance-name>
@@ -82,7 +82,7 @@ We have written a more detailed explanation of the process in the [explanation s
 
 If you decide to not go through with the migration, you can roll back to the old SQLInstance at any point (unless you have run finalize).
 
-1. Run the [rollback](../../../operate/cli/reference/postgres.md#migrate-rollback) command
+1. Run the `nais postgres migrate rollback` command
 
     ```shell
     nais postgres migrate rollback --team <team> --environment <environment> <appname> <new-sql-instance-name>

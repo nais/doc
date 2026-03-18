@@ -35,7 +35,7 @@ ingresses:
   - https://tjenester.nav.no/myapplication
 ```
 
-Run the [`nais validate`](../../operate/cli/reference/validate.md) tool to see the final results:
+Run the `nais validate` tool to see the final results:
 
 ```bash
 $ nais validate --verbose --vars vars.yaml nais.yaml
