@@ -1,6 +1,7 @@
 nav:
 - README.md
 - CDN: cdn
+- config
 - secrets
 - feature-toggling.md
 - ...
