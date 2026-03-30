@@ -29,6 +29,21 @@ conditional: [tenant, nav, ssb]
               ^^^^^^--- the keyword "tenant" is required to exclude all not mentioned
 ```
 
+## Copilot Agents
+
+Four agents handle documentation tasks:
+
+```
+@research-agent → @technical-writer → @plain-language-en → @docs-qa
+```
+
+- **`@research-agent`** — Investigates Nais source repos via GitHub MCP. Read-only.
+- **`@technical-writer`** — Writes/edits docs following repo conventions (Diataxis, mkdocs, Jinja macros).
+- **`@plain-language-en`** — Copy-edits for plain language, removes AI jargon.
+- **`@docs-qa`** — Verifies docs accuracy against Nais source code. Read-only.
+
+Start with `@research-agent` to gather context, hand off to `@technical-writer` to draft, which auto-hands off to `@plain-language-en` for polish. Then hand off to `@docs-qa` to verify accuracy against source code. Use `@docs-qa` standalone to audit any existing page.
+
 ## Local development
 
 ## 1. Install Poetry
