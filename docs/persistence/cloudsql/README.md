@@ -116,4 +116,4 @@ Your application may not be able to connect to the database until the provisioni
     You can fix this by specifying in the [Nais manifest](../../workloads/application/reference/application-spec.md#gcpsqlinstancestype)
     the version type to the same as the current or a higher version.
 
-[nais-cli]: ../../operate/cli/how-to/install.md
+[nais-cli]: https://cli.nais.io

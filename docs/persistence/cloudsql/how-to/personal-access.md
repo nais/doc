@@ -83,4 +83,4 @@ Read more about [Grants and Privileges](../explanations/grants-and-privileges.md
 
     This will create a proxy on a random port and execute the psql binary with the correct connection string.
 
-[nais-cli]: ../../../operate/cli/how-to/install.md
+[nais-cli]: https://cli.nais.io

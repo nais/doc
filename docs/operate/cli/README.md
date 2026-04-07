@@ -1,7 +1,3 @@
-# nais-cli
+# CLI
 
-nais-cli is a command-line tool for interacting with the Nais platform.
-
-## Installation
-
-- [Install nais-cli](how-to/install.md)
+Everything about the nais CLI is available at [cli.nais.io](https://cli.nais.io).

@@ -4,7 +4,7 @@ This how-to guide will show you how to upload a Docker image to your team's imag
 
 ## Prerequisites
 
-- [Nais CLI](../../operate/cli/how-to/install.md) installed.
+- [Nais CLI](https://cli.nais.io) installed.
 - A Docker runtime installed and running on your machine
 
 ## Log into Nais
