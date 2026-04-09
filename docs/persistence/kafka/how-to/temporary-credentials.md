@@ -18,7 +18,7 @@ where
 
 - `<team>` is the name of the team.
 - `<environment>` is the environment where Kafka runs (e.g. `dev`, `prod`).
-- `<duration>` is how long the credentials should be valid (e.g. `1d`, `7d`, max `30d`).
+- `<duration>` is how long the credentials should be valid (e.g. `1d`, `7d`, max `365d`).
 
 The default output format is environment variables. Use `--output` to change format:
 
