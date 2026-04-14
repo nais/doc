@@ -33,6 +33,23 @@ You will also need to install a plugin in order to authenticate to the Kubernete
 gcloud components install gke-gcloud-auth-plugin
 ```
 
+To verify correct installation of the plugin, do
+
+```shell
+% gke-gcloud-auth-plugin --version
+Kubernetes v1.34.2+0dd7f7cd0b632699e47ecafa4acc8f77cfc73c06
+```
+
+Macos: If this command responds with "command not found" the following configuration needs to
+be added to the shell profile (By default ~/.zprofile or ~/.zshrc:
+
+```shell
+source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+```
+
+The last command is optional, and enables gcloud completion in the shell.
+
 {%- if tenant() == "nav" %}
 ## Install kubelogin for access to on-prem clusters
 
