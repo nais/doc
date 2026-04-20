@@ -7,6 +7,7 @@ on:
 
 jobs:
   build_site:
+    if: github.repository_owner == 'thokra-nav'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -36,6 +37,7 @@ jobs:
 
   deploy:
     needs: build_site
+    if: github.repository_owner == 'thokra-nav'
     runs-on: ubuntu-latest
 
     permissions:
