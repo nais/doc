@@ -6,8 +6,16 @@ import { defineConfig } from "eslint/config";
 import globals from "globals";
 import ts from "typescript-eslint";
 import svelteConfig from "./svelte.config.js";
+import missingCssVarsRule from "./eslint-rules/missing-css-vars.js";
+import eslintPluginUnicorn from "eslint-plugin-unicorn";
 
 const gitignorePath = fileURLToPath(new URL("./.gitignore", import.meta.url));
+
+const projectChecksPlugin = {
+	rules: {
+		"missing-css-vars": missingCssVarsRule,
+	},
+};
 
 export default defineConfig(
 	includeIgnoreFile(gitignorePath),
@@ -36,6 +44,12 @@ export default defineConfig(
 				parser: ts.parser,
 				svelteConfig,
 			},
+		},
+	},
+	{
+		plugins: {
+			unicorn: eslintPluginUnicorn,
+			project: projectChecksPlugin,
 		},
 	},
 );

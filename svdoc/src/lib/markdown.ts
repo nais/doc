@@ -1,11 +1,8 @@
-import { gemoji } from "gemoji";
-import { getIconSvg, isIconShortcode } from "./helpers/icons";
-
-// Build emoji lookup map from gemoji data
-const emojiMap = new Map<string, string>(gemoji.flatMap((e) => e.names.map((n) => [n, e.emoji])));
 import fm from "front-matter";
+import { gemoji } from "gemoji";
 import { Marked, type Token, type Tokens, type TokensList } from "marked";
 import { getGitInfo } from "./helpers/git";
+import { getIconSvg, isIconShortcode } from "./helpers/icons";
 import { processTemplates } from "./helpers/templates";
 import type {
 	AdmonitionToken,
@@ -17,6 +14,9 @@ import type {
 	DefinitionToken,
 	FootnoteToken,
 } from "./types/tokens";
+
+// Build emoji lookup map from gemoji data
+const emojiMap = new Map<string, string>(gemoji.flatMap((e) => e.names.map((n) => [n, e.emoji])));
 
 // Get base path from environment variable (set in svelte.config.js)
 const BASE_PATH = process.env.BASE_PATH || "";
@@ -455,10 +455,58 @@ function processHtmlMarkdownBlocks(tokens: Token[] | TokensList): Token[] | Toke
 			// Check if this is an opening tag with markdown attribute
 			const openMatch = token.text.match(/^<(\w+)([^>]*)\s+markdown(?:="[^"]*")?([^>]*)>/i);
 
-			if (openMatch) {
-				const tagName = openMatch[1];
-				const attrsBefore = openMatch[2] || "";
-				const attrsAfter = openMatch[3] || "";
+			// Also check for bare opening HTML tags (without markdown attribute)
+			// that are followed elsewhere by a matching closing tag. We pair them
+			// up so they render as a single balanced element, avoiding hydration
+			// mismatches from rendering unbalanced HTML fragments via {@html}.
+			// Self-closing tags and void elements are skipped.
+			const VOID_ELEMENTS = new Set([
+				"area",
+				"base",
+				"br",
+				"col",
+				"embed",
+				"hr",
+				"img",
+				"input",
+				"link",
+				"meta",
+				"param",
+				"source",
+				"track",
+				"wbr",
+			]);
+			let bareOpenMatch: RegExpMatchArray | null = null;
+			if (!openMatch) {
+				const m = token.text.match(/^<(\w+)([^>]*)>\s*$/);
+				if (
+					m &&
+					!VOID_ELEMENTS.has(m[1].toLowerCase()) &&
+					!m[2].trim().endsWith("/") &&
+					!token.text.trim().startsWith("</")
+				) {
+					// Verify a matching closing tag exists later in the token stream
+					const closing = `</${m[1]}>`.toLowerCase();
+					for (let k = i + 1; k < tokens.length; k++) {
+						const t = tokens[k];
+						if (
+							t.type === "html" &&
+							"text" in t &&
+							typeof t.text === "string" &&
+							t.text.trim().toLowerCase() === closing
+						) {
+							bareOpenMatch = m;
+							break;
+						}
+					}
+				}
+			}
+
+			if (openMatch || bareOpenMatch) {
+				const matched = (openMatch ?? bareOpenMatch)!;
+				const tagName = matched[1];
+				const attrsBefore = matched[2] || "";
+				const attrsAfter = openMatch ? openMatch[3] || "" : "";
 				const closingTag = `</${tagName}>`;
 
 				// Clean the opening tag (remove markdown attribute)
