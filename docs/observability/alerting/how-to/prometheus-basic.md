@@ -61,7 +61,7 @@ You can define alerts by creating a `PrometheusRule` resource in your teams name
 
 ## Verify your alert
 
-You can see the alerts in the Alertmanager at `<<tenant_url("alertmanager.<MY-ENV>")>>` and the defined rules in Prometheus at `<<tenant_url("prometheus.<MY-ENV>")>>`
+You can see the alerts in the Alertmanager at `<<tenant_url("alertmanager.<MY-ENV>")>>` and the defined rules in [Nais Console](https://console.<<tenant()>>.cloud.nais.io)
 
 ## Learn more
 
