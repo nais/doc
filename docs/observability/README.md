@@ -54,21 +54,22 @@ We use the [OpenMetrics][openmetrics] format for metrics. This is a text-based f
 
 [:bulb: Learn more about metrics](metrics/README.md)
 
-### Prometheus
+### Mimir
 
-[Prometheus][prometheus] is a time-series database that is used to store metrics. It is a very powerful tool that can be used to create alerts and dashboards. Prometheus is used by many open source projects and is the de facto standard for metrics in the cloud native world.
+[Mimir][mimir] is a time-series database that stores metrics. It is compatible with [Prometheus][prometheus] and supports PromQL queries.
 
-Prometheus is a pull-based system. This means that Prometheus will scrape (pull) metrics from your application. This is in contrast to a push-based system, where your application would push metrics to a central system.
+Metrics are collected by scraping (pulling) the `/metrics` endpoint from your application.
 
+[mimir]: https://grafana.com/oss/mimir/
 [prometheus]: https://prometheus.io/
 
 ```mermaid
 graph LR
-  Grafana --> Prometheus
-  Prometheus --GET /metrics--> Application
+  Grafana --> Mimir
+  Mimir --GET /metrics--> Application
 ```
 
-[:simple-prometheus: Access Prometheus here](metrics/README.md#environments)
+[:simple-grafana: Query metrics in Grafana Explore](<<tenant_url("grafana", "explore")>>)
 
 ### Grafana
 
@@ -121,8 +122,8 @@ Alerts in Nais are based on application metrics and use [Prometheus Alertmanager
 
 ```mermaid
 graph LR
-  alerts.yaml --> Prometheus
-  Prometheus --> Alertmanager
+  alerts.yaml --> Mimir
+  Mimir --> Alertmanager
   Alertmanager --> Slack
 ```
 

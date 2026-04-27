@@ -12,9 +12,9 @@ Observability is the art of understanding how a system behaves by adding instrum
 
 Metrics are a numerical measurement of something in your application such as the number of requests or the response time. Metrics are much better suited for for dashboards and alerts compared to logs.
 
-### Prometheus
+### Mimir
 
-[Prometheus](https://prometheus.io/) is a time-series database that is used to store and query metrics from Grafana.
+[Mimir](https://grafana.com/oss/mimir/) is a time-series database, compatible with [Prometheus](https://prometheus.io/), used to store and query metrics from Grafana.
 
 ### Alertmanager
 

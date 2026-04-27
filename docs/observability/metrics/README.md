@@ -1,5 +1,5 @@
 ---
-description: Metrics are a way to measure the state of your application and can be used to create alerts in Prometheus and dashboards in Grafana.
+description: Metrics are a way to measure the state of your application and can be used to create alerts and dashboards in Grafana.
 tags: [explanation, metrics, observability, services]
 ---
 
@@ -11,16 +11,12 @@ Metrics are a way to measure the state of your application from within and somet
 
 We have standardized on the [OpenMetrics][openmetrics] format for metrics. This is a text-based format that is easy to parse and understand. It is also the format used by Prometheus, which is the most popular metrics system.
 
-We use Prometheus to fetch metric endpoints from your application (in Prometheus terminology we call this scraping), and Grafana for visualizing your application's metrics. You enable Prometheus metrics collection from your application in your [Nais manifest][nais-manifest-prometheus].
-
-??? info "Prometheus cluster configuration"
-    To see the current configuration for a prometheus instance in your cluster, e.g. `scrape_interval`, go to
-    `https://prometheus.<MY-ENV>.<<tenant()>>.cloud.nais.io/config`
+Your application's metrics are scraped (pulled) from the `/metrics` endpoint and stored in [Mimir](https://grafana.com/oss/mimir/). You query and visualize metrics in [Grafana](<<tenant_url("grafana")>>). Enable metrics collection in your [Nais manifest][nais-manifest-prometheus].
 
 ```mermaid
 graph LR
-  Prometheus --GET /metrics--> Pod
-  nais.yaml -.register target.-> Prometheus
+  Mimir --GET /metrics--> Pod
+  nais.yaml -.register target.-> Mimir
   nais.yaml -.configure.-> Pod
 ```
 
@@ -75,16 +71,12 @@ Our ingress controller also exposes metrics about the number of requests, respon
 
 ## Debugging metrics
 
-If you are having trouble with your metrics, you can use the [Prometheus expression browser](https://prometheus.io/docs/visualization/browser/) to test your queries. You can find this at `/graph` in the respective Prometheus environment.
+If you're having trouble with your metrics, use the [Explore view in Grafana](<<tenant_url("grafana", "explore")>>) to test your PromQL queries. Pick the Mimir data source that matches your environment.
 
-If your metrics are not showing up in the expression browser, you can check the target page at `/targets` to see if your application is registered as a target or if Prometheus has encountered any errors when scraping your application.
+If your metrics are not showing up, you can check whether your application is being scraped by querying the `up` metric for your application in Explore:
 
-## Environments
-
-You can visit the Prometheus instance for your environment by visiting the following URL:
-
-```plaintext
-    https://prometheus.<MY-ENV>.<<tenant()>>.cloud.nais.io
+```promql
+up{namespace="<MY-TEAM>", job="<MY-APP>"}
 ```
 
-Replace `<MY-ENV>` with the environment you want to access, for example `dev`, or `prod`.
+`1` means scraping works. `0` or no result means there's a problem with the scrape configuration.

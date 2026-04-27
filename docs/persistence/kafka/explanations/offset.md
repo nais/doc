@@ -117,17 +117,17 @@ Several teams have plans and tools for recovery that they can share.
 
 Finding a good estimate for where your last offset was can be tricky.
 
-One place to go is Prometheus.
+One place to go is the Explore view in Grafana.
 In our clusters, we have kafka-lag-exporter running.
 This tracks various offset-related metrics, one of which is the last seen offset for a consumer group.
 
 You can use this query to get offsets for a consumer group:
 
-{% if tenant() == "nav" %}
-* [max(kafka_consumergroup_group_offset{group="spedisjon-v1"}) by (topic, partition)](<<tenant_url("prometheus.dev-gcp")>>graph?g0.expr=max(kafka_consumergroup_group_offset%7Bgroup%3D%22spedisjon-v1%22%7D)%20by%20(topic%2C%20partition)&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h)
-{% else %}
-* [max(kafka_consumergroup_group_offset{group="spedisjon-v1"}) by (topic, partition)](<<tenant_url("prometheus.dev")>>graph?g0.expr=max(kafka_consumergroup_group_offset%7Bgroup%3D%22spedisjon-v1%22%7D)%20by%20(topic%2C%20partition)&g0.tab=1&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h)
-{% endif %}
+```promql
+max(kafka_consumergroup_group_offset{group="spedisjon-v1"}) by (topic, partition)
+```
+
+Open [Grafana Explore](<<tenant_url("grafana", "explore")>>) and pick the Mimir data source for your environment to run this query.
 
 
 <!-- Long links moved here for better text flow -->

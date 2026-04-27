@@ -142,7 +142,7 @@ You can use these metrics to create Grafana dashboards to monitor:
 * Request latency at both gateway and backend levels
 * Data transfer volume with sent/received bytes metrics
 
-These metrics are automatically collected and can be queried in Prometheus.
+These metrics are automatically collected and can be queried using the [Explore view in Grafana](<<tenant_url("grafana", "explore")>>).
 
 ## Use cases
 
