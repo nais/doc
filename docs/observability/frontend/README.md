@@ -1,61 +1,35 @@
 ---
 description: >-
-  Nais offers observability tooling for frontend applications.
-  This page describes how to use these offerings.
-tags: [explanation, observability, services]
+  Frontend observability with Grafana Faro gives you real user monitoring,
+  performance metrics, error tracking, and tracing for browser applications.
+tags: [explanation, observability, frontend, services]
 ---
 
-# Frontend apps
+# Frontend observability
 
-!!! info "Status: Beta"
-    This feature is undergoing development, but we will try our best to keep it stable.
-
-When developing solutions for the frontend there is a variety of different tools for capturing information about
-usage, logs, exceptions and performance. Nais offers a unified solution for full stack frontend observability
-through [Grafana Faro Web SDK][faro-web-sdk].
+Nais provides frontend observability through the [Grafana Faro Web SDK][faro-web-sdk]. Faro runs in the browser and sends telemetry data (metrics, logs, errors, traces) to a collector on the Nais platform.
 
 [faro-web-sdk]: https://www.npmjs.com/package/@grafana/faro-web-sdk
 
-Our frontend observability stack offers:
+With 95+ applications already using Faro, it's the standard way to monitor frontend applications on Nais.
 
-- real user monitoring (RUM)
-- [core web vitals](https://web.dev/vitals/) performance metrics (TTFB, FCP, CLS, LCP, FID)
-- logging, defaulting to messages from `console.info`, `console.warn`, and `console.error`
-- exceptions with stack traces
-- custom events
-- custom metrics
-- tracing (separate section below)
+## What you get
 
-## Usage
+- **[Core Web Vitals](https://web.dev/vitals/)** — TTFB, FCP, CLS, LCP, INP (collected automatically)
+- **Logging** — `console.info`, `console.warn`, and `console.error` messages
+- **Exceptions** — stack traces with [automatic sourcemap deobfuscation](how-to/sourcemaps.md)
+- **Custom events and metrics** — anything you want to track
+- **[Tracing](how-to/trace-propagation.md)** — OpenTelemetry-based browser traces, optionally connected to backend spans
 
-### Metrics and logs
+## Get started
 
-The following instructions are for frontend applications only, running in the browser of the end user.
-It is easy to get started, you install and configure the SDK. There is no requirement for extra code elsewhere.
+[:dart: Set up Faro in your application](how-to/setup-faro.md)
 
-Install dependencies:
+[:simple-nextdotjs: Set up Faro with Next.js App Router](how-to/setup-nextjs.md)
 
-```sh
-npm i -S @grafana/faro-web-sdk      # required
-npm i -S @grafana/faro-web-tracing  # required for tracing, see below
-```
+## Collector endpoints
 
-Inside your application, initialize Faro as follows. You must initialize Faro as early as possible.
-
-```js
-import { initializeFaro } from '@grafana/faro-web-sdk';
-
-initializeFaro({
-    url: "http://...",  // required, see below
-    app: {
-        name: "app-name", // required
-        version: "1.2.3"  // optional; useful in Grafana to get diff between versions
-    }
-});
-```
-
-The URL points to a Grafana Agent collector, and should be set to one of the following values.
-See below for auto-configuration instructions for when your app is a Nais application.
+The collector URL tells Faro where to send telemetry data. If you use the [auto-configuration](how-to/setup-faro.md#auto-configuration) in `nais.yaml`, this is set for you.
 
 {% if tenant() == "nav" %}
 | Collector endpoint                             | Environment |
@@ -71,172 +45,41 @@ See below for auto-configuration instructions for when your app is a Nais applic
 
 On-premises clusters are not supported.
 
-For local development, we recommend checking out our [tracing demo repository](https://github.com/nais/tracing-demo)
-and running `docker-compose up`, this will give you local services you can test against. See the README in that
-repository for further details.
+## Inspecting frontend data in Grafana
 
-Note that instrumenting an application like this will yield a lot of data. There could be
-performance considerations and you may want to put the instrumentation call behind a feature flag
-for production environments or scale down the amount of automatic instrumentation as you find
-out what you need and think is useful.
+Use the [web vitals dashboard](https://grafana.<<tenant()>>.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals) for a quick overview of your application's performance.
 
-Deploy to production. You should start to receive some metrics and logs already.
-Use our predefined [web vitals dashboard](https://grafana.<<tenant()>>.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals) to start
-visualizing and gain insights.
+For deeper analysis, use the [Explore view](https://grafana.<<tenant()>>.cloud.nais.io/explore) with one of the Loki data sources. Here are some useful queries:
 
-You can easily add more logging, custom events, and custom metrics.
-How to do this is out of scope of this documentation.
-Please see the [official documentation](https://grafana.com/docs/grafana-cloud/frontend-observability/).
+```logql
+# All frontend logs for your app
+{app_name="my-app"} | logfmt
 
-### Exceptions
+# Exceptions only
+{app_name="my-app", kind="exception"} | logfmt
 
-Console errors are automatically captured by Faro. But if you want the complete stack trace for exceptions, you can push it manually like this:
-
-```js
-try {
-  // Some code that might throw an error
-  throw new Error("Something went wrong!");
-} catch (error) {
-  // Push the error to Faro for observability
-  faro.api.pushError(error);
-}
+# Slow Largest Contentful Paint (> 2.5s)
+{app_name="my-app", kind="measurement"} | logfmt | web_vitals_lcp > 2500
 ```
 
-### Tracing (OpenTelemetry)
+Traces are available from data sources ending with `-tempo`. Use [TraceQL](../tracing/reference/traceql.md) to query them.
 
-In practice, most instrumentation happens behind the scenes and manually adding traces is not necessary. If you want to
-add manual traces, Faro re-exports the OpenTelemetry JavaScript library. Usage instructions can be found at
-<https://grafana.com/docs/grafana-cloud/frontend-observability/faro-web-sdk/opentelemetry-js/>.
+## Local development
 
-Note that adding tracing will add around 500kB to your JavaScript payload.
+For local development, check out the [tracing demo repository](https://github.com/nais/tracing-demo) and run `docker-compose up`. This gives you a local Grafana, Loki, and Tempo stack to test against. See the README in that repository for details.
 
-To start a new trace, you can:
+## Guides
 
-```js
-import { faro, getWebInstrumentations, initializeFaro } from '@grafana/faro-web-sdk';
-import { TracingInstrumentation } from '@grafana/faro-web-tracing';
+| Guide | Description |
+| ----- | ----------- |
+| [Set up Faro](how-to/setup-faro.md) | Install, configure, and deploy Faro in any frontend app |
+| [Next.js App Router](how-to/setup-nextjs.md) | Faro integration for Next.js with App Router |
+| [Trace propagation](how-to/trace-propagation.md) | Connect frontend traces to backend spans |
+| [Sourcemaps](how-to/sourcemaps.md) | How stack trace deobfuscation works |
+| [Troubleshooting](reference/troubleshooting.md) | CSP, CORS, and common issues |
 
-initializeFaro({
-  url: "http://...",  // required, see below
-  app: {
-    name: "app-name", // required
-    version: "1.2.3"  // optional
-  },
-  instrumentations: [
-    ...getWebInstrumentations(),
-    new TracingInstrumentation()
-  ]
-});
+## Further reading
 
-const {trace, context} = faro.api.getOTEL();
-
-const tracer = trace.getTracer('default');
-const span = tracer.startSpan('some business process');
-
-const someBusinessProcess = () => {};
-
-context.with(trace.setSpan(context.active(), span), () => {
-    someBusinessProcess();
-    span.end();
-});
-
-```
-
-## Auto-configuration
-
-When you deploy your frontend as a Nais application, the telemetry collector URL can be automatically configured.
-
-To use this feature, you must specify [frontend.mountPath.generatedConfig](../../workloads/application/reference/application-spec.md#frontendgeneratedconfigmountpath) in your `nais.yaml`.
-A Javascript file will be created at the specified path in your pod file system, and contains the appropriate configuration.
-Additionally, the environment variable `NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL` will be set in your pod.
-
-First, create a `nais.js` file with the following contents. This file will be replaced by Nais
-when deployed, and will contain the correct values for your application and environment.
-
-```js
-export default {
-    telemetryCollectorURL: 'http://localhost:12347/collect',
-    app: {
-        name: 'myapplication',
-        version: 'dev'
-    }
-};
-```
-
-Then, import it from wherever you initialize Faro:
-
-```js
-import { initializeFaro } from '@grafana/faro-web-sdk';
-import nais from './nais.js';
-
-const faro = initializeFaro({
-    url: nais.telemetryCollectorURL,
-    app: nais.app
-});
-```
-
-If you use Webpack, Rollup, or some other bundler, you must exclude `nais.js` from the build,
-so that the mock configuration doesn't end up in your minified bundle. How to do this depends on your bundler;
-here are some example configurations.
-
-### Rollup (using Vite)
-
-```js
-// vite.config.js
-export default {
-  // Other Vite configuration options...
-  build: {
-    manifest: true,
-    rollupOptions: {
-      external: [
-        "./nais.js",
-      ],
-    },
-  },
-};
-```
-
-### Webpack
-
-```js
-// webpack.config.js
-module.exports = {
-  // Other webpack configuration options...
-  externals: {
-    './nais.js': 'excludedFile',
-  },
-};
-```
-
-## Framework integrations
-
-### Next.js
-
-For NextJS you can use [local environment variables](https://nextjs.org/docs/basic-features/environment-variables).
-
-Example integration: <https://github.com/navikt/sykmeldinger/commit/d61fdfac72289e716fa9c4f667869c5a2ab7f603>
-
-### React
-
-As of 2023-04-27, there is a prerelease package at <https://github.com/grafana/faro-web-sdk/tree/main/packages/react>.
-
-It offers instrumentation over error boundaries, mounts, unmounts and React router.
-Instrumenting mounts and unmounts can be quite data intensive, take due care.
-
-## Inspecting logs and traces
-
-Navigate your web browser to the new Grafana at <https://grafana.<<tenant()>>.cloud.nais.io>.
-
-Traces are available from the data sources ending with `-tempo`, whereas
-logs and metrics are available from data sources sources ending with `-loki`.
-
-Use the "Explore" tab under either the Loki or Tempo tab and run queries.
-
-For a quick start, use our predefined [web vitals dashboard](https://grafana.<<tenant()>>.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals) to start
-visualizing and gain insights.
-
-## Troubleshooting
-
-### Content Security Policy
-
-If CSP is enabled for your application, you need to add the telemetry collector endpoint to `connect-src`.
+- [Grafana Faro Web SDK docs](https://grafana.com/docs/grafana-cloud/frontend-observability/)
+- [Grafana Faro Web SDK on npm](https://www.npmjs.com/package/@grafana/faro-web-sdk)
+- [Grafana Faro Next.js example](https://github.com/grafana/faro-nextjs-example)
