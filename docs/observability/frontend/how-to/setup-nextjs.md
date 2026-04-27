@@ -16,47 +16,44 @@ Faro is a browser-only SDK and cannot run in React Server Components. You need a
 
 ## Create the Faro component
 
-Create a client component that initializes Faro. This component renders nothing — it only runs the initialization side effect.
+Create a client component that initializes Faro. Use `useEffect` to avoid running side effects during server-side rendering or React Strict Mode double-invocations.
 
 ```tsx
 // app/faro.tsx
 'use client';
 
+import { useEffect } from 'react';
 import { faro, getWebInstrumentations, initializeFaro } from '@grafana/faro-web-sdk';
 import { TracingInstrumentation } from '@grafana/faro-web-tracing';
 
-export default function Faro() {
-  if (typeof window === 'undefined' || faro.api) {
-    return null;
-  }
+export default function Faro({ collectorUrl }: { collectorUrl?: string }) {
+  useEffect(() => {
+    if (faro.api) return; // already initialized
 
-  try {
-    initializeFaro({
-      url: process.env.NEXT_PUBLIC_FARO_URL!,
-      app: {
-        name: process.env.NEXT_PUBLIC_FARO_APP_NAME || 'my-app',
-        version: process.env.NEXT_PUBLIC_COMMIT_SHA || '1.0.0',
-      },
-      instrumentations: [
-        ...getWebInstrumentations(),
-        new TracingInstrumentation(),
-      ],
-    });
-  } catch (e) {
-    // Don't crash the app if Faro fails to initialize
-    console.warn('Faro initialization failed', e);
-  }
+    try {
+      initializeFaro({
+        url: collectorUrl || 'https://telemetry.nav.no/collect',
+        paused: window.location.hostname === 'localhost',
+        app: {
+          name: 'my-app',
+        },
+        instrumentations: [
+          ...getWebInstrumentations(),
+          new TracingInstrumentation(),
+        ],
+      });
+    } catch (e) {
+      console.warn('Faro initialization failed', e);
+    }
+  }, [collectorUrl]);
 
   return null;
 }
 ```
 
-!!! tip "Using auto-configuration"
-    If you use the [`nais.js` auto-configuration](setup-faro.md#auto-configuration) instead of environment variables, import `nais.js` here and use `nais.telemetryCollectorURL` and `nais.app` instead. Remember to [exclude `nais.js` from the bundler](setup-faro.md#step-3-exclude-naisjs-from-your-bundler).
-
 ## Add it to your root layout
 
-Include the component in your root `app/layout.tsx` so Faro initializes on every page:
+Include the component in your root `app/layout.tsx` so Faro initializes on every page. Pass the collector URL from the server environment:
 
 ```tsx
 // app/layout.tsx
@@ -66,7 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="nb">
       <body>
-        <Faro />
+        <Faro collectorUrl={process.env.NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL} />
         {children}
       </body>
     </html>
@@ -74,22 +71,25 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-## Set environment variables
+The `NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL` environment variable is set automatically when you enable [`spec.frontend.generatedConfig`](setup-faro.md#auto-configuration) in your `nais.yaml`. If the env var isn't set, the Faro component falls back to `https://telemetry.nav.no/collect`.
 
-Configure the collector URL and app name. In your `nais.yaml`, set the environment variables:
+!!! warning "`NEXT_PUBLIC_` env vars are build-time only"
+    Don't use `NEXT_PUBLIC_` for the collector URL. Next.js inlines `NEXT_PUBLIC_*` variables at `next build` time, so they won't change per cluster at deploy time. Pass runtime values through Server Components as props instead.
+
+## Configure your `nais.yaml`
+
+Enable auto-configuration to get the collector URL set per cluster:
 
 ```yaml
 spec:
-  env:
-    - name: NEXT_PUBLIC_FARO_URL
-      value: "https://telemetry.nav.no/collect"  # or dev URL
-    - name: NEXT_PUBLIC_FARO_APP_NAME
-      value: "my-app"
-    - name: NEXT_PUBLIC_COMMIT_SHA
-      value: "{{ .Commit }}"  # injected at build time
+  frontend:
+    generatedConfig:
+      mountPath: /tmp/nais.js
 ```
 
-Or use the [auto-configuration](setup-faro.md#auto-configuration) approach with `nais.js`.
+This sets `NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL` in your pod, which the root layout passes to the Faro component.
+
+See the [auto-configuration reference](../reference/auto-configuration.md) for all generated values.
 
 ## Error boundaries
 
@@ -124,7 +124,8 @@ The [`@grafana/faro-react`](https://www.npmjs.com/package/@grafana/faro-react) p
 
 - **`<FaroErrorBoundary>`** — wraps components and reports rendering errors to Faro
 - **`<FaroRoutes>`** — tracks route changes as navigation events (for React Router)
-- **Profiler integration** — tracks component mount/unmount performance
+- **React Router v7 helpers** — `createReactRouterV7Options` and `createReactRouterV7DataOptions` (since v2.2.3)
+- **React 19 support** (since v2.1.0)
 
 Install it:
 
@@ -175,4 +176,5 @@ For React Router examples with Faro, see [the main setup guide](setup-faro.md#re
 ## Further reading
 
 - [Grafana: Instrument Next.js applications](https://grafana.com/docs/grafana-cloud/monitor-applications/frontend-observability/get-started/instrument-nextjs/)
+- [Grafana Faro Web SDK changelog](https://github.com/grafana/faro-web-sdk/blob/main/CHANGELOG.md)
 - [Connect frontend traces to backend spans](trace-propagation.md)

@@ -63,8 +63,8 @@ Most bundlers generate sourcemaps by default in production builds. Verify your c
     };
     ```
 
-!!! tip "Hidden sourcemaps"
-    If you don't want sourcemaps publicly accessible, you can use `devtool: 'hidden-source-map'` in Webpack. This generates `.map` files but omits the `sourceMappingURL` comment from the bundle. The collector can still resolve stack traces if the `.map` files are served from a known path.
+!!! warning "Sourcemaps must be accessible to the collector"
+    The collector fetches `.map` files using the `sourceMappingURL` comment in your JavaScript bundle. If you use `hidden-source-map` (which omits that comment), the collector can't find the map files and stack traces won't be deobfuscated. Use the default `source-map` setting, or `productionBrowserSourceMaps: true` for Next.js.
 
 ## What happens when resolution fails
 

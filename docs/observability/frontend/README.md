@@ -76,10 +76,12 @@ For local development, check out the [tracing demo repository](https://github.co
 | [Next.js App Router](how-to/setup-nextjs.md) | Faro integration for Next.js with App Router |
 | [Trace propagation](how-to/trace-propagation.md) | Connect frontend traces to backend spans |
 | [Sourcemaps](how-to/sourcemaps.md) | How stack trace deobfuscation works |
+| [Auto-configuration](reference/auto-configuration.md) | Generated config values and environment variables |
 | [Troubleshooting](reference/troubleshooting.md) | CSP, CORS, and common issues |
 
 ## Further reading
 
-- [Grafana Faro Web SDK docs](https://grafana.com/docs/grafana-cloud/frontend-observability/)
+- [Grafana Faro Web SDK docs](https://grafana.com/docs/grafana-cloud/monitor-applications/frontend-observability/)
 - [Grafana Faro Web SDK on npm](https://www.npmjs.com/package/@grafana/faro-web-sdk)
+- [Grafana Faro Web SDK changelog](https://github.com/grafana/faro-web-sdk/blob/main/CHANGELOG.md)
 - [Grafana Faro Next.js example](https://github.com/grafana/faro-nextjs-example)

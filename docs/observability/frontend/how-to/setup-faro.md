@@ -35,7 +35,8 @@ Initialize Faro as early as possible in your application so it captures all erro
 import { initializeFaro, getWebInstrumentations } from '@grafana/faro-web-sdk';
 
 const faro = initializeFaro({
-  url: 'https://...', // collector endpoint, see below
+  url: 'https://telemetry.nav.no/collect',
+  paused: window.location.hostname === 'localhost',
   app: {
     name: 'my-app',   // required — identifies your app in Grafana
     version: '1.0.0',  // optional — useful for comparing behavior across deploys
@@ -46,24 +47,27 @@ const faro = initializeFaro({
 });
 ```
 
-For the collector URL, see the [endpoint table](../README.md#collector-endpoints) or use auto-configuration below.
+!!! tip "Auto-configuration"
+    Instead of hardcoding the collector URL, you can let the platform generate it for you. See [auto-configuration](#auto-configuration) below or the [reference page](../reference/auto-configuration.md) for details.
 
 ### Setting `app.version`
 
-Setting a version lets you filter and compare metrics across deploys in Grafana. Common approaches:
+Setting a version lets you filter and compare metrics across deploys in Grafana. If you use [auto-configuration](#auto-configuration), the version is extracted from your container image tag automatically.
+
+For manual setup, inject the commit SHA from your CI pipeline:
 
 ```js
 app: {
   name: 'my-app',
-  version: process.env.NEXT_PUBLIC_COMMIT_SHA || 'local',
+  version: process.env.COMMIT_SHA || 'local',
 }
 ```
 
-You can inject the commit SHA at build time from your CI pipeline, or use the `IMAGE` environment variable set by Nais.
-
 ## Auto-configuration
 
-When you deploy on Nais, the collector URL and app config can be generated for you. Add this to your `nais.yaml`:
+The platform can generate the collector URL and app metadata for you. This is the recommended approach for static frontends (nginx, CDN) since the URL is set per cluster — no separate config for dev and prod.
+
+Add this to your `nais.yaml`:
 
 ```yaml
 spec:
@@ -72,7 +76,9 @@ spec:
       mountPath: /usr/share/nginx/html/js/nais.js
 ```
 
-This creates a JavaScript file at the specified path with the correct collector URL and app metadata. The environment variable `NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL` is also set in your pod.
+This generates a JavaScript file at the specified path containing the collector URL, your app name (from `metadata.name`), and version (from your image tag). The environment variable `NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL` is also set in your pod.
+
+See the [auto-configuration reference](../reference/auto-configuration.md) for the full list of generated values.
 
 ### Step 1: Create a local `nais.js` fallback
 
@@ -215,6 +221,36 @@ connect-src 'self' https://telemetry.nav.no https://telemetry.ekstern.dev.nav.no
 ```
 
 Without this, the browser blocks Faro's requests to the collector. See [Troubleshooting](../reference/troubleshooting.md) for more details.
+
+## Privacy and sensitive data
+
+Faro captures console output, errors, and HTTP request URLs automatically. Make sure you don't leak sensitive data:
+
+- **Never log** fødselsnummer, tokens, passwords, or other PII to the console
+- **Watch URLs** — query parameters and path segments may contain identifiers
+- **Watch form input** — don't send user input as custom events without redacting
+
+Use the `beforeSend` hook to filter or redact telemetry:
+
+```js
+initializeFaro({
+  // ... other options
+  beforeSend: (item) => {
+    // Drop items containing sensitive patterns
+    const payload = JSON.stringify(item);
+    if (/\d{11}/.test(payload)) {
+      return null; // drop items that may contain fødselsnummer
+    }
+    return item;
+  },
+});
+```
+
+## Local development
+
+Set `paused: window.location.hostname === 'localhost'` (shown in the init example above) to skip telemetry during local development.
+
+For a full local observability stack, check out the [tracing demo repository](https://github.com/nais/tracing-demo) and run `docker-compose up`.
 
 ## Verify it works
 
