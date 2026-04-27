@@ -41,15 +41,21 @@ Transform text into plain, natural English. Preserve the author's meaning and st
 | "seamless", "streamlined", "optimized" | Say what actually improved, or cut |
 | "leverage" (as verb) | "use" |
 | "tapestry", "mosaic", "fabric", "kaleidoscope" | Cut the metaphor; "variety" or "range" if needed |
+| "realm", "arena", "space" (metaphorical) | "field", "area", or name the thing |
+| "toolkit", "roadmap", "arsenal" | "tools", "plan", "options" |
+| "journey" (metaphorical) | "process", "progress", or cut |
 | "multifaceted", "complex interplay", "granular" | "several factors", "interaction", "detailed" |
 | "empower", "enable", "unlock", "unleash", "amplify" | Say what concretely happens |
 | "foster", "cultivate", "drive", "facilitate" | "build", "create", "improve" |
 | "shed light on", "underscore", "showcase" | Direct statement |
 | "at scale", "end-to-end", "best practices" | Keep only if technically precise; otherwise cut |
 | "game changer", "paradigm shift", "thought leadership" | Replace with specific impact or drop |
-| "cutting-edge", "next-generation", "revolutionary" | Say what's actually new |
+| "cutting-edge", "next-generation", "revolutionary", "transformative", "innovative", "groundbreaking" | Say what's actually new |
 | "synergy", "bandwidth", "deliverables", "stakeholders" | "cooperation", "time", "results", "people" |
 | "harness", "embark", "strive", "elevate" | "use", "start", "try", "improve" |
+| "unpack", "tap into" | Say what you mean directly |
+| "at the forefront of", "pushing the boundaries" | Say what's new or different |
+| "cornerstone", "linchpin", "bedrock" | Name the dependency or say why it matters |
 | "a testament to", "serves as a reminder" | Cut the frame; state the thing directly |
 
 ### Filler precision words (cut or replace)
@@ -64,6 +70,27 @@ These sound precise but add nothing. AI uses them 5-10x more than human writers:
 | "considerable", "substantial" | Use a number or cut |
 | "crucial", "critical", "vital", "essential", "key" | One per article is fine. Five is a pattern |
 | "impactful" | Say what the effect was |
+
+### Needlessly formal wording
+
+AI defaults to stuffy vocabulary. Simplify when the formal word adds no precision over the plain alternative. Keep technical terms when they are standard in the domain (e.g., "implement" is fine in code docs).
+
+| AI marker | Fix |
+| --- | --- |
+| "utilize" | "use" |
+| "commence" | "start", "begin" |
+| "endeavor" | "try", "effort" |
+| "paramount" | Say why it matters, or "important" |
+| "aforementioned" | Name it, or "this", "that" |
+| "subsequently" | "then", "after" |
+| "pertaining to" | "about" |
+| "necessitate" | "need", "require" |
+| "elucidate" | "explain" |
+| "plethora", "myriad" | "many", "plenty" |
+| "optimal" (non-technical) | "best" |
+| "ascertain" | "find out", "check" |
+| "disseminate" | "share" |
+| "meticulously" | "carefully", or say how |
 
 ### Sentence-initial adverb stuffing
 
@@ -82,9 +109,27 @@ Flag density (more than 2-3 per page):
 | --- | --- |
 | "quiet confidence", "quiet rebellion", "quietly growing" | Rewrite without "quiet" |
 | "in today's fast-paced world", "in an increasingly X world" | Delete entirely |
+| "in the digital age", "as technology advances" | Delete or name what changed |
+| "X has become an integral part of our lives" | Cut the boilerplate |
 | "genuinely", "truly", "actually", "remarkably" | Cut |
 | "arguably", "typically", "generally speaking", "broadly speaking" | Commit to the claim or acknowledge specific uncertainty |
 | "undeniable", "undoubtedly", "invaluable", "pivotal" | Replace with evidence or specifics |
+| "It's not about X, it's about Y" (repeated pattern) | Vary the construction; use once at most |
+| "No X. No Y. Just Z." | Formulaic emphasis. Rewrite or vary |
+| "According to recent studies" (without citation) | Cite it or cut the appeal to authority |
+
+### Empty authority frames
+
+These add a veneer of objectivity without substance. Remove the frame and keep the claim only if it stands on its own.
+
+| AI marker | Fix |
+| --- | --- |
+| "It is widely acknowledged that..." | By whom? Cite or just state the claim |
+| "There is growing evidence that..." | Cite the evidence or cut |
+| "Research suggests that..." (uncited) | Name the research or cut |
+| "A common misconception is that..." | Just state the correct thing |
+| "It is essential to strike a balance" | Say between what, and why |
+| "While some may argue X, others believe Y" (with no source for either) | Take a position or cite both sides |
 
 ### Faux intimacy phrases (cut)
 
@@ -135,6 +180,11 @@ Flag density (more than 2-3 per page):
 - **Generic specificity**: Examples that feel specific without naming real cases. Add concrete details.
 - **Sentence uniformity**: Same beat, same length. Vary structure and rhythm.
 - **Too tidy**: No rough edges. Professional writing has moments of emphasis.
+- **Compulsive over-explanation**: Restating simple points in different words within the same passage. Flag and cut the restatement.
+- **List addiction**: Numbered or bulleted lists for simple, linear ideas that read better as prose. Flag density.
+- **Formulaic scaffolding**: Every section follows intro-context-solution-summary. Flag when the template shows.
+- **Overly polished grammar**: No contractions, no sentence fragments, no informal asides — everything scrubbed to an unnatural shine. Flag in non-reference prose.
+- **Repetitive paragraph openers**: Consecutive paragraphs starting with the same construction (e.g., "This means...", "This allows...", "This ensures...").
 
 ## Procedure
 
@@ -159,6 +209,8 @@ When editing a file directly:
 - Context matters: flag density, not individual occurrences
 - Don't over-colloquialize: match the intended register
 - Vary your edits: don't create new patterns by using the same replacement every time
+- Markers are signals, not banned words: judge by density, vagueness, and surrounding context
+- Structural tells are detection-only: flag them in reports but don't restructure sections
 
 ## Detection Tips
 
@@ -166,3 +218,7 @@ When editing a file directly:
 - **Read aloud test**: Sounds like a textbook = AI
 - **Tricolon count**: Lists always in threes = AI
 - **Emotional temperature**: Flat throughout = AI; spikes of conviction = human
+- **Low burstiness**: Uniform sentence and paragraph length throughout = AI. Human writing has natural rhythm variation.
+- **Impossible to disagree with**: Banal statements that don't advance the point ("Consistency is important") = filler. Cut or make specific.
+- **No named examples**: Generic scenarios instead of real tools, real errors, real configurations = AI pattern
+- **Density, not instances**: These are markers, not banned words. Judge by density, vagueness, and context. One "crucial" is fine; five in a page is a pattern.
