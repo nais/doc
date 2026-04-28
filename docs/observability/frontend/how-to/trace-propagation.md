@@ -68,6 +68,18 @@ propagateTraceHeaderCorsUrls: [
 ],
 ```
 
+If you build URLs from environment variables, escape them to prevent [ReDoS](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS):
+
+```typescript
+function escapeRegExp(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+propagateTraceHeaderCorsUrls: [
+  new RegExp(`${escapeRegExp(apiUrl)}/.*`),
+],
+```
+
 ## Configure CORS on your backend
 
 Your backend must allow the `traceparent` header in CORS responses. Without this, the browser blocks the header and trace propagation silently fails.

@@ -163,6 +163,24 @@ try {
 
 Stack traces from pushed errors are [automatically deobfuscated](sourcemaps.md) if sourcemaps are available.
 
+### React error boundaries
+
+Use `<FaroErrorBoundary>` from [`@grafana/faro-react`](https://www.npmjs.com/package/@grafana/faro-react) to catch React rendering errors. Without this, errors that happen during rendering are silently lost.
+
+```tsx
+import { FaroErrorBoundary } from '@grafana/faro-react';
+
+function App() {
+  return (
+    <FaroErrorBoundary fallback={<p>Something went wrong</p>}>
+      <MyComponent />
+    </FaroErrorBoundary>
+  );
+}
+```
+
+For Next.js, see the [dedicated error boundary pattern](setup-nextjs.md#error-boundaries) using `error.tsx`.
+
 ## Performance tuning
 
 Faro generates a lot of data by default. Use these options to control the volume:
@@ -236,11 +254,21 @@ Use the `beforeSend` hook to filter or redact telemetry:
 initializeFaro({
   // ... other options
   beforeSend: (item) => {
-    // Drop items containing sensitive patterns
+    // Strip query parameters from page URLs (may contain tokens, codes, identifiers)
+    if (item.meta?.page?.url) {
+      try {
+        const url = new URL(item.meta.page.url);
+        url.search = '';
+        item.meta.page.url = url.toString();
+      } catch { /* ignore malformed URLs */ }
+    }
+
+    // Drop items that may contain fødselsnummer (11-digit pattern)
     const payload = JSON.stringify(item);
     if (/\d{11}/.test(payload)) {
-      return null; // drop items that may contain fødselsnummer
+      return null;
     }
+
     return item;
   },
 });
