@@ -70,6 +70,12 @@ propagateTraceHeaderCorsUrls: [
 ],
 ```
 
+Or use a single wildcard to propagate traces to all `*.nav.no` backends:
+
+```typescript
+propagateTraceHeaderCorsUrls: [/https:\/\/[^/]+\.nav\.no\/.*/],
+```
+
 If you build URLs from environment variables, escape them to prevent [ReDoS](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS):
 
 ```typescript
