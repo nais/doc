@@ -1,0 +1,26 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/" # must be root (ref. docs)
+    schedule:
+      interval: "weekly"
+      time: "09:00"
+      day: "monday"
+    cooldown:
+      default-days: 7
+    groups:
+      actions:
+        patterns:
+          - "*"
+  - package-ecosystem: "npm" # svdoc (SvelteKit + Bun)
+    directory: "/svdoc"
+    schedule:
+      interval: "weekly"
+      time: "09:00"
+      day: "monday"
+    cooldown:
+      default-days: 7
+    groups:
+      bun:
+        patterns:
+          - "*"
