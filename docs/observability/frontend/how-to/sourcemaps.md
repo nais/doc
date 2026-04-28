@@ -22,12 +22,13 @@ This happens server-side in the collector — no extra configuration is needed i
 
 For deobfuscation to work:
 
+- Your application must be deployed to the CDN (`cdn.nav.no`)
 - Your JavaScript bundle must include a `sourceMappingURL` comment (most bundlers add this by default)
-- The `.map` file must be accessible over HTTP from the collector
-- Both the JS bundle and `.map` file must be served from your application or CDN
+- The `.map` file must be deployed alongside the JS bundle on the CDN
 
 {% if tenant() == "nav" %}
-Bundles hosted on `cdn.nav.no` are supported.
+!!! warning "CDN only"
+    Sourcemap resolution only works for bundles served from `cdn.nav.no`. The collector cannot fetch `.map` files from application pods (they are not publicly accessible). If your frontend is server-rendered (Next.js, Remix), sourcemap deobfuscation is not available unless you also serve your static assets from the CDN.
 {% endif %}
 
 ## Build configuration
@@ -76,8 +77,8 @@ If the collector can't fetch or parse a sourcemap, it falls back to minified out
 
 Common reasons for failure:
 
+- The application is not deployed to the CDN (server-rendered apps, pods serving their own assets)
 - The `.map` file isn't deployed alongside the JS bundle
-- The `.map` file is behind authentication or a firewall the collector can't reach
 - The `sourceMappingURL` points to a wrong or relative path that doesn't resolve
 
 ## Verify it works

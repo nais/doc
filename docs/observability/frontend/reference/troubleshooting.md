@@ -50,10 +50,10 @@ If you've deployed Faro but don't see data:
 
 If error stack traces show minified positions instead of source code:
 
-1. **Check that sourcemaps are deployed** — your `.map` files must be accessible over HTTP from the same origin as the JS bundle
-2. **Check `sourceMappingURL`** — open your deployed JS bundle in a browser and look for `//# sourceMappingURL=` at the bottom. If it's missing, check your bundler config
-3. **Check accessibility** — try fetching the `.map` URL directly in a browser. If it returns a 404 or requires authentication, the collector can't reach it
-4. **Check the path** — if using a CDN or non-standard serving path, the `sourceMappingURL` might be a relative path that doesn't resolve correctly from the collector's perspective
+1. **Check that your app is on the CDN** — sourcemap resolution only works for bundles served from `cdn.nav.no`. Server-rendered apps (Next.js, Remix) serving assets from the pod are not supported
+2. **Check that sourcemaps are deployed** — your `.map` files must be on the CDN alongside the JS bundle
+3. **Check `sourceMappingURL`** — open your deployed JS bundle in a browser and look for `//# sourceMappingURL=` at the bottom. If it's missing, check your bundler config
+4. **Check the path** — the `sourceMappingURL` might be a relative path that doesn't resolve correctly from the collector's perspective
 
 See [Sourcemaps](../how-to/sourcemaps.md) for build configuration details.
 
