@@ -22,13 +22,20 @@ This happens server-side in the collector — no extra configuration is needed i
 
 For deobfuscation to work:
 
+{% if tenant() == "nav" %}
 - Your application must be deployed to the CDN (`cdn.nav.no`)
+{% else %}
+- Your application must be deployed to the CDN (`cdn.<<tenant()>>.cloud.nais.io`)
+{% endif %}
 - Your JavaScript bundle must include a `sourceMappingURL` comment (most bundlers add this by default)
 - The `.map` file must be deployed alongside the JS bundle on the CDN
 
 {% if tenant() == "nav" %}
 !!! warning "CDN only"
     Sourcemap resolution only works for bundles served from `cdn.nav.no`. The collector cannot fetch `.map` files from application pods (they are not publicly accessible). If your frontend is server-rendered (Next.js, Remix), sourcemap deobfuscation is not available unless you also serve your static assets from the CDN.
+{% else %}
+!!! warning "CDN only"
+    Sourcemap resolution only works for bundles served from `cdn.<<tenant()>>.cloud.nais.io`. The collector cannot fetch `.map` files from application pods (they are not publicly accessible). If your frontend is server-rendered (Next.js, Remix), sourcemap deobfuscation is not available unless you also serve your static assets from the CDN.
 {% endif %}
 
 ## Build configuration

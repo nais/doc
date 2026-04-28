@@ -50,7 +50,11 @@ If you've deployed Faro but don't see data:
 
 If error stack traces show minified positions instead of source code:
 
+{% if tenant() == "nav" %}
 1. **Check that your app is on the CDN** — sourcemap resolution only works for bundles served from `cdn.nav.no`. Server-rendered apps (Next.js, Remix) serving assets from the pod are not supported
+{% else %}
+1. **Check that your app is on the CDN** — sourcemap resolution only works for bundles served from `cdn.<<tenant()>>.cloud.nais.io`. Server-rendered apps (Next.js, Remix) serving assets from the pod are not supported
+{% endif %}
 2. **Check that sourcemaps are deployed** — your `.map` files must be on the CDN alongside the JS bundle
 3. **Check `sourceMappingURL`** — open your deployed JS bundle in a browser and look for `//# sourceMappingURL=` at the bottom. If it's missing, check your bundler config
 4. **Check the path** — the `sourceMappingURL` might be a relative path that doesn't resolve correctly from the collector's perspective

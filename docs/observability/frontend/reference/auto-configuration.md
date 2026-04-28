@@ -18,6 +18,7 @@ spec:
 
 The platform creates a JavaScript file at the specified `mountPath` with this structure:
 
+{% if tenant() == "nav" %}
 ```js
 export default {
   telemetryCollectorURL: 'https://telemetry.nav.no/collect',
@@ -27,6 +28,17 @@ export default {
   },
 };
 ```
+{% else %}
+```js
+export default {
+  telemetryCollectorURL: '<<tenant_url("telemetry.external.prod", "collect")>>',
+  app: {
+    name: 'my-app',        // from metadata.name in nais.yaml
+    version: '2024-03-15-abc1234', // extracted from your container image tag
+  },
+};
+```
+{% endif %}
 
 | Field                  | Source                                    |
 | ---------------------- | ----------------------------------------- |
@@ -66,4 +78,8 @@ On-premises clusters (`prod-fss`, `dev-fss`) are not supported.
 
 **Server-rendered apps (Next.js, Remix):** Read `NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL` on the server and pass it to your client-side Faro initialization. See the [Next.js guide](../how-to/setup-nextjs.md).
 
+{% if tenant() == "nav" %}
 **Simple alternative:** Use `https://telemetry.nav.no/collect` directly in your production code. The URL is stable and all production clusters use the same endpoint.
+{% else %}
+**Simple alternative:** Use `<<tenant_url("telemetry.external.prod", "collect")>>` directly in your production code. The URL is stable and all production clusters use the same endpoint.
+{% endif %}
