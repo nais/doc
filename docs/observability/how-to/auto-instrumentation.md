@@ -92,4 +92,5 @@ You can also verify in [Grafana Explore](<<tenant_url("grafana", "explore")>>) u
 
 - [Add custom spans and metrics](../tutorials/opentelemetry-instrumentation.md) for business-specific tracing
 - [Explore traces in Grafana Tempo](../tracing/how-to/tempo.md)
+- [Avoid false errors from expected 4xx responses](../tracing/how-to/avoid-false-errors.md) — fix inflated error rates in APM
 - [:books: Auto-instrumentation configuration reference](../reference/auto-config.md)
