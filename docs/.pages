@@ -5,12 +5,12 @@ nav:
 - "": ""
 - workloads
 - build
-- auth
+- Auth: auth
 - observability
-- persistence
+- Persistence: persistence
 - Other services: services
 - "": ""
-- operate
+- Operate: operate
 - "": ""
 - tags.md
 - ...

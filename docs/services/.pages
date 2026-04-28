@@ -3,5 +3,6 @@ nav:
 - CDN: cdn
 - config
 - secrets
+- Vulnerabilities: vulnerabilities
 - feature-toggling.md
 - ...

@@ -181,6 +181,7 @@ export interface NavItem {
 interface PagesFile {
 	nav?: (string | Record<string, string>)[];
 	hide?: boolean;
+	title?: string;
 }
 
 // Import tagToSlug from utils to keep it client-safe
@@ -713,9 +714,10 @@ class ContentStore {
 		}
 
 		// Check for hidden directory
+		let dirPagesFile: PagesFile | null = null;
 		if (isDir) {
-			const pagesFile = await this.readPagesFile(fullPath);
-			if (pagesFile?.hide === true) {
+			dirPagesFile = await this.readPagesFile(fullPath);
+			if (dirPagesFile?.hide === true) {
 				return null;
 			}
 		}
@@ -731,11 +733,19 @@ class ContentStore {
 				return null;
 			}
 
-			// Get title from README if available
+			// Resolve title in priority order:
+			//   1. Explicit override from parent's nav entry
+			//   2. The directory's own .pages `title:` field
+			//   3. The h1 of the directory's README.md
+			//   4. Fallback derived from the directory name
 			if (!explicitTitle) {
-				const readmeTitle = this.getTitleForPath(`${fullPath}/README.md`);
-				if (readmeTitle) {
-					title = readmeTitle;
+				if (dirPagesFile?.title) {
+					title = dirPagesFile.title;
+				} else {
+					const readmeTitle = this.getTitleForPath(`${fullPath}/README.md`);
+					if (readmeTitle) {
+						title = readmeTitle;
+					}
 				}
 			}
 
