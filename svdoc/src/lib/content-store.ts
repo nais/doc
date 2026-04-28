@@ -290,10 +290,8 @@ class ContentStore {
 		const files = await this.findMarkdownFiles(DOCS_DIR);
 		log.debug(`Found ${files.length} markdown files`);
 
-		// Process each file
-		for (const filePath of files) {
-			await this.processFile(filePath);
-		}
+		// Process files in parallel for faster initialization
+		await Promise.all(files.map((filePath) => this.processFile(filePath)));
 
 		// Build derived data
 		this.buildTagsIndex();

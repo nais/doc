@@ -10,69 +10,126 @@ export interface GitInfo {
 	sourcePath?: string;
 }
 
-/**
- * Get git information for a file
- */
-export function getGitInfo(filePath: string): GitInfo {
-	// Resolve to absolute path
-	const absolutePath = resolve(filePath);
+interface FileDates {
+	createdAt?: string;
+	modifiedAt?: string;
+}
 
-	let repoRoot: string;
+let repoRootCache: string | null | undefined;
+let fileDatesCache: Map<string, FileDates> | null = null;
+
+/**
+ * Resolve the repository root, caching the result.
+ *
+ * Returns null if the current working directory is not a git repo.
+ */
+function getRepoRoot(): string | null {
+	if (repoRootCache !== undefined) {
+		return repoRootCache;
+	}
+
 	try {
-		repoRoot = execSync("git rev-parse --show-toplevel", {
+		const root = execSync("git rev-parse --show-toplevel", {
 			cwd: process.cwd(),
 			encoding: "utf-8",
 			stdio: ["pipe", "pipe", "pipe"],
 		}).trim();
+		repoRootCache = resolve(root);
 	} catch {
+		repoRootCache = null;
+	}
+
+	return repoRootCache;
+}
+
+/**
+ * Load created/modified timestamps for every tracked file in one `git log` pass.
+ *
+ * `git log --name-only` walks history once and emits all touched paths per commit,
+ * which is dramatically faster than running `git log` per file (n commits vs n*files).
+ */
+function loadFileDates(repoRoot: string): Map<string, FileDates> {
+	if (fileDatesCache) {
+		return fileDatesCache;
+	}
+
+	const dates = new Map<string, FileDates>();
+
+	try {
+		// Format: ISO author date on its own line, then a blank line, then the
+		// list of files changed by that commit, then a blank line.
+		// `git log` walks newest -> oldest, so the first time we see a path is
+		// its modifiedAt and the last time we see it is its createdAt.
+		const output = execSync("git log --name-only --format=%x00%aI", {
+			cwd: repoRoot,
+			encoding: "utf-8",
+			stdio: ["pipe", "pipe", "pipe"],
+			maxBuffer: 256 * 1024 * 1024,
+		});
+
+		let currentDate: string | undefined;
+
+		for (const rawLine of output.split("\n")) {
+			const line = rawLine.trimEnd();
+			if (line.startsWith("\0")) {
+				currentDate = line.slice(1).trim() || undefined;
+				continue;
+			}
+			if (!line || !currentDate) {
+				continue;
+			}
+
+			const existing = dates.get(line);
+			if (existing) {
+				// We're walking newest -> oldest, so each subsequent entry is older.
+				existing.createdAt = currentDate;
+			} else {
+				dates.set(line, {
+					modifiedAt: currentDate,
+					createdAt: currentDate,
+				});
+			}
+		}
+	} catch {
+		// Ignore - we'll just return an empty map and callers degrade gracefully.
+	}
+
+	fileDatesCache = dates;
+	return dates;
+}
+
+/**
+ * Clear cached git information. Useful for tests or long-running dev servers
+ * that need to pick up new commits.
+ */
+export function resetGitCache(): void {
+	repoRootCache = undefined;
+	fileDatesCache = null;
+}
+
+/**
+ * Get git information for a file.
+ *
+ * The repo root and the per-file commit dates are cached on first use, so this
+ * is effectively O(1) per call after the initial `git log` walk.
+ */
+export function getGitInfo(filePath: string): GitInfo {
+	const repoRoot = getRepoRoot();
+	if (!repoRoot) {
 		return {};
 	}
 
-	// Get the path relative to the repo root
-	let sourcePath: string | undefined;
-	const resolvedRepoRoot = resolve(repoRoot);
-	if (absolutePath.startsWith(resolvedRepoRoot)) {
-		sourcePath = absolutePath.slice(resolvedRepoRoot.length + 1);
+	const absolutePath = resolve(filePath);
+	if (!absolutePath.startsWith(repoRoot + "/") && absolutePath !== repoRoot) {
+		return {};
 	}
 
-	let createdAt: string | undefined;
-	let modifiedAt: string | undefined;
-
-	try {
-		// Get the date of the first commit (creation date)
-		// Use --follow to handle renames, get all commits and take the last one (oldest)
-		const createdResult = execSync(`git log --follow --format=%aI -- "${absolutePath}"`, {
-			cwd: repoRoot,
-			encoding: "utf-8",
-			stdio: ["pipe", "pipe", "pipe"],
-		});
-		const dates = createdResult.trim().split("\n").filter(Boolean);
-		if (dates.length > 0) {
-			// Last entry is the oldest (first commit)
-			createdAt = dates[dates.length - 1];
-		}
-	} catch {
-		// File might not be tracked by git
-	}
-
-	try {
-		// Get the date of the last commit (modification date)
-		const modifiedResult = execSync(`git log -1 --format=%aI -- "${absolutePath}"`, {
-			cwd: repoRoot,
-			encoding: "utf-8",
-			stdio: ["pipe", "pipe", "pipe"],
-		});
-		const modifiedDate = modifiedResult.trim();
-		if (modifiedDate) {
-			modifiedAt = modifiedDate;
-		}
-	} catch {
-		// File might not be tracked by git
-	}
+	const sourcePath = absolutePath.slice(repoRoot.length + 1);
+	const dates = loadFileDates(repoRoot).get(sourcePath);
 
 	return {
-		createdAt,
-		modifiedAt,
+		createdAt: dates?.createdAt,
+		modifiedAt: dates?.modifiedAt,
 		sourcePath,
 	};
 }
