@@ -46,32 +46,45 @@ Start with `@research-agent` to gather context, hand off to `@technical-writer` 
 
 ## Local development
 
-## 1. Install Poetry
+The documentation site lives in [`svdoc/`](./svdoc) and is built with SvelteKit + Bun. Tasks are managed with [mise](https://mise.jdx.dev/).
+
+### 1. Install mise
+
+Follow the [mise installation guide](https://mise.jdx.dev/getting-started.html). All other tools (such as Bun) are pinned in [`mise.toml`](./mise.toml) and installed automatically.
+
+### 2. Install dependencies
 
 ```bash
-asdf plugin add poetry
-asdf install poetry latest
+mise run setup
 ```
 
-## 2. Install dependencies
+### 3. Serve the documentation locally
 
 ```bash
-make install
-```
-## 3. Serve the documentation locally
-
-```bash
-make local
+mise run local
 ```
 
-## 3a. Serve a tenant-specific version of the documentation
+This installs dependencies (if needed) and starts the dev server.
+
+### 3a. Serve a tenant-specific version of the documentation
 
 ```bash
-TENANT=nav make local
+TENANT=nav NOT_TENANT=not-nav mise run local:dev
 ```
 
-## 3b. Do a clean build of the documentation
+### 4. Build the documentation
+
+Build one or more tenant-specific versions into `out/<tenant>/`:
 
 ```bash
-make clean-build
+mise run build nav nav test-nais
+```
+
+### Checks and formatting
+
+```bash
+mise run check              # run lint + svelte-check
+mise run check:lint         # prettier + eslint
+mise run check:svelte-check # svelte-check only
+mise run fmt                # format with prettier
 ```

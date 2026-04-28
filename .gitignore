@@ -20,3 +20,5 @@ site/
 
 __pycache__/
 .direnv/
+
+/out/
