@@ -30,10 +30,12 @@ sequenceDiagram
     Note over Tempo: Same trace ID → linked
 ```
 
-## Prerequisites
+## What you need
 
-- Faro with tracing enabled (`@grafana/faro-web-tracing` installed)
-- Backend instrumented with OpenTelemetry (or [auto-instrumentation](../../how-to/auto-instrumentation.md))
+1. `@grafana/faro-web-tracing` installed in your frontend
+2. `propagateTraceHeaderCorsUrls` configured in `TracingInstrumentation` (shown below)
+3. Backend CORS allowing the `traceparent` header
+4. Backend instrumented with OpenTelemetry (or [auto-instrumentation](../../how-to/auto-instrumentation.md)) and exporting traces to Tempo
 
 ## Configure trace propagation in Faro
 

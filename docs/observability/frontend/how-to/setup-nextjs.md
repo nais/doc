@@ -12,7 +12,19 @@ Faro is a browser-only SDK and cannot run in React Server Components. You need a
 ## Prerequisites
 
 - A Next.js application using the App Router, deployed on Nais
-- Completed the [basic Faro setup](setup-faro.md) (install, `nais.yaml` config)
+- Node.js and npm
+
+## Install
+
+```sh
+npm install @grafana/faro-web-sdk
+```
+
+For browser tracing (optional — connects frontend spans with backend traces):
+
+```sh
+npm install @grafana/faro-web-tracing
+```
 
 ## Create the Faro component
 
@@ -87,7 +99,7 @@ spec:
       mountPath: /tmp/nais.js
 ```
 
-This sets `NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL` in your pod, which the root layout passes to the Faro component.
+This sets `NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL` in your pod, which the root layout passes to the Faro component. The `mountPath` can be any writable path — for SSR apps the file itself isn't served to browsers, only the env var matters.
 
 See the [auto-configuration reference](../reference/auto-configuration.md) for all generated values.
 

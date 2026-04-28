@@ -25,9 +25,10 @@ With 95+ applications already using Faro, it's the standard way to monitor front
 
 ## Get started
 
-[:dart: Set up Faro in your application](how-to/setup-faro.md)
-
-[:simple-nextdotjs: Set up Faro with Next.js App Router](how-to/setup-nextjs.md)
+1. **Any frontend app:** [:dart: Set up Faro](how-to/setup-faro.md)
+2. **Next.js App Router:** [:simple-nextdotjs: Set up Faro with Next.js](how-to/setup-nextjs.md)
+3. **Want end-to-end traces?** [Connect frontend to backend](how-to/trace-propagation.md)
+4. **Stack traces look minified?** [Sourcemaps](how-to/sourcemaps.md) · [Troubleshooting](reference/troubleshooting.md)
 
 ## Recommended configuration
 

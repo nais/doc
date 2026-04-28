@@ -27,13 +27,13 @@ connect-src 'self' <<tenant_url("telemetry.external.prod")>> <<tenant_url("telem
 
 When using [trace propagation](../how-to/trace-propagation.md), the browser sends a `traceparent` header to your backend. If your backend doesn't allow this header in CORS, the request may fail or the header is silently dropped.
 
+**Symptoms:** Trace propagation doesn't work (no linked backend spans), or API requests fail with CORS errors in the browser console.
+
 **Fix:** Add `traceparent` to `Access-Control-Allow-Headers` on your backend:
 
 ```
 Access-Control-Allow-Headers: Content-Type, traceparent
 ```
-
-**Symptoms:** Trace propagation doesn't work (no linked backend spans), or API requests fail with CORS errors in the browser console.
 
 ## No data in Grafana
 

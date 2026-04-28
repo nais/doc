@@ -32,7 +32,7 @@ Bundles hosted on `cdn.nav.no` are supported.
 
 ## Build configuration
 
-Most bundlers generate sourcemaps by default in production builds. Verify your config:
+Production sourcemaps often need explicit configuration. Verify your bundler generates `.map` files:
 
 === "Vite"
 
