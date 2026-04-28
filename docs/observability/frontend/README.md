@@ -29,6 +29,18 @@ With 95+ applications already using Faro, it's the standard way to monitor front
 
 [:simple-nextdotjs: Set up Faro with Next.js App Router](how-to/setup-nextjs.md)
 
+## Recommended configuration
+
+After the basic setup, check that you have these configured:
+
+| Setting | Why it matters | Guide |
+| ------- | -------------- | ----- |
+| `beforeSend` PII filtering | Faro captures URLs and console output that may contain fødselsnummer or tokens | [Privacy and sensitive data](how-to/setup-faro.md#privacy-and-sensitive-data) |
+| `propagateTraceHeaderCorsUrls` | Without this, browser traces never connect to your backend spans | [Trace propagation](how-to/trace-propagation.md) |
+| `paused` on localhost | Prevents local development noise from polluting production dashboards | [Local development](how-to/setup-faro.md#local-development) |
+| `app.version` | Lets you filter errors and metrics by deploy | [Setting app.version](how-to/setup-faro.md#setting-appversion) |
+| Error boundary | Catches React rendering errors that are otherwise silently lost | [React error boundaries](how-to/setup-faro.md#react-error-boundaries) |
+
 ## Collector endpoints
 
 The collector URL tells Faro where to send telemetry data. If you use the [auto-configuration](how-to/setup-faro.md#auto-configuration) in `nais.yaml`, this is set for you.
