@@ -15,6 +15,8 @@ With 95+ applications already using Faro, it's the standard way to monitor front
 
 ## What you get
 
+![Frontend Web Vitals dashboard showing Core Web Vitals, CWV rating, and performance trends](../../assets/frontend-web-vitals-dashboard.png)
+
 - **[Core Web Vitals](https://web.dev/vitals/)** — TTFB, FCP, CLS, LCP, INP (collected automatically)
 - **Logging** — `console.info`, `console.warn`, and `console.error` messages
 - **Exceptions** — stack traces with [automatic sourcemap deobfuscation](how-to/sourcemaps.md)
@@ -47,7 +49,7 @@ On-premises clusters are not supported.
 
 ## Inspecting frontend data in Grafana
 
-Use the [web vitals dashboard](https://grafana.<<tenant()>>.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals) for a quick overview of your application's performance.
+Open your app in Grafana APM and go to the **Frontend** tab for a quick overview of Core Web Vitals, navigation types, and performance trends.
 
 For deeper analysis, use the [Explore view](https://grafana.<<tenant()>>.cloud.nais.io/explore) with one of the Loki data sources. Here are some useful queries:
 

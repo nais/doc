@@ -256,7 +256,7 @@ For a full local observability stack, check out the [tracing demo repository](ht
 
 1. Deploy your application
 2. Open it in a browser and interact with it
-3. Check the [web vitals dashboard](https://grafana.<<tenant()>>.cloud.nais.io/d/k8g_nks4z/frontend-web-vitals)
+3. Open your app in Grafana APM and go to the **Frontend** tab to see Core Web Vitals
 4. Or query Loki directly in [Grafana Explore](https://grafana.<<tenant()>>.cloud.nais.io/explore):
 
 ```logql
