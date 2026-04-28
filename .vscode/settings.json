@@ -1,0 +1,8 @@
+{
+  "debug.javascript.defaultRuntimeExecutable": {
+    "pwa-node": "/Users/hans/.local/share/mise/shims/node"
+  },
+  "chat.tools.terminal.autoApprove": {
+    "make": true
+  }
+}

@@ -5,9 +5,9 @@ conditional: [tenant, nav]
 ---
 # Tracing data in Elastic APM
 
-!!! warning "Deprecation notice"
+!!! danger "Deprecated — will be removed"
 
-    Support for Elastic APM in Nais has been deprecated and will be removed at the end of the year. Elastic APM will not be available in the new OpenSearch-based nav-logs system.
+    Elastic APM support in Nais is deprecated and will be removed. Use [auto-instrumentation](../../how-to/auto-instrumentation.md) with the Grafana stack (Tempo + Mimir + Loki) and [Nais APM](<<tenant_url("grafana", "a/nais-apm-app")>>) instead.
 
 For nais applications running on-prem (dev-fss and prod-fss) you have the option to send telemetry data to Elastic APM in adition to Grafana. This guide will help you get started with Elastic APM for your application.
 
@@ -29,7 +29,7 @@ It is possible to send data to multiple destinations (such as `grafana-lgtm`) by
 
 ### Service Environment
 
-If you have multiple virutal environments for your application such ac `q1`, `t2`, or `p`, you can specify the environment in the `OTEL_RESOURCE_ATTRIBUTES` environment variable.
+If you have multiple virtual environments for your application such as `q1`, `t2`, or `p`, you can specify the environment in the `OTEL_RESOURCE_ATTRIBUTES` environment variable.
 
 ```yaml
 spec:

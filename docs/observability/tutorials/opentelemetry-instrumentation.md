@@ -1,33 +1,74 @@
 ---
-title: Instrumenting Your Application with OpenTelemetry
+title: Adding Custom Spans and Metrics with OpenTelemetry
 tags: [tutorial, observability, opentelemetry]
 ---
 
-# Instrumenting Your Application with OpenTelemetry
+# Adding Custom Spans and Metrics
 
-This tutorial shows how to add **custom spans and metrics** to your application when you are already using OpenTelemetry auto-instrumentation in Nais.
+Auto-instrumentation covers HTTP, database, and messaging calls out of the box. To trace your own business logic or track application-specific events, add custom spans and metrics using the OpenTelemetry SDK.
 
 ## Prerequisites
 
 - Application running on Nais with [auto-instrumentation enabled](../how-to/auto-instrumentation.md)
 - Access to your application's source code
 
----
+## 1. Add custom spans
 
-## 1. Why Add Custom Instrumentation?
+Custom spans let you trace operations not covered by auto-instrumentation — business logic, batch jobs, or complex workflows.
 
-Auto-instrumentation provides traces and metrics for supported libraries and frameworks out of the box. However, to gain deeper insight into your business logic, you may want to:
+### Kotlin with `@WithSpan`
 
-- Add custom spans to trace specific operations or workflows
-- Create custom metrics for business or application-specific events
+The `@WithSpan` annotation is the simplest way to trace a method. The OpenTelemetry Java agent picks it up automatically.
 
----
+Add the dependency:
 
-## 2. Add Custom Spans
+=== "Gradle (Kotlin DSL)"
 
-Custom spans let you trace important operations in your code. This is useful for tracking business logic, performance bottlenecks, or external calls not covered by auto-instrumentation.
+    ```kotlin
+    dependencies {
+        implementation("io.opentelemetry.instrumentation:opentelemetry-instrumentation-annotations:2.14.0")
+    }
+    ```
 
-**Example in Java:**
+=== "Maven"
+
+    ```xml
+    <dependency>
+        <groupId>io.opentelemetry.instrumentation</groupId>
+        <artifactId>opentelemetry-instrumentation-annotations</artifactId>
+        <version>2.14.0</version>
+    </dependency>
+    ```
+
+Then annotate methods you want to trace:
+
+```kotlin
+import io.opentelemetry.instrumentation.annotations.WithSpan
+import io.opentelemetry.instrumentation.annotations.SpanAttribute
+
+class PaymentService {
+
+    @WithSpan("process-payment")
+    fun processPayment(
+        @SpanAttribute("payment.amount") amount: Long,
+        @SpanAttribute("payment.currency") currency: String
+    ): PaymentResult {
+        // This method call becomes a span in your traces.
+        // @SpanAttribute adds the parameter values as span attributes.
+        validate(amount, currency)
+        return execute(amount, currency)
+    }
+
+    @WithSpan
+    private fun validate(amount: Long, currency: String) {
+        // Nested span — appears as a child of "process-payment"
+    }
+}
+```
+
+### Java with the Tracer API
+
+For more control (dynamic span names, adding events, setting status), use the Tracer API directly:
 
 ```java
 import io.opentelemetry.api.trace.Span;
@@ -35,64 +76,100 @@ import io.opentelemetry.api.trace.Tracer;
 import io.opentelemetry.api.GlobalOpenTelemetry;
 
 public class MyService {
-  private static final Tracer tracer = GlobalOpenTelemetry.getTracer("my-app");
+    private static final Tracer tracer =
+        GlobalOpenTelemetry.getTracer("my-app");
 
-  public void doWork() {
-    Span span = tracer.spanBuilder("custom-operation").startSpan();
+    public void doWork() {
+        Span span = tracer.spanBuilder("custom-operation").startSpan();
+        try (var scope = span.makeCurrent()) {
+            // Your business logic here
+            span.addEvent("checkpoint-reached");
+        } catch (Exception e) {
+            span.recordException(e);
+            span.setStatus(io.opentelemetry.api.trace.StatusCode.ERROR);
+            throw e;
+        } finally {
+            span.end();
+        }
+    }
+}
+```
+
+### Node.js
+
+```javascript
+import { trace } from "@opentelemetry/api";
+
+const tracer = trace.getTracer("my-app");
+
+async function processOrder(orderId) {
+  return tracer.startActiveSpan("process-order", async (span) => {
     try {
-      // Your business logic here
+      span.setAttribute("order.id", orderId);
+      const result = await executeOrder(orderId);
+      return result;
+    } catch (error) {
+      span.recordException(error);
+      span.setStatus({ code: 2 }); // ERROR
+      throw error;
     } finally {
       span.end();
     }
-  }
+  });
 }
 ```
 
-**Other languages:** See the [OpenTelemetry documentation](https://opentelemetry.io/docs/) for language-specific APIs.
+## 2. Add custom metrics
 
----
+Custom metrics track application-specific counters, gauges, or histograms. These are exported to Mimir and available in Grafana.
 
-## 3. Add Custom Metrics
+### Kotlin / Java
 
-Custom metrics help you track application-specific events, counters, or timings. These metrics are exported to Prometheus and visualized in Grafana.
+```kotlin
+import io.opentelemetry.api.GlobalOpenTelemetry
+import io.opentelemetry.api.metrics.LongCounter
 
-**Example in Java:**
+object AppMetrics {
+    private val meter = GlobalOpenTelemetry.getMeter("my-app")
 
-```java
-import io.opentelemetry.api.metrics.Meter;
-import io.opentelemetry.api.metrics.GlobalMeterProvider;
-
-public class MyMetrics {
-  private static final Meter meter = GlobalMeterProvider.getMeter("my-app");
-
-  // Example: Counter
-  private static final LongCounter myCounter = meter
-    .counterBuilder("my_custom_counter")
-    .setDescription("A custom counter for my app")
-    .build();
-
-  public void recordEvent() {
-    myCounter.add(1);
-  }
+    val ordersProcessed: LongCounter = meter
+        .counterBuilder("orders_processed_total")
+        .setDescription("Number of orders processed")
+        .build()
 }
+
+// Usage:
+AppMetrics.ordersProcessed.add(1, Attributes.of(
+    AttributeKey.stringKey("status"), "completed"
+))
 ```
 
-**Other languages:** See the [OpenTelemetry metrics documentation](https://opentelemetry.io/docs/) for details.
+!!! note "OTel Metrics API"
+    Use `GlobalOpenTelemetry.getMeter()` (not `GlobalMeterProvider.getMeter()`, which was removed in OpenTelemetry Java 2.x).
 
----
+### Node.js
 
-## 4. Deploy and Verify
+```javascript
+import { metrics } from "@opentelemetry/api";
 
-1. Deploy your application as usual.
-2. In Grafana, use the Tempo data source to view traces (including your custom spans).
-3. Use the Prometheus data source to query your custom metrics.
+const meter = metrics.getMeter("my-app");
+const ordersProcessed = meter.createCounter("orders_processed_total", {
+  description: "Number of orders processed",
+});
 
----
+// Usage:
+ordersProcessed.add(1, { status: "completed" });
+```
 
-## Next Steps
+## 3. Verify in APM
 
+1. Deploy your application
+2. Open the [Nais APM](<<tenant_url("grafana", "a/nais-apm-app")>>) and find your service
+3. Check the **Operations** tab — your custom spans appear as operations
+4. In [Grafana Explore](<<tenant_url("grafana", "explore")>>), query your custom metrics with PromQL
+
+## Next steps
+
+- [:books: Auto-instrumentation configuration reference](../reference/auto-config.md)
 - [Correlate traces and logs](../tracing/how-to/correlate-traces-logs.md)
-- [Create custom metrics](../metrics/how-to/expose.md)
 - [Set up alerting](../alerting/README.md)
-
-For more details, see the [OpenTelemetry documentation](https://opentelemetry.io/docs/).

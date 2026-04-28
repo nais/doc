@@ -4,19 +4,15 @@ tags: [how-to, tracing, tempo, observability]
 
 # Get started with Grafana Tempo
 
-Grafana Tempo is an open-source, easy-to-use, high-scale, and cost-effective distributed tracing backend that stores and queries traces in a way that is easy to understand and use. It is fully integrated with Grafana, allowing you to visualize and query traces in the same interface as your metrics, and logs.
+Grafana Tempo is a distributed tracing backend that stores and queries traces. It is integrated with Grafana, so you can visualize and query traces alongside your metrics and logs.
 
-Since Nais does not collect application trace data automatically, you need to enable tracing in your application. The preferred way to get started with tracing is to enable auto-instrumentation for your application. This will automatically collect traces and send them to the correct place using the OpenTelemetry Agent.
+Since Nais uses auto-instrumentation to collect traces, you need to [enable it in your nais.yaml](../../how-to/auto-instrumentation.md) first. Once traces are flowing, you can view them in the [Nais APM](<<tenant_url("grafana", "a/nais-apm-app")>>) dashboards or query them directly in Grafana Explore.
 
-[:dart: Get started with auto-instrumentation](../../how-to/auto-instrumentation.md)
-
-Once you have traces being collected, you can visualize and query them in Grafana using the Grafana Tempo data source. To get started with Tempo, you can use the Explore view in Grafana, which provides a user-friendly interface for querying and visualizing traces.
-
-[:simple-grafana: Open Grafana Explore](<<tenant_url("grafana")>>)
+[:simple-grafana: Open Grafana Explore](<<tenant_url("grafana", "explore")>>)
 
 ## Querying traces in Grafana Tempo
 
-The easiest way to get started with querying traces in Grafana Tempo is to use the query builder mode. The query builder mode is a graphical interface that helps you build LogQL queries by selecting labels and fields from your logs.
+The easiest way to get started with querying traces in Grafana Tempo is to use the query builder mode. The query builder is a graphical interface that helps you build TraceQL queries by selecting services, operations, and filters.
 
 Start by selecting the tempo data source for the environment you want to query traces for (one ending with `-tempo`). Then select the Search query type to open the query builder mode.
 
@@ -24,7 +20,7 @@ Start by selecting the tempo data source for the environment you want to query t
 
 Here you can select the service you want to query traces for, and then select the operation you want to query traces for. You can also add filters to your query to narrow down the results.
 
-Bellow the query builder you will see the TraceQL query that is being built as you select tags and fields. You can also edit the TraceQL query directly if you want to write your own queries.
+Below the query builder you will see the TraceQL query that is being built as you select tags and fields. You can also edit the TraceQL query directly if you want to write your own queries.
 
 Click the `Run query` button to run the query and see the results. You can also add the query to a dashboard by clicking the `Add to dashboard` button.
 
@@ -32,9 +28,7 @@ Click the `Run query` button to run the query and see the results. You can also 
 
 ### TraceQL query language
 
-Grafana Tempo uses the TraceQL query language to query traces. TraceQL is a query language for querying trace data, and it is based on the LogQL query language used by Grafana Loki for querying logs and the PromQL query language used by Prometheus for querying metrics.
-
-TraceQL provides a powerful and flexible way to query trace data, and it is designed to be easy to use and understand. You can use TraceQL to filter and aggregate trace data, and to create visualizations and alerts based on trace data.
+Grafana Tempo uses the TraceQL query language to query traces. TraceQL is based on LogQL (Grafana Loki) and PromQL (Prometheus). You can use TraceQL to filter and aggregate trace data, and to create visualizations and alerts.
 
 <iframe title="vimeo-player" src="https://player.vimeo.com/video/796408188?h=b3e8e3257b" width="100%" height="360" frameborder="0" allowfullscreen></iframe>
 

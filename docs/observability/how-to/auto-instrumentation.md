@@ -1,64 +1,95 @@
 ---
-description: Get started with auto-instrumentation for your applications with OpenTelemetry data for Tracing, Metrics and Logs using the OpenTelemetry Agent.
+description: Enable auto-instrumentation to collect traces and runtime metrics from your application without code changes.
 tags: [how-to, tracing, observability]
 ---
 
 # Get started with auto-instrumentation
 
-This guide will explain how to get started with auto-instrumentation your applications with OpenTelemetry data for [Tracing](../tracing/README.md), [Metrics](../metrics/README.md) and [Logs](../logging/README.md) using the OpenTelemetry Agent.
+Auto-instrumentation injects an [OpenTelemetry](https://opentelemetry.io/) agent into your application at startup.
+The agent hooks into popular libraries and frameworks to collect [traces](../tracing/README.md) and runtime metrics — without code changes. Log export via OpenTelemetry is [available as an opt-in](../reference/auto-config.md#logs-auto-instrumentation).
 
-The main benefit of auto-instrumentation is that is requires little to no effort on the part of the team developing the application while providing insight into popular libraries, frameworks and external services such as PostgreSQL, Valkey, Kafka and HTTP clients.
+Supported runtimes: **Java/Kotlin**, **Node.js**, **Python**, and **SDK-only** mode for Go and other languages that provide their own OpenTelemetry setup.
 
-Auto-instrumentation is a preferred way to get started with tracing in Nais, and can also be used for metrics and logs collection.This type of instrumentation is available for Java, Node.js and Python applications, but can also be used for other in `sdk` mode where it will only set up the OpenTelemetry configuration.
+## What you get
 
-## Enable auto-instrumentation for Java/Kotlin applications
+Once enabled, the agent automatically instruments:
 
-```yaml
-...
-spec:
-  observability:
-    autoInstrumentation:
-      enabled: true
-      runtime: java
+| Category | Examples (vary by runtime) |
+|----------|----------|
+| HTTP servers | Spring MVC, Ktor, Express, Flask, Koa |
+| HTTP clients | OkHttp, Apache HttpClient, `node-fetch`, `requests` |
+| Databases | PostgreSQL (JDBC, node-postgres), Valkey/Redis |
+| Messaging | Kafka producers/consumers |
+| gRPC | Client and server calls |
+| Frameworks | Spring Boot, Ktor, Micrometer bridge |
+
+This data powers the [Nais APM](<<tenant_url("grafana", "a/nais-apm-app")>>) dashboards — service inventory, RED metrics (Rate/Errors/Duration), dependency maps, and runtime metrics — with no extra configuration.
+
+## Enable auto-instrumentation
+
+Add the following to your `nais.yaml` and deploy:
+
+=== "Java / Kotlin"
+
+    ```yaml
+    spec:
+      observability:
+        autoInstrumentation:
+          enabled: true
+          runtime: java
+    ```
+
+=== "Node.js"
+
+    ```yaml
+    spec:
+      observability:
+        autoInstrumentation:
+          enabled: true
+          runtime: nodejs
+    ```
+
+=== "Python"
+
+    ```yaml
+    spec:
+      observability:
+        autoInstrumentation:
+          enabled: true
+          runtime: python
+    ```
+
+=== "SDK only (Go, etc.)"
+
+    This sets up the OpenTelemetry environment variables but does **not** inject an agent.
+    Use this when your application configures the OpenTelemetry SDK itself.
+
+    ```yaml
+    spec:
+      observability:
+        autoInstrumentation:
+          enabled: true
+          runtime: sdk
+    ```
+
+## Verify it works
+
+After deploying, check that traces are flowing:
+
+1. Open the [Nais APM service inventory](<<tenant_url("grafana", "a/nais-apm-app")>>)
+2. Find your application in the list — it should appear within a few minutes
+3. Click through to see RED dashboards, operations breakdown, and dependencies
+
+If your app does not appear, check the [auto-instrumentation configuration reference](../reference/auto-config.md) for troubleshooting environment variables, and make sure your application is receiving traffic.
+
+You can also verify in [Grafana Explore](<<tenant_url("grafana", "explore")>>) using the Tempo data source:
+
+```
+{resource.service.name="<your-app-name>"}
 ```
 
-## Enable auto-instrumentation for Node.js applications
+## Next steps
 
-```yaml
-...
-spec:
-  observability:
-    autoInstrumentation:
-      enabled: true
-      runtime: nodejs
-```
-
-## Enable auto-instrumentation for Python applications
-
-```yaml
-...
-spec:
-  observability:
-    autoInstrumentation:
-      enabled: true
-      runtime: python
-```
-
-## Enable auto-instrumentation for other applications
-
-If your application runtime is not one of the supported runtimes or you want to instrument your application yourself you can stil get benefit from the auto instrumentation configuration.
-
-This will only set up the OpenTelemetry configuration for the application, but it will not inject the OpenTelemetry Agent into the application.
-
-```yaml
-...
-spec:
-  observability:
-    autoInstrumentation:
-      enabled: true
-      runtime: sdk
-```
-
-## Resources
-
-[:books: OpenTelemetry Auto-Instrumentation Configuration Reference](../reference/auto-config.md)
+- [Add custom spans and metrics](../tutorials/opentelemetry-instrumentation.md) for business-specific tracing
+- [Explore traces in Grafana Tempo](../tracing/how-to/tempo.md)
+- [:books: Auto-instrumentation configuration reference](../reference/auto-config.md)
