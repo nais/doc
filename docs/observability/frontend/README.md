@@ -49,7 +49,13 @@ On-premises clusters are not supported.
 
 ## Inspecting frontend data in Grafana
 
-Open your app in Grafana APM and go to the **Frontend** tab for a quick overview of Core Web Vitals, navigation types, and performance trends.
+Find your app in the [Nais APM](https://grafana.<<tenant()>>.cloud.nais.io/a/nais-apm-app) service list. Frontend apps show with a **Node.js** badge.
+
+![Nais APM service list showing frontend and backend apps](../../assets/frontend-apm-service-list.png)
+
+Go to the **Frontend** tab for Core Web Vitals, or the **Logs** tab to search exceptions and browser logs. Toggle **Include browser telemetry** to see Faro data alongside server logs.
+
+![APM Logs tab filtered by exceptions, showing browser telemetry](../../assets/frontend-apm-logs.png)
 
 For deeper analysis, use the [Explore view](https://grafana.<<tenant()>>.cloud.nais.io/explore) with one of the Loki data sources. Here are some useful queries:
 
