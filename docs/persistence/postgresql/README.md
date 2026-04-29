@@ -4,10 +4,16 @@ tags: [explanation, persistence, services, experimental]
 
 # PostgreSQL
 
+!!! danger "Migration in progress — do not create new databases"
+    The Zalando postgres-operator is being replaced by [CloudNativePG](https://cloudnative-pg.io/).
+    **Do not create new Postgres databases using this operator.** Existing databases will be migrated automatically.
+    
+    If you need a new PostgreSQL database today, use [Cloud SQL](../cloudsql/README.md) instead.
+    We'll announce when CloudNativePG is ready for new databases.
+
 !!! warning "Experimental feature"
     This feature is an alpha feature, and is subject to API change, instability or removal.
     Some features may not be fully developed, and changes will be made in the coming months.
-    If this is not what you want, you probably want to use [Cloud SQL](../cloudsql/README.md) instead.
     
         Notable missing features include:
     
@@ -16,7 +22,7 @@ tags: [explanation, persistence, services, experimental]
     
     
 [PostgreSQL](https://www.postgresql.org/) is a relational database which is a good choice for storing data that is relational in nature.
-In the nais platform, we support zalando postgres-operator to provision managed PostgreSQL databases.
+In the nais platform, PostgreSQL databases are currently managed by the Zalando postgres-operator, which is being migrated to [CloudNativePG](https://cloudnative-pg.io/).
 
 Minimal configuration needed to provision a database for your application:
 
