@@ -21,19 +21,49 @@ When you enable [auto-instrumentation](../how-to/auto-instrumentation.md) in you
 
 !!! tip
 
-    Do not hardcode these values in your application or try to overwrite them in your `nais.yaml`. OpenTelemetry SDKs and auto-instrumentation libraries will automatically pick up these environment variables and use them to configure the SDK depending on where your application is running.
+    These variables are managed by Nais. Do not hardcode them in your application code. The OTel SDK picks them up automatically. You **can** add extra attributes via `OTEL_RESOURCE_ATTRIBUTES` in your nais.yaml — see [Extra resource attributes](#extra-resource-attributes) below.
 
 ## Extra resource attributes
 
 OpenTelemetry Resource Attributes are key-value pairs that describe the application and its environment. These attributes are attached to all telemetry data produced by the application and must adhere to the [OpenTelemetry Semantic Conventions](https://opentelemetry.io/docs/specs/semconv/resource/).
 
-Most applications will not need to set extra resource attributes, and only some attributes can be set by the application using the `OTEL_RESOURCE_ATTRIBUTES` environment variable.
+### How `OTEL_RESOURCE_ATTRIBUTES` works on Nais
 
-Here is a list of attributes that can be set by the application. Consult the specification for more information about how they should be used:
+You can safely set `OTEL_RESOURCE_ATTRIBUTES` in your nais.yaml — Nais **merges** your attributes with the platform-managed ones. It does not overwrite them.
+
+Nais manages these attributes and will ignore any attempt to override them:
+
+| Attribute | Set by | Value |
+|---|---|---|
+| `service.name` | Nais (from app name) | `my-application` |
+| `service.namespace` | Nais (from namespace) | `my-team` |
+| `nais.backend` | Nais (from destinations) | `destination1;destination2` |
+
+Any other key=value pairs you provide are appended to the final `OTEL_RESOURCE_ATTRIBUTES` value.
+
+```yaml title="nais.yaml"
+spec:
+  env:
+    - name: OTEL_RESOURCE_ATTRIBUTES
+      value: "deployment.environment.name=prod"
+```
+
+The resulting env var in the pod will be:
+```
+service.name=my-app,service.namespace=my-team,nais.backend=...,deployment.environment.name=prod
+```
+
+### When to set extra attributes
+
+| Attribute | When to use | Effect |
+|---|---|---|
+| `deployment.environment.name` | Apps deployed to multiple environments (dev/prod, q1/q2) | APM and Grafana can filter by environment. The collector also uses this to strip env suffixes (e.g. `-q1`) from service names. |
+
+### Available attributes
 
 | Attribute                                                                                                     | Type   | Description                                                                                              | Example Value | Stability      |
 | ------------------------------------------------------------------------------------------------------------- | ------ | -------------------------------------------------------------------------------------------------------- | ------------- | -------------- |
-| [`deployment.environment.name`](https://opentelemetry.io/docs/specs/semconv/resource/deployment-environment/) | string | Name of the deployment environment (e.g. `q1`, `p`, `dev`). | `q1`;  `p`    | `experimental` |
+| [`deployment.environment.name`](https://opentelemetry.io/docs/specs/semconv/resource/deployment-environment/) | string | Name of the deployment environment (e.g. `q1`, `prod`, `dev`). | `q1`;  `prod`    | `experimental` |
 
 ## Sanitizing sensitive data
 
