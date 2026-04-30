@@ -136,7 +136,7 @@ Add the following content to the file, and insert the appropriate values in the 
           - name: Deploy to Nais
             uses: nais/deploy/actions/deploy@v2
             env:
-              CLUSTER: <MY-CLUSTER> # Replace (1)
+              CLUSTER: <MY-ENV> # Replace (1)
               RESOURCE: .nais/app.yaml # This points to the file we created in the previous step
               WORKLOAD_IMAGE: ${{ steps.docker-build-push.outputs.image }}
     ```

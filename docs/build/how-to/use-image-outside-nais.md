@@ -50,7 +50,7 @@ jobs:
       - name: Deploy to Nais
         uses: nais/deploy/actions/deploy@v2
         env:
-          CLUSTER: <MY-CLUSTER> # Replace (1)
+          CLUSTER: <MY-ENV> # Replace (1)
           RESOURCE: .nais/app.yaml #, topic.yaml, statefulset.yaml, etc.
           VAR: image=${{ steps.docker-build-push.outputs.image }}
 ```

@@ -57,7 +57,7 @@ This how-to guide shows you how to build and deploy your application using [GitH
           - name: Deploy to Nais
             uses: nais/deploy/actions/deploy@v2
             env:
-              CLUSTER: <MY-CLUSTER> # Replace (1)
+              CLUSTER: <MY-ENV> # Replace (1)
               RESOURCE: .nais/app.yaml # same list as in changed-files step above
               WORKLOAD_IMAGE: ${{ steps.docker-build-push.outputs.image }}
     ```
