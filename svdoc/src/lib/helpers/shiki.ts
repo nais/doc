@@ -9,7 +9,7 @@ import {
 /**
  * Variable found in code
  */
-export interface CodeVariable {
+interface CodeVariable {
 	index: number;
 	name: string;
 	isReadOnly: boolean;
@@ -24,7 +24,7 @@ const VARIABLE_PLACEHOLDER_SUFFIX = "___";
  * Extract variables from code and replace with placeholders
  * Variables use the format: <VARIABLE_NAME> or <VARIABLE_NAME:readonly>
  */
-export function extractVariables(code: string): {
+function extractVariables(code: string): {
 	processedCode: string;
 	variables: CodeVariable[];
 } {
@@ -52,7 +52,7 @@ let highlighterPromise: Promise<Highlighter> | null = null;
 /**
  * Get or create the Shiki highlighter instance
  */
-export async function getHighlighter(): Promise<Highlighter> {
+async function getHighlighter(): Promise<Highlighter> {
 	if (!highlighterPromise) {
 		highlighterPromise = createHighlighter({
 			themes: ["github-dark", "github-light", "github-dark-default", "github-light-default"],
@@ -143,7 +143,7 @@ export function parseTitle(lang: string): string | null {
 /**
  * Code annotation found in source code
  */
-export interface CodeAnnotation {
+interface CodeAnnotation {
 	id: string;
 	line: number;
 	stripComment: boolean;
@@ -202,7 +202,7 @@ const DEFAULT_PATTERNS = [HASH_COMMENT, DOUBLE_SLASH, BLOCK_COMMENT];
  * If the annotation ends with !, the entire comment is stripped.
  * Returns the annotations found and the cleaned code.
  */
-export function parseCodeAnnotations(
+function parseCodeAnnotations(
 	code: string,
 	language: string,
 ): {
@@ -325,18 +325,11 @@ const LANGUAGE_ALIASES: Record<string, string> = {
 /**
  * Normalize language name to what Shiki expects
  */
-export function normalizeLanguage(lang: string): string {
+function normalizeLanguage(lang: string): string {
 	const normalized = lang.toLowerCase();
 	return (
 		LANGUAGE_ALIASES[normalized] || (SUPPORTED_LANGUAGES.has(normalized) ? normalized : "plaintext")
 	);
-}
-
-export interface HighlightResult {
-	html: string;
-	language: string;
-	title: string | null;
-	variables: CodeVariable[];
 }
 
 /**
@@ -491,58 +484,6 @@ function createLineTransformer(
 				}
 			}
 		},
-	};
-}
-
-/**
- * Highlight code using Shiki (single theme)
- */
-export async function highlightCode(
-	code: string,
-	langInfo: string,
-	theme: "light" | "dark" = "dark",
-): Promise<HighlightResult> {
-	const { language, highlightLines } = parseHighlightLines(langInfo);
-	const title = parseTitle(langInfo);
-	const normalizedLang = normalizeLanguage(language);
-
-	// Parse code annotations
-	const { cleanedCode, annotations } = parseCodeAnnotations(code, language);
-
-	// Extract variables and replace with placeholders
-	const { processedCode, variables } = extractVariables(cleanedCode);
-
-	const highlighter = await getHighlighter();
-
-	// Load language dynamically if not already loaded
-	const loadedLangs = highlighter.getLoadedLanguages();
-	if (!loadedLangs.includes(normalizedLang) && normalizedLang !== "plaintext") {
-		try {
-			await highlighter.loadLanguage(normalizedLang as BundledLanguage);
-		} catch {
-			// Fall back to plaintext if language can't be loaded
-		}
-	}
-
-	const themeId = theme === "dark" ? "github-dark" : "github-light";
-
-	// Build a map of line numbers to annotation IDs
-	const lineToAnnotation = new Map<number, string>();
-	for (const annotation of annotations) {
-		lineToAnnotation.set(annotation.line, annotation.id);
-	}
-
-	const html = highlighter.codeToHtml(processedCode, {
-		lang: normalizedLang,
-		theme: themeId,
-		transformers: [createLineTransformer(highlightLines, lineToAnnotation, false, variables)],
-	});
-
-	return {
-		html,
-		language,
-		title,
-		variables,
 	};
 }
 

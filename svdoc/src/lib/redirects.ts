@@ -10,7 +10,7 @@ import { contentStore } from "./content-store";
 
 // Get base path from environment variable (set in svelte.config.js)
 const BASE_PATH = process.env.BASE_PATH || "";
-export const REDIRECTS: Record<string, string> = {
+const REDIRECTS: Record<string, string> = {
 	"addons/unleash-next.md": "services/feature-toggling.md",
 	"addons/unleash.md": "services/feature-toggling.md",
 	"addons/wonderwall.md": "auth/explanations/README.md#login-proxy",

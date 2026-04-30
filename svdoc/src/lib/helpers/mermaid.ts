@@ -1,6 +1,6 @@
 import type { MermaidConfig } from "mermaid";
 
-export const darkThemeVariables: MermaidConfig["themeVariables"] = {
+const darkThemeVariables: MermaidConfig["themeVariables"] = {
 	// Dark theme variables
 	background: "#161d28",
 	primaryColor: "#17365c",
@@ -57,7 +57,7 @@ export const darkThemeVariables: MermaidConfig["themeVariables"] = {
 	personBorder: "#2e6db8",
 };
 
-export const lightThemeVariables: MermaidConfig["themeVariables"] = {
+const lightThemeVariables: MermaidConfig["themeVariables"] = {
 	// Light theme variables
 	background: "#ffffff",
 	primaryColor: "#bad5fb",

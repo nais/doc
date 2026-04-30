@@ -27,4 +27,4 @@ function setupTheme(initialTheme: Theme = "dark"): ThemeState {
 	return state;
 }
 
-export { getTheme, setupTheme, ThemeState };
+export { getTheme, setupTheme };
