@@ -1,0 +1,65 @@
+[settings]
+pin = true
+
+[tools]
+bun = "1.3.13"
+
+[tasks.setup]
+description = "Install svdoc dependencies"
+dir = "svdoc"
+run = "bun install"
+
+[tasks."local:dev"]
+description = "Run the svdoc dev server"
+dir = "svdoc"
+run = "bun run dev"
+
+[tasks.local]
+description = "Setup and run the svdoc dev server"
+depends = ["setup"]
+run = "mise run local:dev"
+
+[tasks.build]
+description = "Build svdoc for one or more tenants. Usage: mise run build nav ssb"
+depends = ["setup"]
+dir = "svdoc"
+run = '''
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [ "$#" -eq 0 ]; then
+  echo "Usage: mise run build <tenant> [<tenant>...]" >&2
+  exit 1
+fi
+
+rm -rf ../out
+mkdir -p ../out
+
+for TENANT in "$@"; do
+  echo "Building for tenant: ${TENANT}"
+  TENANT="${TENANT}" NOT_TENANT="not-${TENANT}" bun run build
+  mv build "../out/${TENANT}"
+done
+'''
+
+[tasks.check]
+description = "Run all checks (lint and svelte-check)"
+depends = ["check:lint", "check:svelte-check"]
+
+[tasks."check:lint"]
+description = "Run prettier and eslint on svdoc"
+depends = ["setup"]
+dir = "svdoc"
+run = "bun run lint"
+
+[tasks."check:svelte-check"]
+description = "Run svelte-check on svdoc"
+depends = ["setup"]
+dir = "svdoc"
+run = "bun run check"
+
+[tasks.fmt]
+description = "Format svdoc with prettier"
+depends = ["setup"]
+dir = "svdoc"
+run = "bun run format"

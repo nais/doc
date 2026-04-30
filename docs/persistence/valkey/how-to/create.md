@@ -12,7 +12,7 @@ This guide will show you how to create a Valkey instance for your team using [Na
 
 ## Steps
 
-1. Open [Nais Console :octicons-link-external-16:](https://console.<<tenant()>>.cloud.nais.io) in your browser
+1. Open [Nais Console](https://console.<<tenant()>>.cloud.nais.io) in your browser
 2. Select your team
 3. Select **Valkey** in the sidebar menu
 4. Click the **Create Valkey** button

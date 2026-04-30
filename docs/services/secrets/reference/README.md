@@ -8,7 +8,7 @@ This is the reference documentation for [secrets](../README.md) on the Nais plat
 
 ## Console
 
-Visit [Nais Console :octicons-link-external-16:](https://console.<<tenant()>>.cloud.nais.io) to find and manage your team's user-defined secrets.
+Visit [Nais Console](https://console.<<tenant()>>.cloud.nais.io) to find and manage your team's user-defined secrets.
 
 ## Workloads
 

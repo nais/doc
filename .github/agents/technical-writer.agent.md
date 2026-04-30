@@ -1,6 +1,6 @@
 ---
 name: technical-writer
-description: 'Write and edit Nais platform documentation following repo conventions (Diataxis, mkdocs Material, Jinja macros). Use when: creating new docs pages, restructuring existing docs, reviewing docs PRs, converting notes into proper documentation.'
+description: 'Write and edit Nais platform documentation following repo conventions (Diataxis, Material for MkDocs-style syntax, template macros rendered by the svdoc SvelteKit site). Use when: creating new docs pages, restructuring existing docs, reviewing docs PRs, converting notes into proper documentation.'
 tools: ['read', 'edit', 'search', 'web']
 handoffs:
   - label: Polish language
@@ -86,9 +86,9 @@ nav:
   - reference
 ```
 
-## Jinja2 Macros
+## Template Macros
 
-This repo uses `<<` and `>>` as Jinja delimiters (NOT `{{` `}}`).
+Markdown is rendered by the custom SvelteKit site in `svdoc/`, which supports a Jinja-like template syntax. This repo uses `<<` and `>>` as expression delimiters (NOT `{{` `}}`).
 
 Available macros:
 

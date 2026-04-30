@@ -1,7 +1,7 @@
 # GitHub Copilot Custom Instructions for nais/doc
 
 ## About this repository
-This repository contains the main documentation for the Nais developer platform, structured using the Diátaxis framework: Tutorials, How-To Guides, Explanations, and Reference and using mkdocs with Material for MkDocs as the documentation generator. Nais is a platform that simplifies the deployment and management of applications on Kubernetes (but without having in-depth knowledge of Kubernetes), providing tools and best practices for developers to streamline their workflows.
+This repository contains the main documentation for the Nais developer platform, structured using the Diátaxis framework: Tutorials, How-To Guides, Explanations, and Reference. Markdown sources live in `docs/` and are rendered by a custom SvelteKit + Bun site in `svdoc/` (which preserves Material for MkDocs-style syntax such as admonitions, tabs, and `<<tenant()>>` template macros). Tasks are managed with [mise](https://mise.jdx.dev/) — see `mise.toml` for `setup`, `local`, `build`, `check`, and `fmt` tasks. Nais is a platform that simplifies the deployment and management of applications on Kubernetes (but without having in-depth knowledge of Kubernetes), providing tools and best practices for developers to streamline their workflows.
 
 ## How should GitHub Copilot behave in this repository?
 

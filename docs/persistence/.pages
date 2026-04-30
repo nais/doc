@@ -1,4 +1,6 @@
 nav:
 - README.md
 - 💡 Explanations: explanations
+- BigQuery: bigquery
+- CloudSQL: cloudsql
 - ...

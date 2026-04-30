@@ -8,25 +8,14 @@ jobs:
         with:
           fetch-depth: 0 # required for git date plugin
 
-      - name: Install poetry
-        run: pipx install poetry
-
-      - name: Setup Python
-        uses: actions/setup-python@v6
+      - name: Install mise
+        uses: jdx/mise-action@v2
         with:
-          python-version: 3.11
-          architecture: x64
-          cache: poetry
-
-      - name: Install all dependencies
-        run: |
-          poetry sync \
-          --no-interaction \
-          --ansi
+          install: true
+          cache: true
 
       - name: Build documentation
-        run: |
-          ./build.sh nav ssb test-nais ldir atil ci-nais dev-nais tenant
+        run: mise run build nav ssb test-nais ldir atil ci-nais dev-nais
 
       - name: Upload generated doc artifact
         uses: actions/upload-artifact@v6

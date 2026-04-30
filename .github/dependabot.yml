@@ -12,8 +12,8 @@ updates:
       actions:
         patterns:
           - "*"
-  - package-ecosystem: "pip" # poetry / pyproject
-    directory: "/"
+  - package-ecosystem: "npm" # svdoc (SvelteKit + Bun)
+    directory: "/svdoc"
     schedule:
       interval: "weekly"
       time: "09:00"
@@ -21,6 +21,6 @@ updates:
     cooldown:
       default-days: 7
     groups:
-      pip:
+      bun:
         patterns:
           - "*"
