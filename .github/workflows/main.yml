@@ -67,7 +67,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v3
 
       - name: Sync documentation to bucket
-        run: gsutil -m rsync -r -c -d ${{matrix.tenant.name}}/ gs://${{ matrix.tenant.bucket }}
+        run: gsutil -m rsync -r -c ${{matrix.tenant.name}}/ gs://${{ matrix.tenant.bucket }}
 
       - name: Invalidate cache
         run: gsutil -m setmeta -r -h 'Cache-Control:public, max-age=180' 'gs://${{ matrix.tenant.bucket }}/*'
