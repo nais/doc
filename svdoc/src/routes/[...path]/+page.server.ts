@@ -14,7 +14,7 @@ export const entries: EntryGenerator = async () => {
 	// Combine regular paths and redirect source paths
 	const allPaths = [
 		...paths.map((path) => ({ path })),
-		...redirects.map((r) => ({ path: r.from.replace(/^\//, "") })),
+		...redirects.map((r) => ({ path: r.from.replace(/^\/+|\/+$/g, "") })),
 	];
 
 	return allPaths;
@@ -25,8 +25,11 @@ export const prerender = true;
 export const load: PageServerLoad = async ({ params }) => {
 	const { path } = params;
 
-	// Normalize the URL path
-	const urlPath = !path || path === "" ? "/" : `/${path}`;
+	// Normalize the URL path: strip trailing slash (added by SvelteKit's
+	// `trailingSlash: 'always'`) so it matches keys in the content store,
+	// which are stored without trailing slashes.
+	const normalizedPath = (path ?? "").replace(/\/+$/, "");
+	const urlPath = normalizedPath === "" ? "/" : `/${normalizedPath}`;
 
 	// Try to get content from the content store
 	const content = await contentStore.getContent(urlPath);
@@ -57,7 +60,7 @@ export const load: PageServerLoad = async ({ params }) => {
 	}
 
 	// Check if there's a redirect for this path
-	const redirectTarget = getRedirectTarget(path || "");
+	const redirectTarget = getRedirectTarget(normalizedPath);
 	if (redirectTarget) {
 		redirect(307, redirectTarget);
 	}

@@ -21,7 +21,10 @@ import {
 	stripMarkdownTokens,
 	type Heading,
 } from "./helpers/markdown-utils";
+import { processLinks } from "./helpers/process-links";
+import { stripBase, stripMarkdownSuffix, withBase } from "./helpers/urls";
 import { readMarkdownFile, type Attributes } from "./markdown";
+import { tagToSlug } from "./utils";
 
 // Resolve the docs directory relative to project root
 const DOCS_DIR = resolve(process.cwd(), "../docs");
@@ -184,24 +187,26 @@ interface PagesFile {
 	title?: string;
 }
 
-// Import tagToSlug from utils to keep it client-safe
-import { tagToSlug } from "./utils";
-
 /**
- * Convert file path to URL path
+ * Convert a disk path under the docs directory to a URL path (no `BASE_PATH`,
+ * no trailing slash, no anchor) and report whether the source file is a
+ * `README.md` (which affects how relative links are resolved on that page).
+ *
+ * Lives in the content store rather than `helpers/urls.ts` so the latter
+ * stays browser-safe (no `node:path`).
  */
-function filePathToUrlPath(filePath: string): { urlPath: string; isReadme: boolean } {
-	const relativePath = filePath.startsWith(DOCS_DIR)
-		? filePath.slice(DOCS_DIR.length)
-		: relative(DOCS_DIR, filePath);
+function filePathToUrlPath(
+	filePath: string,
+	docsDir: string,
+): { urlPath: string; isReadme: boolean } {
+	const relativePath = filePath.startsWith(docsDir)
+		? filePath.slice(docsDir.length)
+		: relative(docsDir, filePath);
 
 	const isReadme = /\/README\.md$/i.test(filePath) || relativePath.toLowerCase() === "readme.md";
 
-	const urlPath =
-		("/" + relativePath)
-			.replace(/\/README\.md$/i, "")
-			.replace(/\.md$/, "")
-			.replace(/\/+/g, "/") || "/";
+	const withLeadingSlash = relativePath.startsWith("/") ? relativePath : "/" + relativePath;
+	const urlPath = stripMarkdownSuffix(withLeadingSlash).replace(/\/+/g, "/") || "/";
 
 	return { urlPath, isReadme };
 }
@@ -210,7 +215,7 @@ function filePathToUrlPath(filePath: string): { urlPath: string; isReadme: boole
  * Convert a filename or directory name to a title
  */
 function filenameToTitle(name: string): string {
-	const baseName = name.replace(/\.md$/, "");
+	const baseName = stripMarkdownSuffix(name);
 
 	if (baseName.toLowerCase() === "readme") {
 		return "Overview";
@@ -220,25 +225,6 @@ function filenameToTitle(name: string): string {
 		.split("-")
 		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
 		.join(" ");
-}
-
-// Get base path from environment variable (set in svelte.config.js)
-const BASE_PATH = process.env.BASE_PATH || "";
-
-/**
- * Prefix a path with the configured base path
- */
-function withBase(path: string): string {
-	if (!BASE_PATH) return path;
-	const normalizedPath = path.startsWith("/") ? path : `/${path}`;
-	return `${BASE_PATH}${normalizedPath}`.replace(/\/+/g, "/");
-}
-
-/**
- * Convert a URL path to an href with base path
- */
-function urlPathToHref(urlPath: string): string {
-	return withBase(urlPath);
 }
 
 /**
@@ -340,14 +326,20 @@ class ContentStore {
 	private async processFile(filePath: string): Promise<void> {
 		try {
 			const fileStat = await stat(filePath);
-			const { tokens, attributes } = await readMarkdownFile(filePath);
+			const { urlPath, isReadme } = filePathToUrlPath(filePath, DOCS_DIR);
+			const { tokens: rawTokens, attributes } = await readMarkdownFile(filePath);
+
+			// Rewrite all `.md` hrefs to clean site URLs. This is the single
+			// place where the page's URL context is joined with the parsed
+			// markdown tree — keep it here so the markdown parser stays
+			// URL-agnostic.
+			const tokens = processLinks(rawTokens, urlPath, isReadme);
 
 			// Check if file should be included based on conditional frontmatter
 			if (!shouldIncludeFile(attributes.conditional, filePath)) {
 				return;
 			}
 
-			const { urlPath, isReadme } = filePathToUrlPath(filePath);
 			const title = attributes.title || "Untitled";
 			const headings = extractHeadingsFromTokens(tokens);
 			const searchContent = stripMarkdownTokens(tokens).slice(0, 10000);
@@ -371,8 +363,8 @@ class ContentStore {
 
 			this.documents.set(filePath, doc);
 			this.documentsByUrlPath.set(urlPath, doc);
-		} catch {
-			// Skip files that can't be read
+		} catch (err) {
+			log.warn(`Failed to process markdown file ${filePath}:`, err);
 		}
 	}
 
@@ -435,8 +427,8 @@ class ContentStore {
 					files.push(fullPath);
 				}
 			}
-		} catch {
-			// Directory doesn't exist or can't be read
+		} catch (err) {
+			log.warn(`Failed to scan directory ${dirPath}:`, err);
 		}
 
 		return files;
@@ -590,12 +582,7 @@ class ContentStore {
 		const paths: string[] = [];
 
 		for (const item of items) {
-			// Strip the base path prefix if present, then remove leading slash
-			let path = item.href;
-			if (BASE_PATH && path.startsWith(BASE_PATH)) {
-				path = path.slice(BASE_PATH.length);
-			}
-			path = path.replace(/^\//, "");
+			const path = stripBase(item.href).replace(/^\//, "");
 			paths.push(path);
 
 			if (item.children) {
@@ -751,7 +738,7 @@ class ContentStore {
 
 			return {
 				title,
-				href: urlPathToHref(urlPath),
+				href: withBase(urlPath),
 				children: children.length > 0 ? children : undefined,
 				hasContent,
 			};
@@ -767,11 +754,11 @@ class ContentStore {
 
 			// Get URL path from document
 			const doc = this.documents.get(mdPath);
-			const urlPath = doc?.urlPath || filePathToUrlPath(mdPath).urlPath;
+			const urlPath = doc?.urlPath || filePathToUrlPath(mdPath, DOCS_DIR).urlPath;
 
 			return {
 				title,
-				href: urlPathToHref(urlPath),
+				href: withBase(urlPath),
 				hasContent: true,
 			};
 		}
@@ -814,7 +801,7 @@ class ContentStore {
 			}
 			const path = typeof entry === "string" ? entry : Object.values(entry)[0];
 			explicitPaths.add(path);
-			explicitPaths.add(path.replace(/\.md$/, ""));
+			explicitPaths.add(stripMarkdownSuffix(path));
 		}
 
 		for (const entry of nav) {
@@ -827,7 +814,7 @@ class ContentStore {
 				const allContents = await this.getDirectoryContents(dirPath);
 
 				for (const name of allContents) {
-					const nameWithoutExt = name.replace(/\.md$/, "");
+					const nameWithoutExt = stripMarkdownSuffix(name);
 					if (explicitPaths.has(name) || explicitPaths.has(nameWithoutExt)) continue;
 					if (name.toLowerCase() === "readme.md") continue;
 

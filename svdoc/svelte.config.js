@@ -26,8 +26,10 @@ const config = {
 		prerender: {
 			handleHttpError: ({ path, referrer, message }) => {
 				// Ignore 404s for .md links - these are documentation links that
-				// should be handled at runtime (the Link component strips .md)
-				if (path.endsWith(".md")) {
+				// should be handled at runtime (the Link component strips .md).
+				// SvelteKit's `trailingSlash: 'always'` may append a slash, so match
+				// both `.md` and `.md/` suffixes.
+				if (/\.md\/?$/.test(path)) {
 					console.warn(`Ignoring broken .md link: ${path} (from ${referrer})`);
 					return;
 				}
