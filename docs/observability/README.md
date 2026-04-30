@@ -9,15 +9,13 @@ tags: [explanation, observability]
 
 # Observability
 
-Building and deploying applications is only half the battle. The other half is to be able to observe what's going on in your application. This is where observability comes in.
+Once your application is deployed, you need to know what it's doing. Observability gives you that visibility.
 
 ## What is observability?
 
-Observability is a term used to describe the ability to understand the state of a system by looking at the logs, metrics and traces it produces. This is in contrast to the traditional approach of debugging a system by looking at the code.
+Observability is the ability to understand the state of a system by looking at the logs, metrics, and traces it produces — rather than stepping through the code.
 
-We often use the analogy of a car to explain the difference between the two approaches. If you have a problem with your car, you can either look at the code (the engine) or you can look at the car itself (the dashboard). The dashboard gives you a lot of information about the state of the car, and you can use this information to understand what is going on.
-
-The tree pillars of observability are:
+The three pillars of observability are:
 
 1. **Logs** - Logs are a record of what has happened in your application. They are useful for debugging, but due to their unstructured format they generally do not scale very well.
 2. **Metrics** - Metrics are a numerical measurement of something in your application. They are useful for understanding the performance of your application and is generally more scalable than logs both in terms of storage and querying since they are structured data.
@@ -40,7 +38,7 @@ graph
 
 ## Automatic observability
 
-Nais provides a new way to get started with observability. By enabling auto-instrumentation, you can get started with observability without having to write any code. This is the easiest way to get started with observability, as it requires little to no effort on the part of the team developing the application.
+Nais can inject OpenTelemetry agents into your application at startup. With a few lines of YAML configuration, you get traces, metrics, and runtime data flowing to the [Nais APM](<<tenant_url("grafana", "a/nais-apm-app")>>) dashboards — no code changes required.
 
 [:dart: Get started with auto-instrumentation](../observability/how-to/auto-instrumentation.md)
 
@@ -97,17 +95,15 @@ graph LR
 
 ## Traces
 
-With tracing, we can get application performance monitoring (APM). Tracing gives deep insight into the execution of your application. For instance, you can use tracing to see if parallel function are actually run in parallel,
-or what amount of time your application spends in a given function.
+With tracing, you get application performance monitoring (APM). Tracing gives deep insight into request execution: you can see parallel calls, time spent in each function, and dependencies between services.
 
-Traces from Nais applications can be collected using the [OpenTelemetry](https://opentelemetry.io/) standard. Performance metrics are stored and queried from the [Tempo](https://grafana.com/oss/tempo/) component.
-
-Visualization of traces can be done in [Grafana](https://grafana.<<tenant()>>.cloud.nais.io), using the `*-tempo` data sources (one for each environment).
+Traces from Nais applications are collected using the [OpenTelemetry](https://opentelemetry.io/) standard and stored in [Tempo](https://grafana.com/oss/tempo/). The [Nais APM](<<tenant_url("grafana", "a/nais-apm-app")>>) app provides service inventory, RED dashboards, dependency maps, and cross-signal navigation — no manual queries needed.
 
 ```mermaid
 graph LR
   Application --gRPC--> Tempo
   Tempo --> Grafana
+  Tempo --> APM[Nais APM]
 ```
 
 [:bulb: Learn more about tracing](tracing/README.md)

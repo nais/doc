@@ -30,6 +30,7 @@ npm install @grafana/faro-web-tracing
 
 Create a client component that initializes Faro. Use `useEffect` to avoid running side effects during server-side rendering or React Strict Mode double-invocations.
 
+{% if tenant() == "nav" %}
 ```tsx
 // app/faro.tsx
 'use client';
@@ -62,6 +63,40 @@ export default function Faro({ collectorUrl }: { collectorUrl?: string }) {
   return null;
 }
 ```
+{% else %}
+```tsx
+// app/faro.tsx
+'use client';
+
+import { useEffect } from 'react';
+import { faro, getWebInstrumentations, initializeFaro } from '@grafana/faro-web-sdk';
+import { TracingInstrumentation } from '@grafana/faro-web-tracing';
+
+export default function Faro({ collectorUrl }: { collectorUrl?: string }) {
+  useEffect(() => {
+    if (faro.api) return; // already initialized
+
+    try {
+      initializeFaro({
+        url: collectorUrl || '<<tenant_url("telemetry.external.prod", "collect")>>',
+        paused: window.location.hostname === 'localhost',
+        app: {
+          name: 'my-app',
+        },
+        instrumentations: [
+          ...getWebInstrumentations(),
+          new TracingInstrumentation(),
+        ],
+      });
+    } catch (e) {
+      console.warn('Faro initialization failed', e);
+    }
+  }, [collectorUrl]);
+
+  return null;
+}
+```
+{% endif %}
 
 ## Add it to your root layout
 
@@ -83,7 +118,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
+{% if tenant() == "nav" %}
 The `NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL` environment variable is set automatically when you enable [`spec.frontend.generatedConfig`](setup-faro.md#auto-configuration) in your `nais.yaml`. If the env var isn't set, the Faro component falls back to `https://telemetry.nav.no/collect`.
+{% else %}
+The `NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL` environment variable is set automatically when you enable [`spec.frontend.generatedConfig`](setup-faro.md#auto-configuration) in your `nais.yaml`. If the env var isn't set, the Faro component falls back to `<<tenant_url("telemetry.external.prod", "collect")>>`.
+{% endif %}
 
 !!! warning "`NEXT_PUBLIC_` env vars are build-time only"
     Don't use `NEXT_PUBLIC_` for the collector URL. Next.js inlines `NEXT_PUBLIC_*` variables at `next build` time, so they won't change per cluster at deploy time. Pass runtime values through Server Components as props instead.

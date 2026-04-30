@@ -29,15 +29,15 @@ OpenTelemetry Resource Attributes are key-value pairs that describe the applicat
 
 Most applications will not need to set extra resource attributes, and only some attributes can be set by the application using the `OTEL_RESOURCE_ATTRIBUTES` environment variable.
 
-We have compile a list of attributes that can be set by the application and we advise you to consult the specification for more information about how they should be used:
+Here is a list of attributes that can be set by the application. Consult the specification for more information about how they should be used:
 
 | Attribute                                                                                                     | Type   | Description                                                                                              | Example Value | Stability      |
 | ------------------------------------------------------------------------------------------------------------- | ------ | -------------------------------------------------------------------------------------------------------- | ------------- | -------------- |
-| [`deployment.environment.name`](https://opentelemetry.io/docs/specs/semconv/resource/deployment-environment/) | string | The version string of the service API or implementation. The format is not defined by these conventions. | `q1`;  `p`    | `experimental` |
+| [`deployment.environment.name`](https://opentelemetry.io/docs/specs/semconv/resource/deployment-environment/) | string | Name of the deployment environment (e.g. `q1`, `p`, `dev`). | `q1`;  `p`    | `experimental` |
 
 ## Sanitizing sensitive data
 
-While the OpenTelemetry SDKs and agends does a best effort to not include any user data, we have added extra protection by redacting some patterns from some trace span attribtes. The following attributes are scrubbed for personal idification numbers (fødselsnummer):
+While the OpenTelemetry SDKs and agents do a best effort to not include any user data, we have added extra protection by redacting some patterns from trace span attributes. The following attributes are scrubbed for personal identification numbers (fødselsnummer):
 
 * `url.path`
 * `url.full`
@@ -83,9 +83,7 @@ The OpenTelemetry Agent is used to automatically instrument your application. Th
 
 ## Java Agent
 
-The OpenTelemetry Java Agent is a Java agent that automatically instruments your Java application. The agent is responsible for collecting telemetry data and sending it to the OpenTelemetry Collector.
-
-It is attached to your JVM automatically at startup using the [`JAVA_TOOL_OPTIONS`](https://docs.oracle.com/javase/8/docs/technotes/guides/troubleshoot/envvars002.html) environment variable.
+The Java agent attaches to your JVM automatically at startup using the [`JAVA_TOOL_OPTIONS`](https://docs.oracle.com/javase/8/docs/technotes/guides/troubleshoot/envvars002.html) environment variable.
 
 ### Supported libraries, frameworks, application servers, and JVMs
 
@@ -99,7 +97,7 @@ When using the OpenTelemetry Java SDK and Agent (auto-instrumentation), the foll
 
 | Variable                                                                | Description                                                                                           | Example Value                      |
 | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ---------------------------------- |
-| `OTEL_JAVAAGENT_LOGGING`                                                | Controles log output from the Java Agent itself, valid values are `none`, `simple`, and `application` | `simple`                           |
+| `OTEL_JAVAAGENT_LOGGING`                                                | Controls log output from the Java Agent itself, valid values are `none`, `simple`, and `application`  | `simple`                           |
 | `OTEL_JAVAAGENT_EXCLUDE_CLASSES`                                        | Suppresses all instrumentation for specific classes, format is "my.package.MyClass,my.package2.*"     | `my.package.MyClass,my.package2.*` |
 | `OTEL_INSTRUMENTATION_SPRING_BOOT_ACTUATOR_AUTOCONFIGURE_ENABLED`       | Enables or disables the Spring Boot Actuator auto-configuration instrumentation                       | `false`                            |
 | `OTEL_INSTRUMENTATION_MICROMETER_ENABLED`                               | Enables or disables the Micrometer instrumentation                                                    | `false`                            |
@@ -116,7 +114,7 @@ A full list of environment variables that can be used to configure the OpenTelem
 * [:octicons-link-external-24: General SDK Configuration](https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/#general-sdk-configuration)
 * [:octicons-link-external-24: OTLP Exporter Configuration](https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/)
 
-[OTLP is the OpenTelemetry Protocol](https://opentelemetry.io/docs/specs/otel/protocol/exporter/), and is the protocol used to send telemetry data to Prometheus, Grafana Tempo, and Grafana Loki.
+[OTLP is the OpenTelemetry Protocol](https://opentelemetry.io/docs/specs/otel/protocol/exporter/), used to send telemetry data from your application to the OpenTelemetry Collector, which forwards it to backends like Tempo, Loki, and Mimir.
 
 ## Destinations
 
@@ -125,9 +123,9 @@ If you need to override where telemetry data is stored, you can do so with the f
 ```yaml
 spec:
   observability:
-    telemetry:
+    autoInstrumentation:
       destinations:
-        - grafana-lgtm
+        - id: grafana-lgtm
 ```
 
 The following destinations are available:

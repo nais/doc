@@ -31,6 +31,7 @@ npm install @grafana/faro-web-tracing
 
 Initialize Faro as early as possible in your application so it captures all errors and page loads.
 
+{% if tenant() == "nav" %}
 ```js
 import { initializeFaro, getWebInstrumentations } from '@grafana/faro-web-sdk';
 
@@ -46,6 +47,23 @@ const faro = initializeFaro({
   ],
 });
 ```
+{% else %}
+```js
+import { initializeFaro, getWebInstrumentations } from '@grafana/faro-web-sdk';
+
+const faro = initializeFaro({
+  url: '<<tenant_url("telemetry.external.prod", "collect")>>',
+  paused: window.location.hostname === 'localhost',
+  app: {
+    name: 'my-app',   // required — identifies your app in Grafana
+    version: '1.0.0',  // optional — useful for comparing behavior across deploys
+  },
+  instrumentations: [
+    ...getWebInstrumentations(),
+  ],
+});
+```
+{% endif %}
 
 !!! tip "Auto-configuration"
     Instead of hardcoding the collector URL, you can let the platform generate it for you. See [auto-configuration](#auto-configuration) below or the [reference page](../reference/auto-configuration.md) for details.
@@ -234,9 +252,15 @@ To capture all levels, pass an empty array: `disabledLevels: []`.
 
 If your application uses a Content Security Policy, add the collector endpoint to `connect-src`:
 
+{% if tenant() == "nav" %}
 ```
 connect-src 'self' https://telemetry.nav.no https://telemetry.ekstern.dev.nav.no;
 ```
+{% else %}
+```
+connect-src 'self' <<tenant_url("telemetry.external.prod")>> <<tenant_url("telemetry.external.dev")>>;
+```
+{% endif %}
 
 Without this, the browser blocks Faro's requests to the collector. See [Troubleshooting](../reference/troubleshooting.md) for more details.
 

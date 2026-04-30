@@ -63,6 +63,7 @@ initializeFaro({
 
 Use a regex or string that matches your backend API URLs. You can list multiple patterns:
 
+{% if tenant() == "nav" %}
 ```typescript
 propagateTraceHeaderCorsUrls: [
   /https:\/\/api\.nav\.no\/.*/,
@@ -75,6 +76,13 @@ Or use a single wildcard to propagate traces to all `*.nav.no` backends:
 ```typescript
 propagateTraceHeaderCorsUrls: [/https:\/\/[^/]+\.nav\.no\/.*/],
 ```
+{% else %}
+```typescript
+propagateTraceHeaderCorsUrls: [
+  /https:\/\/my-backend\.<<tenant()>>\.cloud\.nais\.io\/.*/,
+],
+```
+{% endif %}
 
 If you build URLs from environment variables, escape them to prevent [ReDoS](https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS):
 

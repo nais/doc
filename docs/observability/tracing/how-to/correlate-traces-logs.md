@@ -4,82 +4,61 @@ tags: [how-to, tracing, observability]
 ---
 # Correlate traces and logs
 
-This guide will explain how to correlate traces with logs in Grafana Tempo by including trace information in your logs. This will allow you to easily see the logs that are associated with a trace and troubleshoot issues in your application.
+This guide explains how to correlate traces with logs in Grafana Tempo. When set up correctly, clicking a trace shows the associated logs — and clicking a log line links back to its trace.
 
-## Configure Tracing
+## Prerequisites
 
-First you need to configure OpenTelemetry tracing in your application. The easiest way to get started with tracing is to enable auto-instrumentation for your application. This will automatically collect traces and send them to the correct place using the OpenTelemetry Agent or you can use the OpenTelemetry SDK to manually instrument your application.
+1. [Auto-instrumentation enabled](../../how-to/auto-instrumentation.md) (or manual OTel SDK setup)
+2. [Logs sent to Grafana Loki](../../logging/how-to/loki.md#enable-logging-to-grafana-loki)
 
-[:dart: Get started with auto-instrumentation](../../how-to/auto-instrumentation.md)
+## How it works
 
-## Enable logging to Grafana Loki
+The OTel Java agent automatically injects `trace_id` and `span_id` into your logging framework's MDC (Mapped Diagnostic Context). If your log output includes MDC fields, correlation works out of the box — no extra dependencies needed.
 
-In order to use the Grafana Tempo log correlation feature, you need to send your logs to Grafana Loki.
+**Most Nav apps already have this working.** If you use `LogstashEncoder` (which outputs all MDC fields as JSON), trace context is already in your logs.
 
-[:dart: Enable logging to Grafana Loki](../../logging/how-to/loki.md#enable-logging-to-grafana-loki)
+## Verify it works
 
-## Include trace information in your logs
+1. Open [Nais APM](<<tenant_url("grafana", "a/nais-apm-app")>>) and find a trace for your service
+2. Click "View logs" — if correlated logs appear, you're done
 
-The final step is to include trace information in your logs. This will allow Grafana Tempo to look up logs that are associated with a trace.
+If logs don't appear, check the troubleshooting section below.
 
-=== "logback"
+## Log format requirements
 
-    Add the [opentelemetry-logback-mdc-1.0](https://mvnrepository.com/artifact/io.opentelemetry.instrumentation/opentelemetry-logback-mdc-1.0) package to your `pom.xml` or `build.gradle` to include trace information in your logs:
+=== "logback (LogstashEncoder)"
 
-    ```
-    io.opentelemetry.instrumentation:opentelemetry-logback-mdc-1.0:2.16.0-alpha
-    ```
-
-    Add the following pattern to your logback configuration to include trace information in your logs:
+    If you use `LogstashEncoder`, all MDC fields (including `trace_id` and `span_id`) are included automatically:
 
     ```xml
-    <?xml version="1.0" encoding="UTF-8" ?>
-    <configuration>
-        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-            <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
-        </appender>
-
-        <appender name="OTEL" class="io.opentelemetry.instrumentation.logback.mdc.v1_0.OpenTelemetryAppender">
-            <appender-ref ref="STDOUT" />
-        </appender>
-
-        <root level="INFO">
-            <appender-ref ref="OTEL" />
-        </root>
-    </configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+    </appender>
     ```
 
-=== "log4j"
+    No extra dependencies or appender wrapping needed when using auto-instrumentation.
 
-    Add the [opentelemetry-javaagent-log4j-context-data-2.17](https://mvnrepository.com/artifact/io.opentelemetry.javaagent.instrumentation/opentelemetry-javaagent-log4j-context-data-2.17) package to your `pom.xml` or `build.gradle` to include trace information in your logs:
+=== "logback (PatternLayout)"
 
-    ```
-    io.opentelemetry.instrumentation:opentelemetry-log4j-context-data-2.17-autoconfigure:2.16.0-alpha
-    ```
-
-    Add the following pattern to your log4j configuration to include trace information in your logs:
+    If you use a plain `PatternLayout`, add `%X{trace_id}` and `%X{span_id}` to your pattern:
 
     ```xml
-        <?xml version="1.0" encoding="UTF-8"?>
-        <Configuration status="WARN">
-            <Appenders>
-                <Console name="Console" target="SYSTEM_OUT">
-                    <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} traceId: %X{trace_id} spanId: %X{span_id} - %msg%n" />
-                </Console>
-            </Appenders>
-            <Loggers>
-                <Root level="INFO">
-                    <AppenderRef ref="Console"/>
-                </Root>
-            </Loggers>
-        </Configuration>
+    <pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} traceId=%X{trace_id} spanId=%X{span_id} - %msg%n</pattern>
+    ```
+
+=== "log4j2"
+
+    Log4j2 context data injection is automatic with the OTel agent. Use `%X{trace_id}` in your pattern:
+
+    ```xml
+    <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} traceId: %X{trace_id} spanId: %X{span_id} - %msg%n" />
     ```
 
 === "@navikt/pino-logger"
 
-    If you are using [Pino](https://github.com/pinojs/pino) or `@navikt/pino-logger`, correlation is enabled by default when you use the OpenTelemetry Node.js auto-instrumentation. The trace and span IDs will be included in the logs automatically.
+    Correlation is automatic with Node.js auto-instrumentation. The trace and span IDs are included in logs without extra config.
 
-    If you are using Next.js be sure to add the `@navikt/pino-logger` and `pino` packages to `serverExternalPackages` in your `next.config.js` file to prevent it from being tree-shaken by Next.js:
+    If you use Next.js, add the packages to `serverExternalPackages` to prevent tree-shaking:
 
     ```javascript
     // next.config.js
@@ -90,9 +69,9 @@ The final step is to include trace information in your logs. This will allow Gra
 
 === "@navikt/next-logger"
 
-    If you are using the [@navikt/next-logger](https://github.com/navikt/next-logger), correlation is enabled by default when you use the OpenTelemetry Node.js auto-instrumentation. The trace and span IDs will be included in the logs automatically.
+    Correlation is automatic with Node.js auto-instrumentation.
 
-    Be sure to add the `@navikt/next-logger` and `pino` packages to `serverExternalPackages` in your `next.config.js` file to prevent it from being tree-shaken by Next.js:
+    Add to `serverExternalPackages`:
 
     ```javascript
     // next.config.js
@@ -101,8 +80,34 @@ The final step is to include trace information in your logs. This will allow Gra
     };
     ```
 
-## Profit
+## Without auto-instrumentation
 
-Now that you have tracing and logging set up, you can use Grafana Tempo to correlate traces and logs. When you view a trace in Grafana Tempo, you can see the logs that are associated with that trace. This makes it easy to understand what happened in your application and troubleshoot issues.
+If your app does **not** use Nais auto-instrumentation, you need to inject trace context into MDC manually. Add the OpenTelemetry logback appender:
+
+```
+io.opentelemetry.instrumentation:opentelemetry-logback-mdc-1.0:2.16.0-alpha
+```
+
+```xml
+<appender name="OTEL" class="io.opentelemetry.instrumentation.logback.mdc.v1_0.OpenTelemetryAppender">
+    <appender-ref ref="STDOUT" />
+</appender>
+
+<root level="INFO">
+    <appender-ref ref="OTEL" />
+</root>
+```
+
+## Troubleshooting
+
+If trace-log correlation isn't working:
+
+1. **Check your logs contain `trace_id`** — query Loki for your app and look for the field
+2. **Verify auto-instrumentation is enabled** — check your nais.yaml has `autoInstrumentation.enabled: true`
+3. **Check LogstashEncoder** — if you use a custom pattern, make sure `%X{trace_id}` is included
+
+## Result
+
+When correlation works, Grafana Tempo shows associated logs inline with your trace:
 
 ![Correlate traces and logs](../../../assets/grafana-tempo-logs.png)
