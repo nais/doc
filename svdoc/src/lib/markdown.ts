@@ -812,6 +812,18 @@ function processLinks(
 			};
 		}
 
+		// Handle footnotes container - recurse into each footnote's tokens
+		if (token.type === "footnotes" && "items" in token) {
+			const footnotesToken = token as Token & { items: FootnoteToken[] };
+			return {
+				...footnotesToken,
+				items: footnotesToken.items.map((item) => ({
+					...item,
+					tokens: processLinks(item.tokens, basePath, isReadme) as Token[],
+				})),
+			};
+		}
+
 		// Handle admonition tokens
 		if (token.type === "admonition" && "tokens" in token) {
 			return {

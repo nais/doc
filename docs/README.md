@@ -37,6 +37,6 @@ What can we help you with today?
 
 </div>
 
-[^1]: :bulb: [_explanations_](tags.md#explanation) present higher-level concepts. Most useful when you want to understand how Nais works.
-[^2]: :dart: [_how-to guides_](tags.md#how-to) help you achieve a specific goal. Most useful when you're trying to get something done.
-[^3]: :books: [_references_](tags.md#reference) contain technical descriptions and specifications. Most useful when you need to look up details about a specific feature.
+[^1]: :bulb: [_explanations_](/tags/explanation) present higher-level concepts. Most useful when you want to understand how Nais works.
+[^2]: :dart: [_how-to guides_](/tags/how-to) help you achieve a specific goal. Most useful when you're trying to get something done.
+[^3]: :books: [_references_](/tags/reference) contain technical descriptions and specifications. Most useful when you need to look up details about a specific feature.
