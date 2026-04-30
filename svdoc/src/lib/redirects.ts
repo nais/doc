@@ -7,9 +7,8 @@
  */
 
 import { contentStore } from "./content-store";
+import { mdPathToContentKey, mdPathToUrl } from "./helpers/urls";
 
-// Get base path from environment variable (set in svelte.config.js)
-const BASE_PATH = process.env.BASE_PATH || "";
 const REDIRECTS: Record<string, string> = {
 	"addons/unleash-next.md": "services/feature-toggling.md",
 	"addons/unleash.md": "services/feature-toggling.md",
@@ -204,82 +203,34 @@ export function getRedirectTarget(path: string): string | null {
 	}
 
 	const target = REDIRECTS[lookupPath];
-	if (!target) {
-		// Also try with /README.md for directory paths
-		const readmePath = `${path}/README.md`;
-		const readmeTarget = REDIRECTS[readmePath];
-		if (readmeTarget) {
-			return convertToUrl(readmeTarget);
-		}
-		return null;
+	if (target) {
+		return mdPathToUrl(target);
 	}
 
-	return convertToUrl(target);
-}
-
-/**
- * Convert a .md path to a URL path
- */
-function convertToUrl(mdPath: string): string {
-	// Handle anchors
-	const [pathPart, anchor] = mdPath.split("#");
-
-	// Convert path: remove .md, handle README
-	let urlPath = pathPart
-		.replace(/\.md$/, "")
-		.replace(/\/README$/, "")
-		.replace(/^README$/, "");
-
-	// Add leading slash and base path
-	urlPath = BASE_PATH + "/" + urlPath;
-	urlPath = urlPath.replace(/\/+/g, "/");
-
-	// Add anchor if present
-	if (anchor) {
-		urlPath += "#" + anchor;
+	// Also try with /README.md for directory paths
+	const readmeTarget = REDIRECTS[`${path}/README.md`];
+	if (readmeTarget) {
+		return mdPathToUrl(readmeTarget);
 	}
 
-	return urlPath;
+	return null;
 }
 
 /**
- * Convert a target .md path to a URL path for checking against content store
- */
-function targetToUrlPath(mdPath: string): string {
-	const [pathPart] = mdPath.split("#");
-	return (
-		(
-			"/" +
-			pathPart
-				.replace(/\.md$/, "")
-				.replace(/\/README$/, "")
-				.replace(/^README$/, "")
-		).replace(/\/+/g, "/") || "/"
-	);
-}
-
-/**
- * Get all redirect entries for static site generation
- * Returns array of { from, to } objects with URL paths
- * Only includes redirects where the target document exists in the content store
+ * Get all redirect entries for static site generation.
+ * Returns array of `{ from, to }` objects with URL paths. Only includes
+ * redirects where the target document exists in the content store.
  */
 export async function getAllRedirects(): Promise<Array<{ from: string; to: string }>> {
 	const redirects: Array<{ from: string; to: string }> = [];
 
 	for (const [from, to] of Object.entries(REDIRECTS)) {
-		const targetUrlPath = targetToUrlPath(to);
-		const targetDoc = await contentStore.getDocumentByPath(targetUrlPath);
-
+		const targetDoc = await contentStore.getDocumentByPath(mdPathToContentKey(to));
 		// Only include redirect if target document exists (not filtered out)
 		if (targetDoc) {
 			redirects.push({
-				from:
-					"/" +
-					from
-						.replace(/\.md$/, "")
-						.replace(/\/README$/, "")
-						.replace(/^README$/, ""),
-				to: convertToUrl(to),
+				from: mdPathToUrl(from),
+				to: mdPathToUrl(to),
 			});
 		}
 	}

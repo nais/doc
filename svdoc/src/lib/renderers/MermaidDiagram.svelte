@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { browser } from "$app/environment";
-	import { base } from "$app/paths";
 	import { page } from "$app/state";
 	import { getMermaidThemeVariables } from "$lib/helpers/mermaid";
+	import { stripBase, transformMarkdownHref } from "$lib/helpers/urls";
 	import { getTheme } from "$lib/state/theme.svelte";
 	import { CopyButton } from "@nais/ds-svelte-community";
 	import mermaid from "mermaid";
@@ -20,46 +20,25 @@
 	/**
 	 * Transform relative hrefs in mermaid SVG to absolute paths.
 	 * Handles links like href='tokenx' -> href='/docs/auth/tokenx'
+	 *
+	 * Reuses {@link transformMarkdownHref} so mermaid links resolve
+	 * exactly the same way the rest of the documentation does
+	 * (relative-to-current-page, README→directory, BASE_PATH, trailing
+	 * slash).
 	 */
 	function transformMermaidLinks(svg: string, currentPath: string): string {
-		// For directory pages (like /docs/auth which shows README.md),
-		// the currentPath IS the base directory for resolving relative links.
-		// We treat paths without a file extension as directories.
-		const hasFileExtension = /\.[^/]+$/.test(currentPath);
-		const baseDir = hasFileExtension ? currentPath.replace(/\/[^/]*$/, "") || "/" : currentPath;
+		// `currentPath` comes from `page.url.pathname`, which already includes
+		// `BASE_PATH`. `transformMarkdownHref` re-prepends `BASE_PATH` via
+		// `withBase`, so strip it first to avoid a double prefix.
+		const basePath = stripBase(currentPath);
 
-		// Transform href attributes in the SVG
-		return svg.replace(/href=['"]([^'"]+)['"]/g, (match, href) => {
-			// Skip external links, anchors, and already absolute paths
-			if (
-				href.startsWith("http://") ||
-				href.startsWith("https://") ||
-				href.startsWith("#") ||
-				href.startsWith("mailto:") ||
-				href.startsWith("/")
-			) {
-				return match;
-			}
+		// Pages without a file extension act as their own directory (a
+		// rendered README), which is exactly how `transformMarkdownHref`
+		// signals "resolve relative to *this* directory" via `isReadme`.
+		const isReadme = !/\.[^/]+$/.test(basePath);
 
-			// Resolve relative path
-			const segments = [...baseDir.split("/").filter(Boolean), ...href.split("/")];
-			const resolved: string[] = [];
-			for (const segment of segments) {
-				if (segment === "..") {
-					resolved.pop();
-				} else if (segment !== ".") {
-					resolved.push(segment);
-				}
-			}
-
-			let absolutePath = "/" + resolved.join("/");
-
-			// Add base path if configured
-			if (base && !absolutePath.startsWith(base)) {
-				absolutePath = `${base}${absolutePath}`.replace(/\/+/g, "/");
-			}
-
-			return `href="${absolutePath}"`;
+		return svg.replace(/href=(['"])([^'"]+)\1/g, (_match, quote, href) => {
+			return `href=${quote}${transformMarkdownHref(href, basePath, isReadme)}${quote}`;
 		});
 	}
 
