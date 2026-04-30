@@ -74,7 +74,7 @@ log.debug(`Tenant filtering: TENANT="${TENANT}", NOT_TENANT="${NOT_TENANT}"`);
  * @param filePath - Optional file path for logging
  * @returns true if the file should be included, false if it should be excluded
  */
-export function shouldIncludeFile(conditional?: string[], filePath?: string): boolean {
+function shouldIncludeFile(conditional?: string[], filePath?: string): boolean {
 	if (!conditional || conditional.length === 0) {
 		return true;
 	}
@@ -114,7 +114,7 @@ export function shouldIncludeFile(conditional?: string[], filePath?: string): bo
 /**
  * Represents a parsed markdown document with all its metadata and content
  */
-export interface ContentDocument {
+interface ContentDocument {
 	/** Absolute file path */
 	filePath: string;
 	/** URL path (e.g., "/workloads/how-to/access") */
@@ -146,7 +146,7 @@ export interface ContentDocument {
 /**
  * Represents tag information with associated pages
  */
-export interface TagInfo {
+interface TagInfo {
 	/** Original tag name */
 	name: string;
 	/** URL-safe slug */
@@ -158,7 +158,7 @@ export interface TagInfo {
 /**
  * Represents a page associated with a tag
  */
-export interface TaggedPage {
+interface TaggedPage {
 	title: string;
 	path: string;
 	description?: string;
@@ -186,9 +186,6 @@ interface PagesFile {
 
 // Import tagToSlug from utils to keep it client-safe
 import { tagToSlug } from "./utils";
-
-// Re-export for convenience
-export { tagToSlug };
 
 /**
  * Convert file path to URL path

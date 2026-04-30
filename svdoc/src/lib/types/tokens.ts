@@ -35,16 +35,6 @@ export interface ContentTabsToken {
 }
 
 /**
- * Footnote reference token (inline [^1])
- */
-export interface FootnoteRefToken {
-	type: "footnoteRef";
-	raw: string;
-	id: string;
-	label: string;
-}
-
-/**
  * Footnote definition token ([^1]: content)
  */
 export interface FootnoteToken {
@@ -53,27 +43,6 @@ export interface FootnoteToken {
 	id: string;
 	label: string;
 	tokens: Token[];
-}
-
-/**
- * Container for all footnotes at the end of a document
- */
-export interface FootnotesToken {
-	type: "footnotes";
-	raw: string;
-	items: FootnoteToken[];
-}
-
-/**
- * HTML block with markdown attribute parsed
- */
-export interface HtmlWithMarkdownToken {
-	type: "html_with_markdown";
-	raw: string;
-	text: string;
-	openTag: string;
-	closeTag: string;
-	innerTokens: Token[];
 }
 
 /**

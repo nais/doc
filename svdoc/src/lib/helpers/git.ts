@@ -1,7 +1,7 @@
 import { execSync } from "child_process";
 import { resolve } from "path";
 
-export interface GitInfo {
+interface GitInfo {
 	/** ISO date string of first commit for the file */
 	createdAt?: string;
 	/** ISO date string of last commit for the file */
@@ -96,15 +96,6 @@ function loadFileDates(repoRoot: string): Map<string, FileDates> {
 
 	fileDatesCache = dates;
 	return dates;
-}
-
-/**
- * Clear cached git information. Useful for tests or long-running dev servers
- * that need to pick up new commits.
- */
-export function resetGitCache(): void {
-	repoRootCache = undefined;
-	fileDatesCache = null;
 }
 
 /**

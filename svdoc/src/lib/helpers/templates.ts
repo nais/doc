@@ -12,14 +12,14 @@ function getEnv(key: string, defaultValue: string = ""): string {
 /**
  * Get the tenant name
  */
-export function tenant(): string {
+function tenant(): string {
 	return getEnv("TENANT", "tenant");
 }
 
 /**
  * Get the tenant URL for a service
  */
-export function tenantUrl(app: string, path: string = ""): string {
+function tenantUrl(app: string, path: string = ""): string {
 	const tenantName = tenant();
 	if (tenantName === "nav" && app === "cdn") {
 		return `https://cdn.nav.no/${path}`;
@@ -30,7 +30,7 @@ export function tenantUrl(app: string, path: string = ""): string {
 /**
  * Get the naisdevice name based on tenant
  */
-export function naisdeviceName(): string {
+function naisdeviceName(): string {
 	if (tenant() === "nav") {
 		return "naisdevice";
 	}
@@ -40,7 +40,7 @@ export function naisdeviceName(): string {
 /**
  * Check if the feature is GCP only and return admonition markdown if applicable
  */
-export function gcpOnly(feature: string): string {
+function gcpOnly(feature: string): string {
 	if (tenant() === "nav") {
 		return `!!! gcp-only "${feature} is only available in GCP"\n    ${feature} is only available in GCP clusters, and will not work in on-prem clusters.`;
 	}
@@ -50,14 +50,14 @@ export function gcpOnly(feature: string): string {
 /**
  * Check if the feature is not available in test-nais
  */
-export function notInTestNais(feature: string): string {
+function notInTestNais(feature: string): string {
 	if (tenant() === "test-nais") {
 		return `!!! not-in-test-nais "${feature} is not available in test-nais clusters"\n    ${feature} is not available in test-nais clusters.`;
 	}
 	return "";
 }
 
-export interface TemplateContext {
+interface TemplateContext {
 	tenant: string;
 	tenantUrl: (app: string, path?: string) => string;
 	naisdeviceName: string;
@@ -69,7 +69,7 @@ export interface TemplateContext {
 /**
  * Create a template context with all available variables and functions
  */
-export function createTemplateContext(): TemplateContext {
+function createTemplateContext(): TemplateContext {
 	return {
 		tenant: tenant(),
 		tenantUrl,
