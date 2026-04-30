@@ -18,7 +18,7 @@ This tutorial will take you through the process of getting a simple application 
     - `<MY-APP>` - The name of your Nais application (e.g. `joannas-first`)
     - `<MY-TEAM>` - The name of your Nais team (e.g. `onboarding`)
     - `<GITHUB-ORG>` - Your GitHub organization (e.g. `navikt`)
-    - `<MY-ENV>` - The name of the environment you want to deploy to (e.g. `dev-gcp`)
+    - `<MY-ENV>` - The name of the environment you want to deploy to (see [environments](../workloads/reference/environments))
 
     **NB!** Choose names with *lowercase* letters, numbers and dashes only.
 
