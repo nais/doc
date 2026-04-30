@@ -12,35 +12,30 @@ For the full upstream reference, see [Cloud SQL PostgreSQL users and roles](http
 
 ### Summary
 
-| Name                             | Type | Can log in | Always present                             |
-|----------------------------------|------|------------|--------------------------------------------|
-| `postgres`                       | User | Yes        | Yes                                        |
-| `cloudsqladmin`                  | User | No         | Yes                                        |
-| `cloudsqlagent`                  | User | No         | When monitoring is configured              |
-| `cloudsqlconnpooladmin`          | User | No         | When Managed Connection Pooling is enabled |
-| `cloudsqlimportexport`           | User | No         | Yes                                        |
-| `cloudsqllogical`                | User | No         | When logical replication is configured     |
-| `cloudsqlreplica`                | User | No         | When replication is configured             |
-| `cloudsqlobservability`          | User | No         | When database observability is enabled     |
-| `cloudsqliamgroup`               | Role | No         | When IAM group auth is enabled             |
-| `cloudsqlinactiveuser`           | Role | No         | When IAM group auth is enabled             |
-| `cloudsqliamgroupserviceaccount` | Role | No         | When IAM group auth is enabled             |
-| `cloudsqliamgroupuser`           | Role | No         | When IAM group auth is enabled             |
-| `cloudsqliamserviceaccount`      | Role | No         | Yes                                        |
-| `cloudsqliamuser`                | Role | No         | Yes                                        |
-| `cloudsqlsuperuser`              | Role | No         | Yes                                        |
-| Team IAM database user           | User | Yes        | When IAM database auth is enabled          |
-| Team IAM service account user    | User | Yes        | When IAM database auth is enabled          |
-| Application user                 | User | Yes        | Yes                                        |
+| Name                             | Type | Can log in | Always present                                        |
+|----------------------------------|------|------------|-------------------------------------------------------|
+| `cloudsqladmin`                  | User | No         | Yes                                                   |
+| `cloudsqlagent`                  | User | No         | When monitoring is configured                         |
+| `cloudsqlconnpooladmin`          | User | No         | When Managed Connection Pooling is enabled            |
+| `cloudsqlimportexport`           | User | No         | Yes                                                   |
+| `cloudsqllogical`                | User | No         | When logical replication is configured                |
+| `cloudsqlreplica`                | User | No         | When replication is configured                        |
+| `cloudsqlobservability`          | User | No         | When database observability is enabled                |
+| `postgres`                       | User | Yes        | Yes                                                   |
+| Team IAM database user           | User | Yes        | When IAM database auth is enabled                     |
+| Team IAM service account user    | User | Yes        | When IAM database auth is enabled                     |
+| Application user                 | User | Yes        | When nais user has requested instance via `nais.yaml` |
+| `cloudsqliamgroup`               | Role | No         | When IAM group auth is enabled                        |
+| `cloudsqlinactiveuser`           | Role | No         | When IAM group auth is enabled                        |
+| `cloudsqliamgroupserviceaccount` | Role | No         | When IAM group auth is enabled                        |
+| `cloudsqliamgroupuser`           | Role | No         | When IAM group auth is enabled                        |
+| `cloudsqliamserviceaccount`      | Role | No         | Yes                                                   |
+| `cloudsqliamuser`                | Role | No         | Yes                                                   |
+| `cloudsqlsuperuser`              | Role | No         | Yes                                                   |
 
 ### System users
 
 These users are created and managed by Google. You cannot drop or modify them.
-
-**`postgres`**
-
-The default administrative login user, present on every instance from provisioning. It holds the `cloudsqlsuperuser` role and is the typical starting point for initial setup tasks such as creating schemas or granting privileges.
-`postgres` is _not_ a full PostgreSQL superuser. Cloud SQL restricts certain superuser operations — for example, reading `pg_shadow` or loading arbitrary extensions is not permitted.
 
 **`cloudsqladmin`**
 
@@ -69,6 +64,11 @@ Used for database observability features such as the index advisor and active qu
 **`cloudsqlreplica`**
 
 Used for replication. Created when the instance is configured with read replicas. Not accessible to customers.
+
+**`postgres`**
+
+The default administrative login user, present on every instance from provisioning. It holds the `cloudsqlsuperuser` role and is the typical starting point for initial setup tasks such as creating schemas or granting privileges.
+`postgres` is _not_ a full PostgreSQL superuser. Cloud SQL restricts certain superuser operations — for example, reading `pg_shadow` or loading arbitrary extensions is not permitted.
 
 ### System roles
 
@@ -102,7 +102,7 @@ Granted to PostgreSQL users that authenticate via Cloud IAM (human user identiti
 
 Like `cloudsqliamuser`, but for service account identities authenticating via IAM. Always present as a role definition; only assigned when IAM service account authentication is configured.
 
-### Optional and application users
+### NAIS created users
 
 **IAM database users**
 
@@ -112,7 +112,7 @@ Created when [Cloud IAM database authentication :octicons-link-external-16:](htt
 
 Created when IAM authentication is used for service accounts. The username is the service account email address (truncated). These users are granted the `cloudsqliamserviceaccount` role.
 
-**Application users (ConfigConnector/NAIS-managed)**
+**Application users**
 
 When your application requests a Cloud SQL instance in `nais.yaml`, Nais uses ConfigConnector to automatically create a dedicated PostgreSQL login user for that application. The credentials are injected into the application pod as environment variables.
 
