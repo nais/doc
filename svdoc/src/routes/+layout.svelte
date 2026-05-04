@@ -3,7 +3,7 @@
 	import { afterNavigate } from "$app/navigation";
 	import { asset, resolve } from "$app/paths";
 	import SearchButton from "$lib/SearchButton.svelte";
-	import SearchModal from "$lib/SearchModal.svelte";
+	import type SearchModalT from "$lib/SearchModal.svelte";
 	import Sidebar from "$lib/Sidebar.svelte";
 	import { setupTheme, type Theme as ThemeMode } from "$lib/state/theme.svelte";
 	import ThemeToggle from "$lib/ThemeToggle.svelte";
@@ -17,6 +17,41 @@
 	const { navigation } = $derived(data);
 
 	let searchOpen = $state(false);
+	let SearchModal = $state<typeof SearchModalT | null>(null);
+	let searchModalLoading = false;
+
+	async function loadSearchModal() {
+		if (SearchModal || searchModalLoading) return;
+		searchModalLoading = true;
+		try {
+			const mod = await import("$lib/SearchModal.svelte");
+			SearchModal = mod.default;
+		} finally {
+			searchModalLoading = false;
+		}
+	}
+
+	async function openSearch() {
+		await loadSearchModal();
+		searchOpen = true;
+	}
+
+	// Preload on hover/focus of the button, and listen for Cmd/Ctrl+K globally.
+	$effect(() => {
+		if (!browser) return;
+		function handleGlobalKeydown(event: KeyboardEvent) {
+			if ((event.metaKey || event.ctrlKey) && event.key === "k") {
+				event.preventDefault();
+				if (searchOpen) {
+					searchOpen = false;
+				} else {
+					openSearch();
+				}
+			}
+		}
+		window.addEventListener("keydown", handleGlobalKeydown);
+		return () => window.removeEventListener("keydown", handleGlobalKeydown);
+	});
 
 	// Initialize theme from localStorage or system preference
 	function getInitialTheme(): ThemeMode {
@@ -102,14 +137,21 @@
 				</label>
 				<InternalHeaderTitle href={resolve("/")}>Nais Docs</InternalHeaderTitle>
 				<Spacer />
-				<div class="hide-noscript contents">
-					<SearchButton onclick={() => (searchOpen = true)} />
+				<div
+					class="hide-noscript contents"
+					onpointerenter={loadSearchModal}
+					onfocusin={loadSearchModal}
+					role="presentation"
+				>
+					<SearchButton onclick={openSearch} />
 					<ThemeToggle theme={themeState.theme} onchange={handleThemeChange} />
 				</div>
 			</InternalHeader>
 		</header>
 
-		<SearchModal bind:open={searchOpen} />
+		{#if SearchModal}
+			<SearchModal bind:open={searchOpen} />
+		{/if}
 
 		<div class="content-wrapper">
 			<!-- Overlay to close sidebar when clicking outside (mobile) -->

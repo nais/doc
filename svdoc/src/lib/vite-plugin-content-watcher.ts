@@ -5,8 +5,8 @@
  * and .pages files, then triggers a full page reload when changes are detected.
  */
 
-import type { Plugin, ViteDevServer } from "vite";
 import { resolve } from "node:path";
+import type { Plugin, ViteDevServer } from "vite";
 
 const DOCS_DIR = resolve(process.cwd(), "../docs");
 
@@ -41,7 +41,7 @@ export function contentWatcherPlugin(): Plugin {
 
 				// Invalidate the content store
 				try {
-					const { contentStore } = await import("./content-store");
+					const { contentStore } = await import(/* @vite-ignore */ "./content-store");
 					await contentStore.invalidateFile(filePath);
 				} catch (error) {
 					console.error("[content-watcher] Failed to invalidate content store:", error);
@@ -69,7 +69,7 @@ export function contentWatcherPlugin(): Plugin {
 
 				// Invalidate the entire store on deletion
 				try {
-					const { contentStore } = await import("./content-store");
+					const { contentStore } = await import(/* @vite-ignore */ "./content-store");
 					await contentStore.invalidateAll();
 				} catch (error) {
 					console.error("[content-watcher] Failed to invalidate content store:", error);

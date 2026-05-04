@@ -66,8 +66,22 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v3
 
-      - name: Sync documentation to bucket
-        run: gsutil -m rsync -r -c ${{matrix.tenant.name}}/ gs://${{ matrix.tenant.bucket }}
+      # SvelteKit emits content-hashed files under `_app/immutable/`; those are
+      # safe to cache for a year. Everything else gets a short TTL so deploys
+      # propagate quickly. Cache-Control is set at upload time via `gsutil -h`,
+      # so unchanged objects (rsync -c) keep their existing metadata and we
+      # avoid a full-bucket `setmeta` rewrite on every deploy.
+      - name: Sync immutable assets (long cache)
+        run: |
+          gsutil -h 'Cache-Control:public, max-age=31536000, immutable' \
+            -m rsync -r -c \
+            ${{ matrix.tenant.name }}/_app/immutable/ \
+            gs://${{ matrix.tenant.bucket }}/_app/immutable/
 
-      - name: Invalidate cache
-        run: gsutil -m setmeta -r -h 'Cache-Control:public, max-age=180' 'gs://${{ matrix.tenant.bucket }}/*'
+      - name: Sync remaining content (short cache)
+        run: |
+          gsutil -h 'Cache-Control:public, max-age=180' \
+            -m rsync -r -c -d \
+            -x '^_app/immutable/.*$' \
+            ${{ matrix.tenant.name }}/ \
+            gs://${{ matrix.tenant.bucket }}

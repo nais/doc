@@ -24,8 +24,10 @@
  * redirect handling.
  */
 
+import { base } from "$app/paths";
+
 /** Base path prefix for all internal URLs (set in `svelte.config.js`). */
-const BASE_PATH = process.env.BASE_PATH || "";
+const BASE_PATH = base;
 
 const MD_EXT_RE = /\.md\/?$/i;
 const README_SUFFIX_RE = /\/README$/i;
