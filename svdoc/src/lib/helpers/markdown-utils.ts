@@ -28,6 +28,81 @@ export interface Heading {
  * Extract plain text from a token's inline content.
  */
 function extractTextFromToken(token: Token): string {
+	// Lists have `items` (list_item tokens), each with their own `tokens`
+	if (token.type === "list" && "items" in token && Array.isArray(token.items)) {
+		return token.items.map(extractTextFromToken).join(" ");
+	}
+
+	// Tables have `header` (cells) and `rows` (rows of cells); each cell has `tokens`
+	if (token.type === "table") {
+		const tableToken = token as unknown as {
+			header?: Array<{ tokens?: Token[]; text?: string }>;
+			rows?: Array<Array<{ tokens?: Token[]; text?: string }>>;
+		};
+		const parts: string[] = [];
+		for (const cell of tableToken.header ?? []) {
+			if (cell.tokens) {
+				parts.push(cell.tokens.map(extractTextFromToken).join(""));
+			} else if (cell.text) {
+				parts.push(cell.text);
+			}
+		}
+		for (const row of tableToken.rows ?? []) {
+			for (const cell of row) {
+				if (cell.tokens) {
+					parts.push(cell.tokens.map(extractTextFromToken).join(""));
+				} else if (cell.text) {
+					parts.push(cell.text);
+				}
+			}
+		}
+		return parts.join(" ");
+	}
+
+	// Content tabs have `tabs`, each tab has `tokens`
+	if (token.type === "content_tabs" && "tabs" in token && Array.isArray(token.tabs)) {
+		return (token.tabs as Token[]).map(extractTextFromToken).join(" ");
+	}
+
+	// Definition lists and footnotes have `items` arrays
+	if (
+		(token.type === "def_list" || token.type === "footnotes") &&
+		"items" in token &&
+		Array.isArray(token.items)
+	) {
+		return (token.items as Token[]).map(extractTextFromToken).join(" ");
+	}
+
+	// Definition list items: term + definitions
+	if (token.type === "def_list_item") {
+		const t = token as unknown as {
+			term?: string;
+			termTokens?: Token[];
+			definitions?: Array<{ tokens?: Token[] }>;
+		};
+		const parts: string[] = [];
+		if (t.termTokens?.length) {
+			parts.push(t.termTokens.map(extractTextFromToken).join(""));
+		} else if (t.term) {
+			parts.push(t.term);
+		}
+		for (const def of t.definitions ?? []) {
+			if (def.tokens) {
+				parts.push(def.tokens.map(extractTextFromToken).join(""));
+			}
+		}
+		return parts.join(" ");
+	}
+
+	// HTML blocks with embedded markdown
+	if (
+		token.type === "html_with_markdown" &&
+		"innerTokens" in token &&
+		Array.isArray(token.innerTokens)
+	) {
+		return (token.innerTokens as Token[]).map(extractTextFromToken).join(" ");
+	}
+
 	if ("text" in token && typeof token.text === "string") {
 		// For tokens with nested tokens, recurse into them
 		if ("tokens" in token && Array.isArray(token.tokens)) {

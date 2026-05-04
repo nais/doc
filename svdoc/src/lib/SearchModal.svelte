@@ -3,7 +3,7 @@
 	import { resolve } from "$app/paths";
 	import { Modal, Search } from "@nais/ds-svelte-community";
 	import MiniSearch, { type SearchResult } from "minisearch";
-	import { onMount, tick } from "svelte";
+	import { tick } from "svelte";
 
 	interface SearchDocument {
 		id: string;
@@ -212,23 +212,9 @@
 			}, 50);
 		}
 	});
-
-	// Global keyboard shortcut
-	onMount(() => {
-		function handleGlobalKeydown(event: KeyboardEvent) {
-			// Cmd+K or Ctrl+K to open search
-			if ((event.metaKey || event.ctrlKey) && event.key === "k") {
-				event.preventDefault();
-				open = !open;
-			}
-		}
-
-		window.addEventListener("keydown", handleGlobalKeydown);
-		return () => window.removeEventListener("keydown", handleGlobalKeydown);
-	});
 </script>
 
-<Modal bind:open width="medium" closeButton={true}>
+<Modal bind:open width="medium" closeButton={true} class="search-modal">
 	{#snippet header()}
 		<div class="search-header" bind:this={searchContainer}>
 			<Search
@@ -293,6 +279,22 @@
 </Modal>
 
 <style>
+	:global(dialog.search-modal) {
+		width: 100%;
+		max-width: 640px;
+	}
+
+	@media (max-width: 640px) {
+		:global(dialog.search-modal) {
+			max-width: 100vw;
+			width: 100vw;
+			height: 100vh;
+			max-height: 100vh;
+			margin: 0;
+			border-radius: 0;
+		}
+	}
+
 	.search-header {
 		width: 100%;
 		padding-right: 2.5rem;
