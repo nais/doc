@@ -27,9 +27,9 @@ For more information on audit logging, see the [official documentation](https://
 
 ## Configure database flags for your sql instance
 
-!!! info "Changing cloudsql.enable_pgaudit flag"
+!!! info "Changing audit settings"
 
-    Changing this flag after first-time setup will restart the postgreSQL instance.
+    Changing the audit flags cloudsql.enable_pgaudit, pgaudit.log or pgaudit.log_parameter after first-time setup, will restart the postgreSQL instance.
 
 The following database flags must be set before we can enable audit logging. 
 ```text
