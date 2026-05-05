@@ -1,4 +1,5 @@
 import type { Element, Text } from "hast";
+import type { Token, Tokens, TokensList } from "marked";
 import {
 	createHighlighter,
 	type BundledLanguage,
@@ -541,4 +542,51 @@ export async function highlightCodeDual(
 	});
 
 	return { html, language, title, annotations, variables };
+}
+
+/**
+ * Pre-highlight all code tokens in a token tree at build time.
+ * This stores highlighted HTML on each code token so the component
+ * can render it synchronously, avoiding async hydration mismatches.
+ */
+export async function preHighlightCodeTokens(tokens: Token[] | TokensList): Promise<void> {
+	for (const token of tokens) {
+		if (token.type === "code") {
+			const codeToken = token as Tokens.Code;
+			// Skip mermaid diagrams — they use a different renderer
+			if (codeToken.lang === "mermaid") continue;
+
+			try {
+				const result = await highlightCodeDual(codeToken.text, codeToken.lang || "text");
+				(codeToken as unknown as Record<string, unknown>).highlighted = result;
+			} catch (err) {
+				console.warn(`Failed to pre-highlight code block (lang: ${codeToken.lang}):`, err);
+			}
+		}
+
+		// Recurse into nested token structures
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const anyToken = token as any;
+
+		if ("tokens" in token && Array.isArray(anyToken.tokens)) {
+			await preHighlightCodeTokens(anyToken.tokens);
+		}
+		if (token.type === "content_tabs" && "tabs" in token) {
+			for (const tab of anyToken.tabs) {
+				if (tab.tokens) await preHighlightCodeTokens(tab.tokens);
+			}
+		}
+		if (token.type === "list" && "items" in token) {
+			for (const item of (token as Tokens.List).items) {
+				if (item.tokens) await preHighlightCodeTokens(item.tokens);
+			}
+		}
+		if (token.type === "def_list" && "items" in token) {
+			for (const item of anyToken.items) {
+				for (const def of item.definitions || []) {
+					if (def.tokens) await preHighlightCodeTokens(def.tokens);
+				}
+			}
+		}
+	}
 }

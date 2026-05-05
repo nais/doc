@@ -360,7 +360,7 @@ function processConditionals(content: string, context: TemplateContext): string 
  * Process << >> template variables
  */
 function processVariables(content: string, context: TemplateContext): string {
-	return content.replace(/<<([^>]+)>>/g, (match, expression) => {
+	return content.replace(/<<(.+?)>>/g, (match, expression) => {
 		const trimmed = expression.trim();
 
 		// Handle function calls with arguments

@@ -3,6 +3,7 @@ import { gemoji } from "gemoji";
 import { Marked, type Token, type Tokens, type TokensList } from "marked";
 import { getGitInfo } from "./helpers/git";
 import { getIconSvg, isIconShortcode } from "./helpers/icons";
+import { preHighlightCodeTokens } from "./helpers/shiki";
 import { processTemplates } from "./helpers/templates";
 import type {
 	AdmonitionToken,
@@ -707,6 +708,9 @@ export async function readMarkdownFile(
 	const htmlProcessed = processHtmlMarkdownBlocks(tokens);
 	const footnotesProcessed = processFootnotes(htmlProcessed);
 	const processedTokens = processCodeAnnotations(footnotesProcessed);
+
+	// Pre-highlight code blocks at build time to avoid async hydration mismatches
+	await preHighlightCodeTokens(processedTokens);
 
 	// Extract title from first heading if not in frontmatter
 	const finalAttributes: Attributes = { ...attributes };

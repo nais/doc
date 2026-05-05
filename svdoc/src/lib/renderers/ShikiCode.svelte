@@ -1,32 +1,47 @@
 <script lang="ts">
 	import Variable from "$lib/components/Variable.svelte";
-	import { highlightCodeDual, parseHighlightLines, parseTitle } from "$lib/helpers/shiki";
+	import { parseHighlightLines, parseTitle } from "$lib/helpers/shiki";
 	import { getContext } from "$lib/state/page_context.svelte";
 	import { CopyButton } from "@nais/ds-svelte-community";
 	import type { Token } from "marked";
 	import { mount, unmount } from "svelte";
 	import ContentRenderer from "./ContentRenderer.svelte";
 
+	interface PreHighlighted {
+		html: string;
+		language: string;
+		title: string | null;
+		annotations: { id: string; line: number; stripComment: boolean }[];
+		variables: { index: number; name: string; isReadOnly: boolean; placeholder: string }[];
+	}
+
 	let {
 		text,
 		lang,
 		annotations: tokenAnnotations,
-	}: { text: string; lang: string; annotations?: Token[][] } = $props();
+		preHighlighted,
+	}: {
+		text: string;
+		lang: string;
+		annotations?: Token[][];
+		preHighlighted?: PreHighlighted;
+	} = $props();
 
 	const ctx = getContext();
 	const codeBlockId = $props.id();
 
-	// Parse language and title from the lang info string
+	// Use pre-highlighted data from build time (may be undefined in dev mode edge cases)
+	const highlighted = $derived(preHighlighted);
+
+	// Parse language and title from the lang info string (fallback)
 	const langInfo = $derived(lang || "text");
 	const { language } = $derived(parseHighlightLines(langInfo));
-	const title = $derived(parseTitle(langInfo));
-
-	// Highlight code with Shiki (async)
-	const highlighted = $derived(await highlightCodeDual(text, langInfo));
+	const title = $derived(highlighted?.title ?? parseTitle(langInfo));
+	const displayLanguage = $derived(highlighted?.language ?? language);
 
 	// Merge Shiki annotations (line info) with token annotations (content)
 	const annotationsWithContent = $derived.by(() => {
-		if (!highlighted.annotations || highlighted.annotations.length === 0) return [];
+		if (!highlighted?.annotations || highlighted.annotations.length === 0) return [];
 		if (!tokenAnnotations || tokenAnnotations.length === 0) return [];
 
 		return highlighted.annotations.map((ann, idx) => ({
@@ -37,7 +52,7 @@
 	});
 
 	const hasAnnotations = $derived(annotationsWithContent.length > 0);
-	const hasVariables = $derived(highlighted.variables && highlighted.variables.length > 0);
+	const hasVariables = $derived(highlighted?.variables && highlighted.variables.length > 0);
 
 	// Track which annotation is currently highlighted
 	let highlightedAnnotation = $state<string | null>(null);
@@ -46,7 +61,7 @@
 	// Compute copy text with variable values substituted
 	const copyText = $derived.by(() => {
 		let result = text;
-		if (!highlighted.variables || highlighted.variables.length === 0) {
+		if (!highlighted?.variables || highlighted.variables.length === 0) {
 			return result;
 		}
 		for (const variable of highlighted.variables) {
@@ -63,7 +78,6 @@
 
 	// Mount Variable components into marker spans
 	function mountVariables() {
-		console.log("mount variables");
 		if (!codeContainer || !hasVariables) return;
 
 		for (const v of mountedVariables) {
@@ -154,8 +168,8 @@
 	<div class="code-header">
 		{#if title}
 			<span class="title">{title}</span>
-		{:else if language && language !== "text" && language !== "plaintext"}
-			<span class="language">{language}</span>
+		{:else if displayLanguage && displayLanguage !== "text" && displayLanguage !== "plaintext"}
+			<span class="language">{displayLanguage}</span>
 		{:else}
 			<span class="language">Plaintext</span>
 		{/if}
@@ -169,8 +183,12 @@
 		onkeydown={handleCodeContentInteraction}
 		role="presentation"
 	>
-		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-		{@html highlighted.html}
+		{#if highlighted}
+			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+			{@html highlighted.html}
+		{:else}
+			<pre><code>{text}</code></pre>
+		{/if}
 	</div>
 </div>
 
