@@ -248,6 +248,39 @@ initializeFaro({
 
 To capture all levels, pass an empty array: `disabledLevels: []`.
 
+## Group dynamic URLs in Per-Page Performance
+
+If your app has dynamic URL segments (IDs, UUIDs), the APM dashboard's "Per-Page Performance" table shows one row per unique URL instead of grouping them by route. Use `generatePageId` to normalize dynamic paths into a single route:
+
+```js
+initializeFaro({
+  // ... other options
+  pageTracking: {
+    generatePageId: (location) =>
+      location.pathname
+        .replace(/\/sak\/[^/]+\/[^/]+/, '/sak/{saksid}/{behandlingsreferanse}')
+        .replace(/\/person\/[^/]+/, '/person/{fnr}'),
+  },
+});
+```
+
+The function receives the browser `Location` object and returns a string that identifies the "page route". All events from URLs matching the same pattern are grouped together in the dashboard.
+
+!!! tip "Use your router's route definitions"
+    If you use React Router or Next.js, consider deriving the page ID from your route config rather than writing regex patterns manually. For example, with React Router v6:
+
+    ```js
+    import { matchRoutes } from 'react-router-dom';
+    import { routes } from './routes';
+
+    pageTracking: {
+      generatePageId: (location) => {
+        const matches = matchRoutes(routes, location.pathname);
+        return matches?.at(-1)?.route.path ?? location.pathname;
+      },
+    },
+    ```
+
 ## Content Security Policy (CSP)
 
 If your application uses a Content Security Policy, add the collector endpoint to `connect-src`:
