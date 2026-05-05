@@ -39,8 +39,9 @@ const faro = initializeFaro({
   url: 'https://telemetry.nav.no/collect',
   paused: window.location.hostname === 'localhost',
   app: {
-    name: 'my-app',   // required — must match metadata.name in nais.yaml
-    version: '1.0.0',  // optional — useful for comparing behavior across deploys
+    name: 'my-app',       // required — must match metadata.name in nais.yaml
+    namespace: 'my-team', // required — must match metadata.namespace in nais.yaml
+    version: '1.0.0',     // optional — useful for comparing behavior across deploys
   },
   instrumentations: [
     ...getWebInstrumentations(),
@@ -55,8 +56,9 @@ const faro = initializeFaro({
   url: '<<tenant_url("telemetry.external.prod", "collect")>>',
   paused: window.location.hostname === 'localhost',
   app: {
-    name: 'my-app',   // required — must match metadata.name in nais.yaml
-    version: '1.0.0',  // optional — useful for comparing behavior across deploys
+    name: 'my-app',       // required — must match metadata.name in nais.yaml
+    namespace: 'my-team', // required — must match metadata.namespace in nais.yaml
+    version: '1.0.0',     // optional — useful for comparing behavior across deploys
   },
   instrumentations: [
     ...getWebInstrumentations(),
@@ -65,8 +67,8 @@ const faro = initializeFaro({
 ```
 {% endif %}
 
-!!! warning "Use the same name as your Nais app"
-    `app.name` must match `metadata.name` in your `nais.yaml`. Nais APM uses this name to group frontend telemetry with your app — if the names don't match, your frontend data appears as a separate service in the APM service list.
+!!! warning "Use the same name and namespace as your Nais app"
+    `app.name` and `app.namespace` must match `metadata.name` and `metadata.namespace` in your `nais.yaml`. Nais APM uses these fields to group frontend telemetry with your app — if they don't match, your frontend data appears as a separate service in the APM service list.
 
 !!! tip "Auto-configuration"
     Instead of hardcoding the collector URL, you can let the platform generate it for you. See [auto-configuration](#auto-configuration) below or the [reference page](../reference/auto-configuration.md) for details.
@@ -110,6 +112,7 @@ export default {
   telemetryCollectorURL: 'http://localhost:12347/collect',
   app: {
     name: 'my-app',
+    namespace: 'my-team',
     version: 'local',
   },
 };

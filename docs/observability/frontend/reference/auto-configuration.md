@@ -24,6 +24,7 @@ export default {
   telemetryCollectorURL: 'https://telemetry.nav.no/collect',
   app: {
     name: 'my-app',        // from metadata.name in nais.yaml
+    namespace: 'my-team',  // from metadata.namespace in nais.yaml
     version: '2024-03-15-abc1234', // extracted from your container image tag
   },
 };
@@ -34,6 +35,7 @@ export default {
   telemetryCollectorURL: '<<tenant_url("telemetry.external.prod", "collect")>>',
   app: {
     name: 'my-app',        // from metadata.name in nais.yaml
+    namespace: 'my-team',  // from metadata.namespace in nais.yaml
     version: '2024-03-15-abc1234', // extracted from your container image tag
   },
 };
@@ -44,6 +46,7 @@ export default {
 | ---------------------- | ----------------------------------------- |
 | `telemetryCollectorURL` | Set per cluster by the platform operator |
 | `app.name`             | `metadata.name` from your `nais.yaml`     |
+| `app.namespace`        | `metadata.namespace` from your `nais.yaml` |
 | `app.version`          | Tag from your container image              |
 
 The collector URL is set automatically based on which cluster your app runs in — you don't need separate config for dev and prod.
