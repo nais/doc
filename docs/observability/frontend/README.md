@@ -95,6 +95,7 @@ For local development, check out the [tracing demo repository](https://github.co
 | ----- | ----------- |
 | [Set up Faro](how-to/setup-faro.md) | Install, configure, and deploy Faro in any frontend app |
 | [Next.js App Router](how-to/setup-nextjs.md) | Faro integration for Next.js with App Router |
+| [Custom metrics](how-to/custom-metrics.md) | Send custom measurements and query them in Grafana |
 | [Trace propagation](how-to/trace-propagation.md) | Connect frontend traces to backend spans |
 | [Sourcemaps](how-to/sourcemaps.md) | How stack trace deobfuscation works |
 | [Auto-configuration](reference/auto-configuration.md) | Generated config values and environment variables |
