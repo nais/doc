@@ -26,7 +26,7 @@ Add the dependency:
 
     ```kotlin
     dependencies {
-        implementation("io.opentelemetry.instrumentation:opentelemetry-instrumentation-annotations:2.14.0")
+        implementation("io.opentelemetry.instrumentation:opentelemetry-instrumentation-annotations:2.27.0")
     }
     ```
 
@@ -36,7 +36,7 @@ Add the dependency:
     <dependency>
         <groupId>io.opentelemetry.instrumentation</groupId>
         <artifactId>opentelemetry-instrumentation-annotations</artifactId>
-        <version>2.14.0</version>
+        <version>2.27.0</version>
     </dependency>
     ```
 
@@ -66,7 +66,27 @@ class PaymentService {
 }
 ```
 
-### Java with the Tracer API
+### Starting an independent trace
+
+Sometimes you want a span that starts a new, independent trace instead of being nested under the current one — for example, a background job triggered by a request that should have its own trace.
+
+Use `inheritContext = false` on the annotation (requires annotations library ≥ 2.14.0):
+
+```kotlin
+@WithSpan("background-sync", inheritContext = false)
+fun syncToExternalSystem() {
+    // This span starts a new trace, not nested under the caller's trace.
+}
+```
+
+!!! warning "Kotlin suspend functions"
+
+    `@WithSpan(inheritContext = false)` may not work correctly on Kotlin `suspend` functions.
+    Suspend functions are compiled into a state machine, and the OpenTelemetry Java agent may not
+    handle context propagation correctly for them.
+    If you need an independent trace from a suspend function, use the Tracer API with `setNoParent()` instead (see below).
+
+### Java / Kotlin with the Tracer API
 
 For more control (dynamic span names, adding events, setting status), use the Tracer API directly:
 
@@ -91,6 +111,31 @@ public class MyService {
         } finally {
             span.end();
         }
+    }
+}
+```
+
+To start an independent trace using the Tracer API, use `setNoParent()`:
+
+```kotlin
+import io.opentelemetry.api.GlobalOpenTelemetry
+
+val tracer = GlobalOpenTelemetry.getTracer("my-app")
+
+fun syncToExternalSystem() {
+    val span = tracer.spanBuilder("background-sync")
+        .setNoParent()
+        .startSpan()
+    try {
+        span.makeCurrent().use {
+            // Your logic here — this span is a root span in a new trace.
+        }
+    } catch (e: Exception) {
+        span.recordException(e)
+        span.setStatus(io.opentelemetry.api.trace.StatusCode.ERROR)
+        throw e
+    } finally {
+        span.end()
     }
 }
 ```
