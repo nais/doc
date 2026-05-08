@@ -1,7 +1,7 @@
 nav:
 - README.md
 - 🎯 How-To: how-to
-- Console: console.md
+- Nais Console: console
 - CLI: cli
 - naisdevice: naisdevice
 - ...
