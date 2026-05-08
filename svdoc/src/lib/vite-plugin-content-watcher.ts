@@ -26,6 +26,11 @@ export function contentWatcherPlugin(): Plugin {
 			watcher.add(DOCS_DIR);
 
 			// Handle file changes
+			const loadContentStore = async () => {
+				const mod = await server!.ssrLoadModule("/src/lib/content-store");
+				return mod.contentStore;
+			};
+
 			const handleChange = async (filePath: string) => {
 				// Only handle markdown and .pages files
 				if (!filePath.endsWith(".md") && !filePath.endsWith(".pages")) {
@@ -41,7 +46,7 @@ export function contentWatcherPlugin(): Plugin {
 
 				// Invalidate the content store
 				try {
-					const { contentStore } = await import(/* @vite-ignore */ "./content-store");
+					const contentStore = await loadContentStore();
 					await contentStore.invalidateFile(filePath);
 				} catch (error) {
 					console.error("[content-watcher] Failed to invalidate content store:", error);
@@ -69,7 +74,7 @@ export function contentWatcherPlugin(): Plugin {
 
 				// Invalidate the entire store on deletion
 				try {
-					const { contentStore } = await import(/* @vite-ignore */ "./content-store");
+					const contentStore = await loadContentStore();
 					await contentStore.invalidateAll();
 				} catch (error) {
 					console.error("[content-watcher] Failed to invalidate content store:", error);
