@@ -48,6 +48,14 @@ Create a `PrometheusRule` in your namespace that triggers an alert when the numb
 
 You can also alert based on `nais_workload_risk_score` if you prefer a single aggregated alert per workload instead of one per severity level.
 
+The risk score is calculated as:
+
+```
+(CRITICAL × 10) + (HIGH × 5) + (MEDIUM × 3) + (LOW × 1) + (UNASSIGNED × 5)
+```
+
+A workload with 1 critical vulnerability scores 10, while a workload with 300 critical vulnerabilities scores 3000. Choose a threshold that matches your team's risk tolerance — `3000` is used as an example and corresponds roughly to 300 critical or 600 high severity vulnerabilities.
+
 ```yaml
 - alert: HighRiskScore
   expr: nais_workload_risk_score{workload_namespace="<MY-TEAM>"} > 3000
