@@ -91,6 +91,9 @@ Alternatively, you can create alerts directly in Grafana without deploying Kuber
 
 See [Create alert in Grafana](../../../observability/alerting/how-to/grafana.md) for a complete step-by-step guide.
 
+???+ note "Metric update delay after suppression"
+    After suppressing a vulnerability, the database is updated immediately, but Prometheus metrics (`nais_workload_vulnerabilities`, `nais_workload_risk_score`) are refreshed on a periodic interval (default: 5 minutes). An active alert may therefore remain firing for up to 5 minutes after suppression.
+
 ## Learn more
 
 - [Basic Prometheus alerting](../../../observability/alerting/how-to/prometheus-basic.md)
