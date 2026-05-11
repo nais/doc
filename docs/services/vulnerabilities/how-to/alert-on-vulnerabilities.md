@@ -7,7 +7,7 @@ tags: [how-to, vulnerabilities, alerting, prometheus]
 
 This guide shows you how to set up alerts when new critical vulnerabilities are detected in your workloads.
 
-NAIS exposes Prometheus metrics for vulnerability status and risk per workload. You can use these to alert your team via Slack or Grafana.
+Nais exposes Prometheus metrics for vulnerability status and risk per workload. You can use these to alert your team via Slack or Grafana.
 
 ## Prerequisites
 
