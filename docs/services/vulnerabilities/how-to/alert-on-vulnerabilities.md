@@ -54,11 +54,11 @@ The risk score is calculated as:
 (CRITICAL × 10) + (HIGH × 5) + (MEDIUM × 3) + (LOW × 1) + (UNASSIGNED × 5)
 ```
 
-A workload with 1 critical vulnerability scores 10, while a workload with 300 critical vulnerabilities scores 3000. Choose a threshold that matches your team's risk tolerance — `3000` is used as an example and corresponds roughly to 300 critical or 600 high severity vulnerabilities.
+A workload with 1 critical vulnerability scores 10, while 20 critical vulnerabilities scores 200. Choose a threshold that matches your team's risk tolerance — `200` is a reasonable starting point and corresponds roughly to 20 critical or 40 high severity vulnerabilities.
 
 ```yaml
 - alert: HighRiskScore
-  expr: nais_workload_risk_score{workload_namespace="<MY-TEAM>"} > 3000
+  expr: nais_workload_risk_score{workload_namespace="<MY-TEAM>"} > 200
   for: 10m
   annotations:
     summary: "High risk score for {{ $labels.workload_name }}"
