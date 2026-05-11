@@ -23,7 +23,7 @@ This how-to guide shows you how to upload assets to the [CDN](../README.md).
 In your Github Workflow, add the following step to upload your assets to the CDN.
 
 
-```yaml
+```yaml hl_lines="{%- if tenant() != "nav" %}22-24{% else %}21-23{% endif %}"
 name: Push to CDN
 
 on:
@@ -36,23 +36,21 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: 'read'
-      id-token: 'write'
+      contents: read
+      id-token: write
 
     steps:
-      - uses: 'actions/checkout@v6
-
+      - uses: actions/checkout@v6
       - name: Upload static files to CDN
         uses: nais/deploy/actions/cdn-upload/v2@master
         with:
-          team: <team slug> # Required, e.g. "team-name"
 {%- if tenant() != "nav" %}
-          tenant: <<tenant()>> # Required, e.g. "nav"
+          tenant: <<tenant()>>
 {%- endif %}
-          source: <The path to your build folder or assets>
-          destination: <A destination you pick, like /my-app/dist>
-  
-      - run: echo uploaded file ${{ steps.upload.outputs.uploaded }}
+          team: <MY-TEAM> # Replace with "team-name"
+          source: <The path to your build folder or assets> # Replace
+          destination: <A destination you pick, like /my-app/dist> # Replace
+      - run: 'echo "uploaded file ${{ steps.upload.outputs.uploaded }}"'
 ```
 
 For more information on the inputs and outputs of the action, see the [CDN Upload action reference](../reference/upload-assets.md).
