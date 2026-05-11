@@ -10,9 +10,12 @@ dir = "svdoc"
 run = "bun install"
 
 [tasks."local:dev"]
-description = "Run the svdoc dev server"
+description = "Run the svdoc dev server with optional tenant"
 dir = "svdoc"
-run = "bun run dev"
+usage = '''
+arg "<tenant>" help="Target tenant" default="nav"
+'''
+run = "TENANT=${usage_tenant} bun run dev"
 
 [tasks.local]
 description = "Setup and run the svdoc dev server"
