@@ -321,7 +321,7 @@ function processConditionals(content: string, context: TemplateContext): string 
 	// Keep processing until no more conditionals are found
 	// Process innermost conditionals first (ones without nested ifs)
 	while (iterations < maxIterations) {
-		const ifRegex = /\{%-?\s*if\s+(.+?)\s*-?%\}([\s\S]*?)\{%-?\s*endif\s*-?%\}/;
+		const ifRegex = /(\{%-\s*if\s+(.+?)\s*-?%\}|\{%\s*if\s+(.+?)\s*-%\}|\{%\s*if\s+(.+?)\s*%\})([\s\S]*?)(\{%-?\s*endif\s*-?%\})/;
 		const match = ifRegex.exec(result);
 
 		if (!match) {
@@ -329,8 +329,16 @@ function processConditionals(content: string, context: TemplateContext): string 
 		}
 
 		const fullMatch = match[0];
-		const condition = match[1];
-		const innerContent = match[2];
+		const openTag = match[1];
+		const condition = match[2] || match[3] || match[4];
+		const innerContent = match[5];
+		const closeTag = match[6];
+
+		// Determine whitespace stripping flags
+		const stripLeft = openTag.startsWith("{%-");
+		const stripRightOpen = openTag.endsWith("-%}");
+		const stripLeftClose = closeTag.startsWith("{%-");
+		const stripRightClose = closeTag.endsWith("-%}");
 
 		// Parse branches
 		const branches = parseConditionalBranches(condition, innerContent);
@@ -348,8 +356,32 @@ function processConditionals(content: string, context: TemplateContext): string 
 			}
 		}
 
-		// Replace the if block with the output
-		result = result.slice(0, match.index) + output + result.slice(match.index + fullMatch.length);
+		// Strip whitespace from output edges based on tag flags
+		if (stripRightOpen) output = output.replace(/^[ \t]*\n/, "");
+		if (stripLeftClose) output = output.replace(/\n[ \t]*$/, "");
+
+		// Determine the region to replace, expanding to strip surrounding newlines if needed
+		let start = match.index;
+		let end = match.index + fullMatch.length;
+
+		// {%- ... %} strips the newline (and spaces) preceding the tag
+		if (stripLeft && start > 0) {
+			const before = result.slice(0, start);
+			const stripped = before.replace(/[ \t]*\n$/, "");
+			const removed = before.length - stripped.length;
+			start -= removed;
+			result = stripped + result.slice(start + removed);
+			end -= removed;
+		}
+
+		// ... -%} strips the newline (and spaces) following the closing tag
+		if (stripRightClose) {
+			const after = result.slice(end);
+			const stripped = after.replace(/^[ \t]*\n/, "");
+			result = result.slice(0, end) + stripped;
+		}
+
+		result = result.slice(0, start) + output + result.slice(end);
 		iterations++;
 	}
 
