@@ -56,18 +56,31 @@ The risk score is calculated as:
 
 A workload with 1 critical vulnerability scores 10, while 20 critical vulnerabilities scores 200. Choose a threshold that matches your team's risk tolerance — `200` is a reasonable starting point and corresponds roughly to 20 critical or 40 high severity vulnerabilities.
 
-```yaml
-- alert: HighRiskScore
-  expr: nais_workload_risk_score{workload_namespace="<MY-TEAM>"} > 200
-  for: 10m
-  annotations:
-    summary: "High risk score for {{ $labels.workload_name }}"
-    consequence: "The workload has accumulated a high vulnerability score."
-    action: "Go to Nais Console and handle vulnerabilities for {{ $labels.workload_name }}."
-  labels:
-    namespace: <MY-TEAM>
-    severity: warning
-```
+???+ note ".nais/alert-risk-score.yaml"
+
+    ```yaml
+    apiVersion: monitoring.coreos.com/v1
+    kind: PrometheusRule
+    metadata:
+      name: risk-score-alerts
+      namespace: <MY-TEAM>
+      labels:
+        team: <MY-TEAM>
+    spec:
+      groups:
+        - name: risk-score-alerts
+          rules:
+            - alert: HighRiskScore
+              expr: nais_workload_risk_score{workload_namespace="<MY-TEAM>"} > 200
+              for: 10m
+              annotations:
+                summary: "High risk score for {{ $labels.workload_name }}"
+                consequence: "The workload has accumulated a high vulnerability score."
+                action: "Go to Nais Console and handle vulnerabilities for {{ $labels.workload_name }}."
+              labels:
+                namespace: <MY-TEAM>
+                severity: warning
+    ```
 
 ## Activate the alert
 
