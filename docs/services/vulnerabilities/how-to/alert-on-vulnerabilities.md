@@ -91,7 +91,7 @@ Alternatively, you can create alerts directly in Grafana without deploying Kuber
 
 1. Open Grafana and go to **Alerting → Alert rules**
 2. Click **New alert rule**
-3. Select Mimir as the data source and use e.g.:
+3. Select the Prometheus/Mimir data source that contains `nais_workload_*` metrics and use e.g.:
    ```promql
    nais_workload_vulnerabilities{severity="CRITICAL", workload_namespace="<MY-TEAM>"}
    ```
