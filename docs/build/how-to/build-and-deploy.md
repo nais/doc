@@ -25,7 +25,7 @@ This how-to guide shows you how to build and deploy your application using [GitH
 
 !!! note ".github/workflows/main.yml"
 
-    ```yaml hl_lines="28 32-33"
+    ```yaml hl_lines="28 {%- if tenant() == "test-nais" %}34{% else %}32{% endif %}"
     name: Build and deploy
     on:
       push:
@@ -54,12 +54,19 @@ This how-to guide shows you how to build and deploy your application using [GitH
             id: docker-build-push
             with:
               team: <MY-TEAM> # Replace
+{%- if tenant() == "test-nais" %}
+			  project_id: nais-management-ddba
+			  identity_provider: projects/636929582051/locations/global/workloadIdentityPools/test-nais-identity-pool/providers/github-oidc-provider
+{%- endif %}
           - name: Deploy to Nais
             uses: nais/deploy/actions/deploy@v2
-            env:
+            envs:
               CLUSTER: <MY-ENV> # Replace (1)
               RESOURCE: .nais/app.yaml # same list as in changed-files step above
               WORKLOAD_IMAGE: ${{ steps.docker-build-push.outputs.image }}
+{%- if tenant() == "test-nais" %}
+			  DEPLOY_SERVER: deploy.test-nais.cloud.nais.io:443
+{%- endif %}
     ```
 
     1.  Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../../workloads/reference/environments.md).

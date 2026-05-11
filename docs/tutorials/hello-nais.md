@@ -104,7 +104,7 @@ touch .github/workflows/main.yaml
 Add the following content to the file, and insert the appropriate values in the placeholders on the highlighted lines:
 ???+ note ".github/workflows/main.yaml"
 
-    ```yaml hl_lines="28 32"
+    ```yaml hl_lines="28 {%- if tenant() == "test-nais" %}34{% else %}32{% endif %}"
 	name: Build and deploy
     on:
       push:
@@ -133,12 +133,19 @@ Add the following content to the file, and insert the appropriate values in the 
             id: docker-build-push
             with:
               team: <MY-TEAM> # Replace
+{%- if tenant() == "test-nais" %}
+			  project_id: nais-management-ddba
+			  identity_provider: projects/636929582051/locations/global/workloadIdentityPools/test-nais-identity-pool/providers/github-oidc-provider
+{%- endif %}
           - name: Deploy to Nais
             uses: nais/deploy/actions/deploy@v2
             env:
               CLUSTER: <MY-ENV> # Replace (1)
               RESOURCE: .nais/app.yaml # This points to the file we created in the previous step
               WORKLOAD_IMAGE: ${{ steps.docker-build-push.outputs.image }}
+{%- if tenant() == "test-nais" %}
+			  DEPLOY_SERVER: deploy.test-nais.cloud.nais.io:443
+{%- endif %}
     ```
 
     1.  Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../workloads/reference/environments.md).
