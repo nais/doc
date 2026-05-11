@@ -1,5 +1,5 @@
 ---
-description: Alert on Slack or Grafana when critical vulnerabilities are detected in your workloads.
+description: Set up Prometheus or Grafana alerts when critical vulnerabilities or high risk scores are detected in your workloads.
 tags: [how-to, vulnerabilities, alerting, prometheus]
 ---
 
