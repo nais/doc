@@ -54,7 +54,7 @@ The risk score is calculated as:
 (CRITICAL × 10) + (HIGH × 5) + (MEDIUM × 3) + (LOW × 1) + (UNASSIGNED × 5)
 ```
 
-A workload with 1 critical vulnerability scores 10, while 20 critical vulnerabilities scores 200. Choose a threshold that matches your team's risk tolerance — `200` is a reasonable starting point and corresponds roughly to 20 critical or 40 high severity vulnerabilities.
+A workload with 1 critical vulnerability scores 10, while 20 critical vulnerabilities score 200. Choose a threshold that matches your team's risk tolerance — `200` is a reasonable starting point and corresponds roughly to 20 critical or 40 high severity vulnerabilities.
 
 ???+ note ".nais/alert-risk-score.yaml"
 
