@@ -37,57 +37,35 @@ Ingresses are automatically created for your application when you specify them i
 The ingress is created with a set of default values that should work for most applications.
 
 You can tweak the ingress configuration by specifying certain [Kubernetes annotations][kubernetes-annotations] in your application manifest.
-A list of supported variables are specified in the [Nginx ingress documentation][nginx-ingress-annotations].
+Any annotation from [the HAProxy ingress annotation reference][haproxy-ingress-annotations] which starts with `haproxy.org/` is supported.
 
 [kubernetes-annotations]: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
-[nginx-ingress-annotations]: https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/
+[haproxy-ingress-annotations]: https://www.haproxy.com/documentation/kubernetes-ingress/community/configuration-reference/ingress
+[haproxy-set-log-level]: https://docs.haproxy.org/3.0/configuration.html#4.2-http-request
+[haproxy-timeout-http-request]: https://docs.haproxy.org/3.0/configuration.html#4.2-timeout%20http-request
 [service-discovery]: ../../how-to/communication.md
-
-### Custom max body size
-
-For nginx, an `413` error will be returned to the client when the size in a request exceeds the maximum allowed size of the client request body. By default, this is set to `1m` (1 megabyte).
-
-```yaml
-metadata:
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "8m"
-```
-
-### Custom proxy buffer size
-
-Sets the size of the buffer proxy_buffer_size used for reading the first part of the response received from the proxied server. By default proxy buffer size is set as `4k`
-
-```yaml
-metadata:
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
-```
 
 ### Custom timeouts
 
-In some scenarios is required to have different values for various timeouts. To allow this we provide parameters that allows this customization:
+In some scenarios it is required to have different values for various timeouts.
+HAProxy provides several `timeout-*` annotations that can be set per-ingress, for example:
 
-* `nginx.ingress.kubernetes.io/proxy-connect-timeout` (default `5`)
-* `nginx.ingress.kubernetes.io/proxy-send-timeout` (default `60`)
-* `nginx.ingress.kubernetes.io/proxy-read-timeout` (default `60`)
-* `nginx.ingress.kubernetes.io/proxy-next-upstream`
-* `nginx.ingress.kubernetes.io/proxy-next-upstream-timeout` (default `0`)
-* `nginx.ingress.kubernetes.io/proxy-next-upstream-tries` (default `3`)
-* `nginx.ingress.kubernetes.io/proxy-request-buffering` (default `on`)
+* `haproxy.org/timeout-server` - backend response timeout
+* `haproxy.org/timeout-client` - client send timeout
+* `haproxy.org/timeout-connect` - backend connection timeout
 
-Note: All timeout values are unitless and in seconds e.g. `nginx.ingress.kubernetes.io/proxy-read-timeout: "120"` sets a valid 120 seconds proxy read timeout.
+All timeout values require a time unit suffix (e.g. `60s`, `5m`, `1h`).
 
-We generally use the [default values from the nginx ingress controller](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/).
+See the [HAProxy ingress annotation reference][haproxy-ingress-annotations] for the full list of available timeout annotations and their default values.
 
 ## WebSockets Support
 
-Support for websockets is provided by nginx ingress controller out of the box. No special configuration required.
+Support for websockets is provided by the HAProxy ingress controller out of the box.
+No special configuration required.
+The only requirement to avoid the close of connections is the increase of the values of `timeout-server` and `timeout-client`.
+The default value of these settings is `50s`.
 
-The only requirement to avoid the close of connections is the increase of the values of `proxy-read-timeout` and `proxy-send-timeout`.
-
-The default value of this settings is `60 seconds`.
-
-A more adequate value to support websockets is a value higher than one hour (`3600`).
+A more adequate value to support websockets is a value higher than one hour (`1h`).
 
 ```yaml
 apiVersion: nais.io/v1alpha1
@@ -96,30 +74,46 @@ metadata:
   name: myapplication
   namespace: myteam
   annotations:
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    haproxy.org/timeout-server: "2h"
+    haproxy.org/timeout-client: "2h"
 spec:
   ...
 ```
 
 ## Metrics
 
-All requests to your application via ingress will result in metrics being emitted to Prometheus. The metrics are prefixed with `nginx_ingress_controller_requests_` and are tagged with the following labels: `status`, `method`, `host`, `path`, `namespace`, `service`.
+All requests to your application via ingress will result in metrics being emitted to Prometheus.
+The metrics are prefixed with `haproxy_` and are available per-backend and per-frontend.
 
-??? info "Ingress metrics label descriptions"
+Relevant backend metrics include:
 
-    | Label       | Description                    |
-    | ----------- | ------------------------------ |
-    | `status`    | HTTP status code               |
-    | `method`    | HTTP method                    |
-    | `host`      | Host header (domain)           |
-    | `path`      | Request path                   |
-    | `namespace` | Namespace of the ingress       |
-    | `service`   | Name of the service (app name) |
+??? info "Ingress metrics descriptions"
+
+    | Metric                                          | Description                                                      | Type    |
+    | ----------------------------------------------- | ---------------------------------------------------------------- | ------- |
+    | `haproxy_backend_http_requests_total`           | Total number of HTTP requests processed by this backend          | counter |
+    | `haproxy_backend_http_responses_total`          | Total number of HTTP responses returned, labeled by status class | counter |
+    | `haproxy_backend_response_time_average_seconds` | Average response time for last 1024 successful connections       | gauge   |
+    | `haproxy_backend_current_sessions`              | Number of current sessions on the backend                        | gauge   |
+    | `haproxy_backend_connection_errors_total`       | Total number of failed connections to server                     | counter |
+
+??? info "Useful labels for filtering"
+
+    | Label   | Description                                                                                                          |
+    | ------- | -------------------------------------------------------------------------------------------------------------------- |
+    | `proxy` | Backend identifier in the format `{namespace}_svc_{service-name}_{protocol}` (e.g. `myteam_svc_myapp_http`) |
+    | `code`  | HTTP response status class (`1xx`, `2xx`, `3xx`, `4xx`, `5xx`, `other`)                                              |
+
+See the [HAProxy metrics reference][haproxy-metrics] for the full list of available metrics.
+
+[haproxy-metrics]: https://www.haproxy.com/documentation/kubernetes-ingress/administration/metrics/
 
 ### Uptime probes
 
-All ingresses will automatically have uptime probes enabled on them. This probe will directed at the [application's readiness endpoint](application-spec.md#readiness) using a HTTP GET request. A probe is considered successful if the HTTP status code is `2xx` or `3xx`. The probe is considered failed if the HTTP status code is `4xx` or `5xx`.
+All ingresses will automatically have uptime probes enabled on them.
+This probe will be directed at the [application's readiness endpoint](application-spec.md#readiness) using an HTTP GET request.
+A probe is considered successful if the HTTP status code is `2xx` or `3xx`.
+The probe is considered failed if the HTTP status code is `4xx` or `5xx`.
 
 You can query the uptime probe status using the following PromQL query:
 
@@ -129,25 +123,25 @@ probe_success{app="my-app"} == 1
 
 ### Example PromQL Queries
 
-Number of requests to the `myapp` application, grouped by status code:
+Number of HTTP responses from the `myapp` backend, grouped by status code class:
 
 ```promql
-sum by (status) (nginx_ingress_controller_requests{service="myapp", namespace="myteam"})
+sum by (code) (haproxy_backend_http_responses_total{proxy=~"myteam_svc_myapp.*"})
 ```
 
-Number of `5xx` errors to the `myapp` application:
+Rate of `5xx` errors from the `myapp` backend:
 
 ```promql
-sum(nginx_ingress_controller_requests{service="myapp", namespace="myteam", status=~"5.."})
+sum(rate(haproxy_backend_http_responses_total{proxy=~"myteam_svc_myapp.*", code="5xx"}[3m]))
 ```
 
 Percentage of `5xx` errors to the `myapp` application as a ratio of total requests:
 
 ```promql
 100 * (
-  sum by (service) (rate(nginx_ingress_controller_requests{status=~"^5\\d\\d", namespace="myteam", service="myapp"}[3m]))
+  sum(rate(haproxy_backend_http_responses_total{proxy=~"myteam_svc_myapp.*", code="5xx"}[3m]))
   /
-  sum by (service) (rate(nginx_ingress_controller_requests{namespace="myteam", service="myapp"}[3m]))
+  sum(rate(haproxy_backend_http_requests_total{proxy=~"myteam_svc_myapp.*"}[3m]))
 )
 ```
 
@@ -179,10 +173,11 @@ Here are pre-configured queries for ingress logs in the different environments:
 
 ### Disable _your_ access logs
 
-!!! note "Not reccomended"
-    Running without access logs is not reccomended and will limit your ability to audit or debug connection problems with your application.
+!!! note "Not recommended"
+    Running without access logs is not recommended and will limit your ability to audit or debug connection problems with your application.
 
-In some cases (such as legcay applications that are using personally identifiable information as URL parameters) you might want to disable access logs for a given application. This can be done by setting the following annotation in your nais yaml:
+In some cases (such as legacy applications that are using personally identifiable information as URL parameters) you might want to disable access logs for a given application.
+This can be done by using [HAProxy's `set-log-level` action][haproxy-set-log-level] via a [`backend-config-snippet`][haproxy-ingress-annotations] annotation in your nais yaml:
 
 ```yaml
 apiVersion: nais.io/v1alpha1
@@ -191,7 +186,8 @@ metadata:
   name: myapplication
   namespace: myteam
   annotations:
-    nginx.ingress.kubernetes.io/enable-access-log: "false"
+    haproxy.org/backend-config-snippet: |
+      http-request set-log-level silent
 spec:
   ...
 ```
@@ -200,15 +196,17 @@ To keep personal identifiable information out of access logs use POST data inste
 
 ### Some debugging tips
 
-If `response_code` and `x_upstream_status` are the same it means that the application returned this response code – not nginx. Look in the logs for the corresponding application, this is not a problem with nginx.
+If the HTTP status code from the response matches what your application returns, the issue is in your application, not the ingress controller.
+Look in the logs for the corresponding application.
 
-Here are some suggestions depending on what http status code you might recieve from nginx:
+Here are some suggestions depending on what HTTP status code you might receive from the ingress controller:
 
-| Code                           | Suggestion                                                                                                                                                                                                                                               |
-| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `400 Bad Request`              | If nginx returns `401` error with no further explanation and there is no `x_upstream_name` it means that nginx received an invalid request before it could be sent to the backend. One of the most common problems is duplicate `Authorization` headers. |
-| `413 Request Entity Too Large` | If nginx return `413` error it means that the request body is too large. This can be caused by a large file upload or a large request body. The solution is to add the `proxy-body-size` ingress parameter to an appropriate size.                       |
-| `502 Bad Gateway`              | If nginx return `502` error but the application is returning a `2xx` status code it might be caused by large response headers often cookies. The solution is the add the `proxy-buffer-size` to an appropriate size.                                     |
+| Code                      | Suggestion                                                                                                                                                                    |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `408 Request Timeout`     | The client did not send a complete request within the [`timeout http-request`][haproxy-timeout-http-request] deadline (not set by default, falls back to `timeout client`).   |
+| `502 Bad Gateway`         | The backend returned an invalid response. This might be caused by large response headers (often cookies). You can investigate using the ingress access logs.                  |
+| `503 Service Unavailable` | No healthy backend server is available to handle the request. Check that your application's health checks are passing.                                                        |
+| `504 Gateway Timeout`     | The backend did not respond within the configured `timeout-server` period. Consider increasing `haproxy.org/timeout-server` if your application legitimately needs more time. |
 
 ## Full ingress example
 
@@ -221,28 +219,91 @@ Here are some suggestions depending on what http status code you might recieve f
       name: myapplication
       namespace: myteam
       annotations:
-        nginx.ingress.kubernetes.io/proxy-body-size: "256M"
-        nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
-        nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+        haproxy.org/timeout-server: "300s"
     spec:
       service:
         protocol: http
       ingresses:
+{%- if tenant() == "nav" %}
         - https://myapplication.nav.no
+        - https://myapplication.intern.nav.no
+{%- elif tenant() == "ssb" %}
+        - https://myapplication.ssb.no
+        - https://myapplication.intern.ssb.no
+{%- elif tenant() == "atil" %}
+        - https://myapplication.external.prod.atil.cloud.nais.io
+        - https://myapplication.prod.atil.cloud.nais.io
+{%- elif tenant() == "ldir" %}
+        - https://myapplication.landbruksdirektoratet.no
+        - https://myapplication.intern.landbruksdirektoratet.no
+{%- elif tenant() == "test-nais" %}
+        - https://myapplication.external.sandbox.test-nais.cloud.nais.io
+        - https://myapplication.sandbox.test-nais.cloud.nais.io
+{%- endif %}
     ```
 
 === "ingress.yaml"
 
     ```yaml
-    apiVersion: extensions/v1beta1
+    apiVersion: networking.k8s.io/v1
     kind: Ingress
     metadata:
-      name: myapplication-gw-nav-no-abcd1234
+      name: myapplication-abcd1234
       namespace: myteam
       annotations:
-        nginx.ingress.kubernetes.io/backend-protocol: "HTTP"    # from ".service.protocol"
-        nginx.ingress.kubernetes.io/use-regex: "true"           # this is always on
-        nginx.ingress.kubernetes.io/proxy-body-size: "256M"     # copied from annotations
-        nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"     # copied from annotations
-        nginx.ingress.kubernetes.io/proxy-read-timeout: "300"   # copied from annotations
+        haproxy.org/timeout-server: "300s"   # copied from application annotations
+    spec:
+      ingressClassName: external-haproxy
+      rules:
+{%- if tenant() == "nav" %}
+        - host: myapplication.nav.no
+{%- elif tenant() == "ssb" %}
+        - host: myapplication.ssb.no
+{%- elif tenant() == "atil" %}
+        - host: myapplication.external.prod.atil.cloud.nais.io
+{%- elif tenant() == "ldir" %}
+        - host: myapplication.landbruksdirektoratet.no
+{%- elif tenant() == "test-nais" %}
+        - host: myapplication.external.sandbox.test-nais.cloud.nais.io
+{%- endif %}
+          http:
+            paths:
+              - path: /
+                pathType: Prefix
+                backend:
+                  service:
+                    name: myapplication
+                    port:
+                      number: 80
+    ---
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: myapplication-efgh5678
+      namespace: myteam
+      annotations:
+        haproxy.org/timeout-server: "300s"   # copied from application annotations
+    spec:
+      ingressClassName: internal-haproxy
+      rules:
+{%- if tenant() == "nav" %}
+        - host: myapplication.intern.nav.no
+{%- elif tenant() == "ssb" %}
+        - host: myapplication.intern.ssb.no
+{%- elif tenant() == "atil" %}
+        - host: myapplication.prod.atil.cloud.nais.io
+{%- elif tenant() == "ldir" %}
+        - host: myapplication.intern.landbruksdirektoratet.no
+{%- elif tenant() == "test-nais" %}
+        - host: myapplication.sandbox.test-nais.cloud.nais.io
+{%- endif %}
+          http:
+            paths:
+              - path: /
+                pathType: Prefix
+                backend:
+                  service:
+                    name: myapplication
+                    port:
+                      number: 80
     ```

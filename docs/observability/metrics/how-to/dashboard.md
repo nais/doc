@@ -24,7 +24,8 @@ You are now ready to add a new panel to your dashboard. A panel is a single visu
 
 1. Click on the "+ Add visualization" button at the center of the page.
 2. Select one of the Prometheus data sources from the list. There is one data source for each available environment.
-3. By default you will see a graph panel, if you want to change the visualization type, click on teh "Time series" dropdown in the top right corner of the panel and select the visualization type you want to use.
+3. By default you will see a graph panel.
+If you want to change the visualization type, click on the "Time series" dropdown in the top right corner of the panel and select the visualization type you want to use.
 
 ## 3. Select a metric
 
@@ -36,7 +37,9 @@ We suggest you start by using the query builder mode when writing your first que
 
 Click on the Metric "Select metric" input field below the graph and click on the "Metrics explorer" link to find and select available metrics.
 
-Search for the metric you want to visualize. For example, if you want to visualize the number of requests to your application, you can search for "nginx requests" and select the metric named `nginx_ingress_controller_requests` by click "Select".
+Search for the metric you want to visualize.
+For example, if you want to visualize the number of requests to your application, you can search for "haproxy backend http".
+Select the metric named `haproxy_backend_http_requests_total` by clicking "Select".
 
 ## 4. Filter the metric
 
@@ -44,7 +47,8 @@ You can filter the metric by adding labels to the query. Labels are key-value pa
 
 Click on the "Select label" input field below the graph and click on the "Labels" input field and add the label you want to filter by. For example, if you want to filter the metric by the `app` label, you can add the label `app` with the value of your application name.
 
-For the `nginx_ingress_controller_requests` metric, you can filter by application using the `service` label which is the name of your team and application separated by a dash `-`. For example, if your team is named `team-foo` and your application is named `my-app`, you can filter by the label `service` with the value `team-foo-my-app`.
+For the `haproxy_backend_http_requests_total` metric, you can filter by application using the `proxy` label which follows the format `{namespace}_svc_{service-name}_{protocol}`.
+For example, if your namespace is `team-foo` and your application is named `my-app`, you can filter by the label `proxy` with the value `team-foo_svc_my-app_http`.
 
 To update the graph with the new query, click on the "Run queries" button just above the query builder.
 
@@ -52,7 +56,8 @@ To update the graph with the new query, click on the "Run queries" button just a
 
 You can add operations to the query to transform the data before it is visualized. For example, you can add an operation to calculate the rate of the metric, or you can add an operation to calculate the 95th percentile of the metric.
 
-For our `nginx_ingress_controller_requests` metric, we would like to calculate the rate of requests per second. To do this, we can add the `rate()` operation to the query by clicking on the "+ Operation" button below the query builder and selecting "Range functions" and "rate".
+For our `haproxy_backend_http_requests_total` metric, we would like to calculate the rate of requests per second.
+To do this, we can add the `rate()` operation to the query by clicking on the "+ Operation" button below the query builder and selecting "Range functions" and "rate".
 
 In the case of rate, you need to specify the time range over which to calculate the rate. You can do this by expanding the options section below the query builder and setting the "Min step" to `1m` (1 minute).
 
@@ -64,4 +69,5 @@ Click the "Run queries" button to update the graph with the new query.
 
 ## 6. Save the dashboard
 
-When you are happy with your new panel, you can save it by clicking on the "Applyt" button in the top right corner of the page. Your new dashboard is not yet saved, so you need to click on the "Floppy disk" save icon in the top right corner of the page and give your dashboard a name.
+When you are happy with your new panel, you can save it by clicking on the "Apply" button in the top right corner of the page.
+Your new dashboard is not yet saved, so you need to click on the "Floppy disk" save icon in the top right corner of the page and give your dashboard a name.
