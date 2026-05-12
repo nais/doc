@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto } from "$app/navigation";
+	import { beforeNavigate, goto } from "$app/navigation";
 	import { resolve } from "$app/paths";
 	import { Modal, Search } from "@nais/ds-svelte-community";
 	import MiniSearch, { type SearchResult } from "minisearch";
@@ -84,12 +84,18 @@
 		return documentsById.get(id);
 	}
 
-	// Navigate to result
+	// Close modal on any navigation
+	beforeNavigate(() => {
+		if (open) {
+			open = false;
+			searchQuery = "";
+		}
+	});
+
+	// Navigate to result (used for keyboard Enter)
 	function navigateToResult(result: SearchResult) {
 		const doc = getDocument(result.id);
 		if (doc) {
-			open = false;
-			searchQuery = "";
 			goto(doc.path);
 		}
 	}
@@ -246,10 +252,6 @@
 						role="option"
 						aria-selected={i === selectedIndex}
 						href={doc.path}
-						onclick={(e) => {
-							e.preventDefault();
-							open = false;
-						}}
 						onmouseenter={() => {
 							if (!isKeyboardNavigating) {
 								selectedIndex = i;
