@@ -26,12 +26,14 @@
 	let selectedIndex = $state(0);
 	let isKeyboardNavigating = $state(false);
 
+	const searchPreviewLength = 500;
+
 	// Derive search results from query and miniSearch instance
 	let results = $derived.by(() => {
 		if (!miniSearch || !searchQuery.trim()) {
 			return [];
 		}
-		return miniSearch.search(searchQuery).slice(0, 10);
+		return miniSearch.search(searchQuery);
 	});
 
 	// Reset selected index when results change
@@ -173,7 +175,7 @@
 			.split(/\s+/)
 			.filter((w) => w.length > 1);
 
-		if (words.length === 0) return content.slice(0, 150) + "...";
+		if (words.length === 0) return content.slice(0, searchPreviewLength) + "...";
 
 		// Find first occurrence of any search term
 		const lowerContent = content.toLowerCase();
@@ -188,7 +190,7 @@
 
 		// Extract snippet around the match
 		const start = Math.max(0, firstMatch - 50);
-		const end = Math.min(content.length, firstMatch + 150);
+		const end = Math.min(content.length, firstMatch + searchPreviewLength);
 
 		let snippet = content.slice(start, end);
 		if (start > 0) snippet = "..." + snippet;
@@ -238,12 +240,16 @@
 			{#each results as result, i (result.id)}
 				{@const doc = getDocument(result.id)}
 				{#if doc}
-					<button
-						class="search-result"
+					<a
+						class="search-result unstyled"
 						class:selected={i === selectedIndex}
 						role="option"
 						aria-selected={i === selectedIndex}
-						onclick={() => navigateToResult(result)}
+						href={doc.path}
+						onclick={(e) => {
+							e.preventDefault();
+							open = false;
+						}}
 						onmouseenter={() => {
 							if (!isKeyboardNavigating) {
 								selectedIndex = i;
@@ -262,7 +268,7 @@
 							<!-- eslint-disable-next-line svelte/no-at-html-tags -- Content is escaped via escapeHtml(), only <mark> tags are injected -->
 							{@html highlightMatch(getSnippet(doc, searchQuery), searchQuery)}
 						</div>
-					</button>
+					</a>
 				{/if}
 			{/each}
 		{:else if !searchQuery.trim()}
@@ -281,10 +287,11 @@
 <style>
 	:global(dialog.search-modal) {
 		width: 100%;
-		max-width: 640px;
+		max-width: 800px;
+		height: 90vh;
 	}
 
-	@media (max-width: 640px) {
+	@media (max-width: 800px) {
 		:global(dialog.search-modal) {
 			max-width: 100vw;
 			width: 100vw;
@@ -306,7 +313,6 @@
 
 	.search-results {
 		min-height: 200px;
-		max-height: 400px;
 		overflow-y: auto;
 	}
 
@@ -345,6 +351,7 @@
 		border-bottom: 1px solid var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.2));
 		cursor: pointer;
 		transition: background-color 0.1s;
+		text-decoration: none;
 	}
 
 	.search-result:hover,
@@ -383,7 +390,5 @@
 	.search-result :global(mark) {
 		background: var(--ax-bg-warning-moderate, rgba(251, 191, 36, 0.3));
 		color: inherit;
-		padding: 0 0.125rem;
-		border-radius: 2px;
 	}
 </style>
