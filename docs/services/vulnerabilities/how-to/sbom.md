@@ -15,10 +15,10 @@ Simply add [nais/docker-build-push](https://github.com/nais/docker-build-push) t
      # ... other options removed for readability
 ```
 
-??? note Opt-out
-    Opt-out from salsa
+??? note "Opt out"
+    Opt out of Salsa for this workload.
 
-    If you want to opt-out from salsa you can set the salsa input to false
+    If you want to opt out of Salsa, set the `salsa` input to `false`.
 
     ```yaml
     salsa: false
