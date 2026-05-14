@@ -41,7 +41,7 @@ import { TracingInstrumentation } from '@grafana/faro-web-tracing';
 
 export default function Faro({ collectorUrl }: { collectorUrl?: string }) {
   useEffect(() => {
-    if (faro.api) return; // already initialized
+    if (faro.config) return; // already initialized
 
     try {
       initializeFaro({
@@ -74,7 +74,7 @@ import { TracingInstrumentation } from '@grafana/faro-web-tracing';
 
 export default function Faro({ collectorUrl }: { collectorUrl?: string }) {
   useEffect(() => {
-    if (faro.api) return; // already initialized
+    if (faro.config) return; // already initialized
 
     try {
       initializeFaro({
