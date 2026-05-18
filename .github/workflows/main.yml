@@ -9,7 +9,7 @@ jobs:
           fetch-depth: 0 # required for git date plugin
 
       - name: Install mise
-        uses: jdx/mise-action@v2
+        uses: jdx/mise-action@v4
         with:
           install: true
           cache: true
@@ -18,7 +18,7 @@ jobs:
         run: mise run build nav ssb test-nais ldir atil ci-nais dev-nais
 
       - name: Upload generated doc artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: out-folder
           path: out # This uploads all the files in the out folder, not the folder itself
@@ -51,7 +51,7 @@ jobs:
             bucket: doc.atil.cloud.nais.io
     steps:
       - name: Download generated doc artifact
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: out-folder
 
