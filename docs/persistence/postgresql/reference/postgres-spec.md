@@ -125,7 +125,7 @@ Major version of Postgres to use.
 
 Type: `enum`<br />
 Required: `true`<br />
-Allowed values: `16`, `17`<br />
+Allowed values: `16`, `17`, `18`<br />
 
 ??? example
     ``` yaml
