@@ -5,6 +5,7 @@
 	import { setupContext } from "$lib/state/page_context.svelte";
 	import TableOfContents from "$lib/TableOfContents.svelte";
 	import Tags from "$lib/Tags.svelte";
+	import { onMount } from "svelte";
 	import type { PageProps } from "./$types";
 
 	let { data }: PageProps = $props();
@@ -23,6 +24,17 @@
 	);
 
 	setupContext();
+
+	// After hydration, expansion cards collapse and shift the layout, causing the browser
+	// to lose the anchor scroll position. Re-scroll to the hash once the layout has settled.
+	onMount(() => {
+		const hash = window.location.hash;
+		if (!hash) return;
+		const el = document.getElementById(hash.slice(1));
+		if (el) {
+			requestAnimationFrame(() => el.scrollIntoView());
+		}
+	});
 </script>
 
 <svelte:head>
