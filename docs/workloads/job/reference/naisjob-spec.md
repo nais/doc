@@ -674,6 +674,7 @@ Deprecated. These claims are already included by default; this field is ignored 
 
 Type: `array`<br />
 Required: `false`<br />
+Allowed values: `NAVident`, `azp_name`<br />
 
 ##### azure.application.claims.groups
 Groups is a list of Azure AD group IDs to be emitted in the `groups` claim in tokens issued by Azure AD.
