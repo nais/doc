@@ -122,6 +122,8 @@
 
 <Theme theme={themeState.theme}>
 	<div class="layout-root">
+		<a href="#main-content" class="skip-link">Skip to main content</a>
+
 		<!-- Hidden checkbox for CSS-only sidebar toggle -->
 		<input type="checkbox" id="sidebar-toggle" class="sidebar-toggle-input" aria-hidden="true" />
 
@@ -160,7 +162,7 @@
 			<aside class="sidebar-container scrollbar-thin">
 				<Sidebar items={navigation} />
 			</aside>
-			<main class="main-content">
+			<main class="main-content" id="main-content" tabindex="-1">
 				<div class="main-content-inner">
 					{@render children()}
 				</div>
@@ -176,6 +178,25 @@
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
+	}
+
+	.skip-link {
+		position: absolute;
+		top: -100%;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 100;
+		padding: 0.5rem 1rem;
+		background: var(--ax-bg-default);
+		color: var(--ax-text-default);
+		border: 2px solid var(--ax-border-default);
+		border-radius: 0.25rem;
+		text-decoration: none;
+		font-weight: 500;
+	}
+
+	.skip-link:focus-visible {
+		top: 1rem;
 	}
 
 	/* Hidden checkbox that controls sidebar state */
