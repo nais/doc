@@ -62,4 +62,19 @@
 	:global(.headerlink:hover) {
 		opacity: 1 !important;
 	}
+
+	:global(h1:focus-within .headerlink),
+	:global(h2:focus-within .headerlink),
+	:global(h3:focus-within .headerlink),
+	:global(h4:focus-within .headerlink),
+	:global(h5:focus-within .headerlink),
+	:global(h6:focus-within .headerlink) {
+		opacity: 0.5;
+	}
+
+	:global(.headerlink:focus-visible) {
+		opacity: 1;
+		outline: 2px solid var(--ax-border-default);
+		border-radius: 0.25rem;
+	}
 </style>
