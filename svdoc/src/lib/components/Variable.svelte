@@ -92,6 +92,11 @@
 		border-bottom: 1px dotted var(--ax-border-brand-magenta);
 	}
 
+	button:focus-visible {
+		outline: 2px solid var(--ax-border-default);
+		border-radius: 0.25rem;
+	}
+
 	button:hover {
 		cursor: pointer;
 		background-color: var(--ax-bg-neutral-soft, rgba(175, 184, 193, 0.2));
