@@ -12,8 +12,8 @@ This guide describes how to enable audit logging in your postgreSQL database.
 
 The following steps need to be taken to enable the logging.
 
-1. [Configure database flags](#configure-database-flags-for-your-sql-instance), and configure replication etc.
-2. [Configure database internals](#use-the-nais-cli-to-configure-database-internals) to be the primary.
+1. [Configure database flags](#1-configure-database-flags-for-your-sql-instance), and configure replication etc.
+2. [Configure database internals](#2-use-the-nais-cli-to-configure-database-internals) to be the primary.
 
 !!! warning "Migrations using cloud-sql-migrator and changing of database name"
 
@@ -25,7 +25,7 @@ The pgaudit logs will require disk space, monitor disk usage and [enable automat
 
 For more information on audit logging, see the [official documentation](https://cloud.google.com/sql/docs/postgres/pg-audit).
 
-## Configure database flags for your sql instance
+## 1. Configure database flags for your sql instance
 
 !!! info "Changing audit settings"
 
@@ -66,7 +66,7 @@ Possible values for `pgaudit.log` are as follows (and all combinations of these)
 
 Other flags that are available for pgaudit are documented [here](https://github.com/pgaudit/pgaudit/blob/main/README.md#settings).
 
-## Use the nais cli to configure database internals
+## 2. Use the nais cli to configure database internals
 
 !!! info "This command requires personal access to the database (e.g. Cloud SQL IAM User)"
 
