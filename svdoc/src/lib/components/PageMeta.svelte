@@ -93,6 +93,12 @@
 					</a>
 				</div>
 			{/if}
+
+			<div class="meta-item">
+				<a href="https://uustatus.no/nb/erklaringer/publisert/004cbdfd-7d16-40e5-9a78-09757c92b824" target="_blank" rel="noopener noreferrer" class="source-link">
+					Tilgjengelegheitserklæring
+				</a>
+			</div>
 		</div>
 	</footer>
 {/if}
