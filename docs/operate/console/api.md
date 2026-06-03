@@ -8,24 +8,51 @@ The API endpoint is available at `<<tenant_url("console")>>graphql`
 
 ## Service Accounts
 
-Access to the API requires authentication.
-For programmatic access, you must set up a service account in [Nais Console](<<tenant_url("console")>>):
+Programmatic access to the API requires authentication via a _service account_.
+A service account is a non-human identity (also known as a machine user).
+
+Service accounts can only be created and managed by [team owners](../../explanations/team.md).
+
+### Create a Service Account
+
+To set up a service account, visit [Nais Console](<<tenant_url("console")>>):
 
 1. Navigate to your team in Nais Console.
 2. Go to the **Settings** page.
 3. Click on the **Service accounts** tab.
 4. Click the **Create service account** button.
 5. Follow the prompts to create a new service account.
-6. Configure an **Authentication method** for the service account.
+6. The **Name** of the service account should be a descriptive human-readable identifier, e.g. the name of your workload.
+7. The **Description** should describe the service account's intended purpose, use case, or to provide additional context.
 
-### Workload Binding
+You can optionally grant additional roles to the service account.
 
-To access the API from a workload running on Nais, set up the **Workload binding** authentication method for your service account.
+### Authentication Methods
 
-Workloads on Nais are configured with a workload token, available as a file at the path specified by the `NAIS_SERVICE_ACCOUNT_TOKEN_PATH` environment variable.
-The token is periodically rotated; re-read the file before use rather than caching its contents.
+There are two methods for service account authentication:
 
-Use the token as a Bearer token in the `Authorization` header when making requests to the API:
+1. **Workload bindings** allows workloads (applications or jobs) running on Nais to authenticate as the service account by using short-lived identity tokens.
+2. **API tokens** are static secret keys with an optional expiration date.
+
+Prefer using **workload bindings**.
+Only use **API tokens** when you need to access the Nais API from outside Nais.
+
+#### Method 1: Workload Binding
+
+To set up a workload binding for your service account:
+
+1. Navigate to your desired service account.
+2. Click the **Add workload binding** button for the service account in Nais Console.
+3. Select one or more workloads that should be able to authenticate as the service account.
+
+All workloads on Nais are automatically set up with an identity token:
+
+- The token is injected as a file in your workload's runtime.
+- Use the environment variable `NAIS_SERVICE_ACCOUNT_TOKEN_PATH` to find the path to the token file.
+- The token is periodically rotated and the file is updated in-place.
+- To ensure that the token is valid, you should always re-read the file before using it.
+
+When making requests to the API, provide the token in the `Authorization` header as a Bearer token:
 
 ```http
 POST /graphql HTTP/1.1
@@ -33,12 +60,15 @@ Host: console.<<tenant()>>.cloud.nais.io
 Authorization: Bearer $(cat $NAIS_SERVICE_ACCOUNT_TOKEN_PATH)
 ```
 
-### API Tokens
+#### Method 2: API Tokens
 
-To access the API from outside the Nais platform, set up the **API token** authentication method for your service account.
-Configure an expiration date for the token and rotate it regularly.
+To set up an API token for your service account:
 
-Use the token as a Bearer token in the `Authorization` header when making requests to the API:
+1. Navigate to your desired service account.
+2. Click the **Create API token** button for the service account in Nais Console.
+3. You should configure an expiration date for the token.
+
+When making requests to the API, provide the token in the `Authorization` header as a Bearer token:
 
 ```http
 POST /graphql HTTP/1.1
