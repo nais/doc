@@ -41,7 +41,7 @@ Kubernetes v1.34.2+0dd7f7cd0b632699e47ecafa4acc8f77cfc73c06
 ```
 
 Macos: If this command responds with "command not found" the following configuration needs to
-be added to the shell profile (By default ~/.zprofile or ~/.zshrc:
+be added to the shell profile (by default ~/.zprofile or ~/.zshrc):
 
 ```shell
 source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
