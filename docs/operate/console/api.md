@@ -25,6 +25,10 @@ To set up a service account, visit [Nais Console](<<tenant_url("console")>>):
 6. The **Name** of the service account should be a descriptive human-readable identifier, e.g. the name of your workload.
 7. The **Description** should describe the service account's intended purpose, use case, or to provide additional context.
 
+### Roles
+
+All service accounts have read access to everything a human user has access to by default, except secrets.
+
 You can optionally grant additional roles to the service account.
 
 ### Authentication Methods
