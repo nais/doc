@@ -2,6 +2,13 @@
 
 Nais API is a GraphQL API that allows programmatic access to the Nais platform.
 
+!!! warning "The GraphQL API is currently in beta"
+
+    The API is under active development.
+    We may introduce breaking changes without prior notice.
+
+    By using the API during the beta period, you acknowledge and accept this risk.
+
 ## Endpoint
 
 The API endpoint is available at `<<tenant_url("console")>>graphql`
@@ -53,8 +60,7 @@ All workloads on Nais are automatically set up with an identity token:
 
 - The token is injected as a file in your workload's runtime.
 - Use the environment variable `NAIS_SERVICE_ACCOUNT_TOKEN_PATH` to find the path to the token file.
-- The token is periodically rotated and the file is updated in-place.
-- To ensure that the token is valid, you should always re-read the file before using it.
+- Always re-read the token from file before using it. The token is periodically rotated and the file is updated in-place.
 
 When making requests to the API, provide the token in the `Authorization` header as a Bearer token:
 
@@ -70,7 +76,7 @@ To set up an API token for your service account:
 
 1. Navigate to your desired service account.
 2. Click the **Create API token** button for the service account in Nais Console.
-3. You should configure an expiration date for the token.
+3. Configure an expiration date for the token.
 
 When making requests to the API, provide the token in the `Authorization` header as a Bearer token:
 
