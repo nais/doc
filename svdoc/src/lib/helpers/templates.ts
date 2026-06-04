@@ -321,7 +321,8 @@ function processConditionals(content: string, context: TemplateContext): string 
 	// Keep processing until no more conditionals are found
 	// Process innermost conditionals first (ones without nested ifs)
 	while (iterations < maxIterations) {
-		const ifRegex = /(\{%-\s*if\s+(.+?)\s*-?%\}|\{%\s*if\s+(.+?)\s*-%\}|\{%\s*if\s+(.+?)\s*%\})([\s\S]*?)(\{%-?\s*endif\s*-?%\})/;
+		const ifRegex =
+			/(\{%-\s*if\s+(.+?)\s*-?%\}|\{%\s*if\s+(.+?)\s*-%\}|\{%\s*if\s+(.+?)\s*%\})([\s\S]*?)(\{%-?\s*endif\s*-?%\})/;
 		const match = ifRegex.exec(result);
 
 		if (!match) {
