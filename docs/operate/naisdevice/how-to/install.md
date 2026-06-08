@@ -104,14 +104,15 @@ tags: [naisdevice, how-to]
 
     1. Find `naisdevice` in your application menu, or use the `naisdevice` command in a terminal to start the application.
 
-## Connect naisdevice through task/sys -tray icon
+## Connect Naisdevice through task/sys -tray icon
 
 ![A macOS systray exemplifying a red-colored `naisdevice` icon.](../../../assets/naisdevice-systray-icon.svg)
 
-When you have opened naisdevice the naisdevice icon appears in your Systray (where all your small program icons are located - see above picture for how it looks on Mac):
+When you have started Naisdevice the Naisdevice icon appears in your Systray (where all your small program icons are located - see above picture for how it looks on Mac):
 
-1. Find your `naisdevice` icon (pictured above).
+1. Start the Naisdevice agent/app.
+2. Find your `naisdevice` icon (pictured above).
    - Can't find the icon? Make sure it is installed (See [macOS](#__tabbed_1_2), [Windows (Scoop)](#__tabbed_1_1) or [Ubuntu](#__tabbed_1_4))
-2. Left-click it and select `Connect`.
-3. Left-click the `naisdevice` icon again and click `Connect`.
+3. Left-click it and select `Connect`.
+4. Left-click the `naisdevice` icon again and click `Connect`.
    - You might need to allow ~20 seconds to pass before clicking `Connect` turns your `naisdevice` icon green.
