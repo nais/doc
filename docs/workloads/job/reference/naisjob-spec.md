@@ -1300,7 +1300,6 @@ Default value is `false`.
 
 Type: `boolean`<br />
 Required: `false`<br />
-Immutable: `true`<br />
 
 ??? example
     ``` yaml
