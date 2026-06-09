@@ -37,6 +37,10 @@ Console currently supports the following fields:
         - `memory = "GB_2"`
         - `tier = "SINGLE_NODE"`
 - `.spec.userConfig.opensearch_version`
+- `.spec.userConfig.opensearch.http_max_content_length`
+- `.spec.userConfig.opensearch.indices_query_bool_max_clause_count`
+- `.spec.userConfig.opensearch.shard_indexing_pressure.enabled`
+- `.spec.userConfig.opensearch.shard_indexing_pressure.enforced`
 - `.spec.project` (automatically set)
 - `.spec.terminationProtection` (automatically enabled)
 
