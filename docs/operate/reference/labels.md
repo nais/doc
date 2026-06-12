@@ -19,8 +19,6 @@ A label consists of a key and a value:
 | `<key>` | Your label name. Must follow the [Kubernetes label syntax](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set). |
 | `<value>` | Your label value. Must follow the [Kubernetes label syntax](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set). |
 
-No Nais-specific prefix is required.
-
 ## Behavior
 
 - Labels are kept **verbatim** — Nais does not rewrite or strip them.

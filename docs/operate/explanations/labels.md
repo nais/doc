@@ -10,7 +10,7 @@ A label might describe ownership, a project, an environment grouping, or anythin
 
 ## How labels work on Nais
 
-Labels on Nais are regular [Kubernetes labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/). You can use any key and value that follows the standard Kubernetes label syntax — no special prefix is required.
+Labels on Nais are regular [Kubernetes labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/). You can use any key and value that follows the standard Kubernetes label syntax.
 
 ```text
 <key>: <value>
