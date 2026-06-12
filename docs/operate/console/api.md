@@ -56,7 +56,7 @@ To set up a workload binding for your service account:
 2. Click the **Add workload binding** button for the service account in Nais Console.
 3. Select one or more workloads that should be able to authenticate as the service account.
 
-All workloads on Nais are automatically set up with an identity token:
+All workloads on Nais are automatically set up with an [identity token](../../auth/workload-identity.md):
 
 - The token is injected as a file in your workload's runtime.
 - Use the environment variable `NAIS_SERVICE_ACCOUNT_TOKEN_PATH` to find the path to the token file.
