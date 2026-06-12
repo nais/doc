@@ -10,15 +10,23 @@ A label might describe ownership, a project, an environment grouping, or anythin
 
 ## How labels work on Nais
 
-Labels on Nais are regular [Kubernetes labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/) with one requirement: the key must use the `labels.nais.io/` prefix.
+Labels on Nais are regular [Kubernetes labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/). You can use any key and value that follows the standard Kubernetes label syntax.
 
 ```text
-labels.nais.io/<key>: <value>
+<key>: <value>
 ```
 
-This prefix keeps your own labels clearly separated from the labels that Nais manage internally, so the two never collide.
-
 When you set a label on a resource, Nais keeps it verbatim and propagates it to the underlying Kubernetes resources that the resource owns. For a [workload](../../workloads/README.md), this means the label is also applied to the resources Nais generates on your behalf.
+
+## Hidden labels
+
+Nais surfaces all labels on your resources, except for a few that Nais and Kubernetes manage internally. The following labels are hidden in [Nais Console](../console/README.md) and the [Nais API](../console/api.md):
+
+- the `app` label
+- the `team` label
+- any label whose key contains the substring `nais.io/`
+
+These labels are still present on the underlying Kubernetes resources — they are only hidden from the Nais-managed views.
 
 ## Where you can use labels
 

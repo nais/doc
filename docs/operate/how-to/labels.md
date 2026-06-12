@@ -8,7 +8,7 @@ This guide shows you how to add [labels](../explanations/labels.md) to your reso
 
 ## Add labels in your manifest
 
-Add your labels under `metadata.labels`, using the `labels.nais.io/` prefix:
+Add your labels under `metadata.labels`:
 
 === "app.yaml"
 
@@ -19,8 +19,8 @@ Add your labels under `metadata.labels`, using the `labels.nais.io/` prefix:
       name: <MY-APP>
       namespace: <MY-TEAM>
       labels:
-        labels.nais.io/team-area: payments
-        labels.nais.io/sensitive: "true"
+        team-area: payments
+        sensitive: "true"
     spec:
       ...
     ```
@@ -33,7 +33,7 @@ You can add and edit labels from Console for [Valkey](../../persistence/valkey/R
 
 1. Open [Nais Console](<<tenant_url("console")>>) and navigate to the resource you want to label.
 2. Find the **Labels** section in the sidebar and click the edit icon.
-3. Enter a key and a value. The `labels.nais.io/` prefix is added automatically.
+3. Enter a key and a value.
 4. Click **Add label** to add more labels.
 5. Click **Save**.
 
