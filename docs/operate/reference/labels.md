@@ -11,20 +11,33 @@ Labels are user-defined key-value pairs used to organize and categorize your res
 A label consists of a key and a value:
 
 ```text
-labels.nais.io/<key>: <value>
+<key>: <value>
 ```
 
 | Part | Description |
 |:-----|:------------|
-| `labels.nais.io/` | Required prefix. It is the only constraint Nais adds on top of the standard Kubernetes label rules. |
 | `<key>` | Your label name. Must follow the [Kubernetes label syntax](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set). |
 | `<value>` | Your label value. Must follow the [Kubernetes label syntax](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set). |
+
+No Nais-specific prefix is required.
 
 ## Behavior
 
 - Labels are kept **verbatim** — Nais does not rewrite or strip them.
 - Labels are **propagated** to the underlying Kubernetes resources that the resource owns.
 - Labels carry **no special meaning** to Nais. They are only used for your own organization.
+
+## Hidden labels
+
+[Nais Console](../console/README.md) and the [Nais API](../console/api.md) surface all labels on a resource, except for the following internal labels, which are hidden:
+
+| Label key | Match |
+|:----------|:------|
+| `app` | Exact match |
+| `team` | Exact match |
+| `*nais.io/*` | Any key containing the substring `nais.io/` |
+
+Hidden labels remain present on the underlying Kubernetes resources.
 
 ## Setting labels
 
@@ -37,13 +50,13 @@ metadata:
   name: myapplication
   namespace: myteam
   labels:
-    labels.nais.io/team-area: payments
-    labels.nais.io/sensitive: "true"
+    team-area: payments
+    cost-center: "1234"
 spec:
   ...
 ```
 
-Labels can also be added and edited from [Nais Console](../console/README.md) for [Valkey](../../persistence/valkey/README.md), [OpenSearch](../../persistence/opensearch/README.md), [Config](../../services/config/README.md), and [Secret](../../services/secrets/README.md). 
+Labels can also be added and edited from [Nais Console](../console/README.md) for [Valkey](../../persistence/valkey/README.md), [OpenSearch](../../persistence/opensearch/README.md), [Config](../../services/config/README.md), and [Secret](../../services/secrets/README.md).
 
 ## Related pages
 
