@@ -20,7 +20,7 @@ Add your labels under `metadata.labels`:
       namespace: <MY-TEAM>
       labels:
         team-area: payments
-        cost-center: "1234"
+        sensitive: "true"
     spec:
       ...
     ```

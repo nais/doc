@@ -49,7 +49,7 @@ metadata:
   namespace: myteam
   labels:
     team-area: payments
-    cost-center: "1234"
+    sensitive: "true"
 spec:
   ...
 ```
