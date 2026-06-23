@@ -63,6 +63,24 @@ It should look something like this:
 
 Delete the file from your repository.
 
+If you have configured a ServiceIntegration for the OpenSearch instance, you should also remove that manifest file from your repository.
+It should look something like this:
+
+```diff title="serviceintegration.yaml"
+-apiVersion: aiven.io/v1alpha1
+-kind: ServiceIntegration
+-metadata:
+-  labels:
+-    team: <MYTEAM>
+-  name: opensearch-<MYTEAM>-<INSTANCE>
+-  namespace: <MYTEAM>
+-spec:
+-  project: <<tenant()>>-<ENV>
+-  integrationType: prometheus
+-  destinationEndpointId: <ENDPONT-ID>
+-  sourceServiceName: opensearch-<MYTEAM>-<INSTANCE>
+```
+
 ### 3. Remove references from GitHub Actions workflows
 
 If you have any GitHub Actions workflows that references the OpenSearch manifest file you just deleted, you should remove those references:
@@ -82,6 +100,8 @@ jobs:
             ...
 ``
 ```
+
+If you had a ServiceIntegration manifest file, remove references to that as well.
 
 ### 4. Patch resource in Kubernetes
 
