@@ -26,7 +26,8 @@ tags: [naisdevice, how-to]
     1. Install [Homebrew](https://brew.sh/) unless you already have it.
     1. Run these commands in a terminal
     ```bash
-    brew tap nais/tap
+	brew tap nais/tap
+	brew trust nais/tap
     brew install <<naisdevice_name()>>
     ```
     1. You will be asked for your local device account's password to finish the installation.
