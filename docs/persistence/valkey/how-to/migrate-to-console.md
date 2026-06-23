@@ -38,6 +38,7 @@ Console currently supports the following fields:
         - `tier = "SINGLE_NODE"`
 - `.spec.userConfig.valkey_maxmemory_policy`
 - `.spec.userConfig.valkey_number_of_databases`
+- `.spec.userConfig.valkey_notify_keyspace_events`
 - `.spec.project` (automatically set)
 - `.spec.terminationProtection` (automatically enabled)
 
