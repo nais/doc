@@ -2,9 +2,16 @@
 tags: [how-to, build, deploy, templating]
 ---
 
-# Templating
+# Templating (deprecated)
 
-In nais/deploy we use [Handlebars](https://handlebarsjs.com/) 3.0 syntax as templating language.
+!!! warning "Deprecated"
+    Handlebars templating via `nais/deploy` is deprecated. Use [environment mixins](./build-and-deploy.md#deploying-to-multiple-environments) and `--set` flags with the Nais CLI instead.
+
+    If you have advanced templating needs that mixins and `--set` don't cover, consider adding a preprocessing step to your workflow (e.g. `envsubst`, `yq`, or a script) before calling `nais apply`.
+
+## Legacy reference
+
+The legacy `nais/deploy` action uses [Handlebars](https://handlebarsjs.com/) 3.0 syntax as templating language.
 Both the template and variable file supports either YAML or JSON syntax.
 
 A practical example follows.
@@ -58,41 +65,3 @@ spec:
 
 [✅] "app.yaml" is valid
 ```
-
-### Escaping and raw resources
-
-If you do not specify the `--vars` or `--var` command-line flags, your resource will not be run through the templating engine, so these resources will not need templating.
-
-Handlebars content may be escaped by prefixing a mustache block with `\`, such as:
-
-```text
-\{{escaped}}
-```
-
-Real-world example:
-
-```yaml
-apiVersion: monitoring.coreos.com/v1
-kind: PrometheusRule
-metadata:
-  name: {{app}}
-  labels:
-    team: {{team}}
-spec:
-  groups:
-  - name: "app-alerts"
-    rules:
-    - alert: {{app}}-fails
-      expr: up{app=~"{{app}}",job="kubernetes-pods"} == 0
-      for: 2m
-      annotations:
-        consequence: Application is unavailable
-        action: Se `kubectl describe pod \{{ $labels.kubernetes_pod_name }}` for events, og `kubectl logs \{{ $labels.kubernetes_pod_name }}` for logger
-        summary: '\{{ $labels.app }} er nede i \{{ $labels.kubernetes_namespace }}'
-      labels:
-        namespace: {{team}}
-        severity: danger
-```
-
-!!! Info
-    Templating will not be run if you do not use `VARS` and/or `VAR`, meaning `\{{escaped}}` will not be handled by nais/deploy.

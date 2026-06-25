@@ -85,7 +85,11 @@ It should look something like this:
 
 ### 3. Remove references from GitHub Actions workflows
 
-If you have any GitHub Actions workflows that references the Valkey manifest file you just deleted, you should remove those references:
+If you have any GitHub Actions workflows that references the Valkey manifest file you just deleted, you should remove those references.
+
+If you are using the Nais CLI (`nais apply`), simply remove the apply command for the Valkey manifest.
+
+If you are still using the legacy `nais/deploy` action, remove the Valkey file from the `RESOURCE` list:
 
 ```diff title=".github/workflows/deploy.yaml"
 name: Build and deploy

@@ -4,7 +4,7 @@ tags: [build, deploy, how-to]
 
 # Build and deploy with GitHub Actions
 
-This how-to guide shows you how to build and deploy your application using [GitHub Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions) and the Nais deploy action.
+This how-to guide shows you how to build and deploy your application using [GitHub Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions) and the [Nais CLI](../../operate/cli.md).
 
 ## Prerequisites
 
@@ -25,60 +25,159 @@ This how-to guide shows you how to build and deploy your application using [GitH
 
 !!! note ".github/workflows/main.yml"
 
-    ```yaml hl_lines="28 {%- if tenant() == "test-nais" %}34{% else %}32{% endif %}"
+    ```yaml hl_lines="21 {%- if tenant() == "test-nais" %} 36 38{% else %} 34 36{% endif %}"
     name: Build and deploy
     on:
       push:
         branches:
           - main
     jobs:
-      build_and_deploy:
-        name: Build, push and deploy
+      build:
+        name: Build and push image
         runs-on: ubuntu-latest
         permissions:
           contents: read
           id-token: write
-          actions: read
+        outputs:
+          image: ${{ steps.docker-build-push.outputs.image }}
         steps:
           - uses: actions/checkout@v6
-            with:
-              fetch-depth: 0 # Fetch all history for what-changed action
-          - name: Determine what to do
-            id: changed-files
-            uses: "nais/what-changed@main"
-            with:
-              files: .nais/app.yaml #, topic.yaml, statefulset.yaml, etc.
           - name: Build and push image and SBOM to OCI registry
-            if: steps.changed-files.outputs.changed != 'only-inputs'
             uses: nais/docker-build-push@v0
             id: docker-build-push
             with:
               team: <MY-TEAM> # Replace
 {%- if tenant() == "test-nais" %}
-			  project_id: nais-management-ddba
-			  identity_provider: projects/636929582051/locations/global/workloadIdentityPools/test-nais-identity-pool/providers/github-oidc-provider
+              project_id: nais-management-ddba
+              identity_provider: projects/636929582051/locations/global/workloadIdentityPools/test-nais-identity-pool/providers/github-oidc-provider
 {%- endif %}
+
+      deploy:
+        name: Deploy
+        needs: build
+        runs-on: ubuntu-latest
+        permissions:
+          contents: read
+          id-token: write
+        steps:
+          - uses: actions/checkout@v6
+          - uses: nais/setup@v1
+            with:
+              team: <MY-TEAM> # Replace
           - name: Deploy to Nais
-            uses: nais/deploy/actions/deploy@v2
-            envs:
-              CLUSTER: <MY-ENV> # Replace (1)
-              RESOURCE: .nais/app.yaml # same list as in changed-files step above
-              WORKLOAD_IMAGE: ${{ steps.docker-build-push.outputs.image }}
-{%- if tenant() == "test-nais" %}
-			  DEPLOY_SERVER: deploy.test-nais.cloud.nais.io:443
-{%- endif %}
+            run: nais apply .nais/app.yaml --environment <MY-ENV> --set spec.image="${{ needs.build.outputs.image }}" --wait # (1)
     ```
 
-    1.  Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../../workloads/reference/environments.md).
+    1.  Environment is the Nais environment to deploy to. You can find available values in [workloads/environments](../../workloads/reference/environments.md).
 
 This example workflow is a minimal example that builds, signs, and pushes your container image to the image registry.
-It then deploys the [app.yaml](../../workloads/application/reference/application-spec.md).
+It then deploys the [app.yaml](../../workloads/application/reference/application-spec.md) using the Nais CLI.
 
-The `WORKLOAD_IMAGE` variable is used to [tell the platform which image](../../workloads/explanations/workload-image.md) to use when deploying the workload.
-This is optional, and you can also set the image in the workload manifest directly using templating.
-If you do this, you should not set the `WORKLOAD_IMAGE` variable, but instead set a suitable `VAR` (traditionally, `image` is used).
+The image is passed to the manifest using `--set spec.image=<image>`, which overrides the `spec.image` field in the manifest at deploy time.
+
+When the app manifest carries no image field, and you deploy without `--set spec.image`, the CLI will keep whichever image is currently running (it queries the Nais API).
+This allows you to deploy manifest changes without rebuilding the image.
 
 When this file is pushed to the `main` branch, the workflow will be triggered, and you are all set.
+
+## Deploying to multiple environments
+
+If you want to deploy to multiple environments (e.g. `dev` and `prod`), you can use environment mixins.
+Create a base manifest (e.g. `.nais/app.yaml`) with dev config, and a per-environment mixin named `.nais/app.<environment>.yaml` with production overrides.
+The CLI automatically deep-merges the mixin over the base when you specify `--environment`.
+
+Mixin values override maps and scalars, but concatenate lists. This means per-environment values belong in map fields (like `resources`), not in list fields (like `spec.env`).
+
+??? example "Example: base manifest and mixin files"
+
+    ```yaml title=".nais/app.yaml"
+    apiVersion: nais.io/v1alpha1
+    kind: Application
+    metadata:
+      name: my-app
+      namespace: my-team
+    spec:
+      env:
+        - name: COMMON
+          value: value
+    ```
+
+    ```yaml title=".nais/app.dev.yaml"
+    spec:
+      env:
+        - name: NODE_ENV
+          value: dev
+      ingresses:
+        - https://my-app.dev.ingress
+      replicas:
+        min: 1
+        max: 1
+      resources:
+        requests:
+          cpu: 20m
+          memory: 32Mi
+    ```
+    ```yaml title=".nais/app.prod.yaml"
+    spec:
+      env:
+        - name: NODE_ENV
+          value: prod
+      ingresses:
+        - https://my-app.production.ingress
+      replicas:
+        min: 2
+        max: 4
+      resources:
+        requests:
+          cpu: 40m
+          memory: 64Mi
+    ```
+
+    When deploying with `--environment prod-gcp`, the CLI merges `app.prod-gcp.yaml` over `app.yaml`, resulting in 2-4 replicas with higher resource requests.
+
+Add multiple deploy steps to your workflow:
+
+```yaml
+- name: Deploy to dev-gcp
+  run: nais apply .nais/app.yaml --environment dev-gcp --set spec.image="${{ needs.build.outputs.image }}" --wait
+- name: Deploy to prod-gcp
+  run: nais apply .nais/app.yaml --environment prod-gcp --set spec.image="${{ needs.build.outputs.image }}" --wait
+```
+
+## Deploying manifest changes without rebuilding
+
+When you deploy without `--set spec.image`, the CLI keeps whichever image is currently running. This means you can split your deployment into two workflows:
+
+1. **Source code changes** (triggers on `cmd/**`, `go.*`, `Dockerfile`, etc.) -- builds a new image and deploys it.
+2. **Manifest changes** (triggers on `.nais/**`) -- deploys without building, reusing the current image.
+
+This speeds up manifest-only changes significantly.
+
+??? example "Example: separate workflow for manifest-only deploys"
+
+    ```yaml title=".github/workflows/deploy-nais-resources.yaml"
+    name: Deploy Nais resources
+    on:
+      push:
+        branches: [main]
+        paths:
+          - ".nais/**"
+    jobs:
+      deploy:
+        runs-on: ubuntu-latest
+        permissions:
+          contents: read
+          id-token: write
+        steps:
+          - uses: actions/checkout@v6
+          - uses: nais/setup@v1
+            with:
+              team: <MY-TEAM> # Replace
+          - name: Apply to dev-gcp
+            run: nais apply .nais/app.yaml --environment dev-gcp --wait
+          - name: Apply to prod-gcp
+            run: nais apply .nais/app.yaml --environment prod-gcp --wait
+    ```
 
 !!! info "Registry used by Nais"
 
