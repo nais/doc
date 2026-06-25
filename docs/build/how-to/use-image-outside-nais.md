@@ -47,12 +47,11 @@ jobs:
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           # Tag the image, e.g. ghcr.io/owner/repo:latest
           docker buildx imagetools create -t ghcr.io/${{ github.repository }}:latest ${{ steps.docker-build-push.outputs.image }}
+      - uses: nais/setup@v1
+        with:
+          team: <MY-TEAM> # Replace
       - name: Deploy to Nais
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: <MY-ENV> # Replace (1)
-          RESOURCE: .nais/app.yaml #, topic.yaml, statefulset.yaml, etc.
-          VAR: image=${{ steps.docker-build-push.outputs.image }}
+        run: nais apply .nais/app.yaml --environment <MY-ENV> --set spec.image="${{ steps.docker-build-push.outputs.image }}" --wait
 ```
 
 ## Even more control

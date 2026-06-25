@@ -2,29 +2,71 @@
 tags: [reference, build, deploy]
 ---
 
-# Deploy action configuration
+# Deploy with the Nais CLI
 
-The available configuration options for the Nais deploy GitHub action.
+Deploying to Nais is done using the Nais CLI's `nais apply` command. In GitHub Actions, use the [nais/setup](https://github.com/nais/setup) action to install the CLI.
 
-| Environment variable | Default                | Description                                                                                                                                                                                                                 |
-|:---------------------|:-----------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CLUSTER              | (required)             | Which Nais cluster to deploy into.                                                                                                                                                                                          |
-| DRY_RUN              | `false`                | If `true`, run templating and validate input, but do not actually make any requests.                                                                                                                                        |
-| ENVIRONMENT          | (auto-detect)          | The environment to be shown in GitHub Deployments. Defaults to `CLUSTER:NAMESPACE` for the resource to be deployed if not specified, otherwise falls back to `CLUSTER` if multiple namespaces exist in the given resources. |
-| OWNER                | (auto-detect)          | Owner of the repository making the request.                                                                                                                                                                                 |
-| PRINT_PAYLOAD        | `false`                | If `true`, print templated resources to standard output.                                                                                                                                                                    |
-| QUIET                | `false`                | If `true`, suppress all informational messages.                                                                                                                                                                             |
-| REF                  | `master` (auto-detect) | Commit reference of the deployment. Shown in GitHub's interface.                                                                                                                                                            |
-| REPOSITORY           | (auto-detect)          | Name of the repository making the request.                                                                                                                                                                                  |
-| RESOURCE             | (required)             | Comma-separated list of files containing Kubernetes resources. Must be JSON or YAML format.                                                                                                                                 |
-| RETRY                | `true`                 | Automatically retry deploying if deploy service is unavailable.                                                                                                                                                             |
-| TEAM                 | (auto-detect)          | Team making the deployment.                                                                                                                                                                                                 |
-| TIMEOUT              | `10m`                  | Time to wait for deployment completion, especially when using `WAIT`.                                                                                                                                                       |
-| VAR                  |                        | Comma-separated list of template variables in the form `key=value`. Will overwrite any identical template variable in the `VARS` file.                                                                                      |
-| VARS                 | `/dev/null`            | File containing template variables. Will be interpolated with the `$RESOURCE` file. Must be JSON or YAML format.                                                                                                            |
-| WAIT                 | `true`                 | Block until deployment has completed with either `success`, `failure` or `error` state.                                                                                                                                     |
-| WORKLOAD_IMAGE       |                        | Use this image in a companion Image resource.                                                                                                                                                                               |
-| WORKLOAD_NAME        | (auto-detect)          | Name of workload.                                                                                                                                                                                                           |
+## Setup action inputs
 
-Note that `OWNER` and `REPOSITORY` corresponds to the two parts of a full repository identifier.
-If that name is `navikt/myapplication`, those two variables should be set to `navikt` and `myapplication`, respectively.
+| Name          | Description                                         | Required | Default  |
+|:--------------|:----------------------------------------------------|:---------|:---------|
+| `version`     | Version to install (`v3.8.3` or `latest`)           | No       | `latest` |
+| `team`        | Default team written to the nais config file        | No       | —        |
+| `environment` | Default environment written to the nais config file | No       | —        |
+
+## `nais apply`
+
+The `nais apply` command deploys a manifest to Nais.
+
+```bash
+nais apply <manifest> [flags]
+```
+
+### Flags
+
+| Flag              | Description                                                                                              |
+|:------------------|:---------------------------------------------------------------------------------------------------------|
+| `--environment`   | The Nais environment to deploy to (e.g. `dev-gcp`, `prod-gcp`)                                          |
+| `--set`           | Override a value in the manifest (e.g. `--set spec.image=<image>`)                                       |
+| `--wait`          | Block until the deployment has completed                                                                 |
+| `--team`          | The team to deploy as (overrides config)                                                                 |
+
+### Examples
+
+Deploy to a single environment:
+
+```bash
+nais apply .nais/app.yaml --environment dev-gcp --set spec.image="europe-north1-docker.pkg.dev/..." --wait
+```
+
+Deploy to multiple environments (using environment mixins):
+
+```bash
+nais apply .nais/app.yaml --environment dev-gcp --set spec.image="$IMAGE" --wait
+nais apply .nais/app.yaml --environment prod-gcp --set spec.image="$IMAGE" --wait
+```
+
+Deploy manifest-only changes (no image rebuild):
+
+```bash
+nais apply .nais/app.yaml --environment dev-gcp --wait
+```
+
+When no image is provided via `--set spec.image`, the CLI will keep whichever image is currently running.
+
+## GitHub Actions workflow example
+
+```yaml
+steps:
+  - uses: actions/checkout@v6
+  - uses: nais/setup@v1
+    with:
+      team: my-team
+  - name: Deploy to dev-gcp
+    run: nais apply .nais/app.yaml --environment dev-gcp --set spec.image="${{ needs.build.outputs.image }}" --wait
+```
+
+!!! note "Permissions"
+    The deploy job needs `id-token: write` permission to authenticate with the Nais platform.
+
+For more details, see [Build and deploy with GitHub Actions](../how-to/build-and-deploy.md).
