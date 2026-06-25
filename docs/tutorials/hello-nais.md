@@ -104,58 +104,50 @@ touch .github/workflows/main.yaml
 Add the following content to the file, and insert the appropriate values in the placeholders on the highlighted lines:
 ???+ note ".github/workflows/main.yaml"
 
-    ```yaml hl_lines="28 {% if tenant() == "test-nais" %}41{% else %}35{% endif %}"
+    ```yaml hl_lines="21 {%- if tenant() == "test-nais" %} 36 38{% else %} 34 36{% endif %}"
     name: Build and deploy
     on:
       push:
         branches:
           - main
     jobs:
-      build_and_deploy:
-        name: Build, push and deploy
+      build:
+        name: Build and push image
         runs-on: ubuntu-latest
         permissions:
           contents: read
           id-token: write
-          actions: read
+        outputs:
+          image: ${{ steps.docker-build-push.outputs.image }}
         steps:
           - uses: actions/checkout@v6 # Should be pinned (1)
-            with:
-              fetch-depth: 0 # Fetch all history for what-changed action
-          - name: Determine what to do
-            id: changed-files
-            uses: "nais/what-changed@main" # Should be pinned
-            with:
-              files: .nais/app.yaml
           - name: Build and push image and SBOM to OCI registry
-            if: steps.changed-files.outputs.changed != 'only-inputs'
             uses: nais/docker-build-push@v0 # Should be pinned
             id: docker-build-push
             with:
               team: <MY-TEAM> # Replace
-    {% if tenant() == "test-nais" %}
+{%- if tenant() == "test-nais" %}
               project_id: nais-management-ddba
               identity_provider: projects/636929582051/locations/global/workloadIdentityPools/test-nais-identity-pool/providers/github-oidc-provider
-    {% endif %}
-          - name: Authenticate the Nais CLI
-            uses: nais/setup@v1 # Should be pinned
-    {% if tenant() == "test-nais" %}
-            env:
-              NAIS_API_TENANT: test-nais
-    {% endif %}
-          - name: Deploy to Nais
-    {% if tenant() == "test-nais" %}
-            env:
-              NAIS_API_TENANT: test-nais
-    {% endif %}
-            run: |
-              nais apply .nais/app.yaml \
-                --image ${{ steps.docker-build-push.outputs.image }} \
-                --environment <MY-ENV> # Replace
-    ```
+{%- endif %}
 
+      deploy:
+        name: Deploy
+        needs: build
+        runs-on: ubuntu-latest
+        permissions:
+          contents: read
+          id-token: write
+        steps:
+          - uses: actions/checkout@v6 # Should be pinned
+          - uses: nais/setup@v1 # Should be pinned
+            with:
+              team: <MY-TEAM> # Replace
+          - name: Deploy to Nais
+            run: nais apply .nais/app.yaml --environment <MY-ENV> --set spec.image="${{ needs.build.outputs.image }}" --wait # (2)
+    ```
     1. GitHub actions should be pinned to a SHA for better security. Read more in GitHub [Secure use reference](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions).
-    2. Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../workloads/reference/environments.md).
+    2.  Environment is the Nais environment to deploy to. You can find the value in [workloads/environments](../workloads/reference/environments.md).
 
 Excellent! We're now ready to deploy :rocket:
 
@@ -236,5 +228,5 @@ To learn more about the possibilities, explore our documentation for [Applicatio
 
 The GitHub workflow is similarly simplified.
 Some teams like to do more advanced things, like running tests, or deploying to multiple environments.
-It is also possible to skip some steps under certain conditions, such as not building a new image if the code hasn't changed.
-Explore the [GitHub Actions documentation](https://docs.github.com/en/actions) for more information about GitHub Actions in general, and our guide on [workload image](../workloads/explanations/workload-image.md) for how you can skip building.
+It is also possible to deploy manifest changes without building a new image if there are no changes to the application code.
+Explore our [build and deploy](../build/how-to/build-and-deploy.md) guide for patterns on deploying to multiple environments and splitting workflows.
