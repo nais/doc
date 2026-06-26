@@ -36,6 +36,7 @@ Console currently supports the following fields:
     - If your existing plan is `hobbyist`, you would set:
         - `memory = "GB_2"`
         - `tier = "SINGLE_NODE"`
+- `.spec.disk_space`
 - `.spec.userConfig.opensearch_version`
 - `.spec.project` (automatically set)
 - `.spec.terminationProtection` (automatically enabled)
