@@ -1,8 +1,7 @@
 nav:
 - README.md
+- 🚀 Tutorials: tutorials
 - 🎯 How-To: how-to
 - 📚 Reference: reference
-- APM: apm
-- Frontend: frontend
-- Tracing: tracing
+- 💡 Explanations: explanations
 - ...

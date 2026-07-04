@@ -42,6 +42,8 @@ Nais can inject OpenTelemetry agents into your application at startup. With a fe
 
 [:dart: Get started with auto-instrumentation](../observability/how-to/auto-instrumentation.md)
 
+[:bulb: Learn more about Nais APM](apm/README.md)
+
 ## Metrics
 
 Metrics are a way to measure the state of your application. Metrics are usually numerical values that can be aggregated and visualized. Metrics are often used to create alerts and dashboards.
