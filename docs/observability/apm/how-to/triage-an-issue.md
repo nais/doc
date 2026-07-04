@@ -18,7 +18,7 @@ access can triage, and every change is attributed and audited.
 On your service's **Issues** tab, click a row to open the issue drawer. The
 triage bar sits at the top, above the stack trace and impact.
 
-<!-- SCREENSHOT: Issue drawer → triage bar (Resolve / Ignore / Assign / Unresolve) above the stack trace -->
+![Issue drawer — the triage bar (Resolve / Ignore / Assign) above the stack trace](../../../assets/nais-apm-service-navno-issues-drawer.png)
 
 ## Resolve, ignore, or assign
 
@@ -42,7 +42,6 @@ flagged **Regressed** and bubbles to the top of the list. Concretely: its state
 is `resolved`, it still has occurrences in the current window, and the resolve
 predates the newest deploy marker.
 
-<!-- SCREENSHOT: Issues tab list showing a "Regressed" badge on a row above the default unresolved issues -->
 
 This is a deliberate approximation. When you're looking at a **historical** time
 range, occurrences can predate your resolve and still read as regressed —

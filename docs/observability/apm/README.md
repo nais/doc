@@ -20,7 +20,7 @@ This is the **Legend** release of Nais APM.
 
 [:dart: Open Nais APM](<<tenant_url("grafana", "a/nais-apm-app/services")>>)
 
-<!-- SCREENSHOT: Service overview page — health header with RED big numbers, front and center -->
+![Nais APM service overview — request rate, error rate, and p95 latency with period deltas](../../assets/nais-apm-service-navno-overview.png)
 
 ## What you get
 

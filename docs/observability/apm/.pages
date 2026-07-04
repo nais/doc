@@ -5,3 +5,5 @@ nav:
 - 📚 Reference: reference
 - 💡 Explanations: explanations
 - ...
+
+conditional: [tenant, nav]

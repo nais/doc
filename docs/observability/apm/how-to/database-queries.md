@@ -13,7 +13,7 @@ metrics per operation (rate, errors, latency), and connection-pool health. It's
 built entirely from telemetry your app emits — if the tab is empty, this is the
 checklist to work through. Each item maps directly to what the tab reads.
 
-<!-- SCREENSHOT: Database tab, fully instrumented — per-operation query analytics table plus the connection-pool health panel -->
+![Database tab — PostgreSQL per-operation analytics and connection-pool health](../../../assets/nais-apm-service-fpsoknad-database-pg.png)
 
 ## Requirements checklist
 
@@ -54,7 +54,7 @@ Driver-managed pools (for example the MongoDB Java driver) and Oracle UCP are
 | Pool metrics but no spans | Pool panels; a note that database spans aren't detected |
 | Neither | The full requirements checklist above |
 
-<!-- SCREENSHOT: Database tab empty state showing the instrumentation-requirements checklist -->
+![Database tab empty state — the instrumentation-requirements checklist](../../../assets/nais-apm-service-navno-database-empty.png)
 
 ## Related
 

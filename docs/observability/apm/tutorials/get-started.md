@@ -28,7 +28,7 @@ path from symptom to cause:
 
 `Overview · Issues · Alerts · Backend · Frontend · Database · Dependencies · Traces · Logs · (Profiling)`
 
-<!-- SCREENSHOT: Service inventory — searchable list of services with health sparklines -->
+![Nais APM service inventory — searchable list with per-service health sparklines](../../../assets/nais-apm-service-list.png)
 
 **Overview, Alerts, Backend, Frontend, and Database are always there** — if
 there's no data yet, they show an empty/setup state instead of disappearing.
@@ -54,7 +54,7 @@ markers on the charts show which release moved the line.
 Custom application metrics, if your app exposes any, are collapsed at the bottom
 of Overview so they don't crowd the health signal.
 
-<!-- SCREENSHOT: Overview tab → health header showing RED big numbers with delta arrows and a deploy marker on the chart -->
+![Overview tab — RED big numbers with period deltas and the error-budget panel](../../../assets/nais-apm-service-navno-overview.png)
 
 ## 3. Check the Issues tab
 
@@ -71,7 +71,9 @@ issue — see [Triage an issue](../how-to/triage-an-issue.md).
 Below the list, the **Versions** panel answers "did this start with today's
 release?" and the **Sessions** panel lets you search by user or session.
 
-<!-- SCREENSHOT: Issues tab showing the grouped exception list (source badges, Regressed badge) with the issue drawer open showing a stack trace -->
+![Issues tab — exceptions grouped by fingerprint](../../../assets/nais-apm-service-navno-issues.png)
+
+![Issue drawer — triage bar and stack trace](../../../assets/nais-apm-service-navno-issues-drawer.png)
 
 ## 4. Look at Backend, Database, and Frontend
 
@@ -88,7 +90,9 @@ release?" and the **Sessions** panel lets you search by user or session.
   and CLS). This tab lights up for apps using [Grafana Faro](../../frontend/README.md)
   or [`@nais/apm`](track-frontend-errors.md).
 
-<!-- SCREENSHOT: Database tab showing per-operation RED metrics and connection-pool health (and, separately, the empty state with the instrumentation checklist) -->
+![Database tab — PostgreSQL query analytics and connection-pool health](../../../assets/nais-apm-service-fpsoknad-database-pg.png)
+
+![Database tab empty state — the instrumentation checklist](../../../assets/nais-apm-service-navno-database-empty.png)
 
 ## 5. Drill into Traces and Logs
 
@@ -102,7 +106,9 @@ Both tabs open with the breakdown (Traces) or patterns (Logs) panel collapsed
 above the list — expand it when you want to slice the data, or work straight
 from the list below.
 
-<!-- SCREENSHOT: Traces tab with a trace breakdown panel, and Logs tab with the Patterns panel above the raw log stream -->
+![Traces tab — span-name breakdowns above the trace list](../../../assets/nais-apm-service-fpsoknad-traces.png)
+
+![Logs tab — top error patterns above the raw log stream](../../../assets/nais-apm-service-navno-logs.png)
 
 ## 6. Use the shared time picker
 
