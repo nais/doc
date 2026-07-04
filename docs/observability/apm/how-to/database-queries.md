@@ -31,16 +31,12 @@ Auto-instrumentation produces these **without code changes**:
 If your service already appears on the [Traces tab](../tutorials/get-started.md#5-drill-into-traces-and-logs)
 with database spans, this part is done.
 
-### 2. Span-metrics aggregation
+The platform turns those spans into the per-operation metrics the tab reads —
+you don't configure that. If the Traces tab shows database spans but the
+Database tab stays empty, it's a platform-side gap rather than anything in your
+app; ask on [#nais](https://nav-it.slack.com/messages/C5KUST8N6).
 
-Those spans must be aggregated into `traces_spanmetrics_*` metrics with
-`db_system` as a dimension. This is **platform-side** (the Tempo
-metrics-generator) and is usually already in place on Nais.
-
-If the Traces tab shows database spans but the Database tab stays empty, this
-aggregation pipeline is where to look.
-
-### 3. Connection-pool metrics (for the pool panels only)
+### 2. Connection-pool metrics (for the pool panels only)
 
 Pool health and connection-acquisition-time charts additionally need
 `db.client.connections.*` metrics (`db_client_connections_*` in Prometheus).

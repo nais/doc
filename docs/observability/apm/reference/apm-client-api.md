@@ -9,8 +9,8 @@ tags: [reference, observability, apm, frontend]
 # `@nais/apm` API reference
 
 `@nais/apm` wraps [`@grafana/faro-web-sdk`](https://github.com/grafana/faro-web-sdk)
-with a Sentry-like surface. This page documents the public API of version
-`0.1.0`. For installation, see
+with an ergonomic, capture-oriented API. This page documents the public API of
+version `0.1.0`. For installation, see
 [Track frontend errors with `@nais/apm`](../tutorials/track-frontend-errors.md).
 
 !!! note "Pre-1.0"
@@ -91,8 +91,7 @@ independently, highest priority first:
 
 ## `captureException(error, options?)`
 
-Sentry-compatible exception capture. Unlike Sentry, no event ID is returned (a
-Faro limitation).
+Captures an exception. No event ID is returned (a Faro limitation).
 
 ```ts
 captureException(error: unknown, options?: CaptureExceptionOptions): void
@@ -137,7 +136,7 @@ clearUser();
 
 ## `setTag(key, value)`
 
-Approximation of `Sentry.setTag`. Faro has no first-class tag concept, so the
+Attaches a single key/value tag. Faro has no first-class tag concept, so the
 value rides along as **context** on every subsequent capture rather than as an
 indexed label.
 
@@ -157,8 +156,15 @@ setContext('order', null); // remove it
 
 ## `captureFeedback(message, options?)`
 
-Free-text user feedback capture — `@nais/apm`'s own addition, no direct Sentry
-equivalent. See [Collect user feedback](../how-to/collect-user-feedback.md).
+Free-text user feedback capture.
+
+!!! warning "Not yet available — internal pilot only"
+    User feedback is **not part of the supported Nais APM feature set yet.**
+    Free text flows into Loki, which is **shared across all teams and must never
+    contain personal information**, so this is limited to internal applications
+    during an internal pilot. If you wire it up, your feedback UI **must warn
+    users not to enter any personal information** (names, fødselsnummer, contact
+    details, case details). Do not use it on citizen-facing apps.
 
 ```ts
 captureFeedback(message: string, options?: CaptureFeedbackOptions): void

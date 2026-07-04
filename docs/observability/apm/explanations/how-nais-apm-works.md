@@ -1,7 +1,8 @@
 ---
 description: >-
-  How Nais APM works — the LGTM pipeline behind the app, why issue grouping is
-  computed statelessly at query time, and what Nais APM deliberately does not do.
+  How Nais APM works — where your telemetry comes from and where it lives, why
+  issue grouping is computed statelessly at query time, and what Nais APM
+  deliberately does not do.
 tags: [explanation, observability, apm]
 ---
 
@@ -11,36 +12,42 @@ Nais APM is a **read layer** over telemetry your apps already send to the
 platform. It stores almost nothing of its own. Understanding that shapes what to
 expect from it — and what it deliberately leaves to the platform.
 
-## The LGTM pipeline
+## Where your data comes from, and where it lives
 
-Everything in Nais APM comes from the standard Nais observability stack, often
-called **LGTM** — Loki, Grafana, Tempo, Mimir:
+Nais APM doesn't collect telemetry itself. It reads what the platform already
+gathers from your app and keeps in the shared observability stores — **Loki**
+(logs), **Tempo** (traces), and **Mimir** (metrics):
 
 ```mermaid
 graph LR
-  App[Your app] -->|OTel traces/metrics/logs| Alloy
-  Browser["Browser (Faro / @nais/apm)"] -->|Faro| Collector[Faro receiver]
-  Collector --> Alloy
-  Alloy --> Loki[Loki logs]
-  Alloy --> Tempo[Tempo traces]
-  Alloy --> Mimir[Mimir metrics]
+  Stdout["App logs (stdout/stderr)"] -->|fluentbit| Loki[Loki: logs]
+  Backend["App traces & metrics"] -->|OpenTelemetry collector| Tempo[Tempo: traces]
+  Backend -->|OpenTelemetry collector| Mimir[Mimir: metrics]
+  Browser["Browser (Faro / @nais/apm)"] -->|Alloy| Loki
   Loki --> APM[Nais APM]
   Tempo --> APM
   Mimir --> APM
 ```
 
-- **Backend** apps emit OpenTelemetry traces, metrics, and logs, collected via
-  **Alloy**.
-- **Browser** apps emit telemetry through [Grafana Faro](../../frontend/README.md)
-  (or [`@nais/apm`](../reference/apm-client-api.md), a Faro wrapper) to a Faro
-  receiver, which feeds the same Alloy pipeline.
-- Data lands in **Loki** (logs, including browser errors and replays),
-  **Tempo** (traces), and **Mimir** (metrics, including RED and span-metrics).
+- **Logs** come from your container's standard output. The platform's log
+  collector (**fluentbit**) picks up whatever your app writes to stdout/stderr
+  and stores it in **Loki**. (A handful of apps send logs over OpenTelemetry
+  instead, but stdout is the common path.)
+- **Traces and metrics** from your running service are collected by the
+  **OpenTelemetry collector** — mostly from
+  [auto-instrumentation](../../how-to/auto-instrumentation.md) with no code
+  changes — and stored in **Tempo** (traces) and **Mimir** (metrics, including
+  the RED signals and span-metrics).
+- **Browser telemetry** — page loads, Core Web Vitals, and JavaScript errors —
+  is sent by instrumenting your frontend with
+  [Grafana Faro](../../frontend/README.md) (or
+  [`@nais/apm`](../reference/apm-client-api.md), a Faro wrapper), which ships it
+  through **Alloy** into the same stores.
 
-Nais APM reads from these three stores and composes them into service views:
+Nais APM reads from Loki, Tempo, and Mimir and composes them into service views:
 RED health from Mimir, issues and log patterns from Loki, traces and breakdowns
-from Tempo. It doesn't have its own database of your telemetry — it queries the
-same stores you can reach from [Grafana Explore](<<tenant_url("grafana", "explore")>>).
+from Tempo. It has no database of your telemetry — it queries the same stores
+you can reach from [Grafana Explore](<<tenant_url("grafana", "explore")>>).
 
 ## Why grouping is computed at query time
 
@@ -83,9 +90,10 @@ Nais APM is intentionally scoped. It does **not**:
   detection.** The "delta vs previous period" on the health overview is a
   pragmatic substitute for anomaly detection, not a model.
 
-The result: Nais APM is a curated, opinionated view — the Sentry-style
-error-tracking and APM experience — built entirely on the vanilla telemetry the
-platform already collects, with no data leaving your own stack.
+The result: Nais APM is a curated, opinionated view — error tracking, service
+health, and application performance monitoring in one place — built entirely on
+the telemetry the platform already collects, with no data leaving your own
+stack.
 
 ## Related
 

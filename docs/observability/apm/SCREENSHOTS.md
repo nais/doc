@@ -21,9 +21,8 @@ into the pages once images are captured and linked in.
 | `how-to/log-patterns.md` | Logs tab → Patterns panel showing detected patterns with volume share, above the raw log stream |
 | `how-to/create-alerts.md` | Issue drawer "Create alert" action opening Grafana's alert-rule editor pre-filled with the fingerprint-scoped query |
 | `how-to/enable-session-replay.md` | Issue drawer showing the self-hosted masked session-replay player alongside the stack trace |
-| `how-to/collect-user-feedback.md` | Issue drawer showing joined user feedback text next to the exception it describes |
 
-15 spots total, across the landing page, both tutorials, and 5 of the 6 how-tos
+14 spots total, across the landing page, both tutorials, and 4 of the 5 how-tos
 (`get-started.md` alone covers 5 tabs in one tour). Reference and explanation
 pages were left unmarked — they're table/spec-driven and don't have a single
 canonical screen to anchor on.

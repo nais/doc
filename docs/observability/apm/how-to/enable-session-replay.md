@@ -8,6 +8,12 @@ tags: [how-to, observability, apm, frontend, privacy]
 
 # Enable session replay
 
+!!! warning "Preview"
+    Session replay and crash snapshots are still being rolled out and are gated
+    on the personvernombud (data protection officer) process. Treat this as a
+    preview: keep both off unless your team has explicitly decided, through its
+    own privacy assessment, to turn on screen recording for its users.
+
 Session replay lets you see what a user's screen looked like around an error.
 `@nais/apm` can record a masked replay of the session, or capture a single
 masked snapshot when an error occurs. Both are **off by default** and enabled

@@ -8,6 +8,12 @@ tags: [how-to, observability, apm, alerting]
 
 # Create alerts from templates
 
+!!! warning "Under construction"
+    The **Alerts** tab is still being built out. Creating alert rules from the
+    templates below works today. Organizing those rules into proper per-team
+    folders — and the storage story behind them — is an ongoing platform effort
+    and not finished yet, so don't rely on where a rule lands for now.
+
 Nais APM can pre-fill a Grafana alert rule for you, scoped to the service (and,
 where it makes sense, the exact issue) you're looking at. You review the
 generated rule and choose where it notifies — Nais APM builds the query, you

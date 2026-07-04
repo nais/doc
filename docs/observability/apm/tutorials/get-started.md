@@ -1,7 +1,7 @@
 ---
 title: Get started with Nais APM
 description: >-
-  Find your service in Nais APM and tour its health overview, issues, endpoints,
+  Find your service in Nais APM and tour its health overview, issues, backend,
   database, frontend, traces, and logs.
 tags: [tutorial, observability, apm]
 ---
@@ -26,12 +26,16 @@ Search is fuzzy, so a partial name is enough.
 Click your service to open its detail page. The tabs across the top follow the
 path from symptom to cause:
 
-`Overview · Issues · Endpoints · Frontend · Runtime · Database · Dependencies · Traces · Logs`
+`Overview · Issues · Alerts · Backend · Frontend · Database · Dependencies · Traces · Logs · (Profiling)`
 
 <!-- SCREENSHOT: Service inventory — searchable list of services with health sparklines -->
 
-Tabs only appear when the data behind them exists — a backend-only service has
-no Frontend tab, and Issues and Logs need Loki.
+**Overview, Alerts, Backend, Frontend, and Database are always there** — if
+there's no data yet, they show an empty/setup state instead of disappearing.
+**Issues, Traces, Logs, Dependencies, and Profiling** appear only when the
+capability behind them is present: Issues/Traces/Logs need Loki and Tempo,
+Dependencies needs the service graph, and Profiling shows up only for teams that
+have a profiling datasource — most won't.
 
 ## 2. Read the health overview
 
@@ -69,10 +73,13 @@ release?" and the **Sessions** panel lets you search by user or session.
 
 <!-- SCREENSHOT: Issues tab showing the grouped exception list (source badges, Regressed badge) with the issue drawer open showing a stack trace -->
 
-## 4. Look at Endpoints, Database, and Frontend
+## 4. Look at Backend, Database, and Frontend
 
-- **Endpoints** — RED metrics per HTTP route, so you can see which endpoint is
-  slow or erroring.
+- **Backend** — RED metrics per operation at the top (which HTTP route is slow
+  or erroring), and process/runtime internals (JVM heap, threads, and similar)
+  below, collapsed by default. These used to be two separate **Endpoints** and
+  **Runtime** tabs; they're now one place. Old `tab=server` and `tab=runtime`
+  links still open here.
 - **Database** — query analytics (rate, errors, latency per operation) built
   from your database spans, plus connection-pool health. If it's empty, your app
   may need [database instrumentation](../how-to/database-queries.md).
@@ -90,6 +97,10 @@ release?" and the **Sessions** panel lets you search by user or session.
 - **Logs** — search structured logs. **Log patterns** collapse thousands of log
   lines into a handful of templates so you can spot a new error pattern during
   an incident — see [Use log patterns during an incident](../how-to/log-patterns.md).
+
+Both tabs open with the breakdown (Traces) or patterns (Logs) panel collapsed
+above the list — expand it when you want to slice the data, or work straight
+from the list below.
 
 <!-- SCREENSHOT: Traces tab with a trace breakdown panel, and Logs tab with the Patterns panel above the raw log stream -->
 

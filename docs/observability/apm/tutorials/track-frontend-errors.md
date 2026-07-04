@@ -9,7 +9,7 @@ tags: [tutorial, observability, apm, frontend]
 # Track frontend errors with `@nais/apm`
 
 `@nais/apm` is a drop-in browser telemetry SDK for Nais apps. It wraps
-[Grafana Faro](../../frontend/README.md) with a Sentry-like developer
+[Grafana Faro](../../frontend/README.md) with an ergonomic developer
 experience — zero-config init, `captureException`/`captureMessage`, mandatory
 PII scrubbing — and ships everything to your team's own Grafana stack. By the
 end of this tutorial your app's errors show up as issues in Nais APM.
@@ -123,8 +123,6 @@ From there you can [triage it](../how-to/triage-an-issue.md) or
 
 ## Next steps
 
-- [Collect user feedback](../how-to/collect-user-feedback.md) with
-  `captureFeedback`.
 - [Enable session replay](../how-to/enable-session-replay.md) to see what the
-  user saw around an error (opt-in).
+  user saw around an error (opt-in, preview).
 - Read the full [`@nais/apm` API reference](../reference/apm-client-api.md).

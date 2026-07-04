@@ -28,7 +28,7 @@ All paths below are rooted at the app:
 
 | Param | Values | Meaning |
 | ----- | ------ | ------- |
-| `tab` | `overview` \| `issues` \| `server` \| `frontend` \| `runtime` \| `database` \| `dependencies` \| `traces` \| `logs` | Active tab on the service detail page. `server` renders the tab **labeled "Endpoints"** in the UI — the label was renamed, the URL value never changed. |
+| `tab` | `overview` \| `issues` \| `alerts` \| `backend` \| `frontend` \| `database` \| `dependencies` \| `traces` \| `logs` \| `profiling` | Active tab on the service detail page. The legacy values `server` and `runtime` both still resolve — they now open **Backend**, which merged the old Endpoints and Runtime tabs. |
 | `environment` | cluster name, e.g. `prod-gcp` | Environment filter (matches the `k8s_cluster_name` label). |
 | `from`, `to` | Grafana time expressions (`now-1h`, unix ms) | The shared time range applied across every tab. |
 

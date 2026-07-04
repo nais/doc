@@ -29,8 +29,9 @@ This is the **Legend** release of Nais APM.
   glance. Deploy markers show which release changed the picture.
 - **Issues** — one list of errors across the browser and the backend, grouped
   into stable issues you can resolve, ignore, and assign.
-- **Endpoints, Database, Runtime** — RED metrics per endpoint, database query
-  analytics and connection-pool health, and JVM/runtime internals.
+- **Backend** — RED metrics per endpoint on top, with process and runtime
+  internals (JVM and similar) below.
+- **Database** — query analytics per operation and connection-pool health.
 - **Frontend** — Core Web Vitals, page performance, and browser-side errors for
   apps using [Grafana Faro](../frontend/README.md) or [`@nais/apm`](reference/apm-client-api.md).
 - **Traces and Logs** — search and drill in, with log patterns and trace
@@ -51,8 +52,7 @@ This is the **Legend** release of Nais APM.
 | ----- | ----------- |
 | [Triage an issue](how-to/triage-an-issue.md) | Resolve, ignore, assign, and understand regressions |
 | [Create alerts from templates](how-to/create-alerts.md) | Error-rate, exception-spike, web-vitals, and new-exception alerts |
-| [Enable session replay](how-to/enable-session-replay.md) | Opt in to masked screen recording for your app |
-| [Collect user feedback](how-to/collect-user-feedback.md) | Capture free-text feedback with `captureFeedback` |
+| [Enable session replay](how-to/enable-session-replay.md) | Opt in to masked screen recording for your app (preview) |
 | [Make database queries visible](how-to/database-queries.md) | The instrumentation the Database tab needs |
 | [Use log patterns during an incident](how-to/log-patterns.md) | Group noisy logs into a handful of patterns |
 
@@ -66,6 +66,6 @@ This is the **Legend** release of Nais APM.
 
 ## Understand it
 
-[:bulb: How Nais APM works](explanations/how-nais-apm-works.md) — the LGTM
-pipeline behind the app, why issue grouping is computed at query time, and what
-Nais APM deliberately does *not* do.
+[:bulb: How Nais APM works](explanations/how-nais-apm-works.md) — where your
+telemetry comes from and where it lives, why issue grouping is computed at query
+time, and what Nais APM deliberately does *not* do.

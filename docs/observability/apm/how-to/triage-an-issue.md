@@ -8,8 +8,8 @@ tags: [how-to, observability, apm]
 
 # Triage an issue
 
-Triage is the Sentry-style workflow for working through errors: mark what's
-handled, silence what's noise, and give owners to what needs one. Triage state
+Triage is how you work through errors: mark what's handled, silence what's
+noise, and give an owner to what needs one. Triage state
 is shared across your whole team and every Grafana replica — anyone with plugin
 access can triage, and every change is attributed and audited.
 
@@ -57,8 +57,8 @@ storage and never affect shared state.
 
 ## Who can triage, and is it recorded?
 
-Anyone with access to the plugin can triage — the same model as Sentry — but
-every action records the signed-in Grafana user as the actor. The issue drawer
+Anyone with access to the plugin can triage, but every action records the
+signed-in Grafana user as the actor. The issue drawer
 shows the current state; the full ordered history (who did what, when) is kept
 as an audit log. Concurrent conflicting actions are last-write-wins per event,
 which is benign: two people resolving the same issue both converge on resolved.
