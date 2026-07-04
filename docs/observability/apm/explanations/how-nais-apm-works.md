@@ -24,6 +24,8 @@ graph LR
   Backend["App traces & metrics"] -->|OpenTelemetry collector| Tempo[Tempo: traces]
   Backend -->|OpenTelemetry collector| Mimir[Mimir: metrics]
   Browser["Browser (Faro / @nais/apm)"] -->|Alloy| Loki
+  Browser -->|Alloy| Tempo
+  Browser -->|Alloy| Mimir
   Loki --> APM[Nais APM]
   Tempo --> APM
   Mimir --> APM
@@ -42,7 +44,9 @@ graph LR
   is sent by instrumenting your frontend with
   [Grafana Faro](../../frontend/README.md) (or
   [`@nais/apm`](../reference/apm-client-api.md), a Faro wrapper), which ships it
-  through **Alloy** into the same stores.
+  through **Alloy** into all three stores: errors and events as logs in
+  **Loki**, browser spans as traces in **Tempo**, and Web Vitals as metrics in
+  **Mimir**.
 
 Nais APM reads from Loki, Tempo, and Mimir and composes them into service views:
 RED health from Mimir, issues and log patterns from Loki, traces and breakdowns
