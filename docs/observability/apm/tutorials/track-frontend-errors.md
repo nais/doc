@@ -116,6 +116,8 @@ Deploy your app, then trigger an error. Open your service in
 occurrences of the same error, with its stack trace and impact. Filter the
 source to **Browser** to isolate frontend issues.
 
+<!-- SCREENSHOT: Issues tab filtered to source "Browser" showing a captured frontend exception, with the exception drawer open to the stack trace -->
+
 From there you can [triage it](../how-to/triage-an-issue.md) or
 [create an alert](../how-to/create-alerts.md) so you hear about the next spike.
 

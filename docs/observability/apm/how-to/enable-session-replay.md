@@ -80,6 +80,8 @@ Once enabled and deployed, replays and snapshots attach to their issue: open the
 issue in the [Issues tab](../tutorials/get-started.md#3-check-the-issues-tab)
 and the drawer shows the masked replay alongside the stack trace.
 
+<!-- SCREENSHOT: Issue drawer showing the self-hosted masked session-replay player alongside the stack trace -->
+
 ## Related
 
 - [`@nais/apm` API reference](../reference/apm-client-api.md#init-options) —

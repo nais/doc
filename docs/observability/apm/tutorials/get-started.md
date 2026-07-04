@@ -28,6 +28,8 @@ path from symptom to cause:
 
 `Overview · Issues · Endpoints · Frontend · Runtime · Database · Dependencies · Traces · Logs`
 
+<!-- SCREENSHOT: Service inventory — searchable list of services with health sparklines -->
+
 Tabs only appear when the data behind them exists — a backend-only service has
 no Frontend tab, and Issues and Logs need Loki.
 
@@ -48,6 +50,8 @@ markers on the charts show which release moved the line.
 Custom application metrics, if your app exposes any, are collapsed at the bottom
 of Overview so they don't crowd the health signal.
 
+<!-- SCREENSHOT: Overview tab → health header showing RED big numbers with delta arrows and a deploy marker on the chart -->
+
 ## 3. Check the Issues tab
 
 The **Issues** tab is the errors list — browser and backend errors side by
@@ -63,6 +67,8 @@ issue — see [Triage an issue](../how-to/triage-an-issue.md).
 Below the list, the **Versions** panel answers "did this start with today's
 release?" and the **Sessions** panel lets you search by user or session.
 
+<!-- SCREENSHOT: Issues tab showing the grouped exception list (source badges, Regressed badge) with the issue drawer open showing a stack trace -->
+
 ## 4. Look at Endpoints, Database, and Frontend
 
 - **Endpoints** — RED metrics per HTTP route, so you can see which endpoint is
@@ -75,6 +81,8 @@ release?" and the **Sessions** panel lets you search by user or session.
   and CLS). This tab lights up for apps using [Grafana Faro](../../frontend/README.md)
   or [`@nais/apm`](track-frontend-errors.md).
 
+<!-- SCREENSHOT: Database tab showing per-operation RED metrics and connection-pool health (and, separately, the empty state with the instrumentation checklist) -->
+
 ## 5. Drill into Traces and Logs
 
 - **Traces** — search your service's traces. **Trace breakdowns** group latency
@@ -82,6 +90,8 @@ release?" and the **Sessions** panel lets you search by user or session.
 - **Logs** — search structured logs. **Log patterns** collapse thousands of log
   lines into a handful of templates so you can spot a new error pattern during
   an incident — see [Use log patterns during an incident](../how-to/log-patterns.md).
+
+<!-- SCREENSHOT: Traces tab with a trace breakdown panel, and Logs tab with the Patterns panel above the raw log stream -->
 
 ## 6. Use the shared time picker
 

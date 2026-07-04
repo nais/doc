@@ -13,6 +13,8 @@ metrics per operation (rate, errors, latency), and connection-pool health. It's
 built entirely from telemetry your app emits — if the tab is empty, this is the
 checklist to work through. Each item maps directly to what the tab reads.
 
+<!-- SCREENSHOT: Database tab, fully instrumented — per-operation query analytics table plus the connection-pool health panel -->
+
 ## Requirements checklist
 
 ### 1. Database client spans
@@ -55,6 +57,8 @@ Driver-managed pools (for example the MongoDB Java driver) and Oracle UCP are
 | Spans but no pool metrics | Query analytics; a note that pool metrics aren't detected |
 | Pool metrics but no spans | Pool panels; a note that database spans aren't detected |
 | Neither | The full requirements checklist above |
+
+<!-- SCREENSHOT: Database tab empty state showing the instrumentation-requirements checklist -->
 
 ## Related
 

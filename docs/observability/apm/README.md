@@ -16,7 +16,11 @@ and logs — built on the telemetry your apps already send to the platform.
 You don't set anything up to get the basics. If your service produces traces,
 metrics, or logs on Nais, it already shows up in Nais APM.
 
+This is the **Legend** release of Nais APM.
+
 [:dart: Open Nais APM](<<tenant_url("grafana", "a/nais-apm-app/services")>>)
+
+<!-- SCREENSHOT: Service overview page — health header with RED big numbers, front and center -->
 
 ## What you get
 

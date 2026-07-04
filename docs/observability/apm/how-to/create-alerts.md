@@ -20,6 +20,8 @@ opens Grafana's new-rule form with the query, thresholds, and a back-link
 annotation already filled in. Adjust anything you like, then set the contact
 point and save.
 
+<!-- SCREENSHOT: Issue drawer "Create alert" action opening Grafana's alert-rule editor pre-filled with the fingerprint-scoped query -->
+
 The annotation on issue-related alerts deep-links straight back to the issue in
 Nais APM, so a notification takes you to the exact error.
 

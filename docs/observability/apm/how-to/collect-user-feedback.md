@@ -53,6 +53,8 @@ Feedback flows into your service's telemetry and is joined to the current
 session automatically. When you pass a `fingerprint`, it also joins to that
 issue — so it shows up in the issue drawer alongside the error.
 
+<!-- SCREENSHOT: Issue drawer showing joined user feedback text next to the exception it describes -->
+
 ## Related
 
 - [`@nais/apm` API reference](../reference/apm-client-api.md#capturefeedbackmessage-options)

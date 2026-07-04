@@ -19,6 +19,8 @@ Go to your service's **Logs** tab. The **Patterns** panel sits above the raw log
 stream and shows each detected pattern with its share of the volume, so the
 loudest patterns rise to the top.
 
+<!-- SCREENSHOT: Logs tab → Patterns panel showing detected patterns with volume share, above the raw log stream -->
+
 ## Find what's new or spiking
 
 The point during an incident is to find the pattern that *shouldn't* be there:
