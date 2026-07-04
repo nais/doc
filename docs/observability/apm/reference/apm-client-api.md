@@ -55,7 +55,7 @@ init({
   app: 'my-app',
   version: '2026.07.04-abc1234',
   environment: 'prod-gcp',
-  telemetryUrl: 'https://telemetry.nav.no/collect',
+  telemetryUrl: undefined, // usually omitted — resolved automatically on nais
 
   beforeSend: (item) => item,
   ignoreErrors: [/some noisy vendor error/],
@@ -78,7 +78,7 @@ independently, highest priority first:
    <meta name="nais-app" content="my-app">
    <meta name="nais-cluster" content="prod-gcp">
    <meta name="nais-version" content="2026.07.03-abc1234">
-   <meta name="nais-telemetry-url" content="https://telemetry.nav.no/collect">
+   <meta name="nais-telemetry-url" content="https://telemetry.<tenant>.example/collect"> <!-- injected by the platform, not written by hand -->
    ```
 3. **Build-time environment variables** — `NAIS_APP_NAME`, `NAIS_CLUSTER_NAME`,
    and a version derived from `NAIS_APP_IMAGE`'s tag (or `GITHUB_SHA`). These
