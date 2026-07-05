@@ -132,7 +132,7 @@ jobs:
         # zero-cost nudge: close then reopen the PR, or push an empty commit
         # (`git commit --amend --no-edit && git push -f`, or a `git commit
         # --allow-empty`). The PR body repeats this instruction for reviewers.
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # ratchet:peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           # Fixed branch: re-runs update the same PR instead of spamming new ones.
