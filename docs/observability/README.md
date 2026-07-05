@@ -42,7 +42,9 @@ Nais can inject OpenTelemetry agents into your application at startup. With a fe
 
 [:dart: Get started with auto-instrumentation](../observability/how-to/auto-instrumentation.md)
 
+{% if tenant() == "nav" %}
 [:bulb: Learn more about Nais APM](apm/README.md)
+{% endif %}
 
 ## Metrics
 
