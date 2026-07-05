@@ -7,6 +7,18 @@ tags: [how-to, observability, frontend]
 
 Add [Grafana Faro](https://www.npmjs.com/package/@grafana/faro-web-sdk) to a frontend application running on Nais.
 
+{% if tenant() == "nav" %}
+!!! tip "Prefer `@nais/apm` for most apps"
+    This guide covers **raw Faro**, the lower-level foundation. For most browser
+    apps the recommended path is the [`@nais/apm`](../../apm/tutorials/track-frontend-errors.md)
+    SDK — a thin Faro wrapper that gives you zero-config `init()`, **built-in PII
+    scrubbing** (fødselsnummer, emails, and token URL parameters), and a fixed
+    console instrumentation, so you don't hand-roll the `beforeSend` filtering
+    and `app` metadata shown below. Use raw Faro when you need something
+    `@nais/apm` `0.1.0` doesn't wrap yet — most notably
+    [trace propagation](trace-propagation.md).
+{% endif %}
+
 ## Prerequisites
 
 - A frontend application deployed on Nais (GCP only; on-premises is not supported)
@@ -307,9 +319,10 @@ Without this, the browser blocks Faro's requests to the collector. See [Troubles
 
 Faro captures console output, errors, and HTTP request URLs automatically. Make sure you don't leak sensitive data:
 
-- **Never log** fødselsnummer, tokens, passwords, or other PII to the console
-- **Watch URLs** — query parameters and path segments may contain identifiers
-- **Watch form input** — don't send user input as custom events without redacting
+- **Never log** fødselsnummer, emails, names, tokens, passwords, or any other personal identifier to the console or into telemetry. Nav operates on identities but must not log them.
+- **Use opaque identifiers** — when you need to correlate a user or session, use a hashed or otherwise opaque id, never a fødselsnummer, email, or other ident.
+- **Watch URLs** — query parameters and path segments may contain identifiers or tokens.
+- **Watch form input** — don't send user input as custom events without redacting.
 
 Use the `beforeSend` hook to filter or redact telemetry:
 
@@ -336,6 +349,16 @@ initializeFaro({
   },
 });
 ```
+
+{% if tenant() == "nav" %}
+!!! info "`@nais/apm` scrubs this for you"
+    [`@nais/apm`](../../apm/reference/apm-client-api.md#privacy-pii-scrubbing)
+    runs a mandatory scrubber on every outgoing signal — fødselsnummer → `[fnr]`,
+    emails → `[email]`, and token-bearing URL parameters → `[redacted]` — after
+    your own `beforeSend`. It's a best-effort safety net, not a GDPR guarantee:
+    the rule above still stands — don't put personal data in telemetry in the
+    first place.
+{% endif %}
 
 ## Local development
 
@@ -366,3 +389,6 @@ These `navikt` repositories use Faro with React Router:
 - [Set up Faro with Next.js App Router](setup-nextjs.md)
 - [Connect frontend traces to backend spans](trace-propagation.md)
 - [Learn how sourcemap deobfuscation works](sourcemaps.md)
+{% if tenant() == "nav" %}
+- [View and triage your frontend errors in Nais APM](../../apm/tutorials/get-started.md)
+{% endif %}
