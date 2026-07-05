@@ -9,19 +9,19 @@ This page documents the non-personal users in Google Cloud SQL for PostgreSQL on
 
 ## Overview
 
-| User type | Why it exists | Who controls the password | Can anyone at Nav log in? | What is logged |
+| User type | Why it exists | Who controls the password | Who can log in? | What is logged |
 |---|---|---|---|---|
-| `cloudsql*` system users | Google's internal management of the instance | Google (not accessible to Nav) | No | Cloud Audit (always on) |
-| `postgres` | Default admin user in PostgreSQL | Not set by Nais | Not via Nais (see details) | Cloud Audit (always on) |
-| Application user | Your app's connection to the database | Nais generates a random password | App pod; human access requires K8s secret access | Not logged by pgAudit |
-| Personal user (IAM) | Developer access for debugging and operations | None — IAM token | Yes, time-limited IAM binding | pgAudit + Cloud Audit |
+| `cloudsql*` system users | Google's internal management of the instance | Google (not accessible to Nav) | No one at Nav | Cloud Audit (always on) |
+| `postgres` | Default admin user in PostgreSQL | Not set by Nais | No one, via Nais (see details) | Cloud Audit (always on) |
+| Application user | Your app's connection to the database | Nais generates a random password | Only the application; direct human access to the secret is restricted | Not logged by pgAudit |
+| Personal user (IAM) | Developer access for debugging and operations | None — IAM token | Members of the owning team, via time-limited IAM binding | pgAudit + Cloud Audit |
 
 For each user, this page covers:
 
 1. Why the user exists
 2. What the user has access to
 3. How passwords and secrets are managed, and who has access
-4. Whether anyone at Nav can log in as the user
+4. Who, if anyone, can log in as the user
 
 ## Google system users
 
@@ -31,15 +31,15 @@ Google controls the passwords, and they are not accessible to us.
 
 You cannot delete, modify, or assign roles to system users. See [Google's documentation](https://cloud.google.com/sql/docs/postgres/users#cloud_sql_system_users_and_roles) for details.
 
-| User | Purpose | Can anyone at Nav log in? |
+| User | Purpose | Who can log in? |
 |---|---|---|
-| `cloudsqladmin` | Google's internal superuser for instance administration | No |
-| `cloudsqlagent` | Database monitoring | No |
-| `cloudsqlimportexport` | Data import and export (CSV) | No |
-| `cloudsqlreplica` | Replication | No |
-| `cloudsqlconnpooladmin` | Connection pooling | No |
-| `cloudsqllogical` | Logical replication | No |
-| `cloudsqlobservability` | Query insights and active queries | No |
+| `cloudsqladmin` | Google's internal superuser for instance administration | No one |
+| `cloudsqlagent` | Database monitoring | No one |
+| `cloudsqlimportexport` | Data import and export (CSV) | No one |
+| `cloudsqlreplica` | Replication | No one |
+| `cloudsqlconnpooladmin` | Connection pooling | No one |
+| `cloudsqllogical` | Logical replication | No one |
+| `cloudsqlobservability` | Query insights and active queries | No one |
 
 ### cloudsqlsuperuser (role, not a user)
 
@@ -77,7 +77,7 @@ Nais generates a random password for the application user and stores it in a Kub
 - `<PREFIX>_URL` — a complete connection string
 - `<PREFIX>_JDBC_URL` — a complete JDBC connection string
 
-The prefix is derived from the instance and database name (e.g., `NAIS_DATABASE_MYAPP_MYDB`). For instances on private IP, sqeletor also adds SSL-related keys (`_SSLROOTCERT`, `_SSLCERT`, `_SSLKEY`, `_SSLMODE`).
+The prefix is derived from the instance and database name (e.g., `NAIS_DATABASE_MYAPP_MYDB`). For instances on private IP, [sqeletor](https://github.com/nais/sqeletor) — the Nais operator that manages SSL certificates and connection secrets for these instances — also adds SSL-related keys (`_SSLROOTCERT`, `_SSLCERT`, `_SSLKEY`, `_SSLMODE`).
 
 The credential flow works as follows:
 
@@ -86,9 +86,9 @@ The credential flow works as follows:
 3. Config Connector reads the Secret and sets the password in Cloud SQL
 4. The application pod reads the Secret to connect to the database
 
-During normal operation, only the pod reads the secret. Human access requires explicit Kubernetes access to your team's namespace, which is a separate access control concern.
+During normal operation, only the pod reads the secret. Direct human access to secret values in the cluster has been locked down, so you cannot simply read the application user's password and log in as the application.
 
-For instances on private IP (shared VPC), [sqeletor](https://github.com/nais/sqeletor) handles secret creation instead of naiserator. Sqeletor generates a 32-byte random password using `crypto/rand` and sets `sslmode=verify-ca`.
+For instances on private IP (shared VPC), sqeletor handles secret creation instead of naiserator. Sqeletor generates a 32-byte random password using `crypto/rand` and sets `sslmode=verify-ca`.
 
 ### Source code
 
@@ -98,7 +98,7 @@ For instances on private IP (shared VPC), [sqeletor](https://github.com/nais/sqe
 
 ## Personal access
 
-Developers at Nav get personal access to databases via the `nais postgres` commands. Access is based on Google Cloud IAM, not passwords.
+Developers get personal access to their own team's databases via the `nais postgres` commands. Access is based on Google Cloud IAM, not passwords.
 
 The flow:
 
@@ -135,6 +135,11 @@ Google automatically writes [Cloud Audit Logs](https://cloud.google.com/sql/docs
 
 None of these logs show what happens *inside* the database (queries, data changes) — that requires pgAudit.
 
+{% if tenant() == "nav" %}
+!!! note "Application audit logging is a separate concern"
+    Cloud SQL audit logs cover access to the *database*. Logging what end users do in your *application* is covered by [audit logs for applications](../../../observability/logging/how-to/audit-logs.md).
+{% endif %}
+
 ### pgAudit (opt-in)
 
 To log what happens *inside* the database, use [pgAudit](../how-to/enable-auditing.md). pgAudit is **not enabled by default** — you must enable it yourself.
@@ -145,8 +150,6 @@ To enable pgAudit:
 2. Run `nais postgres enable-audit` to install the pgAudit extension and configure logging
 
 The [recommended configuration](../how-to/enable-auditing.md) is to log `write`, `ddl`, and `role` — that is, write operations, schema changes, and role changes. Read operations (`read`) are not logged unless you configure it explicitly. The application user is excluded (`pgaudit.log = 'none'`) to avoid noise from normal application traffic.
-
-Source code: [`nais/cli` — audit.go](https://github.com/nais/cli/blob/main/internal/postgres/audit.go)
 
 ### Audit log storage
 
