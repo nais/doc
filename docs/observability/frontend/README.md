@@ -31,7 +31,6 @@ With 95+ applications already using Faro, it's the standard way to monitor front
 
 ## What you get
 
-<!-- SCREENSHOT: Nais APM Frontend tab — Core Web Vitals (LCP, INP, CLS) big numbers with threshold bands (good/needs-improvement/poor), pageloads, and per-page performance for a Faro-instrumented app. Replaces the stale standalone web-vitals dashboard. -->
 
 - **[Core Web Vitals](https://web.dev/vitals/)** — TTFB, FCP, CLS, LCP, INP (collected automatically)
 - **Logging** — `console.info`, `console.warn`, and `console.error` messages
@@ -91,9 +90,8 @@ Find your app in the [Nais APM](https://grafana.<<tenant()>>.cloud.nais.io/a/nai
 - **Frontend** — Core Web Vitals, pageloads, sessions, per-page performance, browser breakdown, and web-vitals attribution (what's driving LCP, INP, and CLS).
 - **Issues** — browser exceptions grouped into issues, side by side with backend errors. Filter the source to **Browser** to isolate frontend errors, then open an issue for its stack trace and impact.
 
-<!-- SCREENSHOT: Nais APM service detail — Frontend tab active, Core Web Vitals with threshold bands plus web-vitals attribution. Replaces the stale service-list-with-Node.js-badge image. -->
 
-<!-- SCREENSHOT: Nais APM Issues tab filtered to Browser-sourced exceptions, with the issue drawer showing a deobfuscated frontend stack trace. Replaces the stale "Logs tab / Include browser telemetry" image. -->
+![Nais APM Issues tab filtered to browser-sourced exceptions](../../assets/nais-apm-service-navno-issues-frontend.png)
 
 {% if tenant() == "nav" %}
 For a full tour of the tabs, see [Get started with Nais APM](../apm/tutorials/get-started.md); for capturing errors from your own code, see [Track frontend errors with `@nais/apm`](../apm/tutorials/track-frontend-errors.md).

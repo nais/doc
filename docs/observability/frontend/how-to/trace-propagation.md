@@ -7,7 +7,7 @@ tags: [how-to, observability, frontend, tracing]
 
 By default, Faro collects browser-side traces but they're not connected to your backend spans in Tempo. With trace propagation, you get end-to-end visibility: a single trace that follows a user action from the browser through your backend services.
 
-<!-- SCREENSHOT: Nais APM — an end-to-end trace opened from the Traces tab, showing a browser root span linked to backend service spans across the same trace ID. Replaces the stale standalone service-topology image. -->
+![Nais APM Traces tab — span breakdowns and the trace list](../../../assets/nais-apm-service-fpsoknad-traces.png)
 ![Service topology showing a frontend connected to backend services via traces](../../../assets/frontend-trace-topology.png)
 
 A few applications on Nais use this today (dp-saksbehandling-frontend, dp-brukerdialog-frontend, dp-mine-dagpenger-frontend). It's quick to set up and makes debugging cross-service issues far easier.
