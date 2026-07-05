@@ -23,10 +23,10 @@ With 95+ applications already using Faro, it's the standard way to monitor front
     **view and triage** the results on the APM [Frontend](../apm/tutorials/get-started.md#4-look-at-backend-database-and-frontend)
     and [Issues](../apm/tutorials/get-started.md#3-check-the-issues-tab) tabs.
 
-    Start with [Track frontend errors with `@nais/apm`](../apm/tutorials/track-frontend-errors.md).
-    Reach for raw Faro (the guides below) when you need something `@nais/apm`
-    doesn't cover yet — most notably [trace propagation](how-to/trace-propagation.md),
-    which the `0.1.0` SDK doesn't wrap.
+    Start with [Track frontend errors with `@nais/apm`](../apm/tutorials/track-frontend-errors.md),
+    then add [React error boundaries, route tracking, and browser tracing](how-to/react.md).
+    Reach for raw Faro (the guides below) only for the few things `@nais/apm`
+    doesn't cover yet.
 {% endif %}
 
 ## What you get
@@ -42,10 +42,11 @@ With 95+ applications already using Faro, it's the standard way to monitor front
 
 {% if tenant() == "nav" %}
 1. **Recommended — errors as issues in APM:** [:dart: Track frontend errors with `@nais/apm`](../apm/tutorials/track-frontend-errors.md)
-2. **Any frontend app (raw Faro):** [:dart: Set up Faro](how-to/setup-faro.md)
-3. **Next.js App Router:** [:simple-nextdotjs: Set up Faro with Next.js](how-to/setup-nextjs.md)
-4. **Want end-to-end traces?** [Connect frontend to backend](how-to/trace-propagation.md)
-5. **Stack traces look minified?** [Sourcemaps](how-to/sourcemaps.md) · [Troubleshooting](reference/troubleshooting.md)
+2. **React or Next.js app?** [:simple-react: React & Next.js with `@nais/apm`](how-to/react.md)
+3. **Any frontend app (raw Faro):** [:dart: Set up Faro](how-to/setup-faro.md)
+4. **Next.js App Router (raw Faro):** [:simple-nextdotjs: Set up Faro with Next.js](how-to/setup-nextjs.md)
+5. **Want end-to-end traces?** [Connect frontend to backend](how-to/trace-propagation.md)
+6. **Stack traces look minified?** [Sourcemaps](how-to/sourcemaps.md) · [Troubleshooting](reference/troubleshooting.md)
 {% else %}
 1. **Any frontend app:** [:dart: Set up Faro](how-to/setup-faro.md)
 2. **Next.js App Router:** [:simple-nextdotjs: Set up Faro with Next.js](how-to/setup-nextjs.md)
@@ -121,6 +122,7 @@ For local development, check out the [tracing demo repository](https://github.co
 | Guide | Description |
 | ----- | ----------- |
 | [Set up Faro](how-to/setup-faro.md) | Install, configure, and deploy Faro in any frontend app |
+| [React & Next.js](how-to/react.md) | Error boundaries, route tracking, and browser tracing with `@nais/apm` |
 | [Next.js App Router](how-to/setup-nextjs.md) | Faro integration for Next.js with App Router |
 | [Custom metrics](how-to/custom-metrics.md) | Send custom measurements and query them in Grafana |
 | [Trace propagation](how-to/trace-propagation.md) | Connect frontend traces to backend spans |

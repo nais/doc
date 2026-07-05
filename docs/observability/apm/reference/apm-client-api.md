@@ -10,8 +10,10 @@ tags: [reference, observability, apm, frontend]
 
 `@nais/apm` wraps [`@grafana/faro-web-sdk`](https://github.com/grafana/faro-web-sdk)
 with an ergonomic, capture-oriented API. This page documents the public API of
-version `0.1.0`. For installation, see
-[Track frontend errors with `@nais/apm`](../tutorials/track-frontend-errors.md).
+version `0.2.0`. For installation, see
+[Track frontend errors with `@nais/apm`](../tutorials/track-frontend-errors.md);
+for React, Next.js, and browser tracing, see
+[React & Next.js with `@nais/apm`](../../frontend/how-to/react.md).
 
 !!! note "Pre-1.0"
     The public API may change across `0.x` minor releases (new options, renamed
@@ -45,6 +47,7 @@ each resolve independently (see [Configuration resolution](#configuration-resolu
 | `faro` | `Partial<BrowserConfig>` | Escape hatch: raw Faro overrides, merged last (except `beforeSend`, which stays composed with the scrubber). |
 | `sessionReplay` | object | Opt-in session replay. See [`sessionReplay`](#init-options) below. |
 | `screenshotOnError` | `boolean` | Opt-in masked DOM snapshot per new error. Off by default; auto-disabled when `sessionReplay` is enabled. |
+| `tracing` | `boolean \| { propagateExtraOrigins?: (string \| RegExp)[] }` | Opt-in browser tracing. Off by default. `true` enables it with the mandatory propagation floor (same-origin + `*.nav.no`); pass an object to append extra origins. See [Browser tracing](#browser-tracing). |
 
 `sessionReplay` fields: `enabled` (`boolean`), `mode` (`'on-error'` default, or
 `'always'`), `sampleRate` (`0..1`, default `1`), `block` (`string[]`,
@@ -227,6 +230,36 @@ sends **nothing** over the network, and echoes every signal to the console.
 Calling any capture function before `init()` is a safe no-op (with a single
 warning).
 
+## Browser tracing
+
+Enable distributed tracing with `init({ tracing: true })`. This lazily loads
+`@grafana/faro-web-tracing` (kept out of your bundle unless enabled) and
+propagates W3C trace-context headers so browser spans join their backend traces
+in Tempo.
+
+Trace-header propagation is restricted by a **non-overridable floor**: headers
+are only sent to the app's own origin and any `https://*.nav.no` host, so
+`traceparent` never leaks to third-party origins. Extra origins are **appended**
+via `propagateExtraOrigins` — they can never replace or empty the floor, and the
+floor is not reachable through the `faro` escape hatch.
+
+```ts
+init({ tracing: { propagateExtraOrigins: [/https:\/\/api\.partner\.example\/.*/] } });
+```
+
+See [Frontend-to-backend trace propagation](../../frontend/how-to/trace-propagation.md#recommended-enable-tracing-with-naisapm).
+
+## React entry — `@nais/apm/react`
+
+A separate entry point, `@nais/apm/react`, exposes React helpers without pulling
+React or the tracing tree into the root import: `ApmErrorBoundary` /
+`withApmErrorBoundary` (report render errors once through `captureException`),
+`ApmRoutes` / `enableApmReactRouterV6` and `useApmRouteTracking` (route-change
+tracking for React Router v6 and the Next.js App Router), and `initNaisAPMClient`
+(a server-safe, init-once Next.js client entry). React and `react-router` are
+optional peer dependencies. See
+[React & Next.js with `@nais/apm`](../../frontend/how-to/react.md).
+
 ## Supporting exports
 
 Beyond the primary API, `@nais/apm` also exports `DEFAULT_IGNORE_ERRORS`,
@@ -235,8 +268,7 @@ instrumentation that captures `console.error('msg', err)` with a real stack
 trace), `resolveConfig` / `versionFromImage`, `FEEDBACK_EVENT_NAME`, and
 `VERSION`. Most apps never need these directly.
 
-## Known limitations (0.1.0)
+## Known limitations (0.2.0)
 
-- No tracing support yet (`@grafana/faro-web-tracing` integration planned).
-- No `@nais/apm/react` entry point yet (e.g. an `ErrorBoundary`).
+- Route tracking covers React Router v6 and the Next.js App Router; React Router v5/v7 and the data-router variants are follow-ups.
 - Published to the GitHub Package Registry only.

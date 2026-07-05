@@ -12,6 +12,61 @@ By default, Faro collects browser-side traces but they're not connected to your 
 
 A few applications on Nais use this today (dp-saksbehandling-frontend, dp-brukerdialog-frontend, dp-mine-dagpenger-frontend). It's quick to set up and makes debugging cross-service issues far easier.
 
+{% if tenant() == "nav" %}
+## Recommended: enable tracing with @nais/apm
+
+If you use the [`@nais/apm`](../../apm/reference/apm-client-api.md) SDK (the
+recommended way to instrument a browser app), you don't wire up
+`TracingInstrumentation` by hand. Turn on browser tracing with a single option:
+
+```ts
+import { init } from '@nais/apm';
+
+init({ tracing: true });
+```
+
+This lazily loads `@grafana/faro-web-tracing` (it stays out of your bundle unless
+you enable it) and starts propagating W3C trace-context headers so browser spans
+join their backend traces in Tempo. Steps 2 and 3 below (CORS and a backend
+exporting to Tempo) still apply — those live on your backend, not in the SDK.
+
+### Trace-header propagation is restricted by default
+
+Distributed tracing injects `traceparent`/`tracestate` headers into outgoing
+requests. Those headers describe your internal trace topology, so they must
+never leak to third-party origins — and sending them cross-origin also trips
+CORS. `@nais/apm` therefore enforces a **non-overridable propagation floor**:
+trace headers are only ever sent to
+
+- the app's **own origin** (so same-origin API calls are traced), and
+- any **`https://*.nav.no`** host.
+
+This floor cannot be emptied or replaced — not even through the SDK's `faro`
+escape hatch. If you call a nais-owned backend on another origin, **append** it
+with `propagateExtraOrigins` (extra origins are added to the floor, never
+substituted for it):
+
+```ts
+init({
+  tracing: {
+    propagateExtraOrigins: [/https:\/\/api\.partner\.example\/.*/],
+  },
+});
+```
+
+This is the same tighten-only philosophy as the SDK's PII scrubber and session
+replay masking floor: the safe default is mandatory, and you can only add to it.
+
+Your linked browser-to-backend traces show up on the **Traces** tab of your app
+in Nais APM (and in Tempo). See
+[View traces in Nais APM](../../apm/tutorials/get-started.md#5-drill-into-traces-and-logs).
+
+![Nais APM Traces tab — span breakdowns and the trace list](../../../assets/nais-apm-service-fpsoknad-traces.png)
+
+The rest of this guide covers the **raw Faro** setup and the backend-side CORS
+and `server-timing` details that apply regardless of which SDK you use.
+{% endif %}
+
 ## How it works
 
 1. The browser sends a `traceparent` HTTP header with each API request to your backend
