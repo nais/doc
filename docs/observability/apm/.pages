@@ -1,0 +1,9 @@
+nav:
+- README.md
+- 🚀 Tutorials: tutorials
+- 🎯 How-To: how-to
+- 📚 Reference: reference
+- 💡 Explanations: explanations
+- ...
+
+conditional: [tenant, nav]

@@ -2,6 +2,7 @@ nav:
 - README.md
 - 🎯 How-To: how-to
 - 📚 Reference: reference
+- APM: apm
 - Frontend: frontend
 - Tracing: tracing
 - ...
