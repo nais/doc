@@ -9,6 +9,15 @@ Set up [Grafana Faro](https://www.npmjs.com/package/@grafana/faro-web-sdk) in a 
 
 Faro is a browser-only SDK and cannot run in React Server Components. You need a `'use client'` component that initializes Faro on the client side.
 
+{% if tenant() == "nav" %}
+!!! tip "Prefer `@nais/apm` for most apps"
+    Most apps should reach for the [`@nais/apm`](../../apm/tutorials/track-frontend-errors.md)
+    SDK instead of wiring up raw Faro: `init()` is zero-config, PII scrubbing is
+    built in, and you still call it from a `'use client'` entry point. This guide
+    is the lower-level path — use it when you need trace propagation, which the
+    `@nais/apm` `0.1.0` SDK doesn't wrap yet.
+{% endif %}
+
 ## Prerequisites
 
 - A Next.js application using the App Router, deployed on Nais
@@ -48,7 +57,8 @@ export default function Faro({ collectorUrl }: { collectorUrl?: string }) {
         url: collectorUrl || 'https://telemetry.nav.no/collect',
         paused: window.location.hostname === 'localhost',
         app: {
-          name: 'my-app',
+          name: 'my-app',       // required — must match metadata.name in nais.yaml
+          namespace: 'my-team',  // required — must match metadata.namespace in nais.yaml
         },
         instrumentations: [
           ...getWebInstrumentations(),
@@ -81,7 +91,8 @@ export default function Faro({ collectorUrl }: { collectorUrl?: string }) {
         url: collectorUrl || '<<tenant_url("telemetry.external.prod", "collect")>>',
         paused: window.location.hostname === 'localhost',
         app: {
-          name: 'my-app',
+          name: 'my-app',       // required — must match metadata.name in nais.yaml
+          namespace: 'my-team',  // required — must match metadata.namespace in nais.yaml
         },
         instrumentations: [
           ...getWebInstrumentations(),

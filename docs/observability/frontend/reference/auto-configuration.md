@@ -14,6 +14,16 @@ spec:
       mountPath: /usr/share/nginx/html/js/nais.js
 ```
 
+{% if tenant() == "nav" %}
+!!! tip "`@nais/apm` reads these automatically"
+    If you instrument with [`@nais/apm`](../../apm/tutorials/track-frontend-errors.md),
+    you don't consume this file by hand. `init()` resolves the app name, version,
+    environment, and collector URL from Nais meta tags in your served HTML or from
+    the build-time `NAIS_*` environment variables — see
+    [Configuration resolution](../../apm/reference/apm-client-api.md#configuration-resolution).
+    This reference matters when you wire up **raw Faro** yourself.
+{% endif %}
+
 ## Generated JavaScript file
 
 The platform creates a JavaScript file at the specified `mountPath` with this structure:

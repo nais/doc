@@ -101,3 +101,7 @@ Common reasons for failure:
 4. The stack trace should show your original file names and line numbers
 
 If you see minified output instead, check [Troubleshooting](../reference/troubleshooting.md#sourcemaps-not-resolving).
+
+{% if tenant() == "nav" %}
+Resolved stack traces also appear on each error in the Nais APM [Issues tab](../../apm/tutorials/get-started.md#3-check-the-issues-tab), with your own code highlighted. Deobfuscation is server-side, so it works the same whether you instrument with raw Faro or [`@nais/apm`](../../apm/tutorials/track-frontend-errors.md#5-ship-readable-stack-traces).
+{% endif %}
