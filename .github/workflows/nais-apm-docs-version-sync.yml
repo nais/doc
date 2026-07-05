@@ -1,0 +1,162 @@
+name: Sync @nais/apm docs version
+
+# Keeps the public @nais/apm version references in the docs current.
+#
+# Why this lives here (in nais/doc) and not in nais/apm:
+#   A workflow in nais/apm cannot open a PR against nais/doc — its GITHUB_TOKEN
+#   has no write access to another repository. So we flip it: this cron runs IN
+#   nais/doc, polls nais/apm for its latest release, and opens a *same-repo*
+#   version-bump PR with the default GITHUB_TOKEN. No cross-repo credential and
+#   no PAT are needed — that is the whole point of this approach.
+#
+# What it maintains (the deterministic, regex-friendly pins the docs seed):
+#   - every `@nais/apm@<major.minor.patch>` install snippet under
+#     docs/observability/** (npm/pnpm/yarn variants)
+#   - the single cron-owned "current version" marker in
+#     docs/observability/apm/reference/apm-client-api.md:
+#       <!-- nais-apm-version:start -->X.Y.Z<!-- nais-apm-version:end -->
+#   The regex only touches `@nais/apm@<semver>`; bare `@nais/apm` mentions and
+#   other `@nais/...` packages (and `@nais/apm/react`) are left untouched.
+
+on:
+  schedule:
+    # 06:00 UTC, Monday–Friday. Cheap poll; release-please tags land on weekdays.
+    - cron: "0 6 * * 1-5"
+  workflow_dispatch: {}
+
+# Least-privilege: only what create-pull-request needs to push a branch and
+# open/update the PR.
+permissions:
+  contents: write
+  pull-requests: write
+
+# Never let two runs race on the same fixed branch.
+concurrency:
+  group: nais-apm-docs-version-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Resolve latest @nais/apm release
+        id: resolve
+        env:
+          # nais/apm should be public/internal-readable; a plain GITHUB_TOKEN is
+          # enough to read its releases. If this step 404s, the repo's release
+          # visibility needs fixing — do NOT paper over it with a PAT.
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          # nais/apm uses release-please with tags shaped `apm-v<semver>`.
+          # /releases/latest returns the newest non-prerelease release; strip
+          # the `apm-v` prefix to get a bare semver.
+          TAG="$(gh api repos/nais/apm/releases/latest -q .tag_name)"
+          echo "Latest release tag: ${TAG}"
+          LATEST="${TAG#apm-v}"
+
+          if ! printf '%s' "$LATEST" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "::error::Could not parse a semver from tag '${TAG}' (got '${LATEST}')" >&2
+            exit 1
+          fi
+
+          # Version currently pinned in the docs, read from the marker.
+          MARKER_FILE="docs/observability/apm/reference/apm-client-api.md"
+          CURRENT="$(grep -oE '<!-- nais-apm-version:start -->[0-9]+\.[0-9]+\.[0-9]+<!-- nais-apm-version:end -->' "$MARKER_FILE" \
+            | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -n1)"
+
+          if [ -z "${CURRENT:-}" ]; then
+            echo "::error::Could not read the nais-apm-version marker from ${MARKER_FILE}" >&2
+            exit 1
+          fi
+
+          echo "Docs version:   ${CURRENT}"
+          echo "Latest version: ${LATEST}"
+          echo "latest=${LATEST}" >> "$GITHUB_OUTPUT"
+          echo "current=${CURRENT}" >> "$GITHUB_OUTPUT"
+
+          if [ "$LATEST" = "$CURRENT" ]; then
+            echo "Docs already at ${CURRENT}; nothing to do."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Downgrade protection: never bump the docs backwards. Only proceed
+          # when LATEST sorts strictly higher than the docs version.
+          HIGHER="$(printf '%s\n%s\n' "$CURRENT" "$LATEST" | sort -V | tail -n1)"
+          if [ "$HIGHER" != "$LATEST" ]; then
+            echo "Docs version ${CURRENT} is newer than latest release ${LATEST}; refusing to downgrade."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Rewrite version references
+        if: steps.resolve.outputs.changed == 'true'
+        env:
+          LATEST: ${{ steps.resolve.outputs.latest }}
+        run: |
+          set -euo pipefail
+
+          # Bump every pinned install snippet: @nais/apm@<semver> -> @nais/apm@$LATEST.
+          # The trailing `@[0-9]` guard means bare `@nais/apm`, other `@nais/*`
+          # packages, and `@nais/apm/react` are never matched.
+          grep -rlE '@nais/apm@[0-9]+\.[0-9]+\.[0-9]+' docs/observability | while IFS= read -r f; do
+            sed -i -E "s#@nais/apm@[0-9]+\.[0-9]+\.[0-9]+#@nais/apm@${LATEST}#g" "$f"
+            echo "bumped pins in $f"
+          done
+
+          # Bump the single cron-owned marker.
+          sed -i -E \
+            "s#(<!-- nais-apm-version:start -->)[0-9]+\.[0-9]+\.[0-9]+(<!-- nais-apm-version:end -->)#\1${LATEST}\2#g" \
+            docs/observability/apm/reference/apm-client-api.md
+
+          echo "----- diff -----"
+          git --no-pager diff
+
+      - name: Create or update pull request
+        if: steps.resolve.outputs.changed == 'true'
+        # Repo convention is version-tagged actions (see actions/checkout@v6,
+        # jdx/mise-action@v4), not SHA pins, so we follow suit here.
+        #
+        # GITHUB_TOKEN caveat: PRs created/updated by the default GITHUB_TOKEN do
+        # NOT trigger other workflows, so `Build and publish doc` (main.yml, `on:
+        # push`) will not auto-run on this bump PR. This is deliberate — we do
+        # NOT add a PAT, since a same-repo GITHUB_TOKEN is the entire point. To
+        # run the docs build on the PR, a reviewer re-triggers it with a
+        # zero-cost nudge: close then reopen the PR, or push an empty commit
+        # (`git commit --amend --no-edit && git push -f`, or a `git commit
+        # --allow-empty`). The PR body repeats this instruction for reviewers.
+        uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # ratchet:peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Fixed branch: re-runs update the same PR instead of spamming new ones.
+          branch: chore/nais-apm-docs-version
+          base: main
+          commit-message: "docs(apm): bump @nais/apm docs to v${{ steps.resolve.outputs.latest }}"
+          title: "docs(apm): bump @nais/apm docs to v${{ steps.resolve.outputs.latest }}"
+          delete-branch: true
+          labels: documentation
+          body: |
+            Bumps the pinned `@nais/apm` version references in the docs from
+            `${{ steps.resolve.outputs.current }}` to `${{ steps.resolve.outputs.latest }}`.
+
+            Release: https://github.com/nais/apm/releases/tag/apm-v${{ steps.resolve.outputs.latest }}
+
+            This updates every `@nais/apm@<semver>` install snippet under
+            `docs/observability/**` and the `nais-apm-version` marker in
+            `docs/observability/apm/reference/apm-client-api.md`.
+
+            ---
+
+            Opened automatically by the `nais-apm-docs-version-sync` workflow.
+
+            **CI note:** this PR was opened with the default `GITHUB_TOKEN`, so
+            the `Build and publish doc` workflow does not auto-run on it. To run
+            the docs build before merging, close and reopen this PR, or push an
+            empty commit to the branch.
