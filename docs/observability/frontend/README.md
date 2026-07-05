@@ -7,15 +7,30 @@ tags: [explanation, observability, frontend, services]
 
 # Frontend observability
 
-Nais provides frontend observability through the [Grafana Faro Web SDK][faro-web-sdk]. Faro runs in the browser and sends telemetry data (metrics, logs, errors, traces) to a collector on the Nais platform.
+Nais provides frontend observability through the [Grafana Faro Web SDK][faro-web-sdk]. Faro runs in the browser and instruments your app, shipping telemetry through the platform collector (**Alloy**) into the shared observability stores: errors and events land in **Loki**, browser spans in **Tempo**, and Core Web Vitals in **Mimir**. You then view and triage it all in [Nais APM](https://grafana.<<tenant()>>.cloud.nais.io/a/nais-apm-app).
 
 [faro-web-sdk]: https://www.npmjs.com/package/@grafana/faro-web-sdk
 
 With 95+ applications already using Faro, it's the standard way to monitor frontend applications on Nais.
 
+{% if tenant() == "nav" %}
+!!! tip "Recommended: instrument with `@nais/apm`"
+    The recommended way to add Faro to a browser app is the
+    [`@nais/apm`](../apm/reference/apm-client-api.md) SDK — a thin Faro wrapper
+    with **zero-config `init()`**, **mandatory PII scrubbing**, a required
+    `namespace`, and a fixed console instrumentation that keeps real stack
+    traces. It's the *instrument* half of Nais APM: add `@nais/apm`, then
+    **view and triage** the results on the APM [Frontend](../apm/tutorials/get-started.md#4-look-at-backend-database-and-frontend)
+    and [Issues](../apm/tutorials/get-started.md#3-check-the-issues-tab) tabs.
+
+    Start with [Track frontend errors with `@nais/apm`](../apm/tutorials/track-frontend-errors.md).
+    Reach for raw Faro (the guides below) when you need something `@nais/apm`
+    doesn't cover yet — most notably [trace propagation](how-to/trace-propagation.md),
+    which the `0.1.0` SDK doesn't wrap.
+{% endif %}
+
 ## What you get
 
-![Frontend Web Vitals dashboard showing Core Web Vitals, CWV rating, and performance trends](../../assets/frontend-web-vitals-dashboard.png)
 
 - **[Core Web Vitals](https://web.dev/vitals/)** — TTFB, FCP, CLS, LCP, INP (collected automatically)
 - **Logging** — `console.info`, `console.warn`, and `console.error` messages
@@ -25,10 +40,18 @@ With 95+ applications already using Faro, it's the standard way to monitor front
 
 ## Get started
 
+{% if tenant() == "nav" %}
+1. **Recommended — errors as issues in APM:** [:dart: Track frontend errors with `@nais/apm`](../apm/tutorials/track-frontend-errors.md)
+2. **Any frontend app (raw Faro):** [:dart: Set up Faro](how-to/setup-faro.md)
+3. **Next.js App Router:** [:simple-nextdotjs: Set up Faro with Next.js](how-to/setup-nextjs.md)
+4. **Want end-to-end traces?** [Connect frontend to backend](how-to/trace-propagation.md)
+5. **Stack traces look minified?** [Sourcemaps](how-to/sourcemaps.md) · [Troubleshooting](reference/troubleshooting.md)
+{% else %}
 1. **Any frontend app:** [:dart: Set up Faro](how-to/setup-faro.md)
 2. **Next.js App Router:** [:simple-nextdotjs: Set up Faro with Next.js](how-to/setup-nextjs.md)
 3. **Want end-to-end traces?** [Connect frontend to backend](how-to/trace-propagation.md)
 4. **Stack traces look minified?** [Sourcemaps](how-to/sourcemaps.md) · [Troubleshooting](reference/troubleshooting.md)
+{% endif %}
 
 ## Recommended configuration
 
@@ -62,13 +85,17 @@ On-premises clusters are not supported.
 
 ## Inspecting frontend data in Grafana
 
-Find your app in the [Nais APM](https://grafana.<<tenant()>>.cloud.nais.io/a/nais-apm-app) service list. Frontend apps show with a **Node.js** badge.
+Find your app in the [Nais APM](https://grafana.<<tenant()>>.cloud.nais.io/a/nais-apm-app/services) service inventory and open it. Browser telemetry surfaces on two tabs:
 
-![Nais APM service list showing frontend and backend apps](../../assets/frontend-apm-service-list.png)
+- **Frontend** — Core Web Vitals, pageloads, sessions, per-page performance, browser breakdown, and web-vitals attribution (what's driving LCP, INP, and CLS).
+- **Issues** — browser exceptions grouped into issues, side by side with backend errors. Filter the source to **Browser** to isolate frontend errors, then open an issue for its stack trace and impact.
 
-Go to the **Frontend** tab for Core Web Vitals, or the **Logs** tab to search exceptions and browser logs. Toggle **Include browser telemetry** to see Faro data alongside server logs.
 
-![APM Logs tab filtered by exceptions, showing browser telemetry](../../assets/frontend-apm-logs.png)
+![Nais APM Issues tab filtered to browser-sourced exceptions](../../assets/nais-apm-service-navno-issues-frontend.png)
+
+{% if tenant() == "nav" %}
+For a full tour of the tabs, see [Get started with Nais APM](../apm/tutorials/get-started.md); for capturing errors from your own code, see [Track frontend errors with `@nais/apm`](../apm/tutorials/track-frontend-errors.md).
+{% endif %}
 
 For deeper analysis, use the [Explore view](https://grafana.<<tenant()>>.cloud.nais.io/explore) with one of the Loki data sources. Here are some useful queries:
 
@@ -103,6 +130,10 @@ For local development, check out the [tracing demo repository](https://github.co
 
 ## Further reading
 
+{% if tenant() == "nav" %}
+- [Nais APM](../apm/README.md) — view and triage the telemetry you instrument here
+- [`@nais/apm` API reference](../apm/reference/apm-client-api.md) — the recommended SDK's full API
+{% endif %}
 - [Grafana Faro Web SDK docs](https://grafana.com/docs/grafana-cloud/monitor-applications/frontend-observability/)
 - [Grafana Faro Web SDK on npm](https://www.npmjs.com/package/@grafana/faro-web-sdk)
 - [Grafana Faro Web SDK changelog](https://github.com/grafana/faro-web-sdk/blob/main/CHANGELOG.md)
