@@ -185,6 +185,13 @@ interface PagesFile {
 	nav?: (string | Record<string, string>)[];
 	hide?: boolean;
 	title?: string;
+	/**
+	 * Section-level tenant gating, using the same semantics as per-page
+	 * frontmatter `conditional` (see {@link shouldIncludeFile}). When present on
+	 * a directory's `.pages`, it gates the entire subtree (all pages and nav
+	 * entries) for the current tenant.
+	 */
+	conditional?: string[];
 }
 
 /**
@@ -410,6 +417,20 @@ class ContentStore {
 	 */
 	private async findMarkdownFiles(dirPath: string): Promise<string[]> {
 		const files: string[] = [];
+
+		// Section-level tenant gating. A directory's `.pages` may carry a
+		// `conditional` (e.g. `conditional: [tenant, nav]`) that gates the whole
+		// subtree for the current tenant — mirroring the mkdocs-awesome-nav
+		// `.pages` contract and the per-page frontmatter `conditional`. If it
+		// doesn't match the current tenant, skip the entire directory so its
+		// pages never enter the store (which in turn drops them from navigation
+		// and prerendering). Checked per directory as we recurse, so nested
+		// `.pages` conditionals are honoured too.
+		const dirPages = await this.readPagesFile(dirPath);
+		if (!shouldIncludeFile(dirPages?.conditional, dirPath)) {
+			log.debug(`Excluding directory "${dirPath}" - .pages conditional excludes current tenant`);
+			return files;
+		}
 
 		try {
 			const entries = await readdir(dirPath, { withFileTypes: true });
