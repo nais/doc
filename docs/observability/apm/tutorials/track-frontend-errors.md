@@ -52,9 +52,12 @@ export GITHUB_PACKAGES_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ## 2. Install
 
+Pin an exact version — `@nais/apm` is pre-1.0, so the API can change in minor
+releases (see the pre-release note above):
+
 ```sh
-npm install @nais/apm
-# or: pnpm add @nais/apm / yarn add @nais/apm
+npm install @nais/apm@0.2.0
+# or: pnpm add @nais/apm@0.2.0 / yarn add @nais/apm@0.2.0
 ```
 
 ## 3. Initialize (zero config)

@@ -9,9 +9,16 @@ tags: [reference, observability, apm, frontend]
 # `@nais/apm` API reference
 
 `@nais/apm` wraps [`@grafana/faro-web-sdk`](https://github.com/grafana/faro-web-sdk)
-with an ergonomic, capture-oriented API. This page documents the public API of
-version `0.1.0`. For installation, see
+with an ergonomic, capture-oriented API. For installation, see
 [Track frontend errors with `@nais/apm`](../tutorials/track-frontend-errors.md).
+
+<!--
+  The version below is kept current by the `nais-apm-docs-version-sync` GitHub
+  Actions workflow, which bumps every `@nais/apm@<semver>` install snippet under
+  docs/observability/** and this marker whenever a new @nais/apm release ships.
+  Do not reformat the marker — the workflow's sed matches it literally.
+-->
+Latest published release: **<!-- nais-apm-version:start -->0.2.0<!-- nais-apm-version:end -->** — pin this exact version when you install (pre-1.0, see the note below).
 
 !!! note "Pre-1.0"
     The public API may change across `0.x` minor releases (new options, renamed
