@@ -4,289 +4,57 @@ tags: [explanation, http, connections, timeouts, networking]
 
 # HTTP client connection management
 
-This page explains how HTTP client connection management works, including connection pooling, timeouts, and how network infrastructure affects your application's reliability.
+HTTP clients reuse connections from a pool to avoid repeating the TCP and TLS handshake on every request. This is almost always what you want, but connection reuse assumes a pooled connection is still alive. On the Nais platform, a few characteristics of the surrounding infrastructure break that assumption in ways that are easy to miss. This page explains those interactions so you can configure your client to match.
 
-## Why connection management matters
+## Idle connections get dropped silently
 
-Modern applications make hundreds or thousands of HTTP requests. Opening a new TCP connection for each request is expensive:
+Stateful firewalls, load balancers, and NAT gateways all keep a table of active connections and evict entries that have been idle for too long. The problem is that most of them drop the connection **silently** — no TCP `FIN` or `RST` is sent to either side. The connection still looks healthy in your pool, so your client happily reuses it and the request fails with a `Connection reset` or `Unexpected end of stream` error, typically after a period of low traffic.
 
-- **TCP handshake overhead**: Three-way handshake (SYN, SYN-ACK, ACK) adds latency
-- **TLS handshake**: Additional round trips for certificate exchange and key agreement
-- **Slow start**: TCP congestion control starts with small windows
-- **Resource consumption**: Each new connection consumes system resources
+The fix has two parts:
 
-HTTP connection pooling solves this by reusing established connections, dramatically improving performance and reducing load.
+- Set a **connection TTL** (maximum lifetime) shorter than the shortest idle timeout on the path, so the client retires connections before the infrastructure does.
+- Enable **background eviction** so stale connections are pruned proactively instead of on the next request. Without it, the first request after an idle period fails and only the retry succeeds.
 
-## How connection pooling works
+Setting a very short request timeout does *not* solve this — request timeout detects hung requests, it does not refresh pooled connections. Keep the two concerns separate.
 
-### Connection lifecycle
+{% if tenant() == "nav" %}
+!!! note "On-prem firewall (fss-pub ingresses)"
 
-```mermaid
-stateDiagram-v2
-    [*] --> Establishing: Request needs connection
-    Establishing --> Active: TCP + TLS handshake complete
-    Active --> Idle: Request complete, kept in pool
-    Idle --> Active: Reused for new request
-    Idle --> Closed: TTL expired or evicted
-    Active --> Closed: Connection error
-    Closed --> [*]
-```
+    The on-prem firewall in front of `*.fss-pub.nais.io` ingresses drops idle connections after **60 minutes** without sending TCP close signals. Applications in GCP calling on-prem FSS services must set their connection TTL below this (55 minutes is a safe value) and enable background eviction. See [Communicate reliably between GCP and on-prem](../how-to/gcp-fss-communication.md) for concrete client configuration.
+{% endif %}
 
-When no pooled connection is available, the client performs DNS lookup, establishes TCP connection, negotiates TLS (if HTTPS), then sends the request. After the response completes, the connection returns to the pool instead of closing. The next request to the same host reuses this connection, bypassing all handshake overhead.
+## DNS caching and pod rotation
 
-Connections are removed from the pool when: TTL expires, idle timeout reached, background eviction runs, connection error detected, or pool size limit exceeded.
+Services on Nais have a short DNS TTL of **30 seconds**, because the IPs behind a service change whenever pods are rescheduled, scaled, or redeployed. Your client is expected to re-resolve frequently and follow the new IPs.
 
-### HTTP Keep-Alive
+Two things get in the way:
 
-Connection pooling relies on HTTP Keep-Alive:
+- **The JVM caches DNS indefinitely by default.** With the default `networkaddress.cache.ttl`, a JVM resolves a hostname once and never looks again, so it keeps dialing IPs that no longer exist. Set `networkaddress.cache.ttl` to a small value (for example 30 seconds) to respect the platform TTL.
+- **Pooled connections pin the IP they were opened to.** Even with a correct DNS TTL, a long-lived pooled connection stays bound to the IP it dialed originally. After the pod behind that IP is gone, the connection is dead. A bounded connection TTL forces periodic re-resolution and lets the pool pick up new pods.
 
-```http
-Connection: keep-alive
-Keep-Alive: timeout=60, max=100
-```
+## Pod lifecycle affects the services that call you
 
-This signals that the connection should remain open after the response completes. Both client and server must support it.
+When your pods are terminated — during deploys, scaling, or node maintenance — shutdown is not instantaneous, and it is not perfectly coordinated with clients that hold connections to you:
 
-## DNS and connection failures
+1. The pod receives `SIGTERM` and enters the `Terminating` state.
+2. Its endpoint is removed from the Service, but this propagates with **eventual consistency** — for a short window, callers may still route to the terminating pod.
+3. A grace period (default **30 seconds**) lets in-flight requests finish before the process is killed.
 
-DNS plays a critical role in connection establishment and can be a source of intermittent failures.
+Because of the propagation window, other services can hold pooled connections to a pod that is already shutting down, and requests over those connections may fail. Both sides share responsibility for handling this cleanly:
 
-### DNS caching issues
+- **As a client**, retry idempotent requests with exponential backoff so a single dropped connection does not surface as an error.
+- **As a server**, shut down gracefully: stop accepting new work on `SIGTERM`, keep serving in-flight requests through the grace period, and use a [`preStop` hook](./good-practices.md) plus readiness probes so traffic is drained before the process exits.
 
-**Stale DNS cache:** When service IPs change (pod rotation, deployment), cached DNS entries point to old IPs, causing connection failures until TTL expires.
+## Timeout types at a glance
 
-**Key considerations:**
+Different timeouts control different things. Configuring them correctly — and not confusing them — is what makes a client resilient on Nais.
 
-- Services on Nais have short DNS TTL (30 seconds)
-- Client-side DNS cache may not respect TTL
-- JVM caches DNS indefinitely by default (set `networkaddress.cache.ttl`)
-- Connection pools may hold connections to old IPs
-
-### DNS failures
-
-DNS resolution can fail due to server overload, network partitions, or rate limiting, causing "Unknown host" errors even when services are healthy.
-
-**Mitigation:**
-
-- Set connection TTL to 5-10 minutes for periodic DNS re-resolution
-- Implement retry logic for DNS failures
-- Connection pooling reduces DNS lookup frequency
-
-## Understanding timeout types
-
-Different timeout settings control different aspects of connection behavior. Configuring them correctly is critical for reliability.
-
-### Connection timeout
-
-**What it controls:** Maximum time to wait for the initial TCP connection to establish.
-
-**Common names:**
-
-- `connectTimeout` (most libraries)
-- `CONNECT_TIMEOUT_MILLIS` (Netty)
-- Connection timeout (Apache HttpClient)
-
-**Typical values:** 5-10 seconds
-
-**What happens when exceeded:** Connection attempt fails immediately with a timeout exception.
-
-**When to adjust:**
-
-- Cross-cluster or cross-datacenter calls with high latency
-- Calls through multiple proxies
-- Networks with packet loss
-
-### Socket/idle timeout
-
-**What it controls:** Maximum time a connection can remain idle in the pool before being removed.
-
-**Common names:**
-
-- `timeout` (Node.js Agent)
-- `connectionTimeToLive` (Apache HttpClient)
-- `maxIdleTime` (Reactor Netty)
-- `keepAliveTime` (Ktor)
-
-**Typical values:** Based on infrastructure timeout constraints (e.g., 55 minutes for on-prem firewall timeouts)
-
-**What happens when exceeded:** Connection is closed and removed from pool.
-
-**Why it matters:** Prevents attempting to reuse connections that network infrastructure has already dropped.
-
-### Read/response timeout
-
-**What it controls:** Maximum time to wait for the complete response after sending a request.
-
-**Common names:**
-
-- `responseTimeout` (Reactor Netty)
-- `requestTimeout` (Ktor)
-- `timeout` (Axios - request-level)
-- Read timeout (Apache HttpClient)
-
-**Typical values:** 10-60 seconds, depending on endpoint characteristics
-
-**What happens when exceeded:** Request is cancelled with a timeout exception.
-
-**When to adjust:**
-
-- Long-running operations (batch processing, report generation)
-- Large file downloads
-- Streaming responses
-
-### Background eviction
-
-**What it controls:** Periodic cleanup of idle or stale connections from the pool.
-
-**Common names:**
-
-- `evictIdleConnections` (Apache HttpClient)
-- `evictInBackground` (Reactor Netty)
-
-**Typical values:** Every 5 minutes
-
-**Why it matters:** Removes connections that may have been silently dropped by network infrastructure between requests, preventing errors on the next request.
-
-## How network infrastructure affects connections
-
-### Stateful firewalls
-
-Firewalls maintain connection state tables and drop idle connections to prevent exhaustion. Most firewalls drop connections **silently** without TCP FIN or RST packets - connections appear healthy in the pool until you try to reuse them.
-
-**Solution:** Configure connection TTL below firewall timeout threshold.
-
-### Load balancers and NAT gateways
-
-Load balancers and NAT gateways enforce their own idle timeouts (typically 60-600 seconds).
-
-**Key points:**
-
-- Client connection TTL should be less than load balancer timeout
-- Keep-alive probes may not prevent timeouts
-- Backend service connections have separate timeouts
-- NAT timeout shorter than client TTL means silent connection drops
-
-### Proxies
-
-Forward and reverse proxies add another layer of timeout configuration:
-
-- **Proxy → Backend timeout**: How long proxy waits for backend response
-- **Client → Proxy timeout**: How long client waits for proxy response
-- **Proxy connection pooling**: Proxy may maintain separate connection pool to backends
-
-## Connection pool sizing
-
-### Maximum connections
-
-**Per-route/per-host limits:**
-
-Prevents overwhelming a single backend service:
-
-```java
-cm.setDefaultMaxPerRoute(20);  // Max 20 concurrent connections per host
-```
-
-**Total pool size:**
-
-Limits total connections across all hosts:
-
-```java
-cm.setMaxTotal(200);  // Max 200 connections total
-```
-
-### Pool exhaustion
-
-When all connections are in use, new requests must:
-
-- Wait for a connection to become available
-- Timeout if wait exceeds configured limit
-- Potentially fail with "Connection pool exhausted"
-
-**Symptoms:**
-
-- Requests fail even though backend is healthy
-- High request latencies during traffic spikes
-- "NoHttpResponseException" or similar errors
-
-**Solutions:**
-
-- Increase pool size if resources allow
-- Reduce response timeout to fail faster
-- Add circuit breaker to prevent cascade failures
-- Scale application horizontally
-
-## Common configuration mistakes
-
-### Infinite or too-long connection TTL
-
-**Problem:** Connections never expire or expire after infrastructure drops them.
-
-**Symptoms:** Intermittent "Connection reset" or "Unexpected end of stream" errors, especially after idle periods.
-
-**Solution:** Set connection TTL below infrastructure timeout thresholds (e.g., 55 minutes for 60-minute firewall timeout).
-
-### No background eviction
-
-**Problem:** Dead connections remain in pool until used.
-
-**Symptoms:** First request after idle period fails, subsequent retry succeeds.
-
-**Solution:** Enable background eviction (e.g., every 5 minutes).
-
-### Confusing request timeout with connection TTL
-
-**Problem:** Setting very short request timeout thinking it will refresh connections.
-
-**Symptoms:**
-
-- Legitimate long-running requests fail
-- Unnecessary request failures and retries
-
-**Solution:** Use connection TTL for pool management, request timeout for detecting hung requests.
-
-## Nais platform considerations
-
-### Pod lifecycle and connection pools
-
-On Nais, when your application pods are terminated (during deployments, scaling, or node maintenance):
-
-1. Pod receives SIGTERM signal
-2. Pod enters "Terminating" state
-3. Endpoints removed from Service (eventual consistency)
-4. Grace period allows in-flight requests to complete (default 30s)
-
-**Implications for connection pools:**
-
-- Your application may have pooled connections to terminating pods of other services
-- Requests to terminating pods may fail if grace period expires
-- Need proper retry logic for pod rotation scenarios
-
-**Best practices on Nais:**
-
-- Implement graceful shutdown in your application
-- Configure preStop hooks to delay shutdown
-- Use readiness probes to stop traffic before shutdown
-- Implement client-side retry with exponential backoff
-
-### Cross-cluster and cross-datacenter calls
-
-Higher network latency affects timeout tuning:
-
-**Same cluster:**
-
-- Connection timeout: 5-10 seconds
-- Read timeout: 10-30 seconds
-
-**Cross-cluster or cross-datacenter:**
-
-- Connection timeout: 10-15 seconds
-- Read timeout: 30-60 seconds
-
-Also consider:
-
-- Retry budget (avoid retry storms)
-- Circuit breaker thresholds
-- Hedged requests for latency-sensitive calls
+| Timeout | What it controls |
+| --- | --- |
+| Connection timeout | How long to wait for the initial TCP connection to establish. |
+| Read / response timeout | How long to wait for the response after the request is sent. |
+| Connection TTL / idle timeout | How long a pooled connection may live or stay idle before it is retired — keep this below the infrastructure idle timeout. |
+| Background eviction | How often the pool is swept for stale connections in the background. |
 
 ## Related resources
 
