@@ -25,10 +25,6 @@ By default, no traffic is allowed between naisjobs inside the cluster.
 Configure access policies to explicitly allow communication between naisjobs.
 This is also used for granting inbound access in the context of Azure AD and TokenX clients.
 
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/workloads/explanations/zero-trust/](https://doc.<<tenant()>>.cloud.nais.io/workloads/explanations/zero-trust/)
-
 Type: `object`<br />
 Required: `false`<br />
 
@@ -258,7 +254,6 @@ Required: `false`<br />
                   - custom-scope
     ```
 
-{%- if tenant() == "nav" %}
 ##### accessPolicy.inbound.rules[].permissions
 Permissions contains a set of permissions that are granted to the given application.
 Currently only applicable for Azure AD clients.
@@ -368,7 +363,6 @@ Required: `false`<br />
                   - custom-scope
     ```
 
-{%- endif %}
 ### accessPolicy.outbound
 Configures outbound access for your application.
 
@@ -401,7 +395,6 @@ List of external resources that your applications should be able to reach.
 
 Type: `array`<br />
 Required: `false`<br />
-Availability: GCP<br />
 
 ??? example
     ``` yaml
@@ -612,10 +605,6 @@ Required: `false`<br />
 ### azure.application
 Configures an Entra ID client for this application.
 
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/](https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/)
-
 Type: `object`<br />
 Required: `true`<br />
 
@@ -634,13 +623,8 @@ Required: `true`<br />
 #### azure.application.allowAllUsers
 AllowAllUsers grants all users within the tenant access to this application.
 
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/how-to/secure/#all-users](https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/how-to/secure/#all-users)
-
 Type: `boolean`<br />
 Required: `false`<br />
-Default value: `false`<br />
 
 ??? example
     ``` yaml
@@ -669,9 +653,6 @@ Required: `false`<br />
 ##### azure.application.claims.extra
 Deprecated. These claims are already included by default; this field is ignored and has no effect. It will be removed in a future release.
 
-!!! failure "Deprecated"
-    This feature is deprecated, preserved only for backwards compatibility.
-
 Type: `array`<br />
 Required: `false`<br />
 Allowed values: `NAVident`, `azp_name`<br />
@@ -679,10 +660,6 @@ Allowed values: `NAVident`, `azp_name`<br />
 ##### azure.application.claims.groups
 Groups is a list of Azure AD group IDs to be emitted in the `groups` claim in tokens issued by Azure AD.
 This also assigns groups to the application for access control. Only direct members of the groups are granted access.
-
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration/#groups](https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration/#groups)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -731,9 +708,6 @@ Default value: `false`<br />
 #### azure.application.replyURLs
 Deprecated, do not use. This is currently only needed if you're implementing logins _without_ using sidecar. This field will be removed in a future release.
 
-!!! failure "Deprecated"
-    This feature is deprecated, preserved only for backwards compatibility.
-
 Type: `array`<br />
 Required: `false`<br />
 
@@ -741,13 +715,9 @@ Required: `false`<br />
 Deprecated, do not use. Use sidecar instead. This field is only used if you're implementing logins in a client-side
 frontend application, which we do not recommend. This field will be removed in a future release.
 
-!!! failure "Deprecated"
-    This feature is deprecated, preserved only for backwards compatibility.
-
 Type: `boolean`<br />
 Required: `false`<br />
 
-{%- if tenant() == "nav" %}
 #### azure.application.tenant
 Tenant targets a specific tenant for the Entra ID application.
 
@@ -758,16 +728,10 @@ Effectively, this means that the field only works in the development clusters.
 We do not recommend setting this field unless you understand the consequences and have a specific reason to do so.
 Changing tenants will _isolate_ your application from all other applications that are not using the same tenant.
 
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/explanations/#tenants](https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/explanations/#tenants)
-
 Type: `enum`<br />
 Required: `false`<br />
-Immutable: `true`<br />
 Allowed values: `nav.no`, `trygdeetaten.no`<br />
 
-{%- endif %}
 ## backoffLimit
 Specify the number of retries before considering a Naisjob as failed
 
@@ -806,13 +770,8 @@ NonIndexed: the Job is considered complete when there have been `.spec.completio
 Indexed: the Pods of a Job get an associated completion index from 0 to `.spec.completions-1`.
 The Job is considered complete when there is one successfully completed Pod for each index.
 
-Relevant information:
-
-* [https://kubernetes.io/docs/concepts/workloads/controllers/job/#completion-mode](https://kubernetes.io/docs/concepts/workloads/controllers/job/#completion-mode)
-
 Type: `enum`<br />
 Required: `false`<br />
-Default value: `NonIndexed`<br />
 Allowed values: `Indexed`, `NonIndexed`<br />
 
 ??? example
@@ -824,13 +783,8 @@ Allowed values: `Indexed`, `NonIndexed`<br />
 ## completions
 A Job tracks the successful completions. When a specified number of successful completions is reached, the task (ie, Job) is complete.
 
-Relevant information:
-
-* [https://kubernetes.io/docs/concepts/workloads/controllers/job/#job-patterns](https://kubernetes.io/docs/concepts/workloads/controllers/job/#job-patterns)
-
 Type: `integer`<br />
 Required: `false`<br />
-Default value: `1`<br />
 
 ??? example
     ``` yaml
@@ -841,13 +795,8 @@ Default value: `1`<br />
 ## concurrencyPolicy
 Specifies how to treat concurrent executions of a job that is created by this Naisjob-cron.
 
-Relevant information:
-
-* [https://kubernetes.io/docs/tasks/job/automated-tasks-with-cron-jobs/#concurrency-policy](https://kubernetes.io/docs/tasks/job/automated-tasks-with-cron-jobs/#concurrency-policy)
-
 Type: `enum`<br />
 Required: `false`<br />
-Default value: `Allow`<br />
 Allowed values: `Allow`, `Forbid`, `Replace`<br />
 
 ??? example
@@ -917,10 +866,6 @@ Required: `false`<br />
 ### env[].valueFrom
 Dynamically set environment variables based on fields found in the Pod spec.
 
-Relevant information:
-
-* [https://kubernetes.io/docs/tasks/inject-data-application/environment-variable-expose-pod-information/](https://kubernetes.io/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
-
 Type: `object`<br />
 Required: `false`<br />
 
@@ -982,7 +927,6 @@ The ConfigMap and Secret resources must live in the same Kubernetes namespace as
 
 Type: `array`<br />
 Required: `false`<br />
-Availability: team namespaces<br />
 
 ??? example
     ``` yaml
@@ -1047,7 +991,6 @@ The ConfigMap and Secret resources must live in the same Kubernetes namespace as
 
 Type: `array`<br />
 Required: `false`<br />
-Availability: team namespaces<br />
 
 ??? example
     ``` yaml
@@ -1202,7 +1145,6 @@ Required: `false`<br />
 ## gcp
 Type: `object`<br />
 Required: `false`<br />
-Availability: GCP<br />
 
 ??? example
     ``` yaml
@@ -1271,13 +1213,8 @@ Availability: GCP<br />
 Provision BigQuery datasets and give your application's pod mountable secrets for connecting to each dataset.
 Datasets are immutable and cannot be changed.
 
-Relevant information:
-
-* [https://cloud.google.com/bigquery/docs](https://cloud.google.com/bigquery/docs)
-
 Type: `array`<br />
 Required: `false`<br />
-Availability: GCP<br />
 
 ??? example
     ``` yaml
@@ -1321,7 +1258,6 @@ Will be visible in the GCP Console.
 
 Type: `string`<br />
 Required: `false`<br />
-Immutable: `true`<br />
 
 ??? example
     ``` yaml
@@ -1343,7 +1279,6 @@ The canonical name of the dataset will be `<TEAM_PROJECT_ID>:<NAME>`.
 
 Type: `string`<br />
 Required: `true`<br />
-Immutable: `true`<br />
 Pattern: `^[a-z0-9][a-z0-9_]+$`<br />
 
 ??? example
@@ -1365,7 +1300,6 @@ Permission level given to application.
 
 Type: `enum`<br />
 Required: `true`<br />
-Immutable: `true`<br />
 Allowed values: `READ`, `READWRITE`<br />
 
 ??? example
@@ -1385,13 +1319,8 @@ Allowed values: `READ`, `READWRITE`<br />
 ### gcp.buckets
 Provision cloud storage buckets and connect them to your application.
 
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/persistence/buckets/](https://doc.<<tenant()>>.cloud.nais.io/persistence/buckets/)
-
 Type: `array`<br />
 Required: `false`<br />
-Availability: GCP<br />
 
 ??? example
     ``` yaml
@@ -1437,10 +1366,6 @@ Required: `false`<br />
 
 #### gcp.buckets[].lifecycleCondition
 Conditions for the bucket to use when selecting objects to delete in cleanup.
-
-Relevant information:
-
-* [https://cloud.google.com/storage/docs/lifecycle](https://cloud.google.com/storage/docs/lifecycle)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -1514,11 +1439,6 @@ Required: `false`<br />
 ##### gcp.buckets[].lifecycleCondition.daysSinceCustomTime
 Condition is satisfied when the specified number of days have passed since the date and time specified in an
 object's Custom-Time metadata field.
-
-Relevant information:
-
-* [https://cloud.google.com/storage/docs/lifecycle#dayssincecustomtime](https://cloud.google.com/storage/docs/lifecycle#dayssincecustomtime)
-* [https://cloud.google.com/storage/docs/metadata#custom-time](https://cloud.google.com/storage/docs/metadata#custom-time)
 
 Type: `integer`<br />
 Required: `false`<br />
@@ -1618,13 +1538,8 @@ Required: `true`<br />
 #### gcp.buckets[].publicAccessPrevention
 Public access prevention allows you to prevent public access to your bucket.
 
-Relevant information:
-
-* [https://cloud.google.com/storage/docs/public-access-prevention](https://cloud.google.com/storage/docs/public-access-prevention)
-
 Type: `boolean`<br />
 Required: `false`<br />
-Default value: `false`<br />
 
 ??? example
     ``` yaml
@@ -1676,13 +1591,8 @@ and Access Management (IAM) permissions grant access to that bucket and the obje
 
 Uniform access control can not be reversed after 90 days! This is controlled by Google.
 
-Relevant information:
-
-* [https://cloud.google.com/storage/docs/uniform-bucket-level-access](https://cloud.google.com/storage/docs/uniform-bucket-level-access)
-
 Type: `boolean`<br />
 Required: `false`<br />
-Default value: `false`<br />
 
 ??? example
     ``` yaml
@@ -1707,7 +1617,6 @@ List of _additional_ permissions that should be granted to your application for 
 
 Type: `array`<br />
 Required: `false`<br />
-Availability: GCP<br />
 
 ??? example
     ``` yaml
@@ -1815,14 +1724,8 @@ Required: `true`<br />
 Provision database instances and connect them to your application.
 Only one item allowed in the list.
 
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/persistence/postgres/](https://doc.<<tenant()>>.cloud.nais.io/persistence/postgres/)
-* [https://cloud.google.com/sql/docs/postgres/instance-settings#impact](https://cloud.google.com/sql/docs/postgres/instance-settings#impact)
-
 Type: `array`<br />
 Required: `false`<br />
-Availability: GCP<br />
 
 ??? example
     ``` yaml
@@ -2218,10 +2121,6 @@ When set to true, GCP will automatically increase storage by XXX for the databas
 disk usage is above the high water mark. Setting this field to true also disables
 manual control over disk size, i.e. the `diskSize` parameter will be ignored.
 
-Relevant information:
-
-* [https://cloud.google.com/sql/docs/postgres/instance-settings#threshold](https://cloud.google.com/sql/docs/postgres/instance-settings#threshold)
-
 Type: `boolean`<br />
 Required: `false`<br />
 
@@ -2268,7 +2167,6 @@ The default value is 0, which specifies that there is no limit.
 
 Type: `integer`<br />
 Required: `false`<br />
-Default value: `0`<br />
 Value range: `0`-`1000`<br />
 
 ??? example
@@ -2403,13 +2301,6 @@ Set flags to control the behavior of the instance.
 Be aware that Nais _does not validate_ these flags, so take extra care
 to make sure the values match against the specification, otherwise your deployment
 will seemingly work OK, but the database flags will not function as expected.
-
-!!! warning "Experimental feature"
-    This feature has not undergone much testing, and is subject to API change, instability, or removal.
-
-Relevant information:
-
-* [https://cloud.google.com/sql/docs/postgres/flags#list-flags-postgres](https://cloud.google.com/sql/docs/postgres/flags#list-flags-postgres)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -2628,7 +2519,6 @@ True if Query Insights feature is enabled.
 
 Type: `boolean`<br />
 Required: `false`<br />
-Default value: `true`<br />
 
 ??? example
     ``` yaml
@@ -2672,7 +2562,6 @@ Maximum query length stored in bytes. Between 256 and 4500. Default to 1024.
 
 Type: `integer`<br />
 Required: `false`<br />
-Default value: `1024`<br />
 Value range: `256`-`4500`<br />
 
 ??? example
@@ -3015,13 +2904,8 @@ Required: `false`<br />
 Number of daily backups to retain. Defaults to 7 backups.
 The number of retained backups must be greater or equal to TransactionLogRetentionDays.
 
-Relevant information:
-
-* [https://cloud.google.com/sql/docs/postgres/backup-recovery/backups](https://cloud.google.com/sql/docs/postgres/backup-recovery/backups)
-
 Type: `integer`<br />
 Required: `false`<br />
-Default value: `7`<br />
 Value range: `1`-`365`<br />
 
 ??? example
@@ -3112,13 +2996,8 @@ Pattern: `db-.+`<br />
 #### gcp.sqlInstances[].transactionLogRetentionDays
 The number of days of transaction logs gcp retains for point in time restores.
 
-Relevant information:
-
-* [https://cloud.google.com/sql/docs/mysql/backup-recovery/backups#retention](https://cloud.google.com/sql/docs/mysql/backup-recovery/backups#retention)
-
 Type: `integer`<br />
 Required: `false`<br />
-Default value: `7`<br />
 Value range: `1`-`7`<br />
 
 ??? example
@@ -3160,10 +3039,6 @@ Value range: `1`-`7`<br />
 
 #### gcp.sqlInstances[].type
 PostgreSQL version.
-
-Relevant information:
-
-* [https://cloud.google.com/sql/docs/postgres/instance-settings](https://cloud.google.com/sql/docs/postgres/instance-settings)
 
 Type: `enum`<br />
 Required: `true`<br />
@@ -3248,14 +3123,8 @@ Required: `true`<br />
 ### kafka.streams
 Allow this app to use kafka streams
 
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/persistence/kafka/how-to/internal](https://doc.<<tenant()>>.cloud.nais.io/persistence/kafka/how-to/internal)
-
 Type: `boolean`<br />
 Required: `false`<br />
-Default value: `false`<br />
-Availability: GCP<br />
 
 ??? example
     ``` yaml
@@ -3346,7 +3215,6 @@ Defaults to application port, as defined in `.spec.port`.
 
 Type: `integer`<br />
 Required: `false`<br />
-Default value: `.spec.port`<br />
 Value range: `1`-`65535`<br />
 
 ??? example
@@ -3406,8 +3274,6 @@ If enabled, provisions and configures a Maskinporten client with consumed scopes
 
 Type: `boolean`<br />
 Required: `true`<br />
-Default value: `false`<br />
-Availability: team namespaces<br />
 
 ??? example
     ``` yaml
@@ -3465,10 +3331,6 @@ Required: `false`<br />
 The scope consumed by the application to gain access to an external organization API.
 Ensure that the NAV organization has been granted access to the scope prior to requesting access.
 
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/security/auth/maskinporten/#consume-scopes](https://doc.<<tenant()>>.cloud.nais.io/security/auth/maskinporten/#consume-scopes)
-
 Type: `string`<br />
 Required: `true`<br />
 
@@ -3513,7 +3375,6 @@ Allow any organization to access the scope.
 
 Type: `boolean`<br />
 Required: `false`<br />
-Default value: `false`<br />
 
 ??? example
     ``` yaml
@@ -3540,13 +3401,8 @@ Default value: `false`<br />
 Whitelisting of integration's allowed.
 Default is `maskinporten`
 
-Relevant information:
-
-* [https://docs.digdir.no/maskinporten_guide_apitilbyder.html#scope-begrensninger](https://docs.digdir.no/maskinporten_guide_apitilbyder.html#scope-begrensninger)
-
 Type: `array`<br />
 Required: `false`<br />
-Default value: `maskinporten`<br />
 
 ??? example
     ``` yaml
@@ -3575,7 +3431,6 @@ Default is `30` sec.
 
 Type: `integer`<br />
 Required: `false`<br />
-Default value: `30`<br />
 Value range: `30`-`680`<br />
 
 ??? example
@@ -3684,10 +3539,6 @@ Pattern: `^\d{9}$`<br />
 ##### maskinporten.scopes.exposes[].delegationSource
 Delegation source for the scope. Default is empty, which means no delegation is allowed.
 
-Relevant information:
-
-* [https://docs.digdir.no/docs/Maskinporten/maskinporten_func_delegering](https://docs.digdir.no/docs/Maskinporten/maskinporten_func_delegering)
-
 Type: `enum`<br />
 Required: `false`<br />
 Allowed values: `altinn`<br />
@@ -3746,7 +3597,6 @@ Ensure that `<Product><Name>` matches `Pattern`.
 
 Type: `string`<br />
 Required: `true`<br />
-Default value: `false`<br />
 Pattern: `^([a-zæøå0-9]+\/?)+(\:[a-zæøå0-9]+)*[a-zæøå0-9]+(\.[a-zæøå0-9]+)*$`<br />
 
 ??? example
@@ -3838,7 +3688,6 @@ organizations that have been granted consumer access.
 
 Type: `enum`<br />
 Required: `false`<br />
-Default value: `public`<br />
 Allowed values: `private`, `public`<br />
 
 ??? example
@@ -3865,10 +3714,6 @@ Allowed values: `private`, `public`<br />
 ## observability
 Configuration options related to application observability.
 
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/observability/](https://doc.<<tenant()>>.cloud.nais.io/observability/)
-
 Type: `object`<br />
 Required: `false`<br />
 
@@ -3892,10 +3737,6 @@ Required: `false`<br />
 ### observability.autoInstrumentation
 Auto-instrumentiation for your application using OpenTelemetry for collecting telemetry data such as traces, metrics and logs.
 
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/observability/auto-instrumentation/](https://doc.<<tenant()>>.cloud.nais.io/observability/auto-instrumentation/)
-
 Type: `object`<br />
 Required: `false`<br />
 
@@ -3912,10 +3753,6 @@ Required: `false`<br />
 
 #### observability.autoInstrumentation.destinations
 Destinations are where telemetry data should be stored.
-
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/observability/reference/auto-config/#destinations](https://doc.<<tenant()>>.cloud.nais.io/observability/reference/auto-config/#destinations)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -3976,10 +3813,6 @@ Allowed values: `dotnet`, `java`, `nodejs`, `python`, `sdk`<br />
 ### observability.logging
 Configure logging for your application.
 
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/observability/logging/](https://doc.<<tenant()>>.cloud.nais.io/observability/logging/)
-
 Type: `object`<br />
 Required: `false`<br />
 
@@ -3995,10 +3828,6 @@ Required: `false`<br />
 
 #### observability.logging.destinations
 Log destinations for where to forward application logs for persistent storage. Leave empty to use default destinations.
-
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/observability/logging/reference/destinations/#destinations](https://doc.<<tenant()>>.cloud.nais.io/observability/logging/reference/destinations/#destinations)
 
 Type: `array`<br />
 Required: `false`<br />
@@ -4030,13 +3859,39 @@ Enable forwarding of application logs to persistent storage.
 
 Type: `boolean`<br />
 Required: `false`<br />
-Default value: `true`<br />
 
 ??? example
     ``` yaml
     spec:
       observability:
         logging:
+          enabled: true
+    ```
+
+### observability.tracing
+Enable application performance monitoring with traces collected using OpenTelemetry and the OTLP exporter.
+Deprecated. Use AutoInstrumentation instead.
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        tracing:
+          enabled: true
+    ```
+
+#### observability.tracing.enabled
+Type: `boolean`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      observability:
+        tracing:
           enabled: true
     ```
 
@@ -4060,7 +3915,6 @@ Access level for OpenSearch user
 
 Type: `enum`<br />
 Required: `false`<br />
-Default value: `read`<br />
 Allowed values: `admin`, `read`, `readwrite`, `write`<br />
 
 ??? example
@@ -4088,13 +3942,8 @@ Required: `true`<br />
 For running pods in parallel.
 If it is specified as 0, then the Job is effectively paused until it is increased.
 
-Relevant information:
-
-* [https://kubernetes.io/docs/concepts/workloads/controllers/job/#controlling-parallelism](https://kubernetes.io/docs/concepts/workloads/controllers/job/#controlling-parallelism)
-
 Type: `integer`<br />
 Required: `false`<br />
-Default value: `1`<br />
 
 ??? example
     ``` yaml
@@ -4104,9 +3953,6 @@ Default value: `1`<br />
 
 ## postgres
 Postgres is used to provision and configure a Postgres database for your naisjob.
-
-!!! warning "Experimental feature"
-    This feature has not undergone much testing, and is subject to API change, instability, or removal.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -4136,11 +3982,6 @@ Pattern: `^[a-z0-9][a-z0-9-]{1,49}$`<br />
 PreStopHook is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc.
 The handler is not called if the container crashes or exits by itself.
 The reason for termination is passed to the handler.
-
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/workloads/explanations/good-practices/#handles-termination-gracefully](https://doc.<<tenant()>>.cloud.nais.io/workloads/explanations/good-practices/#handles-termination-gracefully)
-* [https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks](https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -4232,7 +4073,6 @@ Defaults to application port, as defined in `.spec.port`.
 
 Type: `integer`<br />
 Required: `false`<br />
-Default value: `.spec.port`<br />
 Value range: `1`-`65535`<br />
 
 ??? example
@@ -4325,7 +4165,6 @@ Defaults to application port, as defined in `.spec.port`.
 
 Type: `integer`<br />
 Required: `false`<br />
-Default value: `.spec.port`<br />
 Value range: `1`-`65535`<br />
 
 ??? example
@@ -4351,10 +4190,6 @@ Required: `false`<br />
 ## resources
 When Containers have [resource requests](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) specified,
 the Kubernetes scheduler can make better decisions about which nodes to place pods on.
-
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/workloads/explanations/good-practices/#set-reasonable-resource-requests-and-limits](https://doc.<<tenant()>>.cloud.nais.io/workloads/explanations/good-practices/#set-reasonable-resource-requests-and-limits)
 
 Type: `object`<br />
 Required: `false`<br />
@@ -4577,7 +4412,6 @@ Defaults to application port, as defined in `.spec.port`.
 
 Type: `integer`<br />
 Required: `false`<br />
-Default value: `.spec.port`<br />
 Value range: `1`-`65535`<br />
 
 ??? example
@@ -4670,10 +4504,6 @@ Required: `false`<br />
 List of Valkey instances this job needs credentials for.
 Must be owned by same team.
 
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/persistence/valkey/](https://doc.<<tenant()>>.cloud.nais.io/persistence/valkey/)
-
 Type: `array`<br />
 Required: `false`<br />
 
@@ -4690,7 +4520,6 @@ Access level for Valkey user
 
 Type: `enum`<br />
 Required: `false`<br />
-Default value: `read`<br />
 Allowed values: `admin`, `read`, `readwrite`, `write`<br />
 
 ??? example
@@ -4719,13 +4548,8 @@ Required: `false`<br />
 Provides secrets management, identity-based access, and encrypting application data for auditing of secrets
 for applications, systems, and users.
 
-Relevant information:
-
-* [https://github.com/navikt/vault-iac/tree/master/doc](https://github.com/navikt/vault-iac/tree/master/doc)
-
 Type: `object`<br />
 Required: `false`<br />
-Availability: on-premises<br />
 
 ??? example
     ``` yaml
@@ -4824,19 +4648,13 @@ Required: `true`<br />
             mountPath: /var/run/secrets/nais.io/vault
     ```
 
-{%- if tenant() == "nav" %}
 ## webproxy
 Inject on-premises web proxy configuration into the job container.
 Most Linux applications should auto-detect these settings from the `$HTTP_PROXY`, `$HTTPS_PROXY` and `$NO_PROXY` environment variables (and their lowercase counterparts).
 Java applications can start the JVM using parameters from the `$JAVA_PROXY_OPTIONS` environment variable.
 
-Relevant information:
-
-* [https://doc.<<tenant()>>.cloud.nais.io/workloads/reference/webproxy/](https://doc.<<tenant()>>.cloud.nais.io/workloads/reference/webproxy/)
-
 Type: `boolean`<br />
 Required: `false`<br />
-Availability: on-premises<br />
 
 ??? example
     ``` yaml
@@ -4844,4 +4662,3 @@ Availability: on-premises<br />
       webproxy: true
     ```
 
-{%- endif %}
