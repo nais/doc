@@ -18,7 +18,7 @@ Metrics are a numerical measurement of something in your application such as the
 
 ### Alertmanager
 
-[Alertmanager](https://prometheus.io/docs/alerting/alertmanager/) is a component of Prometheus that is used to create and manage Slack alerts based on the metrics collected by Prometheus.
+[Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/) is a component of Prometheus that routes, deduplicates, and groups alert notifications sent by Prometheus (or the Mimir ruler) and delivers them to receivers such as Slack.
 
 ### Grafana
 

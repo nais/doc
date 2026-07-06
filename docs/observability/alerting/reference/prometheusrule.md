@@ -11,12 +11,12 @@ tags: [reference, observability, alerting, prometheus]
 
 Prometheus alerts are defined using the [PromQL](../../metrics/reference/promql.md) query language. The query language is used to specify when an alert should fire, and the `PrometheusRule` resource is used to specify the alert and its properties.
 
-Prometheus alerts are sent to the team's Slack channel configured in [Nais Console](../../../operate/console.md) when the alert fires.
+Prometheus alerts are sent to the team's Slack channel configured in [Nais Console](../../../operate/console/README.md) when the alert fires.
 
 ```mermaid
 graph LR
-  alerts.yaml --> Prometheus
-  Prometheus --> Alertmanager
+  alerts.yaml --> Mimir
+  Mimir --> Alertmanager
   Alertmanager --> Slack
 ```
 
@@ -42,19 +42,21 @@ graph LR
         rules:
           - alert: HttpClientErrorRateHigh
             expr: |
-              1 - (
-                sum(
-                  rate(
-                    http_client_request_duration_seconds_count{app="my-app", http_response_status_code="200"}[5m]
-                  )
-                ) by (server_address)
-                /
-                sum(
-                  rate(
-                    http_client_request_duration_seconds_count{app="my-app"}[5m]
-                  )
-                ) by (server_address)
-              ) * 100 < 95
+              (
+                1 - (
+                  sum(
+                    rate(
+                      http_client_request_duration_seconds_count{app="my-app", http_response_status_code="200"}[5m]
+                    )
+                  ) by (server_address)
+                  /
+                  sum(
+                    rate(
+                      http_client_request_duration_seconds_count{app="my-app"}[5m]
+                    )
+                  ) by (server_address)
+                )
+              ) * 100 > 5
             for: 10m
             annotations:
               summary: "High error rate for outbound http requests"
