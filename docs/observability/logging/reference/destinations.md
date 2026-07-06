@@ -29,9 +29,9 @@ spec:
 The following log destinations are available in Nais:
 
 {% if tenant() != "ssb" %}
-- [`loki`](../how-to/loki.md#enable-logging-to-loki)
+- [`loki`](../how-to/loki.md#default-logging-with-grafana-loki)
 {% endif %}
-- [`team_logs`](../how-to/team-logs.md#enable-team-logs)
+- [`team_logs`](../how-to/team-logs.md#how-to-configure-team-logs)
 {% if tenant() == "nav" %}
 - [`elastic`](../how-to/nav-logs-dashboards.md#enable-logging-to-nav-logs)
 {% endif %}

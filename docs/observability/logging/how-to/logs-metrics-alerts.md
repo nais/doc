@@ -1,3 +1,7 @@
+---
+description: Use Loki-derived metrics to monitor log patterns and create Prometheus alerts.
+tags: [how-to, logging, observability, loki, alerts]
+---
 # Metrics and alerts for logs
 
 This guide shows how to use Loki metrics for monitoring log patterns and creating alerts.
@@ -34,7 +38,7 @@ sum(loki:service:loglevel:count1m{service_name="my-app", detected_level="error"}
 Show trends over time:
 
 ```promql
-sum(loki:service:loglevel:count1m{service_name="my-app", detected_level="error"}[60m:1m]) by (service_name)
+sum by (service_name) (sum_over_time(loki:service:loglevel:count1m{service_name="my-app", detected_level="error"}[60m:1m]))
 ```
 
 Compare error rates across clusters:

@@ -1,6 +1,5 @@
 ---
-description: >-
-  Logs are a way to understand what is happening in your application. They are usually text-based and are often used for debugging. Since the format of logs is usually not standardized, it can be difficult to query and aggregate logs and thus we recommend using metrics for dashboards and alerting.
+description: Understand how application logging works in Nais, its purpose, good practices, and the available log destinations.
 tags: [explanation, logging, observability, services]
 ---
 
