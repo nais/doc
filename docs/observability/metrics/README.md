@@ -15,8 +15,9 @@ Your application's metrics are scraped (pulled) from the `/metrics` endpoint and
 
 ```mermaid
 graph LR
-  Mimir --GET /metrics--> Pod
-  nais.yaml -.register target.-> Mimir
+  Alloy --GET /metrics--> Pod
+  Alloy --remote_write--> Mimir
+  nais.yaml -.register target.-> Alloy
   nais.yaml -.configure.-> Pod
 ```
 
@@ -71,7 +72,7 @@ Our ingress controller also exposes metrics about the number of requests, respon
 
 ## Debugging metrics
 
-If you're having trouble with your metrics, use the [Explore view in Grafana](<<tenant_url("grafana", "explore")>>) to test your PromQL queries. Pick the Mimir data source that matches your environment.
+If you're having trouble with your metrics, use the [Explore view in Grafana](<<tenant_url("grafana", "explore")>>) to test your PromQL queries. Pick the Prometheus data source that matches your environment.
 
 If your metrics are not showing up, you can check whether your application is being scraped by querying the `up` metric for your application in Explore:
 

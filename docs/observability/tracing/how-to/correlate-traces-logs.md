@@ -9,7 +9,7 @@ This guide explains how to correlate traces with logs in Grafana Tempo. When set
 ## Prerequisites
 
 1. [Auto-instrumentation enabled](../../how-to/auto-instrumentation.md) (or manual OTel SDK setup)
-2. [Logs sent to Grafana Loki](../../logging/how-to/loki.md#enable-logging-to-grafana-loki)
+2. [Logs sent to Grafana Loki](../../logging/how-to/loki.md#default-logging-with-grafana-loki)
 
 ## How it works
 

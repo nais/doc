@@ -30,10 +30,9 @@ Target information is exported as a set of labels, including:
 
 The OpenTelemetry SDKs and auto-instrumentation libraries export the following metrics for HTTP servers:
 
-| Metric Name                                   | Description                                                 |
-| --------------------------------------------- | ----------------------------------------------------------- |
-| `http_server_request_duration_seconds_bucket` | Duration of HTTP server requests, in seconds (java)         |
-| `http_server_duration_milliseconds_bucket`    | Duration of HTTP server requests, in milliseconds (node.js) |
+| Metric Name                                   | Description                                                     |
+| --------------------------------------------- | --------------------------------------------------------------- |
+| `http_server_request_duration_seconds_bucket` | Duration of HTTP server requests, in seconds (java and node.js) |
 
 ## HTTP Client Metrics
 
@@ -58,9 +57,9 @@ The OpenTelemetry SDKs and auto-instrumentation libraries export the following m
 
 | Metric Name                              | Description                          |
 | ---------------------------------------- | ------------------------------------ |
-| `process_runtime_jvm_buffer_count`       | Count of JVM buffers.                |
-| `process_runtime_jvm_buffer_limit_bytes` | Limit of JVM buffer sizes, in bytes. |
-| `process_runtime_jvm_buffer_usage_bytes` | Usage of JVM buffer sizes, in bytes. |
+| `jvm_buffer_count`       | Count of JVM buffers.                |
+| `jvm_buffer_limit_bytes` | Limit of JVM buffer sizes, in bytes. |
+| `jvm_buffer_usage_bytes` | Usage of JVM buffer sizes, in bytes. |
 
 ## Kafka Metrics
 

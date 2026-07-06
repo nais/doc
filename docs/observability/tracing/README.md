@@ -65,7 +65,7 @@ Below is a list of known fields you should check for your application.
 
 | Trace type | Known fields                                        |
 |------------|-----------------------------------------------------|
-| HTTP       | `url.path`, `target.path`, `route.path`, `url.full` |
+| HTTP       | `url.path`, `http.route`, `url.full`                |
 | Valkey     | `db.statement`                                      |
 | Postgres   | `db.statement`                                      |
 | Kafka      | `messaging.kafka.message.key`                       |
