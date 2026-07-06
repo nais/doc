@@ -11,11 +11,12 @@ Faro is a browser-only SDK and cannot run in React Server Components. You need a
 
 {% if tenant() == "nav" %}
 !!! tip "Prefer `@nais/apm` for most apps"
-    Most apps should reach for the [`@nais/apm`](../../apm/tutorials/track-frontend-errors.md)
-    SDK instead of wiring up raw Faro: `init()` is zero-config, PII scrubbing is
-    built in, and you still call it from a `'use client'` entry point. This guide
-    is the lower-level path — use it when you need trace propagation, which the
-    `@nais/apm` `0.1.0` SDK doesn't wrap yet.
+    Most apps should reach for the `@nais/apm` SDK instead of wiring up raw Faro:
+    `init()` is zero-config, PII scrubbing is built in, and it wraps error
+    boundaries, route tracking, and tracing. Start with the
+    [Next.js quickstart with `@nais/apm`](quickstart-nextjs.md). This guide is the
+    lower-level path — reach for it when you need something the SDK doesn't wrap
+    yet.
 {% endif %}
 
 ## Prerequisites
