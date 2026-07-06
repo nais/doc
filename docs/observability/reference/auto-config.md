@@ -101,13 +101,13 @@ The OpenTelemetry Agent is used to automatically instrument your application. Th
 
 | Runtime  | Agent Version          | SDK Version  |
 | -------- | ---------------------- | ------------ |
-| `java`   | [2.28.1][java-agent]   | 1.62.0       |
-| `nodejs` | [0.77.0][nodejs-agent] | 0.219.0      |
+| `java`   | [2.29.0][java-agent]   | 1.62.0       |
+| `nodejs` | [0.78.0][nodejs-agent] | 0.219.0      |
 | `python` | [0.63b1][python-agent] | 1.42.1       |
 | `dotnet` | [1.15.0][dotnet-agent] |              |
 
-[java-agent]: https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/tag/v2.28.1
-[nodejs-agent]: https://github.com/open-telemetry/opentelemetry-js-contrib/releases/tag/auto-instrumentations-node-v0.77.0
+[java-agent]: https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/tag/v2.29.0
+[nodejs-agent]: https://github.com/open-telemetry/opentelemetry-js-contrib/releases/tag/auto-instrumentations-node-v0.78.0
 [python-agent]: https://github.com/open-telemetry/opentelemetry-python-contrib/releases/tag/v0.63b1
 [dotnet-agent]: https://github.com/open-telemetry/opentelemetry-dotnet-instrumentation/releases/tag/v1.15.0
 
