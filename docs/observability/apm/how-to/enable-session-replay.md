@@ -89,6 +89,6 @@ and the drawer shows the masked replay alongside the stack trace.
 
 ## Related
 
-- [`@nais/apm` API reference](../reference/apm-client-api.md#init-options) —
+- [`@nais/apm` API reference](../reference/apm-client-api.md#initoptions) —
   full `sessionReplay` options.
 - [Track frontend errors with `@nais/apm`](../tutorials/track-frontend-errors.md)

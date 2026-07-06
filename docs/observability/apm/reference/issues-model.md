@@ -40,7 +40,7 @@ The fingerprint is decided by the first of these tiers that applies:
 
 1. **Explicit override.** If the error carries a custom grouping key — the
    `fingerprint` option on
-   [`captureException`](apm-client-api.md#captureexceptionerror-options) — that
+   [`captureException`](apm-client-api.md) — that
    wins. Use it to force-group (or force-split) errors you know belong together.
 2. **Type + normalized message.** The exception type combined with its message
    after normalization — dynamic parts like ids, numbers, and UUIDs are replaced

@@ -27,7 +27,7 @@ This guide covers both routers:
 !!! note "Status: pre-release"
     `@nais/apm` is pre-1.0. Pin an exact version and read the
     [CHANGELOG](https://github.com/nais/apm/blob/main/CHANGELOG.md) before
-    upgrading. This guide targets `0.2.0`.
+    upgrading. This guide targets `0.4.0`.
 
 !!! tip "Migrating off Sentry?"
     If your app calls `Sentry.init` today, follow
@@ -46,8 +46,8 @@ This guide covers both routers:
 ## Install
 
 ```sh
-pnpm add @nais/apm@0.2.0
-# or: npm install @nais/apm@0.2.0 / yarn add @nais/apm@0.2.0
+pnpm add @nais/apm@0.4.0
+# or: npm install @nais/apm@0.4.0 / yarn add @nais/apm@0.4.0
 ```
 
 The React helpers used below — `initNaisAPMClient`, `ApmErrorBoundary`,
@@ -252,13 +252,8 @@ Router.
 
 ## Ship readable stack traces
 
-Production stack traces point at minified JavaScript. The Nais telemetry collector
-maps them back to your source **server-side** by fetching your `.map` files from
-the CDN — no upload step, no auth token. You only need to emit sourcemaps and ship
-them alongside your bundle.
-
-For Next.js, enable browser sourcemaps and follow the CDN requirement in
-[Sourcemap deobfuscation](sourcemaps.md):
+Stack traces resolve **server-side** from sourcemaps on the CDN — nothing to
+upload ([how it works](sourcemaps.md)). You just have to emit them. For Next.js:
 
 ```js
 // next.config.js
@@ -268,28 +263,19 @@ module.exports = {
 ```
 
 !!! warning "Server-rendered assets don't get deobfuscated"
-    Sourcemap resolution only works for bundles served from `cdn.nav.no`. A purely
+    Resolution only works for bundles served from the CDN. A purely
     server-rendered Next app that serves its own JS from the pod won't get resolved
     stack traces unless it also ships static assets to the CDN. See
     [Sourcemaps → Requirements](sourcemaps.md#requirements).
 
 ## Don't send personal data
 
-Nais telemetry lands in a **shared Loki instance every team can read**, so
-identities must never reach it. Two rules:
-
-- `setUser` takes an **opaque, non-identifying** id only — a salted hash, never a
-  raw NAV ident, fødselsnummer, or email. Values that look like PII are dropped in
-  code, and the `email` field is dropped unconditionally.
-
-  ```ts
-  import { setUser } from '@nais/apm';
-  setUser({ id: hash(fnr) }); // an ident/email/fnr passed here is silently dropped
-  ```
-
-- A mandatory PII scrubber runs over every outgoing signal (fnr → `[fnr]`,
-  email → `[email]`, token URL params → `[redacted]`). It's a safety net, not a
-  GDPR guarantee — don't put personal data in error messages in the first place.
+Telemetry lands in a **shared Loki instance every team can read**, so identities
+must never reach it. `setUser` takes an **opaque/hashed id** only — emails,
+idents, and fødselsnummer are dropped in code — and a mandatory PII scrubber runs
+over every outgoing signal. See
+[Privacy: PII scrubbing](../../apm/reference/apm-client-api.md#setuser-and-user-identity)
+for the full rules.
 
 ## See your errors as issues
 

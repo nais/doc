@@ -18,7 +18,7 @@ with an ergonomic, capture-oriented API. For installation, see
   docs/observability/** and this marker whenever a new @nais/apm release ships.
   Do not reformat the marker — the workflow's sed matches it literally.
 -->
-Latest published release: **<!-- nais-apm-version:start -->0.2.0<!-- nais-apm-version:end -->** — pin this exact version when you install (pre-1.0, see the note below).
+Latest published release: **<!-- nais-apm-version:start -->0.4.0<!-- nais-apm-version:end -->** — pin this exact version when you install (pre-1.0, see the note below).
 
 !!! note "Pre-1.0"
     The public API may change across `0.x` minor releases (new options, renamed
@@ -35,7 +35,7 @@ existing instance. Returns the underlying Faro instance.
 init(options?: InitOptions): Faro
 ```
 
-### `InitOptions`
+### InitOptions
 
 All fields are optional. `app`, `version`, `environment`, and `telemetryUrl`
 each resolve independently (see [Configuration resolution](#configuration-resolution)).
@@ -50,7 +50,7 @@ each resolve independently (see [Configuration resolution](#configuration-resolu
 | `ignoreErrors` | `Patterns` | Extra patterns appended to `DEFAULT_IGNORE_ERRORS`. |
 | `dangerouslyDisablePiiScrubbing` | `boolean` | Disables built-in PII scrubbing. See [Privacy](#privacy-pii-scrubbing). Default `false`. |
 | `faro` | `Partial<BrowserConfig>` | Escape hatch: raw Faro overrides, merged last (except `beforeSend`, which stays composed with the scrubber). |
-| `sessionReplay` | object | Opt-in session replay. See [`sessionReplay`](#init-options) below. |
+| `sessionReplay` | object | Opt-in session replay. See [`sessionReplay`](#initoptions) below. |
 | `screenshotOnError` | `boolean` | Opt-in masked DOM snapshot per new error. Off by default; auto-disabled when `sessionReplay` is enabled. |
 
 `sessionReplay` fields: `enabled` (`boolean`), `mode` (`'on-error'` default, or
@@ -133,10 +133,11 @@ setUser(user: User): void
 clearUser(): void
 ```
 
-`User`: `{ id?, email?, username? }`. Set a hashed subject as `id` where you can.
+`User`: `{ id?, email?, username? }`. Pass an **opaque, non-identifying**
+`id` only — see [`setUser` and user identity](#setuser-and-user-identity).
 
 ```ts
-setUser({ id: hashedSubject, email: 'user@example.com', username: 'jdoe' });
+setUser({ id: hashedSubject }); // opaque id only — email/username/idents are dropped
 // on logout:
 clearUser();
 ```
@@ -227,6 +228,22 @@ GDPR consequences of everything the app sends. Scrubbing is regex-based and
 best-effort — a safety net, **not** a GDPR guarantee. Don't put personal data in
 error messages in the first place.
 
+### setUser and user identity
+
+Telemetry lands in a **shared Loki instance that every team can read**, so a
+user's identity must never reach it. `setUser` enforces this in code — it is not
+a convention you can opt out of:
+
+- it **drops** any `id` / `username` / `attributes` value that looks like a
+  fødselsnummer, email, or raw NAV ident (and warns once);
+- it drops the `email` field **unconditionally** (it is deprecated).
+
+Pass an **opaque, non-identifying** id — a salted hash, never a raw ident:
+
+```ts
+setUser({ id: hash(fnr) }); // an ident/email/fnr passed here is silently dropped
+```
+
 ## Local development
 
 On `localhost` (or anywhere no collector URL resolves), `init()` warns once,
@@ -242,8 +259,52 @@ instrumentation that captures `console.error('msg', err)` with a real stack
 trace), `resolveConfig` / `versionFromImage`, `FEEDBACK_EVENT_NAME`, and
 `VERSION`. Most apps never need these directly.
 
-## Known limitations (0.1.0)
+## Limitations & differences from Sentry
 
-- No tracing support yet (`@grafana/faro-web-tracing` integration planned).
-- No `@nais/apm/react` entry point yet (e.g. an `ErrorBoundary`).
-- Published to the GitHub Package Registry only.
+`@nais/apm` gives you Sentry-shaped ergonomics but is deliberately **not** a
+drop-in for the whole Sentry API. This is the canonical list of what differs and
+what has no equivalent — migrating off Sentry? Read it before you delete
+`@sentry/*`.
+
+### Behaves differently
+
+- **No event ID from `captureException`.** `Sentry.captureException` returns an
+  event ID; `@nais/apm`'s `captureException` returns `void` (a Faro limitation),
+  and there is no `lastEventId()`. Any
+  pattern that relied on the returned id — showing a reference code to the user,
+  wiring a crash-report dialog (`showReportDialog`) to an event — does not carry
+  over. Use your own correlation id (e.g. a `crypto.randomUUID()` you also attach
+  as `context`) instead.
+- **`setTag` is context, not an indexed label.** Faro has no first-class tag
+  concept, so a `setTag` value rides along as **context** on every subsequent
+  capture rather than as a searchable, indexed label.
+- **`setUser` drops PII.** Only opaque/hashed ids survive — see
+  [`setUser` and user identity](#setuser-and-user-identity).
+- **Replay is a preview feature and defaults to the events tier.**
+  `sessionReplay: { enabled: true }` records a DOM-free interaction timeline, not
+  Sentry's full DOM recording. Full masked-DOM capture (`tier: 'dom'`) pushes DOM
+  into shared Loki and is gated on the personvernombud process. Replay is off by
+  default. See [Enable session replay](../how-to/enable-session-replay.md).
+- **No bundler plugin or source-map upload.** There is no `@sentry/webpack-plugin`
+  / `withSentryConfig` equivalent and no `SENTRY_AUTH_TOKEN`. Minified stack
+  traces are resolved **server-side** by the platform collector from `.map` files
+  on the CDN — you only emit and deploy sourcemaps, nothing to upload. See
+  [Sourcemap deobfuscation](../../frontend/how-to/sourcemaps.md).
+
+### Deliberately unsupported Sentry APIs
+
+These have **no `@nais/apm` equivalent**:
+
+| Sentry API | Notes |
+| ---------- | ----- |
+| `addBreadcrumb()` / `beforeBreadcrumb` | No manual breadcrumb API. The events-tier replay timeline captures interactions automatically, but you can't push custom breadcrumbs. |
+| `withScope` / `configureScope` / `getCurrentScope` | No per-scope isolation. Context set via `setTag` / `setContext` is module-global. |
+| `startSpan` / `startInactiveSpan` / `startTransaction` | No manual span/transaction API. Tracing is on/off auto-instrumentation of fetch/XHR only. |
+| `setExtra` / `setExtras` / `setTags` (plural) | Use `setTag` (single) and `setContext`. |
+| `lastEventId()` | `captureException` returns `void`. |
+| `showReportDialog()` / crash-report modal | `captureFeedback()` is programmatic and preview/internal-pilot only — no built-in widget. |
+| `withProfiler` / profiling, release-health / session tracking, attachments | Not supported. |
+| React Router v5 / v7 and data routers | Route tracking covers React Router v6 and the Next.js App Router only. |
+
+If you depend on one of these, log it before you delete Sentry and track it
+against the [`@nais/apm` CHANGELOG](https://github.com/nais/apm/blob/main/CHANGELOG.md).

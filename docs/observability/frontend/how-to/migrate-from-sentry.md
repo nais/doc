@@ -32,21 +32,21 @@ The end state is **idiomatic `@nais/apm`** with Sentry **fully removed**: no
     same *shapes* (`captureException`, `setUser`, an error boundary) under its own
     names, so you migrate call sites once and delete Sentry for good. A handful of
     Sentry features have no equivalent yet — see
-    [What's different](#whats-different-read-this) before you start.
+    [Differences from Sentry](#differences-from-sentry) before you start.
 
 !!! note "Status: pre-release"
     `@nais/apm` is pre-1.0. Pin an exact version and read the
     [CHANGELOG](https://github.com/nais/apm/blob/main/CHANGELOG.md) before
-    upgrading. This guide targets `0.2.0`.
+    upgrading. This guide targets `0.4.0`.
 
 ## Concept map
 
 | Sentry | `@nais/apm` | Notes |
 | ------ | ----------- | ----- |
 | `Sentry.init({ dsn, ... })` | [`init()`](../../apm/reference/apm-client-api.md#initoptions) / [`initNaisAPMClient()`](../../apm/tutorials/track-frontend-errors.md#3-initialize-zero-config) | Zero-config on Nais — **no DSN**. App name, version, environment, collector URL all resolve automatically. |
-| `Sentry.captureException(e)` | `captureException(e, { context, fingerprint })` | Returns **`void`** — no event ID (see [What's different](#no-event-id-from-captureexception)). |
+| `Sentry.captureException(e)` | `captureException(e, { context, fingerprint })` | Returns **`void`** — no event ID ([Limitations](../../apm/reference/apm-client-api.md#limitations-differences-from-sentry)). |
 | `Sentry.captureMessage(m, level)` | `captureMessage(m, level)` | Same severity levels. |
-| `Sentry.setUser({ id })` | `setUser({ id })` | **PII is dropped.** Opaque/hashed ids only — [see below](#setuser-drops-pii). |
+| `Sentry.setUser({ id })` | `setUser({ id })` | **PII is dropped.** Opaque/hashed ids only — [see Privacy](../../apm/reference/apm-client-api.md#setuser-and-user-identity). |
 | `Sentry.setUser(null)` | `clearUser()` | On logout. |
 | `Sentry.setTag(k, v)` | `setTag(k, v)` | Approximation — rides as context, **not** an indexed label. |
 | `Sentry.setContext(name, obj)` | `setContext(name, obj)` | Flattened as `name.key`; `setContext(name, null)` removes it. |
@@ -56,7 +56,7 @@ The end state is **idiomatic `@nais/apm`** with Sentry **fully removed**: no
 | React Router integration | `enableApmReactRouterV6()` + `<ApmRoutes>` | React Router v6. |
 | `Sentry.captureRouterTransitionStart` (Next.js) | `useApmRouteTracking()` hook | Next.js App Router. |
 | `browserTracingIntegration` / `tracesSampleRate` | `init({ tracing: true })` | On/off; auto-instruments fetch/XHR. See [trace propagation](trace-propagation.md). |
-| `replayIntegration()` | `init({ sessionReplay: { enabled: true } })` | Defaults to the **events tier** (no DOM) — [see below](#replay-defaults-to-the-events-tier). |
+| `replayIntegration()` | `init({ sessionReplay: { enabled: true } })` | Defaults to the **events tier** (no DOM) — [Limitations](../../apm/reference/apm-client-api.md#limitations-differences-from-sentry). |
 | `ignoreErrors: [...]` | `init({ ignoreErrors: [...] })` | Appended to `DEFAULT_IGNORE_ERRORS` (extensions, ResizeObserver, `Script error.`). |
 | `beforeSend(event)` | `init({ beforeSend })` | Runs **before** the mandatory PII scrubber. |
 | `@sentry/webpack-plugin` / `withSentryConfig` sourcemap upload | *(nothing to configure)* | Stack traces resolve **server-side** from the CDN — [sourcemaps](sourcemaps.md). |
@@ -88,7 +88,7 @@ Delete the DSN and auth-token wiring while you're here — you won't need them:
 [Track frontend errors](../../apm/tutorials/track-frontend-errors.md#1-configure-the-package-registry):
 
 ```sh
-npm install @nais/apm@0.2.0
+npm install @nais/apm@0.4.0
 ```
 
 The React helpers (error boundary, route tracking, Next.js client init) live in
@@ -231,7 +231,7 @@ HOC mirrors `Sentry.withErrorBoundary`. The `fallback` can also be a render prop
 
 !!! warning "React Router v5/v7 and data routers are not wired yet"
     Route tracking currently covers **React Router v6** and the **Next.js App
-    Router** only. See [What's different](#not-yet-supported).
+    Router** only. See [Limitations](../../apm/reference/apm-client-api.md#limitations-differences-from-sentry).
 
 ### 5. Tracing (optional)
 
@@ -283,8 +283,8 @@ init({ sessionReplay: { enabled: true, mode: 'on-error' } });
 This defaults to the **events tier** — a DOM-free interaction timeline, safe by
 construction. It is **not** a like-for-like replacement for Sentry's full DOM
 recording; opting into DOM capture is a deliberate, personvernombud-gated
-decision. Read [What's different](#replay-defaults-to-the-events-tier) and
-[Enable session replay](../../apm/how-to/enable-session-replay.md) before you
+decision. Read the [session replay limitations](../../apm/reference/apm-client-api.md#limitations-differences-from-sentry)
+and [Enable session replay](../../apm/how-to/enable-session-replay.md) before you
 turn anything on.
 
 ### 8. Move alerting to Grafana
@@ -294,101 +294,36 @@ Sentry alert rules don't come across. Recreate them as
 (error rate, exception spike, new exceptions, web vitals) — delivered through
 your team's Grafana contact points.
 
-## What's different (read this)
+## Differences from Sentry
 
-This is the honest section. A clean migration means understanding where
-`@nais/apm` is deliberately *not* Sentry.
+`@nais/apm` is deliberately not a drop-in for the whole Sentry API. Before you
+delete `@sentry/*`, read the canonical
+[Limitations & differences from Sentry](../../apm/reference/apm-client-api.md#limitations-differences-from-sentry)
+— it covers the unsupported APIs (`addBreadcrumb`, scopes, manual spans,
+`setExtra`/`setExtras`, `lastEventId`, `showReportDialog`, `withProfiler`,
+React Router v5/v7), the source-map and replay model, and more.
 
-### No event ID from `captureException`
+The **two gotchas** that bite migrations hardest:
 
-`Sentry.captureException` returns an event ID; `@nais/apm`'s returns `void` (a
-Faro limitation). There is **no `lastEventId()`**. If any code relied on the
-returned id — to show a reference code to the user, or to link a crash-report
-dialog to an event — that pattern doesn't carry over. Use your own correlation id
-(e.g. a `crypto.randomUUID()` you also attach as `context`) instead.
+!!! warning "Two headline gotchas"
+    - **No event ID from `captureException`.** It returns `void` — no
+      `lastEventId()`, so `showReportDialog`/eventId patterns don't carry over.
+      [Details →](../../apm/reference/apm-client-api.md#limitations-differences-from-sentry)
+    - **`setUser` drops PII.** Only opaque/hashed ids survive; email/idents/fnr
+      are silently dropped.
+      [Details →](../../apm/reference/apm-client-api.md#setuser-and-user-identity)
 
-### `setUser` drops PII
+A few migration-specific pointers, each covered in full on its own page:
 
-This is the personvern rule, and it is enforced in code — call it out on your
-team before you migrate. NAV telemetry lands in a **shared Loki instance that
-every team can read**, so identities must never reach it. `setUser`:
-
-- **drops** any `id` / `username` / `attributes` value that looks like a
-  fødselsnummer, email, or raw NAV ident (and warns once);
-- drops the `email` field **unconditionally** (it is deprecated).
-
-Pass an **opaque, non-identifying** id — a salted hash, never a raw ident:
-
-```ts
-// Before (Sentry) — teams already hash, keep doing it:
-Sentry.setUser({ id: hash(fnr) });
-
-// After (@nais/apm) — same idea, PII is a hard floor:
-setUser({ id: hash(fnr) }); // an ident/email/fnr passed here is silently dropped
-```
-
-The transport also runs a mandatory PII scrubber over every signal (fnr → `[fnr]`,
-email → `[email]`, token URL params → `[redacted]`). It's a safety net, not a
-GDPR guarantee — don't put personal data in error messages in the first place.
-
-### Issues live in the Grafana Issues tab
-
-Errors show up in the **Issues tab** of your service in
-[Nais APM](<<tenant_url("grafana", "a/nais-apm-app/services")>>), not in
-Sentry's issue stream. The [triage model](../../apm/how-to/triage-an-issue.md) is
-different: Resolve / Ignore / Assign is shared team state stored in Grafana
-annotations, a resolved issue that recurs after a newer deploy is flagged
-**Regressed**, and you can personally **mute** without touching shared state.
-Grouping is driven by [fingerprinting](../../apm/reference/issues-model.md) — pass
-a `fingerprint` to `captureException` to control it, the same idea as Sentry's
-`fingerprint`.
-
-### Source maps resolve server-side
-
-No `sentry-cli`, no `@sentry/webpack-plugin`, no upload step, no `SENTRY_AUTH_TOKEN`.
-Deobfuscation happens in the collector by fetching `.map` files from `cdn.nav.no`.
-The catch: it **only works for bundles served from the CDN**. A purely
-server-rendered app that serves its own JS from the pod won't get resolved stack
-traces unless it also ships static assets to the CDN. See
-[Sourcemaps](sourcemaps.md#requirements).
-
-### Alerts are Grafana alerts
-
-Sentry's alert rules, notification integrations, and issue-owner routing don't
-migrate. Alerting is Grafana alerting, seeded from
-[Nais APM templates](../../apm/how-to/create-alerts.md). Note there's **no
-SLO/burn-rate template yet**.
-
-### Replay defaults to the events tier
-
-Sentry Replay records the DOM. `@nais/apm`'s `sessionReplay: { enabled: true }`
-defaults to the **events tier**: a lightweight interaction timeline (navigation,
-clicks, coarse scroll) with **no DOM node tree** — structurally nothing to leak.
-Full masked-DOM recording exists (`tier: 'dom'`) but pushes DOM into shared Loki
-and is **gated on the personvernombud process** — do not enable it on
-citizen-facing apps without sign-off. Replay is a **preview** feature and off by
-default.
-
-### Not yet supported
-
-These Sentry features have **no `@nais/apm` equivalent** at `0.2.0`. State this
-plainly to your team so nobody is surprised mid-migration:
-
-| Sentry feature | Status in `@nais/apm` |
-| -------------- | --------------------- |
-| `addBreadcrumb()` / `beforeBreadcrumb` | **Not supported.** No manual breadcrumb API. The events-tier replay timeline captures interactions automatically, but you can't push custom breadcrumbs. |
-| Manual spans / performance — `startSpan`, `startInactiveSpan`, `startTransaction` | **Not supported.** Tracing is on/off auto-instrumentation of fetch/XHR only; there is no manual span/transaction API. |
-| Scopes — `withScope`, `configureScope`, `getCurrentScope` | **Not supported.** Context set via `setTag` / `setContext` is module-global; there's no per-scope isolation. |
-| `setExtra` / `setExtras` / `setTags` (plural) | **Not supported.** Use `setTag` (single) and `setContext`. |
-| `lastEventId()` | **Not supported** — `captureException` returns `void`. |
-| `showReportDialog()` / crash-report modal | **Not supported.** `captureFeedback()` is programmatic and preview/internal-pilot only — no built-in widget. |
-| Profiling, release-health/session tracking, attachments | **Not supported.** |
-| React Router v5 / v7 / data routers | **Not yet** — v6 and Next.js App Router only. |
-
-If you depend on one of these, note it before you delete Sentry, and track it
-against the [`@nais/apm` CHANGELOG](https://github.com/nais/apm/blob/main/CHANGELOG.md).
-`setTag` also differs subtly: Faro has no indexed tag concept, so a tag rides
-along as **context** on every capture rather than as a searchable label.
+- **Issues** show up in the Grafana **Issues tab**, not Sentry's stream — the
+  triage model (Resolve / Ignore / Assign, Regressed, personal mute) is
+  explained in [Triage an issue](../../apm/how-to/triage-an-issue.md). Grouping
+  is driven by [fingerprinting](../../apm/reference/issues-model.md).
+- **Alerts** are Grafana alerts seeded from
+  [Nais APM templates](../../apm/how-to/create-alerts.md) — Sentry's alert rules
+  and routing don't migrate.
+- **Source maps** resolve server-side; there's nothing to upload. See
+  [Sourcemap deobfuscation](sourcemaps.md#requirements).
 
 ## Migration checklist
 
@@ -404,7 +339,7 @@ along as **context** on every capture rather than as a searchable label.
 - [ ] Enabled `tracing: true` if you used `browserTracingIntegration` (and CORS allows `traceparent`).
 - [ ] Removed sourcemap upload; verified `.map` files ship to the CDN ([sourcemaps](sourcemaps.md)).
 - [ ] Recreated alerts as [Grafana alerts](../../apm/how-to/create-alerts.md).
-- [ ] Audited [not-yet-supported](#not-yet-supported) features and logged any gaps.
+- [ ] Audited [Limitations & differences from Sentry](../../apm/reference/apm-client-api.md#limitations-differences-from-sentry) and logged any gaps.
 - [ ] Deployed, triggered a test error, and confirmed it appears in the [Issues tab](../../apm/tutorials/track-frontend-errors.md#6-see-your-errors-as-issues).
 
 ## Related
