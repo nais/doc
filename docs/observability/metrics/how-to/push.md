@@ -13,23 +13,23 @@ Prometheus has further explanations and examples [here](https://prometheus.io/do
 
 ???+ note ".nais/naisjob.yaml"
 
-    ```yaml hl_lines="11-18"
+    ```yaml hl_lines="10-16"
     apiVersion: nais.io/v1
     kind: Naisjob
     metadata:
-    name: <MY-JOB>
-    namespace: <MY-TEAM>
+      name: <MY-JOB>
+      namespace: <MY-TEAM>
     spec:
-    image: {{image}}
-    schedule: "*/1 * * * *"
-    env:
+      image: {{image}}
+      schedule: "*/1 * * * *"
+      env:
         - name: PUSH_GATEWAY_ADDRESS
-        value: prometheus-pushgateway.nais-system:9091
-    accessPolicy:
+          value: prometheus-pushgateway.nais-system:9091
+      accessPolicy:
         outbound:
-        rules:
+          rules:
             - application: prometheus-pushgateway
-            namespace: nais-system
+              namespace: nais-system
     ```
 
 ## Send metrics to your application

@@ -26,7 +26,7 @@ The following labels are common to most metrics:
 The `container_memory_usage_bytes` metric tracks the amount of memory used by a container.
 
 ```promql
-container_memory_usage_bytes{container="my-application", ...}
+container_memory_usage_bytes{container="my-application"}
 ```
 
 ### CPU Usage
@@ -34,13 +34,13 @@ container_memory_usage_bytes{container="my-application", ...}
 The `container_cpu_usage_seconds_total` metric tracks the amount of CPU time used by a container.
 
 ```promql
-container_cpu_usage_seconds_total{container="my-application", ...}
+container_cpu_usage_seconds_total{container="my-application"}
 ```
 
 Since this metric is cumulative, you can calculate the rate of CPU usage by using the `rate` function.
 
 ```promql
-rate(container_cpu_usage_seconds_total{container="my-application", ...}[5m])
+rate(container_cpu_usage_seconds_total{container="my-application"}[5m])
 ```
 
 ### Limits and Requests
@@ -48,10 +48,10 @@ rate(container_cpu_usage_seconds_total{container="my-application", ...}[5m])
 The `kube_pod_container_resource_limits` and `kube_pod_container_resource_requests` metrics track the resource limits and requests for a container.
 
 ```promql
-kube_pod_container_resource_limits{resource="memory", container="my-application", ...}
-kube_pod_container_resource_requests{resource="memory", container="my-application", ...}
-kube_pod_container_resource_limits{resource="cpu", container="my-application", ...}
-kube_pod_container_resource_requests{resource="cpu", container="my-application", ...}
+kube_pod_container_resource_limits{resource="memory", container="my-application"}
+kube_pod_container_resource_requests{resource="memory", container="my-application"}
+kube_pod_container_resource_limits{resource="cpu", container="my-application"}
+kube_pod_container_resource_requests{resource="cpu", container="my-application"}
 ```
 
 ### Out of Memory (OOMKilled)
@@ -61,7 +61,7 @@ Out of memory restarts occur when a container exceeds its memory limit and the k
 The `kube_pod_container_status_terminated_reason` metric tracks the number of times a container has been terminated for various reasons, including OOM kills.
 
 ```promql
-kube_pod_container_status_terminated_reason{reason="OOMKilled", ...}
+kube_pod_container_status_terminated_reason{reason="OOMKilled"}
 ```
 
 Other reasons for container termination include `Error`, `Completed`, and `ContainerCannotRun`.

@@ -36,6 +36,6 @@ A visualization is a graphical representation of your data. Grafana supports a v
 
 ## Alerting
 
-Grafana has a built-in alerting system that allows you to set up alerts for your metrics. You can create alert rules that are evaluated at regular intervals, and when the alert rule conditions are met, Grafana will send notifications to the configured notification channels.
+Grafana has a built-in alerting system that allows you to set up alerts for your metrics. You can create alert rules that are evaluated at regular intervals, and when the alert rule conditions are met, Grafana will send notifications to the configured contact points.
 
 * [Guide: Alerting in Grafana](../../alerting/how-to/grafana.md)

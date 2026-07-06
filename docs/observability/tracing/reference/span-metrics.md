@@ -23,9 +23,9 @@ Span metrics include a rich set of labels (dimensions) for detailed analysis. No
 | service_name               | General           | The name of the service executing the operation.                |
 | service_namespace          | General           | The namespace in which the service is deployed.                 |
 | k8s_cluster_name           | General           | The name of the Kubernetes cluster hosting the service.         |
-| span_kind                  | General           | The kind of span (e.g., SERVER, CLIENT, PRODUCER, CONSUMER).    |
+| span_kind                  | General           | The kind of span (e.g., `SPAN_KIND_SERVER`, `SPAN_KIND_CLIENT`, `SPAN_KIND_PRODUCER`, `SPAN_KIND_CONSUMER`). |
 | span_name                  | General           | The name of the span, typically the operation or endpoint name. |
-| status_code                | General           | The status code of the span (e.g., OK, ERROR, UNSET).           |
+| status_code                | General           | The status code of the span (e.g., `STATUS_CODE_OK`, `STATUS_CODE_ERROR`, `STATUS_CODE_UNSET`). |
 | server_address             | HTTP              | The address of the server handling the request.                 |
 | http_status_code           | HTTP              | The HTTP status code returned for the request.                  |
 | http_response_status_code  | HTTP              | An alternative label for the HTTP response status code.         |
@@ -38,6 +38,10 @@ Span metrics include a rich set of labels (dimensions) for detailed analysis. No
 | messaging_operation        | Messaging (Async) | The operation performed on the messaging system.                |
 
 These labels help in analyzing metrics by service, namespace, cluster, span kind, span name, status code, HTTP status, database, messaging system, and more.
+
+!!! note "Sparse dimensions"
+
+    `http_host`, `db_name`, and the `messaging_*` labels are configured as span-metric dimensions, but they are only populated when the underlying span carries the corresponding attribute. In practice they are sparse, so example queries that filter on them may return empty results.
 
 ## Span Name
 
@@ -53,10 +57,10 @@ Key recommendations for span names:
 
 Metrics are collected only for specific span kinds as defined by the OpenTelemetry specification. These include:
 
-- **SERVER**: For server-side handling of requests (e.g., an HTTP server receiving a request).
-- **CLIENT**: For client-side operations (e.g., outbound HTTP or database requests).
-- **PRODUCER**: For sending messages to messaging systems (e.g., publishing to a Kafka topic).
-- **CONSUMER**: For receiving messages from messaging systems (e.g., reading from a Kafka topic).
+- **`SPAN_KIND_SERVER`**: For server-side handling of requests (e.g., an HTTP server receiving a request).
+- **`SPAN_KIND_CLIENT`**: For client-side operations (e.g., outbound HTTP or database requests).
+- **`SPAN_KIND_PRODUCER`**: For sending messages to messaging systems (e.g., publishing to a Kafka topic).
+- **`SPAN_KIND_CONSUMER`**: For receiving messages from messaging systems (e.g., reading from a Kafka topic).
 
 Spans with a resource attribute `resource.service.name` equal to `nais-ingress` are excluded from metrics to ensure that only application-relevant data is recorded.
 
@@ -64,9 +68,9 @@ Spans with a resource attribute `resource.service.name` equal to `nais-ingress` 
 
 Span status indicates the outcome of an operation, providing context for troubleshooting. The common span status codes are:
 
-- **OK**: The span completed successfully.
-- **ERROR**: An error occurred during the span's execution.
-- **UNSET**: No explicit status was set, indicating an undefined state.
+- **`STATUS_CODE_OK`**: The span completed successfully.
+- **`STATUS_CODE_ERROR`**: An error occurred during the span's execution.
+- **`STATUS_CODE_UNSET`**: No explicit status was set, indicating an undefined state.
 
 Monitoring span status alongside other metrics can quickly identify issues related to failed operations or unexpected behavior.
 
