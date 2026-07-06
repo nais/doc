@@ -27,7 +27,7 @@ Nais APM reads three shapes of backend exception from Loki, best to worst:
 |-------|---------------|------------------|
 | **A — semconv metadata** | `exception_type`, `exception_message`, `exception_stacktrace` as [structured metadata](../../logging/reference/loki-labels.md) | **First-class.** Grouped by type + message, every occurrence counted, full stack trace, pod impact. |
 | **B — JSON body** | A JSON log line with `message`/`msg` and an error-class `level` | Grouped by message only (no type), counted per occurrence. |
-| **C — plain text** | A multi-line stack trace printed to stdout | **Weak.** Sampled, not fully counted, grouped on the lead line — lossy. |
+| **C — plain text** | A multi-line stack trace printed to stdout — fragments into **one Loki entry per line** | **Weak.** The trace is split across separate Loki entries, so the Issue shows only the **lead line with no coherent stack** — lossy. Fix it with structured JSON (shape B) or OTLP (shape A). |
 
 ## Which path do your logs take?
 
@@ -105,7 +105,7 @@ line, which the Issues tab's occurrence drawer reads from a top-level
 ## Reach shape A with OpenTelemetry log export (one option)
 
 If you already use OpenTelemetry logs, or you're willing to dual-ship, exporting
-logs over OTLP is the only way to reach **shape A** today. The collector sends
+logs over OTLP is the only way to reach **shape A**. The collector sends
 each log record to Loki's OTLP endpoint, which stores the semantic-convention
 exception attributes as structured metadata:
 
@@ -360,12 +360,14 @@ message is carrying variable data — revisit
 
 ## Known limitations and cost
 
-- **Shape A needs OpenTelemetry today.** There is no way to reach shape A on the
-  stdout path: fluentbit attaches only Kubernetes fields as structured metadata
-  and never promotes app JSON fields like `exception_type`. A platform change —
-  fluentbit promoting `exception.*`/`error.*` JSON fields to Loki structured
-  metadata — would let stdout apps reach shape A without OTLP, but that is a
-  **follow-up and not available today**.
+- **Shape A needs OpenTelemetry.** There is no way to reach shape A on the stdout
+  path: fluentbit attaches only Kubernetes fields as structured metadata and
+  never promotes app JSON fields like `exception_type`. Merging plaintext stack
+  traces or promoting `exception.*`/`error.*` fields in the log pipeline was
+  evaluated and **will not be done** — the platform decision (Nais APM plugin
+  ADR-0002) is that coherent stack traces come from OTLP (shape A) or structured
+  JSON stdout (shape B), not from log-pipeline merging. So on stdout the ceiling
+  is **shape B**, and shape A is reached only by enabling OTLP log export.
 - **Log duplication (OTLP).** Enabling `OTEL_LOGS_EXPORTER=otlp` does not stop
   your container writing to stdout, and fluentbit keeps shipping it — so each line
   can land in Loki twice, once from stdout and once over OTLP. Keep console
