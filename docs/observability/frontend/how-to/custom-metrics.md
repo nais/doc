@@ -140,15 +140,19 @@ function ExpensiveComponent() {
 
   useEffect(() => {
     const renderTime = performance.now() - startRef.current;
-    faro.api.pushMeasurement({
-      type: 'component-render',
-      values: {
-        render_ms: Math.round(renderTime),
+    faro.api.pushMeasurement(
+      {
+        type: 'component-render',
+        values: {
+          render_ms: Math.round(renderTime),
+        },
       },
-      context: {
-        component: 'ExpensiveComponent',
+      {
+        context: {
+          component: 'ExpensiveComponent',
+        },
       },
-    });
+    );
   }, []);
 
   return <div>...</div>;

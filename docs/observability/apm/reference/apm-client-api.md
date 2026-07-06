@@ -37,12 +37,14 @@ init(options?: InitOptions): Faro
 
 ### InitOptions
 
-All fields are optional. `app`, `version`, `environment`, and `telemetryUrl`
+All fields are optional to pass, though `namespace` is effectively required (see
+its row below). `app`, `namespace`, `version`, `environment`, and `telemetryUrl`
 each resolve independently (see [Configuration resolution](#configuration-resolution)).
 
 | Option | Type | Description |
 | ------ | ---- | ----------- |
 | `app` | `string` | Application name. |
+| `namespace` | `string` | The nais team (Kubernetes namespace) that owns the app. **Effectively required** — the plugin attributes all telemetry by team, so without it telemetry resolves to `unknown-team` and can't be tied to your app. Resolves from `<meta name="nais-team">` / `nais-namespace` or `NAIS_TEAM` / `NAIS_NAMESPACE` when omitted. |
 | `version` | `string` | App version / release. Used for grouping and release tagging; also set as Faro `release`. |
 | `environment` | `string` | Environment, e.g. `prod-gcp`. |
 | `telemetryUrl` | `string` | Collector URL. |
@@ -60,6 +62,7 @@ tighten-only). See [Enable session replay](../how-to/enable-session-replay.md).
 ```ts
 init({
   app: 'my-app',
+  namespace: 'my-team', // the nais team that owns this app — effectively required
   version: '2026.07.04-abc1234',
   environment: 'prod-gcp',
   telemetryUrl: undefined, // usually omitted — resolved automatically on nais
@@ -76,21 +79,23 @@ init({
 
 ### Configuration resolution
 
-Each of `app`, `version`, `environment`, and `telemetryUrl` resolves
-independently, highest priority first:
+Each of `app`, `namespace`, `version`, `environment`, and `telemetryUrl`
+resolves independently, highest priority first:
 
 1. **Explicit `init()` options.**
 2. **Nais meta tags** in the served HTML:
    ```html
    <meta name="nais-app" content="my-app">
+   <meta name="nais-team" content="my-team"> <!-- or nais-namespace -->
    <meta name="nais-cluster" content="prod-gcp">
    <meta name="nais-version" content="2026.07.03-abc1234">
    <meta name="nais-telemetry-url" content="https://telemetry.<tenant>.example/collect"> <!-- injected by the platform, not written by hand -->
    ```
-3. **Build-time environment variables** — `NAIS_APP_NAME`, `NAIS_CLUSTER_NAME`,
-   and a version derived from `NAIS_APP_IMAGE`'s tag (or `GITHUB_SHA`). These
-   only work when your bundler inlines `process.env.*` (webpack `DefinePlugin`,
-   Vite `define`, Next.js `env`).
+3. **Build-time environment variables** — `NAIS_APP_NAME`, `NAIS_TEAM` (or
+   `NAIS_NAMESPACE`), `NAIS_CLUSTER_NAME`, and a version derived from
+   `NAIS_APP_IMAGE`'s tag (or `GITHUB_SHA`). These only work when your bundler
+   inlines `process.env.*` (webpack `DefinePlugin`, Vite `define`, Next.js
+   `env`).
 4. **Collector fallback** — with no explicit or meta collector URL, well-known
    Nais collectors are derived from the cluster name (`prod-*` and `dev-*`).
 5. **Dev mode** — if no collector URL resolves at all (typically localhost),

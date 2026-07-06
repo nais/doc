@@ -13,10 +13,10 @@ Faro is a browser-only SDK and cannot run in React Server Components. You need a
 !!! tip "Prefer `@nais/apm` for most apps"
     Most apps should reach for the `@nais/apm` SDK instead of wiring up raw Faro:
     `init()` is zero-config, PII scrubbing is built in, and it wraps error
-    boundaries, route tracking, and tracing. Start with the
-    [Next.js quickstart with `@nais/apm`](quickstart-nextjs.md). This guide is the
-    lower-level path — reach for it when you need something the SDK doesn't wrap
-    yet.
+    boundaries, route tracking, and tracing (`init({ tracing: true })`). Start
+    with the [Next.js quickstart with `@nais/apm`](quickstart-nextjs.md). This
+    guide is the lower-level path — reach for it only when you need to work with
+    the Faro SDK directly.
 {% endif %}
 
 ## Prerequisites
@@ -51,7 +51,7 @@ import { TracingInstrumentation } from '@grafana/faro-web-tracing';
 
 export default function Faro({ collectorUrl }: { collectorUrl?: string }) {
   useEffect(() => {
-    if (faro.config) return; // already initialized
+    if (faro.api) return; // already initialized
 
     try {
       initializeFaro({
@@ -85,7 +85,7 @@ import { TracingInstrumentation } from '@grafana/faro-web-tracing';
 
 export default function Faro({ collectorUrl }: { collectorUrl?: string }) {
   useEffect(() => {
-    if (faro.config) return; // already initialized
+    if (faro.api) return; // already initialized
 
     try {
       initializeFaro({
