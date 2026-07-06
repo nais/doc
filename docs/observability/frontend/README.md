@@ -24,9 +24,10 @@ With 95+ applications already using Faro, it's the standard way to monitor front
     and [Issues](../apm/tutorials/get-started.md#3-check-the-issues-tab) tabs.
 
     Start with [Track frontend errors with `@nais/apm`](../apm/tutorials/track-frontend-errors.md).
-    Reach for raw Faro (the guides below) when you need something `@nais/apm`
-    doesn't cover yet — most notably [trace propagation](how-to/trace-propagation.md),
-    which the `0.1.0` SDK doesn't wrap.
+    Reach for raw Faro (the guides below) only when you need the lower-level SDK
+    directly — everything the platform recommends, including
+    [trace propagation](how-to/trace-propagation.md)
+    (`init({ tracing: true })`), is available through `@nais/apm`.
 {% endif %}
 
 ## What you get
@@ -45,7 +46,7 @@ With 95+ applications already using Faro, it's the standard way to monitor front
 2. **Next.js (App Router or Pages Router):** [:simple-nextdotjs: Next.js quickstart with `@nais/apm`](how-to/quickstart-nextjs.md)
 3. **React SPA + Vite:** [:simple-react: React + Vite quickstart with `@nais/apm`](how-to/quickstart-react-vite.md)
 4. **Coming from Sentry?** [Migrate from Sentry to `@nais/apm`](how-to/migrate-from-sentry.md)
-5. **Need raw Faro** (e.g. trace propagation on `0.1.0`)**?** [Set up Faro](how-to/setup-faro.md) · [Next.js with raw Faro](how-to/setup-nextjs.md)
+5. **Need the lower-level SDK directly?** [Set up Faro](how-to/setup-faro.md) · [Next.js with raw Faro](how-to/setup-nextjs.md)
 6. **Want end-to-end traces?** [Connect frontend to backend](how-to/trace-propagation.md)
 7. **Stack traces look minified?** [Sourcemaps](how-to/sourcemaps.md) · [Troubleshooting](reference/troubleshooting.md)
 {% else %}
@@ -130,8 +131,10 @@ framework:
 | [React + Vite with `@nais/apm`](how-to/quickstart-react-vite.md) | React SPA: entry-point init, error boundary, React Router tracking |
 | [Migrate from Sentry](how-to/migrate-from-sentry.md) | Move an existing `@sentry/*` app onto `@nais/apm` |
 
-The raw-Faro guides below are the lower-level path — reach for them when you need
-something `@nais/apm` doesn't wrap yet (most notably [trace propagation](how-to/trace-propagation.md)).
+The raw-Faro guides below are the lower-level path — reach for them only when you
+need to work with the Faro SDK directly. Everything the platform recommends,
+including [trace propagation](how-to/trace-propagation.md), is available through
+`@nais/apm` (`init({ tracing: true })`).
 {% endif %}
 
 | Guide | Description |

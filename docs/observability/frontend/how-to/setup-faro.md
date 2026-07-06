@@ -14,9 +14,9 @@ Add [Grafana Faro](https://www.npmjs.com/package/@grafana/faro-web-sdk) to a fro
     SDK — a thin Faro wrapper that gives you zero-config `init()`, **built-in PII
     scrubbing** (fødselsnummer, emails, and token URL parameters), and a fixed
     console instrumentation, so you don't hand-roll the `beforeSend` filtering
-    and `app` metadata shown below. Use raw Faro when you need something
-    `@nais/apm` `0.1.0` doesn't wrap yet — most notably
-    [trace propagation](trace-propagation.md).
+    and `app` metadata shown below. It also wraps
+    [trace propagation](trace-propagation.md) (`init({ tracing: true })`). Use
+    raw Faro only when you need to work with the lower-level SDK directly.
 {% endif %}
 
 ## Prerequisites

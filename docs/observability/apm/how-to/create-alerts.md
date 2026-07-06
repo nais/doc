@@ -2,7 +2,8 @@
 title: Create alerts from templates
 description: >-
   Turn a Nais APM issue or service into a Grafana alert rule using the built-in
-  error-rate, exception-spike, web-vitals, and new-exception templates.
+  error-rate, SLO burn-rate, exception-spike, web-vitals, and new-exception
+  templates.
 tags: [how-to, observability, apm, alerting]
 ---
 
@@ -35,21 +36,22 @@ Nais APM, so a notification takes you to the exact error.
 | Template | Alerts when | Scope |
 | -------- | ----------- | ----- |
 | **Error rate** | The service's error ratio crosses ~5% of requests | Service |
+| **SLO burn rate** | The error budget for a target SLO burns too fast — fast burn (14.4× over 1h) pages, slow burn (6× over 6h) tickets | Service |
 | **Exception spike** | Occurrences of a specific issue exceed a threshold in a 5-minute window | A single issue |
 | **New exceptions** | A new exception pattern appears that wasn't there before | Service |
 | **Web vitals** | Core Web Vitals degrade (frontend UX health) | Service (frontend) |
 
 - **Error rate** builds a Mimir rule from the service's RED metrics.
+- **SLO burn rate** builds a Google-SRE multi-window multi-burn-rate rule on the
+  service's RED error ratio. Pick **fast burn** (a paging signal — the budget
+  burns 14.4× over 1h) or **slow burn** (a non-paging ticket — 6× over 6h) from
+  the service page; both are derived from a target SLO you set.
 - **Exception spike** is per-issue — open it from an issue drawer to alert on
   that fingerprint specifically.
 - **New exceptions** is a LogQL approximation of "an error we've never seen
   before just showed up." It ships with an honest in-product explainer of what
   it can and can't catch.
 - **Web vitals** watches the browser-side performance signals, not errors.
-
-!!! note "No burn-rate template yet"
-    SLO / error-budget burn-rate alerting is on the roadmap but not shipped.
-    Only the four templates above exist today.
 
 ## Where the deep links point
 

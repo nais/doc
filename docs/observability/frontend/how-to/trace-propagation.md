@@ -48,7 +48,7 @@ import { TracingInstrumentation } from '@grafana/faro-web-tracing';
 
 initializeFaro({
   url: '...', // collector endpoint
-  app: { name: 'my-app' },
+  app: { name: 'my-app', namespace: 'my-team' },
   instrumentations: [
     ...getWebInstrumentations(),
     new TracingInstrumentation({
