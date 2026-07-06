@@ -21,7 +21,7 @@ spec:
   observability:
     autoInstrumentation:
       enabled: true
-      runtime: java  # or: nodejs, python, sdk
+      runtime: java  # or: nodejs, python, dotnet, sdk
 ```
 
 Nais injects the OpenTelemetry agent at startup. No code changes needed.

@@ -44,7 +44,7 @@ For more information about `slackConfigs` and other posibilites see the [Prometh
                 sla: "no need to respond"
               labels:
                 severity: "info"
-                special_type_to_use_in_alertmanager_config: myteam-testing
+                special_type_to_use_in_alertmanager_config: <MYTEAM-TESTING>
                 alert_type: custom
     ```
 
@@ -101,7 +101,7 @@ Here is a basic example with a single alert (that always trigger to make this ea
                   {{- else if eq .CommonLabels.severity "info" -}}
                     #36c5f0
                   {{- else -}}
-                    .CommonLabels.severity
+                    {{ .CommonLabels.severity }}
                   {{- end -}}
                 {{ else -}}
                 good

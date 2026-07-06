@@ -8,7 +8,7 @@ tags: [how-to, tracing, observability]
 Auto-instrumentation injects an [OpenTelemetry](https://opentelemetry.io/) agent into your application at startup.
 The agent hooks into popular libraries and frameworks to collect [traces](../tracing/README.md) and runtime metrics — without code changes. Log export via OpenTelemetry is [available as an opt-in](../reference/auto-config.md#logs-auto-instrumentation).
 
-Supported runtimes: **Java/Kotlin**, **Node.js**, **Python**, and **SDK-only** mode for Go and other languages that provide their own OpenTelemetry setup.
+Supported runtimes: **Java/Kotlin**, **Node.js**, **Python**, **.NET**, and **SDK-only** mode for Go and other languages that provide their own OpenTelemetry setup.
 
 ## What you get
 
@@ -57,6 +57,16 @@ Add the following to your `nais.yaml` and deploy:
         autoInstrumentation:
           enabled: true
           runtime: python
+    ```
+
+=== ".NET"
+
+    ```yaml
+    spec:
+      observability:
+        autoInstrumentation:
+          enabled: true
+          runtime: dotnet
     ```
 
 === "SDK only (Go, etc.)"
