@@ -34,14 +34,20 @@ This will return all logs where the label `label` has the value `value`. LogQL r
 
 #### Selector Operators
 
-Similar to PromQL, LogQL supports a set of operators for comparing labels and values:
+The stream selector only supports matching on label values. The following operators are available:
 
-- `=~` - Regular expression match
-- `!~` - Regular expression mismatch
 - `=` - Label value match
 - `!=` - Label value mismatch
-- `>` - Greater than (numeric)
-- `<` - Less than (numeric)
+- `=~` - Regular expression match
+- `!~` - Regular expression mismatch
+
+Numeric comparison is **not** available in the stream selector. To compare numeric values, first extract them with a parser and then use a label-filter expression later in the pipeline:
+
+```logql
+{service_name="my-app"} | json | status >= 400
+```
+
+Label-filter expressions support the comparison operators `==`, `!=`, `>`, `>=`, `<`, and `<=` on values extracted by a parser.
 
 ### Log Pipeline
 

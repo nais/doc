@@ -3,6 +3,8 @@ title: Loki Metrics Reference
 description: Reference documentation for metrics derived from Loki logs
 ---
 
+# Loki Metrics Reference
+
 This reference document describes the metrics that are automatically derived from logs collected by Loki in the NAIS platform.
 
 ## `loki:service:loglevel:count1m`
@@ -34,14 +36,14 @@ The `loki:service:loglevel:count1m` metric provides a pre-aggregated count of lo
 Count of error logs for a specific service in the last hour:
 
 ```promql
-sum(loki:service:loglevel:count1m{service_name="my-app", service_namespace="my-team", detected_level="error"}[60m:1m])
+sum_over_time(loki:service:loglevel:count1m{service_name="my-app", service_namespace="my-team", detected_level="error"}[60m:1m])
 ```
 
 Ratio of errors to total logs for all services in a namespace:
 
 ```promql
-sum(loki:service:loglevel:count1m{service_namespace="team-a", service_namespace="my-team", detected_level="error"}) /
-sum(loki:service:loglevel:count1m{service_namespace="team-a", service_namespace="my-team"})
+sum(loki:service:loglevel:count1m{service_namespace="my-team", detected_level="error"}) /
+sum(loki:service:loglevel:count1m{service_namespace="my-team"})
 ```
 
 #### Alert Examples
@@ -55,7 +57,7 @@ sum(loki:service:loglevel:count1m{detected_level="error"}) > 100
 ### Best Practices
 
 - Do not use `increase()` or `rate()` functions with this metric, as it is already pre-aggregated for 1-minute intervals
-- For longer time ranges, use range vector selectors like `[60m:1m]` to sample at 1-minute intervals
+- For longer time ranges, wrap the metric in `sum_over_time(...[60m:1m])` to add up the pre-aggregated counts over the window; a bare subquery like `[60m:1m]` returns a range vector and cannot be passed directly to `sum()`
 - Consider setting appropriate thresholds for alerts based on your application's normal logging behavior
 - Combine with other metrics (like HTTP status codes) for more comprehensive service health monitoring
 

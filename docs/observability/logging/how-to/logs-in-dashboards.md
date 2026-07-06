@@ -1,10 +1,14 @@
+---
+description: Add logs to your Grafana dashboards and correlate them with metrics and traces.
+tags: [how-to, logging, observability, loki]
+---
 # Adding logs to your Grafana dashboard
 
 In this guide, you will learn how to add logs to your Grafana dashboards. Logs are a valuable source of information for debugging and monitoring your applications. By adding logs to your Grafana dashboards, you can correlate logs with metrics and traces to get a complete picture of your application's health.
 
 ## Prerequisites
 
-- [Enabled Loki logging for your application](./loki.md#enable-logging-to-grafana-loki)
+- [Enabled Loki logging for your application](./loki.md#default-logging-with-grafana-loki)
 - A Grafana dashboard
 
 ## Add logs to your dashboard

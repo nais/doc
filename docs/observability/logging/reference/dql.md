@@ -7,6 +7,10 @@ conditional: [tenant, nav]
 
 # Dashboards Query Language (DQL) Reference
 
+!!! warning "Not supported by Nais"
+
+    This logging solution is not supported by Nais. See [Loki](../how-to/loki.md) for the new default logging solution.
+
 The Dashboards Query Language (DQL) is a simple text-based query language for filtering data in nav-logs (OpenSearch Dashboards). DQL is the default query language in OpenSearch Dashboards and is simpler to use than Lucene query syntax.
 
 ![Screenshot: DQL query in nav-logs](../../../assets/nav-logs-dql.png)
