@@ -42,10 +42,12 @@ With 95+ applications already using Faro, it's the standard way to monitor front
 
 {% if tenant() == "nav" %}
 1. **Recommended — errors as issues in APM:** [:dart: Track frontend errors with `@nais/apm`](../apm/tutorials/track-frontend-errors.md)
-2. **Any frontend app (raw Faro):** [:dart: Set up Faro](how-to/setup-faro.md)
-3. **Next.js App Router:** [:simple-nextdotjs: Set up Faro with Next.js](how-to/setup-nextjs.md)
-4. **Want end-to-end traces?** [Connect frontend to backend](how-to/trace-propagation.md)
-5. **Stack traces look minified?** [Sourcemaps](how-to/sourcemaps.md) · [Troubleshooting](reference/troubleshooting.md)
+2. **Next.js (App Router or Pages Router):** [:simple-nextdotjs: Next.js quickstart with `@nais/apm`](how-to/quickstart-nextjs.md)
+3. **React SPA + Vite:** [:simple-react: React + Vite quickstart with `@nais/apm`](how-to/quickstart-react-vite.md)
+4. **Coming from Sentry?** [Migrate from Sentry to `@nais/apm`](how-to/migrate-from-sentry.md)
+5. **Need raw Faro** (e.g. trace propagation on `0.1.0`)**?** [Set up Faro](how-to/setup-faro.md) · [Next.js with raw Faro](how-to/setup-nextjs.md)
+6. **Want end-to-end traces?** [Connect frontend to backend](how-to/trace-propagation.md)
+7. **Stack traces look minified?** [Sourcemaps](how-to/sourcemaps.md) · [Troubleshooting](reference/troubleshooting.md)
 {% else %}
 1. **Any frontend app:** [:dart: Set up Faro](how-to/setup-faro.md)
 2. **Next.js App Router:** [:simple-nextdotjs: Set up Faro with Next.js](how-to/setup-nextjs.md)
@@ -117,6 +119,20 @@ Traces are available from data sources ending with `-tempo`. Use [TraceQL](../tr
 For local development, check out the [tracing demo repository](https://github.com/nais/tracing-demo) and run `docker-compose up`. This gives you a local Grafana, Loki, and Tempo stack to test against. See the README in that repository for details.
 
 ## Guides
+
+{% if tenant() == "nav" %}
+The recommended path is the `@nais/apm` SDK. Pick the quickstart for your
+framework:
+
+| Framework quickstart | Description |
+| -------------------- | ----------- |
+| [Next.js with `@nais/apm`](how-to/quickstart-nextjs.md) | App Router and Pages Router: client init, error boundary, route tracking, tracing |
+| [React + Vite with `@nais/apm`](how-to/quickstart-react-vite.md) | React SPA: entry-point init, error boundary, React Router tracking |
+| [Migrate from Sentry](how-to/migrate-from-sentry.md) | Move an existing `@sentry/*` app onto `@nais/apm` |
+
+The raw-Faro guides below are the lower-level path — reach for them when you need
+something `@nais/apm` doesn't wrap yet (most notably [trace propagation](how-to/trace-propagation.md)).
+{% endif %}
 
 | Guide | Description |
 | ----- | ----------- |
