@@ -55,11 +55,12 @@ If error stack traces show minified positions instead of source code:
 {% else %}
 1. **Check that your app is on the CDN** — sourcemap resolution only works for bundles served from `cdn.<<tenant()>>.cloud.nais.io`. Server-rendered apps (Next.js, Remix) serving assets from the pod are not supported
 {% endif %}
-2. **Check that sourcemaps are deployed** — your `.map` files must be on the CDN alongside the JS bundle
-3. **Check `sourceMappingURL`** — open your deployed JS bundle in a browser and look for `//# sourceMappingURL=` at the bottom. If it's missing, check your bundler config
-4. **Check the path** — the `sourceMappingURL` might be a relative path that doesn't resolve correctly from the collector's perspective
+2. **Check that sourcemaps are deployed** — your `.map` files must be on the CDN alongside the JS bundle. See [Upload the bundle and sourcemaps to the CDN](../how-to/sourcemaps.md#upload-the-bundle-and-sourcemaps-to-the-cdn)
+3. **Check that the browser loads the JS from the CDN** — resolution only triggers for frames whose file is served from the CDN. If your HTML references bundles served from your pod, uploading the maps to the CDN has no effect. See [My app runs in a container](../how-to/sourcemaps.md#my-app-runs-in-a-container)
+4. **Check `sourceMappingURL`** — open your deployed JS bundle in a browser and look for `//# sourceMappingURL=` at the bottom. If it's missing, check your bundler config
+5. **Check the path** — the `sourceMappingURL` might be a relative path that doesn't resolve correctly from the collector's perspective
 
-See [Sourcemaps](../how-to/sourcemaps.md) for build configuration details.
+See [Sourcemaps](../how-to/sourcemaps.md) for build configuration details and the [end-to-end walkthrough](../how-to/sourcemaps.md#put-it-all-together).
 
 ## High data volume
 
