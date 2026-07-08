@@ -20,7 +20,7 @@ where
 - `<instance>` is the name of the OpenSearch instance. A list of your team's instances can be found in [Nais Console](<<tenant_url("console")>>).
 - `<team>` is the name of the team that owns the instance.
 - `<environment>` is the environment where the instance runs (e.g. `dev`, `prod`).
-- `<access-level>` is one of the available [access levels](../reference/README.md#access-levels) (`read`, `write`, `readwrite`, `admin`).
+- `<access-level>` is one of the available [access levels](../reference/README.md#access-levels) (`READ`, `WRITE`, `READWRITE`, `ADMIN`).
 - `<duration>` is how long the credentials should be valid (e.g. `1d`, `7d`, max `30d`).
 
 The credentials are returned directly to stdout as environment variables. They expire automatically when the TTL runs out.
