@@ -46,8 +46,8 @@ This guide covers both routers:
 ## Install
 
 ```sh
-pnpm add @nais/apm@0.4.0
-# or: npm install @nais/apm@0.4.0 / yarn add @nais/apm@0.4.0
+pnpm add @nais/apm@0.5.0
+# or: npm install @nais/apm@0.5.0 / yarn add @nais/apm@0.5.0
 ```
 
 The React helpers used below — `initNaisAPMClient`, `ApmErrorBoundary`,
