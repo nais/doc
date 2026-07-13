@@ -88,7 +88,7 @@ Delete the DSN and auth-token wiring while you're here — you won't need them:
 [Track frontend errors](../../apm/tutorials/track-frontend-errors.md#1-configure-the-package-registry):
 
 ```sh
-npm install @nais/apm@0.4.0
+npm install @nais/apm@0.5.0
 ```
 
 The React helpers (error boundary, route tracking, Next.js client init) live in

@@ -18,7 +18,7 @@ with an ergonomic, capture-oriented API. For installation, see
   docs/observability/** and this marker whenever a new @nais/apm release ships.
   Do not reformat the marker — the workflow's sed matches it literally.
 -->
-Latest published release: **<!-- nais-apm-version:start -->0.4.0<!-- nais-apm-version:end -->** — pin this exact version when you install (pre-1.0, see the note below).
+Latest published release: **<!-- nais-apm-version:start -->0.5.0<!-- nais-apm-version:end -->** — pin this exact version when you install (pre-1.0, see the note below).
 
 !!! note "Pre-1.0"
     The public API may change across `0.x` minor releases (new options, renamed
