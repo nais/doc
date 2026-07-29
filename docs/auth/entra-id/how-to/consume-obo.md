@@ -54,7 +54,8 @@ Depending on how you communicate with the API you're consuming, [configure the a
 Now you can exchange the employee's subject token for a new token, targeting the API that you want to consume.
 
 {% set identity_provider = 'entra_id' %}
-{% set target = 'api://<cluster>.<namespace>.<other-api-app-name>/.default' %}
+{% set target = '<cluster>:<namespace>:<other-api-app-name>' %}
+{% set target_description = 'The intended _audience_ (target API or recipient) of the new token. The legacy format `api://<cluster>.<namespace>.<other-api-app-name>/.default` is also accepted.' %}
 {% include 'auth/partials/token-exchange.md' %}
 
 ## Consume API

@@ -1,11 +1,11 @@
 {% set endpoint_env_var = 'NAIS_TOKEN_EXCHANGE_ENDPOINT' %}
 {% include 'auth/partials/texas-header.md' %}
 
-| Parameter           | Example Value           | Description                                                                                                                                         |
-|:--------------------|:------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------|
-| `identity_provider` | `<<identity_provider>>` | Always `<<identity_provider>>`.                                                                                                                     |
-| `target`            | `<<target>>`            | The intended _audience_ (target API or recipient) of the new token.                                                                                 |
-| `user_token`        | `eyJra...`              | The user's access token from the inbound request. Token that should be exchanged.                                                                   |
+| Parameter           | Example Value           | Description                                                                       |
+|:--------------------|:------------------------|:----------------------------------------------------------------------------------|
+| `identity_provider` | `<<identity_provider>>` | Always `<<identity_provider>>`.                                                   |
+| `target`            | `<<target>>`            | <<target_description>>                                                            |
+| `user_token`        | `eyJra...`              | The user's access token from the inbound request. Token that should be exchanged. |
 
 === "application/json"
 

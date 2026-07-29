@@ -50,6 +50,7 @@ Depending on how you communicate with the API you're consuming, [configure the a
 
 {% set identity_provider = 'tokenx' %}
 {% set target = '<cluster>:<namespace>:<other-app-name>' %}
+{% set target_description = 'The intended _audience_ (target API or recipient) of the new token.' %}
 {% include 'auth/partials/token-exchange.md' %}
 
 ## Consume API

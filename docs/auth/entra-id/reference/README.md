@@ -298,9 +298,17 @@ Or the other variant:
 
 ???+ success "Solution / Answer"
 
-    - Ensure that the [scope](../explanations/README.md#scopes) or `target` parameter for your request follows the correct format:
+    - Ensure that the [scope](../explanations/README.md#scopes) for your request follows the correct format:
 
-        `api://<cluster>.<namespace>.<target-application>/.default`
+      ```
+      api://<cluster>.<namespace>.<target-application>/.default
+      ```
+
+    - If you're using [Texas](../../explanations/README.md#texas), the `target` parameter also accepts the following format:
+
+      ```
+      <cluster>:<namespace>:<target-application>
+      ```
 
     - Ensure that the target application has configured an inbound [access policy](../how-to/secure.md#application-access) that grants your application access to the target application.
     - If all else fails, request assistance in the `#nais` channel on Slack.

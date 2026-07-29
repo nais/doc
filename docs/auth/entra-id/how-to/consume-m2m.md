@@ -51,8 +51,8 @@ Depending on how you communicate with the API you're consuming, [configure the a
 Now you can request a new token for the API that you want to consume.
 
 {% set identity_provider = 'entra_id' %}
-{% set target = 'api://<cluster>.<namespace>.<other-api-app-name>/.default' %}
-{% set target_description = 'The intended _audience_ (target API or recipient) of the new token.' %}
+{% set target = '<cluster>:<namespace>:<other-api-app-name>' %}
+{% set target_description = 'The intended _audience_ (target API or recipient) of the new token. The legacy format `api://<cluster>.<namespace>.<other-api-app-name>/.default` is also accepted.' %}
 {% include 'auth/partials/token.md' %}
 
 ## Consume API
