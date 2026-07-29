@@ -21,7 +21,6 @@ Enable the login proxy for ID-porten in your application configuration:
 ```yaml title="app.yaml"
 spec:
   idporten:
-    enabled: true
     sidecar:
       enabled: true
 ```

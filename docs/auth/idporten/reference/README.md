@@ -78,10 +78,9 @@ Valid values, in increasing order of assurance levels:
 
 To configure a default value for _all_ login requests:
 
-```yaml title="app.yaml" hl_lines="6"
+```yaml title="app.yaml" hl_lines="5"
 spec:
   idporten:
-    enabled: true
     sidecar:
       enabled: true
       level: idporten-loa-high
