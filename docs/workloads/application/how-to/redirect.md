@@ -4,6 +4,14 @@ tags: [ application, how-to, redirect ]
 
 # Redirect a client
 
+The Nais platform support two ways to [exposing your application](../explanations/expose.md), either via an Ingress resource, or through service discovery.
+This means that we also support two ways to redirect your application.
+
+- [Ingress](#ingress)
+- [Service discovery](#service-discovery)
+
+## Ingress
+
 To redirect traffic from one domain to another, you need to define an ingress `from` the old domain that redirects `to` the
 new domain, with [`.spec.redirects[]`](../reference/application-spec.md#redirects).
 
@@ -57,3 +65,25 @@ spec:
 In this example:
 
 - Requests to `http://example-old.nais.io` are redirected to `http://example-new.nais.io`.
+
+## Service discovery
+
+To redirect traffic coming through service discovery you need to create a service in the old namespace pointing to the new app/service in the new namespace.
+This is not a part of the Nais application specification, so you need to create and deploy a separate file for this.
+
+### Structure
+
+```yaml hl_lines="4-5 10" title=".nais/service.yaml"
+apiVersion: v1
+kind: Service
+metadata:
+  name: old-appname-redirect # Replace
+  namespace: old-namespace # Replace
+spec:
+  type: ExternalName
+  ports:
+    - port: 443
+  externalName: old-appname.old-namespace.svc.cluster.local # Replace
+```
+
+Deploy either through Github Actions, or using `kubectl apply -f .nais/service.yaml`.
