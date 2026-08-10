@@ -4,19 +4,6 @@ tags: [naisdevice, how-to]
 
 # Troubleshooting naisdevice
 
-{%- if tenant() == "nav" %}
-
-## Kolide
-
-> naisdevice cannot connect, yet `/msg @Kolide status` reports that everything is fine
-
-- Disconnect and re-connect `naisdevice`
-
-> Kolide is reporting that your device has not been seen "in a long time"
-
-- Reinstall ([uninstall](uninstall.md) -> [install](install.md))
-  {%- endif %}
-
 ## Browser not opening
 
 > Browser does not open after you click connect.
