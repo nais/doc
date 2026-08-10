@@ -71,6 +71,10 @@ In this example:
 To redirect traffic coming through service discovery you need to create a service in the old namespace pointing to the new app/service in the new namespace.
 This is not a part of the Nais application specification, so you need to create and deploy a separate file for this.
 
+!!! info "Access policy"
+
+    Remember that access policy is traffic between _pods_, so if you redirect the traffic to a different namespace, the client needs to update their access policy to use the new namespace.
+
 ### Structure
 
 ```yaml hl_lines="4-5 10" title=".nais/service.yaml"
