@@ -248,7 +248,7 @@ Here are some suggestions depending on what HTTP status code you might receive f
     apiVersion: networking.k8s.io/v1
     kind: Ingress
     metadata:
-      name: myapplication-abcd1234
+      name: myapplication-external-haproxy-abcd1234
       namespace: myteam
       annotations:
         haproxy.org/timeout-server: "300s"   # copied from application annotations
@@ -275,11 +275,12 @@ Here are some suggestions depending on what HTTP status code you might receive f
                     name: myapplication
                     port:
                       number: 80
+
     ---
     apiVersion: networking.k8s.io/v1
     kind: Ingress
     metadata:
-      name: myapplication-efgh5678
+      name: myapplication-internal-haproxy-efgh5678
       namespace: myteam
       annotations:
         haproxy.org/timeout-server: "300s"   # copied from application annotations

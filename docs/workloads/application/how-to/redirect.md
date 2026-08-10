@@ -9,19 +9,19 @@ new domain, with [`.spec.redirects[]`](../reference/application-spec.md#redirect
 
 The `redirects` field specifies URL redirects. It is structured as a mapping from a source URL to a target URL.
 
-A successful redirect will return a `302 Moved Temporarily` HTTP status code with location header set to the target URL.
+A successful redirect will return a `302 Moved Temporarily` HTTP status code with location header set to the target URL. 
+
+- The status code can not be overridden.
+- The `from` and `to` URLs must be valid URLs.
+- The `to` URL must be a valid URL that is exposed by the application.
 
 !!! info "Explicit redirect permission"
-	The ingress being redirected has to set the following
+	If the redirection is between two teams/namespaces, the following annotation needs to be set on the old Nais application
     ```yaml
     metadata:
         annotations:
             nais.io/allow-redirect: "true"
     ```
-
-
-??? note "Status code for redirects"
-    The status code can not be overridden.
 
 ### Structure
 
@@ -53,11 +53,6 @@ spec:
     - from: "http://example-old.nais.io"
       to: "http://example-new.nais.io"
 ```
-
-??? warning "Redirect restrictions"
-
-    The `from` and `to` URLs must be valid URLs.
-    The `to` URL must be a valid URL that is exposed by the application.
 
 In this example:
 
