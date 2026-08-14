@@ -5105,6 +5105,7 @@ Required: `false`<br />
             consumerGroup: dev-gcp
             threshold: 10
             topic: nais-verification.kafka-canary-dev-gcp
+          scaleDownStabilizationWindowSeconds: 30
           scaleUpStabilizationWindowSeconds: 30
     ```
 
@@ -5189,6 +5190,7 @@ Required: `false`<br />
             consumerGroup: dev-gcp
             threshold: 10
             topic: nais-verification.kafka-canary-dev-gcp
+          scaleDownStabilizationWindowSeconds: 30
           scaleUpStabilizationWindowSeconds: 30
     ```
 
@@ -5282,6 +5284,21 @@ Required: `true`<br />
         scalingStrategy:
           kafka:
             topic: nais-verification.kafka-canary-dev-gcp
+    ```
+
+#### replicas.scalingStrategy.scaleDownStabilizationWindowSeconds
+Configure stabilization window for scaling down, to avoid rapid scale down events. Defaults to 0 seconds.
+
+Type: `integer`<br />
+Required: `false`<br />
+Default value: `0s`<br />
+
+??? example
+    ``` yaml
+    spec:
+      replicas:
+        scalingStrategy:
+          scaleDownStabilizationWindowSeconds: 30
     ```
 
 #### replicas.scalingStrategy.scaleUpStabilizationWindowSeconds

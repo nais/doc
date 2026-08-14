@@ -286,6 +286,7 @@ spec:
         consumerGroup: dev-gcp
         threshold: 10
         topic: nais-verification.kafka-canary-dev-gcp
+      scaleDownStabilizationWindowSeconds: 30
       scaleUpStabilizationWindowSeconds: 30
   resources:
     limits:
