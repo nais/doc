@@ -32,7 +32,7 @@
 
 	const hasChildren = $derived(item.children && item.children.length > 0);
 	const isOpen = $derived(isActiveOrHasActiveDescendant(item, page.url.pathname));
-	const isActive = $derived(page.url.pathname === item.href);
+	const isActive = $derived(page.url.pathname.replaceAll(/\/+$/g, "") === item.href);
 </script>
 
 <li class="nav-item" class:nav-item--top={depth === 0}>
@@ -52,6 +52,7 @@
 						class:nav-link--child={depth === 1}
 						class:nav-link--grandchild={depth >= 2}
 						class:nav-link--active={isActive}
+						aria-current={isActive ? "page" : undefined}
 					>
 						{item.title}
 					</a>
@@ -85,6 +86,7 @@
 			class:nav-link--child={depth === 1}
 			class:nav-link--grandchild={depth >= 2}
 			class:nav-link--active={isActive}
+			aria-current={isActive ? "page" : undefined}
 		>
 			{item.title}
 		</a>
@@ -146,46 +148,50 @@
 
 	.nav-link {
 		flex: 1;
-		display: block;
-		padding: 0.25rem 0.5rem;
+		display: flex;
+		align-items: center;
+		min-height: 2rem;
+		margin: 0.125rem 0;
+		padding: 0.375rem 0.5rem;
 		color: var(--ax-text-neutral, #c9d1d9);
 		text-decoration: none;
-		border-radius: 0.25rem;
+		border-radius: 0.5rem;
 		transition:
 			background-color 0.15s ease,
 			color 0.15s ease;
 	}
 
 	.nav-link:hover {
-		background-color: var(--ax-bg-neutral-soft, rgba(175, 184, 193, 0.1));
+		background-color: var(--ax-bg-moderate-hoverA, var(--ax-bg-neutral-soft, rgba(175, 184, 193, 0.1)));
 		color: var(--ax-text-default, #f0f6fc);
 	}
 
 	.nav-link--active {
-		background-color: var(--ax-bg-neutral-soft, rgba(175, 184, 193, 0.15));
-		color: var(--ax-text-default, #f0f6fc);
-		font-weight: 500;
+		background-color: var(--ax-bg-neutral-moderate-pressedA, var(--ax-bg-neutral-soft, rgba(175, 184, 193, 0.15)));
+		color: var(--ax-text-accent-subtle, var(--ax-text-default, #f0f6fc));
+		font-weight: 600;
 	}
 
 	.nav-link--top {
 		font-weight: 600;
 		font-size: 1rem;
 		color: var(--ax-text-default, #f0f6fc);
-		padding: 0.3rem 0.5rem;
+		min-height: 2.25rem;
+		padding: 0.375rem 0.5rem;
 		margin-bottom: 0.125rem;
 	}
 
 	.nav-label {
 		flex: 1;
 		display: block;
-		padding: 0.25rem 0.5rem;
+		padding: 0.375rem 0.5rem;
 		color: var(--ax-text-neutral);
 	}
 
 	.nav-label--top {
 		font-weight: 600;
 		font-size: 1rem;
-		padding: 0.3rem 0.5rem;
+		padding: 0.375rem 0.5rem;
 		margin-bottom: 0.125rem;
 	}
 
@@ -200,7 +206,8 @@
 	}
 
 	.nav-link--child {
-		padding: 0.2rem 0.5rem;
+		min-height: 1.875rem;
+		padding: 0.25rem 0.5rem;
 		font-size: 0.9375rem;
 		color: var(--ax-text-subtle, #8b949e);
 	}
@@ -210,7 +217,8 @@
 	}
 
 	.nav-link--grandchild {
-		padding: 0.15rem 0.5rem;
+		min-height: 1.75rem;
+		padding: 0.2rem 0.5rem;
 		font-size: 0.9375rem;
 		color: var(--ax-text-subtle, #6e7681);
 	}
@@ -227,15 +235,13 @@
 
 	.nav-children--top {
 		margin: 0.125rem 0 0.25rem 0;
-		padding-left: 0.625rem;
-		border-left: 1px solid var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.2));
+		padding-left: 0.5rem;
 		margin-left: 0.5rem;
 	}
 
 	.nav-children--nested {
 		margin: 0.125rem 0 0.125rem 0;
-		padding-left: 0.625rem;
-		border-left: 1px solid var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.15));
-		margin-left: 0.375rem;
+		padding-left: 0.5rem;
+		margin-left: 0.5rem;
 	}
 </style>
