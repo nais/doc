@@ -4,120 +4,93 @@ conditional: [tenant, nav]
 ---
 # Expose FSS apps with KrakenD
 
-!!! warning "FSS apps only"
+!!! warning "Status: Deprecated"
+    This feature is now deprecated. The krakend-operator will no longer be maintained, and will be removed soon.
 
-    KrakendD in Nais is meant as an extra feature for teams using [Maskinporten](../README.md) to expose their APIs on-prem (FSS / Fagsystemsonen) to external consumers/partners.
+    This means you can no longer add new API endpoints to your KrakenD instance unless you convert it to a standalone Nais application.
+    Existing endpoints will continue to work, but we recommend migrating using the steps below or implementing Maskinporten validation directly in your application.
+
+    KrakenD in Nais is meant as an extra feature for teams using [Maskinporten](../README.md) to expose their on-prem APIs (FSS / Fagsystemsonen) to external consumers and partners.
     Applications that run in GCP should use the [Maskinporten](../README.md) functionality directly.
-
-!!! info "Status: Beta"
-    This feature is only in a beta.
-
-    **Experimental**: this feature is in its early stages and awaits user feedback - breaking changes may be introduced in the future.
-
-    Please report any issues and feedback to the #eksponere-eksterne-apier-fra-gcp or #nais channel on Slack.
 
 ## What is KrakenD
 
 [KrakenD](https://www.krakend.io/) is an open-source API Gateway that sits in front of your Maskinporten APIs and provides a single point of entry for API clients.
 
-## KrakenD in Nais
+## KrakenD on Nais
 
-Each team can get their own instance of KrakenD deployed in their namespace. The KrakenD instance will be configured to require JWT tokens, and API endpoints can be added
-in a declarative manner using the [ApiEndpoints custom resource](https://github.com/nais/krakend/blob/main/config/samples/apiendpoints_max.yaml)
+If you want to use KrakenD on Nais, you can deploy it as a standalone application in your namespace. If you already have KrakenD deployed in your namespace using the custom resources `Krakend` and `ApiEndpoints`, you must convert it to a standalone application by following the steps below:
 
-The KrakenD instances and config for exposing APIs are managed by the [krakend-operator](https://github.com/nais/krakend).
+### Why migrate?
 
-## Usage
+Running KrakenD as a standalone application gives you more control and access to the same tooling as any other Nais app:
 
-To get KrakenD installed in your namespace - the namespace must have a label `krakend.nais.io/enabled: "true"`.
+* **Full control** over your own KrakenD instances.
+* **Update on your own schedule**, and adopt new KrakenD functionality whenever it suits you.
+* KrakenD is treated like any other application, so you get the benefits of the tooling built for apps, such as vulnerability overview, cost and issue tracking through [Nais Console](<<tenant_url("console")>>).
 
-If you do not have permissions to add this label, please contact the Nais team and we will add it for you.
-After beta testing, we will add more automation to this process.
+### Migrating from the Krakend operator to a standalone application
 
-When KrakenD is installed in your namespace you will get an ingress for your KrakenD instance at:
+We have created a tool to help you migrate from the Krakend operator to a standalone application. The tool generates new Nais application manifests and config maps for your KrakenD instances, based on your existing `Krakend` and `ApiEndpoints` custom resources.
 
-GCP:
+Ensure you are logged in and in the correct namespace, then run the following command to generate the necessary manifests:
 
-* `https://<MY-TEAM>-gw.ekstern.dev.nav.no`
-* `https://<MY-TEAM>-gw.nav.no`
-
-On-prem:
-
-* `https://<MY-TEAM>-gw.dev-fss-pub.nais.io`
-* `https://<MY-TEAM>-gw.prod-fss-pub.nais.io`
-
-!!! info "Note for on-prem"
-
-    See [Use Cases](#use-cases) below for more details on how to expose your API to external consumers from on-prem via GCP.
-    If you already have a special "pub" ingress for your app and you do maskintoken validation already you can expose that directly to KrakenD in GCP instead.
-
-You can then add API endpoints to your KrakenD instance by creating one or more `ApiEndpoints` custom resources in your namespace.
-
-### Adding API endpoints
-
-To add API endpoints to your KrakenD instance, you need to create an `ApiEndpoints` custom resource in your namespace.
-
-The `ApiEndpoints` resource splits the configuration of an app's API endpoints into two parts:
-
-* `endpoints` - secure API endpoints requiring authentication
-* `openEndpoints` - open API endpoints not requiring authentication, e.g. documentation or OpenAPI specs
-
-Currently we support the following KrakenD features:
-
-* [JWT validation](https://www.krakend.io/docs/authorization/jwt-validation/)
-* [Rate-limiting](https://www.krakend.io/docs/endpoints/rate-limit/): if rate-limiting is defined it is applied to all `endpoints` and `openEndpoints` defined in the `ApiEndpoints` resource
-
-```yaml title="apiendpoints.yaml"
-apiVersion: krakend.nais.io/v1
-kind: ApiEndpoints
-metadata:
-  name: app1
-spec:
-  appName: app1
-  auth:
-    name: maskinporten
-    cache: true
-    scopes:                        # specify the scopes or audience your app requires here, by using the keys audience or scope. can also be omitted
-      - "nav:some/other/scope"
-  rateLimit:                      # optionally specify rate-limiting for your app, see https://www.krakend.io/docs/endpoints/rate-limit/#configuration for details
-    maxRate: 10
-    clientMaxRate: 0
-    every: 1s
-    strategy: ip
-    capacity: 0
-    clientCapacity: 0
-  endpoints:                      # specify your API endpoints requiring auth here
-    - path: /app1/somepath        # path for your API endpoint in KrakenD - must be unique within your namespace
-      method: GET
-      timeout: 5s                 # optionally specify a timeout for the entire roundtrip to your backend, see https://www.krakend.io/docs/endpoints/#timeout
-      forwardHeaders:             # if your backend validates tokens, you need to forward the Authorization header
-        - Authorization
-      queryParams:                # if your api uses query params, you need to specify the names here
-        - foo
-        - bar
-      backendHost: http://app1    # the service url or ingress for your app
-      backendPath: /api/somepath  # the path to your API endpoint in your app
-  openEndpoints:                  # specify your open API endpoints here
-    - path: /app1/doc
-      method: GET
-      backendHost: http://app1
-      backendPath: /doc
+```bash
+nais alpha krakend convert > krakend-standalone.yaml
 ```
 
-!!! info "KrakenD requirements on paths, query params and headers"
-    There are some strict requirements on specifying paths, query params and headers in KrakenD, see the [ApiEndpoints CRD](https://github.com/nais/krakend/blob/main/config/crd/bases/krakend.nais.io_apiendpoints.yaml) and corresponding [Krakend Doc](https://www.krakend.io/docs/endpoints/) for details.
+This generates a set of `Application` and `ConfigMap` manifests for your KrakenD instances, which you can commit to your GitHub repository and apply to your namespace.
+
+Some of the fields are excluded for brevity, but the generated manifest will look something like this:
+
+```yaml hl_lines="19-21" title="app.yaml"
+spec:
+  accessPolicy:
+    outbound:
+      external:
+        - host: test.maskinporten.no
+        - host: someapi.dev-fss-pub.nais.io
+  env:
+    - name: USAGE_DISABLE
+      value: "1"
+    - name: FC_ENABLE
+      value: "1"
+    - name: FC_PARTIALS
+      value: /etc/krakend/partials
+  filesFrom:
+    - configmap: myteam-gw-config
+      mountPath: /etc/krakend
+    - configmap: myteam-gw-partials
+      mountPath: /etc/krakend/partials
+  image: krakend:2.12.0
+  ingresses:
+    - https://myteam-gw.ekstern.dev.nav.no
+  liveness:
+    initialDelay: 20
+    path: /__health
+    periodSeconds: 10
+  port: 8080
+  prometheus:
+    enabled: true
+    path: /metrics
+    port: "9090"
+```
+Check for the latest version of KrakenD and update the image tag if necessary: [https://www.krakend.io/docs/](https://www.krakend.io/docs/)
+
+**Before applying the generated manifests, you can contact the Nais team to get the label `krakend.nais.io/enabled: "true"` removed from your namespace, to prevent the old resources from being created or updated.**
+
+The generated manifests use the same names and ingresses as your existing deployments, so some manual steps are necessary before applying. You have three choices:
+
+* With downtime: delete the existing `Krakend` and `ApiEndpoints` resources, then apply the new manifests. The new deployment takes over the ingress.
+* Without downtime: change the resource names in the generated manifests to avoid conflicts with your existing deployments, then apply them. The new deployment takes over the ingress, and you can remove the old deployment.
+* Without downtime: contact the Nais team to remove the `OwnerReferences` from the existing deployments and ingresses. You can then apply the new manifests, which overwrite the old ingress and deployment.
+
 
 ### Monitoring and Logging
 
 #### Logs
 
-KrakenD logs are available in Grafana Loki. You can access these logs by querying for your team's namespace and the KrakenD service:
-
-```logql
-{service_namespace="your-team-namespace", service_name="krakend"}
-```
-
-This allows you to monitor API requests, debug issues, and track the behavior of your KrakenD gateway.
+KrakenD logs are available in Grafana Loki. You can access these logs as any other application logs in your namespace.
 
 #### Metrics
 
@@ -143,60 +116,3 @@ You can use these metrics to create Grafana dashboards to monitor:
 * Data transfer volume with sent/received bytes metrics
 
 These metrics are automatically collected and can be queried using the [Explore view in Grafana](<<tenant_url("grafana", "explore")>>).
-
-## Use cases
-
-### Expose an API to external consumers from on-prem via GCP
-
-If your app already have a special "pub" ingress, ref [explanation here](../../../workloads/explanations/migrating-to-gcp.md#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp),
-you can enable KrakenD in your namespace in GCP and add API endpoints to your KrakenD instance there, i.e. point to your pub ingress.
-
-=== "Maskinporten"
-    ```yaml title="apiendpoints.yaml"
-      apiVersion: krakend.nais.io/v1
-      kind: ApiEndpoints
-      metadata:
-        name: gcp-app1
-      spec:
-        appName: does-not-matter
-        auth:
-          name: maskinporten
-          cache: true
-          scopes:
-            - "nav:some/other/scope"
-        endpoints:                      # specify your API endpoints requiring auth here
-          - path: /app1/somepath        # path for your API endpoint in KrakenD - must be unique within your namespace
-            method: GET
-            timeout: 5s                 # optionally specify a timeout for the entire roundtrip to your backend, see https://www.krakend.io/docs/endpoints/#timeout
-            forwardHeaders:             # if your backend validates tokens, you need to forward the Authorization header
-              - Authorization
-            backendHost: https://app1.dev-fss-pub.nais.io
-            backendPath: /api/somepath  # the path to your API endpoint in your app
-    ```
-
-=== "AzureAD"
-    ```yaml title="apiendpoints.yaml"
-      apiVersion: krakend.nais.io/v1
-      kind: ApiEndpoints
-      metadata:
-        name: gcp-app1
-      spec:
-        appName: does-not-matter
-        auth:
-          name: azuread
-          cache: true
-          audience:
-            - "the_value_of_aud"
-        endpoints:                      # specify your API endpoints requiring auth here
-          - path: /app1/somepath        # path for your API endpoint in KrakenD - must be unique within your namespace
-            method: GET
-            forwardHeaders:             # if your backend validates tokens, you need to forward the Authorization header
-              - Authorization
-            backendHost: https://app1.dev-fss-pub.nais.io
-            backendPath: /api/somepath  # the path to your API endpoint in your app
-    ```
-
-### Expose a legacy API to external consumers from on-prem via GCP
-
-If you have a legacy app on-prem without a special "pub" ingress you must enable KrakenD both in your namespace on-prem and gcp.
-ApiEndpoints must then be added in both clusters, but with different backendHosts. There will be token validation in both clusters.
