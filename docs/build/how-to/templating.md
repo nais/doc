@@ -5,7 +5,7 @@ tags: [how-to, build, deploy, templating]
 # Templating (deprecated)
 
 !!! warning "Deprecated"
-    Handlebars templating via `nais/deploy` is deprecated. Use [environment mixins](./build-and-deploy.md#deploying-to-multiple-environments) and `--set` flags with the Nais CLI instead.
+    Handlebars templating via `nais/deploy` is deprecated. Use [environment mixins](../explanations/environment-mixins.md) and `--set` flags with the Nais CLI instead. See [Set up a complete deploy pipeline](./deploy-pipeline.md) for the recommended setup.
 
     If you have advanced templating needs that mixins and `--set` don't cover, consider adding a preprocessing step to your workflow (e.g. `envsubst`, `yq`, or a script) before calling `nais apply`.
 
