@@ -229,4 +229,4 @@ To learn more about the possibilities, explore our documentation for [Applicatio
 The GitHub workflow is similarly simplified.
 Some teams like to do more advanced things, like running tests, or deploying to multiple environments.
 It is also possible to deploy manifest changes without building a new image if there are no changes to the application code.
-Explore our [build and deploy](../build/how-to/build-and-deploy.md) guide for patterns on deploying to multiple environments and splitting workflows.
+Explore our [complete deploy pipeline](../build/how-to/deploy-pipeline.md) guide for patterns on deploying to multiple environments and splitting workflows.

@@ -22,4 +22,10 @@ See the respective GitHub Action links for detailed configuration options.
 
 :dart: [Build and deploy with Github Actions](how-to/build-and-deploy.md)
 
+:dart: [Set up a complete deploy pipeline](how-to/deploy-pipeline.md)
+
+:bulb: [Deploys and the workload image](explanations/deploys.md)
+
+:bulb: [Environment mixins](explanations/environment-mixins.md)
+
 :dart: [Set up auto-merge with Dependabot](how-to/dependabot-auto-merge.md)
