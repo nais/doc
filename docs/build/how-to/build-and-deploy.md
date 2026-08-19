@@ -74,7 +74,7 @@ This example workflow is a minimal example that builds, signs, and pushes your c
 It then deploys the [app.yaml](../../workloads/application/reference/application-spec.md) using the Nais CLI.
 
 The freshly built image is passed to the deploy step with `--set spec.image=<image>`, which overrides the `spec.image` field in the manifest.
-For how Nais decides which image to run, see [Deploys and the workload image](../explanations/deploys.md).
+For how Nais resolves the image, see [Applying a manifest](../explanations/applying-a-manifest.md).
 
 When this file is pushed to the `main` branch, the workflow will be triggered, and you are all set.
 

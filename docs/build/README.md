@@ -22,7 +22,7 @@ Use these to compose your own build and deploy pipeline through [Github Actions 
 
 :dart: [Set up a complete deploy pipeline](how-to/deploy-pipeline.md)
 
-:bulb: [Deploys and the workload image](explanations/deploys.md)
+:bulb: [Applying a manifest](explanations/applying-a-manifest.md)
 
 :bulb: [Environment mixins](explanations/environment-mixins.md)
 

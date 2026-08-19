@@ -6,7 +6,7 @@ tags: [build, deploy, explanation]
 
 An environment mixin is a partial manifest that Nais merges over a base manifest
 for a specific environment. It lets one set of manifests serve several
-environments, so you can run different configuration in `dev-gcp` and `prod-gcp`
+environments, so you can run different configuration in `dev` and `prod`
 without duplicating the whole manifest.
 
 You keep a base file (`.nais/app.yaml`) with the shared and development
@@ -30,10 +30,79 @@ The merge follows two rules:
 - **Lists are concatenated.** Items in the mixin are appended to the base list,
   not replaced.
 
-This has a practical consequence: put per-environment values in map fields (like
-`resources` or `replicas`), where the mixin cleanly overrides the base. Avoid
-relying on mixins to change list fields (like `spec.env`), because the entries
-are combined rather than replaced, which is rarely what you want.
+### Map override example
 
-For the concrete base and mixin files this refers to, see the worked example in
+A base manifest with default replicas and resource requests:
+
+```yaml title=".nais/app.yaml"
+spec:
+  replicas:
+    min: 1
+    max: 1
+  resources:
+    requests:
+      cpu: 20m
+      memory: 64Mi
+```
+
+A production mixin that raises them:
+
+```yaml title=".nais/app.prod.yaml"
+spec:
+  replicas:
+    min: 2
+    max: 4
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+```
+
+Applying with `--environment prod` produces:
+
+```yaml title="merged result"
+spec:
+  replicas:
+    min: 2
+    max: 4
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+```
+
+The mixin's `replicas` and `resources` maps replace the base values entirely.
+
+### List concatenation gotcha
+
+Lists behave differently. If your base sets an environment variable and your
+mixin tries to override it, you get both entries:
+
+```yaml title=".nais/app.yaml"
+spec:
+  env:
+    - name: LOG_LEVEL
+      value: debug
+```
+
+```yaml title=".nais/app.prod.yaml"
+spec:
+  env:
+    - name: LOG_LEVEL
+      value: info
+```
+
+```yaml title="merged result — not what you want"
+spec:
+  env:
+    - name: LOG_LEVEL
+      value: debug
+    - name: LOG_LEVEL
+      value: info
+```
+
+Both entries end up in the manifest. Keep per-environment values in map fields
+and avoid using mixins to change list fields like `spec.env`.
+
+For a complete pipeline that uses mixins across multiple environments, see
 [Set up a complete deploy pipeline](../how-to/deploy-pipeline.md).
