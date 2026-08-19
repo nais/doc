@@ -56,7 +56,7 @@ jobs:
 ```
 
 1. GitHub actions should be pinned to a SHA for better security. Read more in GitHub [Secure use reference](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions).
-2. Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../workloads/reference/environments.md).
+2. Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../../workloads/reference/environments.md).
 
 ## Even more control
 
