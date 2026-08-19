@@ -18,13 +18,15 @@ and file conventions, see the [deploy reference](../reference/deploy.md).
 ## Recommended repository structure
 
 Nais recommends keeping your manifests in a `.nais/` directory: a base manifest
-plus one mixin per environment.
+plus one mixin per environment, and separate files for other resources.
 
 ```
 .nais/
 ├── app.yaml              # base manifest
 ├── app.dev-gcp.yaml      # dev-gcp overrides
-└── app.prod-gcp.yaml     # prod-gcp overrides
+├── app.prod-gcp.yaml     # prod-gcp overrides
+├── valkey.yaml           # Valkey instance
+└── valkey.prod-gcp.yaml  # prod-gcp overrides
 ```
 
 The rest of this guide builds up each of these files.
@@ -165,9 +167,13 @@ jobs:
         with:
           team: <MY-TEAM> # Replace
       - name: Apply to dev-gcp
-        run: nais apply .nais/app.yaml --environment dev-gcp --wait
+        run: |
+          nais apply .nais/app.yaml --environment dev-gcp --wait
+          nais apply .nais/valkey.yaml --environment dev-gcp --wait
       - name: Apply to prod-gcp
-        run: nais apply .nais/app.yaml --environment prod-gcp --wait
+        run: |
+          nais apply .nais/app.yaml --environment prod-gcp --wait
+          nais apply .nais/valkey.yaml --environment prod-gcp --wait
 ```
 
 To also stop the build-and-deploy workflow from running on manifest-only changes,
