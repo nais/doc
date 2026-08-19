@@ -79,7 +79,7 @@ Production sourcemaps often need explicit configuration. Verify your bundler gen
 Building `.map` files is only half the job — the collector can only fetch them if both the JavaScript **and** its `.map` file are served from the CDN. Publish your build output with the [CDN upload action](../../../services/cdn/how-to/upload-assets.md). Add a step to the GitHub workflow that builds your frontend:
 
 ```yaml
-- uses: nais/deploy/actions/cdn-upload/v2@master
+- uses: nais/deploy/actions/cdn-upload/v2@master # Should be pinned (1)
   with:
 {%- if tenant() != "nav" %}
     tenant: <<tenant()>>
@@ -88,6 +88,8 @@ Building `.map` files is only half the job — the collector can only fetch them
     source: dist
     destination: /<app>/dist
 ```
+
+1. GitHub actions should be pinned to a SHA for better security. Read more in GitHub [Secure use reference](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions).
 
 `source` is your build output directory (`dist` for Vite, `build` for Create React App, `.next/static` for Next.js), and `destination` is the path under your team's CDN prefix. See [Upload assets to the CDN](../../../services/cdn/how-to/upload-assets.md) for the full workflow (repository authorization, permissions, and every input the action accepts).
 

@@ -17,7 +17,7 @@ Gradle and Maven plugins provide a deeper graph of nested transitive dependencie
 
 ### Gradle Plugin
 
-??? Gradle Plugin
+??? note "Gradle Plugin"
 
     Add the following plugin to your `build.gradle*` file.
 
@@ -35,24 +35,26 @@ Gradle and Maven plugins provide a deeper graph of nested transitive dependencie
     The SBOM will be default located at `build/reports/bom.json`. Pass the SBOM to the `nais/docker-build-push` action with the following input:
 
     ```yaml
-        uses: nais/docker-build-push@v0
+        uses: nais/docker-build-push@v0 # Should be pinned (1)
         with:
           byosbom: build/reports/bom.json
     ```
 
+    1. GitHub actions should be pinned to a SHA for better security. Read more in GitHub [Secure use reference](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions).
+
     For `nais/attest-sign` action:
-    
-        ```yaml
-            uses: nais/attest-sign@v1
-            with:
-                sbom: build/reports/bom.json
-        ```
-  
+
+    ```yaml
+        uses: nais/attest-sign@v1 # Should be pinned
+        with:
+            sbom: build/reports/bom.json
+    ```
+
     For more info about settings check out the [CycloneDx Gradle Plugin](https://github.com/CycloneDX/cyclonedx-gradle-plugin)
 
 ### Maven Plugin
 
-??? Maven Plugin
+??? note "Maven Plugin"
 
     Add the following to your `pom.xml` file.
 
@@ -83,17 +85,20 @@ Gradle and Maven plugins provide a deeper graph of nested transitive dependencie
     The SBOM will be default located at `target/bom.json`. Pass the SBOM to the `nais/docker-build-push` action with the following input:
 
     ```yaml
-        uses: nais/docker-build-push@v0
+        uses: nais/docker-build-push@v0 # Should be pinned (1)
         with:
           byosbom: target/bom.json
     ```
 
+    1. GitHub actions should be pinned to a SHA for better security. Read more in GitHub [Secure use reference](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions).
+
     For `nais/attest-sign` action:
-    
-        ```yaml
-            uses: nais/attest-sign@v1
-            with:
-                sbom: target/bom.json
-        ```
+
+    ```yaml
+        uses: nais/attest-sign@v1 # Should be pinned
+        with:
+            sbom: target/bom.json
+    ```
+
     For more info about settings check out the [CycloneDx Maven Plugin](https://github.com/CycloneDX/cyclonedx-maven-plugin)
 

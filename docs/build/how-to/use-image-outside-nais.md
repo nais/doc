@@ -35,9 +35,9 @@ jobs:
       id-token: write
       packages: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6 # Should be pinned (1)
       - name: Build and push image and SBOM to OCI registry
-        uses: nais/docker-build-push@v0
+        uses: nais/docker-build-push@v0 # Should be pinned
         id: docker-build-push
         with:
           team: <MY-TEAM> # Replace
@@ -48,12 +48,15 @@ jobs:
           # Tag the image, e.g. ghcr.io/owner/repo:latest
           docker buildx imagetools create -t ghcr.io/${{ github.repository }}:latest ${{ steps.docker-build-push.outputs.image }}
       - name: Deploy to Nais
-        uses: nais/deploy/actions/deploy@v2
+        uses: nais/deploy/actions/deploy@v2 # Should be pinned
         env:
-          CLUSTER: <MY-ENV> # Replace (1)
+          CLUSTER: <MY-ENV> # Replace (2)
           RESOURCE: .nais/app.yaml #, topic.yaml, statefulset.yaml, etc.
           VAR: image=${{ steps.docker-build-push.outputs.image }}
 ```
+
+1. GitHub actions should be pinned to a SHA for better security. Read more in GitHub [Secure use reference](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions).
+2. Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../../workloads/reference/environments.md).
 
 ## Even more control
 

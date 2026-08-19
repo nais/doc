@@ -23,9 +23,9 @@ This how-to guide shows you how to build and deploy your application using [GitH
 !!! note
     If you require a more advanced workflow, or already have one: copy the relevant parts from the example below.
 
-!!! note ".github/workflows/main.yml"
+???+ note ".github/workflows/main.yaml"
 
-    ```yaml hl_lines="28 {%- if tenant() == "test-nais" %}34{% else %}32{% endif %}"
+    ```yaml hl_lines="28 {%- if tenant() == "test-nais" %}35{% else %}33{% endif %}"
     name: Build and deploy
     on:
       push:
@@ -40,36 +40,37 @@ This how-to guide shows you how to build and deploy your application using [GitH
           id-token: write
           actions: read
         steps:
-          - uses: actions/checkout@v6
+          - uses: actions/checkout@v6 # Should be pinned (1)
             with:
               fetch-depth: 0 # Fetch all history for what-changed action
           - name: Determine what to do
             id: changed-files
-            uses: "nais/what-changed@main"
+            uses: "nais/what-changed@main" # Should be pinned
             with:
               files: .nais/app.yaml #, topic.yaml, statefulset.yaml, etc.
           - name: Build and push image and SBOM to OCI registry
             if: steps.changed-files.outputs.changed != 'only-inputs'
-            uses: nais/docker-build-push@v0
+            uses: nais/docker-build-push@v0 # Should be pinned
             id: docker-build-push
             with:
               team: <MY-TEAM> # Replace
-{%- if tenant() == "test-nais" %}
-			  project_id: nais-management-ddba
-			  identity_provider: projects/636929582051/locations/global/workloadIdentityPools/test-nais-identity-pool/providers/github-oidc-provider
-{%- endif %}
+    {%- if tenant() == "test-nais" %}
+              project_id: nais-management-ddba
+              identity_provider: projects/636929582051/locations/global/workloadIdentityPools/test-nais-identity-pool/providers/github-oidc-provider
+    {%- endif %}
           - name: Deploy to Nais
-            uses: nais/deploy/actions/deploy@v2
+            uses: nais/deploy/actions/deploy@v2 # Should be pinned
             envs:
-              CLUSTER: <MY-ENV> # Replace (1)
+              CLUSTER: <MY-ENV> # Replace (2)
               RESOURCE: .nais/app.yaml # same list as in changed-files step above
               WORKLOAD_IMAGE: ${{ steps.docker-build-push.outputs.image }}
-{%- if tenant() == "test-nais" %}
-			  DEPLOY_SERVER: deploy.test-nais.cloud.nais.io:443
-{%- endif %}
+    {%- if tenant() == "test-nais" %}
+              DEPLOY_SERVER: deploy.test-nais.cloud.nais.io:443
+    {%- endif %}
     ```
-
-    1.  Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../../workloads/reference/environments.md).
+    
+    1. GitHub actions should be pinned to a SHA for better security. Read more in GitHub [Secure use reference](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions).
+    2. Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../../workloads/reference/environments.md).
 
 This example workflow is a minimal example that builds, signs, and pushes your container image to the image registry.
 It then deploys the [app.yaml](../../workloads/application/reference/application-spec.md).
