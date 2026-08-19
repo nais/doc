@@ -10,28 +10,21 @@ environments with the [Nais CLI](../../operate/cli.md). It builds on
 mixins for per-environment configuration and a split between code and manifest
 deploys.
 
-For how Nais chooses the image, see
-[Deploys and the workload image](../explanations/deploys.md). For how mixins
+For how Nais resolves the image, see
+[Applying a manifest](../explanations/applying-a-manifest.md). For how mixins
 merge, see [Environment mixins](../explanations/environment-mixins.md). For flags
 and file conventions, see the [deploy reference](../reference/deploy.md).
 
 ## Recommended repository structure
 
-Nais recommends keeping your manifests in a `.nais/` directory and your workflows
-in `.github/workflows/`: a base manifest plus one mixin per environment, a
-workflow that builds and deploys on code changes, and a separate workflow that
-deploys manifest-only changes.
+Nais recommends keeping your manifests in a `.nais/` directory: a base manifest
+plus one mixin per environment.
 
 ```
-.
-├── .github/
-│   └── workflows/
-│       ├── main.yml                  # build + deploy on code changes
-│       └── deploy-nais-resources.yml # deploy on .nais changes
-└── .nais/
-    ├── app.yaml                  # base manifest
-    ├── app.dev-gcp.yaml          # dev-gcp overrides
-    └── app.prod-gcp.yaml         # prod-gcp overrides
+.nais/
+├── app.yaml              # base manifest
+├── app.dev-gcp.yaml      # dev-gcp overrides
+└── app.prod-gcp.yaml     # prod-gcp overrides
 ```
 
 The rest of this guide builds up each of these files.
