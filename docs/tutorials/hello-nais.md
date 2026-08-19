@@ -119,17 +119,17 @@ Add the following content to the file, and insert the appropriate values in the 
           id-token: write
           actions: read
         steps:
-          - uses: actions/checkout@v6
+          - uses: actions/checkout@v6 # Should be pinned (1)
             with:
               fetch-depth: 0 # Fetch all history for what-changed action
           - name: Determine what to do
             id: changed-files
-            uses: "nais/what-changed@main"
+            uses: "nais/what-changed@main" # Should be pinned
             with:
               files: .nais/app.yaml
           - name: Build and push image and SBOM to OCI registry
             if: steps.changed-files.outputs.changed != 'only-inputs'
-            uses: nais/docker-build-push@v0
+            uses: nais/docker-build-push@v0 # Should be pinned
             id: docker-build-push
             with:
               team: <MY-TEAM> # Replace
@@ -138,9 +138,9 @@ Add the following content to the file, and insert the appropriate values in the 
 			  identity_provider: projects/636929582051/locations/global/workloadIdentityPools/test-nais-identity-pool/providers/github-oidc-provider
 {%- endif %}
           - name: Deploy to Nais
-            uses: nais/deploy/actions/deploy@v2
+            uses: nais/deploy/actions/deploy@v2 # Should be pinned
             env:
-              CLUSTER: <MY-ENV> # Replace (1)
+              CLUSTER: <MY-ENV> # Replace (2)
               RESOURCE: .nais/app.yaml # This points to the file we created in the previous step
               WORKLOAD_IMAGE: ${{ steps.docker-build-push.outputs.image }}
 {%- if tenant() == "test-nais" %}
@@ -148,7 +148,8 @@ Add the following content to the file, and insert the appropriate values in the 
 {%- endif %}
     ```
 
-    1.  Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../workloads/reference/environments.md).
+    1. GitHub actions should be pinned to a SHA for better security. Read more in GitHub [Secure use reference](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions).
+    2. Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../workloads/reference/environments.md).
 
 Excellent! We're now ready to deploy :rocket:
 

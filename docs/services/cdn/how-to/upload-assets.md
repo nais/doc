@@ -40,9 +40,9 @@ jobs:
       id-token: write
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6 # Should be pinned (1)
       - name: Upload static files to CDN
-        uses: nais/deploy/actions/cdn-upload/v2@master
+        uses: nais/deploy/actions/cdn-upload/v2@master # Should be pinned
         with:
 {%- if tenant() != "nav" %}
           tenant: <<tenant()>>
@@ -52,6 +52,8 @@ jobs:
           destination: <A destination you pick, like /my-app/dist> # Replace
       - run: 'echo "uploaded file ${{ steps.upload.outputs.uploaded }}"'
 ```
+
+1. GitHub actions should be pinned to a SHA for better security. Read more in GitHub [Secure use reference](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions).
 
 For more information on the inputs and outputs of the action, see the [CDN Upload action reference](../reference/upload-assets.md).
 

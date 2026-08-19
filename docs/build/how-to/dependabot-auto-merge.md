@@ -24,7 +24,7 @@ By completing this guide, Dependabot will automatically fix your insecure or out
 The contents of this file will depend on your project requirements. Do not use this file as-is.
 Please see [dependabot.yaml configuration syntax][configure-dependabot-yaml] for detailed instructions on how to configure Dependabot.
 
-!!! note ".github/dependabot.yaml"
+???+ note ".github/dependabot.yaml"
 
     ```yaml
     version: 2
@@ -53,7 +53,7 @@ Additionally, all GitHub Actions workflow version bumps will be merged automatic
 
 See also [Automating Dependabot with GitHub Actions][automating-dependabot].
 
-!!! note ".github/workflows/dependabot-auto-merge.yaml"
+???+ note ".github/workflows/dependabot-auto-merge.yaml"
 
     ```yaml
     name: Dependabot auto-merge
@@ -70,7 +70,7 @@ See also [Automating Dependabot with GitHub Actions][automating-dependabot].
         steps:
           - name: Dependabot metadata
             id: metadata
-            uses: dependabot/fetch-metadata@v1
+            uses: dependabot/fetch-metadata@v1 # Should be pinned (1)
             with:
               github-token: "${{ secrets.GITHUB_TOKEN }}"
           - name: Auto-merge changes from Dependabot
@@ -80,6 +80,9 @@ See also [Automating Dependabot with GitHub Actions][automating-dependabot].
               PR_URL: ${{github.event.pull_request.html_url}}
               GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
     ```
+
+    1. GitHub actions should be pinned to a SHA for better security. Read more in GitHub [Secure use reference](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions).
+
 
 ## Enable branch protection and auto-merge on repository
 
@@ -91,7 +94,7 @@ If you prefer, you can instead use GitHub's web frontend to configure auto-merge
 and
 [branch protection rules](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule).
 
-!!! note "enforce_branch_protection.sh"
+???+ note "enforce_branch_protection.sh"
 
     ```bash
     #!/bin/bash

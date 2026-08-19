@@ -7,13 +7,15 @@ tags: [attestation, sbom, how-to]
 Simply add [nais/docker-build-push](https://github.com/nais/docker-build-push) to your workflow.
 
 ```yaml
- - uses: nais/docker-build-push@v0
+ - uses: nais/docker-build-push@v0 # Should be pinned (1)
    id: docker-push
    with:
      team: myteam # required
      salsa: true # optional, defaults to true
      # ... other options removed for readability
 ```
+
+1. GitHub actions should be pinned to a SHA for better security. Read more in GitHub [Secure use reference](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions).
 
 ??? note "Opt out"
     Opt out of Salsa for this workload.
@@ -30,10 +32,12 @@ The `nais/docker-build-push` action default push to Google Container Registry (G
 If you want to push to another registry, you can use the [nais/attest-sign](https://github.com/nais/attest-sign) to generate sbom and sign the attestation.
 
 ```yaml
- - uses: nais/attest-sign@v1
+ - uses: nais/attest-sign@v1 # Should be pinned (1)
    id: attest-sign
    with:
      image_ref: my-image@sha256:12345 # required
      sbom: my-image.json # optional
      # ... other options removed for readability
 ```
+
+1. GitHub actions should be pinned to a SHA for better security. Read more in GitHub [Secure use reference](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions).
