@@ -2,7 +2,7 @@
 tags: [secrets, how-to]
 ---
 
-# Advanced: Secrets with binary data
+# Secrets with binary data
 
 [Nais Console](console.md) only supports secrets with string values.
 You can work around this by Base64-encoding the binary data and store the resulting string, though it also requires that your application does the equivalent decoding.
