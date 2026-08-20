@@ -10,6 +10,10 @@ This is the reference documentation for [secrets](../README.md) on the Nais plat
 
 Visit [Nais Console](https://console.<<tenant()>>.cloud.nais.io) to find and manage your team's user-defined secrets.
 
+## CLI
+
+Use [Nais CLI](https://cli.nais.io/nais_secret.html) to interact with or manage secrets.
+
 ## Workloads
 
 Use a secret in your [workload](../../../workloads/README.md) by referencing them in your `nais.yaml` manifest.

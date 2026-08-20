@@ -38,3 +38,5 @@ There are two types of secrets on the Nais platform:
 :dart: Learn how to [create and manage a secret in Nais Console](how-to/console.md)
 
 :dart: Learn how to [use a secret in your workload](how-to/workload.md)
+
+:book: Interact with or manage secrets through [Nais CLI](https://cli.nais.io/nais_secret.html)
