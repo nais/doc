@@ -122,7 +122,6 @@ spec:
       name: my-cloud-storage-bucket
       publicAccessPrevention: true
       retentionPeriodDays: 30
-      uniformBucketLevelAccess: true
     permissions:
     - resource:
         apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
