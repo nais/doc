@@ -29,7 +29,7 @@ spec:
 Only _direct_ members of the specified groups are authorized.
 Transitive membership through nested groups is not supported.
 
-The [`groups` claim](../reference/README.md?h=groups#claims) in JWTs will include all matching group identifiers that the user is a direct member of.
+[The `groups` claim][groups-claim] in JWTs will include all matching group identifiers that the user is a direct member of.
 
 !!! warning
 
@@ -50,7 +50,7 @@ spec:
 
 In practice, the property is equivalent to specifying a set of extra groups which covers all users in the Entra ID tenant.
 
-The [`groups` claim](../reference/README.md?h=groups#claims) in JWTs will also include these extra groups that the user is a direct member of.
+[The `groups` claim][groups-claim] in JWTs will also include these extra groups that the user is a direct member of.
 
 #### Groups and all users
 
@@ -70,8 +70,10 @@ spec:
 This has the following effects:
 
 - All users are authorized to access your Entra ID application, i.e. through logins or on-behalf-of token requests.
-- The [`groups` claim](../reference/README.md?h=groups#claims) in JWTs will include matching groups identifiers that the user is a direct member of.
+- [The `groups` claim][groups-claim] in JWTs will include matching groups identifiers that the user is a direct member of.
 This also includes the extra groups added by the `allowAllUsers` property.
 
 The combined configuration is useful if you want to authorize all users through Entra ID and
 additionally use the `groups` claim in your application code to implement custom authorization logic.
+
+[groups-claim]: ../reference/README.md#claims:~:text=groups
