@@ -86,6 +86,12 @@ Configure the project id \(find project id with `gcloud projects list --filter t
 gcloud config set project <project id>
 ```
 
+Set readable directory as $HOME
+
+```shell
+export HOME=/tmp
+```
+
 Create a GCP bucket. You will need the `roles/storage.admin` IAM role for the required operations on the bucket.
 
 ```shell
@@ -95,7 +101,7 @@ gsutil mb -l europe-north1 gs://<bucket name>
 Find the GCP service account e-mail \(the instance id is specified in your `nais.yaml` file\)
 
 ```shell
-gcloud sql instances describe <CloudSQL instance id> | yq r - serviceAccountEmailAddress
+gcloud sql instances describe <CloudSQL instance id> | grep serviceAccountEmailAddress
 ```
 
 Set the objectAdmin role for the bucket \(with the previous e-mail\)
