@@ -58,9 +58,9 @@ Cons:
 
 This method is suitable for applications that can have the database in read-only or application that allow for some downtime. It requires that the database instance and DDLs are created up front \(i.e. deploy your application in GCP and let flyway create DDLs\):
 
-Use docker container image with psql and cloudsdk: [GCP migration image](https://github.com/navikt/gcp-migrering). This image let you do all the following actions from one place. You can either use the manual described below or the migration_data.sh script in the repository.
+Use docker container image with psql and cloudsdk: [GCP migration image](https://github.com/navikt/gcp-migrering). This image let you do all the following actions from one place.
 
-In any case you need to create a secret in your namespace containing the Google SA you want to use to do the migration. Add the token to the secret.yaml file and apply it in your namespace.
+You need to create a secret in your namespace containing the Google SA you want to use to do the migration. Add the token to the secret.yaml file and apply it in your namespace.
 
 Deploy the pod into on-premise cluster that can connect to the database
 
@@ -80,7 +80,7 @@ Log in to gcloud with your own NAV-account
 gcloud auth login
 ```
 
-Configure the project id \(find project id with `gcloud projects list --filter team`\)
+Configure the project id \(find project id with `gcloud projects list --filter <team>`\)
 
 ```shell
 gcloud config set project <project id>
@@ -92,7 +92,7 @@ Set readable directory as $HOME
 export HOME=/tmp
 ```
 
-Create a GCP bucket. You will need the `roles/storage.admin` IAM role for the required operations on the bucket.
+Create a GCP bucket.
 
 ```shell
 gsutil mb -l europe-north1 gs://<bucket name>
@@ -113,7 +113,7 @@ gsutil iam ch serviceAccount:<GCP service account e-mail>:objectAdmin gs://<buck
 Use `pg_dump` to create the dump file. Notes:
 
 - Make sure that you stop writes to database before running `pg_dump`.
-- Get a [database user from Vault](https://github.com/navikt/utvikling/blob/main/docs/teknisk/Vault.md#--hente-ut-postgresql-credentials-til-en-utvikler).
+- Get a [database user from Vault](https://github.com/navikt/database-iac#how-to-manually-login-to-a-database-to-make-changes-or-read-data).
 - If the database in GCP already has the `flyway_schema_history` table, 
   you might want to exclude the equivalent table in the dump by using the `--exclude-table=flyway_schema_history` option.
 
