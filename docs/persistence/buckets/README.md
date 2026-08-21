@@ -11,5 +11,5 @@ Nais supports provisioning and managing buckets in Google Cloud Storage (GCS) fo
 
 ## Security
 
-Out of the box buckets are only exposed internally in Nais.
-This can further be restricted with [Public access prevention](https://docs.cloud.google.com/storage/docs/public-access-prevention) and [Uniform bucket-level access](https://cloud.google.com/storage/docs/uniform-bucket-level-access).
+Out of the box buckets are only exposed internally in Nais, where [Uniform bucket-level access](https://cloud.google.com/storage/docs/uniform-bucket-level-access) is enforced.
+This can further be restricted with [Public access prevention](https://docs.cloud.google.com/storage/docs/public-access-prevention).

@@ -15,8 +15,6 @@ There is no automatic backup enabled for buckets. I.e. the files can not be rest
 
  * `publicAccessPrevention` can be set to prevent public access to your bucket.
 
- * `uniformBucketLevelAccess` can be used to enable uniform bucket-level access on a bucket, Access Control Lists (ACLs) are disabled, and only bucket-level Identity and Access Management (IAM) permissions grant access to that bucket and the objects it contains.
-
  * `cascadingDelete` needs to be set to `true` if you want to delete the bucket. The bucket won't be deleted if it contains files.
 
  * `retentionPeriodDays` is set in number of days, if not set; no retention policy will be set and files can be deleted by application or manually.
