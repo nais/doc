@@ -175,9 +175,9 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 
 #### Domains
 
-| domain                          | accessible from          | description                                                                                                       |
-| :------------------------------ | :----------------------- | :---------------------------------------------------------------------------------------------------------------- |
-| external.dev.atil.cloud.nais.io | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| domain                          | accessible from          | description                                                                                                       | ip address |
+| :------------------------------ | :----------------------- | :---------------------------------------------------------------------------------------------------------------- | :--------- |
+| external.dev.atil.cloud.nais.io | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. | 130.211.21.180/32 |
 | dev.atil.cloud.nais.io          | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
 
 #### External/outbound IPs
@@ -195,9 +195,9 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 
 #### Domains
 
-| domain                          | accessible from          | description                                                                                                       |
-| :------------------------------ | :----------------------- | :---------------------------------------------------------------------------------------------------------------- |
-| external.prod.atil.cloud.nais.io | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| domain                          | accessible from          | description                                                                                                       | ip address |
+| :------------------------------ | :----------------------- | :---------------------------------------------------------------------------------------------------------------- | :--------- |
+| external.prod.atil.cloud.nais.io | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. | 34.111.208.235/32 |
 | prod.atil.cloud.nais.io          | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
 
 #### External/outbound IPs
