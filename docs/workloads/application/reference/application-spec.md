@@ -713,7 +713,7 @@ This also assigns groups to the application for access control. Only direct memb
 
 Relevant information:
 
-* [https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration/#groups](https://doc.<<tenant()>>.cloud.nais.io/security/auth/azure-ad/configuration/#groups)
+* [https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/reference/#groups](https://doc.<<tenant()>>.cloud.nais.io/auth/entra-id/reference/#groups)
 
 Type: `array`<br />
 Required: `false`<br />
