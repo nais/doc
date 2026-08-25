@@ -231,7 +231,7 @@ spec:
       cpu: 200m
       memory: 256Mi
   restartPolicy: Never
-  schedule: '*/15 0 0 0 0'
+  schedule: '*/5 4 3 2 1'
   skipCaBundle: true
   startup:
     failureThreshold: 10

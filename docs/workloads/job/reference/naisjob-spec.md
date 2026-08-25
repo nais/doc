@@ -4437,7 +4437,7 @@ Required: `false`<br />
 ??? example
     ``` yaml
     spec:
-      schedule: '*/15 0 0 0 0'
+      schedule: '*/5 4 3 2 1'
     ```
 
 ## skipCaBundle
