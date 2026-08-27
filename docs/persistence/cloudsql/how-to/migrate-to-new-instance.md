@@ -78,6 +78,13 @@ We have written a more detailed explanation of the process in the [explanation s
     nais postgres migrate finalize --team <team> --environment <environment> <appname> <new-sql-instance-name>
     ```
 
+!!! warning
+
+    When the migration is finished the objects in the public schema for your application user will be owned by cloudsqlsuperuser.
+    This has the unfortunate side-effect that all users with that role will have access to your application data.
+
+    To avoid this; change the owner of all objects to what they were in the previous instance with `REASSIGN OWNED BY cloudsqlsuperuser TO '<previous-application-user>';`.
+
 ## Rolling back the migration
 
 If you decide to not go through with the migration, you can roll back to the old SQLInstance at any point (unless you have run finalize).
