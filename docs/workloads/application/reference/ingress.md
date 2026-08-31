@@ -158,17 +158,17 @@ Here are pre-configured queries for ingress logs in the different environments:
 
 | nav-logs (OpenSearch Dashboards) | Grafana Loki              |
 | -------------------------------- | ------------------------- |
-| [dev-gcp][dev-gcp-opensearch]    | [dev-gcp][dev-gcp-loki]   |
-| [prod-gcp][prod-gcp-opensearch]  | [prod-gcp][prod-gcp-loki] |
+| [nav-dev][nav-dev-opensearch]    | [nav-dev][nav-dev-loki]   |
+| [nav-prod][nav-prod-opensearch]  | [nav-prod][nav-prod-loki] |
 | [dev-fss]                        | -                         |
 | [prod-fss]                       | -                         |
 
-[dev-gcp-opensearch]: https://logs.az.nav.no/app/discover#/view/1638d780-3369-11ed-b3e8-d969437dd878?_g=()
-[prod-gcp-opensearch]: https://logs.az.nav.no/app/discover#/view/1d10b410-3369-11ed-b3e8-d969437dd878?_g=()
+[nav-dev-opensearch]: https://logs.az.nav.no/app/discover#/view/1638d780-3369-11ed-b3e8-d969437dd878?_g=()
+[nav-prod-opensearch]: https://logs.az.nav.no/app/discover#/view/1d10b410-3369-11ed-b3e8-d969437dd878?_g=()
 [dev-fss]: https://logs.az.nav.no/app/discover#/view/e7562030-3368-11ed-b3e8-d969437dd878?_g=()
 [prod-fss]: https://logs.az.nav.no/app/discover#/view/00c05220-3369-11ed-b3e8-d969437dd878?_g=()
-[dev-gcp-loki]: https://grafana.nav.cloud.nais.io/d/ingress-logs/ingress-logs?var-env=dev
-[prod-gcp-loki]: https://grafana.nav.cloud.nais.io/d/ingress-logs/ingress-logs?var-env=prod
+[nav-dev-loki]: https://grafana.nav.cloud.nais.io/d/ingress-logs/ingress-logs?var-env=dev
+[nav-prod-loki]: https://grafana.nav.cloud.nais.io/d/ingress-logs/ingress-logs?var-env=prod
 {% endif %}
 
 ### Disable _your_ access logs

@@ -42,7 +42,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: dev-gcp
+              cluster: nav-dev
               namespace: q2
             - application: '*'
               namespace: q3
@@ -71,7 +71,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: dev-gcp
+              cluster: nav-dev
               namespace: q2
             - application: '*'
               namespace: q3
@@ -93,7 +93,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: dev-gcp
+              cluster: nav-dev
               namespace: q2
             - application: '*'
               namespace: q3
@@ -130,7 +130,7 @@ Required: `true`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: dev-gcp
+              cluster: nav-dev
               namespace: q2
             - application: '*'
               namespace: q3
@@ -166,7 +166,7 @@ Required: `true`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: dev-gcp
+              cluster: nav-dev
               namespace: q2
             - application: '*'
               namespace: q3
@@ -202,7 +202,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: dev-gcp
+              cluster: nav-dev
               namespace: q2
             - application: '*'
               namespace: q3
@@ -238,7 +238,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: dev-gcp
+              cluster: nav-dev
               namespace: q2
             - application: '*'
               namespace: q3
@@ -276,7 +276,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: dev-gcp
+              cluster: nav-dev
               namespace: q2
             - application: '*'
               namespace: q3
@@ -312,7 +312,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: dev-gcp
+              cluster: nav-dev
               namespace: q2
             - application: '*'
               namespace: q3
@@ -348,7 +348,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: dev-gcp
+              cluster: nav-dev
               namespace: q2
             - application: '*'
               namespace: q3
@@ -390,7 +390,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: dev-gcp
+              cluster: nav-dev
               namespace: q2
             - application: '*'
               namespace: q3
@@ -506,7 +506,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: dev-gcp
+              cluster: nav-dev
               namespace: q2
             - application: '*'
               namespace: q3
@@ -528,7 +528,7 @@ Required: `true`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: dev-gcp
+              cluster: nav-dev
               namespace: q2
             - application: '*'
               namespace: q3
@@ -550,7 +550,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: dev-gcp
+              cluster: nav-dev
               namespace: q2
             - application: '*'
               namespace: q3
@@ -572,7 +572,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: dev-gcp
+              cluster: nav-dev
               namespace: q2
             - application: '*'
               namespace: q3

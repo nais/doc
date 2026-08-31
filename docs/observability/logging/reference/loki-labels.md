@@ -20,7 +20,7 @@ Indexed labels form the stream selector and are the only labels you should place
 Example stream selector using indexed labels only:
 
 ```logql
-{service_name="my-app", service_namespace="my-team", k8s_cluster_name="prod-gcp"}
+{service_name="my-app", service_namespace="my-team", k8s_cluster_name="nav-prod"}
 ```
 
 ## Structured metadata

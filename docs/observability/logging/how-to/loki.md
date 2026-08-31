@@ -43,7 +43,7 @@ If you're new to working with logs in Grafana, here's a step-by-step guide to ge
 
 1. Open Grafana from your Nais tenant
 2. Click "Logs Drilldown" in the navigation or go directly to the [Logs Drilldown](<<tenant_url("grafana", "a/grafana-lokiexplore-app/explore")>>) interface
-3. Alternatively, use the traditional "Explore" view (compass icon) and select the appropriate Loki data source for your environment (dev-gcp, prod-gcp, etc.)
+3. Alternatively, use the traditional "Explore" view (compass icon) and select the appropriate Loki data source for your environment (nav-dev, nav-prod, etc.)
 
 ### 2. Find your application logs
 

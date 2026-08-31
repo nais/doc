@@ -26,7 +26,7 @@ The `loki:service:loglevel:count1m` metric provides a pre-aggregated count of lo
 | ------------------- | -------------------------------------------------------------- | ----------------------------------------- |
 | `service_name`      | The name of the service or application that generated the logs | `my-app`, `user-api`                      |
 | `service_namespace` | The Kubernetes namespace where the service is running          | `team-a`, `default`                       |
-| `k8s_cluster_name`  | The name of the Kubernetes cluster                             | `dev-gcp`, `prod-gcp`                     |
+| `k8s_cluster_name`  | The name of the Kubernetes cluster                             | `nav-dev`, `nav-prod`                     |
 | `detected_level`    | The log level or severity of the log entries                   | `error`, `warn`, `info`, `debug`, `trace` |
 
 ### Usage Examples

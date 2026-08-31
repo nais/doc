@@ -20,7 +20,7 @@ Resource attributes describe the entity producing the telemetry (your workload) 
 | ----------------------- | ------------------------------------------------------- | -------------------- |
 | `service.name`          | The name of the service (your application name).        | `my-app`             |
 | `service.namespace`     | The namespace (team) the service is deployed in.        | `my-team`            |
-| `k8s.cluster.name`      | The Kubernetes cluster hosting the workload.            | `prod-gcp`           |
+| `k8s.cluster.name`      | The Kubernetes cluster hosting the workload.            | `nav-prod`           |
 | `telemetry.sdk.language`| The language of the SDK that produced the span.         | `java`               |
 
 ## HTTP attributes
