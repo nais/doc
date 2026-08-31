@@ -131,6 +131,8 @@ const REDIRECTS: Record<string, string> = {
 		"persistence/cloudsql/how-to/personal-access.md",
 	"persistence/postgres/how-to/reset-database-credentials.md":
 		"persistence/cloudsql/how-to/reset-database-credentials.md",
+	"persistence/postgres/how-to/restore-from-backup.md":
+		"persistence/cloudsql/how-to/restore-from-backup.md",
 	"persistence/postgres/how-to/upgrade-postgres.md":
 		"persistence/cloudsql/how-to/upgrade-postgres.md",
 	"persistence/postgres/reference/README.md": "persistence/cloudsql/reference/README.md",
