@@ -20,7 +20,7 @@ spec:
       rules:
         - application: tokenx-token-generator
           namespace: nais
-          cluster: nav-dev
+          cluster: dev-gcp
 ```
 
 ## Generate token
@@ -32,7 +32,7 @@ This method requires user interaction with ID-porten to authenticate the end-use
 1. Visit <https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=&lt;audience&gt;> in your browser.
     - Replace `<audience>` with the intended _audience_ of the token, in this case the API application.
     - The audience value must be on the form of `<cluster>:<namespace>:<application>`
-    - For example: `nav-dev:my-team:my-app`
+    - For example: `dev-gcp:my-team:my-app`
 2. You will be redirected to log in at ID-porten (if not already logged in).
 3. After logging in, you should be redirected back to the token generator and presented with a JSON response containing an `access_token`.
 4. Use the `access_token` as a [Bearer token](../../explanations/README.md#bearer-token) to consume the API application.
@@ -64,7 +64,7 @@ For example, in `curl`:
 
 ```bash
 curl -s -X POST "https://tokenx-token-generator.intern.dev.nav.no/api/public/obo" \
-  -d "aud=nav-dev:my-team:my-app" \
+  -d "aud=dev-gcp:my-team:my-app" \
   -d "pid=12345678901"
 ```
 

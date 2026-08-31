@@ -30,7 +30,7 @@ spec:
       - application: app2
         namespace: q1
       - application: app3
-        cluster: nav-dev
+        cluster: dev-gcp
         namespace: q2
       - application: '*'
         namespace: q3
@@ -63,7 +63,7 @@ spec:
       - application: app2
         namespace: q1
       - application: app3
-        cluster: nav-dev
+        cluster: dev-gcp
         namespace: q2
       - application: '*'
         namespace: q3
@@ -282,9 +282,9 @@ spec:
       cpu:
         thresholdPercentage: 50
       kafka:
-        consumerGroup: nav-dev
+        consumerGroup: dev-gcp
         threshold: 10
-        topic: nais-verification.kafka-canary-nav-dev
+        topic: nais-verification.kafka-canary-dev-gcp
       scaleDownStabilizationWindowSeconds: 30
       scaleUpStabilizationWindowSeconds: 30
   resources:

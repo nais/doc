@@ -12,7 +12,7 @@ We also enumerate the external IPs used by the environments, so that you can pro
 {% if tenant() == "nav" %}
 ## Google Cloud Platform (GCP)
 
-### nav-dev
+### dev-gcp
 
 #### Ingress domains
 
@@ -41,7 +41,7 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 | logs (stdout)        | `loki`         |
 | auto-instrumentation | `grafana-lgtm` |
 
-### nav-prod
+### prod-gcp
 
 #### Ingress domains
 
@@ -82,7 +82,7 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 
 | domain              | accessible from | description                                                                                          |
 | :------------------ | :-------------- | :--------------------------------------------------------------------------------------------------- |
-| intern.dev.nav.no   | [naisdevice]    | development ingress for internal applications. Also available in nav-dev, use this to ease migration |
+| intern.dev.nav.no   | [naisdevice]    | development ingress for internal applications. Also available in dev-gcp, use this to ease migration |
 | dev-fss-pub.nais.io | GCP             | See [How do I reach an application found on-premises from my application in GCP?][on-prem]           |
 
 #### Kubectl access
@@ -102,7 +102,7 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 
 | domain               | accessible from | description                                                                                                                                                                |
 | :------------------- | :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| intern.nav.no        | [naisdevice]    | ingress for internal applications (supersedes nais.adeo.no). Also available in nav-prod, use this to ease migration. Requires [JITA][naisdevice-jita] to `onprem-k8s-prod` |
+| intern.nav.no        | [naisdevice]    | ingress for internal applications (supersedes nais.adeo.no). Also available in prod-gcp, use this to ease migration. Requires [JITA][naisdevice-jita] to `onprem-k8s-prod` |
 | prod-fss-pub.nais.io | GCP             | See [How do I reach an application found on-premises from my application in GCP?][on-prem]                                                                                 |
 
 [on-prem]: ../explanations/migrating-to-gcp.md#how-do-i-reach-an-application-found-on-premises-from-my-application-in-gcp

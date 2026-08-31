@@ -31,7 +31,7 @@ The available canary topics are:
 
 | Pool     | Topic name                              |
 | :------- | :-------------------------------------- |
-| nav-dev  | nais-verification.kafka-canary-nav-dev  |
+| nav-dev  | nais-verification.kafka-canary-dev-gcp  |
 | nav-dev  | nais-verification.kafka-canary-dev-fss  |
-| nav-prod | nais-verification.kafka-canary-nav-prod |
+| nav-prod | nais-verification.kafka-canary-prod-gcp |
 | nav-prod | nais-verification.kafka-canary-prod-fss |

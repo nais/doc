@@ -30,7 +30,7 @@ spec:
       - application: app2
         namespace: q1
       - application: app3
-        cluster: nav-dev
+        cluster: dev-gcp
         namespace: q2
       - application: '*'
         namespace: q3
@@ -59,7 +59,7 @@ spec:
       - application: app2
         namespace: q1
       - application: app3
-        cluster: nav-dev
+        cluster: dev-gcp
         namespace: q2
       - application: '*'
         namespace: q3

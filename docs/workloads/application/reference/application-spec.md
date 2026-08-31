@@ -42,7 +42,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: nav-dev
+              cluster: dev-gcp
               namespace: q2
             - application: '*'
               namespace: q3
@@ -75,7 +75,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: nav-dev
+              cluster: dev-gcp
               namespace: q2
             - application: '*'
               namespace: q3
@@ -97,7 +97,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: nav-dev
+              cluster: dev-gcp
               namespace: q2
             - application: '*'
               namespace: q3
@@ -134,7 +134,7 @@ Required: `true`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: nav-dev
+              cluster: dev-gcp
               namespace: q2
             - application: '*'
               namespace: q3
@@ -170,7 +170,7 @@ Required: `true`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: nav-dev
+              cluster: dev-gcp
               namespace: q2
             - application: '*'
               namespace: q3
@@ -206,7 +206,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: nav-dev
+              cluster: dev-gcp
               namespace: q2
             - application: '*'
               namespace: q3
@@ -242,7 +242,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: nav-dev
+              cluster: dev-gcp
               namespace: q2
             - application: '*'
               namespace: q3
@@ -280,7 +280,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: nav-dev
+              cluster: dev-gcp
               namespace: q2
             - application: '*'
               namespace: q3
@@ -316,7 +316,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: nav-dev
+              cluster: dev-gcp
               namespace: q2
             - application: '*'
               namespace: q3
@@ -352,7 +352,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: nav-dev
+              cluster: dev-gcp
               namespace: q2
             - application: '*'
               namespace: q3
@@ -398,7 +398,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: nav-dev
+              cluster: dev-gcp
               namespace: q2
             - application: '*'
               namespace: q3
@@ -534,7 +534,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: nav-dev
+              cluster: dev-gcp
               namespace: q2
             - application: '*'
               namespace: q3
@@ -556,7 +556,7 @@ Required: `true`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: nav-dev
+              cluster: dev-gcp
               namespace: q2
             - application: '*'
               namespace: q3
@@ -578,7 +578,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: nav-dev
+              cluster: dev-gcp
               namespace: q2
             - application: '*'
               namespace: q3
@@ -600,7 +600,7 @@ Required: `false`<br />
             - application: app2
               namespace: q1
             - application: app3
-              cluster: nav-dev
+              cluster: dev-gcp
               namespace: q2
             - application: '*'
               namespace: q3
@@ -5057,9 +5057,9 @@ Required: `false`<br />
           cpu:
             thresholdPercentage: 50
           kafka:
-            consumerGroup: nav-dev
+            consumerGroup: dev-gcp
             threshold: 10
-            topic: nais-verification.kafka-canary-nav-dev
+            topic: nais-verification.kafka-canary-dev-gcp
           scaleDownStabilizationWindowSeconds: 30
           scaleUpStabilizationWindowSeconds: 30
     ```
@@ -5142,9 +5142,9 @@ Required: `false`<br />
           cpu:
             thresholdPercentage: 50
           kafka:
-            consumerGroup: nav-dev
+            consumerGroup: dev-gcp
             threshold: 10
-            topic: nais-verification.kafka-canary-nav-dev
+            topic: nais-verification.kafka-canary-dev-gcp
           scaleDownStabilizationWindowSeconds: 30
           scaleUpStabilizationWindowSeconds: 30
     ```
@@ -5191,9 +5191,9 @@ Required: `false`<br />
       replicas:
         scalingStrategy:
           kafka:
-            consumerGroup: nav-dev
+            consumerGroup: dev-gcp
             threshold: 10
-            topic: nais-verification.kafka-canary-nav-dev
+            topic: nais-verification.kafka-canary-dev-gcp
     ```
 
 ##### replicas.scalingStrategy.kafka.consumerGroup
@@ -5208,7 +5208,7 @@ Required: `true`<br />
       replicas:
         scalingStrategy:
           kafka:
-            consumerGroup: nav-dev
+            consumerGroup: dev-gcp
     ```
 
 ##### replicas.scalingStrategy.kafka.threshold
@@ -5238,7 +5238,7 @@ Required: `true`<br />
       replicas:
         scalingStrategy:
           kafka:
-            topic: nais-verification.kafka-canary-nav-dev
+            topic: nais-verification.kafka-canary-dev-gcp
     ```
 
 #### replicas.scalingStrategy.scaleDownStabilizationWindowSeconds

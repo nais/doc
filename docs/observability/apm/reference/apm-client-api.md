@@ -46,7 +46,7 @@ each resolve independently (see [Configuration resolution](#configuration-resolu
 | `app` | `string` | Application name. |
 | `namespace` | `string` | The nais team (Kubernetes namespace) that owns the app. **Effectively required** — the plugin attributes all telemetry by team, so without it telemetry resolves to `unknown-team` and can't be tied to your app. Resolves from `<meta name="nais-team">` / `nais-namespace` or `NAIS_TEAM` / `NAIS_NAMESPACE` when omitted. |
 | `version` | `string` | App version / release. Used for grouping and release tagging; also set as Faro `release`. |
-| `environment` | `string` | Environment, e.g. `nav-prod`. |
+| `environment` | `string` | Environment, e.g. `prod-gcp`. |
 | `telemetryUrl` | `string` | Collector URL. |
 | `beforeSend` | `(item) => item \| null` | Runs **before** the mandatory PII scrubber. Return `null` to drop the item. |
 | `ignoreErrors` | `Patterns` | Extra patterns appended to `DEFAULT_IGNORE_ERRORS`. |
@@ -64,7 +64,7 @@ init({
   app: 'my-app',
   namespace: 'my-team', // the nais team that owns this app — effectively required
   version: '2026.07.04-abc1234',
-  environment: 'nav-prod',
+  environment: 'prod-gcp',
   telemetryUrl: undefined, // usually omitted — resolved automatically on nais
 
   beforeSend: (item) => item,
@@ -87,7 +87,7 @@ resolves independently, highest priority first:
    ```html
    <meta name="nais-app" content="my-app">
    <meta name="nais-team" content="my-team"> <!-- or nais-namespace -->
-   <meta name="nais-cluster" content="nav-prod">
+   <meta name="nais-cluster" content="prod-gcp">
    <meta name="nais-version" content="2026.07.03-abc1234">
    <meta name="nais-telemetry-url" content="https://telemetry.<tenant>.example/collect"> <!-- injected by the platform, not written by hand -->
    ```

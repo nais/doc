@@ -39,7 +39,7 @@ All clients provisioned through Nais will be registered in Entra ID using the fo
 For example:
 
 ```text 
-nav-dev:aura:nais-testapp
+dev-gcp:aura:nais-testapp
 ```
 
 The name is not guaranteed to be unique and should not be used for authorization.
@@ -63,7 +63,7 @@ api://<cluster>.<namespace>.<app-name>/.default
 For example:
 
 ```text
-api://nav-dev.aura.nais-testapp/.default
+api://dev-gcp.aura.nais-testapp/.default
 ```
 
 The `/.default` scope indicates that your application is requesting _all_ available permissions granted by the _target application_.

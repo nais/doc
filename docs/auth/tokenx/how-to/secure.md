@@ -25,14 +25,14 @@ spec:
 
         - application: app-3
           namespace: team-b
-          cluster: nav-prod
+          cluster: prod-gcp
 ```
 
 The above configuration authorizes the following applications:
 
 * application `app-1` running in the same namespace and same cluster as your application
 * application `app-2` running in the namespace `team-a` in the same cluster
-* application `app-3` running in the namespace `team-b` in the cluster `nav-prod`
+* application `app-3` running in the namespace `team-b` in the cluster `prod-gcp`
 
 Now that you have granted access to your consumers, they can now exchange tokens for new tokens that target your application.
 You will need to validate these tokens in your application.

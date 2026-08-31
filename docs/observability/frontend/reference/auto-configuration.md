@@ -79,8 +79,8 @@ This is useful for server-rendered applications (Next.js, Remix) where the serve
 
 | Cluster     | Collector URL                                  |
 | ----------- | ---------------------------------------------- |
-| `nav-prod`  | `https://telemetry.nav.no/collect`             |
-| `nav-dev`   | `https://telemetry.ekstern.dev.nav.no/collect` |
+| `prod-gcp`  | `https://telemetry.nav.no/collect`             |
+| `dev-gcp`   | `https://telemetry.ekstern.dev.nav.no/collect` |
 
 On-premises clusters (`prod-fss`, `dev-fss`) are not supported.
 {% endif %}
