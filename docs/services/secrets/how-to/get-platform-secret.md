@@ -10,7 +10,7 @@ Platform-managed secrets are provisioned by Nais on behalf of your workload, but
 
 ## Prerequisites
 
-- [nais CLI](https://cli.nais.io) installed and authenticated
+- [Nais CLI](https://cli.nais.io) installed and authenticated
 - [`jq`](https://jqlang.org) (or similar JSON tool) installed
 - Member of the [Nais team](../../../explanations/team.md) that owns the workload
 
