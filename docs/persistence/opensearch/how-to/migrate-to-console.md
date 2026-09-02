@@ -72,14 +72,14 @@ It should look something like this:
 -kind: ServiceIntegration
 -metadata:
 -  labels:
--    team: <MYTEAM>
--  name: opensearch-<MYTEAM>-<INSTANCE>
--  namespace: <MYTEAM>
+-    team: <TEAM>
+-  name: opensearch-<TEAM>-<INSTANCE>
+-  namespace: <TEAM>
 -spec:
 -  project: <<tenant()>>-<ENV>
 -  integrationType: prometheus
 -  destinationEndpointId: <ENDPONT-ID>
--  sourceServiceName: opensearch-<MYTEAM>-<INSTANCE>
+-  sourceServiceName: opensearch-<TEAM>-<INSTANCE>
 ```
 
 ### 3. Remove references from GitHub Actions workflows
@@ -111,6 +111,9 @@ To allow Console to take over management of the OpenSearch instance, you need to
 To do so, run the following command:
 
 ```shell
+export OPENSEARCH_NAME="<OPENSEARCH-NAME">
+export TEAM="<TEAM>"
+export ENVIRONMENT="<ENVIRONMENT>"
 kubectl label opensearch $OPENSEARCH_NAME nais.io/managed-by=console \
   --namespace $TEAM \
   --context $ENVIRONMENT
