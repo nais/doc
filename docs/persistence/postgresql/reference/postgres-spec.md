@@ -23,203 +23,7 @@ tags: [postgres, reference]
 
 This document describes all possible configuration values in the `Postgres` spec, commonly known as the `postgres.yaml` file.
 
-## cluster
-Cluster configures the Postgres cluster
-
-Type: `object`<br />
-Required: `true`<br />
-
-??? example
-    ``` yaml
-    spec:
-      cluster:
-        allowDeletion: true
-        audit:
-          enabled: true
-          statementClasses:
-            - function
-            - misc
-        highAvailability: true
-        majorVersion: "17"
-        resources:
-          cpu: 200m
-          diskSize: 2Gi
-          memory: 2Gi
-    ```
-
-### cluster.allowDeletion
-Allow deletion of the Postgres cluster when the application is deleted.
-
-Type: `boolean`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      cluster:
-        allowDeletion: true
-    ```
-
-### cluster.audit
-Configure audit logging for the Postgres cluster.
-
-Type: `object`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      cluster:
-        audit:
-          enabled: true
-          statementClasses:
-            - function
-            - misc
-    ```
-
-#### cluster.audit.enabled
-Enable audit logging for the Postgres cluster.
-
-Type: `boolean`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      cluster:
-        audit:
-          enabled: true
-    ```
-
-#### cluster.audit.statementClasses
-Statement classes to log.
-
-Type: `array`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      cluster:
-        audit:
-          statementClasses:
-            - function
-            - misc
-    ```
-
-### cluster.highAvailability
-High availability cluster.
-
-Type: `boolean`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      cluster:
-        highAvailability: true
-    ```
-
-### cluster.majorVersion
-Major version of Postgres to use.
-
-Type: `enum`<br />
-Required: `true`<br />
-Allowed values: `16`, `17`, `18`<br />
-
-??? example
-    ``` yaml
-    spec:
-      cluster:
-        majorVersion: "17"
-    ```
-
-### cluster.resources
-Type: `object`<br />
-Required: `true`<br />
-
-??? example
-    ``` yaml
-    spec:
-      cluster:
-        resources:
-          cpu: 200m
-          diskSize: 2Gi
-          memory: 2Gi
-    ```
-
-#### cluster.resources.cpu
-CPU resources for the Postgres cluster.
-
-Type: `object`<br />
-Required: `true`<br />
-
-??? example
-    ``` yaml
-    spec:
-      cluster:
-        resources:
-          cpu: 200m
-    ```
-
-#### cluster.resources.diskSize
-Disk size for the Postgres cluster.
-
-Type: `object`<br />
-Required: `true`<br />
-
-??? example
-    ``` yaml
-    spec:
-      cluster:
-        resources:
-          diskSize: 2Gi
-    ```
-
-#### cluster.resources.memory
-Memory resources for the Postgres cluster.
-
-Type: `object`<br />
-Required: `true`<br />
-
-??? example
-    ``` yaml
-    spec:
-      cluster:
-        resources:
-          memory: 2Gi
-    ```
-
-## database
-Database configures the Postgres database.
-
-Type: `object`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      database:
-        collation: nb_NO
-        extensions:
-          - name: postgis
-    ```
-
-### database.collation
-Collation for the Postgres database.
-
-Type: `enum`<br />
-Required: `false`<br />
-Allowed values: `en_US`, `nb_NO`<br />
-
-??? example
-    ``` yaml
-    spec:
-      database:
-        collation: nb_NO
-    ```
-
-### database.extensions
+## extensions
 Extensions to enable in the Postgres database.
 
 Type: `array`<br />
@@ -228,12 +32,11 @@ Required: `false`<br />
 ??? example
     ``` yaml
     spec:
-      database:
-        extensions:
-          - name: postgis
+      extensions:
+        - name: postgis
     ```
 
-#### database.extensions[].name
+### extensions[].name
 Name of the Postgres extension to enable.
 
 Type: `string`<br />
@@ -242,13 +45,41 @@ Required: `true`<br />
 ??? example
     ``` yaml
     spec:
-      database:
-        extensions:
-          - name: postgis
+      extensions:
+        - name: postgis
     ```
 
-## maintenanceWindow
-MaintenanceWindow configures the maintenance window for the Postgres cluster.
+## highAvailability
+HighAvailability adds a third instance and enables synchronous replication.
+
+A cluster always runs a primary and a standby, so failover is available either
+way. What this adds is the guarantee that an acknowledged commit survives
+losing the primary, at the cost of write latency.
+
+Type: `boolean`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      highAvailability: true
+    ```
+
+## majorVersion
+MajorVersion of Postgres to use.
+
+Type: `enum`<br />
+Required: `true`<br />
+Allowed values: `16`, `17`, `18`<br />
+
+??? example
+    ``` yaml
+    spec:
+      majorVersion: "18"
+    ```
+
+## resources
+Resources configures compute and disk for the Postgres cluster.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -256,32 +87,48 @@ Required: `false`<br />
 ??? example
     ``` yaml
     spec:
-      maintenanceWindow:
-        day: 4
-        hour: 10
+      resources:
+        cpu: 100m
+        diskSize: 10Gi
+        memory: 512Mi
     ```
 
-### maintenanceWindow.day
-Type: `integer`<br />
-Required: `true`<br />
-Value range: `1`-`7`<br />
+### resources.cpu
+Cpu is the CPU resources for the Postgres cluster.
+
+Type: `object`<br />
+Required: `false`<br />
 
 ??? example
     ``` yaml
     spec:
-      maintenanceWindow:
-        day: 4
+      resources:
+        cpu: 100m
     ```
 
-### maintenanceWindow.hour
-Type: `integer`<br />
-Required: `true`<br />
-Value range: `0`-`23`<br />
+### resources.diskSize
+DiskSize is the disk size for the Postgres cluster.
+
+Type: `object`<br />
+Required: `false`<br />
 
 ??? example
     ``` yaml
     spec:
-      maintenanceWindow:
-        hour: 10
+      resources:
+        diskSize: 10Gi
+    ```
+
+### resources.memory
+Memory is the memory resources for the Postgres cluster.
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      resources:
+        memory: 512Mi
     ```
 

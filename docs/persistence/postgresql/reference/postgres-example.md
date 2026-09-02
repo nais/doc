@@ -19,32 +19,20 @@ This is a complete example of a `Postgres` resource, commonly known as the `post
 For an in-depth explanation of each field, head over to the [reference documentation](./postgres-spec.md).
 
 ``` yaml
-apiVersion: data.nais.io/v1
+apiVersion: nais.io/v1
 kind: Postgres
 metadata:
   labels:
     team: myteam
-  name: mycluster
+  name: mypostgres
   namespace: myteam
 spec:
-  cluster:
-    allowDeletion: true
-    audit:
-      enabled: true
-      statementClasses:
-      - function
-      - misc
-    highAvailability: true
-    majorVersion: "17"
-    resources:
-      cpu: 200m
-      diskSize: 2Gi
-      memory: 2Gi
-  database:
-    collation: nb_NO
-    extensions:
-    - name: postgis
-  maintenanceWindow:
-    day: 4
-    hour: 10
+  extensions:
+  - name: postgis
+  highAvailability: true
+  majorVersion: "18"
+  resources:
+    cpu: 100m
+    diskSize: 10Gi
+    memory: 512Mi
 ```
