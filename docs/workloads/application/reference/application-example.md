@@ -247,8 +247,6 @@ spec:
     access: readwrite
     instance: my-open-search-instance
   port: 8080
-  postgres:
-    clusterName: my-postgres-cluster
   preStopHook:
     exec:
       command:
@@ -314,6 +312,11 @@ spec:
   tokenx:
     enabled: true
   ttl: 1h
+  uses:
+    postgres:
+    - envPrefix: MYDB_
+      name: my-postgres
+      role: readwrite
   valkey:
   - access: readwrite
     instance: cache

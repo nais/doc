@@ -205,8 +205,6 @@ spec:
     access: readwrite
     instance: my-open-search-instance
   parallelism: 1
-  postgres:
-    clusterName: my-postgres-cluster
   preStopHook:
     exec:
       command:
@@ -245,6 +243,11 @@ spec:
   timeZone: Europe/Oslo
   ttl: 1h
   ttlSecondsAfterFinished: 60
+  uses:
+    postgres:
+    - envPrefix: MYDB_
+      name: my-postgres
+      role: readwrite
   valkey:
   - access: readwrite
     instance: cache

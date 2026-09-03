@@ -4057,36 +4057,6 @@ Default value: `1`<br />
       parallelism: 1
     ```
 
-## postgres
-Postgres is used to provision and configure a Postgres database for your naisjob.
-
-!!! warning "Experimental feature"
-    This feature has not undergone much testing, and is subject to API change, instability, or removal.
-
-Type: `object`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      postgres:
-        clusterName: my-postgres-cluster
-    ```
-
-### postgres.clusterName
-ClusterName is the name of the Postgres cluster.
-
-Type: `string`<br />
-Required: `true`<br />
-Pattern: `^[a-z0-9][a-z0-9-]{1,49}$`<br />
-
-??? example
-    ``` yaml
-    spec:
-      postgres:
-        clusterName: my-postgres-cluster
-    ```
-
 ## preStopHook
 PreStopHook is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc.
 The handler is not called if the container crashes or exits by itself.
@@ -4619,6 +4589,94 @@ Required: `false`<br />
     ``` yaml
     spec:
       ttlSecondsAfterFinished: 60
+    ```
+
+## uses
+Uses configures resources used by this Naisjob.
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      uses:
+        postgres:
+          - envPrefix: MYDB_
+            name: my-postgres
+            role: readwrite
+    ```
+
+### uses.postgres
+Postgres configures access to CloudNativePG Postgres instances in the workload namespace.
+Each Postgres instance may occur only once. When more than one instance is configured,
+all but one entry must set a unique envPrefix.
+
+Type: `array`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      uses:
+        postgres:
+          - envPrefix: MYDB_
+            name: my-postgres
+            role: readwrite
+    ```
+
+#### uses.postgres[].envPrefix
+EnvPrefix is prepended verbatim to every environment variable for this Postgres instance.
+Include a separator such as a trailing underscore when desired.
+
+Type: `string`<br />
+Required: `false`<br />
+Pattern: `^[A-Za-z_][A-Za-z0-9_]*$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      uses:
+        postgres:
+          - envPrefix: MYDB_
+            name: my-postgres
+            role: readwrite
+    ```
+
+#### uses.postgres[].name
+Name of the Postgres resource in the workload namespace.
+
+Type: `string`<br />
+Required: `true`<br />
+Pattern: `^[a-z0-9]([-a-z0-9]*[a-z0-9])?$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      uses:
+        postgres:
+          - envPrefix: MYDB_
+            name: my-postgres
+            role: readwrite
+    ```
+
+#### uses.postgres[].role
+Role controls the database privileges granted to the workload. Admin access also provisions
+a separate readwrite credential for ordinary application traffic.
+
+Type: `enum`<br />
+Required: `false`<br />
+Default value: `admin`<br />
+Allowed values: `admin`, `read`, `readwrite`<br />
+
+??? example
+    ``` yaml
+    spec:
+      uses:
+        postgres:
+          - envPrefix: MYDB_
+            name: my-postgres
+            role: readwrite
     ```
 
 ## valkey
