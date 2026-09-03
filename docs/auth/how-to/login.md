@@ -86,6 +86,16 @@ spec:
 
 See the [Nais application reference](../../workloads/application/reference/application-spec.md#login) for the complete specifications with all possible options.
 
+If you've configured `WONDERWALL_OPENID_WELL_KNOWN_URL`, the application must also allow egress traffic to the matching host:
+
+```yaml
+spec:
+  accessPolicy:
+    outbound:
+      external:
+        - host: <provider-host>
+```
+
 Now that your application is configured, you should handle inbound requests in your application code.
 
 ## Handle inbound requests
