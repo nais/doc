@@ -4683,6 +4683,23 @@ Default value: `8080`<br />
       port: 8080
     ```
 
+## postgres
+Postgres is the deprecated integration with a single legacy Postgres cluster.
+Use uses.postgres for new integrations.
+
+!!! warning "Experimental feature"
+    This feature has not undergone much testing, and is subject to API change, instability, or removal.
+
+Type: `object`<br />
+Required: `false`<br />
+
+### postgres.clusterName
+ClusterName is the name of the Postgres cluster.
+
+Type: `string`<br />
+Required: `true`<br />
+Pattern: `^[a-z0-9][a-z0-9-]{1,49}$`<br />
+
 ## preStopHook
 PreStopHook is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc.
 The handler is not called if the container crashes or exits by itself.
