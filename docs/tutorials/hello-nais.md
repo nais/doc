@@ -104,7 +104,7 @@ touch .github/workflows/main.yaml
 Add the following content to the file, and insert the appropriate values in the placeholders on the highlighted lines:
 ???+ note ".github/workflows/main.yaml"
 
-    ```yaml hl_lines="28 {%- if tenant() == "test-nais" %}34{% else %}35{% endif %}"
+    ```yaml hl_lines="28 {% if tenant() == "test-nais" %}41{% else %}35{% endif %}"
     name: Build and deploy
     on:
       push:
@@ -133,17 +133,21 @@ Add the following content to the file, and insert the appropriate values in the 
             id: docker-build-push
             with:
               team: <MY-TEAM> # Replace
-{%- if tenant() == "test-nais" %}
-        project_id: nais-management-ddba
-        identity_provider: projects/636929582051/locations/global/workloadIdentityPools/test-nais-identity-pool/providers/github-oidc-provider
-{%- endif %}
+    {% if tenant() == "test-nais" %}
+              project_id: nais-management-ddba
+              identity_provider: projects/636929582051/locations/global/workloadIdentityPools/test-nais-identity-pool/providers/github-oidc-provider
+    {% endif %}
           - name: Authenticate the Nais CLI
             uses: nais/setup@v1 # Should be pinned
-{%- if tenant() == "test-nais" %}
+    {% if tenant() == "test-nais" %}
             env:
-            NAIS_API_TENANT: test-nais
-{%- endif %}
+              NAIS_API_TENANT: test-nais
+    {% endif %}
           - name: Deploy to Nais
+    {% if tenant() == "test-nais" %}
+            env:
+              NAIS_API_TENANT: test-nais
+    {% endif %}
             run: |
               nais apply .nais/app.yaml \
                 --image ${{ steps.docker-build-push.outputs.image }} \
