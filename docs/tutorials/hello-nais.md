@@ -104,8 +104,8 @@ touch .github/workflows/main.yaml
 Add the following content to the file, and insert the appropriate values in the placeholders on the highlighted lines:
 ???+ note ".github/workflows/main.yaml"
 
-    ```yaml hl_lines="28 {%- if tenant() == "test-nais" %}34{% else %}32{% endif %}"
-	name: Build and deploy
+    ```yaml hl_lines="28 {%- if tenant() == "test-nais" %}34{% else %}35{% endif %}"
+    name: Build and deploy
     on:
       push:
         branches:
@@ -134,18 +134,20 @@ Add the following content to the file, and insert the appropriate values in the 
             with:
               team: <MY-TEAM> # Replace
 {%- if tenant() == "test-nais" %}
-			  project_id: nais-management-ddba
-			  identity_provider: projects/636929582051/locations/global/workloadIdentityPools/test-nais-identity-pool/providers/github-oidc-provider
+        project_id: nais-management-ddba
+        identity_provider: projects/636929582051/locations/global/workloadIdentityPools/test-nais-identity-pool/providers/github-oidc-provider
+{%- endif %}
+          - name: Authenticate the Nais CLI
+            uses: nais/setup@v1 # Should be pinned
+{%- if tenant() == "test-nais" %}
+            env:
+            NAIS_API_TENANT: test-nais
 {%- endif %}
           - name: Deploy to Nais
-            uses: nais/deploy/actions/deploy@v2 # Should be pinned
-            env:
-              CLUSTER: <MY-ENV> # Replace (2)
-              RESOURCE: .nais/app.yaml # This points to the file we created in the previous step
-              WORKLOAD_IMAGE: ${{ steps.docker-build-push.outputs.image }}
-{%- if tenant() == "test-nais" %}
-			  DEPLOY_SERVER: deploy.test-nais.cloud.nais.io:443
-{%- endif %}
+            run: |
+              nais apply .nais/app.yaml \
+                --image ${{ steps.docker-build-push.outputs.image }} \
+                --environment <MY-ENV> # Replace
     ```
 
     1. GitHub actions should be pinned to a SHA for better security. Read more in GitHub [Secure use reference](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions).
