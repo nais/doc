@@ -73,7 +73,7 @@ To send logs to your team's private index, configure your application to use the
     <Configuration>
       <Appenders>
         <Console name="default-json" target="SYSTEM_OUT">
-          <JsonLayout compact="true" />
+          <JsonLayout compact="true" eventEol="true" />
           <Filters>
             <MarkerFilter marker="TEAM_LOGS" onMatch="DENY" onMismatch="ACCEPT" />
           </Filters>
