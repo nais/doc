@@ -22,17 +22,17 @@ For an in-depth explanation of each field, head over to the [reference documenta
 apiVersion: nais.io/v1
 kind: Postgres
 metadata:
-  labels:
-    team: myteam
-  name: mypostgres
-  namespace: myteam
+    labels:
+        team: myteam
+    name: mypostgres
+    namespace: myteam
 spec:
-  extensions:
-  - name: postgis
-  highAvailability: true
-  majorVersion: "18"
-  resources:
-    cpu: 100m
-    diskSize: 10Gi
-    memory: 512Mi
+    extensions:
+        - name: postgis
+    highAvailability: true
+    majorVersion: "18"
+    resources:
+        cpu: 100m
+        diskSize: 10Gi
+        memory: 512Mi
 ```
