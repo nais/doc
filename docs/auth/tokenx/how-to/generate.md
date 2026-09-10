@@ -29,8 +29,8 @@ spec:
 
 This method requires user interaction with ID-porten to authenticate the end-user.
 
-1. Visit <https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=&lt;audience&gt;> in your browser.
-    - Replace `<audience>` with the intended _audience_ of the token, in this case the API application.
+1. Visit `https://tokenx-token-generator.intern.dev.nav.no/api/obo?aud=<AUDIENCE>` in your browser.
+    - Replace `<AUDIENCE>` with the intended _audience_ of the token, in this case the API application.
     - The audience value must be on the form of `<cluster>:<namespace>:<application>`
     - For example: `dev-gcp:my-team:my-app`
 2. You will be redirected to log in at ID-porten (if not already logged in).
@@ -45,19 +45,19 @@ If you want a production-like user token, you should instead use the interactive
 Perform a `POST` request to `https://tokenx-token-generator.intern.dev.nav.no/api/public/obo`:
 
 ```http
-POST /api/public/obo?aud=<audience> HTTP/1.1
+POST /api/public/obo HTTP/1.1
 Host: tokenx-token-generator.intern.dev.nav.no
 Content-Type: application/x-www-form-urlencoded
 
-aud=<audience>
-pid=<pid>
+aud=<AUDIENCE>
+pid=<PID>
 acr=idporten-loa-high    # optional, default shown
 ```
 
 where
 
-- `<audience>` is the intended _audience_ of the token, in this case the target API application
-- `<pid>` is the personal identification number (PID) of the intended end-user. This value is not validated.
+- `<AUDIENCE>` is the intended _audience_ of the token, in this case the target API application
+- `<PID>` is the personal identification number (PID) of the intended end-user. This value is not validated.
 - `acr` (optional) is the [security level](../../idporten/reference/README.md#security-levels) for the user authentication
 
 For example, in `curl`:
