@@ -31,6 +31,8 @@ Aiven OpenSearch can be used by applications in all environments, but must be *d
 
 :dart: [Create OpenSearch](how-to/create.md)
 
+:dart: [Create OpenSearch with GitHub Actions](how-to/create-with-github-actions.md)
+
 :dart: [Use OpenSearch in your workload](how-to/use-in-workload.md)
 
 :dart: [Delete OpenSearch](how-to/delete.md)

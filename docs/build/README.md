@@ -14,7 +14,9 @@ Use these actions to compose your own build and deploy pipeline through [Github 
 
 :books: [nais/docker-build-push](https://github.com/nais/docker-build-push)
 
-:books: [nais/deploy](https://github.com/nais/deploy/tree/master/actions/deploy)
+:books: [nais/setup](https://github.com/nais/setup)
+
+:books: [nais/deploy](https://github.com/nais/deploy/tree/master/actions/deploy) :warning: This action is deprecated. Use `nais/setup`
 
 See the respective GitHub Action links for detailed configuration options.
 

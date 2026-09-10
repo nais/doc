@@ -26,4 +26,6 @@ Grab a coffee or do the [xkcd compiling thing](https://xkcd.com/303/) while you 
 
 ## Next steps
 
+:octicons-mark-github-16: [Create OpenSearch with GitHub Actions](create-with-github-actions.md)
+
 :dart: Learn how to [use OpenSearch in your workload](use-in-workload.md)
