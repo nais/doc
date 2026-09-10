@@ -17,6 +17,9 @@ To send logs to your team's private index, configure your application to use the
     <configuration>
       <appender name="team-logs" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <destination>team-logs.nais-system:5170</destination>
+        <keepAliveDuration>30 seconds</keepAliveDuration>
+        <writeTimeout>1 minute</writeTimeout>
+        <reconnectionDelay>1 second</reconnectionDelay>
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
           <customFields>{"google_cloud_project":"${GOOGLE_CLOUD_PROJECT}","nais_namespace_name":"${NAIS_NAMESPACE}","nais_pod_name":"${NAIS_POD_NAME}","nais_container_name":"${NAIS_APP_NAME}"}</customFields>
           <includeContext>false</includeContext>
@@ -64,7 +67,7 @@ To send logs to your team's private index, configure your application to use the
     </dependency>
     ```
 
-=== "Log4j2"
+=== "Log4j2 tcp"
 
     ```xml
     <Configuration>
@@ -76,7 +79,11 @@ To send logs to your team's private index, configure your application to use the
           </Filters>
         </Console>
 
-        <Socket name="team-logs" host="team-logs.nais-system" port="5170" protocol="tcp">
+        <Socket name="team-logs" host="team-logs.nais-system" port="5170" protocol="tcp"
+            reconnectionDelayMillis="500"
+            connectTimeoutMillis="1000"
+            immediateFail="false"
+            ignoreExceptions="true">
           <JsonLayout compact="true">
             <KeyValuePair key="google_cloud_project" value="${env:GOOGLE_CLOUD_PROJECT}"/>
             <KeyValuePair key="nais_namespace_name" value="${env:NAIS_NAMESPACE}"/>
@@ -102,11 +109,50 @@ To send logs to your team's private index, configure your application to use the
     </Configuration>
     ```
 
-    **NB!** Marker is not required for the `team-logs` appender, but it is recommended to use it to ensure that logs are sent to the correct destination. In this configuration the `default-json` appender will send all logs that do not have the `TEAM_LOGS` marker to the console.
+=== "Log4j2 http"
+
+    ```xml
+    <Configuration>
+      <Appenders>
+        <Http name="team-logs-http"
+              url="http://team-logs.nais-system/"
+              method="POST"
+              connectTimeoutMillis="500"
+              readTimeoutMillis="1000">
+          <Property name="Content-Type" value="application/json"/>
+          <JsonTemplateLayout eventTemplate='{
+            "google_cloud_project": "${env:GOOGLE_CLOUD_PROJECT:-}",
+            "nais_namespace_name": "${env:NAIS_NAMESPACE:-}",
+            "nais_pod_name": "${env:HOSTNAME:-}",
+            "nais_container_name": "${env:NAIS_APP_NAME:-}",
+            "message": {
+              "$resolver": "message",
+              "stringified": true
+            },
+            "level": {
+              "$resolver": "level",
+              "field": "name"
+            }
+          }'/>
+        </Http>
+      </Appenders>
+      <Loggers>
+        <Root level="INFO">
+          <AppenderRef ref="team-logs-http"/>
+        </Root>
+      </Loggers>
+    </Configuration>
+    ```
+
+**NB!** Marker is not required for the `team-logs` appender, but it is recommended to use it to ensure that logs are sent to the correct destination. In this configuration the `default-json` appender will send all logs that do not have the `TEAM_LOGS` marker to the console.
 
 The referenced environment variables are set automatically in your application, so you don't need to configure them manually.
 
-This configuration ensures that all logs are sent exclusively to your team's private log index on Google Cloud.
+This configuration ensures that logs are sent exclusively to your team's private log index on Google Cloud.
+
+Be aware that with a tcp appender there are no acknowledgement of received log messages, and there are cases where [messages can be lost](https://github.com/logfellow/logstash-logback-encoder#write-buffer-size). We have not managed to reproduce this condition with the logback appender so it seems very stable. For Log4j we have experienced that a log message is lost if the receiver is restarted (e.g. under cluster upgrades).
+
+Also with logging to a remote service, delivery of the log message will be slower than just using a console appender. If this can be a problem for the application, consider configuring asynchronous logging.
 
 ### Nais.yaml Configuration
 
@@ -137,7 +183,7 @@ The format for the logs should be JSON, and you must include the following field
 | nais_pod_name        | The name of the pod               | NAIS_POD_NAME        |
 | nais_container_name  | The name of the container         | NAIS_APP_NAME        |
 | message              | The log message                   |                      |
-| severity             | The log level (e.g., INFO, ERROR) |                      |
+| level                | The log level (e.g., INFO, ERROR) |                      |
 
 {% if tenant() == "nav" %}
 ## Migrating from Secure Logs
@@ -222,7 +268,7 @@ To ensure that your logs are sent to the `team-logs` appender, you can use SLF4J
         "nais_pod_name": "my-pod",
         "nais_container_name": "my-container",
         "message": "This is a log message for team-logs",
-        "severity": "INFO"
+        "level": "INFO"
       }' \
       http://team-logs.nais-system/
     ```
