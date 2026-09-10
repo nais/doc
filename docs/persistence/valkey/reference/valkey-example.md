@@ -25,4 +25,5 @@ spec:
     persistence:
         disabled: true
     tier: HighAvailability
+    version: "9.1"
 ```

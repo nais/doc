@@ -33,7 +33,7 @@ Required: `false`<br />
 Maximum content length for HTTP requests to the OpenSearch HTTP API. Default is 100mb.
 The value is specified as a Kubernetes resource.Quantity, e.g. "100Mi", "1Gi".
 Unitless values are interpreted as bytes.
-Minimum value is 1 byte, maximum value is 2147483647 bytes (approximately 2047Mi).
+Minimum value is 1048576 bytes (1Mi), maximum value is 2147483647 bytes (approximately 2047Mi).
 
 Type: `object`<br />
 Required: `false`<br />

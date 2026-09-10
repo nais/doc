@@ -102,3 +102,18 @@ Allowed values: `HighAvailability`, `SingleNode`<br />
     spec: null
     ```
 
+## version
+Version defines the Valkey version.
+Required when creating an instance. Instances predating this field adopt whichever version
+Aiven reports as running, and it cannot be unset again afterwards.
+Aiven upgrading an instance on its own is adopted here rather than reverted.
+
+Type: `enum`<br />
+Required: `false`<br />
+Allowed values: `8.1`, `9.0`, `9.1`<br />
+
+??? example
+    ``` yaml
+    spec: null
+    ```
+
