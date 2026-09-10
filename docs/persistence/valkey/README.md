@@ -14,6 +14,8 @@ The service user used by your workload to access Valkey instances gets rotated o
 
 :dart: [Create Valkey](how-to/create.md)
 
+:dart: [Create Valkey with GitHub Actions](how-to/create-with-github-actions.md)
+
 :dart: [Use Valkey in your workload](how-to/use-in-workload.md)
 
 :dart: [Delete Valkey](how-to/delete.md)
