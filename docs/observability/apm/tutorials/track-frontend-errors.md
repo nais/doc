@@ -56,8 +56,8 @@ Pin an exact version — `@nais/apm` is pre-1.0, so the API can change in minor
 releases (see the pre-release note above):
 
 ```sh
-npm install @nais/apm@0.4.0
-# or: pnpm add @nais/apm@0.4.0 / yarn add @nais/apm@0.4.0
+npm install @nais/apm@0.6.3
+# or: pnpm add @nais/apm@0.6.3 / yarn add @nais/apm@0.6.3
 ```
 
 ## 3. Initialize (zero config)
