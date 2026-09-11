@@ -46,7 +46,7 @@ Each team has their own instance of Unleash. Each Unleash instance has two addre
 | `https://<team>-unleash-web.iap.nav.cloud.nais.io` | Web UI address | Internet            | `@nav.no` user |
 | `https://<team>-unleash-api.nav.cloud.nais.io/api` | API address    | nais and naisdevice | API token      |
 
-<sub>*replace `<team>` with your team name.</sub>
+\*replace `<team>` with your team name.
 
 The web UI is used for viewing and managing feature toggles. The API is used by your application to fetch feature toggles.
 
