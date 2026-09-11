@@ -55,8 +55,6 @@ To send logs to your team's private index, configure your application to use the
     </configuration>
     ```
 
-    **NB!** Marker is not required for the `team-logs` appender, but it is recommended to use it to ensure that logs are sent to the correct destination. In this configuration the `default-json` appender will send all logs that do not have the `TEAM_LOGS` marker to the console.
-
     You also need to add the following dependency to your `pom.xml`:
 
     ```xml
