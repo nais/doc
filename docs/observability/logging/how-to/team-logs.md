@@ -114,6 +114,12 @@ To send logs to your team's private index, configure your application to use the
     ```xml
     <Configuration>
       <Appenders>
+        <Console name="default-json" target="SYSTEM_OUT">
+          <JsonLayout compact="true" eventEol="true" />
+          <Filters>
+            <MarkerFilter marker="TEAM_LOGS" onMatch="DENY" onMismatch="ACCEPT" />
+          </Filters>
+        </Console>
         <Http name="team-logs-http"
               url="http://team-logs.nais-system/"
               method="POST"
@@ -134,10 +140,17 @@ To send logs to your team's private index, configure your application to use the
               "field": "name"
             }
           }'/>
+          <Filters>
+            <MarkerFilter marker="TEAM_LOGS" onMatch="ACCEPT" onMismatch="DENY" />
+          </Filters>
         </Http>
       </Appenders>
       <Loggers>
-        <Root level="INFO">
+        <Logger name="team-logs-logger" level="info" additivity="false">
+          <AppenderRef ref="team-logs-http"/>
+        </Logger>
+        <Root level="info">
+          <AppenderRef ref="default-json"/>
           <AppenderRef ref="team-logs-http"/>
         </Root>
       </Loggers>
