@@ -1,5 +1,8 @@
 ---
 tags: [auth, entra-id, azure-ad, services, explanation]
+llms:
+  section: Authentication
+  order: 110
 conditional: [tenant, nav]
 ---
 

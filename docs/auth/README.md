@@ -1,5 +1,8 @@
 ---
 tags: [auth, explanation]
+llms:
+  section: Authentication
+  order: 100
 description: Services and addons to support authentication and authorization in your applications.
 ---
 

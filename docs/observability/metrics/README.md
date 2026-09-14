@@ -1,6 +1,9 @@
 ---
 description: Metrics are a way to measure the state of your application and can be used to create alerts and dashboards in Grafana.
 tags: [explanation, metrics, observability, services]
+llms:
+  section: Observability
+  order: 200
 ---
 
 # Metrics
