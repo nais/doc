@@ -263,7 +263,7 @@
 	/* Line styling */
 	.code-content :global(.line) {
 		display: inline-block;
-		width: 100%;
+		min-width: 100%;
 		padding: 0 0.5rem;
 		margin: 0 -0.5rem;
 		white-space: pre;
@@ -282,18 +282,13 @@
 	}
 
 	/* Annotation marker in code */
-	.code-content :global(.code-annotation) {
-		display: inline-flex;
-		align-items: center;
-		margin-left: 0.5rem;
-	}
-
 	.code-content :global(.code-annotation-marker) {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		width: 1.35rem;
 		height: 1.35rem;
+		margin-left: 0.5rem;
 		border-radius: 50%;
 		background-color: var(--ax-bg-accent-strong);
 		color: var(--ax-text-accent-contrast);
@@ -303,6 +298,10 @@
 		transition: all 0.15s ease;
 		border: none;
 		padding: 0;
+
+		&::before {
+			content: attr(data-annotation-id);
+		}
 	}
 
 	.code-content :global(.code-annotation-marker:hover),

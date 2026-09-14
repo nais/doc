@@ -6,22 +6,26 @@ tags: [build, deploy, explanation, services]
 
 To make your application available to others, you need to build and deploy it.
 
-Nais attempts to make this as simple as possible by providing a set of composable [GitHub Actions](https://docs.github.com/en/actions).
+Nais attempts to make this as simple as possible by providing a set of [GitHub Actions](https://docs.github.com/en/actions) and the [Nais CLI](../operate/cli.md).
 
-Use these actions to compose your own build and deploy pipeline through [Github Actions workflows](https://docs.github.com/en/actions/using-workflows). 
+Use these to compose your own build and deploy pipeline through [Github Actions workflows](https://docs.github.com/en/actions/using-workflows). 
 
 ## GitHub Actions
 
-:books: [nais/docker-build-push](https://github.com/nais/docker-build-push)
+:books: [nais/docker-build-push](https://github.com/nais/docker-build-push) - Build and push container images
 
 :books: [nais/setup](https://github.com/nais/setup)
-
-:books: [nais/deploy](https://github.com/nais/deploy/tree/master/actions/deploy) :warning: This action is deprecated. Use `nais/setup`
 
 See the respective GitHub Action links for detailed configuration options.
 
 ## What's next
 
 :dart: [Build and deploy with Github Actions](how-to/build-and-deploy.md)
+
+:dart: [Set up a complete deploy pipeline](how-to/deploy-pipeline.md)
+
+:bulb: [Applying a manifest](explanations/applying-a-manifest.md)
+
+:bulb: [Environment mixins](explanations/environment-mixins.md)
 
 :dart: [Set up auto-merge with Dependabot](how-to/dependabot-auto-merge.md)

@@ -464,21 +464,10 @@ function createLineTransformer(
 						type: "element",
 						tagName: "span",
 						properties: {
-							class: "code-annotation",
+							class: "code-annotation-marker",
 							"data-annotation-id": annotationId,
 						},
-						children: [
-							{
-								type: "element",
-								tagName: "span",
-								properties: {
-									class: "code-annotation-marker",
-									tabindex: "0",
-									role: "button",
-								},
-								children: [{ type: "text", value: annotationId }],
-							},
-						],
+						children: [],
 					};
 
 					node.children.push(annotationMarker);
