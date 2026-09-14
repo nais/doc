@@ -162,12 +162,18 @@
 	}
 
 	.nav-link:hover {
-		background-color: var(--ax-bg-moderate-hoverA, var(--ax-bg-neutral-soft, rgba(175, 184, 193, 0.1)));
+		background-color: var(
+			--ax-bg-moderate-hoverA,
+			var(--ax-bg-neutral-soft, rgba(175, 184, 193, 0.1))
+		);
 		color: var(--ax-text-default, #f0f6fc);
 	}
 
 	.nav-link--active {
-		background-color: var(--ax-bg-neutral-moderate-pressedA, var(--ax-bg-neutral-soft, rgba(175, 184, 193, 0.15)));
+		background-color: var(
+			--ax-bg-neutral-moderate-pressedA,
+			var(--ax-bg-neutral-soft, rgba(175, 184, 193, 0.15))
+		);
 		color: var(--ax-text-accent-subtle, var(--ax-text-default, #f0f6fc));
 		font-weight: 600;
 	}
