@@ -13,7 +13,7 @@ tags: [application, reference]
 
 This is a complete example of an `Application` resource, commonly known as the `nais.yaml` file.
 
-For an in-depth explanation of each field, head over to the [reference documentation](./application-spec.md).
+For an in-depth explanation of each field, head over to the [reference documentation](./spec.md).
 ``` yaml
 apiVersion: nais.io/v1alpha1
 kind: Application
@@ -247,8 +247,6 @@ spec:
     access: readwrite
     instance: my-open-search-instance
   port: 8080
-  postgres:
-    clusterName: my-postgres-cluster
   preStopHook:
     exec:
       command:
@@ -314,6 +312,11 @@ spec:
   tokenx:
     enabled: true
   ttl: 1h
+  uses:
+    postgres:
+    - envPrefix: MYDB_
+      name: my-postgres
+      role: readwrite
   valkey:
   - access: readwrite
     instance: cache

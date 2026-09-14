@@ -37,7 +37,7 @@ spec:
 
 See the [fully qualified scope reference](../reference/README.md#fully-qualified-scopes) for details on naming scopes.
 
-See the [Nais application reference](../../../workloads/application/reference/application-spec.md#maskinportenscopesexposes) for the complete specifications with all possible options.
+See the [Nais application reference](../../../workloads/application/reference/spec.md#maskinportenscopesexposes) for the complete specifications with all possible options.
 
 ## Grant access to consumers
 

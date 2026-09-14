@@ -88,7 +88,7 @@ Add the following content to the file, and insert the appropriate values in the 
           memory: 32Mi
     ```
 
-    1.  This sets the ["time to live"](../workloads/application/reference/application-spec.md/#ttl) for your app to 3 hours, in case you start on this tutorial and forget to clean up after. 
+    1.  This sets the ["time to live"](../workloads/application/reference/spec.md/#ttl) for your app to 3 hours, in case you start on this tutorial and forget to clean up after. 
 
 ### GitHub Actions workflow
 
@@ -104,52 +104,54 @@ touch .github/workflows/main.yaml
 Add the following content to the file, and insert the appropriate values in the placeholders on the highlighted lines:
 ???+ note ".github/workflows/main.yaml"
 
-    ```yaml hl_lines="28 {%- if tenant() == "test-nais" %}34{% else %}32{% endif %}"
-	name: Build and deploy
+    ```yaml hl_lines="21 {%- if tenant() == "test-nais" %} 36 40{% else %} 34 38{% endif %}"
+    name: Build and deploy
     on:
       push:
         branches:
           - main
     jobs:
-      build_and_deploy:
-        name: Build, push and deploy
+      build:
+        name: Build and push image
         runs-on: ubuntu-latest
         permissions:
           contents: read
           id-token: write
-          actions: read
+        outputs:
+          image: ${{ steps.docker-build-push.outputs.image }}
         steps:
           - uses: actions/checkout@v6 # Should be pinned (1)
-            with:
-              fetch-depth: 0 # Fetch all history for what-changed action
-          - name: Determine what to do
-            id: changed-files
-            uses: "nais/what-changed@main" # Should be pinned
-            with:
-              files: .nais/app.yaml
           - name: Build and push image and SBOM to OCI registry
-            if: steps.changed-files.outputs.changed != 'only-inputs'
             uses: nais/docker-build-push@v0 # Should be pinned
             id: docker-build-push
             with:
               team: <MY-TEAM> # Replace
 {%- if tenant() == "test-nais" %}
-			  project_id: nais-management-ddba
-			  identity_provider: projects/636929582051/locations/global/workloadIdentityPools/test-nais-identity-pool/providers/github-oidc-provider
+              project_id: nais-management-ddba
+              identity_provider: projects/636929582051/locations/global/workloadIdentityPools/test-nais-identity-pool/providers/github-oidc-provider
 {%- endif %}
-          - name: Deploy to Nais
-            uses: nais/deploy/actions/deploy@v2 # Should be pinned
-            env:
-              CLUSTER: <MY-ENV> # Replace (2)
-              RESOURCE: .nais/app.yaml # This points to the file we created in the previous step
-              WORKLOAD_IMAGE: ${{ steps.docker-build-push.outputs.image }}
-{%- if tenant() == "test-nais" %}
-			  DEPLOY_SERVER: deploy.test-nais.cloud.nais.io:443
-{%- endif %}
-    ```
 
+      deploy:
+        name: Deploy
+        needs: build
+        runs-on: ubuntu-latest
+        permissions:
+          contents: read
+          id-token: write
+        steps:
+          - uses: actions/checkout@v6 # Should be pinned
+          - uses: nais/setup@v1 # Should be pinned
+            with:
+              team: <MY-TEAM> # Replace
+          - name: Deploy to Nais
+            run: |
+              nais apply .nais/app.yaml \
+                --environment <MY-ENV> \ # (2)
+                --set spec.image="${{ needs.build.outputs.image }}" \
+                --wait
+    ```
     1. GitHub actions should be pinned to a SHA for better security. Read more in GitHub [Secure use reference](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions).
-    2. Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../workloads/reference/environments.md).
+    2.  Environment is the Nais environment to deploy to. You can find the value in [workloads/environments](../workloads/reference/environments.md).
 
 Excellent! We're now ready to deploy :rocket:
 
@@ -230,5 +232,5 @@ To learn more about the possibilities, explore our documentation for [Applicatio
 
 The GitHub workflow is similarly simplified.
 Some teams like to do more advanced things, like running tests, or deploying to multiple environments.
-It is also possible to skip some steps under certain conditions, such as not building a new image if the code hasn't changed.
-Explore the [GitHub Actions documentation](https://docs.github.com/en/actions) for more information about GitHub Actions in general, and our guide on [workload image](../workloads/explanations/workload-image.md) for how you can skip building.
+It is also possible to deploy manifest changes without building a new image if there are no changes to the application code.
+Explore our [complete deploy pipeline](../build/how-to/deploy-pipeline.md) guide for patterns on deploying to multiple environments and splitting workflows.

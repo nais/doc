@@ -45,5 +45,5 @@ See also:
 
 :books: [NaisJob reference][naisjob]
 
-[application]: ../../../workloads/application/reference/application-spec.md#envfromconfigmap
-[naisjob]: ../../../workloads/job/reference/naisjob-spec.md#envfromconfigmap
+[application]: ../../../workloads/application/reference/spec.md#envfromconfigmap
+[naisjob]: ../../../workloads/job/reference/spec.md#envfromconfigmap

@@ -38,8 +38,8 @@ The Entra ID token generator supports two use cases:
 
 This generates a token by using the [on-behalf-of flow](consume-obo.md).
 
-1. Visit <https://azure-token-generator.intern.dev.nav.no/api/obo?aud=&lt;audience&gt;> in your browser.
-    - Replace `<audience>` with the intended _audience_ of the token, in this case the API application.
+1. Visit `https://azure-token-generator.intern.dev.nav.no/api/obo?aud=<AUDIENCE>` in your browser.
+    - Replace `<AUDIENCE>` with the intended _audience_ of the token, in this case the API application.
     - The audience value must be on the form of `<cluster>:<namespace>:<application>`
     - For example: `dev-gcp:my-team:my-app`
 1. You will be redirected to log in at Entra ID (if not already logged in).
@@ -53,14 +53,14 @@ This generates a token by using the [client credentials flow](consume-m2m.md).
 Perform a `POST` request to `https://azure-token-generator.intern.dev.nav.no/api/public/m2m`:
 
 ```http
-POST /api/public/m2m?aud=<audience> HTTP/1.1
+POST /api/public/m2m HTTP/1.1
 Host: azure-token-generator.intern.dev.nav.no
 Content-Type: application/x-www-form-urlencoded
 
-aud=<audience>
+aud=<AUDIENCE>
 ```
 
-where `<audience>` is the intended _audience_ of the token, in this case the target API application.
+where `<AUDIENCE>` is the intended _audience_ of the token, in this case the target API application.
 
 For example, in `curl`:
 

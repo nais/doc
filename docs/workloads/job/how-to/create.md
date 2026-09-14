@@ -52,6 +52,6 @@ This job manifest will run your code every hour. If you want to run your job onl
 
 :dart: [Build and deploy your job to Nais](../../../build/how-to/build-and-deploy.md).
 
-:books: [Job spec reference](../reference/naisjob-spec.md).
+:books: [Job spec reference](../reference/spec.md).
 
-:books: [Complete job example](../reference/naisjob-example.md).
+:books: [Complete job example](../reference/example.md).

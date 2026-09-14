@@ -72,19 +72,23 @@ It should look something like this:
 -kind: ServiceIntegration
 -metadata:
 -  labels:
--    team: <MYTEAM>
--  name: opensearch-<MYTEAM>-<INSTANCE>
--  namespace: <MYTEAM>
+-    team: <TEAM>
+-  name: opensearch-<TEAM>-<INSTANCE>
+-  namespace: <TEAM>
 -spec:
 -  project: <<tenant()>>-<ENV>
 -  integrationType: prometheus
 -  destinationEndpointId: <ENDPONT-ID>
--  sourceServiceName: opensearch-<MYTEAM>-<INSTANCE>
+-  sourceServiceName: opensearch-<TEAM>-<INSTANCE>
 ```
 
 ### 3. Remove references from GitHub Actions workflows
 
-If you have any GitHub Actions workflows that references the OpenSearch manifest file you just deleted, you should remove those references:
+If you have any GitHub Actions workflows that references the OpenSearch manifest file you just deleted, you should remove those references.
+
+If you are using the Nais CLI (`nais apply`), simply remove the apply command for the OpenSearch manifest.
+
+If you are still using the legacy `nais/deploy` action, remove the OpenSearch file from the `RESOURCE` list:
 
 ```diff title=".github/workflows/deploy.yaml"
 name: Build and deploy
@@ -111,6 +115,9 @@ To allow Console to take over management of the OpenSearch instance, you need to
 To do so, run the following command:
 
 ```shell
+export OPENSEARCH_NAME="<OPENSEARCH-NAME">
+export TEAM="<TEAM>"
+export ENVIRONMENT="<ENVIRONMENT>"
 kubectl label opensearch $OPENSEARCH_NAME nais.io/managed-by=console \
   --namespace $TEAM \
   --context $ENVIRONMENT

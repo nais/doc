@@ -46,8 +46,14 @@ done
 '''
 
 [tasks.check]
-description = "Run all checks (lint and svelte-check)"
-depends = ["check:lint", "check:svelte-check"]
+description = "Run all checks (lint, svelte-check and tests)"
+depends = ["check:lint", "check:svelte-check", "check:test"]
+
+[tasks."check:test"]
+description = "Run unit tests for svdoc"
+depends = ["setup"]
+dir = "svdoc"
+run = "bun test"
 
 [tasks."check:lint"]
 description = "Run prettier and eslint on svdoc"

@@ -10,7 +10,7 @@ tags: [postgres, sql, explanation, cluster]
 
 Postgres is a managed database cluster provided by nais utilizing the Zalando postgres-operator.
 
-You manage your cluster by defining a [Postgres manifest](../../../persistence/postgresql/reference/postgres-spec.md).
+You manage your cluster by defining a [Postgres manifest](../../../persistence/postgresql/reference/spec.md).
 
 ```yaml title="postgres.yaml"
 ...
@@ -29,7 +29,7 @@ spec:
       memory: 2G
 ```
 
-You use the postgres cluster yaml by referencing it in your [Application manifest](../../../workloads/application/reference/application-spec.md#postgres).
+You use the postgres cluster yaml by referencing it in your [Application manifest](../../../workloads/application/reference/spec.md#postgres).
 
 
 ```yaml title="app.yaml"

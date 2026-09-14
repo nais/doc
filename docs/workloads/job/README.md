@@ -18,6 +18,6 @@ Once the job manifest is applied, Nais will set up your job as specified. If you
 
 [:dart: Communicate with another workload](../how-to/communication.md)
 
-[:books: Complete job example](reference/naisjob-example.md)
+[:books: Complete job example](reference/example.md)
 
-[:books: Job specification](reference/naisjob-spec.md)
+[:books: Job specification](reference/spec.md)

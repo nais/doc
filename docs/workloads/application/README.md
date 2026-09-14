@@ -22,6 +22,6 @@ Once the application manifest is applied, Nais will set up your application as s
 
 [:dart: Communicate with another application](../how-to/communication.md)
 
-[:books: Complete application example](reference/application-example.md)
+[:books: Complete application example](reference/example.md)
 
-[:books: Application specification](reference/application-spec.md)
+[:books: Application specification](reference/spec.md)

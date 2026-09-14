@@ -73,19 +73,23 @@ It should look something like this:
 -kind: ServiceIntegration
 -metadata:
 -  labels:
--    team: <MYTEAM>
--  name: valkey-<MYTEAM>-<INSTANCE>
--  namespace: <MYTEAM>
+-    team: <TEAM>
+-  name: valkey-<TEAM>-<INSTANCE>
+-  namespace: <TEAM>
 -spec:
 -  project: <<tenant()>>-<ENV>
 -  integrationType: prometheus
 -  destinationEndpointId: <ENDPONT-ID>
--  sourceServiceName: valkey-<MYTEAM>-<INSTANCE>
+-  sourceServiceName: valkey-<TEAM>-<INSTANCE>
 ```
 
 ### 3. Remove references from GitHub Actions workflows
 
-If you have any GitHub Actions workflows that references the Valkey manifest file you just deleted, you should remove those references:
+If you have any GitHub Actions workflows that references the Valkey manifest file you just deleted, you should remove those references.
+
+If you are using the Nais CLI (`nais apply`), simply remove the apply command for the Valkey manifest.
+
+If you are still using the legacy `nais/deploy` action, remove the Valkey file from the `RESOURCE` list:
 
 ```diff title=".github/workflows/deploy.yaml"
 name: Build and deploy
@@ -112,6 +116,9 @@ To allow Console to take over management of the Valkey instance, you need to add
 To do so, run the following command:
 
 ```shell
+export VALKEY_NAME="<VALKEY-NAME>"
+export TEAM="<TEAM>"
+export ENVIRONMENT="<ENVIRONMENT>"
 kubectl label valkey $VALKEY_NAME nais.io/managed-by=console \
   --namespace $TEAM \
   --context $ENVIRONMENT

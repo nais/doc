@@ -7,7 +7,7 @@ conditional: [tenant, nav]
 
 ## Spec
 
-For all possible configuration options, see the [:books: Nais application reference](../../../workloads/application/reference/application-spec.md#idporten).
+For all possible configuration options, see the [:books: Nais application reference](../../../workloads/application/reference/spec.md#idporten).
 
 ## Runtime variables & credentials
 

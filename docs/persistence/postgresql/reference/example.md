@@ -16,35 +16,24 @@ tags: [postgres, reference]
 
 This is a complete example of a `Postgres` resource, commonly known as the `postgres.yaml` file.
 
-For an in-depth explanation of each field, head over to the [reference documentation](./postgres-spec.md).
+For an in-depth explanation of each field, head over to the [reference documentation](./spec.md).
 
 ``` yaml
-apiVersion: data.nais.io/v1
+apiVersion: nais.io/v1
 kind: Postgres
 metadata:
   labels:
     team: myteam
-  name: mycluster
+  name: mypostgres
   namespace: myteam
 spec:
-  cluster:
-    allowDeletion: true
-    audit:
-      enabled: true
-      statementClasses:
-      - function
-      - misc
-    highAvailability: true
-    majorVersion: "17"
-    resources:
-      cpu: 200m
-      diskSize: 2Gi
-      memory: 2Gi
-  database:
-    collation: nb_NO
-    extensions:
+  activeInstance: mypostgres-primary
+  extensions:
     - name: postgis
-  maintenanceWindow:
-    day: 4
-    hour: 10
+  highAvailability: true
+  majorVersion: "18"
+  resources:
+    cpu: 100m
+    diskSize: 10Gi
+    memory: 512Mi
 ```

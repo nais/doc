@@ -13,7 +13,7 @@ tags: [job, reference]
 
 This is a complete example of an `Naisjob` resource.
 
-For an in-depth explanation of each field, head over to the [reference documentation](./naisjob-spec.md).
+For an in-depth explanation of each field, head over to the [reference documentation](./spec.md).
 ``` yaml
 apiVersion: nais.io/v1
 kind: Naisjob
@@ -205,8 +205,6 @@ spec:
     access: readwrite
     instance: my-open-search-instance
   parallelism: 1
-  postgres:
-    clusterName: my-postgres-cluster
   preStopHook:
     exec:
       command:
@@ -245,6 +243,11 @@ spec:
   timeZone: Europe/Oslo
   ttl: 1h
   ttlSecondsAfterFinished: 60
+  uses:
+    postgres:
+    - envPrefix: MYDB_
+      name: my-postgres
+      role: readwrite
   valkey:
   - access: readwrite
     instance: cache

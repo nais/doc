@@ -33,7 +33,7 @@ Ingress redirects are used to redirect traffic from one domain to another. This 
 
 ## Ingress customization
 
-Ingresses are automatically created for your application when you specify them in your [application manifest](application-spec.md).
+Ingresses are automatically created for your application when you specify them in your [application manifest](spec.md).
 The ingress is created with a set of default values that should work for most applications.
 
 You can tweak the ingress configuration by specifying certain [Kubernetes annotations][kubernetes-annotations] in your application manifest.
@@ -111,7 +111,7 @@ See the [HAProxy metrics reference][haproxy-metrics] for the full list of availa
 ### Uptime probes
 
 All ingresses will automatically have uptime probes enabled on them.
-This probe will be directed at the [application's readiness endpoint](application-spec.md#readiness) using an HTTP GET request.
+This probe will be directed at the [application's readiness endpoint](spec.md#readiness) using an HTTP GET request.
 A probe is considered successful if the HTTP status code is `2xx` or `3xx`.
 The probe is considered failed if the HTTP status code is `4xx` or `5xx`.
 

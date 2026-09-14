@@ -76,7 +76,7 @@ To best be able to handle this in your application, it helps to be aware of the 
 6. Pod disappears from the API, and is no longer visible for the client.
 
 If your application does proper graceful shutdown when receiving a `SIGTERM` signal, you shouldn't need to do anything differently.
-If you need some other way to trigger graceful shutdown, you can define your own [`preStop`-hook](../application/reference/application-spec.md#prestophook).
+If you need some other way to trigger graceful shutdown, you can define your own [`preStop`-hook](../application/reference/spec.md#prestophook).
 Be aware that even after your `preStop`-hook has been triggered, your application might still receive new connections for a few seconds.
 This is because step 3 above can take a few seconds to complete.
 Your application should handle those connections before exiting.

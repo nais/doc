@@ -35,7 +35,7 @@ http://<name>.<namespace>
 
 !!! warning "Use full hostname when using webproxy on-premises"
 
-    If your workload has [webproxy](../application/reference/application-spec.md#webproxy) enabled, you must use the full hostname for all service discovery calls:
+    If your workload has [webproxy](../application/reference/spec.md#webproxy) enabled, you must use the full hostname for all service discovery calls:
 
     ```text
     http://<name>.<namespace>.svc.nais.local

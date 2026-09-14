@@ -8,7 +8,7 @@ tags: [postgres, cloudsql, cloud, sql, explanation, sqlinstance]
 A Cloud SQL instance is a managed database server provided by Google Cloud Platform.
 In nais, these are used to provide PostgreSQL databases for your applications.
 
-You manage your Cloud SQL instance by defining it in your [application manifest](../../../workloads/application/reference/application-spec.md#gcpsqlinstances).
+You manage your Cloud SQL instance by defining it in your [application manifest](../../../workloads/application/reference/spec.md#gcpsqlinstances).
 
 ```yaml title="app.yaml"
 ...

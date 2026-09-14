@@ -47,12 +47,7 @@ jobs:
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           # Tag the image, e.g. ghcr.io/owner/repo:latest
           docker buildx imagetools create -t ghcr.io/${{ github.repository }}:latest ${{ steps.docker-build-push.outputs.image }}
-      - name: Deploy to Nais
-        uses: nais/deploy/actions/deploy@v2 # Should be pinned
-        env:
-          CLUSTER: <MY-ENV> # Replace (2)
-          RESOURCE: .nais/app.yaml #, topic.yaml, statefulset.yaml, etc.
-          VAR: image=${{ steps.docker-build-push.outputs.image }}
+      # - ...
 ```
 
 1. GitHub actions should be pinned to a SHA for better security. Read more in GitHub [Secure use reference](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions).

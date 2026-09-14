@@ -29,14 +29,14 @@ graph TD
 
 Consumers running in the same environment should prefer to communicate with your workload via [service discovery](../application/explanations/expose.md#service-discovery).
 
-[`.spec.accessPolicy.inbound`](../application/reference/application-spec.md#accesspolicyinbound) controls inbound network traffic via service discovery.
+[`.spec.accessPolicy.inbound`](../application/reference/spec.md#accesspolicyinbound) controls inbound network traffic via service discovery.
 
 ### Ingress
 
 To allow consumers in other environments to communicate with your workload, you should expose it with an [ingress](../application/explanations/expose.md#ingress).
 The ingress domain controls which networks the ingress is reachable from. Other than that, inbound network traffic through an ingress is essentially unrestricted.
 
-[`.spec.accessPolicy.inbound`](../application/reference/application-spec.md#accesspolicyinbound) **does not** control network traffic via ingresses.
+[`.spec.accessPolicy.inbound`](../application/reference/spec.md#accesspolicyinbound) **does not** control network traffic via ingresses.
 
 ## Outbound traffic
 
@@ -57,14 +57,14 @@ Services offered by Nais (such as [databases](../../persistence/cloudsql/README.
 
 If the service you want to call is in the same environment, you should communicate with it by using service discovery.
 
-[`.spec.accessPolicy.outbound.rules`](../application/reference/application-spec.md#accesspolicyoutboundrules) controls outbound network traffic via service discovery.
+[`.spec.accessPolicy.outbound.rules`](../application/reference/spec.md#accesspolicyoutboundrules) controls outbound network traffic via service discovery.
 
 ### External addresses
 
 An external address is any address outside the environment your workload is running in.
 [Ingresses](../application/explanations/expose.md#ingress) exposed by other workloads are also considered external addresses.
 
-[`.spec.accessPolicy.outbound.external`](../application/reference/application-spec.md#accesspolicyoutboundexternal) controls which external addresses your workload can communicate with.
+[`.spec.accessPolicy.outbound.external`](../application/reference/spec.md#accesspolicyoutboundexternal) controls which external addresses your workload can communicate with.
 
 ## Example
 

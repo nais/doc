@@ -36,7 +36,7 @@ This name is also set in the `.status.fullyQualifiedName` field on your Topic re
 
 Select a `pool` from one of the [available pools](../reference/pools.md).
 
-See the [Kafka topic reference](../reference/kafka-topic-spec.md) for a complete list of available options.
+See the [Kafka topic reference](../reference/topic-spec.md) for a complete list of available options.
 
 ## Grant access to the topic for other applications (optional)
 

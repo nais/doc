@@ -10,7 +10,7 @@ tags: [postgres, reference]
 
 ## Configuration
 
-The full configuration options for the Postgres instance can be found in the [Postgres resource reference](../../../persistence/postgresql/reference/postgres-spec.md).
+The full configuration options for the Postgres instance can be found in the [Postgres resource reference](../../../persistence/postgresql/reference/spec.md).
 
 ## Database connection
 
@@ -148,7 +148,7 @@ The application should be able to handle reconnects as this maintenance is perfo
 If no maintenance window is set, the operator will perform maintenance at any time.
 
 Nais does not configure a maintenance window by default.
-Maintenance window can be configured in the [Postgres resource spec](../../../persistence/postgresql/reference/postgres-spec.md#maintenancewindow) under the `spec.maintenanceWindow` field.
+Maintenance window can be configured in the [Postgres resource spec](../../../persistence/postgresql/reference/spec.md#maintenancewindow) under the `spec.maintenanceWindow` field.
 The duration of the maintenance window is one hour, and it can be set to any day of the week and hour of the day.
 
 ```yaml title="postgres.yaml" hl_lines="9-11"

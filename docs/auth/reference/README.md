@@ -115,9 +115,9 @@ Ensure that your frontend code handles `HTTP 401` responses and appropriately no
 Autologin matches all paths for your application's ingresses, except the following:
 
 - `/oauth2/**`
-- [`spec.prometheus.path`](../../workloads/application/reference/application-spec.md#prometheuspath) (if defined)
-- [`spec.liveness.path`](../../workloads/application/reference/application-spec.md#livenesspath) (if defined)
-- [`spec.readiness.path`](../../workloads/application/reference/application-spec.md#readinesspath) (if defined)
+- [`spec.prometheus.path`](../../workloads/application/reference/spec.md#prometheuspath) (if defined)
+- [`spec.liveness.path`](../../workloads/application/reference/spec.md#livenesspath) (if defined)
+- [`spec.readiness.path`](../../workloads/application/reference/spec.md#readinesspath) (if defined)
 
 You can exclude additional paths by exact match or wildcard patterns:
 
@@ -556,9 +556,9 @@ Ensure that your frontend code handles `HTTP 401` responses and appropriately no
 Enforce mode matches all paths for your application's ingresses, except the following:
 
 - `/oauth2/**`
-- [`spec.prometheus.path`](../../workloads/application/reference/application-spec.md#prometheuspath) (if defined)
-- [`spec.liveness.path`](../../workloads/application/reference/application-spec.md#livenesspath) (if defined)
-- [`spec.readiness.path`](../../workloads/application/reference/application-spec.md#readinesspath) (if defined)
+- [`spec.prometheus.path`](../../workloads/application/reference/spec.md#prometheuspath) (if defined)
+- [`spec.liveness.path`](../../workloads/application/reference/spec.md#livenesspath) (if defined)
+- [`spec.readiness.path`](../../workloads/application/reference/spec.md#readinesspath) (if defined)
 
 You can exclude additional paths by exact match or wildcard patterns:
 

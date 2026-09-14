@@ -4,7 +4,7 @@ tags: [build, deploy, how-to]
 
 # Build and deploy with GitHub Actions
 
-This how-to guide shows you how to build and deploy your application using [GitHub Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions) and the Nais deploy action.
+This how-to guide shows you how to build and deploy your application using [GitHub Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions) and the [Nais CLI](../../operate/cli.md).
 
 ## Prerequisites
 
@@ -25,59 +25,61 @@ This how-to guide shows you how to build and deploy your application using [GitH
 
 ???+ note ".github/workflows/main.yaml"
 
-    ```yaml hl_lines="28 {%- if tenant() == "test-nais" %}35{% else %}33{% endif %}"
+    ```yaml hl_lines="21 {%- if tenant() == "test-nais" %} 36 40{% else %} 34 38{% endif %}"
     name: Build and deploy
     on:
       push:
         branches:
           - main
     jobs:
-      build_and_deploy:
-        name: Build, push and deploy
+      build:
+        name: Build and push image
         runs-on: ubuntu-latest
         permissions:
           contents: read
           id-token: write
-          actions: read
+        outputs:
+          image: ${{ steps.docker-build-push.outputs.image }}
         steps:
           - uses: actions/checkout@v6 # Should be pinned (1)
-            with:
-              fetch-depth: 0 # Fetch all history for what-changed action
-          - name: Determine what to do
-            id: changed-files
-            uses: "nais/what-changed@main" # Should be pinned
-            with:
-              files: .nais/app.yaml #, topic.yaml, statefulset.yaml, etc.
           - name: Build and push image and SBOM to OCI registry
-            if: steps.changed-files.outputs.changed != 'only-inputs'
             uses: nais/docker-build-push@v0 # Should be pinned
             id: docker-build-push
             with:
               team: <MY-TEAM> # Replace
-    {%- if tenant() == "test-nais" %}
+{%- if tenant() == "test-nais" %}
               project_id: nais-management-ddba
               identity_provider: projects/636929582051/locations/global/workloadIdentityPools/test-nais-identity-pool/providers/github-oidc-provider
-    {%- endif %}
+{%- endif %}
+
+      deploy:
+        name: Deploy
+        needs: build
+        runs-on: ubuntu-latest
+        permissions:
+          contents: read
+          id-token: write
+        steps:
+          - uses: actions/checkout@v6 # Should be pinned
+          - uses: nais/setup@v1 # Should be pinned
+            with:
+              team: <MY-TEAM> # Replace
           - name: Deploy to Nais
-            uses: nais/deploy/actions/deploy@v2 # Should be pinned
-            envs:
-              CLUSTER: <MY-ENV> # Replace (2)
-              RESOURCE: .nais/app.yaml # same list as in changed-files step above
-              WORKLOAD_IMAGE: ${{ steps.docker-build-push.outputs.image }}
-    {%- if tenant() == "test-nais" %}
-              DEPLOY_SERVER: deploy.test-nais.cloud.nais.io:443
-    {%- endif %}
+            run: |
+              nais apply .nais/app.yaml \
+                --environment <MY-ENV> \ # (2)
+                --set spec.image="${{ needs.build.outputs.image }}" \
+                --wait
     ```
-    
+
     1. GitHub actions should be pinned to a SHA for better security. Read more in GitHub [Secure use reference](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions).
-    2. Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../../workloads/reference/environments.md).
+    2.  Environment is the Nais environment to deploy to. You can find available values in [workloads/environments](../../workloads/reference/environments.md).
 
 This example workflow is a minimal example that builds, signs, and pushes your container image to the image registry.
-It then deploys the [app.yaml](../../workloads/application/reference/application-spec.md).
+It then deploys the [app.yaml](../../workloads/application/reference/application-spec.md) using the Nais CLI.
 
-The `WORKLOAD_IMAGE` variable is used to [tell the platform which image](../../workloads/explanations/workload-image.md) to use when deploying the workload.
-This is optional, and you can also set the image in the workload manifest directly using templating.
-If you do this, you should not set the `WORKLOAD_IMAGE` variable, but instead set a suitable `VAR` (traditionally, `image` is used).
+The freshly built image is passed to the deploy step with `--set spec.image=<image>`, which overrides the `spec.image` field in the manifest.
+For how Nais resolves the image, see [Applying a manifest](../explanations/applying-a-manifest.md).
 
 When this file is pushed to the `main` branch, the workflow will be triggered, and you are all set.
 
@@ -88,3 +90,9 @@ When this file is pushed to the `main` branch, the workflow will be triggered, a
 
     Usage of this registry for other purposes is not supported.
     If you need to use the image outside of Nais, e.g. locally in a development environment, you should [push the image to another registry](./use-image-outside-nais.md).
+
+## What's next
+
+This guide deploys to a single environment. To deploy to several environments and
+split manifest changes from code changes, see
+[Set up a complete deploy pipeline](deploy-pipeline.md).

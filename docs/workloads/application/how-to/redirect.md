@@ -13,7 +13,7 @@ This means that we also support two ways to redirect your application.
 ## Ingress
 
 To redirect traffic from one domain to another, you need to define an ingress `from` the old domain that redirects `to` the
-new domain, with [`.spec.redirects[]`](../reference/application-spec.md#redirects).
+new domain, with [`.spec.redirects[]`](../reference/spec.md#redirects).
 
 The `redirects` field specifies URL redirects. It is structured as a mapping from a source URL to a target URL.
 

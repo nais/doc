@@ -265,6 +265,29 @@ interface ConditionalBranch {
 }
 
 /**
+ * If a tag sits alone on a line, expand its range to cover the entire line,
+ * including the leading indentation and the trailing newline.
+ *
+ * This mirrors Jinja's `trim_blocks` + `lstrip_blocks` defaults, and lets
+ * templated documents be written at their natural indentation. Tags used
+ * inline (e.g. inside an `hl_lines="..."` attribute) are left untouched.
+ *
+ * Returns the (possibly expanded) range plus whether the tag was standalone.
+ */
+function expandTagLine(text: string, start: number, end: number): [number, number, boolean] {
+	const lineStart = text.lastIndexOf("\n", start - 1) + 1;
+	const nlIndex = text.indexOf("\n", end);
+	const lineEnd = nlIndex === -1 ? text.length : nlIndex + 1;
+	const before = text.slice(lineStart, start);
+	const after = text.slice(end, nlIndex === -1 ? text.length : nlIndex);
+
+	if (/^[ \t]*$/.test(before) && /^[ \t]*$/.test(after)) {
+		return [lineStart, lineEnd, true];
+	}
+	return [start, end, false];
+}
+
+/**
  * Parse the branches (if/elif/else) from inner conditional content
  */
 function parseConditionalBranches(ifCondition: string, innerContent: string): ConditionalBranch[] {
@@ -289,15 +312,31 @@ function parseConditionalBranches(ifCondition: string, innerContent: string): Co
 		branches.push({ condition: ifCondition, content: innerContent });
 	} else {
 		// First branch: from start to first elif/else
+		const [firstEnd] = expandTagLine(
+			innerContent,
+			parts[0].index,
+			parts[0].index + parts[0].length,
+		);
 		branches.push({
 			condition: ifCondition,
-			content: innerContent.slice(0, parts[0].index),
+			content: innerContent.slice(0, firstEnd),
 		});
 
 		// Middle and final branches
 		for (let i = 0; i < parts.length; i++) {
-			const startIndex = parts[i].index + parts[i].length;
-			const endIndex = i + 1 < parts.length ? parts[i + 1].index : innerContent.length;
+			const [, startIndex] = expandTagLine(
+				innerContent,
+				parts[i].index,
+				parts[i].index + parts[i].length,
+			);
+			const endIndex =
+				i + 1 < parts.length
+					? expandTagLine(
+							innerContent,
+							parts[i + 1].index,
+							parts[i + 1].index + parts[i + 1].length,
+						)[0]
+					: innerContent.length;
 			const branchCondition = parts[i].type === "else" ? null : parts[i].condition!;
 
 			branches.push({
@@ -332,54 +371,57 @@ function processConditionals(content: string, context: TemplateContext): string 
 		const fullMatch = match[0];
 		const openTag = match[1];
 		const condition = match[2] || match[3] || match[4];
-		const innerContent = match[5];
 		const closeTag = match[6];
 
-		// Determine whitespace stripping flags
-		const stripLeft = openTag.startsWith("{%-");
-		const stripRightOpen = openTag.endsWith("-%}");
-		const stripLeftClose = closeTag.startsWith("{%-");
-		const stripRightClose = closeTag.endsWith("-%}");
+		// Locate the open and close tags, then expand each to swallow its whole
+		// line when it stands alone. Everything between them is the branch body.
+		const openStart = match.index;
+		const closeEnd = openStart + fullMatch.length;
+		const [blockStart, innerStart, openAlone] = expandTagLine(
+			result,
+			openStart,
+			openStart + openTag.length,
+		);
+		const [innerEnd, blockEnd, closeAlone] = expandTagLine(
+			result,
+			closeEnd - closeTag.length,
+			closeEnd,
+		);
 
+		const innerContent = result.slice(innerStart, innerEnd);
 		// Parse branches
 		const branches = parseConditionalBranches(condition, innerContent);
 
 		// Evaluate branches and find the first matching one
+		// A null condition is the else branch, which always matches once reached
 		let output = "";
 		for (const branch of branches) {
-			if (branch.condition === null) {
-				// else branch - always matches if we get here
-				output = branch.content;
-				break;
-			} else if (evaluateCondition(branch.condition, context)) {
+			if (branch.condition === null || evaluateCondition(branch.condition, context)) {
 				output = branch.content;
 				break;
 			}
 		}
 
-		// Strip whitespace from output edges based on tag flags
-		if (stripRightOpen) output = output.replace(/^[ \t]*\n/, "");
-		if (stripLeftClose) output = output.replace(/\n[ \t]*$/, "");
+		// Explicit whitespace markers only matter for inline tags. A standalone
+		// tag has already had its whole line removed, leaving nothing to strip.
+		// These apply to the selected branch, since that is what ends up abutting
+		// the tag in the output.
+		if (!openAlone && openTag.endsWith("-%}")) output = output.replace(/^\s*/, "");
+		if (!closeAlone && closeTag.startsWith("{%-")) output = output.replace(/\s*$/, "");
 
-		// Determine the region to replace, expanding to strip surrounding newlines if needed
-		let start = match.index;
-		let end = match.index + fullMatch.length;
+		let start = blockStart;
+		let end = blockEnd;
 
-		// {%- ... %} strips the newline (and spaces) preceding the tag
-		if (stripLeft && start > 0) {
+		// {%- ... %} also eats whitespace preceding the opening tag
+		if (!openAlone && openTag.startsWith("{%-")) {
 			const before = result.slice(0, start);
-			const stripped = before.replace(/[ \t]*\n$/, "");
-			const removed = before.length - stripped.length;
-			start -= removed;
-			result = stripped + result.slice(start + removed);
-			end -= removed;
+			start -= before.length - before.replace(/\s*$/, "").length;
 		}
 
-		// ... -%} strips the newline (and spaces) following the closing tag
-		if (stripRightClose) {
+		// ... -%} also eats whitespace following the closing tag
+		if (!closeAlone && closeTag.endsWith("-%}")) {
 			const after = result.slice(end);
-			const stripped = after.replace(/^[ \t]*\n/, "");
-			result = result.slice(0, end) + stripped;
+			end += after.length - after.replace(/^\s*/, "").length;
 		}
 
 		result = result.slice(0, start) + output + result.slice(end);

@@ -7,7 +7,7 @@ conditional: [tenant, nav]
 
 ## Spec
 
-See the [:books: Nais application reference](../../../workloads/application/reference/application-spec.md#maskinporten).
+See the [:books: Nais application reference](../../../workloads/application/reference/spec.md#maskinporten).
 
 ## Runtime variables & credentials
 
@@ -69,15 +69,15 @@ subscope := <product><separator><name>
 
 _product_
 
-:   The [`product`](../../../workloads/application/reference/application-spec.md#maskinportenscopesexposesproduct) is a logical grouping of resources, such as `arbeid`, `helse`, or `pensjon`.
+:   The [`product`](../../../workloads/application/reference/spec.md#maskinportenscopesexposesproduct) is a logical grouping of resources, such as `arbeid`, `helse`, or `pensjon`.
 
 _separator_
 
-:   The [`separator`](../../../workloads/application/reference/application-spec.md#maskinportenscopesexposesseparator) should be set to `/`.
+:   The [`separator`](../../../workloads/application/reference/spec.md#maskinportenscopesexposesseparator) should be set to `/`.
 
 _name_
 
-:   The [`name`](../../../workloads/application/reference/application-spec.md#maskinportenscopesexposesname) describes the resource itself.
+:   The [`name`](../../../workloads/application/reference/spec.md#maskinportenscopesexposesname) describes the resource itself.
 It may contain multiple parts separated by `/`.
 
     The name may also contain a suffix to separate between access levels.
