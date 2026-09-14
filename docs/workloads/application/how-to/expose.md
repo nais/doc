@@ -14,7 +14,7 @@ Select the correct audience from [the available domains in your environment](../
 
 ## Define ingress
 
-Specify the desired hostname for your application in the application manifest with [`.spec.ingresses[]`](../reference/application-spec.md#ingresses):
+Specify the desired hostname for your application in the application manifest with [`.spec.ingresses[]`](../reference/spec.md#ingresses):
 
 ```yaml hl_lines="4-5" title=".nais/app.yaml"
 apiVersion: nais.io/v1alpha1

@@ -120,7 +120,7 @@ You can inspect the heap dumps with tools like JProfiler, VisualVM or IntelliJ.
     - The application is not deployed to the cluster
     - The application is not up and running. This can be caused by a problem with the application itself, for example:
         - The application doesn't respond to any configured [health checks](../explanations/good-practices.md#implements-readiness-and-liveness-endpoints)
-        - The application only has a [single pod or replica](../application/reference/application-spec.md#replicas), and that pod is not running
+        - The application only has a [single pod or replica](../application/reference/spec.md#replicas), and that pod is not running
         - The application is configured incorrectly (e.g. has missing required dependencies, has the wrong image, etc.)
 
 ### My application gets an HTTP 504 Gateway Timeout error when attempting to communicate with another application, why?

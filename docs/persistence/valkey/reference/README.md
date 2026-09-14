@@ -21,8 +21,8 @@ spec:
 
 For details, see the manifest reference for your workload type:
 
-- Application: [`.spec.valkey`](../../../workloads/application/reference/application-spec.md#valkey)
-- Job: [`.spec.valkey`](../../../workloads/job/reference/naisjob-spec.md#valkey)
+- Application: [`.spec.valkey`](../../../workloads/application/reference/spec.md#valkey)
+- Job: [`.spec.valkey`](../../../workloads/job/reference/spec.md#valkey)
 
 ### Access levels
 

@@ -22,7 +22,7 @@ graph LR
 ```
 
 [openmetrics]: https://openmetrics.io/
-[nais-manifest-prometheus]:  ../../workloads/application/reference/application-spec.md#prometheus
+[nais-manifest-prometheus]:  ../../workloads/application/reference/spec.md#prometheus
 
 All applications that have Prometheus scraping enabled will show up in the [default Grafana dashboard](https://grafana.<<tenant()>>.cloud.nais.io/d/000000283/nais-app-dashbord), or create their own.
 

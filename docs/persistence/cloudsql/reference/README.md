@@ -5,7 +5,7 @@ tags: [postgres, reference]
 
 ## Configuration
 
-The full configuration options for the Postgres instance can be found in the [application spec reference](../../../workloads/application/reference/application-spec.md#gcpsqlinstances).
+The full configuration options for the Postgres instance can be found in the [application spec reference](../../../workloads/application/reference/spec.md#gcpsqlinstances).
 
 ## Database connnection
 
@@ -80,7 +80,7 @@ spec:
 ```
 
 !!! info
-    The value is always required to be a string in [`nais.yaml`](../../../workloads/application/reference/application-spec.md).
+    The value is always required to be a string in [`nais.yaml`](../../../workloads/application/reference/spec.md).
 
 ### Database max connections
 
@@ -115,12 +115,12 @@ For further reading see [Google Cloud SQL Query Insights](https://cloud.google.c
 
 ## Maintenance window
 
-Google will automatically perform upgrades, fix bugs and apply security patches to prevent exploits. Your application should be able to handle occasional downtime as this maintenance is performed. [Read more on maintenance windows](https://cloud.google.com/sql/docs/postgres/maintenance). Nais does not configure the maintenance window, but this can be set up in the application spec: [`nais.yaml`](../../../workloads/application/reference/application-spec.md#gcpsqlinstances).
+Google will automatically perform upgrades, fix bugs and apply security patches to prevent exploits. Your application should be able to handle occasional downtime as this maintenance is performed. [Read more on maintenance windows](https://cloud.google.com/sql/docs/postgres/maintenance). Nais does not configure the maintenance window, but this can be set up in the application spec: [`nais.yaml`](../../../workloads/application/reference/spec.md#gcpsqlinstances).
 If you wish to be notified about upcoming maintenance, you can opt-in for this on the [Communications page](https://console.cloud.google.com/user-preferences/communication) in the GCP console.
 
 ## Automated backup
 
-The database is backed up nightly at 3 AM \(GMT+1\) by default, but can be overridden in [`nais.yaml`](../../../workloads/application/reference/application-spec.md#gcpsqlinstancesautobackuphour) by setting `spec.gcp.sqlInstances[].autoBackupTime`.
+The database is backed up nightly at 3 AM \(GMT+1\) by default, but can be overridden in [`nais.yaml`](../../../workloads/application/reference/spec.md#gcpsqlinstancesautobackuphour) by setting `spec.gcp.sqlInstances[].autoBackupTime`.
 By default, seven backups will be kept. More info [about Cloud SQL backups](https://cloud.google.com/sql/docs/postgres/backup-recovery/backups).
 
 The backups can be found in the [Google Cloud SQL instance](https://cloud.google.com/sql) dashboard.
@@ -154,7 +154,7 @@ spec:
       - type: POSTGRES_17
 ```
 
-The full list of supported versions can be found in the [application spec reference](../../../workloads/application/reference/application-spec.md#gcpsqlinstancestype).
+The full list of supported versions can be found in the [application spec reference](../../../workloads/application/reference/spec.md#gcpsqlinstancestype).
 
 :dart: [Learn how to safely upgrade the Postgres version](../how-to/upgrade-postgres.md)
 

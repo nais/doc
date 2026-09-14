@@ -49,5 +49,5 @@ See also:
 
 :books: [NaisJob reference][naisjob]
 
-[application]: ../../../workloads/application/reference/application-spec.md#envfromsecret
-[naisjob]: ../../../workloads/job/reference/naisjob-spec.md#envfromsecret
+[application]: ../../../workloads/application/reference/spec.md#envfromsecret
+[naisjob]: ../../../workloads/job/reference/spec.md#envfromsecret

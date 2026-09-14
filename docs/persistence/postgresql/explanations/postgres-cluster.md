@@ -29,7 +29,7 @@ spec:
       memory: 2G
 ```
 
-You use the postgres cluster yaml by referencing it in your [Application manifest](../../../workloads/application/reference/application-spec.md#postgres).
+You use the postgres cluster yaml by referencing it in your [Application manifest](../../../workloads/application/reference/spec.md#postgres).
 
 
 ```yaml title="app.yaml"

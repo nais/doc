@@ -215,7 +215,7 @@ A PVK is not a unique requirement for GCP, so all applications should already ha
 | Security                  | Zone Model | [zero-trust]       |                                                                 |
 
 [zero-trust]: zero-trust.md
-[nais-yaml]: ../../workloads/application/reference/application-example.md
+[nais-yaml]: ../../workloads/application/reference/example.md
 [buckets]: ../../persistence/buckets/README.md
 [postgres]: ../../persistence/cloudsql/README.md
 [migrate-database]: ../../persistence/cloudsql/how-to/migrating-databases-to-gcp.md

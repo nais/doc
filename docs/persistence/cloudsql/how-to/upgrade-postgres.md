@@ -21,7 +21,7 @@ Before doing a major version upgrade, consult the [Google Cloud SQL documentatio
 Select a new major version of PostgreSQL that you want to upgrade to.
 For safe upgrades, it is recommended to only do one major version at a time.
 
-The full list of supported versions can be found in the [application spec reference](../../../workloads/application/reference/application-spec.md#gcpsqlinstancestype).
+The full list of supported versions can be found in the [application spec reference](../../../workloads/application/reference/spec.md#gcpsqlinstancestype).
 
 ## Change the major version
 

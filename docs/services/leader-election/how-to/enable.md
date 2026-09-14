@@ -6,7 +6,7 @@ tags: [leader-election, how-to]
 
 This guide will show you how to enable leader election for your application.
 
-## Enable leader election in [manifest](../../../workloads/application/reference/application-spec.md#leaderelection)
+## Enable leader election in [manifest](../../../workloads/application/reference/spec.md#leaderelection)
 
 ???+ note ".nais/app.yaml"
 

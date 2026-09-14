@@ -14,7 +14,7 @@ Most languages have a Prometheus client library available. See [Prometheus clien
 
 Once instrumented, your application must serve these metrics using HTTP on a given `path` (e.g. `/metrics`).
 
-## 2. Enable metrics in [manifest](../../../workloads/application/reference/application-spec.md)
+## 2. Enable metrics in [manifest](../../../workloads/application/reference/spec.md)
 
 ```yaml
 spec:

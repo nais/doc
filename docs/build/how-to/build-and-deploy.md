@@ -79,7 +79,7 @@ This how-to guide shows you how to build and deploy your application using [GitH
     2. Cluster in this context is the same as the environment name. You can find the value in [workloads/environments](../../workloads/reference/environments.md).
 
 This example workflow is a minimal example that builds, signs, and pushes your container image to the image registry.
-It then deploys the [app.yaml](../../workloads/application/reference/application-spec.md).
+It then deploys the [app.yaml](../../workloads/application/reference/spec.md).
 
 The `WORKLOAD_IMAGE` variable is used to [tell the platform which image](../../workloads/explanations/workload-image.md) to use when deploying the workload.
 This is optional, and you can also set the image in the workload manifest directly using templating.

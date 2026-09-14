@@ -55,8 +55,8 @@ You will likely want to add more configuration to your application manifest base
 
 :dart: [Expose your application](./expose.md).
 
-:books: [Application spec reference](../reference/application-spec.md).
+:books: [Application spec reference](../reference/spec.md).
 
-:books: [Full Application example](../reference/application-example.md).
+:books: [Full Application example](../reference/example.md).
 
 :bulb: [Good practices for Nais workloads](../../explanations/good-practices.md).

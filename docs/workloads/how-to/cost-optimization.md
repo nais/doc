@@ -174,7 +174,7 @@ spec:
 
 The default limit is `0` (unlimited). Set it to a value that fits your expected data growth.
 
-See the [diskAutoresize](../application/reference/application-spec.md#gcpsqlinstancesdiskautoresize) and [diskAutoresizeLimit](../application/reference/application-spec.md#gcpsqlinstancesdiskautoresizelimit) reference.
+See the [diskAutoresize](../application/reference/spec.md#gcpsqlinstancesdiskautoresize) and [diskAutoresizeLimit](../application/reference/spec.md#gcpsqlinstancesdiskautoresizelimit) reference.
 
 ### Use HDD for low-I/O databases
 

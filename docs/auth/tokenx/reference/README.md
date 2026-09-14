@@ -7,7 +7,7 @@ conditional: [tenant, nav]
 
 ## Spec
 
-See the [:books: Nais application reference](../../../workloads/application/reference/application-spec.md#tokenx).
+See the [:books: Nais application reference](../../../workloads/application/reference/spec.md#tokenx).
 
 ## Runtime variables & credentials
 
