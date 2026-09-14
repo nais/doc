@@ -1,5 +1,8 @@
 ---
 tags: [explanation, nais]
+llms:
+  section: Core and getting started
+  order: 20
 ---
 
 # What is Nais?

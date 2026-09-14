@@ -1,12 +1,14 @@
 import fm from "front-matter";
 import { gemoji } from "gemoji";
 import { Marked, type Token, type Tokens, type TokensList } from "marked";
+import { readFile } from "node:fs/promises";
 import { getGitInfo } from "./helpers/git";
 import { getIconSvg, isIconShortcode } from "./helpers/icons";
 import { preHighlightCodeTokens } from "./helpers/shiki";
 import { processTemplates } from "./helpers/templates";
 import type {
 	AdmonitionToken,
+	AnnotatedCodeToken,
 	Attributes,
 	ContentTabsToken,
 	ContentTabToken,
@@ -582,6 +584,19 @@ function processHtmlMarkdownBlocks(tokens: Token[] | TokensList): Token[] | Toke
  * Process code blocks to attach annotation content from following ordered lists.
  * Annotations in code (like `# (1)`) reference items in the list that follows.
  */
+function isCodeToken(token: Token): token is Tokens.Code {
+	return token.type === "code" && typeof token.text === "string";
+}
+
+function isFirstOrderedList(token: Token): token is Tokens.List {
+	return (
+		token.type === "list" &&
+		token.ordered === true &&
+		token.start === 1 &&
+		Array.isArray(token.items)
+	);
+}
+
 function processCodeAnnotations(tokens: Token[] | TokensList): Token[] {
 	const result: Token[] = [];
 	let i = 0;
@@ -589,8 +604,8 @@ function processCodeAnnotations(tokens: Token[] | TokensList): Token[] {
 	while (i < tokens.length) {
 		const token = tokens[i];
 
-		if (token.type === "code") {
-			const codeToken = token as Tokens.Code;
+		if (isCodeToken(token)) {
+			const codeToken: AnnotatedCodeToken = token;
 
 			// Look for an ordered list following this code block (skip space tokens)
 			let nextIdx = i + 1;
@@ -599,11 +614,10 @@ function processCodeAnnotations(tokens: Token[] | TokensList): Token[] {
 			}
 
 			if (nextIdx < tokens.length) {
-				const nextToken = tokens[nextIdx] as Tokens.List;
-				if (nextToken.type === "list" && nextToken.ordered && nextToken.start === 1) {
+				const nextToken = tokens[nextIdx];
+				if (isFirstOrderedList(nextToken)) {
 					// Store annotations on the code token
-					(codeToken as Tokens.Code & { annotations?: Token[][] }).annotations =
-						nextToken.items.map((item) => item.tokens);
+					codeToken.annotations = nextToken.items.map((item) => item.tokens);
 					// Skip the annotation list
 					i = nextIdx;
 				}
@@ -692,7 +706,7 @@ function processFootnotes(tokens: Token[] | TokensList): Token[] | TokensList {
 export async function readMarkdownFile(
 	path: string,
 ): Promise<{ tokens: Token[] | TokensList; attributes: Attributes }> {
-	const source = await Bun.file(path).text();
+	const source = await readFile(path, "utf-8");
 	const { attributes, body } = fm<Attributes>(source);
 
 	// Get git information for the file

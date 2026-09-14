@@ -5,6 +5,9 @@ description: >-
 search:
   boost: 1
 tags: [explanation, observability]
+llms:
+  section: Observability
+  order: 180
 ---
 
 # Observability

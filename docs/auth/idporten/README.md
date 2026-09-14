@@ -1,5 +1,8 @@
 ---
 tags: [auth, idporten, services, explanation]
+llms:
+  section: Authentication
+  order: 120
 conditional: [tenant, nav]
 ---
 

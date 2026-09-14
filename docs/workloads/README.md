@@ -1,5 +1,8 @@
 ---
 tags: [workloads, explanation]
+llms:
+  section: Workloads
+  order: 60
 ---
 
 # Workloads
