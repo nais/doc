@@ -24,7 +24,7 @@ spec:
   tier: HighAvailability
 ```
 
-Change the name and configuration for your needs. See the [complete generated example](../reference/valkey-example.md) and [Valkey manifest reference](../reference/valkey-spec.md).
+Change the name and configuration for your needs. See the [complete generated example](../reference/example.md) and [Valkey manifest reference](../reference/spec.md).
 
 ## Create the workflow
 

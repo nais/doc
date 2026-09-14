@@ -49,7 +49,7 @@ The default configuration sets up the [cluster](explanations/postgres-cluster.md
 - primary and replica (in production we recommend using high availability which offers a primary and two replicas)
 - automatic backups
 
-See all configuration options in the [Postgres manifest reference](../../persistence/postgresql/reference/postgres-spec.md).
+See all configuration options in the [Postgres manifest reference](../../persistence/postgresql/reference/spec.md).
 
 !!! warning "Choosing the right resources for production"
 

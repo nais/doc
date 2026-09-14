@@ -18,8 +18,8 @@ spec:
 
 For details, see the manifest reference for your workload type:
 
-- Application: [`.spec.openSearch`](../../../workloads/application/reference/application-spec.md#opensearch)
-- Job: [`.spec.openSearch`](../../../workloads/job/reference/naisjob-spec.md#opensearch)
+- Application: [`.spec.openSearch`](../../../workloads/application/reference/spec.md#opensearch)
+- Job: [`.spec.openSearch`](../../../workloads/job/reference/spec.md#opensearch)
 
 ### Access levels
 

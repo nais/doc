@@ -32,7 +32,7 @@ spec:
   version: "3.3"
 ```
 
-Change the name and configuration for your needs. See the [complete generated example](../reference/opensearch-example.md) and [OpenSearch manifest reference](../reference/opensearch-spec.md).
+Change the name and configuration for your needs. See the [complete generated example](../reference/example.md) and [OpenSearch manifest reference](../reference/spec.md).
 
 Set `spec.version` to a supported version listed in the manifest reference. To upgrade, check the [OpenSearch breaking changes](https://docs.opensearch.org/latest/breaking-changes/), update `spec.version`, and apply the manifest again. Downgrades are not supported.
 
