@@ -134,9 +134,17 @@ jobs:
         with:
           team: <MY-TEAM> # Replace
       - name: Deploy to dev-gcp
-        run: nais apply .nais/app.yaml --environment dev-gcp --set spec.image="${{ needs.build.outputs.image }}" --wait
+        run: |
+          nais apply .nais/app.yaml \
+            --environment dev-gcp \
+            --set spec.image="${{ needs.build.outputs.image }}" \
+            --wait
       - name: Deploy to prod-gcp
-        run: nais apply .nais/app.yaml --environment prod-gcp --set spec.image="${{ needs.build.outputs.image }}" --wait
+        run: |
+          nais apply .nais/app.yaml \
+            --environment prod-gcp \
+            --set spec.image="${{ needs.build.outputs.image }}" \
+            --wait
 ```
 
 ## Deploy manifest changes without rebuilding

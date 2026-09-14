@@ -25,7 +25,7 @@ This how-to guide shows you how to build and deploy your application using [GitH
 
 ???+ note ".github/workflows/main.yaml"
 
-    ```yaml hl_lines="21 {%- if tenant() == "test-nais" %} 36 38{% else %} 34 36{% endif %}"
+    ```yaml hl_lines="21 {%- if tenant() == "test-nais" %} 36 40{% else %} 34 38{% endif %}"
     name: Build and deploy
     on:
       push:
@@ -65,7 +65,11 @@ This how-to guide shows you how to build and deploy your application using [GitH
             with:
               team: <MY-TEAM> # Replace
           - name: Deploy to Nais
-            run: nais apply .nais/app.yaml --environment <MY-ENV> --set spec.image="${{ needs.build.outputs.image }}" --wait # (2)
+            run: |
+              nais apply .nais/app.yaml \
+                --environment <MY-ENV> \ # (2)
+                --set spec.image="${{ needs.build.outputs.image }}" \
+                --wait
     ```
 
     1. GitHub actions should be pinned to a SHA for better security. Read more in GitHub [Secure use reference](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions).
