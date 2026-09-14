@@ -27,6 +27,7 @@ metadata:
   name: mypostgres
   namespace: myteam
 spec:
+  activeInstance: mypostgres-primary
   extensions:
     - name: postgis
   highAvailability: true
