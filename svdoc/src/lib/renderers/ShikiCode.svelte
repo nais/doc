@@ -263,7 +263,7 @@
 	/* Line styling */
 	.code-content :global(.line) {
 		display: inline-block;
-		width: 100%;
+		min-width: 100%;
 		padding: 0 0.5rem;
 		margin: 0 -0.5rem;
 		white-space: pre;
