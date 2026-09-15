@@ -15,7 +15,7 @@ jobs:
           cache: true
 
       - name: Build documentation
-        run: mise run build nav ssb test-nais ldir atil ci-nais dev-nais
+        run: mise run build nav ssb test-nais ldir atil ci-nais dev-nais miljodir
 
       - name: Upload generated doc artifact
         uses: actions/upload-artifact@v7
