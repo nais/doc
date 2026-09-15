@@ -49,6 +49,8 @@ jobs:
             bucket: doc.ldir.cloud.nais.io
           - name: atil
             bucket: doc.atil.cloud.nais.io
+          - name: miljodir
+            bucket: doc.miljodir.cloud.nais.io
     steps:
       - name: Download generated doc artifact
         uses: actions/download-artifact@v8

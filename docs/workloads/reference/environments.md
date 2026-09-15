@@ -258,6 +258,28 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 | auto-instrumentation | `grafana-lgtm` |
 
 {% endif %}
+{% if tenant() == "miljodir" %}
+### non-prod
+
+#### Domains
+
+| domain                                   | accessible from          | description                                                                                                       |
+| :--------------------------------------- | :----------------------- | :---------------------------------------------------------------------------------------------------------------- |
+| external.dev.miljodir.cloud.nais.io     | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| dev.miljodir.cloud.nais.io              | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
+
+#### External/outbound IPs
+
+- TBA
+
+#### Observability
+
+| data                 | default        |
+| :------------------- | :------------- |
+| logs (stdout)        | `loki`         |
+| auto-instrumentation | `grafana-lgtm` |
+
+{% endif %}
 {% if tenant() == "test-nais" %}
 ### sandbox
 
