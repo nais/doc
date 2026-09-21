@@ -8,7 +8,7 @@ To make your application available to others, you need to build and deploy it.
 
 Nais attempts to make this as simple as possible by providing a set of [GitHub Actions](https://docs.github.com/en/actions) and the [Nais CLI](../operate/cli.md).
 
-Use these to compose your own build and deploy pipeline through [Github Actions workflows](https://docs.github.com/en/actions/using-workflows). 
+Use these to compose your own build and deploy pipeline through [Github Actions workflows](https://docs.github.com/en/actions/using-workflows).
 
 ## GitHub Actions
 
@@ -20,12 +20,16 @@ See the respective GitHub Action links for detailed configuration options.
 
 ## What's next
 
-:dart: [Build and deploy with Github Actions](how-to/build-and-deploy.md)
-
-:dart: [Set up a complete deploy pipeline](how-to/deploy-pipeline.md)
+:bulb: [Nais manifests](explanations/manifest.md)
 
 :bulb: [Applying a manifest](explanations/applying-a-manifest.md)
 
 :bulb: [Environment mixins](explanations/environment-mixins.md)
+
+:books: [Manifest reference](reference/manifest.md)
+
+:dart: [Build and deploy with Github Actions](how-to/build-and-deploy.md)
+
+:dart: [Set up a complete deploy pipeline](how-to/deploy-pipeline.md)
 
 :dart: [Set up auto-merge with Dependabot](how-to/dependabot-auto-merge.md)
