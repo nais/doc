@@ -25,6 +25,7 @@ spec:
   memory: 4GB
   shardIndexingPressure:
     enabled: true
+    enforced: true
   storageGB: 80
   tier: SingleNode
   version: "3.3"

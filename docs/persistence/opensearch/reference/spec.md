@@ -26,7 +26,9 @@ Required: `false`<br />
 
 ??? example
     ``` yaml
-    spec: null
+    spec:
+      http:
+        maxContentLength: 100Mi
     ```
 
 ### http.maxContentLength
@@ -40,7 +42,9 @@ Required: `false`<br />
 
 ??? example
     ``` yaml
-    spec: null
+    spec:
+      http:
+        maxContentLength: 100Mi
     ```
 
 ## indices
@@ -51,7 +55,9 @@ Required: `false`<br />
 
 ??? example
     ``` yaml
-    spec: null
+    spec:
+      indices:
+        queryBoolMaxClauseCount: 1024
     ```
 
 ### indices.queryBoolMaxClauseCount
@@ -64,7 +70,9 @@ Value range: `64`-`4096`<br />
 
 ??? example
     ``` yaml
-    spec: null
+    spec:
+      indices:
+        queryBoolMaxClauseCount: 1024
     ```
 
 ## memory
@@ -76,7 +84,8 @@ Allowed values: `16GB`, `2GB`, `32GB`, `4GB`, `64GB`, `8GB`<br />
 
 ??? example
     ``` yaml
-    spec: null
+    spec:
+      memory: 4GB
     ```
 
 ## shardIndexingPressure
@@ -87,7 +96,10 @@ Required: `false`<br />
 
 ??? example
     ``` yaml
-    spec: null
+    spec:
+      shardIndexingPressure:
+        enabled: true
+        enforced: true
     ```
 
 ### shardIndexingPressure.enabled
@@ -98,7 +110,9 @@ Required: `false`<br />
 
 ??? example
     ``` yaml
-    spec: null
+    spec:
+      shardIndexingPressure:
+        enabled: true
     ```
 
 ### shardIndexingPressure.enforced
@@ -112,7 +126,9 @@ Required: `false`<br />
 
 ??? example
     ``` yaml
-    spec: null
+    spec:
+      shardIndexingPressure:
+        enforced: true
     ```
 
 ## storageGB
@@ -124,7 +140,8 @@ Minimum value: `16`<br />
 
 ??? example
     ``` yaml
-    spec: null
+    spec:
+      storageGB: 80
     ```
 
 ## tier
@@ -136,7 +153,8 @@ Allowed values: `HighAvailability`, `SingleNode`<br />
 
 ??? example
     ``` yaml
-    spec: null
+    spec:
+      tier: SingleNode
     ```
 
 ## version
@@ -148,6 +166,7 @@ Allowed values: `1`, `2`, `2.19`, `3.3`, `3.6`<br />
 
 ??? example
     ``` yaml
-    spec: null
+    spec:
+      version: "3.3"
     ```
 

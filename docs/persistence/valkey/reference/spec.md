@@ -27,7 +27,8 @@ Value range: `1`-`128`<br />
 
 ??? example
     ``` yaml
-    spec: null
+    spec:
+      databases: 16
     ```
 
 ## maxMemoryPolicy
@@ -39,7 +40,8 @@ Allowed values: `allkeys-lfu`, `allkeys-lru`, `allkeys-random`, `noeviction`, `v
 
 ??? example
     ``` yaml
-    spec: null
+    spec:
+      maxMemoryPolicy: noeviction
     ```
 
 ## memory
@@ -51,7 +53,8 @@ Allowed values: `112GB`, `14GB`, `1GB`, `200GB`, `28GB`, `4GB`, `56GB`, `8GB`<br
 
 ??? example
     ``` yaml
-    spec: null
+    spec:
+      memory: 1GB
     ```
 
 ## notifyKeyspaceEvents
@@ -63,7 +66,8 @@ Pattern: `^[KEg$lshztdxemnA]*$`<br />
 
 ??? example
     ``` yaml
-    spec: null
+    spec:
+      notifyKeyspaceEvents: KEA
     ```
 
 ## persistence
@@ -74,7 +78,9 @@ Required: `false`<br />
 
 ??? example
     ``` yaml
-    spec: null
+    spec:
+      persistence:
+        disabled: true
     ```
 
 ### persistence.disabled
@@ -87,7 +93,9 @@ Required: `false`<br />
 
 ??? example
     ``` yaml
-    spec: null
+    spec:
+      persistence:
+        disabled: true
     ```
 
 ## tier
@@ -99,7 +107,8 @@ Allowed values: `HighAvailability`, `SingleNode`<br />
 
 ??? example
     ``` yaml
-    spec: null
+    spec:
+      tier: HighAvailability
     ```
 
 ## version
@@ -114,6 +123,7 @@ Allowed values: `8.1`, `9.0`, `9.1`<br />
 
 ??? example
     ``` yaml
-    spec: null
+    spec:
+      version: "9.1"
     ```
 
