@@ -1,5 +1,8 @@
 ---
 tags: [persistence, explanation, valkey, redis, services]
+llms:
+  section: Persistence
+  order: 170
 ---
 # Valkey
 

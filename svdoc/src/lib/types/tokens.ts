@@ -1,10 +1,10 @@
-import type { Token } from "marked";
+import type { Token, Tokens } from "marked";
 
 /**
  * Admonition token for Material for MkDocs style admonitions
  * Syntax: !!! type "title" or ??? type "title" (collapsible) or ???+ type "title" (collapsible, open)
  */
-export interface AdmonitionToken {
+export interface AdmonitionToken extends Tokens.Generic {
 	type: "admonition";
 	raw: string;
 	admonitionType: string;
@@ -18,7 +18,7 @@ export interface AdmonitionToken {
  * Content tab token for Material for MkDocs style tabs
  * Syntax: === "Tab Title"
  */
-export interface ContentTabToken {
+export interface ContentTabToken extends Tokens.Generic {
 	type: "content_tab";
 	raw: string;
 	label: string;
@@ -28,7 +28,7 @@ export interface ContentTabToken {
 /**
  * Container for multiple content tabs
  */
-export interface ContentTabsToken {
+export interface ContentTabsToken extends Tokens.Generic {
 	type: "content_tabs";
 	raw: string;
 	tabs: ContentTabToken[];
@@ -37,7 +37,7 @@ export interface ContentTabsToken {
 /**
  * Footnote definition token ([^1]: content)
  */
-export interface FootnoteToken {
+export interface FootnoteToken extends Tokens.Generic {
 	type: "footnote";
 	raw: string;
 	id: string;
@@ -48,7 +48,7 @@ export interface FootnoteToken {
 /**
  * Definition list item (term + definitions)
  */
-export interface DefinitionListItemToken {
+export interface DefinitionListItemToken extends Tokens.Generic {
 	type: "def_list_item";
 	raw: string;
 	term: string;
@@ -59,7 +59,7 @@ export interface DefinitionListItemToken {
 /**
  * Single definition in a definition list
  */
-export interface DefinitionToken {
+export interface DefinitionToken extends Tokens.Generic {
 	type: "definition";
 	raw: string;
 	tokens: Token[];
@@ -68,10 +68,15 @@ export interface DefinitionToken {
 /**
  * Definition list container
  */
-export interface DefinitionListToken {
+export interface DefinitionListToken extends Tokens.Generic {
 	type: "def_list";
 	raw: string;
 	items: DefinitionListItemToken[];
+}
+
+/** A code block with prose annotations extracted from the following list. */
+export interface AnnotatedCodeToken extends Tokens.Code {
+	annotations?: Token[][];
 }
 
 /**
@@ -80,6 +85,11 @@ export interface DefinitionListToken {
 export interface Attributes {
 	title?: string;
 	description?: string;
+	/** Curated placement in llms.txt. */
+	llms?: {
+		section: string;
+		order: number;
+	};
 	tags?: string[];
 	hide?: string[];
 	/** Conditional visibility based on tenant */

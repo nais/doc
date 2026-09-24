@@ -259,9 +259,20 @@ function processIncludes(content: string, basePath: string, maxDepth: number = 1
 	});
 }
 
-interface ConditionalBranch {
-	condition: string | null;
-	content: string;
+type ConditionalTagType = "if" | "elif" | "else" | "endif";
+
+interface ConditionalTag {
+	type: ConditionalTagType;
+	condition?: string;
+	start: number;
+	end: number;
+	text: string;
+}
+
+interface ConditionalBlock {
+	openTag: ConditionalTag;
+	closeTag: ConditionalTag;
+	branchTags: ConditionalTag[];
 }
 
 /**
@@ -288,65 +299,87 @@ function expandTagLine(text: string, start: number, end: number): [number, numbe
 }
 
 /**
- * Parse the branches (if/elif/else) from inner conditional content
+ * Find conditional tags and pair each opening tag with its matching endif.
  */
-function parseConditionalBranches(ifCondition: string, innerContent: string): ConditionalBranch[] {
-	const branches: ConditionalBranch[] = [];
-	const branchRegex = /\{%-?\s*(?:elif\s+(.+?)|else)\s*-?%\}/g;
+function findConditionalBlock(content: string): ConditionalBlock | undefined {
+	const tagRegex = /\{%-?\s*(?:(if|elif)\s+(.+?)|(else|endif))\s*-?%\}/g;
+	const tags: ConditionalTag[] = [];
+	let match: RegExpExecArray | null;
 
-	// Find all branch markers (elif/else)
-	const parts: { type: "elif" | "else"; condition?: string; index: number; length: number }[] = [];
-	let branchMatch;
+	while ((match = tagRegex.exec(content)) !== null) {
+		const keyword = match[1] ?? match[3];
+		if (!keyword) {
+			continue;
+		}
 
-	while ((branchMatch = branchRegex.exec(innerContent)) !== null) {
-		parts.push({
-			type: branchMatch[1] ? "elif" : "else",
-			condition: branchMatch[1],
-			index: branchMatch.index,
-			length: branchMatch[0].length,
+		const type: ConditionalTagType =
+			keyword === "if" || keyword === "elif" ? keyword : keyword === "else" ? "else" : "endif";
+
+		tags.push({
+			type,
+			condition: match[2],
+			start: match.index,
+			end: match.index + match[0].length,
+			text: match[0],
 		});
 	}
 
-	if (parts.length === 0) {
-		// No elif or else, just the if content
-		branches.push({ condition: ifCondition, content: innerContent });
-	} else {
-		// First branch: from start to first elif/else
-		const [firstEnd] = expandTagLine(
-			innerContent,
-			parts[0].index,
-			parts[0].index + parts[0].length,
-		);
-		branches.push({
-			condition: ifCondition,
-			content: innerContent.slice(0, firstEnd),
-		});
+	const openIndex = tags.findIndex((tag) => tag.type === "if");
+	if (openIndex === -1) {
+		return undefined;
+	}
 
-		// Middle and final branches
-		for (let i = 0; i < parts.length; i++) {
-			const [, startIndex] = expandTagLine(
-				innerContent,
-				parts[i].index,
-				parts[i].index + parts[i].length,
-			);
-			const endIndex =
-				i + 1 < parts.length
-					? expandTagLine(
-							innerContent,
-							parts[i + 1].index,
-							parts[i + 1].index + parts[i + 1].length,
-						)[0]
-					: innerContent.length;
-			const branchCondition = parts[i].type === "else" ? null : parts[i].condition!;
+	const openTag = tags[openIndex];
+	const branchTags: ConditionalTag[] = [];
+	let depth = 1;
 
-			branches.push({
-				condition: branchCondition,
-				content: innerContent.slice(startIndex, endIndex),
-			});
+	for (let index = openIndex + 1; index < tags.length; index++) {
+		const tag = tags[index];
+		if (tag.type === "if") {
+			depth++;
+		} else if (tag.type === "endif") {
+			depth--;
+			if (depth === 0) {
+				return { openTag, closeTag: tag, branchTags };
+			}
+		} else if (depth === 1) {
+			branchTags.push(tag);
 		}
 	}
 
-	return branches;
+	return undefined;
+}
+
+/**
+ * Select one branch from a conditional block. Nested tags remain in the
+ * selected output and are resolved by the next processing iteration.
+ */
+function selectConditionalBranch(
+	content: string,
+	block: ConditionalBlock,
+	innerStart: number,
+	innerEnd: number,
+	context: TemplateContext,
+): string {
+	let condition: string | null = block.openTag.condition ?? "";
+	let branchStart = innerStart;
+
+	for (const branchTag of block.branchTags) {
+		const [branchEnd] = expandTagLine(content, branchTag.start, branchTag.end);
+		if (condition === null || evaluateCondition(condition, context)) {
+			return content.slice(branchStart, branchEnd);
+		}
+
+		const [, nextBranchStart] = expandTagLine(content, branchTag.start, branchTag.end);
+		branchStart = nextBranchStart;
+		condition = branchTag.type === "else" ? null : (branchTag.condition ?? "");
+	}
+
+	if (condition === null || evaluateCondition(condition, context)) {
+		return content.slice(branchStart, innerEnd);
+	}
+
+	return "";
 }
 
 /**
@@ -358,68 +391,39 @@ function processConditionals(content: string, context: TemplateContext): string 
 	const maxIterations = 100; // Prevent infinite loops
 
 	// Keep processing until no more conditionals are found
-	// Process innermost conditionals first (ones without nested ifs)
 	while (iterations < maxIterations) {
-		const ifRegex =
-			/(\{%-\s*if\s+(.+?)\s*-?%\}|\{%\s*if\s+(.+?)\s*-%\}|\{%\s*if\s+(.+?)\s*%\})([\s\S]*?)(\{%-?\s*endif\s*-?%\})/;
-		const match = ifRegex.exec(result);
-
-		if (!match) {
+		const block = findConditionalBlock(result);
+		if (!block) {
 			break;
 		}
 
-		const fullMatch = match[0];
-		const openTag = match[1];
-		const condition = match[2] || match[3] || match[4];
-		const closeTag = match[6];
+		const { openTag, closeTag } = block;
 
 		// Locate the open and close tags, then expand each to swallow its whole
 		// line when it stands alone. Everything between them is the branch body.
-		const openStart = match.index;
-		const closeEnd = openStart + fullMatch.length;
-		const [blockStart, innerStart, openAlone] = expandTagLine(
-			result,
-			openStart,
-			openStart + openTag.length,
-		);
-		const [innerEnd, blockEnd, closeAlone] = expandTagLine(
-			result,
-			closeEnd - closeTag.length,
-			closeEnd,
-		);
+		const [blockStart, innerStart, openAlone] = expandTagLine(result, openTag.start, openTag.end);
+		const [innerEnd, blockEnd, closeAlone] = expandTagLine(result, closeTag.start, closeTag.end);
 
-		const innerContent = result.slice(innerStart, innerEnd);
-		// Parse branches
-		const branches = parseConditionalBranches(condition, innerContent);
-
-		// Evaluate branches and find the first matching one
-		// A null condition is the else branch, which always matches once reached
-		let output = "";
-		for (const branch of branches) {
-			if (branch.condition === null || evaluateCondition(branch.condition, context)) {
-				output = branch.content;
-				break;
-			}
-		}
+		let output = selectConditionalBranch(result, block, innerStart, innerEnd, context);
 
 		// Explicit whitespace markers only matter for inline tags. A standalone
 		// tag has already had its whole line removed, leaving nothing to strip.
 		// These apply to the selected branch, since that is what ends up abutting
 		// the tag in the output.
-		if (!openAlone && openTag.endsWith("-%}")) output = output.replace(/^\s*/, "");
-		if (!closeAlone && closeTag.startsWith("{%-")) output = output.replace(/\s*$/, "");
+		if (!openAlone && openTag.text.endsWith("-%}")) output = output.replace(/^\s*/, "");
+		if (!closeAlone && closeTag.text.startsWith("{%-")) output = output.replace(/\s*$/, "");
 
 		let start = blockStart;
 		let end = blockEnd;
 
 		// {%- ... %} also eats whitespace preceding the opening tag
-		if (!openAlone && openTag.startsWith("{%-")) {
+		if (!openAlone && openTag.text.startsWith("{%-")) {
 			const before = result.slice(0, start);
 			start -= before.length - before.replace(/\s*$/, "").length;
 		}
 
 		// ... -%} also eats whitespace following the closing tag
-		if (!closeAlone && closeTag.endsWith("-%}")) {
+		if (!closeAlone && closeTag.text.endsWith("-%}")) {
 			const after = result.slice(end);
 			end += after.length - after.replace(/^\s*/, "").length;
 		}
@@ -467,8 +471,15 @@ function processVariables(content: string, context: TemplateContext): string {
  */
 export function processTemplates(content: string, filePath?: string): string {
 	const context = createTemplateContext();
+	const rawBlocks: string[] = [];
 
-	let result = content;
+	let result = content.replace(
+		/\{%-?\s*raw\s*-?%\}([\s\S]*?)\{%-?\s*endraw\s*-?%\}/g,
+		(_, body: string) => {
+			const index = rawBlocks.push(body) - 1;
+			return `@@SVDOCRAW${index}@@`;
+		},
+	);
 
 	// Process includes first (they may contain other template syntax)
 	if (filePath) {
@@ -484,5 +495,5 @@ export function processTemplates(content: string, filePath?: string): string {
 	// Process << >> variables
 	result = processVariables(result, context);
 
-	return result;
+	return result.replace(/@@SVDOCRAW(\d+)@@/g, (_, index: string) => rawBlocks[Number(index)] ?? "");
 }

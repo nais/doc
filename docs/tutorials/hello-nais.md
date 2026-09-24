@@ -1,5 +1,8 @@
 ---
 tags: [tutorial]
+llms:
+  section: Core and getting started
+  order: 30
 ---
 # :wave: Hello Nais
 

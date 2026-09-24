@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/state";
 	import PageMeta from "$lib/components/PageMeta.svelte";
+	import { markdownAlternativeUrl } from "$lib/helpers/urls";
 	import ContentRenderer from "$lib/renderers/ContentRenderer.svelte";
 	import { setupContext } from "$lib/state/page_context.svelte";
 	import TableOfContents from "$lib/TableOfContents.svelte";
@@ -10,6 +11,7 @@
 
 	let { data }: PageProps = $props();
 	const { tokens, attributes } = $derived(data);
+	const isCategory = $derived(data.isCategory ?? false);
 	const pageTitle = $derived(attributes?.title ? `${attributes.title} - Nais` : "Nais");
 	const tags = $derived(attributes?.tags ?? []);
 	const hideItems = $derived(attributes?.hide ?? []);
@@ -18,6 +20,7 @@
 	const git = $derived(attributes?.git);
 
 	const canonicalUrl = $derived(`${page.url.origin}${page.url.pathname}`);
+	const markdownUrl = $derived(markdownAlternativeUrl(page.url.pathname));
 	const description = $derived(
 		attributes?.description ??
 			"Nais documentation - The application platform for the Norwegian government",
@@ -40,6 +43,9 @@
 <svelte:head>
 	<title>{pageTitle}</title>
 	<link rel="canonical" href={canonicalUrl} />
+	{#if !isCategory}
+		<link rel="alternate" type="text/markdown" href={markdownUrl} />
+	{/if}
 	<meta name="description" content={description} />
 
 	<!-- Open Graph -->

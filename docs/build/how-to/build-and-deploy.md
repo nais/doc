@@ -1,5 +1,8 @@
 ---
 tags: [build, deploy, how-to]
+llms:
+  section: Build and deploy
+  order: 50
 ---
 
 # Build and deploy with GitHub Actions

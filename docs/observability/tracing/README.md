@@ -2,6 +2,9 @@
 description: >-
   Application Performance Monitoring or tracing using Grafana Tempo on Nais.
 tags: [explanation, observability, tracing, services]
+llms:
+  section: Observability
+  order: 210
 ---
 
 # Distributed Tracing

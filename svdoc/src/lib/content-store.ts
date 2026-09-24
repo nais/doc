@@ -12,8 +12,8 @@
  */
 
 import type { Token, TokensList } from "marked";
-import { readdir, stat } from "node:fs/promises";
-import { relative, resolve } from "node:path";
+import { readFile, readdir, stat } from "node:fs/promises";
+import { dirname, relative, resolve } from "node:path";
 import { IGNORED_DIRECTORIES } from "./constants";
 import {
 	extractHeadingsFromTokens,
@@ -21,6 +21,7 @@ import {
 	stripMarkdownTokens,
 	type Heading,
 } from "./helpers/markdown-utils";
+import type { LlmsDocument } from "./llms";
 import { processLinks } from "./helpers/process-links";
 import { stripBase, stripMarkdownSuffix, withBase } from "./helpers/urls";
 import { readMarkdownFile, type Attributes } from "./markdown";
@@ -132,6 +133,8 @@ interface ContentDocument {
 	tags: string[];
 	/** Items to hide (e.g., "toc", "navigation") */
 	hide: string[];
+	/** Whether an ancestor .pages file hides this document from navigation */
+	hiddenFromNavigation: boolean;
 	/** Extracted headings for search/TOC */
 	headings: Heading[];
 	/** Stripped content for search indexing */
@@ -176,6 +179,66 @@ export interface NavItem {
 	href: string;
 	children?: NavItem[];
 	hasContent: boolean;
+}
+
+/**
+ * Flatten navigation into document paths. Directory README pages are included
+ * through `hasContent`; the set prevents an explicitly listed README from
+ * appearing again as a child entry.
+ */
+export function navigationDocumentPaths(items: NavItem[]): string[] {
+	const paths: string[] = [];
+	const seen = new Set<string>();
+
+	const visit = (entries: NavItem[]) => {
+		for (const item of entries) {
+			if (item.hasContent) {
+				const path = stripBase(item.href).replace(/\/+$/, "") || "/";
+				if (!seen.has(path)) {
+					seen.add(path);
+					paths.push(path);
+				}
+			}
+			if (item.children) visit(item.children);
+		}
+	};
+
+	visit(items);
+	return paths;
+}
+
+/**
+ * Return navigation-visible documents in sidebar order. Documents that do not
+ * have a navigation item are appended by URL path so an accidental `.pages`
+ * omission cannot make otherwise visible documentation disappear.
+ */
+export function orderLlmsFullDocuments(
+	documents: LlmsDocument[],
+	navigation: NavItem[],
+): LlmsDocument[] {
+	const byPath = new Map(documents.map((document) => [document.urlPath, document]));
+	const seen = new Set<string>();
+	const ordered: LlmsDocument[] = [];
+	const add = (document: LlmsDocument | undefined) => {
+		if (
+			!document ||
+			document.hiddenFromNavigation ||
+			document.hide.includes("navigation") ||
+			seen.has(document.urlPath)
+		)
+			return;
+		seen.add(document.urlPath);
+		ordered.push(document);
+	};
+
+	for (const path of navigationDocumentPaths(navigation)) {
+		add(byPath.get(path));
+	}
+
+	for (const document of [...documents].sort((a, b) => a.urlPath.localeCompare(b.urlPath))) {
+		add(document);
+	}
+	return ordered;
 }
 
 /**
@@ -360,6 +423,7 @@ class ContentStore {
 				description: attributes.description,
 				tags: attributes.tags || [],
 				hide: attributes.hide || [],
+				hiddenFromNavigation: await this.isHiddenFromNavigation(filePath),
 				headings,
 				searchContent,
 				summary,
@@ -557,6 +621,39 @@ class ContentStore {
 	}
 
 	/**
+	 * Get every routable document's Markdown route. Unlike HTML page entries,
+	 * this deliberately includes pages hidden from navigation: `hide:
+	 * [navigation]` hides a sidebar item, not the document itself.
+	 */
+	async getMarkdownPaths(): Promise<string[]> {
+		await this.initialize();
+		return Array.from(this.documentsByUrlPath.values())
+			.filter((document) => !document.hiddenFromNavigation)
+			.map((document) => (document.urlPath === "/" ? "index" : document.urlPath.slice(1)))
+			.sort();
+	}
+
+	/**
+	 * Get documents for llms-full.txt in navigation order. Pages that are
+	 * visible but absent from navigation (for example, because a `.pages`
+	 * entry was accidentally omitted) follow in URL-path order, making the
+	 * fallback deterministic while retaining discoverability.
+	 */
+	async getLlmsFullDocuments(): Promise<LlmsDocument[]> {
+		await this.initialize();
+		return orderLlmsFullDocuments(
+			Array.from(this.documentsByUrlPath.values()),
+			this.navigation ?? [],
+		);
+	}
+
+	/** Get all tenant-visible documents for llms.txt curation. */
+	async getLlmsDocuments(): Promise<LlmsDocument[]> {
+		await this.initialize();
+		return Array.from(this.documentsByUrlPath.values());
+	}
+
+	/**
 	 * Get search index data
 	 */
 	async getSearchIndex(): Promise<
@@ -621,7 +718,7 @@ class ContentStore {
 		try {
 			const { parse: parseYaml } = await import("yaml");
 			const pagesPath = `${dirPath}/.pages`;
-			const content = await Bun.file(pagesPath).text();
+			const content = await readFile(pagesPath, "utf-8");
 			return parseYaml(content) as PagesFile;
 		} catch {
 			return null;
@@ -648,11 +745,28 @@ class ContentStore {
 	}
 
 	/**
+	 * `.pages` can hide a whole directory, including partials that remain
+	 * routable by URL. Keep that distinction for llms-full.txt, whose fallback
+	 * must include only documents omitted from navigation accidentally.
+	 */
+	private async isHiddenFromNavigation(filePath: string): Promise<boolean> {
+		let directory = dirname(filePath);
+		while (directory.startsWith(DOCS_DIR)) {
+			const pagesFile = await this.readPagesFile(directory);
+			if (pagesFile?.hide === true) return true;
+			if (directory === DOCS_DIR) return false;
+			directory = dirname(directory);
+		}
+		return false;
+	}
+
+	/**
 	 * Check if a directory has a README.md that is included in the store
 	 */
 	private hasIncludedReadme(dirPath: string): boolean {
 		const readmePath = `${dirPath}/README.md`;
-		return this.documents.has(readmePath);
+		const document = this.documents.get(readmePath);
+		return document !== undefined && !document.hide.includes("navigation");
 	}
 
 	/**
@@ -670,7 +784,8 @@ class ContentStore {
 		} else {
 			// A file is included if it's in the documents map
 			const mdPath = fullPath.endsWith(".md") ? fullPath : `${fullPath}.md`;
-			return this.documents.has(mdPath);
+			const document = this.documents.get(mdPath);
+			return document !== undefined && !document.hide.includes("navigation");
 		}
 	}
 

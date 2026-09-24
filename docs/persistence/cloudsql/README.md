@@ -1,5 +1,8 @@
 ---
 tags: [explanation, persistence, services]
+llms:
+  section: Persistence
+  order: 150
 ---
 
 # Google Cloud SQL / PostgreSQL
