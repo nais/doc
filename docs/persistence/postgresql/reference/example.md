@@ -19,13 +19,9 @@ This is a complete example of a `Postgres` resource, commonly known as the `post
 For an in-depth explanation of each field, head over to the [reference documentation](./spec.md).
 
 ``` yaml
-apiVersion: nais.io/v1
-kind: Postgres
-metadata:
-  labels:
-    team: myteam
-  name: mypostgres
-  namespace: myteam
+version: v1
+type: Postgres
+name: mypostgres
 spec:
   activeInstance: mypostgres-primary
   extensions:
