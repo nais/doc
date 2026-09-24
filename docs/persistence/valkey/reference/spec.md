@@ -70,34 +70,6 @@ Pattern: `^[KEg$lshztdxemnA]*$`<br />
       notifyKeyspaceEvents: KEA
     ```
 
-## persistence
-Persistence controls persistence and backup settings.
-
-Type: `object`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      persistence:
-        disabled: true
-    ```
-
-### persistence.disabled
-Disabled indicates whether persistence (i.e. RDB dumps and backups) should be disabled for the Valkey instance.
-If true, the Valkey instance will not perform RDB dumps and backups. All data will be lost if the instance is restarted for any reason.
-Defaults to false.
-
-Type: `boolean`<br />
-Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      persistence:
-        disabled: true
-    ```
-
 ## tier
 Tier defines the tier of the Valkey instance
 
@@ -109,21 +81,5 @@ Allowed values: `HighAvailability`, `SingleNode`<br />
     ``` yaml
     spec:
       tier: HighAvailability
-    ```
-
-## version
-Version defines the Valkey version.
-Required when creating an instance. Instances predating this field adopt whichever version
-Aiven reports as running, and it cannot be unset again afterwards.
-Aiven upgrading an instance on its own is adopted here rather than reverted.
-
-Type: `enum`<br />
-Required: `false`<br />
-Allowed values: `8.1`, `9.0`, `9.1`<br />
-
-??? example
-    ``` yaml
-    spec:
-      version: "9.1"
     ```
 

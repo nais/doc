@@ -22,8 +22,5 @@ spec:
   maxMemoryPolicy: noeviction
   memory: 1GB
   notifyKeyspaceEvents: KEA
-  persistence:
-    disabled: true
   tier: HighAvailability
-  version: "9.1"
 ```
