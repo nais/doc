@@ -109,8 +109,9 @@ Required: `false`<br />
 ### resources.cpu
 Cpu is the CPU resources for the Postgres cluster.
 
-Type: `object`<br />
+Type: `integer` or `string`<br />
 Required: `false`<br />
+Pattern: `^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$`<br />
 
 ??? example
     ``` yaml
@@ -122,8 +123,9 @@ Required: `false`<br />
 ### resources.diskSize
 DiskSize is the disk size for the Postgres cluster.
 
-Type: `object`<br />
+Type: `integer` or `string`<br />
 Required: `false`<br />
+Pattern: `^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$`<br />
 
 ??? example
     ``` yaml
@@ -135,8 +137,9 @@ Required: `false`<br />
 ### resources.memory
 Memory is the memory resources for the Postgres cluster.
 
-Type: `object`<br />
+Type: `integer` or `string`<br />
 Required: `false`<br />
+Pattern: `^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$`<br />
 
 ??? example
     ``` yaml

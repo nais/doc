@@ -37,8 +37,9 @@ The value is specified as a Kubernetes resource.Quantity, e.g. "100Mi", "1Gi".
 Unitless values are interpreted as bytes.
 Minimum value is 1048576 bytes (1Mi), maximum value is 2147483647 bytes (approximately 2047Mi).
 
-Type: `object`<br />
+Type: `integer` or `string`<br />
 Required: `false`<br />
+Pattern: `^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$`<br />
 
 ??? example
     ``` yaml
