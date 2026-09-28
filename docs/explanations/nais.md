@@ -22,6 +22,6 @@ Simply put; our job is to make the operations side of things Nais - allowing you
 
 ## What does Nais stand for?
 
-It's original meaning of the abbreviation is: **N**AVs **A**pplication **I**nfrastructure **S**ervices. As you might suspect, we found the abbreviation first.
+It's original meaning of the abbreviation is: **N**avs **A**pplication **I**nfrastructure **S**ervices. As you might suspect, we found the abbreviation first.
 
-We're working on making the 'N' mean 'Norwegian' instead of 'NAVs'.
+We're working on making the 'N' mean 'Norwegian' instead of 'Navs'.
