@@ -2,22 +2,25 @@
 tags: [workloads, reference]
 ---
 
-# Validation and autocompletion in editors
+# Editor schemas for Kubernetes-style manifests
 
-We expose two JSON schemas intended for use with editors to help the developer experience. 
-These can be used for validation, autocompletion and documentation in supported editors.
+These schemas cover Kubernetes-style Nais manifests such as `Application`, `Naisjob`, and `Topic`. The SchemaStore schema validates supported resources in the Nais manifest format instead. For those resources, see [Schema validation and auto-completion](../../build/how-to/schema-validation-and-auto-completion.md).
 
 **Available schemas:**
 
-The following is for all nais and default kubernetes resources available.
-```
+Nais resources and Kubernetes resources:
+
+```text
 https://storage.googleapis.com/nais-json-schema-2c91/nais-k8s-all.json
 ```
 
-The following is only for nais resources.
-```
+Nais resources only (`Application`, `Naisjob`, and `Topic`):
+
+```text
 https://storage.googleapis.com/nais-json-schema-2c91/nais-all.json
 ```
+
+Associate one of these schemas with your files in the editor. The SchemaStore file association alone does not validate these Kubernetes-style resources.
 
 ## VSCode, VSCodium and other VSCode flavours
 
@@ -31,14 +34,17 @@ Install the [YAML extension](https://marketplace.visualstudio.com/items?itemName
 ### Configure
 Open `settings.json` by pressing `CTRL/CMD+,` and search for `Preferences: Open Settings(JSON)`.
 
-Within the root object, add the following:
-```json
-"yaml.schemas": {
-	"https://storage.googleapis.com/nais-json-schema-2c91/nais-k8s-all.json": ["nais.yaml", "nais.yml", "nais/*", ".nais/*"],
-},
+Add this to the root object:
+
+```json title="settings.json"
+{
+  "yaml.schemas": {
+    "https://storage.googleapis.com/nais-json-schema-2c91/nais-k8s-all.json": [".nais/app.yaml", ".nais/job.yaml", ".nais/topic.yaml"]
+  }
+}
 ```
 
-It will enable the `nais-k8s-all.json` schema for all yaml files with the name `nais.yaml`, or in the `nais` or `.nais` directory.
+This associates the Kubernetes-style schema with the listed files. Add `nais.yaml` if you use that name for a Kubernetes-style manifest. Avoid matching every file in `.nais/`: that would also select this schema for other Nais manifests.
 
 See the [extension documentations](https://github.com/redhat-developer/vscode-yaml#associating-schemas) for more ways to associate schemas.
 
