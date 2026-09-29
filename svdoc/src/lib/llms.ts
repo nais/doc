@@ -303,7 +303,8 @@ function serializeList(token: Tokens.List): string {
 			.map((item, index) => {
 				const marker = token.ordered ? `${Number(token.start || 1) + index}.` : "-";
 				const content = serializeTokens(item.tokens).trim();
-				return `${marker} ${indent(content, "  ").trimStart()}`;
+				const continuationIndent = " ".repeat(marker.length + 1);
+				return `${marker} ${indent(content, continuationIndent).trimStart()}`;
 			})
 			.join("\n") + "\n\n"
 	);
