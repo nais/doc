@@ -29,6 +29,20 @@ conditional: [tenant, nav, ssb]
               ^^^^^^--- the keyword "tenant" is required to exclude all not mentioned
 ```
 
+## llms.txt curation
+
+Add selected entry-point pages to `llms.txt` with global ordering metadata:
+
+```yaml
+llms:
+  section: Workloads
+  order: 30
+```
+
+Pages are grouped by `section` and ordered by the numeric `order`. Every
+rendered documentation page is also available as Markdown at its canonical
+path with a `.md` suffix; the root `README.md` is `/index.md`.
+
 ## Copilot Agents
 
 Four agents handle documentation tasks:

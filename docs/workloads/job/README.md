@@ -1,5 +1,8 @@
 ---
 tags: [job, explanation, workloads, services]
+llms:
+  section: Workloads
+  order: 90
 ---
 
 # Nais job

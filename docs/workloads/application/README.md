@@ -1,5 +1,8 @@
 ---
 tags: [application, explanation, workloads, services]
+llms:
+  section: Workloads
+  order: 70
 ---
 
 # Application

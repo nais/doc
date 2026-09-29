@@ -1,5 +1,8 @@
 ---
 tags: [application, how-to]
+llms:
+  section: Workloads
+  order: 80
 ---
 
 # Create application

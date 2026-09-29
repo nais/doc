@@ -1,3 +1,9 @@
+---
+llms:
+  section: Services and operations
+  order: 220
+---
+
 # Other services
 
 This section covers the rest of the Nais functionality that didn't fit into any other categories.

@@ -1,5 +1,8 @@
 ---
 title: Nais Developer Documentation
+llms:
+  section: Core and getting started
+  order: 10
 hide:
   - feedback
   - footer
