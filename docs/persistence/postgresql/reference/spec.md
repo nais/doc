@@ -23,9 +23,9 @@ tags: [postgres, reference]
 
 This document describes all possible configuration values in the `Postgres` spec, commonly known as the `postgres.yaml` file.
 
-## activeInstance
-ActiveInstance selects the physical PostgresInstance normal workloads use.
-When omitted, pgrator retains the current active instance.
+## activeBranch
+ActiveBranch selects the physical PostgresBranch normal workloads use.
+When omitted, pgrator retains the current active branch.
 
 Type: `string`<br />
 Required: `false`<br />
@@ -33,7 +33,7 @@ Required: `false`<br />
 ??? example
     ``` yaml
     spec:
-      activeInstance: mypostgres-primary
+      activeBranch: mypostgres-primary
     ```
 
 ## extensions
