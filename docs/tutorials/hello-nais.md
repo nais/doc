@@ -10,6 +10,7 @@ This tutorial will take you through the process of getting a simple application 
 - You have a GitHub account connected to your GitHub organization (e.g. `navikt`)
 - [Member of a Nais team](../explanations/team.md)
 - [GitHub CLI installed](https://cli.github.com/)
+- [Nais CLI](https://cli.nais.io) installed and authenticated (for the restart step)
 
 ???+ note "Conventions"
 
@@ -26,12 +27,12 @@ This tutorial will take you through the process of getting a simple application 
 
 ### Create your own GitHub repository
 
-Create your own repo using the [nais/hello-nais](https://github.com/nais/hello-nais/) as a template.
+Create your own repo using [nais/hello](https://github.com/nais/hello) as a template.
 
-You create a new repository through either the [GitHub UI](https://github.com/new?template_name=hello-nais&template_owner=nais) or through the GitHub CLI:
+You create a new repository through either the [GitHub UI](https://github.com/new?template_name=hello&template_owner=nais) or through the GitHub CLI:
 
 ```bash
-gh repo create <GITHUB-ORG>/<MY-APP> --template nais/hello-nais --private --clone
+gh repo create <GITHUB-ORG>/<MY-APP> --template nais/hello --private --clone
 ```
 
 ```bash
@@ -68,12 +69,11 @@ Add the following content to the file, and insert the appropriate values in the 
 
 ???+ note ".nais/app.yaml"
 
-    ```yaml hl_lines="4-5 8"
+    ```yaml hl_lines="4 7"
     apiVersion: nais.io/v1alpha1
     kind: Application
     metadata:
       name: <MY-APP>
-      namespace: <MY-TEAM>
     spec:
       ingresses:
         - https://<MY-APP>.<MY-ENV>.<<tenant()>>.cloud.nais.io
@@ -88,7 +88,9 @@ Add the following content to the file, and insert the appropriate values in the 
           memory: 32Mi
     ```
 
-    1.  This sets the ["time to live"](../workloads/application/reference/spec.md/#ttl) for your app to 3 hours, in case you start on this tutorial and forget to clean up after. 
+    1.  This sets the ["time to live"](../workloads/application/reference/spec.md/#ttl) for your app to 3 hours, in case you start on this tutorial and forget to clean up after.
+
+The deploy workflow selects the team. You do not need to set a namespace in the manifest.
 
 ### GitHub Actions workflow
 
@@ -104,7 +106,7 @@ touch .github/workflows/main.yaml
 Add the following content to the file, and insert the appropriate values in the placeholders on the highlighted lines:
 ???+ note ".github/workflows/main.yaml"
 
-    ```yaml hl_lines="21 {%- if tenant() == "test-nais" %} 36 40{% else %} 34 38{% endif %}"
+    ```yaml hl_lines="21 {%- if tenant() == "test-nais" %} 36 41{% else %} 34 39{% endif %}"
     name: Build and deploy
     on:
       push:
@@ -145,8 +147,9 @@ Add the following content to the file, and insert the appropriate values in the 
               team: <MY-TEAM> # Replace
           - name: Deploy to Nais
             run: |
+              # Select the Nais environment. (2)
               nais apply .nais/app.yaml \
-                --environment <MY-ENV> \ # (2)
+                --environment <MY-ENV> \
                 --set spec.image="${{ needs.build.outputs.image }}" \
                 --wait
     ```
@@ -168,7 +171,7 @@ Now that we have added the required files, it's time to commit and push them to 
 
 ```bash
 git add .
-git commit -m "FEAT: Add nais app manifest and github workflow"
+git commit -m "Add Nais app manifest and GitHub workflow"
 git push origin main
 ```
 
@@ -192,6 +195,28 @@ If you get a `403 PERMISSION_DENIED` error in the `Build and push image` step, y
 
 ### Visit your application
 On successful completion, we can view our application at `https://<MY-APP>.<MY-ENV>.<<tenant()>>.cloud.nais.io`
+
+### Restart your application
+
+Click `+` a few times and note the count. Then restart the application:
+
+```bash
+nais app restart <MY-APP> --team <MY-TEAM> --environment <MY-ENV>
+```
+
+Wait for the restart to finish, then reload the page. The count is back to 0 because it lives in the application's memory, not in a database.
+
+### Change the greeting
+
+Open `index.html` and change `<h1>Heisann!</h1>` to `<h1>Heisann, Ada!</h1>` (use your own name).
+
+```bash
+git add index.html
+git commit -m "Personalize the greeting"
+git push origin main
+```
+
+Watch the new workflow run with `gh run watch`. GitHub Actions builds a new image and deploys it with `nais apply`. When the workflow finishes, reload your application to see the new greeting. You did not need to deploy it manually.
 
 Congratulations! You have now successfully deployed your first application to Nais!
 The next and most important step is to clean up after ourselves.
