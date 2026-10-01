@@ -18,10 +18,7 @@
 	const git = $derived(attributes?.git);
 
 	const canonicalUrl = $derived(`${page.url.origin}${page.url.pathname}`);
-	const description = $derived(
-		attributes?.description ??
-			"Nais documentation - The application platform for the Norwegian government",
-	);
+	const description = $derived(attributes?.description ?? "Nais documentation");
 
 	setupContext();
 
