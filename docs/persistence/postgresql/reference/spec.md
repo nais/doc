@@ -24,7 +24,7 @@ tags: [postgres, reference]
 This document describes all possible configuration values in the `Postgres` spec, commonly known as the `postgres.yaml` file.
 
 ## activeBranch
-ActiveBranch selects the physical PostgresBranch normal workloads use.
+ActiveBranch selects the local branch name within this Postgres for normal workloads.
 When omitted, pgrator retains the current active branch.
 
 Type: `string`<br />
@@ -33,7 +33,7 @@ Required: `false`<br />
 ??? example
     ``` yaml
     spec:
-      activeBranch: mypostgres-primary
+      activeBranch: main
     ```
 
 ## extensions
