@@ -76,7 +76,7 @@ These are PostgreSQL roles (not login users). They are always present on the ins
 
 **`cloudsqlsuperuser`**
 
-Automatically granted to every user created through the Cloud SQL API or Console. It provides elevated privileges within the Cloud SQL managed environment — including `CREATEROLE` and `CREATEDB` — but does not map to a full native PostgreSQL superuser. Privileged operations such as accessing `pg_shadow` or loading extensions without restriction remain blocked.
+Granted to the `postgres` user and built-in authentication users created through the Cloud SQL API or Console, but not automatically to IAM-authenticated users. It provides elevated privileges within the Cloud SQL managed environment — including `CREATEROLE` and `CREATEDB` — but does not map to a full native PostgreSQL superuser. Privileged operations such as accessing `pg_shadow` or loading extensions without restriction remain blocked.
 
 **`cloudsqliamgroup`**
 
@@ -84,7 +84,7 @@ Designates a non-login IAM group authentication account. Assigned to accounts us
 
 **`cloudsqliamgroupuser`**
 
-Designates an IAM user who authenticates using IAM group authentication. Assigned in addition to `cloudsqliamuser` when the user authenticates via an IAM group mapping.
+Designates an IAM user who authenticates using IAM group authentication. Group users inherit privileges granted to their IAM group role; do not assume that they inherit privileges granted to `cloudsqliamuser`.
 
 **`cloudsqliamgroupserviceaccount`**
 
@@ -106,7 +106,7 @@ Like `cloudsqliamuser`, but for service account identities authenticating via IA
 
 **IAM database users**
 
-Created when [Cloud IAM database authentication :octicons-link-external-16:](https://cloud.google.com/sql/docs/postgres/iam-authentication) is enabled and team has created [personal user accounts](https://doc.nais.io/persistence/cloudsql/how-to/personal-access/). The username is the IAM user's email address, truncated to fit PostgreSQL identifier limits. These users are granted the `cloudsqliamuser` role.
+An authorized user can add an individual IAM database user to an instance with [Cloud IAM database authentication :octicons-link-external-16:](https://cloud.google.com/sql/docs/postgres/iam-authentication) enabled. An IAM group member instead gets a database account on first successful login and inherits the group's privileges. Individual users and group users are different account types and cannot coexist for the same identity on one instance. See [Personal database access](../how-to/personal-access.md).
 
 **IAM service account users**
 

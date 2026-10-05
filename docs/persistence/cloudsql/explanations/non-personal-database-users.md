@@ -14,7 +14,7 @@ This page documents the non-personal users in Google Cloud SQL for PostgreSQL on
 | `cloudsql*` system users | Google's internal management of the instance | Google (not accessible to Nav) | No one at Nav | Cloud Audit (always on) |
 | `postgres` | Default admin user in PostgreSQL | Not set by Nais | No one, via Nais (see details) | Cloud Audit (always on) |
 | Application user | Your app's connection to the database | Nais generates a random password | Only the application; direct human access to the secret is restricted | Not logged by pgAudit |
-| Personal user (IAM) | Developer access for debugging and operations | None — IAM token | Members of the owning team, via time-limited IAM binding | pgAudit + Cloud Audit |
+| Personal user (IAM) | Developer access for debugging and operations | None — IAM token | Registered IAM users or members of a registered IAM group with login permission | Cloud Audit (when configured); pgAudit (opt-in) |
 
 For each user, this page covers:
 
@@ -98,17 +98,12 @@ For instances on private IP (shared VPC), sqeletor handles secret creation inste
 
 ## Personal access
 
-Developers get personal access to their own team's databases via the `nais postgres` commands. Access is based on Google Cloud IAM, not passwords.
+Developers connect with their personal Google accounts using `nais cloudsql`. IAM authentication requires an IAM user or group registered on the Cloud SQL instance and IAM login permission; database object privileges are separate.
 
-The flow:
+- `nais cloudsql prepare` grants PostgreSQL privileges using the application credentials. The default recipient is `cloudsqliamuser` (individual IAM users); `--group` targets a registered Cloud SQL IAM group instead.
+- `nais cloudsql proxy` and `nais cloudsql psql` grant the caller temporary `roles/cloudsql.instanceUser` for one hour and connect using automatic IAM authentication.
 
-1. `nais postgres prepare` — one-time setup that grants privileges to the `cloudsqliamuser` role in the database, giving IAM users access to the public schema
-2. `nais postgres grant` — creates a Cloud SQL IAM database user for the developer and grants a temporary IAM role binding (`roles/cloudsql.admin` for 5 minutes)
-3. `nais postgres proxy` — grants a temporary IAM role binding (`roles/cloudsql.instanceUser` for 1 hour) and starts a secure tunnel to the database
-
-You log in with your personal `@nav.no` Google account. Authentication uses IAM tokens, not passwords. The IAM database user may persist, but the IAM role bindings that allow you to connect are time-limited. All access is logged in Cloud Audit.
-
-**Who can grant access:** Any developer with access to `nais postgres` can grant themselves access to databases belonging to their team. The IAM role bindings are time-limited and logged in Cloud Audit Logs. Your team controls who has access to the `nais postgres` commands through team membership in Nais Console.
+The old `nais postgres grant` command, which created individual IAM database users, is gone. Neither `prepare` nor `proxy` creates an individual IAM database user. An authorized administrator must add the individual user or IAM group to the instance; group members get individual database users automatically on first login. The temporary IAM binding does not replace that setup. See [Personal database access](../how-to/personal-access.md) for the procedure.
 
 See [Personal database access](../how-to/personal-access.md) for a step-by-step guide.
 
@@ -147,7 +142,7 @@ To log what happens *inside* the database, use [pgAudit](../how-to/enable-auditi
 To enable pgAudit:
 
 1. Set the flags `cloudsql.enable_pgaudit`, `pgaudit.log`, and `pgaudit.log_parameter` in your nais manifest
-2. Run `nais postgres enable-audit` to install the pgAudit extension and configure logging
+2. Run `nais cloudsql enable-audit` to install the pgAudit extension and configure logging
 
 The [recommended configuration](../how-to/enable-auditing.md) is to log `write`, `ddl`, and `role` — that is, write operations, schema changes, and role changes. Read operations (`read`) are not logged unless you configure it explicitly. The application user is excluded (`pgaudit.log = 'none'`) to avoid noise from normal application traffic.
 

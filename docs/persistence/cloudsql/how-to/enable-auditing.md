@@ -78,7 +78,7 @@ The nais cli can be used to configure the database internals. This will fail if 
 The cli will log on to your database and create the pgaudit extension and also disable logging for the application user.
 
 ```shell
-$ nais postgres enable-audit --team <team> --environment <environment> <application>
+$ nais cloudsql enable-audit --team <team> --environment <environment> <application>
 ```
 The application, team, and environment flags are all required.
 

@@ -6,7 +6,7 @@ tags: [postgres, password, credentials, how-to]
 We recommend using [nais-cli] for rotating password for your Postgres database user.
 
 ```bash
-nais postgres password rotate appname
+nais cloudsql password rotate appname
 ```
 
 ### Manually

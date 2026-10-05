@@ -3,84 +3,47 @@ title: Personal database access
 tags: [postgres, password, credentials, cli, access, how-to]
 ---
 
-Databases should always be accessed using a personal account, and the access should ideally be temporary.
+Use your personal Google account to access a Cloud SQL database. Database privileges and login access are separate: `prepare` grants PostgreSQL privileges, but does not create an IAM database user or grant login access.
 
-## Prerequisites
+## Before you begin
 
-!!! check "Step 1. Install local binaries"
+- Install the [Nais CLI][nais-cli] and `psql` (for the `psql` command). Authenticate with `nais login` and connect naisdevice.
+- Check that your account is registered on the Cloud SQL instance, either as an individual Cloud IAM user or through an IAM group added to the instance. A group member gets a Cloud SQL database user on first successful login. If neither is configured, ask someone with permission to [add an IAM user or group to the instance :octicons-link-external-16:](https://docs.cloud.google.com/sql/docs/postgres/add-manage-iam-users). `nais cloudsql grant` no longer exists. Do not add an individual IAM user if the same account is already a group user.
 
-    This guide assumes that you have the following installed on your local machine:
+## Grant database privileges
 
-    - [nais-cli]
-    - kubectl
-    - (Optionally for cli access) [psql binary](https://blog.timescale.com/how-to-install-psql-on-mac-ubuntu-debian-windows/)
+Run this once for each schema whose tables you need to read. The default schema is `public`. For an individual IAM user, grant `SELECT` to the `cloudsqliamuser` role:
 
-    We will use the `nais postgres` command from the CLI to set up the database access.
+```bash
+nais cloudsql prepare --team <TEAM> --environment <ENVIRONMENT> <MYAPP>
+```
 
-!!! check "Step 2. Allow your user to edit Cloud SQL resources for your project"
-    Ensure that you have authenticated `gcloud` by running
+If you log in through a Cloud SQL IAM group, grant access to the **group role instead**:
 
-    ```bash
-    nais login
-    ```
+```bash
+nais cloudsql prepare --team <TEAM> --environment <ENVIRONMENT> --group <GROUP_EMAIL> <MYAPP>
+```
 
-!!! check "Step 3. One-time setup of privileges to SQL IAM users"
-    This is only required once per database instance.
+Use `--schema <SCHEMA_NAME>` for a different schema. `prepare` uses the application credentials to grant privileges on existing tables and sequences and set default privileges for future objects created by the application user. It does not grant access to tables owned by other users.
 
-    Once the database instance is created, we need to grant the IAM users access to the `public` schema.
+Only use `--all-privileges` if you need to write or change database objects. It grants more than read access and does not fix authentication failures. See [Grants and privileges](../explanations/grants-and-privileges.md).
 
-    ```bash
-    nais postgres prepare --team <TEAM> --environment <ENVIRONMENT> <MYAPP>
-    ```
+## Connect
 
-    To allow access to a different schema than `public`, you can use the `--schema` flag to specify the schema name.
+For an interactive session, run:
 
-    ```bash
-    nais postgres prepare --team <TEAM> --environment <ENVIRONMENT> --schema <SCHEMA_NAME> <MYAPP>
-    ```
+```bash
+nais cloudsql psql --team <TEAM> --environment <ENVIRONMENT> --reason "debugging issue" <MYAPP>
+```
 
-    Prepare will prepare the postgres instance by connecting using the
-    application credentials and modify the permissions on the public schema.
-    All IAM users with correct permissions in your GCP project will be able to connect to the instance.
+For a local database client, start the proxy and follow the printed connection details:
 
-    The default is to allow only `SELECT` statements. If you need to allow all privileges, you can use the `--all-privileges` flag.
+```bash
+nais cloudsql proxy --team <TEAM> --environment <ENVIRONMENT> --reason "debugging issue" <MYAPP>
+```
 
-    ```bash
-    nais postgres prepare --team <TEAM> --environment <ENVIRONMENT> --all-privileges <MYAPP>
-    ```
+Use your personal Google account email as the username. The CLI proxy uses automatic IAM authentication, so leave the password blank when connecting **through this proxy**. It grants temporary `roles/cloudsql.instanceUser` access for one hour; an IAM database user or group must already be registered on the instance. The proxy also needs Cloud SQL Client permission to connect. Keep the proxy running while the client is connected.
 
-Read more about [Grants and Privileges](../explanations/grants-and-privileges.md).
-
-## Granting temporary personal access
-
-!!! check "Step 1. Create database IAM user"
-
-    This is required once per user and requires that you have access to the team's GCP project.
-
-    ```bash
-    nais postgres grant --team <TEAM> --environment <ENVIRONMENT> <MYAPP>
-    ```
-
-    This will give you a limited time access to the database unless there's already an existing permission for your user.
-
-!!! check "Step 3. Log in with personal user"
-
-    Use `nais postgres proxy` to create a secure tunnel to the database.
-
-    ```bash
-    nais postgres proxy --team <TEAM> --environment <ENVIRONMENT> --reason "debugging issue" <MYAPP>
-    ```
-
-    This will start a proxy client in the background and print the connection string to the database.
-
-    Authenticate using your personal Google account email as username and leave the password empty.
-
-    If you'd like to use the psql binary, you can use the following command to connect to the database:
-
-    ```bash
-    nais postgres psql --team <TEAM> --environment <ENVIRONMENT> --reason "debugging issue" <MYAPP>
-    ```
-
-    This will create a proxy on a random port and execute the psql binary with the correct connection string.
+If a client's **Test connection** returns `password authentication failed`, check whether it connects through the CLI proxy or directly to Cloud SQL. The blank-password instruction applies only to the CLI proxy. Through the proxy, use your personal IAM username and remove any saved password. Check the Cloud SQL instance's **Users** page for your individual user or IAM group (ask your team if you cannot view it). A `permission denied for table` error *after* connecting is a separate PostgreSQL privilege problem; check the schema and whether `prepare` targeted your individual role or your IAM group.
 
 [nais-cli]: https://cli.nais.io
