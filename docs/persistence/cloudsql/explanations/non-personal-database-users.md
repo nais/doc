@@ -101,11 +101,10 @@ For instances on private IP (shared VPC), sqeletor handles secret creation inste
 Developers connect with their personal Google accounts using `nais cloudsql`. IAM authentication requires an IAM user or group registered on the Cloud SQL instance and IAM login permission; database object privileges are separate.
 
 - `nais cloudsql prepare` grants PostgreSQL privileges using the application credentials. The default recipient is `cloudsqliamuser` (individual IAM users); `--group` targets a registered Cloud SQL IAM group instead.
+- `nais cloudsql grant` creates an individual IAM database user using a temporary `roles/cloudsql.admin` binding (five minutes). It does not grant PostgreSQL table privileges. Do not use it for someone who is already a Cloud SQL IAM group user on the instance; Cloud SQL cannot register the same account as both types.
 - `nais cloudsql proxy` and `nais cloudsql psql` grant the caller temporary `roles/cloudsql.instanceUser` for one hour and connect using automatic IAM authentication.
 
-The old `nais postgres grant` command, which created individual IAM database users, is gone. Neither `prepare` nor `proxy` creates an individual IAM database user. An authorized administrator must add the individual user or IAM group to the instance; group members get individual database users automatically on first login. The temporary IAM binding does not replace that setup. See [Personal database access](../how-to/personal-access.md) for the procedure.
-
-See [Personal database access](../how-to/personal-access.md) for a step-by-step guide.
+For group access, an authorized administrator must add the IAM group to the instance. Members get database users automatically on first login and inherit the group's database privileges. See [Personal database access](../how-to/personal-access.md) for the steps.
 
 ## Audit logging
 

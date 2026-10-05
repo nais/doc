@@ -8,7 +8,7 @@ Use your personal Google account to access a Cloud SQL database. Database privil
 ## Before you begin
 
 - Install the [Nais CLI][nais-cli] and `psql` (for the `psql` command). Authenticate with `nais login` and connect naisdevice.
-- Check that your account is registered on the Cloud SQL instance, either as an individual Cloud IAM user or through an IAM group added to the instance. A group member gets a Cloud SQL database user on first successful login. If neither is configured, ask someone with permission to [add an IAM user or group to the instance :octicons-link-external-16:](https://docs.cloud.google.com/sql/docs/postgres/add-manage-iam-users). `nais cloudsql grant` no longer exists. Do not add an individual IAM user if the same account is already a group user.
+- Check whether your account is registered on the Cloud SQL instance as an individual IAM user or through an IAM group. If your team uses a group that is not yet registered, ask someone with permission to [add the group to the instance :octicons-link-external-16:](https://docs.cloud.google.com/sql/docs/postgres/add-manage-iam-users). Group members get a database user on first successful login.
 
 ## Grant database privileges
 
@@ -27,6 +27,16 @@ nais cloudsql prepare --team <TEAM> --environment <ENVIRONMENT> --group <GROUP_E
 Use `--schema <SCHEMA_NAME>` for a different schema. `prepare` uses the application credentials to grant privileges on existing tables and sequences and set default privileges for future objects created by the application user. It does not grant access to tables owned by other users.
 
 Only use `--all-privileges` if you need to write or change database objects. It grants more than read access and does not fix authentication failures. See [Grants and privileges](../explanations/grants-and-privileges.md).
+
+## Register your personal user
+
+If you are **not** using a Cloud SQL IAM group and your individual IAM database user does not exist yet, run:
+
+```bash
+nais cloudsql grant --team <TEAM> --environment <ENVIRONMENT> <MYAPP>
+```
+
+`grant` gives your Google account `roles/cloudsql.admin` for five minutes to create the database user. It does not grant PostgreSQL table privileges or the IAM login permission used by the proxy. Do **not** run it if your account is already a Cloud SQL IAM group user on this instance: Cloud SQL cannot register the same account as both a group user and an individual user.
 
 ## Connect
 
