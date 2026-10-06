@@ -4623,7 +4623,7 @@ Default value: `true`<br />
 ## openSearch
 OpenSearch instance to get credentials for.
 Must be owned by same team.
-The team must themselves apply an `opensearch` resource, as specified in [how to create an OpenSearch Instance](https://doc.nais.io/persistence/opensearch/how-to/create)
+Create the instance separately using [Nais Console](https://doc.nais.io/persistence/opensearch/how-to/create/).
 
 Relevant information:
 
