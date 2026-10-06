@@ -63,8 +63,7 @@ To make the usage of Valkey backward compatible for libraries not supporting Val
 
 ## Metrics
 
-If your Valkey instance is managed by [Nais Console](<<tenant_url("console")>>) or you've [created a `ServiceIntegration` manually](../how-to/create-explicit.md#serviceintegration),
-you will find essential instance metrics in Nais Console in the "Insights" tab.
+If your Valkey instance is managed by [Nais Console](<<tenant_url("console")>>), you will find essential instance metrics in Nais Console in the "Insights" tab.
 
 Metrics are not available for the `SINGLE_NODE` tier and `GB_1` memory configuration (equivalent to the `hobbyist` service plan in Aiven).
 

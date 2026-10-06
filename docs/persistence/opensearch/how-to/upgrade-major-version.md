@@ -12,7 +12,6 @@ Downgrading to an older major version is not supported.
 ## Prerequisites
 
 - You've previously created an OpenSearch instance using [Nais Console](create.md)
-    - If you created your OpenSearch instance using the [legacy method](create-legacy.md), see [Migrate opensearch management to Console](migrate-to-console.md).
 
 ## Steps
 

@@ -9,9 +9,7 @@ This guide will show you how to connect your workload to a previously created Va
 ## Prerequisites
 
 - You're part of a [Nais team](../../../explanations/team.md)
-- You have previously created a Valkey for your team, either:
-    - [via Console](create.md), or
-    - [explicitly](create-explicit.md)
+- You have previously [created a Valkey](create.md) for your team
 
 ## Steps
 
@@ -27,7 +25,7 @@ spec:
 ```
 
 Replace `$NAME` with the name of your Valkey instance.
-If you created your Valkey explicitly, exclude the `valkey-<TEAM>-` prefix.
+Use the instance name shown in Nais Console.
 
 The `access` field defines the access level your workload will have to the Valkey instance.
 Choose the access level that fits your use case.

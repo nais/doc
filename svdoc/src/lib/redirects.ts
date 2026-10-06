@@ -97,7 +97,12 @@ const REDIRECTS: Record<string, string> = {
 	"observability/logging/reference/kql.md": "observability/logging/reference/dql.md",
 	"persistence/kafka/manage_topics.md": "persistence/kafka/README.md",
 	"persistence/open-search/README.md": "persistence/opensearch/README.md",
+	"persistence/opensearch/how-to/create-legacy.md": "persistence/opensearch/how-to/create.md",
+	"persistence/opensearch/how-to/migrate-to-console.md": "persistence/opensearch/how-to/create.md",
+	"persistence/valkey/how-to/create-application.md": "persistence/valkey/how-to/create.md",
 	"persistence/postgres/README.md": "persistence/cloudsql/README.md",
+	"persistence/valkey/how-to/create-explicit.md": "persistence/valkey/how-to/create.md",
+	"persistence/valkey/how-to/migrate-to-console.md": "persistence/valkey/how-to/create.md",
 	"persistence/postgres/explanations/cloud-sql-credentials.md":
 		"persistence/cloudsql/explanations/cloud-sql-credentials.md",
 	"persistence/postgres/explanations/cloud-sql-instance.md":
