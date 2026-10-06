@@ -92,6 +92,12 @@ nature.
 
 [:bulb: Learn more about Cloud SQL](cloudsql/README.md)
 
+## Postgres
+
+Postgres is a managed PostgreSQL database for your workloads. It is in preview and supports self-service creation and point-in-time recovery into a separate branch.
+
+[:bulb: Learn more about Postgres](postgres/README.md)
+
 ## BigQuery
 
 BigQuery is a service that provides a relational database that is optimized for

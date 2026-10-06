@@ -5697,9 +5697,11 @@ Required: `false`<br />
     ```
 
 ### uses.postgres
-Postgres configures access to CloudNativePG Postgres instances in the workload namespace.
-Each Postgres instance may occur only once. When more than one instance is configured,
+Postgres configures access to Postgres databases in the workload namespace.
+Each Postgres database may occur only once. When more than one database is configured,
 all but one entry must set a unique envPrefix.
+See [Postgres workload credentials](https://doc.nais.io/persistence/postgres/reference/workload-credentials/)
+for the environment variables and role-specific prefixes.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -5715,7 +5717,7 @@ Required: `false`<br />
     ```
 
 #### uses.postgres[].envPrefix
-EnvPrefix is prepended verbatim to every environment variable for this Postgres instance.
+EnvPrefix is prepended verbatim to every environment variable for this Postgres database.
 Include a separator such as a trailing underscore when desired.
 
 Type: `string`<br />
@@ -5733,7 +5735,7 @@ Pattern: `^[A-Za-z_][A-Za-z0-9_]*$`<br />
     ```
 
 #### uses.postgres[].name
-Name of the Postgres resource in the workload namespace.
+Name of the Postgres database in the workload namespace.
 
 Type: `string`<br />
 Required: `true`<br />
