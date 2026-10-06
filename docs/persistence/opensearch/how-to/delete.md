@@ -11,7 +11,6 @@ This page guides you through the steps required to delete an OpenSearch instance
 - [You are a member of a Nais team](../../../explanations/team.md)
 - [You have set up command-line access](../../../operate/how-to/command-line-access.md)
 - Your OpenSearch instance is managed by Nais Console.
-    - If you created your OpenSearch [via the legacy](create-legacy.md), see [Migrate opensearch management to Console](migrate-to-console.md).
 
 ## Steps
 

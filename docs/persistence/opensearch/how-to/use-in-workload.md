@@ -25,7 +25,7 @@ spec:
 ```
 
 Replace `$NAME` with the name of your OpenSearch instance.
-If you [created your OpenSearch through the legacy method](create-legacy.md), exclude the `opensearch-<TEAM>-` prefix.
+Use the instance name shown in Nais Console.
 
 The `access` field defines the access level your workload will have to the OpenSearch instance.
 Choose the access level that fits your use case.

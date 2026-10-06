@@ -51,8 +51,7 @@ When [using an OpenSearch from your workload](../how-to/use-in-workload.md), the
 
 ## Metrics
 
-If your OpenSearch instance is managed by [Nais Console](<<tenant_url("console")>>) or you've [created a `ServiceIntegration` manually](../how-to/create-legacy.md#serviceintegration),
-you will find essential instance metrics in Nais Console in the "Insights" tab.
+If your OpenSearch instance is managed by [Nais Console](<<tenant_url("console")>>), you will find essential instance metrics in Nais Console in the "Insights" tab.
 
 Metrics are not available for the `SINGLE_NODE` tier and `GB_2` memory configuration (equivalent to the `hobbyist` service plan in Aiven).
 
