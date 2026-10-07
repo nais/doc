@@ -70,9 +70,7 @@ Consult the [Google documentation for details](https://cloud.google.com/sql/docs
 Most changes you wish to do to your SQL Instance can be done by modifying the `app.yaml` file and redeploying your application.
 Simple changes will be applied to your SQL Instance with virtually no downtime, but other changes may take longer.
 
-Some of these changes can not be undone, such are changing the major version of PostgreSQL or increasing disk size.
-
-There are also some changes that can not be done without creating a new SQL Instance.
+You cannot downgrade the major version of PostgreSQL. To reduce allocated storage, see [Shrink disk size](../how-to/shrink-disk.md).
 
 Some changes that will work, but require a non-trivial amount of downtime:
 
@@ -81,17 +79,6 @@ Some changes that will work, but require a non-trivial amount of downtime:
 
 Most other changes will require a restart of the SQL Instance, which typically takes less than a minute.
 
-Changes that can not be done without creating a new SQL Instance:
+Nais does not automatically move existing public-IP instances to private networking.
 
-* Switching from Cloud SQL Proxy to private IP
-* Reducing disk size
-
-### Migrating your application to a new SQL Instance
-
-Use cases where migrating to a new SQL instances may be preferable or required:
-
-* Upgrading to a new major version of PostgreSQL with an option to roll back to the previous version.
-* Reducing disk size.
-* Switching from Cloud SQL Proxy to private IP.
-
-Learn [how to create a new SQL Instance and migrate your application](../how-to/migrate-to-new-instance.md).
+For data migration options, see [Migrate to a new Cloud SQL instance](../how-to/migrate-to-new-instance.md).

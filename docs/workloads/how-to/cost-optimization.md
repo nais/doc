@@ -194,17 +194,11 @@ spec:
 !!! info
     SSD is the right choice for most production databases. Use HDD only for archival or low-traffic databases.
 
-## Advanced: database migration
-
-These changes save the most but require a [database migration](../../persistence/cloudsql/how-to/migrate-to-new-instance.md).
-
 ### Reclaim unused disk space
 
-If your database has far more disk allocated than it actually uses, the only way to reclaim the space is a [database migration](../../persistence/cloudsql/how-to/migrate-to-new-instance.md). 
-Cloud SQL does not support shrinking disk.
-Migrating to a new instance with smaller disk can potentially yield significant cost reductions.
+If your database has more disk allocated than it uses, see [Shrink Cloud SQL disk size](../../persistence/cloudsql/how-to/shrink-disk.md) for how to reclaim space and reduce storage costs.
 
-### Migrate to the Nais cluster shared VPC
+## Database networking
 
 Databases that use public IP for connectivity require a [CloudSQL Proxy](../../persistence/cloudsql/explanations/cloud-sql-proxy.md) sidecar to set up and protect the connection.
 This sidecar adds overhead and cost, as well as adding latency to the database-operations.
@@ -212,11 +206,6 @@ All databases created before 2024-04-18 use public IP.
 
 Databases created after 2024-04-18 are created inside a shared VPC with the cluster, allowing for private networking.
 With private networking, the CloudSQL Proxy is no longer needed, saving both latency and cost.
-
-[Database migration](../../persistence/cloudsql/how-to/migrate-to-new-instance.md) creates a new instance, which automatically uses private networking.
-
-!!! tip
-    If you haven't migrated databases before, ask someone with experience first. Instances with non-default settings can be tricky to migrate.
 
 ## Monitor your costs
 
