@@ -102,7 +102,7 @@ Your application may not be able to connect to the database until the provisioni
 
 !!! faq "Answer"
     This error occurs when you try to change the disk size of the database instance.
-    The disk size settings of the database instance cannot be less then current size after the instance is created.
+    Reducing `diskSize` in the manifest does not shrink the instance. To reclaim storage, see [Shrink Cloud SQL disk size](how-to/shrink-disk.md).
     You can fix this by specifying in the [Nais manifest](../../workloads/application/reference/spec.md#gcpsqlinstancesdisksize)
     the desired disk size of the database instance to be equal to or greater than the current size.
     If you want to control the disk size of the instance you should disable [automatic storage increase](../../workloads/application/reference/spec.md#gcpsqlinstancesdiskautoresize).
