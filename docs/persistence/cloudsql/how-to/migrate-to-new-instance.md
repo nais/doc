@@ -7,6 +7,9 @@ tags: [postgres, migrate, how-to]
 
 Nais no longer provides database migration tooling. Choose the procedure for the change you need.
 
+!!! note "Looking for the old migration commands?"
+    The [deprecated migration workflow](migrate-to-new-instance-legacy.md) is preserved on a single legacy page. It requires a CLI version that still includes `nais cloudsql migrate` and is not recommended for new migrations.
+
 ## Upgrade the PostgreSQL major version
 
 [Upgrade PostgreSQL](upgrade-postgres.md) on your existing instance. You do not need to migrate to a new instance. Plan for application downtime while the upgrade runs.

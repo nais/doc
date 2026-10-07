@@ -112,9 +112,9 @@ const REDIRECTS: Record<string, string> = {
 	"persistence/postgres/explanations/grants-and-privileges.md":
 		"persistence/cloudsql/explanations/grants-and-privileges.md",
 	"persistence/postgres/explanations/migrate-to-new-instance.md":
-		"persistence/cloudsql/how-to/migrate-to-new-instance.md",
+		"persistence/cloudsql/how-to/migrate-to-new-instance-legacy.md",
 	"persistence/cloudsql/explanations/migrate-to-new-instance.md":
-		"persistence/cloudsql/how-to/migrate-to-new-instance.md",
+		"persistence/cloudsql/how-to/migrate-to-new-instance-legacy.md",
 	"persistence/postgres/how-to/additional-users.md":
 		"persistence/cloudsql/how-to/additional-users.md",
 	"persistence/postgres/how-to/certification-sync-issues.md":
