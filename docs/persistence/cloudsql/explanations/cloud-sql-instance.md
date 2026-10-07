@@ -79,6 +79,4 @@ Some changes that will work, but require a non-trivial amount of downtime:
 
 Most other changes will require a restart of the SQL Instance, which typically takes less than a minute.
 
-Nais does not automatically move existing public-IP instances to private networking.
-
-For data migration options, see [Migrate to a new Cloud SQL instance](../how-to/migrate-to-new-instance.md).
+Nais does not automatically move existing public-IP instances to private networking. Moving to private IP uses a new instance and export/import. See [Move to private IP](../how-to/migrate-to-new-instance.md#move-to-private-ip).
