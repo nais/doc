@@ -9,7 +9,7 @@
  *  - are prefixed with `BASE_PATH` when one is configured
  *
  * Two layers of input are converted here:
- *  1. **Markdown link targets** (e.g. `../foo/README.md#bar`) are resolved
+ *  1. **Markdown link targets** (e.g. `../foo/README.md?tab=cli#bar`) are resolved
  *     against the current page and turned into clean URLs via
  *     {@link transformMarkdownHref}.
  *  2. **Redirect map values** (e.g. `auth/explanations/README.md#login-proxy`)
@@ -81,9 +81,27 @@ function isExternalHref(href: string): boolean {
 		href.startsWith("http://") ||
 		href.startsWith("https://") ||
 		href.startsWith("#") ||
+		href.startsWith("?") ||
 		href.startsWith("mailto:") ||
 		href.startsWith("tel:")
 	);
+}
+
+function splitHref(href: string): { path: string; query: string; anchor?: string } {
+	const hashIndex = href.indexOf("#");
+	const beforeHash = hashIndex >= 0 ? href.slice(0, hashIndex) : href;
+	const anchor = hashIndex >= 0 ? href.slice(hashIndex + 1) : undefined;
+	const queryIndex = beforeHash.indexOf("?");
+
+	if (queryIndex < 0) {
+		return { path: beforeHash, query: "", anchor };
+	}
+
+	return {
+		path: beforeHash.slice(0, queryIndex),
+		query: beforeHash.slice(queryIndex),
+		anchor,
+	};
 }
 
 /**
@@ -113,14 +131,14 @@ function resolveRelative(path: string, basePath: string, isReadme: boolean): str
 }
 
 /**
- * Convert a markdown-style path (with optional `#anchor`) to a clean,
+ * Convert a markdown-style path (with optional query and `#anchor`) to a clean,
  * `BASE_PATH`-prefixed site URL with a trailing slash.
  *
  * Used for redirect map values where the path is already absolute relative to
  * the docs root (e.g. `auth/explanations/README.md#login-proxy`).
  */
 export function mdPathToUrl(mdPath: string): string {
-	const [pathPart, anchor] = mdPath.split("#");
+	const { path: pathPart, query, anchor } = splitHref(mdPath);
 
 	let urlPath = stripMarkdownSuffix(pathPart);
 	if (!urlPath.startsWith("/")) {
@@ -130,7 +148,7 @@ export function mdPathToUrl(mdPath: string): string {
 	urlPath = appendTrailingSlash(urlPath);
 	urlPath = withBase(urlPath);
 
-	return anchor ? `${urlPath}#${anchor}` : urlPath;
+	return `${urlPath}${query}${anchor ? `#${anchor}` : ""}`;
 }
 
 /**
@@ -139,8 +157,8 @@ export function mdPathToUrl(mdPath: string): string {
  * content store, which keys documents by the canonical no-slash path.
  */
 export function mdPathToContentKey(mdPath: string): string {
-	const [pathPart] = mdPath.split("#");
-	const stripped = stripMarkdownSuffix(pathPart);
+	const { path } = splitHref(mdPath);
+	const stripped = stripMarkdownSuffix(path);
 	const withSlash = stripped.startsWith("/") ? stripped : "/" + stripped;
 	return collapseSlashes(withSlash) || "/";
 }
@@ -152,11 +170,11 @@ export function mdPathToContentKey(mdPath: string): string {
 export function transformMarkdownHref(href: string, basePath: string, isReadme: boolean): string {
 	if (isExternalHref(href)) return href;
 
-	const [path, anchor] = href.split("#");
+	const { path, query, anchor } = splitHref(href);
 	const stripped = stripMarkdownSuffix(path);
 	const resolved = resolveRelative(stripped, basePath, isReadme);
 	const withSlash = appendTrailingSlash(resolved);
 	const prefixed = withBase(withSlash);
 
-	return anchor ? `${prefixed}#${anchor}` : prefixed;
+	return `${prefixed}${query}${anchor ? `#${anchor}` : ""}`;
 }

@@ -1,5 +1,9 @@
 <script lang="ts">
+	import { replaceState } from "$app/navigation";
+	import { page } from "$app/state";
+	import { makeTabSlugs } from "$lib/helpers/tab-slug";
 	import type { Token } from "marked";
+	import { untrack } from "svelte";
 	import ContentRenderer from "./ContentRenderer.svelte";
 
 	interface ContentTab {
@@ -16,6 +20,31 @@
 	let { token }: Props = $props();
 
 	const id = $props.id();
+	const tabs = $derived(
+		makeTabSlugs(token.tabs.map((tab) => tab.label)).map((slug, index) => ({
+			...token.tabs[index],
+			slug,
+		})),
+	);
+	let selectedTab = $state(
+		untrack(() => makeTabSlugs(token.tabs.map((tab) => tab.label))[0] ?? ""),
+	);
+
+	$effect(() => {
+		const requestedTab = page.url.searchParams.get("tab");
+		selectedTab =
+			requestedTab && tabs.some((tab) => tab.slug === requestedTab)
+				? requestedTab
+				: (tabs[0]?.slug ?? "");
+	});
+
+	function selectTab(slug: string) {
+		selectedTab = slug;
+
+		const url = new URL(page.url);
+		url.searchParams.set("tab", slug);
+		replaceState(url, {});
+	}
 </script>
 
 <div class="content-tabs">
@@ -27,13 +56,15 @@
 				role="tablist"
 				aria-orientation="horizontal"
 			>
-				{#each token.tabs as tab, i (i)}
+				{#each tabs as tab, i (tab.slug)}
 					<input
 						type="radio"
 						name="tabs-{id}"
 						id="tab-{id}-{i}"
 						class="tab-radio tab-radio-{i}"
-						checked={i === 0}
+						value={tab.slug}
+						bind:group={selectedTab}
+						onchange={() => selectTab(tab.slug)}
 					/>
 					<label
 						for="tab-{id}-{i}"
@@ -47,7 +78,7 @@
 			</div>
 		</div>
 
-		{#each token.tabs as tab, i (i)}
+		{#each tabs as tab, i (tab.slug)}
 			<div class="tab-panel tab-panel-{i} aksel-tabs__tabpanel" id="panel-{id}-{i}">
 				<div class="tab-content">
 					<ContentRenderer tokens={tab.tokens} />

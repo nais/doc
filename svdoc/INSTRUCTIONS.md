@@ -77,7 +77,7 @@ Supports `!!!`, `???`, and `???+` syntax for notes, warnings, etc:
 
 ### Content Tabs
 
-Supports `=== "Tab Title"` syntax with indented content.
+Supports `=== "Tab Title"` syntax with indented content. Tabs get URL-stable slugs from their labels, so `?tab=<slug>` opens matching tabs directly; clicking a tab updates the URL without a page reload. Link to a tab with a normal Markdown link, for example `[CLI](create.md?tab=cli)`.
 
 ### Code Annotations
 
