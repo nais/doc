@@ -314,7 +314,8 @@ spec:
   ttl: 1h
   uses:
     postgres:
-    - envPrefix: MYDB_
+    - branch: main
+      envPrefix: MYDB_
       name: my-postgres
       role: readwrite
   valkey:

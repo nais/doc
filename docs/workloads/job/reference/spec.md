@@ -4619,7 +4619,8 @@ Required: `false`<br />
     spec:
       uses:
         postgres:
-          - envPrefix: MYDB_
+          - branch: main
+            envPrefix: MYDB_
             name: my-postgres
             role: readwrite
     ```
@@ -4637,7 +4638,28 @@ Required: `false`<br />
     spec:
       uses:
         postgres:
-          - envPrefix: MYDB_
+          - branch: main
+            envPrefix: MYDB_
+            name: my-postgres
+            role: readwrite
+    ```
+
+#### uses.postgres[].branch
+Branch selects an existing local branch of this Postgres. When omitted,
+access follows the observed active branch. An explicit branch never falls
+back to another branch when the selected branch is unavailable.
+
+Type: `string`<br />
+Required: `false`<br />
+Pattern: `^[a-z0-9]([-a-z0-9]*[a-z0-9])?$`<br />
+
+??? example
+    ``` yaml
+    spec:
+      uses:
+        postgres:
+          - branch: main
+            envPrefix: MYDB_
             name: my-postgres
             role: readwrite
     ```
@@ -4655,7 +4677,8 @@ Pattern: `^[A-Za-z_][A-Za-z0-9_]*$`<br />
     spec:
       uses:
         postgres:
-          - envPrefix: MYDB_
+          - branch: main
+            envPrefix: MYDB_
             name: my-postgres
             role: readwrite
     ```
@@ -4672,7 +4695,8 @@ Pattern: `^[a-z0-9]([-a-z0-9]*[a-z0-9])?$`<br />
     spec:
       uses:
         postgres:
-          - envPrefix: MYDB_
+          - branch: main
+            envPrefix: MYDB_
             name: my-postgres
             role: readwrite
     ```
@@ -4691,7 +4715,8 @@ Allowed values: `admin`, `read`, `readwrite`<br />
     spec:
       uses:
         postgres:
-          - envPrefix: MYDB_
+          - branch: main
+            envPrefix: MYDB_
             name: my-postgres
             role: readwrite
     ```
