@@ -31,35 +31,76 @@ The platform creates a JavaScript file at the specified `mountPath` with this st
 {% if tenant() == "nav" %}
 ```js
 export default {
+  schemaVersion: 1,
   telemetryCollectorURL: 'https://telemetry.nav.no/collect',
   app: {
     name: 'my-app',        // from metadata.name in nais.yaml
     namespace: 'my-team',  // from metadata.namespace in nais.yaml
     version: '2024-03-15-abc1234', // extracted from your container image tag
   },
+  environment: 'prod-gcp', // the cluster this pod runs in
 };
 ```
 {% else %}
 ```js
 export default {
+  schemaVersion: 1,
   telemetryCollectorURL: '<<tenant_url("telemetry.external.prod", "collect")>>',
   app: {
     name: 'my-app',        // from metadata.name in nais.yaml
     namespace: 'my-team',  // from metadata.namespace in nais.yaml
     version: '2024-03-15-abc1234', // extracted from your container image tag
   },
+  environment: 'prod-gcp', // the cluster this pod runs in
 };
 ```
 {% endif %}
 
 | Field                  | Source                                    |
 | ---------------------- | ----------------------------------------- |
+| `schemaVersion`        | The payload contract generation (currently `1`); check it if you parse the file yourself |
 | `telemetryCollectorURL` | Set per cluster by the platform operator |
 | `app.name`             | `metadata.name` from your `nais.yaml`     |
 | `app.namespace`        | `metadata.namespace` from your `nais.yaml` |
 | `app.version`          | Tag from your container image              |
+| `environment`          | The cluster your app runs in (e.g. `prod-gcp`) |
+
+The payload is a **versioned contract**: the shape only changes together with a
+`schemaVersion` bump, and consumers (like `@nais/apm`) accept both the current
+and the previous generation.
 
 The collector URL is set automatically based on which cluster your app runs in — you don't need separate config for dev and prod.
+
+## Generated JSON file
+
+The same payload is also generated as `nais.json`, mounted **next to** the
+JavaScript file (same directory as your `mountPath`). Use it when a `fetch()`
+is more convenient than an ES module import — for example a static SPA that
+serves its web root:
+
+```yaml
+spec:
+  frontend:
+    generatedConfig:
+      mountPath: /usr/share/nginx/html/nais.js   # nais.json is mounted alongside
+```
+
+{% if tenant() == "nav" %}
+With [`@nais/apm`](../../apm/tutorials/track-frontend-errors.md) this is one call —
+it fetches the file, applies it, and buffers any signals raised while the fetch
+is in flight:
+
+```ts
+import { initFromConfigUrl } from '@nais/apm';
+
+void initFromConfigUrl('/nais.json', { app: 'my-app', namespace: 'my-team' });
+```
+{% endif %}
+
+!!! note "Cache the config file carefully"
+    The generated files are not content-hashed. If you serve them from your web
+    root, give them `Cache-Control: no-cache` (or a short TTL) so a new deploy's
+    values are picked up.
 
 ## Environment variable
 
