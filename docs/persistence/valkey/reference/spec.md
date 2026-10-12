@@ -118,7 +118,7 @@ Aiven reports as running, and it cannot be unset again afterwards.
 Aiven upgrading an instance on its own is adopted here rather than reverted.
 
 Type: `enum`<br />
-Required: `false`<br />
+Required: `true`<br />
 Allowed values: `8.1`, `9.0`, `9.1`<br />
 
 ??? example
