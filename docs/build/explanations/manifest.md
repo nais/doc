@@ -23,6 +23,7 @@ name: myvalkey
 spec:
   tier: HighAvailability
   memory: 1GB
+  version: "9.1"
 ```
 
 ### `version`
