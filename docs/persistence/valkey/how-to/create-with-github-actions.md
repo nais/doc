@@ -22,6 +22,7 @@ name: myvalkey
 spec:
   memory: 1GB
   tier: HighAvailability
+  version: "9.1"
 ```
 
 Change the name and configuration for your needs. See the [complete generated example](../reference/example.md) and [Valkey manifest reference](../reference/spec.md).
