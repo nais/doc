@@ -2,19 +2,17 @@
 tags: [postgres, how-to]
 ---
 
-# Connect to Postgres from your laptop
+# Connect to Postgres as a personal user
 
-Install the [Nais CLI :octicons-link-external-16:](https://cli.nais.io/). To use `psql`, also install `psql`. Log in with `nais login --nais`. You need access to the team that owns the database.
+Use this how-to to connect to a Postgres database with your personal user, for ad-hoc queries and inspection.
 
-The CLI requests temporary personal access. The reason must contain at least 10 characters, and access expires after 30 minutes by default; `--ttl` accepts up to one hour.
+## Prerequisites
 
-The access levels are:
+- You're a member of the [Nais team](../../../explanations/team.md) that owns the database
+- You have the [Nais CLI :octicons-link-external-16:](https://cli.nais.io/) installed and are logged in with `nais login --nais`
+- `psql` on `PATH`
 
-- `read`: read data (default)
-- `write`: change data
-- `admin`: change database objects
-
-Use `--access-level <LEVEL>` to request another access level. The `psql` and `proxy` commands use the active branch unless you set `--branch <BRANCH>`.
+The CLI grants temporary personal access: read-only access to the active branch for 30 minutes by default. For access levels, lifetime and branch selection, see [Postgres personal access](../reference/personal-access.md).
 
 ## Open `psql`
 

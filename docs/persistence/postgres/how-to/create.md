@@ -4,9 +4,7 @@ tags: [postgres, how-to]
 
 # Create Postgres
 
-Create a Postgres database. PostgreSQL `18` is the supported version in preview.
-
-Choose the workflow you want to use as the source of truth.
+Use this how-to to create a Postgres database. 
 
 === "GitOps"
 
@@ -68,54 +66,13 @@ Choose the workflow you want to use as the source of truth.
       --disk-size 10Gi
     ```
 
-
     To change settings later, see [Manage Postgres](manage.md?tab=cli).
 
-=== "API (experimental)"
-
-    Start a local proxy authenticated as your user:
-
-    ```bash
-    nais api proxy
-    ```
-
-    Open the GraphQL playground at `http://localhost:4242`. Create a Postgres database with this mutation:
-
-    ```graphql
-    mutation CreatePostgres($input: CreatePostgresInput!) {
-      createPostgres(input: $input) {
-        postgres {
-          name
-          majorVersion
-          highAvailability
-        }
-      }
-    }
-    ```
-
-    Variables:
-
-    ```json
-    {
-      "input": {
-        "teamSlug": "<TEAM>",
-        "environmentName": "<ENVIRONMENT>",
-        "name": "<POSTGRES-NAME>",
-        "majorVersion": "18"
-      }
-    }
-    ```
-
-    The GraphQL API is in beta. For service-account authentication and programmatic access, see [Nais API](../../../operate/console/api.md). To change settings later, see [Manage Postgres](manage.md?tab=api-experimental).
 
 Provisioning continues asynchronously. Check the Postgres status with:
 
 ```bash
-nais alpha postgres status <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT>
+nais alpha postgres get <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT>
 ```
-
-The first branch is named `main`. Wait until the status is `Ready` and the active branch is `main` before connecting a workload. If provisioning is still in progress, the status shows a reason and the state of each branch.
-
-Nais Console does not currently support creating Postgres.
 
 [:dart: Connect an Application or Job](use-in-workload.md)

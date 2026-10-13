@@ -21,12 +21,14 @@ Postgres keeps backups continuously. When you need an older copy of the data, re
 
 [:dart: Connect a workload](how-to/use-in-workload.md)
 
-[:dart: Connect from your laptop](how-to/personal-access.md)
+[:dart: Connect as a personal user](how-to/personal-access.md)
 
-[:dart: Restore a branch from backup](how-to/restore-branch.md)
+[:dart: Restore a database to a point in time](how-to/restore-point-in-time.md)
 
-[:dart: Delete an inactive branch](how-to/delete-branch.md)
+[:dart: Delete Postgres](how-to/delete.md)
 
 [:books: Postgres workload credentials](reference/workload-credentials.md)
+
+[:books: Postgres personal access](reference/personal-access.md)
 
 [:books: Postgres manifest reference](reference/spec.md)
