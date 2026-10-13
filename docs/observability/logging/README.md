@@ -1,6 +1,9 @@
 ---
 description: Understand how application logging works in Nais, its purpose, good practices, and the available log destinations.
 tags: [explanation, logging, observability, services]
+llms:
+  section: Observability
+  order: 190
 ---
 
 # Logging

@@ -1,5 +1,8 @@
 ---
 tags: [opensearch, explanation, persistence, services]
+llms:
+  section: Persistence
+  order: 160
 description: >-
   Nais provides managed search index services through OpenSearch as a drop-in
   replacement for Elasticsearch.

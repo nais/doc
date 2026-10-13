@@ -156,6 +156,36 @@ describe("elif and else on their own lines", () => {
 	}
 });
 
+describe("nested conditionals", () => {
+	const input = [
+		"before",
+		'{% if tenant() in ("nav", "test-nais") %}',
+		"  outer branch",
+		'  {% if tenant() == "nav" %}',
+		"  inner nav <<tenant()>>",
+		'  {% elif tenant() == "test-nais" %}',
+		"  inner test <<tenant()>>",
+		"  {% else %}",
+		"  inner fallback",
+		"  {% endif %}",
+		"{% else %}",
+		"outer fallback <<tenant()>>",
+		"{% endif %}",
+		"after",
+	].join("\n");
+
+	test("does not process nested content when the outer branch is false", () => {
+		expect(render(input, "dev-nais")).toBe("before\nouter fallback dev-nais\nafter");
+	});
+
+	test("resolves the selected inner branch when the outer branch is true", () => {
+		expect(render(input, "nav")).toBe("before\n  outer branch\n  inner nav nav\nafter");
+		expect(render(input, "test-nais")).toBe(
+			"before\n  outer branch\n  inner test test-nais\nafter",
+		);
+	});
+});
+
 describe("explicit whitespace markers", () => {
 	test("are redundant for standalone tags, which already consume their line", () => {
 		const withMarkers = 'a\n{%- if tenant() == "nav" -%}\nb\n{%- endif -%}\nc';
@@ -222,6 +252,29 @@ describe("set statements", () => {
 	test("defines a variable usable in conditions and output", () => {
 		const input = '{% set thing = "kafka" %}<<thing>>';
 		expect(render(input, "nav").trim()).toBe("kafka");
+	});
+});
+
+describe("raw blocks", () => {
+	test("removes raw markers without processing their contents", () => {
+		expect(
+			render(
+				`before
+{% raw %}
+{{#each items}}
+<<tenant()>>
+{{/each}}
+{% endraw %}
+after`,
+				"nav",
+			),
+		).toBe(`before
+
+{{#each items}}
+<<tenant()>>
+{{/each}}
+
+after`);
 	});
 });
 

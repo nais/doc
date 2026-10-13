@@ -4,6 +4,9 @@ description: >-
   subscribe to streams of records. It is a good alternative to synchronous
   communication between services if you need to decouple services.
 tags: [kafka, explanation, persistence, services]
+llms:
+  section: Persistence
+  order: 140
 ---
 
 # Kafka

@@ -160,3 +160,28 @@ export function transformMarkdownHref(href: string, basePath: string, isReadme: 
 
 	return anchor ? `${prefixed}#${anchor}` : prefixed;
 }
+
+/**
+ * Return the Markdown representation of a canonical documentation URL.
+ *
+ * The root README is exposed as `/index.md`; using `/README.md` would imply a
+ * source-file route and conflict with the directory-index convention used by
+ * every other page.
+ */
+export function markdownAlternativeUrl(href: string): string {
+	if (isExternalHref(href)) return href;
+
+	const [pathWithQuery, anchor] = href.split("#");
+	const [pathPart, query] = pathWithQuery.split("?");
+	if (HAS_FILE_EXT_RE.test(pathPart.replace(/\/+$/, ""))) return href;
+
+	const rawPath = stripBase(pathPart || "/");
+	const normalizedPath = collapseSlashes(rawPath || "/");
+	if (normalizedPath.startsWith("/tags/")) return href;
+	const markdownPath =
+		normalizedPath === "/" ? "/index.md" : `${normalizedPath.replace(/\/+$/, "")}.md`;
+
+	const url = withBase(markdownPath);
+	const querySuffix = query ? `?${query}` : "";
+	return anchor ? `${url}${querySuffix}#${anchor}` : `${url}${querySuffix}`;
+}
