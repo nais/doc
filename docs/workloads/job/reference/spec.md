@@ -1127,6 +1127,30 @@ Allowed values: `Disk`, `Memory`<br />
           persistentVolumeClaim: pvc-name
     ```
 
+### filesFrom[].mode
+File permissions for files mounted from a Secret or ConfigMap, e.g. `0640` (`416` in JSON).
+Defaults to `0644`.
+
+Type: `integer`<br />
+Required: `false`<br />
+Default value: `0644`<br />
+Value range: `0`-`511`<br />
+
+??? example
+    ``` yaml
+    spec:
+      filesFrom:
+        - configmap: example-files-configmap
+          mountPath: /var/run/configmaps
+        - mountPath: /var/run/secrets
+          secret: my-secret-file
+        - emptyDir:
+            medium: Memory
+          mountPath: /var/cache
+        - mountPath: /var/run/pvc
+          persistentVolumeClaim: pvc-name
+    ```
+
 ### filesFrom[].mountPath
 Filesystem path inside the pod where files are mounted.
 The directory will be created if it does not exist. If the directory exists,
