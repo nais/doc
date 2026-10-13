@@ -3,5 +3,5 @@ nav:
 - 💡 Explanations: explanations
 - BigQuery: bigquery
 - CloudSQL: cloudsql
-- Postgres: postgres
+- Postgres (preview): postgres
 - ...
