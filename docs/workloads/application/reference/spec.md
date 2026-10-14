@@ -1294,7 +1294,7 @@ Allowed values: `Disk`, `Memory`<br />
     ```
 
 ### filesFrom[].mode
-File permissions for files mounted from a Secret or ConfigMap, e.g. `0640` (`416` in JSON).
+File permissions for files mounted from a Secret or ConfigMap, e.g. `0640` in octal (`416` in decimal).
 Defaults to `0644`.
 
 Type: `integer`<br />
