@@ -48,6 +48,8 @@ each resolve independently (see [Configuration resolution](#configuration-resolu
 | `version` | `string` | App version / release. Used for grouping and release tagging; also set as Faro `release`. |
 | `environment` | `string` | Environment, e.g. `prod-gcp`. |
 | `telemetryUrl` | `string` | Collector URL. |
+| `tenant` | `TenantProfile \| false` | Last-resort collector derivation profile. Defaults to the built-in nav profile; pass your own for another tenant, or `false` to disable derivation. |
+| `debug` | `boolean` | Print the per-field configuration resolution table to the console. |
 | `beforeSend` | `(item) => item \| null` | Runs **before** the mandatory PII scrubber. Return `null` to drop the item. |
 | `ignoreErrors` | `Patterns` | Extra patterns appended to `DEFAULT_IGNORE_ERRORS`. |
 | `dangerouslyDisablePiiScrubbing` | `boolean` | Disables built-in PII scrubbing. See [Privacy](#privacy-pii-scrubbing). Default `false`. |
@@ -89,17 +91,82 @@ resolves independently, highest priority first:
    <meta name="nais-team" content="my-team"> <!-- or nais-namespace -->
    <meta name="nais-cluster" content="prod-gcp">
    <meta name="nais-version" content="2026.07.03-abc1234">
-   <meta name="nais-telemetry-url" content="https://telemetry.<tenant>.example/collect"> <!-- injected by the platform, not written by hand -->
+   <meta name="nais-telemetry-url" content="https://telemetry.<tenant>.example/collect">
    ```
-3. **Build-time environment variables** — `NAIS_APP_NAME`, `NAIS_TEAM` (or
-   `NAIS_NAMESPACE`), `NAIS_CLUSTER_NAME`, and a version derived from
-   `NAIS_APP_IMAGE`'s tag (or `GITHUB_SHA`). These only work when your bundler
-   inlines `process.env.*` (webpack `DefinePlugin`, Vite `define`, Next.js
-   `env`).
-4. **Collector fallback** — with no explicit or meta collector URL, well-known
-   Nais collectors are derived from the cluster name (`prod-*` and `dev-*`).
-5. **Dev mode** — if no collector URL resolves at all (typically localhost),
-   nothing is sent; every signal is echoed to the console instead.
+   The tags are rendered by **your app's own server** — the platform does not
+   inject them into HTML. Don't write them by hand: use
+   [`<NaisMetaTags />` / `getNaisMetaTags()`](#naismetatags-ssr-helpers), which
+   read the pod's runtime environment for you.
+3. **Environment variables** — `NAIS_APP_NAME`, `NAIS_TEAM` (or
+   `NAIS_NAMESPACE`), `NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL`, and a version
+   derived from `GITHUB_SHA` or `NAIS_APP_IMAGE`'s tag. These are pod-runtime
+   values (SSR); in a browser bundle they only exist if your bundler inlines
+   `process.env.*` at build time — which is only ever correct for `version`
+   (CI knows `GITHUB_SHA`). **Never inline `NAIS_CLUSTER_NAME`**: one image
+   deploys to many clusters, so a baked-in value is wrong in at least one.
+4. **Tenant fallback** — with no explicit/meta/env collector URL, the
+   collector is derived from the cluster name (when known) or — on non-local
+   hosts — from the page's hostname. Built in for the nav tenant; other
+   tenants pass their own `tenant` profile, and `tenant: false` disables
+   derivation.
+5. **Dev mode / loud failure** — with no collector URL at all: on a genuinely
+   local host (`localhost`, `127.0.0.1`, `*.local`) nothing is sent and every
+   signal echoes to the console; on **any other host this is a
+   misconfiguration** and a specific `console.error` names what's missing and
+   how to fix it. `init()` never throws.
+
+Diagnose any resolution question with `init({ debug: true })` — it prints a
+per-field table of which source won.
+
+## `initFromConfigUrl(url?, options?)`
+
+Fetch the platform's generated config (`nais.json`, mounted into your web root
+via `spec.frontend.generatedConfig`) and initialize from it — the
+zero-environment-config path for static SPAs:
+
+```ts
+import { initFromConfigUrl } from '@nais/apm';
+
+void initFromConfigUrl('/nais.json', { app: 'my-app', namespace: 'my-team' });
+```
+
+Signals raised while the fetch is in flight (typically early errors) are
+buffered and flushed after initialization — nothing is lost. If the fetch
+fails, initialization proceeds with the standard resolution chain (loudly);
+this function never throws. Explicit `options` win over fetched values.
+
+## `fromNaisConfig(config)`
+
+Map the platform's generated config payload
+(`{ schemaVersion, telemetryCollectorURL, app: { name, namespace, version }, environment }`)
+to `init()` options. For SSR servers that import the mounted module directly:
+
+```ts
+const naisConfig = (await import('/app/nais.js')).default;
+init({ ...fromNaisConfig(naisConfig), namespace: 'my-team' });
+```
+
+Tolerates the previous payload generation (without `schemaVersion`/
+`namespace`/`environment`) and junk input (returns `{}`).
+
+## `NaisMetaTags` SSR helpers
+
+Render the five Nais meta tags from the pod's runtime environment so the
+browser-side `init()` resolves everything with zero hand-written tags:
+
+```tsx
+// Next.js: root layout <head> (App Router) or <Head> in _document (Pages Router)
+import { NaisMetaTags } from '@nais/apm/react';
+
+<head>
+  <NaisMetaTags />
+</head>
+```
+
+Non-React SSR: `getNaisMetaTags()` returns `{ name, content }[]`, and
+`renderNaisMetaTags()` the same as an HTML string (attribute-escaped). All
+three accept `overrides` (explicit values) and `naisConfig` (a generated-config
+payload the server imported) — precedence: overrides → naisConfig → pod env.
 
 ## `captureException(error, options?)`
 
