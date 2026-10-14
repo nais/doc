@@ -95,7 +95,8 @@ spec:
   filesFrom:
   - configmap: example-files-configmap
     mountPath: /var/run/configmaps
-  - mountPath: /var/run/secrets
+  - mode: 416
+    mountPath: /var/run/secrets
     secret: my-secret-file
   - emptyDir:
       medium: Memory

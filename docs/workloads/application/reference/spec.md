@@ -1217,7 +1217,8 @@ Availability: team namespaces<br />
       filesFrom:
         - configmap: example-files-configmap
           mountPath: /var/run/configmaps
-        - mountPath: /var/run/secrets
+        - mode: 416
+          mountPath: /var/run/secrets
           secret: my-secret-file
         - emptyDir:
             medium: Memory
@@ -1239,7 +1240,8 @@ Required: `false`<br />
       filesFrom:
         - configmap: example-files-configmap
           mountPath: /var/run/configmaps
-        - mountPath: /var/run/secrets
+        - mode: 416
+          mountPath: /var/run/secrets
           secret: my-secret-file
         - emptyDir:
             medium: Memory
@@ -1260,7 +1262,8 @@ Required: `false`<br />
       filesFrom:
         - configmap: example-files-configmap
           mountPath: /var/run/configmaps
-        - mountPath: /var/run/secrets
+        - mode: 416
+          mountPath: /var/run/secrets
           secret: my-secret-file
         - emptyDir:
             medium: Memory
@@ -1280,7 +1283,8 @@ Allowed values: `Disk`, `Memory`<br />
       filesFrom:
         - configmap: example-files-configmap
           mountPath: /var/run/configmaps
-        - mountPath: /var/run/secrets
+        - mode: 416
+          mountPath: /var/run/secrets
           secret: my-secret-file
         - emptyDir:
             medium: Memory
@@ -1304,7 +1308,8 @@ Value range: `0`-`511`<br />
       filesFrom:
         - configmap: example-files-configmap
           mountPath: /var/run/configmaps
-        - mountPath: /var/run/secrets
+        - mode: 416
+          mountPath: /var/run/secrets
           secret: my-secret-file
         - emptyDir:
             medium: Memory
@@ -1330,7 +1335,8 @@ Required: `false`<br />
       filesFrom:
         - configmap: example-files-configmap
           mountPath: /var/run/configmaps
-        - mountPath: /var/run/secrets
+        - mode: 416
+          mountPath: /var/run/secrets
           secret: my-secret-file
         - emptyDir:
             medium: Memory
@@ -1353,7 +1359,8 @@ Required: `false`<br />
       filesFrom:
         - configmap: example-files-configmap
           mountPath: /var/run/configmaps
-        - mountPath: /var/run/secrets
+        - mode: 416
+          mountPath: /var/run/secrets
           secret: my-secret-file
         - emptyDir:
             medium: Memory
@@ -1376,7 +1383,8 @@ Required: `false`<br />
       filesFrom:
         - configmap: example-files-configmap
           mountPath: /var/run/configmaps
-        - mountPath: /var/run/secrets
+        - mode: 416
+          mountPath: /var/run/secrets
           secret: my-secret-file
         - emptyDir:
             medium: Memory
