@@ -101,8 +101,35 @@ spec:
       value: info
 ```
 
-Both entries end up in the manifest. Keep per-environment values in map fields
-and avoid using mixins to change list fields like `spec.env`.
+Both entries end up in the manifest: mixins append list items rather than
+replacing entries with the same `name`.
+
+You can still keep shared environment variables in the base manifest and add
+environment-specific variables in each mixin. For variables whose values differ
+between environments, define them only in the mixins, not in the base:
+
+```yaml title=".nais/app.yaml"
+spec:
+  env:
+    - name: LOG_FORMAT
+      value: json
+```
+
+```yaml title=".nais/app.prod.yaml"
+spec:
+  env:
+    - name: LOG_LEVEL
+      value: info
+```
+
+```yaml title="merged result"
+spec:
+  env:
+    - name: LOG_FORMAT
+      value: json
+    - name: LOG_LEVEL
+      value: info
+```
 
 For a complete pipeline that uses mixins across multiple environments, see
 [Set up a complete deploy pipeline](../how-to/deploy-pipeline.md).
