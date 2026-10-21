@@ -25,7 +25,7 @@ name: mypostgres
 spec:
   activeBranch: main
   extensions:
-    - name: postgis
+    - name: vector
   highAvailability: true
   majorVersion: "18"
   resources:

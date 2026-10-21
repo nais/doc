@@ -27,6 +27,10 @@ Postgres keeps backups continuously. When you need an older copy of the data, re
 
 [:dart: Delete Postgres](how-to/delete.md)
 
+[:bulb: Postgres branches](explanations/branches.md)
+
+[:books: Available extensions](reference/extensions.md)
+
 [:books: Postgres workload credentials](reference/workload-credentials.md)
 
 [:books: Postgres personal access](reference/personal-access.md)

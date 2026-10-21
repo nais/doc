@@ -4,7 +4,9 @@ tags: [postgres, how-to]
 
 # Manage Postgres
 
-Use this how-to to manage your Postgres settings such as resources and major versions. 
+Change CPU, memory, disk size or high availability. PostgreSQL 18 is the only supported major version in preview; the CLI update command does not change the major version.
+
+For a Postgres managed in Git, update the manifest. A later `nais apply` can overwrite changes made through the CLI or Console.
 
 === "GitOps"
 
@@ -38,11 +40,13 @@ Use this how-to to manage your Postgres settings such as resources and major ver
 
     The update command accepts `--high-availability true|false`, `--cpu`, `--memory` and `--disk-size`. Omitted settings stay unchanged.
 
+=== "Console"
 
-Reconciliation continues asynchronously. Check the Postgres status with:
+    1. Open your team in [Nais Console](https://console.nais.io) and select **Postgres**.
+    2. Select the database.
+    3. Open **Actions → Edit**.
+    4. Update the form and select **Save changes**.
 
-```bash
-nais alpha postgres get <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT>
-```
+Changes are applied asynchronously. Follow the status on the database's page in [Nais Console](https://console.nais.io).
 
 [:dart: Connect an Application or Job](use-in-workload.md)

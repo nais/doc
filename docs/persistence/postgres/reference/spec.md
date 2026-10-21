@@ -21,11 +21,11 @@ tags: [postgres, reference]
     Postgres is in preview. Use it with care; the API and supported workflows may change.
     See the [Postgres overview](../README.md) for current availability.
 
-This document describes the configuration values in the `Postgres` spec, commonly known as the `postgres.yaml` file. Each `Postgres` starts with a branch named `main`. `spec.activeBranch` selects the branch workloads should use; `status.activeBranch` reports the branch that is active now. Switching branches is not instant; check workload connections before relying on the new branch.
+This document describes the configuration values in the `Postgres` spec, commonly known as the `postgres.yaml` file. Each `Postgres` starts with a branch named `main`. `spec.activeBranch` selects the branch for workloads without an explicit `uses.postgres[].branch`; `status.activeBranch` reports the branch that is active now. Switching branches is not instant. See [Postgres branches](../explanations/branches.md) for the branch model.
 
 ## activeBranch
-ActiveBranch selects which branch workloads use.
-When omitted, Postgres keeps the current active branch.
+ActiveBranch selects the local branch name within this Postgres for normal workloads.
+When omitted, pgrator retains the current active branch.
 
 Type: `string`<br />
 Required: `false`<br />
@@ -37,7 +37,8 @@ Required: `false`<br />
     ```
 
 ## extensions
-Extensions lists PostgreSQL extensions to enable.
+Extensions to enable in the Postgres database.
+See [available extensions](../reference/extensions.md) for names included in the PostgreSQL image.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -46,7 +47,7 @@ Required: `false`<br />
     ``` yaml
     spec:
       extensions:
-        - name: postgis
+        - name: vector
     ```
 
 ### extensions[].name
@@ -59,15 +60,15 @@ Required: `true`<br />
     ``` yaml
     spec:
       extensions:
-        - name: postgis
+        - name: vector
     ```
 
 ## highAvailability
-HighAvailability adds a third database instance and enables synchronous replication.
+HighAvailability adds a third instance and enables synchronous replication.
 
-Postgres always runs a primary and a standby, so failover is available either
-way. This adds the guarantee that an acknowledged commit survives losing the
-primary, at the cost of write latency.
+A cluster always runs a primary and a standby, so failover is available either
+way. What this adds is the guarantee that an acknowledged commit survives
+losing the primary, at the cost of write latency.
 
 Type: `boolean`<br />
 Required: `false`<br />
@@ -79,11 +80,13 @@ Required: `false`<br />
     ```
 
 ## majorVersion
-MajorVersion is the PostgreSQL major version to use. PostgreSQL 18 is the supported version in preview.
+MajorVersion of Postgres to use.
+Only PostgreSQL 18 is available in preview. The schema also accepts 16 and 17,
+but the platform image catalog does not provide those versions.
 
 Type: `enum`<br />
 Required: `true`<br />
-Allowed values: `18`<br />
+Allowed values: `16`, `17`, `18`<br />
 
 ??? example
     ``` yaml
@@ -92,7 +95,7 @@ Allowed values: `18`<br />
     ```
 
 ## resources
-Resources configures compute and disk for the database.
+Resources configures compute and disk for the Postgres cluster.
 
 Type: `object`<br />
 Required: `false`<br />
@@ -107,11 +110,17 @@ Required: `false`<br />
     ```
 
 ### resources.cpu
-Cpu is the amount of CPU reserved for the database.
+Cpu is the CPU resources for the Postgres cluster.
+Use CPU cores or millicores: `1` is one core, `500m` is half a core,
+and `100m` is one tenth of a core.
 
 Type: `integer` or `string`<br />
 Required: `false`<br />
-Pattern: `^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$`<br />
+
+??? info "Validation pattern"
+    ```regex
+    ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+    ```
 
 ??? example
     ``` yaml
@@ -121,11 +130,17 @@ Pattern: `^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE]
     ```
 
 ### resources.diskSize
-DiskSize is the amount of persistent disk for the database.
+DiskSize is the disk size for the Postgres cluster.
+Use a Kubernetes quantity, for example `10Gi` (10 gibibytes) or `100Gi`.
+Disk size can only increase.
 
 Type: `integer` or `string`<br />
 Required: `false`<br />
-Pattern: `^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$`<br />
+
+??? info "Validation pattern"
+    ```regex
+    ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+    ```
 
 ??? example
     ``` yaml
@@ -135,11 +150,17 @@ Pattern: `^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE]
     ```
 
 ### resources.memory
-Memory is the amount of memory reserved for the database.
+Memory is the memory resources for the Postgres cluster.
+Use a Kubernetes quantity, for example `512Mi` (512 mebibytes) or `1Gi`
+(1 gibibyte).
 
 Type: `integer` or `string`<br />
 Required: `false`<br />
-Pattern: `^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$`<br />
+
+??? info "Validation pattern"
+    ```regex
+    ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+    ```
 
 ??? example
     ``` yaml

@@ -4,7 +4,7 @@ tags: [postgres, how-to]
 
 # Create Postgres
 
-Use this how-to to create a Postgres database. 
+Create a Postgres database.
 
 === "GitOps"
 
@@ -68,11 +68,14 @@ Use this how-to to create a Postgres database.
 
     To change settings later, see [Manage Postgres](manage.md?tab=cli).
 
+=== "Console"
 
-Provisioning continues asynchronously. Check the Postgres status with:
+    1. Open your team in [Nais Console](https://console.nais.io) and select **Postgres**.
+    2. Select **Create Postgres**.
+    3. Fill in the form and select **Create Postgres**.
 
-```bash
-nais alpha postgres get <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT>
-```
+    To change settings later, see [Manage Postgres](manage.md?tab=console).
+
+Provisioning continues asynchronously. Follow the status on the database's page in [Nais Console](https://console.nais.io).
 
 [:dart: Connect an Application or Job](use-in-workload.md)

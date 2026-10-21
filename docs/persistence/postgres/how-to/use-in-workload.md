@@ -15,6 +15,28 @@ spec:
 
 Replace `<POSTGRES-NAME>` with the database name you used in [Create Postgres](create.md), then deploy the workload as usual. If you do not already have deployment set up, see [Build and deploy with GitHub Actions](../../../build/how-to/build-and-deploy.md).
 
+## Select a branch
+
+Without a `branch` field, the workload follows the database's active branch. A new Postgres starts with `main` active.
+
+To pin the workload to an existing branch, add its name:
+
+```yaml title="app.yaml"
+spec:
+  uses:
+    postgres:
+      - name: <POSTGRES-NAME>
+        branch: <BRANCH-NAME>
+```
+
+1. [Create a branch from backup](restore-point-in-time.md) if the branch does not exist yet.
+2. Check that it is ready in **Branches** on the database's Console page, or with `nais alpha postgres branch list <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT>`.
+3. Replace `<BRANCH-NAME>` with the branch name and deploy the workload.
+
+A pinned workload stays on that branch when the database's active branch changes. If the selected branch is unavailable or deleted, the workload does not fall back to another branch. Omit `branch` to follow the active branch again, then redeploy.
+
+See [Postgres branches](../explanations/branches.md) for how branches and activation work.
+
 ## Credentials
 
 The default `admin` role is intended for workloads that run schema migrations. It provides two sets of credentials:
