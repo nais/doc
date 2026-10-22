@@ -13,13 +13,13 @@ The restore creates a new, writable branch from a point in time covered by the s
     Create a branch from a relative recovery point:
 
     ```bash
-    nais alpha postgres branch create <POSTGRES-NAME> <NEW-BRANCH> --ago 2h --team <TEAM> --environment <ENVIRONMENT>
+    nais postgres branch create <POSTGRES-NAME> <NEW-BRANCH> --ago 2h --team <TEAM> --environment <ENVIRONMENT>
     ```
 
     `--ago` accepts durations such as `30m`, `2h` or `1h30m`. For an exact recovery point, use `--at` instead:
 
     ```bash
-    nais alpha postgres branch create <POSTGRES-NAME> <NEW-BRANCH> --at 2026-10-06T10:00:00Z --team <TEAM> --environment <ENVIRONMENT>
+    nais postgres branch create <POSTGRES-NAME> <NEW-BRANCH> --at 2026-10-06T10:00:00Z --team <TEAM> --environment <ENVIRONMENT>
     ```
 
     `--at` takes a UTC timestamp in RFC3339 format with whole seconds; `Z` means UTC.
@@ -29,7 +29,7 @@ The restore creates a new, writable branch from a point in time covered by the s
     Wait until the new branch shows `Ready`:
 
     ```bash
-    nais alpha postgres branch list <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT>
+    nais postgres branch list <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT>
     ```
 
 === "Console"
@@ -54,7 +54,7 @@ When the restored data is correct, pause writes from workloads that will move an
 === "CLI"
 
     ```bash
-    nais alpha postgres branch activate <POSTGRES-NAME> <NEW-BRANCH> --team <TEAM> --environment <ENVIRONMENT>
+    nais postgres branch activate <POSTGRES-NAME> <NEW-BRANCH> --team <TEAM> --environment <ENVIRONMENT>
     ```
 
     Run `branch list` again until the new branch shows `Ready` and is marked active.

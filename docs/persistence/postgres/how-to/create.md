@@ -51,13 +51,13 @@ Create a Postgres database.
     Create a Postgres database:
 
     ```bash
-    nais alpha postgres create <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT>
+    nais postgres create <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT>
     ```
 
     The CLI asks for confirmation before creating the database. It uses platform defaults unless you set options:
 
     ```bash
-    nais alpha postgres create <POSTGRES-NAME> \
+    nais postgres create <POSTGRES-NAME> \
       --team <TEAM> \
       --environment <ENVIRONMENT> \
       --high-availability \

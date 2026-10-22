@@ -19,7 +19,7 @@ The CLI grants temporary personal access: read-only access to the active branch 
 Connect to the active branch:
 
 ```bash
-nais alpha postgres psql <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT> --reason "Investigating a database issue"
+nais postgres psql <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT> --reason "Investigating a database issue"
 ```
 
 This opens `psql` against the `app` database with TLS verification.
@@ -29,7 +29,7 @@ This opens `psql` against the `app` database with TLS verification.
 Start a local proxy:
 
 ```bash
-nais alpha postgres proxy <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT> --reason "Investigating a database issue"
+nais postgres proxy <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT> --reason "Investigating a database issue"
 ```
 
 Keep the proxy running while your client is connected. The command prints the local listen address, database user, TLS server name and CA certificate path. Configure your client with:

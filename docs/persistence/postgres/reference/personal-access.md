@@ -4,7 +4,7 @@ tags: [postgres, reference]
 
 # Postgres personal access
 
-The `nais alpha postgres psql` and `nais alpha postgres proxy` commands grant your personal user temporary access to a Postgres database. For usage, see [Connect to Postgres as a personal user](../how-to/personal-access.md).
+The `nais postgres psql` and `nais postgres proxy` commands grant your personal user temporary access to a Postgres database. For usage, see [Connect to Postgres as a personal user](../how-to/personal-access.md).
 
 ## Audit logging
 
@@ -12,11 +12,17 @@ Audit logging is enabled automatically for personal database users. It is disabl
 
 The platform configures these pgAudit parameters:
 
-| Parameter | Value | Effect |
-| --- | --- | --- |
-| `pgaudit.log` | `read, write, ddl, role` | Log reads, writes, schema changes and role changes |
-| `pgaudit.log_relation` | `on` | Log each relation referenced by a read or write statement separately |
-| `pgaudit.log_parameter` | `on` | Include SQL parameter values |
+```ini
+pgaudit.log = 'read,write,ddl,role'
+pgaudit.log_relation = on
+pgaudit.log_parameter = on
+```
+
+These settings log:
+
+- Reads, writes, schema changes and role changes
+- Each relation referenced by a read or write statement separately
+- SQL parameter values
 
 ## Access levels
 

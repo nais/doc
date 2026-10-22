@@ -13,7 +13,7 @@ Remove `uses.postgres` from all workloads that reference the database and deploy
     Delete the Postgres:
 
     ```bash
-    nais alpha postgres delete <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT>
+    nais postgres delete <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT>
     ```
 
     The CLI asks for confirmation before deleting.

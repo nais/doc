@@ -30,7 +30,7 @@ spec:
 ```
 
 1. [Create a branch from backup](restore-point-in-time.md) if the branch does not exist yet.
-2. Check that it is ready in **Branches** on the database's Console page, or with `nais alpha postgres branch list <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT>`.
+2. Check that it is ready in **Branches** on the database's Console page, or with `nais postgres branch list <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT>`.
 3. Replace `<BRANCH-NAME>` with the branch name and deploy the workload.
 
 A pinned workload stays on that branch when the database's active branch changes. If the selected branch is unavailable or deleted, the workload does not fall back to another branch. Omit `branch` to follow the active branch again, then redeploy.

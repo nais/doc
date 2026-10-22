@@ -32,7 +32,7 @@ For a Postgres managed in Git, update the manifest. A later `nais apply` can ove
     Update one or more settings:
 
     ```bash
-    nais alpha postgres update <POSTGRES-NAME> \
+    nais postgres update <POSTGRES-NAME> \
       --team <TEAM> \
       --environment <ENVIRONMENT> \
       --disk-size 20Gi
