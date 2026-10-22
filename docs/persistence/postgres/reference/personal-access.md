@@ -8,7 +8,15 @@ The `nais alpha postgres psql` and `nais alpha postgres proxy` commands grant yo
 
 ## Audit logging
 
-Audit logging is configured automatically for personal database access. It records reads, writes, schema changes and role changes, including SQL parameters. Queries made through workload credentials are excluded.
+Audit logging is enabled automatically for personal database users. It is disabled for workload users.
+
+The platform configures these pgAudit parameters:
+
+| Parameter | Value | Effect |
+| --- | --- | --- |
+| `pgaudit.log` | `read, write, ddl, role` | Log reads, writes, schema changes and role changes |
+| `pgaudit.log_relation` | `on` | Log each relation referenced by a read or write statement separately |
+| `pgaudit.log_parameter` | `on` | Include SQL parameter values |
 
 ## Access levels
 
