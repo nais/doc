@@ -1,0 +1,6 @@
+nav:
+- Example YAML: example.md
+- Extensions: extensions.md
+- Personal access: personal-access.md
+- Manifest reference: spec.md
+- Workload credentials: workload-credentials.md
