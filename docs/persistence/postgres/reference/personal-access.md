@@ -6,6 +6,10 @@ tags: [postgres, reference]
 
 The `nais alpha postgres psql` and `nais alpha postgres proxy` commands grant your personal user temporary access to a Postgres database. For usage, see [Connect to Postgres as a personal user](../how-to/personal-access.md).
 
+## Audit logging
+
+Audit logging is configured automatically for personal database access. It records reads, writes, schema changes and role changes, including SQL parameters. Queries made through workload credentials are excluded.
+
 ## Access levels
 
 | Level | Allows |
