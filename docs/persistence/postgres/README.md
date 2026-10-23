@@ -5,7 +5,7 @@ tags: [persistence, postgres, explanation]
 # Postgres
 
 !!! warning "Preview"
-    Postgres is in preview. Use it with care; the API and supported workflows may change.
+    Postgres is currently in preview. This means that it's ready for use, but it still might have some rough edges - so keep this in mind when evaluating it for your workloads. If you have any feedback or issues, please reach out to us in the #nais channel on Slack.
 
 Postgres gives your Applications and Jobs a managed PostgreSQL database. You can create a database yourself and connect your workloads to it.
 
