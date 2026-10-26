@@ -23,10 +23,7 @@ version: v1
 type: Postgres
 name: mypostgres
 spec:
-  activeBranch: main
-  extensions:
-    - name: vector
-  highAvailability: true
+  highAvailability: false
   majorVersion: "18"
   resources:
     cpu: 100m
