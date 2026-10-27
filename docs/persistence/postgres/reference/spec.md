@@ -46,20 +46,21 @@ Required: `false`<br />
     ``` yaml
     spec:
       extensions:
-        - name: postgis
+        - name: pg_trgm
     ```
 
 ### extensions[].name
 Name of the Postgres extension to enable.
 
-Type: `string`<br />
+Type: `enum`<br />
 Required: `true`<br />
+Allowed values: `amcheck`, `autoinc`, `bloom`, `btree_gin`, `btree_gist`, `citext`, `cube`, `dblink`, `dict_int`, `dict_xsyn`, `earthdistance`, `file_fdw`, `fuzzystrmatch`, `hstore`, `insert_username`, `intagg`, `intarray`, `isn`, `lo`, `ltree`, `moddatetime`, `pageinspect`, `pg_buffercache`, `pg_freespacemap`, `pg_logicalinspect`, `pg_prewarm`, `pg_stat_statements`, `pg_surgery`, `pg_trgm`, `pg_visibility`, `pg_walinspect`, `pgaudit`, `pgcrypto`, `pgrowlocks`, `pgstattuple`, `plpgsql`, `postgres_fdw`, `refint`, `seg`, `sslinfo`, `tablefunc`, `tcn`, `tsm_system_rows`, `tsm_system_time`, `unaccent`, `uuid-ossp`, `vector`, `xml2`<br />
 
 ??? example
     ``` yaml
     spec:
       extensions:
-        - name: postgis
+        - name: pg_trgm
     ```
 
 ## highAvailability
@@ -83,7 +84,7 @@ MajorVersion of Postgres to use.
 
 Type: `enum`<br />
 Required: `true`<br />
-Allowed values: `16`, `17`, `18`<br />
+Allowed values: `18`<br />
 
 ??? example
     ``` yaml
