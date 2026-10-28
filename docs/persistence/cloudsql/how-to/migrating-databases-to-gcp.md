@@ -97,7 +97,7 @@ Use docker container image with psql and cloudsdk: [GCP migration image](https:/
 
 8. Create a GCP bucket.
     ```shell
-    gsutil mb -l europe-north1 "gs://MIGRATION_BUCKET"
+    gsutil mb -l europe-north1 "gs://$MIGRATION_BUCKET"
     ```
 
 9. Find the GCP service account e-mail \(the instance id is specified in your `nais.yaml` file\)
@@ -107,7 +107,7 @@ Use docker container image with psql and cloudsdk: [GCP migration image](https:/
 
 10. Set the objectAdmin role for the bucket \(with the previous e-mail\)
     ```shell
-    gsutil iam ch "serviceAccount:$SERVICE_ACCOUNT_EMAIL:objectAdmin" "gs://MIGRATION_BUCKET/"
+    gsutil iam ch "serviceAccount:$SERVICE_ACCOUNT_EMAIL:objectAdmin" "gs://$MIGRATION_BUCKET/"
     ```
 
 11. Use `pg_dump` to create the dump file. Notes:
@@ -127,7 +127,7 @@ Use docker container image with psql and cloudsdk: [GCP migration image](https:/
 
 12. Copy the dump file to GCP bucket
     ```shell
-    gsutil -o GSUtil:parallel_composite_upload_threshold=150M -h "Content-Type:application/x-gzip" cp dump.sql.gz "gs://MIGRATION_BUCKET/"
+    gsutil -o GSUtil:parallel_composite_upload_threshold=150M -h "Content-Type:application/x-gzip" cp dump.sql.gz "gs://$MIGRATION_BUCKET/"
     ```
 
 13. Import the dump into the GCP postgreSQL database. Notes:
@@ -136,15 +136,15 @@ Use docker container image with psql and cloudsdk: [GCP migration image](https:/
     - If the GCP Postgres database has any existing tables or sequences, make sure that the `user` has all required grants for these.
 
     ```shell
-    gcloud sql import sql <Cloud SQL instance id> "gs://MIGRATION_BUCKET/dump.sql.gz" --database=<database instance name> --user=<GCP-user>
+    gcloud sql import sql <Cloud SQL instance id> "gs://$MIGRATION_BUCKET/dump.sql.gz" --database=<database instance name> --user=<GCP-user>
     ```
 
 14. Verify that the application is behaving as expected and that the data in the new database is correct. Finally we need to switch loadbalancer to route to the GCP application instead of the on-premise equivalent.
 
 15. Delete the bucket in GCP after migration is complete
     ```shell
-    gsutil -m rm -r "gs://MIGRATION_BUCKET"
-    gsutil rb "gs://MIGRATION_BUCKET" # This might give you a BucketNotFoundException, which is OK, it only means that the bucket was deleted by the previous command.
+    gsutil -m rm -r "gs://$MIGRATION_BUCKET"
+    gsutil rb "gs://$MIGRATION_BUCKET" # This might give you a BucketNotFoundException, which is OK, it only means that the bucket was deleted by the previous command.
     ```
 
 16. Exit the pod
