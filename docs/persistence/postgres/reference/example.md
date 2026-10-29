@@ -25,7 +25,7 @@ name: mypostgres
 spec:
   activeBranch: main
   extensions:
-    - name: pg_trgm
+    - name: postgis
   highAvailability: true
   majorVersion: "18"
   resources:

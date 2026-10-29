@@ -37,7 +37,9 @@ Required: `false`<br />
     ```
 
 ## extensions
-Extensions to enable in the Postgres database.
+Extensions mounts additional extension images from the configured CNPG image catalog.
+Extensions bundled with the Postgres image do not need to be listed here.
+Mounting an extension does not activate it in a database; use CREATE EXTENSION separately.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -46,21 +48,21 @@ Required: `false`<br />
     ``` yaml
     spec:
       extensions:
-        - name: pg_trgm
+        - name: postgis
     ```
 
 ### extensions[].name
-Name of the Postgres extension to enable.
+Name of the extension image to mount from the configured CNPG image catalog.
 
 Type: `enum`<br />
 Required: `true`<br />
-Allowed values: `amcheck`, `autoinc`, `bloom`, `btree_gin`, `btree_gist`, `citext`, `cube`, `dblink`, `dict_int`, `dict_xsyn`, `earthdistance`, `file_fdw`, `fuzzystrmatch`, `hstore`, `insert_username`, `intagg`, `intarray`, `isn`, `lo`, `ltree`, `moddatetime`, `pageinspect`, `pg_buffercache`, `pg_freespacemap`, `pg_logicalinspect`, `pg_prewarm`, `pg_stat_statements`, `pg_surgery`, `pg_trgm`, `pg_visibility`, `pg_walinspect`, `pgaudit`, `pgcrypto`, `pgrowlocks`, `pgstattuple`, `plpgsql`, `postgis`, `postgres_fdw`, `refint`, `seg`, `sslinfo`, `tablefunc`, `tcn`, `timescaledb`, `tsm_system_rows`, `tsm_system_time`, `unaccent`, `uuid-ossp`, `vector`, `xml2`<br />
+Allowed values: `postgis`, `timescaledb-oss`<br />
 
 ??? example
     ``` yaml
     spec:
       extensions:
-        - name: pg_trgm
+        - name: postgis
     ```
 
 ## highAvailability
