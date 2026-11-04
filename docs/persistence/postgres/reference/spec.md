@@ -37,9 +37,9 @@ Required: `false`<br />
     ```
 
 ## extensions
-Extensions mounts additional extension images from the configured CNPG image catalog.
-Extensions bundled with the Postgres image do not need to be listed here.
-Mounting an extension does not activate it in a database; use CREATE EXTENSION separately.
+Extensions to activate in the application database. Removing an entry drops the extension
+(without CASCADE); postgis and timescaledb-oss stay mounted and preloaded until the drop
+succeeds. The drop fails, and is retried, while other objects depend on the extension.
 
 Type: `array`<br />
 Required: `false`<br />
@@ -52,11 +52,13 @@ Required: `false`<br />
     ```
 
 ### extensions[].name
-Name of the extension image to mount from the configured CNPG image catalog.
+Name of the extension. postgis and timescaledb-oss are mounted from the configured CNPG
+image catalog (timescaledb-oss is also preloaded); any other name must be bundled with the
+Postgres image. All are activated with CREATE EXTENSION in the application database.
 
-Type: `enum`<br />
+Type: `string`<br />
 Required: `true`<br />
-Allowed values: `postgis`, `timescaledb-oss`<br />
+Pattern: `^[a-z_][a-z0-9_-]*$`<br />
 
 ??? example
     ``` yaml
