@@ -2,7 +2,8 @@ Consumer applications may request tokens from Entra ID that targets your API app
 Before issuing a token, Entra ID will check that the consumer is authorized to access your API application.
 
 Consumers are not authorized by default.
-To authorize consumers, specify inbound access policies in your application's configuration:
+To authorize consumers, specify inbound access policies in your application's configuration.
+Use `namespace` for the consumer's team name and `cluster` for its environment:
 
 ```yaml title="app.yaml" hl_lines="8-15"
 spec:
@@ -12,18 +13,18 @@ spec:
   accessPolicy:
     inbound:
       rules:
-        - application: app-a  # same namespace and cluster
+        - application: app-a  # same team and environment
 
-        - application: app-b  # same cluster
-          namespace: other-namespace
+        - application: app-b  # same environment
+          namespace: other-team
 
         - application: app-c
-          namespace: other-namespace
-          cluster: other-cluster
+          namespace: other-team
+          cluster: other-environment
 ```
 
 The above configuration authorizes the following applications:
 
-* application `app-a` running in the same namespace and same cluster as your application
-* application `app-b` running in the namespace `other-namespace` in the same cluster
-* application `app-c` running in the namespace `other-namespace` in the cluster `other-cluster`
+* application `app-a` in your team and environment
+* application `app-b` in `other-team` in your environment
+* application `app-c` in `other-team` in `other-environment`

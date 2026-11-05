@@ -49,8 +49,8 @@ Depending on how you communicate with the API you're consuming, [configure the a
 ## Exchange token
 
 {% set identity_provider = 'tokenx' %}
-{% set target = '<cluster>:<namespace>:<other-app-name>' %}
-{% set target_description = 'The intended _audience_ (target API or recipient) of the new token.' %}
+{% set target = '<environment>:<team>:<other-app-name>' %}
+{% set target_description = 'The intended _audience_ (target API or recipient) of the new token. Use the environment, team and application name of the target API.' %}
 {% include 'auth/partials/token-exchange.md' %}
 
 ## Consume API

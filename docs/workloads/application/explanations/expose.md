@@ -19,20 +19,10 @@ There are two different ways to expose your application, depending on your audie
 
 If your application and its consumers all run in the same environment, they can communicate directly with your application by using _service discovery_.
 
-Applications deployed to Kubernetes are automatically exposed through what is known as a [:octicons-link-external-16:`Service`](https://kubernetes.io/docs/concepts/services-networking/service/).
-A service provides your application with an internal address that allows for direct communication within the same environment.
-
-The address is the name of your application:
-
-```plaintext
-http://<name>
-```
-
-If your consumers are in another namespace, the address should include the namespace as well:
-
-```plaintext
-http://<name>.<namespace>
-```
+Nais gives your application an internal address that other workloads in the same environment can use.
+Within your team, the application name is enough to identify it.
+Consumers in other teams must also include your team name in the address.
+These internal addresses do not work across environments.
 
 **Service discovery is the recommended way to communicate between applications running in the same environment.**
 

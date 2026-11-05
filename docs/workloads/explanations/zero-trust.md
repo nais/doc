@@ -19,10 +19,10 @@ Allowing inbound access to your application depends on your consumers and the [e
 ```mermaid
 graph TD
   A[Are your consumers in the same environment?]
-  A --> |Yes| B[Are they in the same namespace?]
+  A --> |Yes| B[Do they belong to the same team?]
   A --> |No| Ingress[🎯 <a href='../../application/how-to/expose'>Expose through ingress</a>]
-  B --> |Yes| InternalSameNS[🎯 <a href='../../how-to/access-policies#receive-requests-from-workloads-in-the-same-namespace'>Allow access in same namespace</a>]
-  B --> |No| InternalOtherNS[🎯 <a href='../../how-to/access-policies#receive-requests-from-workloads-in-other-namespaces'>Allow access from other namespaces</a>]
+  B --> |Yes| InternalSameTeam[🎯 <a href='../../how-to/access-policies#receive-requests-from-workloads-in-the-same-team'>Allow access from your team</a>]
+  B --> |No| InternalOtherTeam[🎯 <a href='../../how-to/access-policies#receive-requests-from-workloads-in-other-teams'>Allow access from other teams</a>]
 ```
 
 ### Service discovery
@@ -45,10 +45,10 @@ Allowing outbound traffic from your application depends on whether you're using 
 ```mermaid
 graph TD
   A[Is the service you want to call in the same environment?]
-  A --> |Yes| B[Are they in the same namespace?]
+  A --> |Yes| B[Does it belong to the same team?]
   A --> |No| Internet[🎯 <a href='../../how-to/access-policies#send-requests-to-external-addresses'>Allow access to external address</a>]
-  B --> |Yes| InternalSameNS[🎯 <a href='../../how-to/access-policies#send-requests-to-another-app-in-the-same-namespace'>Allow access to same namespace</a>]
-  B --> |No| InternalOtherNS[🎯 <a href='../../how-to/access-policies#send-requests-to-other-app-in-another-namespace'>Allow access to other namespaces</a>]
+  B --> |Yes| InternalSameTeam[🎯 <a href='../../how-to/access-policies#send-requests-to-another-app-in-the-same-team'>Allow access to your team</a>]
+  B --> |No| InternalOtherTeam[🎯 <a href='../../how-to/access-policies#send-requests-to-an-app-in-another-team'>Allow access to other teams</a>]
 ```
 
 Services offered by Nais (such as [databases](../../persistence/cloudsql/README.md)) are automatically configured with necessary outbound access policies.

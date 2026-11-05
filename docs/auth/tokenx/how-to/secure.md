@@ -9,7 +9,8 @@ This how-to guides you through the steps required to secure your API using [Toke
 
 ## Grant access to consumers
 
-Specify inbound access policies to authorize your consumers:
+Specify inbound access policies to authorize your consumers.
+Use `namespace` for the consumer's team name and `cluster` for its environment:
 
 ```yaml title="app.yaml"
 spec:
@@ -18,9 +19,9 @@ spec:
   accessPolicy:
     inbound:
       rules:
-        - application: app-1  # same namespace and cluster
+        - application: app-1  # same team and environment
 
-        - application: app-2  # same cluster
+        - application: app-2  # same environment
           namespace: team-a
 
         - application: app-3
@@ -30,9 +31,9 @@ spec:
 
 The above configuration authorizes the following applications:
 
-* application `app-1` running in the same namespace and same cluster as your application
-* application `app-2` running in the namespace `team-a` in the same cluster
-* application `app-3` running in the namespace `team-b` in the cluster `prod-gcp`
+* application `app-1` in your team and environment
+* application `app-2` in `team-a` in your environment
+* application `app-3` in `team-b` in `prod-gcp`
 
 Now that you have granted access to your consumers, they can now exchange tokens for new tokens that target your application.
 You will need to validate these tokens in your application.
