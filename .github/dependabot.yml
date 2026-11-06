@@ -12,7 +12,7 @@ updates:
       actions:
         patterns:
           - "*"
-  - package-ecosystem: "npm" # svdoc (SvelteKit + Bun)
+  - package-ecosystem: "bun" # svdoc (SvelteKit + Bun)
     directory: "/svdoc"
     schedule:
       interval: "weekly"
