@@ -264,9 +264,9 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 #### Domains
 
 | domain                                   | accessible from          | description                                                                                                       |
-| :--------------------------------------- | :----------------------- | :---------------------------------------------------------------------------------------------------------------- |
-| external.dev.miljodir.cloud.nais.io     | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
-| dev.miljodir.cloud.nais.io              | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
+|:-----------------------------------------|:-------------------------|:------------------------------------------------------------------------------------------------------------------|
+| external.non-prod.miljodir.cloud.nais.io | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| non-prod.miljodir.cloud.nais.io          | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
 
 #### External/outbound IPs
 
@@ -287,8 +287,8 @@ Kubectl access to the cluster is available through [naisdevice](../../operate/na
 
 | domain                            | accessible from          | description                                                                                                       |
 |:----------------------------------|:-------------------------|:------------------------------------------------------------------------------------------------------------------|
-| external.dev.novari.cloud.nais.io | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
-| dev.novari.cloud.nais.io          | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
+| external.test.novari.cloud.nais.io | internet                 | ingress for applications exposed to internet. URLs containing `/metrics`, `/actuator` or `/internal` are blocked. |
+| test.novari.cloud.nais.io          | [naisdevice][naisdevice] | ingress for internal applications                                                                                 |
 
 #### External/outbound IPs
 
