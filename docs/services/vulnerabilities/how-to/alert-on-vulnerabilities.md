@@ -1,13 +1,11 @@
 ---
-description: Set up Prometheus or Grafana alerts for vulnerability findings in your workloads, including critical severity, priority-based findings, and high risk scores.
+description: Set up Prometheus or Grafana alerts for vulnerability findings in your workloads, including critical severity, known exploitation, high priority, and high risk scores.
 tags: [how-to, vulnerabilities, alerting, prometheus, grafana]
 ---
 
 # Alert on vulnerabilities
 
-This guide shows you how to set up alerts when critical, priority-based, or high-risk vulnerability findings are present in your workloads.
-
-Nais exposes Prometheus metrics for vulnerability counts, priority, and risk per workload. You can use these to alert your team via Slack or Grafana.
+Use Nais workload metrics to alert your team when vulnerabilities exceed your chosen thresholds. Suppressed vulnerabilities are excluded.
 
 ## Prerequisites
 
@@ -44,18 +42,17 @@ Create a `PrometheusRule` in your namespace that triggers an alert when the numb
                 severity: critical
     ```
 
-## Alert on priority (ACT_NOW and HIGH)
+## Alert on known exploitation and high priority
 
-Nais also exposes a priority-based metric for the two highest-priority classes: `nais_workload_vulnerabilities_priority`.
+Use `nais_workload_vulnerabilities_kev` to alert on vulnerabilities with known exploitation, or `nais_workload_vulnerabilities_priority{priority="HIGH"}` for the broader high-priority group.
 
-Use this when you want exploitability-driven urgency, not only CVSS severity.
+The priority metric emits `HIGH`, `ELEVATED`, and `MONITOR`.
 
-- `ACT_NOW`: `has_kev_entry=true`, based on [CISA KEV](https://www.cisa.gov/known-exploited-vulnerabilities-catalog).
-  This means known exploitation in the wild and should be treated as highest remediation priority.
-- `HIGH`: `has_kev_entry=false` and (`known_ransomware_use=true` or [EPSS](https://www.first.org/epss/) percentile `>= 0.90`).
-  This means elevated likelihood of exploitation and should be handled quickly.
+- The KEV metric counts findings with `has_kev_entry=true`, based on the [CISA KEV catalog :octicons-link-external-16:](https://www.cisa.gov/known-exploited-vulnerabilities-catalog).
+- `HIGH` counts findings with a KEV entry, known ransomware use, [EPSS :octicons-link-external-16:](https://www.first.org/epss/) percentile `>= 0.95`, or EPSS score `>= 0.10`.
+- To alert on `ELEVATED` instead, change the priority selector. This tier covers critical or high severity findings with EPSS percentile `>= 0.90` that do not qualify for `HIGH`. Remaining findings are `MONITOR`.
 
-A CVE is counted in only one of these classes. If it has a KEV entry, it is counted as `ACT_NOW`, not `HIGH`.
+A finding belongs to only one priority tier. KEV findings also count as `HIGH`, so deploying both rules below can produce two alerts for the same workload. Choose the rule that matches your team's needs.
 
 ???+ note ".nais/alert-priority-vulnerabilities.yaml"
 
@@ -71,12 +68,12 @@ A CVE is counted in only one of these classes. If it has a KEV entry, it is coun
       groups:
         - name: priority-vulnerability-alerts
           rules:
-            - alert: ActNowVulnerability
-              expr: nais_workload_vulnerabilities_priority{priority="ACT_NOW", workload_namespace="<MY-TEAM>"} > 0
+            - alert: KnownExploitedVulnerability
+              expr: nais_workload_vulnerabilities_kev{workload_namespace="<MY-TEAM>"} > 0
               for: 10m
               annotations:
-                summary: "ACT_NOW vulnerability detected in {{ $labels.workload_name }}"
-                consequence: "The workload has one or more ACT_NOW vulnerabilities."
+                summary: "Known exploited vulnerability detected in {{ $labels.workload_name }}"
+                consequence: "The workload has one or more vulnerabilities with known exploitation."
                 action: "Open Nais Console and handle the vulnerability for {{ $labels.workload_name }}."
               labels:
                 namespace: <MY-TEAM>
@@ -99,11 +96,13 @@ You can also alert based on `nais_workload_risk_score` if you prefer a single ag
 
 The risk score is calculated as:
 
-```
+```text
 (CRITICAL × 10) + (HIGH × 5) + (MEDIUM × 3) + (LOW × 1) + (UNASSIGNED × 5)
 ```
 
-A workload with 1 critical vulnerability scores 10, while 20 critical vulnerabilities score 200. Choose a threshold that matches your team's risk tolerance — `200` is a reasonable starting point and corresponds roughly to 20 critical or 40 high severity vulnerabilities.
+Here, `HIGH` means CVSS severity, not the `HIGH` priority tier. The score does not include KEV or EPSS.
+
+A workload with 1 critical vulnerability scores 10, while 20 critical vulnerabilities score 200. Choose a threshold that matches your team's risk tolerance. The example below triggers only when the score exceeds `200`, not when it equals `200`.
 
 ???+ note ".nais/alert-risk-score.yaml"
 
@@ -157,14 +156,14 @@ Alternatively, you can create alerts directly in Grafana without deploying Kuber
 2. Click **New alert rule**
 3. Select the Prometheus/Mimir data source that contains `nais_workload_*` metrics and use e.g.:
    ```promql
-   nais_workload_vulnerabilities_priority{priority="ACT_NOW", workload_namespace="<MY-TEAM>"}
+   nais_workload_vulnerabilities_priority{priority="HIGH", workload_namespace="<MY-TEAM>"}
    ```
 4. Set the threshold and connect to a Slack contact point
 
 See [Create alert in Grafana](../../../observability/alerting/how-to/grafana.md) for a complete step-by-step guide.
 
 ??? note "Metric update delay after suppression"
-    After suppressing a vulnerability, the database is updated immediately. Workload metrics (`nais_workload_vulnerabilities`, `nais_workload_vulnerabilities_priority`, `nais_workload_risk_score`) are recomputed periodically (default: every 5 minutes), and alerts clear only after updated metrics are pushed and scraped by Prometheus. Expect roughly a 5-minute delay, plus normal metrics propagation time.
+    After suppressing a vulnerability, the database is updated immediately. Workload metrics (`nais_workload_vulnerabilities`, `nais_workload_vulnerabilities_kev`, `nais_workload_vulnerabilities_priority`, `nais_workload_risk_score`) are recomputed periodically (default: every 5 minutes), and alerts clear only after Prometheus collects the updated metrics. Expect up to 5 minutes before the next refresh, plus normal metrics propagation time.
 
 ## Learn more
 
