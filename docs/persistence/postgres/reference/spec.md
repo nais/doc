@@ -126,7 +126,7 @@ Pattern: `^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE]
     ```
 
 ### resources.diskSize
-DiskSize is the disk size for the Postgres cluster.
+DiskSize is the disk size for the Postgres cluster. Minimum is 5Gi.
 
 Type: `integer` or `string`<br />
 Required: `false`<br />
