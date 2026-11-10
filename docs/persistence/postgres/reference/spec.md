@@ -38,7 +38,7 @@ Required: `false`<br />
 
 ## extensions
 Extensions to activate in the application database. Removing an entry drops the extension
-(without CASCADE); postgis and timescaledb-oss stay mounted and preloaded until the drop
+(without CASCADE); postgis and timescaledb stay mounted and preloaded until the drop
 succeeds. The drop fails, and is retried, while other objects depend on the extension.
 
 Type: `array`<br />
@@ -52,13 +52,14 @@ Required: `false`<br />
     ```
 
 ### extensions[].name
-Name of the extension. postgis and timescaledb-oss are mounted from the configured CNPG
-image catalog (timescaledb-oss is also preloaded); any other name must be bundled with the
-Postgres image. All are activated with CREATE EXTENSION in the application database.
+Name of the extension, as used in CREATE EXTENSION. postgis and timescaledb are mounted
+from the configured CNPG image catalog (timescaledb is also preloaded); the rest are bundled
+with the Postgres image. pg_stat_statements and pgaudit are managed by the platform and
+cannot be requested.
 
-Type: `string`<br />
+Type: `enum`<br />
 Required: `true`<br />
-Pattern: `^[a-z_][a-z0-9_-]*$`<br />
+Allowed values: `amcheck`, `bloom`, `btree_gin`, `btree_gist`, `citext`, `cube`, `earthdistance`, `fuzzystrmatch`, `hstore`, `intarray`, `isn`, `lo`, `ltree`, `pageinspect`, `pg_buffercache`, `pg_freespacemap`, `pg_logicalinspect`, `pg_prewarm`, `pg_trgm`, `pg_visibility`, `pg_walinspect`, `pgcrypto`, `pgrowlocks`, `pgstattuple`, `postgis`, `seg`, `sslinfo`, `tablefunc`, `tcn`, `timescaledb`, `tsm_system_rows`, `tsm_system_time`, `unaccent`, `vector`<br />
 
 ??? example
     ``` yaml
