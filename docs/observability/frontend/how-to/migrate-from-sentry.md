@@ -291,8 +291,13 @@ turn anything on.
 
 Sentry alert rules don't come across. Recreate them as
 [Grafana alerts from Nais APM templates](../../apm/how-to/create-alerts.md)
-(error rate, exception spike, new exceptions, web vitals) — delivered through
-your team's Grafana contact points.
+(error rate, exception spike, new exceptions, web vitals).
+Configure your team's Slack alert channel for each target environment in
+[Nais Console](../../../operate/console/README.md). Nais automatically creates
+the team folder, contact points, and notification policies. Keep the templates'
+generated routing labels, leave direct contact-point selection unset, and check
+**Preview routing** before saving. See
+[Configure notifications](../../alerting/how-to/grafana.md#configure-notifications).
 
 ## Differences from Sentry
 

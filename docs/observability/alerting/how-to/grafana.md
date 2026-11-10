@@ -17,6 +17,12 @@ You will need to have an application that exposes metrics. If you don't have one
 
 You will need some basic knowledge of [PromQL](../../metrics/reference/promql.md) to create alert conditions.
 
+Configure your team's Slack alert channel for the target environment in
+[Nais Console](../../../operate/console/README.md). Nais automatically creates
+your team's Grafana folder, Slack contact points, and notification policies
+with routes for the configured environments. You do not need to create these
+resources manually.
+
 [howto-instrument-application]: ../../metrics/how-to/expose.md
 
 ## Create a new Alert rule
@@ -55,9 +61,21 @@ Add annotations to provide more context in your alert notifications.
 
 ## Configure notifications
 
-Add custom labels to change the way your notifications are routed.
+1. Add the required routing labels:
+    * `team` - Your team's name in Nais Console.
+    * `env` - The environment name in Nais Console.
+2. Add `severity` (`critical`, `warning`, or `info`) and, optionally, `app`
+   for the application name. If you use a
+   [Nais APM template](../../apm/how-to/create-alerts.md#the-templates), review
+   its default severity and change it to match your team's needs.
+3. Leave direct contact-point selection unset so Grafana uses the
+   automatically managed notification policies.
+4. Use **Preview routing** to verify that the labels select the contact point
+   for your team's intended environment, then save the rule.
 
-* `app` - The application name.
-* `env` - The environment name.
-* `team` - The team name.
-* `severity` - The severity of the alert.
+{% if tenant() == "nav" %}
+For NAV Cloud production alerts, use `env=prod-gcp`, even though the data
+environment in Nais APM is `prod`.
+[Nais APM templates](../../apm/how-to/create-alerts.md) fill in the mapped
+routing label for you.
+{% endif %}
