@@ -33,7 +33,11 @@ Running KrakenD as a standalone application gives you more control and access to
 
 We have created a tool to help you migrate from the Krakend operator to a standalone application. The tool generates new Nais application manifests and config maps for your KrakenD instances, based on your existing `Krakend` and `ApiEndpoints` custom resources.
 
-Ensure you are logged in and in the correct namespace, then run the following command to generate the necessary manifests:
+Ensure you are logged in, have `kubectl` installed and configured, and are in the correct namespace, e.g. `kubectl config set-context --current --namespace=myteam`.
+
+Then, install the Nais CLI if you haven't already - https://cli.nais.io/
+
+Run the following command to generate the necessary manifests:
 
 ```bash
 nais alpha krakend convert > krakend-standalone.yaml
@@ -53,16 +57,10 @@ spec:
   env:
     - name: USAGE_DISABLE
       value: "1"
-    - name: FC_ENABLE
-      value: "1"
-    - name: FC_PARTIALS
-      value: /etc/krakend/partials
   filesFrom:
     - configmap: myteam-gw-config
       mountPath: /etc/krakend
-    - configmap: myteam-gw-partials
-      mountPath: /etc/krakend/partials
-  image: krakend:2.12.0
+  image: krakend:3.0.2
   ingresses:
     - https://myteam-gw.ekstern.dev.nav.no
   liveness:
@@ -73,46 +71,27 @@ spec:
   prometheus:
     enabled: true
     path: /metrics
-    port: "9090"
+    port: "9091"
+  readiness:
+    path: /__health
 ```
 Check for the latest version of KrakenD and update the image tag if necessary: [https://www.krakend.io/docs/](https://www.krakend.io/docs/)
 
 **Before applying the generated manifests, you can contact the Nais team to get the label `krakend.nais.io/enabled: "true"` removed from your namespace, to prevent the old resources from being created or updated.**
 
-The generated manifests use the same names and ingresses as your existing deployments, so some manual steps are necessary before applying. You have three choices:
+**If your receiving app is in the same cluster (i.e. you have an apiendpoint with backendHost pointing to another app in the same cluster) you must ensure that the receiving app has the correct inbound access policy to allow traffic from your KrakenD instance, e.g:**
+```yaml hl_lines="5" title="app.yaml"
+spec:
+  accessPolicy:
+    inbound:
+      rules:
+        - application: myteam-gw
+```
+More info in the documentation on [access policies](../../../workloads/how-to/access-policies.md).
 
-* With downtime: delete the existing `Krakend` and `ApiEndpoints` resources, then apply the new manifests. The new deployment takes over the ingress.
-* Without downtime: change the resource names in the generated manifests to avoid conflicts with your existing deployments, then apply them. The new deployment takes over the ingress, and you can remove the old deployment.
-* Without downtime: contact the Nais team to remove the `OwnerReferences` from the existing deployments and ingresses. You can then apply the new manifests, which overwrite the old ingress and deployment.
 
+**After you have applied the generated manifests, you can remove the old `Krakend` resources from your namespace, e.g.:**
 
-### Monitoring and Logging
-
-#### Logs
-
-KrakenD logs are available in Grafana Loki. You can access these logs as any other application logs in your namespace.
-
-#### Metrics
-
-KrakenD also exposes Prometheus metrics that you can use to monitor the performance and health of your API gateway. Here are some of the most useful metrics:
-
-**Server metrics** (API gateway performance):
-
-* `krakend_opencensus_io_http_server_latency_bucket`: Histogram showing the full request latency distribution
-* `krakend_opencensus_io_http_server_request_count`: Total count of requests received by KrakenD
-* `krakend_opencensus_io_http_server_request_count_by_method`: Total requests broken down by HTTP method
-* `krakend_opencensus_io_http_server_response_count_by_status_code`: Total responses broken down by status code
-
-**Backend/client metrics** (downstream service performance):
-
-* `krakend_opencensus_io_http_client_completed_count`: Count of completed requests to your backend services
-* `krakend_opencensus_io_http_client_roundtrip_latency_bucket`: Histogram showing the latency distribution for backend requests
-
-You can use these metrics to create Grafana dashboards to monitor:
-
-* Gateway throughput and request rates
-* Response status code distribution (success vs errors)
-* Request latency at both gateway and backend levels
-* Data transfer volume with sent/received bytes metrics
-
-These metrics are automatically collected and can be queried using the [Explore view in Grafana](<<tenant_url("grafana", "explore")>>).
+```bash
+kubectl delete krakend myteam
+```
