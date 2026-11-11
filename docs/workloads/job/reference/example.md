@@ -246,8 +246,7 @@ spec:
   ttlSecondsAfterFinished: 60
   uses:
     postgres:
-    - branch: main
-      envPrefix: MYDB_
+    - envPrefix: MYDB_
       name: my-postgres
       role: readwrite
   valkey:
