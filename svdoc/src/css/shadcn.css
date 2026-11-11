@@ -38,6 +38,7 @@
 	--warning-muted: rgb(217 119 6 / 10%);
 	--warning-border: rgb(217 119 6 / 26%);
 	--info: #1d4ed8;
+	--info-foreground: #ffffff;
 	--info-muted: rgb(37 99 235 / 8%);
 	--info-border: rgb(37 99 235 / 22%);
 	--link: #2563eb;
@@ -83,7 +84,7 @@
 	--ax-text-subtle: var(--muted-foreground);
 	--ax-text-accent: var(--info);
 	--ax-text-accent-subtle: var(--info);
-	--ax-text-accent-contrast: #ffffff;
+	--ax-text-accent-contrast: var(--info-foreground);
 	--ax-text-action: var(--link);
 	--ax-text-success: var(--success);
 	--ax-text-danger: var(--destructive);
@@ -114,6 +115,7 @@
 	--warning-muted: rgb(245 158 11 / 12%);
 	--warning-border: rgb(245 158 11 / 28%);
 	--info: #60a5fa;
+	--info-foreground: #0f172a;
 	--info-muted: rgb(96 165 250 / 12%);
 	--info-border: rgb(96 165 250 / 28%);
 	--link: #93c5fd;

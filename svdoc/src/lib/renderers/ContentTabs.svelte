@@ -93,6 +93,34 @@
 		margin-top: 1rem !important;
 	}
 
+	.aksel-tabs__tablist-wrapper {
+		overflow-x: auto;
+	}
+
+	.aksel-tabs__tablist {
+		display: flex;
+		align-items: stretch;
+		min-width: max-content;
+		border-bottom: 1px solid var(--border);
+	}
+
+	label.aksel-tabs__tab {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		min-height: 2.75rem;
+		padding: 0.75rem 1rem;
+		color: var(--muted-foreground);
+		font-weight: 500;
+		line-height: 1.5;
+	}
+
+	.tab-radio:focus-visible + label {
+		outline: 2px solid var(--ring);
+		outline-offset: -2px;
+	}
+
 	/* Remove top margin from first element in tab content */
 	.tab-content :global(> *:first-child) {
 		margin-top: 0;
