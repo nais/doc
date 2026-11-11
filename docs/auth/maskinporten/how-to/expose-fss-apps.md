@@ -33,7 +33,11 @@ Running KrakenD as a standalone application gives you more control and access to
 
 We have created a tool to help you migrate from the Krakend operator to a standalone application. The tool generates new Nais application manifests and config maps for your KrakenD instances, based on your existing `Krakend` and `ApiEndpoints` custom resources.
 
-Ensure you are logged in, have `kubectl` installed and configured, and are in the correct namespace, e.g. `kubectl config set-context --current --namespace=myteam`.
+Ensure you are logged in, have `kubectl` installed and configured, and are in the correct namespace, e.g.:
+
+```bash
+kubectl config set-context --current --namespace=myteam
+```
 
 Then, install the Nais CLI if you haven't already - https://cli.nais.io/
 
@@ -47,7 +51,7 @@ This generates a set of `Application` and `ConfigMap` manifests for your KrakenD
 
 Some of the fields are excluded for brevity, but the generated manifest will look something like this:
 
-```yaml hl_lines="19-21" title="app.yaml"
+```yaml title="app.yaml"
 spec:
   accessPolicy:
     outbound:
@@ -77,7 +81,6 @@ spec:
 ```
 Check for the latest version of KrakenD and update the image tag if necessary: [https://www.krakend.io/docs/](https://www.krakend.io/docs/)
 
-**Before applying the generated manifests, you can contact the Nais team to get the label `krakend.nais.io/enabled: "true"` removed from your namespace, to prevent the old resources from being created or updated.**
 
 **If your receiving app is in the same cluster (i.e. you have an apiendpoint with backendHost pointing to another app in the same cluster) you must ensure that the receiving app has the correct inbound access policy to allow traffic from your KrakenD instance, e.g:**
 ```yaml hl_lines="5" title="app.yaml"
@@ -89,8 +92,9 @@ spec:
 ```
 More info in the documentation on [access policies](../../../workloads/how-to/access-policies.md).
 
+Before applying the generated manifests, you can contact the Nais team to get the label `krakend.nais.io/enabled: "true"` removed from your namespace, to prevent the old resources from being created or updated.
 
-**After you have applied the generated manifests, you can remove the old `Krakend` resources from your namespace, e.g.:**
+After you have applied the generated manifests, you can remove the old `Krakend` resources from your namespace, e.g.:
 
 ```bash
 kubectl delete krakend myteam
