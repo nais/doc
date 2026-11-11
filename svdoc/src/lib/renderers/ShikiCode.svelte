@@ -2,7 +2,7 @@
 	import Variable from "$lib/components/Variable.svelte";
 	import { parseHighlightLines, parseTitle } from "$lib/helpers/shiki";
 	import { getContext } from "$lib/state/page_context.svelte";
-	import { CopyButton } from "@nais/ds-svelte-community";
+	import { CopyButton } from "$lib/shadcn/ui";
 	import type { Token } from "marked";
 	import { mount, unmount } from "svelte";
 	import ContentRenderer from "./ContentRenderer.svelte";
@@ -173,7 +173,7 @@
 		{:else}
 			<span class="language">Plaintext</span>
 		{/if}
-		<CopyButton size="small" variant="neutral" {copyText} class="hide-noscript" />
+		<CopyButton {copyText} class="hide-noscript" />
 	</div>
 	<div
 		class="code-content"

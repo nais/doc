@@ -1,0 +1,5 @@
+allowBuilds:
+  esbuild: true
+minimumReleaseAgeExclude:
+  - "@lucide/svelte@1.72.0"
+  - bits-ui@2.21.0

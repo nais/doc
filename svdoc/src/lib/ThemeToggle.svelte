@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { InternalHeaderButton } from "@nais/ds-svelte-community/experimental";
-	import { MoonIcon, SunIcon } from "@nais/ds-svelte-community/icons";
+	import { InternalHeaderButton } from "$lib/shadcn/ui";
+	import { Moon as MoonIcon, Sun as SunIcon } from "@lucide/svelte";
 
 	type Theme = "light" | "dark";
 
@@ -19,7 +19,7 @@
 	const label = $derived(theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
 </script>
 
-<InternalHeaderButton as="button" onclick={toggle} aria-label={label} title={label}>
+<InternalHeaderButton onclick={toggle} aria-label={label} title={label}>
 	{#if theme === "dark"}
 		<SunIcon aria-hidden="true" />
 	{:else}

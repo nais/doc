@@ -1,38 +1,34 @@
-# sv
+# Documentation site
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+SvelteKit renders the Markdown sources in `../docs/`. The site runs on Node.js
+and uses pnpm. Run `mise run setup` from the repository root to install the
+pinned tools and dependencies.
 
-## Creating a project
+## Development
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```sh
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+From this directory:
 
 ```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+pnpm run dev
+pnpm run check
+pnpm test
+pnpm run lint
 ```
 
-## Building
+## Build
 
-To create a production version of your app:
+Set the tenant when building:
 
 ```sh
-npm run build
+TENANT=nav NOT_TENANT=not-nav pnpm run build
+pnpm run preview
 ```
 
-You can preview the production build with `npm run preview`.
+To build multiple tenants, use `mise run build nav ssb` from the repository root.
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## UI
+
+Components live in `src/lib/shadcn/ui/`, following console-frontend's local
+shadcn UI pattern. Bits UI handles dialogs, and Lucide supplies icons.
+Theme tokens and compatibility aliases for existing `--ax-*` variables live in
+`src/css/shadcn.css`.

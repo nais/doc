@@ -7,9 +7,8 @@
 	import Sidebar from "$lib/Sidebar.svelte";
 	import { setupTheme, type Theme as ThemeMode } from "$lib/state/theme.svelte";
 	import ThemeToggle from "$lib/ThemeToggle.svelte";
-	import { Spacer, Theme } from "@nais/ds-svelte-community";
-	import { InternalHeader, InternalHeaderTitle } from "@nais/ds-svelte-community/experimental";
-	import { MenuHamburgerIcon } from "@nais/ds-svelte-community/icons";
+	import { Theme } from "$lib/shadcn/ui";
+	import { Menu as MenuHamburgerIcon } from "@lucide/svelte";
 	import "../css/app.css";
 	import type { LayoutProps } from "./$types";
 
@@ -128,17 +127,13 @@
 		<input type="checkbox" id="sidebar-toggle" class="sidebar-toggle-input" aria-hidden="true" />
 
 		<header class="header-container">
-			<InternalHeader>
+			<nav class="site-header" aria-label="Site navigation">
 				<!-- Hamburger menu button (label for checkbox) - only visible on mobile -->
-				<label
-					for="sidebar-toggle"
-					class="sidebar-toggle-btn aksel-internalheader__button"
-					aria-label="Toggle navigation menu"
-				>
+				<label for="sidebar-toggle" class="sidebar-toggle-btn" aria-label="Toggle navigation menu">
 					<MenuHamburgerIcon aria-hidden="true" />
 				</label>
-				<InternalHeaderTitle href={resolve("/")}>Nais Docs</InternalHeaderTitle>
-				<Spacer />
+				<a class="site-title unstyled" href={resolve("/")}>Nais Docs</a>
+				<div class="header-spacer"></div>
 				<div
 					class="hide-noscript contents"
 					onpointerenter={loadSearchModal}
@@ -148,7 +143,7 @@
 					<SearchButton onclick={openSearch} />
 					<ThemeToggle theme={themeState.theme} onchange={handleThemeChange} />
 				</div>
-			</InternalHeader>
+			</nav>
 		</header>
 
 		{#if SearchModal}
@@ -180,6 +175,26 @@
 		min-height: 100vh;
 	}
 
+	.site-header {
+		display: flex;
+		align-items: center;
+		height: 100%;
+		padding: 0 0.5rem;
+		border-bottom: 1px solid var(--border);
+		background: var(--card);
+	}
+
+	.site-title {
+		padding: 0.5rem 1rem;
+		font-weight: 600;
+		color: var(--foreground);
+		text-decoration: none;
+	}
+
+	.header-spacer {
+		flex: 1;
+	}
+
 	.skip-link {
 		position: absolute;
 		top: -100%;
@@ -209,10 +224,12 @@
 	/* Hamburger button - hidden on desktop, uses InternalHeaderButton styling */
 	:global(.sidebar-toggle-btn) {
 		display: none;
+		align-items: center;
+		justify-content: center;
+		padding: 0.75rem;
+		color: var(--foreground);
 		cursor: pointer;
-		/* Override border from aksel-internalheader__button - we're on the left side */
-		border-left: none !important;
-		border-right: 1px solid var(--ax-border-neutral-subtleA) !important;
+		border-right: 1px solid var(--border);
 	}
 
 	/* Overlay - hidden by default */

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { extractTextForId, slugify } from "$lib/helpers/markdown-utils";
-	import { Heading } from "@nais/ds-svelte-community";
+	import { Heading } from "$lib/shadcn/ui";
 	import type { Tokens } from "marked";
 	import Renderer from "./Renderer.svelte";
 

@@ -1,7 +1,7 @@
 # AGENTS.md — nais/doc
 
 Main documentation for the Nais developer platform. Markdown sources live in
-`docs/` and are rendered by a custom SvelteKit + Bun site in `svdoc/` that
+`docs/` and are rendered by a custom SvelteKit + Node.js site in `svdoc/` that
 preserves Material for MkDocs syntax (admonitions, tabs, `.pages` nav) plus
 Jinja-style template macros using `<<` `>>` delimiters.
 
@@ -158,7 +158,7 @@ final pass on any prose you write or edit.
 Tasks are managed with [mise](https://mise.jdx.dev/) (`mise.toml`):
 
 ```bash
-mise run setup    # install deps (Bun etc.)
+mise run setup    # install deps with pnpm
 mise run local    # serve docs locally
 mise run check    # lint + svelte-check
 mise run fmt      # format with prettier

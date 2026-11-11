@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolve } from "$app/paths";
-	import { Tag } from "@nais/ds-svelte-community";
-	import { ChevronLeftIcon } from "@nais/ds-svelte-community/icons";
+	import { Tag } from "$lib/shadcn/ui";
+	import { ChevronLeft as ChevronLeftIcon } from "@lucide/svelte";
 	import type { PageProps } from "./$types";
 
 	let { data }: PageProps = $props();
@@ -21,7 +21,7 @@
 		</a>
 		<div class="title-row">
 			<h1>
-				<Tag variant="alt3-moderate" size="small">{tag}</Tag>
+				<Tag>{tag}</Tag>
 			</h1>
 			<span class="count">{pages.length} {pages.length === 1 ? "page" : "pages"}</span>
 		</div>

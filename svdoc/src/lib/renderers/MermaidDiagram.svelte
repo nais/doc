@@ -4,7 +4,7 @@
 	import { getMermaidThemeVariables } from "$lib/helpers/mermaid";
 	import { stripBase, transformMarkdownHref } from "$lib/helpers/urls";
 	import { getTheme } from "$lib/state/theme.svelte";
-	import { CopyButton } from "@nais/ds-svelte-community";
+	import { CopyButton } from "$lib/shadcn/ui";
 	import mermaid from "mermaid";
 
 	let { text }: { text: string } = $props();
@@ -90,7 +90,7 @@
 		<div class="code-block">
 			<div class="code-header">
 				<span class="language">mermaid</span>
-				<CopyButton size="small" variant="neutral" copyText={text} class="hide-noscript" />
+				<CopyButton copyText={text} class="hide-noscript" />
 			</div>
 			<pre><code class="language-mermaid">{text}</code></pre>
 		</div>
