@@ -60,11 +60,11 @@ Start with `@research-agent` to gather context, hand off to `@technical-writer` 
 
 ## Local development
 
-The documentation site lives in [`svdoc/`](./svdoc) and is built with SvelteKit + Bun. Tasks are managed with [mise](https://mise.jdx.dev/).
+The documentation site lives in [`svdoc/`](./svdoc) and uses SvelteKit, Node.js and pnpm. Tasks are managed with [mise](https://mise.jdx.dev/).
 
 ### 1. Install mise
 
-Follow the [mise installation guide](https://mise.jdx.dev/getting-started.html). All other tools (such as Bun) are pinned in [`mise.toml`](./mise.toml) and installed automatically.
+Follow the [mise installation guide](https://mise.jdx.dev/getting-started.html). Node.js and pnpm are pinned in [`mise.toml`](./mise.toml) and installed automatically.
 
 ### 2. Install dependencies
 
@@ -100,5 +100,6 @@ mise run build nav nav test-nais
 mise run check              # run lint + svelte-check
 mise run check:lint         # prettier + eslint
 mise run check:svelte-check # svelte-check only
+mise run check:test         # Vitest unit tests
 mise run fmt                # format with prettier
 ```

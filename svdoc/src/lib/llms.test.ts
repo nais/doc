@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, test } from "vitest";
 import type { Tokens } from "marked";
 import { orderLlmsFullDocuments, type NavItem } from "./content-store";
 import {

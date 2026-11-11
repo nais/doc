@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { InternalHeaderButton } from "@nais/ds-svelte-community/experimental";
-	import { MagnifyingGlassIcon } from "@nais/ds-svelte-community/icons";
+	import { InternalHeaderButton } from "$lib/shadcn/ui";
+	import { Search as MagnifyingGlassIcon } from "@lucide/svelte";
 
 	interface Props {
 		onclick: () => void;
@@ -14,7 +14,7 @@
 	const shortcutKey = isMac ? "⌘" : "Ctrl";
 </script>
 
-<InternalHeaderButton as="button" {onclick} aria-label="Search documentation">
+<InternalHeaderButton {onclick} aria-label="Search documentation">
 	<MagnifyingGlassIcon aria-hidden="true" />
 	<span class="search-label">Search</span>
 	<kbd class="search-shortcut">{shortcutKey}+K</kbd>

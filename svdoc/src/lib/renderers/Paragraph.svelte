@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { BodyLong } from "@nais/ds-svelte-community";
+	import { BodyLong } from "$lib/shadcn/ui";
 	import type { Tokens } from "marked";
 	import Renderer from "./Renderer.svelte";
 

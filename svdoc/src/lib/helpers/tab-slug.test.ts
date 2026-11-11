@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, test } from "vitest";
 import { makeTabSlugs, slugifyTabLabel } from "./tab-slug";
 
 describe("tab slugs", () => {

@@ -2,12 +2,13 @@
 pin = true
 
 [tools]
-bun = "1.3.13"
+node = "24.22.1"
+pnpm = "11.22.0"
 
 [tasks.setup]
 description = "Install svdoc dependencies"
 dir = "svdoc"
-run = "bun install"
+run = "pnpm install --frozen-lockfile"
 
 [tasks."local:dev"]
 description = "Run the svdoc dev server with optional tenant"
@@ -15,7 +16,7 @@ dir = "svdoc"
 usage = '''
 arg "<tenant>" help="Target tenant" default="nav"
 '''
-run = "TENANT=${usage_tenant} bun run dev"
+run = "TENANT=${usage_tenant} pnpm run dev"
 
 [tasks.local]
 description = "Setup and run the svdoc dev server"
@@ -40,7 +41,7 @@ mkdir -p ../out
 
 for TENANT in "$@"; do
   echo "Building for tenant: ${TENANT}"
-  TENANT="${TENANT}" NOT_TENANT="not-${TENANT}" bun run build
+  TENANT="${TENANT}" NOT_TENANT="not-${TENANT}" pnpm run build
   mv build "../out/${TENANT}"
 done
 '''
@@ -53,22 +54,22 @@ depends = ["check:lint", "check:svelte-check", "check:test"]
 description = "Run unit tests for svdoc"
 depends = ["setup"]
 dir = "svdoc"
-run = "bun test"
+run = "pnpm test"
 
 [tasks."check:lint"]
 description = "Run prettier and eslint on svdoc"
 depends = ["setup"]
 dir = "svdoc"
-run = "bun run lint"
+run = "pnpm run lint"
 
 [tasks."check:svelte-check"]
 description = "Run svelte-check on svdoc"
 depends = ["setup"]
 dir = "svdoc"
-run = "bun run check"
+run = "pnpm run check"
 
 [tasks.fmt]
 description = "Format svdoc with prettier"
 depends = ["setup"]
 dir = "svdoc"
-run = "bun run format"
+run = "pnpm run format"

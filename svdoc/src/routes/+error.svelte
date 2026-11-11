@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { resolve } from "$app/paths";
 	import { page } from "$app/state";
-	import { BodyLong, Button, Heading } from "@nais/ds-svelte-community";
-	import { HouseIcon } from "@nais/ds-svelte-community/icons";
+	import { BodyLong, Button, Heading } from "$lib/shadcn/ui";
+	import { House as HouseIcon } from "@lucide/svelte";
 </script>
 
 <div class="error-page">

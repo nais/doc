@@ -3,7 +3,7 @@ import { dirname, resolve } from "node:path";
 
 /**
  * Get environment variable value
- * Works in both Node.js/Bun and SvelteKit contexts
+ * Works in both Node.js and SvelteKit contexts
  */
 function getEnv(key: string, defaultValue: string = ""): string {
 	return process.env[key] || defaultValue;

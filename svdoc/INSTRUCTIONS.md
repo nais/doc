@@ -47,21 +47,22 @@ Each markdown token type maps to a Svelte component in `src/lib/renderers/`. The
 
 - **Hydration**: Avoid separate `{@html}` calls for opening/closing tags - use actual elements or `<svelte:element>` to prevent hydration mismatches
 - **Invalid Attributes**: The `markdown` attribute must be stripped from HTML as browsers remove it client-side, causing hydration errors
-- **List Items**: Use native `<ul>`/`<ol>`/`<li>` elements for markdown lists, as ds-svelte-community's List/ListItem have different semantics
+- **List Items**: Use native `<ul>`/`<ol>`/`<li>` elements for markdown lists
 - **Each Blocks**: Always use keyed `{#each}` blocks (e.g., `{#each items as item, i (i)}`)
 
 ## Design System Integration
 
-Uses `@nais/ds-svelte-community` components where appropriate:
+Uses local components in `src/lib/shadcn/ui/`, following console-frontend:
 
 - `Heading` for headings (with dynamic `as` and `size` props)
 - `BodyLong` for paragraphs
-- `Alert` for blockquotes
-- `List` and `ListItem` for lists
-- `Table`, `Thead`, `Tbody`, `Tr`, `Th`, `Td` for tables
 - `CopyButton` in code blocks
+- `Modal` backed by Bits UI for search
+- Lucide icons from `@lucide/svelte`
 
-Regular `<a>` elements are used for links.
+Lists, tables, blockquotes and collapsible admonitions use native HTML.
+Theme tokens live in `src/css/shadcn.css`, including aliases for existing
+`--ax-*` variables. Do not add a dependency on `@nais/ds-svelte-community`.
 
 ## MkDocs Material Compatibility
 
@@ -194,9 +195,7 @@ This project uses the Svelte MCP (Model Context Protocol) server for AI-assisted
 		markers.forEach((marker) => {
 			const instance = mount(MyComponent, {
 				target: marker,
-				props: {
-					/* props here */
-				},
+				props: {/* props here */},
 			});
 			mounted.push(instance);
 		});

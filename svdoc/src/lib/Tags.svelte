@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { resolve } from "$app/paths";
-	import { Tag } from "@nais/ds-svelte-community";
+	import { Tag } from "$lib/shadcn/ui";
 	import { tagToSlug } from "./utils";
 
 	interface Props {
@@ -14,7 +14,7 @@
 	<div class="tags">
 		{#each tags as tag (tag)}
 			<a href={resolve("/tags/[tag]", { tag: tagToSlug(tag) })} class="tag-link">
-				<Tag variant="alt3-moderate" size="small">{tag}</Tag>
+				<Tag>{tag}</Tag>
 			</a>
 		{/each}
 	</div>

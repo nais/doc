@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { beforeNavigate, goto } from "$app/navigation";
 	import { resolve } from "$app/paths";
-	import { Modal, Search } from "@nais/ds-svelte-community";
+	import { Modal, Search } from "$lib/shadcn/ui";
 	import MiniSearch, { type SearchResult } from "minisearch";
 	import { tick } from "svelte";
 
@@ -222,13 +222,11 @@
 	});
 </script>
 
-<Modal bind:open width="medium" closeButton={true} class="search-modal">
+<Modal bind:open title="Search documentation" class="search-modal">
 	{#snippet header()}
 		<div class="search-header" bind:this={searchContainer}>
 			<Search
 				label="Search documentation"
-				hideLabel={true}
-				variant="simple"
 				bind:value={searchQuery}
 				placeholder="Search documentation..."
 				onkeydown={handleKeydown}
@@ -287,29 +285,26 @@
 </Modal>
 
 <style>
-	:global(dialog.search-modal) {
+	:global(.sh-modal.search-modal) {
 		width: 100%;
 		max-width: 800px;
 		height: 90vh;
 	}
 
 	@media (max-width: 800px) {
-		:global(dialog.search-modal) {
+		:global(.sh-modal.search-modal) {
 			max-width: 100vw;
 			width: 100vw;
 			height: 100vh;
 			max-height: 100vh;
-			margin: 0;
+			top: 0;
+			left: 0;
+			transform: none;
 			border-radius: 0;
 		}
 	}
 
 	.search-header {
-		width: 100%;
-		padding-right: 2.5rem;
-	}
-
-	.search-header :global(.aksel-search) {
 		width: 100%;
 	}
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from "$app/environment";
 	import { resolve } from "$app/paths";
-	import { Tag } from "@nais/ds-svelte-community";
+	import { Tag } from "$lib/shadcn/ui";
 	import { onMount } from "svelte";
 	import type { PageProps } from "./$types";
 
@@ -35,7 +35,7 @@
 	<div class="tags-grid">
 		{#each tags as tag (tag.slug)}
 			<a href={resolve("/tags/[tag]", { tag: tag.slug })} class="tag-card" id="tag:{tag.slug}">
-				<Tag variant="alt3-moderate" size="small">{tag.name}</Tag>
+				<Tag>{tag.name}</Tag>
 				<span class="count">{tag.count} {tag.count === 1 ? "page" : "pages"}</span>
 			</a>
 		{/each}

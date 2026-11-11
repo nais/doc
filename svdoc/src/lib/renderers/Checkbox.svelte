@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CheckmarkCircleFillIcon, CircleIcon } from "@nais/ds-svelte-community/icons";
+	import { CircleCheck as CheckmarkCircleFillIcon, Circle as CircleIcon } from "@lucide/svelte";
 
 	interface Props {
 		token: {

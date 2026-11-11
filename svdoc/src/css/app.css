@@ -3,7 +3,7 @@
 @import "./variables.css";
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
-@import "@nais/ds-svelte-community/css" layer(components);
+@import "./shadcn.css" layer(components);
 
 body {
 	min-height: 100vh;
@@ -85,11 +85,6 @@ body {
 	background-color: var(--ax-bg-accent-soft, rgba(0, 103, 197, 0.1));
 	transform: translateY(-2px);
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Hide list markers in grid cards */
-.grid.cards > div > ul > li .aksel-list__item-marker {
-	display: none;
 }
 
 .grid.cards > div > ul > li .emoji-icon {

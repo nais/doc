@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from "$app/environment";
 	import { getContext, type PageContext } from "$lib/state/page_context.svelte";
-	import { PencilIcon } from "@nais/ds-svelte-community/icons";
+	import { Pencil as PencilIcon } from "@lucide/svelte";
 	import { tick } from "svelte";
 
 	let { name, readonly }: { name: string; readonly: boolean } = $props();

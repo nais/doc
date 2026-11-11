@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Table, Tbody, Td, Th, Thead, Tr } from "@nais/ds-svelte-community";
 	import type { Tokens } from "marked";
 	import Renderer from "./Renderer.svelte";
 
@@ -7,33 +6,50 @@
 </script>
 
 <div class="table-wrapper">
-	<Table zebraStripes>
-		<Thead>
-			<Tr>
+	<table>
+		<thead>
+			<tr>
 				{#each token.header as cell, i (i)}
-					<Th align={cell.align || undefined}>
+					<th style:text-align={cell.align || undefined} scope="col">
 						<Renderer tokens={cell.tokens} />
-					</Th>
+					</th>
 				{/each}
-			</Tr>
-		</Thead>
-		<Tbody>
+			</tr>
+		</thead>
+		<tbody>
 			{#each token.rows as row, rowIndex (rowIndex)}
-				<Tr>
+				<tr>
 					{#each row as cell, cellIndex (cellIndex)}
-						<Td align={cell.align || undefined}>
+						<td style:text-align={cell.align || undefined}>
 							<Renderer tokens={cell.tokens} />
-						</Td>
+						</td>
 					{/each}
-				</Tr>
+				</tr>
 			{/each}
-		</Tbody>
-	</Table>
+		</tbody>
+	</table>
 </div>
 
 <style>
 	.table-wrapper {
 		overflow-x: auto;
 		margin-bottom: var(--ax-space-28);
+	}
+
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		text-align: left;
+	}
+	th,
+	td {
+		padding: 0.75rem;
+		border-bottom: 1px solid var(--border);
+	}
+	th {
+		font-weight: 600;
+	}
+	tbody tr:nth-child(even) {
+		background: var(--secondary);
 	}
 </style>

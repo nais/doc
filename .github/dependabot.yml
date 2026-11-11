@@ -12,7 +12,7 @@ updates:
       actions:
         patterns:
           - "*"
-  - package-ecosystem: "bun" # svdoc (SvelteKit + Bun)
+  - package-ecosystem: "npm" # svdoc (pnpm)
     directory: "/svdoc"
     schedule:
       interval: "weekly"
@@ -21,6 +21,6 @@ updates:
     cooldown:
       default-days: 7
     groups:
-      bun:
+      pnpm:
         patterns:
           - "*"
