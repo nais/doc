@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Variable from "$lib/components/Variable.svelte";
-	import { parseHighlightLines, parseTitle } from "$lib/helpers/shiki";
-	import { getContext } from "$lib/state/page_context.svelte";
-	import { CopyButton } from "$lib/shadcn/ui";
+	import Variable from "#lib/components/Variable.svelte";
+	import { parseHighlightLines, parseTitle } from "#lib/helpers/shiki.ts";
+	import { getContext } from "#lib/state/page_context.svelte.ts";
+	import { CopyButton } from "#lib/shadcn/ui/index.ts";
 	import type { Token } from "marked";
 	import { mount, unmount } from "svelte";
 	import ContentRenderer from "./ContentRenderer.svelte";

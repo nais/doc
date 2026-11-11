@@ -1,4 +1,4 @@
-import { browser } from "$app/environment";
+import { browser } from "$app/env";
 import { createContext } from "svelte";
 import { SvelteMap } from "svelte/reactivity";
 

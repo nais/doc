@@ -1,4 +1,4 @@
-import { contentStore } from "$lib/content-store";
+import { contentStore } from "#lib/content-store.ts";
 import type { PageServerLoad } from "./$types";
 
 export const prerender = true;

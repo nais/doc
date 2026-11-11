@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { browser } from "$app/environment";
+	import { browser } from "$app/env";
 	import { page } from "$app/state";
-	import { getMermaidThemeVariables } from "$lib/helpers/mermaid";
-	import { stripBase, transformMarkdownHref } from "$lib/helpers/urls";
-	import { getTheme } from "$lib/state/theme.svelte";
-	import { CopyButton } from "$lib/shadcn/ui";
+	import { getMermaidThemeVariables } from "#lib/helpers/mermaid.ts";
+	import { stripBase, transformMarkdownHref } from "#lib/helpers/urls.ts";
+	import { getTheme } from "#lib/state/theme.svelte.ts";
+	import { CopyButton } from "#lib/shadcn/ui/index.ts";
 	import mermaid from "mermaid";
 
 	let { text }: { text: string } = $props();

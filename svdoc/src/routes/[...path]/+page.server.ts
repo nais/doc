@@ -1,6 +1,6 @@
-import { contentStore } from "$lib/content-store";
-import { getAllRedirects, getRedirectTarget } from "$lib/redirects";
-import type { Attributes } from "$lib/types/tokens";
+import { contentStore } from "#lib/content-store.ts";
+import { getAllRedirects, getRedirectTarget } from "#lib/redirects.ts";
+import type { Attributes } from "#lib/types/tokens.ts";
 import { error, redirect } from "@sveltejs/kit";
 import type { EntryGenerator, PageServerLoad } from "./$types";
 

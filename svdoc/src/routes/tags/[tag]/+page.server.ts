@@ -1,4 +1,4 @@
-import { contentStore } from "$lib/content-store";
+import { contentStore } from "#lib/content-store.ts";
 import { error } from "@sveltejs/kit";
 import type { PageServerLoad, EntryGenerator } from "./$types";
 

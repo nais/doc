@@ -57,7 +57,7 @@
 </script>
 
 <script lang="ts">
-	import Variable from "$lib/components/Variable.svelte";
+	import Variable from "#lib/components/Variable.svelte";
 	import type { Tokens } from "marked";
 
 	let { token }: { token: Tokens.Codespan } = $props();

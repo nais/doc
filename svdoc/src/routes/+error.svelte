@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolve } from "$app/paths";
 	import { page } from "$app/state";
-	import { BodyLong, Button, Heading } from "$lib/shadcn/ui";
+	import { BodyLong, Button, Heading } from "#lib/shadcn/ui/index.ts";
 	import { House as HouseIcon } from "@lucide/svelte";
 </script>
 

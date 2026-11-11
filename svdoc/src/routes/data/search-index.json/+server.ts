@@ -1,6 +1,6 @@
 import { json } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
-import { contentStore } from "$lib/content-store";
+import { contentStore } from "#lib/content-store.ts";
 
 export const GET: RequestHandler = async () => {
 	const documents = await contentStore.getSearchIndex();

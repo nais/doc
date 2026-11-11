@@ -1,5 +1,5 @@
-import { contentStore } from "$lib/content-store";
-import { formatLlmsIndex, MARKDOWN_RESPONSE_HEADERS } from "$lib/llms";
+import { contentStore } from "#lib/content-store.ts";
+import { formatLlmsIndex, MARKDOWN_RESPONSE_HEADERS } from "#lib/llms.ts";
 import type { RequestHandler } from "./$types";
 
 export const prerender = true;

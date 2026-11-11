@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { browser } from "$app/environment";
+	import { browser } from "$app/env";
 	import { CircleAlert, CircleCheck, Info, TriangleAlert } from "@lucide/svelte";
 	import type { Token } from "marked";
 	import ContentRenderer from "./ContentRenderer.svelte";

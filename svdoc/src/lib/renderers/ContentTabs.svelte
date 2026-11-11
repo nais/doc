@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { replaceState } from "$app/navigation";
+	import { goto } from "$app/navigation";
 	import { page } from "$app/state";
-	import { makeTabSlugs } from "$lib/helpers/tab-slug";
+	import { makeTabSlugs } from "#lib/helpers/tab-slug.ts";
 	import type { Token } from "marked";
 	import { untrack } from "svelte";
 	import ContentRenderer from "./ContentRenderer.svelte";
@@ -10,11 +10,8 @@
 		label: string;
 		tokens: Token[];
 	}
-
 	interface Props {
-		token: {
-			tabs: ContentTab[];
-		};
+		token: { tabs: ContentTab[] };
 	}
 
 	let { token }: Props = $props();
@@ -32,6 +29,7 @@
 
 	$effect(() => {
 		const requestedTab = page.url.searchParams.get("tab");
+
 		selectedTab =
 			requestedTab && tabs.some((tab) => tab.slug === requestedTab)
 				? requestedTab
@@ -43,7 +41,7 @@
 
 		const url = new URL(page.url);
 		url.searchParams.set("tab", slug);
-		replaceState(url, {});
+		goto(url, { shallow: true, replace: true });
 	}
 </script>
 

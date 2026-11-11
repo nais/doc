@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { extractTextForId, slugify } from "$lib/helpers/markdown-utils";
+	import { extractTextForId, slugify } from "#lib/helpers/markdown-utils.ts";
 	import type { Token } from "marked";
 
 	interface TocItem {

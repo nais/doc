@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { resolve } from "$app/paths";
-	import { Tag } from "$lib/shadcn/ui";
+	import { Tag } from "#lib/shadcn/ui/index.ts";
 	import { tagToSlug } from "./utils";
 
 	interface Props {

@@ -1,5 +1,5 @@
-import { contentStore } from "$lib/content-store";
-import { MARKDOWN_RESPONSE_HEADERS, serializeMarkdown } from "$lib/llms";
+import { contentStore } from "#lib/content-store.ts";
+import { MARKDOWN_RESPONSE_HEADERS, serializeMarkdown } from "#lib/llms.ts";
 import { error } from "@sveltejs/kit";
 import type { EntryGenerator, RequestHandler } from "./$types";
 
