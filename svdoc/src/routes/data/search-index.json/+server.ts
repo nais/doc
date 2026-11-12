@@ -1,11 +1,10 @@
-import { json } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
 import { contentStore } from "#lib/content-store.ts";
 
 export const GET: RequestHandler = async () => {
 	const documents = await contentStore.getSearchIndex();
 
-	return json(documents, {
+	return Response.json(documents, {
 		headers: {
 			"Cache-Control": "public, max-age=3600",
 		},

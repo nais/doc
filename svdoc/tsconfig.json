@@ -1,7 +1,6 @@
 {
 	"extends": "$app/tsconfig",
 	"compilerOptions": {
-		"rewriteRelativeImportExtensions": true,
 		"types": ["$app/types", "node"],
 		"sourceMap": true,
 		"strict": true

@@ -15,9 +15,7 @@ export const load: PageServerLoad = async ({ params }) => {
 	const tagInfo = await contentStore.getTag(tag);
 
 	if (!tagInfo) {
-		error(404, {
-			message: `Tag "${tag}" not found`,
-		});
+		error(404, `Tag "${tag}" not found`);
 	}
 
 	const pages = await contentStore.getTagPages(tag);

@@ -39,7 +39,7 @@
 	function selectTab(slug: string) {
 		selectedTab = slug;
 
-		const url = new URL(page.url);
+		const url = new URL(page.url.href);
 		url.searchParams.set("tab", slug);
 		goto(url, { shallow: true, replace: true });
 	}

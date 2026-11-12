@@ -28,7 +28,7 @@
 		</BodyLong>
 
 		<div class="error-actions">
-			<Button as="a" variant="primary" href={resolve("/")}>
+			<Button as="a" variant="primary" href={resolve("")}>
 				{#snippet icon()}
 					<HouseIcon aria-hidden="true" />
 				{/snippet}

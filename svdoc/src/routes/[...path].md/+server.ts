@@ -18,7 +18,7 @@ export const GET: RequestHandler = async ({ params }) => {
 	const urlPath = params.path === "index" ? "/" : `/${params.path}`;
 	const document = await contentStore.getDocumentByPath(urlPath);
 	if (!document) {
-		error(404, { message: "Page not found" });
+		error(404, "Page not found");
 	}
 
 	return new Response(serializeMarkdown(document.tokens), {

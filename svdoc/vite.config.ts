@@ -3,7 +3,16 @@ import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import tailwindcss from "@tailwindcss/vite";
 import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig } from "vite";
-import { contentWatcherPlugin } from "./src/lib/vite-plugin-content-watcher";
+import { contentWatcherPlugin } from "./src/lib/vite-plugin-content-watcher.ts";
+
+function isBasePath(value: string): value is "" | `/${string}` {
+	return value === "" || (value.startsWith("/") && !value.endsWith("/"));
+}
+
+const base = process.env.BASE_PATH ?? "";
+if (!isBasePath(base)) {
+	throw new Error("BASE_PATH must be empty or start with '/' without a trailing slash.");
+}
 
 export default defineConfig({
 	plugins: [
@@ -17,7 +26,7 @@ export default defineConfig({
 			// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
 			// See https://svelte.dev/docs/kit/adapters for more information about adapters.
 			adapter: adapter({ fallback: "404.html" }),
-			paths: { base: process.env.BASE_PATH ?? "" },
+			paths: { base },
 			prerender: {
 				handleHttpError: ({ path, referrer, message }) => {
 					// Ignore 404s for .md links - these are documentation links that

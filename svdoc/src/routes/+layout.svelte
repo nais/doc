@@ -134,7 +134,7 @@
 				<label for="sidebar-toggle" class="sidebar-toggle-btn" aria-label="Toggle navigation menu">
 					<MenuHamburgerIcon aria-hidden="true" />
 				</label>
-				<a class="site-title unstyled" href={resolve("/")}>Nais Docs</a>
+				<a class="site-title unstyled" href={resolve("")}>Nais Docs</a>
 				<div class="header-spacer"></div>
 				<div
 					class="hide-noscript contents"
