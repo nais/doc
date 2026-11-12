@@ -10,7 +10,7 @@ Examples of such services are:
 
 - Access to the Nais cluster with [kubectl](../how-to/command-line-access.md)
 - Applications on [internal domains](../../workloads/reference/environments.md)
-- Internal Nais services such as [Nais Console](../console.md).
+- Internal Nais services
 
 {% if tenant() == "nav" %}
 
