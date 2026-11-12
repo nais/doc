@@ -4,10 +4,29 @@ import { describe, expect, test } from "vitest";
 import Admonition from "./Admonition.svelte";
 import List from "./List.svelte";
 import Table from "./Table.svelte";
+import Heading from "./Heading.svelte";
+import { extractHeadingsFromTokens } from "../helpers/markdown-utils.ts";
 
 const marked = new Marked();
 
 describe("native Markdown elements", () => {
+	test.each([
+		[
+			"Implements `readiness` and `liveness` endpoints",
+			"implements-readiness-and-liveness-endpoints",
+		],
+		["Validate token in `Authorization` header", "validate-token-in-authorization-header"],
+		["Setting `app.version`", "setting-appversion"],
+	])("includes inline code in heading anchors: %s", async (text, id) => {
+		const tokens = marked.lexer(`## ${text}`);
+		const token = tokens[0] as Tokens.Heading;
+		const { body } = await render(Heading, { props: { token } });
+		expect(body).toContain(`id="${id}"`);
+		expect(extractHeadingsFromTokens(tokens)).toEqual([
+			{ text: text.replaceAll("`", ""), id, level: 2 },
+		]);
+	});
+
 	test.each([0, 3])("preserves lists starting at %i and nested lists", async (start) => {
 		const token = marked.lexer(
 			`${start}. First\n   - Nested\n${start + 1}. Second`,

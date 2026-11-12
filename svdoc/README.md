@@ -15,6 +15,10 @@ pnpm test
 pnpm run lint
 ```
 
+SvelteKit configuration, including the static adapter and prerender options, lives
+in `vite.config.ts`. Internal library imports use `#lib/*`, defined in
+`package.json`, with explicit file extensions.
+
 ## Build
 
 Set the tenant when building:
@@ -26,9 +30,14 @@ pnpm run preview
 
 To build multiple tenants, use `mise run build nav ssb` from the repository root.
 
+Set `BASE_PATH=/docs` to build for a URL prefix. Omit the trailing slash.
+
 ## UI
 
 Components live in `src/lib/shadcn/ui/`, following console-frontend's local
 shadcn UI pattern. Bits UI handles dialogs, and Lucide supplies icons.
 Theme tokens and compatibility aliases for existing `--ax-*` variables live in
 `src/css/shadcn.css`.
+
+Mermaid loads only on pages with diagrams. Its parser and layout-engine chunks
+can still exceed Vite's size warning threshold; ordinary pages do not load them.

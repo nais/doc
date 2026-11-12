@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { beforeNavigate, goto } from "$app/navigation";
 	import { resolve } from "$app/paths";
-	import { Modal, Search } from "$lib/shadcn/ui";
+	import { Modal, Search } from "#lib/shadcn/ui/index.ts";
 	import MiniSearch, { type SearchResult } from "minisearch";
 	import { tick } from "svelte";
 
@@ -50,7 +50,7 @@
 
 		isLoading = true;
 		try {
-			const response = await fetch(resolve("/data/search-index.json"));
+			const response = await fetch(resolve("data/search-index.json"));
 			documents = await response.json();
 
 			miniSearch = new MiniSearch<SearchDocument>({
@@ -85,7 +85,9 @@
 	}
 
 	// Close modal on any navigation
-	beforeNavigate(() => {
+	beforeNavigate(({ shallow, type }) => {
+		if (shallow && type === "goto") return;
+
 		if (open) {
 			open = false;
 			searchQuery = "";

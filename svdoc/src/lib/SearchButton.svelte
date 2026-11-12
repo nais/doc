@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { InternalHeaderButton } from "$lib/shadcn/ui";
+	import { InternalHeaderButton } from "#lib/shadcn/ui/index.ts";
 	import { Search as MagnifyingGlassIcon } from "@lucide/svelte";
 
 	interface Props {

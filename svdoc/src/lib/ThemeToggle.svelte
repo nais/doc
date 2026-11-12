@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { InternalHeaderButton } from "$lib/shadcn/ui";
+	import { InternalHeaderButton } from "#lib/shadcn/ui/index.ts";
 	import { Moon as MoonIcon, Sun as SunIcon } from "@lucide/svelte";
 
 	type Theme = "light" | "dark";

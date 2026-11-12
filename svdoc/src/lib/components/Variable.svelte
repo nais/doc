@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { browser } from "$app/environment";
-	import { getContext, type PageContext } from "$lib/state/page_context.svelte";
+	import { browser } from "$app/env";
+	import { getContext, type PageContext } from "#lib/state/page_context.svelte.ts";
 	import { Pencil as PencilIcon } from "@lucide/svelte";
 	import { tick } from "svelte";
 

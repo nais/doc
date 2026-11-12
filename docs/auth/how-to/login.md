@@ -100,7 +100,7 @@ Now that your application is configured, you should handle inbound requests in y
 
 ## Handle inbound requests
 
-As long as the user is authenticated, all requests to your application at the server-side will include the `Authorization` header with the user's `access_token` as a [Bearer token](../explanations/README.md#bearer-token).
+As long as the user is authenticated, all requests to your application at the server-side will include the `Authorization` header with the user's `access_token` as a [Bearer token :octicons-link-external-16:](https://www.rfc-editor.org/rfc/rfc6750.html#section-1.2).
 
 Your application is responsible for verifying that this token is present and valid. To do so, follow these steps:
 

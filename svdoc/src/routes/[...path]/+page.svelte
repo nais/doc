@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { page } from "$app/state";
-	import PageMeta from "$lib/components/PageMeta.svelte";
-	import { markdownAlternativeUrl } from "$lib/helpers/urls";
-	import ContentRenderer from "$lib/renderers/ContentRenderer.svelte";
-	import { setupContext } from "$lib/state/page_context.svelte";
-	import TableOfContents from "$lib/TableOfContents.svelte";
-	import Tags from "$lib/Tags.svelte";
+	import PageMeta from "#lib/components/PageMeta.svelte";
+	import { markdownAlternativeUrl } from "#lib/helpers/urls.ts";
+	import ContentRenderer from "#lib/renderers/ContentRenderer.svelte";
+	import { setupContext } from "#lib/state/page_context.svelte.ts";
+	import TableOfContents from "#lib/TableOfContents.svelte";
+	import Tags from "#lib/Tags.svelte";
 	import { onMount } from "svelte";
 	import type { PageProps } from "./$types";
 

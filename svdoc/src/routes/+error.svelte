@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolve } from "$app/paths";
 	import { page } from "$app/state";
-	import { BodyLong, Button, Heading } from "$lib/shadcn/ui";
+	import { BodyLong, Button, Heading } from "#lib/shadcn/ui/index.ts";
 	import { House as HouseIcon } from "@lucide/svelte";
 </script>
 
@@ -28,7 +28,7 @@
 		</BodyLong>
 
 		<div class="error-actions">
-			<Button as="a" variant="primary" href={resolve("/")}>
+			<Button as="a" variant="primary" href={resolve("")}>
 				{#snippet icon()}
 					<HouseIcon aria-hidden="true" />
 				{/snippet}

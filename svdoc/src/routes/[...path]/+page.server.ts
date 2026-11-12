@@ -1,6 +1,7 @@
-import { contentStore } from "$lib/content-store";
-import { getAllRedirects, getRedirectTarget } from "$lib/redirects";
-import type { Attributes } from "$lib/types/tokens";
+import { contentStore } from "#lib/content-store.ts";
+import { stripBase } from "#lib/helpers/urls.ts";
+import { getAllRedirects, getRedirectTarget } from "#lib/redirects.ts";
+import type { Attributes } from "#lib/types/tokens.ts";
 import { error, redirect } from "@sveltejs/kit";
 import type { EntryGenerator, PageServerLoad } from "./$types";
 
@@ -14,7 +15,7 @@ export const entries: EntryGenerator = async () => {
 	// Combine regular paths and redirect source paths
 	const allPaths = [
 		...paths.map((path) => ({ path })),
-		...redirects.map((r) => ({ path: r.from.replace(/^\/+|\/+$/g, "") })),
+		...redirects.map((r) => ({ path: stripBase(r.from).replace(/^\/+|\/+$/g, "") })),
 	];
 
 	return allPaths;
@@ -66,7 +67,5 @@ export const load: PageServerLoad = async ({ params }) => {
 	}
 
 	// Nothing found - throw 404
-	error(404, {
-		message: "Page not found",
-	});
+	error(404, "Page not found");
 };

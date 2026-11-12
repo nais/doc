@@ -1,8 +1,54 @@
+import adapter from "@sveltejs/adapter-static";
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import tailwindcss from "@tailwindcss/vite";
 import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig } from "vite";
-import { contentWatcherPlugin } from "./src/lib/vite-plugin-content-watcher";
+import { contentWatcherPlugin } from "./src/lib/vite-plugin-content-watcher.ts";
+
+function isBasePath(value: string): value is "" | `/${string}` {
+	return value === "" || (value.startsWith("/") && !value.endsWith("/"));
+}
+
+const base = process.env.BASE_PATH ?? "";
+if (!isBasePath(base)) {
+	throw new Error("BASE_PATH must be empty or start with '/' without a trailing slash.");
+}
 
 export default defineConfig({
-	plugins: [tailwindcss(), sveltekit(), contentWatcherPlugin()],
+	plugins: [
+		tailwindcss(),
+		sveltekit({
+			// Consult https://svelte.dev/docs/kit/integrations
+			// for more information about preprocessors
+			preprocess: vitePreprocess(),
+			compilerOptions: { experimental: { async: true } },
+			// adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
+			// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
+			// See https://svelte.dev/docs/kit/adapters for more information about adapters.
+			adapter: adapter({ fallback: "404.html" }),
+			paths: { base },
+			prerender: {
+				handleHttpError: ({ path, referrer, message }) => {
+					// Ignore 404s for .md links - these are documentation links that
+					// should be handled at runtime (the Link component strips .md).
+					// SvelteKit's `trailingSlash: 'always'` may append a slash, so match
+					// both `.md` and `.md/` suffixes.
+					if (/\.md\/?$/.test(path)) {
+						console.warn(`Ignoring broken .md link: ${path} (from ${referrer})`);
+
+						return;
+					}
+
+					// Throw for other errors
+					throw new Error(message);
+				},
+
+				handleMissingId: ({ path, id, referrers }) => {
+					// Warn about missing IDs but don't fail the build
+					console.warn(`Missing id="${id}" on ${path} (linked from ${referrers.join(", ")})`);
+				},
+			},
+		}),
+		contentWatcherPlugin(),
+	],
 });

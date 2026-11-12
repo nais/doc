@@ -18,7 +18,7 @@ This allows your workloads to authenticate with third-party services without the
 ## OpenID Connect Metadata
 
 To set up workload identity federation with a third-party service, you need to provide relevant metadata for a given [environment](../workloads/reference/environments.md).
-The metadata is found in the [OIDC Discovery Document](explanations/README.md#well-known-url-metadata-document), which is unique per environment.
+The metadata is found in the [OIDC Discovery Document :octicons-link-external-16:](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig), which is unique per environment.
 
 Use the [Nais CLI](https://cli.nais.io/) to retrieve the OIDC discovery document for your environment:
 

@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { browser } from "$app/environment";
+	import { browser } from "$app/env";
 	import { page } from "$app/state";
-	import { getMermaidThemeVariables } from "$lib/helpers/mermaid";
-	import { stripBase, transformMarkdownHref } from "$lib/helpers/urls";
-	import { getTheme } from "$lib/state/theme.svelte";
-	import { CopyButton } from "$lib/shadcn/ui";
-	import mermaid from "mermaid";
+	import { getMermaidThemeVariables } from "#lib/helpers/mermaid.ts";
+	import { stripBase, transformMarkdownHref } from "#lib/helpers/urls.ts";
+	import { getTheme } from "#lib/state/theme.svelte.ts";
+	import { CopyButton } from "#lib/shadcn/ui/index.ts";
 
 	let { text }: { text: string } = $props();
 
@@ -47,28 +46,40 @@
 
 		// Track theme changes by accessing isDark
 		const currentTheme = isDark;
+		const source = text;
+		const currentPath = page.url.pathname;
+		let active = true;
 
 		// Reset state for re-render
 		mermaidError = null;
 
-		mermaid.initialize({
-			startOnLoad: false,
-			theme: "base",
-			themeVariables: getMermaidThemeVariables(currentTheme),
-		});
+		async function renderDiagram() {
+			try {
+				const { default: mermaid } = await import("mermaid");
+				if (!active) return;
 
-		const mermaidId = `mermaid-${id}-${currentTheme ? "dark" : "light"}`;
+				mermaid.initialize({
+					startOnLoad: false,
+					theme: "base",
+					themeVariables: getMermaidThemeVariables(currentTheme),
+				});
 
-		mermaid
-			.render(mermaidId, text)
-			.then((result) => {
-				// Transform relative links in the SVG to absolute paths
-				mermaidSvg = transformMermaidLinks(result.svg, page.url.pathname);
-			})
-			.catch((err) => {
-				console.error("Mermaid rendering failed:", err);
-				mermaidError = err.message || "Failed to render diagram";
-			});
+				const mermaidId = `mermaid-${id}-${currentTheme ? "dark" : "light"}`;
+				const result = await mermaid.render(mermaidId, source);
+				if (active) {
+					mermaidSvg = transformMermaidLinks(result.svg, currentPath);
+				}
+			} catch (error) {
+				if (!active) return;
+				console.error("Mermaid rendering failed:", error);
+				mermaidError = error instanceof Error ? error.message : "Failed to render diagram";
+			}
+		}
+
+		void renderDiagram();
+		return () => {
+			active = false;
+		};
 	});
 </script>
 

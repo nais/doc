@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { browser } from "$app/environment";
+	import { browser } from "$app/env";
 	import { afterNavigate } from "$app/navigation";
 	import { asset, resolve } from "$app/paths";
-	import SearchButton from "$lib/SearchButton.svelte";
-	import type SearchModalT from "$lib/SearchModal.svelte";
-	import Sidebar from "$lib/Sidebar.svelte";
-	import { setupTheme, type Theme as ThemeMode } from "$lib/state/theme.svelte";
-	import ThemeToggle from "$lib/ThemeToggle.svelte";
-	import { Theme } from "$lib/shadcn/ui";
+	import SearchButton from "#lib/SearchButton.svelte";
+	import type SearchModalT from "#lib/SearchModal.svelte";
+	import Sidebar from "#lib/Sidebar.svelte";
+	import { setupTheme, type Theme as ThemeMode } from "#lib/state/theme.svelte.ts";
+	import ThemeToggle from "#lib/ThemeToggle.svelte";
+	import { Theme } from "#lib/shadcn/ui/index.ts";
 	import { Menu as MenuHamburgerIcon } from "@lucide/svelte";
 	import "../css/app.css";
 	import type { LayoutProps } from "./$types";
@@ -23,7 +23,7 @@
 		if (SearchModal || searchModalLoading) return;
 		searchModalLoading = true;
 		try {
-			const mod = await import("$lib/SearchModal.svelte");
+			const mod = await import("#lib/SearchModal.svelte");
 			SearchModal = mod.default;
 		} finally {
 			searchModalLoading = false;
@@ -92,7 +92,9 @@
 	});
 
 	// Close sidebar when navigating to a new page
-	afterNavigate(() => {
+	afterNavigate(({ shallow, type }) => {
+		if (shallow && type === "goto") return;
+
 		if (browser) {
 			const checkbox = document.getElementById("sidebar-toggle") as HTMLInputElement | null;
 			if (checkbox) {
@@ -103,7 +105,7 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href={asset("/assets/logo-white.png")} />
+	<link rel="icon" href={asset("assets/logo-white.png")} />
 	<noscript>
 		<style>
 			/* CSS checkbox hack works without JS - just hide the overlay */
@@ -132,7 +134,7 @@
 				<label for="sidebar-toggle" class="sidebar-toggle-btn" aria-label="Toggle navigation menu">
 					<MenuHamburgerIcon aria-hidden="true" />
 				</label>
-				<a class="site-title unstyled" href={resolve("/")}>Nais Docs</a>
+				<a class="site-title unstyled" href={resolve("")}>Nais Docs</a>
 				<div class="header-spacer"></div>
 				<div
 					class="hide-noscript contents"
@@ -152,15 +154,13 @@
 
 		<div class="content-wrapper">
 			<!-- Overlay to close sidebar when clicking outside (mobile) -->
+
 			<label for="sidebar-toggle" class="sidebar-overlay" aria-hidden="true"></label>
 
-			<aside class="sidebar-container scrollbar-thin">
-				<Sidebar items={navigation} />
-			</aside>
+			<aside class="sidebar-container scrollbar-thin"><Sidebar items={navigation} /></aside>
+
 			<main class="main-content" id="main-content" tabindex="-1">
-				<div class="main-content-inner">
-					{@render children()}
-				</div>
+				<div class="main-content-inner">{@render children()}</div>
 			</main>
 		</div>
 	</div>

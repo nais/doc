@@ -1,5 +1,5 @@
-import { contentStore } from "$lib/content-store";
-import { MARKDOWN_RESPONSE_HEADERS, serializeMarkdown } from "$lib/llms";
+import { contentStore } from "#lib/content-store.ts";
+import { MARKDOWN_RESPONSE_HEADERS, serializeMarkdown } from "#lib/llms.ts";
 import { error } from "@sveltejs/kit";
 import type { EntryGenerator, RequestHandler } from "./$types";
 
@@ -18,7 +18,7 @@ export const GET: RequestHandler = async ({ params }) => {
 	const urlPath = params.path === "index" ? "/" : `/${params.path}`;
 	const document = await contentStore.getDocumentByPath(urlPath);
 	if (!document) {
-		error(404, { message: "Page not found" });
+		error(404, "Page not found");
 	}
 
 	return new Response(serializeMarkdown(document.tokens), {

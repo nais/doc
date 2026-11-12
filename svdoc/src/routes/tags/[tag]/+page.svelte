@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { resolve } from "$app/paths";
-	import { Tag } from "$lib/shadcn/ui";
+	import { Tag } from "#lib/shadcn/ui/index.ts";
 	import { ChevronLeft as ChevronLeftIcon } from "@lucide/svelte";
 	import type { PageProps } from "./$types";
 
@@ -15,10 +15,8 @@
 
 <article class="tag-page">
 	<header class="header">
-		<a href={resolve("/tags")} class="back-link">
-			<ChevronLeftIcon aria-hidden="true" />
-			All tags
-		</a>
+		<a href={resolve("tags")} class="back-link"><ChevronLeftIcon aria-hidden="true" /> All tags</a>
+
 		<div class="title-row">
 			<h1>
 				<Tag>{tag}</Tag>
@@ -43,7 +41,7 @@
 	{:else}
 		<div class="empty">
 			<p>No pages found with this tag.</p>
-			<a href={resolve("/tags")} class="back-link-empty">Browse all tags</a>
+			<a href={resolve("tags")} class="back-link-empty">Browse all tags</a>
 		</div>
 	{/if}
 </article>

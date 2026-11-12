@@ -113,7 +113,7 @@ When you have started Naisdevice the Naisdevice icon appears in your Systray (wh
 
 1. Start the Naisdevice agent/app.
 2. Find your `naisdevice` icon (pictured above).
-   - Can't find the icon? Make sure it is installed (See [macOS](#__tabbed_1_2), [Windows (Scoop)](#__tabbed_1_1) or [Ubuntu](#__tabbed_1_4))
+   - Can't find the icon? Make sure it is installed (See [macOS](?tab=macos#device-specific-installation-steps), [Windows (Scoop)](?tab=windows-scoop#device-specific-installation-steps) or [Ubuntu](?tab=ubuntu#device-specific-installation-steps))
 3. Left-click it and select `Connect`.
 4. Left-click the `naisdevice` icon again and click `Connect`.
    - You might need to allow ~20 seconds to pass before clicking `Connect` turns your `naisdevice` icon green.

@@ -76,4 +76,4 @@ This also includes the extra groups added by the `allowAllUsers` property.
 The combined configuration is useful if you want to authorize all users through Entra ID and
 additionally use the `groups` claim in your application code to implement custom authorization logic.
 
-[groups-claim]: ../reference/README.md#claims:~:text=groups
+[groups-claim]: ../reference/README.md#claims

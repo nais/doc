@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { browser } from "$app/environment";
+	import { browser } from "$app/env";
 	import { resolve } from "$app/paths";
-	import { Tag } from "$lib/shadcn/ui";
+	import { Tag } from "#lib/shadcn/ui/index.ts";
 	import { onMount } from "svelte";
 	import type { PageProps } from "./$types";
 
