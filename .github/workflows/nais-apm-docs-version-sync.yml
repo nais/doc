@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
 
       - name: Resolve latest @nais/apm release
         id: resolve
@@ -121,9 +121,6 @@ jobs:
 
       - name: Create or update pull request
         if: steps.resolve.outputs.changed == 'true'
-        # Repo convention is version-tagged actions (see actions/checkout@v6,
-        # jdx/mise-action@v4), not SHA pins, so we follow suit here.
-        #
         # GITHUB_TOKEN caveat: PRs created/updated by the default GITHUB_TOKEN do
         # NOT trigger other workflows, so `Build and publish doc` (main.yml, `on:
         # push`) will not auto-run on this bump PR. This is deliberate — we do

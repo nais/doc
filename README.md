@@ -97,9 +97,23 @@ mise run build nav nav test-nais
 ### Checks and formatting
 
 ```bash
-mise run check              # run lint + svelte-check
+mise run check              # run all checks
 mise run check:lint         # prettier + eslint
 mise run check:svelte-check # svelte-check only
 mise run check:test         # Vitest unit tests
+mise run check:ratchet      # verify GitHub Actions are SHA-pinned
 mise run fmt                # format with prettier
 ```
+
+Pull requests run all checks in CI. Ratchet is pinned in `mise.toml`.
+Pin new GitHub Actions before opening a pull request:
+
+```bash
+mise exec -- ratchet pin .github/workflows/*.yml
+```
+
+pnpm requires package versions to be at least seven days old. Version-specific
+exceptions in `svdoc/pnpm-workspace.yaml` keep the existing lockfile installable.
+Remove exceptions once those versions are seven days old. Dependabot groups minor and patch
+updates. Major updates get separate pull requests, except TypeScript majors,
+which are ignored until the tools support them.
