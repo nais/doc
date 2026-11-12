@@ -4,6 +4,8 @@ pin = true
 [tools]
 node = "24.22.1"
 pnpm = "11.22.0"
+go = "1.27.3"
+"go:github.com/sethvargo/ratchet" = "0.12.0"
 
 [tasks.setup]
 description = "Install svdoc dependencies"
@@ -47,8 +49,12 @@ done
 '''
 
 [tasks.check]
-description = "Run all checks (lint, svelte-check and tests)"
-depends = ["check:lint", "check:svelte-check", "check:test"]
+description = "Run all checks (lint, svelte-check, tests and Action pinning)"
+depends = ["check:lint", "check:svelte-check", "check:test", "check:ratchet"]
+
+[tasks."check:ratchet"]
+description = "Verify all GitHub Actions are pinned"
+run = "ratchet lint .github/workflows/*.yml"
 
 [tasks."check:test"]
 description = "Run unit tests for svdoc"
