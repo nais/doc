@@ -38,3 +38,6 @@ Components live in `src/lib/shadcn/ui/`, following console-frontend's local
 shadcn UI pattern. Bits UI handles dialogs, and Lucide supplies icons.
 Theme tokens and compatibility aliases for existing `--ax-*` variables live in
 `src/css/shadcn.css`.
+
+Mermaid loads only on pages with diagrams. Its parser and layout-engine chunks
+can still exceed Vite's size warning threshold; ordinary pages do not load them.

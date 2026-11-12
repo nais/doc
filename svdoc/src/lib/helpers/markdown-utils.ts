@@ -132,7 +132,7 @@ export function extractTextForId(tokens: Token[]): string {
 	const parts: string[] = [];
 
 	for (const token of tokens) {
-		if (token.type === "text") {
+		if (token.type === "text" || token.type === "codespan") {
 			// Strip emoji shortcodes from text content
 			const text = stripEmojiShortcodes((token as { text: string }).text);
 			if (text) {
