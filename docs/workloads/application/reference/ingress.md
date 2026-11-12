@@ -33,13 +33,12 @@ Ingress redirects are used to redirect traffic from one domain to another. This 
 
 ## Ingress customization
 
-Ingresses are automatically created for your application when you specify them in your [application manifest](spec.md).
-The ingress is created with a set of default values that should work for most applications.
+Nais creates ingresses from `spec.ingresses` in your [application manifest](spec.md).
+You can customize them with `haproxy.org/` annotations under the Application's `metadata.annotations`.
+Nais copies these annotations to all ingresses for the application. You cannot configure individual ingresses separately.
 
-You can tweak the ingress configuration by specifying certain [Kubernetes annotations][kubernetes-annotations] in your application manifest.
-Any annotation from [the HAProxy ingress annotation reference][haproxy-ingress-annotations] which starts with `haproxy.org/` is supported.
+Supported annotations are listed in the [HAProxy ingress annotation reference][haproxy-ingress-annotations].
 
-[kubernetes-annotations]: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 [haproxy-ingress-annotations]: https://www.haproxy.com/documentation/kubernetes-ingress/community/configuration-reference/ingress
 [haproxy-set-log-level]: https://docs.haproxy.org/3.0/configuration.html#4.2-http-request
 [haproxy-timeout-http-request]: https://docs.haproxy.org/3.0/configuration.html#4.2-timeout%20http-request
@@ -47,23 +46,31 @@ Any annotation from [the HAProxy ingress annotation reference][haproxy-ingress-a
 
 ### Custom timeouts
 
-In some scenarios it is required to have different values for various timeouts.
-HAProxy provides several `timeout-*` annotations that can be set per-ingress, for example:
+The following timeout annotation applies to all ingresses belonging to your application:
 
-* `haproxy.org/timeout-server` - backend response timeout
-* `haproxy.org/timeout-client` - client send timeout
-* `haproxy.org/timeout-connect` - backend connection timeout
+| Annotation | Default | Description |
+| --- | --- | --- |
+| `haproxy.org/timeout-server` | `60s` | Maximum inactivity time on the backend connection. |
 
-All timeout values require a time unit suffix (e.g. `60s`, `5m`, `1h`).
+Example override:
 
-See the [HAProxy ingress annotation reference][haproxy-ingress-annotations] for the full list of available timeout annotations and their default values.
+```yaml title="app.yaml"
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: myapplication
+  namespace: myteam
+  annotations:
+    haproxy.org/timeout-server: "300s"
+```
+
+Timeout values require a time unit suffix, such as `60s`, `5m` or `1h`.
 
 ## WebSockets Support
 
 Support for websockets is provided by the HAProxy ingress controller out of the box.
 No special configuration required.
 The only requirement to avoid the close of connections is the increase of the values of `timeout-server` and `timeout-client`.
-The default value of these settings is `50s`.
 
 A more adequate value to support websockets is a value higher than one hour (`1h`).
 
