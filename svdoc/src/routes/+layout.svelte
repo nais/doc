@@ -122,7 +122,12 @@
 </svelte:head>
 
 <Theme theme={themeState.theme}>
-	<div class="layout-root">
+	<div
+		class="layout-root"
+		{@attach (element) => {
+			element.dataset.hydrated = "true";
+		}}
+	>
 		<a href="#main-content" class="skip-link">Skip to main content</a>
 
 		<!-- Hidden checkbox for CSS-only sidebar toggle -->
