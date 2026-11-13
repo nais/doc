@@ -207,26 +207,16 @@
 		return snippet;
 	}
 
-	let searchContainer: HTMLDivElement;
-
-	// Load index and focus input when modal opens
 	$effect(() => {
 		if (open) {
 			loadSearchIndex();
-			// Focus the search input after modal opens
-			setTimeout(() => {
-				const input = searchContainer?.querySelector('input[type="search"]');
-				if (input instanceof HTMLInputElement) {
-					input.focus();
-				}
-			}, 50);
 		}
 	});
 </script>
 
 <Modal bind:open title="Search documentation" class="search-modal">
 	{#snippet header()}
-		<div class="search-header" bind:this={searchContainer}>
+		<div class="search-header">
 			<Search
 				label="Search documentation"
 				bind:value={searchQuery}

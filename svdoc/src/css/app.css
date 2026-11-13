@@ -3,7 +3,9 @@
 @import "./variables.css";
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
+@import "@nais/ui/tokens.css" layer(components);
 @import "./shadcn.css" layer(components);
+@import "@nais/ui/theme.css";
 
 body {
 	min-height: 100vh;
