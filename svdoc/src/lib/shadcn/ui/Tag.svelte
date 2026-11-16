@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Tag as SharedTag } from "@nais/ui";
 	import type { Snippet } from "svelte";
 	import type { HTMLAttributes } from "svelte/elements";
 
@@ -9,19 +10,15 @@
 	let { children, class: className, ...rest }: Props = $props();
 </script>
 
-<span class={["sh-tag", className]} {...rest}>{@render children()}</span>
+<SharedTag variant="info" class={["sh-tag", "doc-tag", className]} {children} {...rest} />
 
 <style>
-	.sh-tag {
-		display: inline-flex;
-		align-items: center;
-		padding: 0.125rem 0.5rem;
-		border: 1px solid var(--info-border);
+	:global(.sh-ui-tag.sh-tag.doc-tag) {
 		border-radius: var(--radius);
-		background: var(--info-muted);
-		color: var(--info);
 		font-size: 0.8125rem;
-		font-weight: 500;
 		line-height: 1.5;
+		white-space: normal;
+		font-variant-numeric: normal;
+		gap: normal;
 	}
 </style>

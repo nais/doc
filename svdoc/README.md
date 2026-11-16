@@ -44,12 +44,17 @@ can still exceed Vite's size warning threshold; ordinary pages do not load them.
 
 ### Shared UI pilot
 
-This branch tests the documentation search with the published `@nais/ui@0.1.0`
-package from `nais/console-frontend`. The local Modal adapter
+The documentation search, tags and Markdown headings use the published
+`@nais/ui@0.2.0` package from `nais/console-frontend`. The local Modal adapter
 preserves doc's props, accessible name and description, dimensions and scrolling.
 It unmounts the search header and results when closed, even though the package
 keeps its dialog shell mounted. Bits UI handles initial focus and focus return;
 the search no longer uses a focus timeout.
+
+Local Tag and Heading adapters preserve doc's existing props and appearance.
+Tags keep their blue colors, rounded corners, typography and text wrapping.
+Headings keep their sizes, weight and line height. Markdown heading IDs and
+permalinks stay in the Markdown renderer.
 
 The root Theme, header buttons, error-page buttons and copy controls stay local.
 The browser fixture tests package Button and nested Theme without changing those
@@ -66,7 +71,7 @@ mise run build nav ssb test-nais ldir atil ci-nais dev-nais miljodir novari
 
 `svdoc/.npmrc` maps the `@nais` scope to Nais's public Google Artifact Registry.
 No token or Google authentication is required. The dependency is pinned to
-`0.1.0`, and setup installs the frozen lockfile. `@nais/ui` is exempt from the
+`0.2.0`, and setup installs the frozen lockfile. `@nais/ui` is exempt from the
 release-age delay in `pnpm-workspace.yaml`; the delay still applies to other
 packages unless separately listed.
 
@@ -76,6 +81,8 @@ If Chromium is missing, install it with
 Browser tests run with zero retries. They cover light/dark themes, 375/800/801/1280px
 widths, portal placement, mounting, keyboard search, focus trapping and return,
 Escape, close button, backdrop, host styling and hydration diagnostics.
+Tag and Heading tests check typography, wrapping, heading levels, SSR, permalinks
+and keyboard navigation through document tags and tag pages.
 `DOC_PILOT_URL` can point the same tests at a running static build instead of
 starting the dev server. The separate fixture server still starts automatically.
 
