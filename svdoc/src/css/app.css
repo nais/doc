@@ -59,7 +59,7 @@ body {
 }
 
 /* Grid cards styling for Material for MkDocs compatibility */
-.grid.cards > div > ul {
+.grid.cards > ul {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
 	gap: 1rem;
@@ -74,7 +74,7 @@ body {
 	}
 }
 
-.grid.cards > div > ul > li {
+.grid.cards > ul > li {
 	padding: 1rem;
 	border: 1px solid var(--ax-border-neutral-subtle, rgba(175, 184, 193, 0.3));
 	border-radius: 0.5rem;
@@ -82,14 +82,14 @@ body {
 	transition: all 0.2s;
 }
 
-.grid.cards > div > ul > li:hover {
+.grid.cards > ul > li:hover {
 	border-color: var(--ax-border-accent, rgba(0, 103, 197, 0.5));
 	background-color: var(--ax-bg-accent-soft, rgba(0, 103, 197, 0.1));
 	transform: translateY(-2px);
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.grid.cards > div > ul > li .emoji-icon {
+.grid.cards > ul > li .emoji-icon {
 	margin-right: 0.5rem;
 }
 
