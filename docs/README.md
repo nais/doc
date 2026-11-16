@@ -9,11 +9,11 @@ hide:
   - toc
 ---
 
-# :wave: **Welcome to the Nais developer documentation!**
+# :wave: Welcome to the Nais developer documentation!
 
 Here you'll find _explanations_[^1], _how-to guides_[^2], and _references_[^3] for all things Nais.
 
-### :seedling: **New to Nais?**
+### :seedling: New to Nais?
 
 Start here to get an idea of the fundamentals.
 
@@ -24,7 +24,7 @@ Start here to get an idea of the fundamentals.
 
 </div>
 
-### :technologist: **Already familiar with Nais?**
+### :technologist: Already familiar with Nais?
 
 What can we help you with today?
 

@@ -5,6 +5,12 @@ for (const width of [375, 1280]) {
 		await page.setViewportSize({ width, height: 900 });
 		await page.goto("/");
 		await expect(page.locator(".layout-root")).toHaveAttribute("data-hydrated", "true");
+		const headings = page.locator("article").getByRole("heading");
+		await expect(headings).toHaveCount(3);
+		for (const heading of await headings.all()) {
+			await expect(heading).toHaveCSS("font-weight", "600");
+			await expect(heading.locator("strong")).toHaveCount(0);
+		}
 		const grids = page.locator("article .grid.cards > ul");
 		await expect(grids).toHaveCount(2);
 		for (const grid of await grids.all()) {
