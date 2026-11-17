@@ -97,6 +97,40 @@ Allowed values: `18`<br />
       majorVersion: "18"
     ```
 
+## recovery
+Recovery initializes a new database from an immutable source archive.
+
+Type: `object`<br />
+Required: `false`<br />
+
+### recovery.bucketName
+BucketName identifies the source Barman ObjectStore and bucket.
+
+Type: `string`<br />
+Required: `true`<br />
+
+### recovery.serverName
+ServerName identifies the source archive within the ObjectStore.
+
+Type: `string`<br />
+Required: `true`<br />
+
+### recovery.sourcePostgres
+Type: `string`<br />
+Required: `true`<br />
+
+### recovery.sourceUID
+Type: `string`<br />
+Required: `true`<br />
+
+### recovery.targetTime
+TargetTime is the explicit point in time to recover to, with whole-second
+precision. Fractional seconds are rejected rather than silently truncated.
+
+Type: `string`<br />
+Required: `true`<br />
+Pattern: `^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}([.]0+)?(Z|[+-][0-9]{2}:[0-9]{2})$`<br />
+
 ## resources
 Resources configures compute and disk for the Postgres cluster.
 
