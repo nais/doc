@@ -1,4 +1,5 @@
 nav:
+- Cloning: cloning.md
 - Example YAML: example.md
 - Extensions: extensions.md
 - Personal access: personal-access.md

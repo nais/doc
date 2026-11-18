@@ -12,11 +12,11 @@ Use this how-to to connect to a Postgres database with your personal user, for a
 - You have the [Nais CLI :octicons-link-external-16:](https://cli.nais.io/) installed and are logged in with `nais login --nais`
 - `psql` on `PATH`
 
-The CLI grants temporary personal access: read-only access to the active branch for 30 minutes by default. For access levels, lifetime and branch selection, see [Postgres personal access](../reference/personal-access.md).
+The CLI grants temporary personal access: read-only access to the database for 30 minutes by default. For access levels and lifetime, see [Postgres personal access](../reference/personal-access.md).
 
 ## Open `psql`
 
-Connect to the active branch:
+Connect to the database:
 
 ```bash
 nais postgres psql <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT> --reason "Investigating a database issue"

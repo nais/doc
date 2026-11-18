@@ -4,26 +4,28 @@ tags: [postgres, reference]
 
 # Postgres extensions
 
-The PostgreSQL 18 image used by Postgres includes the extensions below. Available extensions are not necessarily enabled in your database. `plpgsql` is installed by default; the platform also configures `pgaudit` and `pg_stat_statements`.
+Postgres supports extensions bundled with PostgreSQL and extensions mounted from platform image catalogs. Available extensions are not necessarily enabled in your database. `plpgsql` is installed by default; the platform manages `pgaudit` and `pg_stat_statements`.
 
 ## Additional extensions
 
 | Extension name | Purpose |
 | --- | --- |
 | `pgaudit` | SQL audit logging, configured by the platform |
+| `pg_stat_statements` | Query statistics, configured by the platform |
+| `postgis` | Spatial data and queries, mounted from the image catalog |
+| `timescaledb` | Time-series data, mounted from the image catalog and preloaded by the platform |
 | `vector` | Vector storage and similarity search (pgvector) |
 
-PostGIS is not included in the current image. The extension name for pgvector is `vector`, not `pgvector`.
+The extension names are `vector` for pgvector and `timescaledb` for TimescaleDB, not `pgvector` or `timescaledb-oss`. The platform-managed extensions `pgaudit` and `pg_stat_statements` cannot be requested in `spec.extensions`.
 
-## PostgreSQL bundled extensions
+## Supported bundled extensions
 
 | Area | Extension names |
 | --- | --- |
 | Indexes and search | `bloom`, `btree_gin`, `btree_gist`, `pg_trgm` |
-| Data types and text | `citext`, `cube`, `dict_int`, `dict_xsyn`, `earthdistance`, `fuzzystrmatch`, `hstore`, `intarray`, `isn`, `ltree`, `seg`, `unaccent` |
-| Functions and utilities | `autoinc`, `insert_username`, `intagg`, `lo`, `moddatetime`, `pgcrypto`, `refint`, `tablefunc`, `tcn`, `uuid-ossp`, `xml2` |
-| External data | `dblink`, `file_fdw`, `postgres_fdw` |
-| Inspection and maintenance | `amcheck`, `pageinspect`, `pg_buffercache`, `pg_freespacemap`, `pg_logicalinspect`, `pg_prewarm`, `pg_stat_statements`, `pg_surgery`, `pg_visibility`, `pg_walinspect`, `pgrowlocks`, `pgstattuple`, `sslinfo` |
+| Data types and text | `citext`, `cube`, `earthdistance`, `fuzzystrmatch`, `hstore`, `intarray`, `isn`, `ltree`, `seg`, `unaccent` |
+| Functions and utilities | `lo`, `pgcrypto`, `tablefunc`, `tcn` |
+| Inspection and maintenance | `amcheck`, `pageinspect`, `pg_buffercache`, `pg_freespacemap`, `pg_logicalinspect`, `pg_prewarm`, `pg_visibility`, `pg_walinspect`, `pgrowlocks`, `pgstattuple`, `sslinfo` |
 | Sampling | `tsm_system_rows`, `tsm_system_time` |
 | Procedural language | `plpgsql` |
 
@@ -39,7 +41,9 @@ spec:
     - name: vector
 ```
 
-The CLI create/update commands and the Console configuration form do not expose extension settings. Use the Postgres manifest for declarative configuration.
+Console exposes extension selection when creating or editing a database. When cloning, source extensions are kept and additional available extensions can be selected. The CLI create, update and clone commands do not expose extension selection; clone inherits the source's extensions. Declarative configuration uses the Postgres manifest.
+
+The [manifest reference](spec.md#extensionsname) lists the accepted extension names. Console lists the extensions available in the selected environment.
 
 PostgreSQL exposes the extensions available in the running image through `pg_available_extensions`:
 

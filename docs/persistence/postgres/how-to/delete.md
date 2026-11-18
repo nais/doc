@@ -4,9 +4,11 @@ tags: [postgres, how-to]
 
 # Delete Postgres
 
-Deleting a Postgres irreversibly removes the whole instance with all its branches and data.
+Deleting a Postgres irreversibly removes the database, its data and its backups.
 
 Remove `uses.postgres` from all workloads that reference the database and deploy them. If the Postgres manifest is managed in Git, delete the manifest file so the next apply does not recreate the database.
+
+Wait for any [clones](restore-point-in-time.md) that depend on the database to complete. Deletion is blocked while workloads, bindings or unfinished clones still reference it.
 
 === "CLI"
 

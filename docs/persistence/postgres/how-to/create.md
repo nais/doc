@@ -72,7 +72,7 @@ Create a Postgres database.
 
     1. Open your team in [Nais Console](https://console.nais.io) and select **Postgres**.
     2. Select **Create Postgres**.
-    3. Fill in the form and select **Create Postgres**.
+    3. Select **Empty database**, fill in the form and select **Create Postgres**. To start from an existing database's backups instead, see [Clone or restore Postgres](restore-point-in-time.md).
 
     To change settings later, see [Manage Postgres](manage.md?tab=console).
 
