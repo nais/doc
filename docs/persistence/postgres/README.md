@@ -11,7 +11,7 @@ Postgres gives your Applications and Jobs a managed PostgreSQL database. You can
 
 Postgres automatically creates and manages credentials for your workloads. You can also get short-lived personal access from the Nais CLI when you need to inspect the database.
 
-Postgres keeps backups continuously. When you need an older copy of the data, restore it to a new branch and inspect it without affecting the workloads that use your current database.
+Postgres keeps backups continuously. You can clone a database from its backups, either from the latest available point or from a specific time. The clone is a separate database that you can inspect without affecting existing workloads.
 
 ## Next steps
 
@@ -23,13 +23,13 @@ Postgres keeps backups continuously. When you need an older copy of the data, re
 
 [:dart: Connect as a personal user](how-to/personal-access.md)
 
-[:dart: Restore a database to a point in time](how-to/restore-point-in-time.md)
+[:dart: Clone or restore a database](how-to/restore-point-in-time.md)
 
 [:dart: Delete Postgres](how-to/delete.md)
 
-[:bulb: Postgres branches](explanations/branches.md)
-
 [:books: Available extensions](reference/extensions.md)
+
+[:books: Postgres cloning](reference/cloning.md)
 
 [:books: Postgres workload credentials](reference/workload-credentials.md)
 

@@ -97,7 +97,7 @@ nature.
 
 ## Postgres
 
-Postgres is a managed PostgreSQL database for your workloads. It is in preview and supports self-service creation and point-in-time recovery into a separate branch.
+Postgres is a managed PostgreSQL database for your workloads. It is in preview and supports self-service creation and cloning from backups, including point-in-time restore to a separate database.
 
 [:bulb: Learn more about Postgres](postgres/README.md)
 

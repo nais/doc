@@ -2,70 +2,71 @@
 tags: [postgres, how-to]
 ---
 
-# Restore a Postgres branch from backup
+# Clone or restore Postgres
 
-The restore creates a new, writable branch from a point in time covered by the source branch's backups. It does not change your workloads.
+Clone a Postgres database from its backups, either from the latest available point or from a specific time. The clone is a new, writable database in the same team and environment. It does not change the source database or move your workloads.
 
-## Create the restored branch
-
-=== "CLI"
-
-    Create a branch from a relative recovery point:
-
-    ```bash
-    nais postgres branch create <POSTGRES-NAME> <NEW-BRANCH> --ago 2h --team <TEAM> --environment <ENVIRONMENT>
-    ```
-
-    `--ago` accepts durations such as `30m`, `2h` or `1h30m`. For an exact recovery point, use `--at` instead:
-
-    ```bash
-    nais postgres branch create <POSTGRES-NAME> <NEW-BRANCH> --at 2026-10-06T10:00:00Z --team <TEAM> --environment <ENVIRONMENT>
-    ```
-
-    `--at` takes a UTC timestamp in RFC3339 format with whole seconds; `Z` means UTC.
-
-    The restore uses the active branch as source. Add `--from <BRANCH>` to restore from a different branch.
-
-    Wait until the new branch shows `Ready`:
-
-    ```bash
-    nais postgres branch list <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT>
-    ```
-
-=== "Console"
-
-    1. Open your team in [Nais Console](https://console.nais.io) and select **Postgres**.
-    2. Select the database in the correct environment and open **Branches**.
-    3. Select **Create branch**.
-    4. Enter a new branch name and select the source branch.
-    5. Set **Restore to (UTC)** to a time within the source branch's available recovery window.
-    6. Select **Create branch** and wait until it is available. The branch list updates automatically.
-
-    The new branch does not become active automatically.
-
-Optionally, inspect the restored data by [connecting as a personal user](personal-access.md) with `psql` or the proxy. This does not affect workload traffic.
-
-## Switch workloads to the restored branch
-
-To move only one workload, [pin it to the restored branch](use-in-workload.md#select-a-branch) instead of activating the branch for all workloads that follow the active branch.
-
-When the restored data is correct, pause writes from workloads that will move and request activation:
+## Clone the database
 
 === "CLI"
 
+    Clone from the latest available point, about 10 minutes ago:
+
     ```bash
-    nais postgres branch activate <POSTGRES-NAME> <NEW-BRANCH> --team <TEAM> --environment <ENVIRONMENT>
+    nais postgres clone <SOURCE-POSTGRES-NAME> <NEW-POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT>
     ```
 
-    Run `branch list` again until the new branch shows `Ready` and is marked active.
+    To restore to a specific time instead, add `--at`:
+
+    ```bash
+    nais postgres clone <SOURCE-POSTGRES-NAME> <NEW-POSTGRES-NAME> \
+      --team <TEAM> \
+      --environment <ENVIRONMENT> \
+      --at "2026-11-16 12:00"
+    ```
+
+    Times without an offset use your computer's local time zone. Use RFC3339 with `Z` or an explicit offset to specify an absolute time, for example `2026-11-16T12:00:00Z`.
+
+    Review the configuration and confirm. To override the source's resource or high-availability settings, see the [clone flags](../reference/cloning.md#cli-flags).
+
+    Check progress with:
+
+    ```bash
+    nais postgres get <NEW-POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT>
+    ```
+
+    Wait until **Clone status** is **Completed** and **Status** is **Ready**.
 
 === "Console"
 
-    1. Open **Branches** on the database's page.
-    2. Open the restored branch's action menu and select **Use as active**.
-    3. Confirm with **Use as active**.
-    4. Wait until the branch is marked active.
+    1. Open your team in [Nais Console :octicons-link-external-16:](https://console.nais.io) and select **Postgres**.
+    2. Select **Create Postgres**, then the **Clone existing database** tab.
+    3. Select the environment and source database, and enter a name for the new database.
+    4. Leave **Specify time** closed to use the latest available point, about 10 minutes ago. To restore to a specific time, open it and enter a time in your browser's local time zone, within the available recovery window.
+    5. Optionally, open **Customize resources** to change CPU, memory, disk size or high availability. Keep the disk at least as large as the source's.
+    6. Select **Clone database**. Follow the clone status on the new database's page and wait until cloning completes and the database is ready.
 
-Activation is asynchronous and does not move workloads pinned to another branch.
+If the source has no available recovery window, wait for its backups before trying again. If the default clone point is too early for a newly created source, wait or specify a time within its recovery window.
 
-Verify the workload's connection and data before allowing writes again. Existing database connections may still point to the old branch; restart or reconnect workloads as needed. Do not delete the old branch until workloads are using the new branch and you have verified the data.
+Do not connect workloads to a failed clone. See [Postgres cloning](../reference/cloning.md) for inherited settings, time limits and completion status.
+
+Inspect the cloned data by [connecting as a personal user](personal-access.md) with the new database's name. This does not affect workload traffic.
+
+## Move workloads to the clone
+
+1. Pause writes from the workloads you want to move.
+2. Change `uses.postgres[].name` in each workload's manifest to the new database's name:
+
+    ```yaml title="app.yaml"
+    spec:
+      uses:
+        postgres:
+          - name: <NEW-POSTGRES-NAME>
+    ```
+
+    Keep any existing `role` and `envPrefix` settings. See [Use Postgres in a workload](use-in-workload.md).
+
+3. Deploy the changed workloads and verify that they connect to the clone and use the expected data.
+4. Resume writes when verification is complete.
+
+Do not delete the source database until cloning has completed, you have verified the data and no workloads still use it.

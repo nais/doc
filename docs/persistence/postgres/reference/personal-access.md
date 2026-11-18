@@ -30,7 +30,8 @@ These settings log:
 | --- | --- |
 | `read` | Read data (default) |
 | `write` | Change data |
-| `admin` | Change database objects |
+| `admin` | Application database owner privileges |
+| `maintain` | Instance monitoring and maintenance through `pg_monitor` and `pg_maintain` |
 
 `--access-level <LEVEL>` selects the access level.
 
@@ -38,6 +39,5 @@ These settings log:
 
 | Flag | Description |
 | --- | --- |
-| `--reason` | Required. Reason for the access, minimum 10 characters |
+| `--reason` | Reason for the access, minimum 10 characters. Prompted interactively if omitted |
 | `--ttl` | How long the access lasts. Default 30 minutes, maximum 1 hour |
-| `--branch` | Branch to connect to. Defaults to the active branch |

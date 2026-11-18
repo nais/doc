@@ -9,7 +9,7 @@ Change CPU, memory, disk size or high availability. PostgreSQL 18 is the only su
 For a Postgres managed in Git, update the manifest. A later `nais apply` can overwrite changes made through the CLI or Console.
 
 !!! warning "Disk size"
-It is not possible to decrease the disk size, only increase it.
+    It is not possible to decrease the disk size, only increase it.
 
 === "GitOps"
 
