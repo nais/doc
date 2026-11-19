@@ -17,7 +17,7 @@ jobs:
           cache: true
 
       - name: Build documentation
-        run: mise run build nav ssb test-nais ldir atil ci-nais dev-nais miljodir novari
+        run: mise run build nav ssb test-nais ldir atil ci-nais dev-nais miljodir novari ks-digital
 
       - name: Upload generated doc artifact
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # ratchet:actions/upload-artifact@v7
@@ -55,6 +55,8 @@ jobs:
             bucket: doc.miljodir.cloud.nais.io
           - name: novari
             bucket: doc.novari.cloud.nais.io
+          - name: ks-digital
+            bucket: doc.ks-digital.cloud.nais.io
     steps:
       - name: Download generated doc artifact
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # ratchet:actions/download-artifact@v8

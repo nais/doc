@@ -66,7 +66,7 @@ From the repository root:
 mise run setup
 mise run check
 mise exec -- pnpm --dir svdoc run test:ui-pilot
-mise run build nav ssb test-nais ldir atil ci-nais dev-nais miljodir novari
+mise run build nav ssb test-nais ldir atil ci-nais dev-nais miljodir novari ks-digital
 ```
 
 `svdoc/.npmrc` maps the `@nais` scope to Nais's public Google Artifact Registry.
