@@ -21,7 +21,7 @@ Platform-managed secrets are provisioned by Nais on behalf of your workload, but
 List the environment variables for your workload and find the one you want, noting the secret it comes from:
 
 ```shell
-nais app env <MY-APP> --environment <MY-ENV> --output json \
+nais app env <MY-APP> --team <MY-TEAM> --environment <MY-ENV> --output json \
   | jq '.[] | select(.name == "<MY-ENV-VAR>") | .source.name'
 ```
 
@@ -29,7 +29,7 @@ nais app env <MY-APP> --environment <MY-ENV> --output json \
     If you're unsure which environment variable name to use, run the command without the `jq` filter to see all available variables:
 
     ```shell
-    nais app env <MY-APP> --environment <MY-ENV>
+    nais app env <MY-APP> --team <MY-TEAM> --environment <MY-ENV>
     ```
 
 The output is the name of the secret that contains the variable, for example:
@@ -43,7 +43,7 @@ The output is the name of the secret that contains the variable, for example:
 Fetch the full contents of that secret, providing a reason for audit purposes:
 
 ```shell
-nais secret get <SECRET-NAME> --environment <MY-ENV> --with-values --reason "<MY-REASON>" --output json
+nais secret get <SECRET-NAME> --team <MY-TEAM> --environment <MY-ENV> --with-values --reason "<MY-REASON>" --output json
 ```
 
 Replace `<MY-REASON>` with a short description of why you need access, such as a ticket reference or a brief explanation.
@@ -54,9 +54,9 @@ You can look up the secret name and retrieve its values in a single pipeline:
 
 ```shell
 nais secret get \
-  "$(nais app env <MY-APP> --environment <MY-ENV> --output json \
+  "$(nais app env <MY-APP> --team <MY-TEAM> --environment <MY-ENV> --output json \
     | jq -r '.[] | select(.name == "<MY-ENV-VAR>") | .source.name')" \
-  --environment <MY-ENV> --with-values --reason "<MY-REASON>" --output json
+  --team <MY-TEAM> --environment <MY-ENV> --with-values --reason "<MY-REASON>" --output json
 ```
 
 ## Related pages

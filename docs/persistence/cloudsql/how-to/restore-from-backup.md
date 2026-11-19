@@ -76,8 +76,10 @@ Use this when you want to roll the production database back to an earlier state.
     This overwrites all current data on the instance and causes downtime.
     Consider stopping the application first so it does not write to the database during the restore:
 
+    Note the application's current minimum and maximum replica counts before stopping it.
+
     ```bash
-    nais app stop <app-name>
+    nais app stop <app-name> --team <team> --environment <environment>
     ```
 
 === "gcloud"
@@ -101,10 +103,10 @@ Use this when you want to roll the production database back to an earlier state.
     3. In **Choose restore destination**, select **Overwrite the source instance**.
     4. Enter the instance name to confirm, then click **Restore**.
 
-Start the application again once the restore completes:
+Restore the application's previous minimum and maximum replica counts once the restore completes:
 
 ```bash
-nais app start <app-name>
+nais app set replicas <app-name> --team <team> --environment <environment> --min <min-replicas> --max <max-replicas>
 ```
 
 Verify that the application is running and that the data is as expected.

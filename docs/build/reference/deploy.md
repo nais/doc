@@ -24,10 +24,10 @@ nais apply <manifest> [flags]
 
 | Flag            | Description                                                     |
 |:----------------|:---------------------------------------------------------------|
-| `--environment` | The Nais environment to deploy to (e.g. `dev-gcp`, `prod-gcp`) |
+| `--environment` | Target environment; required unless a default is configured |
 | `--set`         | Override a value in the manifest (e.g. `--set spec.image=<image>`) |
 | `--wait`        | Block until the deployment has completed                        |
-| `--team`        | The team to deploy as (overrides config)                        |
+| `--team`        | The team to deploy as; required unless a default is configured |
 
 When no image is provided via `--set spec.image` and the manifest has no
 `spec.image` field, the CLI keeps whichever image is currently running.
@@ -57,18 +57,18 @@ For a complete base-plus-mixin example, see [Set up a complete deploy pipeline](
 Deploy to a single environment:
 
 ```bash
-nais apply .nais/app.yaml --environment dev-gcp --set spec.image="europe-north1-docker.pkg.dev/..." --wait
+nais apply .nais/app.yaml --team <MY-TEAM> --environment dev-gcp --set spec.image="europe-north1-docker.pkg.dev/..." --wait
 ```
 
 Deploy the same image to multiple environments:
 
 ```bash
-nais apply .nais/app.yaml --environment dev-gcp --set spec.image="$IMAGE" --wait
-nais apply .nais/app.yaml --environment prod-gcp --set spec.image="$IMAGE" --wait
+nais apply .nais/app.yaml --team <MY-TEAM> --environment dev-gcp --set spec.image="$IMAGE" --wait
+nais apply .nais/app.yaml --team <MY-TEAM> --environment prod-gcp --set spec.image="$IMAGE" --wait
 ```
 
 Deploy manifest-only changes, reusing the running image:
 
 ```bash
-nais apply .nais/app.yaml --environment dev-gcp --wait
+nais apply .nais/app.yaml --team <MY-TEAM> --environment dev-gcp --wait
 ```
