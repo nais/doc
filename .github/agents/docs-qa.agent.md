@@ -33,6 +33,7 @@ You never edit files. You report findings.
 4. **Default values** — are documented defaults correct per the CRD or operator source?
 5. **Feature availability** — does the docs page claim something exists that doesn't, or miss something that does?
 6. **Code example validity** — are YAML/JSON examples syntactically correct and using current API versions?
+7. **Tenant-specific values** — do environment names, domains, IPs and collector examples use `svdoc/src/lib/tenants.ts` through the shared macros, rather than assuming `dev`/`prod`?
 
 ## How To Verify a Page
 
@@ -46,6 +47,18 @@ You never edit files. You report findings.
    - Console → `nais/console-backend`
 4. Compare. Flag mismatches.
 5. Note claims you could not verify and what source you'd need.
+
+For pages using environment or telemetry macros, also read
+`svdoc/src/lib/tenants.ts` and `svdoc/src/lib/helpers/tenant-docs.ts`.
+The environment reference and Faro examples render from this shared data.
+Check the selected tenant's environment names and collector URLs, including CSP
+origins and the environment chosen for example URLs. The macro reference is in
+the contributor `README.md`.
+
+The tenant data is maintained manually. Agreement with it verifies documentation
+consistency, not the live platform configuration; flag that distinction when
+platform verification is required. Do not invent values for tenants marked as
+undocumented.
 
 ## Output Format
 

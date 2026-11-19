@@ -32,6 +32,24 @@ To build multiple tenants, use `mise run build nav ssb` from the repository root
 
 Set `BASE_PATH=/docs` to build for a URL prefix. Omit the trailing slash.
 
+## Tenant environment data
+
+[`src/lib/tenants.ts`](src/lib/tenants.ts) defines the environments, ingress
+domains, external IPs, observability defaults and frontend collector URLs used by
+the docs. Local development defaults to `nav`; builds validate the selected tenant
+before processing pages.
+
+Update that data instead of hardcoding values in Markdown. See the
+[contributor macro reference](../README.md#environment-and-collector-data) for
+usage and [Template Processing](INSTRUCTIONS.md#template-processing) for renderer
+behavior.
+
+Run the tenant and template regression tests from this directory:
+
+```sh
+pnpm test src/lib/helpers/tenant-docs.test.ts src/lib/helpers/templates.test.ts
+```
+
 ## UI
 
 Components live in `src/lib/shadcn/ui/`, following console-frontend's local

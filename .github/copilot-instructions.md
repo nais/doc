@@ -29,6 +29,8 @@ This repository contains the main documentation for the Nais developer platform,
     - Use tables, lists, and code blocks for clarity.
     - Avoid narrative or instructional content; focus on factual accuracy.
 - Always match the Nais platform’s current setup, tools, and conventions.
+- Use `svdoc/src/lib/tenants.ts` as the doc-local source for environment names, domains, external IPs, observability defaults, and frontend collector URLs. Use the environment and telemetry macros listed in `README.md`; do not duplicate values in Markdown or construct collector URLs with `tenant_url()`.
+- Do not assume every tenant has `dev` and `prod`. Use "non-production" for general advice and the configured environment names for tenant-specific content.
 - Prefer Markdown formatting for documentation, including code blocks and tables where appropriate.
 - Avoid verbose or redundant suggestions; prioritize clarity and relevance.
 - Suggestions should complement, not replace, human-written content.

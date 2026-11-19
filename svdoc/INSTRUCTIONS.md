@@ -218,8 +218,37 @@ The `src/lib/helpers/templates.ts` module processes Jinja-like templates:
 
 ### Variables
 
-- `<<tenant()>>` - Tenant name
-- `<<tenant_url("path")>>` - Tenant-specific URL
+- `<<tenant()>>` - Tenant name, defaulting to `nav` when `TENANT` is unset
+- `<<tenant_url("console", "path")>>` - Tenant-specific service URL with an optional path
+
+### Tenant environment data
+
+`src/lib/tenants.ts` is the doc-local source of truth for environment names,
+ingress domains, external IPs, observability defaults and frontend collector URLs.
+Collector URLs are explicit values, not derived from tenant or environment names.
+
+`src/lib/helpers/tenant-docs.ts` renders this data through these template macros:
+
+- `<<environment_reference()>>` - Environment details
+- `<<telemetry_collectors()>>` - Collector endpoint table
+- `<<telemetry_csp_sources()>>` - Unique collector origins, without paths, for CSP `connect-src`
+- `<<telemetry_collector_url()>>` - Example collector URL
+- `<<telemetry_environment()>>` - Environment used by that example
+
+Examples prefer a production environment with a collector, otherwise the first
+environment with a collector. Set `telemetryCollectorUrl: null` for environments
+without frontend collectors. These environments are omitted from collector
+tables and CSP sources.
+
+Unknown tenants and invalid collector configuration fail validation in
+`vite.config.ts` before pages are processed. Tenants with no documented
+environments need an empty environment list and an explicit `notice`; their
+examples use placeholders instead of invented endpoints. `tenant_url()` rejects
+collector URL construction so callers cannot bypass the shared data.
+
+Update the tenant data rather than duplicating values in Markdown. Do not assume
+every tenant uses `dev`/`prod`. Regression tests live in
+`src/lib/helpers/tenant-docs.test.ts` and `src/lib/helpers/templates.test.ts`.
 
 ### Includes
 

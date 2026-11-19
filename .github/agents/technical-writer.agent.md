@@ -96,6 +96,20 @@ Available macros:
 | --- | --- |
 | `<<tenant()>>` | Current tenant name (`nav`) |
 | `<<tenant_url("console")>>` | Tenant-specific console URL |
+| `<<environment_reference()>>` | Environment details for the current tenant |
+| `<<telemetry_collectors()>>` | Collector endpoint table |
+| `<<telemetry_csp_sources()>>` | Collector origins for CSP `connect-src` |
+| `<<telemetry_collector_url()>>` | Example collector URL, preferring production |
+| `<<telemetry_environment()>>` | Environment used by the example collector URL |
+
+Environment names, ingress domains, external IPs, observability defaults and
+frontend collector URLs are defined in `svdoc/src/lib/tenants.ts`. Update that
+definition instead of duplicating values in Markdown. Use the environment and
+telemetry macros above; `tenant_url()` rejects collector URL construction.
+
+Do not assume every tenant has `dev` and `prod`. Use "non-production" for general
+advice and the configured environment names for tenant-specific content. The
+contributor `README.md` documents how missing tenant data is handled.
 
 Conditional content:
 

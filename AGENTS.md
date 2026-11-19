@@ -110,6 +110,21 @@ Jinja-like syntax with `<<` `>>` delimiters (**not** `{{` `}}`).
 | --- | --- |
 | `<<tenant()>>` | Current tenant name (e.g. `nav`) |
 | `<<tenant_url("console")>>` | Tenant-specific console URL |
+| `<<environment_reference()>>` | Environment details for the current tenant |
+| `<<telemetry_collectors()>>` | Collector endpoint table |
+| `<<telemetry_csp_sources()>>` | Collector origins for CSP `connect-src` |
+| `<<telemetry_collector_url()>>` | Example collector URL, preferring production |
+| `<<telemetry_environment()>>` | Environment used by the example collector URL |
+
+`svdoc/src/lib/tenants.ts` is the doc-local source of truth for environment names,
+ingress domains, external IPs, observability defaults and frontend collector URLs.
+Update that definition, not generated tables or tenant-specific copies in Markdown.
+Use the macros above for environment and collector data. `tenant_url()` must not
+be used to construct collector URLs.
+
+Do not assume tenants have `dev` and `prod` environments. Use "non-production"
+in general advice and the configured names in tenant-specific content. See
+`README.md` under "Environment and collector data" for missing-data handling.
 
 Conditional content:
 
@@ -169,6 +184,9 @@ Serve a tenant-specific build:
 ```bash
 TENANT=nav NOT_TENANT=not-nav mise run local:dev
 ```
+
+Local development defaults to `nav` when `TENANT` is unset. Builds validate the
+selected tenant before processing pages.
 
 Build tenant outputs into `out/<tenant>/`:
 
