@@ -23,6 +23,7 @@ version: v1
 type: Postgres
 name: mypostgres
 spec:
+  activeBranch: main
   extensions:
     - name: postgis
   highAvailability: true
