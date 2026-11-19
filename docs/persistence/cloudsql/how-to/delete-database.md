@@ -1,13 +1,56 @@
 ---
-title: Deleting the database
+title: Delete a Cloud SQL instance
 tags: [postgres, delete, database, how-to]
 ---
 
-The database is not automatically removed when deleting your Nais application. Remove unused databases to avoid incurring unnecessary costs. This is done by setting [cascadingDelete](../../../workloads/application/reference/spec.md#gcpsqlinstancescascadingdelete) in your `nais.yaml`-specification.
+Delete a Cloud SQL instance without deleting your application. Deleting the application doesn't delete the instance by default.
 
-To remove a database completely without deleting the application:
+## Enable cascading deletion
 
-1. First, set [cascadingDelete](../../../workloads/application/reference/spec.md#gcpsqlinstancescascadingdelete) to `true` in the application spec and deploy it
-2. Remove `sqlInstances` from the application spec and deploy again
+Set [cascadingDelete](../../../workloads/application/reference/spec.md#gcpsqlinstancescascadingdelete) to `true` on the instance in your application manifest:
 
-The database and the instance it runs on should now be completely removed after a short while.
+```yaml title="app.yaml" hl_lines="5"
+spec:
+  gcp:
+    sqlInstances:
+      - type: POSTGRES_17
+        cascadingDelete: true
+        databases:
+          - name: mydb
+```
+
+[Deploy your application](../../../build/how-to/build-and-deploy.md) with the instance still in the manifest. Wait for the deployment to succeed before removing the instance.
+
+## Remove the instance from the manifest
+
+Remove `sqlInstances` from `spec.gcp`. Keep any other settings under `gcp`. If none remain, remove `gcp` too, as shown below:
+
+```diff title="app.yaml"
+spec:
+-  gcp:
+-    sqlInstances:
+-      - type: POSTGRES_17
+-        cascadingDelete: true
+-        databases:
+-          - name: mydb
+```
+
+Deploy your application again. Nais deletes the instance after the deployment.
+
+## Verify deletion
+
+=== "Console"
+
+    1. Open [Nais Console](<<tenant_url("console")>>) and select your team.
+    2. Select **Cloud SQL**.
+    3. Check that the instance no longer appears in the list for its environment.
+
+=== "CLI"
+
+    List the Cloud SQL instances for your team and environment:
+
+    ```bash
+    nais cloudsql list --team <TEAM> --environment <ENVIRONMENT>
+    ```
+
+    Check that the instance no longer appears in the output.
