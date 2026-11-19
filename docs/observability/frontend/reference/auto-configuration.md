@@ -28,10 +28,9 @@ spec:
 
 The platform creates a JavaScript file at the specified `mountPath` with this structure:
 
-{% if tenant() == "nav" %}
 ```js
 export default {
-  telemetryCollectorURL: 'https://telemetry.nav.no/collect',
+  telemetryCollectorURL: '<<telemetry_collector_url()>>',
   app: {
     name: 'my-app',        // from metadata.name in nais.yaml
     namespace: 'my-team',  // from metadata.namespace in nais.yaml
@@ -39,18 +38,8 @@ export default {
   },
 };
 ```
-{% else %}
-```js
-export default {
-  telemetryCollectorURL: '<<tenant_url("telemetry.external.prod", "collect")>>',
-  app: {
-    name: 'my-app',        // from metadata.name in nais.yaml
-    namespace: 'my-team',  // from metadata.namespace in nais.yaml
-    version: '2024-03-15-abc1234', // extracted from your container image tag
-  },
-};
-```
-{% endif %}
+
+The example URL is for `<<telemetry_environment()>>`.
 
 | Field                  | Source                                    |
 | ---------------------- | ----------------------------------------- |
@@ -59,7 +48,7 @@ export default {
 | `app.namespace`        | `metadata.namespace` from your `nais.yaml` |
 | `app.version`          | Tag from your container image              |
 
-The collector URL is set automatically based on which cluster your app runs in — you don't need separate config for dev and prod.
+The collector URL is set automatically based on which cluster your app runs in. You don't need separate configuration for each environment.
 
 ## Environment variable
 
@@ -74,16 +63,11 @@ This is useful for server-rendered applications (Next.js, Remix) where the serve
 !!! warning "`NEXT_PUBLIC_` env vars are build-time only"
     Don't re-export this as a `NEXT_PUBLIC_*` variable. Next.js inlines `NEXT_PUBLIC_*` values at `next build` time, so they won't reflect the runtime pod environment.
 
-{% if tenant() == "nav" %}
 ## Collector URLs by environment
 
-| Cluster     | Collector URL                                  |
-| ----------- | ---------------------------------------------- |
-| `prod-gcp`  | `https://telemetry.nav.no/collect`             |
-| `dev-gcp`   | `https://telemetry.ekstern.dev.nav.no/collect` |
+<<telemetry_collectors()>>
 
-On-premises clusters (`prod-fss`, `dev-fss`) are not supported.
-{% endif %}
+On-premises clusters are not supported.
 
 ## When to use auto-configuration
 
@@ -91,8 +75,4 @@ On-premises clusters (`prod-fss`, `dev-fss`) are not supported.
 
 **Server-rendered apps (Next.js, Remix):** Read `NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL` on the server and pass it to your client-side Faro initialization. See the [Next.js guide](../how-to/setup-nextjs.md).
 
-{% if tenant() == "nav" %}
-**Simple alternative:** Use `https://telemetry.nav.no/collect` directly in your production code. The URL is stable and all production clusters use the same endpoint.
-{% else %}
-**Simple alternative:** Use `<<tenant_url("telemetry.external.prod", "collect")>>` directly in your production code. The URL is stable and all production clusters use the same endpoint.
-{% endif %}
+**Manual alternative:** The collector URL for `<<telemetry_environment()>>` is `<<telemetry_collector_url()>>`. Other environments use the URLs listed above.

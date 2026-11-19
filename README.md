@@ -4,6 +4,30 @@ See the [Nais handbook](https://handbook.nais.io/technical/doc-guidelines/) for 
 
 ## Tools for working with tenants
 
+### Environment and collector data
+
+[`svdoc/src/lib/tenants.ts`](svdoc/src/lib/tenants.ts) is the doc-local source of
+truth for environment names, ingress domains, external IPs, observability defaults
+and frontend collector URLs. Update it when a tenant's configuration changes.
+Collector URLs are explicit values, not derived from environment or tenant names.
+Set `telemetryCollectorUrl: null` for environments without a frontend collector.
+
+Use these macros instead of hardcoding environment-specific values:
+
+| Macro | Output |
+| --- | --- |
+| `<<environment_reference()>>` | Environment details for the current tenant |
+| `<<telemetry_collectors()>>` | Collector endpoint table |
+| `<<telemetry_csp_sources()>>` | Collector origins for CSP `connect-src` |
+| `<<telemetry_collector_url()>>` | Example collector URL, preferring a production environment |
+| `<<telemetry_environment()>>` | Environment used by the example collector URL |
+
+Unknown tenants fail rendering. Tenants whose environments are not documented
+must have an explicit `notice` and an empty environment list. Their pages show
+the notice and use editable placeholders rather than invented endpoints.
+Local development defaults to `nav` when `TENANT` is unset. Builds validate the
+selected tenant before processing pages.
+
 ### Warning about features not available in test-nais
 
 If a page should have a warning about not being available in test-nais, add the following near the top of the page:

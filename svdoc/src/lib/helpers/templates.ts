@@ -1,5 +1,12 @@
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
+import {
+	environmentReference,
+	telemetryCollectors,
+	telemetryCollectorUrl,
+	telemetryCspSources,
+	telemetryEnvironment,
+} from "./tenant-docs.ts";
 
 /**
  * Get environment variable value
@@ -13,13 +20,16 @@ function getEnv(key: string, defaultValue: string = ""): string {
  * Get the tenant name
  */
 function tenant(): string {
-	return getEnv("TENANT", "tenant");
+	return getEnv("TENANT", "nav");
 }
 
 /**
  * Get the tenant URL for a service
  */
 function tenantUrl(app: string, path: string = ""): string {
+	if (app.startsWith("telemetry.external.")) {
+		throw new Error("Use telemetry_collector_url() or telemetry_csp_sources() for collector URLs.");
+	}
 	const tenantName = tenant();
 	if (tenantName === "nav" && app === "cdn") {
 		return `https://cdn.nav.no/${path}`;
@@ -102,6 +112,16 @@ function callTemplateFunction(funcName: string, args: string[], context: Templat
 			return context.tenant;
 		case "tenant_url":
 			return context.tenantUrl(args[0] || "", args[1] || "");
+		case "environment_reference":
+			return environmentReference(context.tenant);
+		case "telemetry_collectors":
+			return telemetryCollectors(context.tenant);
+		case "telemetry_collector_url":
+			return telemetryCollectorUrl(context.tenant);
+		case "telemetry_csp_sources":
+			return telemetryCspSources(context.tenant);
+		case "telemetry_environment":
+			return telemetryEnvironment(context.tenant);
 		case "naisdevice_name":
 			return context.naisdeviceName;
 		case "gcp_only":

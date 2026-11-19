@@ -33,10 +33,10 @@ spec:
 
 Typical values:
 
-| Application type            | CPU request (prod) | CPU request (dev) |
-| :-------------------------- | :----------------- | :---------------- |
-| Frontend                    | 20m                | 10m               |
-| Backend (Ktor, Spring Boot) | 30m                | 10m               |
+| Application type            | CPU request (production) | CPU request (non-production) |
+| :-------------------------- | :----------------------- | :--------------------------- |
+| Frontend                    | 20m                      | 10m                          |
+| Backend (Ktor, Spring Boot) | 30m                      | 10m                          |
 
 !!! info
     Don't set a CPU limit. Removing it lets the application burst freely when it needs more CPU, without paying for reserved capacity it rarely uses.
@@ -63,9 +63,9 @@ spec:
 
 ## Replicas
 
-### Reduce minimum replicas in dev
+### Reduce minimum replicas in non-production environments
 
-The default minimum is 2 replicas. Dev environments that don't need high availability can run with 1:
+The default minimum is 2 replicas. Non-production environments that don't need high availability can run with 1:
 
 ```yaml title="app.yaml" hl_lines="3"
 spec:
@@ -74,7 +74,7 @@ spec:
     max: 2
 ```
 
-This halves the base cost for that workload in dev.
+This halves the base cost for that workload in that environment.
 
 ### Lower maximum replicas
 
@@ -93,9 +93,9 @@ See the [automatic scaling reference](../application/reference/automatic-scaling
 
 Database instances are often the largest line item on the Cost page.
 
-### Use a smaller tier in dev
+### Use a smaller tier in non-production environments
 
-Dev databases rarely need production-grade hardware. Switch to the smallest available tier:
+Non-production databases rarely need production-grade hardware. Switch to the smallest available tier:
 
 ```yaml title="app.yaml" hl_lines="5"
 spec:
@@ -108,7 +108,7 @@ spec:
 ```
 
 !!! warning
-    `db-f1-micro` does not have an SLA. This is fine for dev, but not for production.
+    `db-f1-micro` does not have an SLA. Use it only for non-production databases that don't need an SLA.
 
 ### Right-size your production database
 

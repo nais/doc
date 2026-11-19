@@ -43,12 +43,11 @@ npm install @grafana/faro-web-tracing
 
 Initialize Faro as early as possible in your application so it captures all errors and page loads.
 
-{% if tenant() == "nav" %}
 ```js
 import { initializeFaro, getWebInstrumentations } from '@grafana/faro-web-sdk';
 
 const faro = initializeFaro({
-  url: 'https://telemetry.nav.no/collect',
+  url: '<<telemetry_collector_url()>>',
   paused: window.location.hostname === 'localhost',
   app: {
     name: 'my-app',       // required — must match metadata.name in nais.yaml
@@ -60,24 +59,8 @@ const faro = initializeFaro({
   ],
 });
 ```
-{% else %}
-```js
-import { initializeFaro, getWebInstrumentations } from '@grafana/faro-web-sdk';
 
-const faro = initializeFaro({
-  url: '<<tenant_url("telemetry.external.prod", "collect")>>',
-  paused: window.location.hostname === 'localhost',
-  app: {
-    name: 'my-app',       // required — must match metadata.name in nais.yaml
-    namespace: 'my-team', // required — must match metadata.namespace in nais.yaml
-    version: '1.0.0',     // optional — useful for comparing behavior across deploys
-  },
-  instrumentations: [
-    ...getWebInstrumentations(),
-  ],
-});
-```
-{% endif %}
+The URL above is for `<<telemetry_environment()>>`. For other environments, use the [collector endpoints](../README.md#collector-endpoints) or auto-configuration.
 
 !!! warning "Use the same name and namespace as your Nais app"
     `app.name` and `app.namespace` must match `metadata.name` and `metadata.namespace` in your `nais.yaml`. Nais APM uses these fields to group frontend telemetry with your app — if they don't match, your frontend data appears as a separate service in the APM service list.
@@ -100,7 +83,7 @@ app: {
 
 ## Auto-configuration
 
-The platform can generate the collector URL and app metadata for you. This is the recommended approach for static frontends (nginx, CDN) since the URL is set per cluster — no separate config for dev and prod.
+The platform can generate the collector URL and app metadata for you. This is the recommended approach for static frontends (nginx, CDN) since the URL is set per cluster. You don't need separate configuration for each environment.
 
 Add this to your `nais.yaml`:
 
@@ -303,15 +286,9 @@ The function receives the browser `Location` object and returns a string that id
 
 If your application uses a Content Security Policy, add the collector endpoint to `connect-src`:
 
-{% if tenant() == "nav" %}
+```text
+connect-src 'self' <<telemetry_csp_sources()>>;
 ```
-connect-src 'self' https://telemetry.nav.no https://telemetry.ekstern.dev.nav.no;
-```
-{% else %}
-```
-connect-src 'self' <<tenant_url("telemetry.external.prod")>> <<tenant_url("telemetry.external.dev")>>;
-```
-{% endif %}
 
 Without this, the browser blocks Faro's requests to the collector. See [Troubleshooting](../reference/troubleshooting.md) for more details.
 

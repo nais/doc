@@ -72,17 +72,7 @@ After the basic setup, check that you have these configured:
 
 The collector URL tells Faro where to send telemetry data. If you use the [auto-configuration](how-to/setup-faro.md#auto-configuration) in `nais.yaml`, this is set for you.
 
-{% if tenant() == "nav" %}
-| Collector endpoint                             | Environment |
-| ---------------------------------------------- | ----------- |
-| `https://telemetry.nav.no/collect`             | `prod`      |
-| `https://telemetry.ekstern.dev.nav.no/collect` | `dev`       |
-{% else %}
-| Collector endpoint                                     | Environment |
-| ------------------------------------------------------ | ----------- |
-| `<<tenant_url("telemetry.external.prod", "collect")>>` | `prod`      |
-| `<<tenant_url("telemetry.external.dev", "collect")>>`  | `dev`       |
-{% endif %}
+<<telemetry_collectors()>>
 
 On-premises clusters are not supported.
 

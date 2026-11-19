@@ -33,7 +33,7 @@ const DOCS_DIR = resolve(process.cwd(), "../docs");
 // Environment variables for tenant-based filtering
 // TENANT: the current tenant (e.g., "ssb", "nav")
 // NOT_TENANT: exclusion tag with "not-" prefix (e.g., "not-ssb", "not-nav")
-const TENANT = process.env.TENANT?.toLowerCase() || "";
+const TENANT = process.env.TENANT?.toLowerCase() || "nav";
 const NOT_TENANT = process.env.NOT_TENANT?.toLowerCase() || "";
 
 // Log levels: "debug" | "info" | "warn" | "error" | "none"

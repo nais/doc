@@ -11,15 +11,9 @@ If your application uses a Content Security Policy, the browser blocks Faro's re
 
 Add the collector endpoint to `connect-src`:
 
-{% if tenant() == "nav" %}
+```text
+connect-src 'self' <<telemetry_csp_sources()>>;
 ```
-connect-src 'self' https://telemetry.nav.no https://telemetry.ekstern.dev.nav.no;
-```
-{% else %}
-```
-connect-src 'self' <<tenant_url("telemetry.external.prod")>> <<tenant_url("telemetry.external.dev")>>;
-```
-{% endif %}
 
 **Symptoms:** No data appears in Grafana. Browser console shows errors like `Refused to connect to '...' because it violates the following Content Security Policy directive: "connect-src ..."`.
 
@@ -41,7 +35,7 @@ If you've deployed Faro but don't see data:
 
 1. **Check the browser console** — look for errors from Faro or network errors to the collector endpoint
 2. **Check the Network tab** — filter for requests to the collector URL. You should see POST requests with a `2xx` response
-3. **Check the collector URL** — make sure it matches your environment (dev vs prod). See [collector endpoints](../README.md#collector-endpoints)
+3. **Check the collector URL** — make sure it matches your environment. See [collector endpoints](../README.md#collector-endpoints)
 4. **Check CSP** — see above
 5. **Check sampling** — if you set `sessionTracking.samplingRate`, your session might not be sampled. Try setting it to `1.0` temporarily
 6. **Wait a moment** — data can take up to a minute to appear in Grafana
