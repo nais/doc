@@ -36,6 +36,21 @@ Required: `false`<br />
       activeBranch: main
     ```
 
+## autoExplain
+AutoExplain logs JSON execution plans for statements taking at least one second.
+Includes actual row counts and buffer usage, with per-node timing and parameter
+values disabled. Adds instrumentation overhead. Enabling or disabling it on
+an existing cluster requires a rolling restart.
+
+Type: `boolean`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      autoExplain: true
+    ```
+
 ## extensions
 Extensions to activate in the application database. Removing an entry drops the extension
 (without CASCADE); postgis and timescaledb stay mounted and preloaded until the drop
