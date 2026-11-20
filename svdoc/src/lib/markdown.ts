@@ -6,6 +6,7 @@ import { getGitInfo } from "./helpers/git";
 import { getIconSvg, isIconShortcode } from "./helpers/icons";
 import { preHighlightCodeTokens } from "./helpers/shiki";
 import { processTemplates } from "./helpers/templates";
+import { initTenantData } from "./helpers/tenant-data.ts";
 import type {
 	AdmonitionToken,
 	AnnotatedCodeToken,
@@ -711,6 +712,9 @@ export async function readMarkdownFile(
 
 	// Get git information for the file
 	const gitInfo = getGitInfo(path);
+
+	// Fetch tenant data (external IPs, Kafka pools) once per build
+	await initTenantData();
 
 	// Process template variables (<<tenant()>>, <<tenant_url("...")>>, etc.)
 	// Pass file path for resolving {% include %} statements

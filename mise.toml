@@ -26,7 +26,7 @@ depends = ["setup"]
 run = "mise run local:dev"
 
 [tasks.build]
-description = "Build svdoc for one or more tenants. Usage: mise run build nav ssb"
+description = "Build svdoc for one or more tenants. Usage: mise run build nav ssb (default: all tenants discovered from the nais-tenant-data bucket)"
 depends = ["setup"]
 dir = "svdoc"
 run = '''
@@ -34,8 +34,14 @@ run = '''
 set -euo pipefail
 
 if [ "$#" -eq 0 ]; then
-  echo "Usage: mise run build <tenant> [<tenant>...]" >&2
-  exit 1
+  echo "No tenants specified, discovering from nais-tenant-data bucket"
+  NAMES="$(node scripts/list-tenants.mjs --names)"
+  if [ -z "$NAMES" ]; then
+    echo "No tenants discovered in bucket" >&2
+    exit 1
+  fi
+  # shellcheck disable=SC2086 # tenant names contain no spaces
+  set -- $NAMES
 fi
 
 rm -rf ../out

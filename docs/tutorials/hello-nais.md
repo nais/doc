@@ -109,7 +109,7 @@ touch .github/workflows/main.yaml
 Add the following content to the file, and insert the appropriate values in the placeholders on the highlighted lines:
 ???+ note ".github/workflows/main.yaml"
 
-    ```yaml hl_lines="21 {%- if tenant() == "test-nais" %} 36 41{% else %} 34 39{% endif %}"
+    ```yaml hl_lines="21 {%- if not publishes_deploy_data() %} 36 41{% else %} 34 39{% endif %}"
     name: Build and deploy
     on:
       push:
@@ -131,9 +131,9 @@ Add the following content to the file, and insert the appropriate values in the 
             id: docker-build-push
             with:
               team: <MY-TEAM> # Replace
-{%- if tenant() == "test-nais" %}
-              project_id: nais-management-ddba
-              identity_provider: projects/636929582051/locations/global/workloadIdentityPools/test-nais-identity-pool/providers/github-oidc-provider
+{%- if not publishes_deploy_data() %}
+              project_id: <<management_project_id()>>
+              identity_provider: <<identity_provider()>>
 {%- endif %}
 
       deploy:

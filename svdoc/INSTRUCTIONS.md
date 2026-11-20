@@ -221,30 +221,65 @@ The `src/lib/helpers/templates.ts` module processes Jinja-like templates:
 - `<<tenant()>>` - Tenant name, defaulting to `nav` when `TENANT` is unset
 - `<<tenant_url("console", "path")>>` - Tenant-specific service URL with an optional path
 
+### Loops
+
+`{% for env in environments() %}...{% endfor %}` iterates the current tenant's
+environments (alphabetical, `prod` last). Loop fields are typed records from
+`src/lib/helpers/tenant-docs.ts`: `env.name`, `env.domains` (each with `name`
+and `external`), `env.externalIps`, `env.defaultLogDestination`. Use
+`{% if not has_environments() %}` for tenants without documented environments.
+
+Loops nest (`for` inside `for`), conditionals work inside loop bodies with
+record fields (`{% if d.external %}`), dot paths work in variables
+(`<<env.name>>`), and macros accept record fields as arguments
+(`<<external_ips(env.name)>>`). Prose belongs in the Markdown loop bodies —
+`environments()` returns structure only.
+
+Domain lists are classified before rendering: product domains (not under the
+tenant's own domain or cloud.nais.io) are dropped, legacy `-gcp.` aliases are
+hidden, `authenticated.*` is hidden when a dedicated `ansatt.*` domain exists,
+and the `external.*.cloud.nais.io` fallback is hidden when the environment has
+a dedicated external domain. The full unfiltered list stays in the bucket
+data; this is presentation only.
+
 ### Tenant environment data
 
-`src/lib/tenants.ts` is the doc-local source of truth for environment names,
-ingress domains, external IPs, observability defaults and frontend collector URLs.
-Collector URLs are explicit values, not derived from tenant or environment names.
+Tenant values come from the public `nais-tenant-data` GCS bucket, written by
+nais-terraform-modules on every apply:
 
-`src/lib/helpers/tenant-docs.ts` renders this data through these template macros:
+- `docs/<tenant>/tenant.json` — tenant name, domain, console URL, doc publish
+  buckets, management project id, workload identity provider
+- `docs/<tenant>/<env>.json` — external IPs, Kafka pool, ingress domains, log
+  destinations, and (when it cannot be derived) the telemetry collector URL
 
-- `<<environment_reference()>>` - Environment details
+`src/lib/helpers/tenant-data.ts` fetches and caches these at build time.
+Missing data yields placeholders — the build never fails on absent tenant data.
+
+`src/lib/helpers/tenant-docs.ts` and `src/lib/helpers/templates.ts` render this
+data through template macros:
+
+- `<<external_ips("prod")>>` - Bullet list of the environment's outbound IPs
+- `<<kafka_pools()>>` - Kafka pool table, or a "no pools" note
+- `<<log_destinations()>>` - Available log destinations
+- `<<default_log_destination()>>` - Default log destination (prod env's default, else first env's)
+- `<<example_domain("external")>>` - Representative ingress domain for examples
+- `<<management_project_id()>>` / `<<identity_provider()>>` - Deploy values
+- `<<publishes_deploy_data()>>` - For `{% if %}` conditions in deploy examples
 - `<<telemetry_collectors()>>` - Collector endpoint table
 - `<<telemetry_csp_sources()>>` - Unique collector origins, without paths, for CSP `connect-src`
 - `<<telemetry_collector_url()>>` - Example collector URL
 - `<<telemetry_environment()>>` - Environment used by that example
 
-Examples prefer a production environment with a collector, otherwise the first
-environment with a collector. Set `telemetryCollectorUrl: null` for environments
-without frontend collectors. These environments are omitted from collector
-tables and CSP sources.
-
-Unknown tenants and invalid collector configuration fail validation in
-`vite.config.ts` before pages are processed. Tenants with no documented
-environments need an empty environment list and an explicit `notice`; their
-examples use placeholders instead of invented endpoints. `tenant_url()` rejects
-collector URL construction so callers cannot bypass the shared data.
+Collector URLs are resolved by Terraform before publishing: an explicit
+override (`telemetry_collector_domain`, used by nav) wins, otherwise the URL
+is derived from the environment's `external.*.cloud.nais.io` ingress domain
+(falling back to the default external domain). Environments without a
+collector URL, such as on-prem (which is not published at all), are omitted
+from collector tables and CSP sources. The tenant object also carries
+`otlpInternetEndpoint`, the internet-facing OTLP collector for workloads
+outside the tenant clusters. Examples prefer the `prod` environment,
+otherwise the first. `tenant_url()` rejects collector URL construction so
+callers cannot bypass the shared data.
 
 Update the tenant data rather than duplicating values in Markdown. Do not assume
 every tenant uses `dev`/`prod`. Regression tests live in

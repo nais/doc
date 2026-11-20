@@ -231,22 +231,8 @@ Here are some suggestions depending on what HTTP status code you might receive f
       service:
         protocol: http
       ingresses:
-{%- if tenant() == "nav" %}
-        - https://myapplication.nav.no
-        - https://myapplication.intern.nav.no
-{%- elif tenant() == "ssb" %}
-        - https://myapplication.ssb.no
-        - https://myapplication.intern.ssb.no
-{%- elif tenant() == "atil" %}
-        - https://myapplication.external.prod.atil.cloud.nais.io
-        - https://myapplication.prod.atil.cloud.nais.io
-{%- elif tenant() == "ldir" %}
-        - https://myapplication.landbruksdirektoratet.no
-        - https://myapplication.intern.landbruksdirektoratet.no
-{%- elif tenant() == "test-nais" %}
-        - https://myapplication.external.sandbox.test-nais.cloud.nais.io
-        - https://myapplication.sandbox.test-nais.cloud.nais.io
-{%- endif %}
+        - https://myapplication.<<example_domain("external")>>
+        - https://myapplication.<<example_domain("internal")>>
     ```
 
 === "ingress.yaml"
@@ -262,17 +248,7 @@ Here are some suggestions depending on what HTTP status code you might receive f
     spec:
       ingressClassName: external-haproxy
       rules:
-{%- if tenant() == "nav" %}
-        - host: myapplication.nav.no
-{%- elif tenant() == "ssb" %}
-        - host: myapplication.ssb.no
-{%- elif tenant() == "atil" %}
-        - host: myapplication.external.prod.atil.cloud.nais.io
-{%- elif tenant() == "ldir" %}
-        - host: myapplication.landbruksdirektoratet.no
-{%- elif tenant() == "test-nais" %}
-        - host: myapplication.external.sandbox.test-nais.cloud.nais.io
-{%- endif %}
+        - host: myapplication.<<example_domain("external")>>
           http:
             paths:
               - path: /
@@ -294,17 +270,7 @@ Here are some suggestions depending on what HTTP status code you might receive f
     spec:
       ingressClassName: internal-haproxy
       rules:
-{%- if tenant() == "nav" %}
-        - host: myapplication.intern.nav.no
-{%- elif tenant() == "ssb" %}
-        - host: myapplication.intern.ssb.no
-{%- elif tenant() == "atil" %}
-        - host: myapplication.prod.atil.cloud.nais.io
-{%- elif tenant() == "ldir" %}
-        - host: myapplication.intern.landbruksdirektoratet.no
-{%- elif tenant() == "test-nais" %}
-        - host: myapplication.sandbox.test-nais.cloud.nais.io
-{%- endif %}
+        - host: myapplication.<<example_domain("internal")>>
           http:
             paths:
               - path: /

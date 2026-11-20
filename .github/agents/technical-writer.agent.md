@@ -96,20 +96,30 @@ Available macros:
 | --- | --- |
 | `<<tenant()>>` | Current tenant name (`nav`) |
 | `<<tenant_url("console")>>` | Tenant-specific console URL |
-| `<<environment_reference()>>` | Environment details for the current tenant |
+| `<<external_ips("prod")>>` | Bullet list of the environment's outbound IPs (env name is the Terraform env name) |
+| `<<kafka_pools()>>` | Table of the tenant's Kafka pools, or a "no pools" note |
+| `<<log_destinations()>>` | List of the tenant's log destinations |
+| `<<default_log_destination()>>` | The tenant's default log destination (prod env's default, else first env's) |
+| `<<example_domain("external")>>` | Representative ingress domain for examples (`external` or `internal`) |
+| `<<management_project_id()>>` | Management GCP project id (deploy examples) |
+| `<<identity_provider()>>` | GitHub OIDC workload identity provider resource name |
+| `<<publishes_deploy_data()>>` | Whether the tenant publishes deploy data (for `{% if %}` conditions) |
 | `<<telemetry_collectors()>>` | Collector endpoint table |
 | `<<telemetry_csp_sources()>>` | Collector origins for CSP `connect-src` |
 | `<<telemetry_collector_url()>>` | Example collector URL, preferring production |
 | `<<telemetry_environment()>>` | Environment used by the example collector URL |
 
-Environment names, ingress domains, external IPs, observability defaults and
-frontend collector URLs are defined in `svdoc/src/lib/tenants.ts`. Update that
-definition instead of duplicating values in Markdown. Use the environment and
-telemetry macros above; `tenant_url()` rejects collector URL construction.
+Tenant values come from the public `nais-tenant-data` GCS bucket, written by
+nais-terraform-modules on every apply. Use the macros above for tenant values —
+never hardcode per-tenant values in Markdown or TypeScript. Prose belongs in the
+Markdown pages. `tenant_url()` rejects collector URL construction.
+
+Iterate environments with `{% for env in environments() %}`; loop bodies support
+record fields (`<<env.name>>`, `{% if d.external %}`) and macros with record
+arguments (`<<external_ips(env.name)>>`).
 
 Do not assume every tenant has `dev` and `prod`. Use "non-production" for general
-advice and the configured environment names for tenant-specific content. The
-contributor `README.md` documents how missing tenant data is handled.
+advice and the configured environment names for tenant-specific content.
 
 Conditional content:
 

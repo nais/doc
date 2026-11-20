@@ -34,20 +34,24 @@ Set `BASE_PATH=/docs` to build for a URL prefix. Omit the trailing slash.
 
 ## Tenant environment data
 
-[`src/lib/tenants.ts`](src/lib/tenants.ts) defines the environments, ingress
-domains, external IPs, observability defaults and frontend collector URLs used by
-the docs. Local development defaults to `nav`; builds validate the selected tenant
-before processing pages.
+Tenant values — environment names, ingress domains, external IPs, Kafka pools,
+log destinations, deploy values and frontend collector URLs — are fetched at
+build time from the public `nais-tenant-data` GCS bucket, written by
+nais-terraform-modules on every apply (`docs/<tenant>/tenant.json` and
+`docs/<tenant>/<env>.json`). See `src/lib/helpers/tenant-data.ts` for the
+loader and `src/lib/helpers/tenant-docs.ts` for collector URL derivation.
 
-Update that data instead of hardcoding values in Markdown. See the
-[contributor macro reference](../README.md#environment-and-collector-data) for
-usage and [Template Processing](INSTRUCTIONS.md#template-processing) for renderer
-behavior.
+Local development defaults to `nav`. Missing data (tenant not applied yet,
+offline dev) renders placeholders instead of failing the build. Keep prose in
+the Markdown pages and use the template macros for values — never hardcode
+per-tenant values in Markdown or TypeScript. See the
+[contributor macro reference](../README.md) and
+[Template Processing](INSTRUCTIONS.md#template-processing).
 
 Run the tenant and template regression tests from this directory:
 
 ```sh
-pnpm test src/lib/helpers/tenant-docs.test.ts src/lib/helpers/templates.test.ts
+pnpm test src/lib/helpers/tenant-docs.test.ts src/lib/helpers/tenant-data.test.ts src/lib/helpers/templates.test.ts
 ```
 
 ## UI

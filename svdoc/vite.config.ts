@@ -3,10 +3,7 @@ import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import tailwindcss from "@tailwindcss/vite";
 import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig } from "vite";
-import { getTenantConfig } from "./src/lib/tenants.ts";
 import { contentWatcherPlugin } from "./src/lib/vite-plugin-content-watcher.ts";
-
-getTenantConfig(process.env.TENANT || "nav");
 
 function isBasePath(value: string): value is "" | `/${string}` {
 	return value === "" || (value.startsWith("/") && !value.endsWith("/"));

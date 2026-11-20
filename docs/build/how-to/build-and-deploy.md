@@ -50,9 +50,9 @@ This how-to guide shows you how to build and deploy your application using [GitH
             id: docker-build-push
             with:
               team: <MY-TEAM> # Replace
-{%- if tenant() == "test-nais" %}
-              project_id: nais-management-ddba
-              identity_provider: projects/636929582051/locations/global/workloadIdentityPools/test-nais-identity-pool/providers/github-oidc-provider
+{%- if not publishes_deploy_data() %}
+              project_id: <<management_project_id()>>
+              identity_provider: <<identity_provider()>>
 {%- endif %}
 
       deploy:

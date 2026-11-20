@@ -6,27 +6,35 @@ See the [Nais handbook](https://handbook.nais.io/technical/doc-guidelines/) for 
 
 ### Environment and collector data
 
-[`svdoc/src/lib/tenants.ts`](svdoc/src/lib/tenants.ts) is the doc-local source of
-truth for environment names, ingress domains, external IPs, observability defaults
-and frontend collector URLs. Update it when a tenant's configuration changes.
-Collector URLs are explicit values, not derived from environment or tenant names.
-Set `telemetryCollectorUrl: null` for environments without a frontend collector.
+Tenant values — environment names, ingress domains, external IPs, Kafka pools,
+log destinations, deploy values and frontend collector URLs — come from the
+public `nais-tenant-data` GCS bucket, written by nais-terraform-modules on every
+apply (`docs/<tenant>/tenant.json` and `docs/<tenant>/<env>.json`). The build
+discovers tenants by listing that bucket, so new tenants appear in the docs
+without any commit to this repo. Missing data renders placeholders rather than
+failing the build.
 
 Use these macros instead of hardcoding environment-specific values:
 
-| Macro | Output |
-| --- | --- |
-| `<<environment_reference()>>` | Environment details for the current tenant |
-| `<<telemetry_collectors()>>` | Collector endpoint table |
-| `<<telemetry_csp_sources()>>` | Collector origins for CSP `connect-src` |
-| `<<telemetry_collector_url()>>` | Example collector URL, preferring a production environment |
-| `<<telemetry_environment()>>` | Environment used by the example collector URL |
+| Macro                            | Output                                                                             |
+|----------------------------------|------------------------------------------------------------------------------------|
+| `<<external_ips("prod")>>`       | Bullet list of the environment's outbound IPs (env name is the Terraform env name) |
+| `<<kafka_pools()>>`              | Table of the tenant's Kafka pools, or a "no pools" note                            |
+| `<<log_destinations()>>`         | List of the tenant's log destinations                                              |
+| `<<default_log_destination()>>`  | The tenant's default log destination (prod env's default, else first env's)        |
+| `<<example_domain("external")>>` | Representative ingress domain for examples (`external` or `internal`)              |
+| `<<management_project_id()>>`    | Management GCP project id (deploy examples)                                        |
+| `<<identity_provider()>>`        | GitHub OIDC workload identity provider resource name                               |
+| `<<publishes_deploy_data()>>`    | Whether the tenant publishes deploy data (for `{% if %}` conditions)               |
+| `<<telemetry_collectors()>>`     | Collector endpoint table                                                           |
+| `<<telemetry_csp_sources()>>`    | Collector origins for CSP `connect-src`                                            |
+| `<<telemetry_collector_url()>>`  | Example collector URL, preferring a production environment                         |
+| `<<telemetry_environment()>>`    | Environment used by the example collector URL                                      |
 
-Unknown tenants fail rendering. Tenants whose environments are not documented
-must have an explicit `notice` and an empty environment list. Their pages show
-the notice and use editable placeholders rather than invented endpoints.
-Local development defaults to `nav` when `TENANT` is unset. Builds validate the
-selected tenant before processing pages.
+Iterate a tenant's environments with `{% for env in environments() %}` — see
+`svdoc/INSTRUCTIONS.md` for the loop syntax and available record fields.
+
+Local development defaults to `nav` when `TENANT` is unset.
 
 ### Warning about features not available in test-nais
 
@@ -112,10 +120,16 @@ TENANT=nav NOT_TENANT=not-nav mise run local:dev
 
 ### 4. Build the documentation
 
-Build one or more tenant-specific versions into `out/<tenant>/`:
+Build all tenants (discovered from the `nais-tenant-data` bucket) into `out/<tenant>/`:
 
 ```bash
-mise run build nav nav test-nais
+mise run build
+```
+
+Or build specific tenants:
+
+```bash
+mise run build nav test-nais
 ```
 
 ### Checks and formatting

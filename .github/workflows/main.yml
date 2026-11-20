@@ -1,7 +1,19 @@
 name: Build and publish doc
 on: push
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.tenants.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
+
+      - name: Discover tenants from nais-tenant-data bucket
+        id: tenants
+        run: echo "matrix=$(node svdoc/scripts/list-tenants.mjs --matrix)" >> "$GITHUB_OUTPUT"
+
   build:
+    needs: prepare
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -17,7 +29,7 @@ jobs:
           cache: true
 
       - name: Build documentation
-        run: mise run build nav ssb test-nais ldir atil ci-nais dev-nais miljodir novari ks-digital
+        run: mise run build
 
       - name: Upload generated doc artifact
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # ratchet:actions/upload-artifact@v7
@@ -27,36 +39,14 @@ jobs:
 
   publish:
     if: github.ref == 'refs/heads/main'
-    needs: build
+    needs: [prepare, build]
     runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
     strategy:
-      matrix:
-        tenant:
-          - name: ci-nais
-            bucket: doc.ci-nais.cloud.nais.io
-          - name: dev-nais
-            bucket: doc.dev-nais.cloud.nais.io
-          - name: nav
-            bucket: doc.nav.cloud.nais.io
-          - name: nav
-            bucket: docs.nais.io
-          - name: ssb
-            bucket: doc.ssb.cloud.nais.io
-          - name: test-nais
-            bucket: doc.test-nais.cloud.nais.io
-          - name: ldir
-            bucket: doc.ldir.cloud.nais.io
-          - name: atil
-            bucket: doc.atil.cloud.nais.io
-          - name: miljodir
-            bucket: doc.miljodir.cloud.nais.io
-          - name: novari
-            bucket: doc.novari.cloud.nais.io
-          - name: ks-digital
-            bucket: doc.ks-digital.cloud.nais.io
+      fail-fast: false # one tenant with a broken/missing bucket should not block the rest
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
     steps:
       - name: Download generated doc artifact
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # ratchet:actions/download-artifact@v8
@@ -83,13 +73,13 @@ jobs:
         run: |
           gsutil -h 'Cache-Control:public, max-age=31536000, immutable' \
             -m rsync -r -c \
-            ${{ matrix.tenant.name }}/_app/immutable/ \
-            gs://${{ matrix.tenant.bucket }}/_app/immutable/
+            ${{ matrix.tenant }}/_app/immutable/ \
+            gs://${{ matrix.bucket }}/_app/immutable/
 
       - name: Sync remaining content (short cache)
         run: |
           gsutil -h 'Cache-Control:public, max-age=180' \
             -m rsync -r -c -d \
             -x '^_app/immutable/.*$' \
-            ${{ matrix.tenant.name }}/ \
-            gs://${{ matrix.tenant.bucket }}
+            ${{ matrix.tenant }}/ \
+            gs://${{ matrix.bucket }}

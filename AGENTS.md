@@ -110,21 +110,39 @@ Jinja-like syntax with `<<` `>>` delimiters (**not** `{{` `}}`).
 | --- | --- |
 | `<<tenant()>>` | Current tenant name (e.g. `nav`) |
 | `<<tenant_url("console")>>` | Tenant-specific console URL |
-| `<<environment_reference()>>` | Environment details for the current tenant |
+| `<<external_ips("prod")>>` | Bullet list of the environment's outbound IPs (env name is the Terraform env name) |
+| `<<kafka_pools()>>` | Table of the tenant's Kafka pools, or a "no pools" note |
+| `<<log_destinations()>>` | List of the tenant's log destinations |
+| `<<default_log_destination()>>` | The tenant's default log destination (prod env's default, else first env's) |
+| `<<example_domain("external")>>` | Representative ingress domain for examples (`external` or `internal`) |
+| `<<management_project_id()>>` | Management GCP project id (deploy examples) |
+| `<<identity_provider()>>` | GitHub OIDC workload identity provider resource name |
+| `<<publishes_deploy_data()>>` | Whether the tenant publishes deploy data (for `{% if %}` conditions) |
 | `<<telemetry_collectors()>>` | Collector endpoint table |
 | `<<telemetry_csp_sources()>>` | Collector origins for CSP `connect-src` |
 | `<<telemetry_collector_url()>>` | Example collector URL, preferring production |
 | `<<telemetry_environment()>>` | Environment used by the example collector URL |
 
-`svdoc/src/lib/tenants.ts` is the doc-local source of truth for environment names,
-ingress domains, external IPs, observability defaults and frontend collector URLs.
-Update that definition, not generated tables or tenant-specific copies in Markdown.
-Use the macros above for environment and collector data. `tenant_url()` must not
-be used to construct collector URLs.
+Tenant values — environment names, external IPs, Kafka pools, log
+destinations, ingress domains, telemetry collector URLs and deploy values —
+come from the public `nais-tenant-data` GCS bucket, written by
+nais-terraform-modules on every apply (`docs/<tenant>/tenant.json` and
+`docs/<tenant>/<env>.json`). The build discovers tenants by listing that
+bucket, so new tenants appear in the docs without any commit to this repo.
+If data is missing (tenant not applied yet, offline dev), the macros render a
+placeholder instead of failing the build.
+
+Prose lives in the Markdown pages. Use the macros above for tenant values —
+don't hardcode per-tenant values in Markdown or TypeScript. `tenant_url()`
+must not be used to construct collector URLs.
+
+Iterate a tenant's environments with `{% for env in environments() %}`, with
+record fields (`<<env.name>>`, `{% if d.external %}`) and macros taking record
+fields (`<<external_ips(env.name)>>`) in the loop body. See
+`svdoc/INSTRUCTIONS.md` for the loop syntax and available fields.
 
 Do not assume tenants have `dev` and `prod` environments. Use "non-production"
-in general advice and the configured names in tenant-specific content. See
-`README.md` under "Environment and collector data" for missing-data handling.
+in general advice and the configured names in tenant-specific content.
 
 Conditional content:
 
@@ -188,10 +206,11 @@ TENANT=nav NOT_TENANT=not-nav mise run local:dev
 Local development defaults to `nav` when `TENANT` is unset. Builds validate the
 selected tenant before processing pages.
 
-Build tenant outputs into `out/<tenant>/`:
+Build tenant outputs into `out/<tenant>/` (no arguments builds all tenants
+discovered from the `nais-tenant-data` bucket):
 
 ```bash
-mise run build nav nav test-nais
+mise run build nav test-nais
 ```
 
 ## Authoritative convention sources

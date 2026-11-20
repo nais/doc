@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, test } from "vitest";
 import { processTemplates } from "./templates.ts";
+import { setTenantData } from "./tenant-data.ts";
 
 const originalTenant = process.env.TENANT;
 
@@ -333,5 +334,146 @@ describe("admonition helpers", () => {
 	test("not_in_test_nais renders only for test-nais", () => {
 		expect(render('<<not_in_test_nais("Kafka")>>', "test-nais")).toContain("!!! not-in-test-nais");
 		expect(render('<<not_in_test_nais("Kafka")>>', "nav")).toBe("");
+	});
+});
+
+describe("tenant data macros", () => {
+	const fixture = {
+		tenant: "ldir",
+		environments: {
+			"non-prod": {
+				tenant: "ldir",
+				env: "non-prod",
+				externalIps: ["34.88.202.181"],
+				kafkaPool: "ldir-non-prod",
+			},
+			prod: {
+				tenant: "ldir",
+				env: "prod",
+				externalIps: ["34.88.126.246", "35.228.10.20"],
+				kafkaPool: "ldir-prod",
+			},
+		},
+	};
+
+	afterEach(() => {
+		setTenantData(null);
+	});
+
+	test("external_ips renders a bullet list", () => {
+		setTenantData(fixture);
+		expect(render('<<external_ips("prod")>>', "ldir")).toBe("- 34.88.126.246\n- 35.228.10.20");
+	});
+
+	test("external_ips without data renders a placeholder", () => {
+		setTenantData(null);
+		expect(render('<<external_ips("prod")>>', "ldir")).toContain("No external IP data available");
+	});
+
+	test("kafka_pools renders a table sorted by pool name", () => {
+		setTenantData(fixture);
+		expect(render("<<kafka_pools()>>", "ldir")).toBe(
+			[
+				"| Pool | Available from |",
+				"|:-----|:---------------|",
+				"| `ldir-non-prod` | `non-prod` |",
+				"| `ldir-prod` | `prod` |",
+			].join("\n"),
+		);
+	});
+
+	test("kafka_pools without pools renders a note", () => {
+		setTenantData(null);
+		expect(render("<<kafka_pools()>>", "ssb")).toBe("No Kafka pools available for your tenant.");
+	});
+});
+
+describe("for loops", () => {
+	const fixture = {
+		tenant: "ldir",
+		environments: {
+			prod: {
+				tenant: "ldir",
+				env: "prod",
+				externalIps: ["2.2.2.2"],
+				kafkaPool: null,
+				domains: {
+					external: [
+						{ name: "landbruksdirektoratet.no", default: true },
+						{ name: "external.prod.ldir.cloud.nais.io" },
+					],
+					internal: ["prod.ldir.cloud.nais.io"],
+				},
+				logDestinations: [{ id: "loki", default: true }],
+			},
+			"non-prod": {
+				tenant: "ldir",
+				env: "non-prod",
+				externalIps: ["1.1.1.1"],
+				kafkaPool: null,
+				domains: {
+					external: [{ name: "external.non-prod.ldir.cloud.nais.io" }],
+					internal: ["non-prod.ldir.cloud.nais.io"],
+				},
+				logDestinations: [{ id: "loki", default: true }],
+			},
+		},
+	};
+
+	afterEach(() => {
+		setTenantData(null);
+	});
+
+	test("iterates environments alphabetically with prod last", () => {
+		setTenantData(fixture);
+		expect(render("{% for env in environments() %}[<<env.name>>]{% endfor %}", "ldir")).toBe(
+			"[non-prod][prod]",
+		);
+	});
+
+	test("nested loops with inline conditionals render table rows without blank lines", () => {
+		setTenantData(fixture);
+		const input = [
+			"{% for env in environments() %}",
+			"### <<env.name>>",
+			"{% for d in env.domains %}",
+			"| <<d.name>> | {% if d.external %}internet{% else %}internal{% endif %} |",
+			"{% endfor %}",
+			"{% endfor %}",
+		].join("\n");
+		expect(render(input, "ldir")).toBe(
+			[
+				"### non-prod",
+				"| external.non-prod.ldir.cloud.nais.io | internet |",
+				"| non-prod.ldir.cloud.nais.io | internal |",
+				"### prod",
+				"| landbruksdirektoratet.no | internet |",
+				"| prod.ldir.cloud.nais.io | internal |",
+				"",
+			].join("\n"),
+		);
+	});
+
+	test("macros accept loop variables as arguments", () => {
+		setTenantData(fixture);
+		expect(
+			render(
+				"{% for env in environments() %}<<env.name>>: <<external_ips(env.name)>>\n{% endfor %}",
+				"ldir",
+			),
+		).toBe("non-prod: - 1.1.1.1\nprod: - 2.2.2.2\n");
+	});
+
+	test("unknown loop expression renders nothing", () => {
+		setTenantData(fixture);
+		expect(render("{% for x in nonsense() %}junk{% endfor %}", "ldir")).toBe("");
+	});
+
+	test("loops inside conditional branches expand for the selected tenant", () => {
+		setTenantData(fixture);
+		const input =
+			'{% if tenant() == "ldir" %}{% for env in environments() %}<<env.name>> {% endfor %}{% else %}none{% endif %}';
+		expect(render(input, "ldir")).toBe("non-prod prod ");
+		expect(render(input, "ssb")).toBe("none");
 	});
 });

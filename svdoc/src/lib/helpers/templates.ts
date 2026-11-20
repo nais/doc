@@ -1,12 +1,16 @@
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import {
-	environmentReference,
 	telemetryCollectors,
 	telemetryCollectorUrl,
 	telemetryCspSources,
 	telemetryEnvironment,
+	docEnvironments,
+	hasDocEnvironments,
+	defaultLogDestination,
+	type DocEnvironment,
 } from "./tenant-docs.ts";
+import { getTenantData } from "./tenant-data.ts";
 
 /**
  * Get environment variable value
@@ -67,12 +71,132 @@ function notInTestNais(feature: string): string {
 	return "";
 }
 
+/**
+ * Outbound (Cloud NAT) IPs for an environment, as a markdown bullet list.
+ * The env name is the Terraform env name (e.g. "dev", "prod", "non-prod").
+ */
+function externalIps(env: string): string {
+	const ips = getTenantData().environments[env]?.externalIps ?? [];
+	if (ips.length === 0) {
+		return `_No external IP data available for the ${env} environment._`;
+	}
+	return ips.map((ip) => `- ${ip}`).join("\n");
+}
+
+/**
+ * Kafka pools for the current tenant, as a markdown table.
+ */
+function kafkaPools(): string {
+	const pools = Object.values(getTenantData().environments)
+		.filter((env) => env.kafkaPool)
+		.sort((a, b) => (a.kafkaPool ?? "").localeCompare(b.kafkaPool ?? ""));
+	if (pools.length === 0) {
+		return "No Kafka pools available for your tenant.";
+	}
+	const rows = pools.map((env) => `| \`${env.kafkaPool}\` | \`${env.env}\` |`);
+	return ["| Pool | Available from |", "|:-----|:---------------|", ...rows].join("\n");
+}
+
+/**
+ * Management GCP project id, used in deploy workflow examples.
+ */
+function managementProjectId(): string {
+	return getTenantData().managementProjectId ?? "";
+}
+
+/**
+ * Full resource name of the tenant's GitHub OIDC workload identity provider.
+ */
+function identityProvider(): string {
+	return getTenantData().identityProvider ?? "";
+}
+
+/**
+ * Whether the tenant publishes deploy data (github-deploy-data bucket). When
+ * false, the deploy action cannot resolve project id / identity provider
+ * itself, so docs show them explicitly. Unknown data defaults to true.
+ */
+function publishesDeployData(): boolean {
+	return getTenantData().deployDataPublished ?? true;
+}
+
+/**
+ * A representative ingress domain for examples, "external" or "internal".
+ * Uses the prod environment when available, otherwise the first environment.
+ */
+function exampleDomain(kind: string): string {
+	const data = getTenantData();
+	const envNames = Object.keys(data.environments).sort();
+	const env =
+		data.environments["prod"] ?? (envNames[0] ? data.environments[envNames[0]] : undefined);
+	const envName = env?.env ?? "prod";
+	const fallback =
+		kind === "internal"
+			? `${envName}.${data.tenant}.cloud.nais.io`
+			: `external.${envName}.${data.tenant}.cloud.nais.io`;
+	if (!env?.domains) {
+		return fallback;
+	}
+	if (kind === "internal") {
+		const internal = env.domains.internal ?? [];
+		return (
+			internal.find((d) => d.startsWith("intern.")) ??
+			internal.find((d) => d === `${envName}.${data.tenant}.cloud.nais.io`) ??
+			internal[0] ??
+			fallback
+		);
+	}
+	const external = env.domains.external ?? [];
+	return (
+		external.find((d) => d.default)?.name ??
+		external.find((d) => d.name.startsWith("external."))?.name ??
+		external[0]?.name ??
+		fallback
+	);
+}
+
+/**
+ * Available log destinations for the tenant, as a markdown list.
+ * Destinations without a dedicated how-to page render as plain code.
+ */
+function logDestinations(): string {
+	const byId = new Map<string, { id: string; default: boolean }>();
+	for (const env of Object.values(getTenantData().environments)) {
+		for (const destination of env.logDestinations ?? []) {
+			if (!byId.has(destination.id)) {
+				byId.set(destination.id, destination);
+			}
+		}
+	}
+	if (byId.size === 0) {
+		return "_No log destination data available for your tenant._";
+	}
+	const links: Record<string, string> = {
+		loki: "[`loki`](../how-to/loki.md#default-logging-with-grafana-loki)",
+		team_logs: "[`team_logs`](../how-to/team-logs.md#how-to-configure-team-logs)",
+	};
+	return [...byId.values()]
+		.sort((a, b) => a.id.localeCompare(b.id))
+		.map((destination) => `- ${links[destination.id] ?? `\`${destination.id}\``}`)
+		.join("\n");
+}
+
 interface TemplateContext {
 	tenant: string;
 	tenantUrl: (app: string, path?: string) => string;
 	naisdeviceName: string;
 	gcpOnly: (feature: string) => string;
 	notInTestNais: (feature: string) => string;
+	externalIps: (env: string) => string;
+	kafkaPools: () => string;
+	managementProjectId: () => string;
+	identityProvider: () => string;
+	publishesDeployData: () => boolean;
+	exampleDomain: (kind: string) => string;
+	logDestinations: () => string;
+	environments: () => DocEnvironment[];
+	hasEnvironments: () => boolean;
+	defaultLogDestination: () => string;
 	[key: string]: unknown;
 }
 
@@ -86,48 +210,113 @@ function createTemplateContext(): TemplateContext {
 		naisdeviceName: naisdeviceName(),
 		gcpOnly,
 		notInTestNais,
+		externalIps,
+		kafkaPools,
+		managementProjectId,
+		identityProvider,
+		publishesDeployData,
+		exampleDomain,
+		logDestinations,
+		environments: docEnvironments,
+		hasEnvironments: hasDocEnvironments,
+		defaultLogDestination,
 	};
 }
 
 /**
- * Parse function arguments from a string like '"arg1", "arg2"'
+ * Resolve function arguments from a string like '"arg1", arg2.path'.
+ * Quoted arguments are literals; anything else is evaluated as an expression,
+ * so macros can take loop variables: external_ips(env.name).
  */
-function parseFunctionArgs(argsStr: string): string[] {
-	const args: string[] = [];
-	if (argsStr.trim()) {
-		const argMatches = argsStr.match(/["']([^"']*)["']/g);
-		if (argMatches) {
-			args.push(...argMatches.map((a: string) => a.slice(1, -1)));
+function resolveFunctionArgs(argsStr: string, context: TemplateContext): unknown[] {
+	const args: unknown[] = [];
+	let current = "";
+	let quote = "";
+	for (const char of argsStr) {
+		if (quote) {
+			current += char;
+			if (char === quote) {
+				quote = "";
+			}
+		} else if (char === '"' || char === "'") {
+			quote = char;
+			current += char;
+		} else if (char === ",") {
+			if (current.trim()) {
+				args.push(resolveArg(current.trim(), context));
+			}
+			current = "";
+		} else {
+			current += char;
 		}
 	}
+	if (current.trim()) {
+		args.push(resolveArg(current.trim(), context));
+	}
 	return args;
+}
+
+function resolveArg(arg: string, context: TemplateContext): unknown {
+	if ((arg.startsWith('"') && arg.endsWith('"')) || (arg.startsWith("'") && arg.endsWith("'"))) {
+		return arg.slice(1, -1);
+	}
+	return evaluateValue(arg, context);
+}
+
+function str(value: unknown): string {
+	if (value === null || value === undefined) {
+		return "";
+	}
+	return String(value);
 }
 
 /**
  * Call a template function by name with the given arguments
  */
-function callTemplateFunction(funcName: string, args: string[], context: TemplateContext): unknown {
+function callTemplateFunction(
+	funcName: string,
+	args: unknown[],
+	context: TemplateContext,
+): unknown {
 	switch (funcName) {
 		case "tenant":
 			return context.tenant;
 		case "tenant_url":
-			return context.tenantUrl(args[0] || "", args[1] || "");
-		case "environment_reference":
-			return environmentReference(context.tenant);
+			return context.tenantUrl(str(args[0]), str(args[1]));
 		case "telemetry_collectors":
-			return telemetryCollectors(context.tenant);
+			return telemetryCollectors();
 		case "telemetry_collector_url":
-			return telemetryCollectorUrl(context.tenant);
+			return telemetryCollectorUrl();
 		case "telemetry_csp_sources":
-			return telemetryCspSources(context.tenant);
+			return telemetryCspSources();
 		case "telemetry_environment":
-			return telemetryEnvironment(context.tenant);
+			return telemetryEnvironment();
 		case "naisdevice_name":
 			return context.naisdeviceName;
 		case "gcp_only":
-			return context.gcpOnly(args[0] || "");
+			return context.gcpOnly(str(args[0]));
 		case "not_in_test_nais":
-			return context.notInTestNais(args[0] || "");
+			return context.notInTestNais(str(args[0]));
+		case "external_ips":
+			return context.externalIps(str(args[0]));
+		case "kafka_pools":
+			return context.kafkaPools();
+		case "management_project_id":
+			return context.managementProjectId();
+		case "identity_provider":
+			return context.identityProvider();
+		case "publishes_deploy_data":
+			return context.publishesDeployData();
+		case "example_domain":
+			return context.exampleDomain(str(args[0]));
+		case "log_destinations":
+			return context.logDestinations();
+		case "environments":
+			return context.environments();
+		case "has_environments":
+			return context.hasEnvironments();
+		case "default_log_destination":
+			return context.defaultLogDestination();
 		default:
 			return undefined;
 	}
@@ -202,8 +391,21 @@ function evaluateValue(expression: string, context: TemplateContext): unknown {
 	const funcMatch = trimmed.match(/^(\w+)\(([^)]*)\)$/);
 	if (funcMatch) {
 		const funcName = funcMatch[1];
-		const args = parseFunctionArgs(funcMatch[2]);
+		const args = resolveFunctionArgs(funcMatch[2], context);
 		return callTemplateFunction(funcName, args, context);
+	}
+
+	// Handle dot access on records: env.name, domain.external
+	if (/^\w+(\.\w+)+$/.test(trimmed)) {
+		const parts = trimmed.split(".");
+		let value: unknown = evaluateValue(parts[0], context);
+		for (const part of parts.slice(1)) {
+			if (value === null || value === undefined || typeof value !== "object") {
+				return undefined;
+			}
+			value = (value as Record<string, unknown>)[part];
+		}
+		return value;
 	}
 
 	// Handle variable lookup
@@ -466,7 +668,7 @@ function processVariables(content: string, context: TemplateContext): string {
 		const funcMatch = trimmed.match(/^(\w+)\(([^)]*)\)$/);
 		if (funcMatch) {
 			const funcName = funcMatch[1];
-			const args = parseFunctionArgs(funcMatch[2]);
+			const args = resolveFunctionArgs(funcMatch[2], context);
 			const result = callTemplateFunction(funcName, args, context);
 			if (result !== undefined) {
 				return String(result);
@@ -482,6 +684,110 @@ function processVariables(content: string, context: TemplateContext): string {
 
 		return match; // Return original if not found
 	});
+}
+
+/**
+ * Find a {% for %}...{% endfor %} block, nesting-aware.
+ */
+function findLoopBlock(content: string):
+	| {
+			open: number;
+			openEnd: number;
+			close: number;
+			closeEnd: number;
+			varName: string;
+			expression: string;
+	  }
+	| undefined {
+	const tagRegex = /\{%-?\s*(?:for\s+(\w+)\s+in\s+(.+?)|(endfor))\s*-?%\}/g;
+	let depth = 0;
+	let match: RegExpExecArray | null;
+	let open = -1;
+	let openEnd = -1;
+	let varName = "";
+	let expression = "";
+
+	while ((match = tagRegex.exec(content)) !== null) {
+		if (match[3]) {
+			if (depth > 0) {
+				depth--;
+				if (depth === 0) {
+					return {
+						open,
+						openEnd,
+						close: match.index,
+						closeEnd: match.index + match[0].length,
+						varName,
+						expression,
+					};
+				}
+			}
+		} else {
+			if (depth === 0) {
+				open = match.index;
+				openEnd = match.index + match[0].length;
+				varName = match[1];
+				expression = match[2];
+			}
+			depth++;
+		}
+	}
+	return undefined;
+}
+
+/**
+ * Process a loop body once per item, with the loop variable in scope.
+ * Nested loops expand first so that conditionals inside their bodies see
+ * the inner loop variable; conditionals at this level resolve after.
+ */
+function expandLoopBody(
+	body: string,
+	varName: string,
+	item: unknown,
+	context: TemplateContext,
+): string {
+	const childContext: TemplateContext = { ...context, [varName]: item };
+	let result = processLoops(body, childContext);
+	result = processConditionals(result, childContext);
+	result = processVariables(result, childContext);
+	return result;
+}
+
+/**
+ * Process {% for x in expression %}...{% endfor %} loops.
+ * Runs before top-level conditionals so that conditionals inside loop bodies
+ * see the loop variable; conditionals wrapping a loop are resolved after.
+ */
+function processLoops(content: string, context: TemplateContext): string {
+	let result = content;
+	let iterations = 0;
+	const maxIterations = 100; // Prevent infinite loops
+
+	while (iterations < maxIterations) {
+		const block = findLoopBlock(result);
+		if (!block) {
+			break;
+		}
+
+		// Standalone tags consume their whole line, like conditional tags
+		const [blockStart, innerStart] = expandTagLine(result, block.open, block.openEnd);
+		const [innerEnd, blockEnd] = expandTagLine(result, block.close, block.closeEnd);
+
+		const body = result.slice(innerStart, innerEnd);
+		const items = evaluateValue(block.expression, context);
+
+		let output = "";
+		if (Array.isArray(items)) {
+			output = items.map((item) => expandLoopBody(body, block.varName, item, context)).join("");
+		} else {
+			console.warn(`for-loop expression did not evaluate to a list: ${block.expression}`);
+		}
+
+		result = result.slice(0, blockStart) + output + result.slice(blockEnd);
+		iterations++;
+	}
+
+	return result;
 }
 
 /**
@@ -508,6 +814,10 @@ export function processTemplates(content: string, filePath?: string): string {
 
 	// Process set statements (they define variables for later use)
 	result = processSetStatements(result, context);
+
+	// Process loops (before conditionals, so conditions inside loop bodies
+	// see the loop variable; conditionals wrapping loops resolve after)
+	result = processLoops(result, context);
 
 	// Process conditionals
 	result = processConditionals(result, context);
