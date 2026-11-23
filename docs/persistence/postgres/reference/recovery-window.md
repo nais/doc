@@ -6,9 +6,6 @@ tags: [postgres, reference]
 
 The point-in-time recovery window is how far back in time a Postgres database can be restored to. Within the window you can restore to any moment, not only to a fixed backup.
 
-!!! info "Not a backup retention period"
-    The window governs point-in-time recovery only. It is not a promise to keep backups for a given time, and it is not meant for archiving. The data that supports recovery is removed as the window moves forward.
-
 For steps, see [Manage Postgres](../how-to/manage.md) and [Create Postgres](../how-to/create.md). To restore, see [Clone or restore Postgres](../how-to/restore-point-in-time.md).
 
 ## Setting

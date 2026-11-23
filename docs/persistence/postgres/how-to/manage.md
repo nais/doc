@@ -53,7 +53,7 @@ For a Postgres managed in Git, update the manifest. A later `nais apply` can ove
     1. Open your team in [Nais Console](https://console.nais.io) and select **Postgres**.
     2. Select the database.
     3. Open **Actions → Edit**.
-    4. Update the form, including **Point-in-time recovery window**, and select **Save changes**.
+    4. Update the form and select **Save changes**.
 
 Changes are applied asynchronously. Follow the status on the database's page in [Nais Console](https://console.nais.io).
 
