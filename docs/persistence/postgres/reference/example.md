@@ -23,7 +23,6 @@ version: v1
 type: Postgres
 name: mypostgres
 spec:
-  activeBranch: main
   autoExplain: true
   extensions:
     - name: postgis

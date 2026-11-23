@@ -21,20 +21,14 @@ tags: [postgres, reference]
     This feature is an alpha feature, and is subject to API change, instability or removal.
     See the [main Postgres page](../README.md) for more information.
 
-This document describes all possible configuration values in the `Postgres` spec, commonly known as the `postgres.yaml` file. A `Postgres` is a logical database: pgrator creates its default `main` branch as a separate CNPG cluster. `spec.activeBranch` requests a local branch name; `status.activeBranch` is the observed selection. A requested branch must have an initialized, Ready, non-terminating CNPG cluster before pgrator updates observed status. This check is not an atomic cutover guarantee; verify workload connections when switching branches.
+This document describes all possible configuration values in the `Postgres` spec, commonly known as the `postgres.yaml` file. Each `Postgres` is one CNPG cluster managed by pgrator. `spec.activeBranch` is deprecated: branches were retired, and only `main` (or omitting it) is accepted.
 
 ## activeBranch
-ActiveBranch selects the local branch name within this Postgres for normal workloads.
-When omitted, pgrator retains the current active branch.
+ActiveBranch is deprecated: branches were retired. Only `main` (or empty)
+is accepted; the field is kept so existing manifests stay valid.
 
 Type: `string`<br />
 Required: `false`<br />
-
-??? example
-    ``` yaml
-    spec:
-      activeBranch: main
-    ```
 
 ## autoExplain
 AutoExplain logs JSON execution plans for statements taking at least one second.
