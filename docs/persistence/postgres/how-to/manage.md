@@ -4,12 +4,15 @@ tags: [postgres, how-to]
 
 # Manage Postgres
 
-Change CPU, memory, disk size or high availability. PostgreSQL 18 is the only supported major version in preview; the CLI update command does not change the major version.
+Change CPU, memory, disk size, high availability or the [recovery window](../reference/recovery-window.md). PostgreSQL 18 is the only supported major version in preview; the CLI update command does not change the major version.
 
 For a Postgres managed in Git, update the manifest. A later `nais apply` can overwrite changes made through the CLI or Console.
 
 !!! warning "Disk size"
     It is not possible to decrease the disk size, only increase it.
+
+!!! warning "Recovery window"
+    Shortening the recovery window permanently removes older backups.
 
 === "GitOps"
 
@@ -26,6 +29,8 @@ For a Postgres managed in Git, update the manifest. A later `nais apply` can ove
         cpu: 100m
         memory: 512Mi
         diskSize: 20Gi
+      backup:
+        retentionDays: 14
     ```
 
     Push the change. The next workflow run applies the new desired state. See [Deploy manifest changes without rebuilding](../../../build/how-to/deploy-pipeline.md#deploy-manifest-changes-without-rebuilding) for a complete pipeline example.
@@ -41,14 +46,14 @@ For a Postgres managed in Git, update the manifest. A later `nais apply` can ove
       --disk-size 20Gi
     ```
 
-    The update command accepts `--high-availability true|false`, `--cpu`, `--memory` and `--disk-size`. Omitted settings stay unchanged.
+    The update command accepts `--high-availability true|false`, `--cpu`, `--memory`, `--disk-size` and `--recovery-window-days` (2 to 30). The CLI warns before you shorten the recovery window. Omitted settings stay unchanged.
 
 === "Console"
 
     1. Open your team in [Nais Console](https://console.nais.io) and select **Postgres**.
     2. Select the database.
     3. Open **Actions → Edit**.
-    4. Update the form and select **Save changes**.
+    4. Update the form, including **Point-in-time recovery window**, and select **Save changes**.
 
 Changes are applied asynchronously. Follow the status on the database's page in [Nais Console](https://console.nais.io).
 

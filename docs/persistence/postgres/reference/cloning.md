@@ -26,7 +26,7 @@ The source's configuration is read when the clone is created, not from the selec
 
 Without an explicit time, CLI and Console request a point 10 minutes before submission. This buffer accounts for recent write-ahead logs that may not yet be archived. The clone does not include the source's most recent writes.
 
-An explicit time must fall within the source's available recovery window and must not be in the future. A source without a recovery window cannot be cloned yet. An accepted target time does not guarantee success: cloning can still fail if required backup data or write-ahead logs are unavailable.
+An explicit time must fall within the source's available [recovery window](recovery-window.md) and must not be in the future. A source without a recovery window cannot be cloned yet. An accepted target time does not guarantee success: cloning can still fail if required backup data or write-ahead logs are unavailable.
 
 | Client | Time format |
 | --- | --- |
@@ -52,6 +52,6 @@ Command: `nais postgres clone <SOURCE> <NEW-NAME> --team <TEAM> --environment <E
 
 Cloning runs asynchronously. `nais postgres get` reports **Clone status** separately from the database's **Status**. A database marked **Ready** does not by itself mean cloning is complete.
 
-**Completed** means the clone is independent of the source and has its own backup. Source deletion is blocked while dependent clones still need its backups. The clone builds its own backup history; the source's earlier recovery window does not become part of it.
+**Completed** means the clone is independent of the source and has its own backup. Source deletion is blocked while dependent clones still need its backups. The clone builds its own backup history; the source's earlier recovery window does not become part of it. The clone does not inherit the source's recovery window setting. It starts with the default, and you can change it afterwards.
 
 **Failed** includes the failure message. A failed clone is not a usable restored database.

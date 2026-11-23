@@ -54,7 +54,7 @@ Create a Postgres database.
     nais postgres create <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT>
     ```
 
-    The CLI asks for confirmation before creating the database. It uses platform defaults unless you set options:
+    The CLI asks for confirmation before creating the database. It uses platform defaults unless you set options. `--recovery-window-days` sets how far back in time the database can be restored to; see [Postgres recovery window](../reference/recovery-window.md):
 
     ```bash
     nais postgres create <POSTGRES-NAME> \
@@ -63,7 +63,8 @@ Create a Postgres database.
       --high-availability \
       --cpu 100m \
       --memory 512Mi \
-      --disk-size 10Gi
+      --disk-size 10Gi \
+      --recovery-window-days 14
     ```
 
     To change settings later, see [Manage Postgres](manage.md?tab=cli).
@@ -72,7 +73,7 @@ Create a Postgres database.
 
     1. Open your team in [Nais Console](https://console.nais.io) and select **Postgres**.
     2. Select **Create Postgres**.
-    3. Select **Empty database**, fill in the form and select **Create Postgres**. To start from an existing database's backups instead, see [Clone or restore Postgres](restore-point-in-time.md).
+    3. Select **Empty database**, fill in the form, including **Point-in-time recovery window**, and select **Create Postgres**. To start from an existing database's backups instead, see [Clone or restore Postgres](restore-point-in-time.md).
 
     To change settings later, see [Manage Postgres](manage.md?tab=console).
 
