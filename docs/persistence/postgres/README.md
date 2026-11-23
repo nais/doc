@@ -11,7 +11,7 @@ Postgres gives your Applications and Jobs a managed PostgreSQL database. You can
 
 Postgres automatically creates and manages credentials for your workloads. You can also get short-lived personal access from the Nais CLI when you need to inspect the database.
 
-Postgres keeps backups continuously, for a recovery window you choose (2 to 30 days, default 2). You can clone a database from its backups, either from the latest available point or from a specific time. The clone is a separate database that you can inspect without affecting existing workloads.
+Postgres supports point-in-time recovery within a window you choose (2 to 30 days, default 2). You can clone a database from its backups, either from the latest available point or from a specific time. The clone is a separate database that you can inspect without affecting existing workloads.
 
 ## Next steps
 

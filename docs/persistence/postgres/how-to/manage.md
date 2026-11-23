@@ -4,7 +4,7 @@ tags: [postgres, how-to]
 
 # Manage Postgres
 
-Change CPU, memory, disk size, high availability or the [recovery window](../reference/recovery-window.md). PostgreSQL 18 is the only supported major version in preview; the CLI update command does not change the major version.
+Change CPU, memory, disk size, high availability or the [point-in-time recovery window](../reference/recovery-window.md). PostgreSQL 18 is the only supported major version in preview; the CLI update command does not change the major version.
 
 For a Postgres managed in Git, update the manifest. A later `nais apply` can overwrite changes made through the CLI or Console.
 
@@ -12,7 +12,7 @@ For a Postgres managed in Git, update the manifest. A later `nais apply` can ove
     It is not possible to decrease the disk size, only increase it.
 
 !!! warning "Recovery window"
-    Shortening the recovery window permanently removes older backups.
+    Shortening the point-in-time recovery window permanently removes the data that supports restoring further back.
 
 === "GitOps"
 
@@ -46,7 +46,7 @@ For a Postgres managed in Git, update the manifest. A later `nais apply` can ove
       --disk-size 20Gi
     ```
 
-    The update command accepts `--high-availability true|false`, `--cpu`, `--memory`, `--disk-size` and `--recovery-window-days` (2 to 30). The CLI warns before you shorten the recovery window. Omitted settings stay unchanged.
+    The update command accepts `--high-availability true|false`, `--cpu`, `--memory`, `--disk-size` and `--recovery-window-days` (2 to 30). The CLI warns before you shorten the window. Omitted settings stay unchanged.
 
 === "Console"
 

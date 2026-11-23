@@ -52,6 +52,6 @@ Command: `nais postgres clone <SOURCE> <NEW-NAME> --team <TEAM> --environment <E
 
 Cloning runs asynchronously. `nais postgres get` reports **Clone status** separately from the database's **Status**. A database marked **Ready** does not by itself mean cloning is complete.
 
-**Completed** means the clone is independent of the source and has its own backup. Source deletion is blocked while dependent clones still need its backups. The clone builds its own backup history; the source's earlier recovery window does not become part of it. The clone does not inherit the source's recovery window setting. It starts with the default, and you can change it afterwards.
+**Completed** means the clone is independent of the source and has its own backup. Source deletion is blocked while dependent clones still need its backups. The clone builds its own backup history; the source's earlier recovery window does not become part of it. The clone does not inherit the source's recovery window setting. It starts with the default point-in-time recovery window, and you can change it afterwards.
 
 **Failed** includes the failure message. A failed clone is not a usable restored database.

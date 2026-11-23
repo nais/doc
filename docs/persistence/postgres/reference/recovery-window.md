@@ -4,7 +4,10 @@ tags: [postgres, reference]
 
 # Postgres recovery window
 
-The recovery window is how far back in time a Postgres database can be restored to. It determines how long backups are kept.
+The point-in-time recovery window is how far back in time a Postgres database can be restored to. Within the window you can restore to any moment, not only to a fixed backup.
+
+!!! info "Not a backup retention period"
+    The window governs point-in-time recovery only. It is not a promise to keep backups for a given time, and it is not meant for archiving. The data that supports recovery is removed as the window moves forward.
 
 For steps, see [Manage Postgres](../how-to/manage.md) and [Create Postgres](../how-to/create.md). To restore, see [Clone or restore Postgres](../how-to/restore-point-in-time.md).
 
@@ -20,12 +23,13 @@ For steps, see [Manage Postgres](../how-to/manage.md) and [Create Postgres](../h
 
 Databases without an explicit setting use the default.
 
-## What is kept
+## How it works
 
-- A base backup is taken every night, and write-ahead logs are archived continuously.
-- Backups and logs older than the window are removed automatically. Removal runs periodically, not at a fixed time.
-- The backup preceding the window is kept, so data up to a day older than the window may remain. Do not rely on it.
-- Shortening the window removes older backups permanently. Lengthening it does not bring back backups that are already removed; the window grows as new backups accumulate.
+Point-in-time recovery is built from a nightly base backup and continuously archived write-ahead logs.
+
+- Recovery data older than the window is removed automatically. Removal runs periodically, not at a fixed time.
+- The base backup preceding the window is kept, so recovery data up to a day older than the window may remain. Do not rely on it.
+- Shortening the window permanently removes older recovery data. Lengthening it does not bring back data that is already removed; the window grows as time passes.
 
 ## Where to see it
 
@@ -34,7 +38,7 @@ Databases without an explicit setting use the default.
 
 ## Cost estimate
 
-Backups are stored in a bucket in your team's project, and the storage is billed to your team. Console shows an estimate when you create or edit a database:
+Recovery data is stored in a bucket in your team's project, and the storage is billed to your team. Console shows an estimate when you create or edit a database:
 
 ```text
 storage size (GiB) × (window in days + 1) × 0.02 € per GiB-month
