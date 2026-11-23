@@ -44,7 +44,7 @@ Define queries and/or expressions and then choose one of them as the alert rule 
 Define how the alert rule is evaluated.
 
 1. Select your team's folder in the "Folder" dropdown.
-2. Leave "Evaluation group" empty unless you want to group this alert with others.
+2. Select an existing evaluation group in your team's folder, or create a new one with the desired evaluation interval. The group can be reused for future alert rules.
 3. Set "Pending period" to the amount of time the alert condition must be met before the alert is triggered.
 
 ## Add annotations
