@@ -54,7 +54,7 @@ Create a Postgres database.
     nais postgres create <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT>
     ```
 
-    The CLI asks for confirmation before creating the database. It uses platform defaults unless you set options:
+    The CLI asks for confirmation before creating the database. It uses platform defaults unless you set options. For `--recovery-window-days`, see [Postgres recovery window](../reference/recovery-window.md):
 
     ```bash
     nais postgres create <POSTGRES-NAME> \
@@ -63,7 +63,8 @@ Create a Postgres database.
       --high-availability \
       --cpu 100m \
       --memory 512Mi \
-      --disk-size 10Gi
+      --disk-size 10Gi \
+      --recovery-window-days 2
     ```
 
     To change settings later, see [Manage Postgres](manage.md?tab=cli).
