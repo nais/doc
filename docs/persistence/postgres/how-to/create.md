@@ -64,7 +64,7 @@ Create a Postgres database.
       --cpu 100m \
       --memory 512Mi \
       --disk-size 10Gi \
-      --recovery-window-days 14
+      --recovery-window-days 2
     ```
 
     To change settings later, see [Manage Postgres](manage.md?tab=cli).

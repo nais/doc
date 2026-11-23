@@ -30,7 +30,7 @@ For a Postgres managed in Git, update the manifest. A later `nais apply` can ove
         memory: 512Mi
         diskSize: 20Gi
       backup:
-        retentionDays: 14
+        retentionDays: 2
     ```
 
     Push the change. The next workflow run applies the new desired state. See [Deploy manifest changes without rebuilding](../../../build/how-to/deploy-pipeline.md#deploy-manifest-changes-without-rebuilding) for a complete pipeline example.
