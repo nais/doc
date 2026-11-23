@@ -62,7 +62,7 @@ RetentionDays is how many days back in time the database can be recovered to.
 Older backups and WAL are removed by barman, which checks periodically. The backup
 preceding the window is kept, so data up to a day older may remain. Allowed range is
 2 to 30 days.
-Defaults to 7 when omitted.
+Defaults to 2 when omitted.
 
 Type: `integer`<br />
 Required: `false`<br />
