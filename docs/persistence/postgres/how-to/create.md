@@ -54,7 +54,7 @@ Create a Postgres database.
     nais postgres create <POSTGRES-NAME> --team <TEAM> --environment <ENVIRONMENT>
     ```
 
-    The CLI asks for confirmation before creating the database. It uses platform defaults unless you set options. `--recovery-window-days` sets the point-in-time recovery window, how far back in time the database can be restored to; see [Postgres recovery window](../reference/recovery-window.md):
+    The CLI asks for confirmation before creating the database. It uses platform defaults unless you set options. For `--recovery-window-days`, see [Postgres recovery window](../reference/recovery-window.md):
 
     ```bash
     nais postgres create <POSTGRES-NAME> \
