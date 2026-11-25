@@ -16,7 +16,7 @@ spec:
 Replace `<POSTGRES-NAME>` with the database name you used in [Create Postgres](create.md), then deploy the workload as usual. If you do not already have deployment set up, see [Build and deploy with GitHub Actions](../../../build/how-to/build-and-deploy.md).
 
 !!! note "Using a database from more than one workload"
-    Let one workload own the schema and run migrations with the `admin` role. Give other workloads the `readwrite` or `read` role. Avoid sharing a database with an application that you deploy and change independently. See [Postgres](../README.md).
+    Let one workload own the schema and run migrations with the `admin` role. Give other workloads the `readwrite` or `read` role. Avoid sharing a database with an application that you deploy and change independently.
 
 ## Credentials
 
