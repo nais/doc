@@ -13,6 +13,16 @@ Postgres automatically creates and manages credentials for your workloads. You c
 
 Postgres supports point-in-time recovery within a window you choose (2 to 30 days, default 2). You can clone a database from its backups, either from the latest available point or from a specific time. The clone is a separate database that you can inspect without affecting existing workloads.
 
+## Sharing a database
+
+Give each service its own database by default. Workloads that belong to the same service, such as an Application and its migration Job, can share a database. The service owns the data and schema.
+
+Avoid using a shared database to pass data between applications that need to change independently. Even a read-only consumer depends on the schema: renaming a column can break another application. Use an API or publish events when other applications need the data.
+
+If you share a database, agree on who owns the schema, who runs migrations, and how you’ll coordinate schema changes and restores. Give each workload only the access it needs.
+
+For more on the trade-off, see [Integration Database by Martin Fowler :octicons-link-external-16:](https://martinfowler.com/bliki/IntegrationDatabase.html).
+
 ## Next steps
 
 [:dart: Create Postgres](how-to/create.md)
