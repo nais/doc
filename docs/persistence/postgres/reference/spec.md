@@ -45,23 +45,6 @@ Required: `false`<br />
       autoExplain: true
     ```
 
-## backup
-Backup configures continuous backup.
-
-Type: `object`<br />
-Required: `false`<br />
-
-### backup.retentionDays
-RetentionDays is how many days back in time the database can be recovered to.
-Older backups and WAL are removed by barman, which checks periodically. The backup
-preceding the window is kept, so data up to a day older may remain. Allowed range is
-2 to 30 days.
-Defaults to 2 when omitted.
-
-Type: `integer`<br />
-Required: `false`<br />
-Value range: `2`-`30`<br />
-
 ## extensions
 Extensions to activate in the application database. Removing an entry drops the extension
 (without CASCADE); postgis and timescaledb stay mounted and preloaded until the drop
@@ -121,6 +104,37 @@ Allowed values: `18`<br />
     ``` yaml
     spec:
       majorVersion: "18"
+    ```
+
+## pitr
+PITR configures the continuous point-in-time recovery window.
+
+Type: `object`<br />
+Required: `false`<br />
+
+??? example
+    ``` yaml
+    spec:
+      pitr:
+        windowDays: 2
+    ```
+
+### pitr.windowDays
+WindowDays is how many days back in time the database can be recovered to.
+Older recovery data (base backups and WAL) is removed by barman, which checks
+periodically. The base backup preceding the window is kept, so data up to a day
+older may remain. Allowed range is 2 to 30 days.
+Defaults to 2 when omitted.
+
+Type: `integer`<br />
+Required: `false`<br />
+Value range: `2`-`30`<br />
+
+??? example
+    ``` yaml
+    spec:
+      pitr:
+        windowDays: 2
     ```
 
 ## recovery

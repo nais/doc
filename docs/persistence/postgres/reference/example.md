@@ -28,6 +28,8 @@ spec:
     - name: postgis
   highAvailability: true
   majorVersion: "18"
+  pitr:
+    windowDays: 2
   resources:
     cpu: 100m
     diskSize: 10Gi
