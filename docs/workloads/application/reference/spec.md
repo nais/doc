@@ -4719,8 +4719,8 @@ Default value: `8080`<br />
 Postgres is the deprecated integration with a single legacy Postgres cluster.
 Use uses.postgres for new integrations.
 
-!!! warning "Experimental feature"
-    This feature has not undergone much testing, and is subject to API change, instability, or removal.
+!!! failure "Deprecated"
+    This feature is deprecated, preserved only for backwards compatibility.
 
 Type: `object`<br />
 Required: `false`<br />
