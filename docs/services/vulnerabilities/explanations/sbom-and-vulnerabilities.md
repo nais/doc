@@ -43,6 +43,10 @@ graph TD
 
     [Understand the findings](#understand-and-assess-findings)
 
+</div>
+
+<div class="grid cards" markdown>
+
 - :wrench: **Console and API**
 
     ---
@@ -50,6 +54,14 @@ graph TD
     Nais API makes the data available to other clients.
 
     [Open Console](<<tenant_url("console")>>) | [Explore Nais API](../../../operate/console/api.md)
+
+- :technologist: **Nais MCP**
+
+    ---
+    Give your coding assistant read-only access to findings through Nais API.
+    It can suggest fixes for you to review.
+
+    [Use Nais MCP](#use-findings-with-your-coding-assistant)
 
 </div>
 
