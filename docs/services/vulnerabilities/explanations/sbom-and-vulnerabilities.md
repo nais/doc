@@ -5,7 +5,7 @@ tags: [sbom, vulnerabilities, explanation]
 # SBOM and vulnerability detection
 
 Nais connects known vulnerabilities to your deployed workloads.
-Console and Nais API expose the findings, scan coverage and your team's assessments.
+Use Nais Console or the CLI to inspect findings. Nais API provides the data to both clients.
 
 An **SBOM** lists the components in an image.
 A **finding** means one of those components matches a known vulnerability.
@@ -15,15 +15,15 @@ A **finding** means one of those components matches a known vulnerability.
 ```mermaid
 graph TD
     Start["Where do I start?"] -->|"No SBOM yet"| SBOM["Generate an SBOM"]
-    Start -->|"Inspect findings"| Console["Open Nais Console"]
+    Start -->|"Inspect findings"| Clients["Console or CLI"]
     Start -->|"Get help fixing findings"| MCP["Use Nais MCP"]
 
     click SBOM "/services/vulnerabilities/how-to/sbom/" "Set up SBOM generation"
-    click Console "<<tenant_url('console')>>" "Open Nais Console"
+    click Clients "/services/vulnerabilities/explanations/sbom-and-vulnerabilities/#console-cli-and-api" "Choose Console or CLI"
     click MCP "/services/vulnerabilities/explanations/sbom-and-vulnerabilities/#use-findings-with-your-coding-assistant" "Use findings with your coding assistant"
 ```
 
-## From image build to Console
+## From image build to Nais
 
 <div class="grid cards" markdown>
 
@@ -45,15 +45,15 @@ graph TD
 
 </div>
 
-<div class="grid cards" markdown>
+<div class="grid cards" markdown id="console-cli-and-api">
 
-- :wrench: **Console and API**
+- :wrench: **Console, CLI and API**
 
     ---
-    See findings for your deployed workloads in Console.
-    Nais API makes the data available to other clients.
+    Inspect deployed findings in Console or list and search them with `nais vulnerability`.
+    Both clients use Nais API.
 
-    [Open Console](<<tenant_url("console")>>) | [Explore Nais API](../../../operate/console/api.md)
+    [Open Console](<<tenant_url("console")>>) | [CLI documentation :octicons-link-external-16:](https://cli.nais.io) | [Nais API](../../../operate/console/api.md)
 
 - :technologist: **Nais MCP**
 
@@ -94,15 +94,15 @@ Results update asynchronously when images or vulnerability data change.
 - :wrench: **Assessments and suppressions**
 
     ---
-    Record your team's decision and the reason for a suppression.
+    Record your team's decision and the reason for a suppression in Console.
     Suppression does not fix the vulnerability.
 
 </div>
 
 !!! example "One vulnerability, two workloads"
     Two workloads use the same image, which includes a library with a known vulnerability.
-    Console reports a finding in each workload. These are two affected workloads, not two different vulnerabilities.
-    If the advisory lists a fixed version, Console shows it.
+    Nais reports a finding in each workload. These are two affected workloads, not two different vulnerabilities.
+    A finding includes the fixed version when the advisory provides one.
 
 A finding identifies an affected component; it does not by itself prove that vulnerable code is reachable or exploitable in your workload.
 
@@ -147,5 +147,5 @@ sequenceDiagram
 ```
 
 Nais MCP gives your coding assistant access to vulnerability findings so it can suggest fixes in your code.
-You review and test the changes before deploying, then check the updated findings in Console.
+You review and test the changes before deploying, then check the updated findings in Console or the CLI.
 The MCP server only reads data; it does not change your code, deploy or suppress findings.
