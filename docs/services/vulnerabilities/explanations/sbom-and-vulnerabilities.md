@@ -10,6 +10,19 @@ Console and Nais API expose the findings, scan coverage and your team's assessme
 An **SBOM** lists the components in an image.
 A **finding** means one of those components matches a known vulnerability.
 
+## Where do I start?
+
+```mermaid
+graph TD
+    Start["Where do I start?"] -->|"No SBOM yet"| SBOM["Generate an SBOM"]
+    Start -->|"Inspect findings"| Console["Open Nais Console"]
+    Start -->|"Get help fixing findings"| MCP["Use Nais MCP"]
+
+    click SBOM "/services/vulnerabilities/how-to/sbom/" "Set up SBOM generation"
+    click Console "<<tenant_url('console')>>" "Open Nais Console"
+    click MCP "/services/vulnerabilities/explanations/sbom-and-vulnerabilities/#use-findings-with-your-coding-assistant" "Use findings with your coding assistant"
+```
+
 ## From image build to Console
 
 <div class="grid cards" markdown>
