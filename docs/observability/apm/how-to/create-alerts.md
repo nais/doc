@@ -2,8 +2,8 @@
 title: Create alerts from templates
 description: >-
   Turn a Nais APM issue or service into a Grafana alert rule using the built-in
-  error-rate, SLO burn-rate, exception-spike, web-vitals, and new-exception
-  templates.
+  custom, CrashLoopBackOff, exception-spike, web-vitals, and new frontend
+  exception templates.
 tags: [how-to, observability, apm, alerting]
 ---
 
@@ -26,7 +26,8 @@ do not send notifications through this setup.
 1. Select your team and exactly one environment in Nais APM.
 2. From a service page or an issue drawer, use **Create alert**. Grafana's
    new-rule form opens with the query, thresholds, routing labels, severity,
-   and a back-link annotation filled in.
+   and a back-link annotation filled in. For **Custom alert**, add your own
+   name, query, and alert condition.
 3. Review the rule and its folder. The template preselects the existing team
    folder when exactly one folder title matches your team name. If no folder
    is preselected, select your team's folder in Grafana.
@@ -51,30 +52,28 @@ routing** to verify the destination before saving.
 
 | Template | Alerts when | Scope | Default severity |
 | -------- | ----------- | ----- | ---------------- |
-| **Error rate** | The service's error ratio crosses ~5% of requests | Service | `warning` |
-| **SLO burn rate** | The error budget for a target SLO burns too fast — fast burn (14.4× over 1h) pages, slow burn (6× over 6h) tickets | Service | `critical` (fast), `warning` (slow) |
+| **Custom alert** | The condition you define is met | Your query determines the scope | `warning` |
+| **CrashLoopBackOff** | A container stays in CrashLoopBackOff for 5 minutes | All pods in the selected team namespace and environment, not just this service | `warning` |
 | **Exception spike** | Occurrences of a specific issue exceed a threshold in a 5-minute window | A single issue | `warning` |
-| **New exceptions** | A new exception pattern appears that wasn't there before | Service | `info` |
-| **Web vitals** | Core Web Vitals degrade (frontend UX health) | Service (frontend) | `info` |
+| **New frontend exceptions** | A frontend exception appears in the last 30 minutes but not in the preceding 7 days | Service (frontend) | `info` |
+| **Web Vitals (LCP)** | LCP p75 exceeds 2.5 seconds | Service (frontend) | `info` |
 
 Change the `severity` label to `info`, `warning`, or `critical` in Grafana's
 rule editor to match your team's needs before saving.
 
-- **Error rate** builds a Mimir rule from the service's RED metrics.
-- **SLO burn rate** builds a Google-SRE multi-window multi-burn-rate rule on the
-  service's RED error ratio. Pick **fast burn** (a paging signal — the budget
-  burns 14.4× over 1h) or **slow burn** (a non-paging ticket — 6× over 6h) from
-  the service page; both are derived from a target SLO you set.
+- **Custom alert** pre-fills routing labels and your team folder when available.
+  Add your own name, query, and alert condition.
+- **CrashLoopBackOff** watches all pods in the selected team namespace and
+  environment, not just the service.
 - **Exception spike** is per-issue — open it from an issue drawer to alert on
-  that fingerprint specifically.
-- **New exceptions** is a LogQL approximation of "an error we've never seen
-  before just showed up." It ships with an honest in-product explainer of what
-  it can and can't catch.
-- **Web vitals** watches the browser-side performance signals, not errors.
+  that fingerprint specifically. Its card in **Alerts** links to **Issues**.
+- **New frontend exceptions** uses the Faro recording rule in Mimir to detect
+  exceptions not seen in the preceding 7 days. Requires frontend telemetry.
+- **Web Vitals (LCP)** watches the browser-side performance signals, not errors.
 
 ## Where the deep links point
 
-Issue-related alerts (**exception spike**, **new exceptions**) annotate back to
+Issue-related alerts (**exception spike**, **new frontend exceptions**) annotate back to
 the **Issues** tab. The **web-vitals** alert points at the **Frontend** tab —
 it's a UX-health alert, not an issue. These links are a
 [stable contract](../reference/url-contract.md): they keep resolving across
