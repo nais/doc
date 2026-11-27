@@ -51,7 +51,7 @@ This is the **Legend** release of Nais APM.
 | Guide | Description |
 | ----- | ----------- |
 | [Triage an issue](how-to/triage-an-issue.md) | Resolve, ignore, assign, and understand regressions |
-| [Create alerts from templates](how-to/create-alerts.md) | Error-rate, exception-spike, web-vitals, and new-exception alerts |
+| [Create alerts from templates](how-to/create-alerts.md) | Custom, CrashLoopBackOff, exception-spike, web-vitals, and new frontend exception alerts |
 | [Enable session replay](how-to/enable-session-replay.md) | Opt in to masked screen recording for your app (preview) |
 | [Make database queries visible](how-to/database-queries.md) | The instrumentation the Database tab needs |
 | [Use log patterns during an incident](how-to/log-patterns.md) | Group noisy logs into a handful of patterns |
