@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
-      - uses: jdx/mise-action@b44d12e7d0d8ee7461bb893e1b1993500433185b # ratchet:jdx/mise-action@v5.2.7
+      - uses: jdx/mise-action@236a21c3b91f5db6d4e174b348674a0f0caac06d # ratchet:jdx/mise-action@v5.2.9
         with:
           install: true
           cache: true
